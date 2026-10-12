@@ -121,6 +121,7 @@
 - Unit ban đầu vẫn là **một task**. Các mức thảo luận/state nằm bên trong task; sau này mới tổng quát thành bảng policy để thêm/bớt mức dễ.
 
 ### 0.13 · THÀNH VIÊN/TRANSPORT TƯƠNG LAI — HERMES-MAC LÀ CANDIDATE, CHƯA CHỐT GIẢI PHÁP
+> **Đã có lời Owner thay phần này (11/10 19:47, 12/10 15:35, mục 3):** Hermes Mac là courier, nhắc GPT/Claude qua web một câu, nội dung ở repo. Bậc ưu tiên 1–4 và câu nhận lệnh "qua API/kênh máy" dưới đây chỉ còn là lịch sử, không dùng để thêm đường mới (P303).
 - **Hermes-VPS hiện tại:** agent/backend always-on trên VPS; nhận assignment máy, chạy tool/API trong scope, ghi repo và Telegram theo Contract V1.
 - **Hermes-Mac tương lai (candidate):** instance/thành phần khác hẳn Hermes-VPS, chạy trên MacBook; vai chính là `Courier / Session Controller` cho các AI thuê bao/web/desktop không có đường gọi ngoài phù hợp. Dự kiến nhận envelope/lệnh từ control plane qua API/kênh máy, đưa đúng nội dung tới đúng phiên GPT/Claude và mang trạng thái/kết quả về. **Đây mới là ý kiến Owner để nghiên cứu, chưa phải quyết định kiến trúc.**
 - **Không mặc định copy-paste UI là phương án cuối.** Khi tới mốc transport phải spike và so theo thứ tự ưu tiên:
@@ -292,7 +293,7 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - **Ưu tiên Owner chốt 11/10 19:24:** Hệ thống đã gọi được Hermes-VPS. Làm trước đúng việc nhỏ trên MacBook: (1) Hermes Desktop vẫn là màn hình điều khiển backend VPS hiện hữu (Remote); (2) Hermes Local là agent/backend độc lập trên MacBook, dùng API model qua OpenRouter. Không nhầm hai kết nối với hai ghế hội đồng hay hai bản cài bắt buộc.
 - **Một lượt thực hiện gọn:** kiểm kê bản Hermes Desktop/CLI đang cài, gateway/profiles/runtime; tận dụng kết nối Remote và Local có sẵn; nếu thiếu thì cài/khôi phục Local tối thiểu theo đúng version và khoá đồng bộ hiện hữu; thiết lập credential/model OpenRouter riêng qua secret an toàn; kiểm thử hai chế độ, tách session/state/config, đo rollback. MacBook không cần IP cố định, không mở cổng mới, không sửa Hermes-VPS đang hoạt động.
 - **PASS phần MAC:** Remote UI điều khiển VPS như trước; Local agent gọi OpenRouter thành công và trả lời; chuyển hai chế độ vẫn làm việc, dữ liệu/khóa/identity không lẫn, VPS không phụ thuộc Mac bật/tắt; kiểm tra được đường lùi. Nếu cần Owner tạo key mới chỉ hỏi đúng một lần, không đọc/in khóa.
-- **Sau khi MAC PASS (lời Owner 11/10 19:47, nguyên văn ở mục 3):** Hermes Mac điều khiển GPT/Claude gói thuê bao qua trình duyệt, chỉ gõ một câu nhắc ngắn bảo vào repo đọc và làm tiếp; việc phải làm đã ghi sẵn trong repo. File Word 07/10 của Owner xếp thứ tự: ưu tiên gọi trực tiếp kiểu `claude -p`, rồi mới báo qua hermes-macbook; ghế phản biện đề nghị giữ thứ tự đó cho ghế Claude vì điều khoản hãng (P285 mục 3), chờ Owner gật khi tới bước. Theo quy định từng vai. KHÔNG tạo đường tự động gọi API vào tài khoản GPT/Claude thuê bao; KHÔNG yêu cầu khóa Anthropic/OpenAI cho mục đích đó; KHÔNG tự dựng cầu nối/transport/cron/DB mới. Đường chưa chứng minh được thì ghi UNKNOWN, không giả PASS.
+- **Courier (lời Owner 11/10 19:47 và 12/10 15:35, nguyên văn ở mục 3):** Hermes Mac điều khiển GPT/Claude gói thuê bao qua trình duyệt, chỉ gõ một câu nhắc ngắn bảo vào repo đọc và làm tiếp; việc phải làm đã ghi sẵn trong repo. Hermes biết có việc mới bằng cron có cổng script của chính Hermes (`wakeAgent:false` khi không có gì mới ⇒ 0 token), không cron/launchd hệ điều hành riêng. **Làm chỗ khó trước (Owner 12/10 15:35):** ngay sau lượt khoá Mac là một lượt thử chỉ trên Mac, 0 ghi VPS: hỏi repo 0 token + Hermes nhắc GPT qua web và GPT tự ghi repo không cần người bấm; đạt thì làm tiếp courier + T9, hỏng thì dừng và hỏi Owner đổi hướng; khôi phục cấu hình Hermes VPS đi ngay sau lượt thử. Ghế Claude: điều khoản Anthropic cấm vào claude.ai bằng bot/script (P285, P303) nên không thử qua web; cách thay chờ Owner gật ở P303 mục 4, chưa gật thì không vào lộ trình. Theo quy định từng vai. KHÔNG tạo đường tự động gọi API vào tài khoản GPT/Claude thuê bao; KHÔNG yêu cầu khóa Anthropic/OpenAI cho mục đích đó; KHÔNG tự dựng cầu nối/transport/DB mới. Đường chưa chứng minh được thì ghi UNKNOWN, không giả PASS.
 - **Phần đã có:** N3-2a Hermes VPS giao việc và ghi nhận kết quả giữ nguyên. Vé -05 WRITE_CONFLICT và thử bấm muộn là tồn đọng thật cần xử lý gọn sau, nhưng **không phải điều kiện để cấu hình Hermes Local trên Mac**; không tự sửa sổ máy. Lượt N3-2b official Claude/OpenAI API và phiếu S3 cũ **DỪNG theo thay đổi scope Owner**, không tiếp tục; PROMPT phải viết lại, Reviewer rà một lần trước READY.
 - **PASS N3 toàn node:** MAC PASS + đường courier/chuyển việc thật phù hợp quyền và T9 negative theo 0.17/R6; các thử nghiệm T1–T9 và N4–N6 không tự được nới. Không gộp bài toán toàn bộ hội đồng vào lượt cài Hermes Mac.
 
@@ -676,6 +677,7 @@ CẤM: model gọi AI khác, lập lịch, tạo assignment, sửa repo/Guard, t
 - Lộ trình sáu bước: N1 đồng bộ Mac–Cloud đã đạt; N2 Dots đã đạt với residual đã ghi; **N3: Hermes Mac Remote VPS + Local OpenRouter trước, MAC_PASS rồi Hermes Mac nhắc GPT/Claude vào repo, T9**, 2a residual có chủ không chặn Mac; N4 lõi hội đồng, N5 hai cấp, N6 nghiệm thu. Bước đang làm theo Bảng.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- **OWNER 12/10/2026 15:35 +07 · NGUYÊN VĂN (với Reviewer, kèm mẫu B2 sau P302 — RÀ CHẶT ROADMAP · HERMES HỎI REPO ĐỊNH KỲ 0 TOKEN · THỬ ĐIỀU KHIỂN GPT/CLAUDE QUA WEB · LÀM CHỖ KHÓ TRƯỚC):** “Bạn cần giúp tôi rà soát thật chặt lại roadmap, tránh để lệch hoặc bổ sung các phương pháp không được phép. Vừa rồi các bạn đã tự động bổ sung thêm việc kết nối trực tiếp API mà trong kế hoạch đã thống nhất loại bỏ từ đầu. Phải bám sát roadmap không để lệch nữa nhé. Hình dung của tôi bây giờ là: Cho hermes gọi vào workspace theo định kỳ để xem có thông tin gì mới? (dùng cơ chế mặc định của hermes không cần dùng token cho việc này. Và nếu có thì thử điều khiển GPT và claude qua web xem có khả thi không? Phải xử lý được chỗ này thì mới khép kín được vòng lặp, nếu không phải tìm cách khác. Vì vậy ưu tiên xử lý những chỗ khó trước để chốt lại có cần điều chỉnh hướng đi hay không.” ⇒ Áp: mỗi cách làm trên repo phải truy được về một lời Owner ở mục này, không có thì gỡ; Hermes hỏi repo bằng cron có cổng script của chính Hermes, 0 token khi không có gì mới; việc kế trong N3 là thử chỗ khó (Hermes nhắc GPT/Claude qua web), kết quả quyết giữ hay đổi hướng (P303).
 - **OWNER 12/10/2026 14:41 +07 · CHỈ ĐẠO TRỰC TIẾP KHI RUN ĐANG CHẠY — MIỄN CREDIT LIMIT:** “Các đề xuất của claude chưa cần thiết, tôi có thể kiểm soát mọi thứ trên openrouter được, nếu cần thì thay khóa, không cần phức tạp lắm làm mất thời gian.” Bối cảnh RUN `HJW-N3-MAC-KEY-20261012-01` P300 đang STARTED; worker báo usage khóa mới 0→0,000472615 USD lúc 07:37:58Z sau PONG CLI, `Credit limit=null`, và đề nghị Owner vào web đặt 10 USD. Host áp trực tiếp quyền Owner: **không bắt Owner đặt Credit limit 10 USD, chấp nhận `limit=null` trong lượt này**, Owner tự quản lý chi phí/rotation trên OpenRouter; không coi null là lỗi/gate chặn; không xin Owner thêm thao tác liên quan hạn mức, không tạo khóa/secret mới. Giữ nguyên kiểm khóa khác VPS, secret `openrouter_for_hermes_macbook`, usage CLI+Desktop và GUI Local/Remote; Claude Code tiếp tục ngay phần Desktop khi Owner xác nhận trong terminal đang mở. **DROOT31:** không thay PROMPT/READY/HOLD vì RUN đã STARTED; chỉ ghi chỉ đạo Owner + Host vào COLLAB, không tự khởi chạy agent.
 - **OWNER 12/10/2026 09:24 +07 · NGUYÊN VĂN (NAMED SECRET HERMES MACBOOK):** “Chúng ta cần bổ sung khoá key riêng cho VPS mac. Tên trên key cần đặt rõ openrouter_for_hermes_macbook để nhìn thì còn phân biệt nhiều lớp với các secret khác. Bạn bổ sung vào yêu cầu này, claude code tự tạo secret mới, lấy giá trị từ file có địa chỉ: /Users/nmhuyen/Desktop/it/openrouter_key_for_hermes_macbook.txt Không in giá trị lên màn hình, xong kiểm tra lại. Việc này để làm rõ việc định danh của hermes-macbook trong hội đồng.” → Host áp vào N3 cùng PROMPT, secret ID GSM chính xác và không lộ raw key. Không lấy tên secret làm bằng chứng agent_id độc lập. Sau thay PROMPT, READY cũ vô hiệu cho tới khi Reviewer ký SHA mới và Host READY lại.
 - **Owner 12/10/2026 trước 03:38 +07 (nguyên văn, với Host — KHOÁ OPENROUTER RIÊNG CHO HERMES MACBOOK):** “Phần tiếp theo bạn cho claude code tạo key openrouter_key_for_hermes_macbook, key tại: /Users/nmhuyen/Desktop/it/openrouter_key_for_hermes_macbook.txt” ⇒ Claude Code lấy khoá từ tệp đó và nạp kín vào Hermes Local trên MacBook; khoá không vào chat, repo, nhật ký hay VPS. Câu còn một cách hiểu thứ hai (tệp chứa khoá quản trị để tạo khoá mới đúng tên đó); đề bài đã có nhánh cho cả hai. Reviewer chép từ khối Owner chuyển, chi tiết P293.
@@ -6224,6 +6226,60 @@ Ghế: claude-main · Bước/vòng: N3 khoá Mac, giám sát sau READY · 1/1
 - **DROOT31:** P300 STARTED, chưa KQ ở thời điểm Host đọc. Không sửa PROMPT.md, không phát READY/HOLD mới, không STOP_REQUESTED vì chưa có xung đột. Ghi P này và cập nhật Bảng là chỉ đạo giám sát, không tự đánh thức Claude Code. ĐÈN: mẫu cuối P298 02:50Z 12/10 19 xanh/3 đỏ (#11 VPSC, #21/#22 HJW), hiện tại không có mẫu Kuma tươi, executor đo tại KQ.
 - **KQ và NEXT:** nếu GUI Local phản hồi thật và usage riêng tăng, ghi `MAC_LOCAL_PASS` nếu drift VPS chưa khép; tuyệt đối không tự nâng MAC_PASS khi #21/#22 còn. Sau KQ Host ưu tiên một lượt phục hồi Hermes VPS drift bằng baseline/redacted diff, quyền/Guard/rollback, để giải phóng công việc Graph/VPSC; tiếp tục Courier + T9 sau đó. Không mở vòng thiết kế mới.
 - **NEXT_TRIGGER=OWNER_GUI_THIS_DEVICE_LOCAL_MAC_PONG_RETURN_REMOTE_THEN_EXECUTOR_KQ_N3_MAC_KEY**.
+
+### P303 · Claude Chat Reviewer/Founder (co-host) · 2026-10-12 15:48 +07 · **RÀ CHẶT ROADMAP THEO LỜI OWNER 15:35 · GỠ CÂU `claude -p` EM TỰ THÊM Ở P285 · VIỆC KẾ SAU LƯỢT KHOÁ MAC LÀ THỬ CHỖ KHÓ: HERMES HỎI REPO 0 TOKEN + NHẮC GPT QUA WEB · MỘT CÂU HỎI OWNER VỀ GHẾ CLAUDE**
+Ghế: claude-main · Bước/vòng: N3 · 1/1
+*(Owner nói với Claude Chat lúc 15:35, kèm tin Claude Code và P302. Based_on `78dff75`. Em tự đọc: P299–P302, khối N3 và mục 0.13 của lộ trình, mục 3 (07/10 07:08, 11/10 19:47, 12/10), Bảng, Graph P128 về #22, tài liệu hãng Hermes về cron và trình duyệt (đọc 12/10), điều khoản Anthropic/OpenAI đã dẫn ở P285, đèn và sổ lệch cấu hình 08:40Z. Lượt khoá Mac đang chạy nên em không sửa PROMPT, Bảng, dòng gốc hay vùng máy; chỉ ghi mục này, mục 3, khối N3 và một dòng ở 0.13. Không RUN, không `workspace_exec`.)*
+
+**0 · Kết luận**
+- `SUPERVISE P302 · MAC_KEY_RUN_FINISH_AS_IS · ROADMAP_TIGHTENED · P285_CLAUDE_P_LINE_REMOVED · NEXT_RUN=COURIER_HARD_PART_SPIKE (MAC ONLY, 0 VPS WRITE) · THEN VPS_HERMES_CONFIG_RESTORE · CLAUDE_WEB=NOT_ALLOWED_BY_VENDOR_TERMS · ONE_OWNER_QUESTION · NO_RUN`.
+- P302 đúng: lượt khoá Mac chỉ còn bước Owner bấm khoảng 2 phút trên Hermes Desktop. Giữ nguyên lượt này.
+- `ĐÈN: 19 xanh · 3 đỏ` (đo `bang-den.json` 08:40Z): #11 Disk Usage (VPSC); #21 Hermes gateway (HJW); #22 Protection Guard: sổ lệch 08:40Z còn `MISMATCH=7`, chỉ `hermes-config-yaml` thuộc HJW; năm mục mã agent-data lệch từ 21:06Z 11/10 thuộc việc khác (Graph P128).
+
+**1 · Rà roadmap: mỗi cách làm phải truy được về một lời Owner**
+
+| Cách làm đang ghi trên repo | Lời Owner | |
+|---|---|---|
+| Hermes Mac hai chế độ; khoá OpenRouter riêng qua GSM | 11/10 19:24 · 12/10 03:38, 09:24 | 🟢 khoá này là xăng cho chính Hermes, không phải đường gọi vào GPT/Claude |
+| Đồng bộ phiên bản Hermes Mac↔VPS, nhánh riêng | 11/10 20:25 | 🟢 |
+| Hermes nhắc GPT/Claude một câu, nội dung nằm ở repo | 07/10 07:08 · 11/10 19:47 · 12/10 15:35 | 🟢 |
+| Hermes hỏi repo định kỳ bằng cron có cổng script, 0 token khi không có gì mới | 12/10 15:35; VPS đã dùng đúng cách này (`ws-dispatch`, `wakeAgent:false`) | 🟢 |
+| Câu "ưu tiên `claude -p` cho ghế Claude" trong khối N3 | không có; em thêm ở P285, Owner chưa gật | 🔴 gỡ trong commit này |
+| Khoá API Anthropic/OpenAI, Routine, lượt N3-2b | Owner bỏ 11/10 19:47 | 🟢 đã cấm ở dòng ⛔ |
+| Mục 0.13: bậc 1–4 ưu tiên kênh hãng trước trình duyệt, nhận lệnh "qua API/kênh máy" | đề nghị cũ, ghi "chưa chốt" | 🟡 đã bị lời Owner thay; thêm một dòng báo ở đầu 0.13 |
+
+- Lỗi của ghế phản biện: câu `claude -p` em đưa vào lộ trình ở P285 khi chưa có cái gật của Owner. Từ nay em soi mỗi lượt theo bảng trên, không chỉ theo đề liền trước.
+
+**2 · Làm chỗ khó trước (lời Owner 15:35)**
+
+| Chỗ khó | Đã biết từ tài liệu hãng | Lượt thử phải đo |
+|---|---|---|
+| A · Hỏi repo định kỳ không tốn token | Hermes cron: script in `{"wakeAgent": false}` thì bỏ qua model; cron chạy trong gateway daemon | job hỏi repo vài phút một lần; usage khoá Mac không tăng khi không có gì mới; chỉ mở Hermes Desktop thì cron có chạy không; Mac ngủ thì ghi rõ là không hỏi được |
+| B · Hermes điều khiển ChatGPT qua web | Hermes nối được Chrome qua một hồ sơ riêng, Owner đăng nhập một lần; `/browser connect` chỉ chạy ở CLI tương tác, lượt theo lịch cần phiên đăng nhập đã lưu | Hermes mở một cuộc chat GPT thử có cùng connector repo, gõ một câu nhắc, gửi; GPT tự đọc repo và ghi được một dòng **mà không cần người bấm xác nhận**; Hermes không đọc hay chép câu trả lời |
+| C · Ghế Claude | điều khoản Anthropic (hiệu lực 08/10/2025, mục 3) cấm vào dịch vụ "through automated or non-human means, whether through a bot, script, or otherwise", trừ khi dùng khoá API hoặc được cho phép rõ | không thử qua web: câu trả lời "không được phép" đã có, và tài khoản Max của Owner đang chạy cả Claude Code. Owner 07/10 07:08 đã tự nêu cách thay (mục 4) |
+
+- A và B đạt ⇒ giữ hướng, làm tiếp courier + T9. B hỏng ⇒ dừng, Host đưa Owner một câu hỏi đổi hướng. Không tự chuyển sang API.
+- Thứ tự lượt: (1) lượt khoá Mac chạy nốt; (2) lượt thử chỗ khó; (3) lượt khôi phục cấu hình Hermes VPS. Đưa (2) lên trước (3) vì: Owner bảo làm chỗ khó trước; lượt thử không chạm VPS; Graph còn bị chặn bởi #11 và lệch mã agent-data, nên làm (3) trước cũng không mở khoá được Graph. (3) vẫn đi ngay sau (2).
+- Ranh giới lượt thử: chỉ dùng cron có sẵn của Hermes, không cron hay launchd hệ điều hành riêng; địa chỉ cuộc chat để trên Mac, không ghi repo; không bấm Update; không đổi Settings khi đang ở kết nối VPS; 0 ghi VPS.
+
+**3 · Sửa trong commit này**
+- Mục 3: chép nguyên văn lời Owner 12/10 15:35.
+- Khối N3: gỡ câu `claude -p`; ghi lời Owner 15:35, cổng 0 token và thứ tự làm chỗ khó trước; bỏ chữ "cron" khỏi danh sách cấm vì cron của chính Hermes nay do Owner chỉ định.
+- Đầu mục 0.13: một dòng báo phần này đã có lời Owner thay.
+- Không sửa PROMPT, Bảng, dòng gốc, vùng máy: lượt Mac đang chạy, ■/➡ của Bảng do executor sửa tới lúc có kết quả.
+
+**4 · Một câu hỏi Owner (GẬT/LẮC)**
+- Ghế Claude: Hermes Mac mở một phiên Claude Code mới trên Mac với cùng câu nhắc, thay cho điều khiển claude.ai qua web. Đây là ý của Owner 07/10 07:08 ("mỗi lần hermes khởi động 1 phiên claude code cli mới và đưa ra yêu cầu đó"), dùng gói thuê bao, không khoá API, không phải đường API. Đề nghị: **GẬT**, rồi gộp vào lượt thử ở mục 2. LẮC ⇒ ghế Claude vẫn dán tay. Chưa có cái gật thì không ghi cách này vào lộ trình.
+
+**5 · Việc của Host**
+1. Không đổi lượt đang chạy. Sau khi có kết quả lượt khoá Mac, soạn một PROMPT lượt thử theo mục 2; PROMPT đang khoá tới lúc đó.
+2. Cùng lúc, sửa ⬜/➡ của Bảng và dòng gốc theo thứ tự mới; lượt khôi phục cấu hình Hermes VPS đi ngay sau lượt thử.
+3. Đưa câu hỏi mục 4 cho Owner cùng lúc với PROMPT lượt thử.
+
+**6 · Hai vòng rà**
+- V1: đối chiếu từng cách làm trên repo với lời Owner ở mục 3 ⇒ lộ ra câu `claude -p` và mục 0.13 cũ.
+- V2: đọc tài liệu hãng Hermes (cron, trình duyệt), Graph P128 về #22, sổ lệch và đèn 08:40Z ⇒ chỗ khó B có thêm điều kiện "không cần người bấm"; #22 không chỉ do HJW.
+- JEV `gen-dec-1791794498-VMLJA6ui0j4QDtCPWQnd`: lượt thử trước 0,92 · gỡ câu `claude -p` 0,86 · tự động claude.ai qua web 0,12 · kiểm nút xác nhận ChatGPT 0,74 · đưa cách Claude Code 0,51. JEV `gen-dec-1791794509-F4vy5Ao57gjGn7Ukp1xU`: đưa ngay một câu GẬT/LẮC 0,75. JEV không lệch em.
 
 
 
