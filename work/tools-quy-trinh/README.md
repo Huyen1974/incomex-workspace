@@ -1,5 +1,10 @@
 # tools-quy-trinh · Cửa vào
 
+## Báo cáo phản biện để AI/Agent đọc tiếp · lưu theo Owner 12/10/2026
+- [PR16 — P36: năm mục tiêu, bằng chứng thật, điều kiện mốc 6–7 và việc còn lại](proposals/TQT-PR-20261012-gptchat-p36-five-objectives-16.md). §4 chỉ rõ lệch trạng thái/nhãn nguồn, hồ sơ tăng lớn, giới hạn AI mới và chuyển PG; §1 có job/hash để đọc lại. Bản gốc lưu nguyên văn, các câu “chưa ghi repo” mô tả thời điểm báo cáo trước khi được lưu.
+- [PR17 — DOT/Tool: kết quả cũ, phần Codex đã tiếp nhận P33–P36 và phần cần quản tiếp](proposals/TQT-PR-20261012-gptchat-tool-usage-handoff-17.md). Không dùng kết luận “chỉ 6 DOT” của lượt cũ làm hiện trạng toàn hệ thống; không giao lại phần đã làm.
+- PR13–PR15 đã có trong `proposals/`, giữ làm lịch sử. **Đọc trạng thái/phiên mới nhất ở P36, COLLAB và hồ sơ; báo cáo không thay quyết định/ACK Owner.** Host Codex tiếp nhận mục còn mở vào sổ hiện hữu, ghi bằng chứng đóng; không mở sổ hoặc task trùng.
+
 ## P36 · MOW001 G1 ngoài PG — kết quả kỹ thuật và việc còn lại
 
 **Bằng chứng đã lưu:** P02/P03 thật đã được P04 tự mở đúng hash; 11/11 tiêu chí G1 được Reviewer kiểm lại và chấp nhận kỹ thuật. P04 commit `db0de657082d8f68cd5a03c207785fd4c8e02bbc`, phiếu SHA256 `88460eee2688ebd8ce4f2c11d94f17887049322c7e44c20e0f2fd463b3b82422`; biên nhận đọc có chữ ký R2, task `114c0cf2341341c2b7b764a7f737273b`. Reviewer `/root/review_mow001`, lượt `e1e753`, lúc `2026-10-12T08:59:31Z`: ACCEPT trong G1. Đây là lượt kiểm riêng cùng OpenAI, không phải hai hãng đồng thuận.
