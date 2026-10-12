@@ -2,11 +2,15 @@
 
 ## P35 · MOW001 thật — đọc trước lịch sử P34 trở về trước
 
-Nguồn duy nhất: `../mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24`, mục `execution_walk` giữ bước đã làm, nguồn/hash, điểm tắc và người làm tiếp. CP01 đã đối chiếu Master MOW/3MOT thật; 17/34 mục đã đọc lại. Đây là 1/7 mốc của việc thật; 13 đáp án vẫn chưa được nhận đạt về nội dung. P01/CP02 làm tiếp; chưa qua CP03, chưa sửa/duyệt sản phẩm.
+Nguồn duy nhất: `../mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24`, mục `execution_walk` giữ bước đã làm, nguồn/hash, điểm tắc và người làm tiếp. CP01 đã đối chiếu Master MOW/3MOT thật; 20/34 mục đã đọc lại. Hai mốc CP01/CP02 có bằng chứng thật: P01 đủ50 câu (rà44, thêm6),13 khai báo và gói chuẩn bị đã được tiến trình khác tự mở/kiểm; đây là chuẩn bị G1, chưa phải sản phẩm đạt. Chưa qua CP03, chưa sửa/duyệt sản phẩm.
 
 CAT012/015/229/069 chiếu thêm hợp đồng mốc, kết quả rà, lượt thực hiện và điểm tắc từ chính phiếu MOW001; không nhập hai nơi. Số 0/7 trong các mục P34 trở về trước là lịch sử. Bộ kiểm không cố định ca thật phải đứng0/7: ca giả tự đặt trạng thái, giao diện kiểm theo bằng chứng.
 
 Cửa ghi một tệp vẫn bắt buộc; không có trust context của adapter thì không nhận quyền endpoint/người kiểm. Host đang xử lý phần này, không dùng cờ tự khai hoặc bản TEST để vượt mốc. Thiếu Claude không tự là điểm dừng theo Owner; phê duyệt và ACK Owner vẫn phải là bằng chứng thật. Chưa PG.
+
+**Đọc lại P01 bằng DOT hiện có:** `node check-record-control.js view.html --read-preparation ../mow-mot-moit-mout/UI-REVIEW-MOW001.json`. Kiểm tập câu hiện hành, con trỏ đáp án, hash kế hoạch/coverage và gói chuẩn bị; chỉ đọc, không tự nâng mốc. Biên nhận thật job37c06c47ab39465ba5a0816163dd6121; trước khi ghi phải kiểm trước–sau đúng hai bản.
+
+**Điểm dừng P35:** đường vật lý một tệp đã ghi/đọc thật; chưa đồng nghĩa34 endpoint đã có bằng chứng tin cậy cho CP03. Máy chủ gọi `--write-gate` không truyền trust context; Master/CAT206 giữ thiếu, không tự sửa dữ liệu thành PASS. P02/P03/P04 và quyết định/nhận còn chưa làm. Thiếu Claude không dùng làm blocker độc lập.
 
 ## P34 · Nhớ tiến trình DOT/Tool và đồng thuận
 

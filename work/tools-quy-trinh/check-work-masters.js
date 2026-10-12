@@ -22,7 +22,7 @@ if(adapter){const A=globalThis.TQT_WORK_MASTER;r.source_url='https://example.tes
  assert.equal(A.definition(r,'DEF00.1').code,'CAT-227*');
  const bad=JSON.parse(JSON.stringify(r));bad.work_schedule.records[0].target_version='wrong';assert.throws(()=>A.scheduleRows(bad));
  const fake=JSON.parse(JSON.stringify(r));fake.application_preview.record.state='XONG';assert.equal(A.scheduleRows(fake)[0].done,false);
- const cfg=A.configure({}, {tqt:r,masterCode:'DEF00.1',sample:false});assert.equal(cfg.filterFields.length,4);assert(cfg.statusOptions.includes('Đã cho nghỉ'));assert(cfg.items.every(x=>x.metadata.actual_start==='Chưa ghi'));
+ const cfg=A.configure({}, {tqt:r,masterCode:'DEF00.1',sample:false});assert.equal(cfg.filterFields.length,4);assert(cfg.statusOptions.includes('Đã cho nghỉ'));assert.equal(cfg.items[0].metadata.actual_start,r.work_schedule.records[0].actual_start||r.application_preview.record.execution_walk?.started_at?.slice(0,10)||'Chưa ghi');assert.equal(cfg.items[1].metadata.actual_start,'Chưa ghi');
 }
 console.log(JSON.stringify({masters:r.work_master_designs.records.length,planned_jobs:r.work_schedule.records.length,negative_cases:rejected,scope:'DESIGN_ONLY',pg:'NOT_RUN'}));
 

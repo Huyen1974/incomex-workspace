@@ -2174,3 +2174,7 @@ KQ@OWNER-BANDUYET-20260924-02 XONG
 - VERIFY trên URL Owner section=detail-formula-chi-tiet-9: 8 công thức có vị trí x31/x63/x95 đúng 3 mức; tên MOW/MOT đúng. Master tổng vẫn29; MOW35, MOT115, MOIT115, MOUT115.
 - UI transactions48c4bb55edfd419e99328b965a94c3cc +094f884e7d0c40daaf6837c21a95ba06; repo UI5d079e2e3d5790e35b8cd866ac00a39163d12ac9.
 - NEXT: Owner tiếp tục rà hình họa; phân tầng chỉ là thị giác, không suy thành parentId hoặc đổi SSOT Nhóm con.
+
+
+## CE-20261012-MOW001-P35 · G1 thật ngoài PG
+Owner trực tiếp giao Codex Host tiếp tục MOW001, không lấy TEST làm việc thật đạt. Trạng thái điều hành tại tools-quy-trinh/COLLAB P35; nguồn sản phẩm application_D24. CP01/CP02 có bằng chứng thật, CP03 còn thiếu trust context máy chủ. Đã rà50 câu, bổ sung6 thiếu, lưuP01 và đọc lại ở tiến trình khác (job37c06c47ab39465ba5a0816163dd6121). Chưa sửa UI/canonical/config, chưaPG/G2/G3; phiên UI giữ nguyên. Master DEF00.1/012/015/229/069 chiếu cùng phiếu, không mở sổ mới. Bảng cũ phía trên là mốc lịch sử; không dùng làm tiến độ MOW001 hiện hành.

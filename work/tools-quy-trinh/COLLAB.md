@@ -11,14 +11,14 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · Astra Codex · P35
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
-- 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [□ ② MOW001 thật ngoài PG: CP01 đã đối chiếu, 1/7; 17/34 mục đọc lại] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
+- 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [□ ② MOW001 thật ngoài PG: CP01/CP02 đạt, 2/7; 20/34 mục đọc lại] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã làm P29: dùng lại CAT-206*, khai hợp đồng áp dụng 3 MOT/5 giao bước và ca nghiệm thu; siết ghim phiên/nội dung xuyên kiểm–duyệt–ACK, sửa lỗi thiếu dòng kiểm, thêm kiểm trước–sau vào DOT hiện hữu. P30 sửa trùng DOT còn 47 Master, giữ ⑤/7 mốc; ca thật chưa qua mốc nào.
 - ✅ Đã làm P31: bịt lỗi hợp đồng/gói giao P01, thêm schema và kiểm tập bắt buộc, lịch sử toàn bằng chứng; thử ghi–đọc hai tiến trình TEST. Chưa có quyền endpoint/người kiểm độc lập thật, MOW001 0/7.
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
-- ■ Đang làm: P35 · áp dụng MOW001 thật, rà P01 và đường ghi–đọc · executor=Codex Host
-- ⬜ Còn lại: đối chiếu P01 đúng nguồn hiện hành → nối bằng chứng tin cậy CP03 → thiết kế P02/P03 thật → đọc/kiểm → duyệt/nhận đúng phiên. Không dùng TEST thay sản phẩm.
-- ➡ Kế tiếp: Host tiếp tục P01, sửa đường adapter cung cấp trust cho cửa ghi; xem execution_walk trong phiếu MOW001. Thiếu Claude không tự là blocker; không giả danh người kiểm hoặc quyết định Owner.
+- ■ Đang làm: — · 0 RUN active; P35 DỪNG tại CP03, chưa nghiệm thu sản phẩm
+- ⬜ Còn lại: nối bằng chứng tin cậy CP03 → thiết kế P02/P03 thật → đọc/kiểm → duyệt/nhận đúng phiên. Không dùng TEST thay sản phẩm.
+- ➡ Kế tiếp: Host sửa đường adapter cung cấp trust cho cửa ghi; xem execution_walk trong phiếu MOW001. Thiếu Claude không tự là blocker; không giả danh người kiểm hoặc quyết định Owner.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -943,3 +943,5 @@ STARTED@MOW001-P35-REAL-20261012 2026-10-12T04:50:44.142551+00:00 · executor=Co
 Hai lỗi khung đã sửa: CHECK004/005 cố định tiến độ ca thật ở0/7; CAT012/015/229/069 chỉ chiếu P34. Giữ6DOT/47Master, cập nhật nguồn/hash và chiếu lượt thật từ cùng phiếu. Biên nhận duyệt công cụ cũ mất hiệu lực khi mã/phụ thuộc đổi; không điền Claude.
 
 Điểm tắc kế tiếp: P01 chưa đối chiếu đầy đủ nguồn/câu hỏi hiện hành; máy chủ gọi write-gate không truyền trust context nên CP03 không thể đạt bằng access_check tự khai; P02/P03 thiết kế thật/P04 đọc thật chưa có. Mốc6/7 chưa có quyết định/nhận của Owner. Hồ sơ chi tiết ở execution_walk, aggregate#host_review_P35. JEV gen-dec-1791780265-OUvezA9L7ZFEcjSwoPTW chỉ tham khảo phạm vi G1, không là duyệt.
+
+KQ@MOW001-P35-REAL-20261012 DỪNG · 2026-10-12T05:03:08.852814+00:00 · CP01/CP02 có bằng chứng thật, CP03 thiếu trust context ở cửa ghi. P01 đã bổ sung6 câu thiếu (50/50); lưu rồi tiến trình khác đọc lại PASS, job37c06c47ab39465ba5a0816163dd6121; không phải người kiểm độc lập hoặc sản phẩm nghiệm thu. P02–P05 chưa thực hiện. NEXT_TRIGGER=SERVER_TRUST_ADAPTER_READY_FOR_SAME_FILE_G1; Host xử lý tiếp, không yêu cầu Owner khai lại câu hỏi hay thao tác kỹ thuật.
