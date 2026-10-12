@@ -34090,7 +34090,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             {
               "key": "next_action",
               "label": "Việc tiếp",
-              "help": "Phần thiếu và hành động cụ thể để tiếp tục; mở chi tiết xem người giữ. Chưa đủ đồng thuận thì chưa công bố Dùng được."
+              "help": "Phần thiếu thực tế và hành động tiếp. Mở chi tiết xem người giữ; P34 không lấy thiếu Claude làm điểm dừng theo Owner."
             },
             {
               "key": "gpt_review",
@@ -34100,7 +34100,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             {
               "key": "claude_review",
               "label": "Claude duyệt",
-              "help": "Xác nhận thật của Anthropic (Claude Chat/Cowork/Code): cùng phiên và phạm vi với GPT. Chưa có biên nhận để Chưa duyệt; nguồn đổi mất hiệu lực. Hai hãng đồng ý mới công bố dùng được trong phạm vi đã kiểm."
+              "help": "Xác nhận thật của Anthropic (Claude Chat/Cowork/Code): cùng phiên và phạm vi với GPT. Chưa có biên nhận để Chưa duyệt; nguồn đổi mất hiệu lực. Hai hãng đồng ý mới công bố dùng được trong phạm vi đã kiểm. Owner cho P34 tiếp tục áp thử khi chưa có Claude; ghi thiếu này riêng, không dừng hành chính."
             }
           ],
           "fields": [
@@ -34742,7 +34742,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "da8677af2fcd8d42fe1ff1a702d82b0d3685f0db0704e28ad646e4b30fe5d6ab",
+          "sha256": "bf7a433e82894e96f079cad6566a9ffc95cf82423f78b86163d06905adf661ea",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -34756,7 +34756,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "timeout_seconds": 60,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
-            "process-work-master-v1.js": "96a2da5a4954ad1c5b072f03aae6dbf00eb6705ceeefbe3d1c7d6f7eeb905493",
+            "process-work-master-v1.js": "3867c0576fdf9db83c7027eb19199f810f524c128602c3ef01eee5789cdadd54",
             "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
             "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357"
           }
@@ -39875,7 +39875,7 @@ main{max-width:1240px} [hidden]{display:none!important}
         "states": {
           "FOUND": "Mới tìm thấy",
           "REGISTERED": "Đã khai · chưa kiểm",
-          "TESTED": "Đã kiểm · chưa đủ duyệt",
+          "TESTED": "Đã kiểm · xem phạm vi",
           "USABLE": "Dùng được · đúng phạm vi",
           "RETEST": "Cần kiểm lại",
           "NEEDS_FIX": "Cần sửa",
@@ -39915,7 +39915,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           {
             "key": "next_action",
             "label": "Việc tiếp",
-            "help": "Phần thiếu và hành động cụ thể để tiếp tục; mở chi tiết xem người giữ. Chưa đủ đồng thuận thì chưa công bố Dùng được."
+            "help": "Phần thiếu thực tế và hành động tiếp. Mở chi tiết xem người giữ; P34 không lấy thiếu Claude làm điểm dừng theo Owner."
           },
           {
             "key": "gpt_review",
@@ -39925,7 +39925,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           {
             "key": "claude_review",
             "label": "Claude duyệt",
-            "help": "Xác nhận thật của Anthropic (Claude Chat/Cowork/Code): cùng phiên và phạm vi với GPT. Chưa có biên nhận để Chưa duyệt; nguồn đổi mất hiệu lực. Hai hãng đồng ý mới công bố dùng được trong phạm vi đã kiểm."
+            "help": "Xác nhận thật của Anthropic (Claude Chat/Cowork/Code): cùng phiên và phạm vi với GPT. Chưa có biên nhận để Chưa duyệt; nguồn đổi mất hiệu lực. Hai hãng đồng ý mới công bố dùng được trong phạm vi đã kiểm. Owner cho P34 tiếp tục áp thử khi chưa có Claude; ghi thiếu này riêng, không dừng hành chính."
           }
         ],
         "layout": {
@@ -39960,10 +39960,20 @@ main{max-width:1240px} [hidden]{display:none!important}
             "claude_review": 160
           }
         },
-        "approval_rule": "Hai vendor khác nhau, đúng binding SHA256:contract_revision và cùng acceptance_scope; chỉ xét phiếu cuối mỗi vendor. Đổi nguồn/hợp đồng/phạm vi hoặc thu hồi duyệt làm mất hiệu lực. Đây là kiểm biểu diễn; ACL/chữ ký nền tảng cần xác minh thật, không tin người tự khai. Bộ kiểm có ui_inputs: binding ghim cả bốn tệp phụ thuộc; TEST thiếu/sai hash phụ thuộc phải kiểm lại.",
+        "approval_rule": "Hai vendor khác nhau, đúng binding SHA256:contract_revision và cùng acceptance_scope; chỉ xét phiếu cuối mỗi vendor. Đổi nguồn/hợp đồng/phạm vi hoặc thu hồi duyệt làm mất hiệu lực. Đây là kiểm biểu diễn; ACL/chữ ký nền tảng cần xác minh thật, không tin người tự khai. Bộ kiểm có ui_inputs: binding ghim cả bốn tệp phụ thuộc; TEST thiếu/sai hash phụ thuộc phải kiểm lại. Ghim cả nội dung hợp đồng, không chỉ số phiên. Chỉ đạo Owner P34 cho CHECK005/006 áp thử phạm vi TEST khi có kiểm/GPT duyệt mà thiếu Claude; cột Claude vẫn Chưa duyệt, không gọi đồng thuận.",
         "record_rule": "memory giữ hợp đồng/người giữ/phạm vi; changes ghi phiên cũ→mới có lý do/actor/thời điểm; reviews giữ phiếu xác minh; audit_projection giữ nguồn và TEST. Không mở Master mới. Phiếu cũ chỉ thêm, không ghi đè.",
         "historical_scope": "Số lần nâng tính từ P34; không suy ngược lịch sử thiếu.",
-        "test_rule": "Được kiểm kỹ thuật chỉ đọc trong quyền hiện có để tạo bằng chứng; chưa đủ hai duyệt không tự chạy mutation hay công bố đã được nghiệm thu."
+        "test_rule": "Được kiểm kỹ thuật chỉ đọc trong quyền hiện có để tạo bằng chứng; chưa đủ hai duyệt không tự chạy mutation hay công bố đã được nghiệm thu.",
+        "owner_execution_exception": {
+          "active": true,
+          "tool_ids": [
+            "TQT-CHECK-005",
+            "TQT-CHECK-006"
+          ],
+          "scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34/owner_directive",
+          "instruction": "Owner cho tiếp tục áp dụng/kiểm từ đầu tới cuối; thiếu Anthropic không là blocker. Không tạo chữ ký Claude hoặc coi là hai hãng đồng thuận."
+        }
       },
       "memory": [
         {
@@ -40333,6 +40343,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "tools-quy-trinh/P34"
           ],
           "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
+        },
+        {
+          "change_id": "TQT-P34-UPGRADE-TQT-CHECK-005-3",
+          "kind": "UPGRADE",
+          "target_code": "TQT-CHECK-005",
+          "previous_version": "da8677af2fcd8d42fe1ff1a702d82b0d3685f0db0704e28ad646e4b30fe5d6ab",
+          "next_version": "bf7a433e82894e96f079cad6566a9ffc95cf82423f78b86163d06905adf661ea",
+          "target_version": "bf7a433e82894e96f079cad6566a9ffc95cf82423f78b86163d06905adf661ea",
+          "reason": "Chỉ đạo Owner: thiếu Claude không chặn áp thử; kiểm cả nội dung hợp đồng khi ghi duyệt",
+          "actor": "Codex Host",
+          "changed_at": "2026-10-12T04:18:50.279668+00:00",
+          "affected_applications": [
+            "tools-quy-trinh/P34"
+          ],
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
         }
       ],
       "walkthrough": {
@@ -40344,7 +40369,7 @@ main{max-width:1240px} [hidden]{display:none!important}
         "input_ref": "Owner 12/10/2026: tổ chức bộ nhớ DOT/Tool và đi thử QT001; README → view.html#quy-trinh-hieu-chinh",
         "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
         "doer_confirm": "PARTIAL",
-        "independence": "Host tự đi thử theo yêu cầu Owner; không phải agent mới độc lập; không tính đạt bước5",
+        "independence": "Host đi thử theo chỉ đạo Owner; tiến trình đọc/kiểm chạy ở snapshot khác. Không tuyên bố có AI Claude hoặc agent mới độc lập.",
         "steps": [
           {
             "step": 1,
@@ -40368,13 +40393,13 @@ main{max-width:1240px} [hidden]{display:none!important}
           },
           {
             "step": 5,
-            "state": "DỪNG",
-            "result": "Cần người thực hiện khác đọc từ đầu và biên nhận Claude; Host kiểm kỹ thuật không thay độc lập."
+            "state": "STARTED",
+            "result": "Theo Owner: chạy bộ kiểm ở tiến trình khác và đọc Master từ giao diện thật; ghi rõ đây là kiểm kỹ thuật, không giả AI khác duyệt."
           },
           {
             "step": 6,
-            "state": "DỪNG",
-            "result": "Chưa công nhận QT001 đạt/chưa công bố công cụ Dùng được khi thiếu đồng thuận; giữ nguồn và lịch sử."
+            "state": "STARTED",
+            "result": "Đã công bố cấu trúc P34 trên VPS; đang đối chiếu cùng nguồn/phiên và ghi kết quả cuối. Thiếu Claude ghi riêng, không chặn áp thử."
           }
         ],
         "findings": [
@@ -40405,9 +40430,9 @@ main{max-width:1240px} [hidden]{display:none!important}
           {
             "id": "TQT-P34-F04",
             "type": "THIEU_QUYET_DINH",
-            "problem": "Chưa có Claude duyệt phiên P34 và người thực hiện mới thử lại",
-            "state": "Còn mở",
-            "next": "NEXT_TRIGGER=ANTHROPIC_REVIEW_AND_INDEPENDENT_QT001_RETEST; không ký hộ",
+            "problem": "Claude chưa duyệt P34; chưa có bằng chứng agent mới độc lập làm theo",
+            "state": "Ghi nhận riêng · không chặn áp thử theo Owner",
+            "next": "Host đi hết đường thực hành; khi có phản biện khác ghi thêm, không dựng thủ tục chờ",
             "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
           }
         ],

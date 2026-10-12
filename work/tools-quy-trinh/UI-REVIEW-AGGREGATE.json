@@ -61701,13 +61701,19 @@
       }
     ],
     "anthropic_review_request": {
-      "state": "NOT_SENT_APPROVAL_REVIEW_BLOCKED",
+      "state": "NOT_SENT_OWNER_SAYS_NONBLOCKING",
       "payload_file": "work/p34/claude-request.txt (local preparation)",
       "payload_sha256": "82292f08f8c38cd5e78c1105cfd5e602e2c3b208ac8aafe73615ab57fdcffb8c",
       "cli_observed_version": "2.1.296 (Claude Code)",
       "provider": "Anthropic",
       "reason": "Automatic approval review requires explicit user permission for sending internal source/test evidence to Anthropic. Asked user; no data sent.",
       "scope": "source review; no tools, no mutations, no all-DOT approval"
+    },
+    "owner_directive": {
+      "at": "2026-10-12T04:18:50.279668+00:00",
+      "verbatim": "Bạn cứ già đi, coi như không có anthropic duyệt. Đó không phải blocker. Điều quan trọng là khi áp dụng vào quy trình thì chạy được từ đầu đến cuối. Không cần máy móc việc thủ tục hành chính đâu",
+      "effect": "Không gửi sang Anthropic; thiếu duyệt không chặn tiếp tục áp thử P34; không giả chữ ký/đồng thuận.",
+      "source": "Owner trả lời trực tiếp trong phiên Codex này"
     }
   }
 }
