@@ -1,5 +1,7 @@
 # Hiện hành · Owner giao Host rà QTTH 05 và DOT · 11/10/2026
 
+**P33 hiện hành:** trước khi viết script hoặc gọi công cụ, đọc README mục P33, tra Master DOT/Tool và bảng dùng lại. Dùng CHECK-006 để kiểm kê nguồn + sự kiện có bằng chứng; không cộng hook/gateway thành lượt duy nhất, không lấy có tệp làm đã kiểm. Giữ ⑤, 7 mốc, MOW001 0/7 và không PG. VPS là SSOT; không đẩy gateway sang GitHub cũ.
+
 P31/PR14 hiện hành: đọc README mục P31. CAT-206 schema 1.2, IC phiên 2; kiểm dữ liệu đã ghi/đọc từ P01, tập trường từ schema nguồn, lịch sử toàn bằng chứng. Gọi runner với registry mới đọc và --before-product bản trước. Chỉ trust do adapter thực thi cấp ngoài hồ sơ mới được dùng; PASS tự khai không đủ. Tệp TEST hai tiến trình không phải ca MOW001; reviewer thật UNASSIGNED, endpoint quyền thật/hook máy chủ còn mở. MOW001 0/7, không qua CP03.
 
 P30: trước khi thêm Master/DOT, đối chiếu danh sách sau ghép bằng runner hiện hữu với registry UI vừa đọc; thiếu đầu vào không được báo PASS. Dùng lại Master DOT ML-DEF-024, CAT-006 chỉ là alias có căn cứ. Không tạo Master/script thứ hai cho cùng nguồn/chức năng. Xem README mục DOT và bằng chứng host_review_P30. UI chặn danh sách có xung đột; rào ghi máy chủ còn mở.

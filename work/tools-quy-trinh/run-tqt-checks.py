@@ -2,7 +2,7 @@
 No credentials, PG, service changes or production mutation. --vps-ui reads pinned public UI inputs. Exit 0 PASS,
 1 failed test/inventory, 2 invalid invocation, 3 blocked by missing prerequisites. Default dry-run; --verify executes.
 """
-import argparse, hashlib, json, re, subprocess, sys, shutil, tempfile, uuid, unicodedata, time, math
+import sqlite3, argparse, hashlib, json, re, subprocess, sys, shutil, tempfile, uuid, unicodedata, time, math
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
@@ -148,8 +148,169 @@ def self_test():
         assert source_readback(f.with_name('missing.json'),{})['state']=='FAIL'
     return {'cases':20,'store':'temporary TEST file in execution snapshot','write_read_restore':'PASS','production':'NOT_TOUCHED'}
 
+def audit_self_test():
+    import sqlite3
+    with tempfile.TemporaryDirectory(prefix='TQT-TEST-usage-') as tmp:
+        p=Path(tmp)/'ledger.sqlite';con=sqlite3.connect(p)
+        con.execute('CREATE TABLE lc_event(seq INTEGER PRIMARY KEY,event_key TEXT,at REAL,actor TEXT,source TEXT,kind TEXT,tool TEXT,work_id TEXT,run_id TEXT,call_id TEXT,detail TEXT)')
+        receipt={'implementation_sha256':'a'*64,'invocation_sha256':'b'*64,'result_sha256':'c'*64,'finished_at':2,'outcome':'RETURNED','observer':'agent-data-gateway'}
+        tests=[('gw',receipt),('gw',{}),('gw',{**receipt,'outcome':'STARTED'}),('gw',{**receipt,'result_sha256':'bad'}),('hook',receipt),('gw',{**receipt,'observer':'self-claim'})]
+        for i,(kind,r) in enumerate(tests):con.execute('INSERT INTO lc_event VALUES (?,?,?,?,?,?,?,?,?,?,?)',(i,'TEST-'+str(i),1,'TEST','TEST',kind,'workspace_read','TEST',None,None,json.dumps({'tool_receipt':r})))
+        con.commit();con.close();result=usage_audit(p,'TEST');assert result['complete_receipts']==1 and result['event_count']==6
+        assert usage_audit(p,'TEST','TEST-1')['events'][0]['outcome']=='OBSERVED_RESULT_UNKNOWN'
+        assert usage_audit(p,'OTHER')['event_count']==0
+        assert canonical_action('mcp__agent_data__workspace_read')==canonical_action('workspace_read')
+        assert canonical_action('mcp__codex_apps__incomex_mcp_full_all_2_workspace_read')=='agent-data:workspace_read'
+        assert canonical_action('mcp__codex_apps__jev_reference_evaluate')=='jev-reference:evaluate'
+        try:usage_audit(p,'../OTHER');assert False
+        except ValueError:pass
+    evidence=BASE/'UI-REVIEW-AGGREGATE.json';audit=json.loads(evidence.read_text())['host_review_P33']['audit']
+    import copy
+    fake=copy.deepcopy(audit);fake['observed_at']='2099-01-01T00:00:00Z'
+    patch=audit_patch(fake);assert len(patch['operations'])==2
+    for op in patch['operations']:
+        old=(BASE/Path(op['path']).name).read_text();edit=op['edits'][0]
+        assert old.count(edit['old_str'])==1 and op['expected_version']==hashlib.sha256(old.encode()).hexdigest()
+        changed=old.replace(edit['old_str'],edit['new_str'],1)
+        if op['path'].endswith('.json'):assert json.loads(changed)['host_review_P33']['audit']['observed_at']==fake['observed_at']
+        else:assert json.loads(re.search(r'<script id="tqt-composite-processes"[^>]*>(.*?)</script>',changed,re.S)[1])['catalog']['tool_registry']['audit_projection']['observed_at']==fake['observed_at']
+    wrong=copy.deepcopy(fake);wrong['scope']['work_id']='OTHER'
+    try:audit_patch(wrong);assert False
+    except ValueError:pass
+    return {'cases':18,'state':'PASS','scope':'TEST SQLite and prepared CAS patches; no production writes'}
+
+def audit_projection(audit, external_receipts=()):
+    digest=hashlib.sha256(json.dumps(audit,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+    return {'observed_at':audit['observed_at'],'audit_sha256':digest,'evidence_ref':'UI-REVIEW-AGGREGATE.json#host_review_P33/audit','dot_inventory':audit['dot_inventory'],'script_inventory':audit.get('script_inventory',[]),'dot_index_check':audit.get('dot_index_check'),'by_action':audit['usage']['by_action'],'execution_count':len(audit['executions']),'event_count':audit['usage']['event_count'],'complete_receipts':audit['usage']['complete_receipts'],'external_receipts':list(external_receipts),'gaps':audit['gaps']}
+
+def audit_patch(audit):
+    """Prepare a CAS transaction for the existing two sources; caller uses workspace_transaction.
+    No live mutation here. Git transaction preserves older snapshots in source history.
+    """
+    view=BASE/'view.html';evidence=BASE/'UI-REVIEW-AGGREGATE.json'
+    old_view=view.read_text();match=re.search(r'<script id="tqt-composite-processes"[^>]*>(.*?)</script>',old_view,re.S);doc=json.loads(match[1]);reg=doc['catalog']['tool_registry']
+    if audit.get('schema_version')!=1 or audit.get('scope',{}).get('work_id')!='tools-quy-trinh' or audit.get('scanner')!=reg['audit_sources']['dot_catalog']:raise ValueError('AUDIT_SCOPE_OR_PRODUCER_MISMATCH')
+    if not audit.get('observed_at') or not isinstance(audit.get('dot_inventory'),list):raise ValueError('INVALID_AUDIT')
+    old_evidence=evidence.read_text();saved=json.loads(old_evidence);review=saved['host_review_P33'];review['audit']=audit
+    reg['audit_projection']=audit_projection(audit,review.get('external_receipts',[]))
+    new_view=old_view[:match.start(1)]+json.dumps(doc,ensure_ascii=False,indent=2)+old_view[match.end(1):]
+    operations=[]
+    for name,old,new in [('view.html',old_view,new_view),('UI-REVIEW-AGGREGATE.json',old_evidence,json.dumps(saved,ensure_ascii=False,indent=2)+'\n')]:
+        if old==new:continue
+        # One bounded replacement with unique context; version guard protects the whole file.
+        start=0
+        while start<min(len(old),len(new)) and old[start]==new[start]:start+=1
+        tail=0
+        while tail<min(len(old),len(new))-start and old[-1-tail]==new[-1-tail]:tail+=1
+        left=max(0,start-80);right=min(len(old),len(old)-tail+80);delta=len(new)-len(old)
+        while old.count(old[left:right])!=1 and (left or right<len(old)):left=max(0,left-80);right=min(len(old),right+80)
+        a,b=old[left:right],new[left:right+delta];assert a and old.count(a)==1 and old.replace(a,b,1)==new
+        operations.append({'op':'edit','path':'work/tools-quy-trinh/'+name,'expected_version':hashlib.sha256(old.encode()).hexdigest(),'edits':[{'old_str':a,'new_str':b,'expected_count':1}]})
+    return {'root':'workspace','message':'P33 refresh derived DOT/Tool inventory from retained evidence','operation_id':'tqt-audit-'+hashlib.sha256(json.dumps(audit,sort_keys=True).encode()).hexdigest()[:32],'operations':operations}
+
+def canonical_action(name):
+    for prefix in ('mcp__agent_data__','mcp__codex_apps__incomex_mcp_full_all_2__','mcp__codex_apps__incomex_mcp_full_all_2_'):
+        if name.startswith(prefix):return 'agent-data:'+name[len(prefix):]
+    if name.startswith(('workspace_','ui_')):return 'agent-data:'+name
+    if 'jev' in name.lower() and name.endswith('evaluate'):return 'jev-reference:evaluate'
+    if name in ('Bash','exec_command'):return 'local:shell'
+    if name=='apply_patch':return 'local:apply_patch'
+    return 'observed:'+name
+
+def usage_audit(db_path, work_id, event_key=None):
+    import sqlite3,collections
+    if not re.fullmatch(r'[a-zA-Z0-9_-]+',work_id):raise ValueError('INVALID_WORK_ID')
+    if not db_path.is_file():raise ValueError('USAGE_DB_UNAVAILABLE')
+    con=sqlite3.connect('file:'+str(db_path.resolve())+'?mode=ro',uri=True);con.row_factory=sqlite3.Row
+    params=[work_id];where='work_id=?'
+    if event_key:where+=' AND event_key=?';params.append(event_key)
+    rows=[];groups={};seen=set()
+    for raw in con.execute('SELECT seq,event_key,at,actor,source,kind,tool,work_id,run_id,call_id,detail FROM lc_event WHERE '+where+' AND tool IS NOT NULL ORDER BY seq',params):
+        x=dict(raw)
+        if x['kind'] not in ('gw','hook'):continue
+        key=x['event_key']
+        if key in seen:continue
+        seen.add(key);action=canonical_action(x['tool']);detail=json.loads(x['detail'] or '{}');receipt=detail.get('tool_receipt') or {}
+        version=receipt.get('implementation_sha256');complete=x['kind']=='gw' and receipt.get('observer')=='agent-data-gateway' and all(re.fullmatch('[0-9a-f]{64}',str(receipt.get(k,''))) for k in ('implementation_sha256','invocation_sha256','result_sha256')) and isinstance(receipt.get('finished_at'),(int,float)) and receipt.get('outcome') in ('RETURNED','ERROR','QUEUED')
+        row={'event_key':key,'action':action,'raw_tool':x['tool'],'work_id':x['work_id'],'at':x['at'],'surface':x['actor'],'source':x['source'],'kind':x['kind'],'run_id':x['run_id'],'call_id':x['call_id'],'implementation_sha256':version,'outcome':receipt.get('outcome','OBSERVED_RESULT_UNKNOWN'),'receipt':receipt or None,'complete':bool(complete),'evidence_ref':str(db_path)+'#lc_event/seq='+str(x['seq'])}
+        rows.append(row);g=groups.setdefault(action,{'action':action,'gateway_events':0,'hook_events':0,'complete_receipts':0,'last_at':0,'examples':[]})
+        g['gateway_events' if x['kind']=='gw' else 'hook_events']+=1;g['complete_receipts']+=int(complete);g['last_at']=max(g['last_at'],x['at'])
+        if len(g['examples'])<3:g['examples'].append(key)
+    orphans=[{'action':canonical_action(x['tool']),'raw_tool':x['tool'],'events':x['n']} for x in con.execute('SELECT tool,count(*) n FROM lc_event WHERE work_id IS NULL AND tool IS NOT NULL GROUP BY tool')]
+    con.close()
+    return {'work_id':work_id,'event_count':len(rows),'complete_receipts':sum(x['complete'] for x in rows),'events':rows,'by_action':list(groups.values()),'unassigned_events':orphans,'count_rule':'gateway and hook observations are not added as unique calls; resolved is attribution, never success','coverage':'retained lc_event for selected work only; external platforms and expired history may be missing'}
+
+def audit_vps(args, catalog):
+    import importlib.machinery,importlib.util,collections
+    policy=catalog['tool_registry']['audit_sources'];scanner=Path(policy['dot_catalog']['path'])
+    if sha(scanner)!=policy['dot_catalog']['sha256']:raise ValueError('DOT_CATALOG_PIN_CHANGED')
+    loader=importlib.machinery.SourceFileLoader('existing_dot_catalog',str(scanner));spec=importlib.util.spec_from_loader(loader.name,loader);mod=importlib.util.module_from_spec(spec);loader.exec_module(mod)
+    dots=[];support=[]
+    for x in mod.scan(policy['dot_bin']):
+        p=Path(policy['dot_bin'])/x['name']
+        row={'id':'DOT.'+x['name'],'name':x['name'],'group':x['group'],'version':x['version'],'purpose':x['purpose'],'path':str(p),'sha256':sha(p),'state':'DISCOVERED_NOT_EXECUTION_VERIFIED','self_reported_mode':x['mode'],'self_reported_tier':x['tier'],'source':'dot-dot-catalog','verification':'source file exists; no command executed'}
+        (support if x['name'].startswith('TEMPLATE-') else dots).append(row)
+    scripts=[]
+    for source in policy.get('additional_script_sources',[]):
+        folder=Path(source['path'])
+        if not folder.is_dir():raise ValueError('SCRIPT_SOURCE_UNAVAILABLE:'+str(folder))
+        for x in mod.scan(str(folder)):
+            p=folder/x['name']
+            if not (p.suffix in ('.py','.sh') or p.name.startswith('dot-')):continue
+            scripts.append({'id':source['namespace']+'.'+x['name'],'name':x['name'],'group':source['label'],'version':x['version'],'purpose':x['purpose'],'path':str(p),'sha256':sha(p),'state':'DISCOVERED_NOT_EXECUTION_VERIFIED','catalog_state':'OUTSIDE_DOT_INDEX_REVIEW','source':'dot-dot-catalog/info; declared additional script scope','verification':'source file exists; no command executed'})
+    # Reuse the existing TSV index; detect newly discovered, missing and changed entries.
+    import csv
+    index_path=Path(policy.get('dot_index',str(Path(policy['dot_bin']).parent/'00-SO-DOT.tsv')))
+    index_rows=list(csv.DictReader(index_path.open(),delimiter='\t'));indexed={x['name']:x for x in index_rows}
+    if len(index_rows)!=len(indexed):raise ValueError('DUPLICATE_DOT_INDEX_NAME')
+    current={x['name']:x for x in dots+support};unindexed=[];changed=[]
+    for name,row in current.items():
+        row['catalog_state']='INDEXED' if name in indexed else 'UNINDEXED_REUSABLE_CANDIDATE'
+        if name not in indexed:unindexed.append(name)
+        elif indexed[name]['sha12']!=row['sha256'][:12]:changed.append(name);row['catalog_state']='INDEX_HASH_CHANGED'
+    hashes={};duplicates=[]
+    for row in dots+scripts:
+        if row['sha256'] in hashes:duplicates.append([hashes[row['sha256']],row['id']])
+        else:hashes[row['sha256']]=row['id']
+    index_check={'source':str(index_path),'sha256':sha(index_path),'unindexed':unindexed,'missing':sorted(set(indexed)-set(current)),'changed':changed,'duplicate_hash_candidates':duplicates,'state':'REVIEW' if unindexed or changed or set(indexed)-set(current) or duplicates else 'MATCHED','claim':'catalog/hash match only, not execution approval'}
+    usage=usage_audit(Path(args.usage_db or policy['usage_db']),args.work_id,args.usage_event)
+    if args.usage_event and not usage['events']:raise ValueError('EVENT_NOT_IN_SELECTED_WORK')
+    registry={x['id']:x for x in catalog['tool_registry']['records']};providers={x['id'] for x in catalog['tool_registry'].get('provider_tools',[])}
+    for x in usage['by_action']:x['registration']='PROVIDER_REGISTERED' if x['action'] in providers else 'UNMAPPED_OBSERVED_CAPABILITY'
+    # execution_queued already stores the command hash and source commit, without raw argv.
+    queued={};journal=Path(policy['audit_journal']);bad_lines=0
+    if journal.exists():
+        for line in journal.open():
+            try:x=json.loads(line)
+            except ValueError:bad_lines+=1;continue
+            if x.get('event')=='execution_queued' and (x.get('cwd','')=='work/'+args.work_id or x.get('cwd','').startswith('work/'+args.work_id+'/')):queued[x['id']]=x
+    import sqlite3
+    con=sqlite3.connect('file:'+str(Path(args.usage_db or policy['usage_db']).resolve())+'?mode=ro',uri=True);con.row_factory=sqlite3.Row
+    jobs=[]
+    for key,x in queued.items():
+        saved=con.execute('SELECT status,result FROM jobs WHERE id=?',(key,)).fetchone();result=json.loads(saved['result'] or '{}') if saved else {};stream=result.get('streams',{}).get('stdout',{})
+        rec={'run_id':key,'work_id':args.work_id,'action':'agent-data:workspace_exec','invocation_sha256':x.get('argv_sha256'),'source_head':result.get('source_head') or x.get('source_head'),'outcome':('EXIT_'+str(result['exit_code'])) if result.get('exit_code') is not None else 'RESULT_UNAVAILABLE','status':saved['status'] if saved else 'EXPIRED','stdout_sha256':stream.get('sha256'),'evidence_ref':policy['jobs_dir']+'/'+key+'/stdout','subtools':[]}
+        out=Path(rec['evidence_ref'])
+        if stream.get('sha256') and not stream.get('protected') and out.is_file() and sha(out)==stream['sha256']:
+            # Parse structured runner receipts only. Never publish arbitrary stdout/argv.
+            try:
+                report=json.loads(out.read_text())
+                for item in report.get('results',[]):
+                    if item.get('id') in registry and re.fullmatch('[0-9a-f]{64}',item.get('source_sha256','')):
+                        rec['subtools'].append({'id':item['id'],'sha256':item['source_sha256'],'exit_code':item.get('exit_code'),'case_set':item.get('case_set'),'evidence_ref':rec['evidence_ref']+'#results/'+item['id']})
+            except (ValueError,AttributeError,TypeError):pass
+        jobs.append(rec)
+    con.close()
+    return {'schema_version':1,'observed_at':datetime.now(timezone.utc).isoformat(),'scope':{'dot_bin':policy['dot_bin'],'work_id':args.work_id,'pg':'NOT_READ_OR_WRITTEN','claim':'inventory and observed use, not operational approval'},'scanner':policy['dot_catalog'],'dot_inventory':dots,'supporting_templates':support,'script_inventory':scripts,'dot_index_check':index_check,'usage':usage,'executions':jobs,'journal_invalid_lines':bad_lines,'gaps':['Historical events may lack source version or result; unknown is not PASS','Unassigned platform events are not attributed to this work','No claim to capture every external platform; import provider receipts explicitly','Discovered files require review and scoped verification before use']}
+
+
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
+    ap.add_argument('--audit-patch',type=Path,help='prepare a workspace_transaction JSON from an audit receipt; no source mutation')
+    ap.add_argument('--audit-vps',action='store_true',help='read existing DOT catalog and usage ledger; no DOT execution or PG')
+    ap.add_argument('--work-id',default='tools-quy-trinh')
+    ap.add_argument('--usage-event',help='exact existing event key to inspect')
+    ap.add_argument('--usage-db',help='operator path to existing SQLite ledger, read-only')
     ap.add_argument('--verify','--execute',action='store_true',dest='verify',help='run registered read-only suites')
     ap.add_argument('--dry-run',action='store_true',help='validate inventory and print commands without running suites')
     ap.add_argument('--report',type=Path,help='save evidence JSON; use a test/evidence location')
@@ -161,6 +322,17 @@ def main():
     ap.add_argument('--identity-only',action='store_true',help='run cross-registry identity guard using Python only; no Node/PG needed')
     args=ap.parse_args()
     source=BASE/'view.html';data=json.loads(re.search(r'<script id="tqt-composite-processes"[^>]*>(.*?)</script>',source.read_text(),re.S)[1])['catalog'];reg=data['tool_registry']
+    if args.audit_patch:
+        try: patch=audit_patch(json.loads(args.audit_patch.read_text()))
+        except (OSError,ValueError,KeyError) as error:print(json.dumps({'state':'BLOCKED','error':str(error)}));return 3
+        if args.report:args.report.write_text(json.dumps(patch,ensure_ascii=False)+'\n')
+        print(json.dumps({'state':'PATCH_READY_NOT_APPLIED','operations':len(patch['operations']),'apply_with':'workspace_transaction','pg':'NOT_RUN'}));return 0
+    if args.audit_vps:
+        try: result=audit_vps(args,data)
+        except (OSError,ValueError,KeyError,sqlite3.Error) as error:
+            print(json.dumps({'state':'BLOCKED','error':str(error)}));return 3
+        if args.report:args.report.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
+        print(json.dumps({'state':'OBSERVED','dot_files':len(result['dot_inventory']),'other_scripts':len(result.get('script_inventory',[])),'supporting_templates':len(result['supporting_templates']),'usage_events':result['usage']['event_count'],'complete_receipts':result['usage']['complete_receipts'],'execution_receipts':len(result['executions']),'pg':'NOT_RUN'}));return 0
     fetch_errors=[];ui_temp=None
     if args.vps_ui:
         if args.ui_adapter or args.master_registry or args.master_registry_json:ap.error('--vps-ui supplies the UI adapter and registry; do not combine input modes')
@@ -217,6 +389,11 @@ def main():
         report['transition_check']={'state':'BLOCKED','reason':'MISSING_RUNTIME'}
     if not errors and args.verify and not args.dry_run:
         report['runner_self_test']=self_test()
+        report['usage_audit_self_test']=audit_self_test()
+        projection=data['tool_registry'].get('audit_projection')
+        if projection:
+            evidence=json.loads((BASE/'UI-REVIEW-AGGREGATE.json').read_text())['host_review_P33']
+            if projection!=audit_projection(evidence['audit'],evidence.get('external_receipts',[])):report['inventory_errors'].append('AUDIT_PROJECTION_DRIFT')
     if not errors and not report['prerequisite_errors'] and args.verify and not args.dry_run:
         for x in reg['records']:
             if x['kind']=='RUNNER':continue

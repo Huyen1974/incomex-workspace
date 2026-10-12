@@ -892,3 +892,10 @@ C13-03 **đã cưỡng chế trong phạm vi tệp kho thử**: CHECK004 gọi t
 Owner xác nhận trực tiếp: “Đúng: GitHub cũ, VPS đang dùng là SSOT”. Host triển khai hẹp từ image VPS, không dùng main cũ, không đẩy agent-data-test; chặn xuất GitHub trước đó không còn là việc cần xin. Node 22.16.0 và bộ ghim đã vào image quản lý. 32 hồi quy gateway + 7 ca gate tập trung đạt (ca đổi tên bổ sung); bộ đầy đủ VPS đạt, job 24cf5bd5084f4778b67a46ed9d206c5d, khoảng 145 giây, CHECK004 107/180 giây. Nguồn gateway lưu tại VPS commit 7cad52b; không push GitHub cũ. NEXT_TRIGGER=REAL_ENDPOINT_CONTRACT_EVIDENCE_AND_INDEPENDENT_REVIEW.
 
 Bằng chứng: `UI-REVIEW-AGGREGATE.json#host_review_P32`; Host tự kiểm kỹ thuật, không thay kiểm độc lập.
+
+
+## P33 · Host rà kiểm kê và dùng lại DOT/Tool · 12/10/2026
+
+Owner yêu cầu hai lối vào thụt dưới Master tiến trình; kiểm kê nhiều vòng theo công cụ thực sự đã dùng; AI phải tra và dùng lại trước khi tạo. Giữ Master hiện hữu, CAT-006 alias ML-DEF-024, không PG, MOW001 0/7.
+
+Host nhận ý kiến GPT Pro A/B/C: dùng lại dot-dot-catalog và nhật ký lc_event/jobs; phân biệt công cụ tìm thấy, có dấu vết gọi và có biên nhận kết quả. Sáu DOT QTTH giữ mã; chín phương pháp Tool giữ nguyên. Ma trận sinh từ catalog/biên nhận. Điểm còn mở và bằng chứng tại README P33 và UI-REVIEW-AGGREGATE.json#host_review_P33. JEV gen-dec-1791771432-gKeZ3qw9gSvHh3ZKtX6u là nguồn tham khảo; Host chọn nối danh mục có nguồn, không cấp DOT cho từng lệnh/ca thử.
