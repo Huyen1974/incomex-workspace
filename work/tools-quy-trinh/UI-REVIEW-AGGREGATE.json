@@ -61630,7 +61630,13 @@
       "provider_records": 25,
       "expected_tool_master_rows": 34,
       "state": "SCHEMA_AND_UI_VERIFIED",
-      "ui_readback": {"surface": "Actual Codex browser DOM", "rows": 34, "legacy_methods": 9, "removed_names_absent": true, "added_actions_visible": 4}
+      "ui_readback": {
+        "surface": "Actual Codex browser DOM",
+        "rows": 34,
+        "legacy_methods": 9,
+        "removed_names_absent": true,
+        "added_actions_visible": 4
+      }
     }
   }
 }
