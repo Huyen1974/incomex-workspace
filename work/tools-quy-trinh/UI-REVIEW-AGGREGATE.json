@@ -65230,5 +65230,114 @@
       "Claude": "NOT_REVIEWED",
       "independent_review": false
     }
+  },
+  "host_review_P36": {
+    "owner_directive": "Bạn tiếp tục sửa điểm tắc ở mốc 3, nối bằng chứng quyền ghi–đọc từ máy chủ rồi đi tiếp MOW001 thật đến cuối nhé. Vẫn ngoài PG, không lấy TEST thay việc thật và cập nhật các Master liên quan.",
+    "scope": "REAL_MOW001_G1_FILE_STORE_NO_PG",
+    "state": "STARTED",
+    "reviewer_execution": {
+      "provider": "OpenAI",
+      "parent_thread": "01a129ed-a979-7d13-af46-d3b3ec3e2abf",
+      "canonical_task": "/root/review_mow001",
+      "reviewer_id": "OpenAI:Codex:01a129ed-a979-7d13-af46-d3b3ec3e2abf:/root/review_mow001:P36",
+      "assignment": "Host read-only technical review under AGENTS A5 and direct Owner scope",
+      "identity_scope": "Separate review execution, same provider; not separate identity/quorum seat",
+      "initial_contract": "PARTIAL: missing actual assignment, schema_change label, circular future-row readiness",
+      "actual_P01_readback": {
+        "command": "existing CHECK004 --read-preparation",
+        "exec_chunk": "8f8b71",
+        "exit_code": 0,
+        "questions": 50,
+        "missing": 0,
+        "product_acceptance": false
+      }
+    },
+    "adapter_review": {
+      "reviewer": "/root/review_mow001",
+      "finding": "Before-only artifact read could certify mutated after-image",
+      "reproduction": "d6888a",
+      "resolution": "Compare before/after artifact and audit after; record previous_sha256 separately",
+      "recheck": "e92746",
+      "decision": "ACCEPT_DELTA_FOR_CANDIDATE_TEST",
+      "sha256": {
+        "workspace_tools.py": "ec72e33ea0a519220610c843ee7d18c5e6b5d2aeefab73d5e153998bd587e5d7",
+        "view.html": "eb01dbe12a256cbb5042019def9b630caa7428a65a3ab5f73391a64aefa4cd1d",
+        "check-record-control.js": "9d5fb18fcae25b2c1f3b7061651ebbfd2f8176bb09c733e9b8cfb0ecc3da6797"
+      },
+      "runtime_acceptance": false
+    },
+    "jev": {
+      "id": "gen-dec-1791790375-zl0Zz6algBm7fWnpANQf",
+      "model": "typesafe/jev-1.13-20260917",
+      "choice": "signed",
+      "scope": "Advisory architecture choice; not approval"
+    },
+    "pg": "NOT_RUN",
+    "contract_review": {
+      "state": "ACCEPT_TECHNICAL",
+      "reviewer_execution": "/root/review_mow001",
+      "execution": "1a022f",
+      "exit_code": 0,
+      "contract_version": "4",
+      "plan_version": "3",
+      "contract_content_sha256": "5481979a5bce26c8d60bfcc28ef9c655b76bed6ba21dcfb97cd0e42c2960a04c",
+      "P01_sha256": "310254e73d19ec5a105ffdc152dcdc6f54c8c8c6c9c5eafcec3f44b9ce7435b3",
+      "scope": "Candidate contract only; persisted-source readback and CP03 pending"
+    },
+    "deployment": {
+      "state": "POST_PROTECT_PASS",
+      "image": "agent-data-hvu:tqt-p36-20261012",
+      "backup": "/opt/incomex/backups/tqt-p36-20261012T075526Z",
+      "manifest_sha256": "6bb8975e2efb514f9cfefe968f7cf9051c71f457c00783622f50814734c2c889",
+      "files": {
+        "agent_data/workspace_tools.py": "ec72e33ea0a519220610c843ee7d18c5e6b5d2aeefab73d5e153998bd587e5d7",
+        "tests/continuation/test_workspace.py": "323b915b53fb712e64550e9baac4a831595e1be6c2a36ed888e347f1e4f8dd63",
+        "docs/WORKSPACE_TOOLS.md": "fe5437332d4ffd91732ff09f918e8c74828925a9629408e3cb9f2fe94fbf39b6"
+      },
+      "pins": {
+        "view.html": "eb01dbe12a256cbb5042019def9b630caa7428a65a3ab5f73391a64aefa4cd1d",
+        "check-record-control.js": "9d5fb18fcae25b2c1f3b7061651ebbfd2f8176bb09c733e9b8cfb0ecc3da6797"
+      },
+      "policy_id": "MOW001-G1-P36-1",
+      "health": "PASS",
+      "pg": "NOT_RUN",
+      "probe_log": "/opt/incomex/staging/tqt-p36/live-probes.log"
+    },
+    "live_probes": {
+      "state": "PASS",
+      "scope": "Actual server ACL/read/denied-write checks; no product acceptance",
+      "cases": [
+        "Writer exact-source signed receipt verified",
+        "Reader data allowed, no write receipt",
+        "Unauthenticated surface refused",
+        "Reader write refused",
+        "Writer malformed contract refused",
+        "Forged worker context and deleted history refused"
+      ],
+      "source_sha256": "4689185e28dae201f02905c1ce358bbb4c9362b6e439150bc2eeff2483f3c7d2",
+      "context_binding": {
+        "application_id": "MOW-NHC-001-G1-20261010-01",
+        "contract_sha256": "264491b9c5907acddd5f9b60ef0984cc2576f54355b9d95f6a1e193882a4e407",
+        "endpoint_specs_sha256": "85195026c5d5b298a5ee532cff756c2d20c2cbf42f768954a25204118bbe8842",
+        "plan_version": "2",
+        "reviewer_id": null,
+        "schema_sha256": "de05e6384ab33a3e2e7616f4f6818cab3ce99f651f4eb9720b21c300b2599917",
+        "scope": "Chỉ G1 thiết kế UI ba MOT 1.1/1.2/1.3 đến nghiệm thu thiết kế",
+        "scope_stage": "G1",
+        "target_version": "ui/mow-ui-walkthrough-v1.js@16366ed0c89f78aa5951193be9d506208f3cdfd45fd5141b96533575b42cc4df"
+      },
+      "receipt_sha256": "c88b7d4ce8397f0a64f47b8aaf28f0e076b127680faeb29f52a8f445066034f9",
+      "pg": "NOT_RUN"
+    },
+    "gateway_tests": {
+      "passed": 78,
+      "skipped": 1,
+      "evidence_ref": "/opt/incomex/staging/tqt-p36/gateway-tests.log"
+    },
+    "dot_tests": {
+      "state": "PASS",
+      "p36_cases": 20,
+      "evidence_ref": "/opt/incomex/staging/tqt-p36/dot-tests.log"
+    }
   }
 }

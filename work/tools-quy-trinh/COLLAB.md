@@ -952,3 +952,5 @@ KQ@MOW001-P35-REAL-20261012 DỪNG · 2026-10-12T05:03:08.852814+00:00 · CP01/C
 
 
 P35 · Bổ sung biên nhận cuối: lượt tổng VPS d0383433093a41dbaecd3e40f5d78848 PASS172.684giây; sau sửa hiển thị việc tiếp, CHECK005 đúng phiên hiện hành PASS, job989847ed92cf40fb89319df8992af407. CHECK004 đọc P01 thật jobe02137945da649c88074d2ba4398d51f:50/50,thiếu0; không phải AI kiểm độc lập. Master DOT/Tool được làm mới bằng CHECK006 từ nhật ký giữ lại; không thêm DOT. MOW001 giữ2/7,20/34; CP03 còn mở, P02–P05 chưa làm, chưa PG.
+
+P36 · Cửa ghi triển khai1b7684368ef7c982cf8dbccfe5020f00774d863e;78PASS1skip và20caP36PASS; sáu probe quyền thậtPASS, sản phẩm nguyên byte. Hợp đồngv4 đã được /root/review_mow001 ACCEPT kỹ thuật (1a022f), P01v2/plan3; hủy hiệu lực CP02 cũ để đọc lại. Source/pin/runbook tiếp tục thuộc CHECK004, không DOT/Master mới. Chưa PG.

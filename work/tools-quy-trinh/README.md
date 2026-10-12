@@ -1,5 +1,9 @@
 # tools-quy-trinh · Cửa vào
 
+## P36 · Đang tiếp tục MOW001 thật
+
+Đọc trạng thái hiện hành tại phiếu MOW001/execution_walk; mục P35 dưới là lịch sử. Cửa ghi VPS P36 đã kiểm78ca và quyền thật writer/reader; biên nhận Ed25519 chỉ áp dụng một tệp và34collection logic, chưa PG. Hợp đồngv4/plan3/P01v2 phải đọc lại bản lưu trướcCP02/03. Reviewer là executionOpenAI được giao riêng, không ghế/quorum riêng; Claude chưa duyệt không chặn. Dùng CHECK004 đã có: --read-preparation, --read-designs; nguồn/quyền tại runtime_binding và aggregate#host_review_P36. Không lấy TEST thay việc thật.
+
 ## P35 · MOW001 thật — đọc trước lịch sử P34 trở về trước
 
 Nguồn duy nhất: `../mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24`, mục `execution_walk` giữ bước đã làm, nguồn/hash, điểm tắc và người làm tiếp. CP01 đã đối chiếu Master MOW/3MOT thật; 20/34 mục đã đọc lại. Hai mốc CP01/CP02 có bằng chứng thật: P01 đủ50 câu (rà44, thêm6),13 khai báo và gói chuẩn bị đã được tiến trình khác tự mở/kiểm; đây là chuẩn bị G1, chưa phải sản phẩm đạt. Chưa qua CP03, chưa sửa/duyệt sản phẩm.
