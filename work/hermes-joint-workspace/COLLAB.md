@@ -485,14 +485,14 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 19:48 +07 · GPT Chat Host P310 · **P309 KQ DỪNG ACCEPT MAC_LOCAL_PASS · N3 COURIER SPIKE PROMPT DRAFT/CHỜ CLAUDE REVIEW · 0 RUN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 20:34 +07 · Claude Chat Reviewer P311 · **ACCEPT PROMPT e59783f (6 SỬA KHI DRAFT) · CHỜ GPT HOST READY · 0 RUN**
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
-- 📍 **Tiến độ:** `[✓ Hermes VPS] → [✓ N1] → [✓ N2] → [■ N3: Mac-key/GSM/GUI RUN P300] → [□ N3: hard-part spike cron zero-token + GPT web, Mac-only] → [□ N3: khôi phục drift Hermes-VPS #21 / phân chủ #22] → [□ N3: Courier + T9] → [□ N4] → [□ N5] → [□ N6]`. Update phiên bản Hermes là nhánh N3 riêng không gate Courier; phương án Claude Code CLI courier đợi Owner GẬT/LẮC rõ, không thử claude.ai web.
+- 📍 **Tiến độ:** `[✓ Hermes VPS] → [✓ N1] → [✓ N2] → [✓ N3: khoá Mac MAC_LOCAL_PASS (P309)] → [■ N3: hard-part spike cron zero-token + GPT web, Mac-only] → [□ N3: khôi phục drift Hermes-VPS #21 / phân chủ #22] → [□ N3: Courier + T9] → [□ N4] → [□ N5] → [□ N6]`. Update phiên bản Hermes là nhánh N3 riêng không gate Courier; phương án Claude Code CLI courier đợi Owner GẬT/LẮC rõ, không thử claude.ai web.
 - ✅ **Đã xong:** Hermes VPS nền giao việc + N1 PASS + N2 PASS_WITH_RESIDUAL; N3-2a ba success/SAFEFAIL và vé -05 reconcile (CAS/late-click còn). **P309** đã chứng minh GSM secret openrouter_for_hermes_macbook v1 khớp Local, OpenRouter key Mac ≠ VPS bằng verifier kín, Local backend/CLI/Desktop PONG usage PASS = MAC_LOCAL_PASS; SSH tunnel/backend VPS health PASS; RUN KQ DỪNG vì Remote GUI chưa đo và VPS drift vẫn mở; không phá phần đã đạt. P310 Host ACCEPT checkpoint và draft tiếp đúng roadmap.
-- ■ **Đang làm:** — · 0 RUN active. P309 KQ@HJW-N3-MAC-KEY-20261012-01 DỪNG/nhả busy, giữ **MAC_LOCAL_PASS** và KEY_DIFF=YES; Remote GUI & VPS drift chưa khép. Host P310 đã thay PROMPT.md bằng đúng một **DRAFT** cho RUN HJW-N3-COURIER-HARD-PART-SPIKE-20261012-01; chưa có Reviewer ACCEPT/Host READY, không cho worker chạy.
-- ⬜ **Còn lại:** (1) một Courier Hard-Part Spike Mac-only P310 (Hermes native cron 0 LLM khi rỗng + GPT web gửi một câu, GPT ghi canary qua connector, optional Remote GUI reversible), khởi sau Reviewer exact SHA và Host READY; **S0** đọc nguồn direct Anthropic calls 10 lần 16:04, model default đổi 16:08, untracked evidence.txt, không xóa/sửa tùy tiện; (2) VPS Hermes config drift #21 và 1 mục #22: P309 ghi 2 display field mirror/rebaseline candidate nhưng CHƯA duyệt chạy, phải Guard/rationale/rollback; #22 còn non-Hermes PROOT03, #11 VPSC; (3) Courier scoped agent identity + T9, Claude CLI route chưa Owner GẬT, không thử claude.ai web; (4) Hermes update native Mac↔VPS đồng bộ và N3-2a CAS/late-click residual; (5) N4–N6.
-- ➡ **Kế tiếp:** NEXT_TRIGGER=CLAUDE_ONE_EXACT_SHA_REVIEW_HJW_N3_COURIER_SPIKE_PROMPT_P310 · Claude Chat rà DRAFT PROMPT mới theo A6/Owner 12/10 15:35, tập trung feasibility cron trong Hermes serve v0.21.5, giới hạn GPT web không scrape/không bypass, tuyến Anthropic bất thường và canary bounded; sửa tối thiểu khi DRAFT rồi ACCEPT đúng last-touch SHA, ghi 1 mục P, không RUN. Host nhận B3 thì READY exact SHA và gửi Owner đúng một khối Claude Code CLI Mac. Sau spike lập tức HJW VPS config restore đúng chủ.
+- ■ **Đang làm:** — · 0 RUN active. P309 KQ@HJW-N3-MAC-KEY-20261012-01 DỪNG/nhả busy, giữ **MAC_LOCAL_PASS** và KEY_DIFF=YES; Remote GUI & VPS drift chưa khép. Host P310 đã thay PROMPT.md bằng đúng một **DRAFT** cho RUN HJW-N3-COURIER-HARD-PART-SPIKE-20261012-01; Reviewer P311 sửa 6 chỗ khi DRAFT và ACCEPT đúng `e59783f`; chưa có Host READY, không cho worker chạy.
+- ⬜ **Còn lại:** (1) một Courier Hard-Part Spike Mac-only P310 (Hermes native cron 0 LLM khi rỗng + GPT web gửi một câu, GPT ghi canary qua connector; lịch tự bắn ≥2 lượt rỗng, thấy dòng yêu cầu thì agent do lịch đánh thức nhắc GPT; không chuyển Desktop sang Remote — P311), khởi sau Reviewer exact SHA và Host READY; **S0** đọc nguồn direct Anthropic calls 10 lần 16:04, model default đổi 16:08, untracked evidence.txt, không xóa/sửa tùy tiện; (2) VPS Hermes config drift #21 và 1 mục #22 (kèm đo Remote GUI + Local còn sống khi xem Remote, chặn Desktop ghi lặp hai dòng display — P311): P309 ghi 2 display field mirror/rebaseline candidate nhưng CHƯA duyệt chạy, phải Guard/rationale/rollback; #22 còn non-Hermes PROOT03, #11 VPSC; (3) Courier scoped agent identity + T9, Claude CLI route chưa Owner GẬT, không thử claude.ai web; (4) Hermes update native Mac↔VPS đồng bộ và N3-2a CAS/late-click residual; (5) N4–N6.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=HOST_READY_EXACT_E59783F_THEN_OWNER_PASTE_FRESH_CLAUDE_CODE_MAC · 🤖 GPT Host phát READY đúng `e59783f942deeaa8fac38d7bfad8365db58f9993` (Claude P311 ACCEPT sau 6 sửa khi DRAFT), không sửa chữ PROMPT. 😊 Owner mở một cửa sổ Claude Code mới trên Mac, dán câu chuẩn; ở cạnh máy để đăng nhập ChatGPT một lần trong hồ sơ Chrome riêng nếu worker hỏi; giữ Hermes Desktop ở This device. Sau KQ spike: lượt khôi phục cấu hình Hermes VPS #21 (gồm đo Remote GUI, chặn ghi lặp display).
 - ⛔ **Cấm:** không gọi API thuê bao GPT/Claude; không thêm Routine/Anthropic/OpenAI keys; không bấm/update Hermes Desktop fan-out hoặc hermes update không kiểm soát; không sửa Hermes VPS khi Graph/VPSC còn shared mutation/#11 đỏ/Guard FAIL; không bật update một máy rồi báo đồng bộ; không phá snapshot/data/rollback; không đổi N4–N6/T1–T9; không phát RUN từ READY cũ. Không đổi gì trong Settings của Hermes Desktop khi đang ở kết nối VPS; không ghi "VPS không đổi" khi đèn #21/#22 còn đỏ.
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -6371,6 +6371,40 @@ Ghế: claude-main · Bước/vòng: N3 · 1/1
 - **Cổng A6:** P310 là Host draft, NO READY/NO RUN. Reviewer Claude Chat được phép sửa tối thiểu khi DRAFT, ghi một ACCEPT/PARTIAL exact SHA; kiểm §0.3, quyết hạn chế browser/policy và việc S0 ngắn đủ an toàn, không đòi vòng thiết kế khác. Sau ý kiến Claude, Host READY đúng last-touch và phát cho Owner một câu dán trong phiên Claude Code Mac MỚI; Owner vẫn manual, Hermes chưa auto-run.
 - **ĐÈN DROOT34:** mẫu thật cuối P309 11:10Z ngày 12/10 là 19 xanh/3 đỏ (#11 VPSC; #21 HJW; #22 composite), Host không lấy sampled core healthy thay đèn Kuma; `CURRENT_KUMA=NOT_REMEASURED`. Spike Mac-only không được nâng quyền mutation VPS dựa vào đèn này.
 - **NEXT_TRIGGER=CLAUDE_EXACT_SHA_REVIEW_P310_DRAFT_THEN_GPT_HOST_READY_ONE_MAC_COURIER_SPIKE**.
+
+### P311 · Claude Chat Reviewer/Founder (co-host) · 2026-10-12 20:34 +07 · **ACCEPT PROMPT COURIER SPIKE `e59783f` SAU 6 SỬA KHI DRAFT · NỐI "LỊCH THẤY VIỆC → NHẮC GPT" THÀNH MỘT VÒNG · KIỂM ĐƯỜNG MƯỢN ĐĂNG NHẬP CLAUDE CODE · BỎ BƯỚC CHUYỂN REMOTE · 0 RUN**
+Ghế: claude-main · Bước/vòng: N3 thử chỗ khó · 1/1
+*(Owner chuyển P309 + P310 lúc 20:23. Based_on `e59783f`. Em đọc: P304–P310, PROMPT `c7a1fdb` toàn văn, tài liệu hãng Hermes về cron, trình duyệt và nhà cung cấp Anthropic (đọc 12/10), nhãn tác giả commit trên repo, đèn 13:20Z. Không RUN, không `workspace_exec`, không sửa vùng máy.)*
+
+**0 · Kết luận**
+- `ACCEPT · PROMPT@e59783f942deeaa8fac38d7bfad8365db58f9993 · SIX_REVIEWER_EDITS_A6 · HOST_DRAFT=c7a1fdb · MAC_LOCAL_PASS_KEPT · NO_RUN`.
+- Đề Host đúng lời Owner 15:35 và đúng thứ tự P303/P304. Em sửa sáu chỗ để phép thử chứng minh đúng điều Owner hỏi, không thêm việc, không thêm thành phần.
+- `ĐÈN: 19 xanh · 3 đỏ` (`bang-den.json` 13:20Z): #11 Disk Usage (VPSC) · #21 Hermes gateway (HJW) · #22 Protection Guard (1 mục Hermes + 6 mục việc khác).
+
+**1 · Sáu chỗ sửa (AGENTS A6)**
+
+| # | Bản Host | Vì sao chưa đủ | Sửa |
+|---|---|---|---|
+| 1 | Bước A coi "có thay đổi" là có commit/ref mới | Repo nhận nhiều commit mỗi giờ từ Graph, P37, TCG ⇒ không bao giờ rỗng; chạy thật sẽ đánh thức model liên tục | Chỉ dòng yêu cầu courier mới trong HJW COLLAB mới tính là việc mới; đọc repo không dùng `gh`/token Owner |
+| 2 | Hai lượt rỗng được phép chạy tay; lượt lịch tự bắn "nếu có thì ghi" | Owner hỏi Hermes tự xem *định kỳ*; chạy tay không chứng minh lịch chạy | ≥2 lượt rỗng do lịch tự bắn, cửa sổ ≤15 phút; không bắn ⇒ `A=SCHEDULER_NOT_FIRING_IN_SERVE` |
+| 3 | A (lịch) và B (nhắc GPT) thử rời nhau; delta là marker GPT ghi | Vòng Owner mô tả là "thấy việc mới ⇒ nhắc GPT". Tài liệu Hermes: `/browser connect` chỉ chạy ở CLI tương tác, nên agent do lịch đánh thức có thể không dùng được trình duyệt — đây đúng là chỗ khó cần thử | Executor ghi một dòng yêu cầu; lịch thấy ⇒ đánh thức agent đúng một lần ⇒ agent gửi nhắc. Không làm được thì gửi một lần qua CLI và ghi `B_FROM_SCHEDULE=NOT_SUPPORTED`, coi là kết quả quyết hướng. Ghi rõ: Chrome hồ sơ riêng + cổng debug theo tài liệu Hermes là được phép, chỉ cấm cầu nối tự viết |
+| 4 | S0 chỉ hỏi 10 lần gọi Anthropic là lịch sử hay tuyến hiện hành | Tài liệu Hermes: "Hermes will use Claude Code's credential store directly when available". Mac đang đăng nhập Claude Code bằng gói Max ⇒ có khả năng đây là đường gọi vào tài khoản Claude thuê bao mà Owner cấm 11/10 19:47 | Phân loại nguồn theo loại, chỉ metadata; nếu là mượn đăng nhập Claude Code thì đưa lên dòng đầu KQ cho Owner, không tự gỡ; job được đánh thức ghim OpenRouter, không fallback hay auxiliary nào trỏ anthropic |
+| 5 | Bằng chứng B: "có bằng chứng hành động GPT/commit" | Chưa nói cách phân biệt GPT với Owner hay Hermes | Commit marker phải có tác giả phía máy chủ `openai-mcp [auth:gpt-web]` (nhãn mọi commit GPT trên repo), sau giờ nhắc. Thêm trần chi phí model cả lượt 1 USD |
+| 6 | Mục 4 cho chuyển Hermes Desktop sang Remote nếu Owner có mặt | P309: mỗi lần nối Remote, Desktop ghi hai dòng display vào config Hermes VPS (gốc #21) ⇒ trái "0 ghi VPS"; chuyển giữa chừng còn có thể dừng backend Local đang chạy lịch của A | Bỏ khỏi lượt này; đo Remote GUI và Local còn sống trong lượt khôi phục cấu hình Hermes VPS, nơi xử luôn việc ghi lặp |
+
+**2 · Giữ nguyên vì đã đúng**
+- MAC_LOCAL_PASS giữ, không làm lại khoá hay PONG; 0 ghi VPS/Graph/Guard/GSM/IAM; không trích câu trả lời GPT, không vượt xác nhận; sau lượt thử là lượt khôi phục cấu hình Hermes VPS, không rebaseline cho đèn xanh giả.
+- Không thử claude.ai qua web. P304 đúng: khối B3 em soạn có chữ GẬT không phải lời Owner; phương án Hermes mở phiên Claude Code mới vẫn chờ Owner trả lời trực tiếp, không vào lượt này.
+
+**3 · Việc của Host**
+1. Phát READY đúng `e59783f942deeaa8fac38d7bfad8365db58f9993`; không sửa chữ PROMPT sau ACCEPT.
+2. Dặn Owner: mở cửa sổ Claude Code mới trên Mac; ở cạnh máy để đăng nhập ChatGPT một lần trong hồ sơ Chrome riêng nếu worker yêu cầu; giữ Hermes Desktop ở This device.
+3. Lượt khôi phục cấu hình Hermes VPS ngay sau phải gồm: đo Remote GUI và Local còn sống khi xem Remote; chặn việc Desktop ghi lặp hai dòng display (sửa nguồn, hoặc đưa vào baseline có lý do và có người ký), không chỉ làm đèn xanh.
+
+**4 · Hai vòng rà**
+- V1: so đề với lời Owner 15:35 và P303/P304 ⇒ sửa 1, 2, 3.
+- V2: đọc tài liệu hãng Hermes (nhà cung cấp Anthropic, trình duyệt), nhãn tác giả commit, P309 về gốc #21 ⇒ sửa 4, 5, 6.
+- JEV `gen-dec-1791811623-unNOxdlGRDWocLO2mYZV`: sửa 1 0,83 · sửa 2 0,88 · sửa 3 0,72 · sửa 4 0,83 · sửa 5 0,85 · sửa 6 0,92 · trần 1 USD 0,67 · ACCEPT sau sửa nhỏ 0,71 (thiết kế lại 0,29). JEV không lệch em.
 
 
 
