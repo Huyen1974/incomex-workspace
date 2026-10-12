@@ -34742,7 +34742,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "bf7a433e82894e96f079cad6566a9ffc95cf82423f78b86163d06905adf661ea",
+          "sha256": "38e0473973329f8b25c0abb96ea13d8ccbd00986408a0ae225af6f90fc7c83ac",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -34756,7 +34756,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "timeout_seconds": 60,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
-            "process-work-master-v1.js": "3867c0576fdf9db83c7027eb19199f810f524c128602c3ef01eee5789cdadd54",
+            "process-work-master-v1.js": "a2c033778f01ca90e5f48ce1aee9ab7221aea0c322112f2e32db66c250927574",
             "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
             "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357"
           }
@@ -40402,6 +40402,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "tools-quy-trinh/P34"
           ],
           "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
+        },
+        {
+          "change_id": "TQT-P34-UPGRADE-TQT-CHECK-005-4",
+          "kind": "UPGRADE",
+          "target_code": "TQT-CHECK-005",
+          "previous_version": "bf7a433e82894e96f079cad6566a9ffc95cf82423f78b86163d06905adf661ea",
+          "next_version": "38e0473973329f8b25c0abb96ea13d8ccbd00986408a0ae225af6f90fc7c83ac",
+          "target_version": "38e0473973329f8b25c0abb96ea13d8ccbd00986408a0ae225af6f90fc7c83ac",
+          "reason": "Sửa mã bộ ca; nối kết quả→bộ kiểm/ca thật và kiểm tham chiếu tự động",
+          "actor": "Codex Host",
+          "changed_at": "2026-10-12T04:30:29.155839+00:00",
+          "affected_applications": [
+            "tools-quy-trinh/P34"
+          ],
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
         }
       ],
       "walkthrough": {
@@ -40458,9 +40473,9 @@ main{max-width:1240px} [hidden]{display:none!important}
           {
             "id": "TQT-P34-F02",
             "type": "THIEU_NOI_DOC",
-            "problem": "CAT012/015/016/025/229/069 có thiết kế nhưng adapter trả rỗng dù đã có bằng chứng",
-            "state": "Đã nối và đọc lại · phạm vi TQT",
-            "next": "Dùng nguồn đã nối; bổ sung lịch sử khác khi có bằng chứng, không suy toàn hệ đã đủ",
+            "problem": "CAT012/015/016/025/229/069 có thiết kế nhưng adapter trả rỗng dù đã có bằng chứng; bước đọc lại còn phát hiện tên bộ ca P34 không khớp registry",
+            "state": "Đã sửa nguồn và tham chiếu · kiểm lại phiên cuối",
+            "next": "CHECK005 đối chiếu tự động bộ/ca/kết quả; Master012 phân biệt6bộ và5nhóm ca mới",
             "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
           },
           {
