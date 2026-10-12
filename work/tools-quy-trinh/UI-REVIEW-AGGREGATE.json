@@ -83947,7 +83947,7 @@
     }
   },
   "host_review_P38": {
-    "state": "COMPATIBLE_READER_PREPARED",
+    "state": "PACKED_SOURCE_READY_FOR_READBACK",
     "owner_request": "Làm nhẹ không mất lịch sử; tích xong màu xanh",
     "before_product_sha256": "908f9c7fbf3eb664ffd88249a1c9d277f90a7d3022e8c01c246af10f3fefd35b",
     "candidate": {
@@ -83984,6 +83984,220 @@
       "pg": "NOT_RUN"
     },
     "scope": "Physical history storage only, unchanged real G1; no PG; no new acceptance",
-    "deployment_evidence": "/opt/incomex/staging/tqt-p36/p38/prepared.json"
+    "deployment_evidence": "/opt/incomex/staging/tqt-p36/p38/prepared.json",
+    "deployment": {
+      "state": "ACTIVE_BEFORE_LOSSLESS_MIGRATION",
+      "image": "agent-data-hvu:tqt-p38-20261012",
+      "policy": "MOW001-G1-P36-2",
+      "before": {
+        "/opt/incomex/docker/docker-compose.yml": "ed740760464d4f18c5604a3a43315889ef93fcf1d1586883f511e840704148f1",
+        "/opt/incomex/config/workspace-tools.json": "1b93589b1149a4a2a08ecb3b45185da2b9b0fe74926d1e7e75aaa7e9751cd865",
+        "/opt/incomex/config/workspace-exec.json": "54b234bd46fa4ec004752a97110e9bcc720b070a3c4bc78869e5d96769471e2e"
+      },
+      "after": {
+        "/opt/incomex/docker/docker-compose.yml": "0bdafc8ff6f796731709353d5863efa9da007e15fce8f4a0b14ab61fb9fe83cc",
+        "/opt/incomex/config/workspace-tools.json": "c3b97e8a3169c8c56ded4523d3c64bc22c21738ae43f055e2c1f60fcacf04ca4",
+        "/opt/incomex/config/workspace-exec.json": "f8d5981d24c6628f546c11b7d45816f518b12de5ae957ca9d1de301de26120ae"
+      },
+      "pins": {
+        "view.html": "7715a0ec03559a0c66ab490e2d8dddc67642ea0b7a0bbca9ec573a137d652556",
+        "check-record-control.js": "755097b9b265860f76a393268793262a5daa9e5719c1b1a917fdccab7b9511c6"
+      },
+      "rollback_rule": "Expand packed product via current guarded writer, verify original logical data, then restore previous runtime pins/image through Config Guard. Never switch old reader over packed data.",
+      "pg": "NOT_RUN"
+    },
+    "candidate_suite": {
+      "run_id": "TQT-1d979ca329d146729df5966c0c4688a3",
+      "at": "2026-10-12T14:53:28.534676+00:00",
+      "scope": "Sáu bộ kiểm QTTH; bản quét chỉ đọc DOT/bin, Agent Data/dot/bin, scripts VPS; nhật ký việc tools-quy-trinh. Không quét PG hoặc toàn bộ nền tảng ngoài VPS.",
+      "registry_master": "CAT-006",
+      "case_master": "CAT-012",
+      "result_master": "CAT-015",
+      "source_sha256": "7715a0ec03559a0c66ab490e2d8dddc67642ea0b7a0bbca9ec573a137d652556",
+      "runner_sha256": "34866caa5413930c289db44dc4a240d73e74cc29b9246e7c37d1cb9e9e7d1b16",
+      "inventory_errors": [],
+      "source_readback": {
+        "state": "PASS",
+        "source_sha256": "c68c20ecfdfaaa01cefc13f474331e36b395a3212c3cb540595abe7302608dae",
+        "projection_equal": true,
+        "rule_source_checks": [
+          {
+            "ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/process_trial_20261009/contract",
+            "matched": true
+          }
+        ],
+        "application_id": "MOW-NHC-001-G1-20261010-01",
+        "trial_declarations": 13,
+        "scope": "SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL"
+      },
+      "results": [
+        {
+          "id": "TQT-CHECK-001",
+          "case_set": "TQT-CASE-MODEL",
+          "source_sha256": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75",
+          "argv": [
+            "python3",
+            "check-process-model.py",
+            "view.html"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"status\": \"SIMULATION_ONLY\", \"passed\": 87, \"model_sha256\": \"f55fcf4fa78b22005604b62d025487f4a3977b5cc106bb9f3b0a6c0a8713ce5a\", \"package_state\": \"NOT_FROZEN\", \"production_ready\": false}\n",
+          "stderr": "",
+          "elapsed_seconds": 4.27,
+          "timeout_seconds": 60
+        },
+        {
+          "id": "TQT-CHECK-002",
+          "case_set": "TQT-CASE-CATALOG",
+          "source_sha256": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270",
+          "argv": [
+            "python3",
+            "check-process-catalog.py",
+            "view.html"
+          ],
+          "exit_code": 0,
+          "stdout": "checkpoint cases 20\n{\"aggregate\": 5, \"normal\": 12, \"coded_references\": 55, \"bad_reference_cases\": 2, \"scope\": \"DESIGN_ONLY\"}\n",
+          "stderr": "",
+          "elapsed_seconds": 3.723,
+          "timeout_seconds": 60
+        },
+        {
+          "id": "TQT-CHECK-003",
+          "case_set": "TQT-CASE-DECLARATION",
+          "source_sha256": "2bc217db008e110e519d57b37f48e2919aef4f4d21cabd5bf7c230375d06f256",
+          "argv": [
+            "python3",
+            "check-overview-consistency.py",
+            "view.html"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"positive\": 1, \"negative\": 37, \"procedures\": 17, \"source_check\": \"MATCH_EXISTING_PRODUCT_RECEIPT\", \"source_integrity\": \"UNCHANGED_DURING_CHECK\", \"application_state\": \"DA_BAN_GIAO\", \"can_start\": true, \"needs_before_start\": [], \"next\": \"Giữ hồ sơ G1 để tái sử dụng; xử lý các đề xuất G2, ánh xạ chuyên môn và lưu bằng chứng theo sổ trước khi nhân rộng. Không tự mở MOW002 hoặc PG.\", \"production_ready\": false}\n",
+          "stderr": "",
+          "elapsed_seconds": 33.286,
+          "timeout_seconds": 180
+        },
+        {
+          "id": "TQT-CHECK-004",
+          "case_set": "TQT-CASE-RECORD",
+          "source_sha256": "755097b9b265860f76a393268793262a5daa9e5719c1b1a917fdccab7b9511c6",
+          "argv": [
+            "node",
+            "--max-old-space-size=640",
+            "check-record-control.js",
+            "view.html"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"p35_preparation_reader\":{\"cases\":10,\"state\":\"PASS\",\"scope\":\"TEST packets validate reader; real checkpoint requires authenticated persisted-source receipt\"}}\nP38 history storage: {\"state\":\"PASS\",\"cases\":17,\"history_events\":18,\"checkpoint_revisions\":20,\"logical_equality\":\"ALL_FIELDS_EXACT\",\"verified_checkpoints\":[\"CP01\",\"CP02\",\"CP03\",\"CP04\",\"CP05\",\"CP06\",\"CP07\"],\"compact_bytes\":8875535,\"pg\":\"NOT_RUN\"}\n{\"tests\":26,\"scope\":\"DESIGN_PROJECTION_ONLY\",\"counts\":{\"total\":34,\"written\":31,\"verified\":31,\"needsFix\":0,\"notRecorded\":3,\"dueMissing\":0,\"due\":31,\"deferred\":3},\"pg\":\"NOT_RUN\"}\n{\"tests\":59,\"regression\":\"QTTH05_WALK\",\"synthetic_full_walk\":7,\"live_application\":7,\"pg\":\"NOT_RUN\"}\n{\"trial_cases\":15,\"persisted_declarations\":31,\"checkpoints\":7,\"scope\":\"TRIAL_NOT_PG\"}\n{\"information_contract_cases\":44,\"actual_contract_rows\":66,\"actual_criteria\":11,\"synthetic_full_walk\":7,\"real_checkpoints\":7,\"server_write_hook\":\"NOT_PROBED_BY_THIS_SUITE\",\"pg\":\"NOT_RUN\"}\n{\"pr14_boundary_cases\":48,\"synthetic_trusted_context_only\":true,\"untrusted_self_attestation_blocked\":true,\"real_checkpoints\":7}\n{\"pr14_product_input_cases\":9,\"sha256_crosscheck_vectors\":4}\n{\"pr14_product_mapping_cases\":8,\"scope\":\"LOGICAL_PACKETS_NOT_BACKEND_EXECUTION\"}\n{\"pr15_product_boundaries\":{\"cases\":26,\"state\":\"PASS\"}}\n{\"pr15_persisted_design_and_recovery\":{\"cases\":15,\"state\":\"PASS\",\"read_plans\":[\"P02\",\"P03\"],\"effects\":1,\"real_endpoint_permissions\":\"NOT_PROVED\",\"mow001_progress\":\"TEST_DOES_NOT_ADVANCE_REAL_CHECKPOINTS\"}}\n{\"p36_server_evidence\":{\"cases\":20,\"state\":\"PASS\",\"future_output_before_start\":\"NOT_REQUIRED\",\"production_progress\":\"NOT_CHANGED_BY_TEST\",\"pg\":\"NOT_RUN\"}}\n{\"pr14_file_handoff\":{\"cases\":17,\"state\":\"PASS\",\"producer\":\"separate process; creates packet from declarations\",\"consumer\":\"separate process; opens persisted packet and uses scope/answers\",\"producer_sha256\":\"23272a191afc9a2d269bb73d529d7be14e72693d8c55734c5fc3ee6703d3efb5\",\"readback_sha256\":\"23272a191afc9a2d269bb73d529d7be14e72693d8c55734c5fc3ee6703d3efb5\",\"concurrent_effect_count\":1,\"environment\":\"ISOLATED_TEST_NOT_MOW001_COMPLETION\",\"real_endpoint_permissions\":\"NOT_PROVED\",\"pg\":\"NOT_RUN\"}}\n",
+          "stderr": "",
+          "elapsed_seconds": 319.455,
+          "timeout_seconds": 600
+        },
+        {
+          "id": "TQT-CHECK-005",
+          "case_set": "TQT-CASE-MASTER",
+          "source_sha256": "5723a0062405c152a0b68e26bf35f71839cc88c207033ecc57ab205809271100",
+          "argv": [
+            "node",
+            "--max-old-space-size=512",
+            "check-work-masters.js",
+            "view.html",
+            "/candidate-ui/process-work-master-v1.js",
+            "/candidate-ui/definition-master-registry-v1.js"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"masters\":18,\"planned_jobs\":2,\"negative_cases\":14,\"scope\":\"DESIGN_ONLY\",\"pg\":\"NOT_RUN\"}\ndossier: 7 checkpoints, 11 groups, 34 obligations; partial/foreign/unlinked/second job cases passed\ncoverage: 7 checkpoints + exception/operations; 8 new UI references resolved; 11 groups preserved\nCAT206 applied contracts visible; field meaning/version/case links preserved\nP30 merged-index guard: 48 inputs -> 47 Masters, one DOT/6 tools, duplicate cases rejected, real UI fails closed, old URL preserved\nP33 inventory/proof states, provider reuse, missing coverage and detail validated\nP33 stale tool source is not shown as current TEST proof\nP34: 12 invalid-approval/version/test mutations + revocation/retirement blocked; 6 existing Masters read their sources; two vendor columns last; no synthetic receipt saved\nP35: real work visible in existing Masters; removing checkpoint evidence clears progress\nP35 UI readback: real findings expose next action, owner and human-readable state\nP36: projection preserves observed results, reviewers and versions; no action-to-result inference; existing product criteria/results visible\nP37: question coverage/version/content, signed G1 file scope, actual closure and unopened successor visible; negative mutations rejected\nP37: all actual Owner decisions, receipts, history and changes projected to existing Masters; no fabricated cancellation\n",
+          "stderr": "",
+          "elapsed_seconds": 178.25,
+          "timeout_seconds": 300
+        }
+      ],
+      "pg": "NOT_RUN",
+      "production_ready": false,
+      "resource_admission": {
+        "state": "PASS",
+        "required_bytes": 1073741824,
+        "observed_limit_bytes": 1073741824
+      },
+      "master_identity_check": {
+        "state": "PASS",
+        "errors": [],
+        "input_rows": 47,
+        "unique_masters": 46,
+        "merged": [
+          {
+            "canonical_id": "ML-DEF-024",
+            "ids": [
+              "ML-DEF-024",
+              "CAT-006"
+            ]
+          }
+        ],
+        "scope": "Definition registry + QTTH work Masters; Config entry checked by live merged-index guard. Not a full PG/VPS inventory.",
+        "input_sha256": "a153d208c8470db1256be508e4f1f951d7b755d4cff61cde4b00cfd461af378a",
+        "self_test": {
+          "cases": 13,
+          "scale_rows": 10000,
+          "method": "indexed keys; no pairwise scan"
+        }
+      },
+      "prerequisite_errors": [],
+      "ui_inputs": {
+        "process-work-master-v1.js": "68ad4694b882cbd587840e4fd23201055c3d663688db582032347d02ae9d5a87",
+        "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
+        "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357",
+        "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c"
+      },
+      "ui_adapter_sha256": "68ad4694b882cbd587840e4fd23201055c3d663688db582032347d02ae9d5a87",
+      "runner_self_test": {
+        "cases": 20,
+        "store": "temporary TEST file in execution snapshot",
+        "write_read_restore": "PASS",
+        "production": "NOT_TOUCHED"
+      },
+      "usage_audit_self_test": {
+        "cases": 23,
+        "state": "PASS",
+        "scope": "TEST SQLite and prepared CAS patches; no production writes"
+      },
+      "status": "PASS"
+    },
+    "candidate_suite_ref": "/opt/incomex/staging/tqt-p36/p38/native-candidate.json",
+    "runtime_policy": "MOW001-G1-P36-2 unchanged",
+    "storage_encoding": {
+      "format": "TQT-HISTORY-POOL-1",
+      "source": "Same protected JSON file, application_D24.history_store",
+      "reader": "TQT-CHECK-004 / tqtExpandApplication",
+      "scope": "history.previous_evidence and checkpoint dependency strings only",
+      "rule": "Hash every block; reject missing/corrupt/orphan/unknown entries; fully expand before transition/audit. Preserve metadata, original history values, checkpoint revisions and approval/ACK.",
+      "write": "After mutation use tqtPackApplication; physical-only pack/expand must restore exactly; business changes still require previous evidence and revisions."
+    },
+    "ui_sha256": "68ad4694b882cbd587840e4fd23201055c3d663688db582032347d02ae9d5a87",
+    "jev": {
+      "id": "gen-dec-1791815985-KZuMh3EMy8oZ9mQFWN5B",
+      "model": "typesafe/jev-1.13-20260917",
+      "advice": "inline_pool",
+      "role": "Advice only, not approval or substitute for exact restoration tests"
+    },
+    "limits": [
+      "G1 stays accepted; no new product approval",
+      "No PG migration",
+      "Full suite has17additional history cases; no claim overall CPU time improved",
+      "Supervisor root-cause/T3/new-agent repetition from P37 remain open"
+    ],
+    "actual_product_write": {
+      "task_id": "bf70bd57f46246fbac6ef63aaf200f7d",
+      "commit": "2a342bce27a341766d45a9a363811dcac9e72a89",
+      "backup_id": "7eec524862274e6d9395a90d40e046a5",
+      "version": "c68c20ecfdfaaa01cefc13f474331e36b395a3212c3cb540595abe7302608dae",
+      "pushed": true,
+      "gate": "Existing authenticated upload_commit -> protected writer -> pinned full transition validator"
+    },
+    "ui_verification": {
+      "observed_at": "2026-10-12T15:22:56.864546+00:00",
+      "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001",
+      "result": "7/7 real milestones, checked disabled tick background rgb(22,128,60); screenshot green-ticks.png; untriggered cancel branch unchecked",
+      "source": "Actual CUA DOM, computed style, screenshot; no synthetic UI state",
+      "screenshot": "green-ticks.png"
+    }
   }
 }

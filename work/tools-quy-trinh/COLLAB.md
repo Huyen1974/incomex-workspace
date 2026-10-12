@@ -39,6 +39,15 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
+#### P38 · Hồ sơ nhẹ, giữ nguyên lịch sử
+
+Kho vật lý dùng `TQT-HISTORY-POOL-1` trong cùng tệp, không mở kho/Master khác. Mỗi khối lặp lưu một lần theo SHA256; CHECK004 kiểm hash và giải mã trước khi đối chiếu. Nội dung G1/18 sự kiện/20lần kiểm/7mốc không đổi. Biên nhận và tiến độ tại aggregate#host_review_P38.
+
+**Cho AI:** Tra Master DOT rồi dùng CHECK004 `--compact-history SOURCE` (dry-run); thêm `--execute --output CANDIDATE` chỉ tạo ứng viên mới. Kiểm `--check-history` và `--validate-transition BEFORE AFTER`; ghi qua upload/transaction có expected_version và cửa ghi hiện hành; đọc lại có chữ ký trước khi chốt. Khi cần bản JSON đầy đủ, dùng `--expand-history SOURCE --execute --output EXPANDED` ở vùng tạm; không nhân thành nguồn chuẩn. Sau sửa nghiệp vụ phải pack lại và vẫn tuân phiên/lịch sử cũ. Trước khi lùi runtime cũ phải expand qua cổng hiện hành, không tráo bộ đọc cũ vào dữ liệu mới. Bộ tổng kho nhẹ đã chạy trong1GiB; không tự tăng ngân sách.
+
+**Cho người dùng:** ô xong có tích xanh, ô chưa xong màu xám; tự tổng hợp từ bằng chứng, không tích tay. Lịch sử vẫn là các sự kiện cũ trong Master lịch sử.
+
+
 **Owner 12/10/2026 · P38, nguyên văn:** “Bạn tiếp tục làm nhẹ hồ sơ mà không mất lịch sử,, các tich xong rồi nên dùng tich xanh để con người dễ nhận biết”. Phạm vi: định dạng lưu vật lý có khôi phục chính xác, nâng bộ đọc/cửa ghi hiện hữu; không đổi nội dung G1, lịch sử, quyết định/ACK hay PG. Nguồn UI: process-work-master-v1.html → process-work-master-v1.js; dữ liệu: tools-quy-trinh/view.html → application_preview từ MOW001. Bậc3: ghép JSON +SHA256 có sẵn trong engine, không thêm dịch vụ/kho ngoài; CHECK004 giữ pack/expand/verify dùng lại.
 
 **Owner 12/10/2026 · P36, nguyên văn:** “Bạn tiếp tục sửa điểm tắc ở mốc 3, nối bằng chứng quyền ghi–đọc từ máy chủ rồi đi tiếp MOW001 thật đến cuối nhé. Vẫn ngoài PG, không lấy TEST thay việc thật và cập nhật các Master liên quan.”

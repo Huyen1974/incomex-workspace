@@ -1,5 +1,14 @@
 # tools-quy-trinh · Cửa vào
 
+## P38 · Hồ sơ nhẹ, giữ nguyên lịch sử
+
+Kho vật lý dùng `TQT-HISTORY-POOL-1` trong cùng tệp, không mở kho/Master khác. Mỗi khối lặp lưu một lần theo SHA256; CHECK004 kiểm hash và giải mã trước khi đối chiếu. Nội dung G1/18 sự kiện/20lần kiểm/7mốc không đổi. Biên nhận và tiến độ tại aggregate#host_review_P38.
+
+**Cho AI:** Tra Master DOT rồi dùng CHECK004 `--compact-history SOURCE` (dry-run); thêm `--execute --output CANDIDATE` chỉ tạo ứng viên mới. Kiểm `--check-history` và `--validate-transition BEFORE AFTER`; ghi qua upload/transaction có expected_version và cửa ghi hiện hành; đọc lại có chữ ký trước khi chốt. Khi cần bản JSON đầy đủ, dùng `--expand-history SOURCE --execute --output EXPANDED` ở vùng tạm; không nhân thành nguồn chuẩn. Sau sửa nghiệp vụ phải pack lại và vẫn tuân phiên/lịch sử cũ. Trước khi lùi runtime cũ phải expand qua cổng hiện hành, không tráo bộ đọc cũ vào dữ liệu mới. Bộ tổng kho nhẹ đã chạy trong1GiB; không tự tăng ngân sách.
+
+**Cho người dùng:** ô xong có tích xanh, ô chưa xong màu xám; tự tổng hợp từ bằng chứng, không tích tay. Lịch sử vẫn là các sự kiện cũ trong Master lịch sử.
+
+
 ## P37 · Một vòng MOW001 G1 đã duyệt và nhận
 
 **Kiểm cuối P37:** bộ tổng VPS PASS, job `43e4948f9c5c4c27b7b868b47483bcd3`; giữ đầy đủ lịch sử, nguồn sản phẩm `908f9c7f`. Đã kiểm hồ sơ 7/7, 50 câu trả lời và phép chiếu Master. Biên nhận/các lượt lỗi/phục hồi ở aggregate#host_review_P37. Đã trả cả hai nguồn cấu hình tài nguyên về đúng bản gốc; biên nhận tại resource_restoration. Lần kiểm đầy đủ sau cần ngân sách2GiB khai trong DOT; mặc định1GiB sẽ dừng trước kiểm.

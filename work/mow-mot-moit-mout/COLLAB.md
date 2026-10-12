@@ -216,6 +216,15 @@ Kiểm từng phần (D36; tiêu chí thực hành Codex bổ sung): chốt đ�
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
+#### P38 · Hồ sơ nhẹ, giữ nguyên lịch sử
+
+Kho vật lý dùng `TQT-HISTORY-POOL-1` trong cùng tệp, không mở kho/Master khác. Mỗi khối lặp lưu một lần theo SHA256; CHECK004 kiểm hash và giải mã trước khi đối chiếu. Nội dung G1/18 sự kiện/20lần kiểm/7mốc không đổi. Biên nhận và tiến độ tại aggregate#host_review_P38.
+
+**Cho AI:** Tra Master DOT rồi dùng CHECK004 `--compact-history SOURCE` (dry-run); thêm `--execute --output CANDIDATE` chỉ tạo ứng viên mới. Kiểm `--check-history` và `--validate-transition BEFORE AFTER`; ghi qua upload/transaction có expected_version và cửa ghi hiện hành; đọc lại có chữ ký trước khi chốt. Khi cần bản JSON đầy đủ, dùng `--expand-history SOURCE --execute --output EXPANDED` ở vùng tạm; không nhân thành nguồn chuẩn. Sau sửa nghiệp vụ phải pack lại và vẫn tuân phiên/lịch sử cũ. Trước khi lùi runtime cũ phải expand qua cổng hiện hành, không tráo bộ đọc cũ vào dữ liệu mới. Bộ tổng kho nhẹ đã chạy trong1GiB; không tự tăng ngân sách.
+
+**Cho người dùng:** ô xong có tích xanh, ô chưa xong màu xám; tự tổng hợp từ bằng chứng, không tích tay. Lịch sử vẫn là các sự kiện cũ trong Master lịch sử.
+
+
 **OWNER/KQ 2026-10-06 22:09 +07 · CONFIG PRINCIPLES · DONE:** Ghi đủ7 câu hỏi Config (bắt đầu/kết thúc/NTĐK/NTTG/NTGV/báo cáo/chuyển tiếp), nguyên tắc nếu-thì khai một lần, và mục nguyên tắc bản ghi cần định nghĩa. Một SSOT CONFIG_PRINCIPLES tại config-master-data-v1.js cho chi tiết CT-007 + drawer Master Config; trang công thức dẫn tới chi tiết. Tách điều kiện khỏi trigger, giữ công thức và record demo. UI transactions 04677cc20f4c46cba2a51df4a376e82b / c0778887e6584189a03d337c84488eb7. Live CT-007 HTTP200/console0, đủ7 câu và ghi chú bản ghi. Đây là tài liệu thiết kế; runtime/ưu tiên rule/chi tiết nguyên tắc bản ghi chưa triển khai.
 
 **KQ D158 MOW-SYNC · PASS:** Master Quy trình có35 dòng CH-001 từ35 Nhóm cha, đủ7 bước mỗi nhánh Field/MOIT/MOUT/MOT/MOW; unique ID và coverageKey35. Reuse CT005-B5-T0-001 / FIELD.KHAI cho NHC-005, giữ metadata seed; legacy7 vẫn ở ?legacy=1/link chi-tiet cũ. Tên/Bước/Tầng/Nhóm cha dẫn xuất SSOT; không sinh tích chéo. UI transaction b48ae71f199b4e088b57b8406424ca81. Node VM kiểm coverage/chain/ID/reuse/name propagation PASS; live URL Master mở đúng ML-DEF-004; index Total35 PASS. Task/MOIT/MOUT115 giữ nguyên. Google Font CSP là cảnh báo cũ, không chặn dữ liệu. UPDATE data/schema/adapter/route/Total/docs xong; N/A backend/canonical runtime. NEXT: hoàn thiện mục tiêu/config của từng quy trình.
