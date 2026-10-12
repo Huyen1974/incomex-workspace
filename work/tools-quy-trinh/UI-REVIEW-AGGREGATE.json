@@ -77206,5 +77206,420 @@
         }
       ]
     }
+  },
+  "host_review_P37": {
+    "at": "2026-10-12T12:35:18.394261+00:00",
+    "scope": "Chỉ G1 thiết kế UI ba MOT 1.1/1.2/1.3 đến nghiệm thu thiết kế",
+    "state": "FINAL_RECEIPTS_PENDING",
+    "source_product_sha256": "908f9c7fbf3eb664ffd88249a1c9d277f90a7d3022e8c01c246af10f3fefd35b",
+    "owner_decision_ref": "MOW-NHC-001-G1-20261010-01-OWNER-G1-P37",
+    "owner_ack_ref": "MOW-NHC-001-G1-20261010-01-OWNER-ACK-P37",
+    "closure": {
+      "transition": {
+        "state": "PASS",
+        "errors": [],
+        "scope": "BEFORE_AFTER_TRIAL_NOT_SERVER_ENFORCEMENT"
+      },
+      "checkpoints": [
+        "CP01",
+        "CP02",
+        "CP03",
+        "CP04",
+        "CP05",
+        "CP06",
+        "CP07"
+      ],
+      "counts": {
+        "total": 34,
+        "written": 31,
+        "verified": 31,
+        "needsFix": 0,
+        "notRecorded": 3,
+        "dueMissing": 0,
+        "due": 31,
+        "deferred": 3
+      },
+      "canFinish": true,
+      "state": "DA_BAN_GIAO",
+      "scope": "Chỉ G1 thiết kế UI ba MOT 1.1/1.2/1.3 đến nghiệm thu thiết kế",
+      "pg": "NOT_RUN",
+      "at": "2026-10-12T12:25:54.048Z"
+    },
+    "questions": {
+      "required": 50,
+      "answered": 50,
+      "source_ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24/preparation_review",
+      "projection": "resolved_questions generated from exact source_version"
+    },
+    "master_coverage": [
+      {
+        "master_code": "CAT-003?",
+        "name": "Danh mục MOW quy trình",
+        "requirements": [
+          "MOW"
+        ],
+        "recorded": [
+          "MOW"
+        ],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "ACTUAL_G1_FILE"
+      },
+      {
+        "master_code": "CAT-009?",
+        "name": "Danh mục MOT công việc",
+        "requirements": [
+          "MOT-1.1",
+          "MOT-1.2",
+          "MOT-1.3"
+        ],
+        "recorded": [
+          "MOT-1.1",
+          "MOT-1.2",
+          "MOT-1.3"
+        ],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "ACTUAL_G1_FILE"
+      },
+      {
+        "master_code": "CAT-012",
+        "name": "Danh mục bộ kiểm + ca thử",
+        "requirements": [],
+        "recorded": [],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "CONTRACT_REFERENCE_OR_SUPPLEMENTAL; no PG claim"
+      },
+      {
+        "master_code": "CAT-015",
+        "name": "Sổ kết quả kiểm",
+        "requirements": [
+          "COVERAGE",
+          "TEST"
+        ],
+        "recorded": [
+          "COVERAGE",
+          "TEST"
+        ],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "ACTUAL_G1_FILE"
+      },
+      {
+        "master_code": "CAT-016",
+        "name": "Sổ nhật ký định nghĩa",
+        "requirements": [
+          "CHANGE"
+        ],
+        "recorded": [
+          "CHANGE"
+        ],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "ACTUAL_G1_FILE"
+      },
+      {
+        "master_code": "CAT-017",
+        "name": "Sổ sự cố hệ thống mở · xử lý · đóng",
+        "requirements": [],
+        "recorded": [],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "CONTRACT_REFERENCE_OR_SUPPLEMENTAL; no PG claim"
+      },
+      {
+        "master_code": "CAT-025",
+        "name": "Sổ phiếu duyệt ý · bản",
+        "requirements": [
+          "START",
+          "DECISION",
+          "NA"
+        ],
+        "recorded": [
+          "START",
+          "DECISION"
+        ],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "ACTUAL_G1_FILE"
+      },
+      {
+        "master_code": "CAT-069?",
+        "name": "Sổ nhu cầu · góp ý 1 dòng",
+        "requirements": [
+          "ISSUE"
+        ],
+        "recorded": [
+          "ISSUE"
+        ],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "ACTUAL_G1_FILE"
+      },
+      {
+        "master_code": "CAT-081",
+        "name": "Sổ vòng đời bật · ngừng",
+        "requirements": [],
+        "recorded": [],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "CONTRACT_REFERENCE_OR_SUPPLEMENTAL; no PG claim"
+      },
+      {
+        "master_code": "CAT-206*",
+        "name": "Danh mục hợp đồng vào/ra loại bản ghi · lấy từ đâu · tạo / cập nhật · 0/1/n",
+        "requirements": [],
+        "recorded": [],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "CONTRACT_REFERENCE_OR_SUPPLEMENTAL; no PG claim"
+      },
+      {
+        "master_code": "CAT-226*",
+        "name": "Sổ áp dụng · bật nơi · lúc",
+        "requirements": [],
+        "recorded": [],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "CONTRACT_REFERENCE_OR_SUPPLEMENTAL; no PG claim"
+      },
+      {
+        "master_code": "CAT-227*",
+        "name": "MASTER TIẾN TRÌNH CÔNG VIỆC",
+        "requirements": [
+          "FIELD-identity",
+          "FIELD-connections_in",
+          "FIELD-connections_out",
+          "FIELD-prerequisites",
+          "FIELD-execution_conditions",
+          "FIELD-plan",
+          "FIELD-records",
+          "FIELD-issues",
+          "FIELD-roles",
+          "FIELD-acceptance",
+          "FIELD-approval",
+          "FIELD-questions",
+          "FIELD-lifecycle"
+        ],
+        "recorded": [
+          "FIELD-identity",
+          "FIELD-connections_in",
+          "FIELD-connections_out",
+          "FIELD-prerequisites",
+          "FIELD-execution_conditions",
+          "FIELD-plan",
+          "FIELD-records",
+          "FIELD-issues",
+          "FIELD-roles",
+          "FIELD-acceptance",
+          "FIELD-approval",
+          "FIELD-questions",
+          "FIELD-lifecycle"
+        ],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "ACTUAL_G1_FILE"
+      },
+      {
+        "master_code": "CAT-228*",
+        "name": "Sổ việc thật MOT · bản ghi · người",
+        "requirements": [
+          "PLAN",
+          "RESULT-P01",
+          "RESULT-P02",
+          "RESULT-P03",
+          "RESULT-P04",
+          "RESULT-P05",
+          "BLOCKED"
+        ],
+        "recorded": [
+          "PLAN",
+          "RESULT-P01",
+          "RESULT-P02",
+          "RESULT-P03",
+          "RESULT-P04",
+          "RESULT-P05"
+        ],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "ACTUAL_G1_FILE"
+      },
+      {
+        "master_code": "CAT-229*",
+        "name": "Sổ lần thử",
+        "requirements": [],
+        "recorded": [],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "CONTRACT_REFERENCE_OR_SUPPLEMENTAL; no PG claim"
+      },
+      {
+        "master_code": "CAT-232*",
+        "name": "Sổ bàn giao",
+        "requirements": [
+          "ACK"
+        ],
+        "recorded": [
+          "ACK"
+        ],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "ACTUAL_G1_FILE"
+      },
+      {
+        "master_code": "CAT-233*",
+        "name": "Sổ sự kiện bản ghi · chống trùng",
+        "requirements": [
+          "HISTORY"
+        ],
+        "recorded": [
+          "HISTORY"
+        ],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "ACTUAL_G1_FILE"
+      },
+      {
+        "master_code": "CAT-238*",
+        "name": "Sổ lệnh · lần gửi khoá chống trùng · kết quả",
+        "requirements": [],
+        "recorded": [],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "CONTRACT_REFERENCE_OR_SUPPLEMENTAL; no PG claim"
+      },
+      {
+        "master_code": "CAT-239*",
+        "name": "Sổ tệp",
+        "requirements": [],
+        "recorded": [],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "CONTRACT_REFERENCE_OR_SUPPLEMENTAL; no PG claim"
+      },
+      {
+        "master_code": "CAT-244*",
+        "name": "Sổ huỷ · việc bù",
+        "requirements": [
+          "CANCELLED"
+        ],
+        "recorded": [],
+        "source": "catalog.application_preview.record + existing definitions; no second manual ledger",
+        "status": "ACTUAL_G1_FILE"
+      }
+    ],
+    "findings": [
+      {
+        "id": "TQT-P37-F01",
+        "problem": "Bảng điều khiển còn PENDING_RECHECK dù P36 đã có native PASS.",
+        "state": "FIXED",
+        "next_action": "Cập nhật bảng hiện hành cùng biên nhận; không chỉ nối ghi chú cuối file.",
+        "owner": "Codex Host",
+        "affected_applications": [
+          "MOW-NHC-001-G1-20261010-01"
+        ],
+        "blocks_G1": false,
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37"
+      },
+      {
+        "id": "TQT-P37-F02",
+        "problem": "Có dữ liệu nhưng Master quyết định/nhận/lịch sử chưa chiếu ra; VIEC002 dễ nhầm MOW001.",
+        "state": "OPEN",
+        "next_action": "Triển khai adapter, kiểm từng Master và50câu hỏi; CHECK005 chặn mất phép chiếu.",
+        "owner": "Codex Host",
+        "affected_applications": [
+          "MOW-NHC-001-G1-20261010-01"
+        ],
+        "blocks_G1": false,
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37"
+      },
+      {
+        "id": "TQT-P37-F03",
+        "problem": "Ghi thật bị bad_alloc tại1.5GiB; rollback không hoàn tất, che lỗi gốc.",
+        "state": "OPEN",
+        "next_action": "Khép G1 bằng2.5GiB từng lượt rồi trả cấu hình; trước nhân rộng giảm lặp bằng chứng và sửa chẩn đoán/hoàn tác. Không bỏ gate.",
+        "owner": "Codex Host",
+        "affected_applications": [
+          "MOW-NHC-001-G1-20261010-01"
+        ],
+        "blocks_G1": false,
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37"
+      },
+      {
+        "id": "TQT-P37-F04",
+        "problem": "Chưa xác minh mã chuyên môn cha T3; không suy mã từ CTCM.",
+        "state": "OPEN",
+        "next_action": "Đối chiếu Master chuyên môn trước khi gắn mã/nhân rộng; G1 hiện có phạm vi rõ.",
+        "owner": "Codex Host",
+        "affected_applications": [
+          "MOW-NHC-001-G1-20261010-01"
+        ],
+        "blocks_G1": false,
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37"
+      },
+      {
+        "id": "TQT-P37-F05",
+        "problem": "Một vòng G1 không chứng minh AI mới tự lặp toàn đường hoặc PG migration đạt.",
+        "state": "OPEN",
+        "next_action": "Dùng hướng dẫn này cho vòng khác khi được mở; PG LOGICAL_DESIGN_ONLY, chưa tự mở MOW002.",
+        "owner": "Codex Host",
+        "affected_applications": [
+          "MOW-NHC-001-G1-20261010-01"
+        ],
+        "blocks_G1": false,
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37"
+      }
+    ],
+    "write_recovery": {
+      "failed_task": "b697c92732834f878b3c39d811060a23",
+      "failed_transaction": "67b22f90f9454409aced9f4364087290",
+      "recovery": "Exact failed after-image preserved; backup restored under root lock; no committed history lost",
+      "successful_owner_task": "1d1e69e4d41c42cbbeff473f44f885b4",
+      "successful_owner_commit": "b9917118c981b65f8c950a4fdb38423ff1a9d405",
+      "readback_task": "456ea8c9c1e54522946fb401a210e985",
+      "diagnostics": {
+        "gate-diagnostic.json": {
+          "seconds": 9.453589409589767,
+          "returncode": 0,
+          "stdout": "{\"state\":\"PASS\",\"errors\":[],\"verified_checkpoints\":[\"CP01\",\"CP02\",\"CP03\",\"CP04\",\"CP05\"]}\n",
+          "stderr_tail": ""
+        },
+        "gate-bounded-diagnostic.json": {
+          "seconds": 9.38842423260212,
+          "returncode": -6,
+          "stdout": "",
+          "stderr_tail": "terminate called after throwing an instance of 'std::bad_alloc'\n  what():  std::bad_alloc\n"
+        },
+        "gate-heap-diagnostic.json": {
+          "seconds": 4.670316766947508,
+          "returncode": -6,
+          "stdout": "",
+          "stderr_tail": "terminate called after throwing an instance of 'std::bad_alloc'\n  what():  std::bad_alloc\n"
+        },
+        "gate-2500-diagnostic.json": {
+          "seconds": 7.258840162307024,
+          "returncode": 0,
+          "stdout": "{\"state\":\"PASS\",\"errors\":[],\"verified_checkpoints\":[\"CP01\",\"CP02\",\"CP03\",\"CP04\",\"CP05\"]}\n",
+          "stderr_tail": ""
+        }
+      },
+      "config_guard_mutation": "P37-MOW001-BOUNDED-20261012",
+      "budget": "Temporary2.5GiB,serial; restore after final writes",
+      "no_gate_or_acl_change": true
+    },
+    "dossier": {
+      "actual_work": "TQT-VIEC-001",
+      "unopened_successor": "TQT-VIEC-002",
+      "adapter_sha256": "eaa1d583ba111b7bbb7a94b682ce6cfb1bcb99e1b4751eb5443c598fa5a47ddc",
+      "ui_check": "PENDING_LIVE_READBACK"
+    },
+    "supervision": {
+      "source": "Owner supplied P36 review2026-10-12",
+      "reported_jobs": [
+        "e1f4d3cf227c4dcb96fa14d2db2accc6",
+        "6854a4450d65466dad622e1b02493a3d",
+        "6c23acfa4b8549d793d42e02494bb3c1",
+        "85ac80d070534ef4b787736b90885d17"
+      ],
+      "verification": "Attributed report, not a fabricated Host rerun"
+    },
+    "limits": [
+      "G1 accepted by Owner; G2 live source/evaluator/business consumer not accepted",
+      "Outside PG; logical schema mapping only",
+      "3conditional obligations not triggered;31applicable/34catalogued",
+      "311discovered DOT/scripts are not all tested",
+      "New-agent full real repetition not demonstrated",
+      "Claude not signed; not blocker per Owner"
+    ],
+    "product_write": {
+      "task_id": "0a72d0f4bb5342749a88059e9c148bdd",
+      "transaction_id": "c5d3f42cbaf4402aa1b5abf59a8013a5",
+      "commit": "8ac40578c3bccf9b4b43f6af1e7c5ac0fa91210b",
+      "sha256": "908f9c7fbf3eb664ffd88249a1c9d277f90a7d3022e8c01c246af10f3fefd35b",
+      "state": "COMMITTED"
+    }
   }
 }

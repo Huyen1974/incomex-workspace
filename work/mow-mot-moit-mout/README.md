@@ -1,5 +1,32 @@
 # README · MMIM · START HERE
 
+## P37 · Một vòng MOW001 G1 đã duyệt và nhận
+
+Hồ sơ đúng việc: [TQT-VIEC-001 · MOW001](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001). TQT-VIEC-002 là MOW002 mới ghi danh, chưa mở hồ sơ; không điền dữ liệu MOW001 sang đó.
+
+Owner đã duyệt và xác nhận nhận G1 trực tiếp ngày 12/10/2026. Hồ sơ qua cửa ghi: **7/7 mốc, 31/31 nghĩa vụ phát sinh đã đối chiếu; 3 nhánh điều kiện không phát sinh**. Commit 8ac40578c3bccf9b4b43f6af1e7c5ac0fa91210b; task0a72d0f4bb5342749a88059e9c148bdd; hash908f9c7fbf3eb664ffd88249a1c9d277f90a7d3022e8c01c246af10f3fefd35b. Biên nhận kiểm và giao diện cuối nằm tại UI-REVIEW-AGGREGATE.json#host_review_P37. G1 là thiết kế; G2/PG chưa được nghiệm thu.
+
+### Thực hiện và ghi theo một nguồn
+
+1. Mở DEF00.1, chọn đúng mã việc → hồ sơ/phạm vi/phiên. Chưa có application_id thì khai hồ sơ trước; không lấy hồ sơ tiền nhiệm làm của việc mới.
+2. Đọc **50 câu hỏi–đáp án và 13 khai báo**. CHECK004 --read-preparation FILE kiểm số câu, nội dung, nguồn và phiên; thiếu phải ghi thiếu rồi giải quyết. Hồ sơ nguồn là UI-REVIEW-MOW001.json#/application_D24; câu trả lời kế thừa giữ answer_ref, trang Master chiếu ra, không nhập lại.
+3. Tra [Master DOT](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=24) và [Master Tool](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=23): đọc trạng thái, phiên/hash, phạm vi, cách chạy và bằng chứng trước khi dùng lại. Thiếu mới đề xuất công cụ. Lệnh tạm gắn lượt dùng, ca TEST gắn bộ hiện có; không tạo một DOT cho mỗi lệnh.
+4. Mốc 1–3: đúng MOW/MOT → câu hỏi/khai báo → hợp đồng CAT206, kế hoạch CAT228 → quyền kho tệp bằng biên nhận máy chủ đúng nguồn/hash. Quyền này không thay quyền toàn Master/PG.
+5. Mốc 4–5: P02/P03 ghi thiết kế → P04 tự mở đúng bản/hash bằng CHECK004 --read-designs FILE, đối chiếu 11 tiêu chí và UI thật. Ghi CAT015 kết quả/người kiểm, CAT229 lượt làm, CAT069 sai/thiếu, CAT016 thay đổi, CAT233 lịch sử.
+6. Mốc 6–7: lời duyệt/nhận thật đúng người → CAT025 quyết định, CAT228 kết quả P05, CAT232 nhận → ghi qua cửa máy chủ → đọc lại đúng hash → kiểm tuần tự 6 rồi 7. Không lấy TEST, ACK iframe hoặc chữ ký kỹ thuật thay Owner.
+7. **Kiểm đủ nơi ghi:** DEF00.1 tiến độ; CAT012 tiêu chí; CAT015 kết quả; CAT016 thay đổi; CAT025 quyết định; CAT069 vấn đề; CAT228 kế hoạch/kết quả; CAT229 lượt làm; CAT232 giao nhận; CAT233 lịch sử; CAT206 hợp đồng; CAT244 chỉ khi hủy. Mã MOW/MOT và nguồn/đích khác giữ Master gốc. Danh sách 19 Master liên quan, 34 nghĩa vụ và nơi lưu được tổng hợp tại aggregateP37/master_coverage và chính hồ sơ, không nhập bảng độc lập.
+8. CHECK005 kiểm đủ câu trả lời/đúng phiên, quyết định/nhận/lịch sử hiện ra ở đúng Master và không nhầm việc chưa mở. CHECK006 chạy tổng/kiểm hash/danh mục khi đổi mã. Đọc lại UI đúng revision và hash tài liệu đã xuất, không chỉ HTTP200. Cập nhật ngay bảng điều khiển cùng biên nhận.
+
+### Dùng lại trước, khôi phục có bằng chứng
+
+CHECK001/002: mô hình/mã/quan hệ. CHECK003/004: hợp đồng/mốc/ghi–đọc. CHECK005: Master/hồ sơ/UI. CHECK006: chạy tổng, kiểm nguồn và kiểm kê. Với mỗi lượt giữ mã việc, công cụ/nhà cung cấp, phiên/hash, thời điểm, mã chạy, kết quả và nguồn bằng chứng. Công cụ ngoài VPS cần biên nhận nền tảng; gateway không tự nhìn thấy. Có hàng trăm tệp tìm thấy không đồng nghĩa hàng trăm công cụ đã kiểm chạy.
+
+Ghi lâu dùng workspace_task_start, expected_version và operation_id. Mất trả lời không suy đã ghi: kiểm task/hash/log trước khi gửi lại. Gặp ROLLBACK_CONFLICT: dừng ghi, kiểm manifest/HEAD/before–after; chỉ phục hồi đúng byte của chính giao dịch dưới khóa, giữ bản lỗi và dấu vết. P37 tái lập bad_alloc ở vùng nhớ1.5GiB, PASS2.5GiB; tạm chạy nối tiếp qua Config Guard, phải trả cấu hình sau ghi. Đây là biện pháp khép G1, chưa phải lời giải nhân rộng. Không bỏ chốt kiểm hoặc xóa lịch sử cho vừa tài nguyên.
+
+**Còn mở:** G2, PG; chuyên môn cha T3 chưa xác minh; AI mới tự lặp một vòng việc thật; tối ưu lịch sử và cải thiện chẩn đoán/hoàn tác khi thiếu tài nguyên. Theo các issue hiện hữu và TQT-P37-F03/F04/F05. Hai chữ ký GPT/Claude vẫn gắn người/phạm vi/phiên; chưa có Claude ghi chưa duyệt, không chặn theo Owner.
+
+## Lịch sử trước P37 — không phải trạng thái hiện hành
+
 ## P36 · MOW001/G1 · 12/10/2026
 
 P02/P03 thật đã được ghi và P04 tự mở đúng hash; 11 tiêu chí G1 được Reviewer `/root/review_mow001` chấp nhận kỹ thuật (`e1e753`, `2026-10-12T08:59:31Z`). P04 commit `db0de657082d8f68cd5a03c207785fd4c8e02bbc`, nguồn `88460eee2688ebd8ce4f2c11d94f17887049322c7e44c20e0f2fd463b3b82422`; máy chủ R2 ký biên nhận đọc task `114c0cf2341341c2b7b764a7f737273b`. Có 16 quan sát giao diện đã triển khai, 24 ca model bổ trợ; minh hoạ không thay nguồn nghiệp vụ thật.

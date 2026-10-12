@@ -1,5 +1,8 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
-const html=fs.readFileSync(process.argv[2]||__dirname+'/view.html','utf8'),r=JSON.parse(html.match(/<script id="tqt-composite-processes"[^>]*>([\s\S]*?)<\/script>/)[1]).catalog;
+let html=fs.readFileSync(process.argv[2]||__dirname+'/view.html','utf8');
+const r=JSON.parse(html.match(/<script id="tqt-composite-processes"[^>]*>([\s\S]*?)<\/script>/)[1]).catalog;
+const engineCode=Buffer.from(html.match(/<script id="tqt-record-control"[^>]*>([\s\S]*?)<\/script>/)[1]).toString();
+html=null;/release/.test('release'); // Release large HTML/RegExp input; all real records/history remain intact.
 // Fixture mutations never edit execution-history entries. Share their full read-only
 // source instead of repeatedly serializing historical evidence; current records and
 // checkpoint entries are read-only; replacing an array stays local to the fixture.
@@ -39,7 +42,7 @@ if(adapter){const A=globalThis.TQT_WORK_MASTER;r.source_url='https://example.tes
 console.log(JSON.stringify({masters:r.work_master_designs.records.length,planned_jobs:r.work_schedule.records.length,negative_cases:rejected,scope:'DESIGN_ONLY',pg:'NOT_RUN'}));
 
 if(adapter){
- vm.runInThisContext(html.match(/<script id="tqt-record-control"[^>]*>([\s\S]*?)<\/script>/)[1]);
+ vm.runInThisContext(engineCode);
  const A=globalThis.TQT_WORK_MASTER,copy=cloneFixture,d=A.dossier(r,r.work_schedule.records[0]);
  assert.equal(d.checkpoints.length,7);assert.equal(d.groups.length,11);assert.equal(d.groups.reduce((n,g)=>n+g.rows.length,0),34);
  assert.equal(d.checkpoints.filter(x=>x.current)[0].id,d.a.current_checkpoint);assert.equal(d.checkpoints.filter(x=>x.done).length,d.audit.verifiedCheckpoints.length);assert.equal(d.done,d.groups.filter(x=>x.done).length);
@@ -112,7 +115,7 @@ if(adapter){
  const known=new Set([...A.toolRows(r),...A.providerRows(r)].map(x=>x.record_id));const memory=r.tool_registry.memory;assert.equal(new Set(memory.map(x=>x.tool_id)).size,memory.length);assert(memory.every(x=>known.has(x.tool_id)||/^TOOL-CTCM-00[1-9]$/.test(x.tool_id)));
  for(const col of A.sharedToolColumns(r))assert(col.help&&col.label);assert.deepEqual(A.sharedToolColumns(r).slice(-2).map(x=>x.key),['gpt_review','claude_review']);assert.deepEqual(A.definition(r,'CAT-006').layout.order.slice(-2),['gpt_review','claude_review']);
  for(const vendor of ['OpenAI','Anthropic'])assert(A.providerRows(r).every(x=>x.lifecycle_code!=='USABLE')); // capability name is not a pinned runtime test.
- assert.equal(A.relatedRows(r,'CAT-015').length,r.tool_registry.audit_projection.last_checks.length+(r.application_preview.record.execution_walk?.steps.length||0)+(r.application_preview.record.test_cases?.length||0));assert.equal(A.relatedRows(r,'CAT-025').length,r.tool_registry.reviews.length);assert.equal(A.relatedRows(r,'CAT-016').length,r.tool_registry.changes.length);assert.equal(A.relatedRows(r,'CAT-229*')[0].state,r.tool_registry.walkthrough.finished_at?'Đã trả kết quả':'Đang làm');assert.equal(A.relatedRows(r,'CAT-069?').length,(r.tool_registry.walkthrough?.findings.length||0)+(r.application_preview.record.execution_walk?.findings.length||0));
+ assert.equal(A.relatedRows(r,'CAT-015').length,r.tool_registry.audit_projection.last_checks.length+(r.application_preview.record.execution_walk?.steps.length||0)+(r.application_preview.record.test_cases?.length||0));assert.equal(A.relatedRows(r,'CAT-025').length,r.tool_registry.reviews.length+(r.application_preview.record.decisions||[]).length+(r.application_preview.record.start_confirmation?.state==='CONFIRMED'?1:0));assert.equal(A.relatedRows(r,'CAT-016').length,r.tool_registry.changes.length+r.application_preview.record.trial_records.filter(x=>x.requirement_code==='CHANGE').length);assert.equal(A.relatedRows(r,'CAT-229*')[0].state,r.tool_registry.walkthrough.finished_at?'Đã trả kết quả':'Đang làm');assert.equal(A.relatedRows(r,'CAT-069?').length,(r.tool_registry.walkthrough?.findings.length||0)+(r.application_preview.record.execution_walk?.findings.length||0));
  for(const code of ['CAT-012','CAT-015','CAT-016','CAT-025','CAT-229*','CAT-069?']){const cfg=A.configure({}, {tqt:r,masterCode:code,sample:false});assert.equal(cfg.recordCountLabel,String(A.relatedRows(r,code).length));}
  const definitions=A.relatedRows(r,'CAT-012'),results=A.relatedRows(r,'CAT-015');assert.equal(new Set(definitions.map(x=>x.record_id)).size,definitions.length);for(const result of results)assert(definitions.some(x=>x.case_code===result.case_code&&x.suite_code===result.suite_code),'RESULT_CASE_NOT_REGISTERED');for(const entry of definitions.filter(x=>x.record_kind==='CASE'))assert(r.tool_registry.records.some(x=>x.case_set===entry.suite_code),'CASE_SUITE_NOT_REGISTERED');
  const sigs=r.tool_registry.reviews;assert.equal(new Set(sigs.map(x=>x.review_id)).size,sigs.length);for(const x of sigs){assert(known.has(x.target_code));assert(['OpenAI','Anthropic'].includes(x.vendor));assert(x.evidence_ref&&x.authority_ref&&x.scope&&x.binding);assert(!x.evidence_ref.startsWith('TEST:'));}
@@ -146,3 +149,24 @@ if(adapter){
 }
 
 assert.equal(historyFingerprint(r.application_preview.record),sourceHistoryFingerprint,'FIXTURE_MUTATED_SOURCE_HISTORY');
+
+// P37: the dossier itself must expose answers and distinguish an unopened next job.
+if(adapter&&r.application_preview.resolved_questions){
+ const A=globalThis.TQT_WORK_MASTER,a=r.application_preview.record,projection=r.application_preview;
+ function verifyQuestions(p){const qs=p.resolved_questions,ids=a.preparation_review.answers.map(x=>x.question_id);assert.equal(p.question_source_version,p.source_version,'QUESTION_SOURCE_VERSION');assert.equal(qs.length,ids.length,'QUESTION_COVERAGE');assert.equal(new Set(qs.map(x=>x.question_id)).size,ids.length,'QUESTION_DUPLICATE');for(const id of ids){const x=qs.find(x=>x.question_id===id);assert(x&&x.question?.trim()&&x.answer?.trim()&&x.source_ref&&x.scope,'QUESTION_CONTENT:'+id);}}
+ verifyQuestions(projection);assert.throws(()=>verifyQuestions({...projection,question_source_version:'OLD'}));assert.throws(()=>verifyQuestions({...projection,resolved_questions:projection.resolved_questions.slice(1)}));assert.throws(()=>verifyQuestions({...projection,resolved_questions:projection.resolved_questions.map((x,i)=>i?x:{...x,answer:''})}));
+ const s=a.server_receipt,policy=r.server_trust_policy,crypto=require('crypto');assert(s&&s.key_id===policy.policy_id);const key=crypto.createPublicKey({key:Buffer.concat([Buffer.from('302a300506032b6570032100','hex'),Buffer.from(policy.public_key_base64,'base64')]),format:'der',type:'spki'});assert(crypto.verify(null,Buffer.from(s.payload),key,Buffer.from(s.signature,'base64')),'SERVER_SIGNATURE');tqtRegisterServerTrust(r,JSON.parse(s.payload));
+ const list=A.scheduleRows(r),own=A.dossierView(r,{metadata:list[0]}).html,waiting=A.dossierView(r,{metadata:list[1]}).html;
+ assert(own.includes('câu hỏi và câu trả lời'));assert(own.includes('Kho tệp G1: đã kiểm quyền ghi–đọc'));assert(!own.includes('Chưa khai nguồn lưu'));assert(waiting.includes('chưa mở hồ sơ thực hiện'));assert(waiting.includes('chi-tiet=TQT-VIEC-001'));assert(!waiting.includes('Quyết định và xác nhận nhận G1'));
+ if(['XONG','DA_BAN_GIAO'].includes(a.state)){assert(tqtRecordAudit(r).canFinish,'CLOSED_WITHOUT_FINAL_GATE');assert(list[0].done,'COMPLETION_NOT_VISIBLE');assert(own.includes(a.decisions.find(x=>x.id===a.release.decision_ref).owner_quote),'OWNER_DECISION_NOT_VISIBLE');assert.equal(A.summary(list).done,1);assert.equal(A.summary(list).unfinished,1);}
+ console.log('P37: question coverage/version/content, signed G1 file scope, actual closure and unopened successor visible; negative mutations rejected');
+}
+if(adapter&&r.application_preview.resolved_questions){
+ const A=globalThis.TQT_WORK_MASTER,a=r.application_preview.record;
+ for(const x of a.decisions||[])assert(A.relatedRows(r,'CAT-025').some(y=>y.record_id===x.id&&y.application_id===a.application_id),'OWNER_DECISION_MISSING_FROM_MASTER');
+ for(const x of a.receipts||[])assert(A.relatedRows(r,'CAT-232*').some(y=>y.record_id===x.id&&y.recipient===x.recipient),'ACK_MISSING_FROM_MASTER');
+ assert.equal(A.relatedRows(r,'CAT-233*').filter(x=>x.application_id===a.application_id).length,a.history.length,'HISTORY_MISSING_FROM_MASTER');
+ assert(A.relatedRows(r,'CAT-016').some(x=>x.application_id===a.application_id),'CHANGE_MISSING_FROM_MASTER');
+ assert.equal(A.relatedRows(r,'CAT-244*').length,(a.branch_records||[]).filter(x=>x.kind==='CANCELLED').length,'CONDITIONAL_BRANCH_FABRICATED');
+ console.log('P37: all actual Owner decisions, receipts, history and changes projected to existing Masters; no fabricated cancellation');
+}

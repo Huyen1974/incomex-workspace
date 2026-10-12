@@ -8,17 +8,17 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · Astra Codex · P36
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · Astra Codex · P37
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
-- 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [□ ② MOW001 G1 thật: 5/7 mốc, 28/34 nghĩa vụ đã lưu; CHO_DUYET] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
+- 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② MOW001 G1 thật: 7/7 mốc, 31/31 nghĩa vụ phát sinh; Owner đã duyệt/nhận] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã làm P29: dùng lại CAT-206*, khai hợp đồng áp dụng 3 MOT/5 giao bước và ca nghiệm thu; siết ghim phiên/nội dung xuyên kiểm–duyệt–ACK, sửa lỗi thiếu dòng kiểm, thêm kiểm trước–sau vào DOT hiện hữu. P30 sửa trùng DOT còn 47 Master, giữ ⑤/7 mốc; ca thật chưa qua mốc nào.
 - ✅ Đã làm P31: bịt lỗi hợp đồng/gói giao P01, thêm schema và kiểm tập bắt buộc, lịch sử toàn bằng chứng; thử ghi–đọc hai tiến trình TEST. Chưa có quyền endpoint/người kiểm độc lập thật, MOW001 0/7.
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
-- ■ Đang làm: P36 · gói CHO_DUYET đã lưu; sửa hai fixture độc lập tiến độ và chạy lại bộ tổng cuối (PENDING_RECHECK); executor=Codex Host; Reviewer kỹ thuật=/root/review_mow001 đã ACCEPT 11 tiêu chí G1, không phải ghế/quorum riêng
-- ⬜ Còn lại: bộ kiểm tổng cuối; CP06 quyết định Owner và CP07 xác nhận nhận đúng phiên. G2/G3 chưa thực hiện. Không dùng TEST, ACK iframe hoặc chữ ký kỹ thuật thay Owner.
-- ➡ Kế tiếp: kiểm tổng đúng phiên trước khi bàn giao Owner. Runtime R2 đã nối chữ ký máy chủ; P04 commit db0de657, đọc ký task114c0cf2; 16 quan sát UI thật + 24 ca model bổ trợ. Thiếu Claude không tự là blocker; không ký thay Owner.
+- ■ Đang làm: P37 · MOW001 G1 đã bàn giao qua cửa ghi; nối đầy đủ Master/câu trả lời và kiểm lại giao diện/bộ tổng. Không PG.
+- ⬜ Còn lại: kiểm bản xuất và bộ tổng P37; G2/G3, PG, chuyên môn T3, tối ưu lịch sử và AI mới lặp việc thật chưa được chứng minh.
+- ➡ Kế tiếp: kiểm đúng phiên đã lưu/xuất và trả cấu hình tài nguyên tạm. P36 fullsuite đã PASS job1912451206cb4dd28b30f4447cdfcfc3; không còn PENDING_RECHECK của P36.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -43,7 +43,7 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 
 STARTED@MOW001-P36-REAL 2026-10-12T07:34:36.793236+00:00 · executor=Codex Host · phạm vi kho tệp MOW001/G1; không PG. Dùng lại CHECK004/005/006 và bộ prepare/activate/probe đã đăng ký. Reviewer kỹ thuật đọc mã/bằng chứng, không ký hộ Anthropic; quyết định/ACK Owner cuối vẫn cần nguồn thật.
 
-**Cập nhật P36 cuối:** P04 đã lưu `db0de657082d8f68cd5a03c207785fd4c8e02bbc`; Reviewer `e1e753` lúc `2026-10-12T08:59:31Z` chấp nhận kỹ thuật 11 tiêu chí trên đúng phiếu `88460eee…`. Biên nhận R2 đọc task `114c0cf2341341c2b7b764a7f737273b`. Bản cuối `ec162020…` đã lưu qua cửa ghi tại commit `0ea489a366eaa4a230a6a2346987281e8d9c9694`, transaction `0c68b2d7ed5d42a18a13482714235d66`, task `ea88409a8d19423d91b8977ebdce9e3c`: CHO_DUYET, 5/7 mốc và 28/34 nghĩa vụ. Full suite cuối PENDING_RECHECK: sửa fixture CHECK004/005 tự dựng tiến độ, không đổi engine/gate hoặc hạ tiến độ thật để vừa ca TEST. CP06/07 chưa có quyết định/ACK Owner. Không PG. Hướng dẫn dùng lại và khôi phục lượt ghi lâu ở README P36; mọi đoạn P35/P34 bên dưới là lịch sử.
+**Trạng thái P37 hiện hành:** Owner đã duyệt và xác nhận nhận G1 trực tiếp. Quyết định/P05/ACK lưu commit b9917118 và đọc ký task456ea8c9; chốt7/7,31/31nghĩa vụ phát sinh tại commit8ac40578, task0a72d0f4. Mục lục bằng chứng: aggregateP37. P36 fullsuite đã PASS, P37 đang kiểm phần Master mới. Không mở MOW002/PG. Các đoạn P36/P35 dưới đây là lịch sử.
 
 **Owner 12/10/2026 · P35, nguyên văn:** “Bạn tiếp tục áp dụng vào MOW001 thật, đi từng bước từ đầu đến cuối xem còn tắc ở đâu thì sửa và ghi vào các Master liên quan nhé. Vẫn làm ngoài PG, không lấy kết quả TEST thay cho việc thật đã đạt.”
 
