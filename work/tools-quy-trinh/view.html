@@ -34630,10 +34630,10 @@ main{max-width:1240px} [hidden]{display:none!important}
             "vps_source_commit": "9cc075b301523f8bf13bbf4027836a628b9f8c01",
             "report_only_revision": "Canonical test output now says NOT_PROBED_BY_THIS_SUITE; deployed --write-gate algorithm is unchanged. Pinned executable remains dc835b7d8f8330fb720b05b3689c43d5d099b54b8cbc60c2ea328485c31fc16a.",
             "last_full_vps_run": {
-              "job_id": "0accc626c8e04239ac431623784fb7af",
-              "source_commit": "f4437733a2d5540905e93cc79294e3bf3e4c751f",
+              "job_id": "60fa41f5926e4a9cbfb83545f13c6489",
+              "source_commit": "5470343dbcc01327fe7d09880e68777f65e76e2b",
               "state": "PASS",
-              "elapsed_seconds": 169.894
+              "elapsed_seconds": 173.854
             }
           }
         },
@@ -34753,8 +34753,8 @@ main{max-width:1240px} [hidden]{display:none!important}
       "policy": "Tìm trong CAT-006 trước khi viết mới. Bộ kiểm phải có CAT-012 + lệnh chạy + hash + chủ quản + giới hạn; kết quả mỗi lần lưu CAT-015 và gắn phiên nguồn. Xóa/nghỉ công cụ phải có lý do và kiểm nơi dùng. Chưa nhập dot_tools trên PG.",
       "execution_status": {
         "state": "VPS_PASS",
-        "job_id": "0accc626c8e04239ac431623784fb7af",
-        "source_head": "f4437733a2d5540905e93cc79294e3bf3e4c751f",
+        "job_id": "60fa41f5926e4a9cbfb83545f13c6489",
+        "source_head": "5470343dbcc01327fe7d09880e68777f65e76e2b",
         "evidence": "UI-REVIEW-AGGREGATE.json#host_review_P33/full_vps_run",
         "note": "Full suite PASS on recorded snapshot; subsequent changes are evidence/projection only. TEST is not MOW001 acceptance."
       },
@@ -34883,30 +34883,6 @@ main{max-width:1240px} [hidden]{display:none!important}
           "evidence_state": "CAPABILITY_REGISTERED_USAGE_REQUIRES_RECEIPT"
         },
         {
-          "id": "agent-data:workspace_append",
-          "provider": "Agent Data",
-          "purpose": "Ghi bổ sung có kiểm",
-          "source": "installed connector tool schema",
-          "version_policy": "Biên nhận nền tảng theo từng lượt; chưa có phiên thì ghi UNKNOWN",
-          "evidence_state": "CAPABILITY_REGISTERED_USAGE_REQUIRES_RECEIPT"
-        },
-        {
-          "id": "agent-data:workspace_write",
-          "provider": "Agent Data",
-          "purpose": "Ghi tệp theo hợp đồng",
-          "source": "installed connector tool schema",
-          "version_policy": "Biên nhận nền tảng theo từng lượt; chưa có phiên thì ghi UNKNOWN",
-          "evidence_state": "CAPABILITY_REGISTERED_USAGE_REQUIRES_RECEIPT"
-        },
-        {
-          "id": "agent-data:workspace_sync",
-          "provider": "Agent Data",
-          "purpose": "Đồng bộ nguồn theo quyền",
-          "source": "installed connector tool schema",
-          "version_policy": "Biên nhận nền tảng theo từng lượt; chưa có phiên thì ghi UNKNOWN",
-          "evidence_state": "CAPABILITY_REGISTERED_USAGE_REQUIRES_RECEIPT"
-        },
-        {
           "id": "jev-reference:evaluate",
           "provider": "TypeSafe / JEV Reference",
           "purpose": "Chọn, phân loại hoặc đánh giá phương án hữu hạn; AI chịu trách nhiệm kết luận",
@@ -34985,6 +34961,38 @@ main{max-width:1240px} [hidden]{display:none!important}
           "source": "gateway / hook action observed in retained ledger",
           "version_policy": "Dùng schema công cụ đang kết nối; biên nhận từng lượt",
           "evidence_state": "OBSERVED_RESULT_UNKNOWN"
+        },
+        {
+          "id": "agent-data:ui_screenshot",
+          "provider": "Agent Data",
+          "purpose": "Lưu ảnh bằng chứng giao diện",
+          "source": "Actual connected tool schema; ui_screenshot used P33; upload sequence used in P32 live gate probes",
+          "version_policy": "Biên nhận theo từng lượt; không suy từ có khả năng thành đã chạy đúng",
+          "evidence_state": "CAPABILITY_REGISTERED_USAGE_REQUIRES_RECEIPT"
+        },
+        {
+          "id": "agent-data:workspace_upload_begin",
+          "provider": "Agent Data",
+          "purpose": "Bắt đầu tải tệp lớn có kiểm hash và phiên",
+          "source": "Actual connected tool schema; ui_screenshot used P33; upload sequence used in P32 live gate probes",
+          "version_policy": "Biên nhận theo từng lượt; không suy từ có khả năng thành đã chạy đúng",
+          "evidence_state": "CAPABILITY_REGISTERED_USAGE_REQUIRES_RECEIPT"
+        },
+        {
+          "id": "agent-data:workspace_upload_append",
+          "provider": "Agent Data",
+          "purpose": "Gửi tiếp phần tệp; dùng lại lượt tải khi bị ngắt",
+          "source": "Actual connected tool schema; ui_screenshot used P33; upload sequence used in P32 live gate probes",
+          "version_policy": "Biên nhận theo từng lượt; không suy từ có khả năng thành đã chạy đúng",
+          "evidence_state": "CAPABILITY_REGISTERED_USAGE_REQUIRES_RECEIPT"
+        },
+        {
+          "id": "agent-data:workspace_upload_commit",
+          "provider": "Agent Data",
+          "purpose": "Chốt tệp đã tải qua kiểm hash, phiên và cửa ghi",
+          "source": "Actual connected tool schema; ui_screenshot used P33; upload sequence used in P32 live gate probes",
+          "version_policy": "Biên nhận theo từng lượt; không suy từ có khả năng thành đã chạy đúng",
+          "evidence_state": "CAPABILITY_REGISTERED_USAGE_REQUIRES_RECEIPT"
         }
       ],
       "reuse_needs": [
@@ -35050,58 +35058,58 @@ main{max-width:1240px} [hidden]{display:none!important}
             "sha256": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75",
             "exit_code": 0,
             "case_set": "TQT-CASE-MODEL",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/0accc626c8e04239ac431623784fb7af/stdout#results/TQT-CHECK-001",
-            "job_id": "0accc626c8e04239ac431623784fb7af",
-            "source_head": "f4437733a2d5540905e93cc79294e3bf3e4c751f"
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/60fa41f5926e4a9cbfb83545f13c6489/stdout#results/TQT-CHECK-001",
+            "job_id": "60fa41f5926e4a9cbfb83545f13c6489",
+            "source_head": "5470343dbcc01327fe7d09880e68777f65e76e2b"
           },
           {
             "id": "TQT-CHECK-002",
             "sha256": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270",
             "exit_code": 0,
             "case_set": "TQT-CASE-CATALOG",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/0accc626c8e04239ac431623784fb7af/stdout#results/TQT-CHECK-002",
-            "job_id": "0accc626c8e04239ac431623784fb7af",
-            "source_head": "f4437733a2d5540905e93cc79294e3bf3e4c751f"
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/60fa41f5926e4a9cbfb83545f13c6489/stdout#results/TQT-CHECK-002",
+            "job_id": "60fa41f5926e4a9cbfb83545f13c6489",
+            "source_head": "5470343dbcc01327fe7d09880e68777f65e76e2b"
           },
           {
             "id": "TQT-CHECK-003",
             "sha256": "93487966d9a32bafcb400bba5ac47f09c9a8b312d0c2dc89a7eacf27305c7b27",
             "exit_code": 0,
             "case_set": "TQT-CASE-DECLARATION",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/0accc626c8e04239ac431623784fb7af/stdout#results/TQT-CHECK-003",
-            "job_id": "0accc626c8e04239ac431623784fb7af",
-            "source_head": "f4437733a2d5540905e93cc79294e3bf3e4c751f"
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/60fa41f5926e4a9cbfb83545f13c6489/stdout#results/TQT-CHECK-003",
+            "job_id": "60fa41f5926e4a9cbfb83545f13c6489",
+            "source_head": "5470343dbcc01327fe7d09880e68777f65e76e2b"
           },
           {
             "id": "TQT-CHECK-004",
             "sha256": "32e3f58fc8d3e6f5b239e09264f18ccd91ae7eadbb0355fb0352b3529e1f0586",
             "exit_code": 0,
             "case_set": "TQT-CASE-RECORD",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/0accc626c8e04239ac431623784fb7af/stdout#results/TQT-CHECK-004",
-            "job_id": "0accc626c8e04239ac431623784fb7af",
-            "source_head": "f4437733a2d5540905e93cc79294e3bf3e4c751f"
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/60fa41f5926e4a9cbfb83545f13c6489/stdout#results/TQT-CHECK-004",
+            "job_id": "60fa41f5926e4a9cbfb83545f13c6489",
+            "source_head": "5470343dbcc01327fe7d09880e68777f65e76e2b"
           },
           {
             "id": "TQT-CHECK-005",
             "sha256": "9cc1eadfba38db846ef78d7b5d0829e044ddbb60bcaa3c0abeb8435d0d903df0",
             "exit_code": 0,
             "case_set": "TQT-CASE-MASTER",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/0accc626c8e04239ac431623784fb7af/stdout#results/TQT-CHECK-005",
-            "job_id": "0accc626c8e04239ac431623784fb7af",
-            "source_head": "f4437733a2d5540905e93cc79294e3bf3e4c751f"
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/60fa41f5926e4a9cbfb83545f13c6489/stdout#results/TQT-CHECK-005",
+            "job_id": "60fa41f5926e4a9cbfb83545f13c6489",
+            "source_head": "5470343dbcc01327fe7d09880e68777f65e76e2b"
           },
           {
             "id": "TQT-CHECK-006",
-            "sha256": "8a016c45d1027ae0ea4147d456fdbc3dbae986e9d220028d87c9364823483ab6",
+            "sha256": "c000c5fe6321bcdb6719c2d08af0e58c93d85110ffa385d52c0f3ed5b88272d1",
             "exit_code": 0,
             "case_set": "TQT-CASE-RUNNER",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/0accc626c8e04239ac431623784fb7af/stdout#status",
-            "job_id": "0accc626c8e04239ac431623784fb7af",
-            "source_head": "f4437733a2d5540905e93cc79294e3bf3e4c751f"
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/60fa41f5926e4a9cbfb83545f13c6489/stdout#status",
+            "job_id": "60fa41f5926e4a9cbfb83545f13c6489",
+            "source_head": "5470343dbcc01327fe7d09880e68777f65e76e2b"
           }
         ],
-        "observed_at": "2026-10-12T03:05:09.765423+00:00",
-        "audit_sha256": "f3caa9491dc412f71d558429c231a66749f241994bd2a818ab84a72e4acfea8a",
+        "observed_at": "2026-10-12T03:27:33.080921+00:00",
+        "audit_sha256": "8fc2600379f8c78f8dcab1b0b3c2566021a4b022cacddc1b7018cb0218b6db94",
         "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P33/audit",
         "dot_inventory": [
           {
@@ -39520,10 +39528,10 @@ main{max-width:1240px} [hidden]{display:none!important}
           },
           {
             "action": "agent-data:workspace_transaction",
-            "gateway_events": 113,
-            "hook_events": 77,
-            "complete_receipts": 2,
-            "last_at": 1791774049.541,
+            "gateway_events": 116,
+            "hook_events": 80,
+            "complete_receipts": 5,
+            "last_at": 1791774987.687,
             "examples": [
               "gw:gw:614d265cf66b0e1c0fc80640:5c4698d9015b57a529814118",
               "gw:gw:c55095728e2af4a352080fc2:eab3703e7c8dec6fc7fafa8a",
@@ -39598,10 +39606,10 @@ main{max-width:1240px} [hidden]{display:none!important}
           },
           {
             "action": "agent-data:workspace_exec",
-            "gateway_events": 105,
-            "hook_events": 70,
-            "complete_receipts": 2,
-            "last_at": 1791774060.768,
+            "gateway_events": 109,
+            "hook_events": 77,
+            "complete_receipts": 6,
+            "last_at": 1791775174.886,
             "examples": [
               "hook:codex:7b854bd0c3f24fe0aeb93447ff758544",
               "hook:codex:cef6601b43004082b8386a1f251df8ac",
@@ -39638,9 +39646,9 @@ main{max-width:1240px} [hidden]{display:none!important}
           {
             "action": "local:shell",
             "gateway_events": 0,
-            "hook_events": 86,
+            "hook_events": 100,
             "complete_receipts": 0,
-            "last_at": 1791774023.99,
+            "last_at": 1791775648.14,
             "examples": [
               "hook:codex:9dd6e5729e514f0ea066f94d3758b8d0",
               "hook:codex:0566ed3dc0264a368c9ecd0b6d478063",
@@ -39674,9 +39682,9 @@ main{max-width:1240px} [hidden]{display:none!important}
             "registration": "PROVIDER_REGISTERED"
           }
         ],
-        "execution_count": 103,
-        "event_count": 3026,
-        "complete_receipts": 6,
+        "execution_count": 106,
+        "event_count": 3057,
+        "complete_receipts": 13,
         "external_receipts": [
           {
             "action": "jev-reference:evaluate",
@@ -39738,6 +39746,32 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "disposition": "one-time P33 preparation command; not an independent reusable DOT; routine refresh now uses CHECK-006 --audit-patch"
               }
             ]
+          },
+          {
+            "action": "agent-data:ui_screenshot",
+            "provider": "Agent Data",
+            "work_id": "tools-quy-trinh",
+            "run_id": "P33-ui_screenshot-1791774162.0953074",
+            "run_id_origin": "Host correlation from actual capture timestamp; gateway did not assign this event to work_id",
+            "observed_at_unix": 1791774162.0953074,
+            "result": "HTTP 200; expected home links present; console errors 0",
+            "result_sha256": "adb605309c9bcedaf7e487f307d2c54143d93db26d87e6651c90f5ad1d6cfa11",
+            "version": "See deployment source commit and UI hashes in P33 evidence",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P33/ui_verification/desktop_capture",
+            "source": "Actual gateway tool response exported by Host, explicitly attributed to this work"
+          },
+          {
+            "action": "agent-data:ui_inspect",
+            "provider": "Agent Data",
+            "work_id": "tools-quy-trinh",
+            "run_id": "P33-ui_inspect-1791774267.9041395",
+            "run_id_origin": "Host correlation from actual capture timestamp; gateway did not assign this event to work_id",
+            "observed_at_unix": 1791774267.9041395,
+            "result": "HTTP 200; expected home links present; console errors 0",
+            "result_sha256": "7af5e5ea8c3cf214387a4f08d4584f645765f6775b0271a037e6b8524eb8b931",
+            "version": "See deployment source commit and UI hashes in P33 evidence",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P33/ui_verification/mobile",
+            "source": "Actual gateway tool response exported by Host, explicitly attributed to this work"
           }
         ],
         "gaps": [
