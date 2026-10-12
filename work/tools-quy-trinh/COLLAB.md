@@ -945,3 +945,6 @@ Hai lỗi khung đã sửa: CHECK004/005 cố định tiến độ ca thật ở
 Điểm tắc kế tiếp: P01 chưa đối chiếu đầy đủ nguồn/câu hỏi hiện hành; máy chủ gọi write-gate không truyền trust context nên CP03 không thể đạt bằng access_check tự khai; P02/P03 thiết kế thật/P04 đọc thật chưa có. Mốc6/7 chưa có quyết định/nhận của Owner. Hồ sơ chi tiết ở execution_walk, aggregate#host_review_P35. JEV gen-dec-1791780265-OUvezA9L7ZFEcjSwoPTW chỉ tham khảo phạm vi G1, không là duyệt.
 
 KQ@MOW001-P35-REAL-20261012 DỪNG · 2026-10-12T05:03:08.852814+00:00 · CP01/CP02 có bằng chứng thật, CP03 thiếu trust context ở cửa ghi. P01 đã bổ sung6 câu thiếu (50/50); lưu rồi tiến trình khác đọc lại PASS, job37c06c47ab39465ba5a0816163dd6121; không phải người kiểm độc lập hoặc sản phẩm nghiệm thu. P02–P05 chưa thực hiện. NEXT_TRIGGER=SERVER_TRUST_ADAPTER_READY_FOR_SAME_FILE_G1; Host xử lý tiếp, không yêu cầu Owner khai lại câu hỏi hay thao tác kỹ thuật.
+
+
+P35 · Bổ sung biên nhận cuối: lượt tổng VPS d0383433093a41dbaecd3e40f5d78848 PASS172.684giây; sau sửa hiển thị việc tiếp, CHECK005 đúng phiên hiện hành PASS, job989847ed92cf40fb89319df8992af407. CHECK004 đọc P01 thật jobe02137945da649c88074d2ba4398d51f:50/50,thiếu0; không phải AI kiểm độc lập. Master DOT/Tool được làm mới bằng CHECK006 từ nhật ký giữ lại; không thêm DOT. MOW001 giữ2/7,20/34; CP03 còn mở, P02–P05 chưa làm, chưa PG.

@@ -8,7 +8,7 @@ CAT012/015/229/069 chiếu thêm hợp đồng mốc, kết quả rà, lượt t
 
 Cửa ghi một tệp vẫn bắt buộc; không có trust context của adapter thì không nhận quyền endpoint/người kiểm. Host đang xử lý phần này, không dùng cờ tự khai hoặc bản TEST để vượt mốc. Thiếu Claude không tự là điểm dừng theo Owner; phê duyệt và ACK Owner vẫn phải là bằng chứng thật. Chưa PG.
 
-**Đọc lại P01 bằng DOT hiện có:** `node check-record-control.js view.html --read-preparation ../mow-mot-moit-mout/UI-REVIEW-MOW001.json`. Kiểm tập câu hiện hành, con trỏ đáp án, hash kế hoạch/coverage và gói chuẩn bị; chỉ đọc, không tự nâng mốc. Biên nhận thật job37c06c47ab39465ba5a0816163dd6121; trước khi ghi phải kiểm trước–sau đúng hai bản.
+**Đọc lại P01 bằng DOT hiện có:** `node check-record-control.js view.html --read-preparation ../mow-mot-moit-mout/UI-REVIEW-MOW001.json`. Kiểm tập câu hiện hành, con trỏ đáp án, hash kế hoạch/coverage và gói chuẩn bị; chỉ đọc, không tự nâng mốc. Biên nhận ban đầu job37c06c47ab39465ba5a0816163dd6121; DOT đã đăng ký đọc lại đúng phiên cuối ở jobe02137945da649c88074d2ba4398d51f. Trước khi ghi phải kiểm trước–sau đúng hai bản.
 
 **Điểm dừng P35:** đường vật lý một tệp đã ghi/đọc thật; chưa đồng nghĩa34 endpoint đã có bằng chứng tin cậy cho CP03. Máy chủ gọi `--write-gate` không truyền trust context; Master/CAT206 giữ thiếu, không tự sửa dữ liệu thành PASS. P02/P03/P04 và quyết định/nhận còn chưa làm. Thiếu Claude không dùng làm blocker độc lập.
 
