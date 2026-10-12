@@ -2,7 +2,7 @@
 
 ## P34 · Nhớ tiến trình DOT/Tool và đồng thuận
 
-Hai Master dùng cùng cột tiến trình, phiên nguồn, nâng cấp, kiểm gần nhất, việc tiếp, **GPT duyệt · Claude duyệt** ở cuối; giải thích tại dấu **?**. Mở tên công cụ để xem người giữ, phạm vi, lịch sử và biên nhận. Chưa có dữ kiện ghi chưa biết, không khảo sát lại phần đã có bằng chứng đúng phiên. Số lần nâng chỉ tính từ P34, không đoán quá khứ.
+Hai Master dùng cùng cột tiến trình, phiên nguồn, nâng cấp, kiểm gần nhất, việc tiếp, **GPT duyệt · Claude duyệt** ở cuối; giải thích tại dấu **?**. Bấm **Chi tiết** để xem người giữ, phạm vi, lịch sử và biên nhận. Chưa có dữ kiện ghi chưa biết, không khảo sát lại phần đã có bằng chứng đúng phiên. Số lần nâng chỉ tính từ P34, không đoán quá khứ.
 
 **Trước dùng:** tra mục đích → đọc phiên/phạm vi/quyền → kiểm bằng chứng → dùng lại. TEST và biên nhận gọi không thay hai hãng duyệt. `Dùng được` mặc định cần TEST đúng mã và hai phiếu hợp lệ cùng phiên/nội dung hợp đồng, cùng phạm vi nghiệm thu. Owner bổ sung P34: thiếu Anthropic không là blocker; CHECK005/006 được tiếp tục dùng trong phạm vi TEST khi đã kiểm/GPT duyệt. Không gọi trường hợp này là đồng thuận hai hãng. Chưa đủ duyệt vẫn có thể thực hiện kiểm kỹ thuật chỉ đọc trong quyền đã giao để tạo bằng chứng; không suy ra quyền mutation. Thay mã/hợp đồng/phạm vi hoặc thu hồi phiếu thì kiểm và duyệt lại.
 
@@ -10,9 +10,9 @@ Hai Master dùng cùng cột tiến trình, phiên nguồn, nâng cấp, kiểm 
 
 **QT 001 chính là TQT-QT-001 → MOW-TH-003 (hiệu chỉnh hướng dẫn), không phải MOW001.** Lượt thực hành đầu `TQT-QT001-P34-01`: `catalog.tool_registry.walkthrough`; bằng chứng tại `UI-REVIEW-AGGREGATE.json#host_review_P34`. Host đi theo sáu bước hiện có: chọn ca → dùng hướng dẫn → ghi chỗ vướng → hiệu chỉnh → chạy bộ kiểm ở tiến trình khác/đọc lại Master → công bố và bàn giao trong phạm vi áp thử. Claude chưa duyệt ghi riêng, không là điểm dừng theo chỉ đạo mới. Không coi Host đóng hai vai là một AI khác độc lập. Chưa làm nhật ký hàng trăm bước.
 
-**Sổ đã nối trong phạm vi task:** CAT012 đọc ca P34; CAT015 đọc kết quả DOT đã lưu; CAT016 đọc thay đổi; CAT025 đọc phiếu duyệt; CAT229 đọc lượt thử; CAT069 đọc4chỗ vướng P34. Các trang là bản chiếu, không nhập hai nơi; không khẳng định đã thống kê mọi ca/lượt toàn hệ thống. 0 phiếu duyệt nghĩa chưa có phiếu trong nguồn này; không có nghĩa AI hãng đó chưa từng làm việc. Bộ kiểm vẫn CHECK005/006, không có DOT mới.
+**Sổ đã nối trong phạm vi task:** CAT012 đọc sáu bộ kiểm đã đăng ký và năm nhóm ca P34; CAT015 đọc kết quả DOT đã lưu; CAT016 đọc thay đổi; CAT025 đọc phiếu duyệt; CAT229 đọc lượt thử; CAT069 đọc4chỗ vướng P34. Các trang là bản chiếu, không nhập hai nơi; không khẳng định đã thống kê mọi ca/lượt toàn hệ thống. 0 phiếu duyệt nghĩa chưa có phiếu trong nguồn này; không có nghĩa AI hãng đó chưa từng làm việc. Bộ kiểm vẫn CHECK005/006, không có DOT mới.
 
-**Sau cập nhật:** dùng CHECK006 `--verify --vps-ui`; xem kết quả thật và mở lại hai Master. Cập nhật kiểm kê bằng tuyến P33. Còn mở: phiên runtime công cụ ngoài, lịch sử cũ chưa gom, xác thực người ký ở cửa ghi, Claude/agent mới có thể bổ sung phản biện sau; không dùng thiếu này chặn lượt áp thử hiện tại. PG chưa chạy; MOW001 giữ0/7. Lượt áp thử Host P34 đã đi hết đường ghi→kiểm snapshot khác→đọc Master→ghi phiếu→bàn giao. Bộ tổng VPS cuối đạt (job50c39cb40f314c72ae2dbb61a15959f4,148.683giây); chưa gọi đó là AI mới độc lập nghiệm thu toàn bộ QT001.
+**Sau cập nhật:** dùng CHECK006 `--verify --vps-ui`; xem kết quả thật và mở lại hai Master. Cập nhật kiểm kê bằng tuyến P33. Còn mở: phiên runtime công cụ ngoài, lịch sử cũ chưa gom, xác thực người ký ở cửa ghi, Claude/agent mới có thể bổ sung phản biện sau; không dùng thiếu này chặn lượt áp thử hiện tại. PG chưa chạy; MOW001 giữ0/7. Lượt áp thử Host P34 đã đi hết đường ghi→kiểm snapshot khác→đọc Master→ghi phiếu→bàn giao. Bộ tổng VPS cuối đạt (job8ea318dd00a14af88252e6a9050a0735,157.370giây); chưa gọi đó là AI mới độc lập nghiệm thu toàn bộ QT001.
 
 ## P33 · Tra và dùng lại DOT/Tool trước khi viết mới
 
@@ -338,3 +338,5 @@ Nếu **thiếu chức năng sản phẩm** (ví dụ chưa có nguồn Field th
 `view.html` là HTML chính duy nhất. Mục tiêu/tiêu chí/trạng thái điều hành nằm trong COLLAB; sổ vấn đề của task nằm trong `view.html#so-van-de`. Mỗi nội dung có đúng một nơi cập nhật.
 
 Artifact/quy trình được bổ sung về sau phải đăng ký tại đây hoặc danh mục chuẩn được công bố trong task, để phiên tiếp theo biết lúc nào đọc và dùng.
+
+Bộ nhớ P34 khi cập nhật tiếp: thêm sự kiện `changes` và phiếu `reviews`, không sửa phiếu cũ; chỉ ký lại công cụ có nguồn/hợp đồng/phạm vi thay đổi. Lần áp thử mới giữ hồ sơ cũ trong bằng chứng hiện hữu, không xoá lịch sử. Tra Master012 gồm bộ kiểm và ca; kết quả CAT015 phải trỏ mã có thật.

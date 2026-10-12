@@ -1919,7 +1919,7 @@
     "state": "SCOPED_IMPLEMENTATION_VERIFIED",
     "audit": {
       "schema_version": 1,
-      "observed_at": "2026-10-12T04:22:24.467449+00:00",
+      "observed_at": "2026-10-12T04:34:21.567889+00:00",
       "scope": {
         "dot_bin": "/opt/incomex/dot/bin",
         "work_id": "tools-quy-trinh",
@@ -6350,8 +6350,8 @@
       },
       "usage": {
         "work_id": "tools-quy-trinh",
-        "event_count": 3105,
-        "complete_receipts": 22,
+        "event_count": 3122,
+        "complete_receipts": 25,
         "events": [
           {
             "event_key": "gw:gw:d5b04711b1e4d27d99ac538f:a0b71bbd33e57bf62516f063",
@@ -59410,6 +59410,332 @@
             "receipt": null,
             "complete": false,
             "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95551"
+          },
+          {
+            "event_key": "hook:codex:d998507749c6453887f5978def0ab354",
+            "action": "local:shell",
+            "raw_tool": "Bash",
+            "work_id": "tools-quy-trinh",
+            "at": 1791778958.79,
+            "surface": "codex",
+            "source": "hook",
+            "kind": "hook",
+            "run_id": null,
+            "call_id": "380d0eeb65a5",
+            "implementation_sha256": null,
+            "outcome": "OBSERVED_RESULT_UNKNOWN",
+            "receipt": null,
+            "complete": false,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95554"
+          },
+          {
+            "event_key": "hook:codex:ef6810c56ff542708426613a9536ec1e",
+            "action": "local:shell",
+            "raw_tool": "Bash",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779114.789,
+            "surface": "codex",
+            "source": "hook",
+            "kind": "hook",
+            "run_id": null,
+            "call_id": "f29047a926b5",
+            "implementation_sha256": null,
+            "outcome": "OBSERVED_RESULT_UNKNOWN",
+            "receipt": null,
+            "complete": false,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95570"
+          },
+          {
+            "event_key": "hook:codex:54942129dc4f4e14aa21060b3c66d87d",
+            "action": "local:shell",
+            "raw_tool": "Bash",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779120.216,
+            "surface": "codex",
+            "source": "hook",
+            "kind": "hook",
+            "run_id": null,
+            "call_id": "f29047a926b5",
+            "implementation_sha256": null,
+            "outcome": "OBSERVED_RESULT_UNKNOWN",
+            "receipt": null,
+            "complete": false,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95571"
+          },
+          {
+            "event_key": "gw:gw:2e06afa1e69cd8493befc9b1:dbac9d3e3756f0841ad2c74e",
+            "action": "agent-data:workspace_transaction",
+            "raw_tool": "workspace_transaction",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779128.3097813,
+            "surface": "codex",
+            "source": "gateway",
+            "kind": "gw",
+            "run_id": null,
+            "call_id": null,
+            "implementation_sha256": "fcaf187c2c2d78bf91807e4a9706d72e4b057d218ea6748c3c273a9e33a103fc",
+            "outcome": "RETURNED",
+            "receipt": {
+              "schema_version": 1,
+              "implementation_sha256": "fcaf187c2c2d78bf91807e4a9706d72e4b057d218ea6748c3c273a9e33a103fc",
+              "invocation_sha256": "280b5389acf314567142e6066c962dd42d837ac9b44a5ed9572551e4f1e4dc59",
+              "started_at": 1791779128.3097813,
+              "outcome": "RETURNED",
+              "observer": "agent-data-gateway",
+              "finished_at": 1791779139.4592903,
+              "result_sha256": "2d791e74f20d98a0a596de707ad1877873616034d9a2fbce37f9d71180e7ebd2",
+              "refs": {
+                "commit": "5f4e364a64c779063f58fb8473d39a3df2f90cd7"
+              }
+            },
+            "complete": true,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95581"
+          },
+          {
+            "event_key": "hook:codex:4a12d761c29340a4aa3cff612f7d80b0",
+            "action": "local:shell",
+            "raw_tool": "Bash",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779162.923,
+            "surface": "codex",
+            "source": "hook",
+            "kind": "hook",
+            "run_id": null,
+            "call_id": "b585b5f083ae",
+            "implementation_sha256": null,
+            "outcome": "OBSERVED_RESULT_UNKNOWN",
+            "receipt": null,
+            "complete": false,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95588"
+          },
+          {
+            "event_key": "hook:codex:01c9986e43dd4106aa9fe8053e0dd2bd",
+            "action": "local:shell",
+            "raw_tool": "Bash",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779193.704,
+            "surface": "codex",
+            "source": "hook",
+            "kind": "hook",
+            "run_id": null,
+            "call_id": "b585b5f083ae",
+            "implementation_sha256": null,
+            "outcome": "OBSERVED_RESULT_UNKNOWN",
+            "receipt": null,
+            "complete": false,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95595"
+          },
+          {
+            "event_key": "hook:codex:aecc57c52eb84e8aaad591ea324e4803",
+            "action": "local:shell",
+            "raw_tool": "Bash",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779282.823,
+            "surface": "codex",
+            "source": "hook",
+            "kind": "hook",
+            "run_id": null,
+            "call_id": "117a991f929c",
+            "implementation_sha256": null,
+            "outcome": "OBSERVED_RESULT_UNKNOWN",
+            "receipt": null,
+            "complete": false,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95605"
+          },
+          {
+            "event_key": "hook:codex:cdd12b6239334199bd6d31e48458de7e",
+            "action": "local:shell",
+            "raw_tool": "Bash",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779288.038,
+            "surface": "codex",
+            "source": "hook",
+            "kind": "hook",
+            "run_id": null,
+            "call_id": "117a991f929c",
+            "implementation_sha256": null,
+            "outcome": "OBSERVED_RESULT_UNKNOWN",
+            "receipt": null,
+            "complete": false,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95606"
+          },
+          {
+            "event_key": "hook:codex:184559fe835d4418b40c6c0bff072918",
+            "action": "local:shell",
+            "raw_tool": "Bash",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779428.975,
+            "surface": "codex",
+            "source": "hook",
+            "kind": "hook",
+            "run_id": null,
+            "call_id": "3757d2f35d9f",
+            "implementation_sha256": null,
+            "outcome": "OBSERVED_RESULT_UNKNOWN",
+            "receipt": null,
+            "complete": false,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95614"
+          },
+          {
+            "event_key": "hook:codex:09d089b4977848e7ab193bf73ccc0097",
+            "action": "local:shell",
+            "raw_tool": "Bash",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779430.547,
+            "surface": "codex",
+            "source": "hook",
+            "kind": "hook",
+            "run_id": null,
+            "call_id": "3757d2f35d9f",
+            "implementation_sha256": null,
+            "outcome": "OBSERVED_RESULT_UNKNOWN",
+            "receipt": null,
+            "complete": false,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95615"
+          },
+          {
+            "event_key": "hook:codex:ab1d894eddd649fd898cdd828ffd21f0",
+            "action": "agent-data:workspace_transaction",
+            "raw_tool": "mcp__agent_data__workspace_transaction",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779443.959,
+            "surface": "codex",
+            "source": "hook",
+            "kind": "hook",
+            "run_id": null,
+            "call_id": "9f547577d4cd",
+            "implementation_sha256": null,
+            "outcome": "OBSERVED_RESULT_UNKNOWN",
+            "receipt": null,
+            "complete": false,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95624"
+          },
+          {
+            "event_key": "gw:gw:2e06afa1e69cd8493befc9b1:6396fd8459d6e3e6d085e058",
+            "action": "agent-data:workspace_transaction",
+            "raw_tool": "workspace_transaction",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779445.14339,
+            "surface": "codex",
+            "source": "gateway",
+            "kind": "gw",
+            "run_id": null,
+            "call_id": null,
+            "implementation_sha256": "fcaf187c2c2d78bf91807e4a9706d72e4b057d218ea6748c3c273a9e33a103fc",
+            "outcome": "RETURNED",
+            "receipt": {
+              "schema_version": 1,
+              "implementation_sha256": "fcaf187c2c2d78bf91807e4a9706d72e4b057d218ea6748c3c273a9e33a103fc",
+              "invocation_sha256": "babe3450ea2699d1468669093e30396c94dc55ea4b1eef1cff91b9bd3988731b",
+              "started_at": 1791779445.14339,
+              "outcome": "RETURNED",
+              "observer": "agent-data-gateway",
+              "finished_at": 1791779454.612061,
+              "result_sha256": "99adb2f79e04987ee6f1674a3f1187f34d0f46a52d813a6d521b26d960c536f0",
+              "refs": {
+                "commit": "3d9fc7d15508652f835131a1443a44b1e0b55f30"
+              }
+            },
+            "complete": true,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95625"
+          },
+          {
+            "event_key": "hook:codex:cdfc45def2d2426b930c47aaeac7d70d",
+            "action": "agent-data:workspace_transaction",
+            "raw_tool": "mcp__agent_data__workspace_transaction",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779454.858,
+            "surface": "codex",
+            "source": "hook",
+            "kind": "hook",
+            "run_id": null,
+            "call_id": "9f547577d4cd",
+            "implementation_sha256": null,
+            "outcome": "OBSERVED_RESULT_UNKNOWN",
+            "receipt": null,
+            "complete": false,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95628"
+          },
+          {
+            "event_key": "hook:codex:8d6016fce75e41a3869146b707bd7fa3",
+            "action": "agent-data:workspace_exec",
+            "raw_tool": "mcp__agent_data__workspace_exec",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779455.903,
+            "surface": "codex",
+            "source": "hook",
+            "kind": "hook",
+            "run_id": null,
+            "call_id": "37272c7db443",
+            "implementation_sha256": null,
+            "outcome": "OBSERVED_RESULT_UNKNOWN",
+            "receipt": null,
+            "complete": false,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95633"
+          },
+          {
+            "event_key": "gw:gw:2e06afa1e69cd8493befc9b1:70468b66b7820e55289dac24",
+            "action": "agent-data:workspace_exec",
+            "raw_tool": "workspace_exec",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779460.5709977,
+            "surface": "codex",
+            "source": "gateway",
+            "kind": "gw",
+            "run_id": null,
+            "call_id": null,
+            "implementation_sha256": "fcaf187c2c2d78bf91807e4a9706d72e4b057d218ea6748c3c273a9e33a103fc",
+            "outcome": "QUEUED",
+            "receipt": {
+              "schema_version": 1,
+              "implementation_sha256": "fcaf187c2c2d78bf91807e4a9706d72e4b057d218ea6748c3c273a9e33a103fc",
+              "invocation_sha256": "81fba099aa42e47f398277597eb909d70c704da8ebd8374dca1d8f1488351208",
+              "started_at": 1791779460.5709977,
+              "outcome": "QUEUED",
+              "observer": "agent-data-gateway",
+              "finished_at": 1791779463.0790505,
+              "result_sha256": "47f662e97925f7f10546704235a6fea7e2106da6a05f21c8a56f26061c458030",
+              "refs": {
+                "source_head": "3d9fc7d15508652f835131a1443a44b1e0b55f30",
+                "job_id": "8ea318dd00a14af88252e6a9050a0735"
+              }
+            },
+            "complete": true,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95634"
+          },
+          {
+            "event_key": "hook:codex:f23932b4c73c4ee8bd3fcb08a0b3347d",
+            "action": "agent-data:workspace_exec",
+            "raw_tool": "mcp__agent_data__workspace_exec",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779463.765,
+            "surface": "codex",
+            "source": "hook",
+            "kind": "hook",
+            "run_id": null,
+            "call_id": "37272c7db443",
+            "implementation_sha256": null,
+            "outcome": "OBSERVED_RESULT_UNKNOWN",
+            "receipt": null,
+            "complete": false,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95637"
+          },
+          {
+            "event_key": "hook:codex:cf756b30e2a5476ba95bcfddb39eda64",
+            "action": "local:shell",
+            "raw_tool": "Bash",
+            "work_id": "tools-quy-trinh",
+            "at": 1791779656.142,
+            "surface": "codex",
+            "source": "hook",
+            "kind": "hook",
+            "run_id": null,
+            "call_id": "4d900b7b67fb",
+            "implementation_sha256": null,
+            "outcome": "OBSERVED_RESULT_UNKNOWN",
+            "receipt": null,
+            "complete": false,
+            "evidence_ref": "/opt/incomex/data/workspace-tools/queue.sqlite#lc_event/seq=95671"
           }
         ],
         "by_action": [
@@ -59428,10 +59754,10 @@
           },
           {
             "action": "agent-data:workspace_transaction",
-            "gateway_events": 122,
-            "hook_events": 86,
-            "complete_receipts": 11,
-            "last_at": 1791778746.152526,
+            "gateway_events": 124,
+            "hook_events": 88,
+            "complete_receipts": 13,
+            "last_at": 1791779454.858,
             "examples": [
               "gw:gw:614d265cf66b0e1c0fc80640:5c4698d9015b57a529814118",
               "gw:gw:c55095728e2af4a352080fc2:eab3703e7c8dec6fc7fafa8a",
@@ -59506,10 +59832,10 @@
           },
           {
             "action": "agent-data:workspace_exec",
-            "gateway_events": 112,
-            "hook_events": 83,
-            "complete_receipts": 9,
-            "last_at": 1791778769.044,
+            "gateway_events": 113,
+            "hook_events": 85,
+            "complete_receipts": 10,
+            "last_at": 1791779463.765,
             "examples": [
               "hook:codex:7b854bd0c3f24fe0aeb93447ff758544",
               "hook:codex:cef6601b43004082b8386a1f251df8ac",
@@ -59546,9 +59872,9 @@
           {
             "action": "local:shell",
             "gateway_events": 0,
-            "hook_events": 127,
+            "hook_events": 137,
             "complete_receipts": 0,
-            "last_at": 1791778937.96,
+            "last_at": 1791779656.142,
             "examples": [
               "hook:codex:9dd6e5729e514f0ea066f94d3758b8d0",
               "hook:codex:0566ed3dc0264a368c9ecd0b6d478063",
@@ -59591,7 +59917,7 @@
           {
             "action": "local:shell",
             "raw_tool": "Bash",
-            "events": 7322
+            "events": 7324
           },
           {
             "action": "observed:Edit",
@@ -59671,7 +59997,7 @@
           {
             "action": "observed:clocksleep",
             "raw_tool": "clocksleep",
-            "events": 10
+            "events": 12
           },
           {
             "action": "observed:collaborationfollowup_task",
@@ -59796,7 +60122,7 @@
           {
             "action": "agent-data:ui_screenshot",
             "raw_tool": "mcp__agent_data__ui_screenshot",
-            "events": 34
+            "events": 38
           },
           {
             "action": "agent-data:upload_document",
@@ -59826,7 +60152,7 @@
           {
             "action": "agent-data:workspace_exec_status",
             "raw_tool": "mcp__agent_data__workspace_exec_status",
-            "events": 154
+            "events": 160
           },
           {
             "action": "agent-data:workspace_list",
@@ -59846,7 +60172,7 @@
           {
             "action": "agent-data:workspace_result_read",
             "raw_tool": "mcp__agent_data__workspace_result_read",
-            "events": 498
+            "events": 500
           },
           {
             "action": "agent-data:workspace_search",
@@ -59861,7 +60187,7 @@
           {
             "action": "agent-data:workspace_transaction",
             "raw_tool": "mcp__agent_data__workspace_transaction",
-            "events": 56
+            "events": 58
           },
           {
             "action": "observed:mcp__claude-in-chrome__browser_batch",
@@ -60111,7 +60437,7 @@
           {
             "action": "observed:mcp__cua_repl__js",
             "raw_tool": "mcp__cua_repl__js",
-            "events": 1624
+            "events": 1647
           },
           {
             "action": "observed:mcp__cua_repl__js_reset",
@@ -60161,7 +60487,7 @@
           {
             "action": "agent-data:ui_screenshot",
             "raw_tool": "ui_screenshot",
-            "events": 98
+            "events": 100
           },
           {
             "action": "observed:view_image",
@@ -60201,7 +60527,7 @@
           {
             "action": "agent-data:workspace_exec_status",
             "raw_tool": "workspace_exec_status",
-            "events": 313
+            "events": 316
           },
           {
             "action": "agent-data:workspace_import_file",
@@ -60221,12 +60547,12 @@
           {
             "action": "agent-data:workspace_read",
             "raw_tool": "workspace_read",
-            "events": 7796
+            "events": 7800
           },
           {
             "action": "agent-data:workspace_result_read",
             "raw_tool": "workspace_result_read",
-            "events": 665
+            "events": 666
           },
           {
             "action": "agent-data:workspace_search",
@@ -60246,7 +60572,7 @@
           {
             "action": "agent-data:workspace_transaction",
             "raw_tool": "workspace_transaction",
-            "events": 147
+            "events": 148
           },
           {
             "action": "agent-data:workspace_upload_append",
@@ -62001,6 +62327,72 @@
               "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/50c39cb40f314c72ae2dbb61a15959f4/stdout#results/TQT-CHECK-005"
             }
           ]
+        },
+        {
+          "run_id": "8ea318dd00a14af88252e6a9050a0735",
+          "work_id": "tools-quy-trinh",
+          "action": "agent-data:workspace_exec",
+          "invocation_sha256": "be690621cc0719afbedbfc2a8731ff4a4eb722b90e7cfd6c168371cfbee2fa17",
+          "source_head": "3d9fc7d15508652f835131a1443a44b1e0b55f30",
+          "outcome": "EXIT_0",
+          "status": "completed",
+          "stdout_sha256": "b64764a4c7c00695266b6f92ac81f6f6ac76be34c579f8e94d93bd9d42c814bf",
+          "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/8ea318dd00a14af88252e6a9050a0735/stdout",
+          "subtools": [
+            {
+              "id": "TQT-CHECK-006",
+              "sha256": "a5b41f0a5dca8f10c9ee8c062319f235d4cdbf7cab05576de9ef605d1c203c2f",
+              "exit_code": 0,
+              "case_set": "TQT-CASE-RUNNER",
+              "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/8ea318dd00a14af88252e6a9050a0735/stdout#status"
+            },
+            {
+              "id": "TQT-CHECK-001",
+              "sha256": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75",
+              "exit_code": 0,
+              "case_set": "TQT-CASE-MODEL",
+              "checked_at": "2026-10-12T04:31:16.461165+00:00",
+              "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/8ea318dd00a14af88252e6a9050a0735/stdout#results/TQT-CHECK-001"
+            },
+            {
+              "id": "TQT-CHECK-002",
+              "sha256": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270",
+              "exit_code": 0,
+              "case_set": "TQT-CASE-CATALOG",
+              "checked_at": "2026-10-12T04:31:16.461165+00:00",
+              "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/8ea318dd00a14af88252e6a9050a0735/stdout#results/TQT-CHECK-002"
+            },
+            {
+              "id": "TQT-CHECK-003",
+              "sha256": "93487966d9a32bafcb400bba5ac47f09c9a8b312d0c2dc89a7eacf27305c7b27",
+              "exit_code": 0,
+              "case_set": "TQT-CASE-DECLARATION",
+              "checked_at": "2026-10-12T04:31:16.461165+00:00",
+              "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/8ea318dd00a14af88252e6a9050a0735/stdout#results/TQT-CHECK-003"
+            },
+            {
+              "id": "TQT-CHECK-004",
+              "sha256": "32e3f58fc8d3e6f5b239e09264f18ccd91ae7eadbb0355fb0352b3529e1f0586",
+              "exit_code": 0,
+              "case_set": "TQT-CASE-RECORD",
+              "checked_at": "2026-10-12T04:31:16.461165+00:00",
+              "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/8ea318dd00a14af88252e6a9050a0735/stdout#results/TQT-CHECK-004"
+            },
+            {
+              "id": "TQT-CHECK-005",
+              "sha256": "38e0473973329f8b25c0abb96ea13d8ccbd00986408a0ae225af6f90fc7c83ac",
+              "exit_code": 0,
+              "case_set": "TQT-CASE-MASTER",
+              "checked_at": "2026-10-12T04:31:16.461165+00:00",
+              "ui_inputs": {
+                "process-work-master-v1.js": "a2c033778f01ca90e5f48ce1aee9ab7221aea0c322112f2e32db66c250927574",
+                "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
+                "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357",
+                "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c"
+              },
+              "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/8ea318dd00a14af88252e6a9050a0735/stdout#results/TQT-CHECK-005"
+            }
+          ]
         }
       ],
       "journal_invalid_lines": 0,
@@ -62098,6 +62490,44 @@
         "version": "See deployment source commit and UI hashes in P33 evidence",
         "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P33/ui_verification/mobile",
         "source": "Actual gateway tool response exported by Host, explicitly attributed to this work"
+      },
+      {
+        "action": "jev-reference:evaluate",
+        "provider": "TypeSafe",
+        "model": "typesafe/jev-1.13-20260917",
+        "run_id": "gen-dec-1791777819-iewqP3YUVkHZLpuL1YOj",
+        "work_id": "tools-quy-trinh",
+        "result": "Advisory only: shared existing Master lifecycle; Host trial not independent acceptance",
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34/platform_receipts/jev",
+        "source": "Actual connected JEV response in Codex",
+        "verification": "OBSERVED_PLATFORM_RESPONSE"
+      },
+      {
+        "action": "browser:cua",
+        "work_id": "tools-quy-trinh",
+        "result": "Actual DOM read:34Tool,2signature columns; CAT01211,CAT0164 at capture,CAT0694,CAT2291,CAT0252 at capture,CAT0156",
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34/ui_readback",
+        "source": "Actual Codex tool output; outside automatically attributed work events where noted",
+        "verification": "OBSERVED_PLATFORM_RESPONSE",
+        "runtime_version": "UNKNOWN where platform did not return version"
+      },
+      {
+        "action": "local:shell",
+        "work_id": "tools-quy-trinh",
+        "result": "Actual source preparation and local DOT test; Claude CLI version2.1.296 observed, no source sent to Anthropic",
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34/local_preparation",
+        "source": "Actual Codex tool output; outside automatically attributed work events where noted",
+        "verification": "OBSERVED_PLATFORM_RESPONSE",
+        "runtime_version": "UNKNOWN where platform did not return version"
+      },
+      {
+        "action": "agent-data:ui_inspect",
+        "work_id": "tools-quy-trinh",
+        "result": "HTTP200 CAT229*, actual run row and controls",
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34/platform_receipts/trial_ui",
+        "source": "Actual Codex tool output; outside automatically attributed work events where noted",
+        "verification": "OBSERVED_PLATFORM_RESPONSE",
+        "runtime_version": "UNKNOWN where platform did not return version"
       }
     ],
     "open": [
@@ -62871,6 +63301,42 @@
           "stderr": "",
           "stderr_next_offset": null
         }
+      },
+      {
+        "job_id": "50c39cb40f314c72ae2dbb61a15959f4",
+        "status": "completed",
+        "position": 0,
+        "created_at": 1791778768.7844007,
+        "started_at": 1791778768.867979,
+        "heartbeat": 1791778917.5504816,
+        "elapsed": 148.683,
+        "cancel_requested": false,
+        "critical_phase": false,
+        "attempts": 1,
+        "result": {
+          "streams": {
+            "stdout": {
+              "bytes": 8728,
+              "sha256": "e9ea3015ababb7dcbe7faa4d5ed45f2445f7c2116ce534c3a3a1af9a7f6dad98",
+              "protected": false
+            },
+            "stderr": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "protected": false
+            }
+          },
+          "exit_code": 0,
+          "timed_out": false,
+          "snapshot_excluded": [],
+          "source_head": "bc6452f4e8f49176a12788546a87aa638f606781",
+          "source_head_at_queue": "bc6452f4e8f49176a12788546a87aa638f606781",
+          "source_head_moved": false,
+          "stdout": "{\"run_id\": \"TQT-41298619df3341dfac2e3ca3f0b66569\", \"at\": \"2026-10-12T04:19:44.782746+00:00\", \"scope\": \"Sáu bộ kiểm QTTH; bản quét chỉ đọc DOT/bin, Agent Data/dot/bin, scripts VPS; nhật ký việc tools-quy-trinh. Không quét PG hoặc toàn bộ nền tảng ngoài VPS.\", \"registry_master\": \"CAT-006\", \"case_master\": \"CAT-012\", \"result_master\": \"CAT-015\", \"source_sha256\": \"5c8c93b01fa9191073a89398a81c33f1a30a9008513da9d5d1f50cbdab9aad88\", \"runner_sha256\": \"a5b41f0a5dca8f10c9ee8c062319f235d4cdbf7cab05576de9ef605d1c203c2f\", \"inventory_errors\": [], \"source_readback\": {\"state\": \"PASS\", \"source_sha256\": \"222ed3dfb3645dd90105e9a17daf79eec74894c8c75a39c3e11a7ec79f1a2f26\", \"projection_equal\": true, \"rule_source_checks\": [{\"ref\": \"work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/process_trial_20261009/contract\", \"matched\": true}], \"application_id\": \"MOW-NHC-001-G1-20261010-01\", \"trial_declarations\": 13, \"scope\": \"SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL\"}, \"results\": [{\"id\": \"TQT-CHECK-001\", \"case_set\": \"TQT-CASE-MODEL\", \"source_sha256\": \"eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75\", \"argv\": [\"python3\", \"check-process-model.py\", \"view.html\"], \"exit_code\": 0, \"stdout\": \"{\\\"status\\\": \\\"SIMULATION_ONLY\\\", \\\"passed\\\": 87, \\\"model_sha256\\\": \\\"f55fcf4fa78b22005604b62d025487f4a3977b5cc106bb9f3b0a6c0a8713ce5a\\\", \\\"package_state\\\": \\\"NOT_FROZEN\\\", \\\"production_ready\\\": false}\\n\", \"stderr\": \"\", \"elapsed_seconds\": 3.769, \"timeout_seconds\": 60}, {\"id\": \"TQT-CHECK-002\", \"case_set\": \"TQT-CASE-CATALOG\", \"source_sha256\": \"09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270\", \"argv\": [\"python3\", \"check-process-catalog.py\", \"view.html\"], \"exit_code\": 0, \"stdout\": \"checkpoint cases 20\\n{\\\"aggregate\\\": 5, \\\"normal\\\": 12, \\\"coded_references\\\": 55, \\\"bad_reference_cases\\\": 2, \\\"scope\\\": \\\"DESIGN_ONLY\\\"}\\n\", \"stderr\": \"\", \"elapsed_seconds\": 0.663, \"timeout_seconds\": 60}, {\"id\": \"TQT-CHECK-003\", \"case_set\": \"TQT-CASE-DECLARATION\", \"source_sha256\": \"93487966d9a32bafcb400bba5ac47f09c9a8b312d0c2dc89a7eacf27305c7b27\", \"argv\": [\"python3\", \"check-overview-consistency.py\", \"view.html\"], \"exit_code\": 0, \"stdout\": \"{\\\"positive\\\": 1, \\\"negative\\\": 35, \\\"procedures\\\": 17, \\\"source_check\\\": \\\"MATCH_EXISTING_PRODUCT_RECEIPT\\\", \\\"application_state\\\": \\\"CHUAN_BI\\\", \\\"can_start\\\": false, \\\"needs_before_start\\\": [{\\\"field\\\": \\\"identity\\\", \\\"need\\\": \\\"Việc gì? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"connections_in\\\", \\\"need\\\": \\\"Bắt đầu từ đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"connections_out\\\", \\\"need\\\": \\\"Kết thúc ở đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"prerequisites\\\", \\\"need\\\": \\\"Đầu vào đã đủ chưa? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"execution_conditions\\\", \\\"need\\\": \\\"Được thực hiện khi nào? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"plan\\\", \\\"need\\\": \\\"Kế hoạch ghi đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"records\\\", \\\"need\\\": \\\"Kết quả và bằng chứng ghi đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"roles\\\", \\\"need\\\": \\\"Ai làm, báo ai, khi nào? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"acceptance\\\", \\\"need\\\": \\\"Ai kiểm, đạt là gì? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"questions\\\", \\\"need\\\": \\\"Phiếu đủ/thiếu ở đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"start_confirmation\\\", \\\"need\\\": \\\"Xác nhận kế hoạch đúng phiên trước S3\\\", \\\"owner\\\": \\\"Astra Codex · Host\\\"}], \\\"next\\\": \\\"Rà độc lập hợp đồng áp dụng từng MOT/giao bước; hoàn thiện và thử nơi ghi ngoài PG theo đúng schema. Chưa đủ điều kiện mốc 3.\\\", \\\"production_ready\\\": false}\\n\", \"stderr\": \"\", \"elapsed_seconds\": 8.996, \"timeout_seconds\": 180}, {\"id\": \"TQT-CHECK-004\", \"case_set\": \"TQT-CASE-RECORD\", \"source_sha256\": \"32e3f58fc8d3e6f5b239e09264f18ccd91ae7eadbb0355fb0352b3529e1f0586\", \"argv\": [\"node\", \"check-record-control.js\", \"view.html\"], \"exit_code\": 0, \"stdout\": \"{\\\"tests\\\":26,\\\"scope\\\":\\\"DESIGN_PROJECTION_ONLY\\\",\\\"counts\\\":{\\\"total\\\":34,\\\"written\\\":13,\\\"verified\\\":0,\\\"needsFix\\\":0,\\\"notRecorded\\\":21,\\\"dueMissing\\\":7,\\\"due\\\":20,\\\"deferred\\\":14},\\\"pg\\\":\\\"NOT_RUN\\\"}\\n{\\\"tests\\\":59,\\\"regression\\\":\\\"QTTH05_WALK\\\",\\\"synthetic_full_walk\\\":7,\\\"live_application\\\":0,\\\"pg\\\":\\\"NOT_RUN\\\"}\\n{\\\"trial_cases\\\":15,\\\"persisted_declarations\\\":13,\\\"checkpoints\\\":0,\\\"scope\\\":\\\"TRIAL_NOT_PG\\\"}\\n{\\\"information_contract_cases\\\":44,\\\"actual_contract_rows\\\":66,\\\"actual_criteria\\\":11,\\\"synthetic_full_walk\\\":7,\\\"real_checkpoints\\\":0,\\\"server_write_hook\\\":\\\"NOT_PROBED_BY_THIS_SUITE\\\",\\\"pg\\\":\\\"NOT_RUN\\\"}\\n{\\\"pr14_boundary_cases\\\":48,\\\"synthetic_trusted_context_only\\\":true,\\\"untrusted_self_attestation_blocked\\\":true,\\\"real_checkpoints\\\":0}\\n{\\\"pr14_product_input_cases\\\":9,\\\"sha256_crosscheck_vectors\\\":4}\\n{\\\"pr14_product_mapping_cases\\\":8,\\\"scope\\\":\\\"LOGICAL_PACKETS_NOT_BACKEND_EXECUTION\\\"}\\n{\\\"pr15_product_boundaries\\\":{\\\"cases\\\":26,\\\"state\\\":\\\"PASS\\\"}}\\n{\\\"pr15_persisted_design_and_recovery\\\":{\\\"cases\\\":15,\\\"state\\\":\\\"PASS\\\",\\\"read_plans\\\":[\\\"P02\\\",\\\"P03\\\"],\\\"effects\\\":1,\\\"real_endpoint_permissions\\\":\\\"NOT_PROVED\\\",\\\"mow001_progress\\\":\\\"UNCHANGED_0_OF_7\\\"}}\\n{\\\"pr14_file_handoff\\\":{\\\"cases\\\":17,\\\"state\\\":\\\"PASS\\\",\\\"producer\\\":\\\"separate process; creates packet from declarations\\\",\\\"consumer\\\":\\\"separate process; opens persisted packet and uses scope/answers\\\",\\\"producer_sha256\\\":\\\"cd4a057af1ea2a70f821e6512e5bac6ad568c935aa8612362e29c00d5d10e451\\\",\\\"readback_sha256\\\":\\\"cd4a057af1ea2a70f821e6512e5bac6ad568c935aa8612362e29c00d5d10e451\\\",\\\"concurrent_effect_count\\\":1,\\\"environment\\\":\\\"ISOLATED_TEST_NOT_MOW001_COMPLETION\\\",\\\"real_endpoint_permissions\\\":\\\"NOT_PROVED\\\",\\\"pg\\\":\\\"NOT_RUN\\\"}}\\n\", \"stderr\": \"\", \"elapsed_seconds\": 110.218, \"timeout_seconds\": 180}, {\"id\": \"TQT-CHECK-005\", \"case_set\": \"TQT-CASE-MASTER\", \"source_sha256\": \"bf7a433e82894e96f079cad6566a9ffc95cf82423f78b86163d06905adf661ea\", \"argv\": [\"node\", \"check-work-masters.js\", \"view.html\", \"/tmp/TQT-UI-TEST-mtcxpbzd/process-work-master-v1.js\", \"/tmp/TQT-UI-TEST-mtcxpbzd/definition-master-registry-v1.js\"], \"exit_code\": 0, \"stdout\": \"{\\\"masters\\\":18,\\\"planned_jobs\\\":2,\\\"negative_cases\\\":14,\\\"scope\\\":\\\"DESIGN_ONLY\\\",\\\"pg\\\":\\\"NOT_RUN\\\"}\\ndossier: 7 checkpoints, 11 groups, 34 obligations; partial/foreign/unlinked/second job cases passed\\ncoverage: 7 checkpoints + exception/operations; 8 new UI references resolved; 11 groups preserved\\nCAT206 applied contracts visible; field meaning/version/case links preserved\\nP30 merged-index guard: 48 inputs -> 47 Masters, one DOT/6 tools, duplicate cases rejected, real UI fails closed, old URL preserved\\nP33 inventory/proof states, provider reuse, missing coverage and detail validated\\nP33 stale tool source is not shown as current TEST proof\\nP34: 12 invalid-approval/version/test mutations + revocation/retirement blocked; 6 existing Masters read their sources; two vendor columns last; no synthetic receipt saved\\n\", \"stderr\": \"\", \"elapsed_seconds\": 3.252, \"timeout_seconds\": 60}], \"pg\": \"NOT_RUN\", \"production_ready\": false, \"master_identity_check\": {\"state\": \"PASS\", \"errors\": [], \"input_rows\": 47, \"unique_masters\": 46, \"merged\": [{\"canonical_id\": \"ML-DEF-024\", \"ids\": [\"ML-DEF-024\", \"CAT-006\"]}], \"scope\": \"Definition registry + QTTH work Masters; Config entry checked by live merged-index guard. Not a full PG/VPS inventory.\", \"input_sha256\": \"a153d208c8470db1256be508e4f1f951d7b755d4cff61cde4b00cfd461af378a\", \"self_test\": {\"cases\": 13, \"scale_rows\": 10000, \"method\": \"indexed keys; no pairwise scan\"}}, \"prerequisite_errors\": [], \"ui_inputs\": {\"process-work-master-v1.js\": \"3867c0576fdf9db83c7027eb19199f810f524c128602c3ef01eee5789cdadd54\", \"ui-child-content-v1.js\": \"451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee\", \"ui-child-from-parent-v1.js\": \"b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357\", \"definition-master-registry-v1.js\": \"749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c\"}, \"ui_adapter_sha256\": \"3867c0576fdf9db83c7027eb19199f810f524c128602c3ef01eee5789cdadd54\", \"runner_self_test\": {\"cases\": 20, \"store\": \"temporary TEST file in execution snapshot\", \"write_read_restore\": \"PASS\", \"production\": \"NOT_TOUCHED\"}, \"usage_audit_self_test\": {\"cases\": 23, \"state\": \"PASS\", \"scope\": \"TEST SQLite and prepared CAS patches; no production writes\"}, \"status\": \"PASS\"}\n",
+          "stdout_next_offset": null,
+          "stderr": "",
+          "stderr_next_offset": null
+        }
       }
     ],
     "anthropic_review_request": {
@@ -62889,21 +63355,21 @@
       "source": "Owner trả lời trực tiếp trong phiên Codex này"
     },
     "full_vps_final": {
-      "job_id": "50c39cb40f314c72ae2dbb61a15959f4",
+      "job_id": "8ea318dd00a14af88252e6a9050a0735",
       "status": "completed",
       "position": 0,
-      "created_at": 1791778768.7844007,
-      "started_at": 1791778768.867979,
-      "heartbeat": 1791778917.5504816,
-      "elapsed": 148.683,
+      "created_at": 1791779462.8890638,
+      "started_at": 1791779463.0193129,
+      "heartbeat": 1791779620.3895714,
+      "elapsed": 157.37,
       "cancel_requested": false,
       "critical_phase": false,
       "attempts": 1,
       "result": {
         "streams": {
           "stdout": {
-            "bytes": 8728,
-            "sha256": "e9ea3015ababb7dcbe7faa4d5ed45f2445f7c2116ce534c3a3a1af9a7f6dad98",
+            "bytes": 8726,
+            "sha256": "b64764a4c7c00695266b6f92ac81f6f6ac76be34c579f8e94d93bd9d42c814bf",
             "protected": false
           },
           "stderr": {
@@ -62915,10 +63381,10 @@
         "exit_code": 0,
         "timed_out": false,
         "snapshot_excluded": [],
-        "source_head": "bc6452f4e8f49176a12788546a87aa638f606781",
-        "source_head_at_queue": "bc6452f4e8f49176a12788546a87aa638f606781",
+        "source_head": "3d9fc7d15508652f835131a1443a44b1e0b55f30",
+        "source_head_at_queue": "3d9fc7d15508652f835131a1443a44b1e0b55f30",
         "source_head_moved": false,
-        "stdout": "{\"run_id\": \"TQT-41298619df3341dfac2e3ca3f0b66569\", \"at\": \"2026-10-12T04:19:44.782746+00:00\", \"scope\": \"Sáu bộ kiểm QTTH; bản quét chỉ đọc DOT/bin, Agent Data/dot/bin, scripts VPS; nhật ký việc tools-quy-trinh. Không quét PG hoặc toàn bộ nền tảng ngoài VPS.\", \"registry_master\": \"CAT-006\", \"case_master\": \"CAT-012\", \"result_master\": \"CAT-015\", \"source_sha256\": \"5c8c93b01fa9191073a89398a81c33f1a30a9008513da9d5d1f50cbdab9aad88\", \"runner_sha256\": \"a5b41f0a5dca8f10c9ee8c062319f235d4cdbf7cab05576de9ef605d1c203c2f\", \"inventory_errors\": [], \"source_readback\": {\"state\": \"PASS\", \"source_sha256\": \"222ed3dfb3645dd90105e9a17daf79eec74894c8c75a39c3e11a7ec79f1a2f26\", \"projection_equal\": true, \"rule_source_checks\": [{\"ref\": \"work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/process_trial_20261009/contract\", \"matched\": true}], \"application_id\": \"MOW-NHC-001-G1-20261010-01\", \"trial_declarations\": 13, \"scope\": \"SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL\"}, \"results\": [{\"id\": \"TQT-CHECK-001\", \"case_set\": \"TQT-CASE-MODEL\", \"source_sha256\": \"eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75\", \"argv\": [\"python3\", \"check-process-model.py\", \"view.html\"], \"exit_code\": 0, \"stdout\": \"{\\\"status\\\": \\\"SIMULATION_ONLY\\\", \\\"passed\\\": 87, \\\"model_sha256\\\": \\\"f55fcf4fa78b22005604b62d025487f4a3977b5cc106bb9f3b0a6c0a8713ce5a\\\", \\\"package_state\\\": \\\"NOT_FROZEN\\\", \\\"production_ready\\\": false}\\n\", \"stderr\": \"\", \"elapsed_seconds\": 3.769, \"timeout_seconds\": 60}, {\"id\": \"TQT-CHECK-002\", \"case_set\": \"TQT-CASE-CATALOG\", \"source_sha256\": \"09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270\", \"argv\": [\"python3\", \"check-process-catalog.py\", \"view.html\"], \"exit_code\": 0, \"stdout\": \"checkpoint cases 20\\n{\\\"aggregate\\\": 5, \\\"normal\\\": 12, \\\"coded_references\\\": 55, \\\"bad_reference_cases\\\": 2, \\\"scope\\\": \\\"DESIGN_ONLY\\\"}\\n\", \"stderr\": \"\", \"elapsed_seconds\": 0.663, \"timeout_seconds\": 60}, {\"id\": \"TQT-CHECK-003\", \"case_set\": \"TQT-CASE-DECLARATION\", \"source_sha256\": \"93487966d9a32bafcb400bba5ac47f09c9a8b312d0c2dc89a7eacf27305c7b27\", \"argv\": [\"python3\", \"check-overview-consistency.py\", \"view.html\"], \"exit_code\": 0, \"stdout\": \"{\\\"positive\\\": 1, \\\"negative\\\": 35, \\\"procedures\\\": 17, \\\"source_check\\\": \\\"MATCH_EXISTING_PRODUCT_RECEIPT\\\", \\\"application_state\\\": \\\"CHUAN_BI\\\", \\\"can_start\\\": false, \\\"needs_before_start\\\": [{\\\"field\\\": \\\"identity\\\", \\\"need\\\": \\\"Việc gì? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"connections_in\\\", \\\"need\\\": \\\"Bắt đầu từ đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"connections_out\\\", \\\"need\\\": \\\"Kết thúc ở đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"prerequisites\\\", \\\"need\\\": \\\"Đầu vào đã đủ chưa? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"execution_conditions\\\", \\\"need\\\": \\\"Được thực hiện khi nào? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"plan\\\", \\\"need\\\": \\\"Kế hoạch ghi đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"records\\\", \\\"need\\\": \\\"Kết quả và bằng chứng ghi đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"roles\\\", \\\"need\\\": \\\"Ai làm, báo ai, khi nào? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"acceptance\\\", \\\"need\\\": \\\"Ai kiểm, đạt là gì? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"questions\\\", \\\"need\\\": \\\"Phiếu đủ/thiếu ở đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"start_confirmation\\\", \\\"need\\\": \\\"Xác nhận kế hoạch đúng phiên trước S3\\\", \\\"owner\\\": \\\"Astra Codex · Host\\\"}], \\\"next\\\": \\\"Rà độc lập hợp đồng áp dụng từng MOT/giao bước; hoàn thiện và thử nơi ghi ngoài PG theo đúng schema. Chưa đủ điều kiện mốc 3.\\\", \\\"production_ready\\\": false}\\n\", \"stderr\": \"\", \"elapsed_seconds\": 8.996, \"timeout_seconds\": 180}, {\"id\": \"TQT-CHECK-004\", \"case_set\": \"TQT-CASE-RECORD\", \"source_sha256\": \"32e3f58fc8d3e6f5b239e09264f18ccd91ae7eadbb0355fb0352b3529e1f0586\", \"argv\": [\"node\", \"check-record-control.js\", \"view.html\"], \"exit_code\": 0, \"stdout\": \"{\\\"tests\\\":26,\\\"scope\\\":\\\"DESIGN_PROJECTION_ONLY\\\",\\\"counts\\\":{\\\"total\\\":34,\\\"written\\\":13,\\\"verified\\\":0,\\\"needsFix\\\":0,\\\"notRecorded\\\":21,\\\"dueMissing\\\":7,\\\"due\\\":20,\\\"deferred\\\":14},\\\"pg\\\":\\\"NOT_RUN\\\"}\\n{\\\"tests\\\":59,\\\"regression\\\":\\\"QTTH05_WALK\\\",\\\"synthetic_full_walk\\\":7,\\\"live_application\\\":0,\\\"pg\\\":\\\"NOT_RUN\\\"}\\n{\\\"trial_cases\\\":15,\\\"persisted_declarations\\\":13,\\\"checkpoints\\\":0,\\\"scope\\\":\\\"TRIAL_NOT_PG\\\"}\\n{\\\"information_contract_cases\\\":44,\\\"actual_contract_rows\\\":66,\\\"actual_criteria\\\":11,\\\"synthetic_full_walk\\\":7,\\\"real_checkpoints\\\":0,\\\"server_write_hook\\\":\\\"NOT_PROBED_BY_THIS_SUITE\\\",\\\"pg\\\":\\\"NOT_RUN\\\"}\\n{\\\"pr14_boundary_cases\\\":48,\\\"synthetic_trusted_context_only\\\":true,\\\"untrusted_self_attestation_blocked\\\":true,\\\"real_checkpoints\\\":0}\\n{\\\"pr14_product_input_cases\\\":9,\\\"sha256_crosscheck_vectors\\\":4}\\n{\\\"pr14_product_mapping_cases\\\":8,\\\"scope\\\":\\\"LOGICAL_PACKETS_NOT_BACKEND_EXECUTION\\\"}\\n{\\\"pr15_product_boundaries\\\":{\\\"cases\\\":26,\\\"state\\\":\\\"PASS\\\"}}\\n{\\\"pr15_persisted_design_and_recovery\\\":{\\\"cases\\\":15,\\\"state\\\":\\\"PASS\\\",\\\"read_plans\\\":[\\\"P02\\\",\\\"P03\\\"],\\\"effects\\\":1,\\\"real_endpoint_permissions\\\":\\\"NOT_PROVED\\\",\\\"mow001_progress\\\":\\\"UNCHANGED_0_OF_7\\\"}}\\n{\\\"pr14_file_handoff\\\":{\\\"cases\\\":17,\\\"state\\\":\\\"PASS\\\",\\\"producer\\\":\\\"separate process; creates packet from declarations\\\",\\\"consumer\\\":\\\"separate process; opens persisted packet and uses scope/answers\\\",\\\"producer_sha256\\\":\\\"cd4a057af1ea2a70f821e6512e5bac6ad568c935aa8612362e29c00d5d10e451\\\",\\\"readback_sha256\\\":\\\"cd4a057af1ea2a70f821e6512e5bac6ad568c935aa8612362e29c00d5d10e451\\\",\\\"concurrent_effect_count\\\":1,\\\"environment\\\":\\\"ISOLATED_TEST_NOT_MOW001_COMPLETION\\\",\\\"real_endpoint_permissions\\\":\\\"NOT_PROVED\\\",\\\"pg\\\":\\\"NOT_RUN\\\"}}\\n\", \"stderr\": \"\", \"elapsed_seconds\": 110.218, \"timeout_seconds\": 180}, {\"id\": \"TQT-CHECK-005\", \"case_set\": \"TQT-CASE-MASTER\", \"source_sha256\": \"bf7a433e82894e96f079cad6566a9ffc95cf82423f78b86163d06905adf661ea\", \"argv\": [\"node\", \"check-work-masters.js\", \"view.html\", \"/tmp/TQT-UI-TEST-mtcxpbzd/process-work-master-v1.js\", \"/tmp/TQT-UI-TEST-mtcxpbzd/definition-master-registry-v1.js\"], \"exit_code\": 0, \"stdout\": \"{\\\"masters\\\":18,\\\"planned_jobs\\\":2,\\\"negative_cases\\\":14,\\\"scope\\\":\\\"DESIGN_ONLY\\\",\\\"pg\\\":\\\"NOT_RUN\\\"}\\ndossier: 7 checkpoints, 11 groups, 34 obligations; partial/foreign/unlinked/second job cases passed\\ncoverage: 7 checkpoints + exception/operations; 8 new UI references resolved; 11 groups preserved\\nCAT206 applied contracts visible; field meaning/version/case links preserved\\nP30 merged-index guard: 48 inputs -> 47 Masters, one DOT/6 tools, duplicate cases rejected, real UI fails closed, old URL preserved\\nP33 inventory/proof states, provider reuse, missing coverage and detail validated\\nP33 stale tool source is not shown as current TEST proof\\nP34: 12 invalid-approval/version/test mutations + revocation/retirement blocked; 6 existing Masters read their sources; two vendor columns last; no synthetic receipt saved\\n\", \"stderr\": \"\", \"elapsed_seconds\": 3.252, \"timeout_seconds\": 60}], \"pg\": \"NOT_RUN\", \"production_ready\": false, \"master_identity_check\": {\"state\": \"PASS\", \"errors\": [], \"input_rows\": 47, \"unique_masters\": 46, \"merged\": [{\"canonical_id\": \"ML-DEF-024\", \"ids\": [\"ML-DEF-024\", \"CAT-006\"]}], \"scope\": \"Definition registry + QTTH work Masters; Config entry checked by live merged-index guard. Not a full PG/VPS inventory.\", \"input_sha256\": \"a153d208c8470db1256be508e4f1f951d7b755d4cff61cde4b00cfd461af378a\", \"self_test\": {\"cases\": 13, \"scale_rows\": 10000, \"method\": \"indexed keys; no pairwise scan\"}}, \"prerequisite_errors\": [], \"ui_inputs\": {\"process-work-master-v1.js\": \"3867c0576fdf9db83c7027eb19199f810f524c128602c3ef01eee5789cdadd54\", \"ui-child-content-v1.js\": \"451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee\", \"ui-child-from-parent-v1.js\": \"b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357\", \"definition-master-registry-v1.js\": \"749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c\"}, \"ui_adapter_sha256\": \"3867c0576fdf9db83c7027eb19199f810f524c128602c3ef01eee5789cdadd54\", \"runner_self_test\": {\"cases\": 20, \"store\": \"temporary TEST file in execution snapshot\", \"write_read_restore\": \"PASS\", \"production\": \"NOT_TOUCHED\"}, \"usage_audit_self_test\": {\"cases\": 23, \"state\": \"PASS\", \"scope\": \"TEST SQLite and prepared CAS patches; no production writes\"}, \"status\": \"PASS\"}\n",
+        "stdout": "{\"run_id\": \"TQT-a797b014c8b3467bac06d96deda58f26\", \"at\": \"2026-10-12T04:31:16.461165+00:00\", \"scope\": \"Sáu bộ kiểm QTTH; bản quét chỉ đọc DOT/bin, Agent Data/dot/bin, scripts VPS; nhật ký việc tools-quy-trinh. Không quét PG hoặc toàn bộ nền tảng ngoài VPS.\", \"registry_master\": \"CAT-006\", \"case_master\": \"CAT-012\", \"result_master\": \"CAT-015\", \"source_sha256\": \"da991e595e26d4cb35f97d677e28160b5a72a8768d0a8b10423f02f786e1bf37\", \"runner_sha256\": \"a5b41f0a5dca8f10c9ee8c062319f235d4cdbf7cab05576de9ef605d1c203c2f\", \"inventory_errors\": [], \"source_readback\": {\"state\": \"PASS\", \"source_sha256\": \"222ed3dfb3645dd90105e9a17daf79eec74894c8c75a39c3e11a7ec79f1a2f26\", \"projection_equal\": true, \"rule_source_checks\": [{\"ref\": \"work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/process_trial_20261009/contract\", \"matched\": true}], \"application_id\": \"MOW-NHC-001-G1-20261010-01\", \"trial_declarations\": 13, \"scope\": \"SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL\"}, \"results\": [{\"id\": \"TQT-CHECK-001\", \"case_set\": \"TQT-CASE-MODEL\", \"source_sha256\": \"eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75\", \"argv\": [\"python3\", \"check-process-model.py\", \"view.html\"], \"exit_code\": 0, \"stdout\": \"{\\\"status\\\": \\\"SIMULATION_ONLY\\\", \\\"passed\\\": 87, \\\"model_sha256\\\": \\\"f55fcf4fa78b22005604b62d025487f4a3977b5cc106bb9f3b0a6c0a8713ce5a\\\", \\\"package_state\\\": \\\"NOT_FROZEN\\\", \\\"production_ready\\\": false}\\n\", \"stderr\": \"\", \"elapsed_seconds\": 4.302, \"timeout_seconds\": 60}, {\"id\": \"TQT-CHECK-002\", \"case_set\": \"TQT-CASE-CATALOG\", \"source_sha256\": \"09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270\", \"argv\": [\"python3\", \"check-process-catalog.py\", \"view.html\"], \"exit_code\": 0, \"stdout\": \"checkpoint cases 20\\n{\\\"aggregate\\\": 5, \\\"normal\\\": 12, \\\"coded_references\\\": 55, \\\"bad_reference_cases\\\": 2, \\\"scope\\\": \\\"DESIGN_ONLY\\\"}\\n\", \"stderr\": \"\", \"elapsed_seconds\": 0.702, \"timeout_seconds\": 60}, {\"id\": \"TQT-CHECK-003\", \"case_set\": \"TQT-CASE-DECLARATION\", \"source_sha256\": \"93487966d9a32bafcb400bba5ac47f09c9a8b312d0c2dc89a7eacf27305c7b27\", \"argv\": [\"python3\", \"check-overview-consistency.py\", \"view.html\"], \"exit_code\": 0, \"stdout\": \"{\\\"positive\\\": 1, \\\"negative\\\": 35, \\\"procedures\\\": 17, \\\"source_check\\\": \\\"MATCH_EXISTING_PRODUCT_RECEIPT\\\", \\\"application_state\\\": \\\"CHUAN_BI\\\", \\\"can_start\\\": false, \\\"needs_before_start\\\": [{\\\"field\\\": \\\"identity\\\", \\\"need\\\": \\\"Việc gì? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"connections_in\\\", \\\"need\\\": \\\"Bắt đầu từ đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"connections_out\\\", \\\"need\\\": \\\"Kết thúc ở đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"prerequisites\\\", \\\"need\\\": \\\"Đầu vào đã đủ chưa? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"execution_conditions\\\", \\\"need\\\": \\\"Được thực hiện khi nào? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"plan\\\", \\\"need\\\": \\\"Kế hoạch ghi đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"records\\\", \\\"need\\\": \\\"Kết quả và bằng chứng ghi đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"roles\\\", \\\"need\\\": \\\"Ai làm, báo ai, khi nào? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"acceptance\\\", \\\"need\\\": \\\"Ai kiểm, đạt là gì? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"questions\\\", \\\"need\\\": \\\"Phiếu đủ/thiếu ở đâu? — cần kiểm và ghi căn cứ\\\", \\\"owner\\\": \\\"Astra Codex\\\"}, {\\\"field\\\": \\\"start_confirmation\\\", \\\"need\\\": \\\"Xác nhận kế hoạch đúng phiên trước S3\\\", \\\"owner\\\": \\\"Astra Codex · Host\\\"}], \\\"next\\\": \\\"Rà độc lập hợp đồng áp dụng từng MOT/giao bước; hoàn thiện và thử nơi ghi ngoài PG theo đúng schema. Chưa đủ điều kiện mốc 3.\\\", \\\"production_ready\\\": false}\\n\", \"stderr\": \"\", \"elapsed_seconds\": 8.854, \"timeout_seconds\": 180}, {\"id\": \"TQT-CHECK-004\", \"case_set\": \"TQT-CASE-RECORD\", \"source_sha256\": \"32e3f58fc8d3e6f5b239e09264f18ccd91ae7eadbb0355fb0352b3529e1f0586\", \"argv\": [\"node\", \"check-record-control.js\", \"view.html\"], \"exit_code\": 0, \"stdout\": \"{\\\"tests\\\":26,\\\"scope\\\":\\\"DESIGN_PROJECTION_ONLY\\\",\\\"counts\\\":{\\\"total\\\":34,\\\"written\\\":13,\\\"verified\\\":0,\\\"needsFix\\\":0,\\\"notRecorded\\\":21,\\\"dueMissing\\\":7,\\\"due\\\":20,\\\"deferred\\\":14},\\\"pg\\\":\\\"NOT_RUN\\\"}\\n{\\\"tests\\\":59,\\\"regression\\\":\\\"QTTH05_WALK\\\",\\\"synthetic_full_walk\\\":7,\\\"live_application\\\":0,\\\"pg\\\":\\\"NOT_RUN\\\"}\\n{\\\"trial_cases\\\":15,\\\"persisted_declarations\\\":13,\\\"checkpoints\\\":0,\\\"scope\\\":\\\"TRIAL_NOT_PG\\\"}\\n{\\\"information_contract_cases\\\":44,\\\"actual_contract_rows\\\":66,\\\"actual_criteria\\\":11,\\\"synthetic_full_walk\\\":7,\\\"real_checkpoints\\\":0,\\\"server_write_hook\\\":\\\"NOT_PROBED_BY_THIS_SUITE\\\",\\\"pg\\\":\\\"NOT_RUN\\\"}\\n{\\\"pr14_boundary_cases\\\":48,\\\"synthetic_trusted_context_only\\\":true,\\\"untrusted_self_attestation_blocked\\\":true,\\\"real_checkpoints\\\":0}\\n{\\\"pr14_product_input_cases\\\":9,\\\"sha256_crosscheck_vectors\\\":4}\\n{\\\"pr14_product_mapping_cases\\\":8,\\\"scope\\\":\\\"LOGICAL_PACKETS_NOT_BACKEND_EXECUTION\\\"}\\n{\\\"pr15_product_boundaries\\\":{\\\"cases\\\":26,\\\"state\\\":\\\"PASS\\\"}}\\n{\\\"pr15_persisted_design_and_recovery\\\":{\\\"cases\\\":15,\\\"state\\\":\\\"PASS\\\",\\\"read_plans\\\":[\\\"P02\\\",\\\"P03\\\"],\\\"effects\\\":1,\\\"real_endpoint_permissions\\\":\\\"NOT_PROVED\\\",\\\"mow001_progress\\\":\\\"UNCHANGED_0_OF_7\\\"}}\\n{\\\"pr14_file_handoff\\\":{\\\"cases\\\":17,\\\"state\\\":\\\"PASS\\\",\\\"producer\\\":\\\"separate process; creates packet from declarations\\\",\\\"consumer\\\":\\\"separate process; opens persisted packet and uses scope/answers\\\",\\\"producer_sha256\\\":\\\"5a5e697ceeb41a26e8dc1ad93a388c8cf4a6cb6c0100369fc0211d72e4daa927\\\",\\\"readback_sha256\\\":\\\"5a5e697ceeb41a26e8dc1ad93a388c8cf4a6cb6c0100369fc0211d72e4daa927\\\",\\\"concurrent_effect_count\\\":1,\\\"environment\\\":\\\"ISOLATED_TEST_NOT_MOW001_COMPLETION\\\",\\\"real_endpoint_permissions\\\":\\\"NOT_PROVED\\\",\\\"pg\\\":\\\"NOT_RUN\\\"}}\\n\", \"stderr\": \"\", \"elapsed_seconds\": 119.13, \"timeout_seconds\": 180}, {\"id\": \"TQT-CHECK-005\", \"case_set\": \"TQT-CASE-MASTER\", \"source_sha256\": \"38e0473973329f8b25c0abb96ea13d8ccbd00986408a0ae225af6f90fc7c83ac\", \"argv\": [\"node\", \"check-work-masters.js\", \"view.html\", \"/tmp/TQT-UI-TEST-38wylz4i/process-work-master-v1.js\", \"/tmp/TQT-UI-TEST-38wylz4i/definition-master-registry-v1.js\"], \"exit_code\": 0, \"stdout\": \"{\\\"masters\\\":18,\\\"planned_jobs\\\":2,\\\"negative_cases\\\":14,\\\"scope\\\":\\\"DESIGN_ONLY\\\",\\\"pg\\\":\\\"NOT_RUN\\\"}\\ndossier: 7 checkpoints, 11 groups, 34 obligations; partial/foreign/unlinked/second job cases passed\\ncoverage: 7 checkpoints + exception/operations; 8 new UI references resolved; 11 groups preserved\\nCAT206 applied contracts visible; field meaning/version/case links preserved\\nP30 merged-index guard: 48 inputs -> 47 Masters, one DOT/6 tools, duplicate cases rejected, real UI fails closed, old URL preserved\\nP33 inventory/proof states, provider reuse, missing coverage and detail validated\\nP33 stale tool source is not shown as current TEST proof\\nP34: 12 invalid-approval/version/test mutations + revocation/retirement blocked; 6 existing Masters read their sources; two vendor columns last; no synthetic receipt saved\\n\", \"stderr\": \"\", \"elapsed_seconds\": 3.32, \"timeout_seconds\": 60}], \"pg\": \"NOT_RUN\", \"production_ready\": false, \"master_identity_check\": {\"state\": \"PASS\", \"errors\": [], \"input_rows\": 47, \"unique_masters\": 46, \"merged\": [{\"canonical_id\": \"ML-DEF-024\", \"ids\": [\"ML-DEF-024\", \"CAT-006\"]}], \"scope\": \"Definition registry + QTTH work Masters; Config entry checked by live merged-index guard. Not a full PG/VPS inventory.\", \"input_sha256\": \"a153d208c8470db1256be508e4f1f951d7b755d4cff61cde4b00cfd461af378a\", \"self_test\": {\"cases\": 13, \"scale_rows\": 10000, \"method\": \"indexed keys; no pairwise scan\"}}, \"prerequisite_errors\": [], \"ui_inputs\": {\"process-work-master-v1.js\": \"a2c033778f01ca90e5f48ce1aee9ab7221aea0c322112f2e32db66c250927574\", \"ui-child-content-v1.js\": \"451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee\", \"ui-child-from-parent-v1.js\": \"b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357\", \"definition-master-registry-v1.js\": \"749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c\"}, \"ui_adapter_sha256\": \"a2c033778f01ca90e5f48ce1aee9ab7221aea0c322112f2e32db66c250927574\", \"runner_self_test\": {\"cases\": 20, \"store\": \"temporary TEST file in execution snapshot\", \"write_read_restore\": \"PASS\", \"production\": \"NOT_TOUCHED\"}, \"usage_audit_self_test\": {\"cases\": 23, \"state\": \"PASS\", \"scope\": \"TEST SQLite and prepared CAS patches; no production writes\"}, \"status\": \"PASS\"}\n",
         "stdout_next_offset": null,
         "stderr": "",
         "stderr_next_offset": null
@@ -62967,8 +63433,16 @@
           "detail": "Mở được và đọc được bộ nhớ"
         },
         "CAT-012": {
-          "rows": 5,
-          "case_ids": [
+          "rows": 11,
+          "suites": 6,
+          "case_groups": 5,
+          "ids": [
+            "TQT-CASE-MODEL",
+            "TQT-CASE-CATALOG",
+            "TQT-CASE-DECLARATION",
+            "TQT-CASE-RECORD",
+            "TQT-CASE-MASTER",
+            "TQT-CASE-RUNNER",
             "TQT-P34-VERSION",
             "TQT-P34-VENDOR",
             "TQT-P34-REVISION",
@@ -62986,7 +63460,17 @@
         },
         "CAT-229*": {
           "rows": 1,
-          "run_id": "TQT-QT001-P34-01"
+          "run_id": "TQT-QT001-P34-01",
+          "state": "Đã trả kết quả"
+        },
+        "CAT-015": {
+          "rows": 6,
+          "state": "PASS",
+          "note": "Observed before final reference-only fix; final execution receipt above pins current sources."
+        },
+        "CAT-025": {
+          "rows": 2,
+          "note": "Observed first two real OpenAI receipts; later revision adds one retained review, source check reads3."
         }
       },
       "font_note": "ui_inspect báo stylesheet Google Fonts bị CSP chặn; nội dung/điều khiển vẫn đọc được. Không đổi CSP trong lượt này."
@@ -63001,6 +63485,80 @@
       ],
       "action": "Tra bản ghi hiện có trước; chỉ bổ sung phần chưa biết khi có bằng chứng, không chạy lại khảo sát đã xác minh."
     },
-    "walkthrough_result": "Ghi nguồn → tiến trình khác đọc/kiểm → đọc lại Master → lưu kết quả/duyệt GPT → bàn giao nguồn hiện hành; đủ trong phạm vi áp thử Host theo Owner."
+    "walkthrough_result": "Ghi nguồn → tiến trình khác đọc/kiểm → đọc lại Master → lưu kết quả/duyệt GPT → bàn giao nguồn hiện hành; đủ trong phạm vi áp thử Host theo Owner.",
+    "openai_recheck": {
+      "provider": "OpenAI",
+      "reviewer": "Codex Host",
+      "at": "2026-10-12T04:36:00.302607+00:00",
+      "decision": "APPROVE",
+      "target": "TQT-CHECK-005",
+      "source_sha256": "38e0473973329f8b25c0abb96ea13d8ccbd00986408a0ae225af6f90fc7c83ac",
+      "binding": "38e0473973329f8b25c0abb96ea13d8ccbd00986408a0ae225af6f90fc7c83ac:P34.1:contract=[[\"full_purpose\",\"Danh sách Master, hồ sơ và UI adapter\"],[\"input\",\"view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005\"],[\"output\",\"JSON / exit code; run_id + thời điểm + hash trong báo cáo runner\"],[\"preconditions\",\"Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG\"],[\"argv\",[\"node\",\"check-work-masters.js\",\"view.html\"]],[\"operation_key\",\"tqt.validate-work-masters\"],[\"limitations\",\"Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật.\"]]:ui=[[\"definition-master-registry-v1.js\",\"749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c\"],[\"process-work-master-v1.js\",\"a2c033778f01ca90e5f48ce1aee9ab7221aea0c322112f2e32db66c250927574\"],[\"ui-child-content-v1.js\",\"451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee\"],[\"ui-child-from-parent-v1.js\",\"b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357\"]]",
+      "scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
+      "evidence": "/opt/incomex/data/workspace-tools/jobs/8ea318dd00a14af88252e6a9050a0735/stdout#results/TQT-CHECK-005",
+      "basis": "Đọc delta; đối chiếu giao diện CAT012 11mã thực và CAT015→định nghĩa; CHECK005 và bộ tổngVPS đều đạt; không sửa PG/MOW001."
+    },
+    "stale_signature_demonstration": {
+      "tool": "TQT-CHECK-005",
+      "observed_before_resign": "Cần duyệt lại · khác phiên",
+      "source": "actual adapter reading updated audit and previous saved signature",
+      "after": "New OpenAI receipt added; old receipt retained"
+    },
+    "platform_receipts": {
+      "jev": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"model\":\"typesafe/jev-1.13-20260917\",\"answers\":{\"design\":{\"type\":\"choice\",\"choice\":\"shared\",\"probabilities\":{\"label\":0,\"new\":0,\"none\":0.01,\"shared\":0.99},\"confidence\":0.99},\"trial\":{\"type\":\"choice\",\"choice\":\"partial\",\"probabilities\":{\"complete\":0,\"none\":0.02,\"partial\":0.98},\"confidence\":0.97}},\"usage\":{\"input_tokens\":636,\"output_tokens\":80,\"cost\":0.000026712},\"id\":\"gen-dec-1791777819-iewqP3YUVkHZLpuL1YOj\",\"provider\":\"TypeSafe\"}"
+          }
+        ],
+        "isError": false
+      },
+      "trial_ui": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"captured_at\": 1791778837.1583986, \"http_status\": 200, \"width\": 1280, \"height\": 800, \"full_page\": false, \"profile\": null, \"title\": \"CAT-229* \\u00b7 S\\u1ed5 l\\u1ea7n th\\u1eed\", \"url\": \"https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-229%2A\", \"element_bounds\": {\"x\": 49, \"y\": 301.75, \"width\": 1182, \"height\": 70.75}, \"console_errors\": {\"count\": 1, \"messages\": [\"Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap' violates the following Content Security Policy directive: \\\"style-src 'self' 'unsafe-inline'\\\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked.\"]}, \"text\": \"STT\\tID\\tT\\u00caN\\t\\nH\\u1ed2 S\\u01a0\\n?\\n\\t\\nVI\\u1ec6C CON\\n?\\n\\t\\nL\\u1ea6N TH\\u1eec\\n?\\n\\t\\nNG\\u01af\\u1edcI L\\u00c0M\\n?\\n\\t\\nB\\u1eaeT \\u0110\\u1ea6U\\n?\\n\\t\\nTR\\u1ea0NG TH\\u00c1I\\n?\\n\\t\\n1\\tTQT-QT001-P34-01\\t\\u0110i th\\u1eed QT 001 \\u00b7 b\\u1ed9 nh\\u1edb DOT/Tool\\ttools-quy-trinh/P34\\ttools-quy-trinh\\t1\\tCodex Host\\t2026-10-12T04:07:10.538990+00:00\\t\\u0110ang l\\u00e0m\\tChi ti\\u1ebft \\u203a\", \"controls\": [{\"tag\": \"SPAN\", \"role\": \"button\", \"type\": null, \"label\": \"H\\u1ed3 s\\u01a1: M\\u1ed7i l\\u1ea7n th\\u1eed c\\u00f3 m\\u00e3 ri\\u00eang trong \\u0111\\u00fang h\\u1ed3 s\\u01a1 v\\u00e0 vi\\u1ec7c con. G\\u1eedi l\\u1ea1i m\\u1ed9t l\\u1ec7nh kh\\u00f4ng t\\u1ef1 t\\u1ea1o l\\u1ea7n th\\u1eed m\\u1edbi.\", \"disabled\": false}, {\"tag\": \"SPAN\", \"role\": \"button\", \"type\": null, \"label\": \"Vi\\u1ec7c con: M\\u1ed7i l\\u1ea7n th\\u1eed c\\u00f3 m\\u00e3 ri\\u00eang trong \\u0111\\u00fang h\\u1ed3 s\\u01a1 v\\u00e0 vi\\u1ec7c con. G\\u1eedi l\\u1ea1i m\\u1ed9t l\\u1ec7nh kh\\u00f4ng t\\u1ef1 t\\u1ea1o l\\u1ea7n th\\u1eed m\\u1edbi.\", \"disabled\": false}, {\"tag\": \"SPAN\", \"role\": \"button\", \"type\": null, \"label\": \"L\\u1ea7n th\\u1eed: M\\u1ed7i l\\u1ea7n th\\u1eed c\\u00f3 m\\u00e3 ri\\u00eang trong \\u0111\\u00fang h\\u1ed3 s\\u01a1 v\\u00e0 vi\\u1ec7c con. G\\u1eedi l\\u1ea1i m\\u1ed9t l\\u1ec7nh kh\\u00f4ng t\\u1ef1 t\\u1ea1o l\\u1ea7n th\\u1eed m\\u1edbi.\", \"disabled\": false}, {\"tag\": \"SPAN\", \"role\": \"button\", \"type\": null, \"label\": \"Ng\\u01b0\\u1eddi l\\u00e0m: M\\u1ed7i l\\u1ea7n th\\u1eed c\\u00f3 m\\u00e3 ri\\u00eang trong \\u0111\\u00fang h\\u1ed3 s\\u01a1 v\\u00e0 vi\\u1ec7c con. G\\u1eedi l\\u1ea1i m\\u1ed9t l\\u1ec7nh kh\\u00f4ng t\\u1ef1 t\\u1ea1o l\\u1ea7n th\\u1eed m\\u1edbi.\", \"disabled\": false}, {\"tag\": \"SPAN\", \"role\": \"button\", \"type\": null, \"label\": \"B\\u1eaft \\u0111\\u1ea7u: M\\u1ed7i l\\u1ea7n th\\u1eed c\\u00f3 m\\u00e3 ri\\u00eang trong \\u0111\\u00fang h\\u1ed3 s\\u01a1 v\\u00e0 vi\\u1ec7c con. G\\u1eedi l\\u1ea1i m\\u1ed9t l\\u1ec7nh kh\\u00f4ng t\\u1ef1 t\\u1ea1o l\\u1ea7n th\\u1eed m\\u1edbi.\", \"disabled\": false}, {\"tag\": \"SPAN\", \"role\": \"button\", \"type\": null, \"label\": \"Tr\\u1ea1ng th\\u00e1i: M\\u1ed7i l\\u1ea7n th\\u1eed c\\u00f3 m\\u00e3 ri\\u00eang trong \\u0111\\u00fang h\\u1ed3 s\\u01a1 v\\u00e0 vi\\u1ec7c con. G\\u1eedi l\\u1ea1i m\\u1ed9t l\\u1ec7nh kh\\u00f4ng t\\u1ef1 t\\u1ea1o l\\u1ea7n th\\u1eed m\\u1edbi.\", \"disabled\": false}], \"links\": [{\"text\": \"Chi ti\\u1ebft \\u203a\", \"href\": \"https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-229*&chi-tiet=TQT-QT001-P34-01\"}], \"aria\": null, \"role\": null}"
+          }
+        ],
+        "isError": false
+      },
+      "screenshot_metadata": "{\"captured_at\": 1791779245.8055646, \"http_status\": 200, \"width\": 1100, \"height\": 1000, \"full_page\": false, \"profile\": null, \"title\": \"ML-DEF-024 \\u00b7 Master DOT\", \"url\": \"https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=24&chi-tiet=TQT-CHECK-005\", \"element_bounds\": {\"x\": 0, \"y\": 0, \"width\": 1100, \"height\": 18245}, \"console_errors\": {\"count\": 1, \"messages\": [\"Loading the stylesheet 'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap' violates the following Content Security Policy directive: \\\"style-src 'self' 'unsafe-inline'\\\". Note that 'style-src-elem' was not explicitly set, so 'style-src' is used as a fallback. The action has been blocked.\"]}}"
+    },
+    "local_preparation": {
+      "scope": "One-time preparation, not reusable DOTs and not SSOT",
+      "files": [
+        {
+          "file": "close-records.py",
+          "sha256": "32a0f248ebbe96bc34409d080ae7b770a70225b87191f1c74c50da7bebdec649"
+        },
+        {
+          "file": "finalize-source.py",
+          "sha256": "416d8ed4b51fc453a73e2975b41e25ca667084e5b60e34fbbb7df1d9774b92db"
+        },
+        {
+          "file": "fix-case-links.py",
+          "sha256": "7f2c91057ea2902234340fd91eba04b83b4306041199a2b6becb3b8099f5cc17"
+        },
+        {
+          "file": "last-records.py",
+          "sha256": "d60c37f454f46ead0b023cd3b133e7bd22d3223396ec280f485bb725d12fba17"
+        },
+        {
+          "file": "update-data.py",
+          "sha256": "5bce02a39e1367fc7a7038dca893e9e2d4c90b22e6f530ac3af9a89811813344"
+        },
+        {
+          "file": "update-v2.py",
+          "sha256": "44507e1bb92a6d267981c08c19085728470236fbf06d73047d45fcdf1a561155"
+        },
+        {
+          "file": "update-v3.py",
+          "sha256": "003610f341561aee18b7060693b88b69c1ced9e5db8b22c873d2e0d8ce6017ce"
+        }
+      ],
+      "actual_local_suite_status": "PASS",
+      "source": "Codex exec_command results and local artifacts in this task"
+    }
   }
 }

@@ -927,4 +927,6 @@ Nguồn chuẩn và đường vào vẫn hai Master dưới Master tiến trình
 
 Owner bổ sung trực tiếp trong lượt P34: “Bạn cứ già đi, coi như không có anthropic duyệt. Đó không phải blocker. Điều quan trọng là khi áp dụng vào quy trình thì chạy được từ đầu đến cuối. Không cần máy móc việc thủ tục hành chính đâu”. Hiệu lực: không gửi bộ nguồn sang Anthropic; tiếp tục đường áp thử, ghi Claude chưa duyệt riêng; không tuyên bố đã đồng thuận hoặc có agent mới độc lập.
 
-KQ P34: bộ tổng VPS cuối PASS, job50c39cb40f314c72ae2dbb61a15959f4,148.683giây. Đã đi đường áp thử Host ghi→kiểm ở tiến trình khác→đọc Master→ghi2phiếuGPT→bàn giao nguồn. 6Master đã nối trong task; chưa xác nhận toàn bộ Master toàn hệ hay AI mới độc lập làm cả QT001. Claude chưa duyệt không chặn theo Owner. Bằng chứng/điểm thiếu chỉ ở hồ sơ P34; MOW001 nguyên byte,0/7,khôngPG.
+KQ P34: bộ tổng VPS cuối PASS, job8ea318dd00a14af88252e6a9050a0735,157.370giây. Đã đi đường áp thử Host ghi→kiểm ở tiến trình khác→đọc Master→ghi2phiếuGPT→bàn giao nguồn. 6Master đã nối trong task; chưa xác nhận toàn bộ Master toàn hệ hay AI mới độc lập làm cả QT001. Claude chưa duyệt không chặn theo Owner. Bằng chứng/điểm thiếu chỉ ở hồ sơ P34; MOW001 nguyên byte,0/7,khôngPG.
+
+Đọc lại phát hiện mã bộ ca sai: đã sửa đúng TQT-CASE-MASTER, đưa6bộ và5nhóm ca vào CAT012; CHECK005 chặn kết quả/ca trỏ bộ chưa đăng ký. Lượt tổng cuối8ea318dd00a14af88252e6a9050a0735 PASS157.370giây. Chữ ký005cũ đã mất hiệu lực đúng khi đổi nguồn; ghi phiếuGPT mới, giữ lịch sử.
