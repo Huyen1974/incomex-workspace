@@ -16,9 +16,9 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ✅ Đã làm P31: bịt lỗi hợp đồng/gói giao P01, thêm schema và kiểm tập bắt buộc, lịch sử toàn bằng chứng; thử ghi–đọc hai tiến trình TEST. Chưa có quyền endpoint/người kiểm độc lập thật, MOW001 0/7.
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
-- ■ Đang làm: P37 · MOW001 G1 đã bàn giao qua cửa ghi; nối đầy đủ Master/câu trả lời và kiểm lại giao diện/bộ tổng. Không PG.
-- ⬜ Còn lại: kiểm bản xuất và bộ tổng P37; G2/G3, PG, chuyên môn T3, tối ưu lịch sử và AI mới lặp việc thật chưa được chứng minh.
-- ➡ Kế tiếp: kiểm đúng phiên đã lưu/xuất và trả cấu hình tài nguyên tạm. P36 fullsuite đã PASS job1912451206cb4dd28b30f4447cdfcfc3; không còn PENDING_RECHECK của P36.
+- ■ Đã khép P37: MOW001 G1 được Owner duyệt/nhận, 7/7 mốc; hồ sơ và Master đã hiện dữ liệu, bộ tổng VPS PASS. Không PG.
+- ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, giảm lịch sử lặp, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002.
+- ➡ Kế tiếp: trả cấu hình tài nguyên tạm; xem resource_restoration ở aggregate P37. Khi mở việc mới, tra Master/DOT trước và dùng lại CHECK004/005/006.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -43,7 +43,7 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 
 STARTED@MOW001-P36-REAL 2026-10-12T07:34:36.793236+00:00 · executor=Codex Host · phạm vi kho tệp MOW001/G1; không PG. Dùng lại CHECK004/005/006 và bộ prepare/activate/probe đã đăng ký. Reviewer kỹ thuật đọc mã/bằng chứng, không ký hộ Anthropic; quyết định/ACK Owner cuối vẫn cần nguồn thật.
 
-**Trạng thái P37 hiện hành:** Owner đã duyệt và xác nhận nhận G1 trực tiếp. Quyết định/P05/ACK lưu commit b9917118 và đọc ký task456ea8c9; chốt7/7,31/31nghĩa vụ phát sinh tại commit8ac40578, task0a72d0f4. Mục lục bằng chứng: aggregateP37. P36 fullsuite đã PASS, P37 đang kiểm phần Master mới. Không mở MOW002/PG. Các đoạn P36/P35 dưới đây là lịch sử.
+**Trạng thái P37 hiện hành:** Owner đã duyệt và xác nhận nhận G1 trực tiếp. Quyết định/P05/ACK lưu commit b9917118 và đọc ký task456ea8c9; chốt7/7,31/31nghĩa vụ phát sinh tại commit8ac40578, task0a72d0f4. Mục lục bằng chứng: aggregateP37. P37 bộ tổng native đã PASS job 43e4948f9c5c4c27b7b868b47483bcd3; nguồn/UI/hồ sơ đã đối chiếu. Không mở MOW002/PG. Các đoạn P36/P35 dưới đây là lịch sử.
 
 **Owner 12/10/2026 · P35, nguyên văn:** “Bạn tiếp tục áp dụng vào MOW001 thật, đi từng bước từ đầu đến cuối xem còn tắc ở đâu thì sửa và ghi vào các Master liên quan nhé. Vẫn làm ngoài PG, không lấy kết quả TEST thay cho việc thật đã đạt.”
 

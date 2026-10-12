@@ -2,6 +2,8 @@
 
 ## P37 · Một vòng MOW001 G1 đã duyệt và nhận
 
+**Kiểm cuối P37:** bộ tổng VPS PASS, job `43e4948f9c5c4c27b7b868b47483bcd3`; giữ đầy đủ lịch sử, nguồn sản phẩm `908f9c7f`. Đã kiểm hồ sơ 7/7, 50 câu trả lời và phép chiếu Master. Biên nhận/các lượt lỗi/phục hồi ở aggregate#host_review_P37. Cấu hình tài nguyên tạm sẽ được trả ở bước kết thúc, trạng thái tại resource_restoration.
+
 Hồ sơ đúng việc: [TQT-VIEC-001 · MOW001](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001). TQT-VIEC-002 là MOW002 mới ghi danh, chưa mở hồ sơ; không điền dữ liệu MOW001 sang đó.
 
 Owner đã duyệt và xác nhận nhận G1 trực tiếp ngày 12/10/2026. Hồ sơ qua cửa ghi: **7/7 mốc, 31/31 nghĩa vụ phát sinh đã đối chiếu; 3 nhánh điều kiện không phát sinh**. Commit 8ac40578c3bccf9b4b43f6af1e7c5ac0fa91210b; task0a72d0f4bb5342749a88059e9c148bdd; hash908f9c7fbf3eb664ffd88249a1c9d277f90a7d3022e8c01c246af10f3fefd35b. Biên nhận kiểm và giao diện cuối nằm tại UI-REVIEW-AGGREGATE.json#host_review_P37. G1 là thiết kế; G2/PG chưa được nghiệm thu.

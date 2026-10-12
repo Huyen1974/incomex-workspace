@@ -121995,8 +121995,8 @@ main{max-width:1240px} [hidden]{display:none!important}
       "policy": "Tìm trong CAT-006 trước khi viết mới. Bộ kiểm phải có CAT-012 + lệnh chạy + hash + chủ quản + giới hạn; kết quả mỗi lần lưu CAT-015 và gắn phiên nguồn. Xóa/nghỉ công cụ phải có lý do và kiểm nơi dùng. Chưa nhập dot_tools trên PG.",
       "execution_status": {
         "state": "PASS",
-        "note": "Nativefull1GiB PASS, job1912451206cb4dd28b30f4447cdfcfc3; allregisteredchecks, nohistorytrim. ActualMOW001 remains5/7 awaitingOwner; noPG.",
-        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/final_suite_followup"
+        "note": "Bộ tổng native P37 đạt trên kho tệp G1 thật, đầy đủ lịch sử. Owner đã duyệt/nhận MOW001 G1: 7/7; TEST chỉ xác minh kỹ thuật; chưa PG/G2.",
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37/native_suite"
       },
       "canonical_master_id": "ML-DEF-024",
       "audit_sources": {
@@ -122238,6 +122238,20 @@ main{max-width:1240px} [hidden]{display:none!important}
           "source": "Actual connected tool schema; ui_screenshot used P33; upload sequence used in P32 live gate probes",
           "version_policy": "Biên nhận theo từng lượt; không suy từ có khả năng thành đã chạy đúng",
           "evidence_state": "CAPABILITY_REGISTERED_USAGE_REQUIRES_RECEIPT"
+        },
+        {
+          "id": "host:incomex-config-apply-v0",
+          "provider": "VPS · công cụ vận hành có sẵn",
+          "purpose": "Ghi cấu hình theo danh mục có kiểm phiên, kiểm cú pháp, sao lưu và hoàn trả",
+          "full_purpose": "Điều chỉnh cấu hình VPS bằng Config Guard hiện hữu, không viết trực tiếp hoặc tự tạo công cụ thay thế",
+          "source": "/usr/local/sbin/incomex-config-apply-v0; /var/lib/incomex-config-guard-v0/registry.tsv",
+          "sha256": "2a604e17b48c61da1830ac44c16d2baef311e1cda8f4efbb700ea18b8ef3fc61",
+          "version_policy": "Đối chiếu hash công cụ, target-id và expected-baseline trước từng lượt",
+          "preconditions": "Host có quyền vận hành target đã đăng ký; ứng viên thuộc thư mục đúng mutation-id; không có việc bị ảnh hưởng đang chạy",
+          "input": "mutation-id, target-id, candidate, expected-baseline; không log giá trị bí mật",
+          "output": "APPLIED hoặc từ chối/hoàn trả; audit và baseline hash",
+          "limitations": "Đã dùng thực tế P37; chưa có bộ ca hồi quy độc lập trong TQT; không tự áp dụng mọi cấu hình",
+          "evidence_state": "ACTUAL_SCOPED_USE_RECORDED_NO_GENERAL_APPROVAL"
         }
       ],
       "reuse_needs": [
@@ -122303,6 +122317,13 @@ main{max-width:1240px} [hidden]{display:none!important}
             "agent-data:workspace_transaction"
           ],
           "scope": "Đã dùng cho kho tệp MOW001/G1 và34collection logic. Không suy quyền toàn hệ thống/PG; nghiệm thu cần Owner thật."
+        },
+        {
+          "need": "Điều chỉnh và hoàn trả cấu hình tài nguyên có kiểm phiên",
+          "tool_ids": [
+            "host:incomex-config-apply-v0"
+          ],
+          "scope": "Chỉ target đã đăng ký và phạm vi Owner giao Host; đọc biên nhận P37, chưa phê duyệt tự động toàn hệ thống"
         }
       ],
       "audit_projection": {
@@ -122312,69 +122333,69 @@ main{max-width:1240px} [hidden]{display:none!important}
             "sha256": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75",
             "exit_code": 0,
             "case_set": "TQT-CASE-MODEL",
-            "checked_at": "2026-10-12T10:24:33.165976+00:00",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/1912451206cb4dd28b30f4447cdfcfc3/stdout#results/TQT-CHECK-001",
-            "job_id": "1912451206cb4dd28b30f4447cdfcfc3",
-            "source_head": "276f1ac407e32f1a7821b0d3ed163f5dd50b4f42"
+            "checked_at": "2026-10-12T13:35:37.908387+00:00",
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/43e4948f9c5c4c27b7b868b47483bcd3/stdout#results/TQT-CHECK-001",
+            "job_id": "43e4948f9c5c4c27b7b868b47483bcd3",
+            "source_head": "68fd452597fbe1f604d4794d4dac422d60f59e97"
           },
           {
             "id": "TQT-CHECK-002",
             "sha256": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270",
             "exit_code": 0,
             "case_set": "TQT-CASE-CATALOG",
-            "checked_at": "2026-10-12T10:24:33.165976+00:00",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/1912451206cb4dd28b30f4447cdfcfc3/stdout#results/TQT-CHECK-002",
-            "job_id": "1912451206cb4dd28b30f4447cdfcfc3",
-            "source_head": "276f1ac407e32f1a7821b0d3ed163f5dd50b4f42"
+            "checked_at": "2026-10-12T13:35:37.908387+00:00",
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/43e4948f9c5c4c27b7b868b47483bcd3/stdout#results/TQT-CHECK-002",
+            "job_id": "43e4948f9c5c4c27b7b868b47483bcd3",
+            "source_head": "68fd452597fbe1f604d4794d4dac422d60f59e97"
           },
           {
             "id": "TQT-CHECK-003",
             "sha256": "3ba3ef6e4d0e5c220d16941f8a88ab0c395529c70b401ce2dd4befbcf2459e9d",
             "exit_code": 0,
             "case_set": "TQT-CASE-DECLARATION",
-            "checked_at": "2026-10-12T10:24:33.165976+00:00",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/1912451206cb4dd28b30f4447cdfcfc3/stdout#results/TQT-CHECK-003",
-            "job_id": "1912451206cb4dd28b30f4447cdfcfc3",
-            "source_head": "276f1ac407e32f1a7821b0d3ed163f5dd50b4f42"
+            "checked_at": "2026-10-12T13:35:37.908387+00:00",
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/43e4948f9c5c4c27b7b868b47483bcd3/stdout#results/TQT-CHECK-003",
+            "job_id": "43e4948f9c5c4c27b7b868b47483bcd3",
+            "source_head": "68fd452597fbe1f604d4794d4dac422d60f59e97"
           },
           {
             "id": "TQT-CHECK-004",
-            "sha256": "d0082b51b9c73f23f5f42b87df3794f2f3b8c48a9773ceab781bdc01fb389767",
+            "sha256": "402750bd79b3185dab428330b49ca4a6b53adb910a5e6c3dd7ade5683bd9f618",
             "exit_code": 0,
             "case_set": "TQT-CASE-RECORD",
-            "checked_at": "2026-10-12T10:24:33.165976+00:00",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/1912451206cb4dd28b30f4447cdfcfc3/stdout#results/TQT-CHECK-004",
-            "job_id": "1912451206cb4dd28b30f4447cdfcfc3",
-            "source_head": "276f1ac407e32f1a7821b0d3ed163f5dd50b4f42"
+            "checked_at": "2026-10-12T13:35:37.908387+00:00",
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/43e4948f9c5c4c27b7b868b47483bcd3/stdout#results/TQT-CHECK-004",
+            "job_id": "43e4948f9c5c4c27b7b868b47483bcd3",
+            "source_head": "68fd452597fbe1f604d4794d4dac422d60f59e97"
           },
           {
             "id": "TQT-CHECK-005",
-            "sha256": "e0f9de8892aa085408a34282582bf24706b328be81795fcc435483f7ea2b73ae",
+            "sha256": "d4f722bddbd30091e54619e1fc5a718cf26f3db24b9171e8c66bf67bef070be7",
             "exit_code": 0,
             "case_set": "TQT-CASE-MASTER",
-            "checked_at": "2026-10-12T10:24:33.165976+00:00",
+            "checked_at": "2026-10-12T13:35:37.908387+00:00",
             "ui_inputs": {
-              "process-work-master-v1.js": "6a81a5ff686b5608ac1404208059c666fd99a7e8c0c1b9a2eb0bc22f45a22e64",
+              "process-work-master-v1.js": "ad20d66b4af48ddc760f455a98f3baafb75a9b563db3348ad0c3b80de2155ab8",
               "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
               "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357",
               "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c"
             },
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/1912451206cb4dd28b30f4447cdfcfc3/stdout#results/TQT-CHECK-005",
-            "job_id": "1912451206cb4dd28b30f4447cdfcfc3",
-            "source_head": "276f1ac407e32f1a7821b0d3ed163f5dd50b4f42"
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/43e4948f9c5c4c27b7b868b47483bcd3/stdout#results/TQT-CHECK-005",
+            "job_id": "43e4948f9c5c4c27b7b868b47483bcd3",
+            "source_head": "68fd452597fbe1f604d4794d4dac422d60f59e97"
           },
           {
             "id": "TQT-CHECK-006",
-            "sha256": "853277b94ff834e5d2b516c5ee65111f73234f7c5c03721b5356da7a1f9247e6",
+            "sha256": "34866caa5413930c289db44dc4a240d73e74cc29b9246e7c37d1cb9e9e7d1b16",
             "exit_code": 0,
             "case_set": "TQT-CASE-RUNNER",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/1912451206cb4dd28b30f4447cdfcfc3/stdout#status",
-            "job_id": "1912451206cb4dd28b30f4447cdfcfc3",
-            "source_head": "276f1ac407e32f1a7821b0d3ed163f5dd50b4f42"
+            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/43e4948f9c5c4c27b7b868b47483bcd3/stdout#status",
+            "job_id": "43e4948f9c5c4c27b7b868b47483bcd3",
+            "source_head": "68fd452597fbe1f604d4794d4dac422d60f59e97"
           }
         ],
-        "observed_at": "2026-10-12T10:30:26.683065+00:00",
-        "audit_sha256": "355def5600589d6b5c16beb141e9e53a65708a59baa1aeeee229fdc8d33fce90",
+        "observed_at": "2026-10-12T13:44:09.361362+00:00",
+        "audit_sha256": "3838781b748c01cb272fb7cc3c3bd60329df840e9a276b117fafd56d64dc3a80",
         "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P33/audit",
         "dot_inventory": [
           {
@@ -126858,10 +126879,10 @@ main{max-width:1240px} [hidden]{display:none!important}
         "by_action": [
           {
             "action": "agent-data:workspace_stat",
-            "gateway_events": 198,
+            "gateway_events": 205,
             "hook_events": 46,
-            "complete_receipts": 1,
-            "last_at": 1791773038.605,
+            "complete_receipts": 4,
+            "last_at": 1791811165.8612232,
             "examples": [
               "gw:gw:d5b04711b1e4d27d99ac538f:a0b71bbd33e57bf62516f063",
               "gw:gw:33ac30d13962d85e15ed9812:acc6dfa13cbb048acd62cf0f",
@@ -126871,10 +126892,10 @@ main{max-width:1240px} [hidden]{display:none!important}
           },
           {
             "action": "agent-data:workspace_transaction",
-            "gateway_events": 136,
+            "gateway_events": 138,
             "hook_events": 94,
-            "complete_receipts": 25,
-            "last_at": 1791793869.4105508,
+            "complete_receipts": 27,
+            "last_at": 1791804195.3223736,
             "examples": [
               "gw:gw:614d265cf66b0e1c0fc80640:5c4698d9015b57a529814118",
               "gw:gw:c55095728e2af4a352080fc2:eab3703e7c8dec6fc7fafa8a",
@@ -126897,10 +126918,10 @@ main{max-width:1240px} [hidden]{display:none!important}
           },
           {
             "action": "agent-data:workspace_list",
-            "gateway_events": 63,
+            "gateway_events": 66,
             "hook_events": 28,
-            "complete_receipts": 0,
-            "last_at": 1791753260.7600863,
+            "complete_receipts": 3,
+            "last_at": 1791811165.5280118,
             "examples": [
               "gw:gw:6cee6a4892563ca63747969d:95b2d3c420aaa41de69c549d",
               "gw:gw:3e92dbb98a67317a57e4aa47:e26dd8b8fb637921be2f2f85",
@@ -126910,10 +126931,10 @@ main{max-width:1240px} [hidden]{display:none!important}
           },
           {
             "action": "agent-data:workspace_search",
-            "gateway_events": 322,
+            "gateway_events": 340,
             "hook_events": 122,
-            "complete_receipts": 2,
-            "last_at": 1791793659.7561777,
+            "complete_receipts": 16,
+            "last_at": 1791811200.4438396,
             "examples": [
               "gw:gw:a5d4739ca4b776ac30114539:9799c229e77a114f0eec7419",
               "gw:gw:6cee6a4892563ca63747969d:1399339b221794bb3262dd8c",
@@ -126923,10 +126944,10 @@ main{max-width:1240px} [hidden]{display:none!important}
           },
           {
             "action": "agent-data:workspace_read",
-            "gateway_events": 825,
+            "gateway_events": 844,
             "hook_events": 863,
-            "complete_receipts": 3,
-            "last_at": 1791798915.4947712,
+            "complete_receipts": 22,
+            "last_at": 1791811313.9415078,
             "examples": [
               "gw:gw:8409de3bee6f1937f89fcafd:d9ed596e6401002d25d08c8a",
               "gw:gw:7b3f8c935312adf1c0260411:1f713847378ba8a37175eda3",
@@ -126949,10 +126970,10 @@ main{max-width:1240px} [hidden]{display:none!important}
           },
           {
             "action": "agent-data:workspace_exec",
-            "gateway_events": 126,
-            "hook_events": 111,
-            "complete_receipts": 23,
-            "last_at": 1791800622.656,
+            "gateway_events": 137,
+            "hook_events": 123,
+            "complete_receipts": 34,
+            "last_at": 1791812070.824,
             "examples": [
               "hook:codex:7b854bd0c3f24fe0aeb93447ff758544",
               "hook:codex:cef6601b43004082b8386a1f251df8ac",
@@ -126976,9 +126997,9 @@ main{max-width:1240px} [hidden]{display:none!important}
           {
             "action": "local:apply_patch",
             "gateway_events": 0,
-            "hook_events": 38,
+            "hook_events": 40,
             "complete_receipts": 0,
-            "last_at": 1791796639.144,
+            "last_at": 1791807050.049,
             "examples": [
               "hook:codex:3afeb4c739ad4ca0a91cf429fd2b290d",
               "hook:codex:3c2e8de5e31a46b5b704fe68aa08d99f",
@@ -126989,9 +127010,9 @@ main{max-width:1240px} [hidden]{display:none!important}
           {
             "action": "local:shell",
             "gateway_events": 0,
-            "hook_events": 692,
+            "hook_events": 859,
             "complete_receipts": 0,
-            "last_at": 1791801002.828,
+            "last_at": 1791812441.994,
             "examples": [
               "hook:codex:9dd6e5729e514f0ea066f94d3758b8d0",
               "hook:codex:0566ed3dc0264a368c9ecd0b6d478063",
@@ -127027,32 +127048,44 @@ main{max-width:1240px} [hidden]{display:none!important}
           {
             "action": "observed:mcp__agent-data__workspace_edit",
             "gateway_events": 0,
-            "hook_events": 2,
+            "hook_events": 4,
             "complete_receipts": 0,
-            "last_at": 1791792899.481,
+            "last_at": 1791812404.899,
             "examples": [
               "hook:claude-code:acb33424a4a9480f9700c9e3f6e7a5fd",
-              "hook:claude-code:aa4d661a93a9477d873322b289d8419f"
+              "hook:claude-code:aa4d661a93a9477d873322b289d8419f",
+              "hook:claude-code:2d14c77554b04495958210b06f44d47f"
             ],
             "registration": "UNMAPPED_OBSERVED_CAPABILITY"
           },
           {
             "action": "agent-data:workspace_task_start",
-            "gateway_events": 4,
+            "gateway_events": 12,
             "hook_events": 0,
-            "complete_receipts": 4,
-            "last_at": 1791800493.8722665,
+            "complete_receipts": 12,
+            "last_at": 1791811246.5856125,
             "examples": [
               "gw:gw:539f35cd697f38223964a506:7fd346d63ccc06b52aa266a3",
               "gw:gw:539f35cd697f38223964a506:7d346ba679dac5bd4f854afe",
               "gw:gw:539f35cd697f38223964a506:2aac704fbffc2437f80ab1a0"
             ],
             "registration": "PROVIDER_REGISTERED"
+          },
+          {
+            "action": "agent-data:workspace_import_file",
+            "gateway_events": 1,
+            "hook_events": 0,
+            "complete_receipts": 1,
+            "last_at": 1791803994.7218366,
+            "examples": [
+              "gw:gw:3e92dbb98a67317a57e4aa47:ada67ea502506f2da18f8512"
+            ],
+            "registration": "UNMAPPED_OBSERVED_CAPABILITY"
           }
         ],
-        "execution_count": 123,
-        "event_count": 3760,
-        "complete_receipts": 60,
+        "execution_count": 134,
+        "event_count": 4012,
+        "complete_receipts": 121,
         "external_receipts": [
           {
             "action": "jev-reference:evaluate",
@@ -127319,6 +127352,30 @@ main{max-width:1240px} [hidden]{display:none!important}
             "result_sha256": "ec1620205a41c174f98a38b77225a2151811745a65e2c42f11c1d21fd774d6df",
             "evidence_ref": "workspace_task:ea88409a8d19423d91b8977ebdce9e3c",
             "verification": "NATIVE_TRANSACTION_RECEIPT_CROSS_WORK_LINK"
+          },
+          {
+            "action": "browser:cua",
+            "provider": "Codex CUA",
+            "version": "UNKNOWN_PLATFORM_BUILD",
+            "work_id": "tools-quy-trinh",
+            "run_id": "P37-CUA-TABS-11-13",
+            "run_id_origin": "Host correlation of actual tabs; not a provider UUID",
+            "observed_at": "2026-10-12T13:00:45.498605+00:00",
+            "result": "Live real dossier, Owner decision, 50 questions with answers, decision/receipt/history Masters observed",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37/ui_verification",
+            "source": "Observed Codex CUA tool responses and screenshot; gateway does not capture this platform"
+          },
+          {
+            "action": "host:incomex-config-apply-v0",
+            "provider": "VPS Config Guard",
+            "work_id": "tools-quy-trinh",
+            "run_id": "P37-HOST-EXEC-20261012",
+            "run_id_origin": "Actual Config Guard mutation-id",
+            "implementation_sha256": "2a604e17b48c61da1830ac44c16d2baef311e1cda8f4efbb700ea18b8ef3fc61",
+            "observed_at": "2026-10-12T13:44:34.961167+00:00",
+            "result": "APPLIED only registered resource targets; restoration recorded separately",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37/host_exec_budget",
+            "source": "Actual SSH tool output and Config Guard receipt; not inferred gateway telemetry"
           }
         ],
         "gaps": [
@@ -127466,7 +127523,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "acceptance_scope": "Kiểm hợp đồng và cưỡng chế kho tệp MOW001 G1 trên VPS; mô phỏng không thay nghiệm thu sản phẩm; ngoài PG.",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
           "baseline_source": "32e3f58fc8d3e6f5b239e09264f18ccd91ae7eadbb0355fb0352b3529e1f0586",
-          "next_action": "Đối chiếu biên nhận bộ tổng P37 trước khi dùng lại trên đúng phiên. Không lấy TEST thay nghiệm thu G1."
+          "next_action": "Dùng lại đúng phiên và phạm vi; đọc biên nhận P37. Đổi nguồn/hợp đồng phải kiểm lại. TEST không thay nghiệm thu sản phẩm."
         },
         {
           "tool_id": "TQT-CHECK-005",
@@ -127475,7 +127532,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
           "baseline_source": "9cc1eadfba38db846ef78d7b5d0829e044ddbb60bcaa3c0abeb8435d0d903df0",
-          "next_action": "Đối chiếu biên nhận bộ tổng P37 trước khi dùng lại trên đúng phiên. Không lấy TEST thay nghiệm thu G1."
+          "next_action": "Dùng lại đúng phiên và phạm vi; đọc biên nhận P37. Đổi nguồn/hợp đồng phải kiểm lại. TEST không thay nghiệm thu sản phẩm."
         },
         {
           "tool_id": "TQT-CHECK-006",
@@ -127484,7 +127541,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
           "baseline_source": "c000c5fe6321bcdb6719c2d08af0e58c93d85110ffa385d52c0f3ed5b88272d1",
-          "next_action": "Đã chạy tổng đạt trên VPS1GiB, job1912451206cb4dd28b30f4447cdfcfc3. Dùng lại đúng phiên/phạm vi; giữ đầy đủ lịch sử. Nguồn đổi thì kiểm lại. TEST không thay duyệt/nhận G1."
+          "next_action": "Dùng lại đúng phiên và phạm vi; đọc biên nhận P37. Đổi nguồn/hợp đồng phải kiểm lại. TEST không thay nghiệm thu sản phẩm."
         },
         {
           "tool_id": "agent-data:workspace_read",
@@ -127783,6 +127840,14 @@ main{max-width:1240px} [hidden]{display:none!important}
             "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/exporter/vps_regression",
             "scope": "TEST xuất tệp lớn/last-good và48ca hồi quy; chưa thay đọcUIthật"
           }
+        },
+        {
+          "tool_id": "host:incomex-config-apply-v0",
+          "contract_revision": "P37.1",
+          "owner": "Codex Host · vận hành VPS",
+          "acceptance_scope": "Ghi nhận công cụ hiện hữu và các lần dùng cấu hình P37; chưa nghiệm thu mọi target",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37/host_exec_budget",
+          "next_action": "Tra target trước; gateway workspace-tools.json khác host workspace-exec.json. Kiểm ngân sách cgroup thật; hoàn trả từng target bằng ứng viên thuộc đúng mutation-id. Không tạo script ghi cấu hình mới."
         }
       ],
       "reviews": [
@@ -127977,6 +128042,51 @@ main{max-width:1240px} [hidden]{display:none!important}
           "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/openai_review",
           "test_evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/exporter/vps_regression",
           "limitations": "Không suy nghiệm thu MOW001/PG; Claude chưa duyệt."
+        },
+        {
+          "review_id": "TQT-P37-FINAL-GPT-TQT-CHECK-004",
+          "target_code": "TQT-CHECK-004",
+          "vendor": "OpenAI",
+          "reviewer": "Codex Host",
+          "reviewed_at": "2026-10-12T13:44:37.186309+00:00",
+          "binding": "402750bd79b3185dab428330b49ca4a6b53adb910a5e6c3dd7ade5683bd9f618:P37.2:contract=[[\"full_purpose\",\"7 mốc, nghĩa vụ bắt buộc, đối chiếu và lịch sử; kho thử khai báo, mã/phiên/cột/đọc lại; hợp đồng áp dụng MOT/giao bước/ca kiểm/ghim nội dung; before-after giữ lịch sử; P31 kiểm schema bắt buộc, dữ liệu giao thật, lịch sử; lát ghi–đọc TEST bằng hai tiến trình, không phải chạy MOW001; PR15 kiểm trả cuối, hiệu lực đánh giá, đọc nội dung thiết kế P02/P03, khóa chết và nhật ký thiếu. --write-gate được VPS gọi bắt buộc trước commit của tệp kho thử được bảo vệ.\"],[\"input\",\"view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005\"],[\"output\",\"JSON / exit code; run_id + thời điểm + hash trong báo cáo runner\"],[\"preconditions\",\"Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG; bộ tổng trên hồ sơ P37 cần môi trường cách ly ít nhất 2 GiB, chạy nối tiếp; CHECK006 báo BLOCKED sớm nếu thiếu.\"],[\"argv\",[\"node\",\"--max-old-space-size=640\",\"check-record-control.js\",\"view.html\"]],[\"operation_key\",\"tqt.validate-record-control\"],[\"limitations\",\"Quyền thật trong một tệp kho thử MOW001 G1 và34collection logic đã kiểm schema; không phải quyền ghi Master toàn hệ hoặc PG. Reviewer là executionOpenAI được giao riêng, không ghế/quorum riêng. Không bao phủ SSH quản trị.\"]]",
+          "scope": "Kiểm hợp đồng và cưỡng chế kho tệp MOW001 G1 trên VPS; mô phỏng không thay nghiệm thu sản phẩm; ngoài PG.",
+          "decision": "APPROVE",
+          "authority_ref": "Owner giao Host tiếp tục; thiếu Anthropic không là blocker, giữ chữ ký riêng",
+          "receipt_verified": true,
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37/openai_review",
+          "test_evidence_ref": "/opt/incomex/data/workspace-tools/jobs/43e4948f9c5c4c27b7b868b47483bcd3/stdout",
+          "limitations": "Chỉ kỹ thuật trong phạm vi đã kiểm; không thay Owner, không giả chữ ký Claude, chưa PG."
+        },
+        {
+          "review_id": "TQT-P37-FINAL-GPT-TQT-CHECK-005",
+          "target_code": "TQT-CHECK-005",
+          "vendor": "OpenAI",
+          "reviewer": "Codex Host",
+          "reviewed_at": "2026-10-12T13:44:37.186309+00:00",
+          "binding": "d4f722bddbd30091e54619e1fc5a718cf26f3db24b9171e8c66bf67bef070be7:P37.4:contract=[[\"full_purpose\",\"Danh sách Master, hồ sơ và UI adapter\"],[\"input\",\"view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005\"],[\"output\",\"JSON / exit code; run_id + thời điểm + hash trong báo cáo runner\"],[\"preconditions\",\"Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG\"],[\"argv\",[\"node\",\"--max-old-space-size=512\",\"check-work-masters.js\",\"view.html\"]],[\"operation_key\",\"tqt.validate-work-masters\"],[\"limitations\",\"Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật.\"]]:ui=[[\"definition-master-registry-v1.js\",\"749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c\"],[\"process-work-master-v1.js\",\"ad20d66b4af48ddc760f455a98f3baafb75a9b563db3348ad0c3b80de2155ab8\"],[\"ui-child-content-v1.js\",\"451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee\"],[\"ui-child-from-parent-v1.js\",\"b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357\"]]",
+          "scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
+          "decision": "APPROVE",
+          "authority_ref": "Owner giao Host tiếp tục; thiếu Anthropic không là blocker, giữ chữ ký riêng",
+          "receipt_verified": true,
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37/openai_review",
+          "test_evidence_ref": "/opt/incomex/data/workspace-tools/jobs/43e4948f9c5c4c27b7b868b47483bcd3/stdout",
+          "limitations": "Chỉ kỹ thuật trong phạm vi đã kiểm; không thay Owner, không giả chữ ký Claude, chưa PG."
+        },
+        {
+          "review_id": "TQT-P37-FINAL-GPT-TQT-CHECK-006",
+          "target_code": "TQT-CHECK-006",
+          "vendor": "OpenAI",
+          "reviewer": "Codex Host",
+          "reviewed_at": "2026-10-12T13:44:37.186309+00:00",
+          "binding": "34866caa5413930c289db44dc4a240d73e74cc29b9246e7c37d1cb9e9e7d1b16:P37.1:contract=[[\"full_purpose\",\"Chạy lại toàn bộ bộ kiểm và kiểm hai chiều danh mục; kiểm và áp thời hạn riêng mỗi DOT, ghi thời gian thực tế.; --vps-ui tự lấy đủ bốn đầu vào giao diện đã ghim hash, không cần AI dựng lại môi trường mỗi lần.\"],[\"input\",\"view.html; phiếu MOW001; registry định nghĩa UI vừa đọc qua --master-registry hoặc --master-registry-json; UI adapter tùy chọn\"],[\"output\",\"JSON / exit code; run_id + thời điểm + hash trong báo cáo runner\"],[\"preconditions\",\"Python 3.11+; registry UI vừa đọc; Node.js cho toàn bộ suite, --identity-only không cần Node; không cần quyền PG\"],[\"argv\",[\"python3\",\"run-tqt-checks.py\",\"--verify\"]],[\"operation_key\",\"tqt.run-checks-and-inventory\"],[\"limitations\",\"Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật. Kiểm trước khi ghi, chưa có server hook chống bỏ qua.\"]]",
+          "scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
+          "decision": "APPROVE",
+          "authority_ref": "Owner giao Host tiếp tục; thiếu Anthropic không là blocker, giữ chữ ký riêng",
+          "receipt_verified": true,
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37/openai_review",
+          "test_evidence_ref": "/opt/incomex/data/workspace-tools/jobs/43e4948f9c5c4c27b7b868b47483bcd3/stdout",
+          "limitations": "Chỉ kỹ thuật trong phạm vi đã kiểm; không thay Owner, không giả chữ ký Claude, chưa PG."
         }
       ],
       "changes": [
@@ -128351,6 +128461,21 @@ main{max-width:1240px} [hidden]{display:none!important}
             "MOW-NHC-001-G1-20261010-01"
           ],
           "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37"
+        },
+        {
+          "change_id": "P37-TQT-CHECK-004-RESOURCE-CONTRACT",
+          "kind": "CONTRACT_REVISION",
+          "target_code": "TQT-CHECK-004",
+          "previous_version": "P37.1",
+          "next_version": "P37.2",
+          "target_version": "402750bd79b3185dab428330b49ca4a6b53adb910a5e6c3dd7ade5683bd9f618",
+          "actor": "Codex Host",
+          "changed_at": "2026-10-12T13:44:34.961167+00:00",
+          "reason": "Bổ sung yêu cầu môi trường cách ly2GiB và kiểm điều kiện sớm; nguồn CHECK004 không đổi.",
+          "affected_applications": [
+            "MOW-NHC-001-G1-20261010-01"
+          ],
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37/native_1gib_boundary"
         }
       ],
       "walkthrough": {
@@ -128513,8 +128638,8 @@ main{max-width:1240px} [hidden]{display:none!important}
           {
             "id": "TQT-P37-F02",
             "problem": "Có dữ liệu nhưng Master quyết định/nhận/lịch sử chưa chiếu ra; VIEC002 dễ nhầm MOW001.",
-            "state": "OPEN",
-            "next_action": "Triển khai adapter, kiểm từng Master và50câu hỏi; CHECK005 chặn mất phép chiếu.",
+            "state": "FIXED",
+            "next_action": "Đã kiểm hồ sơ thật, 50 đáp án và các Master quyết định/giao nhận/lịch sử; CHECK005 chặn mất phép chiếu.",
             "owner": "Codex Host",
             "affected_applications": [
               "MOW-NHC-001-G1-20261010-01"
@@ -128526,7 +128651,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "id": "TQT-P37-F03",
             "problem": "Ghi thật bị bad_alloc tại1.5GiB; rollback không hoàn tất, che lỗi gốc.",
             "state": "OPEN",
-            "next_action": "Khép G1 bằng2.5GiB từng lượt rồi trả cấu hình; trước nhân rộng giảm lặp bằng chứng và sửa chẩn đoán/hoàn tác. Không bỏ gate.",
+            "next_action": "Giữ tối ưu lịch sử trước nhân rộng. Bộ kiểm đã giảm bản sao và dùng heap640MiB có giới hạn; task ghi tạm2.5GiB phải trả cấu hình. Supervisor phục hồi cần gửi lại đúng operation_id; nếu trả RECOVERY_REQUIRED phải đối chiếu trạng thái/CAS trước lượt mới. Worker có lỗi EXECUTION_FAILED đầu ra rỗng; cần ghi chẩn đoán an toàn. Nguyên nhân chưa xác minh.",
             "owner": "Codex Host",
             "affected_applications": [
               "MOW-NHC-001-G1-20261010-01"
@@ -128557,6 +128682,18 @@ main{max-width:1240px} [hidden]{display:none!important}
             ],
             "blocks_G1": false,
             "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37"
+          },
+          {
+            "id": "TQT-P37-F06",
+            "problem": "Bộ đọc P01 so cả trạng thái thực hiện với ảnh kế hoạch chuẩn bị, nên báo sai sau bàn giao; audit giữ bản dữ liệu trùng làm vượt bộ nhớ.",
+            "state": "FIXED",
+            "next_action": "Dùng CHECK004 hiện hành: kiểm hash ảnh chuẩn bị và toàn bộ định nghĩa/phiên, chỉ cho status/result đổi; giữ ca sai actor/phiên/hash. Đọc toàn bộ lịch sử với ngân sách hữu hạn.",
+            "owner": "Codex Host",
+            "affected_applications": [
+              "MOW-NHC-001-G1-20261010-01"
+            ],
+            "blocks_G1": false,
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37/native_suite"
           }
         ],
         "cases": [
