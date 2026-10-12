@@ -121739,7 +121739,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "view.html"
           ],
           "sha256": "402750bd79b3185dab428330b49ca4a6b53adb910a5e6c3dd7ade5683bd9f618",
-          "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
+          "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG; bộ tổng trên hồ sơ P37 cần môi trường cách ly ít nhất 2 GiB, chạy nối tiếp; CHECK006 báo BLOCKED sớm nếu thiếu.",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
           "verify": "python3 run-tqt-checks.py --verify --master-registry REGISTRY.js --report EVIDENCE.json",
@@ -121875,7 +121875,8 @@ main{max-width:1240px} [hidden]{display:none!important}
             "scope": "24 G1 source/model boundary checks; no product acceptance or browser proof",
             "case_set": "TQT-CASE-RECORD",
             "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/ui_model_checks"
-          }
+          },
+          "minimum_exec_memory_bytes": 2147483648
         },
         {
           "id": "TQT-CHECK-005",
@@ -121929,7 +121930,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "run-tqt-checks.py",
             "--verify"
           ],
-          "sha256": "853277b94ff834e5d2b516c5ee65111f73234f7c5c03721b5356da7a1f9247e6",
+          "sha256": "34866caa5413930c289db44dc4a240d73e74cc29b9246e7c37d1cb9e9e7d1b16",
           "preconditions": "Python 3.11+; registry UI vừa đọc; Node.js cho toàn bộ suite, --identity-only không cần Node; không cần quyền PG",
           "input": "view.html; phiếu MOW001; registry định nghĩa UI vừa đọc qua --master-registry hoặc --master-registry-json; UI adapter tùy chọn",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -127460,7 +127461,7 @@ main{max-width:1240px} [hidden]{display:none!important}
         },
         {
           "tool_id": "TQT-CHECK-004",
-          "contract_revision": "P37.1",
+          "contract_revision": "P37.2",
           "owner": "Codex Host tools-quy-trinh",
           "acceptance_scope": "Kiểm hợp đồng và cưỡng chế kho tệp MOW001 G1 trên VPS; mô phỏng không thay nghiệm thu sản phẩm; ngoài PG.",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
@@ -127478,7 +127479,7 @@ main{max-width:1240px} [hidden]{display:none!important}
         },
         {
           "tool_id": "TQT-CHECK-006",
-          "contract_revision": "P36.3",
+          "contract_revision": "P37.1",
           "owner": "Codex Host tools-quy-trinh",
           "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
           "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
@@ -128331,6 +128332,21 @@ main{max-width:1240px} [hidden]{display:none!important}
           "actor": "Codex Host",
           "changed_at": "2026-10-12T12:56:34.371980+00:00",
           "reason": "Lịch sử hiển thị ngày khai báo có sẵn; sổ nguồn kho tệp được phân biệt với quyền toàn Master/PG.",
+          "affected_applications": [
+            "MOW-NHC-001-G1-20261010-01"
+          ],
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P37"
+        },
+        {
+          "change_id": "P37-TQT-CHECK-006-MEMORY-ADMISSION",
+          "kind": "UPGRADE",
+          "target_code": "TQT-CHECK-006",
+          "previous_version": "853277b94ff834e5d2b516c5ee65111f73234f7c5c03721b5356da7a1f9247e6",
+          "next_version": "34866caa5413930c289db44dc4a240d73e74cc29b9246e7c37d1cb9e9e7d1b16",
+          "target_version": "34866caa5413930c289db44dc4a240d73e74cc29b9246e7c37d1cb9e9e7d1b16",
+          "actor": "Codex Host",
+          "changed_at": "2026-10-12T13:15:24.173537+00:00",
+          "reason": "Chặn sớm trước TEST nếu ngân sách cgroup nhỏ hơn 2 GiB đã khai cho hồ sơ lớn; không nới quyền hoặc bỏ kiểm.",
           "affected_applications": [
             "MOW-NHC-001-G1-20261010-01"
           ],

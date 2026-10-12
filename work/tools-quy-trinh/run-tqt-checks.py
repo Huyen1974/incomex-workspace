@@ -103,6 +103,19 @@ def prerequisites(which=shutil.which, version=sys.version_info):
     if not which('node'): errors.append('MISSING_RUNTIME:node')
     return errors
 
+def memory_admission(required, observed):
+    if observed is not None and observed < required:return {'state':'BLOCKED','required_bytes':required,'observed_limit_bytes':observed,'reason':'INSUFFICIENT_EXEC_MEMORY_BEFORE_TESTS'}
+    return {'state':'PASS' if observed is not None else 'LIMIT_UNKNOWN','required_bytes':required,'observed_limit_bytes':observed}
+
+def observed_memory_limit():
+    limits=[]
+    for name in ['/sys/fs/cgroup/memory.max','/sys/fs/cgroup/memory/memory.limit_in_bytes']:
+        try:
+            value=Path(name).read_text().strip()
+            if value.isdigit() and 0 < int(value) < 2**60:limits.append(int(value))
+        except OSError:pass
+    return min(limits) if limits else None
+
 def source_readback(path, projection):
     if not path.is_file(): return {'state':'FAIL','reason':'MISSING_PRODUCT_SOURCE'}
     try:
@@ -118,6 +131,10 @@ def source_readback(path, projection):
     return {'state':'PASS' if actual==projection and all(x['matched'] for x in rule_checks) else 'FAIL','source_sha256':sha(path),'projection_equal':actual==projection,'rule_source_checks':rule_checks,'application_id':actual.get('application_id'),'trial_declarations':len(actual.get('declarations',[])) if actual.get('trial_store',{}).get('state')=='TRIAL' else 0,'scope':'SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL'}
 
 def self_test():
+    assert memory_admission(2**31,2**30)['state']=='BLOCKED'
+    assert memory_admission(2**31,2**31)['state']=='PASS'
+    assert memory_admission(2**31,2**32)['state']=='PASS'
+    assert memory_admission(2**31,None)['state']=='LIMIT_UNKNOWN'
     with tempfile.TemporaryDirectory(prefix='tqt-check-') as tmp:
         b=Path(tmp);p=b/'check.py';p.write_text('pass\n')
         row={k:'test' for k in ['owner','purpose','preconditions','input','output','verify','rollback','secret_handling','exit_codes','case_set','master_code']}
@@ -347,6 +364,11 @@ def main():
     ap.add_argument('--identity-only',action='store_true',help='run cross-registry identity guard using Python only; no Node/PG needed')
     args=ap.parse_args()
     source=BASE/'view.html';data=json.loads(re.search(r'<script id="tqt-composite-processes"[^>]*>(.*?)</script>',source.read_text(),re.S)[1])['catalog'];reg=data['tool_registry']
+    admission=memory_admission(max((x.get('minimum_exec_memory_bytes',0) for x in reg['records']),default=0),observed_memory_limit())
+    if args.verify and not args.dry_run and admission['state']=='BLOCKED':
+        blocked={'status':'BLOCKED','results':[],'resource_admission':admission,'pg':'NOT_RUN','production_ready':False}
+        if args.report:args.report.write_text(json.dumps(blocked,ensure_ascii=False,indent=2)+'\n')
+        print(json.dumps(blocked));return 3
     if args.audit_patch:
         try: patch=audit_patch(json.loads(args.audit_patch.read_text()))
         except (OSError,ValueError,KeyError) as error:print(json.dumps({'state':'BLOCKED','error':str(error)}));return 3
@@ -389,6 +411,7 @@ def main():
     readback=source_readback(BASE.parent/'mow-mot-moit-mout'/'UI-REVIEW-MOW001.json',data['application_preview']['record'])
     if readback['state']!='PASS': errors.append('SOURCE_READBACK_FAILED')
     report={'run_id':'TQT-'+uuid.uuid4().hex,'at':datetime.now(timezone.utc).isoformat(),'scope':reg['scope'],'registry_master':'CAT-006','case_master':'CAT-012','result_master':'CAT-015','source_sha256':sha(source),'runner_sha256':sha(BASE/'run-tqt-checks.py'),'inventory_errors':errors,'source_readback':readback,'results':[],'pg':'NOT_RUN','production_ready':False}
+    report['resource_admission']=admission
     report['master_identity_check']=identity
     if identity['state']=='FAIL':errors.append('MASTER_IDENTITY_CONFLICT')
     report['prerequisite_errors']=prerequisites()
