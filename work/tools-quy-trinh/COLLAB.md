@@ -8,17 +8,17 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · Astra Codex · P34
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · Astra Codex · P35
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
-- 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [□ ② Thử ngoài PG: kho 13 câu khai đã có, 0/7 mốc] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
+- 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [□ ② MOW001 thật ngoài PG: CP01 đã đối chiếu, 1/7; 17/34 mục đọc lại] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã làm P29: dùng lại CAT-206*, khai hợp đồng áp dụng 3 MOT/5 giao bước và ca nghiệm thu; siết ghim phiên/nội dung xuyên kiểm–duyệt–ACK, sửa lỗi thiếu dòng kiểm, thêm kiểm trước–sau vào DOT hiện hữu. P30 sửa trùng DOT còn 47 Master, giữ ⑤/7 mốc; ca thật chưa qua mốc nào.
 - ✅ Đã làm P31: bịt lỗi hợp đồng/gói giao P01, thêm schema và kiểm tập bắt buộc, lịch sử toàn bằng chứng; thử ghi–đọc hai tiến trình TEST. Chưa có quyền endpoint/người kiểm độc lập thật, MOW001 0/7.
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
-- ■ Đang làm: — · 0 RUN active
-- ⬜ Còn lại: kiểm độc lập hợp đồng áp dụng → hoàn thiện schema và thử ghi/đọc toàn đường MOW001 ngoài PG → đủ CP03 mới làm/kiểm/duyệt/nhận → ba ca khác loại → staging/rollback rồi cắt chuyển PG. Cưỡng chế kiểm trước–sau ở máy chủ còn mở; 34 địa chỉ đề xuất không có nghĩa 34 nơi ghi đã sẵn sàng.
-- ➡ Kế tiếp: Host hoàn thiện schema/bằng chứng nơi ghi; Reviewer được Owner gọi rà P29/hợp đồng G1, không tự lấy tự kiểm Host thay kiểm độc lập. Claude cập nhật các yêu cầu ô 3 theo kết luận P29 ở lượt được gọi. NEXT_TRIGGER=NEXT_TOOL_USE_OR_NEW_EVIDENCE; đọc bộ nhớ đã lưu trước, chỉ khảo sát phần thiếu
+- ■ Đang làm: P35 · áp dụng MOW001 thật, rà P01 và đường ghi–đọc · executor=Codex Host
+- ⬜ Còn lại: đối chiếu P01 đúng nguồn hiện hành → nối bằng chứng tin cậy CP03 → thiết kế P02/P03 thật → đọc/kiểm → duyệt/nhận đúng phiên. Không dùng TEST thay sản phẩm.
+- ➡ Kế tiếp: Host tiếp tục P01, sửa đường adapter cung cấp trust cho cửa ghi; xem execution_walk trong phiếu MOW001. Thiếu Claude không tự là blocker; không giả danh người kiểm hoặc quyết định Owner.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -38,6 +38,9 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 (Hai dòng đầu Owner duyệt 08/10/2026 · D04. Dòng cuối là lời Owner 10/10/2026 · D24/D25.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+**Owner 12/10/2026 · P35, nguyên văn:** “Bạn tiếp tục áp dụng vào MOW001 thật, đi từng bước từ đầu đến cuối xem còn tắc ở đâu thì sửa và ghi vào các Master liên quan nhé. Vẫn làm ngoài PG, không lấy kết quả TEST thay cho việc thật đã đạt.”
+
 Cách đọc cho mọi AI: đọc hết 3.1 → 3.5, đúng thứ tự. Mỗi yêu cầu có mã R, thuộc mục tiêu M1/M2/M3 của ô 1. Trạng thái: ⬜ chưa có · 🟡 có bản thiết kế, chưa nghiệm thu · 🟢 đã nghiệm thu bằng làm theo thật · 🔴 tắc. Nguyên văn lời Owner ở 3.4; bằng chứng ở các mục P. Thấy thiếu/sai → nộp proposal riêng (3.3); chỉ Host Kiểm soát sửa ô 3.
 
 #### 3.1 Yêu cầu theo mục tiêu
@@ -930,3 +933,13 @@ Owner bổ sung trực tiếp trong lượt P34: “Bạn cứ già đi, coi nh�
 KQ P34: bộ tổng VPS cuối PASS, job8ea318dd00a14af88252e6a9050a0735,157.370giây. Đã đi đường áp thử Host ghi→kiểm ở tiến trình khác→đọc Master→ghi2phiếuGPT→bàn giao nguồn. 6Master đã nối trong task; chưa xác nhận toàn bộ Master toàn hệ hay AI mới độc lập làm cả QT001. Claude chưa duyệt không chặn theo Owner. Bằng chứng/điểm thiếu chỉ ở hồ sơ P34; MOW001 nguyên byte,0/7,khôngPG.
 
 Đọc lại phát hiện mã bộ ca sai: đã sửa đúng TQT-CASE-MASTER, đưa6bộ và5nhóm ca vào CAT012; CHECK005 chặn kết quả/ca trỏ bộ chưa đăng ký. Lượt tổng cuối8ea318dd00a14af88252e6a9050a0735 PASS157.370giây. Chữ ký005cũ đã mất hiệu lực đúng khi đổi nguồn; ghi phiếuGPT mới, giữ lịch sử.
+
+
+## P35 · 12/10/2026 · Áp dụng MOW001 thật ngoài PG
+STARTED@MOW001-P35-REAL-20261012 2026-10-12T04:50:44.142551+00:00 · executor=Codex Host
+
+Đường vào Owner: Master tiến trình DEF00.1 → hồ sơ MOW001; nguồn sản phẩm duy nhất vẫn UI-REVIEW-MOW001.json#/application_D24. Không sửa UI sản phẩm trước CP03. Đã đối chiếu phiên walkthrough giữ nguyên, Master ML-DEF004 có MOW-NHC-001 và ML-DEF005 có TSK-NHCN001/002/003 cùng chain/parent. Hồ sơ trước thiếu con trỏ, không thiếu các mã này. CP01 dùng bằng chứng thật, 13 câu khai đọc lại chỉ chứng minh đúng dữ liệu, chưa PASS nội dung.
+
+Hai lỗi khung đã sửa: CHECK004/005 cố định tiến độ ca thật ở0/7; CAT012/015/229/069 chỉ chiếu P34. Giữ6DOT/47Master, cập nhật nguồn/hash và chiếu lượt thật từ cùng phiếu. Biên nhận duyệt công cụ cũ mất hiệu lực khi mã/phụ thuộc đổi; không điền Claude.
+
+Điểm tắc kế tiếp: P01 chưa đối chiếu đầy đủ nguồn/câu hỏi hiện hành; máy chủ gọi write-gate không truyền trust context nên CP03 không thể đạt bằng access_check tự khai; P02/P03 thiết kế thật/P04 đọc thật chưa có. Mốc6/7 chưa có quyết định/nhận của Owner. Hồ sơ chi tiết ở execution_walk, aggregate#host_review_P35. JEV gen-dec-1791780265-OUvezA9L7ZFEcjSwoPTW chỉ tham khảo phạm vi G1, không là duyệt.

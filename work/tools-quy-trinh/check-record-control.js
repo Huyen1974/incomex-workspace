@@ -93,7 +93,7 @@ if(process.argv.includes('--validate-transition')){
  try{const before=JSON.parse(fs.readFileSync(process.argv[i+1],'utf8')).application_D24,after=JSON.parse(fs.readFileSync(process.argv[i+2],'utf8')).application_D24;const result=globalThis.tqtValidateTransition(before,after);fs.writeFileSync(1,JSON.stringify(result));process.exit(result.state==='PASS'?0:1);}catch(e){fs.writeFileSync(1,JSON.stringify({state:'FAIL',errors:[e.message]}));process.exit(1);}
 }
 const check=(r,id)=>r.application_preview.record.record_checks.find(x=>x.requirement_code===id),row=(a,id)=>a.rows.find(x=>x.code===id);
-function unrecorded(r){delete r.trial_storage_contract;delete r.application_preview.record.trial_store;for(const x of r.application_preview.record.record_checks)if(x.store_state==='TRIAL')Object.assign(x,{store_state:'UNVERIFIED',record_state:'NOT_RECORDED',check_state:'NOT_CHECKED',master_record_id:null,record_ref:null,record_version:null});return r;}
+function unrecorded(r){const a=r.application_preview.record;a.checkpoint_checks=[];for(const x of a.record_checks)Object.assign(x,{record_state:'NOT_RECORDED',check_state:'NOT_CHECKED',master_record_id:null,record_ref:null,record_version:null,readback_state:'NOT_TESTED',access_state:'NOT_TESTED'});delete r.trial_storage_contract;delete r.application_preview.record.trial_store;for(const x of r.application_preview.record.record_checks)if(x.store_state==='TRIAL')Object.assign(x,{store_state:'UNVERIFIED',record_state:'NOT_RECORDED',check_state:'NOT_CHECKED',master_record_id:null,record_ref:null,record_version:null});return r;}
 function test(name,change,verify){const r=unrecorded(clone(R));change(r);try{verify(audit(r),r);}catch(e){throw Error(name+': '+e.message);}tests++;}
 const written=r=>Object.assign(check(r,'PLAN'),{record_state:'RECORDED',master_record_id:'TEST-RECORD',record_ref:'test-only:record',record_version:'1'});
 const matched=r=>{written(r);Object.assign(check(r,'PLAN'),{check_state:'MATCHED',process_code:r.application_preview.record.process_code,process_version:r.application_preview.record.process_version,target_code:r.application_preview.record.target_code,readback_state:'PASS',checked_record_version:'1',evidence_ref:'test-only:proof',checked_by:'test-actor',checked_at:'2026-10-11T00:00:00Z'});};
@@ -177,7 +177,8 @@ mutation('duplicate checkpoint revision rejected',r=>r.application_preview.recor
 console.log(JSON.stringify({tests,regression:'QTTH05_WALK',synthetic_full_walk:7,live_application:audit(R).verifiedCheckpoints.length,pg:'NOT_RUN'}));
 
 // Real persisted trial declarations: existence/readback are separate from semantic approval.
-const baseTrial=audit(R);assert.equal(baseTrial.counts.written,13);assert.equal(baseTrial.verifiedCheckpoints.length,0);assert(!baseTrial.canStart);
+const baseTrial=audit(R);assert.equal(baseTrial.rows.filter(x=>x.code.startsWith('FIELD-')&&x.written).length,R.work_form.fields.length);assert.deepEqual(baseTrial.errors,[]); // Real progress is not frozen at 0/7.
+const noProof=clone(R);noProof.application_preview.record.checkpoint_checks=[];assert.equal(audit(noProof).verifiedCheckpoints.length,0); // Evidence, not labels, grants progress.
 let trialCases=1;
 for(const mutate of [
  r=>r.application_preview.record.declarations.shift(),
@@ -359,6 +360,6 @@ fileHandoffSlice().catch(e=>{console.error(e);process.exitCode=1;});
    const x=clone(original);change(x);write('P03.json',x);const forged=clone(packet);forged.outputs[1].artifact.sha256=globalThis.tqtSHA256(globalThis.tqtCanonical(x));write('design-packet.json',forged);assert.equal(call('--test-design','consume').result.state,'BLOCKED');cases++;}
   write('P03.json',original);write('design-packet.json',packet);const bad=clone(packet);bad.outputs[0].actor='NOT_ASSIGNED';write('design-packet.json',bad);assert.equal(call('--test-design','consume').result.state,'BLOCKED');cases++;
   write('design-packet.json',packet);assert.equal(call('--test-design','consume').result.state,'ACK');cases++;
-  console.log(JSON.stringify({pr15_persisted_design_and_recovery:{cases,state:'PASS',read_plans:read('P04-receipt.json').reads.map(x=>x.plan_id),effects:read('state.json').effects.length,real_endpoint_permissions:'NOT_PROVED',mow001_progress:'UNCHANGED_0_OF_7'}}));
+  console.log(JSON.stringify({pr15_persisted_design_and_recovery:{cases,state:'PASS',read_plans:read('P04-receipt.json').reads.map(x=>x.plan_id),effects:read('state.json').effects.length,real_endpoint_permissions:'NOT_PROVED',mow001_progress:'TEST_DOES_NOT_ADVANCE_REAL_CHECKPOINTS'}}));
  }finally{fs.rmSync(tmp,{recursive:true,force:true});}
 }

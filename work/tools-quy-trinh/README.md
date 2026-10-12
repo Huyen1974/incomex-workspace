@@ -1,5 +1,13 @@
 # tools-quy-trinh · Cửa vào
 
+## P35 · MOW001 thật — đọc trước lịch sử P34 trở về trước
+
+Nguồn duy nhất: `../mow-mot-moit-mout/UI-REVIEW-MOW001.json#/application_D24`, mục `execution_walk` giữ bước đã làm, nguồn/hash, điểm tắc và người làm tiếp. CP01 đã đối chiếu Master MOW/3MOT thật; 17/34 mục đã đọc lại. Đây là 1/7 mốc của việc thật; 13 đáp án vẫn chưa được nhận đạt về nội dung. P01/CP02 làm tiếp; chưa qua CP03, chưa sửa/duyệt sản phẩm.
+
+CAT012/015/229/069 chiếu thêm hợp đồng mốc, kết quả rà, lượt thực hiện và điểm tắc từ chính phiếu MOW001; không nhập hai nơi. Số 0/7 trong các mục P34 trở về trước là lịch sử. Bộ kiểm không cố định ca thật phải đứng0/7: ca giả tự đặt trạng thái, giao diện kiểm theo bằng chứng.
+
+Cửa ghi một tệp vẫn bắt buộc; không có trust context của adapter thì không nhận quyền endpoint/người kiểm. Host đang xử lý phần này, không dùng cờ tự khai hoặc bản TEST để vượt mốc. Thiếu Claude không tự là điểm dừng theo Owner; phê duyệt và ACK Owner vẫn phải là bằng chứng thật. Chưa PG.
+
 ## P34 · Nhớ tiến trình DOT/Tool và đồng thuận
 
 Hai Master dùng cùng cột tiến trình, phiên nguồn, nâng cấp, kiểm gần nhất, việc tiếp, **GPT duyệt · Claude duyệt** ở cuối; giải thích tại dấu **?**. Bấm **Chi tiết** để xem người giữ, phạm vi, lịch sử và biên nhận. Chưa có dữ kiện ghi chưa biết, không khảo sát lại phần đã có bằng chứng đúng phiên. Số lần nâng chỉ tính từ P34, không đoán quá khứ.
