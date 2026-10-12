@@ -1,5 +1,19 @@
 # tools-quy-trinh · Cửa vào
 
+## P34 · Nhớ tiến trình DOT/Tool và đồng thuận
+
+Hai Master dùng cùng cột tiến trình, phiên nguồn, nâng cấp, kiểm gần nhất, việc tiếp, **GPT duyệt · Claude duyệt** ở cuối; giải thích tại dấu **?**. Mở tên công cụ để xem người giữ, phạm vi, lịch sử và biên nhận. Chưa có dữ kiện ghi chưa biết, không khảo sát lại phần đã có bằng chứng đúng phiên. Số lần nâng chỉ tính từ P34, không đoán quá khứ.
+
+**Trước dùng:** tra mục đích → đọc phiên/phạm vi/quyền → kiểm bằng chứng → dùng lại. TEST và biên nhận gọi không thay hai hãng duyệt. `Dùng được` chỉ khi TEST đúng mã và cả hai phiếu hợp lệ cùng phiên hợp đồng, cùng phạm vi nghiệm thu. Chưa đủ duyệt vẫn có thể thực hiện kiểm kỹ thuật chỉ đọc trong quyền đã giao để tạo bằng chứng; không suy ra quyền mutation. Thay mã/hợp đồng/phạm vi hoặc thu hồi phiếu thì kiểm và duyệt lại.
+
+**Nơi ghi duy nhất:** `catalog.tool_registry.memory` giữ hợp đồng/người giữ/phạm vi, `changes` giữ sự kiện nâng cấp, `reviews` giữ phiếu duyệt. Phiếu cần vendor OpenAI/Anthropic, người/bề mặt, thời điểm, quyết định, `binding=SHA256:contract_revision`, phạm vi, bằng chứng gốc, căn cứ quyền và kết quả Host đối chiếu biên nhận. Không điền hộ Claude; JEV không là phiếu duyệt. Giữ phiếu cũ; phiếu cuối mỗi hãng quyết định hiệu lực. Đây chưa phải cưỡng chế chữ ký/ACL ở cửa ghi.
+
+**QT 001 chính là TQT-QT-001 → MOW-TH-003 (hiệu chỉnh hướng dẫn), không phải MOW001.** Lượt thực hành đầu `TQT-QT001-P34-01`: `catalog.tool_registry.walkthrough`; bằng chứng tại `UI-REVIEW-AGGREGATE.json#host_review_P34`. Host ghi theo6bước hiện có, dừng đúng bước5 thiếu người thử lại độc lập/Claude. DOER_CONFIRM=PARTIAL; không coi Host đóng hai vai là độc lập. Chưa làm nhật ký hàng trăm bước.
+
+**Sổ đã nối trong phạm vi task:** CAT012 đọc ca P34; CAT015 đọc kết quả DOT đã lưu; CAT016 đọc thay đổi; CAT025 đọc phiếu duyệt; CAT229 đọc lượt thử; CAT069 đọc4chỗ vướng P34. Các trang là bản chiếu, không nhập hai nơi; không khẳng định đã thống kê mọi ca/lượt toàn hệ thống. 0 phiếu duyệt nghĩa chưa có phiếu trong nguồn này; không có nghĩa AI hãng đó chưa từng làm việc. Bộ kiểm vẫn CHECK005/006, không có DOT mới.
+
+**Sau cập nhật:** dùng CHECK006 `--verify --vps-ui`; xem kết quả thật và mở lại hai Master. Cập nhật kiểm kê bằng tuyến P33. Còn mở: phiên runtime công cụ ngoài, lịch sử cũ chưa gom, xác thực người ký ở cửa ghi, Claude rà phiên P34 và agent mới thử lại QT001. PG chưa chạy; MOW001 giữ0/7.
+
 ## P33 · Tra và dùng lại DOT/Tool trước khi viết mới
 
 Trang chủ → dưới **MASTER TIẾN TRÌNH CÔNG VIỆC** → [Master DOT](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=24) hoặc [Master Tool](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=23). Mở **Tra công cụ theo việc cần làm** để xem bản đồ dùng lại và phần còn thiếu.

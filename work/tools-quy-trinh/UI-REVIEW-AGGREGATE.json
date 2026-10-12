@@ -61638,5 +61638,29 @@
         "added_actions_visible": 4
       }
     }
+  },
+  "host_review_P34": {
+    "state": "IMPLEMENTING_NOT_ACCEPTED",
+    "observed_at": "2026-10-12T04:07:10.538990+00:00",
+    "scope": "Bộ nhớ vòng đời và đồng thuận DOT/Tool; đi thử TQT-QT-001 alias MOW-TH-003",
+    "source_of_truth": "VPS",
+    "jev_ref": "gen-dec-1791777819-iewqP3YUVkHZLpuL1YOj",
+    "walkthrough_ref": "view.html#catalog.tool_registry.walkthrough",
+    "master_sources": {
+      "CAT-012": "catalog.tool_registry via relatedRows",
+      "CAT-015": "catalog.tool_registry via relatedRows",
+      "CAT-016": "catalog.tool_registry via relatedRows",
+      "CAT-025": "catalog.tool_registry via relatedRows",
+      "CAT-229*": "catalog.tool_registry via relatedRows",
+      "CAT-069?": "catalog.tool_registry via relatedRows"
+    },
+    "limitations": [
+      "Không có chữ ký Claude cho P34",
+      "Host tự đi thử không thay agent mới bước5",
+      "Chữ ký là phiếu có bằng chứng do Host đối chiếu; chưa có cưỡng chế identity cho từng phiếu trên máy chủ",
+      "Chưa quét toàn bộ Master toàn VPS; nguồn ngoài phạm vi giữ chưa biết"
+    ],
+    "pg": "NOT_RUN",
+    "MOW001": "0/7"
   }
 }

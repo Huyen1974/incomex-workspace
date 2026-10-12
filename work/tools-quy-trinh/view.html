@@ -447,6 +447,7 @@ main{max-width:1240px} [hidden]{display:none!important}
 <p class="focus-intro"><strong>Đích:</strong> một agent mới chỉ cần đọc hướng dẫn là làm ra đúng sản phẩm thật; chưa làm được thì báo chính xác chỗ vướng, sửa và thử lại. <strong>Quy trình này cũng phải được thử và sửa theo chính nó.</strong></p>
 <p><strong>Owner tham gia trực tiếp xây dựng quy trình này.</strong> Anh có thể góp ý ngay trong chat; Host ghi nhận và đưa nội dung vào vòng hiệu chỉnh. Anh không cần đọc các tài liệu kỹ thuật phía dưới.</p>
 <div class="focus-rule"><h3>Vòng làm việc — đọc một lần là làm được</h3>
+<p><b>Nơi ghi khi áp thử:</b> dùng hồ sơ sản phẩm của việc được giao. Với lượt rà khung hiện tại, hồ sơ là <code>catalog.tool_registry.walkthrough</code>, bằng chứng tại <code>UI-REVIEW-AGGREGATE.json#host_review_P34</code>; các Master Lần thử, Ca kiểm, Kết quả, Góp ý, Lịch sử và Phiếu duyệt đọc từ nguồn này/registry hiện có. Chủ Host ghi trực tiếp hồ sơ trong quyền của mình; AI khác gửi đề xuất. Host tự thử không thay bước 5 độc lập. Mỗi phiếu ghi quy trình/phiên, đầu vào, sản phẩm/nơi nhận, ca kiểm, nơi tắc, người giữ và bước tiếp.</p>
 <div class="cycle-step"><b>1 · Chọn ca và kết quả phải ra (Host + Owner khi cần)</b><p>Chọn đúng một quy trình/phiên bản, đầu vào, quyền được dùng, sản phẩm bàn giao, nơi nhận và phép kiểm thế nào là xong. Thiếu quyết định phải ghi rõ, không tự đoán.</p></div>
 <div class="cycle-step"><b>2 · Agent mới đọc và làm thật (Codex/worker)</b><p>Đọc AGENTS → COLLAB §0 → README → quy trình và nguồn được chỉ; đi từ trạng thái đầu, làm đúng bước, lưu sản phẩm và bằng chứng. Không hướng dẫn miệng bổ sung trong lúc thử; nếu mắc, dừng đúng điểm mắc.</p></div>
 <div class="cycle-step"><b>3 · Người làm trả lại thông tin thiếu</b><p>Nêu mã quy trình/bước, đã đọc gì, đã làm gì, hiện thấy gì, đúng ra cần gì và bằng chứng. Phân biệt <b>THIẾU HƯỚNG DẪN</b> / <b>THIẾU SẢN PHẨM</b> / <b>THIẾU QUYẾT ĐỊNH</b> / <b>THIẾU QUYỀN</b> / <b>LỖI QUY TRÌNH</b>. Nộp đề xuất riêng, không sửa nguồn chuẩn. <strong>Chính người làm phải xác nhận: ĐÃ LÀM ĐƯỢC / CHƯA LÀM ĐƯỢC / MỚI LÀM ĐƯỢC MỘT PHẦN</strong>, ghi phiên bản quy trình, đường dẫn phiếu và phần còn thiếu; theo mẫu <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/tools-quy-trinh/README.md">DOER_CONFIRM trong README</a>. Không có xác nhận này thì chưa công nhận quy trình đủ.</p></div>
@@ -464,7 +465,7 @@ main{max-width:1240px} [hidden]{display:none!important}
 <p><b>Ghép:</b> từ nguồn gốc tạo Nhóm cha/Nhóm con → MOW/MOT; sau đó mới thêm câu hỏi chuyên môn <b>thiết kế UI</b> hoặc <b>Config</b>. Thiếu/mâu thuẫn phải truy tới đúng nguồn, không sửa ngọn.</p>
 <p><b>Thử:</b> MOW001, 3 MOT của B1 Tìm. Đây là phạm vi P15 cũ; quyền hiện hành đọc COLLAB/PROMPT, Astra Codex là Host theo chỉ đạo mới. Không sửa công thức trong lượt rà này. Chỉ bổ sung Bước con khi là nhiệm vụ độc lập, không thêm 1.4 cho việc tìm lại. <b>MOW002 chưa làm.</b></p>
 <p class="mut"><small>Đề bài <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/tools-quy-trinh/PROMPT.md">Codex DRAFT</a> chờ phản biện; chưa áp câu hỏi vào Master/CT hay triển khai production.</small></p></div>
-<p class="owner-participation"><strong>Phần Owner cùng xây dựng:</strong> góp ý trực tiếp về 5 bước, điều kiện “làm theo là xong”, hoặc cách nhận phản hồi từ Codex. Host sẽ chỉnh theo góp ý và để chính Codex/agent mới kiểm lại; chưa coi bản v0.1 là mục tiêu đã chốt.</p>
+<p class="owner-participation"><strong>Phần Owner cùng xây dựng:</strong> góp ý trực tiếp về 6 bước, điều kiện “làm theo là xong”, hoặc cách nhận phản hồi từ Codex. Host sẽ chỉnh theo góp ý và để chính Codex/agent mới kiểm lại; chưa coi bản v0.1 là mục tiêu đã chốt.</p>
 <p class="focus-footnote">Quy trình đã nằm trong Master tổng hợp với mã MOW-TH-003; TQT-QT-001 là mã nguồn cũ. Số liệu lượt cũ phía dưới chỉ là lịch sử. AI đọc hướng dẫn chi tiết và sổ ở các phần bên dưới.</p>
 </section>
 
@@ -28264,8 +28265,8 @@ main{max-width:1240px} [hidden]{display:none!important}
               "required": false
             }
           ],
-          "storage": "Thiết kế theo Master có mã; nguồn PG/quyền/đọc lại chưa nghiệm thu.",
-          "record_source": null,
+          "storage": "Bản chiếu từ hồ sơ tools-quy-trinh hiện có; chỉ phạm vi TQT, không thay nguồn ngoài, chưa PG.",
+          "record_source": "catalog.tool_registry → relatedRows(CAT-015)",
           "schema_version": "1.0-design"
         },
         {
@@ -28396,10 +28397,28 @@ main{max-width:1240px} [hidden]{display:none!important}
               "label": "Bản ghi / phiên được duyệt",
               "type": "text",
               "required": false
+            },
+            {
+              "key": "vendor",
+              "label": "Hãng duyệt",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "binding",
+              "label": "Phiên nguồn + hợp đồng",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "receipt_verified",
+              "label": "Biên nhận đã đối chiếu",
+              "type": "text",
+              "required": false
             }
           ],
-          "storage": "Thiết kế theo Master có mã; nguồn PG/quyền/đọc lại chưa nghiệm thu.",
-          "record_source": null,
+          "storage": "Bản chiếu từ hồ sơ tools-quy-trinh hiện có; chỉ phạm vi TQT, không thay nguồn ngoài, chưa PG.",
+          "record_source": "catalog.tool_registry → relatedRows(CAT-025)",
           "schema_version": "1.0-design"
         },
         {
@@ -28669,8 +28688,8 @@ main{max-width:1240px} [hidden]{display:none!important}
               "required": false
             }
           ],
-          "storage": "Thiết kế theo Master có mã; nguồn PG/quyền/đọc lại chưa nghiệm thu.",
-          "record_source": null,
+          "storage": "Bản chiếu từ hồ sơ tools-quy-trinh hiện có; chỉ phạm vi TQT, không thay nguồn ngoài, chưa PG.",
+          "record_source": "catalog.tool_registry → relatedRows(CAT-069?)",
           "schema_version": "1.0-design"
         },
         {
@@ -29089,8 +29108,8 @@ main{max-width:1240px} [hidden]{display:none!important}
               "required": false
             }
           ],
-          "storage": "Thiết kế theo Master có mã; nguồn PG/quyền/đọc lại chưa nghiệm thu.",
-          "record_source": null,
+          "storage": "Bản chiếu từ hồ sơ tools-quy-trinh hiện có; chỉ phạm vi TQT, không thay nguồn ngoài, chưa PG.",
+          "record_source": "catalog.tool_registry → relatedRows(CAT-016)",
           "schema_version": "1.0-design"
         },
         {
@@ -32220,8 +32239,8 @@ main{max-width:1240px} [hidden]{display:none!important}
               ]
             }
           ],
-          "storage": "Một dòng cho một ca kiểm có phiên. Khai tiêu chí trước khi làm; kết quả thực tế ghi CAT-015. Nguồn lưu / quyền / đọc lại chưa nghiệm thu.",
-          "record_source": "Chưa kết nối nguồn bản ghi; danh sách rỗng không có nghĩa nguồn thật không có dữ liệu.",
+          "storage": "Bản chiếu từ hồ sơ tools-quy-trinh hiện có; chỉ phạm vi TQT, không thay nguồn ngoài, chưa PG.",
+          "record_source": "catalog.tool_registry → relatedRows(CAT-012)",
           "purpose": "Một dòng cho một ca kiểm có phiên. Khai tiêu chí trước khi làm; kết quả thực tế ghi CAT-015.",
           "used_when": "Mốc 2 và 5",
           "pg_design": {
@@ -32476,8 +32495,8 @@ main{max-width:1240px} [hidden]{display:none!important}
               ]
             }
           ],
-          "storage": "Mỗi lần thử có mã riêng trong đúng hồ sơ và việc con. Gửi lại một lệnh không tự tạo lần thử mới. Nguồn lưu / quyền / đọc lại chưa nghiệm thu.",
-          "record_source": "Chưa kết nối nguồn bản ghi; danh sách rỗng không có nghĩa nguồn thật không có dữ liệu.",
+          "storage": "Bản chiếu từ hồ sơ tools-quy-trinh hiện có; chỉ phạm vi TQT, không thay nguồn ngoài, chưa PG.",
+          "record_source": "catalog.tool_registry → relatedRows(CAT-229*)",
           "purpose": "Mỗi lần thử có mã riêng trong đúng hồ sơ và việc con. Gửi lại một lệnh không tự tạo lần thử mới.",
           "used_when": "Mốc 4–5 · khi chạy lại",
           "pg_design": {
@@ -34040,28 +34059,48 @@ main{max-width:1240px} [hidden]{display:none!important}
           "columns": [
             {
               "key": "purpose",
-              "label": "Khi cần làm gì?",
-              "help": "Khi cần làm gì?"
+              "label": "Dùng khi nào?",
+              "help": "Tìm theo mục đích; mở tên để đọc đầu vào, đầu ra, quyền và nguồn. Không chạy công cụ chỉ vì có trong danh mục."
             },
             {
               "key": "group",
               "label": "Nhóm",
-              "help": "Nhóm"
+              "help": "Phân biệt bộ kiểm, DOT/script tìm thấy, phương pháp và công cụ nhà cung cấp."
             },
             {
-              "key": "state",
-              "label": "Đã dùng / đã kiểm?",
-              "help": "Đã dùng / đã kiểm?"
+              "key": "lifecycle",
+              "label": "Tiến trình",
+              "help": "Mới tìm thấy → Đã khai → Đã kiểm → Dùng được. TEST không thay hai chữ ký. Nguồn đổi: kiểm/duyệt lại. Ngừng dùng: giữ lịch sử."
             },
             {
-              "key": "path",
-              "label": "Nguồn dùng lại",
-              "help": "Nguồn dùng lại"
+              "key": "source_revision",
+              "label": "Phiên nguồn",
+              "help": "Hash mã nguồn hiện hành; thiếu phiên thực thi của công cụ ngoài thì ghi chưa ghim, không suy từ tên công cụ."
             },
             {
-              "key": "verify",
-              "label": "Cách kiểm",
-              "help": "Cách kiểm"
+              "key": "revision",
+              "label": "Nâng cấp",
+              "help": "Phiên hợp đồng và số lần nâng có sự kiện kể từ P34. Đây không phải tổng số nâng trong quá khứ; lịch sử chưa thu thập không được đoán."
+            },
+            {
+              "key": "last_check",
+              "label": "Kiểm gần nhất",
+              "help": "Kết quả đúng hash mã công cụ. Mở chi tiết lấy mã lượt/bằng chứng; không tự nghiệm thu đầu vào hoặc sản phẩm mới."
+            },
+            {
+              "key": "next_action",
+              "label": "Việc tiếp",
+              "help": "Phần thiếu và hành động cụ thể để tiếp tục; mở chi tiết xem người giữ. Chưa đủ đồng thuận thì chưa công bố Dùng được."
+            },
+            {
+              "key": "gpt_review",
+              "label": "GPT duyệt",
+              "help": "Xác nhận thật của OpenAI (Codex/GPT): người/bề mặt, thời điểm, quyết định, phiên nguồn + hợp đồng, phạm vi, quyền và bằng chứng. Không ký hộ; TEST/JEV không phải chữ ký."
+            },
+            {
+              "key": "claude_review",
+              "label": "Claude duyệt",
+              "help": "Xác nhận thật của Anthropic (Claude Chat/Cowork/Code): cùng phiên và phạm vi với GPT. Chưa có biên nhận để Chưa duyệt; nguồn đổi mất hiệu lực. Hai hãng đồng ý mới công bố dùng được trong phạm vi đã kiểm."
             }
           ],
           "fields": [
@@ -34166,6 +34205,48 @@ main{max-width:1240px} [hidden]{display:none!important}
               "label": "Nhóm công cụ",
               "type": "text",
               "required": false
+            },
+            {
+              "key": "lifecycle",
+              "label": "Tiến trình",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "source_revision",
+              "label": "Phiên nguồn",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "revision",
+              "label": "Nâng cấp",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "last_check",
+              "label": "Kiểm gần nhất",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "next_action",
+              "label": "Việc tiếp",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "gpt_review",
+              "label": "GPT duyệt",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "claude_review",
+              "label": "Claude duyệt",
+              "type": "text",
+              "required": false
             }
           ],
           "storage": "catalog.tool_registry · nguồn tệp thực đã đăng ký; chưa PG",
@@ -34174,28 +34255,36 @@ main{max-width:1240px} [hidden]{display:none!important}
             "order": [
               "index",
               "name",
+              "code",
               "purpose",
               "group",
-              "state",
-              "path",
-              "verify",
-              "code",
-              "open"
+              "lifecycle",
+              "source_revision",
+              "revision",
+              "last_check",
+              "next_action",
+              "open",
+              "gpt_review",
+              "claude_review"
             ],
             "widths": {
               "index": 40,
-              "name": 225,
-              "purpose": 280,
-              "group": 120,
-              "state": 210,
-              "path": 230,
-              "verify": 200,
-              "code": 155,
-              "open": 80
+              "name": 220,
+              "code": 160,
+              "purpose": 230,
+              "group": 115,
+              "lifecycle": 180,
+              "source_revision": 145,
+              "revision": 160,
+              "last_check": 180,
+              "next_action": 260,
+              "open": 65,
+              "gpt_review": 160,
+              "claude_review": 160
             }
           },
           "display_code": "CAT-006",
-          "schema_version": "1.1-design",
+          "schema_version": "1.2-design",
           "canonical_id": "ML-DEF-024",
           "source_key": "catalog.tool_registry",
           "entity_key": "DOT"
@@ -34653,7 +34742,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "9cc1eadfba38db846ef78d7b5d0829e044ddbb60bcaa3c0abeb8435d0d903df0",
+          "sha256": "3d4f08065fa476b20428818de817d3228a5b4eb07ada142b4a79c0897dc7b079",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -34667,9 +34756,9 @@ main{max-width:1240px} [hidden]{display:none!important}
           "timeout_seconds": 60,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
-            "process-work-master-v1.js": "dbb4c292cb7e989ca1e325e6dde4dabc9a359cea9a1bb74942feb5f509ae440a",
+            "process-work-master-v1.js": "7a7bcbf9dc50f06b0372f2b8a3cc9193ecc0281c5c3cbdacf1fa6dbb1e2728b0",
             "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
-            "ui-child-from-parent-v1.js": "f22f5291a288452c377f9aec2e5a27b5e3fe7f5d7abe1727221d8e4b64aabd49"
+            "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357"
           }
         },
         {
@@ -39779,6 +39868,570 @@ main{max-width:1240px} [hidden]{display:none!important}
           "Unassigned platform events are not attributed to this work",
           "No claim to capture every external platform; import provider receipts explicitly",
           "Discovered files require review and scoped verification before use"
+        ]
+      },
+      "lifecycle_policy": {
+        "version": "P34.1",
+        "states": {
+          "FOUND": "Mới tìm thấy",
+          "REGISTERED": "Đã khai · chưa kiểm",
+          "TESTED": "Đã kiểm · chưa đủ duyệt",
+          "USABLE": "Dùng được · đúng phạm vi",
+          "RETEST": "Cần kiểm lại",
+          "NEEDS_FIX": "Cần sửa",
+          "RETIRED": "Ngừng dùng"
+        },
+        "columns": [
+          {
+            "key": "purpose",
+            "label": "Dùng khi nào?",
+            "help": "Tìm theo mục đích; mở tên để đọc đầu vào, đầu ra, quyền và nguồn. Không chạy công cụ chỉ vì có trong danh mục."
+          },
+          {
+            "key": "group",
+            "label": "Nhóm",
+            "help": "Phân biệt bộ kiểm, DOT/script tìm thấy, phương pháp và công cụ nhà cung cấp."
+          },
+          {
+            "key": "lifecycle",
+            "label": "Tiến trình",
+            "help": "Mới tìm thấy → Đã khai → Đã kiểm → Dùng được. TEST không thay hai chữ ký. Nguồn đổi: kiểm/duyệt lại. Ngừng dùng: giữ lịch sử."
+          },
+          {
+            "key": "source_revision",
+            "label": "Phiên nguồn",
+            "help": "Hash mã nguồn hiện hành; thiếu phiên thực thi của công cụ ngoài thì ghi chưa ghim, không suy từ tên công cụ."
+          },
+          {
+            "key": "revision",
+            "label": "Nâng cấp",
+            "help": "Phiên hợp đồng và số lần nâng có sự kiện kể từ P34. Đây không phải tổng số nâng trong quá khứ; lịch sử chưa thu thập không được đoán."
+          },
+          {
+            "key": "last_check",
+            "label": "Kiểm gần nhất",
+            "help": "Kết quả đúng hash mã công cụ. Mở chi tiết lấy mã lượt/bằng chứng; không tự nghiệm thu đầu vào hoặc sản phẩm mới."
+          },
+          {
+            "key": "next_action",
+            "label": "Việc tiếp",
+            "help": "Phần thiếu và hành động cụ thể để tiếp tục; mở chi tiết xem người giữ. Chưa đủ đồng thuận thì chưa công bố Dùng được."
+          },
+          {
+            "key": "gpt_review",
+            "label": "GPT duyệt",
+            "help": "Xác nhận thật của OpenAI (Codex/GPT): người/bề mặt, thời điểm, quyết định, phiên nguồn + hợp đồng, phạm vi, quyền và bằng chứng. Không ký hộ; TEST/JEV không phải chữ ký."
+          },
+          {
+            "key": "claude_review",
+            "label": "Claude duyệt",
+            "help": "Xác nhận thật của Anthropic (Claude Chat/Cowork/Code): cùng phiên và phạm vi với GPT. Chưa có biên nhận để Chưa duyệt; nguồn đổi mất hiệu lực. Hai hãng đồng ý mới công bố dùng được trong phạm vi đã kiểm."
+          }
+        ],
+        "layout": {
+          "order": [
+            "index",
+            "name",
+            "code",
+            "purpose",
+            "group",
+            "lifecycle",
+            "source_revision",
+            "revision",
+            "last_check",
+            "next_action",
+            "open",
+            "gpt_review",
+            "claude_review"
+          ],
+          "widths": {
+            "index": 40,
+            "name": 220,
+            "code": 160,
+            "purpose": 230,
+            "group": 115,
+            "lifecycle": 180,
+            "source_revision": 145,
+            "revision": 160,
+            "last_check": 180,
+            "next_action": 260,
+            "open": 65,
+            "gpt_review": 160,
+            "claude_review": 160
+          }
+        },
+        "approval_rule": "Hai vendor khác nhau, đúng binding SHA256:contract_revision và cùng acceptance_scope; chỉ xét phiếu cuối mỗi vendor. Đổi nguồn/hợp đồng/phạm vi hoặc thu hồi duyệt làm mất hiệu lực. Đây là kiểm biểu diễn; ACL/chữ ký nền tảng cần xác minh thật, không tin người tự khai.",
+        "record_rule": "memory giữ hợp đồng/người giữ/phạm vi; changes ghi phiên cũ→mới có lý do/actor/thời điểm; reviews giữ phiếu xác minh; audit_projection giữ nguồn và TEST. Không mở Master mới. Phiếu cũ chỉ thêm, không ghi đè.",
+        "historical_scope": "Số lần nâng tính từ P34; không suy ngược lịch sử thiếu.",
+        "test_rule": "Được kiểm kỹ thuật chỉ đọc trong quyền hiện có để tạo bằng chứng; chưa đủ hai duyệt không tự chạy mutation hay công bố đã được nghiệm thu."
+      },
+      "memory": [
+        {
+          "tool_id": "TQT-CHECK-001",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "baseline_source": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75"
+        },
+        {
+          "tool_id": "TQT-CHECK-002",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "baseline_source": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270"
+        },
+        {
+          "tool_id": "TQT-CHECK-003",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "baseline_source": "93487966d9a32bafcb400bba5ac47f09c9a8b312d0c2dc89a7eacf27305c7b27"
+        },
+        {
+          "tool_id": "TQT-CHECK-004",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "baseline_source": "32e3f58fc8d3e6f5b239e09264f18ccd91ae7eadbb0355fb0352b3529e1f0586"
+        },
+        {
+          "tool_id": "TQT-CHECK-005",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "baseline_source": "9cc1eadfba38db846ef78d7b5d0829e044ddbb60bcaa3c0abeb8435d0d903df0"
+        },
+        {
+          "tool_id": "TQT-CHECK-006",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "baseline_source": "c000c5fe6321bcdb6719c2d08af0e58c93d85110ffa385d52c0f3ed5b88272d1"
+        },
+        {
+          "tool_id": "agent-data:workspace_read",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_stat",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_search",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_list",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_transaction",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_exec",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_exec_status",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_result_read",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:ui_inspect",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_task_start",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_task_status",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "jev-reference:evaluate",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "local:shell",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "local:apply_patch",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "github:connector",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "browser:cua",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_diff",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_log",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_edit",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:upload_document",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_write_new",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:ui_screenshot",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_upload_begin",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_upload_append",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "agent-data:workspace_upload_commit",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh · đối chiếu nhà cung cấp",
+          "acceptance_scope": "Chưa chốt phiên và ca nghiệm thu thực thi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên thực thi/ca kiểm độc lập"
+        },
+        {
+          "tool_id": "TOOL-CTCM-001",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "Hướng dẫn phương pháp; chưa có ca áp dụng độc lập đủ phạm vi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên hướng dẫn và ca áp dụng đầy đủ"
+        },
+        {
+          "tool_id": "TOOL-CTCM-002",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "Hướng dẫn phương pháp; chưa có ca áp dụng độc lập đủ phạm vi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên hướng dẫn và ca áp dụng đầy đủ"
+        },
+        {
+          "tool_id": "TOOL-CTCM-003",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "Hướng dẫn phương pháp; chưa có ca áp dụng độc lập đủ phạm vi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên hướng dẫn và ca áp dụng đầy đủ"
+        },
+        {
+          "tool_id": "TOOL-CTCM-004",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "Hướng dẫn phương pháp; chưa có ca áp dụng độc lập đủ phạm vi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên hướng dẫn và ca áp dụng đầy đủ"
+        },
+        {
+          "tool_id": "TOOL-CTCM-005",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "Hướng dẫn phương pháp; chưa có ca áp dụng độc lập đủ phạm vi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên hướng dẫn và ca áp dụng đầy đủ"
+        },
+        {
+          "tool_id": "TOOL-CTCM-006",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "Hướng dẫn phương pháp; chưa có ca áp dụng độc lập đủ phạm vi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên hướng dẫn và ca áp dụng đầy đủ"
+        },
+        {
+          "tool_id": "TOOL-CTCM-007",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "Hướng dẫn phương pháp; chưa có ca áp dụng độc lập đủ phạm vi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên hướng dẫn và ca áp dụng đầy đủ"
+        },
+        {
+          "tool_id": "TOOL-CTCM-008",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "Hướng dẫn phương pháp; chưa có ca áp dụng độc lập đủ phạm vi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên hướng dẫn và ca áp dụng đầy đủ"
+        },
+        {
+          "tool_id": "TOOL-CTCM-009",
+          "contract_revision": "P34.1",
+          "owner": "Codex Host tools-quy-trinh",
+          "acceptance_scope": "Hướng dẫn phương pháp; chưa có ca áp dụng độc lập đủ phạm vi",
+          "baseline_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+          "blocker": "Chưa ghim phiên hướng dẫn và ca áp dụng đầy đủ"
+        }
+      ],
+      "reviews": [],
+      "changes": [
+        {
+          "change_id": "TQT-P34-UPGRADE-TQT-CHECK-005",
+          "kind": "UPGRADE",
+          "target_code": "TQT-CHECK-005",
+          "previous_version": "9cc1eadfba38db846ef78d7b5d0829e044ddbb60bcaa3c0abeb8435d0d903df0",
+          "next_version": "3d4f08065fa476b20428818de817d3228a5b4eb07ada142b4a79c0897dc7b079",
+          "target_version": "3d4f08065fa476b20428818de817d3228a5b4eb07ada142b4a79c0897dc7b079",
+          "reason": "Bổ sung kiểm vòng đời, đồng thuận và chiếu Master hiện hữu",
+          "actor": "Codex Host",
+          "changed_at": "2026-10-12T04:09:14.800315+00:00",
+          "affected_applications": [
+            "tools-quy-trinh/P34"
+          ],
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
+        }
+      ],
+      "walkthrough": {
+        "run_id": "TQT-QT001-P34-01",
+        "process_code": "MOW-TH-003",
+        "source_alias": "TQT-QT-001",
+        "process_version": "1.0-design",
+        "started_at": "2026-10-12T04:07:10.538990+00:00",
+        "input_ref": "Owner 12/10/2026: tổ chức bộ nhớ DOT/Tool và đi thử QT001; README → view.html#quy-trinh-hieu-chinh",
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34",
+        "doer_confirm": "PARTIAL",
+        "independence": "Host tự đi thử theo yêu cầu Owner; không phải agent mới độc lập; không tính đạt bước5",
+        "steps": [
+          {
+            "step": 1,
+            "state": "XONG",
+            "result": "Chọn ca quản lý trạng thái DOT/Tool; giữ339 mục,47Master,6DOT; sản phẩm:2Master + sổ bằng chứng; no PG/MOW0010/7."
+          },
+          {
+            "step": 2,
+            "state": "XONG",
+            "result": "Đọc AGENTS → COLLAB §0 → README → QT001; tra CHECK005/006 để dùng lại. Phát hiện sổ có thiết kế nhưng adapter không đọc dữ liệu có sẵn."
+          },
+          {
+            "step": 3,
+            "state": "XONG",
+            "result": "Ghi4chỗ vướng vào cùng hồ sơ và chiếu CAT069; không tạo sổ mới."
+          },
+          {
+            "step": 4,
+            "state": "XONG",
+            "result": "Đã bổ sung bộ nhớ và hai cột duyệt, nối6Master; kiểm local CHECK005 đạt. Còn kiểm VPS/UI và rà độc lập."
+          },
+          {
+            "step": 5,
+            "state": "DỪNG",
+            "result": "Cần người thực hiện khác đọc từ đầu và biên nhận Claude; Host kiểm kỹ thuật không thay độc lập."
+          },
+          {
+            "step": 6,
+            "state": "DỪNG",
+            "result": "Chưa công nhận QT001 đạt/chưa công bố công cụ Dùng được khi thiếu đồng thuận; giữ nguồn và lịch sử."
+          }
+        ],
+        "findings": [
+          {
+            "id": "TQT-P34-F01",
+            "type": "THIEU_TRUONG",
+            "problem": "DOT/Tool chưa có cùng cấu trúc phiên, nâng cấp, việc tiếp và hai duyệt",
+            "state": "Đã bổ sung · cần rà độc lập",
+            "next": "Claude rà cùng phiên; nguồn thay phải kiểm lại",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
+          },
+          {
+            "id": "TQT-P34-F02",
+            "type": "THIEU_NOI_DOC",
+            "problem": "CAT012/015/016/025/229/069 có thiết kế nhưng adapter trả rỗng dù đã có bằng chứng",
+            "state": "Đã nối phạm vi TQT · chưa toàn hệ",
+            "next": "Mở từng Master đọc lại; ngoài phạm vi chưa khảo sát giữ chưa biết",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
+          },
+          {
+            "id": "TQT-P34-F03",
+            "type": "THIEU_HUONG_DAN",
+            "problem": "QT001 chưa chỉ chính xác nơi ghi lượt thử và người làm Host có phải nộp proposal cho chính mình",
+            "state": "Đã bổ sung chỉ dẫn",
+            "next": "Host ghi hồ sơ hiện có; reviewer nộp proposal; không tự coi là thử lại độc lập",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
+          },
+          {
+            "id": "TQT-P34-F04",
+            "type": "THIEU_QUYET_DINH",
+            "problem": "Chưa có Claude duyệt phiên P34 và người thực hiện mới thử lại",
+            "state": "Còn mở",
+            "next": "NEXT_TRIGGER=ANTHROPIC_REVIEW_AND_INDEPENDENT_QT001_RETEST; không ký hộ",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P34"
+          }
+        ],
+        "cases": [
+          {
+            "case_code": "TQT-P34-VERSION",
+            "name": "Đổi nguồn mất hiệu lực",
+            "expected": "Nguồn khác hash không được dùng TEST/duyệt cũ",
+            "criterion": "Nguồn khác hash không được dùng TEST/duyệt cũ",
+            "steps": "CHECK005 chạy ca đúng/sai trong bản sao; không sửa dữ liệu thật",
+            "preconditions": "Nguồn P34 và adapter cùng phiên",
+            "input_ref": "check-work-masters.js#P34",
+            "state": "Đang rà"
+          },
+          {
+            "case_code": "TQT-P34-VENDOR",
+            "name": "Hai hãng thật cùng phạm vi",
+            "expected": "Một hãng, thiếu biên nhận hoặc khác phạm vi không thành Dùng được",
+            "criterion": "Một hãng, thiếu biên nhận hoặc khác phạm vi không thành Dùng được",
+            "steps": "CHECK005 chạy ca đúng/sai trong bản sao; không sửa dữ liệu thật",
+            "preconditions": "Nguồn P34 và adapter cùng phiên",
+            "input_ref": "check-work-masters.js#P34",
+            "state": "Đang rà"
+          },
+          {
+            "case_code": "TQT-P34-REVISION",
+            "name": "Đổi hợp đồng/thu hồi duyệt",
+            "expected": "Phiếu cũ vô hiệu; phiếu cuối REJECT chặn",
+            "criterion": "Phiếu cũ vô hiệu; phiếu cuối REJECT chặn",
+            "steps": "CHECK005 chạy ca đúng/sai trong bản sao; không sửa dữ liệu thật",
+            "preconditions": "Nguồn P34 và adapter cùng phiên",
+            "input_ref": "check-work-masters.js#P34",
+            "state": "Đang rà"
+          },
+          {
+            "case_code": "TQT-P34-MASTERS",
+            "name": "Nơi ghi đọc cùng nguồn",
+            "expected": "6Master chiếu đúng mã/phiên; không thêm Master",
+            "criterion": "6Master chiếu đúng mã/phiên; không thêm Master",
+            "steps": "CHECK005 chạy ca đúng/sai trong bản sao; không sửa dữ liệu thật",
+            "preconditions": "Nguồn P34 và adapter cùng phiên",
+            "input_ref": "check-work-masters.js#P34",
+            "state": "Đang rà"
+          },
+          {
+            "case_code": "TQT-P34-HISTORY",
+            "name": "Lịch sử nâng cấp có căn cứ",
+            "expected": "Không tự tăng số lần nâng theo số lần gọi; sự kiện giữ nguồn trước/sau",
+            "criterion": "Không tự tăng số lần nâng theo số lần gọi; sự kiện giữ nguồn trước/sau",
+            "steps": "CHECK005 chạy ca đúng/sai trong bản sao; không sửa dữ liệu thật",
+            "preconditions": "Nguồn P34 và adapter cùng phiên",
+            "input_ref": "check-work-masters.js#P34",
+            "state": "Đang rà"
+          }
         ]
       }
     },

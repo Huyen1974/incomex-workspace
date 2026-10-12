@@ -8,16 +8,17 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · Astra Codex · P32
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · Astra Codex · P34
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [□ ② Thử ngoài PG: kho 13 câu khai đã có, 0/7 mốc] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã làm P29: dùng lại CAT-206*, khai hợp đồng áp dụng 3 MOT/5 giao bước và ca nghiệm thu; siết ghim phiên/nội dung xuyên kiểm–duyệt–ACK, sửa lỗi thiếu dòng kiểm, thêm kiểm trước–sau vào DOT hiện hữu. P30 sửa trùng DOT còn 47 Master, giữ ⑤/7 mốc; ca thật chưa qua mốc nào.
 - ✅ Đã làm P31: bịt lỗi hợp đồng/gói giao P01, thêm schema và kiểm tập bắt buộc, lịch sử toàn bằng chứng; thử ghi–đọc hai tiến trình TEST. Chưa có quyền endpoint/người kiểm độc lập thật, MOW001 0/7.
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
-- ■ Đang làm: — · 0 RUN active
+- ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
+- ■ Đang làm: P34 · Host kiểm kỹ thuật và đọc lại Master theo chỉ đạo trực tiếp; chưa đủ duyệt Claude / thử lại độc lập.
 - ⬜ Còn lại: kiểm độc lập hợp đồng áp dụng → hoàn thiện schema và thử ghi/đọc toàn đường MOW001 ngoài PG → đủ CP03 mới làm/kiểm/duyệt/nhận → ba ca khác loại → staging/rollback rồi cắt chuyển PG. Cưỡng chế kiểm trước–sau ở máy chủ còn mở; 34 địa chỉ đề xuất không có nghĩa 34 nơi ghi đã sẵn sàng.
-- ➡ Kế tiếp: Host hoàn thiện schema/bằng chứng nơi ghi; Reviewer được Owner gọi rà P29/hợp đồng G1, không tự lấy tự kiểm Host thay kiểm độc lập. Claude cập nhật các yêu cầu ô 3 theo kết luận P29 ở lượt được gọi. NEXT_TRIGGER=INDEPENDENT_CONTRACT_REVIEW_AND_SCHEMA_ALIGNED_TRIAL_ENDPOINTS
+- ➡ Kế tiếp: Host hoàn thiện schema/bằng chứng nơi ghi; Reviewer được Owner gọi rà P29/hợp đồng G1, không tự lấy tự kiểm Host thay kiểm độc lập. Claude cập nhật các yêu cầu ô 3 theo kết luận P29 ở lượt được gọi. NEXT_TRIGGER=P34_VPS_UI_READBACK_THEN_ANTHROPIC_REVIEW_AND_INDEPENDENT_QT001_RETEST
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -75,6 +76,14 @@ Cách làm
 - R23 Hội đồng AI hiệu chỉnh liên tục. Mục tiêu đã chốt thì AI tự điều hành tới khi xong, không chờ Owner.
 - R24 Chỉ đạo mới của Owner → ghi nguyên văn ở 3.4 ngay lượt đó + thêm/sửa dòng R ở 3.1. Ô 1–2 chỉ đổi theo lời Owner.
 Phạm vi: chưa làm quy trình nghiệp vụ (phái cử, tuyển dụng…), là sản phẩm của cỗ máy thuộc Chuỗi 3, để sau. Không làm lúc này: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế.
+
+#### Chỉ đạo bổ sung Owner 12/10/2026 · P34
+
+“Bạn xử lý tiếp nhé, ngoài ra cũng rà soát xem còn gì thực sự chưa ghi chép đầy đủ vào các master list không? giống như DOT và tool vừa rồi. Bạn đầu là có 6 với 9, còn giờ thì lôi ra nhiều trăm.”
+
+“À, với bất cứ DOT hoặc tool nào cần có 2 cột chữ ký ở cuối nhé: 1. GPT duyệt (bạn hoặc GPT chat cần xác nhận đã duyệt - tóm lại bên Open AI duyệt) 2. Claude duyệt (hoặc chat hoăc cwork hoặc claud code cli duyệt - tóm lai bên Anthopic duyệt. Đưa các giải thích vào \"?\". Nguyên tắc của tôi là đồng thuận. 2 hãng cùng xác nhận là tôi yên tâm đồng ý. Rà soát cho 1 số vấn đề về kỹ thuật như các khâu test sau này.... cũng làm theo cơ chế đồng thuận này.”
+
+Chi tiết thực hiện theo yêu cầu cùng lượt: bộ nhớ tiến trình/phiên/nâng cấp dùng chung hai Master; đi thử TQT-QT-001 theo khung hiện có và ghi chỗ tắc; chưa làm nhật ký vài trăm bước. Phạm vi đã giao trực tiếp, không mở Master/DOT mới.
 
 #### 3.2 Tiêu chí kiểm một quy trình (Host nội dung soạn 09/10, dùng cho ô 2)
 - Khai báo đủ: mã/phiên bản, mục tiêu, đầu vào/ra, việc con có thứ tự, người làm/giữ, nguồn đọc/nơi ghi, trigger/điều kiện, báo cáo, nơi nhận/trả và điều kiện kết thúc.
@@ -149,7 +158,8 @@ Xác nhận bổ sung (vẫn hiệu lực, đã chép lên đầu §0): Owner gi
 - 🏁 Xong khi: đạt tiêu chí ô 2; quy trình được làm theo ra đúng sản phẩm, có bằng chứng và đường xử lý sai/thiếu tới cuối.
 - 📍 Tiến độ: [■ Thiết kế và khả thi] → [□ Triển khai] → [□ Vận hành]
 - ✅ Đã xong (thiết kế): 29 Master theo định nghĩa + 1 Master Config = **30 danh sách**; `ML-MOW-TH-001` STT 29 có **5 quy trình thiết kế; ⑤ đã chốt áp thử**; 12 Quy trình thành phần, 17 chú giải chung nguồn, 159 câu/53 nhóm, 87 ca mô phỏng đã qua. Bằng chứng P16–P20; **chưa nghiệm thu vận hành**.
-- ■ Đang làm: — · 0 RUN active
+- ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
+- ■ Đang làm: P34 · Host kiểm kỹ thuật và đọc lại Master theo chỉ đạo trực tiếp; chưa đủ duyệt Claude / thử lại độc lập.
 - ⬜ Còn lại: áp thử thiết kế MOW001, kiểm UI/Config/Test và hiệu chỉnh khi vướng. Riêng triển khai: 5 chốt thực thi → một vòng sai/thiếu → PG staging đúng quyền. TQT-ISS-007 giữ mở; không chặn thử thiết kế thủ công.
 - ➡ Kế tiếp: dùng application_D24 trong phiếu MOW001, kiểm lại đáp án/điều kiện G1 rồi xác nhận kế hoạch trước S3. ⑤@1.1-design bao quát toàn việc; ③ có bước công bố phiên. Bảng Overview chỉ rõ CHUẨN BỊ, thiếu gì và ai làm tiếp. NEXT_TRIGGER=VERIFY_G1_INPUTS_AND_CONFIRM_PLAN_BEFORE_S3.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế · tự áp mục tiêu PR-07 chưa duyệt.
@@ -448,7 +458,8 @@ Chỉ đạo READ-ONLY P15/D16 và Host GPT Chat dưới đây là lịch sử t
 - 🏁 Xong khi: theo ô 2 — một quy trình đạt khi người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật. Mốc của cả việc do hội đồng chốt ở bước kế hoạch.
 - 📍 Tiến độ: ■ Khởi tạo / chỉ định Host → □ Chuẩn hóa → □ Áp dụng, kiểm chứng → □ Mở rộng và cải tiến.
 - ✅ Đã xong: mục tiêu Owner D04/D05; Host D06; 9 Tools nguồn P06, Rà một UI P09, Claude trình bày 6 phần P10; Host tiếp nhận P11. Theo D11/P12: có bản thử TQT-QT-001, mẫu phản hồi 5 loại blocker và README đọc ngay khi muốn sửa/bị chặn. Đây là tài liệu chuẩn bị thử, chưa có KQ người mới cho quy trình meta.
-- ■ Đang làm: — · 0 RUN active. D15 ưu tiên kiểm kê bộ câu hỏi gốc Chuỗi/Tầng/Bước+Bước con; đã soạn đề bài Codex READ-ONLY P15, thử ghép MOW001 sau khi có đề xuất. DRAFT vẽ UI P14 đã SUPERSEDED; MOW002 chưa làm.
+- ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
+- ■ Đang làm: P34 · Host kiểm kỹ thuật và đọc lại Master theo chỉ đạo trực tiếp; chưa đủ duyệt Claude / thử lại độc lập.. D15 ưu tiên kiểm kê bộ câu hỏi gốc Chuỗi/Tầng/Bước+Bước con; đã soạn đề bài Codex READ-ONLY P15, thử ghép MOW001 sau khi có đề xuất. DRAFT vẽ UI P14 đã SUPERSEDED; MOW002 chưa làm.
 - ⬜ Còn lại: kiểm độc lập agent đọc rồi làm ra sản phẩm thật; phản biện và bổ sung bước/câu hỏi còn thiếu; thử đề xuất mini-PR; kiểm khóa kỹ thuật Host-only (TQT-ISS-006); chuyển một SSOT từ MOW có bằng chứng; nền chuẩn IT và mở rộng Chuỗi khác theo mục tiêu.
 - ➡ Kế tiếp: Owner chuyển Codex đọc PROMPT.md DRAFT để đề xuất bộ câu hỏi gốc và ca ghép MOW001 READ-ONLY; Host tiếp nhận → Reviewer khác hãng phản biện → chốt chuẩn/Owner quyết nghĩa gốc nếu cần → mới cho vẽ UI MOW001. NEXT_TRIGGER=CODEX_ROOT_QUESTION_PROPOSAL; không giữ terminal chờ.
 - ⛔ Không làm/để sau: tạo task không bao gồm triển khai DOT/script, bảng PG, đổi runtime/UI production hay chuyển dữ liệu đang dùng ở MOW.
@@ -904,3 +915,12 @@ P33 đã áp dụng trên VPS: hai lối vào dưới Master tiến trình; dùn
 Còn mở có chủ đích: không phục dựng PASS cho lịch sử thiếu phiên/kết quả; chưa thu tự động đủ mọi nền tảng; 49 script cần đối chiếu hợp đồng/đăng ký trước khi dùng; chưa đo tỷ lệ tự động hóa hay nghiệm thu toàn đường. Cách cập nhật tiếp đã có trong CHECK-006 --audit-vps → --audit-patch → workspace_transaction.
 
 Đối chiếu schema công cụ thực ở bước chốt: loại workspace_append/workspace_write/workspace_sync vì không tồn tại trong connector; thêm ui_screenshot và ba hành động tải tệp đã dùng ở P32. Master Tool: 9 phương pháp + 25 năng lực; 34 dòng. Ca tích hợp trước thiếu nguồn đã được chạy bổ sung và đạt. Một lượt worker EXECUTION_FAILED không có output được giữ lại cùng lượt thử lại PASS; không gán lỗi đó thành kết quả kiểm DOT.
+
+
+## P34 · 12/10/2026 · Bộ nhớ tiến trình và đồng thuận DOT/Tool; đi thử QT001
+
+Chỉ đạo trực tiếp Owner: tổ chức trạng thái/phiên/nâng cấp để AI đọc và dùng lại; bổ sung Master Tool; làm theo QT001 tìm thiếu sổ/trường/bước; chưa làm nhật ký hàng trăm bước. Mọi DOT/Tool có hai cột cuối “GPT duyệt”, “Claude duyệt”, giải thích tại ?. Đồng thuận hai hãng, không ký hộ. Host thực hiện trong phạm vi nguồn đã được giao, không tạo task/Master/DOT mới.
+
+Nguồn chuẩn và đường vào vẫn hai Master dưới Master tiến trình ở trang chủ VPS. Hồ sơ máy/người cùng đọc tại `view.html → catalog.tool_registry.walkthrough`; bằng chứng `UI-REVIEW-AGGREGATE.json#host_review_P34`; hướng dẫn ở README P34. JEV gen-dec-1791777819-iewqP3YUVkHZLpuL1YOj chỉ tham khảo cách tổ chức.
+
+Đi bộ: QT001 là MOW-TH-003, sáu bước. Chọn ca bộ nhớDOT/Tool → đọc đúng cửa vào → thấy thiếu cấu trúc cùng khuôn và sổ chưa nối bằng chứng → hiệu chỉnh nguồn/kiểm. Các Master CAT012/015/016/025/229/069 chiếu nguồn hiện có. Chưa có agent khác làm bước5/phiếuClaude phiênP34 nên DOER_CONFIRM=PARTIAL, chưa công nhận quy trình đạt. Giữ47Master,6DOT; chưaPG/MOW0010/7.
