@@ -18,7 +18,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
 - ■ Đã khép P37: MOW001 G1 được Owner duyệt/nhận, 7/7 mốc; hồ sơ và Master đã hiện dữ liệu, bộ tổng VPS PASS. Không PG.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, giảm lịch sử lặp, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002.
-- ➡ Kế tiếp: trả cấu hình tài nguyên tạm; xem resource_restoration ở aggregate P37. Khi mở việc mới, tra Master/DOT trước và dùng lại CHECK004/005/006.
+- ➡ Kế tiếp: G1 đã khép, cấu hình tạm đã trả đúng bản gốc. Trước nhân rộng xử lý các việc còn mở trong CAT069; khi có việc mới, tra Master/DOT trước và dùng lại CHECK004/005/006.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.

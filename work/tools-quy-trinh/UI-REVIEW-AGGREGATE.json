@@ -83520,8 +83520,29 @@
       "source_sha256": "908f9c7fbf3eb664ffd88249a1c9d277f90a7d3022e8c01c246af10f3fefd35b"
     },
     "resource_restoration": {
-      "state": "PENDING_FINAL_METADATA_WRITE",
-      "expected_restored_sha256": "1b93589b1149a4a2a08ecb3b45185da2b9b0fe74926d1e7e75aaa7e9751cd865"
+      "state": "RESTORED",
+      "receipts": [
+        {
+          "state": "RESTORED",
+          "mutation_id": "P37-MOW001-RESTORE-20261012",
+          "before": "74023392c952da3c75e0f0b12c1a1d12cd2f9b2a1f8cb201b4b4b881ac1fe7db",
+          "after": "1b93589b1149a4a2a08ecb3b45185da2b9b0fe74926d1e7e75aaa7e9751cd865",
+          "task_memory_bytes": 1610612736,
+          "task_concurrency": 2,
+          "gate_and_acl_unchanged": true
+        },
+        {
+          "state": "HOST_EXEC_RESTORED",
+          "mutation_id": "P37-HOST-EXEC-RESTORE-20261012",
+          "before": "8d444e0ec67e810735be5328042a68023f82a69dc8b8896260c582f6331b4728",
+          "after": "54b234bd46fa4ec004752a97110e9bcc720b070a3c4bc78869e5d96769471e2e",
+          "exec_memory_bytes": 1073741824,
+          "exec_concurrency": 2,
+          "scope": "All temporary resource settings returned; authentication/sandbox/ACL unchanged"
+        }
+      ],
+      "scope": "Both gateway task/exec resources and host executor restored to exact original config hashes; PG/gate/ACL unchanged",
+      "future_use": "CHECK006 correctly blocks at default1GiB; provision declared2GiB serial for full history suite via registered Config Guard when needed."
     },
     "native_1gib_boundary": {
       "job_id": "9a764572420d48119f82a7fc66d6f2a6",
@@ -83914,6 +83935,15 @@
       ],
       "scope": "Changed CHECK004/005/006 and Master projection technical review on actual native receipts; no additional product acceptance",
       "claude": "NOT_REVIEWED_NOT_BLOCKING_BY_OWNER"
+    },
+    "final_metadata_publish": {
+      "task_id": "5ed6b66fca6d4d25aa6ee18e171b0083",
+      "status": "completed",
+      "transaction_id": "5293eed6666d46069aaf93cfbe4b26f1",
+      "commit": "959e50165aa08f29691af3439c71a5c2068f7a2d",
+      "view_sha256": "efcbe2c74afcb0a7ada3db4bbd21f6097cde0c17d88835a7e475365f00e53148",
+      "evidence_source": "workspace_task_status actual response",
+      "operation_id": "tqt-p37-final-evidence-20261012-v1"
     }
   }
 }
