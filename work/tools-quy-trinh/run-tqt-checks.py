@@ -177,7 +177,15 @@ def audit_self_test():
     wrong=copy.deepcopy(fake);wrong['scope']['work_id']='OTHER'
     try:audit_patch(wrong);assert False
     except ValueError:pass
-    return {'cases':18,'state':'PASS','scope':'TEST SQLite and prepared CAS patches; no production writes'}
+    for state in ('DRY_RUN','BLOCKED','OBSERVED'):assert runner_test_receipt({'status':state,'runner_sha256':'a'*64},'TEST') is None
+    assert runner_test_receipt({'status':'PASS','runner_sha256':'a'*64},'TEST')['exit_code']==0
+    assert runner_test_receipt({'status':'FAIL','runner_sha256':'a'*64},'TEST')['exit_code']==1
+    return {'cases':23,'state':'PASS','scope':'TEST SQLite and prepared CAS patches; no production writes'}
+
+def runner_test_receipt(report, evidence_ref):
+    # An inventory-only/dry run is neither a passed nor a failed test execution.
+    if report.get('status') not in ('PASS','FAIL') or not re.fullmatch('[0-9a-f]{64}',str(report.get('runner_sha256',''))):return None
+    return {'id':'TQT-CHECK-006','sha256':report['runner_sha256'],'exit_code':0 if report['status']=='PASS' else 1,'case_set':'TQT-CASE-RUNNER','evidence_ref':evidence_ref+'#status'}
 
 def audit_projection(audit, external_receipts=()):
     digest=hashlib.sha256(json.dumps(audit,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
@@ -244,10 +252,12 @@ def usage_audit(db_path, work_id, event_key=None):
     return {'work_id':work_id,'event_count':len(rows),'complete_receipts':sum(x['complete'] for x in rows),'events':rows,'by_action':list(groups.values()),'unassigned_events':orphans,'count_rule':'gateway and hook observations are not added as unique calls; resolved is attribution, never success','coverage':'retained lc_event for selected work only; external platforms and expired history may be missing'}
 
 def audit_vps(args, catalog):
-    import importlib.machinery,importlib.util,collections
+    import types,collections
     policy=catalog['tool_registry']['audit_sources'];scanner=Path(policy['dot_catalog']['path'])
-    if sha(scanner)!=policy['dot_catalog']['sha256']:raise ValueError('DOT_CATALOG_PIN_CHANGED')
-    loader=importlib.machinery.SourceFileLoader('existing_dot_catalog',str(scanner));spec=importlib.util.spec_from_loader(loader.name,loader);mod=importlib.util.module_from_spec(spec);loader.exec_module(mod)
+    scanner_bytes=scanner.read_bytes()
+    if hashlib.sha256(scanner_bytes).hexdigest()!=policy['dot_catalog']['sha256']:raise ValueError('DOT_CATALOG_PIN_CHANGED')
+    mod=types.ModuleType('existing_dot_catalog');mod.__file__=str(scanner)
+    exec(compile(scanner_bytes,str(scanner),'exec'),mod.__dict__)  # exact pinned bytes; no .pyc cache read/write
     dots=[];support=[]
     for x in mod.scan(policy['dot_bin']):
         p=Path(policy['dot_bin'])/x['name']
@@ -298,7 +308,8 @@ def audit_vps(args, catalog):
             # Parse structured runner receipts only. Never publish arbitrary stdout/argv.
             try:
                 report=json.loads(out.read_text())
-                if re.fullmatch('[0-9a-f]{64}',str(report.get('runner_sha256',''))):rec['subtools'].append({'id':'TQT-CHECK-006','sha256':report['runner_sha256'],'exit_code':0 if report.get('status')=='PASS' else 1,'case_set':'TQT-CASE-RUNNER','evidence_ref':rec['evidence_ref']+'#status'})
+                runner_receipt=runner_test_receipt(report,rec['evidence_ref'])
+                if runner_receipt:rec['subtools'].append(runner_receipt)
                 for item in report.get('results',[]):
                     if item.get('id') in registry and re.fullmatch('[0-9a-f]{64}',item.get('source_sha256','')):
                         rec['subtools'].append({'id':item['id'],'sha256':item['source_sha256'],'exit_code':item.get('exit_code'),'case_set':item.get('case_set'),'evidence_ref':rec['evidence_ref']+'#results/'+item['id']})
