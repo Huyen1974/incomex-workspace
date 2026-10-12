@@ -65338,6 +65338,16 @@
       "state": "PASS",
       "p36_cases": 20,
       "evidence_ref": "/opt/incomex/staging/tqt-p36/dot-tests.log"
+    },
+    "contract_persisted_review": {
+      "state": "ACCEPT_TECHNICAL",
+      "execution": "f5dd77",
+      "reviewer": "/root/review_mow001",
+      "at": "2026-10-12T08:03:54Z",
+      "source_head": "810b42a9b6d979065ca410110fafc31a5668cb46",
+      "source_sha256": "6b40846cf4b4f079d3537831fc162607df8d32ea8f9f365d0383bc04593f06c3",
+      "contract_content_sha256": "5481979a5bce26c8d60bfcc28ef9c655b76bed6ba21dcfb97cd0e42c2960a04c",
+      "scope": "Contract v4 only; not UI acceptance"
     }
   }
 }
