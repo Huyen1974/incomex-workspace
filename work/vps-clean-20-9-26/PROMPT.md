@@ -47,9 +47,9 @@ RUN này chỉ ĐĂNG KÝ bảo vệ (baseline) + thêm 1 dòng chú thích bi�
 6. **Guard POST `--coverage`:** footprint L1 (crontab root) + footprint lượt này (crontab root, registry Config Guard) ⇒ 4 ô đủ, 0 THIẾU.
 7. **Kuma #11/#21:** đo theo §0 mục 4; bảng: giờ · loại nhịp (push/tự ghi) · trạng thái · câu (cắt 60 ký tự, không token).
 8. **Biển báo cho mọi việc khác:** thêm một câu vào dòng VPSC ở COLLAB gốc: «crontab root + `/etc/cron.d/<danh sách>` thuộc Config Guard từ <ngày> — sửa qua apply-v0, sửa tay ⇒ #22 đỏ».
-9. **Git cục bộ `/opt/incomex`:** commit dòng nhãn DEL-1 L1 đã thêm vào `docs/KE-HOACH-XOA-20260801.md` (message có RUN_ID L1 + RUN_ID này); chỉ tệp đó.
-10. **POST:** 22 đèn same-or-better; agent-data `/health`, Directus ping, Nuxt `/knowledge/modules` 200; dòng lịch chạy 32.
-11. **Báo cáo:** mục `L1P-20261013` trong BAO-CAO (cho Owner ≤ 3 dòng · bảng đích Config Guard mới · drift-check trước/sau · bảng coverage 4 ô cho L1 và lượt này · kết luận Kuma có số) → `KQ@VPSC-L1P-GUARD-CRON-20261013-01 XONG|DỪNG · …` dưới P91 → **trả `VPS-GHI: trống` cùng commit**. Báo Owner đúng một dòng.
+9. **Git cục bộ `/opt/incomex`:** commit dòng nhãn DEL-1 L1 đã thêm vào `docs/KE-HOACH-XOA-20260801.md` (message có RUN_ID L1 + RUN_ID này); chỉ tệp đó. Chỉ commit nếu đối chiếu đúng chủ cây/HEAD và diff chỉ có một dòng nhãn L1; nếu có thay đổi khác hoặc cây đang được phiên khác ghi ⇒ GIỮ, ghi con trỏ về chủ, không commit hộ.
+10. **POST:** 22 đèn same-or-better; agent-data `/health`, Directus ping, Nuxt `/knowledge/modules` 200; dòng lịch chạy 32. Nếu Guard vẫn trả `same_or_better=FAIL` hoặc coverage còn THIẾU thì không tự suy PASS từ cùng tập đèn đỏ; báo DỪNG/PARTIAL có bằng chứng, không chạy lại chỉ để canh câu. Phải chứng minh nhịp Kuma thật, không làm xanh giả.
+11. **Báo cáo:** mục `L1P-20261013` trong BAO-CAO (cho Owner ≤ 3 dòng · bảng đích Config Guard mới · drift-check trước/sau · bảng coverage 4 ô cho L1 và lượt này · kết luận Kuma có số) → `KQ@VPSC-L1P-GUARD-CRON-20261013-01 XONG|DỪNG · …` dưới P91 → **trả `VPS-GHI: trống` cùng commit**. Báo Owner đúng một dòng. Khi POST-PROTECT phạm vi PASS, gửi Telegram receipt theo DROOT29 và lưu `message_id`; gửi lỗi thì KQ DỪNG/PARTIAL, không nhận full XONG. Guard tổng FAIL từ các đích #22 cũ phải phân biệt riêng, không che.
 **Lỗi thì lùi:** registry Config Guard về bản `.pre` qua apply-v0; crontab về `<EV>/crontab.truoc` (chỉ mất dòng biển báo); kiểm sha = PRE; KQ DỪNG nêu bước.
 
 ## 4. Bước đi
