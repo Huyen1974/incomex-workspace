@@ -4,6 +4,69 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## HEAL-20261013 · Chặn nguồn phình đĩa + dọn + nâng trần RAM · RUN VPSC-HEAL-DISK-MEM-20261013-01 · executor Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ DỪNG · A1 transactions
+
+**PROMPT `f3fbbd7c` (READY P82) · STARTED `c3aece5` 08:30Z · thi hành 08:30–09:35Z · bằng chứng VPS `/opt/incomex/work/vps-clean-20-9-26/VPSC-HEAL-DISK-MEM-20261013-01/{pre,a,b,c,d,e,post,rollback,bin}`.** Owner cho áp toàn bộ trong phạm vi Q1–Q5 (auto-mode Claude Code chặn lệnh ghi production nên hỏi một câu, Owner chọn «Cho áp toàn bộ»).
+
+### 1. Cho Owner
+- **Đã làm:** cài 3 van dọn tự động hằng ngày vào `vps-retention.sh` (bản chụp `.before` đã có trong Git; hàng đợi helper qua Drive trước khi xoá; nén lại 4 kho Git); dọn staging TQT, `/tmp` cũ (đều qua Drive), 5 image cũ, 1 container rác; dừng tmux «agents»/htop và 2 Nuxt mồ côi; sửa disk-monitor ghi sai mã lỗi; nâng trần RAM claude-mcp 1→1,5 GiB và Postgres 2→3 GiB.
+- **Chưa xong (blocker duy nhất):** A1 — bản chụp toàn tệp trong `transactions/` (nguồn tăng lớn nhất, ~1,46 GiB/ngày, nay 2,27 GB) **không được dọn** vì cổng an toàn của chính PROMPT: mã agent-data đang chạy có đường đọc lại các tệp này (`workspace_diff` theo `from_version`). Vì vậy #11 còn đỏ.
+- **Đĩa:** trống 34,05 → 36,30 GiB (+2,25 GiB ròng trong lúc transactions vẫn tăng); mục tiêu ≥41 GiB **chưa đạt**.
+
+### 2. Tám điều XONG (đo thật)
+| # | Điều | Số đo | Kết quả |
+|---|---|---|---|
+| 1 | Kuma #11 xanh do storage-watch tính lại | lý do 11 → **2**: `DEBT_OVERDUE transactions` + `SLOPE7D −6,14 GiB`; Kuma 09:30:04Z nhận đúng lý do mới | CHƯA ĐẠT |
+| 2 | Trống ≥ max(41; mốc 7d 42,45 − 2) | 36,30 GiB | CHƯA ĐẠT |
+| 3 | Van A1–A4 có receipt; 3 dòng nợ → ROTATING | A2/A3/A4 có receipt lượt thật; A1 chặn; 2/3 dòng (helper, mcp-roots) ROTATING `VALVE_LIVE` | CHƯA ĐỦ |
+| 4 | Guard POST `--coverage` | footprint đúng 5 tệp, coverage **PASS** (đủ 4 ô), change_event PASS, 0 đích mới đỏ; FAIL hình thức: `same_or_better` #21 (câu báo luân phiên có sẵn, xem §5) + INV5_6/INV20 (#22 có sẵn) | ĐẠT phần RUN · Guard tổng FAIL |
+| 5 | 22 đèn không mới đỏ | PRE 19/22, đỏ {#11,#21,#22} = POST 19/22 cùng tập | ĐẠT |
+| 6 | RAM | claude-mcp 93 MB/1,5 GiB (6%), swap riêng 0; Postgres `memory.events max` +0 trong 10′ (trước 45.123), đỉnh 307 MB/3 GiB | ĐẠT |
+| 7 | p50 công cụ ≤150 ms hoặc nhanh hơn ≥50% | `fs_list` thời gian chạy (mcp-audit) PRE 11 ms · POST 18,5 ms (POST đo lúc storage-watch đang đi ổ); trung bình 24h trước sự cố 568 ms | ĐẠT (≤150 ms) |
+| 8 | Dịch vụ + dữ liệu | PG/Directus/agent-data/Nuxt/Qdrant/Neo4j healthy; Directus 170 collection · 1.521 field · 14 user · 10 role · 205 relation · 393 bảng trước = sau; Graph 3.596 node/6.823 cạnh (= mốc GS R7); bind dữ liệu PG `/opt/workflow/postgres18` giữ nguyên; backup PG cục bộ 13/10 00:28Z + Drive 12/10 18:50Z | ĐẠT |
+
+### 3. Trước / sau theo nguồn
+| Nguồn | Trước | Sau | Cách |
+|---|---:|---:|---|
+| `workspace-tools/transactions` | 2,21 GB | 2,27 GB | **A1 không làm** (cổng PROMPT §3) |
+| `.before` (532 tệp >48h, root workspace) | — | −147,6 MB | (m) Q1: `git show <base>:<path>` = sha256, base đã push GitHub; giữ `.json`; ui/không base/mới <48h giữ |
+| `/var/lib/incomex-mcp-helper` | 881,6 MB | 269,4 MB | (n) Drive-first 11.378 tệp out/done >7 ngày (−133,9 MB) + (o) repack gương p02 521→37 MB |
+| `/opt/incomex/mcp-roots` | 229,2 MB | 154,5 MB | (o) repack `.git` 166→91 MB, refs y nguyên |
+| `/opt/incomex/data` phần còn lại | 2,32 GB | 1,40 GB | (m) + (o) github-workspace 363→46 MB, p02 agent-data 526→41 MB (trần 2 GiB nay đạt) |
+| `/opt/incomex/staging` | 668,6 MB | 68,4 MB | B2 D12 Drive-first tqt-p32/p33/p36 rồi gỡ (−600 MB) |
+| `/tmp` >7 ngày (D14) | — | −101 MB | B3 Drive-first 10.601 tệp rồi gỡ 2.075 mục (27 mục có tiến trình giữ: giữ); `/var/tmp/jev-gate` không còn tồn tại |
+| Image (D01/D07/D11) | 61 ID | 56 ID | B1 gỡ 5 ID: agent-data-hvu `tqt-p32-20261012` (D07), `b3-rerun-02`, `b3-20260921`, `agent-data-workspace:20260917` (D01), `claude-mcp-local:hvu-b3-rerun-02` (D11) ≈ −0,1 GB (lớp dùng chung) |
+| Container (D15) | `workspace-job-0ae7` Created | đã gỡ | `docker rm` thường |
+
+**Image GIỮ, có lý do:** 27 ID cũ D01/D07/D11 còn lại là chuỗi cha theo lớp (layer) của image đang chạy/2 bản trước/đường lùi `mcpw-r2-20261001`, hoặc còn được compose (kể cả `.bak`, chú thích)/rollback/script nhắc — gỡ cũng không thu byte; D04 `directus:11.5`, `postgres:16`, `nginx:alpine` còn compose nhắc; `postgres 1a6ab3f5` là ảnh lùi PG16 trong `stack-cutover.prod-vps1.conf`; `node:24.21.0-alpine3.23` do DOT license-watch dùng mỗi 5′. **cognee (D03) + pgvector** khớp `#GRAPH_IMAGES` (nhóm GRAPH trial) và **5 volume treo (D15) là log Neo4j** của lượt thử Graph 07/10 ⇒ theo «giữ mọi image Graph / không đụng Neo4j» + nghi ngờ thì giữ (JEV `gen-dec-1791881766-lYThJwzD3gHJvaO6pnlQ`: cognee GIỮ 0,87) ⇒ chuyển **GS-CLEAN**. Phân loại đầy đủ: `b/b1-phan-loai.json`.
+
+**Drive (D23):** 3 gói mã hoá người nhận `31799F7A…` tại `rescue/vpsc-n2a/`, `retain_until` +12 tháng: `helper-queue-20261013T085527Z` (94,3 MB → 34,9 MB), `staging-tqt-20261013T090934Z` (599,1 MB → 105,5 MB), `tmp-cu-20261013T091057Z` (65,9 MB → 37,7 MB) — **tổng 178,1 MB trên Drive** (759 MB gốc). Mỗi gói: đọc ngược md5 khớp · tải ngược sha256 khớp · khoá riêng Secret Manager vào GNUPGHOME tmpfs riêng lượt · giải mã đếm đủ mục · 3 mẫu sha256 = manifest · gói cắt cụt phải hỏng (đúng) · tmpfs xoá · keyring gốc 0 khoá riêng · kiểm lại byte + sha256 từng tệp ngay trước xoá.
+
+### 4. Thay đổi đã cài (đều qua `incomex-config-apply-v0`, bản lùi `rollback/*.orig` + `.pre`)
+| Tệp | Trước → sau | Nội dung |
+|---|---|---|
+| `scripts/vps-retention.sh` | `7edaad63…` → `978343d4…` | luật (m)(n)(o) + `luu_drive` (Drive-first + thử khôi phục) + `--chi-mno`, `--chi-mno-thu`, `--luu-drive`; chạy hằng ngày 22Z trong cron giờ sẵn có; biên nhận `/var/lib/incomex/vps-retention-mno.json`; (l) chạy thử sau cài giống hệt trước |
+| `scripts/storage-registry.tsv` | `83cb57e5…` → `c09e37ff…` | helper → ROTATING `valve:file=…luat_n;file=…luat_o;cron=vps-retention\.sh;cap=2875323778` (= 7d × 315.969.536 B/24h × 1,3) · mcp-roots → ROTATING `valve:file=…luat_o;cron=…;cap=390840320` (= (154.484.736 sau repack + 1d × 146.161.664) × 1,3; Git không có hạn giữ nên cộng nền sau repack) · thêm `/var/lib/hjw-control` CONTROL_DEBT chủ HJW hạn 2026-10-16T01:00:00Z · transactions giữ nguyên (A1) |
+| `scripts/disk-monitor.sh` | `f74f7aa3…` → `6c685b2f…` | lưu mã thoát ngay sau storage-watch; thử lỗi giả exit 3: mới rc=3, cũ rc=0; lượt thật 09:25Z ghi đúng rc=1 |
+| `claude-mcp/docker-compose.claude-mcp.yml` | `825cee7d…` → `a8a23f0c…` | `mem_limit 1g→1536m`, thêm `memswap_limit 2560m` (giữ 1 GiB swap); cấu hình hiệu lực chỉ khác 2 dòng RAM; dựng lại riêng service `--no-deps --no-build --pull never`, healthy 20 s, cùng image `bacd2160` |
+| `docker/docker-compose.yml` | `0bdafc8f…` → `07d6a687…` | postgres `mem_limit 2g→3g` (không có memswap riêng ⇒ mặc định Docker 2× = 6 GiB); cùng config-hash trước đổi; dựng lại riêng postgres healthy 15 s, cùng image `5a5a84b1`, cùng 3 bind; lỗi kết nối agent-data/Directus chỉ trong 8 s khởi động lại, từ 09:21Z = 0 |
+
+### 5. Sự thật cần biết
+- **Cổng A1 (đo trong container):** `workspace_operations.py:347–356` ghi bản chụp toàn tệp mỗi path; rollback trong lượt dùng bộ nhớ; nhưng `workspace_tools.py:1677–1682` (`workspace_diff` có `from_version`) đọc tệp số của giao dịch ở MỌI trạng thái kể cả committed ⇒ đúng điều kiện «KHÔNG làm A1» của PROMPT §3. Khi tệp vắng, công cụ trả `VERSION_NOT_RETAINED` (đã có sẵn, mô tả «pruned by the state GC»); root Git vẫn diff được bằng `from_ref`.
+- **#21 và Guard:** #21 (HJW, Hermes) đỏ từ trước RUN, Kuma luân phiên đúng 2 câu «HERMES … drift=CONFIG» / «No heartbeat» (từ 06:00Z: 105/42 lần). PRE chụp câu sau, POST chụp câu trước ⇒ Guard so chữ báo «khác/xấu hơn». Không chạy lại để canh câu (sẽ là xanh giả). INV5_6 (drift 4 đích agent-data ×3 + Hermes config) và INV20 là #22 có sẵn, chủ TQT/HJW. Biên nhận Telegram POST-PROTECT không gửi (chỉ gửi khi PASS).
+- **Sổ đổi partition_version (`acc8b978d55f`):** storage-watch chỉ so tăng 24h theo dòng khi có mốc cùng phiên bản sổ ⇒ EVENT_UNDECLARED/nhóm nợ theo dòng tạm chưa xét tới mốc 24h đầu (~09:25Z 14/10); SLOPE24/7D vẫn xét theo df (SLOPE7D còn đỏ). Watcher hiện có tự đo, không ai ngồi chờ.
+- **claude-mcp tự chết trước RUN:** 07:27:52Z tiến trình thoát, Docker tự dựng lại (RestartCount=1, không OOMKilled) — sau sự cố cgroup về 98 MB nên số PRE RAM/độ trễ là sau sự cố; bằng chứng trần thấp là của PROOT04 (67.256 lần chạm trần). Phiên MCP: 613 lần tạo transport/24h, 0 dòng hết hạn — theo dõi 24h xem bộ nhớ có phẳng không.
+- **Swap máy:** SwapFree 1,02 → 0,33 GB sau các lượt đi ổ/fsck/repack; MemAvailable 5,1 → 6,0 GiB; swap riêng claude-mcp và PG = 0.
+- **Nợ mới ghi rõ:** luật tỉa `rescue/vpsc-n2a/` trong `backup-to-gdrive.sh` (VPSC, trước 2027-10-13); `/var/lib/hjw-control` (HJW, hạn 16/10 01:00Z); cognee/pgvector/5 volume log Neo4j (GS-CLEAN); D13 build cache không dọn (D10).
+
+### 6. Dọn đồ của lượt
+Dọn 6/6: 2 bản sao `.env` tạm cạnh ứng viên apply-v0 (1 rỗng, 1 bản thật quyền 600) đã xoá · `/dev/shm/heal-*` + `/dev/shm/vpsc-n2a-kt.*` · `/var/tmp/vpsc-n2a-*` + `/var/tmp/vpsc-heal-e.*` · không tiến trình nền · không tmux · keyring gốc 0 khoá riêng. Giữ có chủ đích: thư mục bằng chứng RUN, 5 thư mục ứng viên apply-v0 (vết kiểm toán), 3 gói Drive.
+
+### 7. Kế tiếp
+`NEXT_TRIGGER=HOST_VPSC_DECIDE_A1_DIFF_FROM_VERSION` — Host VPSC chốt một điểm: chấp nhận `workspace_diff(from_version)` trả `VERSION_NOT_RETAINED` cho bản chụp >48h đã có trong Git (Q1), hay chuyển chủ agent-data (TQT) cho diff tự lùi về Git trước; xong thì một lượt nhỏ thêm luật transactions vào `vps-retention.sh` (máy Drive-first/Git đã có) + đổi dòng transactions sang ROTATING. SLOPE7D tự hết khi mốc 7 ngày trôi qua các ngày đĩa thấp (~17–18/10 nếu không tái phình) hoặc sớm hơn khi A1 chạy. Mốc 24h (tăng ≤0,5 GiB/ngày, claude-mcp phẳng) Host đọc ở phiên sau từ watcher.
+
+---
+
 ## DIAG-20261013 · VPS1 chậm và đầy nhanh trở lại — điều tra chỉ đọc theo yêu cầu Owner
 
 **Đo ngày 13/10/2026, khoảng 11:45–11:55 +07; VPS1 `vmi3080463`, 6 vCPU, RAM 11,68 GiB, filesystem `/dev/sda1` 95,82 GiB.** Codex nhận trực tiếp yêu cầu điều tra và ghi báo cáo vào việc này. Đây là bằng chứng/handoff cho Host hiện hữu, không phải KQ thực thi N2a, không đổi Host, PROMPT hoặc READY. Chỉ sửa tài liệu qua `workspace_*`; không dọn dữ liệu, restart, rebuild hay thay cấu hình production.
