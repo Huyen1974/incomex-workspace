@@ -68,7 +68,26 @@ Làm đúng §0B của bản lịch sử bên dưới: đóng gói mã hoá bằ
 ## 7. Bước E — sửa nhỏ giám sát
 `/opt/incomex/scripts/disk-monitor.sh` dòng 85 lấy mã thoát sau lệnh `date` nên luôn ghi `WARN … rc=0`: sửa để lưu mã thoát ngay sau lệnh storage-watch (sửa tối thiểu, qua apply-v0). Thử trên bản sao trong thư mục tạm của lượt với lệnh giả trả lỗi ⇒ log ghi mã khác 0; dọn bản sao sau khi thử.
 
-<!-- PHẦN-2C: §8–§10 -->
+<!-- PHẦN-2D: §8 -->
+
+## 9. POST + KQ
+1. Chạy đúng một lượt `/opt/incomex/scripts/disk-monitor.sh` thủ công (cùng khoá với cron; khoá bận thì đợi lượt cron đó xong, tối đa 10 phút) ⇒ storage-watch tính lại và đẩy Kuma #11.
+2. Guard POST `--coverage`; bảng 22 đèn; health các dịch vụ ở điều 8 §0; đối chiếu đủ 8 điều XONG.
+3. Ghi mục `HEAL-20261013` vào `BAO-CAO.md` (bảng trước/sau: đĩa, từng nguồn, image đã gỡ theo mã D, GB đẩy lên Drive, RAM/swap/events, p50, Guard, đèn, rollback còn sẵn).
+4. Dưới P81: dòng KQ của RUN_ID này (XONG hoặc DỪNG, tóm tắt số, thư mục tạm của lượt đã dọn, 0 tiến trình nền, giờ UTC); cùng commit trả `VPS-GHI: trống`.
+5. Kế tiếp: XONG ⇒ TQT rà P41 và đăng ký 3 tệp, rồi HJW Hermes, rồi Graph S0 và R10 đúng PROMPT đã ký; DỪNG ⇒ đúng một blocker + chủ.
+6. Báo Owner đúng một dòng XONG hoặc DỪNG. Không giữ terminal chờ.
+
+## 10. Bước đi
+| Bước | Việc | Bằng chứng | Lỗi thì |
+|---|---|---|---|
+| 1/7 S0 | đọc, PRE, giữ khoá | ảnh PRE, STARTED | DỪNG trước mọi thay đổi |
+| 2/7 A | van A1–A4 + registry | receipt lượt thật, bytes | giữ, làm tiếp phần độc lập |
+| 3/7 B | dọn D01 D03 D04 D07 D11 D12 D14 D15 | danh sách + df trước/sau + Drive | giữ mục lỗi |
+| 4/7 C | mồ côi | pid/cổng trước/sau | để nguyên mục nghi |
+| 5/7 E | mã thoát disk-monitor | thử lỗi | rollback `.pre` |
+| 6/7 D | trần RAM | events, p50 trước/sau | rollback `.pre` |
+| 7/7 POST | 8 điều XONG, KQ, trả khoá | storage-watch, Guard, đèn | KQ DỪNG 1 blocker |
 
 ---
 
