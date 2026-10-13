@@ -4,7 +4,7 @@ RUN_ID: VPSC-L1P-GUARD-CRON-20261013-01
 Task: `work/vps-clean-20-9-26` (VPSC) · mục tiêu D22–D25 + **D26 (Owner 13/10 22:25: mọi thứ phải được bảo vệ bởi Điều 30/31 để các AI không làm hỏng mã của nhau)**. Không phải việc mới.
 Soạn: Claude Chat (P91, B2 sau KQ L1 + GPT B1). Rà: GPT Chat Host một lượt (B3): ổn ⇒ ACCEPT + READY đúng SHA; sửa nhỏ chỉ thêm kiểm thì sửa thẳng rồi READY (Claude chấp nhận trước).
 Executor: Claude Code CLI, phiên MỚI trên Mac, qua `ssh contabo`. Ghi repo: Incomex MCP `workspace_*` root `workspace`.
-Status: **DRAFT — chờ GPT ACCEPT+READY**.
+Status: **Host ACCEPT thiết kế (P92) + Reviewer ACCEPT (P93) — chờ GPT Host READY đúng SHA last-touch**.
 Bằng chứng: `/opt/incomex/work/vps-clean-20-9-26/VPSC-L1P-GUARD-CRON-20261013-01/` (`<EV>`; chỉ receipt đã làm sạch). Báo cáo: mục `L1P-20261013` trong `BAO-CAO.md` hiện có. Tiến độ + KQ: dưới P91 trong `COLLAB.md`. Không tạo tệp repo mới.
 **Chỉ thực hiện phần trên dòng `LỊCH SỬ` đầu tiên.** Tham chiếu được nêu tên: §1 luật cứng + §2 S0 của bản lịch sử HEAL-01; mục L1-20261013 và mục R6 «3. Mutation thật» dòng M11 (đăng ký đích Config Guard qua `guard-registry`) trong `BAO-CAO.md`.
 
@@ -31,7 +31,7 @@ RUN này chỉ ĐĂNG KÝ bảo vệ (baseline) + thêm 1 dòng chú thích bi�
 - Ngân sách ≤ 30 phút.
 
 ## 2. S0 — đọc + PRE (chỉ đọc)
-1. Đọc `AGENTS.md` → COLLAB gốc (`VPS-GHI`) → VPSC COLLAB §0 (D25, D26) + P89–P91 → PROMPT này → `BAO-CAO.md` mục L1-20261013 + R6 dòng M11.
+1. Đọc `AGENTS.md` → COLLAB gốc (`VPS-GHI`) → VPSC COLLAB §0 (D25, D26) + P89–P93 (P92 Host · P93 Reviewer) → PROMPT này → `BAO-CAO.md` mục L1-20261013 + R6 dòng M11.
 2. Kiểm Reviewer ACCEPT + Host READY đúng SHA; khối Owner có dòng §0A; §2 bước 2–3 của bản lịch sử HEAL-01 (sàn tài nguyên, Guard PRE + PRE_RED_SET); drift-check PRE (TOTAL · danh sách MISMATCH).
 3. Crontab root hiện tại: sha phải = sha sau L1 (`94e90c41…`); khác ⇒ có ai sửa sau L1 ⇒ DỪNG, ghi số thứ tự dòng khác (không in nội dung).
 4. Bảng `/etc/cron.d`: tệp · thuộc gói dpkg? · đã là đích Config Guard? · việc chủ · cờ bận của việc chủ.
@@ -50,14 +50,14 @@ RUN này chỉ ĐĂNG KÝ bảo vệ (baseline) + thêm 1 dòng chú thích bi�
 9. **Git cục bộ `/opt/incomex`:** commit dòng nhãn DEL-1 L1 đã thêm vào `docs/KE-HOACH-XOA-20260801.md` (message có RUN_ID L1 + RUN_ID này); chỉ tệp đó. Chỉ commit nếu đối chiếu đúng chủ cây/HEAD và diff chỉ có một dòng nhãn L1; nếu có thay đổi khác hoặc cây đang được phiên khác ghi ⇒ GIỮ, ghi con trỏ về chủ, không commit hộ.
 10. **POST:** 22 đèn same-or-better; agent-data `/health`, Directus ping, Nuxt `/knowledge/modules` 200; dòng lịch chạy 32. Nếu Guard vẫn trả `same_or_better=FAIL` hoặc coverage còn THIẾU thì không tự suy PASS từ cùng tập đèn đỏ; báo DỪNG/PARTIAL có bằng chứng, không chạy lại chỉ để canh câu. Phải chứng minh nhịp Kuma thật, không làm xanh giả.
 11. **Báo cáo:** mục `L1P-20261013` trong BAO-CAO (cho Owner ≤ 3 dòng · bảng đích Config Guard mới · drift-check trước/sau · bảng coverage 4 ô cho L1 và lượt này · kết luận Kuma có số) → `KQ@VPSC-L1P-GUARD-CRON-20261013-01 XONG|DỪNG · …` dưới P91 → **trả `VPS-GHI: trống` cùng commit**. Báo Owner đúng một dòng. Khi POST-PROTECT phạm vi PASS, gửi Telegram receipt theo DROOT29 và lưu `message_id`; gửi lỗi thì KQ DỪNG/PARTIAL, không nhận full XONG. Guard tổng FAIL từ các đích #22 cũ phải phân biệt riêng, không che.
-**Lỗi thì lùi:** registry Config Guard về bản `.pre` qua apply-v0; crontab về `<EV>/crontab.truoc` (chỉ mất dòng biển báo); kiểm sha = PRE; KQ DỪNG nêu bước.
+**Lỗi thì lùi:** registry Config Guard về bản `.pre` qua apply-v0; crontab về `<EV>/crontab.truoc` (chỉ mất dòng biển báo); kiểm sha = PRE; KQ DỪNG nêu bước. **Chỉ lùi khi có lỗi MỚI do chính L1P gây** (apply-v0 báo lỗi · đích mới MISMATCH · đèn đỏ mới ngoài PRE_RED_SET · health ≠ 200 · dòng chạy ≠ 32 hoặc nội dung dòng chạy đổi). Nếu chỉ còn Guard `same_or_better=FAIL` vì #11 luân phiên câu với tập đỏ = PRE_RED_SET, hoặc coverage còn ô THIẾU mà lượt này không làm được ⇒ **GIỮ** đăng ký + biển báo (lùi = mất chính lớp canh D26 cần), KQ PARTIAL nêu ô/câu kèm số Kuma — đúng P92 «Ranh giới».
 
 ## 4. Bước đi
 | Bước | Việc | Bằng chứng | Lỗi thì |
 |---|---|---|---|
 | 1/5 S0 | đọc, PRE, drift-check PRE, bảng cron.d, giữ khoá | ảnh PRE, STARTED | DỪNG trước mọi thay đổi |
 | 2/5 Biển báo + đăng ký | 1 dòng chú thích, apply-v0 guard-registry | sha, registry `.pre` | lùi |
-| 3/5 Kiểm | drift-check, thử âm, Guard coverage 4 ô | 0 THIẾU, đích mới MATCH | lùi |
+| 3/5 Kiểm | drift-check, thử âm, Guard coverage 4 ô | 0 THIẾU, đích mới MATCH | lùi nếu lỗi mới do L1P; chỉ FAIL câu #11 / ô THIẾU ngoài tầm ⇒ PARTIAL, giữ |
 | 4/5 Kuma + biển báo chung + git | đo #11/#21, dòng COLLAB gốc, commit nhãn DEL-1 | bảng nhịp | ghi UNKNOWN, không đoán |
 | 5/5 KQ | BAO-CAO + KQ + trả khoá | 0 tiến trình nền | — |
 
