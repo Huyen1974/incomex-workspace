@@ -288440,6 +288440,17 @@ main{max-width:1240px} [hidden]{display:none!important}
                     ],
                     "scope": "TEST_ONLY_NOT_REAL_ACCEPTANCE",
                     "dossier_url": "./process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001"
+                  },
+                  {
+                    "record_id": "TQT-P47-CANONICAL-READBACK",
+                    "name": "Hồ sơ P46 · ghi đúng nơi, đọc lại và hiển thị",
+                    "result": "PASS",
+                    "actual": "87 mã bước/91 sự kiện; hash đọc lại khớp gói đã ghi; UI có87dòng thực tế và CP05.10 có92,1giây",
+                    "checked_by": "Codex Host",
+                    "checked_at": "2026-10-13T09:09:43.852554+00:00",
+                    "scope": "CANONICAL_RECORD_PLACEMENT_ONLY",
+                    "evidence_ref": "catalog.work_schedule.records/TQT-VIEC-001/detail_tracking/cycle/publication",
+                    "dossier_url": "./process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001"
                   }
                 ],
                 "CAT-228*": [
@@ -288609,6 +288620,24 @@ main{max-width:1240px} [hidden]{display:none!important}
                     "state": "OPEN",
                     "next": "Trình đúng sản phẩm/giới hạn; không ký thay Owner.",
                     "receiver": "Host tools-quy-trinh",
+                    "dossier_url": "./process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001"
+                  },
+                  {
+                    "record_id": "TQT-P46-F05",
+                    "name": "VPS-GHI doVPSCgiữ từ08:30Z; hồ sơ87bước vàCHECK005mới chưa được xuất bản. UIcộtthời gianv1đãghi; pinUItrongregistrychưađồngbộ.",
+                    "state": "RESOLVED_RECORD_PLACEMENT",
+                    "next": "P47 đưa dữ liệu về DEF00.1 qua giao dịch tài liệu, theo ghi nhận phối hợp VPSC bước1/7; không giữ lượt đổi hệ thống. Kiểm đọc lại trước báo đã ghi.",
+                    "owner": "Codex Host",
+                    "scope": "P46/P47",
+                    "dossier_url": "./process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001"
+                  },
+                  {
+                    "record_id": "TQT-P46-F06",
+                    "name": "Snapshotkiểm banđầu thiếuaggregatevà2tệpUIphụthuộc;runnerchặntrướctest.",
+                    "state": "FIXED_LOCAL",
+                    "next": "Chuẩnbịđủtệpđãghimtheoregistrytrướckhi006; đãbổsungnguồnđúngvàfullsuitePASS.",
+                    "owner": "Codex Host",
+                    "scope": "P46/P47",
                     "dossier_url": "./process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001"
                   }
                 ],
@@ -288882,7 +288911,16 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "local_artifact_role": "TEMPORARY_NOT_HANDOFF",
                 "published_by": "TQT-P47-RECORD-PLACEMENT",
                 "recorded_at": "2026-10-13T09:03:55.020155+00:00",
-                "readback": "Chờ đọc lại giao dịch hiện tại; không tự nhận nghiệm thu sản phẩm"
+                "readback": {
+                  "state": "PASS",
+                  "checked_at": "2026-10-13T09:09:43.852554+00:00",
+                  "source_sha256": "c0b64d939c1317fb93827e56763dea0cf150973f64a38367e77b73c6453c09b6",
+                  "commit": "3b7bad917758021afeac58f4d1ad7d85ac0a98c8",
+                  "steps": 87,
+                  "ui_filled_rows": 87,
+                  "ui_step_checked": "CP05.10:92,1 giây đo chung",
+                  "scope": "Ghi đúng nơi + đọc lại + hiển thị; không nghiệm thu nghiệp vụ"
+                }
               },
               "measured_until": "2026-10-13T08:49:24.910888+00:00",
               "elapsed_seconds": 1945.360488,
