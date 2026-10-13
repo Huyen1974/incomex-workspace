@@ -30,6 +30,29 @@ function validate(r){
  for(const x of s.records){assert(x.record_id&&x.process_code==='MOW-TH-005'&&x.process_version===r.records.find(p=>p.code===x.process_code).version);if(x.application_id){assert(x.application_id===a.application_id&&x.target_code===a.target_code&&x.target_version===a.target_version);assert(x.application_ref===r.application_preview.source_ref);assert(x.application_refs.includes(x.application_id));assert.equal(x.state_source,'catalog.application_preview.record');}else{assert(!x.application_ref);assert(!x.completion_evidence);}}
  return true;
 }
+// P40: definitions and dossier rendering, reused CHECK005 (no new DOT).
+{
+ const crypto=require('crypto'),path=require('path');
+ const md=fs.readFileSync(path.join(path.dirname(process.argv[2]||__dirname+'/view.html'),'MOW-TH-006.md'),'utf8');
+ const def=r.detailed_workflow;
+ assert.equal(def.source_sha256,crypto.createHash('sha256').update(md).digest('hex'),'QT006_SOURCE_DRIFT');
+ const parsed=[...md.matchAll(/^\| \*\*\d+ · (CP\d+\.\d+)\*\* \| (.*?) \| (.*?) \| (.*?) \| (.*?) \| Trống \| — \| (.*?) \|$/gm)].map(m=>m.slice(1));
+ assert.deepEqual(def.groups.flatMap(g=>g.rows),parsed,'QT006_PROJECTION_DRIFT');assert.equal(parsed.length,87);assert.equal(new Set(parsed.map(x=>x[0])).size,87);
+ assert.deepEqual(def.groups.map(g=>g.rows.length),[12,23,11,19,10,5,7]);
+ const pos=id=>parsed.findIndex(x=>x[0]===id);assert(pos('CP02.23')<pos('CP02.21'));assert(pos('CP02.21')<pos('CP03.08'));assert(pos('CP05.10')<pos('CP06.01'));assert.equal(pos('CP07.08'),86);assert.equal(pos('CP07.05'),-1);
+ assert.equal(r.records.filter(x=>x.code==='MOW-TH-006').length,1);assert.equal(r.records.find(x=>x.code==='MOW-TH-006').child_refs[0].relation,'operational_detail_for');assert(!r.records.find(x=>x.code==='MOW-TH-005').child_refs.some(x=>x.code==='MOW-TH-006'));
+ for(const b of def.master_bindings){const m=r.work_form.record_control.masters.find(x=>x.code===b.code);assert(m&&m.home===b.home&&m.name===b.name);}
+ if(adapter){
+  const A=globalThis.TQT_WORK_MASTER,w=r.work_schedule.records[0],before=JSON.stringify(w),m=A.detailModel(r,w);assert.equal(m.count,87);assert.equal(m.done,0);assert.equal(m.mode,'REFERENCE_ONLY');assert.equal(m.errors.length,0);
+  const out=A.dossierView(r,{metadata:w}).html;assert(out.indexOf('tqt-recording-groups')<out.indexOf('qt006-dossier'));assert.equal((out.match(/class="qt006-group"/g)||[]).length,7);assert.equal((out.match(/data-qt006-step=/g)||[]).length,87);assert(!/<details[^>]*class="(?:qt006-dossier|qt006-group|tqt-recording-groups)"[^>]*\bopen\b/.test(out));assert.equal(JSON.stringify(w),before);
+  assert.equal(A.detailModel(r,r.work_schedule.records[1]).mode,'UNOPENED');
+  const base=JSON.parse(JSON.stringify(w.detail_tracking));let neg=0;
+  for(const key of ['application_id','target_version','process_version','definition_sha256']){w.detail_tracking={...base,[key]:'OTHER'};assert(A.detailModel(r,w).errors.length);neg++;}
+  for(const step of ['CP01.01','CP05.04']){w.detail_tracking={...base,events:[{event_id:'TEST-FAKE',step_id:step,status:'DONE',adjustment:'NA',item_key:'P02',revision:1,application_id:w.application_id,target_version:w.target_version,process_version:def.version,definition_sha256:def.source_sha256,actor:'TEST',at:'2026-10-13T00:00:00Z'}]};const n=A.detailModel(r,w);assert.equal(n.done,0);assert(n.groups.flatMap(g=>g.rows).find(x=>x.definition[0]===step).status==='Vướng');neg++;}
+  w.detail_tracking=base;assert.equal(JSON.stringify(w),before);console.log(JSON.stringify({qt006_steps:87,groups:7,negative_cases:neg,state:'READ_ONLY_DOSSIER_VERIFIED',real_execution:'NOT_RUN'}));
+ }
+}
+
 validate(r);let rejected=0;
 for(const change of [x=>x.work_schedule.records.push(x.work_schedule.records[0]),x=>x.work_schedule.records[1].order=1,x=>x.work_schedule.records[0].depends_on=['TQT-VIEC-002'],x=>x.work_schedule.records[1].depends_on=['UNKNOWN'],x=>x.work_schedule.records[0].application_id='OTHER',x=>x.work_schedule.records[0].target_version='OLD',x=>x.work_schedule.records[0].application_ref='OTHER',x=>x.work_master_designs.records[0].code='MISSING',x=>x.work_master_designs.records[0].columns.push({key:'unknown'}),x=>x.work_schedule.records[1].completion_evidence='FAKE',x=>x.work_schedule.records[0].target_tier='CTCM',x=>x.work_schedule.records[0].lifecycle_state='UNKNOWN',x=>x.work_schedule.records[0].actual_finish='2026-01-01',x=>x.work_schedule.display_code='DEF001']){const c=cloneFixture(r);change(c);assert.throws(()=>validate(c));rejected++;}
 if(adapter){const A=globalThis.TQT_WORK_MASTER;r.source_url='https://example.test/view.html';const list=A.scheduleRows(r);assert.equal(list.length,2);assert(list[0].dossier_url.endsWith('#tqt-recording-list'));assert.equal(list[1].dossier_url,null);assert.equal(list[1].state,'Ghi danh');for(const d of r.work_master_designs.records){const cfg=A.configure({}, {tqt:r,masterCode:d.code,sample:false});assert.equal(cfg.mother,'DEF');assert(cfg.definitionColumns.length);const sample=A.configure({}, {tqt:r,masterCode:d.code,sample:true});assert.equal(sample.items.length,1);assert(sample.items[0].form_schema.fields.length);assert(sample.items[0].code.startsWith('MAU-'));}assert.equal(A.indexRows(r).length,r.work_master_designs.records.length);

@@ -9279,8 +9279,7 @@ main{max-width:1240px} [hidden]{display:none!important}
     "note": "Mã mô phỏng cũ giữ nguyên để không đổi lịch sử; trỏ một quy trình chuẩn, không phải quy trình thứ hai."
   }
 }</script>
-<script id="tqt-composite-processes" type="application/json">
-{
+<script id="tqt-composite-processes" type="application/json">{
   "schema": "TQT-COMPOSITE-PROCESSES-1",
   "updated": "2026-10-09",
   "host": "Astra Codex",
@@ -10790,7 +10789,49 @@ main{max-width:1240px} [hidden]{display:none!important}
           "records": "Mẫu cùng phiếu hiện hữu; không có nơi ghi thì chưa được bắt đầu",
           "closure": "Kiểm đạt + duyệt đúng phạm vi + xác nhận nhận; mô hình cưỡng chế còn mở"
         },
-        "host_review": "D24 · Host nâng cấp ngay 005 thành khuôn chung nhận mục tiêu–chuẩn bị–thực hiện–kiểm–duyệt–bàn giao. Không thêm 006 trùng cửa vào; mẫu áp thử CTCM/G1 không cấp quyền G2/G3 hoặc PG."
+        "host_review": "D24 · Host nâng cấp ngay 005 thành khuôn chung nhận mục tiêu–chuẩn bị–thực hiện–kiểm–duyệt–bàn giao. P40 theo Owner 13/10: 006 chi tiết hóa 005, không tạo cửa vào trùng; G1 không cấp quyền G2/G3 hoặc PG."
+      },
+      {
+        "code": "MOW-TH-006",
+        "name": "Quy trình thực hiện QTTH 05",
+        "goal": "Triển khai từng bước theo 7 mốc, giữ biến thể và bằng chứng trong cùng hồ sơ việc.",
+        "version": "0.3-host-reviewed",
+        "object_type": "MOW",
+        "process_kind": "aggregate",
+        "chainId": "CH-001",
+        "state": "Đã rà thiết kế · chưa nghiệm thu AI mới",
+        "aliases": [],
+        "href": "#tqt006-overview-guide",
+        "source_ref": "work/tools-quy-trinh/MOW-TH-006.md",
+        "route": [
+          "Khai việc",
+          "Chuẩn bị đủ",
+          "Xác nhận bắt đầu",
+          "Làm theo quy trình",
+          "Kiểm đầu ra",
+          "Duyệt kết quả",
+          "Bàn giao · kết thúc"
+        ],
+        "child_refs": [
+          {
+            "code": "MOW-TH-005",
+            "version": "1.1-design",
+            "relation": "operational_detail_for",
+            "condition": "Chi tiết hóa; không gọi đệ quy, không dùng làm selected_process của 005."
+          }
+        ],
+        "guide": {
+          "purpose": "Làm đúng từng bước theo khung 005.",
+          "when": "Ghim phiên vào hồ sơ mới; việc cũ chỉ đối chiếu khi chưa có receipts.",
+          "avoid": "Không tô đạt theo 7/7 của 005; không tạo Master thứ hai.",
+          "done": "Có bằng chứng từng bước đến hạn, được nhận đúng phạm vi, khép RUN."
+        },
+        "gates": {
+          "identity": "Mã 006 duy nhất; định nghĩa có phiên/hash",
+          "records": "DEF00.1 cùng hồ sơ",
+          "closure": "Chưa nghiệm thu AI mới làm độc lập"
+        },
+        "host_review": "P40 · rà thứ tự và ghép hồ sơ; không suy khả năng vận hành từ TEST."
       }
     ],
     "normal_processes": [
@@ -278146,7 +278187,16 @@ main{max-width:1240px} [hidden]{display:none!important}
           "actual_finish": "2026-10-12T12:25:54.048Z",
           "operational_since": null,
           "retired_at": null,
-          "classification_note": "Mã chuyên môn cha T3 chưa xác minh; G1/CTCM không thay mã Master chuyên môn. Theo TQT-P37-F04."
+          "classification_note": "Mã chuyên môn cha T3 chưa xác minh; G1/CTCM không thay mã Master chuyên môn. Theo TQT-P37-F04.",
+          "detail_tracking": {
+            "application_id": "MOW-NHC-001-G1-20261010-01",
+            "target_version": "ui/mow-ui-walkthrough-v1.js@02230bf383141b41f5d09bb586cc34ab6981777a25ddd805a58bbdc451d132e4",
+            "process_version": "0.3-host-reviewed",
+            "definition_sha256": "eac646f2cc23d9c6d8c3df07affe6e525a9ad6a41efda9d7833570d870cd999e",
+            "mode": "REFERENCE_ONLY",
+            "note": "Chưa theo dõi QTTH06 ở P37/P38; không hồi tố 7/7 thành 87/87.",
+            "events": []
+          }
         },
         {
           "record_id": "TQT-VIEC-002",
@@ -278294,7 +278344,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-overview-consistency.py",
             "view.html"
           ],
-          "sha256": "2bc217db008e110e519d57b37f48e2919aef4f4d21cabd5bf7c230375d06f256",
+          "sha256": "9c80814f7490c7302fd305d36b91441bff2d667a14fbde199e99bb337e3366e2",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -278495,7 +278545,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "5723a0062405c152a0b68e26bf35f71839cc88c207033ecc57ab205809271100",
+          "sha256": "cc915db52576536fb9406c5eac57468e0c7a2a0c88a55d0080124ae506c57c16",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -278509,9 +278559,16 @@ main{max-width:1240px} [hidden]{display:none!important}
           "timeout_seconds": 300,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
-            "process-work-master-v1.js": "68ad4694b882cbd587840e4fd23201055c3d663688db582032347d02ae9d5a87",
+            "process-work-master-v1.js": "1ab49b2145c4c91bca6247c5a63905dca912c1afe8003a9dd16c4e453d7139e5",
             "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
             "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357"
+          },
+          "qt006_coverage": {
+            "version": "0.3-host-reviewed",
+            "definition": "MOW-TH-006.md",
+            "scope": "87 bước/7 nhóm, thứ tự, phiên/hash, Master links, không hồi tố G1, read-only rendering; chưa nghiệm thu ghi bước thật",
+            "case_master": "CAT-012",
+            "result_master": "CAT-015"
           }
         },
         {
@@ -278595,8 +278652,8 @@ main{max-width:1240px} [hidden]{display:none!important}
       "policy": "Tìm trong CAT-006 trước khi viết mới. Bộ kiểm phải có CAT-012 + lệnh chạy + hash + chủ quản + giới hạn; kết quả mỗi lần lưu CAT-015 và gắn phiên nguồn. Xóa/nghỉ công cụ phải có lý do và kiểm nơi dùng. Chưa nhập dot_tools trên PG.",
       "execution_status": {
         "state": "PASS",
-        "note": "P38 bộ tổng native đạt ở1GiB trên hồ sơ nhẹ; khôi phục đúng toàn bộ lịch sử; tích xanh đã quan sát. G1 giữ7/7, chưa PG.",
-        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P38/native_suite"
+        "note": "P40 local fullsuite PASS; 006 design/readonly projection, not real execution; native/UI verification follows.",
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P40/local_suite"
       },
       "canonical_master_id": "ML-DEF-024",
       "audit_sources": {
@@ -278936,62 +278993,6 @@ main{max-width:1240px} [hidden]{display:none!important}
       "audit_projection": {
         "last_checks": [
           {
-            "id": "TQT-CHECK-001",
-            "sha256": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75",
-            "exit_code": 0,
-            "case_set": "TQT-CASE-MODEL",
-            "checked_at": "2026-10-12T15:33:26.712814+00:00",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/33e0d023071d48799b68a7dfa7a26f96/stdout#results/TQT-CHECK-001",
-            "job_id": "33e0d023071d48799b68a7dfa7a26f96",
-            "source_head": "651b5822f17493913ae99fb78007ffa2a5a6c5a6"
-          },
-          {
-            "id": "TQT-CHECK-002",
-            "sha256": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270",
-            "exit_code": 0,
-            "case_set": "TQT-CASE-CATALOG",
-            "checked_at": "2026-10-12T15:33:26.712814+00:00",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/33e0d023071d48799b68a7dfa7a26f96/stdout#results/TQT-CHECK-002",
-            "job_id": "33e0d023071d48799b68a7dfa7a26f96",
-            "source_head": "651b5822f17493913ae99fb78007ffa2a5a6c5a6"
-          },
-          {
-            "id": "TQT-CHECK-003",
-            "sha256": "2bc217db008e110e519d57b37f48e2919aef4f4d21cabd5bf7c230375d06f256",
-            "exit_code": 0,
-            "case_set": "TQT-CASE-DECLARATION",
-            "checked_at": "2026-10-12T15:33:26.712814+00:00",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/33e0d023071d48799b68a7dfa7a26f96/stdout#results/TQT-CHECK-003",
-            "job_id": "33e0d023071d48799b68a7dfa7a26f96",
-            "source_head": "651b5822f17493913ae99fb78007ffa2a5a6c5a6"
-          },
-          {
-            "id": "TQT-CHECK-004",
-            "sha256": "755097b9b265860f76a393268793262a5daa9e5719c1b1a917fdccab7b9511c6",
-            "exit_code": 0,
-            "case_set": "TQT-CASE-RECORD",
-            "checked_at": "2026-10-12T15:33:26.712814+00:00",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/33e0d023071d48799b68a7dfa7a26f96/stdout#results/TQT-CHECK-004",
-            "job_id": "33e0d023071d48799b68a7dfa7a26f96",
-            "source_head": "651b5822f17493913ae99fb78007ffa2a5a6c5a6"
-          },
-          {
-            "id": "TQT-CHECK-005",
-            "sha256": "5723a0062405c152a0b68e26bf35f71839cc88c207033ecc57ab205809271100",
-            "exit_code": 0,
-            "case_set": "TQT-CASE-MASTER",
-            "checked_at": "2026-10-12T15:33:26.712814+00:00",
-            "ui_inputs": {
-              "process-work-master-v1.js": "68ad4694b882cbd587840e4fd23201055c3d663688db582032347d02ae9d5a87",
-              "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
-              "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357",
-              "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c"
-            },
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/33e0d023071d48799b68a7dfa7a26f96/stdout#results/TQT-CHECK-005",
-            "job_id": "33e0d023071d48799b68a7dfa7a26f96",
-            "source_head": "651b5822f17493913ae99fb78007ffa2a5a6c5a6"
-          },
-          {
             "id": "TQT-CHECK-006",
             "sha256": "34866caa5413930c289db44dc4a240d73e74cc29b9246e7c37d1cb9e9e7d1b16",
             "exit_code": 0,
@@ -278999,6 +279000,57 @@ main{max-width:1240px} [hidden]{display:none!important}
             "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/33e0d023071d48799b68a7dfa7a26f96/stdout#status",
             "job_id": "33e0d023071d48799b68a7dfa7a26f96",
             "source_head": "651b5822f17493913ae99fb78007ffa2a5a6c5a6"
+          },
+          {
+            "id": "TQT-CHECK-001",
+            "sha256": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75",
+            "exit_code": 0,
+            "checked_at": "2026-10-13T03:18:16.950013+00:00",
+            "job_id": "TQT-357c337651be4ed3b60a4da6012cf89f",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P40/local_suite",
+            "scope": "LOCAL_TEST_ONLY_NOT_REAL_EXECUTION"
+          },
+          {
+            "id": "TQT-CHECK-002",
+            "sha256": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270",
+            "exit_code": 0,
+            "checked_at": "2026-10-13T03:18:16.950013+00:00",
+            "job_id": "TQT-357c337651be4ed3b60a4da6012cf89f",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P40/local_suite",
+            "scope": "LOCAL_TEST_ONLY_NOT_REAL_EXECUTION"
+          },
+          {
+            "id": "TQT-CHECK-003",
+            "sha256": "9c80814f7490c7302fd305d36b91441bff2d667a14fbde199e99bb337e3366e2",
+            "exit_code": 0,
+            "checked_at": "2026-10-13T03:18:16.950013+00:00",
+            "job_id": "TQT-357c337651be4ed3b60a4da6012cf89f",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P40/local_suite",
+            "scope": "LOCAL_TEST_ONLY_NOT_REAL_EXECUTION"
+          },
+          {
+            "id": "TQT-CHECK-004",
+            "sha256": "755097b9b265860f76a393268793262a5daa9e5719c1b1a917fdccab7b9511c6",
+            "exit_code": 0,
+            "checked_at": "2026-10-13T03:18:16.950013+00:00",
+            "job_id": "TQT-357c337651be4ed3b60a4da6012cf89f",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P40/local_suite",
+            "scope": "LOCAL_TEST_ONLY_NOT_REAL_EXECUTION"
+          },
+          {
+            "id": "TQT-CHECK-005",
+            "sha256": "cc915db52576536fb9406c5eac57468e0c7a2a0c88a55d0080124ae506c57c16",
+            "exit_code": 0,
+            "checked_at": "2026-10-13T03:18:16.950013+00:00",
+            "job_id": "TQT-357c337651be4ed3b60a4da6012cf89f",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P40/local_suite",
+            "scope": "LOCAL_TEST_ONLY_NOT_REAL_EXECUTION",
+            "ui_inputs": {
+              "process-work-master-v1.js": "1ab49b2145c4c91bca6247c5a63905dca912c1afe8003a9dd16c4e453d7139e5",
+              "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
+              "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357",
+              "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c"
+            }
           }
         ],
         "observed_at": "2026-10-12T15:43:43.236724+00:00",
@@ -285208,6 +285260,26 @@ main{max-width:1240px} [hidden]{display:none!important}
             "MOW-NHC-001-G1-20261010-01"
           ],
           "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P38"
+        },
+        {
+          "id": "TQT-P40-TQT-CHECK-003",
+          "target_code": "TQT-CHECK-003",
+          "kind": "UPGRADE",
+          "at": "2026-10-13T03:18:16.950013+00:00",
+          "actor": "Codex Host",
+          "source_sha256": "9c80814f7490c7302fd305d36b91441bff2d667a14fbde199e99bb337e3366e2",
+          "reason": "QTTH006 relation and versioned read-only dossier; no gateway change",
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P40/local_suite"
+        },
+        {
+          "id": "TQT-P40-TQT-CHECK-005",
+          "target_code": "TQT-CHECK-005",
+          "kind": "UPGRADE",
+          "at": "2026-10-13T03:18:16.950013+00:00",
+          "actor": "Codex Host",
+          "source_sha256": "cc915db52576536fb9406c5eac57468e0c7a2a0c88a55d0080124ae506c57c16",
+          "reason": "QTTH006 relation and versioned read-only dossier; no gateway change",
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P40/local_suite"
         }
       ],
       "walkthrough": {
@@ -285946,6 +286018,862 @@ main{max-width:1240px} [hidden]{display:none!important}
       "target_version": "ui/mow-ui-walkthrough-v1.js@02230bf383141b41f5d09bb586cc34ab6981777a25ddd805a58bbdc451d132e4",
       "reviewer_id": "OpenAI:Codex:01a129ed-a979-7d13-af46-d3b3ec3e2abf:/root/review_mow001:P36",
       "reviewer_evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/reviewer_execution"
+    },
+    "detailed_workflow": {
+      "code": "MOW-TH-006",
+      "version": "0.3-host-reviewed",
+      "source_ref": "work/tools-quy-trinh/MOW-TH-006.md",
+      "source_sha256": "eac646f2cc23d9c6d8c3df07affe6e525a9ad6a41efda9d7833570d870cd999e",
+      "state": "DESIGN_REVIEWED_NOT_OPERATIONALLY_ACCEPTED",
+      "groups": [
+        {
+          "cp": "CP01",
+          "name": "Khai việc",
+          "rows": [
+            [
+              "CP01.01",
+              "Đọc nguyên yêu cầu Owner và điều không được làm",
+              "Có mục tiêu/người giao/nguồn rõ",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "—",
+              "LUÔN · Không tự thay ý Owner"
+            ],
+            [
+              "CP01.02",
+              "Đối chiếu A0, xác nhận phạm vi và quyền Owner",
+              "Có phạm vi được xác nhận",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "—",
+              "LUÔN · Lời tiếp tục không là duyệt"
+            ],
+            [
+              "CP01.03",
+              "Tra mã và mục tiêu của việc đã có trước khi mở",
+              "Không tạo hồ sơ trùng",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-005 · Kiểm Master",
+              "LUÔN · Tìm bằng mã"
+            ],
+            [
+              "CP01.04",
+              "Ghi mã việc, người giữ và nguồn yêu cầu",
+              "Hồ sơ mở được đúng ID",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "—",
+              "LUÔN · Một hồ sơ việc"
+            ],
+            [
+              "CP01.05",
+              "Ghim bộ quy trình QTTH 05/06 đúng phiên vào hồ sơ",
+              "Hồ sơ trỏ 005@version và 006@version; không có vòng gọi 006",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-002 · Kiểm mã",
+              "LUÔN · 005 có 6 MOT và 7 checkpoint hiển thị; 006 là tầng thao tác, không thay selected_process."
+            ],
+            [
+              "CP01.06",
+              "Đối chiếu đối tượng công việc và các đối tượng con theo nguồn chuẩn",
+              "Đúng mã/phiên/quan hệ con; với MOW tra đúng MOW/MOT, loại khác tra Master đối tượng tương ứng",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-005 · Kiểm Master",
+              "LUÔN · Nguồn tra cứu: ML-DEF-004 Master MOW / ML-DEF-005 Master MOT chỉ khi việc thuộc MOW; hồ sơ phải ghi đúng mã+tên Master loại khác."
+            ],
+            [
+              "CP01.07",
+              "Chốt loại sản phẩm, phạm vi/giai đoạn và các phần loại trừ",
+              "Có một phạm vi được xác nhận gồm sản phẩm, các nhánh ngoài phạm vi và điều kiện mở lại",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "—",
+              "LUÔN · Không buộc G1/G2/G3 nếu việc không phải xây một sản phẩm dạng này."
+            ],
+            [
+              "CP01.08",
+              "Gắn link và phiên nguồn đầu vào được phép đọc",
+              "Có dữ liệu nguồn truy được",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "MCP workspace_read/stat (có quyền)",
+              "LUÔN · Đây là nơi ghi liên kết nguồn; hợp đồng chi tiết sẽ lưu CAT-206* ở CP02."
+            ],
+            [
+              "CP01.09",
+              "Khai người nhận cuối, nơi gọi và nơi trả",
+              "Đúng đích bàn giao",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "—",
+              "LUÔN · Caller có thể khác recipient"
+            ],
+            [
+              "CP01.10",
+              "Khai người làm, người kiểm, người duyệt",
+              "Vai trò/quyền có căn cứ",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "—",
+              "LUÔN · Không giả quorum"
+            ],
+            [
+              "CP01.11",
+              "Khởi tạo phần bước chi tiết trong cùng hồ sơ DEF00.1",
+              "Có liên kết hồ sơ + phiên định nghĩa bất biến và sổ sự kiện bước; trạng thái ban đầu Trống",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-001 · Kiểm mô hình",
+              "LUÔN · Khác CP01.05 (chọn phiên): bước này tạo binding và chỗ ghi thực; không chép định nghĩa vào mỗi việc."
+            ],
+            [
+              "CP01.12",
+              "Đối chiếu kết quả khai việc với CP01 của QTTH 05",
+              "Mốc CP01 được kiểm từ hồ sơ nguồn hoặc có Vướng/owner/return_to",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-004 · Kiểm bản ghi/mốc",
+              "LUÔN · Bước này kiểm gate, không tự đánh dấu bằng nút giao diện"
+            ]
+          ]
+        },
+        {
+          "cp": "CP02",
+          "name": "Chuẩn bị đủ",
+          "rows": [
+            [
+              "CP02.01",
+              "Nạp câu hỏi bắt buộc theo MOW/MOT/phạm vi",
+              "Đủ bộ câu liên quan",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-003 · Kiểm khai",
+              "KHI(quy trình có bộ câu hỏi) · Bộ câu hỏi của MOW001 không phải yêu cầu mặc định cho mọi việc."
+            ],
+            [
+              "CP02.02",
+              "Ghi đáp án, mã câu, người và nguồn",
+              "Có đáp án hoặc ghi thiếu",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "—",
+              "KHI(có câu hỏi áp dụng) · Lặp theo item_key=câu hỏi, không tạo một bước định nghĩa mới cho từng câu."
+            ],
+            [
+              "CP02.03",
+              "Ghim nguồn và hash bằng chứng đầu vào",
+              "Đọc lại đúng phiên",
+              "CAT-239* · Master tệp/bằng chứng",
+              "MCP workspace_read/stat (có quyền)",
+              "KHI(có nguồn/bằng chứng để dẫn) · Cần nguồn/hash thật; không tạo bản sao dư."
+            ],
+            [
+              "CP02.04",
+              "Kiểm quyền đọc dữ liệu từ nguồn thật",
+              "Có bằng chứng quyền",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Kiểm nguồn và quyền đọc trước dùng; biên nhận ghi vào CAT-015, không chỉnh hợp đồng khi đang kiểm."
+            ],
+            [
+              "CP02.05",
+              "Tra và gắn Master đích cho mọi nghĩa vụ ghi của việc",
+              "Mỗi loại thông tin có mã+tên sổ, item_key hoặc issue nếu chưa xác minh",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-005 · Kiểm Master",
+              "LUÔN · Bước này không ghi kết quả kiểm vào Master được tra; chỉ gắn link tới nó."
+            ],
+            [
+              "CP02.06",
+              "Lập hợp đồng CAT-206* và ghim MOW/MOT/quy trình/luật theo phiên",
+              "Có ID, contract_version, phụ thuộc và nguồn luật xác minh được",
+              "CAT-206* · Master hợp đồng đầu vào/đầu ra",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Lập hợp đồng một lần theo scope; đổi nguồn tăng phiên và kiểm lại."
+            ],
+            [
+              "CP02.07",
+              "Định nghĩa từng trường thông tin: nghĩa, kiểu, đơn vị, required_when và số lượng",
+              "Mỗi field có schema đủ nghĩa/type/unit/nullable/cardinality/miền giá trị; ca sai bị chặn",
+              "CAT-206* · Master hợp đồng đầu vào/đầu ra",
+              "—",
+              "LUÔN · Một bước chuẩn dùng lại cho mỗi field với item_key, không ép năm bước thủ công lặp thông tin."
+            ],
+            [
+              "CP02.08",
+              "Ánh xạ Master/cột nguồn sang Master/cột đích và chuyển đổi",
+              "Có nguồn–đích thực, đúng loại/phiên và phép biến đổi rõ",
+              "CAT-206* · Master hợp đồng đầu vào/đầu ra",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Không chấp nhận đường dẫn có chữ nhưng không tồn tại."
+            ],
+            [
+              "CP02.09",
+              "Liệt kê trường bắt buộc của gói đầu ra",
+              "Bên giao kiểm được payload",
+              "CAT-206* · Master hợp đồng đầu vào/đầu ra",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "KHI(có gói dữ liệu đầu ra) · Gói giao phải có schema nguồn thật, đúng phạm vi."
+            ],
+            [
+              "CP02.10",
+              "Liệt kê trường phải nhận và người nhận",
+              "Bên nhận đủ đầu vào",
+              "CAT-206* · Master hợp đồng đầu vào/đầu ra",
+              "TQT-CHECK-004 · Kiểm giao–nhận",
+              "KHI(có gói dữ liệu đầu vào cho bước sau) · Bên nhận phải đọc payload thật và hiểu đúng identity/ACK."
+            ],
+            [
+              "CP02.11",
+              "Khai nhánh lỗi/thiếu/hủy/không quyền",
+              "Có điều kiện và đường xử lý",
+              "CAT-206* · Master hợp đồng đầu vào/đầu ra",
+              "TOOL-CTCM-003 · Phủ nhánh (nếu dùng được)",
+              "KHI(quy trình có nhánh) · Khai điều kiện ngay từ thiết kế, không tạo bản ghi lỗi giả."
+            ],
+            [
+              "CP02.12",
+              "Lập một bộ ca nghiệm thu gồm ca đúng, sai, rỗng, sai phiên, sai người nhận",
+              "CAT-012 có ca bắt buộc và expected theo contract/phiên đã chốt",
+              "CAT-012 · Danh mục bộ kiểm/ca thử",
+              "TOOL-CTCM-005 · Rà dữ liệu/lỗi (nếu dùng được)",
+              "LUÔN · Chỉ lập bộ ca một lần; CP05 phải thực thi các ca này, không khai lại."
+            ],
+            [
+              "CP02.13",
+              "Đối chiếu các giao điểm giữa MOT",
+              "Không còn cạnh phải đoán",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-002 · Kiểm mã",
+              "KHI(có nhiều bước giao nhận) · Đây là kết quả kiểm các cạnh từ CAT-206*, không sửa contract bằng dấu PASS."
+            ],
+            [
+              "CP02.14",
+              "Liệt kê tất cả thông tin/bằng chứng phải ghi",
+              "Không mất nghĩa vụ bắt buộc",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Nhánh không tới hạn thì không ép"
+            ],
+            [
+              "CP02.15",
+              "Phân biệt sổ thiếu, chưa ghi, chưa có quyền",
+              "Có issue với từng thiếu sót",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-005 · Kiểm Master",
+              "LUÔN · Thiếu sổ/thiếu bản ghi/thiếu quyền là ba trường hợp khác nhau; nếu lỗi mở CAT-069?."
+            ],
+            [
+              "CP02.16",
+              "Xác định các bước QTTH 006 áp dụng cho hồ sơ và từng item_key",
+              "Ghim 006@version, phân loại lõi/điều kiện theo từng plan_id/MOT/field và biết bước đến hạn",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-003 · Kiểm hồ sơ",
+              "LUÔN · Bản định nghĩa chỉ lưu một lần; từng hồ sơ lưu phiếu áp dụng/ngoại lệ"
+            ],
+            [
+              "CP02.17",
+              "Rà bước thêm, không áp dụng hoặc thay thế trước khi xác nhận kế hoạch",
+              "Mọi +/−/↔ có lý do, người kiểm, điều kiện xong, Master đích; không bỏ bước lõi không có phép",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-004 · Kiểm nghĩa vụ",
+              "KHI(có nhánh điều kiện/điều chỉnh) · Bước không áp dụng không tự là Hoàn thành; bước thêm được tính là nghĩa vụ bắt buộc khi đã duyệt"
+            ],
+            [
+              "CP02.18",
+              "Lập kế hoạch các việc con có phụ thuộc, người nhận và thứ tự rõ",
+              "Có P01…Pn hoặc tương đương, không vòng phụ thuộc",
+              "CAT-228* · Sổ việc thật MOT/kết quả",
+              "TQT-CHECK-001 · Kiểm mô hình",
+              "LUÔN · Không cố định năm việc con hay ép ca nhỏ chạy mọi bước."
+            ],
+            [
+              "CP02.19",
+              "Giao actor/reviewer/recipient cho từng việc con",
+              "Mọi việc tới hạn có người",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "—",
+              "LUÔN · Chưa phân công là Vướng"
+            ],
+            [
+              "CP02.20",
+              "Chỉ đích danh đầu ra thật và nơi ghi của từng việc con",
+              "Mỗi plan_id có expected_output, Master mã+tên, product_key và tiêu chí đọc lại",
+              "CAT-228* · Sổ việc thật MOT/kết quả",
+              "TOOL-CTCM-001 · Lập hành trình (nếu dùng được)",
+              "LUÔN · Dòng kế hoạch chưa phải kết quả sản phẩm."
+            ],
+            [
+              "CP02.23",
+              "Kiểm cửa ghi và quyền ghi–đọc trước lần ghi chuẩn bị đầu tiên",
+              "Có đích/schema/khóa thật và biên nhận quyền đúng scope; thiếu quyền thì dừng ghi",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-004 · Kiểm quyền kho tệp; MCP theo quyền hiện có",
+              "LUÔN · Với lần ghi khai việc sớm hơn cũng áp cổng này trước ghi. Chỉ TEST quyền tại đích thử được phép; không tự tạo quyền hay lấy TEST thay P01."
+            ],
+            [
+              "CP02.21",
+              "Tạo và ghi gói chuẩn bị P01 hoặc đầu ra chuẩn bị tương đương",
+              "Có sản phẩm chuẩn bị thật, đúng contract và nguồn; đọc lại trước CP03",
+              "CAT-228* · Sổ việc thật MOT/kết quả",
+              "TQT-CHECK-004 --read-preparation",
+              "KHI(quy trình có bước chuẩn bị P01/tương đương) · BƯỚC ĐƯỢC CHUYỂN TỪ CP04 VỀ CP02; tạo trước khi kiểm CP03. Chỉ ghi sau CP02.23; gói nháp có thể soạn trước, chưa coi đã ghi."
+            ],
+            [
+              "CP02.22",
+              "Chạy kiểm chuẩn bị của checkpoint 2",
+              "Đạt CP02 hoặc ghi Vướng rõ",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-003 · Kiểm khai",
+              "LUÔN · Không PASS vì ô có chữ"
+            ]
+          ]
+        },
+        {
+          "cp": "CP03",
+          "name": "Xác nhận bắt đầu",
+          "rows": [
+            [
+              "CP03.01",
+              "Tra và kiểm tính sẵn sàng của Tool/DOT sẽ dùng",
+              "Mỗi tool có ID/phiên/hash, nguồn, quyền và ca gần nhất, hoặc phương án làm tay",
+              "CAT-229* · Sổ lượt thực hiện/thử",
+              "TQT-CHECK-006 · Chạy tổng",
+              "KHI(kế hoạch có Tool/DOT) · Tra nguồn ML-DEF-024 Master DOT, ML-DEF-023 Master Tool; không chạy chỉ vì có tên."
+            ],
+            [
+              "CP03.02",
+              "Xác thực người làm qua quyền ngoài hồ sơ",
+              "Có quyền thực, không tự khai",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Phân vai đúng người"
+            ],
+            [
+              "CP03.03",
+              "Kiểm lại reviewer đã được phân công và quyền kiểm",
+              "Đúng người/phiên và mức độc lập theo quy định",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "—",
+              "KHI(cần người kiểm) · Không phân công reviewer mới trùng với bước phân vai ở CP01."
+            ],
+            [
+              "CP03.04",
+              "Rà xác nhận kế hoạch đúng bản/phiên",
+              "Kế hoạch đủ quyền/đầu ra",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-003 · Kiểm khai",
+              "LUÔN · Không dùng plan cũ"
+            ],
+            [
+              "CP03.05",
+              "Rà độc lập trường/nguồn/đích hợp đồng",
+              "Có kết luận đúng contract phiên",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "KHI(cần review độc lập theo quy tắc) · Đây là kết quả review hợp đồng, không phải sửa CAT-206*."
+            ],
+            [
+              "CP03.06",
+              "Kiểm lại schema/khóa/đường ghi còn đúng sau chuẩn bị",
+              "Kết quả kiểm lại đúng phiên, không dùng địa chỉ/biên nhận cũ đã đổi",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · UI mock không là kho"
+            ],
+            [
+              "CP03.07",
+              "Xác nhận biên nhận quyền ghi–đọc còn hiệu lực trước thực hiện",
+              "Biên nhận CP02.23 còn đúng actor/scope/nguồn; chỉ thử lại nếu điều kiện đã đổi",
+              "CAT-229* · Master lượt làm/thử",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Không bắt ghi TEST lại mỗi lần nếu receipt còn hiệu lực; thiếu/sai scope phải kiểm lại. Không suy quyền toàn Master/PG từ quyền một tệp."
+            ],
+            [
+              "CP03.08",
+              "Bên nhận độc lập đọc và đối chiếu kết quả chuẩn bị P01 hoặc tương đương",
+              "P01/tương đương đã được tạo trước CP03; đọc đúng schema/phiên/hash",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-004 --read-preparation",
+              "KHI(có gói chuẩn bị) · Gộp kiểm nhận lặp từ bước cũ 058; cấm tới CP03 nếu chưa tạo kết quả chuẩn bị."
+            ],
+            [
+              "CP03.09",
+              "Giải quyết issue đang chặn bắt đầu",
+              "Không còn blocker CP03",
+              "CAT-069? · Sổ nhu cầu/góp ý/sai thiếu",
+              "TQT-CHECK-003 · Kiểm khai",
+              "KHI(có issue chặn CP03) · Không có blocker thì đánh − Không áp dụng, không tạo issue giả."
+            ],
+            [
+              "CP03.10",
+              "Ghi xác nhận bắt đầu đúng người và phiên",
+              "Có quyết định và căn cứ",
+              "CAT-025 · Sổ phiếu duyệt/quyết định",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Không tự chuyển CONFIRMED"
+            ],
+            [
+              "CP03.11",
+              "Tính lại CP01–03 trước khi vào làm",
+              "CP03 đạt bằng chứng",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Chưa đạt thì dừng"
+            ]
+          ]
+        },
+        {
+          "cp": "CP04",
+          "name": "Làm theo quy trình",
+          "rows": [
+            [
+              "CP04.01",
+              "Chọn việc con có đủ các phụ thuộc trước",
+              "Biết đúng việc đến lượt",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-001 · Kiểm mô hình",
+              "LUÔN · Chỉ việc con tới hạn CP04. MOW001: P01 ở CP02, P02/P03 ở CP04, P04 ở CP05, P05 ở CP07; không đòi P04/P05 xong mới qua CP04."
+            ],
+            [
+              "CP04.02",
+              "Bên thực hiện đọc và kiểm gói đầu vào thật của việc con",
+              "Gói hợp lệ theo trường/type/đơn vị/nguồn/phiên trước khi làm",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Một lần đọc+kiểm của bên nhận, ghi theo item_key=plan_id."
+            ],
+            [
+              "CP04.03",
+              "Chọn DOT/Tool đúng phiên hoặc làm tay đúng quy trình",
+              "Có cách thực hiện hợp lệ",
+              "CAT-229* · Master lượt làm/thử",
+              "TQT-CHECK-006 · Chạy tổng",
+              "LUÔN · Chọn cách làm tay hoặc DOT đã kiểm. Ghi từng lượt dùng vào CAT-229*, không đợi cuối việc mới nhớ lại."
+            ],
+            [
+              "CP04.04",
+              "Tạo một sản phẩm việc con kèm application_id/plan_id/phiên và hợp đồng",
+              "Có sản phẩm thật với đầy đủ identity và output_version",
+              "CAT-228* · Sổ việc thật MOT/kết quả",
+              "TOOL-CTCM-001 · Lập hành trình (nếu dùng được)",
+              "LUÔN · Lặp theo plan_id; định danh là phần của việc tạo một gói sản phẩm."
+            ],
+            [
+              "CP04.05",
+              "Kiểm gói đầu ra theo hợp đồng TRƯỚC khi ghi",
+              "Đủ trường và đúng kiểu/scope/nguồn/phiên trước commit",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Sửa thứ tự sai: pre-commit contract check, không đợi ghi rồi mới kiểm."
+            ],
+            [
+              "CP04.06",
+              "Ghi kết quả qua cửa máy chủ được phép",
+              "Có biên nhận ghi hợp lệ",
+              "CAT-228* · Sổ việc thật MOT/kết quả",
+              "MCP workspace_transaction (có quyền)",
+              "LUÔN · Không bỏ cửa ghi"
+            ],
+            [
+              "CP04.07",
+              "Đọc lại đúng bản vừa ghi và so hash",
+              "Nội dung bằng bản gửi",
+              "CAT-228* · Sổ việc thật MOT/kết quả",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · HTTP200 không là readback"
+            ],
+            [
+              "CP04.08",
+              "Gửi lệnh với idempotency key đúng phiên",
+              "Retry không nhân tác động",
+              "CAT-238* · Sổ lệnh gửi–nhận–trả",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "KHI(có giao nhận cần khóa chống trùng) · Bắt buộc có idempotency key và contract_binding khi phát sinh. Khóa được cấp TRƯỚC tác động tương ứng, kể cả ghi ở CP04.06; mất ACK tra lại receipt trước retry."
+            ],
+            [
+              "CP04.09",
+              "Bên nhận mở, kiểm gói nhận và xác nhận ACK bước con",
+              "Bên nhận kiểm payload đúng schema/phiên rồi mới ACK",
+              "CAT-238* · Sổ lệnh gửi–nhận–trả",
+              "TQT-CHECK-004 · Kiểm giao–nhận",
+              "KHI(có giao nhận giữa bước/đơn vị) · ACK giao bước không thay Owner ACK nghiệm thu cuối."
+            ],
+            [
+              "CP04.10",
+              "Nếu gửi trùng, chặn nhân tác động",
+              "Giữ một kết quả hợp lệ",
+              "CAT-238* · Sổ lệnh gửi–nhận–trả",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "KHI(gửi trùng hoặc retry) · Nhánh không phát sinh phải ghi − Không áp dụng, không tô Hoàn thành."
+            ],
+            [
+              "CP04.11",
+              "Nếu phản hồi cũ, so phiên và từ chối",
+              "Không dùng green cũ",
+              "CAT-069? · Sổ nhu cầu/góp ý/sai thiếu",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "KHI(phản hồi stale) · Không dùng giá trị green/đánh giá cũ; mở issue."
+            ],
+            [
+              "CP04.12",
+              "Nếu mất quyền, dừng và ghi sự cố",
+              "Có người xử lý vấn đề quyền",
+              "CAT-017 · Sổ sự cố vận hành",
+              "—",
+              "KHI(permission_denied) · Ghi CAT-017, không tự nâng quyền."
+            ],
+            [
+              "CP04.13",
+              "Nếu thiếu Master đích, tra lại và ghi issue",
+              "Biết sổ/người/bước sửa",
+              "CAT-069? · Sổ nhu cầu/góp ý/sai thiếu",
+              "TQT-CHECK-005 · Kiểm Master",
+              "KHI(chưa có sổ/đích ghi đúng) · Ghi CAT-069?, chỉ rõ thiếu sổ khác chưa xác định sổ."
+            ],
+            [
+              "CP04.14",
+              "Nếu dữ liệu sai, gọi QTTH002 giải quyết",
+              "Có kết quả sửa được kiểm lại",
+              "CAT-069? · Sổ nhu cầu/góp ý/sai thiếu",
+              "—",
+              "KHI(sai dữ liệu/sản phẩm) · Gọi QUY TRÌNH MOW-TH-002 (không là Tool); giữ mốc trước không bị ảnh hưởng."
+            ],
+            [
+              "CP04.15",
+              "Nếu sửa quy trình/hợp đồng, theo QTTH003",
+              "Tăng phiên và giữ lịch sử",
+              "CAT-016 · Sổ nhật ký thay đổi định nghĩa",
+              "—",
+              "KHI(cần sửa quy trình/hợp đồng) · Áp dụng QUY TRÌNH MOW-TH-003; tăng phiên, đánh giá ảnh hưởng."
+            ],
+            [
+              "CP04.16",
+              "Nếu hủy, ghi lý do/phiên/nơi nhận/việc bù",
+              "Có bản ghi hủy khi phát sinh",
+              "CAT-244* · Sổ hủy và việc bù",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "KHI(hủy/việc bù) · Ghi CAT-244* chỉ khi phát sinh, giữ receipt idempotency."
+            ],
+            [
+              "CP04.17",
+              "Kiểm dấu lịch sử bất biến của lần thực hiện, ghi bù nếu thiếu",
+              "Sự kiện/receipt/version được lưu chính xác, không xóa bản cũ",
+              "CAT-233* · Sổ sự kiện bản ghi/chống trùng",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Không ghi lại kết quả đã lưu nếu chỉ khôi phục nhật ký."
+            ],
+            [
+              "CP04.18",
+              "Chỉ đóng việc con khi có output_ref thật",
+              "Có sản phẩm/bằng chứng đúng",
+              "CAT-228* · Sổ việc thật MOT/kết quả",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Lặp theo plan_id đến hạn; kết quả được nhận đúng hợp đồng mới đóng. P04/P05 đóng tại mốc tương ứng, không tạo vòng chờ CP04."
+            ],
+            [
+              "CP04.19",
+              "Chốt CP04 sau khi kiểm đầu ra tới hạn",
+              "Mọi việc con đến hạn CP04 có đầu ra + đọc lại hợp lệ; việc ở CP05/07 chưa bị ép đóng",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Không tích tay"
+            ]
+          ]
+        },
+        {
+          "cp": "CP05",
+          "name": "Kiểm đầu ra",
+          "rows": [
+            [
+              "CP05.01",
+              "Nạp bộ ca đã lập từ CP02 theo đúng hợp đồng/phiên",
+              "Tập ca áp dụng đủ, không tạo lại ca kiểm",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Không khai lại các ca đúng/âm/sai phiên ở CP05."
+            ],
+            [
+              "CP05.02",
+              "Reviewer tự mở và xác minh bản sản phẩm cần kiểm",
+              "Có log mở đúng ID/phiên/hash và nội dung",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-004 --read-designs (nếu là bản thiết kế); reader phù hợp loại khác",
+              "LUÔN · G1 UI chỉ là một loại sản phẩm; không mặc định mọi việc là thiết kế."
+            ],
+            [
+              "CP05.03",
+              "Chạy ca nghiệm thu đã chốt và ghi actual/expected/reviewer/bằng chứng",
+              "Mỗi ca có kết luận và CAT-015 đọc lại được",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Không tách lệnh chạy và ghi kết quả nếu cùng một receipt/tool."
+            ],
+            [
+              "CP05.04",
+              "Nếu là UI, thử nút/trạng thái/nhánh thật",
+              "Có bằng chứng UI đúng phiên",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-004 --check-g1-ui (nếu phù hợp)",
+              "KHI(sản phẩm là UI) · Có UI thật mới kiểm giao diện, không lấy test mẫu."
+            ],
+            [
+              "CP05.05",
+              "Kiểm nội dung bản thiết kế từng MOT",
+              "Đủ trường/nút/nhánh/luật/hash",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-004 --read-designs",
+              "KHI(sản phẩm là thiết kế) · Kiểm đủ field/state/control/branch/rule_ref theo mã/phiên."
+            ],
+            [
+              "CP05.06",
+              "Kiểm kết quả trả cuối đúng caller/phiên/kiểu",
+              "Không trả sai nơi nhận",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "KHI(có trả kết quả cho caller) · Chặng trả cuối phải kiểm giá trị, người nhận, kiểu, thời điểm."
+            ],
+            [
+              "CP05.07",
+              "Nếu G2/G3, kiểm nguồn/evaluator/permission live",
+              "Không nhầm demo thành live",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TOOL-CTCM-005 · Rà dữ liệu/lỗi (nếu dùng được)",
+              "KHI(có nguồn hoặc evaluator live trong phạm vi) · Không ép G2/G3 vào nghiệm thu G1 chỉ thiết kế."
+            ],
+            [
+              "CP05.08",
+              "Nếu ca FAIL, ghi issue/người sửa/bước quay",
+              "Lỗi có cách khắc phục",
+              "CAT-069? · Sổ nhu cầu/góp ý/sai thiếu",
+              "—",
+              "KHI(ca kiểm FAIL) · Áp dụng MOW-TH-002, ghi CAT-069?, quay về đúng nguồn lỗi."
+            ],
+            [
+              "CP05.10",
+              "Chạy bộ kiểm tổng đúng phiên khi quy trình hoặc mức rủi ro yêu cầu",
+              "Kết quả bộ tổng PASS có hash/biên nhận hoặc quyết định không yêu cầu đã ghi",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-006 · Chạy bộ kiểm tổng",
+              "KHI(cần fullsuite theo phạm vi) · Chạy trước CP05/Owner duyệt/ACK; thất bại quay bước sửa. Đổi sản phẩm sau kiểm thì kết quả cũ không còn hiệu lực."
+            ],
+            [
+              "CP05.09",
+              "Chốt CP05 khi đủ ca và đúng phiên",
+              "CP05 đạt hoặc Vướng rõ",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-003 · Kiểm khai",
+              "LUÔN · Kỹ thuật không thay Owner"
+            ]
+          ]
+        },
+        {
+          "cp": "CP06",
+          "name": "Duyệt kết quả",
+          "rows": [
+            [
+              "CP06.01",
+              "Gom sản phẩm, phạm vi và kết quả kiểm trình duyệt",
+              "Người duyệt mở đúng bản",
+              "CAT-025 · Sổ phiếu duyệt/quyết định",
+              "TQT-CHECK-005 · Kiểm Master",
+              "LUÔN · Không trộn G1/G2/PG"
+            ],
+            [
+              "CP06.02",
+              "Xác thực người duyệt/thẩm quyền theo phạm vi",
+              "Không dùng worker tự ký",
+              "CAT-025 · Sổ phiếu duyệt/quyết định",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Reviewer khác approver"
+            ],
+            [
+              "CP06.03",
+              "Xin quyết định đồng ý/từ chối/sửa đúng sản phẩm",
+              "Có quyết định rõ ràng",
+              "CAT-025 · Sổ phiếu duyệt/quyết định",
+              "—",
+              "LUÔN · Tiếp tục không là duyệt"
+            ],
+            [
+              "CP06.04",
+              "Ghi quyết định kèm product_binding và phiên",
+              "Có phiếu duyệt đọc lại được",
+              "CAT-025 · Sổ phiếu duyệt/quyết định",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Không giả APPROVED"
+            ],
+            [
+              "CP06.05",
+              "Chốt CP06 sau khi so quyết định với sản phẩm",
+              "CP06 đạt hoặc quay xử lý",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Kỹ thuật không là Owner"
+            ]
+          ]
+        },
+        {
+          "cp": "CP07",
+          "name": "Bàn giao · kết thúc",
+          "rows": [
+            [
+              "CP07.01",
+              "Tạo gói bàn giao P05 hoặc việc con cuối theo kế hoạch",
+              "Có đầu ra để giao đúng bản; chỉ đóng P05 sau ACK thật CP07.04",
+              "CAT-228* · Sổ việc thật MOT/kết quả",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "KHI(kế hoạch có việc bàn giao cuối P05/tương đương) · Không tạo kết quả bàn giao giả nếu quy trình không có việc con ấy."
+            ],
+            [
+              "CP07.02",
+              "Kiểm hợp đồng nhận cuối và nơi trả",
+              "Đúng người/sản phẩm/phiên",
+              "CAT-015 · Sổ kết quả kiểm",
+              "TQT-CHECK-004 · Kiểm giao–nhận",
+              "LUÔN · Duyệt chưa là ACK"
+            ],
+            [
+              "CP07.03",
+              "Ghi giao đúng bản, người và nguồn sản phẩm",
+              "Có sổ bàn giao thật",
+              "CAT-232* · Sổ bàn giao/xác nhận nhận",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Không chỉ gửi link"
+            ],
+            [
+              "CP07.04",
+              "Lấy ACK thật từ bên nhận có thẩm quyền",
+              "Có biên nhận đúng bản",
+              "CAT-232* · Sổ bàn giao/xác nhận nhận",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Iframe không là Owner ACK"
+            ],
+            [
+              "CP07.06",
+              "Kiểm liên tục CP01–07 và nghĩa vụ áp dụng",
+              "7/7 bằng chứng thật, P05 đóng sau ACK; không suy 006 đã đạt chỉ từ 005",
+              "DEF 00.1 · Master tiến trình công việc (CAT-227*)",
+              "TQT-CHECK-004 · Kiểm ghi/mốc",
+              "LUÔN · Không ép nhánh chưa có"
+            ],
+            [
+              "CP07.07",
+              "Ghi bài học, công cụ đã dùng và vấn đề còn mở để dùng lần sau",
+              "Có liên kết tool/phiên/kết quả/issue và giới hạn nghiệm thu ở sổ nguồn",
+              "CAT-233* · Sổ sự kiện bản ghi/chống trùng",
+              "TQT-CHECK-006 · Chạy tổng",
+              "LUÔN · Lưu liên kết, không chép sổ: lượt tool ở CAT-229*, vấn đề ở CAT-069?, sửa định nghĩa ở CAT-016. Không có bài học ghi không phát sinh; lịch sử đóng vẫn bắt buộc."
+            ],
+            [
+              "CP07.08",
+              "Khép RUN và nhả cờ bận sau khi xác minh tiến trình/lease",
+              "Có KQ cùng RUN_ID XONG hoặc DỪNG, giữ STARTED; Bảng/root đồng bộ; không còn lease của RUN",
+              "CAT-233* · Sổ sự kiện bản ghi/chống trùng",
+              "MCP workspace_task_status/exec_status và gateway theo quyền",
+              "LUÔN · XONG chỉ trong phạm vi thật đã đạt. Bị chặn hoặc hết scope thì DỪNG sạch tại bất kỳ mốc nào, không giữ RUN để chờ. G1 đạt không thay KQ RUN."
+            ]
+          ]
+        }
+      ],
+      "master_bindings": [
+        {
+          "code": "CAT-012",
+          "name": "Danh mục bộ kiểm + ca thử",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-012",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        },
+        {
+          "code": "CAT-015",
+          "name": "Sổ kết quả kiểm",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-015",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        },
+        {
+          "code": "CAT-016",
+          "name": "Sổ nhật ký định nghĩa",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-016",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        },
+        {
+          "code": "CAT-017",
+          "name": "Sổ sự cố hệ thống mở · xử lý · đóng",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-017",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        },
+        {
+          "code": "CAT-025",
+          "name": "Sổ phiếu duyệt ý · bản",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-025",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        },
+        {
+          "code": "CAT-069?",
+          "name": "Sổ nhu cầu · góp ý 1 dòng",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-069%3F",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        },
+        {
+          "code": "CAT-206*",
+          "name": "Danh mục hợp đồng vào/ra loại bản ghi · lấy từ đâu · tạo / cập nhật · 0/1/n",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-206%2A",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        },
+        {
+          "code": "CAT-227*",
+          "name": "MASTER TIẾN TRÌNH CÔNG VIỆC",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        },
+        {
+          "code": "CAT-228*",
+          "name": "Sổ việc thật MOT · bản ghi · người",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-228%2A",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        },
+        {
+          "code": "CAT-229*",
+          "name": "Sổ lần thử",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-229%2A",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        },
+        {
+          "code": "CAT-232*",
+          "name": "Sổ bàn giao",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-232%2A",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        },
+        {
+          "code": "CAT-233*",
+          "name": "Sổ sự kiện bản ghi · chống trùng",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-233%2A",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        },
+        {
+          "code": "CAT-238*",
+          "name": "Sổ lệnh · lần gửi khoá chống trùng · kết quả",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-238%2A",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        },
+        {
+          "code": "CAT-239*",
+          "name": "Sổ tệp",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-239%2A",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        },
+        {
+          "code": "CAT-244*",
+          "name": "Sổ huỷ · việc bù",
+          "home": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-244%2A",
+          "scope": "FILE_TRIAL_ONLY",
+          "note": "Mã catalog/alias đang dùng; không chứng minh bảng PG hay quyền ghi toàn Master."
+        }
+      ],
+      "step_count": 87,
+      "implements": "MOW-TH-005@1.1-design"
     }
   },
   "checkpoint_policy": {
@@ -285996,8 +286924,7 @@ main{max-width:1240px} [hidden]{display:none!important}
     "C4": "Tiếp nhận: năm ý khép kín đưa ngay đầu tab.",
     "goals": "Chưa áp mục2–3 proposal07; Owner chưa chốt bản mục tiêu ngắn."
   }
-}
-</script>
+}</script>
 <script id="tqt-process-model-renderer">
 (function(){
 'use strict';

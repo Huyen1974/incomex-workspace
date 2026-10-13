@@ -6,11 +6,15 @@
 
 **Khi kết thúc một RUN:** executor xác minh process/lease và kết quả → ghi KQ đúng RUN_ID XONG/DỪNG (không xóa STARTED) → cập nhật Bảng/root cùng transaction → đọc lại cặp STARTED/KQ và bản Owner View. Không lấy hoàn thành sản phẩm thay KQ của RUN hoặc lấy MATCH thay duyệt mã. Dùng lại gateway/status/Config Guard hiện hữu; không cần DOT mới.
 
-## QTTH 006 — Quy trình thực hiện QTTH 05 (13/10/2026 · chờ nghiệm thu)
+## QTTH 006 — bản Host rà v0.3, 87 bước / 7 mốc
 
-Owner yêu cầu **không ép 100 bước**. [QTTH 006 phiên v0.2](MOW-TH-006.md) đã rà theo QTTH05 và MOW001 G1, hiện **85 bước (12/22/11/19/9/5/7)**, chia theo 7 checkpoint. [PR20](proposals/TQT-PR-20261013-gptchat-qtth006-atomic-applicability-review-20.md) đối chiếu đủ 100 mã v0.1; [PR21](proposals/TQT-PR-20261013-gptchat-qtth006-instance-overlay-host-21.md) là các việc Host còn cần tiếp nhận. Đây là **thiết kế chưa nghiệm thu**, không thay MOW001/P37/P38.
+[MOW-TH-006.md](MOW-TH-006.md) là nguồn định nghĩa duy nhất. P40 bổ sung kiểm quyền trước ghi và khép RUN; chuyển bộ kiểm tổng lên CP05 trước duyệt/ACK. QTTH05 giữ khung 7 mốc. Catalog đăng ký 006 là chi tiết hóa 005, không thêm vào selected_process gây vòng gọi.
 
-[Over view QTTH 05 + QTTH 06](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view) đã có bản chiếu **QTTH06 chung đọc-only, thu/mở** sau phần QTTH05; **tình trạng từng bước của riêng việc** vẫn phải gắn trong hồ sơ DEF00.1, chưa coi đã triển khai. Khi vào hồ sơ: mặc định dùng bước chuẩn; `+ Bổ sung` thêm việc riêng, `− Không áp dụng` ghi bước không dùng cùng lý do, `↔ Thay thế` giữ quan hệ với bước gốc. Không dùng N/A để bỏ mốc lõi, không tự hồi tố đánh 85/85 từ 7/7 QTTH05.
+[Hồ sơ MOW001](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001): 11 mục phải ghi thu/mở; QTTH06 ngay dưới, 7 nhóm thu/mở. G1 7/7 giữ nguyên; QTTH06 mới ghim để đối chiếu, chưa có biên nhận bước. Không dùng TEST hoặc G1 để tự tô 87/87. Việc MOW002 chưa mở chỉ xem mẫu.
+
+AI đọc định nghĩa §5 trước khi ghi `DEF00.1 → work_schedule.records[].detail_tracking`. Trạng thái và sự kiện thuộc cùng hồ sơ, bằng chứng ở Master gốc. P40 **chưa cưỡng chế ghi bước006 ở gateway**, chưa thử AI mới tự đi trọn vòng. Đây là giới hạn cần xử lý trong lượt Owner giao tiếp, không tự mở RUN/PG. +/−/↔ là khuôn điều chỉnh đã ghi; chưa có nút cấp quyền hoặc tích đạt bằng tay.
+
+Dùng lại **CHECK005** kiểm nguồn/hash/87 dòng, mã Master, thứ tự và UI; **CHECK006** chạy tổng. Không tạo DOT hoặc Master mới. PR20 giữ đối chiếu 100→85, P40/định nghĩa §Rà thứ tự giữ 85→87; các bản PR18–21 là lịch sử góp ý.
 
 ## P38 · Hồ sơ nhẹ, giữ nguyên lịch sử
 

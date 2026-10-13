@@ -66,7 +66,10 @@ def validate(d):
  for p in allp:assert p['object_type']=='MOW' and all(p['guide'].get(k) for k in ['purpose','when','avoid','done'])
  for b in r['instruction_owners']:assert b['process'] in by and b['anchor'] in anchors
  for p in r['records']:
-  for ref in p['child_refs']:assert ref['code'] in by and ref['version']==by[ref['code']]['version'] and ref['relation'] in ['candidate','conditional_call']
+  for ref in p['child_refs']:
+   assert ref['code'] in by and ref['version']==by[ref['code']]['version']
+   assert ref['relation'] in ['candidate','conditional_call'] or (p['code']=='MOW-TH-006' and ref['code']=='MOW-TH-005' and ref['relation']=='operational_detail_for')
+  if p['code']=='MOW-TH-006':assert len(p['child_refs'])==1 and p['child_refs'][0]['relation']=='operational_detail_for'
  w=by['MOW-TH-005']['workflow'];assert w['selection']['cardinality']==1 and 'MOW-TH-005' in w['selection']['exclude'];assert SELECT<=set(w['selection']['required'])
  assert REQUIRED<=set(r['trial_contract']['required']) and 'issue_ref' not in r['trial_contract']['required']
  assert all(w['branches'].get(k)==v for k,v in BRANCH.items())
