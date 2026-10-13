@@ -393,3 +393,55 @@ Nguyên tắc phân loại: **chỉ chặn** cái mà thiếu thì lượt thậ
 **So với kế hoạch Host** ("QTTH003 sửa hợp đồng → kiểm bằng DOT → executor khác chạy một việc thiết kế nhỏ → reviewer → Owner → khép RUN"): **cùng khung**, khác 4 điểm: (1) phạm vi sửa trước chỉ B1–B4, không gom MASTER/DEFINITION/DUPLICATION; (2) thêm B4 vì 002 chưa chạy được; (3) đo theo mốc bằng giờ máy chủ thay vì từng bước; (4) ca thử là một việc QTTH002 (EDGE) thay vì "một việc thiết kế nhỏ" chung chung. Nếu Host muốn giữ việc thiết kế, em chấp nhận, nhưng 002 vẫn phải có lần chạy thật đầu tiên trước khi giao issue hàng loạt cho nó.
 
 **Nhật ký vòng 2:** KQ@TQT-P50-CLAUDE-REVIEW XONG · 2026-10-13 ~11:15Z (giờ chính xác = commit này) · chỉ đọc + ghi đúng tệp này. Cờ VPS-GHI đang do VPSC giữ (11:00–11:45Z): lượt này không chiếm cờ, chỉ ghi tài liệu đề xuất như tiền lệ P47. Dùng 1 lượt script cách ly và trình duyệt headless (chỉ mở/thu mục, không gửi dữ liệu). Không tạo tiến trình nền, lease hay khóa.
+
+---
+
+# VÒNG 3 · Rà bộ sửa P51 (commit `d2f6511`, chốt `b7cde8c`) · 13/10/2026
+
+REVIEWER: Claude (Anthropic) · Claude Chat/Cowork · ghế Claude-review. Không chuyển Host, không sửa mã/luật/G1/PG/cấu hình.
+STARTED@TQT-P51-CLAUDE-REVIEW 2026-10-13T13:53:00Z.
+BASED_ON: HEAD `b7cde8c` (sau đó `9ea4408` chỉ đổi VPSC). Phiếu `TQT-P51-CONSENSUS`, binding `666343031d39…`. Manifest khớp tệp thật: CHECK005 `073f189a…`, UI `c8efc2b4…`, QT006 `5836329d…`.
+JEV: lượt này lỗi hết thời gian (timeout) ⇒ không có tham khảo JEV; kết luận là của Reviewer.
+
+## V3.0 · Nhìn 30 giây
+
+**Bảng: khớp** (006 v0.6, 0 RUN). **Ô 1–2: khớp.**
+
+| Phiếu | Claude duyệt |
+|---|---|
+| CAT-025 `TQT-P51-CONSENSUS` | **REJECT — 2 sửa nhỏ (D1, D2)**. Đã ghi vào phiếu, UI hiện "Cần sửa" |
+| Phần còn lại B1–B4 / R1–R5 | Đạt (bảng V3.1) |
+
+Vì sao không ký OK ngay: sửa D1/D2 sẽ đổi hash CHECK005 ⇒ binding phiếu đổi ⇒ mọi chữ ký ký bây giờ tự mất hiệu lực. Ký một lần sau khi sửa là nhanh nhất.
+**Lượt sau:** Codex sửa D1 + D2 trong một lượt → Claude chỉ rà hai điểm này + chạy lại đúng 5 phép kiểm ở V3.2 → ký APPROVE → hai bên OK thì trình Owner quyết ca thử QT002. Không mở vòng rà toàn bộ.
+
+## V3.1 · Kiểm đã chạy thật
+
+| Mục | Kiểm | KL |
+|---|---|---|
+| B1 · luật chung | CHECK005 mặc định trên bản sao cách ly: exit 0, 44,0 s, `p51_general_rules: 21 · PASS` trên hồ sơ mẫu mới (TEST). Đọc mã: không còn cổng `history_correction_proof` hay hậu tố `-P50`; luật blocker, Không làm, manifest, đọc lại, khép RUN, nhánh sửa áp cho mọi hồ sơ | ✅ |
+| B1 · phép thử thêm | Application mới ghim định nghĩa cũ → bị chặn `NEW_APPLICATION_REQUIRES_CURRENT_DEFINITION` ✅. Bước KHI "Không làm" với `condition_evidence` tự khai → PASS: đúng mức HOST_CHECK, reviewer phải đọc | ✅ |
+| B1 · rà độc lập | Xem D2 | 🟡 |
+| B2 · HOST_CHECK | 006 §8 + luật `HOST_CHECK_CHAIN`, bắt buộc `server_enforced=false` | ✅ |
+| B3 · giờ máy chủ | `--commit-receipt` chạy trên git thật của VPS, từ chối event không tồn tại (`COMMITTED_EVENT_NOT_UNIQUE`) ✅; nhưng xem D1 | 🔴 |
+| B4 · QT002@1.1 | `execution_contract`: 6 bước nối CP006, nơi ghi, 8 trạng thái issue, nhánh DEFERRED/REJECTED/SUPERSEDED, `real_execution=NOT_RUN`; `auditIssue`: CLOSED cần người kiểm khác người sửa | ✅ |
+| R1 · số đo/tool | UI: CP04.05, CP05.02, CP05.05, CP05.10 hiện "92,1 giây · đo chung" + tool; CP05.04 hiện "348,0 giây · đo chung" | ✅ |
+| R3 · CP03.05 | UI: Bị chặn, lý do đúng (P49 không rà hợp đồng) | ✅ |
+| R5 · JSON | CHECK005 khẳng định CP02.05 không còn `[{`; PASS | ✅ |
+| U1 · G1 | UI: "Lịch sử G1 · đã nhận 12/10/2026" đóng mặc định; giờ chi tiết dạng Việt Nam | ✅ |
+| Ô ký | UI có hai cột GPT duyệt / Claude duyệt, lấy từ phiếu | ✅ |
+
+## V3.2 · Hai điểm phải sửa
+
+| ID | Mức | Vấn đề | Tái hiện | Sửa tối thiểu | Phép kiểm sau sửa |
+|---|---|---|---|---|---|
+| D1 | 🔴 chặn ca thử QT002 | Lần chạy CHECK005 mặc định (bộ tổng CHECK006 và mọi lần kiểm thường) **gãy ngay khi một hồ sơ có biên nhận mốc** như luật B3 yêu cầu. Chế độ mặc định không có đường nhận biên nhận tin cậy nên luôn báo lỗi. Hậu quả: ca thử 002 sẽ tự gãy ở CP05.10 sau mốc đầu tiên | Bản sao view.html, thêm vào TQT-VIEC-001 `cycle.milestones=[{checkpoint:"CP01", start_receipt:{commit:"a"×40, event_id:"TEST-M1", server_committed_at:"2026-10-13T00:00:00Z"}}]`, chạy `node check-work-masters.js <bản sao>` → exit 1 `SERVER_RECEIPT_REQUIRED` | Chế độ mặc định tự xác minh biên nhận bằng git của chính repo (cùng logic `--commit-receipt`); không có git thì báo `UNVERIFIED_RECEIPT` mà không làm gãy lần kiểm thường; chỉ `require_complete` / rà nghiệm thu mới bắt buộc đã xác minh | (a) biên nhận thật từ commit có milestone_event → PASS; (b) biên nhận giả → FAIL; (c) tái hiện trên khi không có git → không gãy, báo UNVERIFIED |
+| D2 | 🟡 bắt buộc | Kiểm "rà độc lập" chỉ so tên người, không so hãng; trong khi 006 §8 và `execution_policy.consensus_required=[OpenAI, Anthropic]` đòi khác hãng | `--validate-dossier` hồ sơ mẫu: CP03.05 Đã làm, `subject_actor="Codex Host"`, `reviewer="Codex Reviewer"` → PASS | Thêm `subject_vendor`, `reviewer_vendor` vào review; với `independent_review_steps` khi phạm vi cần hai hãng: `reviewer_vendor ≠ subject_vendor` | (d) cùng hãng khác tên → FAIL; (e) khác hãng → PASS |
+
+**Không chặn, để sau:** mẫu §3 của 006 vẫn 8 ô dưới tiêu đề 6 cột và còn mã `+B01` / cột +/− (thuộc DEFINITION) · trường `state` của phiếu vẫn `ONE_VENDOR_PENDING_OTHER` — UI và CHECK005 đã tính từ `reviews` nên không sai hiển thị; nên để máy tính hoặc bỏ trường này · cột BẮT ĐẦU ở danh sách vẫn hiện giờ ISO · chữ dính còn trong COLLAB P51 ("hồ sơ001", "Khung005").
+
+## V3.3 · Chữ ký đã ghi
+
+Phiếu CAT-025 `TQT-P51-CONSENSUS`, nối sau review OpenAI, không sửa gì khác: `vendor=Anthropic · reviewer=Claude Cowork · decision=REJECT · reviewed_at=2026-10-13T13:59:22Z (giờ máy chủ) · binding=666343031d39… · scope nguyên văn phiếu · evidence_ref=tệp này #VÒNG 3 · delta D1, D2`. Commit `65abc62`. Đọc lại: view.html `d300b8e0…`; hai review cùng binding/scope; 143 sự kiện không đổi; CHECK005 mặc định chạy lại exit 0; UI cột Claude hiện "Cần sửa · Claude Cowork · 2026-10-13T13:59:22Z". Không ghi review vào `tool_registry.reviews` vì chưa APPROVE CHECK005.
+
+**Nhật ký vòng 3:** KQ@TQT-P51-CLAUDE-REVIEW XONG · 2026-10-13 ~14:05Z (giờ chính xác = commit này). Cờ VPS-GHI trống và không chiếm: lượt này chỉ ghi tài liệu + một phiếu qua gateway CAS có đọc lại, như tiền lệ P47. Chạy CHECK005 hai lần (44–60 s, 512 MB) và các phép thử nhỏ (<3 s) trong bản sao cách ly, tệp tạm `/tmp` tự hủy theo bản sao; không chạy CHECK006 (Codex đã chạy trên Mac). Trình duyệt headless chỉ mở/thu mục. Không tạo tiến trình nền, lease hay khóa. Không chạy QT002.
