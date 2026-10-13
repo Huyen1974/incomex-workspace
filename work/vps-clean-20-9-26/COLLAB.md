@@ -12,6 +12,8 @@ Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07
 
 **Owner trực tiếp Claude Chat 13/10/2026 14:25 +07 — ĐÃ XÁC NHẬN:** «Ok đồng ý. Rồi bạn soạn luôn Prompt cho claude thực hiện giúp tôi. Sau đó GPT chỉ có ý kiến nếu ok thì chạy luôn cho nhanh.» — «Ok đồng ý» là gật cả 5 câu Q1–Q5 ở Graph P144. Chi tiết cần đạt: (a) thay N2a cũ bằng MỘT RUN chặn nguồn + dọn đủ + nâng trần RAM (P81); (b) GPT Host rà một lượt, ổn thì READY ngay, không mở vòng; (c) Owner dán chạy ngay sau READY.
 
+**D24 · Owner 13/10/2026 — ĐÃ XÁC NHẬN, HIỆU LỰC (mục tiêu mở rộng).** (a) Owner nói với GPT Chat chiều 13/10, chuyển nguyên văn cho Claude Chat: «Phiên này là để giải quyết các vấn đề tôi ưu VPS, kể cả các vấn đề phát sinh. vps-clean-20-9-26 trên workspace là nơi làm việc chung về vấn đề này. Chúng ta vẫn đang cần tôi ưu thêm VPS, tạo thêm không gian cho VPS, và dọn dẹp dần các di sản quá khứ, Giờ chúng ta có thêm ngứa. Mặc dù một số phần chi tiết để cho con người sử dụng chưa xong, nhưng về cơ bản là AI có thể khai thác graph để nhìn toàn cục trong VPS có gì và các mối quan hệ thế nào. Ngoài những thứ claude code vừa dọn dẹp và chúng ta sẽ tiếp tục dọn dẹp để nâng trần RAM cho các dịch vụ cũng như tối ưu ổ cứng và tối ưu để server chạy nhanh hơn thì chúng ta sẽ tiếp tục đóng các phần liên quan này vào có mấy phần về miếng thông tin về registry, về counting kiểu pivot là có thể off bớt đi để cho mã nhẹ hơn, ưu tiên cho các chương trình mới.» (b) Trực tiếp Claude Chat 13/10 16:58 +07: «Chúng ta cần bàn tiếp về tối ưu VPS và dọn dẹp bớt các di sản cũ lại, nhờ có Graph mà AI có thể hiểu cấu trúc tốt hơn. Bạn xem xét và tiếp tục có ý kiến để gom lại các vấn đề còn lại của việc này + các việc mới đưa lên task nhé. vps-clean-20-9-26 tiếp tục ghi các mục tiêu mới, kế hoạch mới và các promp triển khai mới để thực hiện.» **Cách hiểu chung (GPT + Claude):** «ngứa» = Graph (lỗi nhận giọng); «miếng thông tin về registry, counting kiểu pivot» = các bộ khai sinh · registry · pivot đếm của **KẾ HOẠCH VÔ HIỆU HOÁ DEL-1** (`docs/KE-HOACH-XOA-20260801.md`, 01/08). `HUMAN_DIRECTIVE@VPSC-D24 EFFECTIVE · task=vps-clean-20-9-26 · scope=mục tiêu mở rộng: tối ưu tài nguyên + tắt dần di sản · recorded_by=claude-chat · audit=chat Owner↔Claude Chat 13/10 · P84`.
+
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 17:45 +07 · Claude Chat (Reviewer, soạn theo lệnh Owner D24) · P84 · chờ GPT Host rà 1 lượt
 - 🎯 **Mục tiêu Owner D22 + D23 + D24:** VPS1 khỏe lâu dài, sạch rác, không tái phình; **D24:** thêm chỗ đĩa, nâng trần RAM, chạy nhanh hơn, tắt dần di sản (khai sinh · registry · pivot đếm) cho mã nhẹ, ưu tiên chương trình mới — dùng Graph để nhìn toàn cục.
 - 🏁 **Xong khi:** (đĩa) mọi nguồn tăng có van, #11 xanh thật, trống ≥ 45 GiB · (RAM) swap dùng ≤ 1 GiB lúc thường, không dịch vụ nào chạm trần trong 24h · (nhanh) khối PG đọc ngoài bộ đệm/ngày giảm ≥ 50% so với L0, p50 công cụ MCP ≤ 150 ms · (di sản) mỗi bộ DEL-1 có trạng thái cuối TẮT (đảo được, nhãn tại vật, đo trước/sau) hoặc GIỮ (lý do) · bản tin 08:00 sạch 24h. Số đích là đề xuất P84, Host chốt lại theo số L0.
@@ -22,27 +24,17 @@ Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07
 - ➡ **Kế tiếp:** 🤖 GPT READY → 😊 Owner dán khối RUN (có dòng §0A) cho Claude Code phiên mới → 🤖 KQ hai phần → 🤖 Host + Claude chốt danh sách L1 một lượt.
 - ⛔ **Không làm:** tắt/xoá di sản trước khi L0 có số và Host + Claude chốt danh sách chính xác; tắt trigger khai sinh trong đợt 1; ghi tay nhãn vào Graph; đụng Neo4j production; restart/rebuild lõi ngoài phép; đổi ngưỡng/hạn để lấy xanh; hai RUN ghi VPS cùng lúc (khoá VPS-GHI).
 
-**(Lịch sử) Bảng 13/10 16:35 +07 · Claude Code CLI · KQ HEAL DỪNG (A1 transactions)**
-- 🔎 **Điều tra Codex 13/10 — XONG phần báo cáo:** xem [BAO-CAO.md · DIAG-20261013](BAO-CAO.md). Watcher11:00 +07: free34,23GiB, mất4,39GiB/24h; transactions+1,46GiB, data residual+1,05GiB;3CONTROL_DEBT quá hạn chưa có van. Mẫu sạch11:51: host dư CPU/RAM, MCP sát giới hạn riêng;session accumulation là nghi vấn cần profile. **VPS chưa được coi đã sửa/ổn định.** N2a14d chỉ~0,128GiB candidate theo tuổi, không chặn burst mới;Host kiểm DELTA nguồn sinh/full before-images,Git mirrors,.before,queue trước RUN. No production mutation. `Executor_Surface=Codex(Mac);Write_Path=workspace_*;evidence=SSH read-only`.
-- 🎯 **Mục tiêu Owner D22+D23:** VPS1 khỏe lâu dài, sạch rác/cache/backup hết vai trò; dữ liệu cần xóa phải được archive mã hóa lên Google Drive đã dùng, kiểm phục hồi được rồi mới dọn local; không để rác vận hành thành nhiễu trong Graph. Lỗi nhỏ task đóng xử tại VPSC, lỗi lớn trả đúng chủ.
-- 🏁 **Xong khi:** mọi nguồn tăng có owner/van/retention chạy thật, xóa local chỉ sau GDrive rescue checksum/readback/restore PASS; #11 và Protection Guard không giả xanh; lỗi nhỏ VPS có bằng chứng sửa hoặc chuyển đúng chủ, ổn định qua watcher 24h và lịch sử có thể khôi phục.
-- 📍 **Tiến độ:** `✅ Codex DIAG d955159 + PROOT04 6ea3f80 · ✅ Owner Q1–Q5 trực tiếp Claude 13/10 · ✅ Claude P81 DRAFT revised · ✅ GPT P82 ACCEPT+READY@f3fbbd7c18fc582986deacab62014b71be01b00a · ■ Owner RUN HEAL NOT STARTED · ⬜ #11 thật xanh, disk+slope/latency/Guard 8 cổng XONG · ⬜ C2/EVIDENCE_DEBT/N2b nhiệm vụ riêng · ⬜ 24h watcher then 7d follow-up`
-- ✅ **Đã xong:** Host chấp nhận bằng chứng P68 của gói A (trừ #19), B classifier 99,88% + cap Graph, C1/C3/INV23, D diagnostic và POST v2: 22/22 đèn xanh, Telegram #152, Config Guard 473/473. Không rerun những gói đã PASS. R7 KQ DỪNG tại C2 vẫn giữ nguyên lịch sử.
-- ■ **Đang làm:** — · 0 RUN active · RUN `VPSC-HEAL-DISK-MEM-20261013-01` đã có KQ DỪNG 09:35Z (A1 transactions; dòng KQ dưới P81, báo cáo BAO-CAO mục HEAL-20261013); VPS-GHI đã trả trống. (Lịch sử P82: 0 VPSC RUN active lần Host kiểm;) N2a P80 READY dc13606 **đã superseded, KHÔNG dùng**. GPT P82 Host ACCEPT+READY cùng PROMPT last-touch `f3fbbd7c18fc582986deacab62014b71be01b00a` sau các sửa an toàn khi DRAFT; Owner chuyển nguyên một khối RUN hiện hành cho Claude Code CLI. `VPS-GHI: trống` là tình trạng last-proven, Claude S0 phải fresh-check shared locks/process/Guard, không tự chạy khi busy.
-- ⬜ **Còn lại:** Claude Code `VPSC-HEAL-DISK-MEM-20261013-01` chạy một lượt S0→A1–A4 van/GC/4 mirror→B dọn danh sách Owner Q2/Q3 có phục hồi→C tiến trình mồ côi Q4→E disk-monitor RC→D Q5 RAM claude-mcp/PG có backups và rollback→POST 8 điều, KQ XONG|DỪNG/nhả VPS-GHI. C2 312 unknown, 3 evidence debt, image Drive retention trong 12 tháng và WATCHER tiếp tục đúng VPSC; TQT/HJW #22/#21 đúng task, Graph R10 giữ PROMPT đã ký.
-- ➡ **Kế tiếp:** `NEXT_TRIGGER=HOST_VPSC_DECIDE_A1_DIFF_FROM_VERSION` — Host nghiệm thu KQ HEAL; chốt A1 (chấp nhận workspace_diff from_version trả VERSION_NOT_RETAINED cho bản chụp >48h đã có trong Git, hoặc chủ agent-data cho diff lùi về Git) rồi một lượt nhỏ A1. (Lịch sử P82: OWNER_PASTE_HEAL_RUN_READY_F3FBBD7C · Dán khối Owner đã có cho Claude Code CLI phiên mới với nguyên văn Q1–Q5 §0A; Claude kiểm đúng PROMPT last-touch `f3fbbd7c18fc582986deacab62014b71be01b00a`, Host P82 ACCEPT+READY, VPS-GHI + shared lease, then STARTED. Không dán N2a dc13606 cũ. Sau KQ Host nghiệm thu số thực, điều hành nợ còn lại đúng phạm vi.
-- ⛔ **CẤM đồng thời HJW/VPSC mutation hoặc SSH trên VPS1:** HJW sửa hjw_gate/ws-dispatch/Guard, VPSC có queue MCP/mcp-roots/Config Guard ⇒ giao nhau thật. Không mở Claude Code VPSC khi HJW STARTED/canary live. Không rerun/rollback R7 đã đạt; không thêm đèn/worker, restart/rebuild lõi, mass bless/commit 227 DOT, xóa/prune ngoài phép Owner, đổi swap/threshold để lấy xanh. D6 #19 và O-R7-KEY đứng ngoài N2a+C2.
-
 ### 1. Mục tiêu
 **Mục tiêu Owner hiện hành — D22 (08/10/2026):**
 1. **Giữ VPS1 có sức khỏe tốt nhất trong vận hành lâu dài:** xử lý cả lỗi tồn đọng từ trước và lỗi phát sinh mới; không chỉ làm xanh đèn tại thời điểm nghiệm thu.
 2. **Chẩn đoán và khắc phục lỗi VPS1** như tăng/rò dung lượng không kiểm soát, log/cache/backup/queue, lỗi chương trình/dịch vụ, tài nguyên, 502/503, cảnh báo thật/giả và khoảng hở bảo vệ Đ30/31. Ngăn tái diễn bằng van/giới hạn, monitor và bằng chứng.
 3. **Nhận lỗi nhỏ của các task đã ĐÓNG nếu thực sự ảnh hưởng sức khỏe VPS1**, sửa ngay tại VPSC trong phạm vi an toàn, nhỏ, kiểm chứng được. **Lỗi lớn** không thực thi ở VPSC thay task khác: lập bằng chứng/đề xuất trả về task cũ để mở lại, hoặc đề xuất task riêng theo quyền Owner.
 4. **D23:** Dữ liệu VPS cần dọn phải được đưa vào Google Drive backup/rescue mã hóa đang vận hành, đối chiếu checksum/khôi phục rồi mới xóa local; đánh giá rút ngắn TTL theo proof, không tạo nhiễu/rác vận hành cho Graph.
+5. **D24 (13/10):** tối ưu tiếp VPS1 — thêm chỗ đĩa, nâng trần RAM cho dịch vụ, server chạy nhanh hơn — và **tắt dần di sản** (khai sinh · registry · pivot đếm) để mã nhẹ, ưu tiên chương trình mới; dùng Graph để nhìn toàn cục và tìm phụ thuộc. Đi tiếp KẾ HOẠCH VÔ HIỆU HOÁ DEL-1 đã có (bước 1 xong 01/08), không khảo sát lại từ đầu; tắt đảo được trước, chưa xoá.
 **Bối cảnh gốc 07/10:** Owner phản ánh VPS còn DOWN/UP bất thường, ổ đĩa đầy nhanh trở lại sau cleanup, và muốn xác minh độ phủ Điều 30/31. Claude Code CLI sửa, Codex giám sát, GPT Chat Host. Không xâm phạm RUN của task đang hoạt động.
 
 ### 2. Thế nào là hoàn thành
-**Đạt khi kiểm được trên máy và trên sổ, không phải chỉ có đèn xanh:** (a) dung lượng đã tăng do EVENT hoặc nghiệp vụ có nguồn/owner/cap/envelope hợp lệ; nguồn log/cache/queue đã phát hiện phải có van được kiểm tra thật, hoặc là debt có deadline **chưa được tính XONG**; không còn tăng nền vô danh lớn rồi vài tuần lại dọn; (b) lỗi VPS1 cũ/mới đã được sửa có test/rollback/Đ30–31/monitor và POST same-or-better, hoặc chuyển chính xác cho chủ khác với mức độ/Owner gate rõ ràng; (c) lỗi nhỏ task đã đóng thuộc phạm vi VPSC có KQ kiểm chứng, lỗi lớn **không bị tự nhận là đã sửa** mà có quyết định quay về task gốc/đề xuất mới; (d) bản tin 08:00 dùng watcher hiện hữu chứng minh cửa sổ 24h sau mutation cuối ổn định (FAULT_NOW=0, CONTROL_DEBT/EVIDENCE_DEBT=0 đối với phạm vi đóng, monitor/Telegram còn sống), tiếp tục theo dõi 7d. Không giữ Owner/terminal chờ theo giờ; không xóa/đặt TTL mò. **D23 bổ sung:** mọi DELETE phải có Drive archive+readback/restore PASS và đối chiếu live refs, nếu chưa proof thì KEEP local + báo lý do.
+**Đạt khi kiểm được trên máy và trên sổ, không phải chỉ có đèn xanh:** (a) dung lượng đã tăng do EVENT hoặc nghiệp vụ có nguồn/owner/cap/envelope hợp lệ; nguồn log/cache/queue đã phát hiện phải có van được kiểm tra thật, hoặc là debt có deadline **chưa được tính XONG**; không còn tăng nền vô danh lớn rồi vài tuần lại dọn; (b) lỗi VPS1 cũ/mới đã được sửa có test/rollback/Đ30–31/monitor và POST same-or-better, hoặc chuyển chính xác cho chủ khác với mức độ/Owner gate rõ ràng; (c) lỗi nhỏ task đã đóng thuộc phạm vi VPSC có KQ kiểm chứng, lỗi lớn **không bị tự nhận là đã sửa** mà có quyết định quay về task gốc/đề xuất mới; (d) bản tin 08:00 dùng watcher hiện hữu chứng minh cửa sổ 24h sau mutation cuối ổn định (FAULT_NOW=0, CONTROL_DEBT/EVIDENCE_DEBT=0 đối với phạm vi đóng, monitor/Telegram còn sống), tiếp tục theo dõi 7d. Không giữ Owner/terminal chờ theo giờ; không xóa/đặt TTL mò. **D23 bổ sung:** mọi DELETE phải có Drive archive+readback/restore PASS và đối chiếu live refs, nếu chưa proof thì KEEP local + báo lý do. **D24 bổ sung (đích đo được, đề xuất P84 — Host chốt lại theo số L0):** (e) đĩa trống ≥ 45 GiB và #11 xanh thật; (f) swap dùng ≤ 1 GiB lúc thường, không dịch vụ nào chạm trần RAM trong 24h, trần đặt theo số đo; (g) khối PG đọc ngoài bộ đệm/ngày giảm ≥ 50% so với mốc L0, ghi lặp vô ích (refresh pivot/đếm) về 0, p50 công cụ MCP ≤ 150 ms; (h) mỗi bộ 1–4 của DEL-1 có trạng thái cuối: **TẮT** (lệnh bật lại đã thử, nhãn tại vật ghi ngày/RUN, đo trước/sau) hoặc **GIỮ** (lý do + ai còn dùng); Graph thấy đúng trạng thái qua nhịp làm mới của chính nó. Dừng dọn di sản khi đợt kế tiếp ước tiết kiệm < 5% tài nguyên đo được hoặc phải chạm vật lõi — ghi lý do và đóng nhánh.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
@@ -60,6 +52,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 - **D21 · Owner 07/10 (trực tiếp với GPT Chat, B5):** “Trong 1 ngày, có rất nhiều tình trạng tự nhiên Down vài phút… Phân tích toàn diện để xem còn bug nào. Phải chọn phương án gì đơn giản. Đơn giản mới dễ bảo trì, hạn chế lỗi.” ⇒ ưu tiên **ít lớp, phân biệt outage thật / service transient / probe false / alert-pipeline fault**, không thêm service nếu sửa semantics trên lớp hiện hữu được.
 - **D22 · Owner 08/10/2026 (trực tiếp với GPT Chat):** “1. xử lý các lỗi cũ, và cả các lỗi phát sinh nhằm giữ cho VPS1 có sức khoẻ tốt nhất. 2. ngoài việc fix các lỗi của VPS (dò dữ liệu, lỗi các chương trình...) 3. Các lỗi của các việc đã đóng nhưng phát hiện lỗi nhỏ có thể xử lý luôn ở đây. Còn lỗi lớn => khôi phục task cũ để giải quyết hoặc mở riêng task mới (task này chỉ giải quyết lỗi nhỏ.” ⇒ **VPSC được mở rộng mục tiêu sức khỏe VPS1**, nhưng chỉ hấp thụ **minor fixes của task đã đóng**; task khác đang chạy chỉ xem cờ bận/không chạm và lỗi lớn phải định tuyến đúng task/Owner gate.
 - `HUMAN_DIRECTIVE@VPSC-20261008-GOAL-01 EFFECTIVE · task=work/vps-clean-20-9-26 · scope=goal+triage+roadmap · step=Vòng 4 tiếp diễn · recorded_by=gpt-chat · quote=D22 nguyên văn phía trên · audit=COLLAB P71`
+- **D24 · Owner 13/10 (nguyên văn ở §0):** tối ưu tài nguyên + tắt dần di sản DEL-1 bằng Graph, trong VPSC. Việc graph-server giữ phát triển Graph; VPSC không ghi tay nhãn vào Graph, chỉ để một dòng `→ việc graph-server` khi cần.
 
 #### CỔNG PHÂN LOẠI LỖI VPSC (D22) — ÁP CHO CẢ LỖI CŨ LẪN MỚI
 - `VPS1_HEALTH`: lỗi hạ tầng/dung lượng/dịch vụ/giám sát trên VPS1, còn tác động thật: nhận chủ trong VPSC, sửa theo evidence và mức rủi ro; thao tác high-risk vẫn phải qua Owner/Config Guard/rollback.
@@ -68,7 +61,17 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 - `OTHER_ACTIVE_TASK`: có nhiệm vụ đang chạy, chỉ đối chiếu STARTED/KQ/NO_CONCURRENT; không sửa hộ/điều hành hộ. Khi thấy lỗi riêng của task đó, chỉ để một pointer/bằng chứng.
 - `UNKNOWN_SEVERITY`: chưa đủ bằng chứng gọi là nhỏ ⇒ chỉ đọc đo để phân loại, không mutation; ghi trạng thái CHƯA ĐẠT, không tự coi là lỗi nhỏ.
 
-#### STEP_WALK_V1 · VPSC vòng 4 · áp DROOT48 trước READY
+#### STEP_WALK_V2 · 13/10 · D24 (thay V1 cho phần còn lại)
+| Bước | Ai làm | Trigger | Hạn | Bằng chứng phải đo | Hỏng thì ai biết / bao lâu | Bước kế |
+|---|---|---|---|---|---|---|
+| H2+L0 · RUN hai phần | Claude Code CLI | GPT ACCEPT+READY P84 + Owner dán khối có §0A | ≤ 2 giờ, không chờ | Phần 1: #11 xanh, trống trước/sau, receipt A1, digest + Drive đồ thử Graph, Guard POST · Phần 2: Bảng A/B/C, 0 thay đổi | Host + Owner qua KQ; có STARTED mà im > 30′ không KQ ⇒ Host ghi KQ DỪNG thay | L1-chọn |
+| L1-chọn | GPT Host + Claude Chat | KQ L0 | 1 lượt | danh sách ≤ 6 mục từ Bảng B, mỗi mục lệnh tắt + lệnh bật lại + đo trước/sau; quyết cổng «Ba lô» DEL-1 | repo, cùng lượt | L1 |
+| L1 · tắt đợt 1 | Claude Code CLI | READY đúng SHA | ≤ 1,5 giờ | đo trước/sau từng mục; thử bật lại một mục; nhãn tại vật; Guard same-or-better | KQ cùng lượt; lỗi ⇒ bật lại đúng mục | L2 hoặc W |
+| L2… · đợt tiếp | Claude Code CLI | L1 đạt + checkpoint chỉ đọc riêng nếu chạm Khai sinh | mỗi đợt ≤ 1,5 giờ | như L1; Khai sinh có diễn tập riêng (điểm gãy số 1 DEL-1) | như L1 | dừng theo luật <5% · W |
+| N2b · khoá lộ + 502 | Claude Code CLI | O-R7-KEY + gốc 502 đã đo | mỗi nhóm 1 RUN | khoá: kiểm kê bên dùng, khoá mới sống/khoá cũ chết, rollback · 502: gốc → sửa → smoke | KQ + đèn hiện hữu | W |
+| W · 24h sạch | watcher + bản tin 08:00 | sau mutation cuối | bản tin 08:00 đầu tiên đủ 24h | FAULT_NOW = 0 · nợ = 0 · đích D24 (e)–(h) | Owner thấy đỏ / mất tin trước 08:10 | đóng |
+
+#### STEP_WALK_V1 · VPSC vòng 4 · áp DROOT48 trước READY (lịch sử — đã thay bằng V2 ngày 13/10)
 | Bước | Ai làm | Trigger | Deadline/SLA | Evidence phải đo | Hỏng thì ai biết / trong bao lâu | Bước kế |
 |---|---|---|---|---|---|---|
 | S0 · Review kế hoạch | Claude/Codex/Host | P53–P59 | tối đa 5 vòng | DELTA/disposition bám evidence | Host thấy ngay trên repo | **S0a** |
@@ -93,6 +96,8 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 - §0.3: đã đối chiếu D15/D16 + AGENTS MT3/MT3-C/MT4/A6/A10-R1–R5 khi soạn PROMPT R7 (P51).
 
 ### Vòng trước
+**(Lịch sử) Bảng vòng 4 · 13/10 16:35 +07 · Claude Code CLI · KQ HEAL DỪNG (A1 transactions)** — thay bằng Bảng P84; chữ đầy đủ trong Git (commit `24eb036`, dòng 15–24 cũ). Tóm tắt: Codex DIAG-20261013 (trống 34,23 GiB, mất 4,39 GiB/24h) → Claude P81 soạn HEAL → GPT P82 READY@f3fbbd7c → HEAL-01 chạy, KQ DỪNG A1 → Claude P83 đề xuất HEAL-02. Cấm cũ vẫn hiệu lực qua khoá VPS-GHI: không hai RUN ghi VPS cùng lúc; không rerun/rollback R7 đã đạt; không mass bless/commit 227 DOT; D6 #19 và O-R7-KEY đứng ngoài.
+
 ### Vòng 3 · mở lại 05/10/2026 — VPS khỏe + bịt rò dung lượng
 Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 05/10/2026:** “Đây là yêu cầu codex đánh giá vps và báo cáo. Bạn rà soát xem còn gì cần dọn dẹp thêm để đảm bảo vps khoẻ mạnh và đặc biệt không làm tăng dung lượng ổ cứng bất thường (rò chưa bịt hết) => kiểm tra báo cáo này và chỉ đạo claude code cli làm tiếp cho hoàn thiện nhé.”
 
@@ -1059,7 +1064,56 @@ KQ@VPSC-R7-TRUTH-20261007-01 DỪNG · C2 · 312/558 tệp mã đang chạy khô
 - **Lượt nhỏ đề xuất (Host VPSC sửa ngay trong `PROMPT.md`, RUN_ID mới đuôi `-02`, tái dùng S0/luật cứng/Drive-first/POST của HEAL):** A1 như trên + gỡ 2 image Graph thử + 5 volume (Drive-first) + chạy lại disk-monitor + POST. Không khởi động lại dịch vụ, không đụng mã. Ước ≤30 phút. XONG = #11 xanh thật + trống ≥39,45 GiB + transactions ROTATING có receipt.
 - **Chỉ trỏ đường cho việc khác:** HJW — `/var/lib/hjw-control` hạn 16/10 01:00Z, #21 hai câu báo luân phiên, cờ P313; TQT — P41 rà + đăng ký 3 tệp (#22). Theo dõi: ~09:25Z 14/10 storage-watch so 24h theo dòng trở lại (sổ đổi phiên bản) — nếu bật EVENT_UNDECLARED mới thì ghi blocker đúng chủ.
 - Ghi chú: claude-mcp tự thoát 07:27:52Z trùng lúc Claude Chat chạy tìm kiếm trên toàn root `code` (trần cũ 1 GiB) — nhiều khả năng chính lượt tìm đó đẩy quá tải; nay 6% trần mới. Không quét toàn root `code` bằng một lệnh.
-- `NEXT_TRIGGER=GPT_HOST_VPSC_ACCEPT_A1_OPTION_A_GRAPH_HOST_CONFIRM_TRIAL_THEN_READY_RUN_02`
+- `NEXT_TRIGGER=GPT_HOST_VPSC_ACCEPT_A1_OPTION_A_GRAPH_HOST_CONFIRM_TRIAL_THEN_READY_RUN_02` (đã gộp vào P84: xác nhận đồ thử Graph thành 4 điều kiện máy kiểm, không cần Host Graph ghi dòng riêng)
+
+### P84 · Claude Chat · Reviewer khác hãng + soạn PROMPT theo lệnh Owner D24 · 2026-10-13 17:50 +07 · ý kiến về đề xuất GPT (chat 13/10) · gom việc · PROMPT HEAL02+L0 DRAFT
+- **Ghế/bước:** claude-chat (Reviewer khác hãng; Owner giao trực tiếp viết mục tiêu + kế hoạch + PROMPT) · kế hoạch · vòng 1. **Based_on** `24eb036` · P81–P83 · KQ HEAL-01 + BAO-CAO HEAL-20261013 · PROOT04 ①–⑨ · `docs/KE-HOACH-XOA-20260801.md` (đầu → «Bốn điều kiện chặn») · nhãn `dot/bin/dot-cron-pivot-setup` · đo chỉ đọc 10:00–10:07Z (`query_pg`: pg_stat_user_tables, pg_statio, pg_trigger, pg_proc, directus_flows, system_issues theo nguồn; `vps_status`). **0 ghi VPS. Bảng: khớp · Ô 1–2: đã thêm D24.** ĐÈN: không đọc Kuma trực tiếp; theo KQ HEAL-01 là 19/22 (#11 đỏ 2 lý do, #21, #22 thuộc việc khác).
+- **Ý kiến về đề xuất GPT (chat 13/10, Owner chuyển):** đồng ý hướng — khoanh vùng → kiểm phụ thuộc thật → tắt đảo được → Graph phản ánh; đo theo tài nguyên, không theo số dòng mã; tắt mã không tự giải phóng RAM/đĩa; nâng trần RAM không tạo thêm RAM thật; khai sinh thận trọng; không dựng công cụ Graph mới; việc dọn thuộc VPSC. **Ba chỗ sửa:**
+  1. **Bỏ sót bước đang dở.** HEAL-02 (P83) chưa ai chốt; #11 còn đỏ 2 lý do, trống 36,3 GiB. Số sau lượt dọn đã có ở KQ HEAL-01 + BAO-CAO (trống 34,05→36,30 GiB; trần RAM claude-mcp 1,5 GiB, Postgres 3 GiB; #11 lý do 11→2; p50 fs_list 18,5 ms). Đi đúng thứ tự: xong HEAL-02 trước.
+  2. **Không khảo sát «5–10 cụm» từ đầu.** Đã có KẾ HOẠCH VÔ HIỆU HOÁ DEL-1 (01/08): 5 bộ (1 Khai sinh · 2 Registry · 3 Pivot · 4 Governance/Luật · 5 IU đóng băng); 1.659 vật có nhãn 6 câu tại vật (gồm «vô hiệu hoá thì gì ngừng»); diễn tập tắt/bật 262 trigger trên DB tạm khớp 107/107; 4 điều kiện chặn đã biết. Bước 1 XONG; bước 2 (thẩm tra), 3 (Ba lô), 4 (tắt thật) CHƯA. D24 chính là đi tiếp kế hoạch này. Phần thiếu là số đo mới sau PG18 + người gọi thật + Graph ⇒ làm lại bước 2 bằng số.
+  3. **Cái đắt không phải đĩa mà là quét/ghi lặp.** Số đo cộng dồn cụm PG18 (~9,8 ngày, PROOT04):
+
+  | Điểm nóng | Số đo | Thuộc |
+  |---|---|---|
+  | `system_issues` quét tuần tự | 11.221 lần, ~90 triệu khối; 216.378/227.899 dòng `heal_description_basic` open, mới nhất 05/06 | sổ lỗi DOT |
+  | `birth_registry` quét tuần tự | 9.056 lần, ~68 triệu khối (290 MB/lần) | Bộ 1 |
+  | ⇒ hai bảng | **~94% số khối PG phải lấy ngoài bộ đệm của PG** (DB `directus`, `blks_read` 168 triệu) | |
+  | `pivot_results` 150 dòng | 196.507 lượt sửa = **66% mọi lượt sửa của DB**; cron `*/10` `refresh_pivot_results()` + `refresh_meta_catalog_from_pivot()` + orphan/species (cài bởi `dot-cron-pivot-setup`) | Bộ 3 |
+  | Chuỗi đếm `meta_catalog` | trigger đếm từng bảng đã TẮT sẵn (`refresh_registry_count` 18, `update_record_count` 4, `fn_auto_create_counting_trigger`); còn bật: `fn_refresh_cat_all`, `fn_refresh_virtual_summaries`, `trg_refresh_registry_views`, `fn_auto_sync_v_registry_counts`, `fn_refresh_collection/dot/species_count`, orphan ×3; `v_registry_summary` làm lại 11.157 lần | Bộ 2 |
+  | Khai sinh ghi | 166 trigger trên 148 bảng còn bật, không `EXCEPTION` (điểm gãy số 1 DEL-1) | Bộ 1 |
+  | Directus flow | 111 active (104 event · 5 lịch · 2 webhook); nhiều flow WATCHDOG→changelog, DOT-REG→Agent Data | nhiều chủ |
+
+  Quét `system_issues` theo đợt (10:00Z +57 lần trong ~3 phút; 10:03→10:07Z +0) ⇒ có job theo giờ, chưa biết là ai. Cộng PROOT04: PG đọc đĩa ~16 GiB/ngày; containerd+dockerd ~16% một lõi (healthcheck ~43 exec/phút + license-watch 288 container/ngày); `/health` ~290 lần/giờ × 0,39 s PG. Swap 1,7/2 GiB, MemAvailable 5,9 GiB (10:00Z, sau HEAL-01).
+- **Đề xuất điều hành (Host quyết một lượt):**
+  1. **Một RUN hai phần** (`PROMPT.md` DRAFT `VPSC-HEAL02-L0-20261013-01`): Phần 1 HEAL-02 giữ khoá (A1 phương án (a) + đồ thử Graph Q2 với 4 điều kiện máy kiểm thay cho dòng xác nhận của Host Graph) → trả khoá → Phần 2 L0 chỉ đọc = bước 2 DEL-1 làm lại bằng số + người gọi + Graph + RAM ⇒ Bảng B ứng viên L1 có lệnh tắt/bật chính xác. Gộp để Owner dán một lần; hai phần tách bạch, Phần 2 không có lệnh thay đổi.
+  2. **L1 (RUN sau; danh sách chính xác do Host + Claude chốt từ L0):** dự kiến = cron pivot Bộ 3 + chuỗi đếm `meta_catalog` còn bật + lưu Drive rồi bỏ 216k dòng `system_issues` cũ + xử lý người quét nặng; đo trước/sau. Khai sinh (Bộ 1) đợt sau, riêng, có diễn tập vì là điểm gãy.
+  3. **Cổng bước 3 «Ba lô» của DEL-1:** đề nghị thay bằng cập nhật khối nhãn tại chính vật (ngày tắt · RUN · lệnh bật lại) + Graph tự làm mới; không chờ việc pg-nhan-balo (đứng từ 03/10, phạm vi đã thu hẹp về quy tắc nhãn). JEV lệch (chờ PGNB 0,82) ⇒ **Host quyết trước READY L1**, không ảnh hưởng L0. Nếu chọn chờ thì một dòng `→ việc pg-nhan-balo`.
+  4. **Graph:** VPSC không ghi tay nhãn LEGACY/DISABLED vào Graph (một nguồn sự thật = catalog PG + nhãn tại vật). `→ việc graph-server`: lane pgdot có đọc trạng thái bật/tắt của trigger và khối nhãn mới không.
+- **Sổ việc VPSC — gom một chỗ (thay các danh sách rải rác):**
+
+  | Việc | Trạng thái | Nút | Chủ |
+  |---|---|---|---|
+  | #11 đỏ 2 lý do (transactions quá hạn · SLOPE7D) | đang | H2 | VPSC |
+  | Pivot Bộ 3 + chuỗi đếm Bộ 2 | mới D24 | L0 → L1 | VPSC |
+  | `system_issues` 216k dòng cũ + người quét nặng | mới | L0 → L1 | VPSC |
+  | Khai sinh 166 trigger + người quét `birth_registry` | mới D24 | L0 → L2 | VPSC |
+  | Governance/Luật (Bộ 4) | mới D24 | L0 → L2 | VPSC |
+  | Directus flow di sản | mới | L0 → L2 | VPSC |
+  | Healthcheck ~43 exec/phút, license-watch 288 container/ngày (PROOT04 G4/G5) | tồn | L0 → L1/L2 | VPSC |
+  | RAM: swap 1,7/2 GiB; trần theo số | tiếp D24 | L0 Bảng C → L1 | VPSC |
+  | C2: 312 tệp chạy chưa chứng minh nguồn (227 DOT nhãn DEL-1I chưa commit) | tồn | L0 L0-8 → L2 | VPSC |
+  | 3 EVIDENCE_DEBT nghiệp vụ | máy tự gom mẫu | W | VPSC |
+  | 502/OOM agent-data, gốc từng lần | tồn | N2b | VPSC |
+  | Khoá dùng chung đã lộ (O-R7-KEY) | **chờ Owner từ 07/10** | N2b | Owner |
+  | Tỉa `rescue/vpsc-n2a` trước `retain_until` | nợ | trước 10/2027 | VPSC |
+  | `/var/lib/hjw-control` hạn 16/10 · #21 | việc khác | — | HJW |
+  | #22 drift 3 tệp · workspace-exec ghi ~51 GiB/ngày (G9) | việc khác | — | TQT |
+  | presence/event + `/health` ~290/h (G10) | việc khác | — | HVU/TQT |
+
+- **JEV** `gen-dec-1791886119-cZnNT3zMmL434AkZoZUL` (bằng chứng phụ): đi tiếp DEL-1 bằng số mới 0,95 (khảo sát cụm mới 0,05) · đợt 1 = pivot + chuỗi đếm + `system_issues` cũ 0,98 · cần checkpoint chỉ đọc trước khi tắt 0,81 · không ghi tay nhãn vào Graph 0,73 · bỏ sót HEAL-02 là lỗ giám sát 0,75 · gộp hai phần 0,64 (tách 0,33; vi phạm luật «prompt khảo sát không chứa lệnh hành động» 0,39 ⇒ hai phần tách bạch, Phần 2 không có lệnh thay đổi) · cổng Ba lô: JEV nghiêng chờ PGNB 0,82 — Claude đề nghị khác, để Host quyết.
+- **Việc GPT Host (một lượt):** rà PROMPT; lỗi nhỏ sửa thẳng DRAFT rồi ghi `ACCEPT + READY@<full SHA last-touch PROMPT>` dưới mục này cùng commit; lớn thì PARTIAL đúng 1 blocker. GPT chỉ sửa nhỏ thì không cần Claude rà lại. Executor ghi tiến độ + hai dòng KQ ngay dưới mục này.
+- **Owner cần quyết:** O-R7-KEY (đề xuất ĐỒNG Ý, làm thành lượt riêng N2b). Không chặn H2+L0.
+- `NEXT_TRIGGER=GPT_HOST_REVIEW_P84_ONE_ROUND_THEN_READY_HEAL02_L0`
 
 ## NEXT · lịch sử vòng 1–2
 - Vòng 2 đã đóng 23/09; không dùng mục lịch sử này để điều hành vòng 3.
