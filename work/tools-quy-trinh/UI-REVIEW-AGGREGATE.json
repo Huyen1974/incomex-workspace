@@ -83833,6 +83833,27 @@
               }
             }
           ]
+        },
+        {
+          "run_id": "TQT-P42-CHECK005-LOCAL",
+          "work_id": "tools-quy-trinh",
+          "action": "Codex exec_command",
+          "outcome": "EXIT_0",
+          "status": "completed",
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P42/check005",
+          "subtools": [
+            {
+              "id": "TQT-CHECK-005",
+              "sha256": "11ff120bc9391405d505de0300b1e70ae57e1679b50b07a4bb2bf98942c55a18",
+              "exit_code": 0,
+              "case_set": "TQT-CASE-MASTER",
+              "checked_at": "2026-10-13T04:48:42.825024+00:00",
+              "ui_inputs": {
+                "process-work-master-v1.js": "b7fb6cf7c369594b6dd86f7ee066ccef8cbaf7696cd6b94c564509842ec2f68a"
+              },
+              "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P42/check005"
+            }
+          ]
         }
       ],
       "journal_invalid_lines": 0,
@@ -84192,6 +84213,18 @@
         "result": "87 rows/7groups, toggles,7green checkpoints,second-work no acceptance",
         "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P40/ui_verification",
         "source": "Real browser DOM and screenshot"
+      },
+      {
+        "action": "browser:cua",
+        "provider": "Codex CUA",
+        "version": "UNKNOWN_PLATFORM_BUILD",
+        "work_id": "tools-quy-trinh",
+        "run_id": "P42-CUA-TABS16-11",
+        "run_id_origin": "Host correlation",
+        "observed_at": "2026-10-13T04:48:42.825024+00:00",
+        "result": "7/11/87 standard;87 factual rows with blank fields;collapse verified",
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P42/ui_verification",
+        "source": "Actual browser DOM"
       }
     ],
     "open": [
@@ -89328,7 +89361,7 @@
     ]
   },
   "host_review_P42": {
-    "state": "LOCAL_CHECK_PASS_UI_READBACK_NEXT",
+    "state": "STANDARD_AND_FACTUAL_DOSSIER_VERIFIED",
     "at": "2026-10-13T04:41:01.700715+00:00",
     "scope": "standard guidance and actual dossier display; no runtime/PG/Guard change",
     "definition_version": "0.4-standard-record-split",
@@ -89336,8 +89369,11 @@
     "check005": {
       "exit_code": 0,
       "source_sha256": "11ff120bc9391405d505de0300b1e70ae57e1679b50b07a4bb2bf98942c55a18",
-      "evidence_ref": "Codex work/p42/check005.log",
-      "log_sha256": "8c02bce478d5494b4df296272ca62ead538a20dc554c4cfc4738a3faecbb391e"
+      "evidence_ref": "Codex work/p42/check005-final.log",
+      "log_sha256": "8c02bce478d5494b4df296272ca62ead538a20dc554c4cfc4738a3faecbb391e",
+      "ui_inputs": {
+        "process-work-master-v1.js": "b7fb6cf7c369594b6dd86f7ee066ccef8cbaf7696cd6b94c564509842ec2f68a"
+      }
     },
     "limits": [
       "No authenticated per-step write adapter; claims are not verified completion",
@@ -89345,7 +89381,30 @@
     ],
     "ui_hashes": {
       "qtth006-overview-v1.js": "2d3d6f6b7e78c1ee9d2e32e4699ec694aaa4b2f9645436ed8895142beed7f587",
-      "process-work-master-v1.js": "7f2e6724e39d4e497d5bb5c25fa6db895c5e77b8d830039ffdb7c44daa315669"
+      "process-work-master-v1.js": "b7fb6cf7c369594b6dd86f7ee066ccef8cbaf7696cd6b94c564509842ec2f68a"
+    },
+    "verified_at": "2026-10-13T04:48:42.825024+00:00",
+    "workspace_commit": "d80b8ad7813ffa194259ca632393dd6c5896a91f",
+    "ui_transactions": [
+      "09b303fe5f3a44f7bf0f84d6cbde4c7d",
+      "b5a9aaa2a2814026813873887d9cded7"
+    ],
+    "ui_verification": {
+      "standard_groups": [
+        7,
+        11,
+        87
+      ],
+      "standard_sections_toggle": "PASS",
+      "dossier_rows": 87,
+      "nonempty_actual_cells_without_events": 0,
+      "G1_checkpoints": 7,
+      "old_generic_reuse_list": "REMOVED",
+      "source_instructions": "linked, not duplicated in dossier",
+      "screenshots": [
+        "Codex work/p42/overview.png",
+        "Codex work/p42/dossier.png"
+      ]
     }
   }
 }

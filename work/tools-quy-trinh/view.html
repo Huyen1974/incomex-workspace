@@ -11755,10 +11755,8 @@ main{max-width:1240px} [hidden]{display:none!important}
         "Mã tham chiếu hợp lệ không chứng minh đầy đủ MOT, hợp đồng hoặc đường chạy."
       ],
       "open": [
-        "MOW001/G1 đang CHUẨN BỊ: chưa xác nhận điều kiện, chưa sửa UI/kiểm/duyệt lượt mới; mở phiếu để biết việc tiếp.",
         "TQT-ISS-007: 5 chốt cưỡng chế và PG thực còn mở; không dùng kiểm khai báo để nhận AI mới đã làm được.",
         "TQT-ISS-004: hướng dẫn hiện hành ở tools-quy-trinh; hồ sơ sản phẩm vẫn giữ nguồn gốc.",
-        "Q1/Q2: bộ 7 mốc chờ hội đồng; phiếu có nghĩa vụ ghi sổ và bảng thiết kế khóa/quan hệ, chưa đủ bằng chứng Master/quyền/đọc lại để qua mốc. Theo dõi TQT-ISS-007; chưa nhập PG.",
         "CAT-227*: đã có danh sách thứ tự và gắn hồ sơ MOW001; MOW002 chưa đến lượt. 17 UI Master theo dõi QTTH 05 (9 trước + 8 bổ sung) là bản thiết kế, trong danh sách 47 Master. Nơi lưu/quyền/PG và nghiệm thu vẫn mở."
       ]
     },
@@ -278566,7 +278564,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "timeout_seconds": 300,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
-            "process-work-master-v1.js": "7f2e6724e39d4e497d5bb5c25fa6db895c5e77b8d830039ffdb7c44daa315669",
+            "process-work-master-v1.js": "b7fb6cf7c369594b6dd86f7ee066ccef8cbaf7696cd6b94c564509842ec2f68a",
             "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
             "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357"
           },
@@ -279041,19 +279039,16 @@ main{max-width:1240px} [hidden]{display:none!important}
           },
           {
             "id": "TQT-CHECK-005",
-            "sha256": "6e10d74d88835f03d1fe400c69d6d960716b26860903ff27dafe0731793eb0ed",
+            "sha256": "11ff120bc9391405d505de0300b1e70ae57e1679b50b07a4bb2bf98942c55a18",
             "exit_code": 0,
             "case_set": "TQT-CASE-MASTER",
-            "checked_at": "2026-10-13T03:37:07.222844+00:00",
-            "evidence_ref": "/opt/incomex/data/workspace-tools/jobs/f6870e95c8014ed3bedd5a2fcaae80ab/stdout#results/TQT-CHECK-005",
+            "checked_at": "2026-10-13T04:48:42.825024+00:00",
             "ui_inputs": {
-              "process-work-master-v1.js": "24eb45b1defd2db3e01f9363e18b8d8ea0c292230ea5203ea20dd160cff84b1c",
-              "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
-              "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357",
-              "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c"
+              "process-work-master-v1.js": "b7fb6cf7c369594b6dd86f7ee066ccef8cbaf7696cd6b94c564509842ec2f68a"
             },
-            "job_id": "f6870e95c8014ed3bedd5a2fcaae80ab",
-            "source_head": "615928f4c5ac84414a9ac930bf09c8971805710a"
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P42/check005",
+            "job_id": "TQT-P42-CHECK005-LOCAL",
+            "source_head": null
           },
           {
             "id": "TQT-CHECK-006",
@@ -279066,7 +279061,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           }
         ],
         "observed_at": "2026-10-12T15:43:43.236724+00:00",
-        "audit_sha256": "3807d91da32b66794505dfe7a5cd6afdbffae8cdfbac62e5ff33dd3d14ec9a91",
+        "audit_sha256": "3464eae7b69ba329518e7cc2834808d175e95e8f72ca0f8b45406647491fa94e",
         "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P33/audit",
         "dot_inventory": [
           {
@@ -283754,7 +283749,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "registration": "UNMAPPED_OBSERVED_CAPABILITY"
           }
         ],
-        "execution_count": 137,
+        "execution_count": 138,
         "event_count": 4189,
         "complete_receipts": 184,
         "external_receipts": [
@@ -284106,6 +284101,18 @@ main{max-width:1240px} [hidden]{display:none!important}
             "result": "87 rows/7groups, toggles,7green checkpoints,second-work no acceptance",
             "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P40/ui_verification",
             "source": "Real browser DOM and screenshot"
+          },
+          {
+            "action": "browser:cua",
+            "provider": "Codex CUA",
+            "version": "UNKNOWN_PLATFORM_BUILD",
+            "work_id": "tools-quy-trinh",
+            "run_id": "P42-CUA-TABS16-11",
+            "run_id_origin": "Host correlation",
+            "observed_at": "2026-10-13T04:48:42.825024+00:00",
+            "result": "7/11/87 standard;87 factual rows with blank fields;collapse verified",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P42/ui_verification",
+            "source": "Actual browser DOM"
           }
         ],
         "gaps": [
@@ -287720,7 +287727,7 @@ workBoard+
 '<div class="ov-foot"><p><b>Nguyên tắc:</b> đây là '+normals.length+' Quy trình thành phần dùng lại, <b>không</b> phải mỗi Quy trình tổng hợp có một bộ riêng.</p>'+
 '<p>Kho '+(Q?Q.questions.length:'…')+' câu hỏi / '+(Q?Q.groups.length:'…')+' nhóm là <b>tài nguyên</b>, không phải Quy trình. <a href="#QT-CTCM-012">Khai báo và kiểm bộ câu hỏi</a> <small class="ov-code">QT-CTCM-012</small> là <b>một trong '+normals.length+' Quy trình thành phần</b>.</p>'+
 '<p class="ov-status">Tên, mã, mối gọi lấy từ danh mục thiết kế '+e(R.id)+'; các Quy trình chưa được coi là đã vận hành production.</p></div></div>'+
-'<div class="ov-section"><p><b>Khuôn đã có; từng việc chỉ được bắt đầu sau khi xác nhận đủ điều kiện.</b> MOW001/G1 đang chuẩn bị. <a href="#tqt-trial-contract">Mở cách ghi nhận–trả</a>.</p><h2>Bước tiếp theo và phần còn mở</h2><ul>'+R.consistency_review.open.map(v=>'<li>'+e(v)+'</li>').join('')+'</ul><p><a href="#TQT-ISS-007">Theo dõi trong TQT-ISS-007</a> · đồng bộ danh mục chưa phải nghiệm thu quy trình.</p></div>'+
+'<div class="ov-section"><p><b>Khuôn đã có; từng việc chỉ được bắt đầu sau khi xác nhận đủ điều kiện.</b> Trạng thái thực tế xem tại hồ sơ từng việc. <a href="#tqt-trial-contract">Mở cách ghi nhận–trả</a>.</p><h2>Bước tiếp theo và phần còn mở</h2><ul>'+R.consistency_review.open.map(v=>'<li>'+e(v)+'</li>').join('')+'</ul><p><a href="#TQT-ISS-007">Theo dõi trong TQT-ISS-007</a> · đồng bộ danh mục chưa phải nghiệm thu quy trình.</p></div>'+
 '<details class="oc-detail"><summary>Hai sơ đồ tham khảo trước đây</summary><h2 class="ov-ref-title">Hai sơ đồ HTML tham khảo</h2><p class="ov-ref-hint">Diễn giải lại hai ảnh mẫu, ở bên dưới sơ đồ chính. Không thêm nguồn quy trình hoặc thay số liệu đã chốt.</p>'+posterDetailed+posterShort+'</details>';
 const openLinkedTable=()=>{const id=location.hash.slice(1);if(['tqt-checkpoint-list','tqt-recording-list'].includes(id)){const panel=document.getElementById(id);if(panel)panel.open=true;}};
 slot.addEventListener('click',event=>{const href=event.target.closest('a')?.getAttribute('href');if(['#tqt-checkpoint-list','#tqt-recording-list'].includes(href)){const panel=document.getElementById(href.slice(1));if(panel)panel.open=true;}});
