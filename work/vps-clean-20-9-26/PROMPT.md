@@ -1,4 +1,73 @@
-# PROMPT — VPSC-L1-CRON-OFF-20261013-01 · Tắt theo chủ đề, đợt 1: 21 dòng LỊCH di sản (Pivot/đếm + Governance/APR/heal) · chỉ crontab, không chạm PG/Directus/mã
+# PROMPT — VPSC-L1P-GUARD-CRON-20261013-01 · Khoá lịch máy vào Config Guard (lấp ô Điều 31 của L1, theo D26) + đo chỉ đọc câu luân phiên Kuma #11 · không đổi dòng lịch nào đang chạy
+
+RUN_ID: VPSC-L1P-GUARD-CRON-20261013-01
+Task: `work/vps-clean-20-9-26` (VPSC) · mục tiêu D22–D25 + **D26 (Owner 13/10 22:25: mọi thứ phải được bảo vệ bởi Điều 30/31 để các AI không làm hỏng mã của nhau)**. Không phải việc mới.
+Soạn: Claude Chat (P91, B2 sau KQ L1 + GPT B1). Rà: GPT Chat Host một lượt (B3): ổn ⇒ ACCEPT + READY đúng SHA; sửa nhỏ chỉ thêm kiểm thì sửa thẳng rồi READY (Claude chấp nhận trước).
+Executor: Claude Code CLI, phiên MỚI trên Mac, qua `ssh contabo`. Ghi repo: Incomex MCP `workspace_*` root `workspace`.
+Status: **DRAFT — chờ GPT ACCEPT+READY**.
+Bằng chứng: `/opt/incomex/work/vps-clean-20-9-26/VPSC-L1P-GUARD-CRON-20261013-01/` (`<EV>`; chỉ receipt đã làm sạch). Báo cáo: mục `L1P-20261013` trong `BAO-CAO.md` hiện có. Tiến độ + KQ: dưới P91 trong `COLLAB.md`. Không tạo tệp repo mới.
+**Chỉ thực hiện phần trên dòng `LỊCH SỬ` đầu tiên.** Tham chiếu được nêu tên: §1 luật cứng + §2 S0 của bản lịch sử HEAL-01; mục L1-20261013 và mục R6 «3. Mutation thật» dòng M11 (đăng ký đích Config Guard qua `guard-registry`) trong `BAO-CAO.md`.
+
+## 0. Mục tiêu và thế nào là XONG
+Sau L1, lịch máy (crontab root) vẫn là chỗ bất kỳ AI nào sửa tay được mà không ai hay — đúng lỗ hở D26. Ví dụ: một phiên khác lỡ bỏ dấu `#` ở dòng matrix, máy lại quét 1,2 triệu dòng mỗi 10 phút mà không đèn nào đỏ. Lượt này đưa lịch máy vào Config Guard: sửa tay ⇒ drift-check thấy ⇒ #22 đỏ ⇒ Telegram; sửa đúng đường = `incomex-config-apply-v0` có bản lùi. **Không đổi dòng lịch nào đang chạy.**
+**XONG khi đủ cả 5:**
+1. Crontab root là đích Config Guard, baseline = sha hiện tại (sau L1 + 1 dòng biển báo §3 mục 2); drift-check một lượt ngay sau: đích mới MATCH.
+2. Các tệp `/etc/cron.d/*` tự viết (không thuộc gói `dpkg -S`) chưa có trong Config Guard được đăng ký baseline như mục 1, trừ tệp của việc đang có cờ bận (ghi lại, không đăng ký).
+3. Guard POST `--coverage` chạy lại cho footprint L1 (crontab root) và footprint lượt này: đủ 4 ô Điều 30 · Điều 31 · canh · lùi, **0 ô THIẾU**.
+4. Kuma #11 (và #21) đọc chỉ đọc `kuma.db` (`mode=ro`) 48 giờ: tách nhịp push (câu do `kuma-push.sh` gửi) với nhịp Kuma tự ghi «No heartbeat in the time window»; khoảng cách lớn nhất giữa hai nhịp push liên tiếp so `interval`. Push đều ≤ interval ⇒ kết luận «hiển thị, không mất nhịp» kèm số; có khoảng > interval ⇒ mất nhịp thật, ghi giờ. **Không sửa Guard, không sửa Kuma.**
+5. 22 đèn same-or-better (lý do #11 đánh giá theo mục 4); drift-check không thêm đích lệch mới ngoài các đích mới đăng ký; số dòng lịch đang chạy vẫn 32 và nội dung các dòng chạy không đổi.
+
+## 0A. Quyền Owner — khối Owner dán PHẢI có nguyên dòng này
+Owner D26 (13/10/2026 22:25): «Cần nhắc là mọi thứ nên được bảo vệ bởi điều 30 31 tránh các AI làm hỏng mã của nhau nhé»
+
+RUN này chỉ ĐĂNG KÝ bảo vệ (baseline) + thêm 1 dòng chú thích biển báo trong crontab root + đo chỉ đọc. Không tắt/bật lịch, không sửa Guard/Kuma/DOT/mã, không PG/Directus, không rebaseline đích Config Guard sẵn có. Thiếu dòng này hoặc thiếu Reviewer ACCEPT + Host READY đúng SHA PROMPT hiện tại ⇒ DỪNG trước STARTED.
+
+## 1. Luật cứng
+- Áp nguyên §1 của bản lịch sử HEAL-01 (VPS-GHI · báo từng bước · danh sách KHÔNG ĐƯỢC · bí mật · nghi ngờ thì giữ).
+- Config Guard chỉ qua `incomex-config-apply-v0` đúng cách R6 M11 đã làm (`guard-registry`): đọc cú pháp/`--help` ở S0, không tự chế lệnh, không sửa `registry.tsv` bằng tay; 4 đích đang lệch sẵn (INV5_6 của TQT/HJW) giữ nguyên, không rebaseline.
+- Crontab root: chỉ thêm đúng 1 dòng chú thích (§3 mục 2) bằng cách như L1 (`crontab -l` → tệp `<EV>` → `crontab <tệp>`), làm TRƯỚC khi đăng ký baseline. Không đổi dòng nào khác.
+- `/etc/cron.d`: chỉ đăng ký baseline, không sửa byte.
+- `kuma.db` chỉ đọc; không in cấu hình kênh/token/chat id.
+- Ngân sách ≤ 30 phút.
+
+## 2. S0 — đọc + PRE (chỉ đọc)
+1. Đọc `AGENTS.md` → COLLAB gốc (`VPS-GHI`) → VPSC COLLAB §0 (D25, D26) + P89–P91 → PROMPT này → `BAO-CAO.md` mục L1-20261013 + R6 dòng M11.
+2. Kiểm Reviewer ACCEPT + Host READY đúng SHA; khối Owner có dòng §0A; §2 bước 2–3 của bản lịch sử HEAL-01 (sàn tài nguyên, Guard PRE + PRE_RED_SET); drift-check PRE (TOTAL · danh sách MISMATCH).
+3. Crontab root hiện tại: sha phải = sha sau L1 (`94e90c41…`); khác ⇒ có ai sửa sau L1 ⇒ DỪNG, ghi số thứ tự dòng khác (không in nội dung).
+4. Bảng `/etc/cron.d`: tệp · thuộc gói dpkg? · đã là đích Config Guard? · việc chủ · cờ bận của việc chủ.
+5. Liệt kê (chỉ tên tệp) chương trình đang chạy theo lịch/systemd có tự ghi crontab (`crontab -`, ghi `/var/spool/cron`, ghi `/etc/cron.d`): có ⇒ ghi tên → Host; vẫn đăng ký (sửa tay bị lộ là đúng mục đích D26).
+6. Giữ `VPS-GHI` + dòng STARTED dưới P91 cùng commit trước mọi thay đổi.
+
+## 3. Thực hiện
+1. **Bản sao:** `crontab -l > <EV>/crontab.truoc` (sha = mục S0.3) và giữ nguyên `/root/crontab.bak-VPSC-L1-CRON-OFF-20261013-01` của L1.
+2. **Biển báo tại chỗ** — thêm đúng 1 dòng ngay dưới dòng nhãn L1: `# CONFIG GUARD từ <UTC> (VPSC-L1P-GUARD-CRON-20261013-01 · D26 Owner): tệp này được canh — sửa qua incomex-config-apply-v0; sửa tay ⇒ đèn #22 đỏ. Bật lại dòng #L1-OFF cũng phải đi đường này.` → nạp → ghi sha mới; dòng chạy vẫn 32.
+3. **Đăng ký Config Guard** qua `incomex-config-apply-v0` `guard-registry`: đích crontab root (baseline = sha mục 2) + các tệp `/etc/cron.d` đủ điều kiện ở S0.4; bản `.pre` của registry làm đường lùi.
+4. **drift-check một lượt:** các đích mới MATCH; danh sách MISMATCH cũ không dài thêm.
+5. **Thử âm (Điều 30 — canh có thật):** chỉ khi drift-check có chế độ thử/fixture trên tệp tạm (không bao giờ sửa tay tệp thật để thử); không có ⇒ ghi «chưa thử âm» kèm lý do.
+6. **Guard POST `--coverage`:** footprint L1 (crontab root) + footprint lượt này (crontab root, registry Config Guard) ⇒ 4 ô đủ, 0 THIẾU.
+7. **Kuma #11/#21:** đo theo §0 mục 4; bảng: giờ · loại nhịp (push/tự ghi) · trạng thái · câu (cắt 60 ký tự, không token).
+8. **Biển báo cho mọi việc khác:** thêm một câu vào dòng VPSC ở COLLAB gốc: «crontab root + `/etc/cron.d/<danh sách>` thuộc Config Guard từ <ngày> — sửa qua apply-v0, sửa tay ⇒ #22 đỏ».
+9. **Git cục bộ `/opt/incomex`:** commit dòng nhãn DEL-1 L1 đã thêm vào `docs/KE-HOACH-XOA-20260801.md` (message có RUN_ID L1 + RUN_ID này); chỉ tệp đó.
+10. **POST:** 22 đèn same-or-better; agent-data `/health`, Directus ping, Nuxt `/knowledge/modules` 200; dòng lịch chạy 32.
+11. **Báo cáo:** mục `L1P-20261013` trong BAO-CAO (cho Owner ≤ 3 dòng · bảng đích Config Guard mới · drift-check trước/sau · bảng coverage 4 ô cho L1 và lượt này · kết luận Kuma có số) → `KQ@VPSC-L1P-GUARD-CRON-20261013-01 XONG|DỪNG · …` dưới P91 → **trả `VPS-GHI: trống` cùng commit**. Báo Owner đúng một dòng.
+**Lỗi thì lùi:** registry Config Guard về bản `.pre` qua apply-v0; crontab về `<EV>/crontab.truoc` (chỉ mất dòng biển báo); kiểm sha = PRE; KQ DỪNG nêu bước.
+
+## 4. Bước đi
+| Bước | Việc | Bằng chứng | Lỗi thì |
+|---|---|---|---|
+| 1/5 S0 | đọc, PRE, drift-check PRE, bảng cron.d, giữ khoá | ảnh PRE, STARTED | DỪNG trước mọi thay đổi |
+| 2/5 Biển báo + đăng ký | 1 dòng chú thích, apply-v0 guard-registry | sha, registry `.pre` | lùi |
+| 3/5 Kiểm | drift-check, thử âm, Guard coverage 4 ô | 0 THIẾU, đích mới MATCH | lùi |
+| 4/5 Kuma + biển báo chung + git | đo #11/#21, dòng COLLAB gốc, commit nhãn DEL-1 | bảng nhịp | ghi UNKNOWN, không đoán |
+| 5/5 KQ | BAO-CAO + KQ + trả khoá | 0 tiến trình nền | — |
+
+Sau RUN (không thuộc RUN này): Reviewer đọc `pg_stat` 24h từ T0 của L1 (14:57:19Z 13/10) → Host chọn L1b (trần RAM) hoặc L2 theo chủ đề; mọi lượt sau giữ luật D26: thứ sắp đổi phải có đủ 4 ô Điều 30/31 trong cùng RUN.
+
+---
+
+<details><summary>LỊCH SỬ — L1 VPSC-L1-CRON-OFF-20261013-01 (READY 91334aa8, đã chạy 13/10 14:56–15:17Z, KQ XONG 21/21) — KHÔNG THỰC HIỆN</summary>
+
+# (Lịch sử) PROMPT — VPSC-L1-CRON-OFF-20261013-01 · Tắt theo chủ đề, đợt 1: 21 dòng LỊCH di sản (Pivot/đếm + Governance/APR/heal) · chỉ crontab, không chạm PG/Directus/mã
 
 RUN_ID: VPSC-L1-CRON-OFF-20261013-01
 Task: `work/vps-clean-20-9-26` (VPSC) · mục tiêu D22–D24 + **D25 (Owner 13/10 20:59: chỉ giữ PG đếm PG/ba lô, agent-data RAG + connector, Graph và bảo vệ Đ30/31; Lark tạm giữ; governance · khai sinh · miếng thông tin · registries · pivot count off theo chủ đề)**. Không phải việc mới.
@@ -87,7 +156,7 @@ RUN này chỉ tắt LỊCH (crontab root) của hai chủ đề Pivot/đếm v�
 
 Sau RUN (không thuộc RUN này): Reviewer đọc `pg_stat` 24h từ T0 (bộ đếm cộng dồn, không ai chờ) → Host chọn L1b (trần RAM theo số mới) hoặc L2 theo chủ đề (P89).
 
----
+</details>
 
 <details><summary>LỊCH SỬ — HEAL02+L0 VPSC-HEAL02-L0-20261013-01 (READY b8ee714e, đã chạy 13/10: Phần 1 DỪNG · Phần 2 XONG) — KHÔNG THỰC HIỆN</summary>
 
