@@ -291,3 +291,105 @@ print([r['version'] for r in cat['records'] if r['code'] == 'MOW-TH-006'], cat['
 
 KQ@TQT-P49-CLAUDE-REVIEW XONG · 2026-10-13 ~10:15Z (giờ chính xác = commit của tệp này) · phạm vi: chỉ đọc + đúng một tệp đề xuất.
 Dọn: không tạo tiến trình nền, lease hay khóa; các lượt `workspace_exec` chạy trong bản chụp cách ly, tự hủy; không sửa view.html, 005/006, README, COLLAB, hồ sơ, Master, mã DOT, UI, runtime, PG; không restart/deploy. Đề xuất cho Host Codex tiếp nhận theo quy trình; Owner chỉ cần gật/lắc câu ở mục 0.
+
+---
+
+# VÒNG 2 · Rà bản sửa P50 (commit `6aea645`, KQ `05075a0`) · 13/10/2026
+
+REVIEWER: Claude (Anthropic) · Claude Chat/Cowork · ghế Claude-review. Không chuyển Host, không sửa nguồn chính.
+STARTED@TQT-P50-CLAUDE-REVIEW 2026-10-13T11:00:37Z.
+BASED_ON: HEAD `9931638` (commit này chỉ đổi phần VPSC; nguồn tools-quy-trinh = `05075a0`). view.html `232edd31…` (khớp số Host ghi ở P50) · ui/process-work-master-v1.js `1b6ae447…` (khớp) · đề bài `proposals/TQT-PR-20261013-host-response-P50.md` `02814437…`.
+ĐÃ ĐỌC: COLLAB P50 + Bảng; phản hồi P50; diff `check-work-masters.js` từ `bf653b6` tới `05075a0`; renderer UI; dữ liệu hồ sơ 001 tại HEAD (1 lượt script cách ly); MOW-TH-002/003 trong `catalog.records`.
+GIAO DIỆN: **đã xem trực tiếp** bằng trình duyệt headless trên VPS (hồ sơ 001, mở đủ 7 nhóm CP; trang dựng xong sau ~9,4 s; không đăng nhập, không đổi dữ liệu). Codex thấy trang trắng ở tab 21; trình duyệt sạch hiện đủ ⇒ mục "UI chưa xác minh" của P50 nay đã xác minh.
+JEV: `gen-dec-1791889587-5Drpc5884ppvzsErNnlK` (phân loại chặn/trong lượt/để sau cho 12 issue; dùng tham khảo, kết luận dưới đây là của Reviewer).
+
+## V2.0 · Nhìn 30 giây
+
+**Bảng: lệch** — dòng ✅ vẫn ghi "QTTH006 v0.3" (nguồn 0.5); dòng ■ đúng (0 RUN). **Ô 1–2: khớp.**
+
+| Kết luận | Mã |
+|---|---|
+| Bản sửa P50 | **ACCEPT_CORRECTIONS** — kèm 4 sửa nhỏ làm luôn trong lượt kế tiếp, không cần vòng rà riêng |
+| Kế hoạch lượt sau | **ACCEPT_PLAN có điều kiện** — đúng hướng Host; vào lượt thật khi xong 4 chốt B1–B4 (một lượt Codex) |
+| P46 | Vẫn **chưa nghiệm thu** — đồng ý Host |
+
+Đồng thuận với Host: 9/13 điểm P49 đã xử lý đúng; 4 điểm còn lại (thời gian tự động, luật Không làm, item, Master) Host đã ghi thành issue có chủ, có quy trình xử lý. Bất đồng còn lại chỉ 2 điểm sửa (R2, R3) và 2 đề xuất (chọn ca thử, cách đo) — mục V2.3.
+
+**❓ Owner gật/lắc:** ca thử thật đầu tiên = **QTTH002 xử lý một issue thật (TQT-P50-EDGE)**, do **Claude Code** chạy (khác hãng Host), reviewer là phía OpenAI. Lý do: đúng mục tiêu "QT 002 phải chạy được", việc nhỏ, có sản phẩm thật, thử luôn vòng đời issue và quay về nơi phát hiện. **Đề xuất PM: gật.**
+
+## V2.1 · Kiểm độc lập phần đã sửa
+
+| # | Mục P49 | Kiểm thực tế | KL |
+|---|---|---|---|
+| 1 | Giờ nhập hiện thành giờ xong (F2) | Renderer chỉ hiện giờ/thời lượng khi `timing_basis` khác `RECORDING_ONLY`. UI: chỉ CP03.08 hiện "15:26:46 · 611 ms", các dòng khác trống | ✅ |
+| 2 | Khép RUN (CP07.08) | UI: Đã làm, dẫn bằng chứng dọn 08:47:48Z; CHECK005 có ca âm "RUN đã khép mà còn Bị chặn" | ✅ |
+| 3 | Tách G1 / P46 (F8) | Danh sách: "Dừng · MOW001-QT006-P46-REAL · Lượt chẩn đoán · chưa nghiệm thu". `cycle.classification = DIAGNOSTIC_REUSE_NOT_NEW_APPLICATION`. Khối G1 7/7 có dòng "không là nghiệm thu lượt chẩn đoán" | ✅ (xem U1) |
+| 4 | Giữ lịch sử | 136 sự kiện = 91 cũ + 45 revision P50; `history_correction_proof.prior_sha256` + CHECK005 so tiền tố | ✅ |
+| 5 | Bị chặn chung chung (F3) | Còn 27 bước, 7 lý do, gắn 6 issue (ENTRY 12 · PRODUCT 5 · HANDOFF 5 · DECISION 3 · EDGE 1 · CHANGE 1); đủ owner, return_to, next_trigger | ✅ |
+| 6 | Không làm sai (F5) | Còn 6 bước Không làm, đều nhánh không phát sinh. CP04.13 → Đã làm + ghi issue; CP04.15 → Bị chặn (CHANGE) | ✅ |
+| 7 | Làm sau cổng (F7) | CP04.02–05, CP05.x ghi "nháp/chẩn đoán, không tính qua cổng" + trường `draft` | ✅ |
+| 8 | 12 issue | Có trong `cycle.issues` và 12 bản ghi CAT-069?; đủ `route_process`, `blocks_scope` | ✅ |
+| 9 | CP01.04 / 02.21 / 04.01 | Giữ Bị chặn theo nghĩa "bước nghiệp vụ của application mới", lý do nay cụ thể. Em **rút lại** nhận định P49 "lỗi thời" cho 3 bước này | ✅ |
+| 10 | CP07.03 | Giữ Bị chặn; bản ghi CAT-232* mang trạng thái `PREPARED_NOT_ACKNOWLEDGED` — đủ phân biệt. Phần sổ nhận trạng thái gì thuộc MASTER, để sau | ✅ |
+| 11 | `--write-gate`, `--check-history` | Host đúng: hai tùy chọn chỉ phủ G1 (`application_D24`, trusted_context). Em **rút lại** gợi ý P49 "chạy là xong". Mở rộng cho application mới thuộc ENTRY-b | ✅ |
+| 12 | Cột Vai (F11) | Đồng ý không thêm cột, **nếu** có luật kiểm "bước rà/duyệt: người làm ≠ người kiểm" (đưa vào B1) | ✅ có điều kiện |
+
+**Lỗi mới / chưa đủ trong bản sửa**
+
+| ID | Mức | Vấn đề | Bằng chứng | Sửa tối thiểu | Phép kiểm |
+|---|---|---|---|---|---|
+| R1 | 🟡 | Revision sửa che mất số đo thật và tool của 5 bước | 45 revision P50 đều `RECORDING_ONLY`, `tool_uses` rỗng; bản mới nhất của CP04.05, CP05.02, CP05.04, CP05.05, CP05.10 là bản P50 ⇒ UI không còn "348 giây · đo chung", "92,1 giây · đo chung", cột Tool trống (trước P50 có CHECK-005/006) | Renderer: khi bản mới nhất có `correction_of`, lấy giờ/thời lượng/tool từ sự kiện được đính chính (hoặc revision chép lại các trường đó) | UI: CP05.04 hiện 348,0 giây · đo chung; CP05.10 hiện TQT-CHECK-006 |
+| R2 | 🔴 chặn lượt mới | Luật kiểm P50 chỉ chạy cho hồ sơ P46 | `auditCorrections` thoát ngay nếu không có `history_correction_proof`; chỉ xét Bị chặn có `event_id` kết thúc "-P50"; CP04.07, CP04.15 khẳng định cứng theo mã bước | Đưa luật ra ngoài cổng đó: (1) mọi Bị chặn mới nhất phải có issue_ref/owner/return_to/next_trigger; (2) có `closed_at` ⇒ CP07.08 Đã làm; (3) có readback ⇒ CP04.07 không Bị chặn; (4) lượt có bản ghi CAT-016 ⇒ CP04.15 không Không làm. Giữ luật tiền tố cho P46 | Mỗi luật một ca âm trên **hồ sơ mẫu mới** (không phải P46) |
+| R3 | 🟡 | CP03.05 ghi Đã làm dựa vào review P49 | P49 rà hồ sơ 87 bước, **không** rà hợp đồng trường/nguồn/đích CAT-206* của một application | CP03.03 Đã làm là đúng (đã có reviewer được giao). CP03.05 để Bị chặn (ENTRY) tới khi có review hợp đồng của application mới | UI: CP03.05 = Bị chặn |
+| R4 | 🟢 | Chữ dính trong nội dung **mới** viết ở P50 | "đóng gói lạiG1", "GóiP05", "khépRUN", "hợp đồng006" | Lượt ghi mới giữ dấu cách; không sửa lịch sử | Revision mới không còn chữ dính số/chữ hoa |
+| R5 | 🟢 | JSON mảng vẫn hiện thô | CP02.05 cột "Kết quả" hiện `[{"group": "RG01", …` — bộ lọc chỉ bắt chuỗi bắt đầu bằng `{` | Lọc cả `[` | UI CP02.05 không còn JSON |
+| U1 | 🟢 | 7 ô G1 "Xong · Đã kiểm đạt" vẫn nổi ngay dưới trạng thái P46; cột BẮT ĐẦU hiện giờ dạng ISO (`2026-10-12T07:47:24.838Z`) | text UI | Thu khối G1 thành "Lịch sử G1 (đã nhận 12/10) ▸" mặc định đóng; hiện giờ Việt Nam | Nhìn 30 giây không thấy 7/7 xanh ở chỗ P46 |
+| U2 | 🟢 | Bảng điều khiển vẫn ghi "QTTH006 v0.3" | COLLAB dòng ✅ | Host Kiểm soát sửa | — |
+
+Ghi chú: trường dữ liệu `lifecycle_state` của bản ghi 001 vẫn là `DELIVERED` (UI tự phủ trạng thái lượt chẩn đoán). Chấp nhận vì không sửa G1; khi đưa vào PG cần trường trạng thái lượt riêng — thuộc ENTRY.
+
+## V2.2 · 12 issue: chặn lượt sau · làm trong lượt · để sau
+
+Nguyên tắc phân loại: **chỉ chặn** cái mà thiếu thì lượt thật kế tiếp **ghi sai hoặc không đo được**; còn lại xử lý trong lượt hoặc để QTTH003 sau. Thiếu evaluator live **không** chặn việc thiết kế/kiểm (đồng ý Host).
+
+| Issue | Route Host | Kết luận đề xuất | Việc tối thiểu |
+|---|---|---|---|
+| ENTRY | 003 | **Tách hai.** ENTRY-a làm **trong lượt**: executor tạo application mới ở CP01.04; biên nhận cổng ở CP02.23 = CHECK005 trước ghi + ghi CAS có expected_version + đọc lại hash, ghi rõ mức `HOST_CHECK`. Trước lượt chỉ cần **viết luật** đó (B2). ENTRY-b (mở rộng guard máy chủ cho id mới) là đổi cấu hình production ⇒ Owner duyệt riêng, **để sau** | B2 |
+| TIMING | 003 | **Chặn** | B3 |
+| SKIP | 003 | **Chặn nhẹ** — cùng tệp CHECK005 với R2, làm chung | B1 |
+| ITEMS | 003 | **Trong lượt**: bước lặp ghi manifest (danh sách ID + số lượng) trong kết quả; không bắt mỗi item một sự kiện | Luật 1 dòng trong B3 |
+| CHANGE | 003 | Vòng 2 này đã rà diff UI/CHECK005 ⇒ **đóng được** sau khi sửa R1, Host ghi CAT-016 + tăng phiên | R1 |
+| MASTER | 003 | **Để sau** — ca thử đề xuất không ghi vào CAT-003?/009?/206*/239*/012 | — |
+| DEFINITION | 003 | **Để sau**; nếu rẻ thì sửa luôn dòng kẻ bảng 6 cột và phiên ở `catalog.records` | — |
+| DUPLICATION | 003 | **Để sau** · chờ Owner Q03 (PR22/PR23) | — |
+| EDGE | 002 | **Chính là việc của ca thử** (đề xuất) | — |
+| PRODUCT · DECISION · HANDOFF | 002 · 005 · 005 | **Không chặn.** Là kết quả của lượt chẩn đoán P46. Khi lượt mới có sản phẩm thì đóng ba issue này trạng thái `SUPERSEDED` có dẫn chiếu — tránh issue mở mãi trên một lượt chẩn đoán | Luật đóng lượt chẩn đoán (B4) |
+
+**Thêm 2 chặn mới** (không nằm trong 12 issue):
+- **R2** — luật kiểm chỉ áp cho P46 (mục V2.1). Không sửa thì lượt mới không được máy kiểm.
+- **QTTH002 mới ở mức thiết kế.** `catalog.records[MOW-TH-002]`: chỉ có tuyến 6 bước (Phát hiện → Xác minh → Xử lý → Đấu lại → Kiểm tại nơi phát hiện → Kết thúc); cổng ghi `connections: Chưa kín`, `records: chưa nối máy`, `closure: Chưa chứng minh`; không có trạng thái issue, không có điều kiện xong từng bước. 10/12 issue đang được giao cho 002/003 — tức là giao vào quy trình chưa chạy được. Đây là chỗ phải sửa trước để "QT 002 chạy được".
+
+## V2.3 · Thứ tự tối thiểu để một AI khác làm thật từ đầu đến cuối (ngoài PG, đo giờ thật)
+
+📍 [■ B · Codex sửa 4 chốt] → [□ R · Claude rà delta] → [□ O · Owner gật ca thử] → [□ X · Claude Code chạy] → [□ V · reviewer phía OpenAI] → [□ D · Owner duyệt/nhận] → [□ K · khép RUN, tổng giờ]
+
+**B · Codex Host, một lượt, ghi như một thay đổi QTTH003 (CAT-016; 006 → 0.6, 002 → 1.1):**
+- **B1 · CHECK005 luật chung:** R2 + SKIP (Không làm ở bước LUÔN hoặc nghĩa vụ bắt buộc phải có `condition_evidence` + người duyệt) + "bước rà/duyệt: người làm ≠ người kiểm" + sửa R1, R3, R5.
+- **B2 · Luật biên nhận cổng cho application mới** (ENTRY-a, mức `HOST_CHECK`) ghi vào 006 §5/§7.
+- **B3 · Luật đo thời gian khả thi trên kho hiện tại:** mỗi **mốc** có sự kiện STARTED và KQ ghi ngay lúc bắt đầu/kết thúc mốc, đồng hồ là **giờ commit của máy chủ** (không lấy giờ AI tự khai); tool có biên nhận start/end; bước làm tay trong mốc ghi `SHARED_INTERVAL` của mốc; cấm `RECORDING_ONLY` cho sự kiện mốc. Lý do không đo từng bước bằng tay: mỗi lần ghi view.html ~6,7 s (PR22), 87 bước × 2 lần ghi không khả thi; đo từng bước để sau khi có kho theo việc (Q03). Thêm luật manifest cho ITEMS.
+- **B4 · QTTH002 chạy được:** (a) bảng nối 6 bước tuyến với bước 006: Xác minh → CP04.02 · Xử lý → CP04.04 · Đấu lại → CP04.06/07 · Kiểm tại nơi phát hiện → CP05.03 + revision `return_to` ở hồ sơ gốc · Kết thúc → CP07; (b) trạng thái issue ở CAT-069?: `OPEN → VERIFIED → FIXING → VERIFYING → CLOSED` · `DEFERRED` (có người duyệt) · `REJECTED` (có lý do) · `SUPERSEDED` (có dẫn chiếu); (c) điều kiện xong + nơi ghi mỗi bước; (d) luật đóng lượt chẩn đoán.
+- **Đạt khi:** CHECK005/006 PASS trên P46 **và** trên một hồ sơ mẫu mới; mỗi luật mới có một ca âm bị chặn.
+
+**R · Claude (một vòng):** chỉ rà diff của B + chạy ca âm. Trả ACCEPT hoặc chỉ đúng dòng phải sửa.
+
+**O · Owner (một câu):** gật ca thử. Vì đường tự gửi từ Codex sang Anthropic bị bộ duyệt chặn, Owner chỉ dán cho Claude Code đúng một dòng Host soạn sẵn trong COLLAB, kiểu "Đọc work/tools-quy-trinh/COLLAB.md mục P5x, làm đúng phần READY".
+
+**X · Executor Claude Code (khác hãng Host):** application mới; `selected_process = MOW-TH-002`; ngoài PG; sản phẩm = kết quả kiểm các cạnh giao nhận MOT 1.1 → 1.2 → 1.3 lấy từ hợp đồng MOW001-G1-IC v5, ghi CAT-015; cập nhật issue EDGE ở CAT-069?; thêm revision `return_to` tại CP02.13 của TQT-VIEC-001. Tắc thì DỪNG đúng bước có issue, không giữ khóa.
+
+**V · Reviewer khác hãng với executor (Codex/GPT):** đọc sản phẩm + hồ sơ, làm CP05. **D · Owner:** duyệt/nhận sản phẩm (CP06–07), một câu. **K:** khép RUN; tổng thời gian = từ STARTED mốc 1 tới ACK, theo giờ máy chủ.
+
+**Ca thử đạt khi:** executor không hỏi gì ngoài quyết định CP06 · mọi bước áp dụng có sự kiện · 0 Không làm thiếu căn cứ · 7 mốc có giờ máy chủ · sản phẩm thật đọc lại được · EDGE CLOSED, hoặc DỪNG đúng bước với issue cụ thể.
+
+**So với kế hoạch Host** ("QTTH003 sửa hợp đồng → kiểm bằng DOT → executor khác chạy một việc thiết kế nhỏ → reviewer → Owner → khép RUN"): **cùng khung**, khác 4 điểm: (1) phạm vi sửa trước chỉ B1–B4, không gom MASTER/DEFINITION/DUPLICATION; (2) thêm B4 vì 002 chưa chạy được; (3) đo theo mốc bằng giờ máy chủ thay vì từng bước; (4) ca thử là một việc QTTH002 (EDGE) thay vì "một việc thiết kế nhỏ" chung chung. Nếu Host muốn giữ việc thiết kế, em chấp nhận, nhưng 002 vẫn phải có lần chạy thật đầu tiên trước khi giao issue hàng loạt cho nó.
+
+**Nhật ký vòng 2:** KQ@TQT-P50-CLAUDE-REVIEW XONG · 2026-10-13 ~11:15Z (giờ chính xác = commit này) · chỉ đọc + ghi đúng tệp này. Cờ VPS-GHI đang do VPSC giữ (11:00–11:45Z): lượt này không chiếm cờ, chỉ ghi tài liệu đề xuất như tiền lệ P47. Dùng 1 lượt script cách ly và trình duyệt headless (chỉ mở/thu mục, không gửi dữ liệu). Không tạo tiến trình nền, lease hay khóa.
