@@ -8,14 +8,14 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 20:37 +07 · Codex executor · P51
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 21:30 +07 · Codex executor · P52
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã xong: G1 MOW001 Owner nhận 7/7, ngoài PG (P37) · hồ sơ 100 MB → 12,9 MB, giữ lịch sử (P38) · QTTH006 v0.6 · 87 bước/7 mốc; bản0.5 lịch sử giữ riêng; P51 kiểm đạt, chưa nghiệm thu AI mới · kiểm kê 305 DOT/34 Tool, 47 Master (P30–P33) · P46 chẩn đoán chưa nghiệm thu; đã được Claude rà bản sửaP50; bảnP51 có phiếu ký hai hãng riêng. Dòng gốc: Vòng trước › Dọn 13/10.
-- ■ Đang làm: — · 0 RUN active · P51 đã sửa và đọc lại; GPT OK, Claude chưa ký; chưa chạy QT002.
+- ■ Đang làm: TQT-P52-FIX · sửa D1/D2 và tiêu chí hoàn thành/nợ/Field · executor Codex Host · vòng 1/1; chưa chạy QT002.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002. · Cấu trúc dữ liệu cho 1.000 việc + luật 1 trang (R26–R27, PR-22): Owner gật → PT-01 có số đo.
-- ➡ Kế tiếp: Claude rà delta P51 và tự ghi phiếu CAT025; NEXT_TRIGGER=CLAUDE_P51_REVIEW_RECORDED. Codex đối chiếu; cả hai OK mới trình Owner. Không giữ RUN/lease chờ.
+- ➡ Kế tiếp: ghi/đọc lại P52 → khép RUN và nhả cờ; Claude rà delta và ba phạm vi Owner bổ sung, tự ký CAT-025. NEXT_TRIGGER=P52_PUBLISHED.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -1215,3 +1215,10 @@ Binding của bộ sửa: `666343031d3959c9ac6eadcc5966111d74931b9d41d99d7b78fd3
 - Bổ sung chốt cuối: application mới không được chọn định nghĩa cũ để né luật0.6; CLI đối chứng phiên hiện hành PASS và phiên cũ bị từ chối `NEW_APPLICATION_REQUIRES_CURRENT_DEFINITION`. CHECK005 phiên cuối chạy lại đạt. Fullsuite trước đó vẫn giữ biên nhận; không thay giờ chạy hay nói đã chạy lại các bộ không đổi.
 - Giao diện thật đã kiểm qua ui_inspect, HTTP200, phiếu CAT025 hiện GPT ✅ OK và Claude trống; G1/phiên cũ giữ riêng. Có cảnh báo font Google bị CSP chặn, không nới CSP. Readback trước chốt cuối:143event,006@0.6, hồ sơP46 ghim0.5, đúng hash UI/luật/bộ kiểm. Binding cuối trong phiếu và dòng trên; ký phải lấy đúng phiếu hiện hành, không lấy binding lần kiểm trước.
 KQ@TQT-P51-001-CORRECTIONS DỪNG · 2026-10-13T13:46:27.373731+00:00 · Phần sửa/kiểm/bàn giao của Codex đã xong; chưa có chữ ký Claude và chưa được Owner duyệt ca thử. Giữ STARTED lịch sử. Không tạo tiến trình nền/container/lease VPS; các lượt SSH chỉ đọc đã exit, index.lock=false khi kiểm. Trả đúng VPS-GHI của lượt này cùng giao dịch, không giữ tài nguyên đợi review. Áp:SAME_COMMIT.
+
+
+### P52 · Codex Host · D1/D2 và hợp đồng hoàn thành / nợ / Field
+- Bảng: sửa lệch P51 chưa ghi REJECT của Claude; Ô 1–2 giữ nguyên. Đã đối chiếu §0.3, P49 VÒNG 3, HEAD db094cef5754924793a997a53b55c020b465bc94.
+- Owner giao trực tiếp: “Thế nào đạt để GPT và Claude ký hoàn thành”; “Danh sách cụ thể những điều ghi nợ lại để thực hiện tiếp (cái này cả GPT và Claude cũng cần ký)”; “phải điền danh sách field vào master field … tình trạng cần tạo thêm, đã tạo trong PG”. Đây là bổ sung chi tiết nghiệm thu; không đổi mục tiêu ô 1–2.
+- SSOT: luật MOW-TH-006.md §9; hồ sơ DEF00.1/TQT-VIEC-001; nợ cycle.issues → CAT-069; ba phiếu CAT-025 TQT-P52-CORRECTIONS / TQT-P52-DEBTS / TQT-P52-FIELDS; Master Field ML-DEF-008 (stt=8) đọc catalog.field_registry. Không tạo Master mới.
+- STARTED@TQT-P52-FIX 2026-10-13T14:30:37.095535+00:00 · executor=Codex Host · một lượt ghi tài liệu/UI ngoài PG; không cấu hình, restart hoặc chạy QT002.
