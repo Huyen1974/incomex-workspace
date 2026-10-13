@@ -8,17 +8,18 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-12 · Astra Codex · P38
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 09:50 +07 · Astra Codex · P39
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
-- 📍 Tiến độ (D27): [■ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② MOW001 G1 thật: 7/7 mốc, 31/31 nghĩa vụ phát sinh; Owner đã duyệt/nhận] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
+- 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã làm P29: dùng lại CAT-206*, khai hợp đồng áp dụng 3 MOT/5 giao bước và ca nghiệm thu; siết ghim phiên/nội dung xuyên kiểm–duyệt–ACK, sửa lỗi thiếu dòng kiểm, thêm kiểm trước–sau vào DOT hiện hữu. P30 sửa trùng DOT còn 47 Master, giữ ⑤/7 mốc; ca thật chưa qua mốc nào.
 - ✅ Đã làm P31: bịt lỗi hợp đồng/gói giao P01, thêm schema và kiểm tập bắt buộc, lịch sử toàn bằng chứng; thử ghi–đọc hai tiến trình TEST. Chưa có quyền endpoint/người kiểm độc lập thật, MOW001 0/7.
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
 - ✅ Đã xong P38: hồ sơ100MB→12.9MB, không mất lịch sử; tích xanh; bộ tổng1GiB đạt. Giữ G1 đã duyệt7/7, ngoài PG.
+- ■ Đang làm: — · 0 RUN active · MOW001-P36-REAL đã có KQ DỪNG sạch tại P39; G1 vẫn 7/7 đã duyệt/nhận.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002.
-- ➡ Kế tiếp: G1 đã khép, cấu hình tạm đã trả đúng bản gốc. Trước nhân rộng xử lý các việc còn mở trong CAT069; khi có việc mới, tra Master/DOT trước và dùng lại CHECK004/005/006.
+- ➡ Kế tiếp: Claude Reviewer rà độc lập 6 target theo P39 → Host chốt → Owner quyết giữ/lùi production bằng chỉ đạo thật → mới chuẩn bị READY/apply có bảo vệ. NEXT_TRIGGER=CLAUDE_INDEPENDENT_REVIEW_P39_ALL6_RECEIVED. Không giữ RUN/lease để đợi.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -53,6 +54,8 @@ Kho vật lý dùng `TQT-HISTORY-POOL-1` trong cùng tệp, không mở kho/Mast
 **Owner 12/10/2026 · P36, nguyên văn:** “Bạn tiếp tục sửa điểm tắc ở mốc 3, nối bằng chứng quyền ghi–đọc từ máy chủ rồi đi tiếp MOW001 thật đến cuối nhé. Vẫn ngoài PG, không lấy TEST thay việc thật và cập nhật các Master liên quan.”
 
 STARTED@MOW001-P36-REAL 2026-10-12T07:34:36.793236+00:00 · executor=Codex Host · phạm vi kho tệp MOW001/G1; không PG. Dùng lại CHECK004/005/006 và bộ prepare/activate/probe đã đăng ký. Reviewer kỹ thuật đọc mã/bằng chứng, không ký hộ Anthropic; quyết định/ACK Owner cuối vẫn cần nguồn thật.
+
+KQ@MOW001-P36-REAL DỪNG · 2026-10-13T02:50:54.519143+00:00 · executor=Codex Host · kết thúc thực thi/nhả busy; G1 P37/P38 đã được Owner duyệt/nhận 7/7, không mở lại. DỪNG vì independent production code/image review và bảo vệ PROOT03 còn thiếu, không ghi XONG toàn RUN giả. Kiểm runtime 2026-10-13T02:43–02:47Z: 0 jobs queued/running, 0 container workspace-job, 0 process TQT prepare/activate/probe/CHECK; khóa chỉ có supervisor thường trực, không có khóa thực thi TQT. Không có process RUN để cancel; không gỡ khóa dịch vụ. Chi tiết/bằng chứng và NEXT_TRIGGER: P39. Áp: SAME_COMMIT.
 
 **Trạng thái P37 hiện hành:** Owner đã duyệt và xác nhận nhận G1 trực tiếp. Quyết định/P05/ACK lưu commit b9917118 và đọc ký task456ea8c9; chốt7/7,31/31nghĩa vụ phát sinh tại commit8ac40578, task0a72d0f4. Mục lục bằng chứng: aggregateP37. P37 bộ tổng native đã PASS job 43e4948f9c5c4c27b7b868b47483bcd3; nguồn/UI/hồ sơ đã đối chiếu. Không mở MOW002/PG. Các đoạn P36/P35 dưới đây là lịch sử.
 
@@ -586,6 +589,29 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - — Q01 · ĐÃ GIẢI QUYẾT D22/D25: Astra Codex là Host nội dung; Claude là Host Kiểm soát (Bảng, ô 1–3). Mục tiêu ngắn: Owner tự viết ô 1 ngày 10/10 (D25), đã áp; PR-07 đóng. Không có câu hỏi Owner đang mở.
 
 ## Ý kiến và bằng chứng
+### P39 · Astra Codex · khép cờ P36 và tiếp nhận PROOT03/P140 · 2026-10-13 09:50 +07
+- Ghế: Astra-Codex · Host nội dung + executor P36 · Bước/vòng: khép RUN cũ/chuẩn bị review · 1/1. Based_on: workspace `c401c8063fa3d3bed0dac11be18b462ca9bedab5`, Graph P139–P140, root PROOT03, P37/P38. Bảng: đã sửa lệch thiếu KQ; Ô 1–2: giữ nguyên. Owner trực tiếp giao ngày13/10: “Bạn tự kiểm tra theo nội dung dưới đây và xử lý gọn gẽ giúp tôi để các AI khác bắt đầu thực hiện công việc của họ.” Phạm vi chỉ khép RUN đúng sự thật và chuẩn bị review/protected apply; CHƯA sửa production, baseline, rollback, restart; không suy Owner đã duyệt giữ mã.
+- **KQ DỪNG sạch, không mở lại G1:** dòng STARTED gốc giữ nguyên; KQ cùng RUN_ID ở §0.3. Task queue read-only lúc02:43Z có0 queued/running; hai job `43e4948f9c5c4c27b7b868b47483bcd3` (P37), `33e0d023071d48799b68a7dfa7a26f96` (P38) completed/exit0; task `66c06663083a4506ba1e877bb429a2cf` completed, commit `0993347400a9318c97b659a3e53b7b46ae61496c`. `/proc` không còn executor TQT, docker ps không có workspace-job/TQT test container. `lslocks --notruncate` chỉ thấy task/exec-supervisor.lock thường trực trong workspace, không có root/write/upload lease TQT; queue không có bảng scoped lease, không khẳng định đã đo lease của mọi hệ khác. Không gọi kill/cancel hay xóa lock vì không có RUN sống. Các việc khác phải kiểm S0/lease riêng; nhả cờ TQT không có nghĩa Guard toàn hệ xanh.
+- **Bằng chứng nghiệp vụ giữ nguyên:** aggregate `host_review_P37.state=G1_CLOSED_TECHNICAL_VERIFIED`; P38 `LOSSLESS_STORAGE_AND_GREEN_TICKS_VERIFIED`; tệp MOW001 hiện SHA256 `c68c20ecfdfaaa01cefc13f474331e36b395a3212c3cb540595abe7302608dae`. P38 nguồn bàn giao `09933474`; đọc sổ `work/tools-quy-trinh/UI-REVIEW-AGGREGATE.json#host_review_P38`, không chạy lại G1 hay lấy TEST thay nghiệm thu. Thiếu independent code review/POST-PROTECT không được che bằng G1 đã đạt.
+- **Tiếp nhận 6/6 target thuộc TQT.** Đo chỉ đọc 13/10 ~02:45Z từ registry/baseline và SHA256 file live; MATCH chỉ là khớp byte, KHÔNG APPROVED. Không sửa baseline. Image thực hiện tại `agent-data-hvu:tqt-p38-20261012`, content image ID `sha256:2d36c21a1e4e15fafde5b60b6ba03bf4504e119e99ed5f553d508464438aa804`; ảnh P36 trong P140 là lịch sử. Reviewer phải bao gồm P38 codec/pins/compose và P37 trả resource, không chỉ ba commit P32–P36.
+
+| Target Config Guard | Baseline SHA256 | Live SHA256 | Đo hiện tại |
+|---|---|---|---|
+| agent-data-workspace-tools-py | 5adea01aab4a737eae186ee45db28b19c982685606710cb662dffc3320213fbc | ec72e33ea0a519220610c843ee7d18c5e6b5d2aeefab73d5e153998bd587e5d7 | DRIFT |
+| agent-data-lifecycle-py | d5e36e885efba1c0bfaf90ac8fdbaf739bc570eefb1ebe14e95443a6eb4b2ed9 | acf5262b75e4e9b07b36c7baed2437269ab99af833586b8eb33393d9d0b70c2b | DRIFT |
+| r7-docker-agent-data-repo-agent-data-hvu-signals-py-ecd5ab | cfa846f455c5ea31dc1c5a7785b93c02e02a0cae2c1c3fcad335883c86c819e1 | f8192e118ed32c9df1db9e06d33fb0840b562252802afbec5dd99503a67afe4e | DRIFT |
+| vpsup-docker-compose | 0bdafc8ff6f796731709353d5863efa9da007e15fce8f4a0b14ab61fb9fe83cc | 0bdafc8ff6f796731709353d5863efa9da007e15fce8f4a0b14ab61fb9fe83cc | MATCH |
+| mcpw-workspace-tools-config | c3b97e8a3169c8c56ded4523d3c64bc22c21738ae43f055e2c1f60fcacf04ca4 | c3b97e8a3169c8c56ded4523d3c64bc22c21738ae43f055e2c1f60fcacf04ca4 | MATCH |
+| r7-config-workspace-exec-json-8430b7 | f8d5981d24c6628f546c11b7d45816f518b12de5ae957ca9d1de301de26120ae | f8d5981d24c6628f546c11b7d45816f518b12de5ae957ca9d1de301de26120ae | MATCH |
+
+**Reviewer Claude khác hãng cần xác nhận — READ-ONLY, chưa READY/RUN production:**
+1. Đọc AGENTS → Bảng/README TQT → P39 → aggregate P32/P33/P36/P37/P38 → Graph P139/P140/root PROOT03. Đối chiếu live+baseline cả6target; registry path tại `/var/lib/incomex-config-guard-v0/registry.tsv`. Rà delta `7cad52b`, `9cc075b`, `1b76843` trong `/opt/incomex/docker/agent-data-repo`, rồi P38 build/pins `/opt/incomex/staging/tqt-p36/p38/manifest.json`, `deployment.json`, mã `/opt/tqt-p38/` trong image thực. Chỉ đọc trường cần, không công bố secret.
+2. So nguồn với byte trong image theo digest, không dùng HEAD/tag thay provenance. Hai commit VPSC `9457406`, `8fe2ea8` có trong image hay không vẫn **UNKNOWN** tới khi Reviewer đo. Rà cửa ghi/ACL/chữ ký, codec không mất lịch sử, hồi quy/bằng chứng P38 và coverage Điều30/31/watchdog/rollback; chưa coi fullsuite G1 là phê chuẩn deployment.
+3. Kết luận ACCEPT/PARTIAL/REJECT có exact hashes/image digest, phạm vi được giữ, blocker và khả năng lùi tương thích hồ sơ đã đóng gói. Reviewer ghi mục P kế tiếp ngay COLLAB này qua gateway; không ký hộ, không sửa runtime/baseline. Đường gọi Claude hiện CHƯA ĐO; chưa phát lời mời qua dịch vụ ngoài trong lượt này, không giả đã có receipt/ý kiến.
+
+**Đường protected apply chuẩn bị, KHÔNG thực thi:** Reviewer ACCEPT đúng byte/digest → Host chốt → Owner chỉ đạo giữ/lùi nguyên văn → Host READY phạm vi exact + S0 no-conflict/lease/Guard mới → dùng `incomex-config-apply-v0` hiện hữu, candidate ở đúng mutation-id, expected-baseline mới đo; chỉ target thực còn DRIFT và đã được duyệt. Không rebaseline các MATCH cho đủ số. Nếu giữ byte thì không tự restart; nếu cần đổi image/runtime thì phải có scope riêng trong lệnh được duyệt. HJW giữ quyền connector-sync promote/apply theo approved image digest và Hermes YAML; VPSC #11/R10 do Host tương ứng. POST-PROTECT/negative/watchdog/rollback/delivery theo luật, thiếu thì KQ DỪNG sạch. **Rollback P38:** không đặt bộ đọc cũ lên hồ sơ TQT-HISTORY-POOL-1; cần phương án giải mã qua cửa ghi hiện hành, đối chiếu toàn bộ và duyệt trước, không rollback mù.
+- Bậc1: dùng KQ/Bảng/root, gateway transaction và Config Guard hiện hữu. Không tạo DOT/guard/Master/task mới. Phần còn mở là review và quyền production, không giữ busy/terminal để chờ. `NEXT_TRIGGER=CLAUDE_INDEPENDENT_REVIEW_P39_ALL6_RECEIVED`. Áp: SAME_COMMIT.
+
 ### P31 · Host xét PR14 · ACCEPT CÓ GIỚI HẠN, MOW001 VẪN 0/7
 - Nguồn PR14: proposals/TQT-PR-20261011-gptchat-p29-contract-chain-review-14.md (17096db); Host tái hiện mẫu 7/7 thiếu scope cả 5 kết quả, bỏ P01 vẫn canStart, bỏ PRODUCT_SPEC vẫn contract.ready. Đây là lỗi kiểm thực, không phải chỉ thiếu runtime.
 - R14-01 ACCEPT: kiểm payload giao và trường bước nhận trên chính bản đọc lại; scope và dữ liệu chuẩn bị P01 bắt buộc, sổ đối chiếu khớp ID/phiên/địa chỉ/token nội dung. Lát hai tiến trình ghi–đọc TEST đã thêm vào CHECK-004; chưa nhận là ca MOW001 thật.

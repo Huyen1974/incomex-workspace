@@ -1,5 +1,11 @@
 # tools-quy-trinh · Cửa vào
 
+## P39 · RUN P36 đã khép, không giữ cờ bận
+
+`MOW001-P36-REAL` có KQ DỪNG sạch; giữ STARTED lịch sử và G1 đã nhận7/7. Nguồn trạng thái duy nhất: Bảng + P39 trong [COLLAB.md](COLLAB.md). Đề bài Claude review6Config Guard targets, hash live/baseline, imageP38 và đường protected apply có điều kiện đều ở P39; chưa READY hay quyền sửa production.
+
+**Khi kết thúc một RUN:** executor xác minh process/lease và kết quả → ghi KQ đúng RUN_ID XONG/DỪNG (không xóa STARTED) → cập nhật Bảng/root cùng transaction → đọc lại cặp STARTED/KQ và bản Owner View. Không lấy hoàn thành sản phẩm thay KQ của RUN hoặc lấy MATCH thay duyệt mã. Dùng lại gateway/status/Config Guard hiện hữu; không cần DOT mới.
+
 ## QTTH 006 — Quy trình thực hiện QTTH 05 (13/10/2026 · chờ nghiệm thu)
 
 Owner yêu cầu **không ép 100 bước**. [QTTH 006 phiên v0.2](MOW-TH-006.md) đã rà theo QTTH05 và MOW001 G1, hiện **85 bước (12/22/11/19/9/5/7)**, chia theo 7 checkpoint. [PR20](proposals/TQT-PR-20261013-gptchat-qtth006-atomic-applicability-review-20.md) đối chiếu đủ 100 mã v0.1; [PR21](proposals/TQT-PR-20261013-gptchat-qtth006-instance-overlay-host-21.md) là các việc Host còn cần tiếp nhận. Đây là **thiết kế chưa nghiệm thu**, không thay MOW001/P37/P38.
