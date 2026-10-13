@@ -4,6 +4,75 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## L0-20261013 · Phần 2 RUN VPSC-HEAL02-L0-20261013-01 · đo tải + bước 2 DEL-1 (CHỈ ĐỌC) · executor Claude Code CLI · PHẦN 2 XONG · 0 thay đổi VPS
+
+**Cửa sổ đo:** mốc PG T0 10:56:41Z → T1 11:25:19Z → T2 13:31:19Z (2 giờ 35 phút, bộ đếm liên tục — `stats_reset` rỗng, PG khởi động lại 09:20Z ở HEAL-01 vẫn giữ số). Phiên quan sát `vpsc-l0-watch` (một `psql` chỉ đọc, `\watch 2`, không in câu lệnh/literal) chạy 11:25–11:26Z (đứt do máy Mac mất mạng 11:26→13:13Z, phiên tự chết) và 13:13:28–13:31:58Z (527 mẫu), dừng tay, **0 tiến trình còn lại** trên VPS và Mac. Không giữ VPS-GHI. Mọi đọc PG qua `query_pg` (chỉ đọc) hoặc phiên chỉ đọc ở trên; không `count(*)` bảng lớn. Bằng chứng đã làm sạch: `/opt/incomex/work/vps-clean-20-9-26/VPSC-HEAL02-L0-20261013-01/l0/`.
+
+### 1. Cho Owner
+- **Hai thủ phạm đọc PG chiếm 98%:** trong 2 giờ 35 phút, PG phải lấy 1,9 triệu khối (14,5 GiB) ngoài bộ đệm của nó; `system_issues` 56% (bị quét 126 lần — do lệnh DOT `dot-hc-executor` chạy 3 giờ/lần và bản kiểm `-verify` lúc :30) và `birth_registry` 42% (bị quét 110 lần — do cron `refresh_matrix_results()` mỗi 10 phút, mỗi lượt quét 6 lần).
+- **Ghi lặp vô ích:** `pivot_results` 150 dòng bị ghi đè 2.384 lần (~22.000/ngày); kéo theo `meta_catalog` 298 lần sửa và bảng đếm `v_registry_counts` xoá-chép lại 2.873 dòng.
+- **Đề xuất đợt tắt L1 (chưa làm gì):** 4 dòng cron pivot/matrix của DEL-1 (đảo lại trong 10 giây, không chạm PG) + lưu Drive rồi bỏ 216 nghìn dòng `system_issues` cũ (cần DOT). Chi tiết Bảng B; Host + Claude chốt.
+- **RAM:** swap 1,92/2 GiB đầy nhưng gần như không đảo (0,02–0,10 trang/giây lúc đo); agent-data giữ 1,05 GiB swap (5 tiến trình con). Đề xuất nâng claude-kb và Directus (đang chạm trần) — Bảng C.
+
+### 2. Bảng A · Top tiêu tài nguyên (T0→T2 2 giờ 35 phút; CPU 13:14–13:31Z, % một lõi)
+| # | Mục | PG đọc/ghi | CPU | RAM/swap | Nhịp | Chủ việc |
+|---|---|---|---|---|---|---|
+| 1 | Quét `system_issues` (228k dòng, 131 MB; 95% `heal_description_basic`, 99,7% `open` ⇒ chỉ mục `idx_issues_open` vô dụng) | 126 lần quét · 20,6 triệu dòng · **1.066.013 khối** (56%) | trong postgres 8,9% | — | `dot-hc-executor` cron `0 */3` (giờ máy CEST ⇒ 22,1,4,7,10,13,16,19Z; đợt 10:00Z +57 lần/3′) + `dot-hc-executor-verify` `30 */3` (thấy 13:30:07–19Z: role `context_pack_readonly` + `directus` qua 172.18.0.1, 6 lần quét) + `watchdog-monitor.sh` mỗi giờ (Directus `items/system_issues` lọc `source_system`/`issue_class` không chỉ mục) | VPSC (sổ lỗi DOT) |
+| 2 | Quét `birth_registry` (1,22 triệu dòng, 276 MB) | 110 lần · 46,4 triệu dòng · **804.847 khối** (42%) | trong postgres | — | cron `9-59/10` `refresh_matrix_results()` — 6 lần quét/lượt (thấy 13:19:05–07, 13:29:05Z, phiên `psql` user directus local, loại FN) ⇒ ~792 lần/ngày theo lịch (132 lượt) | VPSC (DEL-1 Bộ 3) |
+| 3 | `cron.service` (mọi job cron gộp) | — | **26,4%** | — | `phai-cu/cron.sh` + `workspace-status` mỗi phút, Guard `periodic` */5, `test-mcp-connectivity` */5, `env-permissions-guard` */5, license-watch */5, 4 `docker exec psql` */10…; chưa tách theo job (UNKNOWN) | nhiều chủ |
+| 4 | containerd + dockerd | — | 14,7% + 8,5% | — | healthcheck ~43 exec/phút (PROOT04 G4) + license-watch 288 container/ngày (G5) + 4 `docker exec` pivot/10′; fork 29,6/s lúc đo | VPSC / DOT |
+| 5 | agent-data | `incomex_metadata.kb_documents` +759 lần quét/2,6h (~295/giờ ≈ nhịp `/health` ~290/giờ ở PROOT04) · đọc toast 13.668 khối | 11,9% | 1,99 GB + **swap 1,05 GiB** (5 worker ~200 MB swap mỗi cái), đỉnh 4,9/6 GiB | `/health` (Kuma #2 + host) | TQT / HVU |
+| 6 | Directus | `knowledge_documents` 186 lần quét (trong bộ đệm, 1.120 khối) qua API `items/knowledge_documents?limit=-1` (704 ms) + lọc `file_path` không chỉ mục — mẫu truy vấn của trang knowledge Nuxt (IP gọi không có trong log ⇒ INFERRED) | 11,1% | 241 MB, **đỉnh = trần 1 GiB, chạm trần 227 lần** | theo lượt xem trang | Nuxt / KB |
+| 7 | Chuỗi pivot → meta_catalog → đếm | `pivot_results` 2.384 sửa · `meta_catalog` 298 sửa · `v_registry_counts` 2.873 chèn (+ truncate) · `v_registry_summary` 118 chèn/xoá | nhỏ | — | cron :03 :05 :07 :09 mỗi 10′ trừ giờ 02/20 (CEST) | VPSC (DEL-1 Bộ 2–3) |
+| 8 | Neo4j Graph | — | 5,8% | 1,27/1,5 GiB (đỉnh 1,51), không swap | — | GS |
+| 9 | Hermes gateway + serve | — | 5,6% + 3,2% | serve 335 MiB swap | — | HJW |
+
+### 3. Bảng B · Ứng viên đợt tắt L1 (tối đa 6) — CHƯA LÀM GÌ
+B1–B4 = đúng «đợt B3-a» của DEL-1 (4 dòng cron, **không chạm PG**, hoàn tác 10 giây). Lệnh dùng dấu `#L1-OFF-<RUN>` để bật lại đúng dòng; trước khi tắt lưu bản crontab vào `/root/crontab.bak-L1-<RUN>`. Lệnh mẫu cho B1 (B2–B4 thay đúng phần phút và tên hàm):
+- Tắt: `crontab -l | sed 's|^9-59/10 \(.*refresh_matrix_results.*\)$|#L1-OFF-<RUN> 9-59/10 \1|' | crontab -`
+- Bật lại: `crontab -l | sed 's|^#L1-OFF-<RUN> 9-59/10 |9-59/10 |' | crontab -` (hoặc nạp lại bản `.bak-L1-<RUN>`).
+
+| # | Mục | Đang tốn | Ai còn dùng (Graph · mã · chạy thật) | Thay bằng | Lệnh tắt / bật lại | Đo trước/sau · kiểm hồi quy | Lớp D22 · rủi ro |
+|---|---|---|---|---|---|---|---|
+| B1 | cron `9-59/10 … refresh_matrix_results()` | 6 quét `birth_registry`/lượt ⇒ ~42% khối PG đọc ngoài bộ đệm | Graph: không có nút cron/hàm này (Graph chưa phủ cron) · mã: hàm ghi `pivot_results` MTX-*; đọc: Nuxt `api/registry/pivot-query.get.ts`, `dot-matrix-health` (cron 04:05), 4 view `v_count_integrity`/`v_registries_pivot`/`v_rp_*` · chạy thật: `psql` directus local FN đúng giây bộ đếm nhảy | đếm khi mở trang (ước lượng `pg_class.reltuples` hoặc đếm theo yêu cầu) | mẫu trên, phút `9-59/10` | `birth_registry` seq_scan + heap_blks_read/giờ (đích −36 quét/giờ) · `/api/registry/pivot-query` 200 (số đứng yên) · `dot-matrix-health` 04:05 sẽ báo cũ (tắt kèm hoặc chấp nhận) · 22 đèn | VPS1_HEALTH · DEL-1 điều kiện chặn 6: pivot là cơ chế đếm còn lại ⇒ Host chốt «đếm khi mở trang» |
+| B2 | cron `7-59/10 … refresh_pivot_results()` | ghi đè 150 dòng mỗi lượt ⇒ ~22.000 lượt sửa/ngày (66% lượt sửa DB theo P84) | Graph: chỉ trigger khai sinh `trg_birth_pivot_results` · mã: Nuxt `pivot-query.get.ts`, `dot-pivot-update`, `dot-pivot-health` (04:00), `dot-matrix-*` · chạy thật: `pivot_results` upd nhảy đúng :07 (13:17:03, 13:27:05Z) | như B1 | mẫu trên, phút `7-59/10`, hàm `refresh_pivot_results` | `pivot_results` n_tup_upd/giờ → 0 · trang pivot 200 · `dot-pivot-health` | VPS1_HEALTH · như B1 |
+| B3 | cron `3-59/10 … refresh_meta_catalog_from_pivot()` | 18 dòng `meta_catalog`/lượt ⇒ 10 trigger chuỗi đếm bắn (truncate + chép lại `v_registry_counts` ~28 dòng, `v_registry_summary`, cat_all, virtual summaries, orphan ×3, collection/dot/species count) | Graph: các hàm trigger có nút (`fn_auto_sync_v_registry_counts`, `fn_refresh_cat_all`, `trg_refresh_registry_views`…) · mã: Nuxt `raw-counts.get.ts` (items/meta_catalog) · chạy thật: phiên `psql` FN cờ pivot/meta lúc :03 | như B1; `record_count` lấy native khi cần | mẫu trên, phút `3-59/10`, hàm `refresh_meta_catalog_from_pivot` | `meta_catalog` upd/giờ → 0, `v_registry_counts` chèn/giờ → 0 · `raw-counts` 200 | VPS1_HEALTH · `record_count` đứng yên; flow [DOT-REG] meta_catalog chỉ bắn khi sửa qua API nên không ảnh hưởng |
+| B4 | cron `5-59/10 … fn_refresh_orphan_species/dot/col + fn_refresh_species_per_level` | mỗi 10′ một `docker exec` + 4 hàm; trong kỳ đo **không thấy bảng nào bị sửa** ⇒ lợi ích nhỏ | Graph: `trg_fn_refresh_orphan_*` có nút · mã: `dot-orphan-scanner` (02:30) · chạy thật: lượt :05 không làm nhảy 4 bảng nóng | — | mẫu trên, phút `5-59/10`, hàm `fn_refresh_orphan_species` | exec/ngày −132 | VPS1_HEALTH · lợi ích < 1% — chỉ làm nếu gom cùng B1–B3 |
+| B5 | `system_issues`: lưu Drive rồi bỏ 216 nghìn dòng `source=heal_description_basic` (mới nhất 05/06) | 56% khối PG đọc ngoài bộ đệm; mỗi lượt `dot-hc-executor` quét ~57–110 lần | Graph: 13 nút trigger/hàm trên bảng · mã: `heal_description_basic` chỉ có trong `dot-hc-executor` (vừa ghi vừa đọc `FROM system_issues`); đọc bảng: Nuxt `api/registry/system-issues*.get.ts`, `watchdog-monitor.sh`, `cron-integrity.sh` · chạy thật: 13:30:07–19Z verify (6 quét) + T0→T2 126 quét | giữ dòng `open` của nguồn khác; dòng cũ nằm trên Drive | **chưa có lệnh chính xác** — cần DOT mới (xuất đúng các dòng ra gói Drive mã hoá có manifest → đọc ngược/khôi phục mẫu → xoá đúng id; khôi phục bằng chính DOT đó) theo D23 + DROOT26 | heap_blks_read của `system_issues` theo lượt hc-executor (đích −90%) · trang `system-issues` 200 · hc-executor/verify không lỗi | VPS1_HEALTH · bằng chứng ĐỦ 3 nguồn, **lệnh CHƯA ĐỦ** (thiếu DOT) ⇒ Host quyết viết DOT ở L1 hay sửa `dot-hc-executor` lọc theo điều kiện có chỉ mục |
+| B6 | `kb_documents` (incomex_metadata) bị quét ~295 lần/giờ | đọc toast 13.668 khối/2,6h; CPU agent-data 11,9% | Graph: chưa phủ incomex_metadata · mã: chưa tìm trong lượt này · chạy thật: phiên quan sát chỉ nối DB `directus` ⇒ chưa gắn người gọi (chỉ trùng nhịp `/health`) | — | — | — | **CHƯA ĐỦ** — không vào L1; chủ TQT/HVU |
+
+Khai sinh (Bộ 1, 166 trigger) **không vào L1** — đợt sau, có diễn tập riêng (điểm gãy số 1).
+
+### 4. Bảng C · RAM (đo 13:1xZ; trần đề xuất, chưa đổi)
+| Dịch vụ | Đang dùng / trần | Swap riêng | Chạm trần (`memory.events max`) | Đề xuất | Gián đoạn nếu đổi |
+|---|---|---|---|---|---|
+| postgres | 880 MB / 3 GiB, đỉnh 891 MB sau 09:20Z | 0 | 0 | giữ 3 GiB tới khi có 24h | dựng lại ~15 s |
+| incomex-claude-mcp | 195 MB / 1,5 GiB, đỉnh 262 MB | 0 | 0 | giữ 1,5 GiB tới khi có 24h | ~20 s |
+| incomex-agent-data | 1,99 GB / 6 GiB, đỉnh 4,9 GB | **1,05 GiB** | 0 | không đổi trần; giảm số worker hoặc cho worker tự thay sau N yêu cầu (chủ TQT) | dựng lại agent-data |
+| incomex-claude-kb | 199 MB / 256 MiB | 170 MB | **7.546** | nâng 512 MiB (+256 MiB swap) | ~15 s |
+| incomex-directus | 241 MB / 1 GiB, **đỉnh = trần** | 53 MB | **227** | nâng 1,5 GiB | 10–20 s (agent-data/Nuxt đọc lỗi tạm) |
+| incomex-graph-neo4j | 1,27 / 1,5 GiB, đỉnh 1,51 | không dùng swap | 0 | → việc graph-server: cân nhắc 2 GiB khi R10 thêm dữ liệu | Graph |
+| hermes-serve (systemd) | 407 MB RSS | 335 MiB | — | → HJW | — |
+| Máy | RAM 11,7 GiB, còn dùng được 6,3 GB | swap 1,92/2 GiB | — | swap đầy là trang nguội (đảo 0,02–0,10 trang/giây lúc đo; TB ngày vào/ra 7,0/11,6) — chưa cần thêm swap | — |
+
+### 5. Bước 2 DEL-1 cho Bộ 1–4 (L0-8)
+- **Bộ 1 Khai sinh:** 166 trigger `fn_birth_registry_auto` vẫn bật, hàm vẫn **không có `EXCEPTION`** (điểm gãy số 1 còn nguyên) + 16 `fn_birth_gate` + 3 `auto_id`; `birth_registry` còn ghi (+5 dòng T0→T2), đọc nặng do matrix (B1). Câu nhãn «vô hiệu hoá thì gì ngừng» còn đúng.
+- **Bộ 2 Registry:** 27 trigger đếm vẫn TẮT (18 `refresh_registry_count`, 4 `update_record_count`, `fn_auto_create_counting_trigger`, `refresh_registry_count_issues`…); 10 trigger chuỗi đếm trên `meta_catalog` còn bật. Điều kiện chặn 2 còn: `dot-pg-atomic-apply` nhắc `table_registry` 6 lần.
+- **Bộ 3 Pivot:** 4 cron */10 còn chạy (B1–B4); đúng số DEL-1 (ghi đè vô ích).
+- **Bộ 4 Governance/Luật:** 0 ghi trong kỳ (đúng thiết kế); khoá ngoại vào `normative_registry`: 8 (kiểu a/r); `governance_object_ownership`: 11 view phụ thuộc trực tiếp (DEL-1 đếm 29 kể cả gián tiếp).
+- **Điều kiện chặn 3 (Qdrant `iu_core_iu_chunks` không sao lưu) và 4 (46 vật IU phụ thuộc):** không đo lại trong lượt này — UNKNOWN.
+- **DOT nhãn `DEL-1I`:** 226 lệnh trong `dot/bin`; **21** có tên trong dòng cron đang chạy (vd `dot-hc-executor`, `-verify`, `dot-pivot-health`, `dot-matrix-health`, `dot-orphan-scanner`, `dot-nrm-*`, `dot-gov-verify`, `dot-trigger-guard`) ⇒ còn được gọi; 205 còn lại không có trong cron (người gọi khác: flow/mã — chưa kiểm hết).
+- **Directus flow (L0-6):** 111 active = 104 sự kiện (66 `[WATCHDOG] … → Changelog`, 25 `[DOT]/[DOT-REG] … → Agent Data` có HTTP, 13 khác) · 5 lịch (`AI Task Watchdog` */30, `Checklist Watchdog Timeout` */30, `[DOT-REG] Count Refresh (6h)` có HTTP, `OPS Write Health Check` 6h, `Permission Regression Check` 03:00) · 2 webhook. Flow sự kiện chỉ bắn khi ghi qua API Directus; trong kỳ đo các bảng đích gần như không ghi (Directus `directus_activity` +14) ⇒ chi phí ≈ 0, không vào L1.
+
+### 6. Giới hạn và nguồn
+- Graph: đầu nối `graph-v1` mất kết nối trong phiên ⇒ dùng bản xuất chỉ đọc của chính Graph `prod-v1/backups/export/graph-v1-{nodes,rels}.jsonl` (07/10, 3.596 nút/6.823 cạnh = số live 11:2xZ). Graph phủ trigger→hàm và DOT, **không phủ cron, SQL dựng chuỗi, gọi `items/<bảng>` của Directus, Nuxt** ⇒ không kết luận «không ai dùng» chỉ từ Graph.
+- Không ngoại suy «/ngày» thành bằng chứng tiết kiệm: mẫu 2,6h gồm một lượt `dot-hc-executor` (13:00Z) và một `-verify` (13:30Z) trên 8+8 lượt/ngày; số «/ngày» ở trên ghi rõ là ước theo lịch.
+- `pg_stat_activity.query` không cho thấy tên bảng khi phiên đang gọi hàm (cờ = 0) ⇒ gắn người gọi bằng **trùng giây** giữa bộ đếm và phiên + lịch cron.
+- Phần 2 quá ngân sách 60 phút vì khoảng mất mạng 11:26→13:13Z (không tiến trình, không khoá); đo thực 11:25–11:26 + 13:13–13:35Z.
+- Thay đổi VPS trong Phần 2: **0** (chỉ ghi biên nhận đã làm sạch vào thư mục bằng chứng; một tệp tạm `/tmp` tạo-xoá trong cùng một lệnh đếm DOT).
+
+---
+
 ## HEAL02-20261013 · Phần 1 RUN VPSC-HEAL02-L0-20261013-01 · van A1 transactions + đồ thử Graph Q2 · executor Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · PHẦN 1 DỪNG · đĩa chưa tới đích
 
 **PROMPT `b8ee714e` (READY P86 + Reviewer ACCEPT P87) · STARTED + VPS-GHI `9931638` 11:00Z · thi hành 11:00–11:22Z · bằng chứng VPS `/opt/incomex/work/vps-clean-20-9-26/VPSC-HEAL02-L0-20261013-01/{pre,a1,g,post,rollback,bin}`.** Quyền dùng: Owner §0A Q1 (A1) + Q2 phần D03 D04 D15.

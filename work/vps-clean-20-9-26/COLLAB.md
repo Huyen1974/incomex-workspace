@@ -14,14 +14,14 @@ Xác nhận User: **ĐÃ XÁC NHẬN — nguyên văn Owner 07/10/2026 10:01 +07
 
 **D24 · Owner 13/10/2026 — ĐÃ XÁC NHẬN, HIỆU LỰC (mục tiêu mở rộng).** (a) Owner nói với GPT Chat chiều 13/10, chuyển nguyên văn cho Claude Chat: «Phiên này là để giải quyết các vấn đề tôi ưu VPS, kể cả các vấn đề phát sinh. vps-clean-20-9-26 trên workspace là nơi làm việc chung về vấn đề này. Chúng ta vẫn đang cần tôi ưu thêm VPS, tạo thêm không gian cho VPS, và dọn dẹp dần các di sản quá khứ, Giờ chúng ta có thêm ngứa. Mặc dù một số phần chi tiết để cho con người sử dụng chưa xong, nhưng về cơ bản là AI có thể khai thác graph để nhìn toàn cục trong VPS có gì và các mối quan hệ thế nào. Ngoài những thứ claude code vừa dọn dẹp và chúng ta sẽ tiếp tục dọn dẹp để nâng trần RAM cho các dịch vụ cũng như tối ưu ổ cứng và tối ưu để server chạy nhanh hơn thì chúng ta sẽ tiếp tục đóng các phần liên quan này vào có mấy phần về miếng thông tin về registry, về counting kiểu pivot là có thể off bớt đi để cho mã nhẹ hơn, ưu tiên cho các chương trình mới.» (b) Trực tiếp Claude Chat 13/10 16:58 +07: «Chúng ta cần bàn tiếp về tối ưu VPS và dọn dẹp bớt các di sản cũ lại, nhờ có Graph mà AI có thể hiểu cấu trúc tốt hơn. Bạn xem xét và tiếp tục có ý kiến để gom lại các vấn đề còn lại của việc này + các việc mới đưa lên task nhé. vps-clean-20-9-26 tiếp tục ghi các mục tiêu mới, kế hoạch mới và các promp triển khai mới để thực hiện.» **Cách hiểu chung (GPT + Claude):** «ngứa» = Graph (lỗi nhận giọng); «miếng thông tin về registry, counting kiểu pivot» = các bộ khai sinh · registry · pivot đếm của **KẾ HOẠCH VÔ HIỆU HOÁ DEL-1** (`docs/KE-HOACH-XOA-20260801.md`, 01/08). `HUMAN_DIRECTIVE@VPSC-D24 EFFECTIVE · task=vps-clean-20-9-26 · scope=mục tiêu mở rộng: tối ưu tài nguyên + tắt dần di sản · recorded_by=claude-chat · audit=chat Owner↔Claude Chat 13/10 · P84`.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 18:00 +07 · Claude Code CLI · STARTED HEAL02+L0 (P86 READY + P87 ACCEPT cùng SHA b8ee714e)
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 20:38 +07 · Claude Code CLI · KQ HEAL02+L0 (Phần 1 DỪNG · Phần 2 XONG)
 - 🎯 **Mục tiêu Owner D22 + D23 + D24:** VPS1 khỏe lâu dài, sạch rác, không tái phình; **D24:** thêm chỗ đĩa, nâng trần RAM, chạy nhanh hơn, tắt dần di sản (khai sinh · registry · pivot đếm) cho mã nhẹ, ưu tiên chương trình mới — dùng Graph để nhìn toàn cục.
 - 🏁 **Xong khi:** (đĩa) mọi nguồn tăng có van, #11 xanh thật, trống ≥ 45 GiB · (RAM) swap dùng ≤ 1 GiB lúc thường, không dịch vụ nào chạm trần trong 24h · (nhanh) khối PG đọc ngoài bộ đệm/ngày giảm ≥ 50% so với L0, p50 công cụ MCP ≤ 150 ms · (di sản) mỗi bộ DEL-1 có trạng thái cuối TẮT (đảo được, nhãn tại vật, đo trước/sau) hoặc GIỮ (lý do) · bản tin 08:00 sạch 24h. Số đích là đề xuất P84, Host chốt lại theo số L0.
 - 📍 **Tiến độ:** `✅ R7 · ✅ Codex DIAG + PROOT04 · ✅ HEAL-01 (DỪNG A1; trống 34→36,3 GiB; RAM nâng) · ✅ Claude P83 + P84 · ✅ GPT rà (`cf3a67e4`) + Claude P85 sửa 1 điểm · ✅ GPT P86 READY@b8ee714e · ⬜ Owner RUN HEAL02+L0 · ⬜ chốt danh sách L1 · ⬜ L1 tắt đợt 1 · ⬜ L2… đợt tiếp · ⬜ N2b khoá/502 · ⬜ 08:00 sạch → đóng`
 - ✅ **Đã xong:** R7 A/B/C1/C3/D/POST giữ nguyên. HEAL-01: van (m) `.before` · (n) helper Drive-first · (o) repack 4 kho; dọn staging/tmp/5 image/1 container (178 MB mã hoá lên Drive); 2 mồ côi; `disk-monitor` ghi đúng mã thoát; trần RAM claude-mcp 1,5 GiB + Postgres 3 GiB; #11 lý do 11→2.
-- ■ **Đang làm:** RUN `VPSC-HEAL02-L0-20261013-01` · Claude Code CLI (Mac, ssh contabo) · STARTED 11:00Z · Phần 1 KQ DỪNG 11:24Z (trống 37,25 GiB, #11 còn SLOPE7D; VPS-GHI đã trả) → Phần 2 L0 chỉ đọc đang chạy · tiến độ từng bước dưới P84.
+- ■ **Đang làm:** — · 0 RUN active. RUN `VPSC-HEAL02-L0-20261013-01` đã KQ dưới P84: Phần 1 DỪNG (van A1 transactions chạy hằng ngày, pgvector gỡ, cognee giữ vì Graph prod dùng; trống 37,25 GiB, #11 còn SLOPE7D) · Phần 2 XONG (Bảng A/B/C ở BAO-CAO `L0-20261013`).
 - ⬜ **Còn lại:** xem **Sổ việc VPSC** ở P84 (gom một chỗ: việc dở + việc mới D24 + việc của chủ khác chỉ trỏ đường).
-- ➡ **Kế tiếp:** 🤖 Claude Code xong Phần 1 (KQ phần 1, trả VPS-GHI) → Phần 2 L0 chỉ đọc → KQ phần 2 → 🤖 Host + Claude chốt ≤6 ứng viên L1, chưa tắt di sản trong RUN này.
+- ➡ **Kế tiếp:** 🤖 GPT Host + Claude Chat chốt L1 từ Bảng B (B1–B4 cron DEL-1 đợt B3-a; B5 cần DOT; quyết «đếm khi mở trang» thay pivot + cổng Ba lô) → READY L1 · 🤖 watcher: #11 tự xanh ~14/10 14Z nếu trống ≥ ~36,6 GiB, `NEXT_TRIGGER=STORAGE_WATCH_SLOPE7D_MOC_7D_QUA_20261007T14Z` · → việc graph-server: cognee là image prod (không dọn), 5 volume log ẩn danh · 😊 Owner: O-R7-KEY (N2b) vẫn chờ · `NEXT_TRIGGER=HOST_CLAUDE_CHOT_L1_TU_BANG_B_L0_20261013`
 - ⛔ **Không làm:** tắt/xoá di sản trước khi L0 có số và Host + Claude chốt danh sách chính xác; tắt trigger khai sinh trong đợt 1; ghi tay nhãn vào Graph; đụng Neo4j production; restart/rebuild lõi ngoài phép; đổi ngưỡng/hạn để lấy xanh; hai RUN ghi VPS cùng lúc (khoá VPS-GHI).
 
 ### 1. Mục tiêu
@@ -1093,22 +1093,22 @@ KQ@VPSC-R7-TRUTH-20261007-01 DỪNG · C2 · 312/558 tệp mã đang chạy khô
 
   | Việc | Trạng thái | Nút | Chủ |
   |---|---|---|---|
-  | #11 đỏ 2 lý do (transactions quá hạn · SLOPE7D) | đang | H2 | VPSC |
-  | Pivot Bộ 3 + chuỗi đếm Bộ 2 | mới D24 | L0 → L1 | VPSC |
-  | `system_issues` 216k dòng cũ + người quét nặng | mới | L0 → L1 | VPSC |
-  | Khai sinh 166 trigger + người quét `birth_registry` | mới D24 | L0 → L2 | VPSC |
-  | Governance/Luật (Bộ 4) | mới D24 | L0 → L2 | VPSC |
-  | Directus flow di sản | mới | L0 → L2 | VPSC |
-  | Healthcheck ~43 exec/phút, license-watch 288 container/ngày (PROOT04 G4/G5) | tồn | L0 → L1/L2 | VPSC |
-  | RAM: swap 1,7/2 GiB; trần theo số | tiếp D24 | L0 Bảng C → L1 | VPSC |
-  | C2: 312 tệp chạy chưa chứng minh nguồn (227 DOT nhãn DEL-1I chưa commit) | tồn | L0 L0-8 → L2 | VPSC |
+  | #11 đỏ 2 lý do (transactions quá hạn · SLOPE7D) | **H2 13/10: còn 1 lý do SLOPE7D** (transactions ROTATING, trống 37,25 GiB); tự xanh ~14/10 14Z nếu trống ≥ ~36,6 GiB | H2 → W | VPSC |
+  | Pivot Bộ 3 + chuỗi đếm Bộ 2 | **L0 đo xong:** 4 cron :03/:05/:07/:09 = Bảng B B1–B4 (DEL-1 đợt B3-a, không chạm PG) | L1 | VPSC |
+  | `system_issues` 216k dòng cũ + người quét nặng | **L0:** 56% khối PG đọc; người quét = `dot-hc-executor` 3h + `-verify` 3h:30 + watchdog 1h; Bảng B B5 (cần DOT) | L1 | VPSC |
+  | Khai sinh 166 trigger + người quét `birth_registry` | **L0:** quét 42% khối PG do cron `refresh_matrix_results` (B1); 166 trigger bật, không EXCEPTION | L1 (B1) · L2 trigger | VPSC |
+  | Governance/Luật (Bộ 4) | **L0:** 0 ghi trong kỳ; FK vào `normative_registry` 8; 11 view phụ thuộc trực tiếp `governance_object_ownership` | L2 | VPSC |
+  | Directus flow di sản | **L0:** 111 flow (66 WATCHDOG, 25 → Agent Data); chi phí ≈ 0 khi bảng không ghi qua API | L2 | VPSC |
+  | Healthcheck ~43 exec/phút, license-watch 288 container/ngày (PROOT04 G4/G5) | **L0:** containerd 14,7% + dockerd 8,5% lõi; `cron.service` 26,4% (chưa tách theo job) | L2 | VPSC |
+  | RAM: swap 1,7/2 GiB; trần theo số | **L0 Bảng C:** swap 1,92/2 GiB, đảo ~0; agent-data giữ 1,05 GiB; đề xuất claude-kb 512 MiB, Directus 1,5 GiB | L1 | VPSC |
+  | C2: 312 tệp chạy chưa chứng minh nguồn (227 DOT nhãn DEL-1I chưa commit) | **L0:** 226 DOT nhãn DEL-1I, 21 còn trong cron đang chạy | L2 | VPSC |
   | 3 EVIDENCE_DEBT nghiệp vụ | máy tự gom mẫu | W | VPSC |
-  | 502/OOM agent-data, gốc từng lần | tồn | N2b | VPSC |
-  | Khoá dùng chung đã lộ (O-R7-KEY) | **chờ Owner từ 07/10** | N2b | Owner |
+  | 502/OOM agent-data, gốc từng lần | tồn · HEAL02 chỉ ghi sổ | N2b | VPSC |
+  | Khoá dùng chung đã lộ (O-R7-KEY) | **chờ Owner từ 07/10** · HEAL02 không mở tệp khoá | N2b | Owner |
   | Tỉa `rescue/vpsc-n2a` trước `retain_until` | nợ | trước 10/2027 | VPSC |
   | `/var/lib/hjw-control` hạn 16/10 · #21 | việc khác | — | HJW |
   | #22 drift 3 tệp · workspace-exec ghi ~51 GiB/ngày (G9) | việc khác | — | TQT |
-  | presence/event + `/health` ~290/h (G10) | việc khác | — | HVU/TQT |
+  | presence/event + `/health` ~290/h (G10) | việc khác · **L0:** `kb_documents` (incomex_metadata) bị quét ~295/giờ trùng nhịp `/health` (Bảng B B6 CHƯA ĐỦ) | — | HVU/TQT |
 
 - **JEV** `gen-dec-1791886119-cZnNT3zMmL434AkZoZUL` (bằng chứng phụ): đi tiếp DEL-1 bằng số mới 0,95 (khảo sát cụm mới 0,05) · đợt 1 = pivot + chuỗi đếm + `system_issues` cũ 0,98 · cần checkpoint chỉ đọc trước khi tắt 0,81 · không ghi tay nhãn vào Graph 0,73 · bỏ sót HEAL-02 là lỗ giám sát 0,75 · gộp hai phần 0,64 (tách 0,33; vi phạm luật «prompt khảo sát không chứa lệnh hành động» 0,39 ⇒ hai phần tách bạch, Phần 2 không có lệnh thay đổi) · cổng Ba lô: JEV nghiêng chờ PGNB 0,82 — Claude đề nghị khác, để Host quyết.
 - **Việc GPT Host (một lượt):** rà PROMPT; lỗi nhỏ sửa thẳng DRAFT rồi ghi `ACCEPT + READY@<full SHA last-touch PROMPT>` dưới mục này cùng commit; lớn thì PARTIAL đúng 1 blocker. GPT chỉ sửa nhỏ thì không cần Claude rà lại. Executor ghi tiến độ + hai dòng KQ ngay dưới mục này.
@@ -1121,6 +1121,9 @@ KQ@VPSC-R7-TRUTH-20261007-01 DỪNG · C2 · 312/558 tệp mã đang chạy khô
 - `→ việc graph-server`: image cognee `db0973f4…` (~3,5 GB) KHÔNG phải đồ thử — prod-v1 compose service `cognee-builder` còn dùng; 5 volume log Neo4j ẩn danh 07/10 (0 container gắn, ~0,5 MB) chờ Host Graph xác nhận là đồ thử trước khi VPSC dọn.
 - VPSC-HEAL02-L0-20261013-01 · bước 4/6 · POST 1: disk-monitor 11:15Z ⇒ storage-watch #11 lý do 2 → 1 (`SLOPE7D -4.48GiB`; DEBT_OVERDUE transactions hết), Kuma 11:20:03Z nhận lý do mới · trống 37,25 GiB · Guard POST coverage PASS 2 tệp đủ 4 ô, FAIL hình thức (INV5_6/INV20 #22 có sẵn + `same_or_better` vì câu Kuma «No heartbeat» luân phiên của #11/#21) · 22 đèn 19/22, đỏ {#11,#21,#22} = PRE · Graph 3.596/6.823 · 2026-10-13T11:22Z · dự kiến xong 12:50Z
 - KQ@VPSC-HEAL02-L0-20261013-01 · PHẦN 1 DỪNG · đĩa chưa tới đích: trống 36,26 → 37,25 GiB < 39,45 ⇒ #11 còn đỏ một lý do SLOPE7D −4,48 GiB (đã hết DEBT_OVERDUE transactions) · nguyên nhân: D03 cognee (~3,5 GB) KHÔNG phải đồ thử — Graph prod-v1 compose `cognee-builder` còn dùng đúng digest ⇒ GIỮ; 5 volume D15 GIỮ (ẩn danh, không chứng minh nhãn lượt thử, ~0,5 MB); không xoá thêm ngoài danh sách · đã giữ: van (p) A1 trong `vps-retention.sh` (`fc854451`, lượt thật −468 MB, chạy 22Z hằng ngày) + transactions ROTATING `cap=3220066304` (`cd743dd8`), D04 pgvector gỡ −652 MB, đọc lại MCP `VERSION_NOT_RETAINED` sạch · Guard coverage PASS · BAO-CAO mục HEAL02-20261013 · Dọn: 0 tệp tạm/0 tiến trình nền trên VPS (giữ bằng chứng + 2 thư mục ứng viên apply-v0) · VPS-GHI trả trống cùng commit · NEXT_TRIGGER=STORAGE_WATCH_SLOPE7D_MOC_7D_QUA_20261007T14Z (~14/10 14Z tự xanh nếu trống ≥ ~36,6 GiB) · 2026-10-13T11:24Z
+- VPSC-HEAL02-L0-20261013-01 · bước 5/6 · L0 chỉ đọc: mốc PG T0 10:56 → T2 13:31Z; phiên `vpsc-l0-watch` 11:25–11:26 (đứt mạng Mac 11:26→13:13Z, tự chết) + 13:13–13:31Z (527 mẫu), đã dừng, 0 tiến trình · Bảng A/B/C ghi BAO-CAO `L0-20261013` · 2026-10-13T13:37Z · dự kiến xong 13:40Z
+- VPSC-HEAL02-L0-20261013-01 · bước 6/6 · KQ phần 2 + báo Owner · 2026-10-13T13:38Z
+- KQ@VPSC-HEAL02-L0-20261013-01 · PHẦN 2 XONG · 2 giờ 35 phút: PG lấy 1,9 triệu khối (14,5 GiB) ngoài bộ đệm, 98% do 2 bảng — `system_issues` 56% (`dot-hc-executor` 3h + `-verify` 3h:30 + watchdog 1h) và `birth_registry` 42% (cron `refresh_matrix_results` */10, 6 quét/lượt); `pivot_results` 2.384 lượt sửa · Bảng B 6 ứng viên: B1–B4 = 4 dòng cron DEL-1 đợt B3-a (lệnh tắt/bật chính xác, không chạm PG), B5 `system_issues` 216k dòng cũ (bằng chứng đủ, thiếu DOT), B6 `kb_documents` CHƯA ĐỦ · Bảng C: claude-kb 512 MiB, Directus 1,5 GiB, agent-data giữ 1,05 GiB swap · Graph qua bản xuất chỉ đọc (đầu nối graph-v1 mất kết nối) · quá ngân sách 60′ do mất mạng Mac (0 tiến trình, 0 khoá) · BAO-CAO mục L0-20261013 · 0 thay đổi VPS · 0 tiến trình nền · NEXT_TRIGGER=HOST_CLAUDE_CHOT_L1_TU_BANG_B_L0_20261013 · 2026-10-13T13:38Z
 
 ### P86 · GPT Chat · Host VPSC · 2026-10-13 · **ACCEPT + READY@b8ee714ebca2fde280c841831be8b98df8c160d8** · HEAL02+L0 r2
 - **Một lượt B3:** đã rà mục tiêu Owner D22–D24, Claude Reviewer P83/P84/P85, Graph Host P145 và KQ HEAL-01 DỪNG A1. Không làm lại phần van, RAM, staging, mồ côi đã PASS và không tắt di sản trong RUN này. Quyền Owner Q1–Q5 giữ nguyên, chỉ sử dụng A1 Q1 + trial D03/D04/D15 Q2.
