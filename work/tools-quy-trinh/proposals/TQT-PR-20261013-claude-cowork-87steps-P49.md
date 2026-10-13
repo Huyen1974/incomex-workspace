@@ -515,3 +515,97 @@ Cũng **không gộp** theo JEV: 02.04 quyền đọc nguồn với 02.23 cổng
 - **Thứ tự:** Codex làm D1 + D2 + v0.7 trong một lượt → Claude rà một vòng đúng phần đó → hai bên ký → Owner quyết ca thử QT002 → ca thử chạy trên v0.7, đo giờ từng mốc → dùng số đo đó tinh chỉnh tiếp, không đoán.
 
 Nhật ký vòng 4: chỉ ghi đề xuất vào tệp này; không sửa 006, CHECK005, hồ sơ hay phiếu ký. Không chạy bộ kiểm, không giữ khóa.
+
+---
+
+# VÒNG 5 · Rà P52 + chốt đồng thuận tối ưu bước · 13/10/2026
+
+P52 gọi lượt này là "VÒNG 4"; số 4 đã dùng cho đề xuất tối ưu nên đánh số 5. Phiếu ký trỏ về mục này.
+REVIEWER: Claude (Anthropic) · Claude Chat/Cowork · ghế Claude-review. STARTED@TQT-P52-CLAUDE-REVIEW 2026-10-13T14:53Z. BASED_ON: P52 commit `9a45e54`, khép `63ee7bd`; 006 `0.7-completion-contract` (`cdcaade2…`), CHECK005 `947976b0…`, UI `7a0cd8e7…` — cả ba khớp manifest phiếu. JEV: `gen-dec-1791903522-pBWXh9sFFLRNuI3z0X0D` (field trùng, danh sách nợ).
+
+## V5.0 · Nhìn 30 giây
+
+| Phiếu / việc | GPT | Claude | Còn phải làm |
+|---|---|---|---|
+| TQT-P52-CORRECTIONS · luật hoàn thành + sửa D1/D2 | ✅ | ✅ **APPROVE** | — |
+| TQT-P52-DEBTS · danh sách nợ | ✅ | 🔴 **REJECT** | 4 sửa nhỏ N1–N4 (V5.2) |
+| TQT-P52-FIELDS · kiểm kê field | ✅ | 🔴 **REJECT** | 3 sửa nhỏ F1–F3 (V5.2) |
+| Tối ưu bước 006 | đồng ý hướng, 5 điểm chỉnh | đồng ý cả 5 | ✅ **ĐỒNG THUẬN** (V5.3) |
+
+**Owner gật/lắc 1 việc:** cho làm 006 bản kế tiếp theo V5.3 **trước** ca thử QT002, để ca thử đo đúng bản sẽ nhân bản. **Đề xuất PM: gật.** Các sửa N1–N4, F1–F3 làm chung lượt đó; Claude rà delta một lần rồi ký.
+
+**Điều còn chặn hoàn thành QT001** (đối chiếu 8 điều kiện 006 §9.1):
+
+| Điều kiện §9.1 | Tình trạng |
+|---|---|
+| 1 Xác nhận đúng lượt (mục tiêu, đầu vào, G1/G2/G3, người nhận) | ⬜ chưa có lượt thật mới |
+| 2 AI mới làm ra sản phẩm thật, có manifest | 🔴 chưa có — P46 là chẩn đoán |
+| 3 Bản ghi đủ 7 mốc và mọi bước áp dụng | 🔴 cần lượt thật |
+| 4 Đối chiếu 11 nhóm ghi với Master thật | 🔴 nợ MASTER + FIELD-COVERAGE |
+| 5 Đo 7 mốc bằng giờ commit | 🟡 công cụ đạt (D1), chưa có lượt đo |
+| 6 Rà độc lập khác hãng hợp đồng/sản phẩm | 🟡 luật đạt (D2), CP03.05 còn Bị chặn |
+| 7 Hai hãng duyệt nợ + field | 🔴 DEBTS, FIELDS chưa đủ hai bên |
+| 8 Hai hãng ký nghiệm thu sản phẩm, Owner quyết, ACK | ⬜ chưa đến |
+
+⇒ QT001 chưa hoàn thành. Chặn gốc **không phải luật** mà là **chưa có một lượt làm thật bởi AI mới** (điều 2–4, 6, 8) và hai phiếu chưa đủ hai bên (điều 7). Thứ tự: Codex sửa N/F + bản 006 kế tiếp → Claude rà delta, ký → Owner quyết ca thử QT002 → ca thử đo KPI → lượt làm thật QT001 bởi AI mới → hai hãng ký nghiệm thu → Owner.
+
+## V5.1 · D1/D2 — kiểm thật trên bản sao cách ly
+
+| Phép thử (V3.2) | Kết quả | KL |
+|---|---|---|
+| (a) biên nhận thật: tạo commit có milestone_event trong bản sao, chạy CHECK005 mặc định | exit 0, 45,7 s | ✅ |
+| (b1) giờ sai | `SERVER_RECEIPT_MISMATCH` | ✅ |
+| (b2) commit giả | `INVALID_SERVER_RECEIPT` (không thuộc HEAD) | ✅ |
+| (c) bản sao không có Git | exit 0, báo `UNVERIFIED_RECEIPT`, không gãy | ✅ |
+| (d) cùng hãng khác tên | `INDEPENDENT_REVIEW_VENDOR` | ✅ |
+| (e) khác hãng | PASS | ✅ |
+| thêm: thiếu hãng | `INDEPENDENT_REVIEW_VENDOR` | ✅ |
+
+CHECK005 mặc định trên bản thật: exit 0. Nguồn không bị đổi (commit thử chỉ nằm trong bản sao).
+
+## V5.2 · Ba yêu cầu mới
+
+**Tiêu chí hoàn thành (006 §9.1):** đạt. Tách rõ khép RUN ≠ sản phẩm đạt, G1 ≠ QT001 xong, nợ không thay nghĩa vụ bắt buộc, bốn loại chữ ký không thay nhau. Góp ý nhỏ cho bản kế tiếp: điều 3 ghi cứng "87 bước" → đổi thành "các bước áp dụng của bản 006 đã ghim".
+
+**Danh sách nợ (21 mục, đủ 8 trường bắt buộc) — REJECT với 4 sửa nhỏ:**
+
+| ID | Việc | Vì sao |
+|---|---|---|
+| N1 | Đổi FIXED, RESOLVED_RECORD_PLACEMENT, FIXED_LOCAL sang 8 trạng thái chuẩn QT002, có căn cứ | Danh sách nợ sẽ nhân bản; trạng thái ngoài chuẩn làm máy không kiểm được |
+| N2 | TIMING, ITEMS, SKIP, CHANGE (đã có bản sửa, chờ kiểm thật) → VERIFYING; D1, D2 → CLOSED, người kiểm Claude, bằng chứng V5.1 | OPEN cho việc đã sửa làm sai bức tranh tiến độ |
+| N3 | Thêm 2 mục: tối ưu bước 006 bản kế tiếp (QTTH003, không chặn G1); gộp/đặt tên field trùng (F1–F2) | Phát sinh trong lượt rà này |
+| N4 | D1, D2, FIELD-COVERAGE đang dùng chung một câu `blocks_scope` → ghi riêng từng mục | Mỗi nợ chặn một phạm vi khác nhau |
+
+Phân loại 4 nhóm phạm vi chặn còn lại: đồng ý. Không mục nào bị chuyển DEFERRED trái luật.
+
+**Master Field (242 = 233 + 2 + 7; 327 + 9 = 336 lượt dùng khớp; PG "Chưa xác minh" cả 242, số cần tạo để trống — đúng) — REJECT với 3 sửa nhỏ:** quy tắc gom "theo toàn bộ nội dung định nghĩa" đang tách cả những dòng chỉ khác nhãn. Ví dụ `application_id` có 6 định nghĩa — "Mã hồ sơ QTTH 05", "Hồ sơ", "Nơi phát hiện", "Hồ sơ áp dụng", "Hồ sơ chế tạo", "Hồ sơ liên quan" — cùng kiểu `text`, cùng ràng buộc rỗng. Nhân bản hàng loạt thì mỗi việc sẽ đẻ thêm định nghĩa cho cùng một thứ.
+
+| ID | Việc |
+|---|---|
+| F1 | Gộp định nghĩa cùng khóa + cùng kiểu + cùng miền giá trị (application_id 6, record_id 2, process_version 2, name 3, owner 3 — xét từng nhóm); tên khác chuyển thành **nhãn ở quan hệ Field–nơi dùng**, đúng như 006 §9.3 đã định. `target_version` "Phiên đối tượng" và "Phiên nguồn SHA256" khác nghĩa → giữ riêng |
+| F2 | Cùng khóa khác miền giá trị (`state` 11 dòng, mỗi dòng một bộ lựa chọn) giữ riêng nhưng đặt tên không trùng (vd "Trạng thái issue"); hiện có 3 nhóm trùng cả khóa, kiểu lẫn tên (JEV 0,95) |
+| F3 | Ghi số định nghĩa sau gộp + bảng gộp cũ → mới; 327 lượt dùng giữ nguyên; CHECK005 thêm ca âm "cùng khóa + kiểu + miền mà hai định nghĩa" |
+
+## V5.3 · Đồng thuận tối ưu bước — trả lời 5 điểm của Codex
+
+Codex đồng ý hướng, nêu 5 điểm chỉnh (Owner chuyển tay, 13/10). Claude đồng ý cả 5; bảng dưới là **bản chốt chung**, thay thế V4 ở chỗ khác nhau.
+
+| Điểm | Chốt chung |
+|---|---|
+| 1 Phạm vi trước khi mở hồ sơ | Kiểm A0/quyền Owner (01.02 gộp 01.07) **xong rồi mới** mở hồ sơ (01.04); kết quả kiểm ghi một lần lúc mở |
+| 2 Nguồn ở CP01 | **Rút M3.** 01.08 ghi nguồn một lần; 02.03 chỉ kiểm phiên/hash của chính bản ghi đó, không ghi lại |
+| 3 Bước máy làm | Mỗi bước có 2 cột tách biệt: **Ai làm** (✍️ AI / 👁 rà khác hãng / 😊 người / 🤖 máy) và **Mức tự động hiện tại**: `CÓ_LỆNH` → bắt buộc do lệnh ghi, cấm ghi tay; `CHƯA_CÓ_LỆNH` → làm tay có nhãn và vào danh sách nợ "lệnh cần làm". Bảng gắn tên lệnh + lần chạy thật gần nhất. Hết mâu thuẫn |
+| 4 Nhánh không phát sinh | Ba trạng thái: **Áp dụng** / **Không áp dụng** (máy lưu căn cứ đã xét) / **Chưa xác định** (hiện ra, phải xử lý). Không có issue ≠ không có lỗi |
+| 5 Con số 29 | Là mục tiêu, không phải kết quả. Ca thử đo 5 chỉ số: thời gian từng mốc, số lần nhập tay, số lần sửa (revision), số lần lặp item, số ô Chưa xác định |
+| Giờ mốc | STARTED ghi khi thực sự vào mốc, KQ khi chốt. Thêm luật máy: sự kiện bước của mốc phải nằm giữa giờ STARTED và KQ của mốc đó |
+| Ai làm ≠ điều kiện | Giữ riêng: bước có điều kiện vẫn có thể do máy, AI hoặc người làm |
+| Số bước | Không chốt 70. **Bảng đối chiếu 87/87 nghĩa vụ cũ → bước mới** quyết định. Ước sau khi rút M3: khoảng 71 |
+| Thứ tự | Bản 006 kế tiếp làm **trước** ca thử QT002; giữ lịch sử 0.5–0.7 và ba phạm vi ký hoàn thành/nợ/field; không làm lại D1/D2, không mở lại G1 (khớp ý Codex) |
+
+**Phép kiểm bản kế tiếp:** bảng đối chiếu đủ 87/87; mỗi bước `CÓ_LỆNH` có lần chạy thật; ca âm: bước `CÓ_LỆNH` ghi tay ⇒ FAIL; nhánh "Không áp dụng" thiếu căn cứ ⇒ FAIL; sự kiện bước nằm ngoài khoảng STARTED–KQ ⇒ FAIL.
+
+## V5.4 · Chữ ký đã ghi
+
+Ba review Anthropic nối sau review OpenAI, không sửa gì khác; giờ máy chủ 2026-10-13T15:01:57Z; commit `cc05a2e`. CORRECTIONS **APPROVE** (binding `bcaed229…`) · DEBTS **REJECT** + N1–N4 (binding `a8f57c6d…`) · FIELDS **REJECT** + F1–F3 (binding `3d7efa30…`). Đọc lại: view.html `94901f74…`; ba phiếu cùng binding/scope; 143 sự kiện, 242 field không đổi; CHECK005 exit 0; UI hồ sơ 001 hiện "✅ OK" / "Cần sửa" / "Cần sửa" ở cột Claude. Phiếu P51 giữ REJECT cũ làm lịch sử (đã thay bằng P52).
+
+Nhật ký vòng 5: KQ@TQT-P52-CLAUDE-REVIEW XONG · 2026-10-13 ~15:10Z (giờ chính xác = commit này). Không chiếm VPS-GHI: chỉ ghi tài liệu + ba phiếu qua gateway CAS có đọc lại. Chạy CHECK005 bốn lần (42–66 s, 512 MB) và các phép thử nhỏ trong bản sao cách ly; commit thử và tệp tạm nằm trong bản sao, tự hủy. Không chạy CHECK006, QT002, PG. Không tạo tiến trình nền, lease hay khóa.
