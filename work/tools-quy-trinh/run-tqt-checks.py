@@ -357,7 +357,7 @@ def main():
     ap.add_argument('--dry-run',action='store_true',help='validate inventory and print commands without running suites')
     ap.add_argument('--report',type=Path,help='save evidence JSON; use a test/evidence location')
     ap.add_argument('--ui-adapter',type=Path,help='optional local copy of VPS process-work-master-v1.js; hash recorded')
-    ap.add_argument('--vps-ui',action='store_true',help='fetch all four public UI inputs, verify registry pins, and run the complete UI checks')
+    ap.add_argument('--vps-ui',action='store_true',help='fetch all five public UI inputs, verify registry pins, and run the complete UI checks')
     ap.add_argument('--before-product',type=Path,help='actual previous product snapshot; validate revisions/history before submitting any write')
     ap.add_argument('--master-registry',type=Path,help='fresh definition-master-registry-v1.js from the UI source')
     ap.add_argument('--master-registry-json',help='equivalent observed registry rows, JSON; no canonical copy is created')
@@ -385,7 +385,7 @@ def main():
         if args.ui_adapter or args.master_registry or args.master_registry_json:ap.error('--vps-ui supplies the UI adapter and registry; do not combine input modes')
         ui_temp=tempfile.TemporaryDirectory(prefix='TQT-UI-TEST-');folder=Path(ui_temp.name)
         pins=next(x for x in reg['records'] if x['id']=='TQT-CHECK-005').get('ui_inputs',{})
-        required={'definition-master-registry-v1.js','process-work-master-v1.js','ui-child-content-v1.js','ui-child-from-parent-v1.js'}
+        required={'qtth006-overview-v1.js','definition-master-registry-v1.js','process-work-master-v1.js','ui-child-content-v1.js','ui-child-from-parent-v1.js'}
         if set(pins)!=required:fetch_errors.append('INVALID_UI_INPUT_INVENTORY')
         else:
             for name,pin in pins.items():
@@ -419,7 +419,7 @@ def main():
     if args.ui_adapter:
         inputs=[args.ui_adapter]
         if args.master_registry:
-            inputs.extend(args.ui_adapter.parent/n for n in ('ui-child-content-v1.js','ui-child-from-parent-v1.js'))
+            inputs.extend(args.ui_adapter.parent/n for n in ('ui-child-content-v1.js','ui-child-from-parent-v1.js','qtth006-overview-v1.js'))
             inputs.append(args.master_registry)
         report['ui_inputs']={}
         for path in inputs:

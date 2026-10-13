@@ -20,6 +20,33 @@ const receiptSource=receiptRepository();
 let html=fs.readFileSync(process.argv[2]||__dirname+'/view.html','utf8');
 const r=JSON.parse(html.match(/<script id="tqt-composite-processes"[^>]*>([\s\S]*?)<\/script>/)[1]).catalog;
 // P51: every dossier is checked; no event suffix or P46-only entrance condition.
+function validateCompact(b,def,context={}){
+ if(!def.execution_policy?.compact_contract)return;
+ const c=b.cycle||{},policies=def.step_policies,events=[...new Map((b.events||[]).map(e=>[e.step_id+'|'+(e.item_key||''),e])).values()],fail=(x,m)=>assert(x,m),byId=new Map();
+ const receipt=(id,step)=>{const x=c.master_records?.['CAT-229*']?.find(x=>x.record_id===id);return x&&x.application_id===b.application_id&&x.target_version===b.target_version&&x.step_id===step&&x.state==='SUCCESS'&&x.tool_id&&x.evidence_ref&&Number.isFinite(Date.parse(x.at))?x:null;};
+ for(const a of c.applicability||[]){fail(policies[a.step_id]&&!byId.has(a.step_id),'APPLICABILITY_ID');byId.set(a.step_id,a);fail(['APPLIES','NOT_APPLICABLE','UNKNOWN'].includes(a.state),'APPLICABILITY_STATE');if(a.state==='NOT_APPLICABLE'){fail(policies[a.step_id].applicability==='CONDITIONAL','MANDATORY_NOT_APPLICABLE');fail(a.evidence_ref&&a.evaluated_by==='MACHINE'&&receipt(a.evaluation_receipt,a.step_id),'APPLICABILITY_EVIDENCE');}}
+ for(const e of events){const p=policies[e.step_id];if(!p)continue;if(e.performed==='DONE'){
+  if(p.automation_current==='HAS_COMMAND')fail(e.execution_mode==='AUTOMATED'&&p.command&&p.last_real_run_ref&&receipt(e.tool_run_id,e.step_id),'AUTOMATED_RECEIPT_REQUIRED');
+  if(p.automation_current==='NO_COMMAND')fail(e.execution_mode==='MANUAL_ASSISTED','MANUAL_FALLBACK_REQUIRED');
+  fail(byId.get(e.step_id)?.state!=='NOT_APPLICABLE','EVENT_ON_INAPPLICABLE_BRANCH');
+  if(p.members.length>1){const items=e.obligation_checks||[];fail(items.length===p.members.length&&new Set(items.map(x=>x.step_id)).size===p.members.length&&p.members.every(id=>items.some(x=>x.step_id===id&&x.evidence_ref&&(x.state==='PASS'||(x.state==='NOT_APPLICABLE'&&r.detailed_workflow_history.find(d=>d.version==='0.7-completion-contract')?.groups.flatMap(g=>g.rows).find(row=>row[0]===id)?.[5].startsWith('KHI')&&receipt(x.evaluation_receipt,id))))),'MERGED_OBLIGATIONS_INCOMPLETE');}
+ }
+ const intervals=(c.milestones||[]).filter(x=>x.checkpoint===(e.step_id==='CP03.12'&&e.return_to?e.return_to:e.step_id).slice(0,4));
+ if(intervals.length){const start=Date.parse(e.started_at||e.at),end=Date.parse(e.completed_at||e.at);fail(Number.isFinite(start)&&Number.isFinite(end)&&end>=start,'EVENT_INTERVAL');fail(intervals.some(m=>Date.parse(m.start_receipt?.server_committed_at)<=start&&(!m.end_receipt||end<=Date.parse(m.end_receipt.server_committed_at))),'EVENT_OUTSIDE_MILESTONE');}
+ else if(context.require_complete)fail(false,'EVENT_MILESTONE_REQUIRED');
+ }
+ if(c.resume_from){const e=events.find(e=>e.step_id==='CP03.12'&&e.performed==='DONE');fail(e&&e.previous_run_id===c.resume_from&&e.return_to&&e.source_version===b.target_version&&e.rights_receipt,'RESUME_RECHECK_REQUIRED');const t=Date.parse(e.completed_at||e.at);fail(events.filter(x=>x!==e&&x.run_id===e.run_id).every(x=>Date.parse(x.started_at||x.at)>=t),'RESUME_ORDER');}
+ if(context.require_complete)for(const [code,p] of Object.entries(policies)){const rows=events.filter(x=>x.step_id===code),done=rows.length>0&&rows.every(x=>x.performed==='DONE'),na=byId.get(code)?.state==='NOT_APPLICABLE';fail(done||(p.applicability==='CONDITIONAL'&&na),'APPLICABLE_STEP_INCOMPLETE');}
+}
+function validateFieldRegistry(f,designs){
+ assert.equal(f.master_id,'ML-DEF-008');assert.equal(new Set(f.records.map(x=>x.id)).size,f.records.length);
+ const expected=designs.flatMap(m=>m.fields.map(x=>m.code+'.'+x.key+(x.required?' (bắt buộc)':''))),actual=f.records.flatMap(x=>x.usage_refs).filter(x=>expected.includes(x));assert.deepEqual(actual.slice().sort(),expected.slice().sort(),'FIELD_USAGE_COVERAGE');assert.equal(f.usage_count,expected.length);
+ const keys=f.records.map(x=>JSON.stringify([x.key,x.dataType,x.validation,x.semantic_key]));assert.equal(new Set(keys).size,keys.length,'DUPLICATE_FIELD_MEANING');
+ assert.equal(f.records.length,f.reused_definition_count+f.new_contract_fields+f.new_registry_fields);
+ for(const x of f.records){assert(x.semantic_key&&x.definition_version,'FIELD_IDENTITY');for(const u of x.usage_refs)assert(x.usage_labels?.[u],'FIELD_USE_LABEL');if(['Đã tạo trong PG','Đã kiểm PG'].includes(x.pg_state))assert(x.pg_target&&x.pg_evidence_ref,'FIELD_PG_EVIDENCE');}
+ const targets=new Set(f.records.map(x=>x.id));for(const [id,to] of Object.entries(f.old_to_new))assert(targets.has(to),'FIELD_ALIAS_TARGET');
+}
+
 function validateDossier(b,def,context={}){
  const fail=(ok,code)=>assert(ok,code),c=b.cycle||{},latest=new Map(),known=new Map(def.groups.flatMap(g=>g.rows.map(x=>[x[0],x]))),ids=new Set(),warnings=[];
  for(const e of b.events||[]){
@@ -43,7 +70,7 @@ function validateDossier(b,def,context={}){
   if(def.execution_policy?.repeat_steps?.includes(e.step_id)&&e.performed==='DONE')fail(e.item_key!=='G1'&&(e.items||e.item_evidence_ref),'REPEAT_MANIFEST');
  }
  if(c.closed_at)fail(step('CP07.08').some(e=>e.performed==='DONE'&&e.evidence_ref),'CLOSED_RUN_STILL_BLOCKED');
- if(c.publication?.readback?.state==='PASS')fail(step('CP04.07').some(e=>e.performed==='DONE'&&e.evidence_ref),'READBACK_STILL_BLOCKED');
+ if(c.publication?.readback?.state==='PASS')fail(step(def.legacy_step_map?.['CP04.07']||'CP04.07').some(e=>e.performed==='DONE'&&e.evidence_ref),'READBACK_STILL_BLOCKED');
  if((c.master_records?.['CAT-016']||[]).length)fail(!step('CP04.15').some(e=>e.performed==='NOT_DONE'),'CHANGE_BRANCH_SKIPPED');
  // A correction may inherit measured evidence only along an explicit same-step/item chain.
  for(const e of b.events||[])if(e.correction_of){const p=b.events.find(x=>x.event_id===e.correction_of);fail(p&&p.step_id===e.step_id&&p.item_key===e.item_key&&p.application_id===e.application_id&&p.revision<e.revision,'CORRECTION_BINDING');}
@@ -54,8 +81,9 @@ function validateDossier(b,def,context={}){
   if(m.end_receipt)fail(Date.parse(m.end_receipt.server_committed_at)>=Date.parse(m.start_receipt.server_committed_at),'MILESTONE_ORDER');
  }
  if(c.write_authorization){const a=c.write_authorization;fail(a.mode==='HOST_CHECK'&&a.application_id===b.application_id&&a.path&&a.authority_ref&&a.precheck_ref&&a.cas_receipt&&a.readback_ref,'HOST_CHECK_CHAIN');fail(a.server_enforced===false,'HOST_CHECK_NOT_SERVER_GUARD');}
- if(def.execution_policy)for(const issue of c.issues||[])auditIssue(issue);
+ for(const issue of c.issues||[])auditIssue(issue);
  if(context.require_complete===true){fail(['CP01','CP02','CP03','CP04','CP05','CP06','CP07'].every(cp=>(c.milestones||[]).some(m=>m.checkpoint===cp&&m.end_receipt)),'SEVEN_MILESTONES_REQUIRED');fail(c.owner_decision_ref&&c.recipient_ack_ref,'OWNER_ACK_REQUIRED');}
+ validateCompact(b,def,context);
  return {state:warnings.length?'UNVERIFIED':'PASS',warnings,scope:'HOST_CHECK_ONLY_NOT_SERVER_ENFORCEMENT',events:(b.events||[]).length};
 }
 function reviewConsensus(g){
@@ -94,7 +122,7 @@ if(adapter&&globalThis.TQT_WORK_MASTER.cycleAudit){const v=auditRecordedCycle(gl
 function auditCycleProducts(c){for(const [k,p] of Object.entries(c.products||{})){assert.equal(p.cycle_id,c.run_id,'PRODUCT_CYCLE');assert.equal(require('crypto').createHash('sha256').update(JSON.stringify(p)).digest('hex'),c.product_hashes[k],'PRODUCT_HASH');if(k==='P01')assert.equal(p.read_receipt.answered,50,'P01_ANSWERS');if(['P02','P03'].includes(k)){assert.equal(p.reused_content.mots.length,3,'DESIGN_MOTS');for(const m of p.reused_content.mots)for(const key of ['fields','controls','branches'])assert(Array.isArray(m[key])&&m[key].length,'DESIGN_CONTENT');}}}
 for(const w of r.work_schedule.records){const c=w.detail_tracking?.cycle;if(c?.products?.P02?.reused_content){auditCycleProducts(c);const bad=JSON.parse(JSON.stringify(c));bad.products.P02.reused_content.mots[0].fields=[];bad.product_hashes.P02=require('crypto').createHash('sha256').update(JSON.stringify(bad.products.P02)).digest('hex');assert.throws(()=>auditCycleProducts(bad),/DESIGN_CONTENT/);console.log('P46: actual rebuilt products read and verified; missing-fields negative case rejected (TEST)');}}
 
-for(const w of r.work_schedule.records){const b=w.detail_tracking;if(!b?.cycle)continue;const def=[r.detailed_workflow,...(r.detailed_workflow_history||[])].find(d=>d.version===b.process_version&&d.source_sha256===b.definition_sha256);assert(def,'HISTORICAL_DEFINITION');console.log(JSON.stringify({application_id:b.application_id,...validateDossier(b,def)}));if(!b.cycle.history_correction_proof)continue;const bad=JSON.parse(JSON.stringify(b));bad.events[0].actual_action='tampered';assert.throws(()=>validateDossier(bad,def),/HISTORY_PREFIX_CHANGED/);if(adapter){const model=globalThis.TQT_WORK_MASTER.detailModel(r,w),rows=model.groups.flatMap(g=>g.rows);assert(rows.find(x=>x.definition[0]==='CP05.04').actual.elapsed.includes('348'));assert(rows.find(x=>x.definition[0]==='CP05.10').actual.tools.includes('TQT-CHECK-006'));assert.equal(rows.find(x=>x.definition[0]==='CP03.05').actual.confirmation,'Bị chặn');assert(!rows.find(x=>x.definition[0]==='CP02.05').actual.evidence.includes('[{'));}}
+for(const w of r.work_schedule.records){const b=w.detail_tracking;if(!b?.cycle)continue;const def=[r.detailed_workflow,...(r.detailed_workflow_history||[])].find(d=>d.version===b.process_version&&d.source_sha256===b.definition_sha256);assert(def,'HISTORICAL_DEFINITION');console.log(JSON.stringify({application_id:b.application_id,...validateDossier(b,def)}));if(!b.cycle.history_correction_proof)continue;const bad=JSON.parse(JSON.stringify(b));bad.events[0].actual_action='tampered';assert.throws(()=>validateDossier(bad,def),/HISTORY_PREFIX_CHANGED/);if(adapter){const model=globalThis.TQT_WORK_MASTER.detailModel(r,w),rows=model.groups.flatMap(g=>g.rows);assert(rows.find(x=>x.definition[0]==='CP05.04').actual.elapsed.includes('348'));assert(rows.find(x=>x.definition[0]==='CP05.10').actual.tools.includes('TQT-CHECK-006'));assert.equal(rows.find(x=>x.definition[0]==='CP03.05').actual.confirmation,'Bị chặn');assert(!rows.find(x=>x.definition[0]==='CP02.05').actual.evidence.includes('[{'));const grouped=globalThis.TQT_WORK_MASTER.compactModel(r,w);assert.equal(grouped.groups.flatMap(g=>g.rows).length,r.detailed_workflow.step_count);assert.equal(grouped.groups.flatMap(g=>g.rows).flatMap(x=>x.parts).length,87);assert.equal(grouped.original.count,87);}}
 // New application, not a P46 clone: each rule has a positive control and mutation.
 {
  const d=JSON.parse(JSON.stringify(r.detailed_workflow)),id='TEST-P51-NEW',now='2026-10-13T00:00:00Z';
@@ -139,8 +167,25 @@ for(const w of r.work_schedule.records){const b=w.detail_tracking;if(!b?.cycle)c
 }
 
 
-// Canonical Field inventory: every designed use represented exactly once, no invented PG proof.
-{const f=r.field_registry;assert.equal(f.master_id,'ML-DEF-008');assert.equal(new Set(f.records.map(x=>x.id)).size,f.records.length);const expected=r.work_master_designs.records.flatMap(m=>m.fields.map(x=>m.code+'.'+x.key+(x.required?' (bắt buộc)':''))),actual=f.records.flatMap(x=>x.usage_refs).filter(x=>expected.includes(x));assert.deepEqual(actual.slice().sort(),expected.slice().sort());assert.equal(f.usage_count,expected.length);assert.equal(f.records.length,f.reused_definition_count+f.new_contract_fields+f.new_registry_fields);for(const x of f.records)if(['Đã tạo trong PG','Đã kiểm PG'].includes(x.pg_state))assert(x.pg_target&&x.pg_evidence_ref,'FIELD_PG_EVIDENCE');console.log('P52: Field inventory coverage/identity/count/PG evidence PASS');}
+validateFieldRegistry(r.field_registry,r.work_master_designs.records);
+{const bad=JSON.parse(JSON.stringify(r.field_registry));bad.records.push({...bad.records[0],id:'TEST-DUPLICATE',usage_refs:[]});assert.throws(()=>validateFieldRegistry(bad,r.work_master_designs.records),/DUPLICATE_FIELD_MEANING/);}
+// Compact workflow regressions are TEST-only; they do not add real work events.
+{const def=JSON.parse(JSON.stringify(r.detailed_workflow)),id='TEST-COMPACT',t='2026-10-13T01:00:00Z',base={application_id:id,target_version:'1',events:[],cycle:{}},event={step_id:'CP01.04',performed:'DONE',at:t,execution_mode:'MANUAL_ASSISTED',obligation_checks:def.step_policies['CP01.04'].members.map(step_id=>({step_id,state:'PASS',evidence_ref:'TEST'}))};
+ const copy=x=>JSON.parse(JSON.stringify(x)),b=copy(base);b.events=[event];validateCompact(b,def);let n=1;const rejects=(change,code)=>{const x=copy(b),d=copy(def);change(x,d);assert.throws(()=>validateCompact(x,d),new RegExp(code));n++;};
+ rejects(x=>x.events[0].obligation_checks.pop(),'MERGED_OBLIGATIONS');rejects(x=>delete x.events[0].execution_mode,'MANUAL_FALLBACK');
+ rejects((x,d)=>{d.step_policies['CP01.04'].automation_current='HAS_COMMAND';d.step_policies['CP01.04'].command='TEST';d.step_policies['CP01.04'].last_real_run_ref='TEST';},'AUTOMATED_RECEIPT');
+ rejects(x=>{x.cycle.applicability=[{step_id:'CP04.10',state:'NOT_APPLICABLE',evaluated_by:'MACHINE'}];},'APPLICABILITY_EVIDENCE');
+ rejects(x=>{x.cycle.applicability=[{step_id:'CP01.04',state:'NOT_APPLICABLE',evaluated_by:'MACHINE'}];},'MANDATORY_NOT_APPLICABLE');
+ rejects(x=>{x.cycle.milestones=[{checkpoint:'CP01',start_receipt:{server_committed_at:'2026-10-13T02:00:00Z'},end_receipt:{server_committed_at:'2026-10-13T03:00:00Z'}}];},'EVENT_OUTSIDE_MILESTONE');
+ rejects(x=>x.cycle.resume_from='TEST-OLD','RESUME_RECHECK');
+ const x=copy(b);x.cycle.milestones=[{checkpoint:'CP01',start_receipt:{server_committed_at:t},end_receipt:{server_committed_at:t}}];validateCompact(x,def);n++;
+ const a=copy(base);a.cycle.applicability=[{step_id:'CP04.10',state:'NOT_APPLICABLE',evaluated_by:'MACHINE',evidence_ref:'TEST',evaluation_receipt:'TEST-R'}];a.cycle.master_records={'CAT-229*':[{record_id:'TEST-R',application_id:id,target_version:'1',step_id:'CP04.10',state:'SUCCESS',tool_id:'TQT-CHECK-005',evidence_ref:'TEST',at:t}]};validateCompact(a,def);n++;a.cycle.applicability[0].state='UNKNOWN';validateCompact(a,def);n++;
+
+ const auto=copy(b),ad=copy(def);ad.step_policies['CP01.04'].automation_current='HAS_COMMAND';ad.step_policies['CP01.04'].command='TEST-command';ad.step_policies['CP01.04'].last_real_run_ref='TEST-proof';auto.events[0].execution_mode='AUTOMATED';auto.events[0].tool_run_id='TEST-AUTO';auto.cycle.master_records={'CAT-229*':[{record_id:'TEST-AUTO',application_id:id,target_version:'1',step_id:'CP01.04',state:'SUCCESS',tool_id:'TQT-CHECK-005',evidence_ref:'TEST',at:t}]};validateCompact(auto,ad);n++;auto.cycle.master_records['CAT-229*'][0].application_id='OTHER';assert.throws(()=>validateCompact(auto,ad),/AUTOMATED_RECEIPT/);n++;
+ const tiny=copy(def);tiny.step_policies={'CP01.04':tiny.step_policies['CP01.04']};const revised=copy(x);revised.events.push({...copy(event),performed:'BLOCKED'});assert.throws(()=>validateCompact(revised,tiny,{require_complete:true}),/APPLICABLE_STEP_INCOMPLETE/);n++;
+ assert.throws(()=>validateCompact(a,def,{require_complete:true}),/APPLICABLE_STEP_INCOMPLETE/);n++;
+ console.log(JSON.stringify({p53_cases:n,state:'PASS',scope:'TEST_NOT_REAL_WORK'}));}
+
 // Existing regression fixtures describe the historical G1 baseline. Validate the live cycle above, then isolate those fixtures from the new run.
 const liveCycleBindings=r.work_schedule.records.map(w=>w.detail_tracking);for(const w of r.work_schedule.records){if(w.detail_tracking?.cycle)w.detail_tracking={...w.detail_tracking,cycle:undefined,events:[],mode:'REFERENCE_ONLY',process_version:r.detailed_workflow.version,definition_sha256:r.detailed_workflow.source_sha256};}
 
@@ -163,14 +208,14 @@ function validate(r){
  const def=r.detailed_workflow;
  assert.equal(def.source_sha256,crypto.createHash('sha256').update(md).digest('hex'),'QT006_SOURCE_DRIFT');
  const parsed=[...md.matchAll(/^\| \*\*\d+ · (CP\d+\.\d+)\*\* \| (.*?) \| (.*?) \| (.*?) \| (.*?) \| (.*?) \|$/gm)].map(m=>m.slice(1));
- assert.deepEqual(def.groups.flatMap(g=>g.rows),parsed,'QT006_PROJECTION_DRIFT');assert.equal(parsed.length,87);assert.equal(new Set(parsed.map(x=>x[0])).size,87);
- assert.deepEqual(def.groups.map(g=>g.rows.length),[12,23,11,19,10,5,7]);
- const pos=id=>parsed.findIndex(x=>x[0]===id);assert(pos('CP02.23')<pos('CP02.21'));assert(pos('CP02.21')<pos('CP03.08'));assert(pos('CP05.10')<pos('CP06.01'));assert.equal(pos('CP07.08'),86);assert.equal(pos('CP07.05'),-1);
+ assert.deepEqual(def.groups.flatMap(g=>g.rows),parsed,'QT006_PROJECTION_DRIFT');assert.equal(parsed.length,def.step_count);assert.equal(new Set(parsed.map(x=>x[0])).size,def.step_count);
+ assert.deepEqual(def.groups.map(g=>g.rows.length),[8,18,11,15,8,4,7]);const legacy=r.detailed_workflow_history.find(x=>x.version==='0.7-completion-contract').groups.flatMap(g=>g.rows.map(x=>x[0]));assert.deepEqual(Object.keys(def.legacy_step_map).sort(),legacy.sort());assert(Object.values(def.legacy_step_map).every(id=>parsed.some(x=>x[0]===id)));assert(parsed.findIndex(x=>x[0]==='CP01.02')<parsed.findIndex(x=>x[0]==='CP01.04'));assert.equal(def.execution_policy.independent_review_steps.includes('CP06.04'),false,'OWNER_NOT_VENDOR_REVIEW');
+ const pos=id=>parsed.findIndex(x=>x[0]===id);assert(pos('CP02.23')<pos('CP02.21'));assert(pos('CP02.21')<pos('CP03.08'));assert(pos('CP05.10')<pos('CP06.03'));assert.equal(pos('CP07.08'),def.step_count-1);assert.equal(pos('CP07.05'),-1);
  assert.equal(r.records.filter(x=>x.code==='MOW-TH-006').length,1);assert.equal(r.records.find(x=>x.code==='MOW-TH-006').child_refs[0].relation,'operational_detail_for');assert(!r.records.find(x=>x.code==='MOW-TH-005').child_refs.some(x=>x.code==='MOW-TH-006'));
  for(const b of def.master_bindings){const m=r.work_form.record_control.masters.find(x=>x.code===b.code);assert(m&&m.home===b.home&&m.name===b.name);}
  if(adapter){
-  const A=globalThis.TQT_WORK_MASTER,w=r.work_schedule.records[0],before=JSON.stringify(w),m=A.detailModel(r,w);assert.equal(m.count,87);assert.equal(m.done,0);assert.equal(m.mode,'REFERENCE_ONLY');assert.equal(m.errors.length,0);
-  const out=A.dossierView(r,{metadata:w}).html;assert(out.indexOf('<details class="tqt-recording-groups"')<out.indexOf('<details class="qt006-dossier"'));assert.equal((out.match(/class="qt006-group"/g)||[]).length,7);assert.equal((out.match(/data-qt006-step=/g)||[]).length,87);assert(!/<details[^>]*class="(?:qt006-dossier|qt006-group|tqt-recording-groups)"[^>]*\bopen\b/.test(out));assert.equal(JSON.stringify(w),before);
+  const A=globalThis.TQT_WORK_MASTER,w=r.work_schedule.records[0],before=JSON.stringify(w),m=A.detailModel(r,w);assert.equal(m.count,def.step_count);assert.equal(m.done,0);assert.equal(m.mode,'REFERENCE_ONLY');assert.equal(m.errors.length,0);
+  const out=A.dossierView(r,{metadata:w}).html;assert(out.indexOf('<details class="tqt-recording-groups"')<out.indexOf('<details class="qt006-dossier"'));assert.equal((out.match(/class="qt006-group"/g)||[]).length,7);assert.equal((out.match(/data-qt006-step=/g)||[]).length,def.step_count);assert(!/<details[^>]*class="(?:qt006-dossier|qt006-group|tqt-recording-groups)"[^>]*\bopen\b/.test(out));assert.equal(JSON.stringify(w),before);
   assert.equal(A.detailModel(r,r.work_schedule.records[1]).mode,'UNOPENED');
   assert(m.groups.flatMap(g=>g.rows).every(x=>x.actual===null),'NO_PREFILLED_ACTUALS');assert(!out.includes('Công cụ dùng lại theo việc cần làm'));assert(out.includes('Tool đã dùng'));assert(!out.includes('Tool dùng lại'));
   const base=JSON.parse(JSON.stringify(w.detail_tracking));let neg=0;
@@ -180,13 +225,13 @@ function validate(r){
   w.detail_tracking={...base,events:[ev]};let row=A.detailModel(r,w).groups[0].rows[0];assert.equal(row.actual.tools,'EXACT-USED-TOOL');assert.equal(row.done,false);
   w.detail_tracking.events=[{...ev,performed:'NOT_DONE',reason:'Nhánh không phát sinh',tool_uses:[]}];row=A.detailModel(r,w).groups[0].rows[0];assert.equal(row.actual.tools,'');assert(row.actual.confirmation.startsWith('Không làm'));assert.equal(row.done,false);
   w.detail_tracking.events=[{...ev,application_id:'OTHER'}];assert.equal(A.detailModel(r,w).groups[0].rows[0].actual,null);
-  w.detail_tracking={...base,added_steps:[{id:'BS-001',after_step:'CP01.01',action:'Bước riêng TEST',reason:'Phát sinh thật',completion:'Có bằng chứng'}],events:[]};let extra=A.detailModel(r,w);assert.equal(extra.count,88);assert.equal(extra.groups[0].rows[1].definition[0],'BS-001');assert.equal(extra.groups[0].rows[1].actual,null);
+  w.detail_tracking={...base,added_steps:[{id:'BS-001',after_step:'CP01.01',action:'Bước riêng TEST',reason:'Phát sinh thật',completion:'Có bằng chứng'}],events:[]};let extra=A.detailModel(r,w);assert.equal(extra.count,def.step_count+1);assert.equal(extra.groups[0].rows[1].definition[0],'BS-001');assert.equal(extra.groups[0].rows[1].actual,null);
   w.detail_tracking.added_steps[0].id='CP01.99';assert(A.detailModel(r,w).errors.length);
   w.detail_tracking={...base,events:[{...ev,performed:'BLOCKED',reason:'Thiếu đầu vào'}]};assert.equal(A.detailModel(r,w).groups[0].rows[0].actual.confirmation,'Bị chặn');
   w.detail_tracking=base;const helpUI=A.dossierView(r,{metadata:w}).html;assert(helpUI.includes('Hướng dẫn: Tình trạng'));assert(helpUI.includes('Hướng dẫn: CP01.01'));assert(!helpUI.includes('Ô trống = chưa ghi nhận;'));assert(!helpUI.includes('>Quy định ↗</a>'));
   for(const g of r.work_form.record_control.guidance){assert(helpUI.includes('Hướng dẫn: '+g.id));assert(helpUI.includes(g.instruction.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')));}
   for(const label of ['Xong','Phải ghi gì?','Master List nào?','Đã ghi','Đối chiếu','Còn thiếu / chi tiết'])assert(helpUI.includes('Hướng dẫn: '+label));assert(!helpUI.includes('>Quy định cách ghi ↗</a>'));
-  w.detail_tracking=base;assert.equal(JSON.stringify(w),before);console.log(JSON.stringify({qt006_steps:87,groups:7,negative_cases:neg,state:'READ_ONLY_DOSSIER_VERIFIED',real_execution:'NOT_RUN'}));
+  w.detail_tracking=base;assert.equal(JSON.stringify(w),before);console.log(JSON.stringify({qt006_steps:def.step_count,groups:7,negative_cases:neg,state:'READ_ONLY_DOSSIER_VERIFIED',real_execution:'NOT_RUN'}));
  }
 }
 

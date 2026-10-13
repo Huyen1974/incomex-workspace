@@ -1,6 +1,16 @@
 # tools-quy-trinh · Cửa vào
 
-## P52 · Đọc trước khi ký hoàn thành
+## P53 · Quy định và hồ sơ sau rút gọn
+
+- [Quy định chuẩn006](MOW-TH-006.md): **71 bước / 7 mốc**, bảng ánh xạ đủ **87/87 nghĩa vụ cũ**. 11 nhóm gộp giảm17 dòng, thêm bước tiếp tục sau DỪNG. Số bước là kết quả rà, không là chỉ tiêu. Overview dùng cùng nguồn; dấu ? ngay tại cột/bước.
+- [Hồ sơ001 tại DEF00.1](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001): xem gộp71 bước, mở được87 dòng gốc. Không đổi143events P46/G1, không giả đã chạy bản006 mới. Việc mới để trống dữ kiện thực tế.
+- Vai thực hiện, khả năng tự động hiện tại và điều kiện áp dụng là ba thông tin riêng. `NO_COMMAND` phải làm tay có ghi nhận `MANUAL_ASSISTED`; không tự nhận đã tự động26 bước hoặc chỉ cần29 dòng. Nhánh chưa rõ vẫn hiện; nhánh không áp dụng chỉ thu khi máy có căn cứ/biên nhận đúng việc. Các nghĩa vụ trong bước gộp đều phải có kết quả kiểm.
+- [Master Field](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=8): 242−11 trùng nghĩa =231; tách1 miền trạng thái vấn đề + đăng ký21 trường hợp đồng/metadata = **253 định nghĩa,357 lượt dùng**. Giữ327 lượt thiết kế gốc và9 lượtP52. Đây không phải số field cần thêm trongPG; con số đó chưa xác minh. Nhãn nằm tại từng nơi dùng; cùng tên khác nghĩa/miền không gộp.
+- Dùng lại CHECK005/006, không tạoDOT/Master mới. CHECK006 ghim5 đầu vàoUI, gồm Overview. Nhật ký nâng cấp/caTEST/kết quả tại MasterDOT/CAT015; nợ tại CAT069. Hai chữ ký tại ba phiếu P53 trong CAT025 phải đúngbinding. ClaudeP52 đãOK phầnD1/D2; không chuyển chữ ký đó sang bảnP53.
+- Chưa nghiệm thu QT001/P46 và chưa chạyQT002/PG. Claude rà deltaP53 rồi ký từng phiếu; cả haiOK mới trìnhOwner quyết ca thật. Không giữRUN/lease để chờ.
+
+### Lịch sử P52 (số lượng tại thời điểm đó)
+
 
 Luật chuẩn: [MOW-TH-006 §9](MOW-TH-006.md#9-hoàn-thành-một-việc-qt001--hợp-đồng-nghiệm-thu-p52). Phân biệt khép RUN, duyệt thiết kế G1 và nghiệm thu việc thật/G2/G3. Ba phiếu bộ sửa/nợ/field ở CAT-025 trong cùng hồ sơ DEF00.1; không dùng ký bộ sửa để nghiệm thu P46. Claude tự ký sau rà; Host không ký thay.
 
@@ -34,7 +44,7 @@ Hồ sơ thực hiện P46 nằm tại **DEF00.1 → TQT-VIEC-001 → QTTH06**, 
 
 **Khi kết thúc một RUN:** executor xác minh process/lease và kết quả → ghi KQ đúng RUN_ID XONG/DỪNG (không xóa STARTED) → cập nhật Bảng/root cùng transaction → đọc lại cặp STARTED/KQ và bản Owner View. Không lấy hoàn thành sản phẩm thay KQ của RUN hoặc lấy MATCH thay duyệt mã. Dùng lại gateway/status/Config Guard hiện hữu; không cần DOT mới.
 
-## QTTH 006 — bản hiện hành xem MOW-TH-006.md, 87 bước / 7 mốc
+## Lịch sử QTTH006 P40–P48 — bản hiện hành xem mục P53
 
 [MOW-TH-006.md](MOW-TH-006.md) là nguồn định nghĩa duy nhất. P40 bổ sung kiểm quyền trước ghi và khép RUN; chuyển bộ kiểm tổng lên CP05 trước duyệt/ACK. QTTH05 giữ khung 7 mốc. Catalog đăng ký 006 là chi tiết hóa 005, không thêm vào selected_process gây vòng gọi.
 
@@ -42,7 +52,7 @@ Hồ sơ thực hiện P46 nằm tại **DEF00.1 → TQT-VIEC-001 → QTTH06**, 
 
 AI đọc định nghĩa §5 trước khi ghi `DEF00.1 → work_schedule.records[].detail_tracking`. Trạng thái và sự kiện thuộc cùng hồ sơ, bằng chứng ở Master gốc. P40 **chưa cưỡng chế ghi bước006 ở gateway**, chưa thử AI mới tự đi trọn vòng. Đây là giới hạn cần xử lý trong lượt Owner giao tiếp, không tự mở RUN/PG. Bước bổ sung dùng BS-001…; trạng thái thực tế trống/DONE/NOT_DONE/BLOCKED theo §6. Chưa có adapter cấp quyền hoặc tích đạt bằng tay.
 
-Dùng lại **CHECK005** kiểm nguồn/hash/87 dòng, mã Master, thứ tự và UI; **CHECK006** chạy tổng. Không tạo DOT hoặc Master mới. PR20 giữ đối chiếu 100→85, P40/định nghĩa §Rà thứ tự giữ 85→87; các bản PR18–21 là lịch sử góp ý.
+Dùng lại **CHECK005** kiểm nguồn/hash/số dòng theo phiên, mã Master, thứ tự và UI; **CHECK006** chạy tổng. Không tạo DOT hoặc Master mới. PR20 giữ đối chiếu 100→85, P40/định nghĩa §Rà thứ tự giữ 85→87; các bản PR18–21 là lịch sử góp ý.
 
 ## P38 · Hồ sơ nhẹ, giữ nguyên lịch sử
 
