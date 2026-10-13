@@ -12,7 +12,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
-- ✅ Đã xong: G1 MOW001 Owner nhận 7/7, ngoài PG (P37) · hồ sơ 100 MB → 12,9 MB, giữ lịch sử (P38) · QTTH006 v0.3 87 bước/7 mốc đã đăng ký, CHECK006 đạt, chưa chạy thật (P40) · kiểm kê 305 DOT/34 Tool, 47 Master (P30–P33) · lượt thật theo 006: 48 hành động ghi nhận, 10 không thực hiện, 29 bị chặn, chưa nghiệm thu (P46). Dòng gốc: Vòng trước › Dọn 13/10.
+- ✅ Đã xong: G1 MOW001 Owner nhận 7/7, ngoài PG (P37) · hồ sơ 100 MB → 12,9 MB, giữ lịch sử (P38) · QTTH006 v0.6 · 87 bước/7 mốc; bản0.5 lịch sử giữ riêng; P51 kiểm đạt, chưa nghiệm thu AI mới · kiểm kê 305 DOT/34 Tool, 47 Master (P30–P33) · P46 chẩn đoán chưa nghiệm thu; đã được Claude rà bản sửaP50; bảnP51 có phiếu ký hai hãng riêng. Dòng gốc: Vòng trước › Dọn 13/10.
 - ■ Đang làm: STARTED · TQT-P51-001-CORRECTIONS · Codex áp B1–B4 và R1–R5, xác nhận hai hãng tại CAT-025; chưa chạy QT002.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002. · Cấu trúc dữ liệu cho 1.000 việc + luật 1 trang (R26–R27, PR-22): Owner gật → PT-01 có số đo.
 - ➡ Kế tiếp: Codex áp và đọc lại P51 rồi khép RUN; Claude rà và tự ký phiếu CAT025. Chưa chạy QT002; Owner quyết sau hai hãng OK.
@@ -35,6 +35,9 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 (Hai dòng đầu Owner duyệt 08/10/2026 · D04. Dòng cuối là lời Owner 10/10/2026 · D24/D25.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+- Owner 13/10/2026 · P51: “Tôi cần cả 2 bên xác nhận ok.” “bạn xác nhận OK, claude xác nhận ok. Lúc đó tôi mới có ý kiến.” Codex hoàn thiện001, Claude rà độc lập; phiếuCAT025 trong hồ sơ001, không chạy002 trước khi đủ điều kiện và Owner quyết.
+
 
 Cách đọc cho mọi AI: đọc hết 3.1 → 3.5, đúng thứ tự. Mỗi yêu cầu có mã R, thuộc mục tiêu M1/M2/M3 của ô 1. Trạng thái: ⬜ chưa có · 🟡 có bản thiết kế, chưa nghiệm thu · 🟢 đã nghiệm thu bằng làm theo thật · 🔴 tắc. Nguyên văn lời Owner ở 3.4; bằng chứng ở các mục P. Thấy thiếu/sai → nộp proposal riêng (3.3); chỉ Host Kiểm soát sửa ô 3. Nhật ký chạy (STARTED/KQ) và báo cáo lượt ghi ở mục P, không ghi vào ô 3.
 
@@ -1180,3 +1183,31 @@ KQ@TQT-P50-CORRECTIONS DỪNG · 2026-10-13T10:56:30.873261+00:00 · đính chí
 
 ### P51 · Hoàn thiện001 trước khi trình hai hãng và Owner
 STARTED@TQT-P51-001-CORRECTIONS 2026-10-13T13:37:14.419327+00:00 · Codex Host · Owner giao trực tiếp; §0.3 đã đối chiếu. Chỉ luật/hồ sơ/DOT/UI ngoài PG; không thay cấu hình máy chủ, không phát RUN QT002. Đường chuẩn DEF00.1 → TQT-VIEC-001; UI /opt/incomex/docs/mcp-writes/process-work-master-v1.js; dữ liệu task/view.html.
+
+**Owner chỉ đạo lượt này:** “Tôi nghĩ bạn nên tiếp tục hoàn thiện các vấn đề của 001 để đồng thuận với claude. Tôi cần cả 2 bên xác nhận ok.” “bạn xác nhận OK, claude xác nhận ok. Lúc đó tôi mới có ý kiến.” Chưa có quyền chạy QT002.
+
+**Tiếp nhận P49 VÒNG 2:** Claude ACCEPT_CORRECTIONS cho P50 và ACCEPT_PLAN có điều kiện; đã xem đủ 87 dòng trên UI. Không dùng chữ ký P50 thay chữ ký P51. G1 đã nhận giữ nguyên; P46 chưa nghiệm thu.
+
+| Phần | Đã sửa P51 | Giới hạn |
+|---|---|---|
+| B1/R2 | CHECK005 kiểm mọi hồ sơ: thông tin blocker, căn cứ Không làm, người rà khác người làm, manifest đủ ID/phiên, đọc lại, khép RUN và nhánh sửa | Kiểm bởi Host; chưa cưỡng chế tại gateway toàn hệ |
+| B2 | 006 §8: kiểm ứng viên → CAS đúng quyền → receipt → đọc lại; HOST_CHECK ghi rõ server_enforced=false | Không cấp quyền endpoint; ENTRY-b là thay đổi máy chủ để sau |
+| B3 | CHECK005 --commit-receipt đọc sự kiện trong commit và giờ Git trên VPS; đo STARTED/KQ theo 7 mốc, bước tay đo chung, tool giữ số đo riêng | JSON receipt tự khai không đủ; Host/Reviewer phải đọc repo chuẩn. Chưa đo một việc mới thật |
+| B4 | 002@1.1 có sáu bước, điều kiện xong, nơi ghi, trạng thái issue và cách quay lại nơi phát hiện | SUPERSEDED cần ánh xạ nghĩa vụ được kiểm, không tự đóng ba issue P46 |
+| R1/R3/R5 | Giữ số đo/tool qua correction_of cùng bước/item; CP03.05 Bị chặn; lọc JSON mảng/đối tượng khỏi ô kết quả | Giữ 136 sự kiện cũ; thêm 7 revision; không bịa giờ |
+| U1/U2/phiên | G1 mặc định thu gọn; giờ Việt Nam; 006@0.6 mới và định nghĩa0.5 lịch sử tách rõ; tham chiếu002 khớp phiên | Khung005 vẫn bảy mốc; chưa thay kiến trúc PR22 |
+
+**Hai bên ký ở đâu:** sổ CAT-025 hiện hữu, phiếu `TQT-P51-CONSENSUS` trong `catalog.work_schedule.records[record_id=TQT-VIEC-001].detail_tracking.cycle.master_records['CAT-025']`. Hồ sơ001 hiển thị hai cột cuối **GPT duyệt / Claude duyệt**, có dấu ?. Scope và binding xem ngay phiếu; manifest ghim luật006, định nghĩa002, tham chiếu quy trình, CHECK005, UI, bản chiếu006 và143 sự kiện. OpenAI APPROVE bởi Codex cho bộ sửa kỹ thuật; Anthropic chưa ký, ô để trống. Cả hai cùng binding/phạm vi mới trình Owner; không suy thành Owner duyệt. DOT/Tool đã có hai cột từ P34; CHECK005 nâng P51.1 có chữ ký OpenAI riêng, chưa có Claude.
+
+**Kiểm:** CHECK006 `TQT-95e82628c0834bafac92a94cffb5162c` chạy001–005 PASS trên Mac: 0,645 / 0,378 / 5,129 / 48,332 / 36,370 giây. CHECK005 có **21 ca chung** trên hồ sơ TEST mới, có đối chứng và ca âm; thêm hai ca CLI đọc commit trên repo Git TEST tự dọn. Sau bổ sung metadata chữ ký, CHECK005 chạy lại đạt. Hai lượt tổng trước thất bại do tham chiếu phiên002 cũ và bản ghi nâng cấp DOT thiếu trường; đã sửa nguồn, không nới kiểm. TEST không nghiệm thu P46 hay002. Nguồn kết quả ở CAT015, hash/phiên ở Master DOT. Không thêm DOT/Master.
+
+**Giao Claude rà và tự ký — chưa giao thi hành002:**
+1. Đọc AGENTS → root/task COLLAB P51 → P49 VÒNG 2 → diff P51. Rà006 §8, 002.execution_contract, CHECK005 và UI. Dùng lại CHECK005/006 trên bản sao cách ly; ghi rõ TEST; không chạy bộ nặng trên VPS.
+2. Rà đúng B1–B4/R1–R5: hồ sơ mới không historyproof/hậu tốP50; ca âm thiếu blocker, skip, reviewer, manifest, thời gian, khép việc. Kiểm mức HOST_CHECK, không giả bảo vệ máy chủ. Mở UI: hai ô ký, năm dòng giữ số đo/tool, CP03.05 Bị chặn, G1 thu gọn.
+3. Nối báo cáo **VÒNG 3 vào tệp P49 hiện hữu**. Nếu OK, tự nối review vào phiếu CAT025 trên: `vendor=Anthropic, reviewer=<bề mặt Claude>, decision=APPROVE, reviewed_at=<giờ thực>, binding=<đúng binding P51>, scope=<nguyên scope phiếu>, evidence_ref=<P49 VÒNG3/commit>`. Chưa OK thì REJECT và chỉ rõ delta. Không ghi đè chữ ký OpenAI hoặc lịch sử. Owner giao hai bên tự xác nhận; dùng gateway CAS, đọc lại; không dùng SSH ghi vòng qua cổng.
+4. Nếu duyệt CHECK005, ghi thêm review Anthropic trong `tool_registry.reviews`, đúng target_code/binding P51.1/scope hiện hữu và evidence của mình. `receipt_verified=true` chỉ sau đối chiếu bằng chứng thật. Không ký các DOT chưa rà. Chưa đủ hai hãng thì không phát RUN002.
+5. Không sửa mã, luật, G1, cấu hình máy chủ hay PG; không baseline/restart/dọn việc khác. Ghi KQ và nhả tài nguyên của mình ngay. Trả link + commit + ACCEPT hoặc đúng chỗ cần sửa.
+
+**Bước sau:** Codex đọc chữ ký Claude và delta. Hai bên OK mới trình Owner quyết ca thử QT002; Owner duyệt mới soạn READY cho Claude thực hiện, phía OpenAI kiểm sản phẩm. Không lấy đồng ý hướng sửa thành đồng ý chạy.
+
+Binding của bộ sửa: `8c0896370daa3ebb8a0ac48eb3b7855b5df7124f43517dd20c45df41e5582703`.

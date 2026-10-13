@@ -1,5 +1,11 @@
 # tools-quy-trinh · Cửa vào
 
+## P51 · Trước khi thử việc mới
+
+Đọc COLLAB P51 và MOW-TH-006 §8. Luật006 hiện0.6; hồ sơP46 giữ0.5 qua bản định nghĩa lịch sử. CHECK005 dùng lại hai chế độ `--validate-dossier` và `--commit-receipt`, không tạo DOT mới. Chỉ HOST_CHECK ngoài PG, không tự coi gateway đã bảo vệ việc mới. Đo 7 mốc từ giờ commit VPS, giữ số đo tool thật; hồ sơ có manifest cho bước lặp. QT002@1.1 có 6 bước và vòng đời issue; mới đủ để rà, chưa chạy.
+
+Hai bên ký tại CAT025 → TQT-P51-CONSENSUS, hiển thị ngay hồ sơ001: GPT duyệt / Claude duyệt. Trống là chưa ký. Hai hãng cùng binding/phạm vi mới trình Owner; không suy thành duyệt ca thử. Claude đọc đề bài P51, nối báo cáo P49 và tự ký phiếu, không sửa nguồn chính. Nơi này chỉ hướng dẫn; không chép trạng thái ký.
+
 ## P50 · Đính chính sau review Claude
 
 [P50: phản hồi và đề bài kiểm lại](proposals/TQT-PR-20261013-host-response-P50.md); [P49: review độc lập](proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md). P46 là chẩn đoán/đóng gói lại G1, chưa là AI mới làm sản phẩm mới. Hồ sơ001 giữ91sự kiện cũ, thêm45revision; giờ ghi không là giờ hoàn thành. Tổng32m25s chỉ tới khép RUN, không phải toàn việc. Không cập nhật trạng thái hiện hành ở aggregate lịch sử.

@@ -1,7 +1,7 @@
 # QTTH 006 — Quy trình thực hiện QTTH 05
 
 **Mã quy trình:** `MOW-TH-006` · **Tên:** Quy trình thực hiện QTTH 05. Đây là **một quy trình**, không phải loại đối tượng “hướng dẫn” riêng.
-**Phiên:** `0.5-entry-contract-aligned` · **Ngày rà:** 13/10/2026 · **Trạng thái:** ĐÃ RÀ THEO QTTH 05 / HỒ SƠ MOW001 G1, **HOST ĐÃ RÀ THỨ TỰ / CHƯA NGHIỆM THU AI MỚI THỰC HIỆN**. Đăng ký thiết kế MOW-TH-006 trong Master quy trình tổng hợp; chưa tuyên bố đã chạy trọn việc thật theo 006.
+**Phiên:** `0.6-host-check-consensus` · **Ngày rà:** 13/10/2026 · **Trạng thái:** ĐÃ RÀ THEO QTTH 05 / HỒ SƠ MOW001 G1, **HOST ĐÃ RÀ THỨ TỰ / CHƯA NGHIỆM THU AI MỚI THỰC HIỆN**. Đăng ký thiết kế MOW-TH-006 trong Master quy trình tổng hợp; chưa tuyên bố đã chạy trọn việc thật theo 006.
 **Nguồn:** tệp này là quy định chuẩn do Host quản lý, hiển thị tại Overview. Bản v0.1 có **100 bước** được lưu trong lịch sử Git; PR20 giữ bảng đối chiếu đầy đủ 100 mã cũ. Không đổi tiến độ MOW001/P37/P38.
 
 ## 1. Nguyên tắc chính
@@ -14,7 +14,7 @@ Một **bước nguyên tử** phải có: một hành động có thể giao m�
 
 - **Tầng định nghĩa**: danh sách bước QTTH 006 theo phiên; **không chứa kết quả của MOW001 hoặc việc khác**. `MOW-TH-005` tiếp tục là 7 mốc và 6 MOT nguồn, 006 không tự gọi 006 thành vòng lặp hay chen vào `selected_process` của 005.
 - **Tầng áp dụng**: hồ sơ việc trên `DEF 00.1 / CAT-227*` ghim đúng `MOW-TH-006@process_version`; hiển thị toàn bộ bước áp dụng (cùng nhóm theo CP của 005), chỉ lưu **trạng thái, bằng chứng, ngoại lệ và thay đổi** theo `application_id + process_version + target_version + step_id + item_key + revision` ở **sổ hiện có**. Không sao chép một danh sách có thể sửa độc lập, không tạo Master “tiến độ QTTH 006” thứ hai.
-- **Tình trạng**: `Trống` / `Hoàn thành` / `Vướng`. Đây là trạng thái thực của bước áp dụng; bảng chung bên dưới chỉ dùng “Trống” làm mẫu. `Hoàn thành` đòi đúng nguồn, quyền, phiên, readback và đối chiếu, không lấy dấu đã qua CP05 tự phủ sang các bước 006 chưa có biên nhận.
+- **Tình trạng ghi nhận**: để trống khi chưa ghi; DONE/NOT_DONE/BLOCKED theo §6. Ghi nhận đã làm không là nghiệm thu mốc; nghiệm thu cần bằng chứng đúng nguồn, quyền, phiên và đối chiếu.
 
 ### Bước bổ sung và trường hợp không thực hiện
 
@@ -50,7 +50,7 @@ Mã bước giữ ổn định; số đầu dòng chỉ là thứ tự hiển th
 <summary><strong>CP01 · Khai việc · 12 bước</strong> (mở/thu)</summary>
 
 | Bước | AI phải làm gì? | Thế nào là xong? | Nơi ghi kết quả? (Master mã + tên) | Tool use (nếu có) | Ghi chú |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+|---|---|---|---|---|---|
 | **1 · CP01.01** | Đọc nguyên yêu cầu Owner và điều không được làm | Có mục tiêu/người giao/nguồn rõ | DEF 00.1 · Master tiến trình công việc (CAT-227*) | — | LUÔN · Không tự thay ý Owner |
 | **2 · CP01.02** | Đối chiếu A0, xác nhận phạm vi và quyền Owner | Có phạm vi được xác nhận | DEF 00.1 · Master tiến trình công việc (CAT-227*) | — | LUÔN · Lời tiếp tục không là duyệt |
 | **3 · CP01.03** | Tra mã và mục tiêu của việc đã có trước khi mở | Không tạo hồ sơ trùng | DEF 00.1 · Master tiến trình công việc (CAT-227*) | TQT-CHECK-005 · Kiểm Master | LUÔN · Tìm bằng mã |
@@ -70,7 +70,7 @@ Mã bước giữ ổn định; số đầu dòng chỉ là thứ tự hiển th
 <summary><strong>CP02 · Chuẩn bị đủ · 23 bước</strong> (mở/thu)</summary>
 
 | Bước | AI phải làm gì? | Thế nào là xong? | Nơi ghi kết quả? (Master mã + tên) | Tool use (nếu có) | Ghi chú |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+|---|---|---|---|---|---|
 | **13 · CP02.01** | Nạp câu hỏi bắt buộc theo MOW/MOT/phạm vi | Đủ bộ câu liên quan | DEF 00.1 · Master tiến trình công việc (CAT-227*) | TQT-CHECK-003 · Kiểm khai | KHI(quy trình có bộ câu hỏi) · Bộ câu hỏi của MOW001 không phải yêu cầu mặc định cho mọi việc. |
 | **14 · CP02.02** | Ghi đáp án, mã câu, người và nguồn | Có đáp án hoặc ghi thiếu | DEF 00.1 · Master tiến trình công việc (CAT-227*) | — | KHI(có câu hỏi áp dụng) · Lặp theo item_key=câu hỏi, không tạo một bước định nghĩa mới cho từng câu. |
 | **15 · CP02.03** | Ghim nguồn và hash bằng chứng đầu vào | Đọc lại đúng phiên | CAT-239* · Master tệp/bằng chứng | MCP workspace_read/stat (có quyền) | KHI(có nguồn/bằng chứng để dẫn) · Cần nguồn/hash thật; không tạo bản sao dư. |
@@ -101,7 +101,7 @@ Mã bước giữ ổn định; số đầu dòng chỉ là thứ tự hiển th
 <summary><strong>CP03 · Xác nhận bắt đầu · 11 bước</strong> (mở/thu)</summary>
 
 | Bước | AI phải làm gì? | Thế nào là xong? | Nơi ghi kết quả? (Master mã + tên) | Tool use (nếu có) | Ghi chú |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+|---|---|---|---|---|---|
 | **36 · CP03.01** | Tra và kiểm tính sẵn sàng của Tool/DOT sẽ dùng | Mỗi tool có ID/phiên/hash, nguồn, quyền và ca gần nhất, hoặc phương án làm tay | CAT-229* · Sổ lượt thực hiện/thử | TQT-CHECK-006 · Chạy tổng | KHI(kế hoạch có Tool/DOT) · Tra nguồn ML-DEF-024 Master DOT, ML-DEF-023 Master Tool; không chạy chỉ vì có tên. |
 | **37 · CP03.02** | Xác thực người làm qua quyền ngoài hồ sơ | Có quyền thực, không tự khai | DEF 00.1 · Master tiến trình công việc (CAT-227*) | TQT-CHECK-004 · Kiểm ghi/mốc | LUÔN · Phân vai đúng người |
 | **38 · CP03.03** | Kiểm lại reviewer đã được phân công và quyền kiểm | Đúng người/phiên và mức độc lập theo quy định | DEF 00.1 · Master tiến trình công việc (CAT-227*) | — | KHI(cần người kiểm) · Không phân công reviewer mới trùng với bước phân vai ở CP01. |
@@ -120,7 +120,7 @@ Mã bước giữ ổn định; số đầu dòng chỉ là thứ tự hiển th
 <summary><strong>CP04 · Làm theo quy trình · 19 bước</strong> (mở/thu)</summary>
 
 | Bước | AI phải làm gì? | Thế nào là xong? | Nơi ghi kết quả? (Master mã + tên) | Tool use (nếu có) | Ghi chú |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+|---|---|---|---|---|---|
 | **47 · CP04.01** | Chọn việc con có đủ các phụ thuộc trước | Biết đúng việc đến lượt | DEF 00.1 · Master tiến trình công việc (CAT-227*) | TQT-CHECK-001 · Kiểm mô hình | LUÔN · Chỉ việc con tới hạn CP04. MOW001: P01 ở CP02, P02/P03 ở CP04, P04 ở CP05, P05 ở CP07; không đòi P04/P05 xong mới qua CP04. |
 | **48 · CP04.02** | Bên thực hiện đọc và kiểm gói đầu vào thật của việc con | Gói hợp lệ theo trường/type/đơn vị/nguồn/phiên trước khi làm | CAT-015 · Sổ kết quả kiểm | TQT-CHECK-004 · Kiểm ghi/mốc | LUÔN · Một lần đọc+kiểm của bên nhận, ghi theo item_key=plan_id. |
 | **49 · CP04.03** | Chọn DOT/Tool đúng phiên hoặc làm tay đúng quy trình | Có cách thực hiện hợp lệ | CAT-229* · Master lượt làm/thử | TQT-CHECK-006 · Chạy tổng | LUÔN · Chọn cách làm tay hoặc DOT đã kiểm. Ghi từng lượt dùng vào CAT-229*, không đợi cuối việc mới nhớ lại. |
@@ -147,7 +147,7 @@ Mã bước giữ ổn định; số đầu dòng chỉ là thứ tự hiển th
 <summary><strong>CP05 · Kiểm đầu ra · 10 bước</strong> (mở/thu)</summary>
 
 | Bước | AI phải làm gì? | Thế nào là xong? | Nơi ghi kết quả? (Master mã + tên) | Tool use (nếu có) | Ghi chú |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+|---|---|---|---|---|---|
 | **66 · CP05.01** | Nạp bộ ca đã lập từ CP02 theo đúng hợp đồng/phiên | Tập ca áp dụng đủ, không tạo lại ca kiểm | CAT-015 · Sổ kết quả kiểm | TQT-CHECK-004 · Kiểm ghi/mốc | LUÔN · Không khai lại các ca đúng/âm/sai phiên ở CP05. |
 | **67 · CP05.02** | Reviewer tự mở và xác minh bản sản phẩm cần kiểm | Có log mở đúng ID/phiên/hash và nội dung | CAT-015 · Sổ kết quả kiểm | TQT-CHECK-004 --read-designs (nếu là bản thiết kế); reader phù hợp loại khác | LUÔN · G1 UI chỉ là một loại sản phẩm; không mặc định mọi việc là thiết kế. |
 | **68 · CP05.03** | Chạy ca nghiệm thu đã chốt và ghi actual/expected/reviewer/bằng chứng | Mỗi ca có kết luận và CAT-015 đọc lại được | CAT-015 · Sổ kết quả kiểm | TQT-CHECK-004 · Kiểm ghi/mốc | LUÔN · Không tách lệnh chạy và ghi kết quả nếu cùng một receipt/tool. |
@@ -165,7 +165,7 @@ Mã bước giữ ổn định; số đầu dòng chỉ là thứ tự hiển th
 <summary><strong>CP06 · Duyệt kết quả · 5 bước</strong> (mở/thu)</summary>
 
 | Bước | AI phải làm gì? | Thế nào là xong? | Nơi ghi kết quả? (Master mã + tên) | Tool use (nếu có) | Ghi chú |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+|---|---|---|---|---|---|
 | **76 · CP06.01** | Gom sản phẩm, phạm vi và kết quả kiểm trình duyệt | Người duyệt mở đúng bản | CAT-025 · Sổ phiếu duyệt/quyết định | TQT-CHECK-005 · Kiểm Master | LUÔN · Không trộn G1/G2/PG |
 | **77 · CP06.02** | Xác thực người duyệt/thẩm quyền theo phạm vi | Không dùng worker tự ký | CAT-025 · Sổ phiếu duyệt/quyết định | TQT-CHECK-004 · Kiểm ghi/mốc | LUÔN · Reviewer khác approver |
 | **78 · CP06.03** | Xin quyết định đồng ý/từ chối/sửa đúng sản phẩm | Có quyết định rõ ràng | CAT-025 · Sổ phiếu duyệt/quyết định | — | LUÔN · Tiếp tục không là duyệt |
@@ -178,7 +178,7 @@ Mã bước giữ ổn định; số đầu dòng chỉ là thứ tự hiển th
 <summary><strong>CP07 · Bàn giao · kết thúc · 7 bước</strong> (mở/thu)</summary>
 
 | Bước | AI phải làm gì? | Thế nào là xong? | Nơi ghi kết quả? (Master mã + tên) | Tool use (nếu có) | Ghi chú |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+|---|---|---|---|---|---|
 | **81 · CP07.01** | Tạo gói bàn giao P05 hoặc việc con cuối theo kế hoạch | Có đầu ra để giao đúng bản; chỉ đóng P05 sau ACK thật CP07.04 | CAT-228* · Sổ việc thật MOT/kết quả | TQT-CHECK-004 · Kiểm ghi/mốc | KHI(kế hoạch có việc bàn giao cuối P05/tương đương) · Không tạo kết quả bàn giao giả nếu quy trình không có việc con ấy. |
 | **82 · CP07.02** | Kiểm hợp đồng nhận cuối và nơi trả | Đúng người/sản phẩm/phiên | CAT-015 · Sổ kết quả kiểm | TQT-CHECK-004 · Kiểm giao–nhận | LUÔN · Duyệt chưa là ACK |
 | **83 · CP07.03** | Ghi giao đúng bản, người và nguồn sản phẩm | Có sổ bàn giao thật | CAT-232* · Sổ bàn giao/xác nhận nhận | TQT-CHECK-004 · Kiểm ghi/mốc | LUÔN · Không chỉ gửi link |
@@ -192,7 +192,7 @@ Mã bước giữ ổn định; số đầu dòng chỉ là thứ tự hiển th
 ## 3. Mẫu bước bổ sung và không áp dụng của một hồ sơ
 
 | Bước | AI phải làm gì? | Thế nào là xong? | Nơi ghi kết quả? (Master mã + tên) | Tool use (nếu có) | Ghi chú |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+|---|---|---|---|---|---|
 | `006.CP02.08+B01` · Bổ sung nguồn pháp lý | Đọc và gắn một nguồn còn thiếu đúng phiên vào hợp đồng áp dụng | Có nguồn hợp lệ, kiểm lại được | CAT-206* · Master hợp đồng đầu vào/đầu ra | TQT-CHECK-004 · Kiểm hợp đồng/mốc | Trống | ☑ + Bổ sung | Lý do/actor/nguồn duyệt và đích ghi thuộc **riêng application**; step cha `006.CP02.08`. |
 | `006.CP05.04` · Không có UI | Không chạy ca kiểm giao diện vì đầu ra việc này không chứa UI | Có căn cứ loại sản phẩm không có UI | DEF 00.1 · Master tiến trình công việc (CAT-227*) | — | — | ☑ − Không áp dụng | Có `reason=not_ui_product`; bước chuẩn vẫn được giữ để người sau học từ sự khác nhau. |
 
@@ -226,6 +226,36 @@ Sự kiện trong detail_tracking.events bổ sung các trường `performed` (D
 
 11 mục hồ sơ giữ kết quả/bằng chứng đã có; dấu ? tại cột/mục giải thích ngay nơi dùng, lấy nội dung từ nguồn chuẩn. Overview vẫn là nơi chứa luật. Lượt nào xong thì KQ/nhả lease và dọn tài nguyên của chính lượt đó ngay; không xóa khóa dịch vụ hay tài nguyên AI khác.
 
-## 7. Làm lại một việc — phát hiện tại lượt thật P45
+## 7. Lịch sử phát hiện P45 — luật lượt mới xem §8
 Giữ mã việc; mỗi vòng làm lại có application_id mới, giữ hồ sơ G1 và quyết định/ACK cũ nguyên vẹn. Trước CP01.04 phải xác minh đường ghi bảo vệ đúng application_id mới, phiên nguồn và sự kiện006; quyền ghi tệp chung không thay bằng chứng kiểm hợp đồng. Nếu chưa có, ghi lượt thật và điểm tắc tại CAT229/CAT069 hiện hữu, liên kết từ DEF00.1, không mở hồ sơ giả hoặc ghi vòng mới vào G1 cũ. KQ DỪNG tại đúng bước, không giữ khóa; sau sửa kiểm lại cửa ghi rồi tiếp tục, không hồi tố bước chưa làm.
 P45 đo cấu hình thật: policy MOW001-G1-P36-2 chỉ ghim application G1 cũ. Chưa có nghiệm thu quyền/adapter vòng mới; không suy rằng cả hệ thống bị từ chối ghi. Trạng thái hiện hành theo Master lỗi/lượt làm, không lấy mục này làm kết quả kiểm cho lần sau.
+
+## 8. Luật dùng cho lượt mới — P51, phiên 0.6
+
+### Cửa ghi ngoài PG: kiểm bởi Host, không giả là máy chủ cưỡng chế
+
+Trong giai đoạn thử hồ sơ ngoài PG, có hai mức khác nhau. `HOST_CHECK` là quy trình kiểm trước khi ghi bằng công cụ hiện có; `SERVER_ENFORCED` chỉ được ghi khi máy chủ thật đã bảo vệ đúng application/phạm vi. P51 chỉ chuẩn bị mức HOST_CHECK, không thay cấu hình bảo vệ G1, không cấp quyền mới. Lượt thật tiếp theo chỉ mở sau hai hãng duyệt đúng bộ sửa và Owner đồng ý ca thử.
+
+Với một application mới, Host phải ghi rõ path/phạm vi/nguồn quyền hiện hữu, kiểm ứng viên bằng CHECK005, ghi CAS `expected_version` qua gateway được phép, lấy receipt và đọc lại so hash. `cycle.write_authorization` gồm `mode=HOST_CHECK, application_id, path, authority_ref, precheck_ref, cas_receipt, readback_ref, server_enforced=false`. Trước khi có receipt, chưa xác nhận đã ghi. Ứng viên có thể soạn local; hồ sơ chuẩn chỉ ở DEF00.1. Không dùng quyền ghi tài liệu để gọi endpoint nghiệp vụ chưa được phép. Cổng từ chối hoặc nguồn đổi thì DỪNG, không dùng SSH ghi vòng qua cổng. ENTRY-b (mở rộng bảo vệ máy chủ) là việc riêng cần quyền/duyệt tương ứng.
+
+Kiểm dùng lại: `node check-work-masters.js view.html --validate-dossier candidate.json`. Tệp đầu vào có `dossier` là binding của application mới và `server_receipts` là các biên nhận đã đối chiếu trực tiếp với Git trên VPS. Lệnh này kiểm hợp đồng, không ghi nguồn; PASS không tự cấp quyền và không nghiệm thu sản phẩm. Khi xin hoàn tất toàn việc, đầu vào kiểm phải có `require_complete=true`: đủ bảy mốc đã khép và dẫn chiếu quyết định/ACK; chưa đủ thì không PASS hoàn tất. Sau CAS phải kiểm đúng bản đọc lại; thiếu/sai thì ghi issue và chặn bước phụ thuộc.
+
+### Thời gian: 7 mốc, không bắt 174 lượt ghi
+
+Mỗi mốc ghi `cycle.milestone_events[]` một sự kiện STARTED trước làm và một KQ sau làm: `event_id, application_id, checkpoint, kind=STARTED|KQ, outcome` (KQ là XONG hoặc DỪNG), `evidence_ref`. Không tự khai giờ máy chủ. Ghi bằng CAS; lấy commit SHA trả về. Chạy **trên repo chuẩn VPS**, chỉ đọc:
+
+`node work/tools-quy-trinh/check-work-masters.js --commit-receipt /opt/incomex/data/workspace-tools/github-workspace <commit-SHA> work/tools-quy-trinh/view.html <event_id>`
+
+DOT đọc chính sự kiện trong commit, lấy giờ commit `%cI` và hash bản đã ghi. Ghi biên nhận vào `cycle.milestones[]` (`checkpoint,start_receipt,end_receipt`) cùng lần ghi kế tiếp, không phát sinh một lượt ghi chỉ để thêm giờ. Mất phản hồi: tra operation_id/commit cũ; không tạo STARTED mới. Biên nhận JSON tự khai không đủ: Host/Reviewer phải đối chiếu bằng lệnh đọc repo chuẩn trên.
+
+Thời lượng mốc = giờ KQ − giờ STARTED, bao gồm ghi/đọc và thời gian chờ trong khoảng đó. Bước tay dùng `SHARED_INTERVAL` và `interval_ref` của mốc; không cộng lại từng dòng. Tool có thời gian riêng thì giữ receipt riêng. Tổng tới khép RUN và tổng tới ACK Owner là hai con số riêng; chưa ACK thì tổng hoàn tất để trống. Mốc DỪNG rồi tiếp tục có cặp sự kiện mới; không đè cặp cũ. Không ghi thời gian mốc bằng `RECORDING_ONLY`; P46 không đo được hồi tố.
+
+### Bước lặp, Không làm, người kiểm
+
+Bước lặp ghi từng item hoặc một manifest: `expected_ids,checked_ids,count,source_version,evidence_ref`; count khớp ID duy nhất, DONE phải đủ tập cần kiểm. Không dùng item_key=G1 chung cho mọi câu/trường/MOT trong lượt mới.
+
+Mọi BLOCKED mới nhất có reason/issue_ref/owner/return_to/next_trigger. NOT_DONE có condition_evidence và lý do; bước LUÔN hoặc nghĩa vụ đến hạn còn cần exception_approval gồm approver,authority_ref,evidence_ref,scope đúng mã bước. Ngoại lệ không được vượt quyền Owner hay bỏ nghĩa vụ cốt lõi. Rà/duyệt độc lập có subject_actor,reviewer,evidence_ref,target_version và hai người phải khác nhau; hãng khác khi phạm vi yêu cầu đồng thuận hai hãng. Lời khai hoặc TEST không thay review hợp đồng.
+
+### Hai bên xác nhận đúng một bộ sửa
+
+Sổ duyệt CAT-025 hiện hữu giữ một phiếu theo bộ sửa gồm manifest (hash luật006, luật002, CHECK005, UI), binding, scope và reviews nối tiếp. Hai cột cuối **GPT duyệt** / **Claude duyệt** lấy từ phiếu này, không nhập tay lần nữa. Mỗi review có vendor,reviewer,reviewed_at,decision,evidence_ref,binding,scope. Đổi hash/phạm vi thì dấu cũ hết hiệu lực. Chưa có review để trống. Đồng thuận chỉ khi cả OpenAI và Anthropic APPROVE cùng binding/phạm vi; Owner quyết sau đó, không suy từ hai chữ ký thành Owner duyệt hoặc sản phẩm nghiệm thu. Claude P49 duyệt bản P50 không thay chữ ký cho P51.

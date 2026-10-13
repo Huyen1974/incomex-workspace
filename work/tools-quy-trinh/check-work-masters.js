@@ -1,6 +1,68 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
+// Read an actual committed event and its Git server timestamp; no file writes.
+if(process.argv.includes('--commit-receipt')){
+ const a=process.argv.slice(process.argv.indexOf('--commit-receipt')+1),[repo,commit,path,eventId]=a;
+ assert(repo&&/^[a-f0-9]{40}$/.test(commit||'')&&path&&!path.startsWith('/')&&!path.split('/').includes('..')&&eventId,'RECEIPT_ARGUMENTS');
+ const git=args=>require('child_process').execFileSync('git',['-C',repo,...args],{encoding:'utf8',maxBuffer:32*1024*1024});
+ const raw=git(['show',commit+':'+path]);const data=JSON.parse(raw.match(/<script id="tqt-composite-processes"[^>]*>([\s\S]*?)<\/script>/)[1]).catalog;
+ const hits=(data.work_schedule.records||[]).flatMap(w=>(w.detail_tracking?.cycle?.milestone_events||[]).filter(e=>e.event_id===eventId));assert.equal(hits.length,1,'COMMITTED_EVENT_NOT_UNIQUE');const e=hits[0];assert(e.application_id&&/^CP0[1-7]$/.test(e.checkpoint)&&['STARTED','KQ'].includes(e.kind),'COMMITTED_EVENT_FIELDS');
+ console.log(JSON.stringify({commit,path,event_id:eventId,application_id:e.application_id,checkpoint:e.checkpoint,kind:e.kind,server_committed_at:git(['show','-s','--format=%cI',commit]).trim(),readback_sha256:require('crypto').createHash('sha256').update(raw).digest('hex'),scope:'GIT_COMMIT_TIME_NOT_PER_STEP_DURATION',origin:'Run on canonical VPS repository; copied JSON alone is not authentication'}));process.exit(0);
+}
+
 let html=fs.readFileSync(process.argv[2]||__dirname+'/view.html','utf8');
 const r=JSON.parse(html.match(/<script id="tqt-composite-processes"[^>]*>([\s\S]*?)<\/script>/)[1]).catalog;
+// P51: every dossier is checked; no event suffix or P46-only entrance condition.
+function validateDossier(b,def,context={}){
+ const fail=(ok,code)=>assert(ok,code),c=b.cycle||{},latest=new Map(),known=new Map(def.groups.flatMap(g=>g.rows.map(x=>[x[0],x]))),ids=new Set();
+ for(const e of b.events||[]){
+  fail(e.event_id&&!ids.has(e.event_id),'EVENT_ID');ids.add(e.event_id);
+  fail(known.has(e.step_id)&&e.application_id===b.application_id&&e.target_version===b.target_version&&e.process_version===b.process_version&&e.definition_sha256===b.definition_sha256,'EVENT_BINDING');
+  fail(e.item_key&&e.actor&&Number.isFinite(Date.parse(e.at))&&Number.isInteger(e.revision)&&e.revision>0,'EVENT_FIELDS');
+  const key=e.step_id+'|'+e.item_key,old=latest.get(key);fail(!old||e.revision>old.revision,'REVISION_ORDER');latest.set(key,e);
+ }
+ const step=id=>[...latest.values()].filter(e=>e.step_id===id);
+ for(const e of latest.values()){
+  fail(['DONE','BLOCKED','NOT_DONE'].includes(e.performed),'PERFORMED');
+  if(e.performed==='DONE')fail(e.actual_action&&(e.evidence_ref||e.result_ref),'DONE_EVIDENCE');
+  if(e.performed==='BLOCKED')for(const k of ['reason','issue_ref','owner','return_to','next_trigger'])fail(typeof e[k]==='string'&&e[k].trim(),'BLOCKER_'+k);
+  if(e.performed==='NOT_DONE'){
+   fail(e.reason&&e.condition_evidence,'SKIP_EVIDENCE');
+   if(known.get(e.step_id)[5].startsWith('LUÔN')||e.obligation_due===true)fail(e.exception_approval?.approver&&e.exception_approval?.authority_ref&&e.exception_approval?.evidence_ref&&e.exception_approval?.scope===e.step_id,'MANDATORY_SKIP_APPROVAL');
+  }
+  if((def.execution_policy?.independent_review_steps||[]).includes(e.step_id)&&e.performed==='DONE')fail(e.review?.subject_actor&&e.review?.reviewer&&e.review.reviewer!==e.review.subject_actor&&e.review.evidence_ref&&e.review.target_version===b.target_version,'INDEPENDENT_REVIEW');
+  if(e.items){fail(Array.isArray(e.items.expected_ids)&&Array.isArray(e.items.checked_ids)&&new Set(e.items.expected_ids).size===e.items.expected_ids.length&&new Set(e.items.checked_ids).size===e.items.checked_ids.length,'ITEM_IDS');fail(e.items.count===e.items.checked_ids.length&&e.items.checked_ids.every(x=>e.items.expected_ids.includes(x)),'ITEM_COUNT');if(e.performed==='DONE')fail(e.items.expected_ids.length===e.items.checked_ids.length&&e.items.evidence_ref&&e.items.source_version,'ITEM_COVERAGE');}
+  if(def.execution_policy?.repeat_steps?.includes(e.step_id)&&e.performed==='DONE')fail(e.item_key!=='G1'&&(e.items||e.item_evidence_ref),'REPEAT_MANIFEST');
+ }
+ if(c.closed_at)fail(step('CP07.08').some(e=>e.performed==='DONE'&&e.evidence_ref),'CLOSED_RUN_STILL_BLOCKED');
+ if(c.publication?.readback?.state==='PASS')fail(step('CP04.07').some(e=>e.performed==='DONE'&&e.evidence_ref),'READBACK_STILL_BLOCKED');
+ if((c.master_records?.['CAT-016']||[]).length)fail(!step('CP04.15').some(e=>e.performed==='NOT_DONE'),'CHANGE_BRANCH_SKIPPED');
+ // A correction may inherit measured evidence only along an explicit same-step/item chain.
+ for(const e of b.events||[])if(e.correction_of){const p=b.events.find(x=>x.event_id===e.correction_of);fail(p&&p.step_id===e.step_id&&p.item_key===e.item_key&&p.application_id===e.application_id&&p.revision<e.revision,'CORRECTION_BINDING');}
+ if(c.history_correction_proof){const h=c.history_correction_proof;fail((b.events||[]).length>=h.prior_events,'HISTORY_LENGTH');fail(require('crypto').createHash('sha256').update(JSON.stringify(b.events.slice(0,h.prior_events))).digest('hex')===h.prior_sha256,'HISTORY_PREFIX_CHANGED');}
+ const milestoneIds=new Set();for(const m of c.milestones||[]){
+  fail(/^CP0[1-7]$/.test(m.checkpoint)&&m.start_receipt,'MILESTONE_START');
+  for(const key of ['start_receipt','end_receipt'])if(m[key]){const receipt=m[key];fail(/^[a-f0-9]{40}$/.test(receipt.commit||'')&&Number.isFinite(Date.parse(receipt.server_committed_at))&&!milestoneIds.has(receipt.event_id),'MILESTONE_RECEIPT_FORMAT');milestoneIds.add(receipt.event_id);const trusted=(context.server_receipts||[]).find(x=>x.commit===receipt.commit&&x.event_id===receipt.event_id);fail(trusted&&trusted.application_id===b.application_id&&trusted.checkpoint===m.checkpoint&&trusted.kind===(key==='start_receipt'?'STARTED':'KQ')&&trusted.server_committed_at===receipt.server_committed_at&&trusted.path&&trusted.readback_sha256,'SERVER_RECEIPT_REQUIRED');}
+  if(m.end_receipt)fail(Date.parse(m.end_receipt.server_committed_at)>=Date.parse(m.start_receipt.server_committed_at),'MILESTONE_ORDER');
+ }
+ if(c.write_authorization){const a=c.write_authorization;fail(a.mode==='HOST_CHECK'&&a.application_id===b.application_id&&a.path&&a.authority_ref&&a.precheck_ref&&a.cas_receipt&&a.readback_ref,'HOST_CHECK_CHAIN');fail(a.server_enforced===false,'HOST_CHECK_NOT_SERVER_GUARD');}
+ if(def.execution_policy)for(const issue of c.issues||[])auditIssue(issue);
+ if(context.require_complete===true){fail(['CP01','CP02','CP03','CP04','CP05','CP06','CP07'].every(cp=>(c.milestones||[]).some(m=>m.checkpoint===cp&&m.end_receipt)),'SEVEN_MILESTONES_REQUIRED');fail(c.owner_decision_ref&&c.recipient_ack_ref,'OWNER_ACK_REQUIRED');}
+ return {state:'PASS',scope:'HOST_CHECK_ONLY_NOT_SERVER_ENFORCEMENT',events:(b.events||[]).length};
+}
+function reviewConsensus(g){
+ if(!g)return false;
+ return ['OpenAI','Anthropic'].every(v=>{const x=(g.reviews||[]).filter(x=>x.vendor===v).at(-1);return x&&x.decision==='APPROVE'&&x.binding===g.binding&&x.scope===g.scope&&x.reviewer&&x.evidence_ref&&Number.isFinite(Date.parse(x.reviewed_at));});
+}
+function auditIssue(x){
+ assert(['OPEN','VERIFIED','FIXING','VERIFYING','CLOSED','DEFERRED','REJECTED','SUPERSEDED'].includes(x.state),'ISSUE_STATE');assert(x.owner&&x.return_to,'ISSUE_OWNER_RETURN');
+ if(x.state==='CLOSED')assert(x.result_ref&&x.origin_readback_ref&&x.verified_by&&x.verified_by!==x.fixed_by,'ISSUE_CLOSE_EVIDENCE');
+ if(x.state==='DEFERRED')assert(x.approved_by&&x.decision_ref&&x.next_trigger,'ISSUE_DEFER_APPROVAL');
+ if(x.state==='REJECTED')assert(x.reason&&x.evidence_ref,'ISSUE_REJECT_EVIDENCE');
+ if(x.state==='SUPERSEDED')assert(x.replacement_ref&&x.obligation_mapping_ref&&x.verified_by,'ISSUE_SUPERSEDED_MAPPING');
+ return true;
+}
+
+if(process.argv.includes('--validate-dossier')){const f=process.argv[process.argv.indexOf('--validate-dossier')+1],x=JSON.parse(fs.readFileSync(f,'utf8')),b=x.dossier,def=[r.detailed_workflow,...(r.detailed_workflow_history||[])].find(d=>d.version===b.process_version&&d.source_sha256===b.definition_sha256);assert(def,'UNKNOWN_DEFINITION');console.log(JSON.stringify(validateDossier(b,def,x)));process.exit(0);}
 const engineCode=Buffer.from(html.match(/<script id="tqt-record-control"[^>]*>([\s\S]*?)<\/script>/)[1]).toString();
 html=null;/release/.test('release'); // Release large HTML/RegExp input; all real records/history remain intact.
 // Fixture mutations never edit execution-history entries. Share their full read-only
@@ -23,11 +85,33 @@ if(adapter&&globalThis.TQT_WORK_MASTER.cycleAudit){const v=auditRecordedCycle(gl
 function auditCycleProducts(c){for(const [k,p] of Object.entries(c.products||{})){assert.equal(p.cycle_id,c.run_id,'PRODUCT_CYCLE');assert.equal(require('crypto').createHash('sha256').update(JSON.stringify(p)).digest('hex'),c.product_hashes[k],'PRODUCT_HASH');if(k==='P01')assert.equal(p.read_receipt.answered,50,'P01_ANSWERS');if(['P02','P03'].includes(k)){assert.equal(p.reused_content.mots.length,3,'DESIGN_MOTS');for(const m of p.reused_content.mots)for(const key of ['fields','controls','branches'])assert(Array.isArray(m[key])&&m[key].length,'DESIGN_CONTENT');}}}
 for(const w of r.work_schedule.records){const c=w.detail_tracking?.cycle;if(c){auditCycleProducts(c);const bad=JSON.parse(JSON.stringify(c));bad.products.P02.reused_content.mots[0].fields=[];bad.product_hashes.P02=require('crypto').createHash('sha256').update(JSON.stringify(bad.products.P02)).digest('hex');assert.throws(()=>auditCycleProducts(bad),/DESIGN_CONTENT/);console.log('P46: actual rebuilt products read and verified; missing-fields negative case rejected (TEST)');}}
 
-function auditCorrections(c,b){if(!c.history_correction_proof)return;const h=c.history_correction_proof;assert.equal(b.events.slice(0,h.prior_events).length,h.prior_events);assert.equal(require('crypto').createHash('sha256').update(JSON.stringify(b.events.slice(0,h.prior_events))).digest('hex'),h.prior_sha256,'HISTORY_PREFIX_CHANGED');const latest=new Map();for(const e of b.events)latest.set(e.step_id,e);for(const e of latest.values()){if(e.event_id.endsWith('-P50')&&e.performed==='BLOCKED')for(const k of ['issue_ref','owner','return_to','next_trigger'])assert(e[k],'BLOCKER_'+k);if(e.step_id==='CP07.08'&&c.closed_at)assert.equal(e.performed,'DONE','CLOSED_RUN_STILL_BLOCKED');}assert.equal(latest.get('CP04.07').performed,'DONE','READBACK_STILL_BLOCKED');assert.notEqual(latest.get('CP04.15').performed,'NOT_DONE','CHANGE_BRANCH_SKIPPED');}
-for(const w of r.work_schedule.records){const b=w.detail_tracking,c=b?.cycle;if(c){auditCorrections(c,b);if(c.history_correction_proof){const changed=JSON.parse(JSON.stringify(b));changed.events[0].actual_action='tampered';assert.throws(()=>auditCorrections(c,changed),/HISTORY_PREFIX_CHANGED/);const bad=JSON.parse(JSON.stringify(b));bad.events.filter(e=>e.step_id==='CP07.08').at(-1).performed='BLOCKED';assert.throws(()=>auditCorrections(c,bad));const bad2=JSON.parse(JSON.stringify(b));delete bad2.events.find(e=>e.event_id.endsWith('-P50')&&e.performed==='BLOCKED').issue_ref;assert.throws(()=>auditCorrections(c,bad2));const model=globalThis.TQT_WORK_MASTER.detailModel(r,w);for(const g of model.groups)for(const row of g.rows)if(row.history.at(-1)?.timing_basis==='RECORDING_ONLY')assert.equal(row.actual?.finished||'','');console.log('P50: recording-time hidden, stale close state and incomplete blockers rejected');}}}
+for(const w of r.work_schedule.records){const b=w.detail_tracking;if(!b?.cycle)continue;const def=[r.detailed_workflow,...(r.detailed_workflow_history||[])].find(d=>d.version===b.process_version&&d.source_sha256===b.definition_sha256);assert(def,'HISTORICAL_DEFINITION');validateDossier(b,def);const bad=JSON.parse(JSON.stringify(b));bad.events[0].actual_action='tampered';assert.throws(()=>validateDossier(bad,def),/HISTORY_PREFIX_CHANGED/);if(adapter){const model=globalThis.TQT_WORK_MASTER.detailModel(r,w),rows=model.groups.flatMap(g=>g.rows);assert(rows.find(x=>x.definition[0]==='CP05.04').actual.elapsed.includes('348'));assert(rows.find(x=>x.definition[0]==='CP05.10').actual.tools.includes('TQT-CHECK-006'));assert.equal(rows.find(x=>x.definition[0]==='CP03.05').actual.confirmation,'Bị chặn');assert(!rows.find(x=>x.definition[0]==='CP02.05').actual.evidence.includes('[{'));}}
+// New application, not a P46 clone: each rule has a positive control and mutation.
+{
+ const d=JSON.parse(JSON.stringify(r.detailed_workflow)),id='TEST-P51-NEW',now='2026-10-13T00:00:00Z';
+ const e={event_id:'NEW-E1',revision:1,at:now,actor:'TEST executor',application_id:id,target_version:'TEST-v1',process_version:d.version,definition_sha256:d.source_sha256,step_id:'CP01.01',item_key:'request',performed:'DONE',actual_action:'TEST only',evidence_ref:'TEST/evidence'};
+ const b={application_id:id,target_version:'TEST-v1',process_version:d.version,definition_sha256:d.source_sha256,events:[e],cycle:{}};
+ validateDossier(b,d);assert.throws(()=>validateDossier(b,d,{require_complete:true}),/SEVEN_MILESTONES/);let cases=2;const reject=(mut,code)=>{const x=JSON.parse(JSON.stringify(b));mut(x);assert.throws(()=>validateDossier(x,d),new RegExp(code));cases++;};
+ reject(x=>Object.assign(x.events[0],{performed:'BLOCKED',reason:'missing'}),'BLOCKER');
+ reject(x=>x.cycle.closed_at=now,'CLOSED_RUN');
+ reject(x=>x.cycle.publication={readback:{state:'PASS'}},'READBACK');
+ reject(x=>{x.events[0].step_id='CP04.15';Object.assign(x.events[0],{performed:'NOT_DONE',reason:'branch absent',condition_evidence:'TEST'});x.cycle.master_records={'CAT-016':[{record_id:'NEW-CHANGE'}]};},'CHANGE_BRANCH');
+ reject(x=>Object.assign(x.events[0],{performed:'NOT_DONE',reason:'skip'}),'SKIP_EVIDENCE');
+ reject(x=>Object.assign(x.events[0],{performed:'NOT_DONE',reason:'skip',condition_evidence:'TEST'}),'MANDATORY_SKIP');
+ reject(x=>Object.assign(x.events[0],{step_id:'CP03.05',review:{subject_actor:'A',reviewer:'A',evidence_ref:'TEST',target_version:'TEST-v1'}}),'INDEPENDENT_REVIEW');
+ reject(x=>x.events[0].items={expected_ids:['a','b'],checked_ids:['a'],count:1,evidence_ref:'TEST',source_version:'1'},'ITEM_COVERAGE');
+ reject(x=>Object.assign(x.events[0],{step_id:'CP02.02',item_key:'G1'}),'REPEAT_MANIFEST');
+ reject(x=>x.events[0].correction_of='missing','CORRECTION_BINDING');
+ reject(x=>x.cycle.milestones=[{checkpoint:'CP01',start_receipt:{commit:'a'.repeat(40),event_id:'s',server_committed_at:now}}],'SERVER_RECEIPT');
+ reject(x=>x.cycle.write_authorization={mode:'HOST_CHECK'},'HOST_CHECK_CHAIN');
+ const timed=JSON.parse(JSON.stringify(b)),receipt={commit:'a'.repeat(40),event_id:'start',application_id:id,checkpoint:'CP01',kind:'STARTED',server_committed_at:now,path:'TEST/path',readback_sha256:'TEST-hash'};timed.cycle.milestones=[{checkpoint:'CP01',start_receipt:receipt}];validateDossier(timed,d,{server_receipts:[receipt]});cases++;
+ const issue={state:'CLOSED',owner:'A',return_to:'CP02.13',result_ref:'TEST',origin_readback_ref:'TEST',fixed_by:'A',verified_by:'B'};auditIssue(issue);assert.throws(()=>auditIssue({...issue,verified_by:'A'}));assert.throws(()=>auditIssue({...issue,state:'SUPERSEDED',replacement_ref:'new'}));cases+=3;
+ const gate={binding:'TEST-binding',scope:'TEST',reviews:['OpenAI','Anthropic'].map(v=>({vendor:v,decision:'APPROVE',binding:'TEST-binding',scope:'TEST',reviewer:v,evidence_ref:'TEST',reviewed_at:now}))};assert(reviewConsensus(gate));gate.reviews[1].binding='old';assert(!reviewConsensus(gate));gate.reviews=[];assert(!reviewConsensus(gate));cases+=3;
+ console.log(JSON.stringify({p51_general_rules:cases,scope:'NEW_APPLICATION_TEST_NOT_REAL_WORK',state:'PASS'}));
+}
 
 // Existing regression fixtures describe the historical G1 baseline. Validate the live cycle above, then isolate those fixtures from the new run.
-const liveCycleBindings=r.work_schedule.records.map(w=>w.detail_tracking);for(const w of r.work_schedule.records){if(w.detail_tracking?.cycle)w.detail_tracking={...w.detail_tracking,cycle:undefined,events:[],mode:'REFERENCE_ONLY'};}
+const liveCycleBindings=r.work_schedule.records.map(w=>w.detail_tracking);for(const w of r.work_schedule.records){if(w.detail_tracking?.cycle)w.detail_tracking={...w.detail_tracking,cycle:undefined,events:[],mode:'REFERENCE_ONLY',process_version:r.detailed_workflow.version,definition_sha256:r.detailed_workflow.source_sha256};}
 
 function validate(r){
  const s=r.work_schedule, defs=r.work_master_designs.records, by=new Map(s.records.map(x=>[x.record_id,x]));
