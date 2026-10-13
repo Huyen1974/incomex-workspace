@@ -4,6 +4,98 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## L1-20261013 · RUN VPSC-L1-CRON-OFF-20261013-01 · tắt LỊCH theo chủ đề D25 (Pivot/đếm + Governance/APR/heal) · executor Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ XONG (kèm 2 thiếu hình thức của Guard, mục 7)
+
+**PROMPT `91334aa8` (READY P90 GPT Host B3 + Reviewer ACCEPT P89) · khối Owner có nguyên dòng D25 §0A · STARTED + VPS-GHI `e3d01be` 14:56Z · nạp crontab 15:00:02Z · bằng chứng VPS `/opt/incomex/work/vps-clean-20-9-26/VPSC-L1-CRON-OFF-20261013-01/{pre,obs,post,rollback}` + `crontab.truoc`, `crontab.sau`, `diff.txt`, `kiem-truoc-nap.txt` (tệp có dòng crontab để chế độ 600).** Chỉ đổi crontab root + 1 dòng trạng thái trong `docs/KE-HOACH-XOA-20260801.md`; 0 PG DDL/DML, 0 Directus, 0 restart, 0 sửa DOT/mã, 0 đụng Graph.
+
+### 1. Cho Owner
+- Đã tắt **21/21** lịch định kỳ di sản (Pivot/đếm 7 dòng + Governance/APR/heal 14 dòng) bằng một dấu chú thích trong crontab; bật lại trong 10 giây bằng bản sao. Trigger, bảng, flow, mã, dữ liệu giữ nguyên.
+- Kể cả G1/G2 (`dot-hc-executor` + `-verify`, người quét chính của `system_issues`): đã soát cả 30 kiểm tra đang bật — không kiểm tra nào bảo vệ PG đếm PG/ba lô, agent-data, Graph hay Đ30/31, không đường cảnh báo nào; bảo vệ Đ30/31 (Guard, Config Guard, Kuma→Telegram, permissions/trigger-guard, sr-mow, backup) vẫn chạy.
+- Một chu kỳ 10 phút sau khi tắt: 4 bộ đếm PG nóng (ghi đè pivot, sửa `meta_catalog`, chép `v_registry_counts`, quét `birth_registry`) đứng yên = 0, trước đó ~150 · 18 · 185 · 6 mỗi 10 phút; 22 đèn y như trước; tiết kiệm/ngày CHƯA đo — Reviewer đọc 24h từ mốc T0. Guard POST còn 2 thiếu hình thức (crontab ngoài Config Guard — Owner đã chọn giữ; câu Kuma #11 luân phiên).
+
+### 2. Bảng T — từng dòng (khoá = cột lịch + chuỗi đặc trưng, mỗi khoá khớp đúng 1 dòng đang chạy; chỉ ghi số dòng + 16 ký tự sha256 của dòng)
+| # | Chủ đề | Dòng PRE · sha16 | Kết quả | Lý do |
+|---|---|---|---|---|
+| P1 | `refresh_meta_catalog_from_pivot()` 3-59/10 | 184 · 22ec6512edb111e9 | TẮT | chủ đề Pivot/đếm; 0 tham chiếu nhóm GIỮ |
+| P2 | `refresh_pivot_results()` 7-59/10 | 241 · badaeb7fdd52dade | TẮT | như P1 |
+| P3 | `fn_refresh_orphan_species()` 5-59/10 | 265 · 9c017f35e5c2cbb3 | TẮT | như P1 |
+| P4 | `refresh_matrix_results()` 9-59/10 | 363 · cd1a13c0be213301 | TẮT | như P1; 42% khối PG đọc ở L0 |
+| P5 | `dot-pivot-health` 0 4 | 198 · 0d42e24f4ba82243 | TẮT | kiểm P1–P4 (đã tắt) |
+| P6 | `dot-matrix-health` 5 4 | 377 · dcd1852db8c9d4c9 | TẮT | như P5 |
+| P7 | `dot-accuracy-verify` 30 3 | 251 · ebdb412ed2ac37a6 | TẮT | sửa `record_count` meta_catalog |
+| G1 | `dot-hc-executor` 0 */3 | 598 · 08ff475233b24f39 | TẮT | qua cổng G1/G2 (mục 4) |
+| G2 | `dot-hc-executor-verify` 30 */3 | 608 · f0a4992192fd5b85 | TẮT | chỉ kiểm chính G1 |
+| G3 | `dot-orphan-scanner` 30 2 | 212 · 1a848ff8419ad9b1 | TẮT | quét `birth_registry` |
+| G4 | `dot-misclass-scanner` 0 3 * * 0 | 222 · 175478630b99ba3b | TẮT | phân loại loài Owner đã bỏ |
+| G5 | `fn_expire_stale_approvals()` 0 5 | 279 · fdb77238570dbdf2 | TẮT | APR ngủ từ 23/07 |
+| G6 | `auto_apply_approval()` 30 4 | 292 · 9d2e00baaa221962 | TẮT | để 2 yêu cầu `approved` cũ không tự áp |
+| G7 | `dot-apr-health` 30 4 | 349 · 88e21a902ce3860c | TẮT | APR |
+| G8 | `dot-dot-health` 0 3 | 303 · 65c67781480b9bb5 | TẮT | sổ DOT (Đ35) |
+| G9 | `dot-collection-health` 0 4 | 317 · e584c7e097ddc4dc | TẮT | registry; còn lỗi SQL |
+| G10 | `dot-gov-verify` 0 5 | 418 · 003cbde061e44c1d | TẮT | governance |
+| G11 | `dot-nrm-verify` 0 5 | 432 · acf67fec7fd07c85 | TẮT | normative |
+| G12 | `dot-nrm-sync` 30 5 | 446 · 6f2aecc7e3f544c7 | TẮT | normative |
+| G13 | `dot-nrm-lifecycle` 0 6 | 460 · c764416baba3162d | TẮT | normative |
+| G14 | `dot-nrm-discover` 0 4 * * 0 | 474 · 3973ffdc297b2cf8 | TẮT | normative |
+
+Kiểm trước nạp (`kiem-truoc-nap.txt`): diff −21/+22 (21 tiền tố `#L1-OFF-VPSC-L1-CRON-OFF-20261013-01 ` + 1 dòng nhãn đầu tệp), mỗi dòng bỏ ↔ đúng dòng đó có tiền tố; 2 dòng Guard `CRON_EXACT` (`disk-monitor.sh`, `mcpw-protection-guard periodic`) nguyên văn, đúng 1 lần; `CRON_TZ=` giữ chỗ (dòng 391, 404, 612); dòng chạy 53 → 32; 27 khoá bảng K đều còn chạy, số dòng không đổi ⇒ PASS. Nạp 15:00:02Z: `crontab -l` sha256 = bản sau `94e90c41…`; bản sao `/root/crontab.bak-VPSC-L1-CRON-OFF-20261013-01` sha256 = PRE `31251c7d…`.
+
+### 3. Bộ đếm PG (DB `directus`, `query_pg` chỉ đọc) — T0 trước nạp · T1 ngay sau nạp · T2 sau mốc `:09`
+| Bộ đếm | T0 14:57:19Z | T1 15:00:13Z | T2 15:10:20Z | T1→T2 | L0 mỗi 10′ |
+|---|---|---|---|---|---|
+| `pivot_results.n_tup_upd` | 200.828 | 200.852 | 200.852 | **+0** | ~150 |
+| `meta_catalog.n_tup_upd` | 27.570 | 27.570 | 27.570 | **+0** | ~18 |
+| `v_registry_counts.n_tup_ins` | 376.194 | 376.194 | 376.194 | **+0** | ~185 |
+| `birth_registry.seq_scan` | 9.244 | 9.250 | 9.250 | **+0** | ~6 |
+| phụ: `system_issues.seq_scan` | 11.356 | 11.359 | 11.365 | +6 | — |
+| phụ: `birth_registry.heap_blks_read` | 69.758.011 | 69.796.345 | 69.842.222 | +45.877 (seq +0; idx_scan T0→T2 +3) | — |
+| phụ: `v_registry_summary` ins/del · `approval_requests` | 11.395/11.394 · 2.977 quét | = | = | +0 | — |
+
+T0→T1 chứa lượt pivot 14:57Z và matrix 14:59Z (trước nạp 15:00:02Z). Cửa sổ T1→T2 qua đủ 4 mốc `:03 :05 :07 :09`, ngoài giờ máy 02/20. Cron từ 15:00:03Z: 37 lệnh chạy, **0 lệnh thuộc dòng T** (10 phút trước nạp: 4); 0 tiến trình `docker exec … refresh_`/DOT T còn sót. `system_issues` T0→T1 +3 = `watchdog-monitor.sh` lúc :00 (bảng K); +6 và `birth_registry` +45.877 khối ở T1→T2 trùng lượt chính RUN này mở trang `/knowledge/registries` để kiểm health lúc 15:03Z (12–14 s; API `raw-counts`/`system-issues`/`species-matrix` đọc hai bảng này) — INFERRED, chưa gắn chắc. Mốc T0 đủ 394 bảng: `<EV>/pre/t0-directus.json` (Reviewer đọc 24h; bộ đếm cộng dồn, `stats_reset` rỗng).
+
+### 4. Bóc tách 3 nguồn (S0, chỉ đọc) + cổng G1/G2
+- **(i) Graph** (graph-v1 live, `read-cypher`): 5 hàm SQL của P1/P2/P4/G5/G6 không có nút; `fn_refresh_orphan_species` chỉ có cạnh từ trigger `entity_species.trg_refresh_orphan_species` (cùng chủ đề); 14 DotCommand chỉ có cạnh `REGISTERS` từ sổ `dot_tools`, `dot-dot-health` 0 cạnh vào ⇒ **0 cạnh từ nhóm GIỮ**. Graph chưa phủ cron, SQL dựng chuỗi, Directus HTTP, Nuxt ⇒ dựa thêm (ii)(iii).
+- **(ii) Mã nhóm GIỮ** (`nice 19 ionice c3`, chỉ tên tệp): agent-data 0 · claude-mcp 0 · Guard 0 · kuma-push 0 · storage-watch 0 · Nuxt `web/server` (trừ `api/registry*`/`registries*`) 0 · graph-server chỉ 3 tệp **dữ liệu kiểm kê** đầu vào Graph (`prod-v1/import/pgdot/q_dot.csv`, `q_trg.csv`, `dot_disk.tsv`), không phải lời gọi.
+- **(iii) Tin báo:** `bang-den.json` 14:45Z 75 loại — 0 loại có nguồn là dòng T ⇒ 0/75.
+- **Cổng G1/G2 (§2.4):** 30 `system_health_checks` đang bật = Đ43 11 (context pack H1–H9: bản dựng cuối **04/05/2026**, không còn lịch dựng, mỗi lượt H1/H2/H3/H7/H8 FAIL_CRITICAL; H11a/H11b mô tả, H11a có tự sửa) · Đ35 16 (vệ sinh sổ `dot_tools`, builtin ủy quyền `dot-dot-health` = G8) · Đ36 2 (HC-REG, HC-SCHEMA) · Đ22 1 (HC-TRIGGER tự gắn `trg_desc_guard`) · khai sinh 1. Lượt 13:00Z: 17 PASS · 4 WARN · 9 CRITICAL, mọi lượt 11–13/10 rollup=fail. Đầu ra: `system_issues` (+ trigger → `event_outbox`), heartbeat `dot_config` (chỉ G2 đọc), `context_pack_manifest.health_status`. Người tiêu thụ: nhóm GIỮ 0 (agent-data, claude-mcp, graph-server, Guard, kuma-push, storage-watch, disk-monitor, db/env-permissions-guard, dot-trigger-guard, sr-mow, backup ×4, test-mcp-connectivity, reconcile ×2, dot-kb-verify, dot-api-health, dot-vector-audit, dot-sync-orphan-scan, phai-cu, systemd, cron.d); Ba lô 0 (`dot-pg-label-apply` ghi rõ nhãn Ba lô = `COMMENT ON`, `entity_labels` là hệ khác; `api/balo`, `api/reports` 0); `system_issues` chỉ được đọc bởi trang registries Nuxt và bộ «Điều 31» cũ (watchdog chỉ đọc `source_system=dieu31-runner`, không phải đầu ra hc); `event_outbox` 0 người đọc; 3 flow `[WATCHDOG] system_issues → Changelog` chỉ bắn khi ghi qua API (hc ghi bằng psql), 0 Telegram; 0 `pg_notify`/http/telegram trong trigger. Curl duy nhất của hc là lấy SQL kiểm từ KB agent-data (là người dùng agent-data, không bảo vệ nó). ⇒ **G1/G2 không thực thi kiểm tra thiết yếu nào của nhóm GIỮ ⇒ TẮT cả hai.** JEV `gen-dec-1791902989-mGIWd1cty2WWitWxFEuI`: tắt cả hai 0,55 · giữ 0,42 (độ tin 0,40) · «phụ thuộc chưa chứng minh» 0,52 ⇒ đã soát thêm Ba lô, `event_outbox`, flow/trigger cảnh báo rồi mới chốt. Biên nhận: `<EV>/pre/s0-tach-3-nguon.txt`, `<EV>/pre/g1g2-cong.txt`.
+
+### 5. Kiểm tra sức khoẻ đã ngừng chạy theo lịch (để L2 biết)
+- **Qua G1/G2 (8 lượt/ngày):** 30 mã `system_health_checks` — Đ35: DOT-H1…H14, H10, DOT-BIRTH-ONBOARD-FULLSCAN-HC · Đ43: H1–H9, H11a (kèm tự sửa `heal_description_basic`), H11b · Đ36: HC-REG, HC-SCHEMA · Đ22: HC-TRIGGER (kèm tự gắn `trg_desc_guard` cho bảng governed mới). Dòng `is_active` trong PG **không đổi**; chạy tay `dot-hc-executor` vẫn được.
+- **DOT kiểm hằng ngày/tuần:** `dot-pivot-health`, `dot-matrix-health`, `dot-accuracy-verify`, `dot-apr-health`, `dot-dot-health`, `dot-collection-health`, `dot-gov-verify`, `dot-nrm-verify`; quét `dot-orphan-scanner`, `dot-misclass-scanner`; ghi sổ luật `dot-nrm-sync`, `dot-nrm-lifecycle`, `dot-nrm-discover`; APR `fn_expire_stale_approvals()`, `auto_apply_approval()`.
+- Không ngừng: mọi dòng bảng K (Guard, permissions-guard, `dot-trigger-guard` 03:15, sr-mow, bộ Đ31 cũ, backup, KB/vector/API health…), `/etc/cron.d/*`, systemd timer, Directus flow.
+
+### 6. Bảng Đ30/31 (R4) — thành phần «crontab root»
+| Ô | Nội dung |
+|---|---|
+| Hồi quy | diff đúng 21 + 1 dòng · 0 dòng T còn chạy (`crontab -l` có 21 dòng tiền tố, 32 dòng chạy) · 4 bộ đếm mục 3 = 0 trong một chu kỳ |
+| Toàn vẹn | Guard INV15 (2 dòng lịch `CRON_EXACT` nguyên văn) + INV23 sổ mã (tệp spool `crontab root` sha PRE `13c017ba…` → POST `7cbabbee…`, `cron.root.sha` 31251c7d → 94e90c41). **Crontab root KHÔNG thuộc Config Guard** ⇒ ô Đ31 của Guard C3 không đạt được bằng `config-guard:<id>` (xem mục 7) |
+| Canh | Guard `periodic` */5 → Kuma #22 + 22 đèn Kuma → Telegram |
+| Lùi | `crontab /root/crontab.bak-VPSC-L1-CRON-OFF-20261013-01` (sha256 `31251c7d62daa31d…` = PRE); bản spool PRE dựng lại đúng byte `<EV>/rollback/crontab-root.spool.pre` (sha `13c017ba…`, để Guard đối chiếu) |
+
+### 7. POST
+- **Guard POST** `vpsc-l1-post` 15:12:51Z (`<EV>/post/guard-post-*.json`, `post/guard-post.txt`): **FAIL tổng — không diễn đạt là «Guard PASS»**. Gồm: INV5_6 (Config Guard 4 đích lệch, `mismatch=4` như PRE) + INV20 — có sẵn từ #22; **C3.footprint_coverage** FAIL đúng 1 ô «THIẾU `file:/var/spool/cron/crontabs/root`:Đ31 (chưa ở Config Guard)» — ô Đ30 (`post/proof/crontab-root.txt`: PASS · run · sha mới `7cbabbee…`), watchdog, rollback (spool PRE dựng lại đúng byte, sha `13c017ba…` = PRE) đều đạt; **C3.same_or_better** FAIL chỉ vì #11 «No heartbeat in the time window» → «DISK 62% SLOPE7D −4.55GiB»: cùng lỗi đĩa đỏ từ 11/10 01:10Z (bảng đèn 14:50Z PRE và 15:10Z cùng câu SLOPE7D −4,50 GiB; lúc Guard PRE chụp, Kuma đang hiện câu nhịp tim luân phiên — giống HEAL-01/HEAL02, không chạy lại để canh câu); C3.change_event PASS; INV15 (lịch Disk/Guard đúng, fleet 22/22 gắn Telegram) · INV16 (tin báo 75 loại, 0 hỏng) · INV22 Graph · INV23 sổ mã 559 tệp PASS.
+- **22 đèn:** PRE 14:50Z 19/22 · POST 15:10Z 19/22; đỏ {#11 Disk, #21 Hermes, #22 Guard} = PRE_RED_SET ⇒ không đèn mới đỏ ⇒ không lùi.
+- **Health 15:13:54Z:** agent-data `/api/health` 200 (0,44 s) · Directus ping 200 · Nuxt `/knowledge/modules` 200 · `/knowledge/registries` 200 (12,5 s) · `/knowledge/pivot` 200 · `/reports/report-pg` 200 · 13 container Up/healthy · Graph 3.596 nút / 6.823 cạnh. Trang registries/pivot giữ số đứng yên = đúng trạng thái chủ đề đã tắt.
+- Máy lúc POST (chỉ ghi, không phải số tiết kiệm): trống 39.804.166.144 B · MemAvailable 5,47 GiB.
+
+### 8. Bật lại
+- Cả đợt (10 giây): `crontab /root/crontab.bak-VPSC-L1-CRON-OFF-20261013-01` rồi `crontab -l | sha256sum` phải = `31251c7d62daa31d9cf8b73191fe6c8dd315ee550672074553c03cdcaabf5cc6`.
+- Từng dòng: `crontab -l | sed 's|^#L1-OFF-VPSC-L1-CRON-OFF-20261013-01 \(<cột lịch của dòng> \)|\1|' | crontab -` (chỉ dòng có đúng cột lịch + tên DOT/hàm ở bảng T); khi bật lại hết thì bỏ dòng nhãn đầu tệp `# L1-OFF VPSC-L1-CRON-OFF-20261013-01 …`.
+- Nhãn tại chỗ DEL-1: dòng trạng thái mới ở bảng «LỘ TRÌNH 4 BƯỚC» của `/opt/incomex/docs/KE-HOACH-XOA-20260801.md` (tệp KHÔNG thuộc Config Guard ⇒ sửa trực tiếp, giữ bản `<EV>/rollback/KE-HOACH-XOA-20260801.md.pre`; sha256 `bebab0d1…` → `3139554a…`; git cục bộ `/opt/incomex` chưa commit — để chủ cây quyết).
+
+### 9. Giới hạn và việc còn lại cho Host
+- **Guard C3 ô Đ31 của crontab root:** mã Guard (`check_coverage`) đòi tệp kiểu `file:` phải có `config-guard:<id>` trong sổ Config Guard; crontab root không thuộc Config Guard (P89 đã ghi) nên ô này không thể đạt trong phạm vi L1. Owner chọn trực tiếp trước khi giữ khoá (13/10 ~14:55Z): **giữ thay đổi** nếu chỉ thiếu đúng ô này, ghi rõ, chuyển Host quyết cách phủ (đưa crontab root vào Config Guard qua apply-v0, hoặc cho Guard nhận INV15 + `cron.root.sha` làm Đ31 của crontab).
+- **Tiết kiệm tài nguyên CHƯA đo:** mục 3 chỉ chứng minh lịch đã ngừng trong một chu kỳ. Hiệu quả/ngày (khối PG đọc `system_issues`/`birth_registry`, lượt ghi `pivot_results`/`meta_catalog`, CPU `cron.service`) do Reviewer đọc từ mốc T0 14:57:19Z (`<EV>/pre/t0-directus.json`, 394 bảng, bộ đếm cộng dồn) sau ≥ 24h — không ai ngồi chờ.
+- `system_issues` vẫn bị `watchdog-monitor.sh` (bảng K, bộ «Điều 31» cũ) quét mỗi giờ qua Directus (T0→T1 +3 lượt quét lúc 15:00Z) ⇒ L2(d) Owner quyết.
+- Khi G1 ngừng: HC-TRIGGER không còn tự gắn `trg_desc_guard` cho bảng governed mới; H11a không còn tự «chữa» mô tả (nguồn 216k dòng `heal_description_basic`, đã ngừng sinh từ 05/06) — đúng chủ đề governance/khai sinh D25; bật lại G1 nếu Host muốn giữ hai việc này.
+- 2 yêu cầu APR `approved` chưa áp nay không còn tự áp (G6) — đúng chủ đích P89.
+- Trang registries/pivot vẫn 200, số đứng yên là trạng thái đúng của chủ đề đã tắt (D25/P90).
+- Không làm: L1b (trần RAM), L2, xoay khoá O-R7-KEY; không đổi `is_active` của health check, trigger, flow, bảng.
+
+**Dọn:** 0 tạo tạm trên VPS (mọi lệnh đọc/soạn qua stdin; thư mục bằng chứng `<EV>`, bản sao `/root/crontab.bak-VPSC-L1-CRON-OFF-20261013-01` và `<EV>/rollback/*` là đồ GIỮ có chủ đích làm đường lùi) · 0 tiến trình nền · Mac: thư mục tạm scratchpad `l1/` xoá sau KQ, hẹn giờ/Monitor đã thoát · còn lại: không.
+
+---
+
 ## L0-20261013 · Phần 2 RUN VPSC-HEAL02-L0-20261013-01 · đo tải + bước 2 DEL-1 (CHỈ ĐỌC) · executor Claude Code CLI · PHẦN 2 XONG · 0 thay đổi VPS
 
 **Cửa sổ đo:** mốc PG T0 10:56:41Z → T1 11:25:19Z → T2 13:31:19Z (2 giờ 35 phút, bộ đếm liên tục — `stats_reset` rỗng, PG khởi động lại 09:20Z ở HEAL-01 vẫn giữ số). Phiên quan sát `vpsc-l0-watch` (một `psql` chỉ đọc, `\watch 2`, không in câu lệnh/literal) chạy 11:25–11:26Z (đứt do máy Mac mất mạng 11:26→13:13Z, phiên tự chết) và 13:13:28–13:31:58Z (527 mẫu), dừng tay, **0 tiến trình còn lại** trên VPS và Mac. Không giữ VPS-GHI. Mọi đọc PG qua `query_pg` (chỉ đọc) hoặc phiên chỉ đọc ở trên; không `count(*)` bảng lớn. Bằng chứng đã làm sạch: `/opt/incomex/work/vps-clean-20-9-26/VPSC-HEAL02-L0-20261013-01/l0/`.
