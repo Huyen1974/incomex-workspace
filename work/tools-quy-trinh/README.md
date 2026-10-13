@@ -434,3 +434,7 @@ P36 · Chốt bằng chứng 2026-10-12T10:30:47.193507+00:00: nativefull1GiB PA
 
 ## P42 · Quy định và ghi nhận thực tế
 Overview là cửa đọc luật7mốc/11mục/87bước, các phần đều thu/mở. Nguồn006 tại MOW-TH-006.md, bản chiếu kiểm bằng CHECK005. Hồ sơ DEF00.1 chỉ giữ bước chuẩn + ghi nhận thực tế; tool/kết quả/xác nhận trống tới khi có sự kiện đúng phiên. DONE/NOT_DONE là khai báo, không thay bằng chứng đã kiểm; không hồi tố G1. Xem §6 định nghĩa để ghi events vào nơi hiện hữu; chưa có UI ghi trực tiếp hay adapter xác thực bước. Không tạo bản hồ sơ thứ hai ở Overview.
+
+### P43 · Điền hồ sơ ít nhất
+Dấu ? tại từng cột và bước giải thích ngay nơi cần dùng. Ô thực tế để trống tới khi có ghi nhận; không điền sẵn trạng thái, tool hay nơi ghi. Tình trạng DONE=Đã làm, BLOCKED=Bị chặn (bắt buộc lý do), NOT_DONE=Không làm (quyết định + lý do), đều không thay bằng chứng đối chiếu. DONE phải có việc đã làm + kết quả/bằng chứng. Tool ghi mã đã dùng; kết quả trỏ bảng/bản ghi thật, nếu dùng nơi khác ghi nơi thực tế và lý do theo quyền hiện hữu. Người/thời điểm lấy từ sự kiện, giữ lịch sử.
+Giữ nguyên mã CP chuẩn. Bước riêng khai trong detail_tracking.added_steps với id BS-001… duy nhất trong hồ sơ, after_step=mã CP chuẩn, action, reason bắt buộc, completion nếu có; chèn ngay sau CP đó. Event của BS dùng cùng hợp đồng event tại §6 MOW-TH-006.md. Không gán mã CP mới hoặc sửa 87 bước chuẩn từ hồ sơ; không có adapter ghi/xác thực bước mới trong P43. CHECK005 kiểm mã trùng/sai, neo bước, trạng thái bị chặn và ô trống.

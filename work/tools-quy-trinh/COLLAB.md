@@ -8,7 +8,7 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 11:48 +07 · Codex · P42
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 14:34 +07 · Codex · P43
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
@@ -17,7 +17,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
 - ✅ Đã xong P38: hồ sơ100MB→12.9MB, không mất lịch sử; tích xanh; bộ tổng1GiB đạt. Giữ G1 đã duyệt7/7, ngoài PG.
-- ■ Đang làm: P43 · Codex làm gọn hồ sơ và dấu hỏi; không giữ lease ngoài lượt ghi.
+- ■ Đang làm: — · 0 RUN active của Codex TQT · P43 XONG giao diện/hướng dẫn, không giữ lease.
 - ✅ P40: QTTH006 v0.3 có87bước/7mốc, đăng ký Master và ghép cùng hồ sơ; 11mục +7nhóm thu/mở đã kiểm thật; CHECK006 native PASS. Chưa thực hiện thật theo006.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002.
 - ➡ Kế tiếp: Owner chuyển lệnh Claude Code REVIEW-ONLY tại P41. NEXT_TRIGGER=CLAUDE_P41_ACCEPT_EXACT_BYTES; Owner đã duyệt có điều kiện giữ bản chạy và đăng ký đúng3tệp bằng apply-v0, không đổi byte/restart/rollback. Chưa ACCEPT: 0 RUN active, không giữ khóa. QTTH006 thực hiện thật theo hướng dẫn sau.
@@ -43,6 +43,8 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 
 **Owner P43:** hồ sơ điền ít nhất; ô chưa làm/chưa có/chưa đối chiếu để trống; hướng dẫn bằng ? tại cột và bước; bước bổ sung mã riêng, không đổi mã chuẩn.
 STARTED@TQT-P43-HELP 2026-10-13T07:25:34.359751+00:00 · executor=Codex Host · chỉ UI/hướng dẫn/kiểm, không runtime/PG.
+
+KQ@TQT-P43-HELP XONG · 2026-10-13T07:34:19.591238+00:00 · executor=Codex Host · Dấu hỏi tại cột/bước; ô thực tế trống; CHECK005 và browser đạt; không PG/runtime; không giữ process/lease. Áp:SAME_COMMIT.
 
 **Owner13/10 · P42:** Overview là nơi chứa luật7mốc/11mục/87bước, thu gọn; hồ sơ ghi thực tế, không điền sẵn tool/kết quả, có xác nhận đã làm/không làm. AI làm xong dọn phần mình, trả server ngay. Claude dọn server song song; kiểm commit mới trước ghi, xung đột thì dừng và đọc lại.
 
@@ -1052,3 +1054,8 @@ P36 · Chốt bằng chứng 2026-10-12T10:30:47.193507+00:00: nativefull1GiB PA
 - Hồ sơ giữ mã/tên bước chuẩn; xác nhận đã làm/không làm, việc làm/lý do,tool,kếtquả,người/thờiđiểm chỉ lấy event thực tế đúng binding.87dòng hiện trống đúng thực tế; không biến gợi ý thành đã dùng.11mục giữ lịch sử vàtích xanhG1; cách ghi nối về luật. Chưa có adapter ký/xác thực bước; khai báo không tô đạt.
 - Dùng lại CHECK005: kiểm87dòng,7nhóm,6canegativeP40+caP42(blank,DONE,NOT_DONE,saiapplication); suiteexit0. Browser đúngOwnerURL kiểm7/11/87,thu/mở và87dòngactualrỗng; G1giữ7/7. Bằng chứng: aggregate#host_review_P42. Nguồn d80b8ad; UI09b303fe/b5a9aaa2; không dùngTESTnâng việc thật.
 - Phối hợp: đã đọcrootPROOT04/commitClaude debe769; Claude đo chỉđọc,không chiếmVPS-GHI. Từng ghiCAS; không sửaClaudeP41review/PROOT04/runtime/Guard. Giao dịchnguồn bịmất phản hồi; đã xác minhjournalCOMMITTED+pushed trước ghiUI,không ghi lặp; callerđãđóng. KQqua directgateway đểlifecycle nhận,không giữkhóa. NEXT_TRIGGER=OWNER_NEXT_QT006_APPLICATION; ClaudeP41review/protectedapply theo phạm vi đãduyệt riêng.
+
+### P43 · Hồ sơ ngắn gọn, hướng dẫn đúng nơi
+- Ghế Astra-Codex · Host nội dung · §0.3 đã đối chiếu; Owner giao trực tiếp. Cột Bước/Tình trạng/Thực hiện-lý do/Tool đã dùng/Kết quả-nơi đã ghi/Người-thời điểm có dấu ?. Từng CP có điều kiện xong trong ?. Bỏ điều chỉnh +/−, bước riêng BS-001… có lý do, không đổi CP chuẩn.
+- Không ghi sẵn tool, kết quả, trạng thái; chưa có/chưa đối chiếu để trống, cả bảng11mục. G1 đã nghiệm thu giữ nguyên, không hồi tố87bước. Bộ kiểm hiện hữu CHECK005 đạt; browser87dòng,0ô thực tế có nội dung, mở hướng dẫn tình trạng đúng. Bằng chứng aggregate#host_review_P43; UI transaction1570f426e8c64d3886cd35b0db02406d.
+- Đã kiểm root mới nhất: Claude PROOT04 chỉ đọc; không sửa phạm vi đó. Ghi CAS qua gateway từng lượt; test local đã kết thúc; KQ trực tiếp và trả busy. Không PG, không restart, không xử lý Guard P41 trong lượt này. NEXT_TRIGGER=Owner giao áp QT006 hoặc CLAUDE_P41_ACCEPT_EXACT_BYTES theo phạm vi riêng.
