@@ -290842,6 +290842,15 @@ main{max-width:1240px} [hidden]{display:none!important}
                         "binding": "bcaed229465835009577edf0c6e17fe761c2917a3c24f80e7cf2f11f2b07ce15",
                         "scope": "Duyệt luật/bộ sửa P52, không nghiệm thu P46 hay cho chạy QT002",
                         "evidence_ref": "COLLAB.md#p52"
+                      },
+                      {
+                        "vendor": "Anthropic",
+                        "reviewer": "Claude Cowork · ghế Claude-review",
+                        "decision": "APPROVE",
+                        "reviewed_at": "2026-10-13T15:01:57Z",
+                        "binding": "bcaed229465835009577edf0c6e17fe761c2917a3c24f80e7cf2f11f2b07ce15",
+                        "scope": "Duyệt luật/bộ sửa P52, không nghiệm thu P46 hay cho chạy QT002",
+                        "evidence_ref": "proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md#vòng-5"
                       }
                     ]
                   },
@@ -290863,6 +290872,21 @@ main{max-width:1240px} [hidden]{display:none!important}
                         "binding": "a8f57c6d066fd74ebc654ee9d8963605ce1f860191d945e6b5e4a8c6b2666927",
                         "scope": "Duyệt tính đầy đủ và phân loại phạm vi chặn của danh sách nợ; chưa chuyển OPEN thành DEFERRED",
                         "evidence_ref": "COLLAB.md#p52"
+                      },
+                      {
+                        "vendor": "Anthropic",
+                        "reviewer": "Claude Cowork · ghế Claude-review",
+                        "decision": "REJECT",
+                        "reviewed_at": "2026-10-13T15:01:57Z",
+                        "binding": "a8f57c6d066fd74ebc654ee9d8963605ce1f860191d945e6b5e4a8c6b2666927",
+                        "scope": "Duyệt tính đầy đủ và phân loại phạm vi chặn của danh sách nợ; chưa chuyển OPEN thành DEFERRED",
+                        "evidence_ref": "proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md#vòng-5",
+                        "delta": [
+                          "N1: đổi 3 trạng thái ngoài chuẩn QT002 (FIXED, RESOLVED_RECORD_PLACEMENT, FIXED_LOCAL) sang 8 trạng thái chuẩn, có căn cứ",
+                          "N2: mục đã có bản sửa nhưng chờ kiểm thật (TIMING, ITEMS, SKIP, CHANGE) ghi VERIFYING thay OPEN; D1, D2 đóng CLOSED với người kiểm Claude theo P49 VÒNG 5",
+                          "N3: thêm 2 mục mới: tối ưu bước 006 bản kế tiếp (QTTH003, không chặn G1) và gộp/đặt tên Field trùng",
+                          "N4: D1, D2, FIELD-COVERAGE đang dùng chung một câu blocks_scope; ghi riêng từng mục"
+                        ]
                       }
                     ]
                   },
@@ -290884,6 +290908,20 @@ main{max-width:1240px} [hidden]{display:none!important}
                         "binding": "3d7efa30867e2c155b5bf5859e88e3fbe2afeafe1d0a391b140340b0c9846d22",
                         "scope": "Duyệt 327 lượt dùng và 9 định nghĩa bổ sung; PG/chênh lệch runtime chưa xác minh, không xác nhận đầy đủ field toàn G1",
                         "evidence_ref": "COLLAB.md#p52"
+                      },
+                      {
+                        "vendor": "Anthropic",
+                        "reviewer": "Claude Cowork · ghế Claude-review",
+                        "decision": "REJECT",
+                        "reviewed_at": "2026-10-13T15:01:57Z",
+                        "binding": "3d7efa30867e2c155b5bf5859e88e3fbe2afeafe1d0a391b140340b0c9846d22",
+                        "scope": "Duyệt 327 lượt dùng và 9 định nghĩa bổ sung; PG/chênh lệch runtime chưa xác minh, không xác nhận đầy đủ field toàn G1",
+                        "evidence_ref": "proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md#vòng-5",
+                        "delta": [
+                          "F1: gộp định nghĩa cùng khóa + cùng kiểu + cùng miền giá trị (vd application_id 6 dòng, record_id 2, process_version 2, name 3, owner 3 nếu cùng nghĩa); tên khác nhau chuyển thành nhãn ở quan hệ Field–nơi dùng",
+                          "F2: field cùng khóa khác miền giá trị (state 11 dòng) giữ riêng nhưng mỗi dòng có tên riêng không trùng",
+                          "F3: ghi lại số định nghĩa sau gộp và bảng gộp cũ → mới; 327 lượt dùng giữ nguyên"
+                        ]
                       }
                     ]
                   }
