@@ -4,6 +4,145 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## DIAG-20261013 · VPS1 chậm và đầy nhanh trở lại — điều tra chỉ đọc theo yêu cầu Owner
+
+**Đo ngày 13/10/2026, khoảng 11:45–11:55 +07; VPS1 `vmi3080463`, 6 vCPU, RAM 11,68 GiB, filesystem `/dev/sda1` 95,82 GiB.** Codex nhận trực tiếp yêu cầu điều tra và ghi báo cáo vào việc này. Đây là bằng chứng/handoff cho Host hiện hữu, không phải KQ thực thi N2a, không đổi Host, PROMPT hoặc READY. Chỉ sửa tài liệu qua `workspace_*`; không dọn dữ liệu, restart, rebuild hay thay cấu hình production.
+
+### 1. Kết luận để người đọc quyết định
+
+1. **Ổ đang khoảng 65%, nhưng tăng nhanh là thật:** watcher tại 11:00 +07 ghi mất **4,390 GiB trống/24h**, **8,959 GiB/7 ngày**, còn **34,23 GiB**. Mẫu trực tiếp 11:45 +07 còn 34,12 GiB. Không thiếu inode (10% dùng). Sau R6 ngày 06/10 còn 48,55 GiB; nay đã mất khoảng 14,4 GiB so với mốc ngay sau dọn. Đây là các cửa sổ khác nhau, không cộng dồn chúng.
+2. **Nguồn tăng mạnh nhất hiện nay là bản sao toàn tệp của giao dịch workspace, không phải Graph:** `transactions` tăng **1,461 GiB/24h**, do mỗi lần sửa tệp lớn lại giữ một full before-image; code GC hiện không dọn nhóm này. Tệp `tools-quy-trinh/view.html` đã từng khoảng 101,7 MB, QA JSON MOW từng 72,5 MB; nhiều sửa nhỏ tạo bản sao hàng chục đến hàng trăm MB. Đây là cơ chế khuếch đại đã chứng minh được từ manifest + kích thước + mã ghi backup.
+3. **Ba khoản nợ van quá hạn 11/10 vẫn tồn tại:** transactions, helper, mcp-roots. Cả nhóm tăng **1,841 GiB/24h**, gấp khoảng 6,6 lần tốc độ tham chiếu 0,28 GiB/ngày và vượt ngưỡng báo 0,56 GiB/ngày. N2a được ghi READY từ 11/10 nhưng sổ chưa có STARTED/KQ; không được tính là đã triển khai.
+4. **Chưa thấy VPS quá tải toàn máy tại mẫu sạch cuối:** CPU idle 72–89%, iowait khoảng 0%, steal 0%, MemAvailable khoảng 4,85 GiB, swap-in/out bằng 0. Tuy nhiên **Claude MCP sát giới hạn riêng**: memory cgroup khoảng 93,2% của 1 GiB, swap riêng đủ 1 GiB. Cần tách headroom toàn máy khỏi giới hạn từng dịch vụ; lịch sử OOM và Directus503 là vấn đề có thật nhưng chưa chứng minh cùng nguyên nhân với áp lực MCP.
+5. **Có nghi vấn tích lũy phiên MCP cần kiểm chứng:** cấu hình FastMCP stateful không đặt thời hạn phiên; SDK đang chạy có `session_idle_timeout=None`, transport giữ trong `_server_instances`; 24h có khoảng 618 lần tạo transport mới, không thấy log hết hạn/đóng tương ứng. Chưa có live session count và profile bộ nhớ, nên chưa gọi đây là memory leak đã chứng minh.
+
+### 2. Dung lượng và tốc độ tăng — nguồn có tên, không đếm trùng
+
+Số dưới lấy từ `/var/lib/incomex/disk-watch/state.json` tại **2026-10-13T04:00:03Z = 11:00:03 +07**, so với gần đúng cùng giờ hôm trước. Đây là partition của watcher: dòng cha là **phần còn lại sau khi tách các dòng con đã đăng ký**. Ví dụ `/opt/incomex/data` không bao gồm dòng transactions; `/var/lib/containerd` không bao gồm phần Graph đã tách. Không cộng các dòng `#GROUP` lại với thành phần của nó. Dung lượng GiB = byte/2^30; MB dùng dưới đây là byte/10^6.
+
+| Nguồn | Hiện tại GiB | Tăng/24h GiB | Điều đã biết / việc còn thiếu |
+|---|---:|---:|---|
+| `/opt/incomex/data/workspace-tools/transactions` | 1,976 | **+1,461** | CONTROL_DEBT quá hạn; before-images giao dịch chưa có TTL/van chạy thật |
+| `/opt/incomex/data` phần còn lại | 2,122 | **+1,045** | Vượt cap 2 GiB; gồm `.before`, SQLite, Git/P02 cache và state khác; chưa tách đủ nguồn con |
+| `/var/lib/incomex/backup-staging` | 1,861 | +0,661 | Có retention LOCAL_KEEP=1; tăng một bộ backup không tự chứng minh leak |
+| `/opt/incomex/staging` | 0,623 | **+0,400** | Vượt cap 0,25 GiB; có staging TQT mới; chưa có CHANGE_EVENT/retention riêng |
+| `/var/lib/incomex-mcp-helper` | 0,802 | **+0,245** | CONTROL_DEBT quá hạn; queue out/done chưa TTL; P02 có GC riêng |
+| `/var/lib` phần còn lại | 0,384 | +0,178 | Tăng chưa khai báo event; cần phân rã đúng residual, không quét lại cả ổ mỗi lượt |
+| `/opt/incomex/mcp-roots` | 0,213 | **+0,136** | CONTROL_DEBT quá hạn; Git loose objects/cache clone tăng |
+| `/var/lib/containerd` phần ngoài Graph | 10,366 | +0,110 | Kho image lớn; retention tuần bị fail-closed, chưa xóa được |
+| PG backup | 1,841 | +0,101 | Retention 7 ngày đang có, cần chứng minh plateau qua các chu kỳ |
+| Graph cả nhóm | 8,018 | **0,000** | Cap 10.000.000.000 byte; còn phần lịch sử/trial cần GS-CLEAN nhưng không gây burst 24h này |
+| PG18 nghiệp vụ | 2,116 | −0,046 | EVIDENCE_DEBT hạn 16/10; không được coi dữ liệu nghiệp vụ là rác |
+| Qdrant nghiệp vụ / Directus uploads | 0,213 / 0,016 | +0,001 / 0,000 | EVIDENCE_DEBT hạn 16/10; cần envelope, không xóa mò |
+| Journal / Docker container logs | 1,015 / 0,468 | +0,015 / −0,001 | Có rotation, chưa thấy đây là nguồn burst chính |
+
+**Đối chiếu `df-bytes.tsv`:** tăng dùng 24h=4,389675 GiB; 48h=5,015396; 72h=5,030926; 7d=8,958828. Vì 24h mới chiếm gần hết tăng 72h, không nên coi tốc độ burst là baseline ổn định. Ba debt + data residual + staging + backup-staging giải thích khoảng **90%** burst. Watcher ghi unexplained **57.872.384 byte (~55,2 MiB)**, tức phần vô danh nhỏ; vấn đề chính là nguồn đã có tên nhưng thiếu kiểm soát/độ chi tiết.
+
+**Dung lượng lớn cố định cần nhớ:** Graph 8,018 GiB, kho image Docker+containerd khoảng 16,24 GiB tại lần retention 12/10 23:23 CEST; Hermes residual 4,63 GiB, `/var/backups` 2,35 GiB, swapfile 2 GiB. Chưa đủ bằng chứng gọi những dữ liệu này là bỏ được. `du` rộng cho `/var` khoảng 29,17 GiB và `/opt` 19,33 GiB chỉ dùng kiểm tra tổng quan, không cộng vào bảng partition trên.
+
+**Kịch bản dung lượng, không phải dự báo chắc:** nếu burst 4,39 GiB/ngày lặp lại, 34,23 GiB còn lại tương đương khoảng 7,8 ngày; ở trung bình 7d khoảng 1,28 GiB/ngày là khoảng 26,7 ngày. Cần van tại nguồn thay vì chỉ chờ ngưỡng ổ 90–95%.
+
+### 3. Cơ chế làm dữ liệu phình và những chỗ dọn chưa tới
+
+#### 3.1 Giao dịch workspace: full before-image, không GC — bằng chứng chắc
+
+- Metadata trực tiếp 11:50 +07: **1.273 manifest** gồm workspace committed=1.108, ui applied=150, workspace rolled_back=15; không có prepared/push_unknown/rollback_conflict tại mẫu này. Không suy ra tất cả đều unreferenced/chỉ cần xóa.
+- Theo mtime thư mục, ngày 12/10 có **88 giao dịch với 1.500.571.931 byte tệp**; ngày 13/10 đến thời điểm đo có 20 giao dịch/118,6 MB. Mtime là dấu thời gian filesystem, không phải khẳng định thời điểm nghiệp vụ.
+- Đối chiếu backup theo manifest: `work/tools-quy-trinh/view.html` có 120 before-images khoảng **1,139 GB**, trong đó khoảng **1,071 GB** ở cửa sổ 24h; `work/mow-mot-moit-mout/UI-REVIEW-MOW001.json` 31 bản khoảng **331,7 MB**, khoảng 326 MB trong 24h; `UI-REVIEW-AGGREGATE.json` 49 bản khoảng **110,9 MB**, khoảng 87 MB trong 24h. Các số theo tệp này là thành phần, không cộng thêm vào tổng thư mục.
+- Một giao dịch rolled_back còn `0`=54.718.998 byte và `operator-preserved-after.json`=72.458.462 byte, tổng khoảng127,2 MB. **Đây có thể là chứng cứ cứu thao tác**, không tự coi là cache hết giá trị.
+- Mã `/opt/incomex/docker/agent-data-repo/agent_data/workspace_operations.py:344–356`: tính `real` rồi vẫn lưu raw before của **mọi path đã load**, kể cả path không thay đổi, và fsync từng bản. `workspace_runtime.py:203–244` chỉ GC results/uploads/jobs, chủ ý giữ audit/backups/tombstones/roots; transactions bị bỏ qua. `workspace_tools.py:1685–1688` mô tả transactions được state GC prune nhưng thực tế không có đường tương ứng.
+- N2a TTL >14 ngày xử lý phần cũ, **không đủ ngăn burst từ bản sao mới hôm qua**. Hướng sửa phải gồm (a) archive/retention completed+unreferenced đúng D23; (b) van byte/rate/admission trước backup; (c) xem xét chỉ backup path thực sự đổi, lưu trữ nén hoặc dùng blob theo hash nếu giữ nguyên recovery contract. (b)/(c) là đề xuất code cho chủ agent-data/TQT/MOW theo phạm vi, chưa được thực thi/phê duyệt thiết kế ở đây.
+
+**Định lượng giới hạn của N2a14d:** tại11:52 +07, nhóm >14d theo manifest timestamp là433giao dịch/~137,1 MB block (**0,128 GiB**), trong khi75giao dịch24h gần nhất dùng~1.576 MB (**1,468 GiB**). Nhóm>14d mới là candidate theo tuổi, chưa kiểm live references/lease/archive; không phải số byte đã được phép xóa. Vì vậy chỉ sweep theo tuổi14d sẽ không giải quyết tốc độ sinh mới.
+
+**Nguồn artifact đã thu nhỏ nhưng backup cũ vẫn giữ:** tại11:51:42 +07, TQT `view.html` hiện15.333.874 byte, MOW JSON12.900.932 byte, aggregate6.009.683 byte. Các before-images101,7 MB/72,5 MB ở trên là **phiên bản trước**, không phải kích thước hiện tại. Script JSON lớn nhất của HTML vẫn14.801.272 byte; `catalog.application_preview.record` bằng chính xác `UI-REVIEW-MOW001.json.application_D24` (compact8.875.535 byte), nghĩa là nhúng lại nguyên cây hồ sơ MOW vào TQT. Trong MOW, một chuỗi JSON ở field `content_token`117.739 byte lặp27lần, excess trùng nguyên vẹn3.061.214 byte. Đã kiểm canonical equality/counters, không đưa giá trị token/nội dung hồ sơ vào repo. Đây là dữ liệu JSON nhúng/lặp, **không có bằng chứng ảnh base64 làm phình**. Chỉ handoff cho chủ task active để cân nhắc pointer/tóm tắt phù hợp UI; không tự thay cấu trúc của họ.
+
+#### 3.2 Có thêm vùng state ngoài bảng `vps_status state` — bằng chứng chắc
+
+Đo targeted `du` 11:49 +07: toàn `/opt/incomex/data/workspace-tools` khoảng **3,669 GiB**, trong đó transactions khoảng 1,997 GiB; P02 cache **637,96 MB**, Git workspace clone **411,86 MB** (`.git`348,72 MB). Ở gốc còn **1.064 `.before`** dùng 462,4 MB block, `queue.sqlite`187,48 MB, audit/operations JSONL khoảng10,6 MB. Các mẫu có thời gian khác nhau vài phút, không giả là snapshot nguyên tử.
+
+`workspace_runtime.py:195–200` chỉ báo uploads/results/tasks/jobs/browser. Tool `vps_status(section="state")` ban đầu trả khoảng43 MB ở các nhóm nhỏ, **không đại diện cho tổng state vài GiB**: bỏ transactions, `.before`, SQLite, p02-cache, Git clone và audit. Đây là **khoảng hở quan sát**, dù disk-watch toàn partition vẫn bắt được tăng.
+
+P02 cache có GC current/previous/pin/grace, nên không kết luận mọi snapshot thiếu GC. Cần chứng minh pin nào còn sống, previous/grace có giải phóng, Git objects có repack và cache có envelope byte. `.before`/queue metrics cũng cần retention riêng theo đúng chức năng cứu thao tác/idempotency; tuyệt đối không xóa toàn DB hay audit.
+
+Đo bổ sung11:52 +07: `.before` tăng khoảng **267,2 MB block/24h**; phần>14d46,25 MB. Top nguồn gồm MOW11bản/135,8 MB, TQT12bản/118,6 MB, HJW COLLAB170bản/105 MB. Đây là **backup single-file bên cạnh transactions**, không được bỏ sót khi triển khai N2a.
+
+P02 AgentData/helper lúc kiểm đều chỉ giữ **2snapshot=current+previous**, không active pin/stale snapshot. Phần lớn cache là **Git mirror**: mỗi mirror10.442loose objects/~474MiB; AgentData mirror pack15,5MiB, helper11,2MiB. `github-workspace/.git` có3.810loose/~312,6MiB+pack19,6MiB;`mcp-roots/gh/.git`649loose/~80,4MiB+packs75,5MiB. Helper `ensure_mirror` đặt `gc.auto=0`; timer Git GC hiện hữu chỉ nhắm repo workshop thiết kế, không các mirror này. **Không đề xuất xóa snapshot đang được giữ đúng luật**; cần housekeeping/repack đúng từng mirror và bảo toàn current/prev/recovery.
+
+SQLite `queue.sqlite`187,48 MB có45.771page,36.031page freelist (~147,58 MB,78,7%): file chứa nhiều không gian đã trống nội bộ, nên **không báo187MB là toàn dữ liệu live**. Metrics45.491row (17.036>14d,2.516 trong24h);526row job/task tại mẫu đều terminal, không queued/running. Live GC không TTL metrics/tombstones. Việc trả block filesystem và giới hạn metrics phải có thiết kế/lock/backup riêng; không chạy VACUUM hoặc xóa DB trong audit.
+
+#### 3.3 MCP helper: output và done requests giữ lâu — bằng chứng chắc
+
+Targeted metadata: `queue/out` **8.446 tệp/~322,9 MB**, khoảng137,7 MB tệp mới/mtime24h; `queue/done`7.962 tệp/~32,6 MB; `p02/gh`~508,6 MB. Helper code `mcp_host_helper.py:1846–1852` ghi response JSON; `:1926` chuyển request sang done; `:1965–1973` reap chỉ xóa PNG >1h. **Có dọn ảnh không có nghĩa có dọn output JSON/request**. P02 helper có GC riêng current/prev/pin/grace (`p02_snapshot.py:267–307`), nhưng không thay van của queue.
+
+Handoff: giữ active/reference/idempotency receipts; Drive archive checksum+readback+restore theo D23 rồi TTL >7d cho đúng completed+unreferenced; thêm byte/rate envelope tại queue/out thay vì chỉ kiểm số ngày.
+
+#### 3.4 Git/image/staging: dọn có cấu hình nhưng còn đường không chạy được
+
+- MCP clone `gh` còn Git objects; N2a hiện cho **`git repack -d`**, không thay bằng `git gc`/prune lịch sử. Clone AgentData và P02 là nguồn khác, phải được kiểm riêng; không coi repack một clone là giải quyết mọi bản sao.
+- `/var/log/incomex/vps-retention-l-ke-hoach.json` lần **11/10 02:23Z**: `L_XOA=1` nhưng **unresolved=3, unknown_repo=3, bo_luot=true, xóa=0**. References không resolve: `$ROOT/compose.yaml` trong `graph-server/prod-v1/rollback-r7.sh`, `$f` và `$ACTIVE_PATH` trong `incomex-config-apply-v0`. Fail-closed đúng để bảo vệ rollback, nhưng cả lượt GC bị bỏ thì kho tiếp tục tích lũy.
+- Log `(k)`: image55→61 từ10→12/10; tags agent-data-hvu10→17; physical Docker+containerd15,689→16,237 GiB. `docker system df` hiện61image/14active, reported image16,18GB, reclaimable **âm**; không dùng số âm hoặc tổng size theo tags làm dung lượng có thể xóa. Không suy ra47image không gắn container đều an toàn bỏ, vì rollback/deploy còn reference.
+- Staging TQT: `tqt-p36`429,3 MB, `tqt-p32`154,3 MB tại targeted du; thuộc task khác đang phát triển nên chỉ handoff, không dọn hộ. Registry hiện STATIC/cap250MiB không đủ thể hiện event/cap của build mới.
+- `storage-watch.py` kiểm `VALVE_LIVE` ở nhiều nhóm bằng sự có mặt regex/script/cron; cần bổ sung evidence **lần chạy thật, chọn đúng đối tượng, bytes trước/sau**. Riêng label `context-pack*` bao phủ rộng hơn dọn `.tmp` ở nhánh retention được kiểm; có cron không chứng minh mọi path trong pattern đã được dọn.
+- `disk-monitor.sh:85` ghi rc sau command substitution `date`, nên `$?` có thể thành0 dù storage-watch trả lỗi. Dòng `OK Disk:65%` cũng chỉ biểu thị chưa chạm ngưỡng dung lượng, không chứng minh slope/debt xanh. Trạng thái thực tại11:00 là **disk-watch RED,11 faults,3 overdue**; sửa thông tin log này là đề xuất, chưa mutation.
+
+### 4. Điều gì đang làm VPS chậm — đo toàn máy rồi phân biệt giới hạn riêng
+
+| Bằng chứng | Diễn giải / giới hạn |
+|---|---|
+| Sysstat ngày13/10 đã thu đến11:40 +07: CPU idle trung bình77,8%, iowait2%, steal0; load1/5/15 trung bình1,80/2,07/2,15 | Không thấy thiếu CPU/steal ở các cửa sổ10phút đã thu; trung bình có thể che spike và không phủ phần ngày chưa xảy ra |
+| Mẫu sạch11:51 +07: MemAvailable4.970MiB; swap2.047/2.047MiB;5interval vmstat si=so=0, idle72–89%, iowait0, steal0 | Swap đầy không đồng nghĩa đang thrash liên tục; có paging burst riêng05:30 giờ máy(+02), khoảng600,47/526,38page/s in/out |
+| Iostat sau broad scan: sda util0,1–3,2%, write await1–2,4ms, CPU iowait0–0,35% | Không thấy disk I/O saturation liên tục trong mẫu ngắn; không phủ mọi giờ cao điểm |
+| Claude MCP11:51: memory.current1.000.906.752 /max1.073.741.824byte; swap.current=max1.073.741.824; memory.events max67.256, oom_kill0 | Dịch vụ gần trần riêng dù host dư RAM. Counter max giữ nguyên giữa hai mẫu, nên chưa chứng minh reclaim liên tục tại phút đo |
+| Claude KB: memory240.275.456/max268.435.456byte; swap132.866.048; CPU cap0,5, throttle tăng22period/~0,94s trong154s | Có throttling cục bộ đã đo; mức hiện tại nhẹ. Counter tích lũy150kperiod không tự chứng minh nút nghẽn ở mọi request |
+| HTTP nội bộ11:48–11:49 +07: nuxt `/`200 khoảng0,596–0,617s/3requests; agent-data `/info`200~15,8ms; MCP `/healthz`200~3,4ms | Homepage SSR có latency đáng đo tiếp; health endpoint nhẹ không đại diện tool nặng/luồng Owner. `/health`404 đo nhầm đường không phải outage; Directus/server/health403 chỉ cho biết truy cập bị từ chối, không đủ đánh DOWN hoặc xác nhận DB khỏe |
+| Kernel12/10: python3~1GiBRSS và node bị cgroup OOM kill;6/10 Chrome~4,3–4,55GiB;8/10 java | Có lỗi tài nguyên lịch sử thật. Container ID cũ không còn trong dockerps-a nên không gán bừa OOM12/10 cho service đang chạy. Các cgroup hiện tại oom_kill0 |
+| R7 đã xác nhận Directus pressure limiter503 khi event loop delay vượt500ms; lý do delay chưa tìm ra | Không được xóa dấu503 hoặc đổi ngưỡng để coi đã sửa. Cần tương quan timestamp với job/DB/CPU/RSS, tách request thật/probe |
+
+**Ảnh hưởng phép đo:** lượt `du` rộng của Codex từ11:45:29 đến trước11:47:58 +07 tạo thêm I/O; vmstat/iowait9–12% trong cửa sổ đó **không dùng để kết luận VPS vốn chậm**. Các số sạch phía trên lấy sau khi `du` và `docker system df` hoàn tất. Không chạy benchmark ghi tải, không package install.
+
+**Nghi vấn phiên MCP:** live SDK1.27.1, `FastMCP` không cấu hình expiry ở `/app/app/server.py:45–51`; `StreamableHTTPSessionManager.session_idle_timeout` mặc địnhNone, giữ `_server_instances`. Log MCP24h khoảng618creation, không có matching expiry/terminate; KB cũng khoảng314. RSS+swap tiến trình MCP khoảng1,79GiB cho thấy cần đo lifecycle, nhưng memory.current đã giảm~10,1MB trong5phút đo, nên không có rate leak đơn điệu được chứng minh. **Cần bằng chứng mới:** live active session count, số session không có request sau ngưỡng idle, delta RSS/anon/swap theo session, thử client bình thường; restart làm giảm RSS chỉ là giảm triệu chứng, không chứng minh fix. Hướng đề xuất: cleanup phiên idle sau kiểm tương thích reconnect. Manager cấp thấp có capability timeout nhưng FastMCP1.27.1 builder chưa truyền cấu hình này; cần integration rõ, không chỉ thêm keyword tùy ý. Chưa tự chọn timeout, chuyển stateless hoặc deploy.
+
+**Hai nguồn tải bổ sung cần kiểm:** (a) queue metrics tăng vô hạn và aggregate có self-join cửa sổ300s có thể chậm dần, cần số hàng/query plan/latency thực trước kết luận; (b) R7 thấy8job/5min và11job dồn phút00, cần stagger tại lịch hiện hữu nếu correlation chứng minh. Không thêm worker/monitor mới chỉ để che lịch dồn.
+
+**Khoảng hở bộ nhớ khác từ code, chưa gán thành outage hiện tại:** Claude KB `app/server.py:245–274` fetch từng page nhưng giữ cả list rồi join/encode toàn result;chunk4.000.000chars không giới hạn tổng RAM/concurrency. Cache48MiB tại`:229–236` có ngoại lệ không evict newest oversized result; registry có TTL7d nhưng chưa cap số entry. Cần đo assembled bytes/cache bytes/concurrent fetch thực, không gọi cache hoàn toàn unbounded. MCP `_finalize:95–97` dùng `wait_for(to_thread(...))`; timeout ở await không tự chấm dứt thread đã chạy, nên kiểm deadline DB/subprocess/network từng tool; **chưa thấy orphan worker active**.
+
+**Fix R6 source chưa nằm trong runtime đang chạy:** SHA live `/app/agent_data/workspace_runtime.py`=`8801e99f…`, host source=`74922f6f…`; snapshot/tools đối chiếu lại vẫn khớp. Live `Queue.__init__:16–36` vẫn bootstrap schema mỗi lần và `migrate_legacy:37–40` mở BEGIN IMMEDIATE dù legacy flag đã có;`disk_state:167` vẫn INSERT OR REPLACE flag mỗi lần kiểm. Host source đã có sửa “bootstrap once”/“chỉ ghi khi đổi”. Đây là **runtime/source divergence**, cần chủ agent-data reconcile accepted build/deploy qua guard; không tự rebuild. R6 từng đo idle write bằng cancelled_write_bytes nên đây là overhead/lock churn còn mở, **không gán nó thành4,39GiB/ngày**. Mã GC live`:179–220` và directory_sizes`:171–176` vẫn bỏ backups/transactions như host source được viện dẫn phía trên.
+
+### 5. Bảo vệ và lỗi còn mở có ảnh hưởng handoff
+
+`incomex-config-drift-check.service` thất bại exit2, kiểm474target:470MATCH,4CONTENT_MISMATCH,0missing,0error. Target là `agent_data/lifecycle.py`, `workspace_tools.py`, `hvu_signals.py` trong agent-data repo và `/var/lib/hermes/.hermes/config.yaml`; registry `/var/lib/incomex-config-guard-v0/registry.tsv`. Đây là **phát hiện thay đổi baseline**, không tự chứng minh mã xấu; có thể liên quan deployment đang hoạt động. Host/chủ component phải reconcile evidence/accepted SHA qua cổng hiện hữu; không auto-bless/rollback. Cloud-init/network-wait failed cũ cũng còn; chưa có causal link với chậm/đầy hiện tại.
+
+Docker healthy của Claude MCP/KB chỉ thử TCP accept:8000. `/healthz` trả được không kiểm whole MCP tool flow/retained sessions. Vì vậy “mọi container healthy” và “df chưa đầy” **không đủ tiêu chí VPS khỏe lâu dài**.
+
+### 6. Việc tiếp theo để AI khác nhận đúng phạm vi
+
+Các dòng sau là **đề xuất dựa trên số đo**, không phát RUN mới và không thay quyền Host/NO_CONCURRENT hiện hữu. Ưu tiên sửa trên cơ chế có sẵn, không dựng thêm hệ giám sát.
+
+| Ưu tiên | Ai nhận / việc cụ thể | Bằng chứng phải có trước khi gọi XONG |
+|---|---|---|
+| 1 | VPSC Host/Claude Code: revalidate N2a cùng SHA, archive+restore rồi retention completed/unreferenced của transactions/helper; không hỏi lại nguyên tắc D23 | Bytes recovered, đối tượng active/recovery/pin giữ được; cron thực sự chạy;3CONTROL_DEBT hết quá hạn bằng van kiểm được |
+| 1 | Chủ agent-data: bịt khuếch đại before-image; thêm byte/rate cap, chỉ backup changed paths nếu giữ recovery; bổ sung state metrics tất cả vùng bỏ sót | Sửa một tệp lớn nhiều lần vẫn có bound; no-op không tạo full backup thừa; interrupted/push-unknown recovery không mất; POST24h/7d bằng watcher hiện hữu |
+| 1 | Chủ TQT/MOW: nhận pointer về tệp HTML/QA lớn và dữ liệu lặp, giảm nguồn sinh/repeat phù hợp contract hiện hành | Source/artifact vẫn dùng được; kích thước và số bản sinh giảm; không điều hành/sửa task active từ VPSC |
+| 2 | Chủ Claude MCP/agent-data: kiểm live sessions + memory attribution, chốt cleanup idle/limits theo workload đo được | MCP call bình thường/reconnect pass; count đạt plateau; RSS/swap/headroom/latency qua chu kỳ tải; không coi restart là fix |
+| 2 | VPSC + chủ image registry: resolve3reference động và proving rollback refs, để image retention fail-closed vẫn chọn được mục an toàn | Chạy lịch thật có candidate chính xác và bytes physical giảm; running/rollback images vẫn còn; không prune-all/history |
+| 2 | Chủ TQT/agent-data/Hermes: khai báo staging/P02/Git/SQLite residual thành owner+event/cap phù hợp | Residualdata/varlib được phân rã, pin/ref chứng minh; cap phản ánh dữ liệu hợp lệ, không chỉ nới trần lấy xanh |
+| 2 | VPSC: sửa log return code và validator VALVE_LIVE theo kết quả dọn thật;reconcile4drift đúng chủ | Có fixture lỗi trả rc đúng; log/monitor thống nhất RED khi overdue;baseline accepted chính xác |
+| 3 | Chủ Directus/cron: trace503/ELU cùng timestamp, đo query aggregate/metrics và lịch dồn | Có causal correlation; tránh thay ngưỡng/mute làm xanh;latency p50/p95 tool thật trước/sau |
+| 3 | VPSC/PG/Qdrant/uploads: tiếp tục3EVIDENCE_DEBT đến hạn16/10 và GS-CLEAN theo task Graph | Envelope/backup restore được; byte nghiệp vụ phân biệt cache;Graph cleanup được đúng Host cho phép |
+
+**Tiêu chí báo cáo này hoàn tất:** chẩn đoán đã lưu cùng repo, nguồn tăng và giới hạn bằng chứng được nêu, handoff có owner/việc/điều kiện nghiệm thu. **VPS chưa được kết luận đã ổn định, các lỗi chưa được coi đã sửa.** N2a cũ không bao phủ hết burst mới, cần Host kiểm DELTA trước RUN; audit này không yêu cầu mở chat/task mới.
+
+### 7. Nguồn bằng chứng và cách đọc lại
+
+- Nguồn VPS giữ ngoài Git: `/var/lib/incomex/disk-watch/{state.json,df-bytes.tsv,taxonomy.tsv}`, `/var/log/incomex/vps-retention.log`, `vps-retention-l-ke-hoach.json`, sysstat `/var/log/sysstat/`, kernel journal, cgroup `/sys/fs/cgroup/system.slice/docker-<id>.scope/{memory.current,memory.max,memory.swap.current,memory.events,cpu.stat}`. File state hourly đổi theo giờ; số trong báo cáo là bản đo13/10 nêu rõ mốc.
+- Code đọc: `/opt/incomex/scripts/{storage-watch.py,storage-registry.tsv,vps-retention.sh,disk-monitor.sh}`, `/opt/incomex/docker/agent-data-repo/agent_data/{workspace_operations.py,workspace_runtime.py,workspace_tools.py,workspace_snapshot.py}`, `/opt/incomex/claude-mcp/helper/{mcp_host_helper.py,p02_snapshot.py}`, code/SDK MCP **đang chạy trong container**. Host repo có drift, nên đã đối chiếu GC/runtime được import tại `/app/agent_data/`; không coi source host tự động là runtime.
+- Đọc lại metadata không cần mở tài liệu: `df -B1 /`, `df -i /`, `vmstat 1 5`, `iostat -xz 1 5`, `docker stats --no-stream`; đọc field cần dùng của state; đếm manifest statuses/path và `stat`/`du` riêng các thư mục đã chỉ tên. Không dump env/token/backup contents;repo public chỉ chứa kết quả đã làm sạch.
+- Repo trước khi ghi đã kiểm freshness; task BAO-CAO version `f69c81df…`,COLLAB `9b9e5e22…` không đổi giữa snapshot và VPS. Guarded transaction sẽ revalidate/pull và giữ nguyên lịch sử. R7/R6/S1a bên dưới là bằng chứng lịch sử, không thay cho mẫu hiện tại.
+- Tham khảo JEV độc lập trên số liệu/code: đồng thuận transactions là nguồn tăng mạnh được chứng minh; không đủ bằng chứng global RAM exhaustion/continuous thrash; MCP session accumulation là candidate cần profile; tăng backup-staging một ngày không chứng minh leak. Quyết định cuối dựa vào số đo ở trên.
+
+---
+
 ## R7 · sửa hẹp theo số đo S1a · chuông thật + ổ đĩa có van + mã có khoá
 `VPSC-R7-TRUTH-20261007-01` · STARTED 07/10 22:28Z (P67 `3a6ee68`) → KQ 08/10 02:2xZ · READY@`e70606d` + CODEX ACCEPT cùng SHA · executor=Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · Owner cho áp toàn bộ hộp xanh 00:20Z (auto-mode chặn "Production Deploy" ⇒ hỏi đúng 1 câu). Hồ sơ VPS `/opt/incomex/work/vps-clean-20-9-26/R7-20261007/` (`apply.log` = hash cũ→mới từng tệp · `rollback/*.orig` = known-good PRE · `pre/` `a/` `b/` `c/` `d/` `post/`).
 
