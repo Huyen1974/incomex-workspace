@@ -1,5 +1,11 @@
 # tools-quy-trinh · Cửa vào
 
+## P50 · Đính chính sau review Claude
+
+[P50: phản hồi và đề bài kiểm lại](proposals/TQT-PR-20261013-host-response-P50.md); [P49: review độc lập](proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md). P46 là chẩn đoán/đóng gói lại G1, chưa là AI mới làm sản phẩm mới. Hồ sơ001 giữ91sự kiện cũ, thêm45revision; giờ ghi không là giờ hoàn thành. Tổng32m25s chỉ tới khép RUN, không phải toàn việc. Không cập nhật trạng thái hiện hành ở aggregate lịch sử.
+
+Trước lượt mới: tra DOT/Tool hiện có; chạy CHECK006 từ cây snapshot đủ định nghĩa và UI, không tự lắp lệnh thiếu nguồn. Vấn đề P50 ở CAT069 trong cùng hồ sơ: mỗi vấn đề có người xử lý, nơi quay lại, điều kiện tiếp và quy trình002/003 tương ứng. Chỉ chặn phần phụ thuộc; không biến ghi issue thành đã hoàn thành nghĩa vụ. Chưa có timer/adapter006 tự cưỡng chế toàn đường. Không bịa thời gian hoặc50/66item hồi tố. Claude chưa rà bản sửa; đọc P50 trước khi tiếp tục.
+
 ## P47 · Một nơi xem hồ sơ
 
 Hồ sơ thực hiện P46 nằm tại **DEF00.1 → TQT-VIEC-001 → QTTH06**, nguồn `catalog.work_schedule.records[].detail_tracking`. 87 dòng, giờ hoàn thành, thời lượng đo được, công cụ, kết quả và lý do bị chặn đều ở đây. Các Master liên quan chiếu từ cùng nguồn; không nhập lại. Tệp local chỉ là tệp tạm, không là nơi bàn giao. Tổng P46 đến khép RUN:32phút25giây, chưa hoàn tất nhánh tìm thành công. G1 cũ được giữ lịch sử riêng.

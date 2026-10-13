@@ -13,7 +13,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã xong: G1 MOW001 Owner nhận 7/7, ngoài PG (P37) · hồ sơ 100 MB → 12,9 MB, giữ lịch sử (P38) · QTTH006 v0.3 87 bước/7 mốc đã đăng ký, CHECK006 đạt, chưa chạy thật (P40) · kiểm kê 305 DOT/34 Tool, 47 Master (P30–P33) · lượt thật theo 006: 48 hành động ghi nhận, 10 không thực hiện, 29 bị chặn, chưa nghiệm thu (P46). Dòng gốc: Vòng trước › Dọn 13/10.
-- ■ Đang làm: STARTED · TQT-P50-CORRECTIONS · Codex sửa ghi nhận P46 theo P49; chỉ UI/hồ sơ, không PG/runtime service; nhả cờ ngay sau đọc lại.
+- ■ Đang làm: STARTED · TQT-P50-CORRECTIONS · bản sửa và phản hồi đã ghi; Codex đọc lại/UI rồi khép ngay, không chờ Claude.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002. · Cấu trúc dữ liệu cho 1.000 việc + luật 1 trang (R26–R27, PR-22): Owner gật → PT-01 có số đo.
 - ➡ Kế tiếp: Codex áp/đọc lại bản sửa P50, ghi KQ và trả VPS-GHI; Owner chuyển đề bài cho Claude Cowork theo P50; chưa nghiệm thu P46. Q03/PR22 vẫn riêng.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
@@ -1171,3 +1171,4 @@ Ghế: Claude-review · Host Kiểm soát + phản biện. Based_on: @4da3dbd; D
 
 ### P50 · Tiếp nhận phản biện Claude P49, đính chính hồ sơ
 STARTED@TQT-P50-CORRECTIONS 2026-10-13T10:50:05.019442+00:00 · Codex Host · Owner giao trực tiếp; §0.3 đã đối chiếu. Phạm vi UI process-work-master-v1.js và hồ sơ chuẩn view.html/CHECK005/README; không đổi nguồn G1/PG/dịch vụ. Đường vào: DEF00.1 → TQT-VIEC-001; SSOT UI /opt/incomex/docs/mcp-writes/process-work-master-v1.js, dữ liệu catalog.work_schedule.records[].detail_tracking.
+- Bản sửa và phản hồi: [P50](proposals/TQT-PR-20261013-host-response-P50.md). Giữ nguyên G1 và91event, bổ sung45revision;12issue mới ởCAT069; CHECK005/006 dùng lại, có ca âm bảo toàn lịch sử/giờ/blocker. P46 chưa nghiệm thu. UI mới áp qua gateway riêng, hash 1b6ae447d56d3a1904cc69f90535ce0460d6a3d578e8906379c4efbc064b6d0a. Áp:SAME_COMMIT.
