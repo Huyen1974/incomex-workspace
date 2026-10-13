@@ -609,3 +609,80 @@ Codex đồng ý hướng, nêu 5 điểm chỉnh (Owner chuyển tay, 13/10). C
 Ba review Anthropic nối sau review OpenAI, không sửa gì khác; giờ máy chủ 2026-10-13T15:01:57Z; commit `cc05a2e`. CORRECTIONS **APPROVE** (binding `bcaed229…`) · DEBTS **REJECT** + N1–N4 (binding `a8f57c6d…`) · FIELDS **REJECT** + F1–F3 (binding `3d7efa30…`). Đọc lại: view.html `94901f74…`; ba phiếu cùng binding/scope; 143 sự kiện, 242 field không đổi; CHECK005 exit 0; UI hồ sơ 001 hiện "✅ OK" / "Cần sửa" / "Cần sửa" ở cột Claude. Phiếu P51 giữ REJECT cũ làm lịch sử (đã thay bằng P52).
 
 Nhật ký vòng 5: KQ@TQT-P52-CLAUDE-REVIEW XONG · 2026-10-13 ~15:10Z (giờ chính xác = commit này). Không chiếm VPS-GHI: chỉ ghi tài liệu + ba phiếu qua gateway CAS có đọc lại. Chạy CHECK005 bốn lần (42–66 s, 512 MB) và các phép thử nhỏ trong bản sao cách ly; commit thử và tệp tạm nằm trong bản sao, tự hủy. Không chạy CHECK006, QT002, PG. Không tạo tiến trình nền, lease hay khóa.
+
+---
+
+# VÒNG 6 · Rà P53 (006@0.8 · 71 bước) + chốt đồng thuận · 14/10/2026
+
+REVIEWER: Claude (Anthropic) · Claude Chat/Cowork · ghế Claude-review. STARTED@TQT-P53-CLAUDE-REVIEW 2026-10-13T22:30Z. BASED_ON: P53 `8844990`, khép `5812c85`; 006 `0.8-compact-obligations` (`589f9a07…`), CHECK005 `051f1bf8…`, UI `aa8365f2…` + overview `039d863b…` — khớp manifest phiếu. JEV: `gen-dec-1791930863-ZcPlZ2UiZC6SKWFO7V8E`.
+
+## V6.0 · Nhìn 30 giây
+
+| Phiếu / việc | GPT | Claude | Còn phải làm |
+|---|---|---|---|
+| Rút gọn 87 → 71 bước (cấu trúc) | ✅ | ✅ **ĐỒNG THUẬN** | — |
+| TQT-P53-CORRECTIONS · 006@0.8 + luật kiểm | ✅ | 🔴 **REJECT** | 1 sửa: **C1** khóa chết nghiệm thu |
+| TQT-P53-DEBTS · 24 nợ | ✅ | ✅ **APPROVE** | — |
+| TQT-P53-FIELDS · 253 định nghĩa | ✅ | 🔴 **REJECT** | 1 sửa: **F4** ghi quyết định cho nhóm còn lại |
+
+Số bước là **71** (không phải 72) = 87 − 17 dòng gộp + 1 bước "Tiếp tục sau DỪNG"; theo mốc 8 / 18 / 11 / 15 / 8 / 4 / 7.
+**Lượt sau:** Codex sửa C1 + F4 (nhỏ, không đụng cấu trúc 71 bước) → Claude chạy lại đúng các ca âm dưới → ký. Không mở lại vòng bàn về số bước.
+
+## V6.1 · 71 bước — đối chiếu bản chốt chung V5.3
+
+| Điểm | P53 làm | KL |
+|---|---|---|
+| Phạm vi trước khi mở hồ sơ | CP01.02 (gồm 01.07) đứng trước CP01.04 | ✅ |
+| Nguồn ghi một lần (rút M3) | CP01.08 ghi; CP02.03 chỉ kiểm | ✅ |
+| 11 nhóm gộp | đúng 11 nhóm, 17 dòng; `members` 88 mã = 87 cũ + CP03.12, không trùng; bảng 87/87 đủ | ✅ |
+| Không bỏ nghĩa vụ | 0 bước gốc LUÔN bị hạ thành có điều kiện; CP02.10 nâng thành LUÔN (chặt hơn, chấp nhận) | ✅ |
+| Ai làm / Mức tự động / Điều kiện tách riêng | actor AI 38 · máy 27 · rà 4 · người 2; 0 HAS_COMMAND; 27 NO_COMMAND → MANUAL_ASSISTED + nợ AUTOMATION | ✅ |
+| Bước gộp giữ bằng chứng từng khâu | `obligation_checks` từng mã trong members | ✅ |
+| Giờ mốc, sự kiện trong khoảng STARTED–KQ, tiếp tục sau DỪNG | có luật + ca âm | ✅ |
+| **Codex giữ:** CP06.04 là Owner duyệt, không phải reviewer khác hãng | actor HUMAN; khác hãng tại CP03.05/CP05.03 + phiếu CAT-025 | ✅ **Đồng ý**: quyết định của người có quyền khác phiếu rà của một hãng AI |
+| **Codex giữ:** khác nghĩa thì không gộp field | target_version giữ riêng | ✅ **Đồng ý** — trùng F1 V5.2 |
+| **Codex giữ:** chưa có lệnh thì ghi là làm tay | MANUAL_ASSISTED | ✅ **Đồng ý** — trùng V5.3 điểm 3 |
+
+⇒ Ba điểm Codex giữ, Claude đều đồng ý; không còn bất đồng về cấu trúc. Chỗ còn lại (C1) là luật điều kiện, không phải số bước.
+
+## V6.2 · C1 — khóa chết nghiệm thu (chặn ca thử QT002)
+
+**Ví dụ:** ca thử QT002 chạy trơn, không ai hủy việc. Bước CP04.16 "Hủy" không xảy ra. Để nghiệm thu (`require_complete`), CP04.16 phải DONE hoặc NOT_APPLICABLE. DONE thì sai (có hủy đâu). NOT_APPLICABLE thì luật bắt `evaluated_by=MACHINE` kèm biên nhận chạy máy — nhưng 27/27 bước dự kiến máy đều NO_COMMAND. Để UNKNOWN thì nghiệm thu báo `APPLICABLE_STEP_INCOMPLETE`. ⇒ 27 bước có điều kiện; **mọi lượt thật đều kẹt, QT002 và QT001 không bao giờ nghiệm thu được**.
+
+| Phép thử (bản sao cách ly) | Kết quả |
+|---|---|
+| NOT_APPLICABLE do AI đánh giá, có bằng chứng | FAIL `APPLICABILITY_EVIDENCE` |
+| UNKNOWN, kiểm thường | PASS |
+| UNKNOWN khi `require_complete` | FAIL `APPLICABLE_STEP_INCOMPLETE` (đọc mã CHECK005 dòng 39) |
+
+Gốc: chính điểm 4 V5.3 Claude đã đồng ý ("máy lưu căn cứ") khi máy chưa tồn tại — Claude nhận phần mình. **Sửa theo đúng luật chung Codex đã giữ ("chưa có lệnh thì làm tay, ghi rõ"):** khi bộ đánh giá là NO_COMMAND, cho NOT_APPLICABLE với `evaluated_by=AI`, `execution_mode=MANUAL_ASSISTED`, `evidence_ref`; reviewer khác hãng xác nhận từng dòng tại CP05.03; đếm vào KPI "số đánh giá tay" và nợ AUTOMATION; khi đã HAS_COMMAND thì bắt buộc MACHINE. Ca âm: AI-NA thiếu xác nhận reviewer ⇒ FAIL; AI-NA khi đã HAS_COMMAND ⇒ FAIL; NA cho bước LUÔN ⇒ FAIL (đã có).
+Nếu Codex muốn làm bộ đánh giá máy cho đủ các nhánh trước ca thử thay vì luật tạm, Claude chấp nhận. Điều không đổi: **ca thử phải có đường nghiệm thu**.
+
+## V6.3 · Nợ — APPROVE
+
+24 nợ, chỉ dùng 8 trạng thái chuẩn (13 OPEN · 9 VERIFYING · 2 CLOSED). N1–N4 đạt: 3 trạng thái ngoài chuẩn → VERIFYING; TIMING/ITEMS/SKIP/CHANGE → VERIFYING; D1/D2 CLOSED có người sửa (Codex) ≠ người kiểm (Claude) và result_ref; thêm COMPACT/FIELDS/AUTOMATION với phạm vi chặn riêng. Bốn nhóm phạm vi chặn dùng chung câu: đồng ý từ V5.2. Ghi chú cho lượt sau: nếu sửa C1 theo luật tạm, AUTOMATION ghi thêm "bộ đánh giá điều kiện".
+
+## V6.4 · Field — REJECT (F4)
+
+Đạt: 253 = 242 − 11 + 1 + 21; 357 lượt dùng; 11 alias đúng nhóm; nhãn nơi dùng hiện trong Master Field; tên các field `state` không còn trùng. Chưa đạt: P53 chỉ gộp đúng các ví dụ V5.2 đã nêu; máy đếm còn **24 nhóm cùng khóa + kiểu + ràng buộc (33 định nghĩa dư)**, trong đó chỉ `target_version` có quyết định ghi lại. Ví dụ: target_code "Việc / đối tượng" · "Đối tượng" · "Mã đối tượng"; process_code 3; result_ref 3; version_ref 3; attempt_id 3; input_ref 3; reason 3; actor 4; depends_on, round_id, checkpoint, output, mot_code, criterion, evidence_ref, scope, request_key, sender, recipient, preconditions, supersedes_id, deployment_ref, state "Giao / nhận" (mỗi nhóm 2).
+**F4:** mỗi nhóm ghi GỘP hoặc RIÊNG kèm một câu lý do theo nghĩa. **Host quyết nghĩa; Claude không tranh luận lại từng nhóm.** CHECK005 thêm luật: nhóm cùng khóa + kiểu + ràng buộc phải có quyết định; ca âm: thêm một định nghĩa trùng không có quyết định ⇒ FAIL. Lý do cần: nhân bản hàng loạt sẽ chép bộ field này; nhóm chưa quyết thì việc sau không biết dùng lại định nghĩa nào.
+
+## V6.5 · Kiểm thật của Claude
+
+| Kiểm | Kết quả |
+|---|---|
+| Manifest 3 phiếu | QT006 `589f9a07`, CHECK005 `051f1bf8`, UI `aa8365f2`, overview `039d863b` khớp tệp |
+| CHECK005 mặc định (sau khi Claude ký) | exit 0, 41 s; `p53_cases: 15 · PASS` |
+| CHECK006 `--verify` trong bản sao của Claude | BLOCKED trước khi kiểm: `MISSING_LIVE_MASTER_REGISTRY` (bản sao không có sổ Master sống); `--vps-ui` treo 425 s, Claude hủy. Không phải lỗi bản sửa — dựa vào CHECK005 + kiểm giao diện thật dưới |
+| Hồ sơ 001 (trình duyệt headless) | 3 phiếu, bản xem gộp 8/18/11/15/8/4/7 + "Hồ sơ nguyên bản · 87 bước"; ghi rõ không phải đã thực hiện bản 0.8 | ✅ |
+| Master Field (headless) | 253 định nghĩa, nhãn nơi dùng trong ngoặc | ✅ |
+| **Overview** (Chrome, lượt Codex báo lỗi) | Mở được; mục 3 "QTTH 06 · 71 bước" đủ 7 mốc, bảng 8 cột đều có `?`, bước gộp hiện từng nghĩa vụ ✅. **Lệch:** tiêu đề đầu trang và chip vẫn ghi "87 bước thực hiện" / "87 bước" 🟢 nhỏ |
+| Trang xem trước cũ `qtth006-overview-preview-v1.html` | Tiêu đề "100 bước", lỗi JS `textContent of null` → nên cập nhật hoặc đưa vào kho lưu trữ 🟢 nhỏ |
+
+Hai lệch nhỏ làm cùng lượt C1/F4, không chặn.
+
+## V6.6 · Chữ ký đã ghi
+
+Ba review Anthropic nối sau review OpenAI, không sửa gì khác; giờ máy chủ 2026-10-13T22:38:59Z; commit `6466dd0`. CORRECTIONS **REJECT** + C1 (binding `81d6508c…`) · DEBTS **APPROVE** (binding `6ea50d4a…`) · FIELDS **REJECT** + F4 (binding `562fbd2e…`). Đọc lại: view.html `5f053816…`; ba phiếu cùng binding/scope; 143 sự kiện, 253 field, 24 nợ không đổi; CHECK005 exit 0; UI hồ sơ 001 cột Claude hiện "Cần sửa" / "✅ OK" / "Cần sửa".
+
+Nhật ký vòng 6: KQ@TQT-P53-CLAUDE-REVIEW XONG · 2026-10-13 ~22:50Z (giờ chính xác = commit này). Không chiếm VPS-GHI: chỉ ghi tài liệu + ba phiếu qua gateway CAS có đọc lại. Chạy CHECK005 và các phép thử nhỏ trong bản sao cách ly; tệp tạm tự hủy theo bản sao; lượt CHECK006 `--vps-ui` đã hủy, không còn chạy. Trình duyệt chỉ mở/thu mục, đã đóng tab. Không chạy QT002, PG. Không tạo tiến trình nền, lease hay khóa.
