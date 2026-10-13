@@ -291323,6 +291323,18 @@ main{max-width:1240px} [hidden]{display:none!important}
                         "binding": "81d6508ccecd629ea600661b3036028909c7435516284c0f9309fa2568654dfe",
                         "scope": "Duyệt bản rút gọn71 bước, giữ87 nghĩa vụ; không nghiệm thu P46/QT001 hoặc cho chạy002",
                         "evidence_ref": "COLLAB.md#p53"
+                      },
+                      {
+                        "vendor": "Anthropic",
+                        "reviewer": "Claude Cowork · ghế Claude-review",
+                        "decision": "REJECT",
+                        "reviewed_at": "2026-10-13T22:38:59Z",
+                        "binding": "81d6508ccecd629ea600661b3036028909c7435516284c0f9309fa2568654dfe",
+                        "scope": "Duyệt bản rút gọn71 bước, giữ87 nghĩa vụ; không nghiệm thu P46/QT001 hoặc cho chạy002",
+                        "evidence_ref": "proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md#vòng-6",
+                        "delta": [
+                          "C1: khóa chết nghiệm thu. require_complete bắt mọi bước DONE hoặc CONDITIONAL+NOT_APPLICABLE; NOT_APPLICABLE chỉ nhận evaluated_by=MACHINE có receipt; cả 27 bước dự kiến máy đều NO_COMMAND nên nhánh không phát sinh (hủy, gửi trùng, ca FAIL, tiếp tục sau DỪNG…) không bao giờ hợp lệ → không lượt thật nào nghiệm thu được. Sửa theo đúng luật bước chưa có lệnh: khi bộ đánh giá NO_COMMAND cho NOT_APPLICABLE do AI đánh giá (evaluated_by=AI, execution_mode=MANUAL_ASSISTED, evidence_ref), reviewer khác hãng xác nhận tại CP05.03, tính vào KPI và nợ AUTOMATION; HAS_COMMAND thì bắt buộc MACHINE. Hoặc làm bộ đánh giá máy trước ca thử. Ca âm: AI-NA thiếu xác nhận reviewer ⇒ FAIL; AI-NA khi đã HAS_COMMAND ⇒ FAIL"
+                        ]
                       }
                     ]
                   },
@@ -291344,6 +291356,15 @@ main{max-width:1240px} [hidden]{display:none!important}
                         "binding": "6ea50d4a1e99be3ee3e1829ab9791867f94fe39d56c550f1e204e65ad2a0c5a9",
                         "scope": "Duyệt đầy đủ/phân loại24 nợ và đường xử lý; không xác nhận mọi nợ đã khép",
                         "evidence_ref": "COLLAB.md#p53"
+                      },
+                      {
+                        "vendor": "Anthropic",
+                        "reviewer": "Claude Cowork · ghế Claude-review",
+                        "decision": "APPROVE",
+                        "reviewed_at": "2026-10-13T22:38:59Z",
+                        "binding": "6ea50d4a1e99be3ee3e1829ab9791867f94fe39d56c550f1e204e65ad2a0c5a9",
+                        "scope": "Duyệt đầy đủ/phân loại24 nợ và đường xử lý; không xác nhận mọi nợ đã khép",
+                        "evidence_ref": "proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md#vòng-6"
                       }
                     ]
                   },
@@ -291365,6 +291386,18 @@ main{max-width:1240px} [hidden]{display:none!important}
                         "binding": "562fbd2ed9edabdb74c1a281877b40fb2e8b80f82c26e076a1a4f7065d995fba",
                         "scope": "Duyệt253 định nghĩa/357 lượt dùng từ nguồn đã nêu; giữ327 lượt thiết kế; PG/runtimeG1 chưa đủ, không xác nhận toàn bộ đã có",
                         "evidence_ref": "COLLAB.md#p53"
+                      },
+                      {
+                        "vendor": "Anthropic",
+                        "reviewer": "Claude Cowork · ghế Claude-review",
+                        "decision": "REJECT",
+                        "reviewed_at": "2026-10-13T22:38:59Z",
+                        "binding": "562fbd2ed9edabdb74c1a281877b40fb2e8b80f82c26e076a1a4f7065d995fba",
+                        "scope": "Duyệt253 định nghĩa/357 lượt dùng từ nguồn đã nêu; giữ327 lượt thiết kế; PG/runtimeG1 chưa đủ, không xác nhận toàn bộ đã có",
+                        "evidence_ref": "proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md#vòng-6",
+                        "delta": [
+                          "F4: các nhóm còn lại cùng khóa + kiểu + ràng buộc nhưng chưa có quyết định ghi lại (vd target_code 3, process_code 3, result_ref 3, version_ref 3, depends_on 2, round_id 2, checkpoint 2, output 2, state 'Giao / nhận'). Mỗi nhóm ghi GỘP hoặc RIÊNG kèm một câu lý do theo nghĩa; Host quyết nghĩa, Claude không tranh luận lại. CHECK005 thêm luật: nhóm cùng khóa+kiểu+ràng buộc phải có quyết định"
+                        ]
                       }
                     ]
                   }
