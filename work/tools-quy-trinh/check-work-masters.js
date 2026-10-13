@@ -58,6 +58,8 @@ function validate(r){
   w.detail_tracking.added_steps[0].id='CP01.99';assert(A.detailModel(r,w).errors.length);
   w.detail_tracking={...base,events:[{...ev,performed:'BLOCKED',reason:'Thiếu đầu vào'}]};assert.equal(A.detailModel(r,w).groups[0].rows[0].actual.confirmation,'Bị chặn');
   w.detail_tracking=base;const helpUI=A.dossierView(r,{metadata:w}).html;assert(helpUI.includes('Hướng dẫn: Tình trạng'));assert(helpUI.includes('Hướng dẫn: CP01.01'));assert(!helpUI.includes('Ô trống = chưa ghi nhận;'));assert(!helpUI.includes('>Quy định ↗</a>'));
+  for(const g of r.work_form.record_control.guidance){assert(helpUI.includes('Hướng dẫn: '+g.id));assert(helpUI.includes(g.instruction.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')));}
+  for(const label of ['Xong','Phải ghi gì?','Master List nào?','Đã ghi','Đối chiếu','Còn thiếu / chi tiết'])assert(helpUI.includes('Hướng dẫn: '+label));assert(!helpUI.includes('>Quy định cách ghi ↗</a>'));
   w.detail_tracking=base;assert.equal(JSON.stringify(w),before);console.log(JSON.stringify({qt006_steps:87,groups:7,negative_cases:neg,state:'READ_ONLY_DOSSIER_VERIFIED',real_execution:'NOT_RUN'}));
  }
 }

@@ -278550,7 +278550,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "d62cfe19cb2d8111ed7da35e8c71f21416614fd69f5f0f2b53d082d24604294d",
+          "sha256": "522be773084b9d0b326c523ddaad4b5ddeedde274aac328126292e33b1c8102b",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -278564,7 +278564,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "timeout_seconds": 300,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
-            "process-work-master-v1.js": "e857b53bffd974da3ef6e0db0713dc7b11d93c4763c7e285c5242e0fb91c9a91",
+            "process-work-master-v1.js": "70f8d4e4e74115ed8a7e02d0ae5f094866e49f97b8130fa1f0dacf4b0f5ca15c",
             "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
             "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357"
           },
@@ -279039,15 +279039,15 @@ main{max-width:1240px} [hidden]{display:none!important}
           },
           {
             "id": "TQT-CHECK-005",
-            "sha256": "d62cfe19cb2d8111ed7da35e8c71f21416614fd69f5f0f2b53d082d24604294d",
+            "sha256": "522be773084b9d0b326c523ddaad4b5ddeedde274aac328126292e33b1c8102b",
             "exit_code": 0,
             "case_set": "TQT-CASE-MASTER",
-            "checked_at": "2026-10-13T07:34:19.591238+00:00",
+            "checked_at": "2026-10-13T07:46:48.232086+00:00",
             "ui_inputs": {
-              "process-work-master-v1.js": "e857b53bffd974da3ef6e0db0713dc7b11d93c4763c7e285c5242e0fb91c9a91"
+              "process-work-master-v1.js": "70f8d4e4e74115ed8a7e02d0ae5f094866e49f97b8130fa1f0dacf4b0f5ca15c"
             },
-            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P43/check005",
-            "job_id": "TQT-P43-CHECK005-LOCAL",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P44/check005",
+            "job_id": "TQT-P44-CHECK005-LOCAL",
             "source_head": null
           },
           {
@@ -279061,7 +279061,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           }
         ],
         "observed_at": "2026-10-12T15:43:43.236724+00:00",
-        "audit_sha256": "ab19c2ca41609647247456eec90b715f79067a1ede0d36421eccb144a990d65a",
+        "audit_sha256": "b11429a9efbdf5426c80b47ec47a994faf3e8f67f74ca1704709050dc33f6ad0",
         "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P33/audit",
         "dot_inventory": [
           {
@@ -283749,7 +283749,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "registration": "UNMAPPED_OBSERVED_CAPABILITY"
           }
         ],
-        "execution_count": 139,
+        "execution_count": 140,
         "event_count": 4189,
         "complete_receipts": 184,
         "external_receipts": [
@@ -284124,6 +284124,18 @@ main{max-width:1240px} [hidden]{display:none!important}
             "observed_at": "2026-10-13T07:34:19.591238+00:00",
             "result": "87 rows;0 filled actual cells;contextual status help opened;G1 unchanged",
             "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P43/ui_verification",
+            "source": "Actual browser DOM"
+          },
+          {
+            "action": "browser:cua",
+            "provider": "Codex CUA",
+            "version": "UNKNOWN_PLATFORM_BUILD",
+            "work_id": "tools-quy-trinh",
+            "run_id": "P44-CUA-TAB11",
+            "run_id_origin": "Host correlation",
+            "observed_at": "2026-10-13T07:46:48.232086+00:00",
+            "result": "11 group instructions and 6 column help; in-place disclosure verified",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P44/ui_verification",
             "source": "Actual browser DOM"
           }
         ],
@@ -285367,6 +285379,19 @@ main{max-width:1240px} [hidden]{display:none!important}
           "next_version": "d62cfe19cb2d8111ed7da35e8c71f21416614fd69f5f0f2b53d082d24604294d",
           "reason": "Contextual help, blank actual cells, distinct additional step IDs and blocked declarations",
           "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P43"
+        },
+        {
+          "id": "TQT-P44-TQT-CHECK-005",
+          "target_code": "TQT-CHECK-005",
+          "kind": "UPGRADE",
+          "at": "2026-10-13T07:46:48.232086+00:00",
+          "changed_at": "2026-10-13T07:46:48.232086+00:00",
+          "actor": "Codex Host",
+          "source_sha256": "522be773084b9d0b326c523ddaad4b5ddeedde274aac328126292e33b1c8102b",
+          "previous_version": "d62cfe19cb2d8111ed7da35e8c71f21416614fd69f5f0f2b53d082d24604294d",
+          "next_version": "522be773084b9d0b326c523ddaad4b5ddeedde274aac328126292e33b1c8102b",
+          "reason": "Same contextual help mechanism for 11 recording groups and 87 steps; canonical instructions at point of use",
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P44"
         }
       ],
       "walkthrough": {

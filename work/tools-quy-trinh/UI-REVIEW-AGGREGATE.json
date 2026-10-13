@@ -83875,6 +83875,27 @@
               "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P43/check005"
             }
           ]
+        },
+        {
+          "run_id": "TQT-P44-CHECK005-LOCAL",
+          "work_id": "tools-quy-trinh",
+          "action": "Codex exec_command",
+          "outcome": "EXIT_0",
+          "status": "completed",
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P44/check005",
+          "subtools": [
+            {
+              "id": "TQT-CHECK-005",
+              "sha256": "522be773084b9d0b326c523ddaad4b5ddeedde274aac328126292e33b1c8102b",
+              "exit_code": 0,
+              "case_set": "TQT-CASE-MASTER",
+              "checked_at": "2026-10-13T07:46:48.232086+00:00",
+              "ui_inputs": {
+                "process-work-master-v1.js": "70f8d4e4e74115ed8a7e02d0ae5f094866e49f97b8130fa1f0dacf4b0f5ca15c"
+              },
+              "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P44/check005"
+            }
+          ]
         }
       ],
       "journal_invalid_lines": 0,
@@ -84257,6 +84278,18 @@
         "observed_at": "2026-10-13T07:34:19.591238+00:00",
         "result": "87 rows;0 filled actual cells;contextual status help opened;G1 unchanged",
         "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P43/ui_verification",
+        "source": "Actual browser DOM"
+      },
+      {
+        "action": "browser:cua",
+        "provider": "Codex CUA",
+        "version": "UNKNOWN_PLATFORM_BUILD",
+        "work_id": "tools-quy-trinh",
+        "run_id": "P44-CUA-TAB11",
+        "run_id_origin": "Host correlation",
+        "observed_at": "2026-10-13T07:46:48.232086+00:00",
+        "result": "11 group instructions and 6 column help; in-place disclosure verified",
+        "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P44/ui_verification",
         "source": "Actual browser DOM"
       }
     ],
@@ -89464,6 +89497,31 @@
     "limits": [
       "Dossier remains read-only; no authenticated per-step write adapter",
       "No real QT006 step events or TEST substituted for real completion"
+    ]
+  },
+  "host_review_P44": {
+    "state": "CONTEXTUAL_HELP_VERIFIED",
+    "at": "2026-10-13T07:46:48.232086+00:00",
+    "scope": "11 groups UI/help; no actual record changes, PG or runtime",
+    "check005": {
+      "exit_code": 0,
+      "source_sha256": "522be773084b9d0b326c523ddaad4b5ddeedde274aac328126292e33b1c8102b",
+      "ui_inputs": {
+        "process-work-master-v1.js": "70f8d4e4e74115ed8a7e02d0ae5f094866e49f97b8130fa1f0dacf4b0f5ca15c"
+      },
+      "log_sha256": "8c02bce478d5494b4df296272ca62ead538a20dc554c4cfc4738a3faecbb391e",
+      "evidence_ref": "Codex work/p44/check005.log"
+    },
+    "ui_verification": {
+      "groups": 11,
+      "column_help": 6,
+      "row_instructions": "all 11 sourced from canonical guidance",
+      "browser": "RG01 and status help opened at point of use; collapse remains usable",
+      "screenshot": "Codex work/p44/eleven-help.png"
+    },
+    "limits": [
+      "Read-only dossier; no new write adapter",
+      "G1 history preserved; no real QT006 execution claimed"
     ]
   }
 }
