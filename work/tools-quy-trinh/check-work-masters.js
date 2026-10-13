@@ -18,6 +18,13 @@ function cloneFixture(x){
  out.application_preview.record.history=a.history;out.application_preview.record.checkpoint_checks=a.checkpoint_checks;assert.equal(historyFingerprint(r.application_preview.record),sourceHistoryFingerprint,'FIXTURE_MUTATED_SOURCE_HISTORY');return out;
 }
 const adapter=process.argv[3];if(adapter)vm.runInThisContext(fs.readFileSync(adapter,'utf8'));
+function auditRecordedCycle(A,data){const normalized={...data,work_schedule:{...data.work_schedule,records:data.work_schedule.records.map(w=>{const b=w.detail_tracking;if(!b?.cycle)return w;return {...w,detail_tracking:{...b,events:(b.events||[]).map(e=>{if(!('duration_ms' in e)){assert.equal(e.timing_basis,'RECORDING_ONLY','MISSING_MEASURED_DURATION');return {...e,duration_ms:0};}return e;})}};})}};return A.cycleAudit(normalized);}
+if(adapter&&globalThis.TQT_WORK_MASTER.cycleAudit){const v=auditRecordedCycle(globalThis.TQT_WORK_MASTER,r);assert.equal(v.state,'PASS',JSON.stringify(v));if(process.argv.includes('--cycle-only')){console.log(JSON.stringify(v));process.exit(0);}}
+function auditCycleProducts(c){for(const [k,p] of Object.entries(c.products||{})){assert.equal(p.cycle_id,c.run_id,'PRODUCT_CYCLE');assert.equal(require('crypto').createHash('sha256').update(JSON.stringify(p)).digest('hex'),c.product_hashes[k],'PRODUCT_HASH');if(k==='P01')assert.equal(p.read_receipt.answered,50,'P01_ANSWERS');if(['P02','P03'].includes(k)){assert.equal(p.reused_content.mots.length,3,'DESIGN_MOTS');for(const m of p.reused_content.mots)for(const key of ['fields','controls','branches'])assert(Array.isArray(m[key])&&m[key].length,'DESIGN_CONTENT');}}}
+for(const w of r.work_schedule.records){const c=w.detail_tracking?.cycle;if(c){auditCycleProducts(c);const bad=JSON.parse(JSON.stringify(c));bad.products.P02.reused_content.mots[0].fields=[];bad.product_hashes.P02=require('crypto').createHash('sha256').update(JSON.stringify(bad.products.P02)).digest('hex');assert.throws(()=>auditCycleProducts(bad),/DESIGN_CONTENT/);console.log('P46: actual rebuilt products read and verified; missing-fields negative case rejected (TEST)');}}
+// Existing regression fixtures describe the historical G1 baseline. Validate the live cycle above, then isolate those fixtures from the new run.
+const liveCycleBindings=r.work_schedule.records.map(w=>w.detail_tracking);for(const w of r.work_schedule.records){if(w.detail_tracking?.cycle)w.detail_tracking={...w.detail_tracking,cycle:undefined,events:[],mode:'REFERENCE_ONLY'};}
+
 function validate(r){
  const s=r.work_schedule, defs=r.work_master_designs.records, by=new Map(s.records.map(x=>[x.record_id,x]));
  assert.equal(s.master_code,'CAT-227*');assert.equal(by.size,s.records.length);assert.equal(new Set(s.records.map(x=>x.order)).size,s.records.length);
@@ -213,3 +220,5 @@ if(adapter&&r.application_preview.resolved_questions){
 }
 
 if(adapter){for(const run of r.tool_registry.walkthrough_runs||[]){const A=globalThis.TQT_WORK_MASTER;assert(A.relatedRows(r,'CAT-229*').some(x=>x.record_id===run.run_id&&x.scope===run.scope));for(const f of run.findings)assert(A.relatedRows(r,'CAT-069?').some(x=>x.record_id===f.id&&x.application_id===run.run_id&&x.scope===run.scope));}}
+
+if(adapter){const A=globalThis.TQT_WORK_MASTER;const q=cloneFixture(r);q.work_schedule.records.forEach((w,i)=>w.detail_tracking=liveCycleBindings[i]);assert.equal(auditRecordedCycle(A,q).state,'PASS');const b=q.work_schedule.records.find(w=>w.detail_tracking?.cycle)?.detail_tracking;if(b){const copy=JSON.parse(JSON.stringify(b));q.work_schedule.records.find(w=>w.detail_tracking?.cycle).detail_tracking=copy;const e=copy.events.find(e=>e.performed==='DONE');if(e){e.completed_at='2000-01-01T00:00:00Z';assert.equal(auditRecordedCycle(A,q).state,'FAIL');}assert(A.dossierView(r,{metadata:r.work_schedule.records[0]}).html.includes('Thời gian hoàn thành'));}}

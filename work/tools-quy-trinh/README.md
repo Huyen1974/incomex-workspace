@@ -1,5 +1,12 @@
 # tools-quy-trinh · Cửa vào
 
+## P47 · Một nơi xem hồ sơ
+
+Hồ sơ thực hiện P46 nằm tại **DEF00.1 → TQT-VIEC-001 → QTTH06**, nguồn `catalog.work_schedule.records[].detail_tracking`. 87 dòng, giờ hoàn thành, thời lượng đo được, công cụ, kết quả và lý do bị chặn đều ở đây. Các Master liên quan chiếu từ cùng nguồn; không nhập lại. Tệp local chỉ là tệp tạm, không là nơi bàn giao. Tổng P46 đến khép RUN:32phút25giây, chưa hoàn tất nhánh tìm thành công. G1 cũ được giữ lịch sử riêng.
+
+**Host trước khi báo đã cập nhật hồ sơ:** kiểm đúng mã việc/nguồn → ghi qua gateway có phiên → đọc lại so dữ liệu → mở đúng hồ sơ trên UI thấy bản mới. Thiếu thì báo chưa ghi, không thay bằng một trang local. CHECK005 kiểm cấu trúc/nội dung; đọc lại và UI vẫn do Host xác minh, chưa có chốt tự động đủ cả ba tại gateway.
+
+
 ## P39 · RUN P36 đã khép, không giữ cờ bận
 
 `MOW001-P36-REAL` có KQ DỪNG sạch; giữ STARTED lịch sử và G1 đã nhận7/7. Nguồn trạng thái duy nhất: Bảng + P39 trong [COLLAB.md](COLLAB.md). Đề bài Claude review6Config Guard targets, hash live/baseline, imageP38 và đường protected apply có điều kiện đều ở P39; chưa READY hay quyền sửa production.
@@ -10,7 +17,7 @@
 
 [MOW-TH-006.md](MOW-TH-006.md) là nguồn định nghĩa duy nhất. P40 bổ sung kiểm quyền trước ghi và khép RUN; chuyển bộ kiểm tổng lên CP05 trước duyệt/ACK. QTTH05 giữ khung 7 mốc. Catalog đăng ký 006 là chi tiết hóa 005, không thêm vào selected_process gây vòng gọi.
 
-[Hồ sơ MOW001](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001): 11 mục phải ghi thu/mở; QTTH06 ngay dưới, 7 nhóm thu/mở. G1 7/7 giữ nguyên; QTTH06 mới ghim để đối chiếu, chưa có biên nhận bước. Không dùng TEST hoặc G1 để tự tô 87/87. Việc MOW002 chưa mở chỉ xem mẫu.
+[Hồ sơ MOW001](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001): 11 mục phải ghi thu/mở; QTTH06 ngay dưới, 7 nhóm thu/mở. G1 7/7 giữ nguyên; lượt P46 có 87 dòng ghi nhận thực tế trong cùng hồ sơ, không phải 87 bước đã nghiệm thu. Không dùng TEST hoặc G1 để tự tô 87/87. Việc MOW002 chưa mở chỉ xem mẫu.
 
 AI đọc định nghĩa §5 trước khi ghi `DEF00.1 → work_schedule.records[].detail_tracking`. Trạng thái và sự kiện thuộc cùng hồ sơ, bằng chứng ở Master gốc. P40 **chưa cưỡng chế ghi bước006 ở gateway**, chưa thử AI mới tự đi trọn vòng. Đây là giới hạn cần xử lý trong lượt Owner giao tiếp, không tự mở RUN/PG. Bước bổ sung dùng BS-001…; trạng thái thực tế trống/DONE/NOT_DONE/BLOCKED theo §6. Chưa có adapter cấp quyền hoặc tích đạt bằng tay.
 

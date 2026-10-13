@@ -17,10 +17,10 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
 - ✅ Đã xong P38: hồ sơ100MB→12.9MB, không mất lịch sử; tích xanh; bộ tổng1GiB đạt. Giữ G1 đã duyệt7/7, ngoài PG.
-- ■ Đang làm: — · P46 DỪNG sạch · VPS_BẬN; Codex không còn tiến trình/khóa riêng. Hồ sơ có bản local và báo cáo aggregate; chưa xuất bản87bước.
+- ■ Đang làm: — · P47 đã đưa hồ sơ P46 về DEF00.1/TQT-VIEC-001; không giữ RUN/lease.
 - ✅ P40: QTTH006 v0.3 có87bước/7mốc, đăng ký Master và ghép cùng hồ sơ; 11mục +7nhóm thu/mở đã kiểm thật; CHECK006 native PASS. Chưa thực hiện thật theo006.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002.
-- ➡ Kế tiếp: NEXT_TRIGGER=VPS_GHI_FREE. Đọc lại commit/cờ chung, đồng bộ UI time v1 đã ghi với pin registry; kiểm/xuất bản CHECK005+hồ sơ P46 vào DEF00.1, đọc lại. Không lấy 48 hành động ghi nhận hoặc TEST PASS thành nghiệm thu toàn đường.
+- ➡ Kế tiếp: đọc hồ sơ001 làm nguồn duy nhất; xử lý nguồn Field/evaluator còn thiếu và quyền/gate006 theo đúng scope. Không nhận48hànhđộng hoặc7/7G1cũ thành nghiệmthuP46.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -1095,3 +1095,11 @@ P36 · Chốt bằng chứng 2026-10-12T10:30:47.193507+00:00: nativefull1GiB PA
 - CHECK005 ứngviên bổsung ràngbuộc cycle/thời gian và đọc nộidungP02/P03/hash; caâm thiếufield bịchặn. Bộ006 sau chuẩnbịđủ snapshotPASS:0010,665s;0020,412s;0035,269s;00449,471s;00535,713s; toànrunner92,052s. Hai lỗi đầu là snapshotthiếuaggregate/2UIinputs, đã sửa local; không giấu lần lỗi. TEST không thay việc thật.
 - Bản ghiMaster đã chuẩn bị trong cùng hồ sơDEF00.1:CAT228/229/015/069/244/238/025/232/233/016; chưa phát hành và chưa chốt ghi/đọcCP02.23. KhôngmởMaster/DOT mới. Chốt006toàngateway còn mở; metadata ghi được không đồng nghĩa cócưỡngchế. G1cũ giữ nguyên7/7.
 - NEXT_TRIGGER=VPS_GHI_FREE: nhậnlượtghi quaCASroot, đọc nguồn mới→kiểmứngviên→ghihồsơ+registry+CHECK005→đọclại→UI; sauđó giải quyết nguồn/evaluator ngoàiPG theohợpđồng hiệncó. KQnày là thu cờ/báo cáo theoDROOT54(b,d), khôngsửa production trong lượtVPSC.
+
+### P47 · Đưa hồ sơ về đúng DEF00.1 theo Owner
+STARTED@TQT-P47-RECORD-PLACEMENT 2026-10-13T09:00:40Z · Codex Host · cập nhật tài liệu/hồ sơ, không giữ lượt đổi hệ thống.
+- Owner yêu cầu đưa P46 về nơi chuẩn. Đã đọc root và VPSC: VPSC bước1/7 lúc08:33Z ghi rõ “TQT-P46 Codex chỉ ghi tài liệu, không VPS-GHI”. Nhận định P46 phải dừng mọi ghi hồ sơ là quá rộng; P47 chỉ ghi workspace tài liệu qua CAS, không sửa UI/runtime/PG hoặc nhả khóa VPSC.
+- Nguồn duy nhất: catalog.work_schedule.records[TQT-VIEC-001].detail_tracking. 87 bước giữ sự kiện/thời điểm; thời lượng ghi nhật ký không coi thời lượng làm bước. Bản chiếu Master nối cùng cycle. CHECK005 bổ sung đọc nội dung/hash/phiên và xử lý khoảng chưa đo; pinUI khớp đúng mã đang phục vụ.
+- Tổng P46 đến KQ32phút25giây là thời gian lượt đã dừng, không phải thời gian hoàn thành nghiệp vụ. G1cũgiữ7/7; nhánh tìm thành công thiếu nguồn/evaluator, không tô đạt.
+- Kiểm ứngviên trước ghi: CHECK006 chạy001–005 đúng mã UI đang phục vụ, xem biên nhận local placement-suite; TEST chỉ kiểm công cụ và cấu trúc. Sau giao dịch phải đọc lại và mở UI đúng việc trước báo bàn giao.
+KQ@TQT-P47-RECORD-PLACEMENT XONG · 2026-10-13T09:06:31.601839+00:00 · khép lượt ghi hồ sơ; không khép nghiệp vụP46. Không tạo tiến trình nền/container/lease/tệp tạm trênVPS; không chạm cờVPSC. Áp:SAME_COMMIT.
