@@ -88956,6 +88956,17 @@
       "tool": "TQT-CHECK-003",
       "reason": "old validator did not model operational_detail_for relationship",
       "resolution": "allow exact 006→005 relationship only; no wider relation bypass"
-    }
+    },
+    "live_findings": [
+      {
+        "code": "READ_ONLY_POINTER_BLOCK",
+        "resolution": "Scoped summary/link pointer events in dossier only; checkboxes remain disabled"
+      },
+      {
+        "code": "AUDIT_PROJECTION_DRIFT",
+        "job_id": "43db579016fb4646a937b822efa94390",
+        "resolution": "Rebuild projection from retained audit, not manual last_checks; rerun native"
+      }
+    ]
   }
 }
