@@ -17,10 +17,10 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
 - ✅ Đã xong P38: hồ sơ100MB→12.9MB, không mất lịch sử; tích xanh; bộ tổng1GiB đạt. Giữ G1 đã duyệt7/7, ngoài PG.
-- ■ Đang làm: P46 · thực hiện lại MOW001 G1 và đo thời gian từng bước006; không giữ lease giữa các lượt ghi.
+- ■ Đang làm: — · P46 DỪNG sạch · VPS_BẬN; Codex không còn tiến trình/khóa riêng. Hồ sơ có bản local và báo cáo aggregate; chưa xuất bản87bước.
 - ✅ P40: QTTH006 v0.3 có87bước/7mốc, đăng ký Master và ghép cùng hồ sơ; 11mục +7nhóm thu/mở đã kiểm thật; CHECK006 native PASS. Chưa thực hiện thật theo006.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002.
-- ➡ Kế tiếp: Codex thực hiện MOW001G1, ghi thời điểm/thời lượng cùng kết quả và công cụ vào87bước; trình sản phẩm thật khi tới cửa duyệt; không tự ký thay Owner.
+- ➡ Kế tiếp: NEXT_TRIGGER=VPS_GHI_FREE. Đọc lại commit/cờ chung, đồng bộ UI time v1 đã ghi với pin registry; kiểm/xuất bản CHECK005+hồ sơ P46 vào DEF00.1, đọc lại. Không lấy 48 hành động ghi nhận hoặc TEST PASS thành nghiệm thu toàn đường.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -43,6 +43,7 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 
 **Owner P46 · 13/10:** thêm cột thời gian hoàn thành87bước; thực hiện thật từ đầu đến cuối001 (hoặc002), điền hồ sơ, đo toàn việc/từng việc, sửa lỗiDOT; ngoàiPG, khôngTESTthay thật. Phạm vi lượt này: làm lại MOW001G1 với bước006, giữ lịch sửG1.
 STARTED@TQT-P46-REAL 2026-10-13T08:23:27.929489+00:00 · executor=Codex Host · bắt đầu đo toàn lượt từ2026-10-13T08:18:56Z; lịch sửG1 giữ riêng.
+KQ@TQT-P46-REAL DỪNG · 2026-10-13T08:51:21.360488+00:00 · VPS_BẬN · executor=Codex Host · UI cột thời gian đã ghi tx=d115410e8c6c41b1995003fd6632ac67; hồ sơ/checker mới chỉ local. Đã đo tìm thường/nâng cao: thiếu nguồn/evaluator; hủy→caller nhận phiên3. Fullsuite local PASS92,052s; không nghiệm thu87/87. Dọn:0/0 tiến trình nền,0/0 lease riêng,0 tệp tạm tạo trênVPS; kiểm08:47:48Z khôngcóprocessP46/index.lock/HEAD.lock. Giữ STARTED; không nhả cờ VPS-GHI củaVPSC. Tổng đo hồ sơ đến08:49:24Z:30,48phút; thời gian đóng báo cáo ghi riêng. Áp:SAME_COMMIT.
 
 
 **Owner P45 · 13/10:** “Bây giờ bạn thử đóng vai AI mới, làm theo QTTH 06 từng bước cho một việc thật (làm lại chính quy trình 001) để xem còn tắc ở đâu thì sửa và ghi vào Master liên quan. Vẫn ngoài PG, không lấy TEST thay việc thật, làm đến đâu dọn gọn đến đó nhé.”
@@ -1086,3 +1087,11 @@ P36 · Chốt bằng chứng 2026-10-12T10:30:47.193507+00:00: nativefull1GiB PA
 - CAT229 ghi MOW001-QT006-P45-REAL và từng thao tác thực tế; DEF00.1 nối attempt_ref; CAT069 ghi F01 luật/UI lệch, F02 bộ kiểm chỉ choG1, F03 quyền/cửa ghi cho vòng mới chưa có bằng chứng. CP01.04 DỪNG trước tạo hồ sơ, không giả hoàn thành87bước.
 - F01: nguồn006v0.5 khớp P43/P44 (?/BS/BLOCKED); bindingG1 chỉREFERENCE_ONLY khôngevent được ghi lịch sử trước ghim bản chỉ dẫn mới. F02: CHECK005 kiểm pool nhiều hồ sơ, đúngID/phiên/nguồn, chống trùng; TEST không thay lần thật. F03: live config workspace-tools trial_record_guard chỉ ghim MOW001-G1-P36-2/application cũ; không mở rộng runtime khi chưa qua đường kiểm hiện hữu. Evidence aggregate#host_review_P45/live_guard.
 - Không bypass guard bằng sửa tệp chung, không xóa lịch sử, không mởMOW002. NEXT_TRIGGER=NEW_CYCLE_WRITE_CONTRACT_VERIFIED, quay lạiCP01.04. KQ/nhả busy cùng commit, không giữ process chờ.
+
+### P46 · Hồ sơ có số đo thật, nhánh thành công còn tắc
+- Owner yêu cầu làm lại001 và điền87bước/thời gian. Host đã đọc50/50đáp án, tái lậpP01–03 từnguồn thật và thao tácUI3MOT với yêu cầu “Thời gian hoàn thành”. Tìm thường/nângcao: nguồn/evaluatorchưa nối; không có kết luận phù hợp. Hủy→nơi gọiUI nhận đúngphiên3; không làOwnerACK.
+- Cột thời gian hoàn thành + thời lượng UI v1 đã ghi. Sau đọc lại root phát hiệnVPSC giữVPS-GHI từ08:30Z đến dự kiến10:30Z ⇒ không ghi sản phẩm tiếp. Việc ghiUItrước khi đọc lại cờ là thiếu sót phối hợpP46; không che lịch sử, không chiếm/xóa cờVPSC. RegistryUIpin chưa đồngbộ, phải xử lý đầu lượt được ghi; không nhận fullsuiteVPSđangPASS.
+- Hồ sơ local có87bước được xét:48 hành động đã ghi nhận,10 nhánh khôngthực hiện,29 bịchặn; đây không là48bước nghiệmthu. Thời lượng riêng chỉ nơi cóđo thật; ghiJSON không tínhthờigianlaođộng. Nội dung và sốđo ở aggregate#host_review_P46; bản xem dànhOwner tại local work/p46/Ho-so-MOW001-P46.html.
+- CHECK005 ứngviên bổsung ràngbuộc cycle/thời gian và đọc nộidungP02/P03/hash; caâm thiếufield bịchặn. Bộ006 sau chuẩnbịđủ snapshotPASS:0010,665s;0020,412s;0035,269s;00449,471s;00535,713s; toànrunner92,052s. Hai lỗi đầu là snapshotthiếuaggregate/2UIinputs, đã sửa local; không giấu lần lỗi. TEST không thay việc thật.
+- Bản ghiMaster đã chuẩn bị trong cùng hồ sơDEF00.1:CAT228/229/015/069/244/238/025/232/233/016; chưa phát hành và chưa chốt ghi/đọcCP02.23. KhôngmởMaster/DOT mới. Chốt006toàngateway còn mở; metadata ghi được không đồng nghĩa cócưỡngchế. G1cũ giữ nguyên7/7.
+- NEXT_TRIGGER=VPS_GHI_FREE: nhậnlượtghi quaCASroot, đọc nguồn mới→kiểmứngviên→ghihồsơ+registry+CHECK005→đọclại→UI; sauđó giải quyết nguồn/evaluator ngoàiPG theohợpđồng hiệncó. KQnày là thu cờ/báo cáo theoDROOT54(b,d), khôngsửa production trong lượtVPSC.
