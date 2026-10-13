@@ -13,9 +13,9 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã xong: G1 MOW001 Owner nhận 7/7, ngoài PG (P37) · hồ sơ 100 MB → 12,9 MB, giữ lịch sử (P38) · QTTH006 v0.6 · 87 bước/7 mốc; bản0.5 lịch sử giữ riêng; P51 kiểm đạt, chưa nghiệm thu AI mới · kiểm kê 305 DOT/34 Tool, 47 Master (P30–P33) · P46 chẩn đoán chưa nghiệm thu; đã được Claude rà bản sửaP50; bảnP51 có phiếu ký hai hãng riêng. Dòng gốc: Vòng trước › Dọn 13/10.
-- ■ Đang làm: STARTED · TQT-P51-001-CORRECTIONS · Codex áp B1–B4 và R1–R5, xác nhận hai hãng tại CAT-025; chưa chạy QT002.
+- ■ Đang làm: — · 0 RUN active · P51 đã sửa và đọc lại; GPT OK, Claude chưa ký; chưa chạy QT002.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002. · Cấu trúc dữ liệu cho 1.000 việc + luật 1 trang (R26–R27, PR-22): Owner gật → PT-01 có số đo.
-- ➡ Kế tiếp: Codex áp và đọc lại P51 rồi khép RUN; Claude rà và tự ký phiếu CAT025. Chưa chạy QT002; Owner quyết sau hai hãng OK.
+- ➡ Kế tiếp: Claude rà delta P51 và tự ghi phiếu CAT025; NEXT_TRIGGER=CLAUDE_P51_REVIEW_RECORDED. Codex đối chiếu; cả hai OK mới trình Owner. Không giữ RUN/lease chờ.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -251,7 +251,7 @@ Xác nhận bổ sung (vẫn hiệu lực, đã chép lên đầu §0): Owner gi
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: áp thử thiết kế MOW001, kiểm UI/Config/Test và hiệu chỉnh khi vướng. Riêng triển khai: 5 chốt thực thi → một vòng sai/thiếu → PG staging đúng quyền. TQT-ISS-007 giữ mở; không chặn thử thiết kế thủ công.
-- ➡ Kế tiếp: Codex áp và đọc lại P51 rồi khép RUN; Claude rà và tự ký phiếu CAT025. Chưa chạy QT002; Owner quyết sau hai hãng OK.
+- ➡ Kế tiếp: Claude rà delta P51 và tự ghi phiếu CAT025; NEXT_TRIGGER=CLAUDE_P51_REVIEW_RECORDED. Codex đối chiếu; cả hai OK mới trình Owner. Không giữ RUN/lease chờ.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế · tự áp mục tiêu PR-07 chưa duyệt.
 
 #### Ô 1 bản 08/10/2026 (D04/D05) và các khối bổ sung 08–10/10 — thay bằng ô 1 ngày 10/10/2026 (D25); giữ nguyên văn, nội dung đã vào ô 3 mới
@@ -551,7 +551,7 @@ Chỉ đạo READ-ONLY P15/D16 và Host GPT Chat dưới đây là lịch sử t
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
 - ■ Đang làm: — · 0 RUN active. D15 ưu tiên kiểm kê bộ câu hỏi gốc Chuỗi/Tầng/Bước+Bước con; đã soạn đề bài Codex READ-ONLY P15, thử ghép MOW001 sau khi có đề xuất. DRAFT vẽ UI P14 đã SUPERSEDED; MOW002 chưa làm.
 - ⬜ Còn lại: kiểm độc lập agent đọc rồi làm ra sản phẩm thật; phản biện và bổ sung bước/câu hỏi còn thiếu; thử đề xuất mini-PR; kiểm khóa kỹ thuật Host-only (TQT-ISS-006); chuyển một SSOT từ MOW có bằng chứng; nền chuẩn IT và mở rộng Chuỗi khác theo mục tiêu.
-- ➡ Kế tiếp: Codex áp và đọc lại P51 rồi khép RUN; Claude rà và tự ký phiếu CAT025. Chưa chạy QT002; Owner quyết sau hai hãng OK.
+- ➡ Kế tiếp: Claude rà delta P51 và tự ghi phiếu CAT025; NEXT_TRIGGER=CLAUDE_P51_REVIEW_RECORDED. Codex đối chiếu; cả hai OK mới trình Owner. Không giữ RUN/lease chờ.
 - ⛔ Không làm/để sau: tạo task không bao gồm triển khai DOT/script, bảng PG, đổi runtime/UI production hay chuyển dữ liệu đang dùng ở MOW.
 
 
@@ -1210,4 +1210,8 @@ STARTED@TQT-P51-001-CORRECTIONS 2026-10-13T13:37:14.419327+00:00 · Codex Host �
 
 **Bước sau:** Codex đọc chữ ký Claude và delta. Hai bên OK mới trình Owner quyết ca thử QT002; Owner duyệt mới soạn READY cho Claude thực hiện, phía OpenAI kiểm sản phẩm. Không lấy đồng ý hướng sửa thành đồng ý chạy.
 
-Binding của bộ sửa: `8c0896370daa3ebb8a0ac48eb3b7855b5df7124f43517dd20c45df41e5582703`.
+Binding của bộ sửa: `666343031d3959c9ac6eadcc5966111d74931b9d41d99d7b78fd3e9b6f2513e2`.
+
+- Bổ sung chốt cuối: application mới không được chọn định nghĩa cũ để né luật0.6; CLI đối chứng phiên hiện hành PASS và phiên cũ bị từ chối `NEW_APPLICATION_REQUIRES_CURRENT_DEFINITION`. CHECK005 phiên cuối chạy lại đạt. Fullsuite trước đó vẫn giữ biên nhận; không thay giờ chạy hay nói đã chạy lại các bộ không đổi.
+- Giao diện thật đã kiểm qua ui_inspect, HTTP200, phiếu CAT025 hiện GPT ✅ OK và Claude trống; G1/phiên cũ giữ riêng. Có cảnh báo font Google bị CSP chặn, không nới CSP. Readback trước chốt cuối:143event,006@0.6, hồ sơP46 ghim0.5, đúng hash UI/luật/bộ kiểm. Binding cuối trong phiếu và dòng trên; ký phải lấy đúng phiếu hiện hành, không lấy binding lần kiểm trước.
+KQ@TQT-P51-001-CORRECTIONS DỪNG · 2026-10-13T13:46:27.373731+00:00 · Phần sửa/kiểm/bàn giao của Codex đã xong; chưa có chữ ký Claude và chưa được Owner duyệt ca thử. Giữ STARTED lịch sử. Không tạo tiến trình nền/container/lease VPS; các lượt SSH chỉ đọc đã exit, index.lock=false khi kiểm. Trả đúng VPS-GHI của lượt này cùng giao dịch, không giữ tài nguyên đợi review. Áp:SAME_COMMIT.

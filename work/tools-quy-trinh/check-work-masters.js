@@ -62,7 +62,7 @@ function auditIssue(x){
  return true;
 }
 
-if(process.argv.includes('--validate-dossier')){const f=process.argv[process.argv.indexOf('--validate-dossier')+1],x=JSON.parse(fs.readFileSync(f,'utf8')),b=x.dossier,def=[r.detailed_workflow,...(r.detailed_workflow_history||[])].find(d=>d.version===b.process_version&&d.source_sha256===b.definition_sha256);assert(def,'UNKNOWN_DEFINITION');console.log(JSON.stringify(validateDossier(b,def,x)));process.exit(0);}
+if(process.argv.includes('--validate-dossier')){const f=process.argv[process.argv.indexOf('--validate-dossier')+1],x=JSON.parse(fs.readFileSync(f,'utf8')),b=x.dossier,def=[r.detailed_workflow,...(r.detailed_workflow_history||[])].find(d=>d.version===b.process_version&&d.source_sha256===b.definition_sha256);assert(def,'UNKNOWN_DEFINITION');assert(r.work_schedule.records.some(w=>w.application_id===b.application_id)||def.version===r.detailed_workflow.version,'NEW_APPLICATION_REQUIRES_CURRENT_DEFINITION');console.log(JSON.stringify(validateDossier(b,def,x)));process.exit(0);}
 const engineCode=Buffer.from(html.match(/<script id="tqt-record-control"[^>]*>([\s\S]*?)<\/script>/)[1]).toString();
 html=null;/release/.test('release'); // Release large HTML/RegExp input; all real records/history remain intact.
 // Fixture mutations never edit execution-history entries. Share their full read-only
