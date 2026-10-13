@@ -44,7 +44,7 @@ function validate(r){
  for(const b of def.master_bindings){const m=r.work_form.record_control.masters.find(x=>x.code===b.code);assert(m&&m.home===b.home&&m.name===b.name);}
  if(adapter){
   const A=globalThis.TQT_WORK_MASTER,w=r.work_schedule.records[0],before=JSON.stringify(w),m=A.detailModel(r,w);assert.equal(m.count,87);assert.equal(m.done,0);assert.equal(m.mode,'REFERENCE_ONLY');assert.equal(m.errors.length,0);
-  const out=A.dossierView(r,{metadata:w}).html;assert(out.indexOf('tqt-recording-groups')<out.indexOf('qt006-dossier'));assert.equal((out.match(/class="qt006-group"/g)||[]).length,7);assert.equal((out.match(/data-qt006-step=/g)||[]).length,87);assert(!/<details[^>]*class="(?:qt006-dossier|qt006-group|tqt-recording-groups)"[^>]*\bopen\b/.test(out));assert.equal(JSON.stringify(w),before);
+  const out=A.dossierView(r,{metadata:w}).html;assert(out.indexOf('<details class="tqt-recording-groups"')<out.indexOf('<details class="qt006-dossier"'));assert.equal((out.match(/class="qt006-group"/g)||[]).length,7);assert.equal((out.match(/data-qt006-step=/g)||[]).length,87);assert(!/<details[^>]*class="(?:qt006-dossier|qt006-group|tqt-recording-groups)"[^>]*\bopen\b/.test(out));assert.equal(JSON.stringify(w),before);
   assert.equal(A.detailModel(r,r.work_schedule.records[1]).mode,'UNOPENED');
   const base=JSON.parse(JSON.stringify(w.detail_tracking));let neg=0;
   for(const key of ['application_id','target_version','process_version','definition_sha256']){w.detail_tracking={...base,[key]:'OTHER'};assert(A.detailModel(r,w).errors.length);neg++;}

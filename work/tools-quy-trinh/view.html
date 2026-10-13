@@ -278545,7 +278545,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "cc915db52576536fb9406c5eac57468e0c7a2a0c88a55d0080124ae506c57c16",
+          "sha256": "6e10d74d88835f03d1fe400c69d6d960716b26860903ff27dafe0731793eb0ed",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -287555,7 +287555,7 @@ const guideHtml=p=>{
  const fields=[['Mục đích',g.purpose],['Dùng khi',g.when],['Không dùng khi',g.avoid],['Xong khi',g.done]];
  return '<details class="ov-guidance"><summary>Chú giải</summary><dl>'+fields.map(x=>'<dt>'+e(x[0])+'</dt><dd>'+e(x[1])+'</dd>').join('')+'</dl></details>';
 };
-const directAggregates=r=>(r.child_refs||[]).filter(x=>x.relation!=='candidate').map(x=>byCode.get(x.code)).filter(Boolean);
+const directAggregates=r=>(r.child_refs||[]).filter(x=>x.relation==='conditional_call').map(x=>byCode.get(x.code)).filter(Boolean);
 const directNormals=r=>new Set((r.child_refs||[]).map(x=>x.code).filter(x=>normals.some(n=>n.code===x)));
 const pMain=records.find(r=>r.code==='MOW-TH-001')||records[0];
 const rest=records.filter(r=>r!==pMain && r.code!=='MOW-TH-005');
@@ -287565,7 +287565,7 @@ const bigCalls=directAggregates(pMain);
 const main='<div class="ov-lead"><div class="ov-title">'+bigBadge(pMain)+' '+pLink(pMain)+'</div><p class="ov-subtext">'+e(pMain.guide?.purpose||pMain.goal)+'</p><p class="ov-subtext"><b>Các giai đoạn:</b> '+e((pMain.route||[]).join(' → '))+'</p>'+guideHtml(pMain)+'</div>';
 const cards=rest.map(r=>{
  const called=directAggregates(r);
- return '<div class="ov-card"><div class="ov-card-title">'+bigBadge(r)+' '+pLink(r)+'</div><div class="ov-goal">'+e(r.guide?.purpose||r.goal)+'</div>'+(r.state.includes('ĐỀ XUẤT')?'<small class="ov-draft-tag">ĐỀ XUẤT · CHƯA DUYỆT</small>':'')+guideHtml(r)+'<div class="ov-calls">Gọi Quy trình tổng hợp khác: '+(called.length?called.map(x=>'<a href="#'+e(x.code)+'">'+no(x)+'</a>').join(' · '):'không')+'</div></div>';
+ return '<div class="ov-card"><div class="ov-card-title">'+bigBadge(r)+' '+pLink(r)+'</div><div class="ov-goal">'+e(r.guide?.purpose||r.goal)+'</div>'+(r.state.includes('ĐỀ XUẤT')?'<small class="ov-draft-tag">ĐỀ XUẤT · CHƯA DUYỆT</small>':'')+guideHtml(r)+'<div class="ov-calls">'+(r.code==='MOW-TH-006'?'Chi tiết hóa QTTH 05 · không gọi đệ quy. ':'Gọi Quy trình tổng hợp khác: ')+(called.length?called.map(x=>'<a href="#'+e(x.code)+'">'+no(x)+'</a>').join(' · '):'không')+'</div></div>';
 }).join('');
 const recColumns=records.map(r=>{
  const count=normals.filter(n=>directNormals(r).has(n.code)).length;
