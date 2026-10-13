@@ -8,7 +8,7 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 09:50 +07 · Astra Codex · P39
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 10:45 +07 · Astra Codex · P40
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
@@ -17,9 +17,10 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
 - ✅ Đã xong P38: hồ sơ100MB→12.9MB, không mất lịch sử; tích xanh; bộ tổng1GiB đạt. Giữ G1 đã duyệt7/7, ngoài PG.
-- ■ Đang làm: P40 · rà QTTH006 và ghép hồ sơ thu/mở · executor=Codex Host
+- ■ Đang làm: — · 0 RUN active · P40 đã khép phạm vi rà thiết kế + UI QTTH006; G1 giữ 7/7.
+- ✅ P40: QTTH006 v0.3 có87bước/7mốc, đăng ký Master và ghép cùng hồ sơ; 11mục +7nhóm thu/mở đã kiểm thật; CHECK006 native PASS. Chưa thực hiện thật theo006.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002.
-- ➡ Kế tiếp: Claude Reviewer rà độc lập 6 target theo P39 → Host chốt → Owner quyết giữ/lùi production bằng chỉ đạo thật → mới chuẩn bị READY/apply có bảo vệ. NEXT_TRIGGER=CLAUDE_INDEPENDENT_REVIEW_P39_ALL6_RECEIVED. Không giữ RUN/lease để đợi.
+- ➡ Kế tiếp: theo hướng dẫn tiếp của Owner về lượt áp dụng QTTH006 (NEXT_TRIGGER=OWNER_QT006_APPLICATION_SCOPE). Phạm vi PROOT03 riêng tiếp tục theo P39: Claude review6target, không suy đã duyệt production.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -43,6 +44,8 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 **Owner 13/10/2026 · QTTH06:** “Nếu cần thừa thiếu gộp tách các bước này thì bạn có thể quyết định xử lý luôn.”; “hồ sơ của quy trình 05 và hồ sơ của quy trình 06 là cùng một trang luôn”. Phạm vi P40: rà theo thứ tự, hiệu chỉnh định nghĩa và ghép khối thu/mở vào hồ sơ; ngoài PG, không mở lại G1 hay tự duyệt production PROOT03. URL Owner: process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001 → /opt/incomex/docs/mcp-writes/process-work-master-v1.js; nguồn chung view.html và MOW-TH-006.md, bản chiếu qtth006-overview-v1.js.
 
 STARTED@TQT-P40-QT006 2026-10-13T03:09:03.879435+00:00 · executor=Codex Host · rà QTTH006 và UI hồ sơ theo chỉ đạo trực tiếp; không runtime/Guard/baseline/PG.
+
+KQ@TQT-P40-QT006 XONG · 2026-10-13T03:45:15.353098+00:00 · executor=Codex Host · phạm vi rà định nghĩa + bản chiếu hồ sơ đọc-only đã kiểm. Native f6870e95c8014ed3bedd5a2fcaae80ab PASS, UI thu/mở thật; G1/sourcehash không đổi. QTTH006 chưa nghiệm thu chạy thật/biến thể, chưa gateway step receipts, không PG/runtime/Guard mutation. Nhả cờ P40, không giữ process/lease chờ chỉ đạo. Áp: SAME_COMMIT.
 
 
 #### P38 · Hồ sơ nhẹ, giữ nguyên lịch sử
