@@ -89326,5 +89326,26 @@
         "classification": "one-time preparation for existing CHECK003/005/006, not new DOT"
       }
     ]
+  },
+  "host_review_P42": {
+    "state": "LOCAL_CHECK_PASS_UI_READBACK_NEXT",
+    "at": "2026-10-13T04:41:01.700715+00:00",
+    "scope": "standard guidance and actual dossier display; no runtime/PG/Guard change",
+    "definition_version": "0.4-standard-record-split",
+    "steps": 87,
+    "check005": {
+      "exit_code": 0,
+      "source_sha256": "11ff120bc9391405d505de0300b1e70ae57e1679b50b07a4bb2bf98942c55a18",
+      "evidence_ref": "Codex work/p42/check005.log",
+      "log_sha256": "8c02bce478d5494b4df296272ca62ead538a20dc554c4cfc4738a3faecbb391e"
+    },
+    "limits": [
+      "No authenticated per-step write adapter; claims are not verified completion",
+      "No real 87-step run; G1 unchanged"
+    ],
+    "ui_hashes": {
+      "qtth006-overview-v1.js": "2d3d6f6b7e78c1ee9d2e32e4699ec694aaa4b2f9645436ed8895142beed7f587",
+      "process-work-master-v1.js": "7f2e6724e39d4e497d5bb5c25fa6db895c5e77b8d830039ffdb7c44daa315669"
+    }
   }
 }

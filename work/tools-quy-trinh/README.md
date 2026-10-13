@@ -431,3 +431,6 @@ Artifact/quy trình được bổ sung về sau phải đăng ký tại đây ho
 Bộ nhớ P34 khi cập nhật tiếp: thêm sự kiện `changes` và phiếu `reviews`, không sửa phiếu cũ; chỉ ký lại công cụ có nguồn/hợp đồng/phạm vi thay đổi. Lần áp thử mới giữ hồ sơ cũ trong bằng chứng hiện hữu, không xoá lịch sử. Tra Master012 gồm bộ kiểm và ca; kết quả CAT015 phải trỏ mã có thật.
 
 P36 · Chốt bằng chứng 2026-10-12T10:30:47.193507+00:00: nativefull1GiB PASS job1912451206cb4dd28b30f4447cdfcfc3 tại nguồn276f1ac4; Master xuất available, hash khớp25f4c02b..., trình duyệt đọc đúng5/7,28/34,CHO_DUYET. Công cụHVU hiện hữu48ca đạt, liên kếtalias khôngDOTtrùng. Giữ biên nhận worker lỗi ca08...; đề xuất chẩn đoán worker và tối ưu độ lớn lịch sử vẫn mở. MOW001 chỉG1 thiết kế, chưa nốiG2/PG; Owner duyệtvàxácnhậnnhận thực tế mới ghiCAT025/CAT232 vàquaCP06/07.
+
+## P42 · Quy định và ghi nhận thực tế
+Overview là cửa đọc luật7mốc/11mục/87bước, các phần đều thu/mở. Nguồn006 tại MOW-TH-006.md, bản chiếu kiểm bằng CHECK005. Hồ sơ DEF00.1 chỉ giữ bước chuẩn + ghi nhận thực tế; tool/kết quả/xác nhận trống tới khi có sự kiện đúng phiên. DONE/NOT_DONE là khai báo, không thay bằng chứng đã kiểm; không hồi tố G1. Xem §6 định nghĩa để ghi events vào nơi hiện hữu; chưa có UI ghi trực tiếp hay adapter xác thực bước. Không tạo bản hồ sơ thứ hai ở Overview.

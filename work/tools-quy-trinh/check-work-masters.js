@@ -36,7 +36,7 @@ function validate(r){
  const md=fs.readFileSync(path.join(path.dirname(process.argv[2]||__dirname+'/view.html'),'MOW-TH-006.md'),'utf8');
  const def=r.detailed_workflow;
  assert.equal(def.source_sha256,crypto.createHash('sha256').update(md).digest('hex'),'QT006_SOURCE_DRIFT');
- const parsed=[...md.matchAll(/^\| \*\*\d+ · (CP\d+\.\d+)\*\* \| (.*?) \| (.*?) \| (.*?) \| (.*?) \| Trống \| — \| (.*?) \|$/gm)].map(m=>m.slice(1));
+ const parsed=[...md.matchAll(/^\| \*\*\d+ · (CP\d+\.\d+)\*\* \| (.*?) \| (.*?) \| (.*?) \| (.*?) \| (.*?) \|$/gm)].map(m=>m.slice(1));
  assert.deepEqual(def.groups.flatMap(g=>g.rows),parsed,'QT006_PROJECTION_DRIFT');assert.equal(parsed.length,87);assert.equal(new Set(parsed.map(x=>x[0])).size,87);
  assert.deepEqual(def.groups.map(g=>g.rows.length),[12,23,11,19,10,5,7]);
  const pos=id=>parsed.findIndex(x=>x[0]===id);assert(pos('CP02.23')<pos('CP02.21'));assert(pos('CP02.21')<pos('CP03.08'));assert(pos('CP05.10')<pos('CP06.01'));assert.equal(pos('CP07.08'),86);assert.equal(pos('CP07.05'),-1);
@@ -46,9 +46,14 @@ function validate(r){
   const A=globalThis.TQT_WORK_MASTER,w=r.work_schedule.records[0],before=JSON.stringify(w),m=A.detailModel(r,w);assert.equal(m.count,87);assert.equal(m.done,0);assert.equal(m.mode,'REFERENCE_ONLY');assert.equal(m.errors.length,0);
   const out=A.dossierView(r,{metadata:w}).html;assert(out.indexOf('<details class="tqt-recording-groups"')<out.indexOf('<details class="qt006-dossier"'));assert.equal((out.match(/class="qt006-group"/g)||[]).length,7);assert.equal((out.match(/data-qt006-step=/g)||[]).length,87);assert(!/<details[^>]*class="(?:qt006-dossier|qt006-group|tqt-recording-groups)"[^>]*\bopen\b/.test(out));assert.equal(JSON.stringify(w),before);
   assert.equal(A.detailModel(r,r.work_schedule.records[1]).mode,'UNOPENED');
+  assert(m.groups.flatMap(g=>g.rows).every(x=>x.actual===null),'NO_PREFILLED_ACTUALS');assert(!out.includes('Công cụ dùng lại theo việc cần làm'));assert(out.includes('Công cụ thực dùng'));assert(!out.includes('Tool dùng lại'));
   const base=JSON.parse(JSON.stringify(w.detail_tracking));let neg=0;
   for(const key of ['application_id','target_version','process_version','definition_sha256']){w.detail_tracking={...base,[key]:'OTHER'};assert(A.detailModel(r,w).errors.length);neg++;}
   for(const step of ['CP01.01','CP05.04']){w.detail_tracking={...base,events:[{event_id:'TEST-FAKE',step_id:step,status:'DONE',adjustment:'NA',item_key:'P02',revision:1,application_id:w.application_id,target_version:w.target_version,process_version:def.version,definition_sha256:def.source_sha256,actor:'TEST',at:'2026-10-13T00:00:00Z'}]};const n=A.detailModel(r,w);assert.equal(n.done,0);assert(n.groups.flatMap(g=>g.rows).find(x=>x.definition[0]===step).status==='Vướng');neg++;}
+  const ev={event_id:'P42-FIXTURE',step_id:'CP01.01',item_key:'P01',revision:1,application_id:w.application_id,target_version:w.target_version,process_version:def.version,definition_sha256:def.source_sha256,actor:'TEST',at:'2026-10-13T00:00:00Z',performed:'DONE',actual_action:'Đã kiểm fixture',result_ref:'TEST-only',tool_uses:['EXACT-USED-TOOL']};
+  w.detail_tracking={...base,events:[ev]};let row=A.detailModel(r,w).groups[0].rows[0];assert.equal(row.actual.tools,'EXACT-USED-TOOL');assert.equal(row.done,false);
+  w.detail_tracking.events=[{...ev,performed:'NOT_DONE',reason:'Nhánh không phát sinh',tool_uses:[]}];row=A.detailModel(r,w).groups[0].rows[0];assert.equal(row.actual.tools,'');assert(row.actual.confirmation.startsWith('Không làm'));assert.equal(row.done,false);
+  w.detail_tracking.events=[{...ev,application_id:'OTHER'}];assert.equal(A.detailModel(r,w).groups[0].rows[0].actual,null);
   w.detail_tracking=base;assert.equal(JSON.stringify(w),before);console.log(JSON.stringify({qt006_steps:87,groups:7,negative_cases:neg,state:'READ_ONLY_DOSSIER_VERIFIED',real_execution:'NOT_RUN'}));
  }
 }

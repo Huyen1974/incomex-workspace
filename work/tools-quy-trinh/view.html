@@ -10795,7 +10795,7 @@ main{max-width:1240px} [hidden]{display:none!important}
         "code": "MOW-TH-006",
         "name": "Quy trình thực hiện QTTH 05",
         "goal": "Triển khai từng bước theo 7 mốc, giữ biến thể và bằng chứng trong cùng hồ sơ việc.",
-        "version": "0.3-host-reviewed",
+        "version": "0.4-standard-record-split",
         "object_type": "MOW",
         "process_kind": "aggregate",
         "chainId": "CH-001",
@@ -278191,11 +278191,18 @@ main{max-width:1240px} [hidden]{display:none!important}
           "detail_tracking": {
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@02230bf383141b41f5d09bb586cc34ab6981777a25ddd805a58bbdc451d132e4",
-            "process_version": "0.3-host-reviewed",
-            "definition_sha256": "eac646f2cc23d9c6d8c3df07affe6e525a9ad6a41efda9d7833570d870cd999e",
+            "process_version": "0.4-standard-record-split",
+            "definition_sha256": "ce97d7a4a32ba3c8cfb720b7e188dc6142ce97ad73e102de70e9e15d5539b585",
             "mode": "REFERENCE_ONLY",
             "note": "Chưa theo dõi QTTH06 ở P37/P38; không hồi tố 7/7 thành 87/87.",
-            "events": []
+            "events": [],
+            "binding_history": [
+              {
+                "process_version": "0.3-host-reviewed",
+                "definition_sha256": "eac646f2cc23d9c6d8c3df07affe6e525a9ad6a41efda9d7833570d870cd999e",
+                "reason": "P42 chỉnh phân tách luật/hồ sơ; chưa có sự kiện thực hiện, giữ lịch sử binding."
+              }
+            ]
           }
         },
         {
@@ -278545,7 +278552,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "6e10d74d88835f03d1fe400c69d6d960716b26860903ff27dafe0731793eb0ed",
+          "sha256": "11ff120bc9391405d505de0300b1e70ae57e1679b50b07a4bb2bf98942c55a18",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -278559,14 +278566,14 @@ main{max-width:1240px} [hidden]{display:none!important}
           "timeout_seconds": 300,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
-            "process-work-master-v1.js": "24eb45b1defd2db3e01f9363e18b8d8ea0c292230ea5203ea20dd160cff84b1c",
+            "process-work-master-v1.js": "7f2e6724e39d4e497d5bb5c25fa6db895c5e77b8d830039ffdb7c44daa315669",
             "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
             "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357"
           },
           "qt006_coverage": {
-            "version": "0.3-host-reviewed",
+            "version": "0.4-standard-record-split",
             "definition": "MOW-TH-006.md",
-            "scope": "87 bước/7 nhóm, thứ tự, phiên/hash, Master links, không hồi tố G1, read-only rendering; chưa nghiệm thu ghi bước thật",
+            "scope": "87 bước/7 nhóm, thứ tự, phiên/hash, Master links, không hồi tố G1, read-only rendering; chưa nghiệm thu ghi bước thật; P42 không điền sẵn, DONE/NOT_DONE có căn cứ, sai phiên không nhận",
             "case_master": "CAT-012",
             "result_master": "CAT-015"
           }
@@ -285315,6 +285322,19 @@ main{max-width:1240px} [hidden]{display:none!important}
           "changed_at": "2026-10-13T03:18:16.950013+00:00",
           "previous_version": "5723a0062405c152a0b68e26bf35f71839cc88c207033ecc57ab205809271100",
           "next_version": "6e10d74d88835f03d1fe400c69d6d960716b26860903ff27dafe0731793eb0ed"
+        },
+        {
+          "id": "TQT-P42-TQT-CHECK-005",
+          "target_code": "TQT-CHECK-005",
+          "kind": "UPGRADE",
+          "at": "2026-10-13T04:41:01.700715+00:00",
+          "changed_at": "2026-10-13T04:41:01.700715+00:00",
+          "actor": "Codex Host",
+          "source_sha256": "11ff120bc9391405d505de0300b1e70ae57e1679b50b07a4bb2bf98942c55a18",
+          "previous_version": "6e10d74d88835f03d1fe400c69d6d960716b26860903ff27dafe0731793eb0ed",
+          "next_version": "11ff120bc9391405d505de0300b1e70ae57e1679b50b07a4bb2bf98942c55a18",
+          "reason": "Separate canonical guidance from factual dossier; blank until actual events; reuse existing checker",
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P42"
         }
       ],
       "walkthrough": {
@@ -286066,9 +286086,9 @@ main{max-width:1240px} [hidden]{display:none!important}
     },
     "detailed_workflow": {
       "code": "MOW-TH-006",
-      "version": "0.3-host-reviewed",
+      "version": "0.4-standard-record-split",
       "source_ref": "work/tools-quy-trinh/MOW-TH-006.md",
-      "source_sha256": "eac646f2cc23d9c6d8c3df07affe6e525a9ad6a41efda9d7833570d870cd999e",
+      "source_sha256": "ce97d7a4a32ba3c8cfb720b7e188dc6142ce97ad73e102de70e9e15d5539b585",
       "state": "DESIGN_REVIEWED_NOT_OPERATIONALLY_ACCEPTED",
       "groups": [
         {
@@ -287682,20 +287702,12 @@ const toolRegistry='<details class="oc-detail" id="tqt-tool-registry"><summary>D
 const ic=A.information_contract;
 const informationView='<details class="oc-detail" id="tqt-information-contract"><summary>Hợp đồng thông tin · từng bước nhận gì, trả gì?</summary><p><b>'+e(ic.id)+' · phiên '+e(ic.version)+' · Chưa kiểm độc lập</b>. Đây là đầu bài thiết kế G1; không xác nhận sản phẩm đã chạy. <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-206%2A" target="_blank" rel="noopener">Mở Master Hợp đồng đầu vào/đầu ra ↗</a></p><p>'+e(R.information_contract_policy.completion)+'</p><table class="nr-table"><thead><tr><th>Bước</th><th>Nhận từ đâu?</th><th>Ghi / bàn giao gì?</th><th>Ai nhận, xong khi nào?</th></tr></thead><tbody>'+ic.handoffs.map(x=>'<tr><th>'+e(x.plan_id)+' · '+e(x.process)+'</th><td>'+e(x.plan_id==='P01'?'Hồ sơ G1 và nguồn yêu cầu':'Kết quả bước '+A.plan.find(p=>p.id===x.plan_id).depends_on.join(', '))+'<details><summary>Trường nhận và nguồn</summary>'+e(x.input_fields.join(', '))+'<p>'+e(x.input_ref)+'</p>'+'</details></td><td>'+e(x.output_master)+'<details><summary>Trường ghi</summary>'+e(x.output_fields.join(', '))+'<p>'+e(x.output_ref)+'</p></details></td><td>'+e(x.recipient)+'<p>'+e(x.completion)+'</p></td></tr>').join('')+'</tbody></table><details><summary>Đầu nối giữa ba MOT của sản phẩm cần thiết kế</summary><ul>'+ic.product_interfaces.map(x=>'<li><b>'+e(x.from)+' → '+e(x.to)+'</b> · '+e(x.when)+'<p>'+e((x.fields||[]).join(', '))+'</p>'+e(JSON.stringify(x.mapping))+'</li>').join('')+'</ul></details><details><summary>'+ic.rows.length+' dòng hợp đồng · kiểu, nghĩa, nguồn, nơi nhận</summary>'+['1.1','1.2','1.3'].map(mot=>'<h4>MOT '+e(mot)+'</h4><table class="nr-table"><thead><tr><th>Trường</th><th>Nghĩa / kiểu / số lượng</th><th>Nguồn → nơi nhận</th><th>Điều kiện / kiểm</th></tr></thead><tbody>'+ic.rows.filter(x=>x.mot_code===mot).map(x=>'<tr><th>'+e(x.direction)+' · '+e(x.field_code)+'<small class="oc-code">'+e(x.contract_role)+'</small></th><td>'+e(x.meaning)+'<p>'+e(x.data_type)+' · '+e(x.cardinality)+' · '+e(x.unit)+'</p></td><td>'+e(x.source_master)+' → '+e(x.destination_master)+'<details><summary>Đường dẫn và phiên</summary>'+e(x.source_path)+'<p>'+e(x.destination_field)+'</p>'+e(x.rule_version)+'</details></td><td>'+e(x.required_when)+'<p>'+e(x.missing_action)+'</p>'+e(x.acceptance_refs.join(', '))+'</td></tr>').join('')+'</tbody></table>').join('')+'</details><details><summary>'+ic.criteria.length+' ca nghiệm thu phải khai trước khi làm</summary><ul>'+ic.criteria.map(x=>'<li><b>'+e(x.id)+'</b> · '+e(x.given)+' → '+e(x.expected)+'</li>').join('')+'</ul></details><p><b>Còn thiếu:</b> người kiểm độc lập; nơi ghi đúng schema và bằng chứng ghi/đọc cho toàn đường đã chọn. '+e(R.information_contract_policy.boundary)+'</p></details>';
 const checkpoints=W.workflow.checkpoints;
-const workBoard='<section class="oc-board" id="tqt-work-board" aria-label="Hướng dẫn chung và hồ sơ tiến độ">'+
-'<header class="oc-head"><div><p class="oc-eyebrow">QUY TRÌNH TỔNG HỢP ⑤ · HƯỚNG DẪN CHUNG</p><h2>Làm theo quy trình · theo dõi từng việc</h2></div></header>'+
-'<p class="oc-rule"><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1" target="_blank" rel="noopener"><b>Danh sách thứ tự các việc · mở hồ sơ từng việc ↗</b></a></p><nav class="oc-jump"><a href="#tqt-recording-guide">1. Hướng dẫn chung</a><a href="#tqt-recording-list">2. Hồ sơ tiến độ</a></nav>'+
-'<section id="tqt-recording-guide"><h3>1. Hướng dẫn chung</h3><p>Quy định dùng cho mọi việc: <b>đi qua mốc nào, phải ghi gì và vào Master nào.</b></p>'+
-'<div class="oc-three"><b>Kiểm đủ đầu vào <small>Mốc 1–3</small></b><b>Làm theo quy trình <small>Mốc 4</small></b><b>Kiểm đầu ra · bàn giao <small>Mốc 5–7</small></b></div>'+
-'<ol class="oc-seven">'+checkpoints.map(cp=>'<li><b>'+cp.order+'. '+e(cp.name)+'</b></li>').join('')+'</ol><p class="oc-muted">Bộ 7 mốc đang áp thử, chờ hội đồng thống nhất. Mọi sổ bên dưới đều là Master List.</p>'+
-'<details class="oc-detail" id="tqt-checkpoint-list"><summary>Điều kiện của 7 mốc</summary><ol>'+checkpoints.map(cp=>'<li><b>'+e(cp.name)+'</b> — '+e(cp.information_contract_rule||W.workflow.steps.find(s=>s.id===cp.step)?.result)+'</li>').join('')+'</ol></details>'+
-'<p class="oc-rule"><b>'+P.guidance.length+' mục phải ghi · '+P.masters.length+' Master liên quan.</b> '+P.masters.filter(m=>m.ui_state==='DESIGN').length+' đã có thiết kế UI. Nguồn lưu và bản ghi từng việc được kiểm riêng.</p><p>Đây là <b>hướng dẫn chung</b>, không phải tình trạng dữ liệu của một việc. <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html" target="_blank" rel="noopener">Mở danh sách Master Duyệt thiết kế ↗</a>. Xem Đã ghi / Đối chiếu trong hồ sơ từng việc bên dưới.</p>'+commonTable+toolRegistry+
-'<details class="oc-detail"><summary>UI Master đã bổ sung · phần còn thiếu</summary><p>Giữ mã hiện hữu, dùng UI.MASTER. Mỗi Master có danh sách bản ghi và chi tiết; không tạo sổ bằng đường dẫn file tạm.</p><table class="nr-table"><thead><tr><th>Master</th><th>Phải bổ sung</th><th>Nơi theo dõi</th></tr></thead><tbody>'+P.masters.filter(m=>m.source_state!=='VERIFIED'||m.ui_state==='MISSING').map(m=>'<tr><th>'+masterCell(m.code)+'</th><td>'+needCell(m)+'<p>Trường chung: mã bản ghi, mã hồ sơ, MOW/MOT và phiên, nội dung, người/thời gian ghi, trạng thái đối chiếu, căn cứ.</p></td><td>Astra Codex · <a href="#TQT-ISS-007">TQT-ISS-007</a></td></tr>').join('')+'</tbody></table></details></section>'+
-'<details class="oc-fold" id="tqt-recording-list"><summary><span><b>2. Hồ sơ tiến độ · '+e(A.target_code)+' / '+e(A.scope_stage)+'</b><small>Đang chuẩn bị mốc '+Number(audit.current.slice(2))+'/7 · '+audit.rows.filter(x=>x.due&&x.written).length+'/'+audit.counts.due+' mục đến hạn đã ghi · '+audit.rows.filter(x=>x.due&&x.verified).length+' đã đối chiếu · '+audit.counts.deferred+' mục chưa đến hạn</small></span><span class="oc-fold-action">Mở xem</span></summary><div class="oc-fold-body">'+
-'<div class="oc-context"><p><b>Chạy thử ngoài PG</b> · 13 câu khai dùng lại phiếu nguồn làm kho thử có phiên. Những Master khác vẫn cần nối nơi ghi; chưa được qua mốc 3.</p><b>Mã hồ sơ: '+e(A.application_id)+'</b><p>Quy trình: '+e(A.process_code)+' · '+e(A.process_version)+' · Người giữ: '+e(A.next_owner)+'</p><p>Master hồ sơ: '+masterCell(A.progress_master_code)+'</p><p><b>Đang chuẩn bị mốc '+Number(audit.current.slice(2))+'/7; '+audit.verifiedCheckpoints.length+'/7 mốc đã kiểm đạt.</b></p><p>'+e(A.next)+'</p></div>'+
-'<p><b>'+audit.counts.due+' mục đến hạn · '+audit.counts.deferred+' mục chưa đến hạn hoặc nhánh chưa phát sinh.</b> '+(audit.canStart?'Đã đủ căn cứ mốc 3.':'Chưa được sang bước Làm.')+'</p><p><b>Đã ghi</b> = có bản ghi được gắn vào đúng Master đích. <b>Đối chiếu</b> = kiểm bản ghi đó đúng hồ sơ/phiên/nội dung. Kho thử đã khai được tính riêng khi máy đọc được bản ghi đúng mã/phiên; file nháp khác không tính. Đối chiếu dữ liệu không thay kiểm nội dung và duyệt mốc.</p><p class="oc-muted">Các ô option đang hiển thị trạng thái từ nguồn; chưa nối chức năng lưu PG. Chưa đến mốc vẫn là “Chưa ghi”, kèm chú thích để không coi là lỗi.</p>'+
-(audit.errors.length?'<p class="nr-red"><b>Hồ sơ cần sửa:</b> '+e(audit.errors.join('; '))+'</p>':'')+informationView+'<table class="nr-table nr-progress"><thead><tr>'+th('Phải ghi gì?','Một dòng nghĩa vụ của đúng hồ sơ đang xem; lấy từ quy định chung và kế hoạch của việc.')+th('Master List nào?','Master đích có mã; mã bản ghi cụ thể nằm trong Chi tiết.')+th('Đã ghi chưa?','Chưa ghi: hồ sơ chưa gắn bản ghi trong Master đích. Đã ghi: có mã, phiên và địa chỉ bản ghi đích. Không suy từ file nháp.')+th('Đối chiếu','Chưa đối chiếu: xám. Đã đối chiếu: xanh, có người/thời điểm/bằng chứng. Cần sửa lại: đỏ. Thay nguồn hoặc sai phiên phải kiểm lại.')+th('Chi tiết','Mã bản ghi, căn cứ, người giữ và tài liệu chuẩn bị; chi tiết không làm phát sinh Master khác.')+'</tr></thead><tbody>'+progressRows+'</tbody></table>'+
-'<details class="oc-detail"><summary>Các mục chưa đến hạn / nhánh chưa phát sinh</summary><ul>'+audit.rows.filter(x=>!x.due).map(x=>'<li>'+e(x.title)+' · '+e(x.note)+'</li>').join('')+'</ul></details><details class="oc-detail"><summary>Cho AI / PG: cấu trúc và luật ghi</summary><ul>'+P.rules.map(x=>'<li>'+e(x)+'</li>').join('')+'</ul><p><b>Khóa:</b> '+e(P.pg_design.state_columns.keys)+'</p><p>'+e(P.pg_design.state_columns.guards)+'</p><p>'+e(P.pg_design.scope)+'</p><p>'+e(P.pg_design.open)+'</p><p>Quy định chung: record_control.guidance; nghĩa vụ từng việc: application.record_requirements; tiến độ: application.record_checks. Không sửa trạng thái trên quy định chung.</p></details></div></details></section>';
+const workBoard='<section class="oc-board" id="tqt-work-board" aria-label="Quy định chuẩn QTTH05–06">'+
+'<header class="oc-head"><div><p class="oc-eyebrow">QUY ĐỊNH CHUẨN · QTTH 05–06</p><h2>7 mốc · 11 mục phải ghi · 87 bước thực hiện</h2></div></header><p>Đây là luật dùng chung. Hồ sơ từng việc ghi những gì thực tế đã làm; không chép công cụ gợi ý thành công cụ đã dùng.</p>'+
+'<nav class="oc-jump"><a href="#tqt-checkpoint-list">7 mốc</a><a href="#tqt-recording-guide">11 mục</a><a href="#tqt006-overview-guide">87 bước</a><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1">Mở hồ sơ từng việc ↗</a></nav>'+
+'<details class="oc-detail" id="tqt-checkpoint-list"><summary><b>1. Bảy mốc · thứ tự và điều kiện qua mốc</b></summary><ol>'+checkpoints.map(cp=>'<li><b>'+cp.order+'. '+e(cp.name)+'</b> — '+e(cp.information_contract_rule||W.workflow.steps.find(s=>s.id===cp.step)?.result)+'</li>').join('')+'</ol></details>'+
+'<details class="oc-detail" id="tqt-recording-guide"><summary><b>2. '+P.guidance.length+' mục phải ghi · Master và cách ghi</b></summary><p>Hướng dẫn chuẩn; chỉ ghi vào hồ sơ khi có thực tế. Mục chưa phát sinh không tự xác nhận đã làm hay không làm.</p>'+commonTable+'</details><div id="tqt006-standard-slot"></div>'+toolRegistry+
+'<p id="tqt-recording-list"><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1&amp;chi-tiet=TQT-VIEC-001">Mở hồ sơ MOW001 · kết quả thực tế và lịch sử ↗</a></p></section>';
 
 slot.innerHTML=
 workBoard+
