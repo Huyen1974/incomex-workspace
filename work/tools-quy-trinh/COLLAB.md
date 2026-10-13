@@ -17,7 +17,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
 - ✅ Đã xong P38: hồ sơ100MB→12.9MB, không mất lịch sử; tích xanh; bộ tổng1GiB đạt. Giữ G1 đã duyệt7/7, ngoài PG.
-- ■ Đang làm: — · 0 RUN active · MOW001-P36-REAL đã có KQ DỪNG sạch tại P39; G1 vẫn 7/7 đã duyệt/nhận.
+- ■ Đang làm: P40 · rà QTTH006 và ghép hồ sơ thu/mở · executor=Codex Host
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002.
 - ➡ Kế tiếp: Claude Reviewer rà độc lập 6 target theo P39 → Host chốt → Owner quyết giữ/lùi production bằng chỉ đạo thật → mới chuẩn bị READY/apply có bảo vệ. NEXT_TRIGGER=CLAUDE_INDEPENDENT_REVIEW_P39_ALL6_RECEIVED. Không giữ RUN/lease để đợi.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
@@ -39,6 +39,11 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 (Hai dòng đầu Owner duyệt 08/10/2026 · D04. Dòng cuối là lời Owner 10/10/2026 · D24/D25.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+**Owner 13/10/2026 · QTTH06:** “Nếu cần thừa thiếu gộp tách các bước này thì bạn có thể quyết định xử lý luôn.”; “hồ sơ của quy trình 05 và hồ sơ của quy trình 06 là cùng một trang luôn”. Phạm vi P40: rà theo thứ tự, hiệu chỉnh định nghĩa và ghép khối thu/mở vào hồ sơ; ngoài PG, không mở lại G1 hay tự duyệt production PROOT03. URL Owner: process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001 → /opt/incomex/docs/mcp-writes/process-work-master-v1.js; nguồn chung view.html và MOW-TH-006.md, bản chiếu qtth006-overview-v1.js.
+
+STARTED@TQT-P40-QT006 2026-10-13T03:09:03.879435+00:00 · executor=Codex Host · rà QTTH006 và UI hồ sơ theo chỉ đạo trực tiếp; không runtime/Guard/baseline/PG.
+
 
 #### P38 · Hồ sơ nhẹ, giữ nguyên lịch sử
 
