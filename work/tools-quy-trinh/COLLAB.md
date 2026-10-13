@@ -8,7 +8,7 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 14:34 +07 · Codex · P43
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 14:43 +07 · Codex · P44
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
@@ -17,7 +17,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
 - ✅ Đã xong P38: hồ sơ100MB→12.9MB, không mất lịch sử; tích xanh; bộ tổng1GiB đạt. Giữ G1 đã duyệt7/7, ngoài PG.
-- ■ Đang làm: — · 0 RUN active của Codex TQT · P43 XONG giao diện/hướng dẫn, không giữ lease.
+- ■ Đang làm: P44 · Codex đồng bộ dấu ? cho 11 mục hồ sơ; không giữ lease ngoài lượt ghi.
 - ✅ P40: QTTH006 v0.3 có87bước/7mốc, đăng ký Master và ghép cùng hồ sơ; 11mục +7nhóm thu/mở đã kiểm thật; CHECK006 native PASS. Chưa thực hiện thật theo006.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002.
 - ➡ Kế tiếp: Owner chuyển lệnh Claude Code REVIEW-ONLY tại P41. NEXT_TRIGGER=CLAUDE_P41_ACCEPT_EXACT_BYTES; Owner đã duyệt có điều kiện giữ bản chạy và đăng ký đúng3tệp bằng apply-v0, không đổi byte/restart/rollback. Chưa ACCEPT: 0 RUN active, không giữ khóa. QTTH006 thực hiện thật theo hướng dẫn sau.
@@ -40,6 +40,10 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 (Hai dòng đầu Owner duyệt 08/10/2026 · D04. Dòng cuối là lời Owner 10/10/2026 · D24/D25.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+**Owner P44 · 13/10:** Chuẩn là "?" — thao tác ở đâu hướng dẫn đúng ở đó, không cần nhớ, không cần hỏi. Áp dụng đồng bộ phần 11 mục hồ sơ.
+STARTED@TQT-P44-HELP 2026-10-13T07:43:28.205280+00:00 · executor=Codex Host · UI/hướng dẫn; không PG/runtime.
+
 
 **Owner P43:** hồ sơ điền ít nhất; ô chưa làm/chưa có/chưa đối chiếu để trống; hướng dẫn bằng ? tại cột và bước; bước bổ sung mã riêng, không đổi mã chuẩn.
 STARTED@TQT-P43-HELP 2026-10-13T07:25:34.359751+00:00 · executor=Codex Host · chỉ UI/hướng dẫn/kiểm, không runtime/PG.
