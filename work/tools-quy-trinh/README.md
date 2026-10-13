@@ -1,5 +1,11 @@
 # tools-quy-trinh · Cửa vào
 
+## QTTH 006 — Quy trình thực hiện QTTH 05 (13/10/2026 · chờ nghiệm thu)
+
+Owner yêu cầu **không ép 100 bước**. [QTTH 006 phiên v0.2](MOW-TH-006.md) đã rà theo QTTH05 và MOW001 G1, hiện **85 bước (12/22/11/19/9/5/7)**, chia theo 7 checkpoint. [PR20](proposals/TQT-PR-20261013-gptchat-qtth006-atomic-applicability-review-20.md) đối chiếu đủ 100 mã v0.1; [PR21](proposals/TQT-PR-20261013-gptchat-qtth006-instance-overlay-host-21.md) là các việc Host còn cần tiếp nhận. Đây là **thiết kế chưa nghiệm thu**, không thay MOW001/P37/P38.
+
+[Over view QTTH 05 + QTTH 06](https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content&section=over-view) đã có bản chiếu **QTTH06 chung đọc-only, thu/mở** sau phần QTTH05; **tình trạng từng bước của riêng việc** vẫn phải gắn trong hồ sơ DEF00.1, chưa coi đã triển khai. Khi vào hồ sơ: mặc định dùng bước chuẩn; `+ Bổ sung` thêm việc riêng, `− Không áp dụng` ghi bước không dùng cùng lý do, `↔ Thay thế` giữ quan hệ với bước gốc. Không dùng N/A để bỏ mốc lõi, không tự hồi tố đánh 85/85 từ 7/7 QTTH05.
+
 ## P38 · Hồ sơ nhẹ, giữ nguyên lịch sử
 
 Kho vật lý dùng `TQT-HISTORY-POOL-1` trong cùng tệp, không mở kho/Master khác. Mỗi khối lặp lưu một lần theo SHA256; CHECK004 kiểm hash và giải mã trước khi đối chiếu. Nội dung G1/18 sự kiện/20lần kiểm/7mốc không đổi. Đã ghi thật và đọc lại có chữ ký; bộ tổng native PASS trong1GiB, task budget đã trả. Biên nhận tại aggregate#host_review_P38.
