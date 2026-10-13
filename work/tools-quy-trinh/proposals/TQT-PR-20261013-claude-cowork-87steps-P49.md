@@ -445,3 +445,73 @@ Vì sao không ký OK ngay: sửa D1/D2 sẽ đổi hash CHECK005 ⇒ binding ph
 Phiếu CAT-025 `TQT-P51-CONSENSUS`, nối sau review OpenAI, không sửa gì khác: `vendor=Anthropic · reviewer=Claude Cowork · decision=REJECT · reviewed_at=2026-10-13T13:59:22Z (giờ máy chủ) · binding=666343031d39… · scope nguyên văn phiếu · evidence_ref=tệp này #VÒNG 3 · delta D1, D2`. Commit `65abc62`. Đọc lại: view.html `d300b8e0…`; hai review cùng binding/scope; 143 sự kiện không đổi; CHECK005 mặc định chạy lại exit 0; UI cột Claude hiện "Cần sửa · Claude Cowork · 2026-10-13T13:59:22Z". Không ghi review vào `tool_registry.reviews` vì chưa APPROVE CHECK005.
 
 **Nhật ký vòng 3:** KQ@TQT-P51-CLAUDE-REVIEW XONG · 2026-10-13 ~14:05Z (giờ chính xác = commit này). Cờ VPS-GHI trống và không chiếm: lượt này chỉ ghi tài liệu + một phiếu qua gateway CAS có đọc lại, như tiền lệ P47. Chạy CHECK005 hai lần (44–60 s, 512 MB) và các phép thử nhỏ (<3 s) trong bản sao cách ly, tệp tạm `/tmp` tự hủy theo bản sao; không chạy CHECK006 (Codex đã chạy trên Mac). Trình duyệt headless chỉ mở/thu mục. Không tạo tiến trình nền, lease hay khóa. Không chạy QT002.
+
+---
+
+# VÒNG 4 · Tối ưu 87 bước của 006 trong 7 mốc · đề xuất cho Codex · 13/10/2026
+
+Owner hỏi: trong 7 mốc chuẩn, 87 bước có chỗ nào cần tách/gộp; số bước không cố định. Nguồn: MOW-TH-006 v0.6 (`5836329d…`) + số liệu thật lượt P46. JEV: `gen-dec-1791901736-Rhp0mxfnVke0RATVjuZY` (14 nhóm; 4 nhóm JEV đồng ý gộp, 10 nhóm JEV phản đối gộp trọn — em đã thu nhỏ các nhóm đó, xem cột "Không gộp").
+
+## V4.0 · Nhìn 30 giây
+
+**Tiêu chí "tối ưu"** (định nghĩa trước rồi mới so): (1) mỗi bước vẫn đúng định nghĩa nguyên tử của 006 §1 — một hành động, một bên làm, một đầu ra kiểm được, một nơi ghi; khác người/quyền/bên nhận thì không gộp; (2) không ghi hai lần cùng một việc; (3) việc máy làm được thì máy làm và máy ghi, kèm giờ thật; (4) nhánh chưa phát sinh thì không bắt ai ghi "Không làm"; (5) đo bằng **số dòng phải ghi tay cho mỗi việc** — P46 đã phải ghi tay đủ 87.
+
+**Ví dụ đời thường:** phiếu khám bệnh có 87 ô. Không cần xóa ô nào quan trọng; chỉ cần: ô cân nặng/huyết áp cho máy đo tự in (🤖), ô "nếu dị ứng…" chỉ hiện khi có dị ứng (⚪), vài ô trùng nhau thì gộp. Bác sĩ chỉ còn viết tay phần cần đầu óc.
+
+| Mốc | Cũ | Mới | ✍️ AI làm | 👁 Rà khác hãng | 😊 Người | 🤖 Máy | ⚪ Chỉ hiện khi phát sinh / đúng loại |
+|---|---|---|---|---|---|---|---|
+| CP01 Khai việc | 12 | 7 | 5 | 0 | 0 | 2 | 0 |
+| CP02 Chuẩn bị | 23 | 18 | 12 | 0 | 0 | 5 | 1 |
+| CP03 Xác nhận bắt đầu | 11 | 10 | 1 | 2 | 0 | 6 | 1 |
+| CP04 Làm | 19 | 15 | 2 | 1 | 0 | 5 | 7 |
+| CP05 Kiểm | 10 | 8 | 0 | 1 | 0 | 2 | 5 |
+| CP06 Duyệt | 5 | 4 | 1 | 0 | 1 | 2 | 0 |
+| CP07 Bàn giao | 7 | 7 | 2 | 0 | 1 | 4 | 0 |
+| Chung (mới) | 0 | 1 | 0 | 0 | 0 | 0 | 1 |
+| **Cộng** | **87** | **70** | **23** | **4** | **2** | **26** | **15** |
+
+⇒ Số bước định nghĩa 87 → 70 (gộp 12 nhóm, bớt 18, thêm 1). **Phần phải ghi tay mỗi việc 87 → 29** (23 + 4 + 2); 26 dòng máy tự ghi có giờ thật; 15 dòng chỉ xuất hiện khi phát sinh hoặc đúng loại sản phẩm. Không nghĩa vụ nào bị bỏ: bước bị gộp trở thành mục kiểm trong bước giữ lại, giữ mã cũ làm bí danh.
+
+**❓ Owner gật/lắc:** cho Codex làm bản 006 v0.7 này **trong cùng lượt sửa D1/D2** (đằng nào hai bên cũng phải ký lại), để ca thử QT002 chạy luôn trên bản sẽ dùng lâu dài. **Đề xuất PM: gật.** Làm sau ca thử thì ca thử đã kiểm một bản sắp bỏ — phải thử lại.
+
+## V4.1 · Gộp (12 nhóm, giữ mã đầu làm mã chính)
+
+| # | Giữ mã | Gộp vào | Làm | Lý do | Không gộp (theo JEV/quyền khác) |
+|---|---|---|---|---|---|
+| M1 | CP01.04 Mở hồ sơ | 01.03 tra trùng · 01.05 ghim phiên · 01.11 khởi tạo sổ | 🤖 | Cùng một lần mở hồ sơ, cùng nơi ghi; máy cấp application_id, ghim 005/006, mở mốc CP01 (JEV 0,71) | — |
+| M2 | CP01.07 Chốt phạm vi | 01.02 đối chiếu A0/quyền Owner | ✍️ | Hai bước cùng chốt phạm vi (JEV 0,61) | — |
+| M3 | CP02.03 Ghim nguồn | 01.08 gắn link/phiên nguồn | ✍️ | Cùng nguồn, ghi hai lần (link rồi hash) | — |
+| M4 | CP02.14 Bảng nghĩa vụ ghi | 02.05 gắn Master đích | ✍️ | Liệt kê thông tin và gắn sổ đích là một bảng | 02.15 phân loại thiếu giữ riêng: sinh issue, nơi ghi khác (JEV 0,18 cho gộp cả 3) |
+| M5 | CP02.07 Trường + ánh xạ | 02.08 ánh xạ nguồn–đích | ✍️ | Mỗi field định nghĩa kèm nguồn–đích, manifest theo field | 02.06 ghim/lập hợp đồng giữ riêng (JEV 0,28) |
+| M6 | CP02.10 Giao–nhận | 02.09 trường ra · 02.11 nhánh lỗi | ✍️ | Cùng người soạn hợp đồng, cùng sổ CAT-206* | 02.13 kiểm cạnh giữa MOT giữ riêng: là phép kiểm, không phải khai (JEV 0,07) |
+| M7 | CP02.18 Kế hoạch việc con | 02.20 đầu ra + nơi ghi từng việc | ✍️ | Một bảng kế hoạch | 02.19 giao người giữ riêng: quyền Host (JEV 0,10) |
+| M8 | CP03.07 Biên nhận còn hiệu lực | 03.06 kiểm lại schema/khóa/đường ghi | 🤖 | Cùng kiểm lại một biên nhận của 02.23 | — |
+| M9 | CP04.04 Tạo sản phẩm | 04.03 chọn DOT/Tool | ✍️ | Tool dùng ghi ngay trong sự kiện tạo sản phẩm; lượt chạy lấy từ tool_runs | — |
+| M10 | CP04.06 Ghi an toàn | 04.05 kiểm trước ghi · 04.07 đọc lại · 04.08 khóa chống trùng | 🤖 | Một giao dịch gateway: CHECK005 trước → CAS + operation_id → biên nhận → đọc lại hash (JEV 0,80) | — |
+| M11 | CP05.03 Reviewer chạy bộ ca | 05.01 nạp ca · 05.02 mở đúng bản | 👁 | Cùng reviewer, cùng sổ CAT-015; nạp và mở là bước đầu của chạy ca (JEV 0,40 — chưa chắc, nên chỉ gộp 3) | 05.04 UI · 05.05 thiết kế · 05.06 trả caller · 05.07 live giữ riêng, hiện theo loại sản phẩm |
+| M12 | CP06.03 Trình duyệt | 06.01 gom gói | ✍️ | Cùng người làm gói và gửi xin quyết | 06.04 Owner quyết giữ riêng (JEV 0,08) |
+
+Cũng **không gộp** theo JEV: 02.04 quyền đọc nguồn với 02.23 cổng ghi đích (khác tài nguyên, JEV 0,23) — cả hai giao máy; 01.09 người nhận cuối với 01.10 vai làm/kiểm/duyệt (JEV 0,28); 04.09 bên nhận ACK với 04.18 đóng việc con (khác người, JEV 0,14) — 04.18 giao máy tự đóng khi có ACK.
+
+## V4.2 · Giao máy (🤖 26 bước) và chỉ hiện khi cần (⚪ 15 bước)
+
+- **🤖 Máy làm, máy ghi:** 01.04(M1) · 7 bước chốt mốc 01.12, 02.22, 03.11, 04.19, 05.09, 06.05, 07.06 (tính từ bằng chứng đã ghi, JEV 0,87; ghi luôn STARTED/KQ mốc theo giờ máy chủ) · 02.01 nạp bộ câu hỏi · 02.04 quyền đọc · 02.23 cổng ghi (chuỗi HOST_CHECK) · 02.16 tính bước áp dụng từ `required_when` · 03.01 tool sẵn sàng (tra registry) · 03.02 quyền người làm · 03.03 quyền người kiểm · 03.04 kế hoạch đúng phiên · 03.07(M8) · 04.01 chọn việc đến lượt · 04.06(M10) · 04.17 lịch sử bất biến · 04.18 đóng việc con khi có ACK · 05.10 bộ kiểm tổng · 06.02 thẩm quyền người duyệt · 07.02 kiểm hợp đồng nhận · 07.03 ghi sổ bàn giao · 07.08 khép RUN.
+  Luật: mỗi dòng 🤖 ghi đúng **lệnh/DOT** sinh ra sự kiện; sự kiện do lệnh ghi, có giờ thật. Lệnh chưa có thì ghi `🤖 chưa có lệnh` và tạm làm tay — không viết DOT mới trong lượt này; dùng CHECK004/005/006, gateway CAS/operation_id, `--commit-receipt` hiện có.
+- **⚪ Chỉ hiện khi phát sinh (11):** 02.17 bước thêm/bớt/thay · 03.09 issue chặn bắt đầu · 7 nhánh sự cố 04.10 gửi trùng, 04.11 phản hồi cũ, 04.12 mất quyền, 04.13 thiếu Master đích, 04.14 dữ liệu sai, 04.15 sửa quy trình, 04.16 hủy · 05.08 ca FAIL · **mới: "Tiếp tục sau DỪNG"** (máy kiểm lại phiên/quyền/biên nhận trước khi làm tiếp — hiện chưa có bước này).
+  Luật: không phát sinh thì **không ai ghi dòng nào** (P46 phải ghi 6 dòng "Không làm" vô ích). Phát sinh thì bắt buộc: issue_ref + owner + return_to + quy trình xử lý (002/003/CAT-017/CAT-244). CHECK005 kiểm: có issue loại X mà thiếu dòng nhánh X ⇒ lỗi. Mỗi nhánh vẫn là một bước riêng vì nơi ghi khác nhau (JEV 0,18 cho gộp chung).
+- **⚪ Hiện theo loại sản phẩm (4):** 05.04 UI · 05.05 nội dung thiết kế · 05.06 trả caller · 05.07 nguồn live. Máy tính từ loại sản phẩm đã chốt ở 01.07.
+
+## V4.3 · Tách / thêm
+
+- **Thêm 1:** "Tiếp tục sau DỪNG" (⚪ 🤖) — thiếu hiện nay; P46 và P50 đều dừng rồi làm tiếp mà không có chỗ kiểm lại điều kiện.
+- **Không tách thêm:** bước lớn như 04.04 "tạo sản phẩm" đã lặp theo `plan_id`; tách thêm chỉ làm dài bảng. Phần việc chuyên môn bên trong nó thuộc quy trình nghiệp vụ được chọn (vd QT002 · 6 bước), không nhét vào 006.
+
+## V4.4 · Tác động và phép kiểm
+
+- **006 v0.7:** bảng bước gộp theo V4.1; mỗi dòng có cột **Vai** (✍️/👁/😊/🤖) và cột **Hiện khi** (luôn / phát sinh / loại sản phẩm); bước gộp ghi "gồm mã cũ …". Bản 0.5/0.6 giữ trong `detailed_workflow_history`; hồ sơ P46/G1 không đổi.
+- **CHECK005:** đổi mã trong luật sang mã mới (vd luật "có readback ⇒ đã làm" từ CP04.07 sang CP04.06); `repeat_steps`, `independent_review_steps` cập nhật; thêm 3 luật: dòng 🤖 phải có `tool_run`/receipt (không được ghi tay); dòng ⚪ không phát sinh thì không có sự kiện; có issue thì phải có dòng nhánh tương ứng.
+- **QT002@1.1:** ánh xạ "Đấu lại → CP04.06–07" thành "CP04.06"; các ánh xạ khác giữ.
+- **Phép kiểm sau sửa:** bản chiếu = 70 dòng, khớp hash; mỗi mã cũ trong 87 có đúng một đích mới (bảng bí danh đủ 87/87); hồ sơ mẫu mới chạy qua 7 mốc với ≤ 29 dòng ghi tay khi không có sự cố; ca âm: dòng 🤖 ghi tay không receipt ⇒ FAIL, issue không có dòng nhánh ⇒ FAIL.
+- **Thứ tự:** Codex làm D1 + D2 + v0.7 trong một lượt → Claude rà một vòng đúng phần đó → hai bên ký → Owner quyết ca thử QT002 → ca thử chạy trên v0.7, đo giờ từng mốc → dùng số đo đó tinh chỉnh tiếp, không đoán.
+
+Nhật ký vòng 4: chỉ ghi đề xuất vào tệp này; không sửa 006, CHECK005, hồ sơ hay phiếu ký. Không chạy bộ kiểm, không giữ khóa.
