@@ -8,14 +8,14 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 16:35 +07 · Claude · P48
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 17:50 +07 · Codex executor · P50
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã xong: G1 MOW001 Owner nhận 7/7, ngoài PG (P37) · hồ sơ 100 MB → 12,9 MB, giữ lịch sử (P38) · QTTH006 v0.3 87 bước/7 mốc đã đăng ký, CHECK006 đạt, chưa chạy thật (P40) · kiểm kê 305 DOT/34 Tool, 47 Master (P30–P33) · lượt thật theo 006: 48 hành động ghi nhận, 10 không thực hiện, 29 bị chặn, chưa nghiệm thu (P46). Dòng gốc: Vòng trước › Dọn 13/10.
-- ■ Đang làm: — · P47 đã đưa hồ sơ P46 về DEF00.1/TQT-VIEC-001; không giữ RUN/lease.
+- ■ Đang làm: STARTED · TQT-P50-CORRECTIONS · Codex sửa ghi nhận P46 theo P49; chỉ UI/hồ sơ, không PG/runtime service; nhả cờ ngay sau đọc lại.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002. · Cấu trúc dữ liệu cho 1.000 việc + luật 1 trang (R26–R27, PR-22): Owner gật → PT-01 có số đo.
-- ➡ Kế tiếp: đọc hồ sơ001 làm nguồn duy nhất; xử lý nguồn Field/evaluator còn thiếu và quyền/gate006 theo đúng scope. Không nhận48hànhđộng hoặc7/7G1cũ thành nghiệmthuP46. · 😊 Owner: gật/lắc PR-22 (Q03).
+- ➡ Kế tiếp: Codex áp/đọc lại bản sửa P50, ghi KQ và trả VPS-GHI; Owner chuyển đề bài cho Claude Cowork theo P50; chưa nghiệm thu P46. Q03/PR22 vẫn riêng.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -1167,3 +1167,7 @@ Ghế: Claude-review · Host Kiểm soát + phản biện. Based_on: @4da3dbd; D
 **Phạm vi quyền:** chỉ đọc nguồn và ghi báo cáo đề xuất nêu trên bằng gateway được phép, có kiểm phiên. Không sửa `view.html`, định nghĩa005/006, README/COLLAB, hồ sơ/Master, mãDOT, UI, runtime; khôngPG, restart, deploy, baseline, xóa hoặc giữ khóa chờ. Nếu cần phép thử, ưu tiên DOT hiện có trên bản sao cách ly local, ghi TEST và thời gian; không chạy bộ tải nặng trênVPS. Báo thiếu quyền/nguồn cụ thể, không vượt cổng. Ghi STARTED/KQ của lượt review và việc đã dọn ngay trong báo cáo của mình; khép sạch dù PARTIAL/BLOCKED. Nếu nguồn thay đổi trong khi rà, ghi based_on và đánh dấu phần phải rà lại; không xóa thay đổi của AI khác.
 
 **Thông tin bàn giao để đối chiếu, không phải sự thật mặc định:** nguồn P47 commit `3b7bad917758021afeac58f4d1ad7d85ac0a98c8`, biên nhận bổ sung `52ba4254f4c35cea565d049ea758fe38567aefe4`;87dòng/91sự kiện, phân loại Host48đã làm/10không làm/29bị chặn. UI thử thật: tìm thường/nângcao thiếu nguồnField/evaluator; nhánh hủy trảUIcallerphiên3. G1cũ7/7 và P46 chưa hoàn thành phải được phân biệt. Reviewer tự đối chiếu nguồn hiện hành, không cấp ACCEPT dựa vào đoạn này.
+
+
+### P50 · Tiếp nhận phản biện Claude P49, đính chính hồ sơ
+STARTED@TQT-P50-CORRECTIONS 2026-10-13T10:50:05.019442+00:00 · Codex Host · Owner giao trực tiếp; §0.3 đã đối chiếu. Phạm vi UI process-work-master-v1.js và hồ sơ chuẩn view.html/CHECK005/README; không đổi nguồn G1/PG/dịch vụ. Đường vào: DEF00.1 → TQT-VIEC-001; SSOT UI /opt/incomex/docs/mcp-writes/process-work-master-v1.js, dữ liệu catalog.work_schedule.records[].detail_tracking.
