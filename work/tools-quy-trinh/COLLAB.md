@@ -17,7 +17,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
 - ✅ Đã xong P38: hồ sơ100MB→12.9MB, không mất lịch sử; tích xanh; bộ tổng1GiB đạt. Giữ G1 đã duyệt7/7, ngoài PG.
-- ■ Đang làm: — · 0 RUN active của Codex TQT · P42 đã khép thiết kế/hiển thị; không giữ shared lease.
+- ■ Đang làm: P43 · Codex làm gọn hồ sơ và dấu hỏi; không giữ lease ngoài lượt ghi.
 - ✅ P40: QTTH006 v0.3 có87bước/7mốc, đăng ký Master và ghép cùng hồ sơ; 11mục +7nhóm thu/mở đã kiểm thật; CHECK006 native PASS. Chưa thực hiện thật theo006.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002.
 - ➡ Kế tiếp: Owner chuyển lệnh Claude Code REVIEW-ONLY tại P41. NEXT_TRIGGER=CLAUDE_P41_ACCEPT_EXACT_BYTES; Owner đã duyệt có điều kiện giữ bản chạy và đăng ký đúng3tệp bằng apply-v0, không đổi byte/restart/rollback. Chưa ACCEPT: 0 RUN active, không giữ khóa. QTTH006 thực hiện thật theo hướng dẫn sau.
@@ -40,6 +40,9 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 (Hai dòng đầu Owner duyệt 08/10/2026 · D04. Dòng cuối là lời Owner 10/10/2026 · D24/D25.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+**Owner P43:** hồ sơ điền ít nhất; ô chưa làm/chưa có/chưa đối chiếu để trống; hướng dẫn bằng ? tại cột và bước; bước bổ sung mã riêng, không đổi mã chuẩn.
+STARTED@TQT-P43-HELP 2026-10-13T07:25:34.359751+00:00 · executor=Codex Host · chỉ UI/hướng dẫn/kiểm, không runtime/PG.
 
 **Owner13/10 · P42:** Overview là nơi chứa luật7mốc/11mục/87bước, thu gọn; hồ sơ ghi thực tế, không điền sẵn tool/kết quả, có xác nhận đã làm/không làm. AI làm xong dọn phần mình, trả server ngay. Claude dọn server song song; kiểm commit mới trước ghi, xung đột thì dừng và đọc lại.
 
