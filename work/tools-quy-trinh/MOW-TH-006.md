@@ -1,7 +1,7 @@
 # QTTH 006 — Quy trình thực hiện QTTH 05
 
 **Mã quy trình:** `MOW-TH-006` · **Tên:** Quy trình thực hiện QTTH 05. Đây là **một quy trình**, không phải loại đối tượng “hướng dẫn” riêng.
-**Phiên:** `0.6-host-check-consensus` · **Ngày rà:** 13/10/2026 · **Trạng thái:** ĐÃ RÀ THEO QTTH 05 / HỒ SƠ MOW001 G1, **HOST ĐÃ RÀ THỨ TỰ / CHƯA NGHIỆM THU AI MỚI THỰC HIỆN**. Đăng ký thiết kế MOW-TH-006 trong Master quy trình tổng hợp; chưa tuyên bố đã chạy trọn việc thật theo 006.
+**Phiên:** `0.7-completion-contract` · **Ngày rà:** 13/10/2026 · **Trạng thái:** ĐÃ RÀ THEO QTTH 05 / HỒ SƠ MOW001 G1, **HOST ĐÃ RÀ THỨ TỰ / CHƯA NGHIỆM THU AI MỚI THỰC HIỆN**. Đăng ký thiết kế MOW-TH-006 trong Master quy trình tổng hợp; chưa tuyên bố đã chạy trọn việc thật theo 006.
 **Nguồn:** tệp này là quy định chuẩn do Host quản lý, hiển thị tại Overview. Bản v0.1 có **100 bước** được lưu trong lịch sử Git; PR20 giữ bảng đối chiếu đầy đủ 100 mã cũ. Không đổi tiến độ MOW001/P37/P38.
 
 ## 1. Nguyên tắc chính
@@ -259,3 +259,42 @@ Mọi BLOCKED mới nhất có reason/issue_ref/owner/return_to/next_trigger. NO
 ### Hai bên xác nhận đúng một bộ sửa
 
 Sổ duyệt CAT-025 hiện hữu giữ một phiếu theo bộ sửa gồm manifest (hash luật006, luật002, CHECK005, UI), binding, scope và reviews nối tiếp. Hai cột cuối **GPT duyệt** / **Claude duyệt** lấy từ phiếu này, không nhập tay lần nữa. Mỗi review có vendor,reviewer,reviewed_at,decision,evidence_ref,binding,scope. Đổi hash/phạm vi thì dấu cũ hết hiệu lực. Chưa có review để trống. Đồng thuận chỉ khi cả OpenAI và Anthropic APPROVE cùng binding/phạm vi; Owner quyết sau đó, không suy từ hai chữ ký thành Owner duyệt hoặc sản phẩm nghiệm thu. Claude P49 duyệt bản P50 không thay chữ ký cho P51.
+
+## 9. Hoàn thành một việc QT001 · hợp đồng nghiệm thu P52
+
+Đọc phạm vi đã được Owner giao ở §0 của việc trước khi làm. **XONG một RUN chỉ xác nhận đã khép lượt và nhả tài nguyên; không xác nhận sản phẩm đạt.** G1 đã duyệt chỉ là thiết kế. G2 là triển khai/kiểm kỹ thuật; G3 là vận hành/bàn giao. Không gọi “QT001 hoàn thành toàn bộ” khi chỉ có G1. P46 vẫn là chẩn đoán, không là bằng chứng AI mới tạo sản phẩm mới.
+
+### 9.1 Khi nào GPT và Claude được ký OK?
+
+Cả hai đọc cùng một phiên sản phẩm, cùng phạm vi và cùng bộ bằng chứng. Chỉ ký **nghiệm thu việc thật** khi đủ các điều sau:
+
+1. Mục tiêu, đầu vào, sản phẩm phải giao, giới hạn G1/G2/G3, người nhận và điều kiện bắt đầu được xác nhận cho đúng lượt. Không kế thừa chữ ký G1 sang lượt mới.
+2. Người/AI mới thực hiện theo quy trình ra sản phẩm thực. Có manifest từng câu hỏi và câu trả lời, từng MOT/field/nhánh áp dụng; bên nhận mở và dùng được nội dung đúng phiên, kiểm cả đầu nối. TEST chỉ chứng minh bộ kiểm.
+3. Có bản ghi cho đủ 7 mốc và mọi bước/item áp dụng trong 87 bước. DONE có bằng chứng; Không làm có điều kiện/ngoại lệ hợp lệ. Bước bắt buộc bị chặn hoặc còn thiếu không được chuyển thành nợ để ký đạt.
+4. Mười một nhóm ghi được đối chiếu với bản ghi thật tại Master tương ứng. DOT/Tool thực dùng có mã/phiên/kết quả/biên nhận; lỗi công cụ được ghi và kiểm lại. Đọc lại đúng hồ sơ DEF00.1, không bàn giao trang local thay thế.
+5. Đo 7 mốc bằng thời điểm commit máy chủ của sự kiện STARTED/KQ. Thời gian công cụ đo riêng; không cộng hai khoảng chồng nhau. Giờ nhập hồ sơ không là giờ hoàn thành; thiếu số đo lịch sử ghi chưa đo, không hồi tố. Có tổng tới khép RUN và tổng tới ACK riêng.
+6. Kiểm độc lập hợp đồng/sản phẩm ghi người làm, hãng người làm, người rà, hãng người rà, phiên và bằng chứng. Hai hãng phải là OpenAI và Anthropic, không chỉ khác tên.
+7. Danh sách nợ và kiểm kê field theo 9.2–9.3 được cả hai hãng duyệt đúng phiên. Không có nợ chặn phạm vi đang nghiệm thu.
+8. GPT và Claude tự ký hai ô CAT-025 của **nghiệm thu sản phẩm**, rồi Owner quyết định khi đến hạn; bên nhận ACK đúng phiên; ghi KQ, nhả cờ/lease, không còn công việc nền thuộc lượt này.
+
+Chữ ký **duyệt luật/bộ sửa**, **duyệt danh sách nợ**, **duyệt kiểm kê field** và **nghiệm thu sản phẩm thực** có phạm vi khác nhau. Lưu ở cùng CAT-025, hiển thị cùng hồ sơ; không suy một chữ ký thay cho chữ ký khác. Mỗi phiếu có `record_id, scope, binding, manifest, reviews`; review có hãng/người/kết luận/thời điểm/bằng chứng. Binding là SHA256 của manifest đã chuẩn hoá; đổi nguồn/phạm vi/nợ/field thì phải rà delta và ký lại phần bị ảnh hưởng. Giữ nguyên chữ ký cũ trong lịch sử. Không ký thay hãng kia.
+
+### 9.2 Danh sách nợ để làm tiếp
+
+Một nguồn: `cycle.issues` của hồ sơ → CAT-069; phiếu CAT-025 trỏ hash danh sách đó. Mỗi dòng phải có: mã, việc còn thiếu, phạm vi bị chặn (`blocks_scope`), người nhận (`owner`), việc cần làm (`next_action`), quy trình xử lý (`route_process`), bước quay lại (`return_to`), điều kiện chạy tiếp (`next_trigger`). Có thể gộp các phát hiện cùng nghĩa vụ bằng tham chiếu, không xoá lịch sử.
+
+OPEN là chưa giải quyết. Đề nghị để sau vẫn OPEN tới khi hai hãng cùng duyệt danh sách và người có quyền chấp nhận; khi đó DEFERRED cần quyết định/bằng chứng. CLOSED cần sản phẩm sửa, đọc lại tại nơi lỗi, người kiểm độc lập. SUPERSEDED cần ánh xạ nghĩa vụ sang sản phẩm thay thế; sản phẩm mới tồn tại không tự khép nợ cũ. Ghi rõ nợ thuộc G2/PG không chặn G1; nợ kiểm hợp đồng/đầu ra thật chặn nghiệm thu lượt làm thật. Mỗi bên phải ký cả tính đầy đủ của danh sách lẫn việc nợ nào được phép để sau.
+
+### 9.3 Field: kiểm kê trước, tạo sau
+
+Dùng **ML-DEF-008 · Master Field** (`definition-master-v1.html?stt=8`), không lập Master khác. Từ 18 thiết kế Master, gom theo định nghĩa đầy đủ; cùng tên khác kiểu/ý nghĩa không tự gộp. Mỗi field có mã, tên/khóa, kiểu, phiên định nghĩa, nguồn, các nơi dùng, tình trạng ngoài PG, tình trạng PG, đích PG và bằng chứng đọc lại khi có. Quy tắc bắt buộc theo nơi dùng ở quan hệ Field–nơi dùng, không ép thành thuộc tính chung.
+
+Tình trạng ngoài PG: Đã đăng ký → Cần bổ sung → Đã có trong kho tệp → Đã kiểm; Ngừng dùng giữ lịch sử. PG: **Chưa xác minh**, **Cần tạo thêm** (đã đối chiếu schema và không có), **Đã tạo trong PG** (có migration/đích/phiên và đọc lại), **Đã kiểm PG**. Không có bằng chứng thì không tích xanh PG. Lượt P52 không đọc/ghi PG: số cần tạo mới trong PG **chưa xác định**, không ghi 0.
+
+Báo cáo cuối mỗi việc phải ghi: số lượt dùng field, số định nghĩa dùng lại, số định nghĩa mới của lượt, danh sách mã/nguồn và số còn chưa đối chiếu PG. Dùng lại trường đã có trước khi thêm. Dấu ? ở tên cột giải thích cách điền; ô thực tế chưa có bằng chứng để trống. Hai cột cuối GPT duyệt / Claude duyệt trỏ phiếu kiểm kê field đúng phiên trong CAT-025, không phải chữ ký tạo PG.
+
+### 9.4 Kiểm giờ và hãng (sửa phản biện Claude V3)
+
+CHECK005 mặc định và `--validate-dossier` dùng chung logic đọc sự kiện trong commit Git của chính kho chứa view.html đã được theo dõi. Commit phải thuộc lịch sử HEAD, đúng event/application/checkpoint/STARTED-KQ/thời điểm; sai thì FAIL. Không dùng `server_receipts` người gọi tự cung cấp làm chứng cứ. Snapshot không có Git chuẩn báo UNVERIFIED_RECEIPT, vẫn kiểm các phần khác; `require_complete=true` phải dừng, không được nghiệm thu. `--commit-receipt` chỉ là cách đọc cùng dữ kiện, không là đường cấp chữ ký.
+
+P52 thêm `review.subject_vendor`, `review.reviewer_vendor`; phải có trong tập hãng quy định và khác nhau tại bước rà độc lập. Không thay chữ ký review hợp đồng bằng review hồ sơ. Luật này áp cho mọi hồ sơ dùng bản006 có execution_policy, không hardcode P46.

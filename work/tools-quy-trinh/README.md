@@ -1,5 +1,14 @@
 # tools-quy-trinh · Cửa vào
 
+## P52 · Đọc trước khi ký hoàn thành
+
+Luật chuẩn: [MOW-TH-006 §9](MOW-TH-006.md#9-hoàn-thành-một-việc-qt001--hợp-đồng-nghiệm-thu-p52). Phân biệt khép RUN, duyệt thiết kế G1 và nghiệm thu việc thật/G2/G3. Ba phiếu bộ sửa/nợ/field ở CAT-025 trong cùng hồ sơ DEF00.1; không dùng ký bộ sửa để nghiệm thu P46. Claude tự ký sau rà; Host không ký thay.
+
+[Master Field hiện hữu](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=8) đọc catalog.field_registry, bao gồm 327 lượt dùng từ 18 thiết kế Master, gom còn 233 định nghĩa + 2 field hãng + 7 field quản lý. Đây là kiểm kê nguồn đã nêu, không phải chứng nhận đầy đủ runtime G1 hay schema PG; xem nợ TQT-P52-FIELD-COVERAGE. Số cần tạo trong PG chưa xác định. Tra mã/nguồn trước khi thêm, ký đúng phiên ở CAT-025.
+
+Dùng lại CHECK005/006. CHECK005 tự tìm Git của tệp nguồn: có Git thì xác minh commit/sự kiện/thời điểm; giả thì FAIL. Không Git báo UNVERIFIED; không dùng snapshot đó để nghiệm thu. Hai hãng khác nhau mới đạt bước rà độc lập. Các ca kiểm nằm ngay CHECK005, không thêm DOT. Sổ dùng tool và kết quả P52: COLLAB P52 / CAT-015. Lịch sử P51 dưới đây để truy nguồn, không là trạng thái hiện hành.
+
+
 ## P51 · Trước khi thử việc mới
 
 Đọc COLLAB P51 và MOW-TH-006 §8. Luật006 hiện0.6; hồ sơP46 giữ0.5 qua bản định nghĩa lịch sử. CHECK005 dùng lại hai chế độ `--validate-dossier` và `--commit-receipt`, không tạo DOT mới. Chỉ HOST_CHECK ngoài PG, không tự coi gateway đã bảo vệ việc mới. Đo 7 mốc từ giờ commit VPS, giữ số đo tool thật; hồ sơ có manifest cho bước lặp. QT002@1.1 có 6 bước và vòng đời issue; mới đủ để rà, chưa chạy.

@@ -1,19 +1,27 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
-// Read an actual committed event and its Git server timestamp; no file writes.
-if(process.argv.includes('--commit-receipt')){
- const a=process.argv.slice(process.argv.indexOf('--commit-receipt')+1),[repo,commit,path,eventId]=a;
+// P52: both CLI and normal checks use Git, never a caller-supplied receipt as proof.
+const cp=require('child_process'),pathModule=require('path'),receiptCache=new Map();
+function gitReceipt(repo,commit,path,eventId){
  assert(repo&&/^[a-f0-9]{40}$/.test(commit||'')&&path&&!path.startsWith('/')&&!path.split('/').includes('..')&&eventId,'RECEIPT_ARGUMENTS');
- const git=args=>require('child_process').execFileSync('git',['-C',repo,...args],{encoding:'utf8',maxBuffer:32*1024*1024});
- const raw=git(['show',commit+':'+path]);const data=JSON.parse(raw.match(/<script id="tqt-composite-processes"[^>]*>([\s\S]*?)<\/script>/)[1]).catalog;
+ const key=[repo,commit,path,eventId].join('|');if(receiptCache.has(key))return receiptCache.get(key);
+ const git=args=>cp.execFileSync('git',['-C',repo,...args],{encoding:'utf8',maxBuffer:32*1024*1024,stdio:['ignore','pipe','pipe']});
+ git(['merge-base','--is-ancestor',commit,'HEAD']);
+ const raw=git(['show',commit+':'+path]),data=JSON.parse(raw.match(/<script id="tqt-composite-processes"[^>]*>([\s\S]*?)<\/script>/)[1]).catalog;
  const hits=(data.work_schedule.records||[]).flatMap(w=>(w.detail_tracking?.cycle?.milestone_events||[]).filter(e=>e.event_id===eventId));assert.equal(hits.length,1,'COMMITTED_EVENT_NOT_UNIQUE');const e=hits[0];assert(e.application_id&&/^CP0[1-7]$/.test(e.checkpoint)&&['STARTED','KQ'].includes(e.kind),'COMMITTED_EVENT_FIELDS');
- console.log(JSON.stringify({commit,path,event_id:eventId,application_id:e.application_id,checkpoint:e.checkpoint,kind:e.kind,server_committed_at:git(['show','-s','--format=%cI',commit]).trim(),readback_sha256:require('crypto').createHash('sha256').update(raw).digest('hex'),scope:'GIT_COMMIT_TIME_NOT_PER_STEP_DURATION',origin:'Run on canonical VPS repository; copied JSON alone is not authentication'}));process.exit(0);
+ const value={commit,path,event_id:eventId,application_id:e.application_id,checkpoint:e.checkpoint,kind:e.kind,server_committed_at:git(['show','-s','--format=%cI',commit]).trim(),readback_sha256:require('crypto').createHash('sha256').update(raw).digest('hex'),scope:'GIT_COMMIT_TIME_NOT_PER_STEP_DURATION'};receiptCache.set(key,value);return value;
 }
+function receiptRepository(){
+ const file=fs.realpathSync(process.argv[2]||__dirname+'/view.html');
+ try{const repo=cp.execFileSync('git',['-C',pathModule.dirname(file),'rev-parse','--show-toplevel'],{encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim(),relative=pathModule.relative(repo,file);cp.execFileSync('git',['-C',repo,'ls-files','--error-unmatch',relative],{stdio:'pipe'});return {repo,path:relative};}catch{return null;}
+}
+if(process.argv.includes('--commit-receipt')){console.log(JSON.stringify(gitReceipt(...process.argv.slice(process.argv.indexOf('--commit-receipt')+1))));process.exit(0);}
+const receiptSource=receiptRepository();
 
 let html=fs.readFileSync(process.argv[2]||__dirname+'/view.html','utf8');
 const r=JSON.parse(html.match(/<script id="tqt-composite-processes"[^>]*>([\s\S]*?)<\/script>/)[1]).catalog;
 // P51: every dossier is checked; no event suffix or P46-only entrance condition.
 function validateDossier(b,def,context={}){
- const fail=(ok,code)=>assert(ok,code),c=b.cycle||{},latest=new Map(),known=new Map(def.groups.flatMap(g=>g.rows.map(x=>[x[0],x]))),ids=new Set();
+ const fail=(ok,code)=>assert(ok,code),c=b.cycle||{},latest=new Map(),known=new Map(def.groups.flatMap(g=>g.rows.map(x=>[x[0],x]))),ids=new Set(),warnings=[];
  for(const e of b.events||[]){
   fail(e.event_id&&!ids.has(e.event_id),'EVENT_ID');ids.add(e.event_id);
   fail(known.has(e.step_id)&&e.application_id===b.application_id&&e.target_version===b.target_version&&e.process_version===b.process_version&&e.definition_sha256===b.definition_sha256,'EVENT_BINDING');
@@ -30,6 +38,7 @@ function validateDossier(b,def,context={}){
    if(known.get(e.step_id)[5].startsWith('LUÔN')||e.obligation_due===true)fail(e.exception_approval?.approver&&e.exception_approval?.authority_ref&&e.exception_approval?.evidence_ref&&e.exception_approval?.scope===e.step_id,'MANDATORY_SKIP_APPROVAL');
   }
   if((def.execution_policy?.independent_review_steps||[]).includes(e.step_id)&&e.performed==='DONE')fail(e.review?.subject_actor&&e.review?.reviewer&&e.review.reviewer!==e.review.subject_actor&&e.review.evidence_ref&&e.review.target_version===b.target_version,'INDEPENDENT_REVIEW');
+  if((def.execution_policy?.independent_review_steps||[]).includes(e.step_id)&&e.performed==='DONE'){const v=def.execution_policy.consensus_required||[];fail(v.includes(e.review.subject_vendor)&&v.includes(e.review.reviewer_vendor)&&e.review.subject_vendor!==e.review.reviewer_vendor,'INDEPENDENT_REVIEW_VENDOR');}
   if(e.items){fail(Array.isArray(e.items.expected_ids)&&Array.isArray(e.items.checked_ids)&&new Set(e.items.expected_ids).size===e.items.expected_ids.length&&new Set(e.items.checked_ids).size===e.items.checked_ids.length,'ITEM_IDS');fail(e.items.count===e.items.checked_ids.length&&e.items.checked_ids.every(x=>e.items.expected_ids.includes(x)),'ITEM_COUNT');if(e.performed==='DONE')fail(e.items.expected_ids.length===e.items.checked_ids.length&&e.items.evidence_ref&&e.items.source_version,'ITEM_COVERAGE');}
   if(def.execution_policy?.repeat_steps?.includes(e.step_id)&&e.performed==='DONE')fail(e.item_key!=='G1'&&(e.items||e.item_evidence_ref),'REPEAT_MANIFEST');
  }
@@ -41,13 +50,13 @@ function validateDossier(b,def,context={}){
  if(c.history_correction_proof){const h=c.history_correction_proof;fail((b.events||[]).length>=h.prior_events,'HISTORY_LENGTH');fail(require('crypto').createHash('sha256').update(JSON.stringify(b.events.slice(0,h.prior_events))).digest('hex')===h.prior_sha256,'HISTORY_PREFIX_CHANGED');}
  const milestoneIds=new Set();for(const m of c.milestones||[]){
   fail(/^CP0[1-7]$/.test(m.checkpoint)&&m.start_receipt,'MILESTONE_START');
-  for(const key of ['start_receipt','end_receipt'])if(m[key]){const receipt=m[key];fail(/^[a-f0-9]{40}$/.test(receipt.commit||'')&&Number.isFinite(Date.parse(receipt.server_committed_at))&&!milestoneIds.has(receipt.event_id),'MILESTONE_RECEIPT_FORMAT');milestoneIds.add(receipt.event_id);const trusted=(context.server_receipts||[]).find(x=>x.commit===receipt.commit&&x.event_id===receipt.event_id);fail(trusted&&trusted.application_id===b.application_id&&trusted.checkpoint===m.checkpoint&&trusted.kind===(key==='start_receipt'?'STARTED':'KQ')&&trusted.server_committed_at===receipt.server_committed_at&&trusted.path&&trusted.readback_sha256,'SERVER_RECEIPT_REQUIRED');}
+  for(const key of ['start_receipt','end_receipt'])if(m[key]){const receipt=m[key];fail(/^[a-f0-9]{40}$/.test(receipt.commit||'')&&Number.isFinite(Date.parse(receipt.server_committed_at))&&!milestoneIds.has(receipt.event_id),'MILESTONE_RECEIPT_FORMAT');milestoneIds.add(receipt.event_id);if(!receiptSource){warnings.push({code:'UNVERIFIED_RECEIPT',event_id:receipt.event_id});fail(!context.require_complete,'UNVERIFIED_RECEIPT');}else{let trusted;try{trusted=gitReceipt(receiptSource.repo,receipt.commit,receiptSource.path,receipt.event_id);}catch(error){throw Error('INVALID_SERVER_RECEIPT: '+error.message);}fail(trusted.application_id===b.application_id&&trusted.checkpoint===m.checkpoint&&trusted.kind===(key==='start_receipt'?'STARTED':'KQ')&&Date.parse(trusted.server_committed_at)===Date.parse(receipt.server_committed_at)&&(!receipt.path||receipt.path===trusted.path)&&(!receipt.readback_sha256||receipt.readback_sha256===trusted.readback_sha256),'SERVER_RECEIPT_MISMATCH');}}
   if(m.end_receipt)fail(Date.parse(m.end_receipt.server_committed_at)>=Date.parse(m.start_receipt.server_committed_at),'MILESTONE_ORDER');
  }
  if(c.write_authorization){const a=c.write_authorization;fail(a.mode==='HOST_CHECK'&&a.application_id===b.application_id&&a.path&&a.authority_ref&&a.precheck_ref&&a.cas_receipt&&a.readback_ref,'HOST_CHECK_CHAIN');fail(a.server_enforced===false,'HOST_CHECK_NOT_SERVER_GUARD');}
  if(def.execution_policy)for(const issue of c.issues||[])auditIssue(issue);
  if(context.require_complete===true){fail(['CP01','CP02','CP03','CP04','CP05','CP06','CP07'].every(cp=>(c.milestones||[]).some(m=>m.checkpoint===cp&&m.end_receipt)),'SEVEN_MILESTONES_REQUIRED');fail(c.owner_decision_ref&&c.recipient_ack_ref,'OWNER_ACK_REQUIRED');}
- return {state:'PASS',scope:'HOST_CHECK_ONLY_NOT_SERVER_ENFORCEMENT',events:(b.events||[]).length};
+ return {state:warnings.length?'UNVERIFIED':'PASS',warnings,scope:'HOST_CHECK_ONLY_NOT_SERVER_ENFORCEMENT',events:(b.events||[]).length};
 }
 function reviewConsensus(g){
  if(!g)return false;
@@ -83,9 +92,9 @@ const adapter=process.argv[3];if(adapter)vm.runInThisContext(fs.readFileSync(ada
 function auditRecordedCycle(A,data){const normalized={...data,work_schedule:{...data.work_schedule,records:data.work_schedule.records.map(w=>{const b=w.detail_tracking;if(!b?.cycle)return w;return {...w,detail_tracking:{...b,events:(b.events||[]).map(e=>{if(!('duration_ms' in e)){assert.equal(e.timing_basis,'RECORDING_ONLY','MISSING_MEASURED_DURATION');return {...e,duration_ms:0};}return e;})}};})}};return A.cycleAudit(normalized);}
 if(adapter&&globalThis.TQT_WORK_MASTER.cycleAudit){const v=auditRecordedCycle(globalThis.TQT_WORK_MASTER,r);assert.equal(v.state,'PASS',JSON.stringify(v));if(process.argv.includes('--cycle-only')){console.log(JSON.stringify(v));process.exit(0);}}
 function auditCycleProducts(c){for(const [k,p] of Object.entries(c.products||{})){assert.equal(p.cycle_id,c.run_id,'PRODUCT_CYCLE');assert.equal(require('crypto').createHash('sha256').update(JSON.stringify(p)).digest('hex'),c.product_hashes[k],'PRODUCT_HASH');if(k==='P01')assert.equal(p.read_receipt.answered,50,'P01_ANSWERS');if(['P02','P03'].includes(k)){assert.equal(p.reused_content.mots.length,3,'DESIGN_MOTS');for(const m of p.reused_content.mots)for(const key of ['fields','controls','branches'])assert(Array.isArray(m[key])&&m[key].length,'DESIGN_CONTENT');}}}
-for(const w of r.work_schedule.records){const c=w.detail_tracking?.cycle;if(c){auditCycleProducts(c);const bad=JSON.parse(JSON.stringify(c));bad.products.P02.reused_content.mots[0].fields=[];bad.product_hashes.P02=require('crypto').createHash('sha256').update(JSON.stringify(bad.products.P02)).digest('hex');assert.throws(()=>auditCycleProducts(bad),/DESIGN_CONTENT/);console.log('P46: actual rebuilt products read and verified; missing-fields negative case rejected (TEST)');}}
+for(const w of r.work_schedule.records){const c=w.detail_tracking?.cycle;if(c?.products?.P02?.reused_content){auditCycleProducts(c);const bad=JSON.parse(JSON.stringify(c));bad.products.P02.reused_content.mots[0].fields=[];bad.product_hashes.P02=require('crypto').createHash('sha256').update(JSON.stringify(bad.products.P02)).digest('hex');assert.throws(()=>auditCycleProducts(bad),/DESIGN_CONTENT/);console.log('P46: actual rebuilt products read and verified; missing-fields negative case rejected (TEST)');}}
 
-for(const w of r.work_schedule.records){const b=w.detail_tracking;if(!b?.cycle)continue;const def=[r.detailed_workflow,...(r.detailed_workflow_history||[])].find(d=>d.version===b.process_version&&d.source_sha256===b.definition_sha256);assert(def,'HISTORICAL_DEFINITION');validateDossier(b,def);const bad=JSON.parse(JSON.stringify(b));bad.events[0].actual_action='tampered';assert.throws(()=>validateDossier(bad,def),/HISTORY_PREFIX_CHANGED/);if(adapter){const model=globalThis.TQT_WORK_MASTER.detailModel(r,w),rows=model.groups.flatMap(g=>g.rows);assert(rows.find(x=>x.definition[0]==='CP05.04').actual.elapsed.includes('348'));assert(rows.find(x=>x.definition[0]==='CP05.10').actual.tools.includes('TQT-CHECK-006'));assert.equal(rows.find(x=>x.definition[0]==='CP03.05').actual.confirmation,'Bị chặn');assert(!rows.find(x=>x.definition[0]==='CP02.05').actual.evidence.includes('[{'));}}
+for(const w of r.work_schedule.records){const b=w.detail_tracking;if(!b?.cycle)continue;const def=[r.detailed_workflow,...(r.detailed_workflow_history||[])].find(d=>d.version===b.process_version&&d.source_sha256===b.definition_sha256);assert(def,'HISTORICAL_DEFINITION');console.log(JSON.stringify({application_id:b.application_id,...validateDossier(b,def)}));if(!b.cycle.history_correction_proof)continue;const bad=JSON.parse(JSON.stringify(b));bad.events[0].actual_action='tampered';assert.throws(()=>validateDossier(bad,def),/HISTORY_PREFIX_CHANGED/);if(adapter){const model=globalThis.TQT_WORK_MASTER.detailModel(r,w),rows=model.groups.flatMap(g=>g.rows);assert(rows.find(x=>x.definition[0]==='CP05.04').actual.elapsed.includes('348'));assert(rows.find(x=>x.definition[0]==='CP05.10').actual.tools.includes('TQT-CHECK-006'));assert.equal(rows.find(x=>x.definition[0]==='CP03.05').actual.confirmation,'Bị chặn');assert(!rows.find(x=>x.definition[0]==='CP02.05').actual.evidence.includes('[{'));}}
 // New application, not a P46 clone: each rule has a positive control and mutation.
 {
  const d=JSON.parse(JSON.stringify(r.detailed_workflow)),id='TEST-P51-NEW',now='2026-10-13T00:00:00Z';
@@ -102,14 +111,36 @@ for(const w of r.work_schedule.records){const b=w.detail_tracking;if(!b?.cycle)c
  reject(x=>x.events[0].items={expected_ids:['a','b'],checked_ids:['a'],count:1,evidence_ref:'TEST',source_version:'1'},'ITEM_COVERAGE');
  reject(x=>Object.assign(x.events[0],{step_id:'CP02.02',item_key:'G1'}),'REPEAT_MANIFEST');
  reject(x=>x.events[0].correction_of='missing','CORRECTION_BINDING');
- reject(x=>x.cycle.milestones=[{checkpoint:'CP01',start_receipt:{commit:'a'.repeat(40),event_id:'s',server_committed_at:now}}],'SERVER_RECEIPT');
+
  reject(x=>x.cycle.write_authorization={mode:'HOST_CHECK'},'HOST_CHECK_CHAIN');
- const timed=JSON.parse(JSON.stringify(b)),receipt={commit:'a'.repeat(40),event_id:'start',application_id:id,checkpoint:'CP01',kind:'STARTED',server_committed_at:now,path:'TEST/path',readback_sha256:'TEST-hash'};timed.cycle.milestones=[{checkpoint:'CP01',start_receipt:receipt}];validateDossier(timed,d,{server_receipts:[receipt]});cases++;
+
  const issue={state:'CLOSED',owner:'A',return_to:'CP02.13',result_ref:'TEST',origin_readback_ref:'TEST',fixed_by:'A',verified_by:'B'};auditIssue(issue);assert.throws(()=>auditIssue({...issue,verified_by:'A'}));assert.throws(()=>auditIssue({...issue,state:'SUPERSEDED',replacement_ref:'new'}));cases+=3;
  const gate={binding:'TEST-binding',scope:'TEST',reviews:['OpenAI','Anthropic'].map(v=>({vendor:v,decision:'APPROVE',binding:'TEST-binding',scope:'TEST',reviewer:v,evidence_ref:'TEST',reviewed_at:now}))};assert(reviewConsensus(gate));gate.reviews[1].binding='old';assert(!reviewConsensus(gate));gate.reviews=[];assert(!reviewConsensus(gate));cases+=3;
  console.log(JSON.stringify({p51_general_rules:cases,scope:'NEW_APPLICATION_TEST_NOT_REAL_WORK',state:'PASS'}));
 }
 
+// P52 retained regression cases: actual temporary Git commits, no VPS/PG writes.
+{
+ const os=require('os'),p=require('path'),tmp=fs.mkdtempSync(p.join(os.tmpdir(),'tqt-receipt-'));
+ try{
+  const d=r.detailed_workflow,id='TEST-P52-NEW',date='2026-10-13T00:00:00Z',script=__filename;
+  const b={application_id:id,target_version:'TEST-v1',process_version:d.version,definition_sha256:d.source_sha256,events:[],cycle:{milestone_events:[{event_id:'E1',application_id:id,checkpoint:'CP01',kind:'STARTED'}]}};
+  const raw='<script id="tqt-composite-processes">'+JSON.stringify({catalog:{detailed_workflow:d,work_schedule:{records:[{detail_tracking:b}]}}})+'</script>',file=p.join(tmp,'view.html'),input=p.join(tmp,'input.json');fs.writeFileSync(file,raw);
+  const git=a=>cp.execFileSync('git',['-C',tmp,...a],{encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim();git(['init']);git(['config','user.name','TEST']);git(['config','user.email','test@example.invalid']);git(['add','view.html']);git(['commit','-m','TEST milestone']);const commit=git(['rev-parse','HEAD']);
+  const receipt=gitReceipt(tmp,commit,'view.html','E1');b.cycle.milestones=[{checkpoint:'CP01',start_receipt:receipt}];
+  function run(dossier,view=file,extra={}){fs.writeFileSync(input,JSON.stringify({dossier,...extra}));return cp.spawnSync(process.execPath,[script,view,'--validate-dossier',input],{encoding:'utf8'});}
+  assert.equal(run(b).status,0,'REAL_GIT_RECEIPT');const fake=JSON.parse(JSON.stringify(b));fake.cycle.milestones[0].start_receipt.commit='a'.repeat(40);assert.notEqual(run(fake).status,0,'FORGED_COMMIT');
+  const wrong=JSON.parse(JSON.stringify(b));wrong.cycle.milestones[0].start_receipt.server_committed_at=date;assert.notEqual(run(wrong).status,0,'WRONG_TIME');
+  const offline=p.join(tmp,'offline');fs.mkdirSync(offline);fs.writeFileSync(p.join(offline,'view.html'),raw);const unverified=run(fake,p.join(offline,'view.html'),{server_receipts:[fake.cycle.milestones[0].start_receipt]});assert.equal(unverified.status,0,unverified.stderr);assert.equal(JSON.parse(unverified.stdout).state,'UNVERIFIED');assert.notEqual(run(fake,p.join(offline,'view.html'),{require_complete:true}).status,0);
+  const review={event_id:'R',revision:1,at:date,actor:'TEST',application_id:id,target_version:'TEST-v1',process_version:d.version,definition_sha256:d.source_sha256,step_id:'CP03.05',item_key:'contract',performed:'DONE',actual_action:'TEST',evidence_ref:'TEST',review:{subject_actor:'Codex Host',reviewer:'Codex Reviewer',subject_vendor:'OpenAI',reviewer_vendor:'OpenAI',evidence_ref:'TEST',target_version:'TEST-v1'}};
+  const reviewed={...b,events:[review]};assert.notEqual(run(reviewed).status,0,'SAME_VENDOR');review.review.reviewer_vendor='Anthropic';review.review.reviewer='Claude';assert.equal(run(reviewed).status,0,'CROSS_VENDOR');delete review.review.subject_vendor;assert.notEqual(run(reviewed).status,0,'MISSING_VENDOR');
+  console.log('P52: 8 Git receipt/offline/forgery/vendor regression cases PASS; TEST only');
+ }finally{fs.rmSync(tmp,{recursive:true,force:true});}
+}
+
+
+// Canonical Field inventory: every designed use represented exactly once, no invented PG proof.
+{const f=r.field_registry;assert.equal(f.master_id,'ML-DEF-008');assert.equal(new Set(f.records.map(x=>x.id)).size,f.records.length);const expected=r.work_master_designs.records.flatMap(m=>m.fields.map(x=>m.code+'.'+x.key+(x.required?' (bắt buộc)':''))),actual=f.records.flatMap(x=>x.usage_refs).filter(x=>expected.includes(x));assert.deepEqual(actual.slice().sort(),expected.slice().sort());assert.equal(f.usage_count,expected.length);assert.equal(f.records.length,f.reused_definition_count+f.new_contract_fields+f.new_registry_fields);for(const x of f.records)if(['Đã tạo trong PG','Đã kiểm PG'].includes(x.pg_state))assert(x.pg_target&&x.pg_evidence_ref,'FIELD_PG_EVIDENCE');console.log('P52: Field inventory coverage/identity/count/PG evidence PASS');}
 // Existing regression fixtures describe the historical G1 baseline. Validate the live cycle above, then isolate those fixtures from the new run.
 const liveCycleBindings=r.work_schedule.records.map(w=>w.detail_tracking);for(const w of r.work_schedule.records){if(w.detail_tracking?.cycle)w.detail_tracking={...w.detail_tracking,cycle:undefined,events:[],mode:'REFERENCE_ONLY',process_version:r.detailed_workflow.version,definition_sha256:r.detailed_workflow.source_sha256};}
 
