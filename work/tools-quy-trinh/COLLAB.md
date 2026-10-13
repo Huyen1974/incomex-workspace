@@ -8,7 +8,7 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 15:04 +07 · Codex · P45
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 15:23 +07 · Codex · P46
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
@@ -17,10 +17,10 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
 - ✅ Đã xong P38: hồ sơ100MB→12.9MB, không mất lịch sử; tích xanh; bộ tổng1GiB đạt. Giữ G1 đã duyệt7/7, ngoài PG.
-- ■ Đang làm: — · 0 RUN active · P45 DỪNG sạch tại CP01.04; không giữ lease.
+- ■ Đang làm: P46 · thực hiện lại MOW001 G1 và đo thời gian từng bước006; không giữ lease giữa các lượt ghi.
 - ✅ P40: QTTH006 v0.3 có87bước/7mốc, đăng ký Master và ghép cùng hồ sơ; 11mục +7nhóm thu/mở đã kiểm thật; CHECK006 native PASS. Chưa thực hiện thật theo006.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002.
-- ➡ Kế tiếp: Host chuẩn bị hợp đồng/cửa ghi cho hồ sơ làm lại và sự kiện006; F03 tại CAT069. NEXT_TRIGGER=NEW_CYCLE_WRITE_CONTRACT_VERIFIED; review mã theo đường P41 hiện hữu, không dùng G1 hoặc TEST thay quyền vòng mới.
+- ➡ Kế tiếp: Codex thực hiện MOW001G1, ghi thời điểm/thời lượng cùng kết quả và công cụ vào87bước; trình sản phẩm thật khi tới cửa duyệt; không tự ký thay Owner.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -40,6 +40,10 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 (Hai dòng đầu Owner duyệt 08/10/2026 · D04. Dòng cuối là lời Owner 10/10/2026 · D24/D25.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+**Owner P46 · 13/10:** thêm cột thời gian hoàn thành87bước; thực hiện thật từ đầu đến cuối001 (hoặc002), điền hồ sơ, đo toàn việc/từng việc, sửa lỗiDOT; ngoàiPG, khôngTESTthay thật. Phạm vi lượt này: làm lại MOW001G1 với bước006, giữ lịch sửG1.
+STARTED@TQT-P46-REAL 2026-10-13T08:23:27.929489+00:00 · executor=Codex Host · bắt đầu đo toàn lượt từ2026-10-13T08:18:56Z; lịch sửG1 giữ riêng.
+
 
 **Owner P45 · 13/10:** “Bây giờ bạn thử đóng vai AI mới, làm theo QTTH 06 từng bước cho một việc thật (làm lại chính quy trình 001) để xem còn tắc ở đâu thì sửa và ghi vào Master liên quan. Vẫn ngoài PG, không lấy TEST thay việc thật, làm đến đâu dọn gọn đến đó nhé.”
 STARTED@TQT-P45-REAL 2026-10-13T08:01:26.200656+00:00 · executor=Codex Host · đi từ cửa đọc luật; không giả reviewer độc lập.
