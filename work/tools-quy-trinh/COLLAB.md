@@ -13,7 +13,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã xong: G1 MOW001 Owner nhận 7/7, ngoài PG (P37) · hồ sơ 100 MB → 12,9 MB, giữ lịch sử (P38) · QTTH006 v0.7 · 87 bước/7 mốc; bản0.5/0.6 giữ lịch sử; P52 kiểm đạt, chưa nghiệm thu AI mới · kiểm kê 305 DOT/34 Tool, 47 Master (P30–P33) · P46 chẩn đoán chưa nghiệm thu; đã được Claude rà bản sửaP50; P51 Claude REJECT đã giữ lịch sử; P52 có ba phiếu bộ sửa/nợ/Field chờ Claude. Dòng gốc: Vòng trước › Dọn 13/10.
-- ■ Đang làm: — · 0 RUN active · P52 đã sửa/kiểm/đọc lại; GPT ký ba phạm vi, Claude chưa ký bản mới. Chưa nghiệm thu P46, chưa chạy QT002.
+- ■ Đang làm: TQT-P53-COMPACT · Codex Host công bố bản đã kiểm local; không chạyQT002. ClaudeP52 OK bộ sửa, yêu cầu sửa nợ/Field; chữ ký bảnP53 chưa có.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002. · Cấu trúc dữ liệu cho 1.000 việc + luật 1 trang (R26–R27, PR-22): Owner gật → PT-01 có số đo.
 - ➡ Kế tiếp: Owner chuyển đề bài P52 cho Claude; Claude rà delta và ba phạm vi mới, tự ký CAT-025. NEXT_TRIGGER=CLAUDE_P52_REVIEW_RECORDED; Codex đối chiếu, cả hai OK mới trình Owner. Không giữ RUN/lease chờ.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
@@ -26,6 +26,13 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 3. Yêu cầu phải trình bày cực kỳ đơn giản: Con người nhìn cái hiểu ngay.
 
 (Owner viết 10/10/2026 07:38 · D25 · chỉ sửa lỗi gõ. AI không sửa chữ ô này. Mọi chi tiết ở ô 3.)
+
+**Owner bổ sung 13/10/2026 · P53 (nguyên văn):**
+> Claude chưa ký. Ngoài ra thì claude có vẻ đồng thuận với bạn về rút gọn 87 bước hiện tại. Nếu bạn thấy rút gọn đã đồng thuận thì sửa luôn cả phần QTTH 006 và hồ sơ.
+> 
+> Những điểm nào bạn thấy claude vô lý cứ phản bác thẳng thừng. tôi khuyên kích các bạn bảo vê quan điểm nếu thấy đúng.
+> 
+> Bạn tiếp tục hiệu chỉnh nhé. Chúng ta cần tối ưu quy trình (còn nhiều việc) trước khi thấy ổn và làm thử 002
 
 ### 2. Thế nào là hoàn thành
 Một quy trình đạt = người mới hoặc phiên AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
@@ -1231,3 +1238,6 @@ KQ@TQT-P51-001-CORRECTIONS DỪNG · 2026-10-13T13:46:27.373731+00:00 · Phần 
 - Handoff Claude (Owner chuyển tay): đọc AGENTS/Bảng/README → P49 VÒNG3 → P52 → MOW-TH-006 §9. Rà delta D1/D2 bằng5phép V3.2 (8 ca đã tích hợp CHECK005) + kiểm mặc định với commit thật; xem hồ sơ001 và Master Field stt8; rà ba yêu cầu mới Owner. Không sửa nguồn chính. Nối VÒNG4 vào P49; tự ghi APPROVE/REJECT đúng binding/scope vào từng phiếu TQT-P52-CORRECTIONS, TQT-P52-DEBTS, TQT-P52-FIELDS. Ký nợ là đồng ý danh sách/phạm vi, không ghi nợ đã sửa. Nếu thiếu field/runtime còn chặn thì nêu rõ không ký hoàn tấtQT001; không ký thay Owner. Chưa chạyQT002, chưaPG/config. Khép lượt ngay, không giữ khóa chờ.
 - Đọc lại nguồn/UI: commit `9a45e548e781bb37bd09b1e42eb36ba15c3f9ba0`, pushed; UI tx `d9dc0e745aec46c881af7a5124dc8da4`. 8 hash khớp; G1 và143events không đổi. Trình duyệt VPS đọc hồ sơ001 thấy3phiếu/GPT OK/Claude trống, MasterField thấy10cột động và dấu? ở từngcột, hai hãng cuối. Lỗi fontGoogle CSP có sẵn, không nớiCSP. Một lượt UI song song bịkhóa_screenshot; đã chạy tuần tự đạt, không giữlock.
 KQ@TQT-P52-FIX XONG · 2026-10-13T14:37:48.880544+00:00 · phạm vi sửa D1/D2 + luật nghiệm thu/nợ/Field và công bố; không phải XONG QT001/P46. Dọn:0tệp tạm trênVPS,0process nền doP52,0gitlock tại lần đọc lại; giao dịch đãcommit/push. NhảVPS-GHI cùngcommit; STARTED giữnguyên. Claude/Owner quyết ở lượt sau, không có RUN chờ.
+
+## P53 · Rút gọn006, hồ sơ và nợ/Field sau Claude VÒNG5
+STARTED@TQT-P53-COMPACT 2026-10-13T15:29:22.823712+00:00 · Executor=Codex Host · Write_Path=workspace_transaction CAS · chỉ publish bản sửa và đọc lại; local đã chuẩn bị, không chạy002/PG.
