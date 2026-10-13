@@ -4,6 +4,49 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## HEAL02-20261013 · Phần 1 RUN VPSC-HEAL02-L0-20261013-01 · van A1 transactions + đồ thử Graph Q2 · executor Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · PHẦN 1 DỪNG · đĩa chưa tới đích
+
+**PROMPT `b8ee714e` (READY P86 + Reviewer ACCEPT P87) · STARTED + VPS-GHI `9931638` 11:00Z · thi hành 11:00–11:22Z · bằng chứng VPS `/opt/incomex/work/vps-clean-20-9-26/VPSC-HEAL02-L0-20261013-01/{pre,a1,g,post,rollback,bin}`.** Quyền dùng: Owner §0A Q1 (A1) + Q2 phần D03 D04 D15.
+
+### 1. Cho Owner
+- **Đã làm:** cài van tự động hằng ngày cho bản chụp trước-sửa của giao dịch (luật (p) trong `vps-retention.sh`): bản nào đã có nguyên văn trong Git quá 48 giờ thì xoá; lượt đầu xoá 2.510 tệp, thu 468 MB. Gỡ image thử pgvector (−652 MB, kéo lại được bằng digest). #11 từ 2 lý do còn 1.
+- **Không gỡ:** image cognee (~3,5 GB) — không phải đồ thử: Graph production (`/opt/incomex/graph-server/prod-v1/compose.yaml`, service `cognee-builder`) còn dùng đúng image này; 5 volume log Neo4j ẩn danh (~0,5 MB) — không chứng minh được tên/nhãn lượt thử như Graph P145 đòi. Cả hai chuyển việc graph-server.
+- **Đĩa:** trống 36,26 → 37,25 GiB; đích 39,45 GiB **chưa đạt** ⇒ #11 còn đỏ một lý do SLOPE7D −4,48 GiB. Không xoá thêm ngoài danh sách. Với mức trống hiện tại, SLOPE7D tự hết khi mốc 7 ngày trôi qua ~14/10 12–14Z (mốc 07/10 hạ từ 40,4 xuống 39,6 GiB) nếu trống giữ ≥ ~36,6 GiB.
+
+### 2. Năm điều XONG (đo thật)
+| # | Điều | Số đo | Kết quả |
+|---|---|---|---|
+| 1 | Kuma #11 xanh do storage-watch tính lại | storage-watch 11:15Z: lý do 2 → **1** (`SLOPE7D -4.48GiB`); Kuma 11:20:03Z nhận đúng lý do mới; `DEBT_OVERDUE transactions` hết | CHƯA ĐẠT |
+| 2 | Trống ≥ 39,45 GiB (ngưỡng storage-watch tại S0 38,72 GiB, thấp hơn) | 36,26 → **37,25 GiB** (+0,99) | CHƯA ĐẠT |
+| 3 | Van A1 có receipt lượt thật, transactions → ROTATING | (p) thử 1.011 giao dịch/2.510 tệp/441 MiB · thật xoá 2.510/2.510, 468.434.944 B · sổ ROTATING `cap=3220066304` | ĐẠT |
+| 4 | Guard POST `--coverage` | footprint đúng 2 tệp, coverage **PASS** đủ 4 ô, change_event PASS; FAIL hình thức: INV5_6 + INV20 (#22 có sẵn) và `same_or_better` vì câu báo Kuma luân phiên «No heartbeat in the time window» lúc 11:16:55Z của #11 (khe đẩy 10 phút) + #21 (có sẵn) | ĐẠT phần RUN · Guard tổng FAIL |
+| 5 | Dịch vụ + dữ liệu | 13 container như PRE (11 healthy + nginx, cowork-runner không có healthcheck); PG sẵn sàng; Graph 3.596 node/6.823 cạnh (= PRE); Neo4j production không đụng; 22 đèn 19/22, đỏ {#11,#21,#22} = PRE | ĐẠT |
+
+### 3. Trước / sau
+| Nguồn | Trước | Sau | Cách |
+|---|---:|---:|---|
+| `workspace-tools/transactions` | 2.291.519.488 B | 1.823.084.544 B | (p) Q1: tệp số root workspace committed/rolled_back >48h, sha256 tệp = `before` manifest = `git show <base>:<path>`, base là tổ tiên `origin/main` clone github-workspace (đã push) ⇒ xoá đúng tệp; giữ manifest.json, operator-preserved-after.json, 131 giao dịch <48h, 156 giao dịch root ui |
+| Image D04 pgvector | 1 ID (15 lớp riêng) | 0 | 4 điều kiện đạt; `docker image rm <ID>` thường; df +651.563.008 B |
+| Image D03 cognee | giữ | giữ | (ii) trượt: prod-v1 compose `cognee-builder` dùng đúng digest |
+| 5 volume D15 | giữ | giữ | ẩn danh, không có nhãn lượt thử; ~0,5 MB |
+
+### 4. Thay đổi đã cài (qua `incomex-config-apply-v0`, bản lùi `rollback/*.orig`)
+| Tệp | Trước → sau | Nội dung |
+|---|---|---|
+| `scripts/vps-retention.sh` | `978343d4…` → `fc854451…` | thêm `luat_p_py` (p) + `--chi-p`, `--chi-p-thu`; (p) chạy trong `luat_mno` lượt 22Z hằng ngày, biên nhận thêm khoá `p` trong `/var/lib/incomex/vps-retention-mno.json`; hồi quy (l) thử bản mới = bản cũ |
+| `scripts/storage-registry.tsv` | `c09e37ff…` → `cd743dd8…` | transactions CONTROL_DEBT → ROTATING `valve:file=…vps-retention.sh~^luat_p_py\(\) \{;cron=vps-retention\.sh;cap=3220066304` (= 2d × 1.238.487.040 B/24h đo 11:08Z × 1,3); sau dọn 1,82 GB < trần |
+
+### 5. Sự thật cần biết
+- **Đường đọc sau dọn (đo thật qua MCP):** `workspace_diff(from_version)` với bản đã dọn trả lỗi sạch `VERSION_NOT_RETAINED`; `workspace_diff(from_ref, to_ref)` cùng tệp chạy bình thường. Mã agent-data đang chạy là image `tqt-p38-20261012` (nhánh này ở `workspace_tools.py` 1663–1688).
+- **Đường PROMPT §3 G (ii) sai một chỗ:** `/opt/incomex/work/graph-server/prod-v1` không tồn tại; thư mục Graph thật là `/opt/incomex/graph-server/prod-v1` — chính chỗ đó lộ cognee còn dùng. Lần sau dùng đường thật.
+- **Kuma #11 «No heartbeat in the time window»** xuất hiện xen giữa hai lượt đẩy 10 phút (11:13Z) — trùng lúc Guard POST đọc ⇒ `same_or_better` so chữ báo FAIL; không chạy lại để canh câu.
+- **Giữ có chủ đích:** thư mục bằng chứng, 2 thư mục ứng viên `/root/incomex-config-changes/VPSC-HEAL02-20261013-A1-*` (vết kiểm toán). Dọn: không tạo tệp tạm/tiến trình nền trên VPS ngoài bằng chứng.
+
+### 6. Kế tiếp
+`NEXT_TRIGGER=STORAGE_WATCH_SLOPE7D_MOC_7D_QUA_20261007T14Z` — watcher hiện có tự tính lại mỗi giờ; ~14/10 14Z nếu trống ≥ ~36,6 GiB thì #11 tự xanh, nếu vẫn đỏ Host VPSC đọc storage-watch và quyết. `→ việc graph-server`: xác nhận cognee là image production (không dọn) và 5 volume log ẩn danh là đồ thử hay không.
+
+---
+
 ## HEAL-20261013 · Chặn nguồn phình đĩa + dọn + nâng trần RAM · RUN VPSC-HEAL-DISK-MEM-20261013-01 · executor Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ DỪNG · A1 transactions
 
 **PROMPT `f3fbbd7c` (READY P82) · STARTED `c3aece5` 08:30Z · thi hành 08:30–09:35Z · bằng chứng VPS `/opt/incomex/work/vps-clean-20-9-26/VPSC-HEAL-DISK-MEM-20261013-01/{pre,a,b,c,d,e,post,rollback,bin}`.** Owner cho áp toàn bộ trong phạm vi Q1–Q5 (auto-mode Claude Code chặn lệnh ghi production nên hỏi một câu, Owner chọn «Cho áp toàn bộ»).
