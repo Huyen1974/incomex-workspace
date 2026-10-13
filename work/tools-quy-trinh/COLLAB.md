@@ -17,7 +17,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
 - ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
 - ✅ Đã xong P38: hồ sơ100MB→12.9MB, không mất lịch sử; tích xanh; bộ tổng1GiB đạt. Giữ G1 đã duyệt7/7, ngoài PG.
-- ■ Đang làm: — · 0 RUN active · P40 đã khép phạm vi rà thiết kế + UI QTTH006; G1 giữ 7/7.
+- ■ Đang làm: P42 · Codex chỉnh luật/hiển thị hồ sơ, chỉ filesTQT+2UI; độc lập Claude review/runtime, không giữ shared lease.
 - ✅ P40: QTTH006 v0.3 có87bước/7mốc, đăng ký Master và ghép cùng hồ sơ; 11mục +7nhóm thu/mở đã kiểm thật; CHECK006 native PASS. Chưa thực hiện thật theo006.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002.
 - ➡ Kế tiếp: Owner chuyển lệnh Claude Code REVIEW-ONLY tại P41. NEXT_TRIGGER=CLAUDE_P41_ACCEPT_EXACT_BYTES; Owner đã duyệt có điều kiện giữ bản chạy và đăng ký đúng3tệp bằng apply-v0, không đổi byte/restart/rollback. Chưa ACCEPT: 0 RUN active, không giữ khóa. QTTH006 thực hiện thật theo hướng dẫn sau.
@@ -40,6 +40,10 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 (Hai dòng đầu Owner duyệt 08/10/2026 · D04. Dòng cuối là lời Owner 10/10/2026 · D24/D25.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+**Owner13/10 · P42:** Overview là nơi chứa luật7mốc/11mục/87bước, thu gọn; hồ sơ ghi thực tế, không điền sẵn tool/kết quả, có xác nhận đã làm/không làm. AI làm xong dọn phần mình, trả server ngay. Claude dọn server song song; kiểm commit mới trước ghi, xung đột thì dừng và đọc lại.
+
+STARTED@TQT-P42-UI 2026-10-13T04:35:18.222361+00:00 · executor=Codex Host · chỉ nội dung và2UI modules; không runtime/Guard/PG, không giữ lease trong lúc soạn local.
 
 **Owner 13/10/2026 · QTTH06:** “Nếu cần thừa thiếu gộp tách các bước này thì bạn có thể quyết định xử lý luôn.”; “hồ sơ của quy trình 05 và hồ sơ của quy trình 06 là cùng một trang luôn”. Phạm vi P40: rà theo thứ tự, hiệu chỉnh định nghĩa và ghép khối thu/mở vào hồ sơ; ngoài PG, không mở lại G1 hay tự duyệt production PROOT03. URL Owner: process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001 → /opt/incomex/docs/mcp-writes/process-work-master-v1.js; nguồn chung view.html và MOW-TH-006.md, bản chiếu qtth006-overview-v1.js.
 
