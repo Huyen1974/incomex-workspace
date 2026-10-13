@@ -8,19 +8,14 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 15:23 +07 · Codex · P46
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 16:35 +07 · Claude · P48
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
-- ✅ Đã làm P29: dùng lại CAT-206*, khai hợp đồng áp dụng 3 MOT/5 giao bước và ca nghiệm thu; siết ghim phiên/nội dung xuyên kiểm–duyệt–ACK, sửa lỗi thiếu dòng kiểm, thêm kiểm trước–sau vào DOT hiện hữu. P30 sửa trùng DOT còn 47 Master, giữ ⑤/7 mốc; ca thật chưa qua mốc nào.
-- ✅ Đã làm P31: bịt lỗi hợp đồng/gói giao P01, thêm schema và kiểm tập bắt buộc, lịch sử toàn bằng chứng; thử ghi–đọc hai tiến trình TEST. Chưa có quyền endpoint/người kiểm độc lập thật, MOW001 0/7.
-- ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
-- ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
-- ✅ Đã xong P38: hồ sơ100MB→12.9MB, không mất lịch sử; tích xanh; bộ tổng1GiB đạt. Giữ G1 đã duyệt7/7, ngoài PG.
+- ✅ Đã xong: G1 MOW001 Owner nhận 7/7, ngoài PG (P37) · hồ sơ 100 MB → 12,9 MB, giữ lịch sử (P38) · QTTH006 v0.3 87 bước/7 mốc đã đăng ký, CHECK006 đạt, chưa chạy thật (P40) · kiểm kê 305 DOT/34 Tool, 47 Master (P30–P33) · lượt thật theo 006: 48 hành động ghi nhận, 10 không thực hiện, 29 bị chặn, chưa nghiệm thu (P46). Dòng gốc: Vòng trước › Dọn 13/10.
 - ■ Đang làm: — · P47 đã đưa hồ sơ P46 về DEF00.1/TQT-VIEC-001; không giữ RUN/lease.
-- ✅ P40: QTTH006 v0.3 có87bước/7mốc, đăng ký Master và ghép cùng hồ sơ; 11mục +7nhóm thu/mở đã kiểm thật; CHECK006 native PASS. Chưa thực hiện thật theo006.
-- ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002.
-- ➡ Kế tiếp: đọc hồ sơ001 làm nguồn duy nhất; xử lý nguồn Field/evaluator còn thiếu và quyền/gate006 theo đúng scope. Không nhận48hànhđộng hoặc7/7G1cũ thành nghiệmthuP46.
+- ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002. · Cấu trúc dữ liệu cho 1.000 việc + luật 1 trang (R26–R27, PR-22): Owner gật → PT-01 có số đo.
+- ➡ Kế tiếp: đọc hồ sơ001 làm nguồn duy nhất; xử lý nguồn Field/evaluator còn thiếu và quyền/gate006 theo đúng scope. Không nhận48hànhđộng hoặc7/7G1cũ thành nghiệmthuP46. · 😊 Owner: gật/lắc PR-22 (Q03).
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -41,63 +36,7 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
-**Owner P46 · 13/10:** thêm cột thời gian hoàn thành87bước; thực hiện thật từ đầu đến cuối001 (hoặc002), điền hồ sơ, đo toàn việc/từng việc, sửa lỗiDOT; ngoàiPG, khôngTESTthay thật. Phạm vi lượt này: làm lại MOW001G1 với bước006, giữ lịch sửG1.
-STARTED@TQT-P46-REAL 2026-10-13T08:23:27.929489+00:00 · executor=Codex Host · bắt đầu đo toàn lượt từ2026-10-13T08:18:56Z; lịch sửG1 giữ riêng.
-KQ@TQT-P46-REAL DỪNG · 2026-10-13T08:51:21.360488+00:00 · VPS_BẬN · executor=Codex Host · UI cột thời gian đã ghi tx=d115410e8c6c41b1995003fd6632ac67; hồ sơ/checker mới chỉ local. Đã đo tìm thường/nâng cao: thiếu nguồn/evaluator; hủy→caller nhận phiên3. Fullsuite local PASS92,052s; không nghiệm thu87/87. Dọn:0/0 tiến trình nền,0/0 lease riêng,0 tệp tạm tạo trênVPS; kiểm08:47:48Z khôngcóprocessP46/index.lock/HEAD.lock. Giữ STARTED; không nhả cờ VPS-GHI củaVPSC. Tổng đo hồ sơ đến08:49:24Z:30,48phút; thời gian đóng báo cáo ghi riêng. Áp:SAME_COMMIT.
-
-
-**Owner P45 · 13/10:** “Bây giờ bạn thử đóng vai AI mới, làm theo QTTH 06 từng bước cho một việc thật (làm lại chính quy trình 001) để xem còn tắc ở đâu thì sửa và ghi vào Master liên quan. Vẫn ngoài PG, không lấy TEST thay việc thật, làm đến đâu dọn gọn đến đó nhé.”
-STARTED@TQT-P45-REAL 2026-10-13T08:01:26.200656+00:00 · executor=Codex Host · đi từ cửa đọc luật; không giả reviewer độc lập.
-
-KQ@TQT-P45-REAL DỪNG · 2026-10-13T08:04:34.247398+00:00 · executor=Codex Host · CP01.01–03 đã đọc/đối chiếu; CP01.04 chưa có cửa ghi vòng mới được xác minh. Sửa F01/F02 bằng CHECK005, F03 còn mở; không PG/runtime; trả busy. Áp:SAME_COMMIT.
-
-
-**Owner P44 · 13/10:** Chuẩn là "?" — thao tác ở đâu hướng dẫn đúng ở đó, không cần nhớ, không cần hỏi. Áp dụng đồng bộ phần 11 mục hồ sơ.
-STARTED@TQT-P44-HELP 2026-10-13T07:43:28.205280+00:00 · executor=Codex Host · UI/hướng dẫn; không PG/runtime.
-
-KQ@TQT-P44-HELP XONG · 2026-10-13T07:46:48.232086+00:00 · executor=Codex Host · 11 mục và 87 bước cùng cơ chế ?; CHECK005+browser đạt; không PG/runtime; trả busy, không giữ process/lease. Áp:SAME_COMMIT.
-
-
-**Owner P43:** hồ sơ điền ít nhất; ô chưa làm/chưa có/chưa đối chiếu để trống; hướng dẫn bằng ? tại cột và bước; bước bổ sung mã riêng, không đổi mã chuẩn.
-STARTED@TQT-P43-HELP 2026-10-13T07:25:34.359751+00:00 · executor=Codex Host · chỉ UI/hướng dẫn/kiểm, không runtime/PG.
-
-KQ@TQT-P43-HELP XONG · 2026-10-13T07:34:19.591238+00:00 · executor=Codex Host · Dấu hỏi tại cột/bước; ô thực tế trống; CHECK005 và browser đạt; không PG/runtime; không giữ process/lease. Áp:SAME_COMMIT.
-
-**Owner13/10 · P42:** Overview là nơi chứa luật7mốc/11mục/87bước, thu gọn; hồ sơ ghi thực tế, không điền sẵn tool/kết quả, có xác nhận đã làm/không làm. AI làm xong dọn phần mình, trả server ngay. Claude dọn server song song; kiểm commit mới trước ghi, xung đột thì dừng và đọc lại.
-
-STARTED@TQT-P42-UI 2026-10-13T04:35:18.222361+00:00 · executor=Codex Host · chỉ nội dung và2UI modules; không runtime/Guard/PG, không giữ lease trong lúc soạn local.
-
-KQ@TQT-P42-UI XONG · 2026-10-13T04:48:42.825024+00:00 · executor=Codex Host · Overview chuẩn7/11/87 và hồ sơ thực tế đã kiểm; CHECK005PASS,browserPASS,không PG/runtime. Đã kết thúc kiểm local và đóng caller giao dịch mất phản hồi sau khi journal xác nhận committed/pushed; không để RUN chờ. Áp:SAME_COMMIT.
-
-**Owner 13/10/2026 · QTTH06:** “Nếu cần thừa thiếu gộp tách các bước này thì bạn có thể quyết định xử lý luôn.”; “hồ sơ của quy trình 05 và hồ sơ của quy trình 06 là cùng một trang luôn”. Phạm vi P40: rà theo thứ tự, hiệu chỉnh định nghĩa và ghép khối thu/mở vào hồ sơ; ngoài PG, không mở lại G1 hay tự duyệt production PROOT03. URL Owner: process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001 → /opt/incomex/docs/mcp-writes/process-work-master-v1.js; nguồn chung view.html và MOW-TH-006.md, bản chiếu qtth006-overview-v1.js.
-
-STARTED@TQT-P40-QT006 2026-10-13T03:09:03.879435+00:00 · executor=Codex Host · rà QTTH006 và UI hồ sơ theo chỉ đạo trực tiếp; không runtime/Guard/baseline/PG.
-
-KQ@TQT-P40-QT006 XONG · 2026-10-13T03:45:15.353098+00:00 · executor=Codex Host · phạm vi rà định nghĩa + bản chiếu hồ sơ đọc-only đã kiểm. Native f6870e95c8014ed3bedd5a2fcaae80ab PASS, UI thu/mở thật; G1/sourcehash không đổi. QTTH006 chưa nghiệm thu chạy thật/biến thể, chưa gateway step receipts, không PG/runtime/Guard mutation. Nhả cờ P40, không giữ process/lease chờ chỉ đạo. Áp: SAME_COMMIT. Đối soát P41: KQ được gửi trực tiếp qua gateway để sổ lifecycle nhận cùng kết quả; không phát lại RUN.
-
-
-#### P38 · Hồ sơ nhẹ, giữ nguyên lịch sử
-
-Kho vật lý dùng `TQT-HISTORY-POOL-1` trong cùng tệp, không mở kho/Master khác. Mỗi khối lặp lưu một lần theo SHA256; CHECK004 kiểm hash và giải mã trước khi đối chiếu. Nội dung G1/18 sự kiện/20lần kiểm/7mốc không đổi. Đã ghi thật và đọc lại có chữ ký; bộ tổng native PASS trong1GiB, task budget đã trả. Biên nhận tại aggregate#host_review_P38.
-
-**Cho AI:** Tra Master DOT rồi dùng CHECK004 `--compact-history SOURCE` (dry-run); thêm `--execute --output CANDIDATE` chỉ tạo ứng viên mới. Kiểm `--check-history` và `--validate-transition BEFORE AFTER`; ghi qua upload/transaction có expected_version và cửa ghi hiện hành; đọc lại có chữ ký trước khi chốt. Khi cần bản JSON đầy đủ, dùng `--expand-history SOURCE --execute --output EXPANDED` ở vùng tạm; không nhân thành nguồn chuẩn. Sau sửa nghiệp vụ phải pack lại và vẫn tuân phiên/lịch sử cũ. Trước khi lùi runtime cũ phải expand qua cổng hiện hành, không tráo bộ đọc cũ vào dữ liệu mới. Bộ tổng kho nhẹ đã chạy trong1GiB; không tự tăng ngân sách. Dùng tác vụ bền vững cho thao tác dài; tệp vận chuyển nằm trong thư mục con riêng, không lẫn thư mục nhật ký phục hồi. Ghép đủ các trang JSON rồi mới giải mã một lần.
-
-**Cho người dùng:** ô xong có tích xanh, ô chưa xong màu xám; tự tổng hợp từ bằng chứng, không tích tay. Lịch sử vẫn là các sự kiện cũ trong Master lịch sử.
-
-
-**Owner 12/10/2026 · P38, nguyên văn:** “Bạn tiếp tục làm nhẹ hồ sơ mà không mất lịch sử,, các tich xong rồi nên dùng tich xanh để con người dễ nhận biết”. Phạm vi: định dạng lưu vật lý có khôi phục chính xác, nâng bộ đọc/cửa ghi hiện hữu; không đổi nội dung G1, lịch sử, quyết định/ACK hay PG. Nguồn UI: process-work-master-v1.html → process-work-master-v1.js; dữ liệu: tools-quy-trinh/view.html → application_preview từ MOW001. Bậc3: ghép JSON +SHA256 có sẵn trong engine, không thêm dịch vụ/kho ngoài; CHECK004 giữ pack/expand/verify dùng lại.
-
-**Owner 12/10/2026 · P36, nguyên văn:** “Bạn tiếp tục sửa điểm tắc ở mốc 3, nối bằng chứng quyền ghi–đọc từ máy chủ rồi đi tiếp MOW001 thật đến cuối nhé. Vẫn ngoài PG, không lấy TEST thay việc thật và cập nhật các Master liên quan.”
-
-STARTED@MOW001-P36-REAL 2026-10-12T07:34:36.793236+00:00 · executor=Codex Host · phạm vi kho tệp MOW001/G1; không PG. Dùng lại CHECK004/005/006 và bộ prepare/activate/probe đã đăng ký. Reviewer kỹ thuật đọc mã/bằng chứng, không ký hộ Anthropic; quyết định/ACK Owner cuối vẫn cần nguồn thật.
-
-KQ@MOW001-P36-REAL DỪNG · 2026-10-13T02:50:54.519143+00:00 · executor=Codex Host · kết thúc thực thi/nhả busy; G1 P37/P38 đã được Owner duyệt/nhận 7/7, không mở lại. DỪNG vì independent production code/image review và bảo vệ PROOT03 còn thiếu, không ghi XONG toàn RUN giả. Kiểm runtime 2026-10-13T02:43–02:47Z: 0 jobs queued/running, 0 container workspace-job, 0 process TQT prepare/activate/probe/CHECK; khóa chỉ có supervisor thường trực, không có khóa thực thi TQT. Không có process RUN để cancel; không gỡ khóa dịch vụ. Chi tiết/bằng chứng và NEXT_TRIGGER: P39. Áp: SAME_COMMIT.
-
-**Trạng thái P37 hiện hành:** Owner đã duyệt và xác nhận nhận G1 trực tiếp. Quyết định/P05/ACK lưu commit b9917118 và đọc ký task456ea8c9; chốt7/7,31/31nghĩa vụ phát sinh tại commit8ac40578, task0a72d0f4. Mục lục bằng chứng: aggregateP37. P37 bộ tổng native đã PASS job 43e4948f9c5c4c27b7b868b47483bcd3; nguồn/UI/hồ sơ đã đối chiếu. Không mở MOW002/PG. Các đoạn P36/P35 dưới đây là lịch sử.
-
-**Owner 12/10/2026 · P35, nguyên văn:** “Bạn tiếp tục áp dụng vào MOW001 thật, đi từng bước từ đầu đến cuối xem còn tắc ở đâu thì sửa và ghi vào các Master liên quan nhé. Vẫn làm ngoài PG, không lấy kết quả TEST thay cho việc thật đã đạt.”
-
-Cách đọc cho mọi AI: đọc hết 3.1 → 3.5, đúng thứ tự. Mỗi yêu cầu có mã R, thuộc mục tiêu M1/M2/M3 của ô 1. Trạng thái: ⬜ chưa có · 🟡 có bản thiết kế, chưa nghiệm thu · 🟢 đã nghiệm thu bằng làm theo thật · 🔴 tắc. Nguyên văn lời Owner ở 3.4; bằng chứng ở các mục P. Thấy thiếu/sai → nộp proposal riêng (3.3); chỉ Host Kiểm soát sửa ô 3.
+Cách đọc cho mọi AI: đọc hết 3.1 → 3.5, đúng thứ tự. Mỗi yêu cầu có mã R, thuộc mục tiêu M1/M2/M3 của ô 1. Trạng thái: ⬜ chưa có · 🟡 có bản thiết kế, chưa nghiệm thu · 🟢 đã nghiệm thu bằng làm theo thật · 🔴 tắc. Nguyên văn lời Owner ở 3.4; bằng chứng ở các mục P. Thấy thiếu/sai → nộp proposal riêng (3.3); chỉ Host Kiểm soát sửa ô 3. Nhật ký chạy (STARTED/KQ) và báo cáo lượt ghi ở mục P, không ghi vào ô 3.
 
 #### 3.1 Yêu cầu theo mục tiêu
 - R00 ⬜ Đích nền (Owner 08/10 · D05, vẫn hiệu lực): việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể. Mỗi quy trình ghi rõ bước nào đã có chốt chặn làm sai, bước nào mới là lời dặn (AGENTS A10-R2).
@@ -134,15 +73,20 @@ Cách làm
 - R22 Vai: Owner đưa mục tiêu/ý tưởng · Astra Codex là Host nội dung (D22) · Claude là Host Kiểm soát (D25) · AI khác góp ý một nơi, Host xét rồi mới nhận (D08/D17). Mỗi phần chỉ một bên sửa để nhất quán. Luật ghi trong README cho AI dễ đọc.
 - R23 Hội đồng AI hiệu chỉnh liên tục. Mục tiêu đã chốt thì AI tự điều hành tới khi xong, không chờ Owner.
 - R24 Chỉ đạo mới của Owner → ghi nguyên văn ở 3.4 ngay lượt đó + thêm/sửa dòng R ở 3.1. Ô 1–2 chỉ đổi theo lời Owner.
+
+Quy mô và cách làm chung (Owner 13/10 · D28)
+- R25 🟡 Hai điều phải giữ: (1) mọi AI làm chung một nơi trên GitHub để trao đổi nhanh nhất; (2) Owner nhìn được view trên VPS, UI cuối đơn giản — Owner là người sáng tạo, quyết cấu trúc cuối nên phải hiểu. → GitHub chung đang chạy; view đang nặng (PR-22 S1).
+- R26 🔴 Quy mô: một nghìn vấn đề mới bàn một mà đã "đơ" thì không scale được. Việc thứ 1.000 không được làm chậm việc thứ 1; dữ liệu thử ngoài PG không được chậm dần khi các bảng đầy đủ. → 10–13/10: view 0,6 → 101,7 → 16,3 MB; một việc 12,9 MB và bị chép thêm 1 bản vào view (PR-22 S1–S7).
+- R27 🔴 Quy định cho AI ngắn gọn, hiệu quả, AI đọc được và tuân thủ được; quy định quan trọng thì máy chặn (R00). → Hiện ~30.000 chữ phải đọc; Bảng 13 dòng thay vì 8; nhật ký lọt vào ô 3 (PR-22 S8–S9).
+- R28 ⬜ Tận dụng MacBook để tính nhanh nhất; VPS vẫn là nơi các AI nói chuyện chung và Owner xem bản cuối. Vẫn dựng mô hình ngoài PG để hiệu chỉnh trước, vì đưa vào PG khi còn đổi liên tục tạo việc thừa và lỗi tiềm ẩn (R09, D27).
+
+Cách ghi hồ sơ (Owner 12–13/10 · P34–P46)
+- R29 🟡 Hồ sơ ghi thực tế, ít nhất: chưa làm/chưa có/chưa đối chiếu để trống; không điền sẵn tool/kết quả; có xác nhận đã làm/không làm + lý do; bước bổ sung có mã riêng, không đổi mã chuẩn. Luật 7 mốc/11 mục/87 bước nằm ở Overview; hồ sơ quy trình 05 và 06 là cùng một trang (P42, P43, QTTH06).
+- R30 🟡 Hướng dẫn ngay nơi thao tác bằng dấu "?": không cần nhớ, không cần hỏi (P44).
+- R31 🟡 Thử bằng việc thật: AI mới đóng vai làm theo QTTH 06 cho việc thật; không lấy TEST thay việc thật; đo thời gian toàn việc và từng bước; làm đến đâu dọn đến đó; vẫn ngoài PG (P35, P36, P45, P46). Hồ sơ nhẹ mà không mất lịch sử; ô xong tích xanh (P38).
+- R32 🟡 Mọi DOT/tool ghi đủ vào Master List và có 2 cột chữ ký cuối: OpenAI duyệt · Anthropic duyệt (P34).
+
 Phạm vi: chưa làm quy trình nghiệp vụ (phái cử, tuyển dụng…), là sản phẩm của cỗ máy thuộc Chuỗi 3, để sau. Không làm lúc này: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế.
-
-#### Chỉ đạo bổ sung Owner 12/10/2026 · P34
-
-“Bạn xử lý tiếp nhé, ngoài ra cũng rà soát xem còn gì thực sự chưa ghi chép đầy đủ vào các master list không? giống như DOT và tool vừa rồi. Bạn đầu là có 6 với 9, còn giờ thì lôi ra nhiều trăm.”
-
-“À, với bất cứ DOT hoặc tool nào cần có 2 cột chữ ký ở cuối nhé: 1. GPT duyệt (bạn hoặc GPT chat cần xác nhận đã duyệt - tóm lại bên Open AI duyệt) 2. Claude duyệt (hoặc chat hoăc cwork hoặc claud code cli duyệt - tóm lai bên Anthopic duyệt. Đưa các giải thích vào \"?\". Nguyên tắc của tôi là đồng thuận. 2 hãng cùng xác nhận là tôi yên tâm đồng ý. Rà soát cho 1 số vấn đề về kỹ thuật như các khâu test sau này.... cũng làm theo cơ chế đồng thuận này.”
-
-Chi tiết thực hiện theo yêu cầu cùng lượt: bộ nhớ tiến trình/phiên/nâng cấp dùng chung hai Master; đi thử TQT-QT-001 theo khung hiện có và ghi chỗ tắc; chưa làm nhật ký vài trăm bước. Phạm vi đã giao trực tiếp, không mở Master/DOT mới.
 
 #### 3.2 Tiêu chí kiểm một quy trình (Host nội dung soạn 09/10, dùng cho ô 2)
 - Khai báo đủ: mã/phiên bản, mục tiêu, đầu vào/ra, việc con có thứ tự, người làm/giữ, nguồn đọc/nơi ghi, trigger/điều kiện, báo cáo, nơi nhận/trả và điều kiện kết thúc.
@@ -160,6 +104,39 @@ Chi tiết thực hiện theo yêu cầu cùng lượt: bộ nhớ tiến trình
 - Hội đồng: Astra-Codex (OpenAI) Host nội dung · Claude-review (Anthropic) Host Kiểm soát + phản biện · GPT Chat (OpenAI) góp ý/phản biện. Mode=COUNCIL · Automation_Level=AUTO0. Đường gọi hội đồng chưa đo.
 
 #### 3.4 Nguyên văn chỉ đạo Owner
+- 13/10/2026 16:21 · phiên Claude · D28 (nguyên văn, giữ lỗi gõ): “Chúng ta lập ra tool quy trình để giải quyết bài toán của mow-mot-moit-mout
+Khi mới bắt đầu chúng ta chưa tính toán tối ưu về xử lý các dữ liệu và chia sẻ nguồn lực tính toán. Giờ khi bắt đầu nở ra thì vấn đề xuất hiện. Đây là ý kiến của GPT.
+
+Bạn cho ý kiến và chúng ta cần thống nhất đưa vào phần mục tiêu bổ sung, các việc cần làm việc bổ sung. Và những quy định làm sao phải ngắn gọn hiệu quả để chính AI có thể đọc và tuân thủ được. Hiện nay viết quá dài, tôi thấy chính codex cũng vi phạm liên tục.
+
+Tôi nghĩ hướng chúng ta đang đi là đúng, tạm thời phải xây dựng 1 mô hình ở bên ngoài để hiệu chỉnh trước, đưa thứ gì đó vào PG lúc này (khi mà mọi chuyện vẫn thay đổi liên tục) sẽ tạo ra công việc không cần thiết và sửa nhiều lần trong PG lại có thể tạo ra những lỗi tiềm ẩn không đáng có.
+
+Bạn có ý kiến để chúng ta thiết kế 1 cấu trúc tối ưu hơn tận dụng cả khả năng tính toán của MacBook để xử lý vấn đề.
+Hai thứ cần giữ là: 
+
+1. Tất cả ai vẫn làm việc chung 1 nơi trên Github để quá trình trao đổi thông tin là nhanh nhất.
+2. User cần nhìn được view. Vì tôi là người sáng tại, quyết cầu trúc cuối cùng => tôi phải hiểu. Tôi cần nhìn thấy UI cuối cùng đơn giản.
+
+
+bạn cho ý kiến nhé.” → R25–R28, PR-22, Q03.
+- 13/10/2026 · Owner gửi phiên GPT, Owner chuyển kèm cho Claude (nguyên văn phần Owner viết): “Hiện nay bắt đầu có hiện tượng nặng và chậm. Đây là ý kiến của 1 phiên khác. Tôi muôn bạn xem xét, Claude cũng đang tôi ưu để VPS chạy nhanh hơn. Nhưng nếu có cấu trúc nào nhanh hơn, tận dụng được khả năng tính toán của macbook thì chúng ta nên làm.
+Bạn hình duy quy mô của cỗ máy quy trình. Có 1 ngàn vấn đề, chúng ta mới bàn có 1. Vậy mà hệ thống đã "đơ" rồi => thế này thì không thể scale được.
+
+Các cái phần quy trình rồi biểu mẫu của phần CTCM. Hiện tại tôi vẫn muốn duy trì hướng là làm xong, hiệu chỉnh. Khi cảm thấy tương đối ổn thì mới đưa vào PG. Vì vậy là cái phần cái nhu cầu thử nghiệm ở bên ngoài vẫn còn rất lớn. Cần bàn kỹ về cái phương án xử lý dữ liệu ở bên ngoài để làm sao mà không bị tiếp tục chậm xuống. Vì cái quy mô khi mà triển khai các cái bảng này đầy đủ thì quy mô cái cấu trúc nó sẽ rất phức tạp. Và nếu nó tiếp tục nặng như thế này thì sẽ rất chậm.
+
+Bạn cho ý kiến về ý kiến. Chúng ta cần bàn với cả claude nữa để chốt mô hình tối ưu hơn để giải quyết mow-mot-moit-mout. Còn rất nhiều UI cần thiết kế, rất nhiều quy trình cần chạy, làm sao vẫn có VPS nói chuyện chung, bản cuối cùng User vẫn nhìn được trên VPS nhưng tính toán cần nhanh nhất.” → R26, R28.
+- 12–13/10/2026 · phiên Codex · P34–P46 (Codex ghi; Host Kiểm soát chuyển nguyên văn từ đầu ô 3 ngày 13/10) → R29–R32:
+**Owner P46 · 13/10:** thêm cột thời gian hoàn thành87bước; thực hiện thật từ đầu đến cuối001 (hoặc002), điền hồ sơ, đo toàn việc/từng việc, sửa lỗiDOT; ngoàiPG, khôngTESTthay thật. Phạm vi lượt này: làm lại MOW001G1 với bước006, giữ lịch sửG1.
+**Owner P45 · 13/10:** “Bây giờ bạn thử đóng vai AI mới, làm theo QTTH 06 từng bước cho một việc thật (làm lại chính quy trình 001) để xem còn tắc ở đâu thì sửa và ghi vào Master liên quan. Vẫn ngoài PG, không lấy TEST thay việc thật, làm đến đâu dọn gọn đến đó nhé.”
+**Owner P44 · 13/10:** Chuẩn là "?" — thao tác ở đâu hướng dẫn đúng ở đó, không cần nhớ, không cần hỏi. Áp dụng đồng bộ phần 11 mục hồ sơ.
+**Owner P43:** hồ sơ điền ít nhất; ô chưa làm/chưa có/chưa đối chiếu để trống; hướng dẫn bằng ? tại cột và bước; bước bổ sung mã riêng, không đổi mã chuẩn.
+**Owner13/10 · P42:** Overview là nơi chứa luật7mốc/11mục/87bước, thu gọn; hồ sơ ghi thực tế, không điền sẵn tool/kết quả, có xác nhận đã làm/không làm. AI làm xong dọn phần mình, trả server ngay. Claude dọn server song song; kiểm commit mới trước ghi, xung đột thì dừng và đọc lại.
+**Owner 13/10/2026 · QTTH06:** “Nếu cần thừa thiếu gộp tách các bước này thì bạn có thể quyết định xử lý luôn.”; “hồ sơ của quy trình 05 và hồ sơ của quy trình 06 là cùng một trang luôn”. Phạm vi P40: rà theo thứ tự, hiệu chỉnh định nghĩa và ghép khối thu/mở vào hồ sơ; ngoài PG, không mở lại G1 hay tự duyệt production PROOT03. URL Owner: process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001 → /opt/incomex/docs/mcp-writes/process-work-master-v1.js; nguồn chung view.html và MOW-TH-006.md, bản chiếu qtth006-overview-v1.js.
+**Owner 12/10/2026 · P38, nguyên văn:** “Bạn tiếp tục làm nhẹ hồ sơ mà không mất lịch sử,, các tich xong rồi nên dùng tich xanh để con người dễ nhận biết”. Phạm vi: định dạng lưu vật lý có khôi phục chính xác, nâng bộ đọc/cửa ghi hiện hữu; không đổi nội dung G1, lịch sử, quyết định/ACK hay PG. Nguồn UI: process-work-master-v1.html → process-work-master-v1.js; dữ liệu: tools-quy-trinh/view.html → application_preview từ MOW001. Bậc3: ghép JSON +SHA256 có sẵn trong engine, không thêm dịch vụ/kho ngoài; CHECK004 giữ pack/expand/verify dùng lại.
+**Owner 12/10/2026 · P36, nguyên văn:** “Bạn tiếp tục sửa điểm tắc ở mốc 3, nối bằng chứng quyền ghi–đọc từ máy chủ rồi đi tiếp MOW001 thật đến cuối nhé. Vẫn ngoài PG, không lấy TEST thay việc thật và cập nhật các Master liên quan.”
+**Owner 12/10/2026 · P35, nguyên văn:** “Bạn tiếp tục áp dụng vào MOW001 thật, đi từng bước từ đầu đến cuối xem còn tắc ở đâu thì sửa và ghi vào các Master liên quan nhé. Vẫn làm ngoài PG, không lấy kết quả TEST thay cho việc thật đã đạt.”
+“Bạn xử lý tiếp nhé, ngoài ra cũng rà soát xem còn gì thực sự chưa ghi chép đầy đủ vào các master list không? giống như DOT và tool vừa rồi. Bạn đầu là có 6 với 9, còn giờ thì lôi ra nhiều trăm.”
+“À, với bất cứ DOT hoặc tool nào cần có 2 cột chữ ký ở cuối nhé: 1. GPT duyệt (bạn hoặc GPT chat cần xác nhận đã duyệt - tóm lại bên Open AI duyệt) 2. Claude duyệt (hoặc chat hoăc cwork hoặc claud code cli duyệt - tóm lai bên Anthopic duyệt. Đưa các giải thích vào \"?\". Nguyên tắc của tôi là đồng thuận. 2 hãng cùng xác nhận là tôi yên tâm đồng ý. Rà soát cho 1 số vấn đề về kỹ thuật như các khâu test sau này.... cũng làm theo cơ chế đồng thuận này.”
 - 11/10/2026 18:02 · phiên Claude · D27 · cách đi tới PG (nguyên văn, giữ lỗi gõ): “Không, cách tiép cận của tôi là: 1. thiết kế hệ thống đúng. 2. Chay thử 1 số để hiệu chỉnh thiết kế, bổ sung các cột cho phù hợp. (mới đầu làm tay không sao) 3. Sau khi chạy ổn, mới rà soát đưa vào PG 1 lần, vì mỗi lần sửa chữa PG mất thời gian hơn rất nhiều cho nên là phải thử nghiệm bên ngoài ổn thì mới đưa luôn 1 lần vào PG. Bạn thử rà soát xem còn vấn đề gì cần bổ sung thì tổng hợp lại 2 lần trước của lần này rồi cho tôi ý kiến. Các ý kiến của bạn vừa rồi tôi vẫn chưa chuyển cho codex” → R09, R04a, R18; bác PR-12 v1 A1.
 - 11/10/2026 17:44 · phiên Claude · giao phản biện khả thi (nguyên văn theo bản ghi phiên; dấu … giữ như bản ghi): “Tiếp tục review cho tools-quy-trinh. Với tư cách là giám sát phản biện, bạn kiểm tra cho tôi tính tính khả thi của các quy trình tổng hợp, đặc biệt là QTTH 05 trong việc chuẩn bị cho triển khai… Vấn đề là hiện nay triển khai còn đang vướng gì không? các tool quản lý và viết ra như vậy có ok không? Bạn đưa ra tất cả những ý kiến để host codex xem xét và bổ sung. Không chỉ đứng dưới góc độ phản biện những gì đã làm, từ mục tiêu này còn có những gì cần thay đổi về cách tiếp cận, cần bổ sung những gì nữa…” → PR-12, P27.
 - 11/10/2026 · phiên Codex · D26: nguyên văn ở đầu §0, ngay dưới Bảng.
@@ -200,9 +177,60 @@ AI chỉ cần chạy cái là hiểu ngay => có chỗ ghi lại, nhìn vào b�
 - Từ 07/10 đến 10/10 trước đó: nguyên văn ở Vòng trước (ô 1 bản 08/10 và các khối bổ sung; Ô 3 trước D25 › TQT-DIR) và Quyết định Owner D01–D24.
 
 #### 3.5 Bằng chứng và hồ sơ
-- Bằng chứng từng lượt: mục "Ý kiến và bằng chứng" (P01–P27). Ý kiến AI: proposals/ (PR-01…12); kết luận Host ở README › Ý kiến hội đồng. Nhật ký kiểm cũ của ô 3: Vòng trước › Ô 3 trước D25.
+- Bằng chứng từng lượt: mục "Ý kiến và bằng chứng" (P01–P48). Ý kiến AI: proposals/ (PR-01…22); kết luận Host ở README › Ý kiến hội đồng. Nhật ký kiểm cũ của ô 3: Vòng trước › Ô 3 trước D25.
 
 ### Vòng trước
+#### Dọn 13/10 · Host Kiểm soát chuyển nguyên văn, không sửa chữ (P48)
+Bảng 13/10 15:23 · Codex · P46 — các dòng ✅ gốc (Bảng hiện hành gộp thành 1 dòng theo khuôn 8 dòng):
+- ✅ Đã làm P29: dùng lại CAT-206*, khai hợp đồng áp dụng 3 MOT/5 giao bước và ca nghiệm thu; siết ghim phiên/nội dung xuyên kiểm–duyệt–ACK, sửa lỗi thiếu dòng kiểm, thêm kiểm trước–sau vào DOT hiện hữu. P30 sửa trùng DOT còn 47 Master, giữ ⑤/7 mốc; ca thật chưa qua mốc nào.
+- ✅ Đã làm P31: bịt lỗi hợp đồng/gói giao P01, thêm schema và kiểm tập bắt buộc, lịch sử toàn bằng chứng; thử ghi–đọc hai tiến trình TEST. Chưa có quyền endpoint/người kiểm độc lập thật, MOW001 0/7.
+- ✅ Đã làm P32: chặn gói trả cuối/đánh giá cũ; P04 đọc nội dung thiết kế TEST; phục hồi khóa và nhật ký; ngân sách DOT theo danh mục. Cửa ghi đã bật cho tệp kho thử trên VPS; 10 ca quyền thật/gate đạt. Quyền 34 endpoint và phiên Host riêng còn mở.
+- ✅ P33: kiểm kê305DOT/34Tool, nối biên nhận và bản đồ dùng lại; bộ tổng VPS đạt. P34: bổ sung bộ nhớ cùng khuôn, hai duyệt có phiên; đi thử QT001 và ghi4chỗ vướng.
+- ✅ Đã xong P38: hồ sơ100MB→12.9MB, không mất lịch sử; tích xanh; bộ tổng1GiB đạt. Giữ G1 đã duyệt7/7, ngoài PG.
+- ✅ P40: QTTH006 v0.3 có87bước/7mốc, đăng ký Master và ghép cùng hồ sơ; 11mục +7nhóm thu/mở đã kiểm thật; CHECK006 native PASS. Chưa thực hiện thật theo006.
+
+Ô 3 — nhật ký lượt chạy và ghi chú Codex đặt ở đầu ô 3 (12–13/10); lời Owner kèm theo đã chuyển vào 3.4:
+
+STARTED@TQT-P46-REAL 2026-10-13T08:23:27.929489+00:00 · executor=Codex Host · bắt đầu đo toàn lượt từ2026-10-13T08:18:56Z; lịch sửG1 giữ riêng.
+KQ@TQT-P46-REAL DỪNG · 2026-10-13T08:51:21.360488+00:00 · VPS_BẬN · executor=Codex Host · UI cột thời gian đã ghi tx=d115410e8c6c41b1995003fd6632ac67; hồ sơ/checker mới chỉ local. Đã đo tìm thường/nâng cao: thiếu nguồn/evaluator; hủy→caller nhận phiên3. Fullsuite local PASS92,052s; không nghiệm thu87/87. Dọn:0/0 tiến trình nền,0/0 lease riêng,0 tệp tạm tạo trênVPS; kiểm08:47:48Z khôngcóprocessP46/index.lock/HEAD.lock. Giữ STARTED; không nhả cờ VPS-GHI củaVPSC. Tổng đo hồ sơ đến08:49:24Z:30,48phút; thời gian đóng báo cáo ghi riêng. Áp:SAME_COMMIT.
+
+STARTED@TQT-P45-REAL 2026-10-13T08:01:26.200656+00:00 · executor=Codex Host · đi từ cửa đọc luật; không giả reviewer độc lập.
+
+KQ@TQT-P45-REAL DỪNG · 2026-10-13T08:04:34.247398+00:00 · executor=Codex Host · CP01.01–03 đã đọc/đối chiếu; CP01.04 chưa có cửa ghi vòng mới được xác minh. Sửa F01/F02 bằng CHECK005, F03 còn mở; không PG/runtime; trả busy. Áp:SAME_COMMIT.
+
+STARTED@TQT-P44-HELP 2026-10-13T07:43:28.205280+00:00 · executor=Codex Host · UI/hướng dẫn; không PG/runtime.
+
+KQ@TQT-P44-HELP XONG · 2026-10-13T07:46:48.232086+00:00 · executor=Codex Host · 11 mục và 87 bước cùng cơ chế ?; CHECK005+browser đạt; không PG/runtime; trả busy, không giữ process/lease. Áp:SAME_COMMIT.
+
+STARTED@TQT-P43-HELP 2026-10-13T07:25:34.359751+00:00 · executor=Codex Host · chỉ UI/hướng dẫn/kiểm, không runtime/PG.
+
+KQ@TQT-P43-HELP XONG · 2026-10-13T07:34:19.591238+00:00 · executor=Codex Host · Dấu hỏi tại cột/bước; ô thực tế trống; CHECK005 và browser đạt; không PG/runtime; không giữ process/lease. Áp:SAME_COMMIT.
+
+STARTED@TQT-P42-UI 2026-10-13T04:35:18.222361+00:00 · executor=Codex Host · chỉ nội dung và2UI modules; không runtime/Guard/PG, không giữ lease trong lúc soạn local.
+
+KQ@TQT-P42-UI XONG · 2026-10-13T04:48:42.825024+00:00 · executor=Codex Host · Overview chuẩn7/11/87 và hồ sơ thực tế đã kiểm; CHECK005PASS,browserPASS,không PG/runtime. Đã kết thúc kiểm local và đóng caller giao dịch mất phản hồi sau khi journal xác nhận committed/pushed; không để RUN chờ. Áp:SAME_COMMIT.
+
+STARTED@TQT-P40-QT006 2026-10-13T03:09:03.879435+00:00 · executor=Codex Host · rà QTTH006 và UI hồ sơ theo chỉ đạo trực tiếp; không runtime/Guard/baseline/PG.
+
+KQ@TQT-P40-QT006 XONG · 2026-10-13T03:45:15.353098+00:00 · executor=Codex Host · phạm vi rà định nghĩa + bản chiếu hồ sơ đọc-only đã kiểm. Native f6870e95c8014ed3bedd5a2fcaae80ab PASS, UI thu/mở thật; G1/sourcehash không đổi. QTTH006 chưa nghiệm thu chạy thật/biến thể, chưa gateway step receipts, không PG/runtime/Guard mutation. Nhả cờ P40, không giữ process/lease chờ chỉ đạo. Áp: SAME_COMMIT. Đối soát P41: KQ được gửi trực tiếp qua gateway để sổ lifecycle nhận cùng kết quả; không phát lại RUN.
+
+#### P38 · Hồ sơ nhẹ, giữ nguyên lịch sử
+
+Kho vật lý dùng `TQT-HISTORY-POOL-1` trong cùng tệp, không mở kho/Master khác. Mỗi khối lặp lưu một lần theo SHA256; CHECK004 kiểm hash và giải mã trước khi đối chiếu. Nội dung G1/18 sự kiện/20lần kiểm/7mốc không đổi. Đã ghi thật và đọc lại có chữ ký; bộ tổng native PASS trong1GiB, task budget đã trả. Biên nhận tại aggregate#host_review_P38.
+
+**Cho AI:** Tra Master DOT rồi dùng CHECK004 `--compact-history SOURCE` (dry-run); thêm `--execute --output CANDIDATE` chỉ tạo ứng viên mới. Kiểm `--check-history` và `--validate-transition BEFORE AFTER`; ghi qua upload/transaction có expected_version và cửa ghi hiện hành; đọc lại có chữ ký trước khi chốt. Khi cần bản JSON đầy đủ, dùng `--expand-history SOURCE --execute --output EXPANDED` ở vùng tạm; không nhân thành nguồn chuẩn. Sau sửa nghiệp vụ phải pack lại và vẫn tuân phiên/lịch sử cũ. Trước khi lùi runtime cũ phải expand qua cổng hiện hành, không tráo bộ đọc cũ vào dữ liệu mới. Bộ tổng kho nhẹ đã chạy trong1GiB; không tự tăng ngân sách. Dùng tác vụ bền vững cho thao tác dài; tệp vận chuyển nằm trong thư mục con riêng, không lẫn thư mục nhật ký phục hồi. Ghép đủ các trang JSON rồi mới giải mã một lần.
+
+**Cho người dùng:** ô xong có tích xanh, ô chưa xong màu xám; tự tổng hợp từ bằng chứng, không tích tay. Lịch sử vẫn là các sự kiện cũ trong Master lịch sử.
+
+STARTED@MOW001-P36-REAL 2026-10-12T07:34:36.793236+00:00 · executor=Codex Host · phạm vi kho tệp MOW001/G1; không PG. Dùng lại CHECK004/005/006 và bộ prepare/activate/probe đã đăng ký. Reviewer kỹ thuật đọc mã/bằng chứng, không ký hộ Anthropic; quyết định/ACK Owner cuối vẫn cần nguồn thật.
+
+KQ@MOW001-P36-REAL DỪNG · 2026-10-13T02:50:54.519143+00:00 · executor=Codex Host · kết thúc thực thi/nhả busy; G1 P37/P38 đã được Owner duyệt/nhận 7/7, không mở lại. DỪNG vì independent production code/image review và bảo vệ PROOT03 còn thiếu, không ghi XONG toàn RUN giả. Kiểm runtime 2026-10-13T02:43–02:47Z: 0 jobs queued/running, 0 container workspace-job, 0 process TQT prepare/activate/probe/CHECK; khóa chỉ có supervisor thường trực, không có khóa thực thi TQT. Không có process RUN để cancel; không gỡ khóa dịch vụ. Chi tiết/bằng chứng và NEXT_TRIGGER: P39. Áp: SAME_COMMIT.
+
+**Trạng thái P37 hiện hành:** Owner đã duyệt và xác nhận nhận G1 trực tiếp. Quyết định/P05/ACK lưu commit b9917118 và đọc ký task456ea8c9; chốt7/7,31/31nghĩa vụ phát sinh tại commit8ac40578, task0a72d0f4. Mục lục bằng chứng: aggregateP37. P37 bộ tổng native đã PASS job 43e4948f9c5c4c27b7b868b47483bcd3; nguồn/UI/hồ sơ đã đối chiếu. Không mở MOW002/PG. Các đoạn P36/P35 dưới đây là lịch sử.
+
+#### Chỉ đạo bổ sung Owner 12/10/2026 · P34 — phần ghi chú Codex:
+Chi tiết thực hiện theo yêu cầu cùng lượt: bộ nhớ tiến trình/phiên/nâng cấp dùng chung hai Master; đi thử TQT-QT-001 theo khung hiện có và ghi chỗ tắc; chưa làm nhật ký vài trăm bước. Phạm vi đã giao trực tiếp, không mở Master/DOT mới.
+
 Các khối dưới đây là bản trước D25 (10/10/2026), giữ nguyên văn để đối chiếu. Hiện hành chỉ là đầu §0, Bảng và ô 1–3 phía trên.
 
 #### Đầu §0 và Bảng điều khiển trước D25 (nguyên văn)
@@ -609,6 +637,8 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - **D20 · 09/10/2026 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner yêu cầu số vòng của 4 Quy trình tổng hợp lớn hơn, Quy trình thành phần hiển thị **STT đầu tiên**, và chuyển nội dung của **hai ảnh tổng quan Owner gửi** thành **hai bố cục HTML đặt phía dưới Over view**, chủ yếu mô tả những gì đã có, không tạo ảnh. Host chỉ chỉnh phần trình bày; mã/danh mục/luật không đổi.
 - HUMAN_DIRECTIVE@TQT-OVERVIEW-HTML-20261009 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{view.html,README.md,COLLAB.md} · step=Over view · recorded_by=OpenAI-main/GPT Chat · quote="Các vòng số hơi nhỏ , cho to ra 1 chút (của quy trình tổng hợp) / Quy trình thành phần chốt đầu tiên cho tôi STT / Cho tôi cả các hình này xuống bên dưới ... bạn tạo ra dạng HTML cho nhẹ." · text=Tăng vòng số; STT 1–12; 2 sơ đồ HTML bên dưới, không làm ảnh; chỉ mô tả nguồn hiện có · audit=Owner trực tiếp tại GPT Chat ngày 09/10/2026.
 
+- **D28 · 13/10/2026 16:21 +07 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner giữ hướng dựng mô hình ngoài PG để hiệu chỉnh trước (đưa vào PG khi còn đổi liên tục tạo việc thừa và lỗi tiềm ẩn). Hai điều phải giữ: mọi AI làm chung một nơi trên GitHub; Owner nhìn được view, UI cuối đơn giản. Yêu cầu: cấu trúc tối ưu hơn, tận dụng MacBook; quy định ngắn gọn để AI đọc và tuân thủ (Codex đang vi phạm liên tục); thống nhất mục tiêu bổ sung và việc bổ sung. Ô 3: R25–R28; nguyên văn 3.4. Đề xuất: PR-22, Q03. Áp: SAME_COMMIT.
+- HUMAN_DIRECTIVE@TQT-SCALE-20261013 EFFECTIVE · task=tools-quy-trinh · scope=cách lưu/ghi dữ liệu thử ngoài PG, vai GitHub/MacBook/VPS, luật cho AI · step=thiết kế cấu trúc · recorded_by=Claude-review · quote="Hai thứ cần giữ là: 1. Tất cả ai vẫn làm việc chung 1 nơi trên Github ... 2. User cần nhìn được view" · text=Ngoài PG trước; GitHub chung; Owner xem view; tận dụng MacBook; luật ngắn. · audit=Tin nhắn trực tiếp Owner tại phiên Claude 13/10/2026 16:21 +07; nguyên văn ở ô 3 mục 3.4.
 - **D27 · 11/10/2026 18:02 +07 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner chốt cách đi tới PG: ① thiết kế hệ thống đúng → ② chạy thử một số ca để hiệu chỉnh thiết kế, bổ sung cột (làm tay được) → ③ chạy ổn mới rà và đưa vào PG một lần, vì sửa PG tốn hơn rất nhiều. Bác PR-12 v1 A1 (dùng bảng PG ngay làm nơi ghi). Khi chạy thử, nơi ghi là kho thử ngoài PG (R04a); bảng PG đang chạy chỉ dùng chọn đích ở ③ (R18). Ô 3: R04a, R09, R18; nguyên văn ở 3.4. Owner chưa chuyển PR-12 cho Codex; Host nội dung xét PR-12 v2. Áp: SAME_COMMIT.
 - HUMAN_DIRECTIVE@TQT-PG-ONCE-20261011 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/ (nơi ghi khi chạy thử, đường vào PG) · step=thiết kế → chạy thử → vào PG · recorded_by=Claude-review · quote="thiết kế hệ thống đúng ... Sau khi chạy ổn, mới rà soát đưa vào PG 1 lần" · text=Chạy thử ngoài PG, ổn mới vào PG một lần; bác A1. · audit=Tin nhắn trực tiếp Owner tại phiên Claude 11/10/2026 18:02 +07; nguyên văn ở ô 3 mục 3.4.
 - **D25 · 10/10/2026 07:38 +07 · HUMAN_DIRECTIVE · HIỆU LỰC:** Owner viết lại ô 1 còn 3 ý: cỗ máy sản xuất quy trình (ý tưởng → quy trình chạy được, tự động tối đa) · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu. Mọi chi tiết khác chuyển xuống ô 3, có cấu trúc để AI đọc không sót. Owner giao Claude làm Host phần Kiểm soát (Bảng điều khiển, ô 1 Mục tiêu, ô 2 Thế nào là hoàn thành, ô 3 Chi tiết cần đạt); Astra Codex giữ Host nội dung theo D22. Về khuôn chung cho mọi việc (cùng chỉ đạo, Host nội dung đã làm ở D24): Host Kiểm soát xác nhận dùng MOW-TH-005@1.1, không thêm TH-06; yêu cầu và chỗ còn thiếu ghi ở ô 3 R01–R04, R11. Ô 1–2 cũ, 8 khối bổ sung và ô 3 cũ giữ nguyên văn ở Vòng trước. Áp: SAME_COMMIT.
@@ -621,6 +651,7 @@ Trước 07/10: chưa có vòng nào; task tạo lần đầu theo lệnh Owner 
 - HUMAN_DIRECTIVE@TQT-GUIDE-AND-FLOW-20261009 EFFECTIVE · task=tools-quy-trinh · scope=work/tools-quy-trinh/{view.html,README.md,COLLAB.md} · step=hiệu chỉnh Over view và phân loại quy trình · recorded_by=OpenAI-main/GPT Chat · quote="thiết kế 1 nơi để viết chú giải và đưa luôn vào đó ... luồng làm việc đó cuối cùng đưa vào đâu?" · text=Chú giải ngắn một nguồn, luồng có quy trình sở hữu, không chạy khi chưa phê duyệt · audit=Owner trực tiếp GPT Chat ngày 09/10/2026.
  
 ## Owner cần quyết
+- Q03 · 13/10 · Cấu trúc dữ liệu cho 1.000 việc + luật 1 trang (PR-22). Đề xuất: gật → ngay từ nay không nhúng thêm dữ liệu việc vào view.html, không chép định nghĩa (V0); Codex làm phép thử PT-01 có số đo (MacBook + repo, không PG, không đổi VPS); dữ liệu cho máy chia theo việc như từng dòng trong bảng, tài liệu cho người vẫn 1 trang.
 - — Q02 · ĐÃ GIẢI QUYẾT D23: Owner giao Host quyết ⑤; Astra Codex chốt 1.0-design/CH-001 cho áp thử thiết kế. Không chờ phê duyệt riêng; chưa quyền PG.
 - — Q01 · ĐÃ GIẢI QUYẾT D22/D25: Astra Codex là Host nội dung; Claude là Host Kiểm soát (Bảng, ô 1–3). Mục tiêu ngắn: Owner tự viết ô 1 ngày 10/10 (D25), đã áp; PR-07 đóng. Không có câu hỏi Owner đang mở.
 
@@ -1103,3 +1134,10 @@ STARTED@TQT-P47-RECORD-PLACEMENT 2026-10-13T09:00:40Z · Codex Host · cập nh�
 - Tổng P46 đến KQ32phút25giây là thời gian lượt đã dừng, không phải thời gian hoàn thành nghiệp vụ. G1cũgiữ7/7; nhánh tìm thành công thiếu nguồn/evaluator, không tô đạt.
 - Kiểm ứngviên trước ghi: CHECK006 chạy001–005 đúng mã UI đang phục vụ, xem biên nhận local placement-suite; TEST chỉ kiểm công cụ và cấu trúc. Sau giao dịch phải đọc lại và mở UI đúng việc trước báo bàn giao.
 KQ@TQT-P47-RECORD-PLACEMENT XONG · 2026-10-13T09:06:31.601839+00:00 · khép lượt ghi hồ sơ; không khép nghiệp vụP46. Không tạo tiến trình nền/container/lease/tệp tạm trênVPS; không chạm cờVPSC. Áp:SAME_COMMIT.
+
+### P48 · Claude phản biện cấu trúc dữ liệu cho 1.000 việc · ĐỀ XUẤT, CHỜ OWNER GẬT (Q03)
+Ghế: Claude-review · Host Kiểm soát + phản biện. Based_on: @4da3dbd; D28; PROOT04; P38–P47; đề xuất GPT do Owner chuyển 13/10.
+- Đo (chỉ đọc): view.html 0,6 → 101,7 → 16,3 MB (10–13/10), chứa nguyên hồ sơ MOW001 8,65 MB (2 bản cùng dữ liệu); ~34% hồ sơ là chép trùng; cổng đọc 3,06 GB để trả 80 MB; 1.459 giao dịch TB 6,7 s, lỗi 14%; CPU VPS bận 20–31%, swap đầy ⇒ chậm vì hình dạng dữ liệu, không vì VPS yếu.
+- Mô phỏng tách theo việc trên MOW001 (cục bộ): trạng thái 195 KB, bản ghi trung vị 0,55 KB; nội dung dùng chung 3,2 MB lưu 1 lần.
+- Đề xuất GPT: REQUEST_CHANGES — bỏ SQLite, không dựng kho thứ hai trên VPS, Mac đọc tại chỗ, luật có máy chặn, danh sách việc cho Owner do máy sinh. Chi tiết, luật 1 trang 8 dòng, phép thử PT-01: [PR-22](proposals/TQT-PR-20261013-claude-scale-data-architecture-22.md).
+- Host Kiểm soát cùng commit: D28 + nguyên văn 3.4; thêm R25–R32; dọn ô 3 (lời Owner Codex ghi → 3.4; nhật ký STARTED/KQ, khối P38/P37 → Vòng trước, nguyên văn); Bảng về 8 dòng (dòng ✅ gốc ở Vòng trước); Q03. Không sửa view/README/hồ sơ/VPS/PG. Áp: SAME_COMMIT.
