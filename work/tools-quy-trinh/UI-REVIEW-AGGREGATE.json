@@ -83896,6 +83896,27 @@
               "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P44/check005"
             }
           ]
+        },
+        {
+          "run_id": "TQT-P45-CHECK005-LOCAL",
+          "work_id": "tools-quy-trinh",
+          "action": "Codex exec_command",
+          "outcome": "EXIT_0",
+          "status": "completed",
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P45/check005",
+          "subtools": [
+            {
+              "id": "TQT-CHECK-005",
+              "sha256": "923253b60f1f2850914434c1d64514dd1fba69834fc202b38f0cc76a9c8ca3a9",
+              "exit_code": 0,
+              "case_set": "TQT-CASE-MASTER",
+              "checked_at": "2026-10-13T08:04:34.247398+00:00",
+              "ui_inputs": {
+                "process-work-master-v1.js": "4bba6262a82ae22676cd627c0d96062d5e9e05de1b437caf33a5e1a4c98d886d"
+              },
+              "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P45/check005"
+            }
+          ]
         }
       ],
       "journal_invalid_lines": 0,
@@ -89522,6 +89543,58 @@
     "limits": [
       "Read-only dossier; no new write adapter",
       "G1 history preserved; no real QT006 execution claimed"
+    ]
+  },
+  "host_review_P45": {
+    "state": "REAL_ENTRY_STOPPED_CP01_04",
+    "at": "2026-10-13T08:04:34.247398+00:00",
+    "run_ref": "catalog.tool_registry.walkthrough_runs/MOW001-QT006-P45-REAL",
+    "live_guard": {
+      "enabled": null,
+      "root": "workspace",
+      "path": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json",
+      "server_policy": {
+        "policy_id": "MOW001-G1-P36-2",
+        "public_key_base64": "3VNyf4lO/O7dV+MlC7H86+yULNnzIp7FJJCPFZLpE/k=",
+        "application_id": "MOW-NHC-001-G1-20261010-01",
+        "target_version": "ui/mow-ui-walkthrough-v1.js@02230bf383141b41f5d09bb586cc34ab6981777a25ddd805a58bbdc451d132e4",
+        "reviewer_id": "OpenAI:Codex:01a129ed-a979-7d13-af46-d3b3ec3e2abf:/root/review_mow001:P36",
+        "reviewer_evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P36/reviewer_execution"
+      },
+      "validator": {
+        "path": "/opt/tqt-p38/check-record-control.js",
+        "sha256": "755097b9b265860f76a393268793262a5daa9e5719c1b1a917fdccab7b9511c6"
+      },
+      "view": {
+        "path": "/opt/tqt-p38/view.html",
+        "sha256": "7715a0ec03559a0c66ab490e2d8dddc67642ea0b7a0bbca9ec573a137d652556"
+      },
+      "config_sha256": "c3b97e8a3169c8c56ded4523d3c64bc22c21738ae43f055e2c1f60fcacf04ca4"
+    },
+    "scope": "Read-only live policy observation + real entry walkthrough; no new application, no PG/runtime change",
+    "real_steps": [
+      "CP01.01",
+      "CP01.02",
+      "CP01.03"
+    ],
+    "blocked_step": "CP01.04",
+    "findings_ref": "CAT-069?/TQT-P45-F01..F03",
+    "check005": {
+      "source_sha256": "923253b60f1f2850914434c1d64514dd1fba69834fc202b38f0cc76a9c8ca3a9",
+      "ui_inputs": {
+        "process-work-master-v1.js": "4bba6262a82ae22676cd627c0d96062d5e9e05de1b437caf33a5e1a4c98d886d"
+      },
+      "evidence_ref": "Codex work/p45/check005.log",
+      "state": "PASS_TEST_ONLY",
+      "exit_code": 0,
+      "log_sha256": "8c02bce478d5494b4df296272ca62ead538a20dc554c4cfc4738a3faecbb391e"
+    },
+    "independence": "Host acting as a new AI; not an independent new agent",
+    "next": "Prepare contract and scoped write/read receipt for new cycle; do not bypass current gateway scope",
+    "limits": [
+      "No completed real QT006 cycle",
+      "G1 unchanged",
+      "CHECK005 tests are TEST only"
     ]
   }
 }

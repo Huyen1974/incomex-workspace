@@ -6,13 +6,13 @@
 
 **Khi kết thúc một RUN:** executor xác minh process/lease và kết quả → ghi KQ đúng RUN_ID XONG/DỪNG (không xóa STARTED) → cập nhật Bảng/root cùng transaction → đọc lại cặp STARTED/KQ và bản Owner View. Không lấy hoàn thành sản phẩm thay KQ của RUN hoặc lấy MATCH thay duyệt mã. Dùng lại gateway/status/Config Guard hiện hữu; không cần DOT mới.
 
-## QTTH 006 — bản Host rà v0.3, 87 bước / 7 mốc
+## QTTH 006 — bản hiện hành xem MOW-TH-006.md, 87 bước / 7 mốc
 
 [MOW-TH-006.md](MOW-TH-006.md) là nguồn định nghĩa duy nhất. P40 bổ sung kiểm quyền trước ghi và khép RUN; chuyển bộ kiểm tổng lên CP05 trước duyệt/ACK. QTTH05 giữ khung 7 mốc. Catalog đăng ký 006 là chi tiết hóa 005, không thêm vào selected_process gây vòng gọi.
 
 [Hồ sơ MOW001](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001): 11 mục phải ghi thu/mở; QTTH06 ngay dưới, 7 nhóm thu/mở. G1 7/7 giữ nguyên; QTTH06 mới ghim để đối chiếu, chưa có biên nhận bước. Không dùng TEST hoặc G1 để tự tô 87/87. Việc MOW002 chưa mở chỉ xem mẫu.
 
-AI đọc định nghĩa §5 trước khi ghi `DEF00.1 → work_schedule.records[].detail_tracking`. Trạng thái và sự kiện thuộc cùng hồ sơ, bằng chứng ở Master gốc. P40 **chưa cưỡng chế ghi bước006 ở gateway**, chưa thử AI mới tự đi trọn vòng. Đây là giới hạn cần xử lý trong lượt Owner giao tiếp, không tự mở RUN/PG. +/−/↔ là khuôn điều chỉnh đã ghi; chưa có nút cấp quyền hoặc tích đạt bằng tay.
+AI đọc định nghĩa §5 trước khi ghi `DEF00.1 → work_schedule.records[].detail_tracking`. Trạng thái và sự kiện thuộc cùng hồ sơ, bằng chứng ở Master gốc. P40 **chưa cưỡng chế ghi bước006 ở gateway**, chưa thử AI mới tự đi trọn vòng. Đây là giới hạn cần xử lý trong lượt Owner giao tiếp, không tự mở RUN/PG. Bước bổ sung dùng BS-001…; trạng thái thực tế trống/DONE/NOT_DONE/BLOCKED theo §6. Chưa có adapter cấp quyền hoặc tích đạt bằng tay.
 
 Dùng lại **CHECK005** kiểm nguồn/hash/87 dòng, mã Master, thứ tự và UI; **CHECK006** chạy tổng. Không tạo DOT hoặc Master mới. PR20 giữ đối chiếu 100→85, P40/định nghĩa §Rà thứ tự giữ 85→87; các bản PR18–21 là lịch sử góp ý.
 
@@ -441,3 +441,6 @@ Giữ nguyên mã CP chuẩn. Bước riêng khai trong detail_tracking.added_st
 
 ### Quy ước hướng dẫn tại chỗ · Owner P44
 Chuẩn hướng dẫn sử dụng là dấu **?** đặt ngay tại cột, mục hoặc thao tác cần giải thích: thao tác ở đâu, hướng dẫn đúng ở đó, không cần nhớ hay hỏi. Dùng cùng cơ chế mở/thu bằng chuột hoặc bàn phím; không chỉ dựa vào rê chuột. Hướng dẫn lấy từ nguồn quy định hiện hữu, không chép vào ô kết quả thực tế. Áp dụng hiện tại: 11 mục hồ sơ và 87 bước dùng chung dossierHelp; từng RG lấy instruction/checkpoint từ catalog.work_form.record_control.guidance. Khi sửa/thêm UI TQT, áp dụng cùng quy ước tại nơi dùng. Bản ghi, bằng chứng và lịch sử vẫn là dữ liệu thực tế để mở xem; dấu ? không thay bằng chứng hay dấu đạt.
+
+## P45 · AI mới đi lại từ cửa vào
+Lượt thật MOW001-QT006-P45-REAL ở CAT229, nối từ DEF00.1/TQT-VIEC-001. Host đã đọc/đối chiếu CP01.01–03; DỪNG tại CP01.04, chưa mở hồ sơ vòng mới. CAT069 có TQT-P45-F01/F02 (đã sửa luật/bộ kiểm) và F03 (chốt quyền/hợp đồng vòng mới chưa xác minh). Policy live chỉ ghim G1 cũ; không dùng quyền ghi tệp chung để coi vòng mới đã qua gate. Không đụng G1, MOW002, PG hoặc runtime. Nguồn lượt/bước thực tế: catalog.tool_registry.walkthrough_runs; đây là phần nhiều lượt của CAT229 hiện hữu, không Master mới. CHECK005 đã hỗ trợ kiểm pool hồ sơ đúng ID/nguồn/phiên; phép thử không thay việc thật.

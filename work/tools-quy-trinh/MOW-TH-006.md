@@ -1,7 +1,7 @@
 # QTTH 006 — Quy trình thực hiện QTTH 05
 
 **Mã quy trình:** `MOW-TH-006` · **Tên:** Quy trình thực hiện QTTH 05. Đây là **một quy trình**, không phải loại đối tượng “hướng dẫn” riêng.
-**Phiên:** `0.4-standard-record-split` · **Ngày rà:** 13/10/2026 · **Trạng thái:** ĐÃ RÀ THEO QTTH 05 / HỒ SƠ MOW001 G1, **HOST ĐÃ RÀ THỨ TỰ / CHƯA NGHIỆM THU AI MỚI THỰC HIỆN**. Đăng ký thiết kế MOW-TH-006 trong Master quy trình tổng hợp; chưa tuyên bố đã chạy trọn việc thật theo 006.
+**Phiên:** `0.5-entry-contract-aligned` · **Ngày rà:** 13/10/2026 · **Trạng thái:** ĐÃ RÀ THEO QTTH 05 / HỒ SƠ MOW001 G1, **HOST ĐÃ RÀ THỨ TỰ / CHƯA NGHIỆM THU AI MỚI THỰC HIỆN**. Đăng ký thiết kế MOW-TH-006 trong Master quy trình tổng hợp; chưa tuyên bố đã chạy trọn việc thật theo 006.
 **Nguồn:** tệp này là quy định chuẩn do Host quản lý, hiển thị tại Overview. Bản v0.1 có **100 bước** được lưu trong lịch sử Git; PR20 giữ bảng đối chiếu đầy đủ 100 mã cũ. Không đổi tiến độ MOW001/P37/P38.
 
 ## 1. Nguyên tắc chính
@@ -16,18 +16,11 @@ Một **bước nguyên tử** phải có: một hành động có thể giao m�
 - **Tầng áp dụng**: hồ sơ việc trên `DEF 00.1 / CAT-227*` ghim đúng `MOW-TH-006@process_version`; hiển thị toàn bộ bước áp dụng (cùng nhóm theo CP của 005), chỉ lưu **trạng thái, bằng chứng, ngoại lệ và thay đổi** theo `application_id + process_version + target_version + step_id + item_key + revision` ở **sổ hiện có**. Không sao chép một danh sách có thể sửa độc lập, không tạo Master “tiến độ QTTH 006” thứ hai.
 - **Tình trạng**: `Trống` / `Hoàn thành` / `Vướng`. Đây là trạng thái thực của bước áp dụng; bảng chung bên dưới chỉ dùng “Trống” làm mẫu. `Hoàn thành` đòi đúng nguồn, quyền, phiên, readback và đối chiếu, không lấy dấu đã qua CP05 tự phủ sang các bước 006 chưa có biên nhận.
 
-### Điều chỉnh (+/−) của một hồ sơ cụ thể
+### Bước bổ sung và trường hợp không thực hiện
 
-Cột **“Điều chỉnh (+/−)”** thay tên cột checkbox “Việc bổ sung” để theo dõi đầy đủ **thêm và không dùng**:
+Hồ sơ không có cột “Điều chỉnh +/−”. Giữ nguyên mã CP của bước chuẩn. Bước riêng dùng mã **BS-001, BS-002…** duy nhất trong hồ sơ; ghi `added_steps[] = {id, after_step, action, reason, completion}` trong binding hiện hữu, neo sau một CP chuẩn. Không tự cấp mã CP mới. Khi bước bổ sung cần đổi quyền, phạm vi hoặc nghĩa vụ lõi, phải có quyết định hợp lệ trước khi thực hiện.
 
-| Hiển thị ở hồ sơ | Khi nào dùng | Ảnh hưởng tiến độ |
-| --- | --- | --- |
-| **— Theo chuẩn** | Bước chuẩn bắt buộc hoặc bước chuẩn đủ điều kiện áp dụng | Phải có kết quả/biên nhận mới tính Hoàn thành. |
-| **☑ + Bổ sung** | Phát sinh việc riêng cần chèn sau bước chuẩn, mã ví dụ `006.CP02.08+B01`; khai `parent_step_id`, `position_after`, mã/tên Master đích, người làm, `depends_on`, đầu ra, điều kiện xong, bằng chứng phê duyệt. | Sau khi phê duyệt trở thành bước **phải làm** đúng mốc; không tự cộng thành hoàn thành. |
-| **☑ − Không áp dụng** | Điều kiện nhánh không xảy ra hoặc phạm vi việc loại trừ có căn cứ; khai `condition_ref`, `reason`, `approved_by` khi cần và bản nguồn. | Loại khỏi mẫu số **các bước đến hạn phải làm**, vẫn hiện dòng và lịch sử để sau cải tiến. Không đánh dấu Hoàn thành giả. |
-| **☑ ↔ Thay thế** | Một bước chuẩn được thay bằng bước đặc thù đã có phép; giữ bản gốc và `replaced_by_step_id` để truy vết. | Bước thay thế có nghĩa vụ hoàn thành; bước gốc không bị xóa. Nếu chạm lõi/luật chung phải hiệu chỉnh theo MOW-TH-003. |
-
-**Bước lõi của 005 không được bỏ tùy ý.** Nếu N/A làm mất đầu vào, quyền, kiểm, duyệt hoặc ACK bắt buộc thì CP tương ứng phải **Vướng** cho tới khi thay đổi hợp đồng/phạm vi hợp lệ. Nhánh không phát sinh phải có lý do “điều kiện không xảy ra”; *chưa đánh giá được điều kiện* khác với *không áp dụng*. Điều chỉnh chỉ xảy ra ở hồ sơ cụ thể; nếu +/− lặp lại nhiều lần, tập hợp tín hiệu để đề xuất sửa 006@phiên mới theo QTTH 003, không tự thay nguồn chuẩn.
+Ô tình trạng thực tế để trống khi chưa có ghi nhận. `DONE` = Đã làm (việc thực hiện + kết quả/bằng chứng); `BLOCKED` = Bị chặn (lý do, issue, người xử lý, bước quay lại); `NOT_DONE` = Không làm (điều kiện hoặc quyết định và lý do). Không làm không tự được tính hoàn thành, không dùng để bỏ đầu vào, quyền, kiểm, duyệt hay ACK bắt buộc. Hướng dẫn sử dụng đặt trong dấu **?** ngay tại cột/bước; không điền lời hướng dẫn vào ô thực tế.
 
 ### Sổ/Tool và khi bị lỗi
 
@@ -229,6 +222,10 @@ Overview là cửa đọc quy định chuẩn: 7 mốc → 11 mục phải ghi �
 
 Hồ sơ DEF00.1 giữ sẵn mã/tên bước chuẩn và liên kết quy định. Các cột thực tế ban đầu rỗng: xác nhận đã làm/không làm, việc đã làm hoặc lý do không làm, công cụ thực dùng, kết quả/bản ghi, người và thời điểm. Rỗng là chưa ghi, KHÔNG có nghĩa không làm. Không lấy tên tool/Master/ghi chú gợi ý trong quy định làm dữ liệu thực tế. Không làm phải ghi lý do; không tự tính như đã hoàn thành.
 
-Sự kiện trong detail_tracking.events bổ sung các trường `performed` (DONE|NOT_DONE), `actual_action`, `tool_uses` (mảng tên/mã công cụ thực dùng), `record_ref`. Dùng lại `reason,result_ref,evidence_ref,actor,at,status` có sẵn. DONE cần mô tả việc làm + kết quả/bằng chứng; NOT_DONE cần lý do, không dùng để bỏ nghĩa vụ bắt buộc. Các khai báo phải đúng binding/phiên; thiếu hoặc lệch không hiển thị như kết quả hợp lệ. Khi chưa có adapter xác thực, xác nhận chỉ được ghi rõ là khai báo chưa đối chiếu, tuyệt đối không tích xanh. Lịch sử nối tiếp, không xóa; thay đổi hiển thị không sửa hồ sơ G1 đã nghiệm thu.
+Sự kiện trong detail_tracking.events bổ sung các trường `performed` (DONE|NOT_DONE|BLOCKED), `actual_action`, `tool_uses` (mảng tên/mã công cụ thực dùng), `record_ref`. Dùng lại `reason,result_ref,evidence_ref,actor,at,status` có sẵn. DONE cần mô tả việc làm + kết quả/bằng chứng; NOT_DONE/BLOCKED cần lý do, không dùng để bỏ nghĩa vụ bắt buộc. Các khai báo phải đúng binding/phiên; thiếu hoặc lệch không hiển thị như kết quả hợp lệ. Khi chưa có adapter xác thực, xác nhận chỉ được ghi rõ là khai báo chưa đối chiếu, tuyệt đối không tích xanh. Lịch sử nối tiếp, không xóa; thay đổi hiển thị không sửa hồ sơ G1 đã nghiệm thu.
 
-11 mục hồ sơ giữ kết quả/bằng chứng đã có; hướng dẫn và công cụ dùng lại xem tại Overview khi cần. Lượt nào xong thì KQ/nhả lease và dọn tài nguyên của chính lượt đó ngay; không xóa khóa dịch vụ hay tài nguyên AI khác.
+11 mục hồ sơ giữ kết quả/bằng chứng đã có; dấu ? tại cột/mục giải thích ngay nơi dùng, lấy nội dung từ nguồn chuẩn. Overview vẫn là nơi chứa luật. Lượt nào xong thì KQ/nhả lease và dọn tài nguyên của chính lượt đó ngay; không xóa khóa dịch vụ hay tài nguyên AI khác.
+
+## 7. Làm lại một việc — phát hiện tại lượt thật P45
+Giữ mã việc; mỗi vòng làm lại có application_id mới, giữ hồ sơ G1 và quyết định/ACK cũ nguyên vẹn. Trước CP01.04 phải xác minh đường ghi bảo vệ đúng application_id mới, phiên nguồn và sự kiện006; quyền ghi tệp chung không thay bằng chứng kiểm hợp đồng. Nếu chưa có, ghi lượt thật và điểm tắc tại CAT229/CAT069 hiện hữu, liên kết từ DEF00.1, không mở hồ sơ giả hoặc ghi vòng mới vào G1 cũ. KQ DỪNG tại đúng bước, không giữ khóa; sau sửa kiểm lại cửa ghi rồi tiếp tục, không hồi tố bước chưa làm.
+P45 đo cấu hình thật: policy MOW001-G1-P36-2 chỉ ghim application G1 cũ. Chưa có nghiệm thu quyền/adapter vòng mới; không suy rằng cả hệ thống bị từ chối ghi. Trạng thái hiện hành theo Master lỗi/lượt làm, không lấy mục này làm kết quả kiểm cho lần sau.

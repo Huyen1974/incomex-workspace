@@ -278189,8 +278189,8 @@ main{max-width:1240px} [hidden]{display:none!important}
           "detail_tracking": {
             "application_id": "MOW-NHC-001-G1-20261010-01",
             "target_version": "ui/mow-ui-walkthrough-v1.js@02230bf383141b41f5d09bb586cc34ab6981777a25ddd805a58bbdc451d132e4",
-            "process_version": "0.4-standard-record-split",
-            "definition_sha256": "ce97d7a4a32ba3c8cfb720b7e188dc6142ce97ad73e102de70e9e15d5539b585",
+            "process_version": "0.5-entry-contract-aligned",
+            "definition_sha256": "6978349a61588f6b6cf0eb102b83bd6b64256aa00026d8e86a792cb8dbfef670",
             "mode": "REFERENCE_ONLY",
             "note": "Chưa theo dõi QTTH06 ở P37/P38; không hồi tố 7/7 thành 87/87.",
             "events": [],
@@ -278199,9 +278199,23 @@ main{max-width:1240px} [hidden]{display:none!important}
                 "process_version": "0.3-host-reviewed",
                 "definition_sha256": "eac646f2cc23d9c6d8c3df07affe6e525a9ad6a41efda9d7833570d870cd999e",
                 "reason": "P42 chỉnh phân tách luật/hồ sơ; chưa có sự kiện thực hiện, giữ lịch sử binding."
+              },
+              {
+                "process_version": "0.4-standard-record-split",
+                "definition_sha256": "ce97d7a4a32ba3c8cfb720b7e188dc6142ce97ad73e102de70e9e15d5539b585",
+                "reason": "P45 sửa chỉ dẫn lệch với P43/P44, chưa có event của G1; giữ phiên cũ qua Git."
               }
             ]
-          }
+          },
+          "attempt_refs": [
+            {
+              "run_id": "MOW001-QT006-P45-REAL",
+              "master_code": "CAT-229*",
+              "source_ref": "catalog.tool_registry.walkthrough_runs",
+              "state": "DỪNG · CP01.04",
+              "note": "Làm lại theo006: chưa có hồ sơ mới; G1 cũ giữ nguyên7/7."
+            }
+          ]
         },
         {
           "record_id": "TQT-VIEC-002",
@@ -278550,7 +278564,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "check-work-masters.js",
             "view.html"
           ],
-          "sha256": "522be773084b9d0b326c523ddaad4b5ddeedde274aac328126292e33b1c8102b",
+          "sha256": "923253b60f1f2850914434c1d64514dd1fba69834fc202b38f0cc76a9c8ca3a9",
           "preconditions": "Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG",
           "input": "view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005",
           "output": "JSON / exit code; run_id + thời điểm + hash trong báo cáo runner",
@@ -278564,7 +278578,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           "timeout_seconds": 300,
           "ui_inputs": {
             "definition-master-registry-v1.js": "749ac49022b00a0cd901cd353a790e5b803ed19d6ca5737cbba9079c2da7756c",
-            "process-work-master-v1.js": "70f8d4e4e74115ed8a7e02d0ae5f094866e49f97b8130fa1f0dacf4b0f5ca15c",
+            "process-work-master-v1.js": "4bba6262a82ae22676cd627c0d96062d5e9e05de1b437caf33a5e1a4c98d886d",
             "ui-child-content-v1.js": "451fcc6d3c03c207ef3cbfecb7ad2a9de962b4b15392b51f258325739a0493ee",
             "ui-child-from-parent-v1.js": "b492c7f4faa7bf32a907397fcbb04ad2c942be9f4513f3cb4581aa3fa60e9357"
           },
@@ -279039,15 +279053,15 @@ main{max-width:1240px} [hidden]{display:none!important}
           },
           {
             "id": "TQT-CHECK-005",
-            "sha256": "522be773084b9d0b326c523ddaad4b5ddeedde274aac328126292e33b1c8102b",
+            "sha256": "923253b60f1f2850914434c1d64514dd1fba69834fc202b38f0cc76a9c8ca3a9",
             "exit_code": 0,
             "case_set": "TQT-CASE-MASTER",
-            "checked_at": "2026-10-13T07:46:48.232086+00:00",
+            "checked_at": "2026-10-13T08:04:34.247398+00:00",
             "ui_inputs": {
-              "process-work-master-v1.js": "70f8d4e4e74115ed8a7e02d0ae5f094866e49f97b8130fa1f0dacf4b0f5ca15c"
+              "process-work-master-v1.js": "4bba6262a82ae22676cd627c0d96062d5e9e05de1b437caf33a5e1a4c98d886d"
             },
-            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P44/check005",
-            "job_id": "TQT-P44-CHECK005-LOCAL",
+            "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P45/check005",
+            "job_id": "TQT-P45-CHECK005-LOCAL",
             "source_head": null
           },
           {
@@ -279061,7 +279075,7 @@ main{max-width:1240px} [hidden]{display:none!important}
           }
         ],
         "observed_at": "2026-10-12T15:43:43.236724+00:00",
-        "audit_sha256": "b11429a9efbdf5426c80b47ec47a994faf3e8f67f74ca1704709050dc33f6ad0",
+        "audit_sha256": "75cc398415bde0e2888ddd35e202b65b3ef52a163981a1711eb4e976c83dcffb",
         "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P33/audit",
         "dot_inventory": [
           {
@@ -283749,7 +283763,7 @@ main{max-width:1240px} [hidden]{display:none!important}
             "registration": "UNMAPPED_OBSERVED_CAPABILITY"
           }
         ],
-        "execution_count": 140,
+        "execution_count": 141,
         "event_count": 4189,
         "complete_receipts": 184,
         "external_receipts": [
@@ -285392,6 +285406,19 @@ main{max-width:1240px} [hidden]{display:none!important}
           "next_version": "522be773084b9d0b326c523ddaad4b5ddeedde274aac328126292e33b1c8102b",
           "reason": "Same contextual help mechanism for 11 recording groups and 87 steps; canonical instructions at point of use",
           "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P44"
+        },
+        {
+          "id": "TQT-P45-TQT-CHECK-005",
+          "target_code": "TQT-CHECK-005",
+          "kind": "UPGRADE",
+          "at": "2026-10-13T08:04:34.247398+00:00",
+          "changed_at": "2026-10-13T08:04:34.247398+00:00",
+          "actor": "Codex Host",
+          "source_sha256": "923253b60f1f2850914434c1d64514dd1fba69834fc202b38f0cc76a9c8ca3a9",
+          "previous_version": "522be773084b9d0b326c523ddaad4b5ddeedde274aac328126292e33b1c8102b",
+          "next_version": "923253b60f1f2850914434c1d64514dd1fba69834fc202b38f0cc76a9c8ca3a9",
+          "reason": "Validate multiple application identities, source refs and versions; preserve old G1",
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P45"
         }
       ],
       "walkthrough": {
@@ -285678,7 +285705,81 @@ main{max-width:1240px} [hidden]{display:none!important}
         "outcome": "Ghi nguồn → tiến trình khác đọc/kiểm → đọc lại Master → lưu kết quả/duyệt GPT → bàn giao nguồn hiện hành; đủ trong phạm vi áp thử Host theo Owner.",
         "process_definition_acceptance": "NOT_CLAIMED: chưa có AI mới độc lập làm cả quy trình; ghi riêng, không chặn lượt hiện tại theo Owner",
         "instruction_sha256": "0295ffbcd5057e1350b7ab6111e34214ccfd9632d5c86fbf0426de2cd24a0c6f"
-      }
+      },
+      "walkthrough_runs": [
+        {
+          "run_id": "MOW001-QT006-P45-REAL",
+          "process_code": "MOW-TH-006",
+          "process_version": "0.5-entry-contract-aligned",
+          "target_code": "MOW-NHC-001",
+          "target_version": "ui/mow-ui-walkthrough-v1.js@02230bf383141b41f5d09bb586cc34ab6981777a25ddd805a58bbdc451d132e4",
+          "work_id": "TQT-VIEC-001",
+          "started_at": "2026-10-13T08:01:26.200656+00:00",
+          "finished_at": "2026-10-13T08:01:26.200656+00:00",
+          "outcome": "DỪNG tại CP01.04; 3 thao tác đọc/đối chiếu đã thực hiện, chưa có hồ sơ vòng mới, chưa qua CP01",
+          "scope": "REAL_ENTRY_WALKTHROUGH · ngoài PG; không thay G1 và không lấy TEST làm việc thật",
+          "independence": "Codex Host đóng vai AI mới; không phải reviewer độc lập hoặc agent mới",
+          "input_ref": "Owner yêu cầu P45; AGENTS→COLLAB→README→MOW-TH-006.md",
+          "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P45",
+          "steps": [
+            {
+              "step_id": "CP01.01",
+              "performed": "DONE",
+              "actual_action": "Đọc nguyên yêu cầu và giới hạn ngoài PG/không TEST/nhả khóa",
+              "evidence_ref": "COLLAB.md#P45"
+            },
+            {
+              "step_id": "CP01.02",
+              "performed": "DONE",
+              "actual_action": "Đối chiếu Owner giao Host TQT làm lại trong phạm vi hiện có; không suy nghiệm thu G1 cho vòng mới",
+              "evidence_ref": "COLLAB.md#P45"
+            },
+            {
+              "step_id": "CP01.03",
+              "performed": "DONE",
+              "actual_action": "Tra DEF00.1: giữ mã TQT-VIEC-001 cho MOW-NHC-001, không mở MOW002, không tạo việc trùng; phát hiện bộ kiểm một application",
+              "evidence_ref": "catalog.work_schedule.records/TQT-VIEC-001"
+            },
+            {
+              "step_id": "CP01.04",
+              "performed": "BLOCKED",
+              "reason": "CP01.04: chưa có chốt hợp đồng/quyền được xác minh cho application làm lại và event006; live policy chỉ ghim G1 cũ",
+              "issue_ref": "TQT-P45-F03",
+              "owner": "Codex Host",
+              "return_to": "CP01.04",
+              "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P45/live_guard"
+            }
+          ],
+          "findings": [
+            {
+              "id": "TQT-P45-F01",
+              "type": "THIEU_HUONG_DAN",
+              "problem": "Nguồn QT006 còn +/− và mã bổ sung cũ, thiếu BLOCKED; khác UI/README P43/P44",
+              "state": "Đã sửa · kiểm kỹ thuật, không nghiệm thu vòng thật",
+              "next": "Dùng nguồn006v0.5 và ? tại nơi sử dụng",
+              "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P45"
+            },
+            {
+              "id": "TQT-P45-F02",
+              "type": "LOI_BO_KIEM",
+              "problem": "CHECK005 chỉ chấp nhận application_preview G1 duy nhất dù luật cho phép nhiều vòng và UI đã có pool applications",
+              "state": "Đã sửa bộ kiểm · kiểm kỹ thuật, chưa mở hồ sơ vòng mới",
+              "next": "Khi đủ chốt ghi, gắn hồ sơ mới đúng nguồn/phiên và giữ G1",
+              "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P45"
+            },
+            {
+              "id": "TQT-P45-F03",
+              "type": "THIEU_QUYEN_DA_XAC_MINH",
+              "problem": "CP01.04: chưa có chốt hợp đồng/quyền được xác minh cho application làm lại và event006; live policy chỉ ghim G1 cũ",
+              "state": "Bị chặn · chưa khai hồ sơ mới",
+              "next": "Host TQT chuẩn bị mở rộng hợp đồng vòng mới; review mã theo đường P41 hiện hữu, kiểm cửa ghi và readback đúng scope rồi quay lại CP01.04. Không ghi vòng mới qua đường không kiểm.",
+              "owner": "Codex Host",
+              "return_to": "CP01.04",
+              "evidence_ref": "UI-REVIEW-AGGREGATE.json#host_review_P45/live_guard"
+            }
+          ]
+        }
+      ]
     },
     "trial_storage_contract": {
       "version": "1.0-trial",
@@ -286143,9 +286244,9 @@ main{max-width:1240px} [hidden]{display:none!important}
     },
     "detailed_workflow": {
       "code": "MOW-TH-006",
-      "version": "0.4-standard-record-split",
+      "version": "0.5-entry-contract-aligned",
       "source_ref": "work/tools-quy-trinh/MOW-TH-006.md",
-      "source_sha256": "ce97d7a4a32ba3c8cfb720b7e188dc6142ce97ad73e102de70e9e15d5539b585",
+      "source_sha256": "6978349a61588f6b6cf0eb102b83bd6b64256aa00026d8e86a792cb8dbfef670",
       "state": "DESIGN_REVIEWED_NOT_OPERATIONALLY_ACCEPTED",
       "groups": [
         {
