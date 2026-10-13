@@ -1,4 +1,97 @@
-# PROMPT — VPSC-HEAL02-L0-20261013-01 · Phần 1: xong việc dở của HEAL (#11 xanh thật) · Phần 2: đo tải + soát di sản theo kế hoạch DEL-1 (CHỈ ĐỌC)
+# PROMPT — VPSC-L1-CRON-OFF-20261013-01 · Tắt theo chủ đề, đợt 1: 21 dòng LỊCH di sản (Pivot/đếm + Governance/APR/heal) · chỉ crontab, không chạm PG/Directus/mã
+
+RUN_ID: VPSC-L1-CRON-OFF-20261013-01
+Task: `work/vps-clean-20-9-26` (VPSC) · mục tiêu D22–D24 + **D25 (Owner 13/10 20:59: chỉ giữ PG đếm PG/ba lô, agent-data RAG + connector, Graph và bảo vệ Đ30/31; Lark tạm giữ; governance · khai sinh · miếng thông tin · registries · pivot count off theo chủ đề)**. Không phải việc mới.
+Soạn: Claude Chat (P89, B2 theo P88). Rà: GPT Chat Host một lượt (B3): ổn ⇒ ACCEPT + READY đúng SHA; sửa nhỏ thì sửa thẳng rồi READY.
+Executor: Claude Code CLI, phiên MỚI trên Mac, qua `ssh contabo`. Ghi repo: Incomex MCP `workspace_*` root `workspace`.
+Status: **DRAFT — chờ GPT ACCEPT+READY**.
+Bằng chứng: `/opt/incomex/work/vps-clean-20-9-26/VPSC-L1-CRON-OFF-20261013-01/` (gọi tắt `<EV>`; chỉ receipt đã làm sạch). Báo cáo: mục `L1-20261013` trong `BAO-CAO.md` hiện có. Tiến độ + KQ: dưới P89 trong `COLLAB.md`. Không tạo tệp repo mới.
+**Chỉ thực hiện phần trên dòng `LỊCH SỬ` đầu tiên.** Tham chiếu được nêu tên: §1 luật cứng + §2 S0 của bản lịch sử HEAL-01; bảng lịch `l0/cron.txt` và Bảng A/B của L0 (`BAO-CAO.md · L0-20261013`).
+
+## 0. Mục tiêu và thế nào là XONG
+Ngừng các việc định kỳ của chủ đề di sản đang đốt tài nguyên mà không phục vụ phần đang dùng: theo L0, hai việc quét `birth_registry` (lịch matrix) và `system_issues` (lịch hc-executor) chiếm 98% khối PG phải đọc ngoài bộ đệm; lịch pivot ghi đè 150 dòng mỗi 10 phút. Chỉ tắt LỊCH (đảo được trong 10 giây); trigger, bảng, flow, mã, dữ liệu giữ nguyên.
+**XONG khi đủ cả 6:**
+1. Đúng các dòng bảng T (§3) đã thành chú thích với tiền tố `#L1-OFF-VPSC-L1-CRON-OFF-20261013-01 ` + đúng 1 dòng nhãn đầu crontab; không dòng nào khác đổi (diff = số dòng T đã tắt + 1).
+2. 2 dòng Guard `CRON_EXACT` (`disk-monitor.sh`, `mcpw-protection-guard periodic`) còn nguyên văn, đúng 1 lần; mọi dòng bảng K còn chạy; mọi dòng `CRON_TZ=` giữ nguyên chỗ.
+3. Một chu kỳ 10 phút sau khi nạp (≤ 12 phút, ngoài giờ máy 02 và 20 — giờ lịch cũ vốn nghỉ): delta `pivot_results.n_tup_upd` = 0, `meta_catalog.n_tup_upd` = 0, `v_registry_counts.n_tup_ins` = 0, `birth_registry.seq_scan` = 0 (L0: ~150 · ~18 · ~185 · ~6 mỗi 10′). Rơi vào giờ 02/20 ⇒ không chờ: ghi `quan sát rơi giờ nghỉ`, dựa mục 1 + Reviewer đọc 24h.
+4. Bản sao `/root/crontab.bak-VPSC-L1-CRON-OFF-20261013-01` có sha256 = crontab lúc PRE; lệnh bật lại ghi sẵn trong BAO-CAO.
+5. Guard POST `--coverage` + 22 đèn same-or-better so PRE_RED_SET; agent-data `/health`, Directus ping, Nuxt `/knowledge/modules` 200, Graph đọc được; trang registries/pivot vẫn 200 (số đứng yên là trạng thái đúng của chủ đề đã tắt).
+6. Mốc T0 `pg_stat_user_tables` (DB `directus`) ghi vào `<EV>` để Reviewer tự đọc hiệu quả 24h từ bộ đếm cộng dồn — không ai ngồi chờ.
+
+## 0A. Quyền Owner — khối Owner dán PHẢI có nguyên dòng này
+Owner D25 (13/10/2026 20:59): «tất cả các phần đã triển khi trước đây như: govenance, khai sinh, Miếng thông tin, registries, pivot count, Lark (thì có thể tạm để) Đếu là những thứ có thể off được để tiết kiệm tài nguyên. Nhưng 1 số nội dung như bảo vệ điều 30, 31 thì vẫn cần dùng => vi vậy off theo chủ để rồi xem xét từng phần để tối ưu VPS nhé.»
+
+RUN này chỉ tắt LỊCH (crontab root) của hai chủ đề Pivot/đếm và Governance/APR/heal. Không tắt trigger/bảng/view/flow, không sửa DOT/script/mã, không xoá dữ liệu. Thiếu dòng này hoặc thiếu Reviewer ACCEPT + Host READY đúng SHA PROMPT hiện tại ⇒ DỪNG trước STARTED.
+
+## 1. Luật cứng
+- Áp nguyên §1 của bản lịch sử HEAL-01 (VPS-GHI · báo từng bước · danh sách KHÔNG ĐƯỢC · bí mật · nghi ngờ thì giữ).
+- Chỉ đổi crontab root theo đúng §4: `crontab -l` → tệp trong `<EV>` → thêm tiền tố đúng dòng → `crontab <tệp>`. Không sửa `/etc/cron.d/*`, không sửa tệp DOT/script, không PG DDL/DML, không Directus, không restart, không đụng Graph.
+- Nhận diện dòng bằng **khoá = cột lịch + chuỗi đặc trưng** ở bảng T; mỗi khoá phải khớp **đúng 1 dòng đang chạy** (không bắt đầu bằng `#`). Khớp 0 hoặc > 1 ⇒ GIỮ dòng đó, ghi lý do, làm tiếp dòng khác. Không tự thêm dòng ngoài bảng T.
+- Bí mật: vài dòng crontab chứa lệnh đọc tệp khoá; repo và báo cáo chỉ ghi số thứ tự, khoá, sha256 của dòng — không in nguyên dòng, không in giá trị khoá/biến.
+- Ngân sách ≤ 30 phút (cộng tối đa 12 phút quan sát mục 3).
+
+## 2. S0 — đọc + PRE (chỉ đọc)
+1. Đọc `AGENTS.md` → COLLAB gốc (`VPS-GHI`) → VPSC COLLAB §0 (D24, D25) + P88 + P89 → PROMPT này → `BAO-CAO.md` mục L0-20261013 (Bảng A/B, mục 5–6) + `l0/cron.txt` của L0.
+2. Kiểm Reviewer ACCEPT + Host READY đúng SHA; khối Owner có dòng §0A; làm §2 bước 2–3 của bản lịch sử HEAL-01 (sàn tài nguyên, Guard PRE + PRE_RED_SET).
+3. **Bóc tách 3 nguồn cho từng dòng T (chỉ đọc, chỉ in tên tệp/nút):** (i) **Graph** — qua đường đọc graph-v1 (đầu nối lỗi ⇒ bản xuất `/opt/incomex/graph-server/prod-v1/backups/export/graph-v1-{nodes,rels}.jsonl`): với mỗi DOT/hàm ở bảng T, liệt kê cạnh VÀO từ nút thuộc nhóm giữ (mã agent-data, graph-server, claude-mcp, Guard/kuma-push/storage-watch, ba lô) ⇒ kỳ vọng 0; ghi rõ Graph chưa phủ cron/SQL dựng chuỗi/Directus HTTP/Nuxt. (ii) **Mã** — tìm tên DOT/hàm trong đúng các thư mục giữ: `/opt/incomex/docker/agent-data-repo/agent_data`, `/opt/incomex/claude-mcp`, `/opt/incomex/graph-server`, `scripts/mcpw-protection-guard`, `scripts/kuma-push.sh`, `scripts/storage-watch.py`, `/opt/incomex/docker/nuxt-repo/web/server` trừ `api/registry*`/`api/registries*` (`nice -n 19 ionice -c3`, chỉ tên tệp) ⇒ kỳ vọng 0 (Claude P89 đo 0). (iii) **Tin báo** — `logs/bang-den.json` khoá `tin_bao`: 0 loại tin có nguồn là dòng T (P89 đo 0/75). Dòng nào có tham chiếu từ nhóm giữ ⇒ GIỮ dòng đó, ghi `→ Host`.
+4. Ảnh PRE vào `<EV>`: `crontab -l` sha256 + bản sao; T0 `pg_stat_user_tables` cho `pivot_results`, `meta_catalog`, `v_registry_counts`, `v_registry_summary`, `birth_registry`, `system_issues`, `approval_requests` (+ `pg_statio_user_tables` hai bảng nóng); danh sách `system_health_checks` đang bật (code · tên · executor_type, không in SQL/ngưỡng) để L2 biết đã ngừng kiểm gì.
+5. Giữ `VPS-GHI` + dòng STARTED dưới P89 cùng commit trước mọi thay đổi (cú pháp như §2 bước 4 HEAL-01).
+
+## 3. Bảng T — dòng tắt (21) · Bảng K — dòng giữ
+| # | Chủ đề · DEL-1 | Cột lịch | Chuỗi đặc trưng | Tốn gì (L0) |
+|---|---|---|---|---|
+| P1 | Pivot/đếm · Bộ 2–3 | `3-59/10 * * * *` | `refresh_meta_catalog_from_pivot()` | 18 dòng `meta_catalog`/lượt + 10 trigger chuỗi đếm |
+| P2 | Pivot · Bộ 3 | `7-59/10 * * * *` | `refresh_pivot_results()` | ghi đè 150 dòng/lượt (~22.000/ngày) |
+| P3 | Pivot/orphan · Bộ 3 | `5-59/10 * * * *` | `fn_refresh_orphan_species()` | 1 `docker exec` + 4 hàm/10′ |
+| P4 | Matrix · Bộ 3 | `9-59/10 * * * *` | `refresh_matrix_results()` | 6 lần quét `birth_registry`/lượt = 42% khối PG đọc |
+| P5 | Pivot · Bộ 3 | `0 4 * * *` | `/dot/bin/dot-pivot-health ` | kiểm sức khoẻ P1–P4 |
+| P6 | Matrix · Bộ 3 | `5 4 * * *` | `/dot/bin/dot-matrix-health ` | như P5 |
+| P7 | Đếm · Bộ 4 | `30 3 * * *` | `/dot/bin/dot-accuracy-verify ` | sửa `record_count` của `meta_catalog` |
+| G1 | Heal · Bộ 1–2 | `0 */3 * * *` | `/dot/bin/dot-hc-executor >>` | phần lớn 56% khối PG đọc (`system_issues`) |
+| G2 | Heal | `30 */3 * * *` | `/dot/bin/dot-hc-executor-verify ` | kiểm cặp của G1 |
+| G3 | Orphan · Bộ 1,2,4 | `30 2 * * *` | `/dot/bin/dot-orphan-scanner ` | quét `birth_registry` |
+| G4 | Phân loại · Bộ 2,4 | `0 3 * * 0` | `/dot/bin/dot-misclass-scanner ` | phân loại loài — Owner đã bỏ cách phân loại này (việc pg-nhan-balo) |
+| G5 | APR · Bộ 4 | `0 5 * * *` | `fn_expire_stale_approvals()` | APR ngủ từ 23/07 |
+| G6 | APR · Bộ 4 | `30 4 * * *` | `auto_apply_approval()` | như G5; còn 2 yêu cầu `approved` chưa áp — tắt để không tự áp |
+| G7 | APR · Bộ 4 | `30 4 * * *` | `/dot/bin/dot-apr-health` | |
+| G8 | Sổ DOT · Bộ 4 | `0 3 * * *` | `/dot/bin/dot-dot-health ` | |
+| G9 | Registry · Bộ 1–2 | `0 4 * * *` | `/dot/bin/dot-collection-health` | còn lỗi SQL (bảng/cột đã bỏ) |
+| G10 | Governance · Bộ 4 | `0 5 * * *` | `/dot/bin/dot-gov-verify ` | |
+| G11 | Normative · Bộ 4 | `0 5 * * *` | `/dot/bin/dot-nrm-verify ` | |
+| G12 | Normative · Bộ 4 | `30 5 * * *` | `/dot/bin/dot-nrm-sync ` | |
+| G13 | Normative · Bộ 4 | `0 6 * * *` | `/dot/bin/dot-nrm-lifecycle ` | |
+| G14 | Normative · Bộ 1,4 | `0 4 * * 0` | `/dot/bin/dot-nrm-discover ` | |
+
+**Bảng K — GIỮ, không đụng, kiểm còn chạy sau RUN:** `disk-monitor.sh` + `mcpw-protection-guard periodic` (Guard `CRON_EXACT`) · `db-permissions-guard` · `env-permissions-guard` · bộ «Điều 31» cũ `cron-integrity.sh` · `watchdog-monitor.sh` · `scanner-counts.sh` (LOCKED; Owner giữ Đ30/31 — L2 xét riêng) · `dot-trigger-guard` (bảo vệ trigger Tier A) · `run-sr-mow.sh` (Đ30/31 MOW) · backup (`pg-backup`, `backup-to-gdrive`, `code-backup-to-gdrive`, `qdrant-backup`, dòng 04:17) · `git-push-gh-daily-v2` · `test-mcp-connectivity` · `reconcile-tasks` · `reconcile-knowledge` · `dot-kb-verify.sh` · `dot-api-health.sh` · `dot-vector-audit` · `dot-sync-orphan-scan` · `cdn-cache-warm` · `phai-cu/cron.sh` · `dot-dot-coverage` · `dot-doc-partition` · `dot-script-lint` (nhãn «CHẠM: KHÔNG» — L2) · mọi dòng `CRON_TZ=` · toàn bộ `/etc/cron.d/*`.
+
+## 4. Thực hiện
+1. **Bản sao:** `crontab -l > <EV>/crontab.truoc` và `cp` thành `/root/crontab.bak-VPSC-L1-CRON-OFF-20261013-01`; sha256 hai bản = nhau.
+2. **Soạn bản sau** `<EV>/crontab.sau` từ `crontab.truoc`: mỗi dòng T khớp đúng 1 ⇒ thêm tiền tố `#L1-OFF-VPSC-L1-CRON-OFF-20261013-01 `; chèn đúng 1 dòng đầu tệp: `# L1-OFF VPSC-L1-CRON-OFF-20261013-01 <UTC> · D25 Owner 13/10 · tắt LỊCH chủ đề Pivot/đếm + Governance/APR/heal (DEL-1 Bộ 1–4) · trigger/bảng/flow/mã CHƯA đổi · bật lại: crontab /root/crontab.bak-VPSC-L1-CRON-OFF-20261013-01 hoặc bỏ tiền tố từng dòng`.
+3. **Kiểm trước khi nạp:** `diff` chỉ gồm các dòng T đã khớp + 1 dòng nhãn; 2 dòng `CRON_EXACT` có trong bản sau nguyên văn đúng 1 lần; số dòng không chú thích = trước − số dòng T đã tắt. Sai ⇒ không nạp, KQ DỪNG.
+4. **Nạp:** `crontab <EV>/crontab.sau`; `crontab -l | sha256sum` = sha của bản sau.
+5. **Quan sát một chu kỳ** (§0 mục 3): T1 ngay sau nạp, T2 sau mốc phút `:x9` kế tiếp; không còn tiến trình `docker exec … refresh_` mới. Bộ đếm còn nhảy ⇒ lùi (§4 mục 9).
+6. **Nhãn tại chỗ:** thêm 1 dòng trạng thái vào mục lộ trình của `/opt/incomex/docs/KE-HOACH-XOA-20260801.md`: `<UTC> · VPSC L1 VPSC-L1-CRON-OFF-20261013-01: bước 4, lớp LỊCH, đợt 1 — <n> dòng cron Bộ 1–4 TẮT (đảo được) theo D25; trigger/bảng/flow CHƯA · bật lại: crontab /root/crontab.bak-VPSC-L1-CRON-OFF-20261013-01`. Tệp thuộc Config Guard ⇒ không sửa, ghi lý do vào BAO-CAO.
+7. **POST:** Guard POST `--coverage` (footprint thật: crontab root + tệp nhãn) + 22 đèn + health ở §0 mục 5 ⇒ same-or-better so PRE_RED_SET.
+8. **Bảng Đ30/31 (R4) cho thành phần «crontab root»:** Hồi quy = diff đúng + 0 dòng T còn chạy + bộ đếm §0 mục 3 · Toàn vẹn = Guard INV15 dòng lịch + `cron.root.sha` PRE→POST trong footprint · Canh = Guard periodic + 22 đèn Kuma · Lùi = `/root/crontab.bak-…` (sha = PRE), lệnh `crontab /root/crontab.bak-VPSC-L1-CRON-OFF-20261013-01`.
+9. **Lỗi thì lùi:** mục 3/4/5/7 hỏng hoặc có đèn mới đỏ do RUN ⇒ `crontab /root/crontab.bak-VPSC-L1-CRON-OFF-20261013-01` ngay, kiểm sha = PRE, KQ DỪNG nêu bước.
+10. **Báo cáo:** mục `L1-20261013` trong BAO-CAO (cho Owner ≤ 3 dòng · bảng T từng dòng TẮT/GIỮ + lý do · T0/T1/T2 · kết quả bóc tách 3 nguồn · bảng Đ30/31 · danh sách health check đã ngừng) → dòng `KQ@VPSC-L1-CRON-OFF-20261013-01 XONG|DỪNG · …` dưới P89 → **trả `VPS-GHI: trống` cùng commit**. Báo Owner đúng một dòng.
+
+## 5. Bước đi
+| Bước | Việc | Bằng chứng | Lỗi thì |
+|---|---|---|---|
+| 1/5 S0 | đọc, bóc tách 3 nguồn, PRE + T0, giữ khoá | ảnh PRE, STARTED | DỪNG trước mọi thay đổi |
+| 2/5 Soạn | bản sao + `crontab.sau` + kiểm diff | diff, sha | không nạp, DỪNG |
+| 3/5 Nạp + quan sát | nạp, một chu kỳ 10′ | 4 bộ đếm = 0 | lùi bản sao |
+| 4/5 POST | Guard coverage, 22 đèn, health, nhãn DEL-1 | coverage same-or-better | lùi bản sao |
+| 5/5 KQ | BAO-CAO + KQ + trả khoá | 0 tiến trình nền | — |
+
+Sau RUN (không thuộc RUN này): Reviewer đọc `pg_stat` 24h từ T0 (bộ đếm cộng dồn, không ai chờ) → Host chọn L1b (trần RAM theo số mới) hoặc L2 theo chủ đề (P89).
+
+---
+
+<details><summary>LỊCH SỬ — HEAL02+L0 VPSC-HEAL02-L0-20261013-01 (READY b8ee714e, đã chạy 13/10: Phần 1 DỪNG · Phần 2 XONG) — KHÔNG THỰC HIỆN</summary>
+
+# (Lịch sử) PROMPT — VPSC-HEAL02-L0-20261013-01 · Phần 1: xong việc dở của HEAL (#11 xanh thật) · Phần 2: đo tải + soát di sản theo kế hoạch DEL-1 (CHỈ ĐỌC)
 
 RUN_ID: VPSC-HEAL02-L0-20261013-01
 Task: `work/vps-clean-20-9-26` (VPSC) · mục tiêu D22/D23 + **D24 (Owner 13/10: tối ưu VPS, nâng trần RAM, chạy nhanh hơn, tắt dần di sản khai sinh · registry · pivot đếm, dùng Graph)**. Không phải việc mới.
@@ -65,7 +158,7 @@ RUN này chỉ dùng Q1 (A1) và Q2 phần D03 D04 D15. Thiếu dòng này hoặ
 | 5/6 L0 | đo tải + bước 2 DEL-1 | Bảng A/B/C | ghi CHƯA ĐỦ, không đoán |
 | 6/6 KQ | KQ phần 2, báo Owner | 0 thay đổi phần 2 | — |
 
----
+</details>
 
 <details><summary>LỊCH SỬ — HEAL-01 VPSC-HEAL-DISK-MEM-20261013-01 (READY f3fbbd7c, đã chạy 13/10, KQ DỪNG A1) — KHÔNG THỰC HIỆN; chỉ tham chiếu đúng mục PROMPT trên nêu tên</summary>
 
