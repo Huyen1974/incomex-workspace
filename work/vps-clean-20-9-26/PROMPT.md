@@ -68,7 +68,10 @@ Làm đúng §0B của bản lịch sử bên dưới: đóng gói mã hoá bằ
 ## 7. Bước E — sửa nhỏ giám sát
 `/opt/incomex/scripts/disk-monitor.sh` dòng 85 lấy mã thoát sau lệnh `date` nên luôn ghi `WARN … rc=0`: sửa để lưu mã thoát ngay sau lệnh storage-watch (sửa tối thiểu, qua apply-v0). Thử trên bản sao trong thư mục tạm của lượt với lệnh giả trả lỗi ⇒ log ghi mã khác 0; dọn bản sao sau khi thử.
 
-<!-- PHẦN-2D: §8 -->
+## 8. Bước D — trần RAM (Q5), làm sau cùng
+Ghi một dòng tiến độ trước bước này (D2 làm agent-data mất kết nối DB vài chục giây, ghi repo có thể lỗi tạm; ghi lại sau khi khoẻ).
+- **D1 đầu nối Claude (container claude-mcp):** trong tệp compose của nó dưới thư mục claude-mcp, nâng giới hạn bộ nhớ từ 1 GiB lên 1,5 GiB và giới hạn bộ nhớ cộng swap lên 2,5 GiB (giữ 1 GiB swap như cũ), ghi chú thích Q5 Owner ngày 13/10 (Graph P144); giữ nguyên dòng khác. Dựng lại riêng service đó từ đúng thư mục của tệp; xác nhận healthy và một lệnh công cụ thật chạy được.
+<!-- PHẦN-2E: D2 D3 -->
 
 ## 9. POST + KQ
 1. Chạy đúng một lượt `/opt/incomex/scripts/disk-monitor.sh` thủ công (cùng khoá với cron; khoá bận thì đợi lượt cron đó xong, tối đa 10 phút) ⇒ storage-watch tính lại và đẩy Kuma #11.
