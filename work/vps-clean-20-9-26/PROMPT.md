@@ -57,7 +57,18 @@ Trước hết đọc mã đang chạy trong container (không chỉ nguồn hos
 - **B4 (D15):** gỡ container Created `workspace-job-0ae7…` (không cưỡng bức). 5 volume treo: volume thuộc project compose của dịch vụ đang chạy ⇒ giữ; còn lại ⇒ tar Drive-first §5 ⇒ gỡ đúng tên volume.
 - **Giữ nguyên:** D02 Hermes, D05 Graph, D08 backup-staging, D09 `/root` (chưa rõ chủ), D13 build cache (D10), dữ liệu PG/Qdrant/Neo4j.
 
-<!-- PHẦN-2B: §5–§10 -->
+## 5. Drive-first (D23) — dùng đúng đường đã duyệt của N2a cũ (P79)
+Làm đúng §0B của bản lịch sử bên dưới: đóng gói mã hoá bằng đúng người nhận của `backup-to-gdrive.sh` → đẩy lên thư mục `rescue/vpsc-n2a/` (thư mục `backup-to-gdrive.sh` không tỉa), meta `retain_until` = +12 tháng → readback số mục/cỡ/checksum → thử khôi phục mẫu theo chuỗi đã chứng minh của `dot-pg-restore-verify-db` (giải nén một mẫu, sha256 khớp; gói cắt cụt phải báo lỗi; không để lại gì trên đĩa bền) → kiểm lại tham chiếu ngay trước khi bỏ → bỏ đúng danh sách. Bước nào lỗi ⇒ giữ local, báo. Báo số GB đã đẩy lên Drive.
+
+## 6. Bước C — mồ côi (Q4)
+- **C1** tmux `agents` (22/05): kê pane (pid, lệnh, cổng nghe). Không pane nào là dịch vụ systemd/compose, không giữ cổng mà nginx/Kuma dùng, không phải Hermes gateway/serve đang chạy ⇒ đóng phiên tmux `agents` và xác nhận htop đã tắt. Ngược lại ⇒ chỉ dừng tiến trình htop, ghi blocker phần còn lại.
+- **C2** 2 tiến trình `node .output/server/index.mjs` (20/08, 127.0.0.1:3101 và :3909): tìm cổng 3101/3909 trong cấu hình nginx và Kuma (chỉ in tên tệp); không ai trỏ ⇒ gửi tín hiệu dừng thường, xác nhận thoát trong 10 giây; còn sống ⇒ để nguyên và báo (không ép dừng).
+- gpg-agent cũ: không thuộc Q4, để nguyên.
+
+## 7. Bước E — sửa nhỏ giám sát
+`/opt/incomex/scripts/disk-monitor.sh` dòng 85 lấy mã thoát sau lệnh `date` nên luôn ghi `WARN … rc=0`: sửa để lưu mã thoát ngay sau lệnh storage-watch (sửa tối thiểu, qua apply-v0). Thử trên bản sao trong thư mục tạm của lượt với lệnh giả trả lỗi ⇒ log ghi mã khác 0; dọn bản sao sau khi thử.
+
+<!-- PHẦN-2C: §8–§10 -->
 
 ---
 
