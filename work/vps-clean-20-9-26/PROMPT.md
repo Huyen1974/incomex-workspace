@@ -71,7 +71,9 @@ Làm đúng §0B của bản lịch sử bên dưới: đóng gói mã hoá bằ
 ## 8. Bước D — trần RAM (Q5), làm sau cùng
 Ghi một dòng tiến độ trước bước này (D2 làm agent-data mất kết nối DB vài chục giây, ghi repo có thể lỗi tạm; ghi lại sau khi khoẻ).
 - **D1 đầu nối Claude (container claude-mcp):** trong tệp compose của nó dưới thư mục claude-mcp, nâng giới hạn bộ nhớ từ 1 GiB lên 1,5 GiB và giới hạn bộ nhớ cộng swap lên 2,5 GiB (giữ 1 GiB swap như cũ), ghi chú thích Q5 Owner ngày 13/10 (Graph P144); giữ nguyên dòng khác. Dựng lại riêng service đó từ đúng thư mục của tệp; xác nhận healthy và một lệnh công cụ thật chạy được.
-<!-- PHẦN-2E: D2 D3 -->
+- **D2 cơ sở dữ liệu (container postgres):** tìm tệp compose thật qua nhãn compose của chính container đó (tệp cấu hình, thư mục làm việc, tên project). Chỉ nâng giới hạn bộ nhớ của service này từ 2 GiB lên 3 GiB (nếu có giới hạn bộ nhớ cộng swap thì cùng thêm 1 GiB). Tệp đó là đích Guard đang DRIFT ⇒ không đụng, ghi blocker. Dựng lại riêng service này, không kéo theo service khác, từ đúng thư mục làm việc và project; chờ healthy tối đa 180 giây; kiểm Directus, agent-data và đèn Kuma của cơ sở dữ liệu; Graph không ảnh hưởng. Dịch vụ phụ thuộc không tự khoẻ trong 180 giây ⇒ ghi blocker, không tự khởi động lại dịch vụ khác.
+- Rollback mỗi bước: khôi phục bản `.pre` (apply-v0) rồi dựng lại service đó; làm ngay nếu chính service không khoẻ trong 180 giây.
+- **D3 đo sau:** memory.current/max, swap, delta `memory.events` trong 10 phút; p50 10 lần cùng công cụ như PRE.
 
 ## 9. POST + KQ
 1. Chạy đúng một lượt `/opt/incomex/scripts/disk-monitor.sh` thủ công (cùng khoá với cron; khoá bận thì đợi lượt cron đó xong, tối đa 10 phút) ⇒ storage-watch tính lại và đẩy Kuma #11.
