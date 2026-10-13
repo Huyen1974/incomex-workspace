@@ -1,4 +1,53 @@
-# PROMPT — VPSC-N2A-DISK11-CONTROLS-20261011-01 · THREE CONTROL_DEBT #11 HOTFIX (SCOPE N2a)
+# PROMPT — VPSC-HEAL-DISK-MEM-20261013-01 · Chặn nguồn phình đĩa + dọn đủ để #11 xanh thật + nâng trần RAM đã chứng minh
+
+RUN_ID: VPSC-HEAL-DISK-MEM-20261013-01
+Task: `work/vps-clean-20-9-26` (VPSC) — **thay N2a cũ** (READY cũ `dc13606`, chưa bao giờ STARTED). Graph P143/P144, PROOT04 và Codex DIAG-20261013 đã chứng minh N2a chỉ gỡ 3/9 lý do #11. Không phải việc mới.
+Soạn: Claude Chat theo lệnh Owner trực tiếp 13/10 14:25 +07 (nguyên văn ở P81). Rà soát: GPT Chat (Host VPSC, khác hãng) **một lượt**: được sửa lỗi nhỏ DRAFT (A6) rồi ghi ACCEPT + READY đúng SHA trong cùng commit; vấn đề lớn thì PARTIAL đúng 1 blocker. Owner: «GPT chỉ có ý kiến nếu ok thì chạy luôn cho nhanh.»
+Executor: Claude Code CLI, phiên MỚI trên Mac, qua `ssh contabo`. Ghi repo: Incomex MCP `workspace_*` root `workspace`. Sửa cấu hình được bảo vệ: chỉ `incomex-config-apply-v0`.
+Status: **DRAFT — chờ GPT ACCEPT+READY**.
+Bằng chứng: `/opt/incomex/work/vps-clean-20-9-26/VPSC-HEAL-DISK-MEM-20261013-01/` (chỉ receipt đã làm sạch, không bí mật, không dữ liệu khách). Báo cáo: một mục `HEAL-20261013` trong `BAO-CAO.md` hiện có. Tiến độ + KQ: dưới P81 trong `COLLAB.md` của việc này. Không tạo tệp repo mới. **Chỉ thực hiện phần trên dòng `LỊCH SỬ — N2a cũ`; phần thu gọn bên dưới là bản lưu, KHÔNG thực hiện.**
+
+## 0. Mục tiêu và thế nào là XONG
+Owner (D22/D23 + gật Q1–Q5 ngày 13/10): VPS1 sạch, không tái phình, nhanh lại; xoá theo Drive-first trừ ngoại lệ Q1/Q3; không giả xanh.
+Ba việc, theo thứ tự ảnh hưởng: (1) **chặn nguồn**: bản chụp trước-sửa (transactions +1,46 GiB/24h, `.before` +0,27), helper queue (+0,25), Git loose objects; (2) **dọn một lần** đủ để SLOPE7D tự hết; (3) **nâng trần RAM đã chứng minh**: claude-mcp chạm 1 GiB 67.256 lần + swap riêng đầy; Postgres chạm 2 GiB 45.123 lần.
+**XONG khi đủ cả 8 (đo thật, ghi số):**
+1. Kuma #11 xanh, lý do do storage-watch tính lại sau RUN (không đổi ngưỡng/hạn/kind để né).
+2. Đĩa trống ≥ max(41 GiB; mốc `df-bytes.tsv` 7 ngày trước − 2 GiB).
+3. Van A1–A4 nằm trong `vps-retention.sh`, mỗi van có receipt một lượt chạy thật + bytes trước/sau; 3 dòng CONTROL_DEBT sang ROTATING đúng luật §3.
+4. Protection Guard POST `--coverage`: không đích nào mới đỏ so với PRE_RED_SET; mọi tệp đã sửa đều MATCH qua apply-v0.
+5. 22 đèn: không đèn nào mới đỏ so với PRE.
+6. claude-mcp: memory.current <80% trần mới, swap riêng không đầy; Postgres: bộ đếm `max` trong `memory.events` tăng 0 trong 10 phút sau khi đổi.
+7. Độ trễ công cụ thật p50 (10 lần) ≤150 ms, hoặc nhanh hơn PRE ≥50% — ghi cả hai số.
+8. PG, Qdrant, Directus, Nuxt, agent-data, Neo4j Graph khoẻ (health 200/healthy); thư mục dữ liệu PG/Qdrant/Neo4j không mất byte nào.
+Thiếu một điều ⇒ KQ DỪNG với đúng một blocker nhỏ nhất; phần đã làm giữ nguyên nếu an toàn; không nới ngưỡng. Sau RUN, watcher hiện có tự đo 24h; không ai ngồi chờ. Mốc 24h (tăng ≤0,5 GiB/ngày, transactions ≤ ~3 GiB, claude-mcp phẳng) do Host đọc ở phiên sau.
+
+## 0A. Quyền Owner — khối Owner dán PHẢI có nguyên dòng này
+Owner gật Q1–Q5 (Graph P144, 13/10/2026): Q1 bản chụp trước-sửa đã có trong Git giữ 48 giờ rồi xoá, không qua Drive; Q2 dọn D03 D04 D07 D12 D14 D15; Q3 image cũ agent-data và claude-mcp giữ bản đang chạy + 2 bản trước + bản rollback còn trỏ, xoá phần còn lại, không qua Drive; Q4 dừng tmux «agents»/htop 22/05 và 2 Nuxt mồ côi 20/08; Q5 nâng trần RAM claude-mcp 1→1,5 GiB, Postgres 2→3 GiB; mọi xoá khác theo D23 Drive-first.
+
+Quyền này cấp một lần cho đúng phạm vi trên và cho các lượt định kỳ của van A1–A4. Thiếu dòng này, hoặc thiếu GPT ACCEPT+READY đúng SHA PROMPT hiện tại ⇒ DỪNG trước STARTED. (D13 build cache không dọn vì D10 cấm `docker builder`.)
+
+## 1. Luật cứng (phạm ⇒ dừng bước đó, giữ nguyên, ghi blocker)
+- **Một lượt ghi VPS (DROOT54 d):** giữ dòng `VPS-GHI` của COLLAB gốc từ trước thay đổi đầu tiên tới KQ; dòng không trống ⇒ `KQ DỪNG · VPS_BẬN`, không chờ. Cờ STARTED chỉ chạy trên Mac (HJW P313) không chặn.
+- **Báo từng bước (DROOT54 a):** hết mỗi bước một dòng `<RUN_ID> · bước k/7 · <xong gì, số> · <UTC> · dự kiến xong <UTC>` dưới P81.
+- **KHÔNG ĐƯỢC:** Git gc/prune/reflog expire hay sửa ref; Docker prune hàng loạt (system/image/volume/container) và lệnh builder/buildx (D10); gỡ image cưỡng bức; xoá theo wildcard không có danh sách chính xác; VACUUM/truncate/xoá DB, queue, audit; chạm thư mục dữ liệu PG/Qdrant/Neo4j, transaction log Neo4j, `/var/lib/hermes`, tệp Graph (`/opt/incomex/work/graph-server/**`), mã agent-data (#22 đang chờ TQT P41); sửa `storage-watch.py`; đổi ngưỡng/hạn/kind để lấy xanh; tạo lịch/timer/cron mới; tắt healthcheck/monitor; khởi động lại dịch vụ ngoài bước D.
+- **Bí mật:** không in env/.env/token/khoá; tìm chuỗi chỉ in tên tệp; log chỉ đếm; không đưa dữ liệu khách/queue thô vào Git.
+- **Cấu hình được bảo vệ** chỉ qua `incomex-config-apply-v0 --target-id <id> --expected-baseline <baseline hiện tại>` + rollback `.pre`; tệp không thuộc registry thì giữ bản `.pre` cạnh tệp + receipt sha256 trước/sau. Đích đang DRIFT ⇒ không đụng, ghi blocker.
+- **Nghi ngờ thì giữ:** mọi mục không chứng minh được thì giữ, ghi lý do, làm tiếp phần độc lập.
+- Ngân sách ≤2 giờ; quá ⇒ dừng ở ranh giới bước, KQ DỪNG kèm phần đã xong.
+
+## 2. S0 — đọc + chụp PRE (chỉ đọc)
+1. Đọc `AGENTS.md` → COLLAB gốc (DROOT54, `VPS-GHI`) → VPSC COLLAB §0 + P81 → PROMPT này → Graph COLLAB P144 → VPSC `BAO-CAO.md` DIAG-20261013 §2–§4 → COLLAB gốc PROOT04 ①–⑨. Xác minh GPT ACCEPT+READY đúng SHA PROMPT hiện tại và khối Owner có dòng §0A.
+2. Sàn tài nguyên: MemAvailable ≥3 GiB, đĩa trống ≥20 GiB, không có build/apply/backup/restore đang chạy.
+3. PRE (ghi vào thư mục bằng chứng): `df -B1 /`; faults trong `/var/lib/incomex/disk-watch/state.json` + dòng DISKWATCH mới nhất; mốc 7 ngày từ `df-bytes.tsv`; `/opt/incomex/logs/bang-den.json`; Guard PRE `--coverage` + drift-check (PRE_RED_SET dự kiến 4 đích: `agent_data/lifecycle.py`, `workspace_tools.py`, `hvu_signals.py`, Hermes `config.yaml`); cgroup claude-mcp và postgres: memory.current/max, memory.swap.current/max, memory.events; bằng chứng phiên MCP (đếm log tạo/đóng phiên 24h trong container claude-mcp, số kết nối ESTABLISHED tới cổng dịch vụ); độ trễ p50 10 lần một công cụ đọc nhẹ qua MCP mà phiên có (ưu tiên `fs_list` Incomex VPS, không thì `workspace_stat` Agent Data).
+4. Giữ khoá: đổi `VPS-GHI: trống` → `VPS-GHI: VPSC-HEAL-DISK-MEM-20261013-01 · VPSC · từ <UTC> · dự kiến <UTC+2h>` và ghi dòng STARTED của RUN_ID này dưới P81, có expected_version, trước thay đổi đầu tiên.
+
+<!-- PHẦN-2: §3–§10 -->
+
+---
+
+<details><summary>LỊCH SỬ — N2a cũ VPSC-N2A-DISK11-CONTROLS-20261011-01 (READY dc13606, chưa chạy, đã thay ngày 13/10) — KHÔNG THỰC HIỆN</summary>
+
+# (Lịch sử) PROMPT — VPSC-N2A-DISK11-CONTROLS-20261011-01 · THREE CONTROL_DEBT #11 HOTFIX (SCOPE N2a)
 
 RUN_ID: VPSC-N2A-DISK11-CONTROLS-20261011-01
 Task: `work/vps-clean-20-9-26` (VPSC) · D22/roadmap N2a, **not a new task**.
@@ -27,7 +76,7 @@ Thiếu câu này, thiếu một Claude ACCEPT SHA mới, thiếu Host READY exa
 - Người dùng đã duyệt nguyên tắc: **archive lên Google Drive rồi mới DELETE local**, tái dùng đúng backup/retention đang có. VPSC các đợt trước từng thực hiện `tar|gzip|gpg→rclone rescue/vpsc-r3`, MD5 readback rồi xoá và backup mã hóa mỗi đêm; **không giả định backup PG/config hiện đã chứa transactions/helper**. Đây là cổng bổ sung an toàn, không xây hệ backup thứ hai. §0A hiện là policy Owner đã cho phép có điều kiện, nhưng Host chưa READY bản sửa và chỉ Owner dán RUN có nguyên văn câu chính sách mới.
 - S0 READ-ONLY chứng minh remote rclone/GPG hiện hữu và restore route, bản backup gần nhất, quota/quyền/hạn giữ rescue; không in token/secret, không mở rộng remote hay cloud project. Đích rescue phải có vòng đời đã kiểm, không bị backup-keeper xoá sớm hơn khi cần khôi phục.
 - **Đích Drive (P79, theo mã):** thư mục con mới `rescue/vpsc-n2a/` của đích mã hoá hiện hữu, mã hoá bằng đúng khoá công khai người nhận của `backup-to-gdrive.sh` (kiểm vân tay trước). `backup-to-gdrive.sh` chỉ tỉa `rescue/vpsc-r2|r3|r6` ⇒ thư mục mới không bị xoá sớm. N2a **không xoá gì trên Drive và không sửa `backup-to-gdrive.sh`**; meta mỗi gói ghi `retain_until` = +12 tháng (như r3/r6); KQ báo GB/tháng đổ ra Drive + trần dự kiến; luật tỉa `rescue/vpsc-n2a/` theo khuôn r3/r6 = nợ VPSC lượt sau, phải xong trước `retain_until` sớm nhất. Đây là cách đáp ứng gạch «Drive archive cũng phải có retention» dưới đây, không phải cổng XONG của N2a.
-- **Đường thử khôi phục (P79, theo mã):** keyring bền của VPS chỉ có khoá công khai (`backup-to-gdrive.sh`: «can never decrypt») ⇒ không giải mã bằng keyring đó, không đưa khoá riêng vào đĩa bền. Tái dùng đúng chuỗi đã chứng minh của DOT `dot-pg-restore-verify-db` (VPSC R6 C4): khoá riêng phục hồi đi thẳng Secret Manager → `gpg --import` vào GNUPGHOME tmpfs riêng của lượt (0700), không vào biến/argv/log/đĩa bền/Git, agent không xem/chép → đọc ngược đối tượng từ Drive → `gpg -d | tar` đủ số mục/byte theo manifest + extract ít nhất một mẫu mỗi gói vào tmpfs, sha256 = manifest → đối chứng âm (gói cắt cụt phải fail) → xoá sạch tmpfs, `ROOT_KEYRING_SECRET_KEYS=0`, residue 0. Áp cho **mọi gói trước DELETE, cả lượt RUN lẫn các lượt cron sau**; thiếu gcloud/Secret Manager/chỗ tmpfs hoặc bước nào lỗi ⇒ chỉ upload, KEEP local, cảnh báo, không xanh giả.
+- **Đường thử khôi phục (P79, theo mã):** keyring bền của VPS chỉ có khoá công khai (`backup-to-gdrive.sh`: «can never decrypt») ⇒ không giải mã bằng keyring đó, không đưa khoá riêng vào đĩa bền. Tái dùng đúng chuỗi đã chứng minh của DOT `dot-pg-restore-verify-db` (VPSC R6 C4): khoá riêng phục hồi đi thẳng Secret Manager → `gpg --import` vào GNUPGHOME tmpfs riêng của lượt (0700), không vào biến/argv/log/đĩa bền/Git, agent không xem/chép → đọc ngược đối tượng từ Drive → `gpg -d | tar` đủ số mục/byte theo manifest + extract ít nhất một mẫu mỗi gói vào tmpfs, sha256 = manifest → đối chứng âm (gói cắt cụt phải fail) → xoá sạch tmpfs, keyring gốc còn 0 khoá riêng, residue 0. Áp cho **mọi gói trước DELETE, cả lượt RUN lẫn các lượt cron sau**; thiếu gcloud/Secret Manager/chỗ tmpfs hoặc bước nào lỗi ⇒ chỉ upload, KEEP local, cảnh báo, không xanh giả.
 - Với từng tập A/B đủ điều kiện: dry-run danh sách exact path+hash+references→gói nhỏ mã hóa bằng khoá đã xác minh→stream lên Drive bằng cổng cũ→xác minh object/count/size/checksum readback và **thử extract/restore một mẫu không ảnh hưởng production**, hash khớp→recheck trạng thái job/refs, symlink, canonical delete-set ngay trước DELETE. Lỗi upload/hash/restore/remote/retention/refs ⇒ **KEEP local; báo blocker, không xanh giả**. Không tải raw customer/queue ra Git, chỉ receipt sanitized và pointer phục hồi private.
 - C Git chỉ repack -d nếu fsck, refs/recovery và bản code-backup/offsite hiện hữu đã chứng minh; không cần copy từng loose object lên Drive khi cùng nội dung reachable đã có trong pack và recovery đã đủ, nhưng thiếu recovery proof thì không repack.
 - Không đưa bất kỳ archive/log/queue đã dọn trên Drive vào Graph như một node/cạnh hay bằng chứng nguồn nghiệp vụ; **dọn ổ ≠ xoá/thay thế chân lý Graph**. Drive archive cũng phải có retention, không trở thành nguồn rác vô hạn.
@@ -70,3 +119,5 @@ Report `KQ@VPSC-N2A-DISK11-CONTROLS-20261011-01 XONG|DỪNG` with Drive-first ar
 | KQ | Claude Code | terminal | exact KQ, release root busy, no unapproved writes | next trigger VPSC or Graph R10 |
 
 **DO NOT do C2, Graph, HJW mutation.** Claude P73 đã ký 4 sửa có điều kiện, Host P75 áp 4 sửa, Claude P76 ACCEPT bản cũ d4eeb15; vì Owner D23 thêm gate Drive-first materially nên Reviewer phải ký đúng PROMPT mới một lượt hẹp (được sửa DRAFT theo bằng chứng), rồi Host mới READY sau fresh Guard/shared VPS; không rà lại toàn bộ R7. P79 Claude đã sửa §0B và ACCEPT bản này; Host READY đúng SHA last-touch, không mở thêm vòng review.
+
+</details>
