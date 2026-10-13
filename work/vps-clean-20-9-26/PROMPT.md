@@ -1,10 +1,81 @@
-# PROMPT — VPSC-HEAL-DISK-MEM-20261013-01 · Chặn nguồn phình đĩa + dọn đủ để #11 xanh thật + nâng trần RAM đã chứng minh
+# PROMPT — VPSC-HEAL02-L0-20261013-01 · Phần 1: xong việc dở của HEAL (#11 xanh thật) · Phần 2: đo tải + soát di sản theo kế hoạch DEL-1 (CHỈ ĐỌC)
+
+RUN_ID: VPSC-HEAL02-L0-20261013-01
+Task: `work/vps-clean-20-9-26` (VPSC) · mục tiêu D22/D23 + **D24 (Owner 13/10: tối ưu VPS, nâng trần RAM, chạy nhanh hơn, tắt dần di sản khai sinh · registry · pivot đếm, dùng Graph)**. Không phải việc mới.
+Soạn: Claude Chat theo lệnh Owner 13/10 16:58 +07 (P84). Rà: GPT Chat (Host, khác hãng) **một lượt**: lỗi nhỏ thì sửa thẳng DRAFT rồi ACCEPT + READY đúng SHA cùng commit; vấn đề lớn thì PARTIAL đúng 1 blocker.
+Executor: Claude Code CLI, phiên MỚI trên Mac, qua `ssh contabo`. Ghi repo: Incomex MCP `workspace_*` root `workspace`. Cấu hình được bảo vệ: chỉ `incomex-config-apply-v0`.
+Status: **DRAFT — chờ GPT ACCEPT+READY**.
+Bằng chứng: `/opt/incomex/work/vps-clean-20-9-26/VPSC-HEAL02-L0-20261013-01/` (chỉ receipt đã làm sạch). Báo cáo: hai mục `HEAL02-20261013` và `L0-20261013` trong `BAO-CAO.md` hiện có. Tiến độ + KQ: dưới P84 trong `COLLAB.md` của việc này. Không tạo tệp repo mới.
+**Chỉ thực hiện phần trên dòng `LỊCH SỬ` đầu tiên.** Bản HEAL-01 bên dưới chỉ để tham chiếu đúng các mục được nêu tên (§1 luật cứng, §2 S0, §5 Drive-first, cú pháp registry ở §3).
+
+## 0. Mục tiêu và thế nào là XONG
+**Phần 1 (ghi VPS, giữ khoá):** làm nốt điều HEAL-01 dừng (P83): van A1 cho bản chụp trước-sửa của giao dịch + gỡ đồ thử Graph Owner đã gật Q2. **XONG khi đủ cả 5:** (1) Kuma #11 xanh, lý do do storage-watch tính lại sau RUN, không đổi ngưỡng/hạn/kind; (2) ghi số đĩa trống trước/sau và mốc 7 ngày đang dùng; (3) van A1 có receipt một lượt chạy thật, dòng transactions sang ROTATING; (4) Guard POST `--coverage`: không đích mới đỏ so PRE_RED_SET, 22 đèn không đèn nào mới đỏ; (5) PG, Qdrant, Directus, Nuxt, agent-data, Neo4j Graph khoẻ, Neo4j production không bị đụng.
+**Phần 2 (CHỈ ĐỌC, không giữ khoá):** đo xem VPS đang tiêu tài nguyên vào đâu và ai gây ra, rồi làm lại **bước 2 của KẾ HOẠCH VÔ HIỆU HOÁ DEL-1** bằng số đo mới sau PG18 + Graph. **XONG khi** `BAO-CAO.md · L0-20261013` có đủ Bảng A/B/C ở §4 với số đo thật và **0 thay đổi VPS** trong phần 2.
+Phần 1 DỪNG ⇒ vẫn chạy Phần 2 nếu dịch vụ khoẻ và không còn rollback dang dở. Không ai ngồi chờ; watcher hiện có tự đo 24h.
+
+## 0A. Quyền Owner — khối Owner dán PHẢI có nguyên dòng này
+Owner gật Q1–Q5 (Graph P144, 13/10/2026): Q1 bản chụp trước-sửa đã có trong Git giữ 48 giờ rồi xoá, không qua Drive; Q2 dọn D03 D04 D07 D12 D14 D15; Q3 image cũ agent-data và claude-mcp giữ bản đang chạy + 2 bản trước + bản rollback còn trỏ, xoá phần còn lại, không qua Drive; Q4 dừng tmux «agents»/htop 22/05 và 2 Nuxt mồ côi 20/08; Q5 nâng trần RAM claude-mcp 1→1,5 GiB, Postgres 2→3 GiB; mọi xoá khác theo D23 Drive-first.
+
+RUN này chỉ dùng Q1 (A1) và Q2 phần D03 D04 D15. Thiếu dòng này hoặc thiếu GPT ACCEPT+READY đúng SHA PROMPT hiện tại ⇒ DỪNG trước STARTED.
+
+## 1. Luật cứng
+- Áp **nguyên §1 của bản lịch sử HEAL-01** (VPS-GHI · báo từng bước · danh sách KHÔNG ĐƯỢC · bí mật · apply-v0 · nghi ngờ thì giữ), với đúng hai điều chỉnh: (a) luật «giữ mọi image Graph» không áp cho **đúng 2 image đồ thử D03 cognee, D04 pgvector và 5 volume treo D15**, và chỉ khi qua 4 điều kiện ở §3 G; image/volume/container `incomex-graph-neo4j` và `/opt/incomex/work/graph-server/**` vẫn cấm; (b) ngân sách: Phần 1 ≤ 45 phút, Phần 2 ≤ 60 phút.
+- Báo từng bước dưới P84: `<RUN_ID> · bước k/6 · <xong gì, số> · <UTC> · dự kiến xong <UTC>`.
+- **Phần 2 tuyệt đối chỉ đọc:** không DDL, không ALTER/DISABLE/ENABLE, không ghi PG, không đổi flow/cron/timer/cấu hình/container, không chạy DOT hoặc script có ghi (nhãn `LENH GHI DU LIEU THAT` ⇒ không gọi, kể cả `--help`). Truy vấn PG trong phiên `SET default_transaction_read_only = on`, timeout ≤ 10 s, chỉ đọc catalog/thống kê (`pg_stat_*`, `pg_statio_*`, `pg_class`, `pg_trigger`, `pg_proc`, `pg_description`, `directus_flows`); **không `count(*)` trên bảng > 100.000 dòng**. Tìm chữ: `nice -n 19 ionice -c3`, chỉ in tên tệp + số dòng, không quét cả gốc `/`, không tìm toàn gốc `code` qua MCP (P83: làm sập claude-mcp).
+
+## 2. S0 — đọc + PRE
+1. Đọc `AGENTS.md` → COLLAB gốc (`VPS-GHI`, PROOT04 ①–⑨) → VPSC COLLAB §0 (D24) + P81–P84 → PROMPT này → `BAO-CAO.md` mục HEAL-20261013. Xác minh GPT ACCEPT+READY đúng SHA và khối Owner có dòng §0A.
+2. Làm đúng §2 bước 2–4 của bản lịch sử HEAL-01 (sàn tài nguyên, PRE chỉ đọc, giữ VPS-GHI + STARTED cùng commit trước mọi ghi VPS). Thêm vào ảnh PRE: mốc **T0** của `pg_stat_user_tables` + `pg_statio_user_tables` (DB `directus` và `incomex_metadata`) — dùng lại ở Phần 2.
+
+## 3. Phần 1 — xong việc dở của HEAL
+**A1 · bản chụp trước-sửa của giao dịch** (`/opt/incomex/data/workspace-tools/transactions/<tid>/`, Owner Q1, phương án (a) P83):
+- Đọc mã **đang chạy trong container** agent-data quanh `workspace_diff(from_version)` (host `agent_data/workspace_tools.py` ~1663–1688): xác nhận có nhánh `VERSION_NOT_RETAINED` trả lỗi sạch khi tệp số không còn, và `from_ref` diff hai commit không cần tệp số. Không có nhánh đó trong mã đang chạy ⇒ KHÔNG làm A1, ghi blocker.
+- Ứng viên: chỉ giao dịch root `workspace`; `manifest.json` status `committed` hoặc `rolled_back`; cũ hơn 48 giờ; không lock/lease/job đang chạy. Với từng tệp số `0`, `1`, …: từ manifest xác định path + phiên bản trước; chứng minh `git show <commit reachable từ origin/main đã push>:<path>` cho đúng sha256 của tệp ⇒ xoá đúng tệp đó. Giữ `manifest.json`, `operator-preserved-after.json` và mọi tệp không chứng minh được. `prepared`, `push_unknown`, `rollback_conflict`, không rõ ⇒ không đụng. Root `ui` không đụng.
+- Cài thành luật mới trong `/opt/incomex/scripts/vps-retention.sh` cạnh (m)(n)(o) của HEAL-01, qua apply-v0 + rollback; chạy chế độ chỉ in danh sách + sha256 trước, rồi một lượt thật; chạy lại chế độ thử các luật cũ để chứng minh không hồi quy.
+- Thử đường đọc thật qua MCP: `workspace_diff` với một `from_version` vừa dọn ⇒ trả `VERSION_NOT_RETAINED` (không lỗi 5xx); `from_ref` hai commit vẫn chạy.
+- Registry (`storage-registry.tsv`, qua apply-v0): sau receipt lượt thật, dòng transactions CONTROL_DEBT → ROTATING theo đúng cú pháp và công thức trần ở §3 (Registry) của bản lịch sử HEAL-01.
+
+**G · đồ thử Graph Owner đã gật (Q2: D03 cognee, D04 pgvector, D15 5 volume treo lượt thử 07/10).** Gỡ từng mục chỉ khi đủ cả 4: (i) không container nào (kể cả đang dừng) dùng image/volume đó; (ii) tìm tên image/tag/digest/volume (chỉ in tên tệp) trong `/opt/incomex/{docker,scripts,dot,claude-mcp}`, `/opt/incomex/work/graph-server/prod-v1` và `work/graph-server/PROMPT.md` trên repo: không thấy; (iii) không phải image/volume của `incomex-graph-neo4j` hay chuỗi cha của nó; (iv) image: ghi RepoDigests + đường kéo lại trước khi gỡ; volume: tar Drive-first theo §5 bản lịch sử HEAL-01. Thiếu một điều ⇒ GIỮ mục đó và ghi một dòng `→ việc graph-server` dưới P84. Gỡ image theo ID (không force/prune), volume theo đúng tên. Đo `df` trước/sau.
+
+**POST Phần 1:** chạy đúng một lượt `disk-monitor.sh` (cùng khoá với cron; khoá bận thì đợi lượt cron đó xong, tối đa 10 phút) → Guard POST `--coverage` + 22 đèn + health → mục `HEAL02-20261013` trong BAO-CAO → dòng `KQ@VPSC-HEAL02-L0-20261013-01 · PHẦN 1 XONG|DỪNG · …` dưới P84 và **trả `VPS-GHI: trống` cùng commit**.
+
+## 4. Phần 2 — L0: đo tải + bước 2 DEL-1 (CHỈ ĐỌC, không giữ VPS-GHI)
+**Đọc trước (không làm lại):** (a) `docs/KE-HOACH-XOA-20260801.md` từ đầu tới hết «Bốn điều kiện chặn của DEL-1C» (5 bộ: 1 Khai sinh · 2 Registry · 3 Pivot · 4 Governance/Luật · 5 IU đóng băng; bước 1 XONG 01/08; diễn tập tắt/bật 262 trigger khớp 107/107); (b) khối nhãn CUỐI CÙNG (`COMMENT ON` / đầu tệp DOT) của từng ứng viên — câu «vô hiệu hoá thì gì ngừng»; (c) bảng số đo của Claude Chat ở P84; (d) PROOT04 ① ④ ⑦.
+**L0-1 · Tải PG:** mốc T1 lúc bắt đầu Phần 2 và T2 lúc kết thúc; delta T0→T2 của `seq_scan`, `seq_tup_read`, `heap_blks_read`, `idx_blks_read`, `n_tup_ins/upd/del` cho 15 bảng đứng đầu; quy về /ngày; đối chiếu mức cộng dồn ~9,8 ngày ở P84.
+**L0-2 · Ai gây — 4 điểm nóng:** (1) `system_issues` bị quét tuần tự theo đợt; (2) `birth_registry` bị quét tuần tự; (3) `pivot_results` ~20.000 lượt sửa/ngày + chuỗi làm lại `meta_catalog`/`v_registry_*`; (4) `knowledge_documents` bị quét ~8.700 lần/ngày. Mỗi điểm phải có người gọi từ **3 nguồn**: (i) lịch — crontab root, `/etc/cron.d/*`, systemd timer, Directus flow `schedule`, khớp giờ nổ với bước nhảy bộ đếm; (ii) mã — tìm tên bảng/hàm trong `scripts`, `dot/bin`, mã agent-data, Nuxt server/api, operations của Directus flow; (iii) chạy thật — **một** phiên `psql` chỉ đọc dùng `\watch 2` trên `pg_stat_activity` (application_name, client, state, 120 ký tự đầu câu lệnh, không in giá trị tham số), bọc `timeout 2400`, tự dừng trước KQ; không mở `docker exec` mỗi lần lấy mẫu.
+**L0-3 · Graph:** với mỗi ứng viên (hàm, trigger, DOT, dòng cron, flow, bảng) hỏi Graph qua đường đọc đã có của việc graph-server (P97, chỉ đọc) các cạnh vào/ra ⇒ «ai còn dùng». Graph mới phủ mã Python production + trigger/DOT tĩnh, chưa phủ SQL dựng chuỗi, gọi HTTP `items/<bảng>` của Directus, Nuxt ⇒ không được kết luận «không ai dùng» chỉ từ Graph; ghi rõ nguồn nào đã xác nhận.
+**L0-4 · RAM/swap:** từng container và 15 tiến trình lớn nhất: RSS, VmSwap, `memory.max`, `memory.events` (max, oom), `memory.pressure`; ai đang giữ swap (~1,7/2 GiB lúc 10:00Z).
+**L0-5 · Lịch nền:** cron/timer/healthcheck/flow lịch — tần suất × thời lượng × CPU; gồm PROOT04 G4 (healthcheck ~43 exec/phút) và G5 (license-watch 288 container/ngày).
+**L0-6 · Directus flow:** 111 flow active (104 event · 5 lịch · 2 webhook): với mỗi flow — collection đích có ghi trong kỳ đo không (delta `n_tup_*`), flow có gọi Agent Data/HTTP không, thuộc bộ DEL-1 nào.
+**L0-7 · `system_issues` cũ:** 216.378/227.899 dòng `source=heal_description_basic`, `status=open`, mới nhất 05/06 — còn ai đọc nguồn này không (mã + runtime); ước số khối đọc giảm nếu lưu Drive rồi bỏ.
+**L0-8 · Bước 2 DEL-1 cho Bộ 1–4:** mỗi bộ — còn ghi/đọc (delta + cộng dồn); câu nhãn «vô hiệu hoá thì gì ngừng» còn đúng sau PG18 không; 4 điều kiện chặn DEL-1C còn không (đặc biệt `dot-pg-atomic-apply` ghi `table_registry`, `fn_birth_registry_auto` không `EXCEPTION`, FK `RESTRICT` vào `normative_registry`, `governance_object_ownership` CASCADE 29 view). Nhãn `DEL-1I` trên 227 DOT chưa commit (R7 C2): DOT nào còn được gọi (cron/flow/mã).
+**Đầu ra — `BAO-CAO.md · L0-20261013`:**
+- **Bảng A · Top tiêu tài nguyên:** mục · PG đọc/ghi/ngày · CPU · RAM/swap · exec/ngày · chủ việc.
+- **Bảng B · Ứng viên đợt tắt L1 (tối đa 6):** mục · đang tốn (số/ngày) · ai còn dùng (Graph / mã / runtime) · thay bằng gì (vd số ước lượng native của PG, đếm khi mở trang) · lệnh tắt chính xác, đảo được · lệnh bật lại · phép đo trước/sau · lớp D22 · rủi ro. Ứng viên chưa đủ 3 nguồn bằng chứng ⇒ ghi `CHƯA ĐỦ`, không đưa vào L1. Khai sinh (Bộ 1) chỉ được nêu cho đợt sau, không vào L1.
+- **Bảng C · RAM:** trần đề xuất từng dịch vụ (có số) + gián đoạn nếu đổi.
+- KQ: dòng `KQ@VPSC-HEAL02-L0-20261013-01 · PHẦN 2 XONG|DỪNG · … · 0 thay đổi VPS · 0 tiến trình nền` dưới P84. Báo Owner đúng một dòng cho cả RUN. **Không tắt/xoá gì trong Phần 2** — danh sách L1 do Host + Claude chốt ở lượt sau.
+
+## 5. Bước đi
+| Bước | Việc | Bằng chứng | Lỗi thì |
+|---|---|---|---|
+| 1/6 S0 | đọc, PRE + T0, giữ khoá | ảnh PRE, STARTED | DỪNG trước mọi thay đổi |
+| 2/6 A1 | van bản chụp giao dịch | mã đang chạy, dry-run, receipt, `VERSION_NOT_RETAINED` | giữ, làm tiếp G |
+| 3/6 G | đồ thử Graph | 4 điều kiện, digest, Drive, df | giữ mục đó |
+| 4/6 POST 1 | #11, Guard, đèn, KQ phần 1, trả khoá | storage-watch, coverage | KQ phần 1 DỪNG 1 blocker |
+| 5/6 L0 | đo tải + bước 2 DEL-1 | Bảng A/B/C | ghi CHƯA ĐỦ, không đoán |
+| 6/6 KQ | KQ phần 2, báo Owner | 0 thay đổi phần 2 | — |
+
+---
+
+<details><summary>LỊCH SỬ — HEAL-01 VPSC-HEAL-DISK-MEM-20261013-01 (READY f3fbbd7c, đã chạy 13/10, KQ DỪNG A1) — KHÔNG THỰC HIỆN; chỉ tham chiếu đúng mục PROMPT trên nêu tên</summary>
+
+# (Lịch sử) PROMPT — VPSC-HEAL-DISK-MEM-20261013-01 · Chặn nguồn phình đĩa + dọn đủ để #11 xanh thật + nâng trần RAM đã chứng minh
 
 RUN_ID: VPSC-HEAL-DISK-MEM-20261013-01
 Task: `work/vps-clean-20-9-26` (VPSC) — **thay N2a cũ** (READY cũ `dc13606`, chưa bao giờ STARTED). Graph P143/P144, PROOT04 và Codex DIAG-20261013 đã chứng minh N2a chỉ gỡ 3/9 lý do #11. Không phải việc mới.
 Soạn: Claude Chat theo lệnh Owner trực tiếp 13/10 14:25 +07 (nguyên văn ở P81). Rà soát: GPT Chat (Host VPSC, khác hãng) **một lượt**: được sửa lỗi nhỏ DRAFT (A6) rồi ghi ACCEPT + READY đúng SHA trong cùng commit; vấn đề lớn thì PARTIAL đúng 1 blocker. Owner: «GPT chỉ có ý kiến nếu ok thì chạy luôn cho nhanh.»
 Executor: Claude Code CLI, phiên MỚI trên Mac, qua `ssh contabo`. Ghi repo: Incomex MCP `workspace_*` root `workspace`. Sửa cấu hình được bảo vệ: chỉ `incomex-config-apply-v0`.
-Status: **DRAFT — chờ GPT ACCEPT+READY**.
+Status (lịch sử): READY@f3fbbd7c (P82), chạy 13/10 08:30–09:35Z, **KQ DỪNG A1**; không chạy lại.
 Bằng chứng: `/opt/incomex/work/vps-clean-20-9-26/VPSC-HEAL-DISK-MEM-20261013-01/` (chỉ receipt đã làm sạch, không bí mật, không dữ liệu khách). Báo cáo: một mục `HEAL-20261013` trong `BAO-CAO.md` hiện có. Tiến độ + KQ: dưới P81 trong `COLLAB.md` của việc này. Không tạo tệp repo mới. **Chỉ thực hiện phần trên dòng `LỊCH SỬ — N2a cũ`; phần thu gọn bên dưới là bản lưu, KHÔNG thực hiện.**
 
 ## 0. Mục tiêu và thế nào là XONG
@@ -94,7 +165,7 @@ Ghi một dòng tiến độ trước bước này (D2 có thể khiến agent-d
 | 6/7 D | trần RAM | events, p50 trước/sau | rollback `.pre` |
 | 7/7 POST | 8 điều XONG, KQ, trả khoá | storage-watch, Guard, đèn | KQ DỪNG 1 blocker |
 
----
+</details>
 
 <details><summary>LỊCH SỬ — N2a cũ VPSC-N2A-DISK11-CONTROLS-20261011-01 (READY dc13606, chưa chạy, đã thay ngày 13/10) — KHÔNG THỰC HIỆN</summary>
 
