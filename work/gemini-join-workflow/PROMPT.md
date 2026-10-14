@@ -1,36 +1,49 @@
-# PROMPT — GJW-G1C-JEV-MAC-G2-COUNCIL-20261014-01
-RUN_ID: GJW-G1C-JEV-MAC-G2-COUNCIL-20261014-01
-Status: DRAFT · CHƯA READY/CHƯA RUN. Claude Chat Reviewer đã sửa thẳng S1 theo P12 (A6/DROOT53) và ACCEPT đúng SHA; GPT Host phát READY. Không chạy trước READY.
-Task: work/gemini-join-workflow · Host GPT Chat · Reviewer Claude Chat · Executor Claude Code CLI Mac (hỗ trợ kỹ thuật); Gemini qua agy là ghế Google độc lập · AUTO0.
-Write_Path: GitHub workspace chỉ bằng gateway fs_*/workspace_* có expected_version; config Mac chỉ local chuẩn + backup; VPS: 0 ghi, 0 restart, không lấy VPS-GHI (JEV dùng path-secret chung đã có).
+# PROMPT — GJW-G1C-MAX-20261014-01
+RUN_ID: GJW-G1C-MAX-20261014-01
+Status: DRAFT — Claude Chat P16 thay bản G1C `GJW-G1C-JEV-MAC-G2-COUNCIL-20261014-01` (READY a975a68 nhưng CHƯA STARTED, còn lệnh cấm trái HUMAN_DIRECTIVE-09/10 ⇒ huỷ, không chạy). GPT Host READY đúng SHA commit cuối chạm tệp này. Bước ⚑ chỉ chạy khi COLLAB có `HUMAN_DIRECTIVE@GJW-20261014-11 EFFECTIVE` (Owner gật Q03); không có ⇒ ghi BLOCKED(Owner) và đi tiếp.
+Task: work/gemini-join-workflow · Host GPT Chat · Reviewer Claude Chat · Executor: Claude Code CLI trên MacBook (Terminal thường, HOME=/Users/nmhuyen) dựng; CHÍNH Gemini (`agy` + Gemini Mac) tự chứng minh · AUTO0.
 
-## MỤC TIÊU — MỘT LƯỢT, KHÔNG LÀM LẠI G1B
-Kết quả giữ nguyên: google-main đã xác thực và ghi P10, agent-data/KB đọc-ghi PASS, 6 danh tính sống, agy đã login Keychain và ghim Gemini 3.8 Flash High, VPS-GHI đã trả. Không đổi agent-data/secret GSM đang sống. Chủ việc muốn ưu tiên Gemini tham gia hội đồng, tạm hoãn Kuma/biên nhận Telegram R4. Hai việc kỹ thuật còn sát đích: (1) nối JEV cho Google bằng path-secret JEV chung như Claude/GPT đang dùng — JEV là tài nguyên chung, không phải danh tính ghế (Owner: «sử dụng chung các tài nguyên như tham khảo Jev»); (2) chống drift của cấu hình MCP trên Mac. Cuối cùng chính Gemini đưa ý kiến phản biện G3, ghi P riêng qua google-main.
+## MỤC TIÊU — một lượt
+Owner 14/10 22:18: «CẤM đặt ra bất cứ hạn chế nào, kết nối tối đa cho gemini để tận dụng khả năng tốt nhất của từng hãng.»
+Đích: Gemini dùng được MỌI công cụ Claude và GPT đang dùng + MỌI khả năng riêng của Google. Mỗi khả năng kết thúc ở VERIFIED (một thao tác thật) hoặc BLOCKED (lỗi thật đúng tài khoản/app/thao tác, hoặc văn bản giới hạn của hãng). Không còn NOT_TESTED, không «N/A» tự đặt.
 
-## CỔNG VÀ NHỊP (AGENTS A6, DROOT30/31/48/54)
-Đọc AGENTS.md → COLLAB gốc (VPS-GHI) → work/gemini-join-workflow/COLLAB.md (§0, P09–P11) → PROMPT này. Verify last-touch SHA = Reviewer ACCEPT = GPT READY, không STOP, không STARTED task chưa KQ. Read-gate PASS mới ghi STARTED@RUN_ID bằng gateway. Mỗi bước ghi một dòng tiến độ và cuối lượt KQ XONG hoặc DỪNG. Không giữ phiên/khóa chờ giờ, không chạm task khác.
+## LUẬT — chỉ luật chung, áp y như GPT/Claude
+- Ghi repo qua gateway bằng `google-main`, có expected_version. Không `git push`.
+- Thay đổi VPS: dòng `VPS-GHI` + Config Guard + rollback + đèn Guard trước/sau không xấu hơn. Không in bí mật vào chat/log/repo (repo CÔNG KHAI: không ghi nội dung email/tệp/lịch của Owner, chỉ ghi số lượng/ĐẠT).
+- Ghi Directus/PG chỉ qua DOT (luật Owner cho mọi AI). Xoá dữ liệu, dừng dịch vụ đang chạy, phát sinh chi phí mới ⇒ cần Owner gật.
+- Giới hạn của hãng khác: không cho bot vào claude.ai (điều khoản Anthropic).
+- Ngoài các điều trên KHÔNG có cấm nào: Turbo/auto-approve, Terminal, SSH, quyền ngoài workspace, dịch vụ nền, Chrome, Gmail/Drive/Calendar, API/SDK đều được dùng và phải thử.
 
-| Bước | Ai | Điểm chốt / SLA | Bằng chứng và khi lỗi |
-|---|---|---|---|
-| S0 read-gate | Claude Code | một lượt ≤5 phút | READY, VPS-GHI, JEV và Mac config đã có; fail báo Host + KQ |
-| S1 JEV Google | Claude Code | ≤10 phút, chỉ Mac | path-secret chung từ GSM vào config agy 0600; Gemini gọi evaluate thật; không đạt ghi GAP |
-| S2 Mac guard | Claude Code | ≤10 phút | hash, quyền 0600, backup, preflight lúc agy được gọi; GAP minh bạch nếu chưa cưỡng chế |
-| S3 Hội đồng Google | chính Gemini qua agy | ≤15 phút | Gemini phản biện độc lập, P tự ghi tác giả google-main; không đạt không tính ghế |
-| S4 post & dọn | Claude Code | ≤10 phút | Điều 30/31 theo footprint, KQ, rollback, 0 tiến trình/khóa; PARTIAL nêu nợ |
+## ĐÃ CÓ — không làm lại
+`google-main` trên agent-data (bộ tool như gpt-web) + KB = VERIFIED (P10, commit 24a965c). `agy` đăng nhập Keychain, ghim `gemini-3.8-flash-high`. Sao lưu `~/.gemini` cũ có INDEX.
 
-## S1 · JEV — dùng chung như Claude/GPT, 0 thay đổi VPS
-- Sự thật: cổng `jev-gw` (mcp-proxy named server) chỉ có MỘT path-secret `jev-mcp-path-secret` trong GSM; connector Claude, GPT và Claude Code trên Mac đều dùng nó; log JEV không ghi danh tính client. Danh tính ghế của Google (ghi repo/VPS) đã riêng = `google-main`. ⇒ KHÔNG tạo khoá JEV riêng, KHÔNG sửa jev-gw/mcp-proxy/key-fetch, KHÔNG restart, KHÔNG lấy VPS-GHI.
-- Đọc `jev-mcp-path-secret` từ GSM đúng cách Claude Code vẫn đọc trên Mac (không in). Thêm server JEV (đúng URL `/jev-mcp/<secret>/mcp` mà connector Claude/GPT đang dùng) vào `~/.gemini/config/mcp_config.json`: sao lưu trước, 0600, giữ nguyên mục agent-data/KB đã đạt; `agy mcp list` thấy JEV.
-- Chính Gemini gọi `evaluate` một câu hữu hạn qua `agy -p` (tool discovery thật, không bịa tham số), ghi mã `gen-dec-…`. Lỗi ⇒ ghi lỗi thật + GAP, vẫn làm S2/S3. Khoá JEV riêng từng ghế chỉ làm khi Owner yêu cầu (việc khác).
+## S0 · Kiểm cửa + kiểm kê (≤10')
+Read-gate A6 (READY đúng SHA, không STOP, không STARTED treo). Ghi `STARTED@GJW-G1C-MAX-20261014-01` dưới P17 (Claude Code tạo P17). Lập danh sách ĐỦ: mọi connector/MCP mà Claude Chat, Claude Code (remote + local Mac) và GPT đang dùng; mọi khả năng Google của Antigravity/`agy`/Gemini Mac. Mỗi dòng: Gemini có chưa.
 
-## S2 · Bảo vệ cấu hình Antigravity trên Mac
-- Không dời/xóa cấu hình, không in token/SSH key, không tạo service/cron/LaunchAgent, không bật Turbo/bypass permission. Giữ config agent-data/KB đã đạt.
-- So lại agy mcp list, Keychain login/model, hash của ~/.gemini/config/mcp_config.json, quyền 0600 và backup INDEX của G1B. Ưu tiên hook/preflight native đã có để **mỗi lần gọi agy trong workflow** xác minh file/config quan trọng và từ chối nếu drift; nếu thiếu dùng wrapper nhỏ nhất có quản lý và rollback. Ghi rõ giới hạn phạm vi: preflight lúc gọi ≠ giám sát 24/7. Không âm thầm sửa config lệch.
+## S1 · Gắn những gì dùng chung — chỉ Mac (≤30')
+1. JEV: path-secret chung `jev-mcp-path-secret` từ GSM (như Claude Code), thêm vào cấu hình `agy`.
+2. Graph `graph-v1` (stdio qua ssh như Claude Code đang khai), Lark (cùng cách Claude/GPT đang nối; nếu cần danh tính ghi riêng thì làm như agent-data), mọi MCP khác Claude Code đang dùng trên Mac ⇒ khai cho `agy`. Directus: chỉ đúng phạm vi mà connector Claude đang có (`tac_*`), không dùng creds admin.
+3. Gemini Mac (Task Mode, HOME `~/.gemini/users/user1`): khai cùng các MCP qua cấu hình/Connected Folders native. Quyền ngoài sandbox: mở đúng màn System Settings › Privacy & Security › Full Disk Access để Owner bật Gemini (một công tắc), rồi kiểm đọc được `~/.gemini`, `~/.ssh`.
+4. Quyền Antigravity/`agy`: preset cao nhất (Turbo/auto-approve), Terminal/Network/Files/MCP/Web bật; danh sách chặn chỉ gồm đúng các luật chung ở trên. Ghi lại cài đặt.
+5. Sao lưu mọi tệp cấu hình trước khi sửa, tệp chứa khoá 0600.
 
-## S3 · Một lượt Hội đồng thực của google-main
-- Claude Code chỉ kích hoạt CLI chính thức: agy -p theo mô hình thuộc Gemini, trỏ P11 và C3/G3 trong COLLAB task. Gemini tự đọc SSOT và phản biện độc lập hướng gọi vào CLI/email, Browser Subagent Chrome và ba rủi ro trước khi dùng làm courier; tham khảo JEV nếu S1 PASS, nếu chưa thì nêu GAP. Không truy cập HJW runtime, không điều khiển Chrome thật (để G3).
-- Chính Gemini viết P tiếp theo trong task, ghi model, UTC, phân tích và JEV call/result hoặc GAP, qua workspace gateway với danh tính google-main và expected_version. Chứng minh commit Git author gemini-agy [auth:google-main] + JSON agy output thật. Claude Code không viết thay Google. Đây là thử ghế Google có nội dung khác hãng; Host nghiệm thu rồi mới công nhận G2.
+## S2 · Khả năng riêng của Google (≤30')
+Chrome browser agent (hồ sơ Chrome riêng) · Google Drive / Gmail / Calendar / NotebookLM qua connector/MCP chính thức bằng tài khoản Owner (Owner bấm đồng ý khi Google hỏi) · Remote Control (`agy remote-control start`, Owner thấy trên điện thoại) · đường gọi vào Gemini: `agy -p` (đã có), trigger SDK, Gemini Tasks/theo dõi email nếu có · Gemini API: tạo khoá gói miễn phí nếu tạo được không cần billing (bật billing = Owner gật).
 
-## S4 · Bảo vệ, kết quả, trả máy
-- Kiểm Điều 30 (JEV qua Google PASS + repo/KB/6 identity vẫn PASS, sai key bị chặn), Điều 31 (Guard/Config trước-sau, Mac preflight), self-check và rollback trên footprint thật. Đèn #21/#22 từ trước hoặc biên nhận Telegram R4 thiếu ⇒ ghi PARTIAL rõ, KHÔNG tuyên PASS giả hoặc làm Kuma ở task này (Owner hoãn). Nếu có thể phát receipt qua đúng cổng hiện hữu thì ghi message_id; không phát bằng đường bypass.
-- Ghi P/KQ, số lần restart, paths/hashes nhưng không secrets, NEXT_TRIGGER một dòng. Dọn đồ chính RUN tạo; lượt này 0 ghi VPS nên không giữ VPS-GHI. Nếu Gemini P riêng có author/model/công việc thật thì đánh dấu G2-CANARY PASS (dù JEV còn GAP), Host quyết công nhận ghế; G3 chưa chạy. Không tự sửa AGENTS A9 — alias UI do Founders xử lý, không chặn thử hội đồng.
+## S3 ⚑ · Cổng Incomex VPS ngang Claude (≤40', ghi giờ dự kiến trước khi làm)
+Sự thật: `claude-mcp` chỉ nhận MỘT khoá, nhãn cố định `Anthropic/ClaudeAI` (`claude-mcp/app/server.py` dòng 37–39) ⇒ Gemini chưa có `query_pg`, `pg_schema`, `directus_*` (`tac_*`), gốc `code`/`ui`/`docs`, `ui_act`/`ui_screenshot`.
+Chỉ khi có HUMAN_DIRECTIVE-11: sửa nhỏ nhất để nhãn + khoá đọc từ env (mặc định giữ y nguyên Anthropic); dựng THÊM một container cùng mã cho Google (khoá GSM mới, nhãn `gemini-agy [auth:google-main]`); thêm route path-secret cho Google ở nginx rồi reload. Container `claude-mcp` đang chạy KHÔNG đụng. Giữ `VPS-GHI`, Config Guard, mã nguồn đúng SSOT. Kiểm: connector Claude vẫn 23 tool + nhãn Anthropic; Google gọi được, khoá sai 401; rollback sẵn; trả `VPS-GHI` ngay sau bước này.
+
+## S4 · Gemini tự chứng minh + phản biện (≤30')
+Chạy `agy -p "Đọc mục SMOKE trong work/gemini-join-workflow/PROMPT.md và làm đúng." --output-format json`; Owner dán đúng câu đó một lần vào Gemini Mac. Lưu json (status, usage).
+
+## SMOKE — phần Gemini đọc
+Bạn là Gemini, ghế google-main. Với MỖI công cụ/kênh có trong cấu hình của bạn, làm MỘT thao tác chỉ đọc thật: repo đọc 5 dòng `AGENTS.md`; KB một câu; JEV một câu noul; Graph đếm nút; Lark liệt kê bảng; PG `SELECT 1`; Directus đọc 1 item `tac_*`; Drive/Gmail/Calendar đếm 3 mục (KHÔNG ghi nội dung); Chrome mở trang Owner view của task và chụp màn hình (không đưa ảnh lên repo); Remote Control status. Rồi thêm một P vào `work/gemini-join-workflow/COLLAB.md` (đọc version trước, ghi có expected_version): bề mặt (agy hoặc Gemini Mac), tên mô hình, giờ UTC, bảng khả năng VERIFIED/BLOCKED (lỗi nguyên văn), và một ý kiến phản biện độc lập về hướng G3 (Gemini làm người đưa thư) có tham khảo JEV. Không ghi gì khác.
+
+## S5 · Bảo vệ + kết quả (≤10')
+- Điều 30/31 cho mọi thứ đã chạm: hash cấu hình Mac + kiểm lúc gọi `agy`; Config Guard cho đích VPS mới (nếu S3 chạy). 6 danh tính cũ + connector Claude + Hermes vẫn sống.
+- Báo từng bước `<RUN_ID> · bước k/6 · … · <UTC> · dự kiến xong <UTC>` (DROOT54).
+- Đồ lượt này tạo: bản sao lưu cấu hình (giữ) · container + route Google nếu S3 chạy (giữ, có rollback) · tệp tạm `$TMPDIR/gjw-max-*` (xoá trước KQ) · dịch vụ nền Remote Control (giữ, ghi tên).
+- `KQ@GJW-G1C-MAX-20261014-01 XONG|DỪNG` · `Dọn: …` · `VPS-GHI` đã trả.
+XONG khi: bảng khả năng không còn NOT_TESTED; P của Gemini có tác giả `gemini-agy [auth:google-main]`; Claude/GPT/Hermes không bị ảnh hưởng.
+Không làm trong lượt này: G3 (Gemini nhắc GPT/Claude vào việc) — chỉ chứng minh Chrome chạy được.
