@@ -8,7 +8,16 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · P61 · 14/10/2026 15:22 +07 · Codex Host
+### BẢNG ĐIỀU KHIỂN · 14/10/2026 16:00 +07 · Claude Host Kiểm soát · ĐỔI HƯỚNG
+- 🎯 Mục tiêu: ô 1, không đổi.
+- 🧭 Cách làm (chốt 14/10 16:00 · Owner + GPT + Claude): làm thẳng trên **collection nháp Directus** `tqt_draft_*`, chỉ DOT ghi. Đạt UI + quy trình + khả thi → xuất định nghĩa lên GitHub → Owner duyệt → DOT tạo collection thật từ đúng định nghĩa đó → xóa nháp. Chi tiết R40–R42.
+- 🏁 Xong giai đoạn khi: 5 điều ở R41.
+- 📍 Tiến độ: [■ B1 Khảo sát DOT] → [□ B2 Nháp Master Field] → [□ B3 Nháp các Master của QT001] → [□ B4 Chạy 1 việc theo 006 trên nháp] → [□ B5 Xuất · ký · Owner duyệt → collection thật → xóa nháp]
+- ⏸ Đóng băng: bộ thử tự dựng (view.html, UI riêng, CHECK005/006). Không mở rộng; chỉ đọc để chuyển dữ liệu sang nháp. P61 dừng ở trạng thái hiện có, không ký thêm, không sửa thêm.
+- ➡ Kế tiếp: B1 — Claude Code khảo sát DOT chỉ đọc, báo ngắn để Host chốt B2.
+- ⛔ Không làm: dựng Directus thứ hai · đụng collection/bảng thật · AI ghi Directus không qua DOT · mở rộng bộ thử HTML · QT002.
+
+#### Bảng P61 trước đổi hướng (giữ để tra)
 - 🎯 Mục tiêu: ô 1 — cỗ máy tạo quy trình chạy được; nhìn là hiểu, làm có bằng chứng.
 - 🏁 Xong khi: ô 2 — người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ: [✅ G1 đã nhận] → [■ Hiệu chỉnh theo VÒNG 9] → [□ AI mới làm thật] → [□ PG sau nghiệm thu]
@@ -106,7 +115,12 @@ Cách ghi hồ sơ (Owner 12–13/10 · P34–P46)
 - R36 ⬜ Master Field chuẩn để đưa thẳng vào PG: mã DB (tên cột) có quy tắc thống nhất · tên hiển thị ngắn, đủ nghĩa, có "?" · mã việc sinh ra field · mô tả để làm gì · vòng đời Cần tạo mới → Đã tạo → Đã nghiệm thu. → VÒNG 8 D1–D5.
 - R37 ⬜ Mỗi bước trả lời một bộ câu hỏi chuẩn (làm gì · sau bước nào · đầu vào · ai · công cụ · xong khi · ghi đâu · khi nào báo cáo · lỗi đi đâu) và tích việc đã làm; máy chặn sai thứ tự. → VÒNG 8 E1–E3.
 - R38 ⬜ Hồ sơ sửa chữa thiết kế từ đầu: sửa ghi vào đâu, đã sửa bao nhiêu lần, sửa gì, lúc nào, ai chịu trách nhiệm; người làm chỉ điền vào ô có sẵn. → VÒNG 8 F1.
-- R39 ⬜ Cấu trúc kỹ thuật phải nhẹ để mỗi lượt nhanh (Owner 14/10 15:38): việc của ta là quy trình, logic, UI — không dựng lại một bộ công nghệ nặng. Giữ GitHub làm nơi làm chung và chưa đưa thiết kế vào PG thật; tận dụng Directus đang có làm vùng nháp hiển thị, lấy nguồn từ GitHub. → P49 VÒNG 10.
+- R39 ⬜ Cấu trúc kỹ thuật phải nhẹ để mỗi lượt nhanh (Owner 14/10 15:38): việc của ta là quy trình, logic, UI — không dựng lại một bộ công nghệ nặng. Giữ GitHub làm nơi làm chung và chưa đưa thiết kế vào PG thật; tận dụng Directus đang có làm vùng nháp hiển thị, lấy nguồn từ GitHub. → P49 VÒNG 10. *(Cách làm cụ thể đã thay bằng R40.)*
+
+Cách làm chốt 14/10/2026 16:00 (Owner + GPT + Claude · nguyên văn 3.4)
+- R40 ⬜ **Vùng nháp Directus là nơi làm thử.** Mỗi collection nháp tên `tqt_draft_<tên>`, nằm trong nhóm "TQT — NHÁP", tương ứng đúng một collection thật tương lai; không nối với dữ liệu thật; chỉ DOT được tạo/sửa/xóa (DOT 100%); cấu trúc cột lấy từ Master Field. Mỗi lần sửa cấu trúc đạt, DOT xuất định nghĩa (collection, field, quan hệ, giao diện) về GitHub. Khi đạt: DOT tạo collection thật từ đúng định nghĩa đã duyệt rồi xóa nháp (không đổi tên nháp thành thật, để không lẫn dữ liệu thử).
+- R41 ⬜ **Xong giai đoạn nháp khi đủ 5 điều:** ① mỗi Master cần cho QT001 có collection nháp đủ field và quan hệ · ② dữ liệu hiện có đã chuyển sang · ③ Owner xem được và thấy UI đạt · ④ một việc chạy hết quy trình 006, ghi vào nháp · ⑤ định nghĩa đã xuất lên GitHub, hai hãng ký, Owner duyệt.
+- R42 ⬜ **Đóng băng bộ thử tự dựng** (view.html 18 MB, UI riêng, CHECK005/006): không mở rộng, chỉ đọc để chuyển dữ liệu. Ý của R33–R38 giữ nguyên (thẻ việc 3 ô, mã, Field, thẻ bước, hồ sơ sửa) nhưng làm bằng collection nháp và chức năng sẵn có của Directus (lọc, quan hệ, lịch sử sửa). P49 VÒNG 9 phần cơ chế (K9.1–K9.3, K9.7) và VÒNG 10 bước 1 thôi làm; phần nội dung (mô tả Field 3 phần, tên hiển thị, chữ dính) mang sang nháp.
 
 Phạm vi: chưa làm quy trình nghiệp vụ (phái cử, tuyển dụng…), là sản phẩm của cỗ máy thuộc Chuỗi 3, để sau. Không làm lúc này: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế.
 
@@ -126,6 +140,10 @@ Phạm vi: chưa làm quy trình nghiệp vụ (phái cử, tuyển dụng…), 
 - Hội đồng: Astra-Codex (OpenAI) Host nội dung · Claude-review (Anthropic) Host Kiểm soát + phản biện · GPT Chat (OpenAI) góp ý/phản biện. Mode=COUNCIL · Automation_Level=AUTO0. Đường gọi hội đồng chưa đo.
 
 #### 3.4 Nguyên văn chỉ đạo Owner
+- 14/10/2026 16:00 · phiên Claude (nguyên văn, giữ lỗi gõ) → R40–R42, Bảng đổi hướng:
+  > Các bạn có nhiều ý kiến quá nhưng mà toàn tập trung vào những vấn đề vụn vặt, trong khi đó tổng quan về cách tiếp cận thì lại không ai bàn. Cuối cùng chúng ta đang đi đường vòng. Vẫn là câu chuyện chúng ta có cả một cái hệ thống Directus rất tốt, nhưng để thử vài cái UI chúng ta lại đi xây dựng cả một cái bộ thử rất phiền phức. Ban đầu tôi thấy nó nhanh, tôi cũng tưởng việc này đơn giản, nhưng chưa làm mới có 1/1000 vấn đề mà đã đơ thế này thì làm làm sao được, scale làm sao được. Cho nên là bây giờ chuyển sang tập trung thảo luận cái vùng nháp trên Directus. Quy định rõ là các collection là phải là collection nháp. Sau đó thì hoặc là chúng ta sẽ sửa tên hoặc là chúng ta sẽ copy và xóa cái vùng nháp này đi. Chỉ cần xong UI, chỉ cần xong quy trình, chỉ cần khả thi trên việc đấy là xong, rồi chúng ta xóa đi sau. Nếu như bạn cũng đồng ý với GPT và tôi thì chúng ta chốt lại, sửa lại kế hoạch, sửa lại các mục tiêu, sửa lại những cái nội dung cần phải đạt được rõ ràng để làm tiếp phần tiếp theo, không đi lan man vào những chuyện vụn vặt nữa.
+  >
+  > thế này nhé, tôi không hiểu về DB nhiều lắm. Nhưng hình dung của tôi là có thể tạo ra các collection tạm thời rồi sau đó xóa đi. Bản chất là chúng ta tạo ra các table từ PG, sau đó chuyển sang collection của Directus. Và khi mà production thì mô hình đấy OK. Nhưng bây giờ thử nghiệm, cách đơn giản là chúng ta chỉ viết ra một số cái dot mà phần lớn dot đã có rồi. Chúng ta tạo ra các collection nháp. Tôi lấy ví dụ như danh sách các trường, chúng ta đưa thẳng vào một collection nháp bằng dot, sau đó thì rúc lên Directus. Nếu mọi chuyện ổn thì sau đó chúng ta sẽ lấy đúng cái format đó để đưa vào PG và từ PG sẽ tạo ra một collection mới trên Directus. Còn phần nháp này chúng ta sẽ xóa đi. Vậy thì cách tiếp cận chỉ là tạo ra một vùng nháp trên Directus để xử lý. Trong thời gian trước mắt, cách tiếp cận như vậy có khả thi không? Và nếu khả thi thì tôi thấy mọi việc nó đơn giản, tại sao các bạn lại làm nó phức tạp lên như thế nhỉ?
 - 14/10/2026 15:38 · phiên Claude (nguyên văn, giữ lỗi gõ) → R39:
   > Giờ tôi muốn bạn giám sát tool này để bàn tiếp một số nội dung. Về cơ bản thì chúng ta đang xây các quy trình, con đường để đi. Nhưng vấn đề là quy mô triển khai chưa lớn, hiện nay là cái thao tác rất là chậm, đợi nhiều tiếng mới xong một luân lượt. Tất nhiên là ban đầu thì phải chấp nhận, nhưng tôi muốn đặt ra vấn đề về cấu trúc kỹ thuật. Liệu chúng ta đang tự xây dựng một hệ thống để thử, thế này đã phải là tối ưu chưa? Việc mà đã chốt, tức là không đưa vào PG sớm do hệ thống còn phải điều chỉnh rất nhiều, thì việc này vẫn chốt và không thay đổi. Nhưng câu hỏi là chúng ta có cả một hệ thống Directus rất lớn. Việc vẽ ra mấy UI trên hệ thống đấy xử lý rất nhanh, chỉ còn là môi trường chung, tức là SSOT làm việc trên GitHub thôi. Thế thì câu hỏi là cái cấu trúc về mặt kỹ thuật mà chúng ta đang dựng lên rất còng kềnh như thế này đã phải tối ưu chưa? Có thể tận dụng được Directus ở một vùng nháp nào đấy để dựng lên UI thật để làm nhưng mang tính nhẹ hơn được không? Tức là Directus sẽ lấy các nguồn từ GitHub và để show thẳng lên trên đó. Thế hiện nay chúng ta đi dựng lại một bộ công nghệ rất là nặng nề và thao tác rất lâu. Nghiên cứu về vấn đề này và tìm ra giải pháp để xử lý vấn đề nhanh hơn. Việc của chúng ta là quy trình, là logic, là UI chứ không phải đi tập trung vào vấn đề kỹ thuật.
 - 14/10/2026 10:43 · phiên Claude (nguyên văn, giữ lỗi gõ) → R33–R38:
