@@ -8,12 +8,12 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · P55 · 2026-10-14T02:30:00.761458+00:00 · Codex executor
+### BẢNG ĐIỀU KHIỂN · P55 · 2026-10-14T02:34:14.977021+00:00 · Codex executor
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã xong: G1 Owner nhận7/7 giữ nguyên. P53 quy định006@0.8 có71bước/7mốc, đối chiếu87nghĩa vụ; hồsơ001 xemgộp/historic87, giữ143events. Sửa nợ/Field theoClaudeV5; CHECK001–005 PASS. Đây là bản sửa đã kiểm, chưa nghiệmthuAI mới.
-- ■ Đang làm: TQT-P55-NAV · nối thanh chung và kiểm đường vào UI.
+- ■ Đang làm: — · 0 RUN active · P55 đã khép, thanh chung đã khôi phục.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002. · Cấu trúc dữ liệu cho 1.000 việc + luật 1 trang (R26–R27, PR-22): Owner gật → PT-01 có số đo.
 - ➡ Kế tiếp: Claude rà P54 C1/F4/Overview, tự ký hai phiếu đúng phiên; đủ hai hãng mới trình Owner quyết. Chưa QT002/PG/nghiệm thu QT001.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
@@ -1272,3 +1272,8 @@ KQ@TQT-P54-PUBLISH XONG · 2026-10-14T00:55:39.040171+00:00 · chỉ sửa/kiể
 
 ## P55 · Duy trì thanh 4 Mẹ + Master
 STARTED@TQT-P55-NAV 2026-10-14T02:30:00.761458+00:00 · Codex Host · Owner yêu cầu duy trì thanh dưới ở mọi UI đang dùng. SSOT thanh: /ui-preview/mcp-writes/eco-nav.js; Overview: work/tools-quy-trinh/view.html qua /knowledge/modules?task=tools-quy-trinh&view=content&section=over-view. Không PG/config/restart.
+
+- Đã nối Overview vào eco-nav.js hiện hữu, không chép menu. Sửa liên kết tuyệt đối/target _top để dùng đúng từ trang nhúng; chỉ phục hồi instance thanh hiện hành khi nội dung vẽ lại. Rà 29 URL menu: có thanh hoặc kế thừa mẫu cha. Hồ sơ chuẩn đã có thanh; bản nội dung Overview sau sửa HTTP200, thanh ở y736/800, đủ6 nút, 0 console errors; trình duyệt mở menu MOW, các7liên kết đúng /ui-preview/mcp-writes/ và _top, sau tự đồng bộ đúng1thanh. Lượt đầu thấy2thanh do callback phiên cũ, đã sửa/đọc lại bản cuối.
+- Commit nguồn `331ce559f052958f71fb3134dc9f347aaf106f3f`; UI transaction cuối `06d6e27a90c5414884bcfaeabd66b156`; hash eco-nav `f57acaff6b33cbc2f5dfc06d97d60ec87ee73dddc586e02dcd9219dd08182b26`. Syntax PASS, đọc lại hash/loader khớp. Không đổi catalog, phiếu kýP54, CHECK005 hoặc nghĩa vụ71bước. README bổ sung kiểm .eco-bar trong lượt ui_inspect hiện hữu, không DOT mới.
+- Giới hạn riêng đường Knowledge: trình duyệt Mac thấy khung ngoài báo chưa có snapshot; sync-status trênVPS fresh đúng331ce559. Đã kiểm trực tiếp URL nội dung xuất chuẩn có thanh; chưa kết luận lỗi khung ngoài đã hết. Ghi tạiP55 để rà tiếp đường nạp, không sửa ngoài phạm vi thanh.
+KQ@TQT-P55-NAV XONG · 2026-10-14T02:34:14.977021+00:00 · phạm vi thanh chung và hướng dẫn; không nghiệm thu QT001. Không process nền/tệp tạm VPS do lượt này; gitlock0 khi đọc lại; trả VPS-GHI cùngcommit, đóng tab kiểm. NEXT_TRIGGER=CLAUDE_P54_REVIEW_RECORDED.
