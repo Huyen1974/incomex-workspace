@@ -7,7 +7,18 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 15:33 +07 · GPT Chat Host · P07
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 15:55 +07 · Claude Chat · P08
+- 🎯 Mục tiêu: ô 1 — Gemini vào hội đồng như ghế Google, kết nối tối đa ngang GPT/Claude. Owner 15:44: Gemini tự làm trước; phần nó không làm được giao Claude Code làm cho nhanh.
+- 🏁 Xong khi: ô 2. G1 xong = `agy` đăng nhập + danh tính google-main thật (P do chính Gemini ghi) + KB/JEV gọi thật + bảng parity.
+- 📍 Tiến độ: [✓ G0] → [✓ G1 Gemini tự khảo sát, DỪNG có bằng chứng] → [■ G1B Claude Code làm nốt + Gemini tự chứng minh, 1 lượt] → [□ G2 ghế Google] → [□ G3 đưa thư/điện thoại] → [□ nghiệm thu]
+- ✅ Đã xong: P01–P07; P08 Claude sửa G1B DRAFT + ACCEPT@e42fb68d2bcc7db7cc5615462292758e58a77916.
+- ■ Đang làm: — · 0 RUN active
+- ⬜ Còn lại: G1B → G2 → G3 → nghiệm thu, đúng thứ tự.
+- ➡ Kế tiếp: 😊 Owner gật/lắc Q02 · Host GPT ghi HUMAN_DIRECTIVE-06 nếu gật + READY đúng SHA · 🤖 Claude Code chạy G1B. NEXT_TRIGGER=OWNER_Q02_THEN_GPT_READY_G1B_E42FB68.
+- ⛔ Không làm/để sau: G2/G3 trước khi G1B xong; mượn khoá ghế khác; xoá tệp (chỉ chuyển vào lưu trữ có INDEX); khởi động lại gì ngoài agent-data (+ jev-gw nếu Q02 nêu); đụng HJW/Graph/VPSC/TQT.
+
+<!-- Bảng P07 của Host giữ dưới đây làm lịch sử; Bảng hiện hành là khối ngay trên. -->
+#### (lịch sử) Bảng P07 · 2026-10-14 15:33 +07 · GPT Chat Host
 - 🎯 Mục tiêu: ô 1 — Gemini/Antigravity kết nối tối đa repo/VPS/MCP/KB/JEV, thành viên Google trong Hội đồng AI và workflow Hermes; năng lực tương đương GPT/Claude, Antigravity tự làm, Claude Code chỉ hỗ trợ blocker.
 - 🏁 Xong khi: ô 2 + capability parity; G1 phải có Google identity, authenticated calls repo/KB/JEV và agy headless; G2–G3 nghiệm thu riêng.
 - 📍 Tiến độ: [✓ G0 thiết kế/đồng thuận] → [✓ G1 S0 khảo sát] → [✓ G1 KQ DỪNG tại S1] → [■ G1B hỗ trợ BC01–BC03] → [□ Antigravity tiếp tục G1] → [□ G2 ghế Google] → [□ G3 courier/phone] → [□ nghiệm thu].
@@ -48,6 +59,8 @@ HUMAN_DIRECTIVE@GJW-20261014-01 EFFECTIVE · task=gemini-join-workflow · scope=
 
 HUMAN_DIRECTIVE@GJW-20261014-03 EFFECTIVE · task=gemini-join-workflow · scope=cách giao G1–G3: khuôn khổ + Antigravity tự làm · step=G1 · recorded_by=claude-chat · quote=«Anti thì hình như là đã tự cấu hình SSH vào vps được rồi, nguyên tắc là chúng ta đưa ra khuôn khổ và giao nó tự thực hiện. Cái gì không tự thực hiện được thì chúng ta mới hỗ trợ.» · text=Antigravity tự làm trong khuôn khổ quyền; hỗ trợ chỉ phần nó không tự làm được; SSH của Antigravity phải được đo và giới hạn · audit=chat Claude Chat 14/10/2026 12:19 +07
 
+HUMAN_DIRECTIVE@GJW-20261014-05 EFFECTIVE · task=gemini-join-workflow · scope=phần Gemini không tự làm được giao Claude Code; kết nối tối đa ngang GPT/Claude · step=G1B · recorded_by=claude-chat · quote=«Chúng ta vừa làm thử khả năng gemini, để nó tự làm bởi vì nó sẽ hiểu chính nó. Tuy nhiên những gì nó không thể thì chúng ta làm giúp cho nhanh (giao claude code cli) để nhanh có thêm thành viên vào hội đồng làm việc. Nguyên tắc là kết nối tối đa, mức cao nhất có thể giống claude và gpt nhé.» · text=G1B giao Claude Code làm nốt G1 trong một lượt; Gemini tự chứng minh kết nối; đích parity GPT/Claude · audit=chat Claude Chat 14/10/2026 15:44 +07
+
 - **C1 · Kết nối (→ mục 1, 3).** Ghế Google có danh tính máy riêng ở cổng (không mượn khoá ghế khác, không dùng khoá master). Khoá chỉ ở GSM, Owner không cầm khoá. Một tệp cấu hình chung `~/.gemini/config/mcp_config.json` (Antigravity IDE và `agy` cùng đọc; máy chủ từ xa khai `serverUrl`). Nối đủ: Incomex VPS (`fs_*`), Agent Data (`workspace_*`), KB, JEV Reference. Owner 14/10 yêu cầu kiểm thực trạng kết nối Gemini CLI cũ: Gemini CLI đã ngừng phục vụ Free/Pro/Ultra cá nhân từ 18/06/2026, KHÔNG ngừng Enterprise/API. Bốn cấu hình legacy cần đo metadata/dependency, KHÔNG di chuyển trước khi chứng minh không còn dùng và được duyệt.
 - **C2 · Ghế (→ mục 3).** `google-main` = một ghế cho mọi bề mặt dùng chung tài khoản Google (IDE, `agy`, SDK, app Gemini) — AGENTS A2. Ghim mô hình họ Gemini (Argon khi gói hiện có cấp; chưa có thì Gemini mạnh nhất đang có). Ghế này cấm chạy bằng mô hình Claude/GPT (Antigravity cho chọn cả Claude ⇒ chạy nhầm là mất tính khác hãng); mỗi P của ghế ghi tên mô hình. Gọi máy = `agy -p … --output-format stream-json`, chỉ chuyển con trỏ `task · step · round · seat`; nội dung đọc ở repo.
 - **C3 · Đưa thư (→ mục 2, 4).** Bám đúng giao thức dòng yêu cầu đưa thư (COURIER_REQUEST) HJW đã có; không đẻ giao thức thứ hai. Đánh thức trên Mac ưu tiên cơ chế native Antigravity/CLI hoặc HJW hiện có; SDK Python official quickstart yêu cầu GEMINI_API_KEY, không mặc nhiên dùng bằng login subscription. G3 mới quyết trigger nền, 0 token model lúc rỗng, không giữ terminal (DROOT50/52). GPT: trình duyệt Antigravity, hồ sơ Chrome riêng, gửi một câu con trỏ, không chép Output. Claude: không cho bot vào claude.ai (điều khoản Anthropic); chỉ qua Claude Code CLI khi Owner gật (câu đang mở ở HJW). Quyết thay Hermes-Mac bằng Antigravity thuộc HJW N3; việc này nộp bằng chứng.
@@ -68,12 +81,20 @@ HUMAN_DIRECTIVE@GJW-20261014-03 EFFECTIVE · task=gemini-join-workflow · scope=
 — (việc mới 14/10/2026)
 
 ## Owner cần quyết
-- —
+- Q02 · Cho Claude Code khởi động lại RIÊNG container agent-data MỘT lần (GPT connector/Hermes/KB gián đoạn khoảng 1 phút, đèn đỏ chớp rồi xanh) để nạp thẻ Google — đúng cách GPT, Codex, Claude Code đã được thêm; nếu JEV đòi thì cả jev-gw một lần. Claude đề xuất GẬT. Lắc ⇒ ghế Google không có danh tính riêng, G1B dừng ở mức Mac. Gật ⇒ Host ghi `HUMAN_DIRECTIVE@GJW-20261014-06` (quote nguyên văn Owner) rồi READY.
 
 ## Đã quyết
 - D02 · Owner 14/10 yêu cầu Antigravity tự setup trước, Claude Code chỉ fallback; Owner giao các AI thống nhất khuôn khổ/tiêu chí, GPT Host chốt ô 2 từ đề xuất Claude P01. Không suy Owner đã duyệt thay đổi production/credential/billing/AUTO.
 
 ## Nhật ký P
+
+### P08 · Claude Chat · 2026-10-14 15:55 +07 · Reviewer · B2 rà P07 + G1B → SỬA THẲNG → ACCEPT
+- Ghế: claude-chat · Bước/vòng: G1B duyệt PROMPT · 1/3 · Based_on: `9979b7c` (PROMPT version abefc73a) + mã `docker/agent-data-repo/agent_data/workspace_tools.py` (gốc code, chỉ đọc) · Scope: P07, PROMPT G1B, §0.3 C1–C7, báo cáo G1 của Gemini. Bảng: lệch (chưa có Q02 + cách xong G1 trong 1 lượt) ⇒ đã sửa · Ô 1–2: khớp.
+- Owner hỏi «có đang phức tạp hoá không»: **có**, ba gốc. (1) Thêm thành viên vào gateway = thêm profile + biến env + khởi động lại agent-data một lần (mã dòng ~210–249: khoá so với `os.environ`; chú thích thiết kế «config + env only»). P03 Claude viết «không restart» vào nhánh 🟡(2) khi chưa đọc mã xác thực ⇒ nhánh đó không thể đạt — lỗi của Claude. G1B giữ nguyên điều cấm này ⇒ chạy sẽ DỪNG lần hai ở BC01. (2) Gemini tự làm trong Gemini.app Task Mode bị sandbox/TCC — sai bề mặt; ở Terminal thường BC02/BC03 là việc vài phút. (3) Chia lượt quá nhỏ: G1 → G1B → trả Antigravity chạy lại → … mỗi lượt một vòng chuyển tay của Owner.
+- **Năm sửa thẳng trong DRAFT (A6/DROOT53):** (1) khởi động lại riêng agent-data một lần, chỉ khi Owner gật Q02 (HUMAN_DIRECTIVE-06), có kiểm 4 profile cũ sau khởi động; (2) gộp «trả Antigravity chạy lại» vào cùng lượt: Claude Code chỉ bấm `agy -p`, Gemini tự đọc mục SMOKE và tự ghi P10 bằng danh tính Google; (3) bề mặt ghế = `agy` Terminal thường, bỏ Task Mode khỏi đường chính; (4) dọn theo lời Owner «dọn dẹp lại mọi thứ cho chuẩn chỉ»: tệp `~/.gemini` chỉ phục vụ Gemini CLI đã ngừng ⇒ chuyển vào lưu trữ có INDEX, không xoá; mục Incomex khoá chết trong cấu hình chung thay bằng mục mới (có sao lưu); (5) đích «4 cổng» đổi thành parity: google-main là master profile như gpt-web + KB + JEV; `fs_*` là route Anthropic ⇒ N/A; bảng parity VERIFIED/GAP.
+- Giữ nguyên P07: không mượn khoá, không bypass TCC, VPS-GHI đo lúc chạy, không chờ, không đụng việc khác.
+- JEV `gen-dec-1791967591-XigCFRPeukOAXLsaEPbf`: không-restart khả thi 0,08 · DRAFT cũ DỪNG lại 0,64 · sửa + hỏi Owner 0,76 · gộp smoke 0,33. Claude lệch JEV ở điểm gộp: yêu cầu là Gemini tự gọi bằng danh tính Google; ai bấm Enter (Owner dán hay Claude Code chạy `agy -p`) không đổi việc đó; bằng chứng = tác giả commit google-main + model trong json; Gemini đọc lệnh từ repo, không từ Claude.
+- **ACCEPT@e42fb68d2bcc7db7cc5615462292758e58a77916** = commit cuối chạm PROMPT.md. Host: đọc diff fdf1787..e42fb68; Owner gật Q02 ⇒ ghi HUMAN_DIRECTIVE-06 (quote nguyên văn) + READY đúng SHA; Owner lắc ⇒ vẫn READY được (S2c/S2d tự bỏ). Không sửa chữ sau ACCEPT, không mở vòng 2.
 
 ### P07 · GPT Chat Host · 2026-10-14 · B1 báo cáo G1 và điều hành BC01–BC03
 - **Nguồn:** Owner cung cấp báo cáo 91 dòng tự ghi là Antigravity/Gemini.app/agy G1; Host chưa độc lập kiểm Mac. READY G1 được Agent báo đối chiếu đúng `a5a08669df1a713b6f6c31cd2bc2b6fc5b9deb86`. Trước P07 repo chưa có STARTED/KQ, nên ghi **relay hồi cứu**, không coi đây là bằng chứng Google ghi qua gateway.
