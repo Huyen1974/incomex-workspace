@@ -40,6 +40,7 @@ Mode=COUNCIL|SINGLE_AI · Automation_Level=AUTO0|AUTO1|AUTO2|AUTO3 · Khác mặ
 - Áp đến đâu làm đến đấy: việc được chạm ở lượt kế tiếp thì dựng Bảng trong lượt đó; không mở đợt sửa riêng. **CHƯA CƯỠNG CHẾ** — đề xuất chốt ở `## Owner cần quyết` của root `COLLAB.md`.
 
 ## Mã Master và User duyệt lần đầu · Owner 14/10/2026
+- **Đặt mã ngắn:** loại + số ổn định, nhìn ra loại đối tượng và phân biệt duy nhất. Không lặp tên task/ngày/phiên/trạng thái; trạng thái để cột riêng. Ví dụ CAT-227 (Master), CV-001 (việc), FLD-0001 (Field). Khi chuẩn hóa giữ bí danh cũ để tra lịch sử; không làm lại chữ ký cũ hoặc suy đã tạo trong PG.
 - Từ hai mục trở lên phải có danh sách quản lý; mỗi Master và mỗi bản ghi phải có mã riêng duy nhất, ổn định. Liên kết các sổ bằng mã nguồn, không bằng tên hoặc số thứ tự hiển thị.
 - Trước lần đầu đưa Master vào sử dụng phải có User duyệt rõ đúng mã, phiên/phạm vi và bằng chứng. AI chỉ ghi quyết định có thật, không tự tích duyệt; chữ ký GPT/Claude không thay User. Master cũ thiếu bằng chứng không tự coi đã duyệt. User duyệt không đóng băng thiết kế; mọi thay đổi tiếp theo giữ lịch sử theo quy trình hiệu chỉnh.
 

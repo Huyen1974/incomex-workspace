@@ -357,6 +357,7 @@ def main():
     ap.add_argument('--dry-run',action='store_true',help='validate inventory and print commands without running suites')
     ap.add_argument('--report',type=Path,help='save evidence JSON; use a test/evidence location')
     ap.add_argument('--ui-adapter',type=Path,help='optional local copy of VPS process-work-master-v1.js; hash recorded')
+    ap.add_argument('--ui-snapshot',type=Path,help='offline folder with all five pinned UI inputs; independently reproducible')
     ap.add_argument('--vps-ui',action='store_true',help='fetch all five public UI inputs, verify registry pins, and run the complete UI checks')
     ap.add_argument('--before-product',type=Path,help='actual previous product snapshot; validate revisions/history before submitting any write')
     ap.add_argument('--master-registry',type=Path,help='fresh definition-master-registry-v1.js from the UI source')
@@ -381,6 +382,13 @@ def main():
         if args.report:args.report.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
         print(json.dumps({'state':'OBSERVED','dot_files':len(result['dot_inventory']),'other_scripts':len(result.get('script_inventory',[])),'supporting_templates':len(result['supporting_templates']),'usage_events':result['usage']['event_count'],'complete_receipts':result['usage']['complete_receipts'],'execution_receipts':len(result['executions']),'pg':'NOT_RUN'}));return 0
     fetch_errors=[];ui_temp=None
+    if args.ui_snapshot:
+        if args.vps_ui or args.ui_adapter or args.master_registry or args.master_registry_json:ap.error('--ui-snapshot is a complete input mode')
+        pins=next(x for x in reg['records'] if x['id']=='TQT-CHECK-005')['ui_inputs']
+        for name,pin in pins.items():
+            file=args.ui_snapshot/name
+            if not file.is_file() or sha(file)!=pin:fetch_errors.append('SNAPSHOT_INPUT_MISSING_OR_CHANGED:'+name)
+        args.master_registry=args.ui_snapshot/'definition-master-registry-v1.js';args.ui_adapter=args.ui_snapshot/'process-work-master-v1.js'
     if args.vps_ui:
         if args.ui_adapter or args.master_registry or args.master_registry_json:ap.error('--vps-ui supplies the UI adapter and registry; do not combine input modes')
         ui_temp=tempfile.TemporaryDirectory(prefix='TQT-UI-TEST-');folder=Path(ui_temp.name)
@@ -390,7 +398,7 @@ def main():
         else:
             for name,pin in pins.items():
                 try:
-                    raw=urllib.request.urlopen('https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/'+name,timeout=30).read()
+                    raw=urllib.request.urlopen('https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/'+name,timeout=10).read()
                     if hashlib.sha256(raw).hexdigest()!=pin:fetch_errors.append('UI_INPUT_CHANGED:'+name);continue
                     (folder/name).write_bytes(raw)
                 except (OSError,ValueError) as exc:fetch_errors.append('UI_INPUT_UNAVAILABLE:'+name+':'+type(exc).__name__)

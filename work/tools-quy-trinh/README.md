@@ -1,5 +1,34 @@
 # tools-quy-trinh · Cửa vào
 
+## Bắt đầu tại đây · P60
+1. Đọc COLLAB mục tiêu/phạm vi và cờ phối hợp. Luật chuẩn: MOW-TH-006.md phiên 1.0, 71 bước / 7 mốc; bản trên Overview dùng cùng nguồn.
+2. Tra mã CAT-227 → chọn CV-001/CV-002. Mã TQT-VIEC-… và DEF00.1/CAT-227* còn là bí danh lịch sử; không mở mã trùng. Mã Field FLD-0001…; tên cột DB là thuộc tính riêng, không phải ID.
+3. Năm ô mục tiêu của CV-001 là dự thảo, chưa Owner duyệt. Duyệt G1 cũ không thay duyệt lượt mới. Thẻ 3 dòng tự tính; chưa đủ thì không xanh.
+4. Kết quả thực tế chỉ ghi ở hồ sơ chuẩn và Master liên quan. CAT-069 là việc tiếp; CAT-016 là hồ sơ sửa; CAT-025 là nơi ký. Không dùng báo cáo chat hoặc trang local thay bản ghi.
+5. Ký P60: mở hồ sơ CV-001 → Xác nhận hai bên → phiếu TQT-P60-CORRECTIONS → đọc đúng scope/manifest/binding → tự ghi review → đọc lại ô của mình. Báo cáo P49 chỉ là giải thích; chưa có review trong phiếu thì chưa ký. Phiếu này duyệt quy định/bộ kiểm, không nghiệm thu sản phẩm QT001.
+
+## Ghi và kiểm ngoài PG
+- Nguồn 5 ô/kết quả thiết kế: catalog.work_schedule.records[].control; nhật ký bước vẫn ở detail_tracking.events. Quy định bước: catalog.detailed_workflow.step_cards. Không chép bộ luật vào kết quả thực tế.
+- CHECK005 --validate-control INPUT.json kiểm hợp đồng/tiêu chí/chữ ký/thứ tự trong bản kê đầu vào. INPUT gồm work và options (start/prepared/complete); before dùng kiểm thay đổi mục tiêu đã duyệt. Chỉ HOST_CHECK, không chứng thực quyền trên mọi endpoint.
+- CHECK005 --validate-dossier INPUT.json tiếp tục kiểm sự kiện/giờ commit/biên nhận/nhánh. Hồ sơ mới bắt phiên hiện hành. CHECK005 --milestone-report INPUT.json sinh bốn dòng báo cáo từ work và milestone; không nhập báo cáo đạt giả.
+- CHECK005 --validate-governance-before BEFORE.html kiểm thay phiên quy trình/Field/DOT có CAT-016. Trước ghi dùng bộ kiểm, CAS qua gateway, đọc lại, kiểm trang Owner. Máy hiện chưa chặn mọi đường ghi; Host không bỏ bước này.
+- Field hiện ở DESIGN: đếm định nghĩa mới dự kiến khi đủ kiểm kê; PG vẫn chưa xác minh. CREATED/REUSED/ACCEPTED phải có biên nhận PG ở lượt triển khai sau. Lượt này không đọc/ghi PG.
+
+## Rà độc lập bằng CHECK006
+Trên bản sao repo, giữ đúng cấu trúc work/tools-quy-trinh và work/mow-mot-moit-mout/UI-REVIEW-MOW001.json. Giữ UI-REVIEW-AGGREGATE.json là bằng chứng nguồn đã đăng ký. Lấy đúng năm tệp UI theo ui_inputs của TQT-CHECK-005: process-work-master-v1.js, definition-master-registry-v1.js, qtth006-overview-v1.js, ui-child-content-v1.js, ui-child-from-parent-v1.js, cùng một thư mục.
+Chạy `python3 work/tools-quy-trinh/run-tqt-checks.py --verify --ui-snapshot /đường/tới/5-tệp --report /đường/kết-quả.json`.
+Bộ chạy kiểm hash trước khi thử; thiếu/sai tệp phải báo lỗi, không dùng kết quả cũ. Không cần truy cập VPS khi chạy snapshot. Giữ giới hạn bộ nhớ/thời gian trong Master DOT; không tự nới để vượt kiểm. TEST không nghiệm thu việc thật.
+
+## Mã và duyệt lần đầu
+Loại + số, ngắn và ổn định. Không lặp tên task/ngày/phiên/trạng thái trong mã. Master/bản ghi có mã riêng; bí danh cũ giữ truy nguồn, không cấp lại. User duyệt lần đầu cần đúng mã/phiên/phạm vi và bằng chứng; AI chỉ ghi quyết định có thật. Chưa có bằng chứng hiện chưa xác minh, không tự tích. Duyệt không đóng băng thiết kế; sửa phải ghi CAT-016 và rà ảnh hưởng chữ ký.
+
+## Phần còn mở
+Chưa nghiệm thu QT001, chưa chạy QT002; chưa đủ chữ ký P60/Owner duyệt 5 ô. Lịch sử sửa truy hồi thiếu bằng chứng vẫn chưa xác minh. 16 mục cũ CAT-069 chưa có liên kết mã việc. 10 bước dự kiến tự động hóa ở governance.automation_plan trỏ nợ TQT-P53-AUTOMATION, chưa có lệnh trọn bước. Chưa cưỡng chế mọi endpoint/định danh chữ ký bằng server. Tách tệp lớn ở lượt sau.
+
+## Tra lịch sử
+Các mục P58 trở về trước dưới đây chỉ dùng truy nguồn; quy định hiện hành ở trên và MOW-TH-006.md. Không lấy phiên cũ làm luật cho việc mới.
+
+
 ## Mã danh sách và duyệt sử dụng lần đầu · Owner 14/10/2026
 - Từ hai mục trở lên phải có danh sách quản lý. Mỗi Master phải có mã riêng duy nhất; mỗi bản ghi phải có mã riêng ổn định, không dùng số thứ tự hiển thị thay mã. Tra mã hiện có trước khi tạo; không đổi mã theo tên hoặc trạng thái.
 - Liên kết giữa các sổ dùng mã bản ghi nguồn. DEF00.1 dùng record_id (TQT-VIEC-…); CAT-069 dùng work_id trỏ về mã đó. Chưa biết liên kết thì để trống và ghi thiếu, không suy đoán hoặc gán chung cho một việc.
