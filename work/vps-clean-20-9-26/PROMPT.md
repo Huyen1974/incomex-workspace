@@ -1,3 +1,29 @@
+# PROMPT — VPSC-11-GROWTH-CONTRACT-20261015-01 · Khép đúng #11, KHÔNG xóa dữ liệu sống hoặc che đèn
+
+RUN_ID: VPSC-11-GROWTH-CONTRACT-20261015-01
+TASK: work/vps-clean-20-9-26 · D19/D22–D30, P112 Host B1 → Claude Chat P113 B2 → GPT Host B3 READY → Owner tự dán Claude Code CLI. Không tạo task mới.
+STATUS: DRAFT, CHƯA READY/RUN. Chỉ phần trên dòng LỊCH SỬ đầu tiên có thể RUN. **Mục tiêu một việc duy nhất: giải quyết đúng nguyên nhân #11 `EVENT_UNDECLARED /opt/incomex/data`, không mở đợt dọn mới.**
+
+## 0. Nguồn và ranh giới
+Đọc AGENTS, COLLAB gốc VPS-GHI, VPSC §0 D19/D22–D30/P84/P110–P113 + PROMPT READY, BAO-CAO W-FINAL-SCOPE-20261014 §4 và §7, R7 luật 4 loại STATIC/ROTATING/BUSINESS/EVENT, H1/H2 retention evidence. Xem `work/hpml-view-for-user/COLLAB.md`: HVU từng cấm xóa `/opt/incomex/data/hvu-b2/repo.git`. Sử dụng nguồn/tham chiếu đã có; không tìm kiếm toàn VPS, không dựng Graph/code mới.
+W KQ 527e570 DỪNG vì #11 thực sự đỏ: `/opt/incomex/data` parent khai STATIC nhưng +165–227 MiB/24h; ổ mới dùng 61% (trống ~37,4 GiB), 13/13 containers khỏe, 22 lịch OFF/Config Guard không đổi, backup/08:00 khỏe. Nguồn: `workspace-tools/p02-cache`/ `github-workspace`/ `.before` có van retention (m,o), **phải kiểm NET growth & hiệu lực van**; HVU `hvu-b2/repo.git` 437→520 MiB, phát sinh ~45MiB file mới/24h, **chưa chứng minh có giới hạn**. Tệp mới ≠ tăng ròng. O-R7-KEY và #21/#22/sr-mow đúng chủ, không đụng.
+
+## 1. ONE bounded execution (≤40 phút, không chờ giờ)
+S0 CHỈ ĐỌC: xác định cấu hình taxonomy storage-watch đang chạy, quyền/sổ mã và operator chỉnh hiện có; xem khả năng phân tách nested paths sao cho **parent STATIC vẫn canh các path lạ** (ưu tiên rule exact/longest-prefix có sẵn); kiểm retention `vps-retention.sh` nhận đúng các dòng MCPW này và receipts/size qua mốc sau mỗi lượt. Kiểm HVU `repo.git` là mirror đang live, trạng thái refs/nhịp tăng và contract growth/cap/forecast **đã được chủ HVU duyệt hay chưa**, không đọc secrets/nội dung nghiệp vụ. Không đọc quy mô rộng hoặc tạo các phép đo/timer mới.
+Chốt TỐI ĐA một thay đổi nhỏ qua đường config/taxonomy sẵn có, nếu có đầy đủ bằng chứng và đúng quyền Owner đã giao:
+- MCPW con đang sống + có retention/allocated-byte proof ⇒ được gắn **đúng subpath `ROTATING`** qua contract hiện có; khai owner/TTL/van/đường rollback; phần khác của `/opt/incomex/data` vẫn giữ phát hiện tăng lạ. Không blanket đổi cả parent STATIC thành ROTATING/BUSINESS.
+- HVU `repo.git` **GIỮ**, không xóa hay `git gc --prune` bừa. Chỉ khai `BUSINESS` với **growth/forecast/cap và cảnh báo capacity hoạt động thật**, nếu đúng hợp đồng storage-watch và HVU owner xác nhận nguồn sinh còn dùng; hoặc `OWNER_REQUIRED` sang chính HVU, để #11 tiếp tục đỏ có lý do cho tới khi giải quyết. **Không tự đặt quota/TTL bất kỳ**, không bật cơ chế tự xóa bare repo; không sửa runtime HVU.
+- Nếu taxonomy không hỗ trợ rule con không che parent, HVU chưa có hợp đồng tăng trưởng, hoặc cần đổi source code / schema / Guard vượt phạm vi: **DỪNG ngay trước mutation** với đúng một blocker/đề xuất cho Owner, không chế tool hay hạ ngưỡng/chặn alarm.
+Nếu và chỉ nếu S0 đủ cả scope/quyền/rollback, nhận VPS-GHI CAS + STARTED trước mutation; áp **chính xác config đã chứng minh** qua operator có sẵn + Config Guard Đ30/31 4 ô, không sửa tay, không thay monitor code, không thay độ nhạy hoặc bypass receipt. Verify PRE/POST nguồn, path không biết vẫn báo đỏ, #11 theo detector THẬT (không thay ngưỡng), PG/AD/Graph/cron OFF22/Guard/Kuma/backup/08:00 same-or-better. Lỗi MỚI ⇒ rollback đúng config và DỪNG. #22 cũ đỏ không được chữa hộ.
+Không có mutatable item đã phê duyệt ⇒ NO_MUTATION + báo owner chính xác, không tự chạy vòng khảo sát sau.
+
+## 2. KQ và lối ra
+Ghi BAO-CAO mục `11-GROWTH-CONTRACT-20261015` và KQ@VPSC-11-GROWTH-CONTRACT-20261015-01 trong VPSC COLLAB dưới P112/P113, Bảng/Sổ một dòng: trước/sau đèn #11 + STATIC/ROTATING/BUSINESS refs, NET disk growth, receipts van, chủ HVU, exact config diff/rollback, 4 ô, 22 OFF và dịch vụ GIỮ, tình trạng W24h. Nếu #11 xanh đúng luật, không leak mới: `XONG · SCOPE_DISK_GUARDED` và đề xuất Host đóng VPSC thực dụng theo D30; nếu HVU OWNER_REQUIRED/chưa đủ bằng chứng thì `DỪNG · OWNER_HVU_GROWTH_CONTRACT` (không lặng lẽ chấp nhận đèn đỏ). Cấm tự FULL PASS 24h khi chưa có receipt; watcher sẵn có canh tiếp.
+Trả VPS-GHI trong cùng KQ nếu từng nhận; 0 background/temporary. **Không chạy N2b, W lại, xoay khóa, sửa backup, OFF thêm di sản, xóa image/data/Graph/HVU repo, hoặc mở thêm task.**
+
+---
+## LỊCH SỬ — W-FINAL KQ DỪNG 527e570, không RUN lại
+
 # PROMPT — VPSC-W-FINAL-SCOPE-CHECK-20261014-01 · Kiểm kết thúc dọn VPS, CHỈ ĐỌC
 
 RUN_ID: VPSC-W-FINAL-SCOPE-CHECK-20261014-01
