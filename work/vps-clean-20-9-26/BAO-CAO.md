@@ -4,6 +4,79 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## L1P-20261013 · RUN VPSC-L1P-GUARD-CRON-20261013-01 · khoá lịch máy vào Config Guard (D26) + đo Kuma #11/#21 · executor Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ DỪNG · PARTIAL (bảo vệ đạt và GIỮ; thiếu biên nhận Telegram vì Guard tổng còn đỏ #22 cũ)
+
+**PROMPT `79c2102d` (READY P94 GPT Host + Reviewer ACCEPT P93) · khối Owner có nguyên dòng D26 §0A · STARTED + VPS-GHI `bf9b8ec` 00:11Z · KQ + trả khoá cùng commit này · bằng chứng VPS `/opt/incomex/work/vps-clean-20-9-26/VPSC-L1P-GUARD-CRON-20261013-01/{pre,post,rollback,kuma,thu-am}` + `crontab.truoc`, `crontab.sau`, `diff.txt`, `kiem-truoc-nap.txt`, `dang-ky.tsv`, `apply.out`.** Chỉ đổi: 1 dòng chú thích trong crontab root · Config Guard registry (+6 đích, baseline) · 1 commit git cục bộ nhãn DEL-1. 0 dòng lịch chạy đổi, 0 PG/Directus/Graph, 0 restart, 0 sửa Guard/Kuma/DOT/mã.
+
+### 1. Cho Owner
+- 🟢 Lịch máy đã có khoá: crontab root + 5 tệp lịch `/etc/cron.d` tự viết nằm trong Config Guard. Từ nay sửa đúng đường là `incomex-config-apply-v0` (có bản lùi); sửa tay thì drift-check thấy và đẩy lên #22. Không dòng lịch nào đổi, 21 lịch di sản của L1 vẫn tắt.
+- 🟢 Bảng 4 ô Điều 30/31 cho L1 và lượt này đủ, 0 ô thiếu. Câu «No heartbeat» của #11 chỉ là Kuma tự ghi khi đèn đang đỏ: 48 giờ không mất nhịp nào (khoảng lớn nhất 609 giây, hạn 1.860 giây); #11 đỏ thật vì đĩa (SLOPE7D).
+- 🟡 Chưa có biên nhận Telegram: Guard chỉ gửi khi tổng PASS, mà #22 đỏ sẵn từ trước (4 tệp TQT/HJW lệch + INV20), không thuộc lượt này. Khi #22 đang đỏ, một lần sửa tay crontab chỉ làm số tệp lệch 4→5 trong lý do #22, không tạo cảnh báo mới; khoá lịch canh trọn vẹn khi #22 xanh lại.
+
+### 2. Đích Config Guard mới — apply-v0 `guard-registry` APPLIED 00:16:39Z (mutation `VPSC-L1P-GUARD-CRON-20261013-01-guard-registry-20261014T001639Z`)
+| id | tệp | baseline sha16 | chủ · quyền | ghi chú |
+|---|---|---|---|---|
+| `cron-root-crontab` | `/var/spool/cron/crontabs/root` | `cf36da8e03c5cb87` | root:crontab 600 | ứng viên apply-v0 = nguyên tệp spool, gồm 3 dòng đầu |
+| `cron-certbot-renew` | `/etc/cron.d/certbot-renew` | `77fd0b6f0d35211b` | root:root 644 | người dùng thêm; dừng/chạy nginx ngày 1 hằng tháng |
+| `cron-incomex-context-pack-retention` | `/etc/cron.d/incomex-context-pack-retention` | `008aa37a0edac868` | root:root 644 | xoá build context-pack cũ 03:15 |
+| `cron-incomex-workspace-status` | `/etc/cron.d/incomex-workspace-status` | `50e65e8672d217fa` | root:root 644 | mỗi phút; script + json đã ở Config Guard từ R7, dòng lịch thì chưa |
+| `cron-staticroute` | `/etc/cron.d/staticroute` | `29f72e6fda646334` | root:root 644 | `@reboot` route eth0 (nhiều khả năng từ image nhà cung cấp; không thuộc gói nào) |
+| `cron-vps-retention` | `/etc/cron.d/vps-retention` | `28a8081e73c4be5c` | root:root 644 | người gác kho VPSC |
+
+Loại: `certbot`, `e2scrub_all`, `sysstat` (thuộc gói dpkg). Đã có sẵn: `kuma-push`, `directus-license-watch`. Tệp của việc đang bận: không (cờ duy nhất là HJW courier spike chạy trên Mac, không sở hữu tệp nào). JEV `gen-dec-1791936590-NBXeFmT2ENK9hV6vkERc`: certbot-renew 0,88 · context-pack 0,90 · vps-retention 0,90 · staticroute 0,78 · tệp dpkg 0,05 · workspace-status 0,27 — vẫn đăng ký workspace-status vì PROMPT chỉ loại tệp gói/tệp của việc bận, và dòng lịch đó chưa được canh. Registry `265aacc3…` → `8aa47b39…` (−0/+9: 3 chú thích + 6 hàng; 0 hàng cũ đổi); bản lùi `/var/lib/incomex-config-guard-v0/rollback/guard-registry.<mutation>.pre` sha `265aacc3`.
+
+Chương trình tự ghi crontab (S0.5): chỉ hai DOT chạy tay `dot-cron-matrix-setup`, `dot-cron-pivot-setup` (+ bản `.bak-s164c`), 0 lịch/unit gọi chúng. Đây cũng là hai DOT dựng lại lịch Pivot/Matrix mà L1 đã tắt ⇒ chạy chúng từ nay ⇒ drift ⇒ #22 (đúng ý D26).
+
+### 3. Crontab root
+- Biển báo ở dòng 2 (00:16:21Z): `# CONFIG GUARD từ 2026-10-14T00:16:21Z (VPSC-L1P-GUARD-CRON-20261013-01 · D26 Owner): tệp này được canh — sửa qua incomex-config-apply-v0; sửa tay ⇒ đèn #22 đỏ. Bật lại dòng #L1-OFF cũng phải đi đường này.`
+- Kiểm trước nạp PASS: diff `1a2` +1/−0; dòng không bắt đầu `#` 32→32 (= 27 lịch + 3 `CRON_TZ` + 2 dòng trống, cùng cách đếm của L1), nội dung các dòng đó giống hệt; 21/21 dòng `#L1-OFF` nguyên; 2 dòng `CRON_EXACT` mỗi dòng đúng 1 lần. `crontab -l` `94e90c41`→`3460e2e1`; spool `7cbabbee`→`cf36da8e`; cron `RELOAD (crontabs/root)` 00:17:01Z không lỗi.
+
+### 4. drift-check
+| Lượt | TOTAL | MATCH | MISMATCH | đích lệch |
+|---|---|---|---|---|
+| PRE 00:13Z | 474 | 470 | 4 | agent-data-lifecycle-py · agent-data-workspace-tools-py · hvu-signals-py · hermes-config-yaml (TQT/HJW, #22 cũ) |
+| POST 00:16:56Z và 00:24:45Z | 480 | 476 | 4 | cùng 4 đích; 6 đích mới MATCH |
+
+Thử âm (Điều 30, trên fixture selftest `sample-sh`, không chạm tệp thật): sửa nội dung ⇒ `MISMATCH CONTENT`; sửa quyền 640→600 ⇒ `MISMATCH MODE`; trả lại ⇒ `MATCH`, fixture nguyên byte (`thu-am/thu-am.txt`). `stack-yml` lệch MODE sẵn từ trước, không đụng.
+
+### 5. Bảng 4 ô Điều 30/31 (Guard `post --coverage`)
+| Mục | Đ31 | Đ30 proof | Canh | Lùi (sha = PRE) |
+|---|---|---|---|---|
+| `file:/var/spool/cron/crontabs/root` | `config-guard:cron-root-crontab` (baseline = `cf36da8e`) | `post/proof/crontab-root.txt` | drift-check 5′ → INV5_6 #22 + INV15 `CRON_EXACT` + INV23 sổ mã | lượt này `rollback/crontab-root.spool.pre` `7cbabbee` · footprint L1 `…/VPSC-L1-CRON-OFF-20261013-01/rollback/crontab-root.spool.pre` `13c017ba` |
+| `file:/var/lib/incomex-config-guard-v0/registry.tsv` | `config-guard:guard-registry` (baseline = `8aa47b39`) | `post/proof/guard-registry.txt` | drift-check guard-registry → INV5_6 #22 | `rollback/guard-registry.<mutation>.pre` `265aacc3` |
+
+- **POST A** `vpsc-l1p-post` (PRE lượt này) 00:21:09Z: `C3.footprint_coverage` PASS 2 mục đủ 4 ô · `C3.same_or_better` PASS (PREEXISTING_SAME #11, #21, #22) · `C3.change_event` PASS · Guard tổng FAIL chỉ INV5_6 (4 đích cũ) + INV20 (agent-data cloud chạy mã không có trong nguồn) ⇒ `RECEIPT not sent: POST-PROTECT FAIL`.
+- **POST B** `vpsc-l1p-post-l1fp` (PRE của L1 13/10 14:56:15Z) 00:21:57Z: footprint L1 2 mục đủ 4 ô — ô «THIẾU Đ31 crontab root» của L1 nay đã lấp · `C3.same_or_better` FAIL chỉ vì câu luân phiên: #11 «No heartbeat…» (lúc PRE L1) → «DISK 61% SLOPE7D…», #21 «HERMES gateway=active…» → «No heartbeat…»; tập đỏ = PRE_RED_SET; mục 6 chứng minh là câu Kuma tự ghi. INV5_6 lúc đó có thêm `http /=HTTPError` một lần (Guard dò URL công khai «/», hạn 15 s); kiểm ngay: `/` 200, Kuma #6 Nuxt 200 mỗi phút suốt 00:11–00:24Z ⇒ thoáng qua, không do L1P (lượt này không chạm web).
+
+### 6. Kuma #11/#21 — `kuma.db` mode=ro, 48 giờ tới 00:18Z (thêm #22 để tham chiếu)
+| Đèn | interval | nhịp push | Kuma tự ghi «No heartbeat» | khoảng push lớn nhất | khoảng > interval |
+|---|---|---|---|---|---|
+| #11 Disk Usage | 1.860 s | 270 (đều DOWN) | 87 | 609 s (12/10 19:50→20:00Z) | 0 |
+| #21 Hermes gateway | 300 s | 1.353 | 541 | 132 s | 0 |
+| #22 MCPW Protection Guard | 570 s | 541 | 285 | 415 s | 0 |
+
+**Kết luận: «No heartbeat in the time window» là hiển thị, không mất nhịp** — push đều, không khoảng nào vượt interval; Kuma tự ghi câu này khi nhịp trước không UP (hành vi `monitor.js` Codex đã chỉ ở PROOT01). #11 đỏ thật vì đĩa; câu push 48h: EVENT_UNDECLARED /var/lib 122 · SLOPE7D 78 · EVENT_UNDECLARED containerd 59 · DEBT_OVERDUE transactions 11; hiện SLOPE7D −3,75 GiB. Không sửa Guard, không sửa Kuma. Bảng từng lần đổi trạng thái: `kuma/kuma-48h-bang.txt`.
+
+### 7. POST
+- 22 đèn: PRE 00:00Z 19/22 · POST 00:20Z 19/22, đỏ {#11, #21, #22} = PRE_RED_SET.
+- Health 00:24:45Z: `/` 200 · `/knowledge/modules` 200 · `/api/health` 200 · Directus `pong` · 13 container chạy, 0 unhealthy · Kuma #1/#2/#3/#6/#7/#8 0 nhịp lỗi từ 00:11Z. Trống 40.527.425.536 B · MemAvailable 5,56 GiB.
+- Git cục bộ `/opt/incomex` (nhánh `feat/s177-sprint1-round-a`, HEAD trước `8556d91` = VPSC R7): commit `ba92898` chỉ `docs/KE-HOACH-XOA-20260801.md` (+2 = dòng nhãn L1 + dòng `>` ngăn đoạn trích; HEAD = bản trước L1 `bebab0d1`, bản làm việc = bản sau L1 `3139554a`; khu staging trống, không `index.lock`). 1.332 thay đổi khác của phiên khác giữ nguyên theo `GHI-CHU-CAY-GIT.md`.
+
+### 8. Đường lùi và cách sửa lịch từ nay
+- Gỡ bảo vệ (nếu Host quyết): `incomex-config-apply-v0 --target-id guard-registry` với ứng viên = bản sao `rollback/guard-registry.<mutation>.pre` đặt trong `/root/incomex-config-changes/<id>/`, `--expected-baseline 8aa47b39…`; sau đó mới được bỏ dòng biển báo bằng `crontab <EV>/crontab.truoc`.
+- Sửa lịch đúng đường (kể cả bật lại dòng `#L1-OFF`): chép spool `/var/spool/cron/crontabs/root` vào `/root/incomex-config-changes/<id>/root` (root, 600), sửa, `incomex-config-apply-v0 --target-id cron-root-crontab --candidate … --expected-baseline <sha spool hiện tại>`; cron tự nạp lại trong 1 phút. **Chưa thử thật trong RUN này** (PROMPT cấm đổi lịch). Cách «Bật lại» ở mục L1 §8 (dùng `crontab …`) nay sẽ làm #22 thêm đích lệch nếu không qua đường này.
+
+### 9. Giới hạn và việc còn lại cho Host
+- **KQ DỪNG · PARTIAL** vì (1) chưa có biên nhận Telegram/message_id: Guard tổng FAIL do #22 cũ (INV5_6 4 đích TQT/HJW + INV20); (2) POST B same_or_better FAIL do câu luân phiên #11/#21 (mục 6). Không có lỗi mới do L1P ⇒ GIỮ đăng ký + biển báo, không lùi, không đụng L1.
+- Khoá lịch chỉ báo động trọn vẹn khi #22 xanh: lúc #22 đỏ sẵn, sửa tay chỉ đổi số lệch 4→5 trong lý do, không chuyển trạng thái.
+- Biên nhận: chạy Guard `post --receipt "NO-CHANGE VERIFY …"` sau khi #22 xanh (chủ TQT/HJW xử 4 đích + INV20) — lượt sau, không ai ngồi chờ.
+- Sổ mã `code-ledger.tsv` vẫn ghi 6 tệp này cột trạng thái `UNKNOWN`; không đổi trong lượt này (INV23 chỉ xét tệp ngoài sổ).
+- Không làm: L1b, L2, xoay khoá O-R7-KEY.
+
+**Dọn:** VPS tạo: thư mục bằng chứng `<EV>` (giữ có chủ đích), thư mục ứng viên apply-v0 `/root/incomex-config-changes/VPSC-L1P-GUARD-CRON-20261013-01-guard-registry-20261014T001639Z/` + 6 bộ baseline + `.pre` registry (trạng thái Config Guard, giữ làm đường lùi), `thu-am/sample.sh.bak` (bằng chứng; fixture đã trả nguyên byte) · 0 tiến trình nền · 0 tệp tạm ngoài `<EV>` · Mac: scratchpad `l1p/` xoá sau KQ · còn lại: không.
+
+---
+
 ## L1-20261013 · RUN VPSC-L1-CRON-OFF-20261013-01 · tắt LỊCH theo chủ đề D25 (Pivot/đếm + Governance/APR/heal) · executor Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ XONG (kèm 2 thiếu hình thức của Guard, mục 7)
 
 **PROMPT `91334aa8` (READY P90 GPT Host B3 + Reviewer ACCEPT P89) · khối Owner có nguyên dòng D25 §0A · STARTED + VPS-GHI `e3d01be` 14:56Z · nạp crontab 15:00:02Z · bằng chứng VPS `/opt/incomex/work/vps-clean-20-9-26/VPSC-L1-CRON-OFF-20261013-01/{pre,obs,post,rollback}` + `crontab.truoc`, `crontab.sau`, `diff.txt`, `kiem-truoc-nap.txt` (tệp có dòng crontab để chế độ 600).** Chỉ đổi crontab root + 1 dòng trạng thái trong `docs/KE-HOACH-XOA-20260801.md`; 0 PG DDL/DML, 0 Directus, 0 restart, 0 sửa DOT/mã, 0 đụng Graph.
