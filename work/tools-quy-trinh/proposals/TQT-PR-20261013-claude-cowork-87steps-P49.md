@@ -1024,8 +1024,8 @@ Thêm: Owner xem bằng 1 tài khoản chỉ-đọc (Q1). Cờ `VPS-GHI: TQT-P61
 
 ## V11.3 Ví dụ xuyên suốt: thêm cột "Ngày hết hạn visa"
 
-1. AI thêm 1 dòng vào `nhap/field.json`: `{"ma":"F-251","cot":"ngay_het_han_visa","kieu":"date","ten":"Ngày hết hạn visa","mo_ta":"…"}`; thêm `F-251` vào danh sách cột của bảng cần dùng trong `nhap/master.json`. Commit: `claude-code · B3 · thêm cột visa cho hồ sơ`.
-2. Chạy `dot-tqt-draft ap <commit>`.
+1. AI thêm 1 dòng vào `master/field.json`: `{"ma":"F-251","cot":"ngay_het_han_visa","kieu":"date","ten":"Ngày hết hạn visa","mo_ta":"…"}`; thêm `F-251` vào danh sách cột của bảng cần dùng trong `master/master.json`. Commit: `claude-code · B3 · thêm cột visa cho hồ sơ`.
+2. Chạy `dot-master-apply ap <SHA> --vung nhap`.
 3. DOT kiểm: mã chưa có ✓ · kiểu hợp lệ ✓ · đích trong vùng ✓ → thêm dòng vào "NHÁP · Field", thêm cột vào bảng → đọc lại khớp → in `ĐẠT · field +1 · cột +1 · <commit>`.
 4. AI dán dòng biên nhận vào mục P. Owner mở Directus thấy cột mới; lịch sử sửa ghi mã commit.
 
