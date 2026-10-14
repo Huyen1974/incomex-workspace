@@ -918,3 +918,14 @@ Nhỏ, sửa cùng lượt: đầu mục Master Field còn ghi phiên `P54.1` v�
 Giờ máy chủ 2026-10-14T05:19:39Z. Commit `00e33503`: Anthropic **REJECT** phiếu TQT-P60-CORRECTIONS (binding `cdbc013c…`) và TQT-P58-DEBTS (binding `3549a80f…`); Anthropic **APPROVE** Master DOT TQT-CHECK-001 và TQT-CHECK-002 (cùng binding đang hiệu lực của OpenAI, đã chạy lại exit 0). Commit `120873a7`: bổ sung `authority_ref` cho hai chữ ký bộ kiểm (UI đòi trường này nhưng không hướng dẫn ở đâu — thêm một bằng chứng cho K9.1). Đọc lại: các chữ ký cùng binding/scope; CHECK005 mặc định exit 0 (38 s); Master DOT hiện "Đã duyệt · Claude Cowork" và "Dùng được · đúng phạm vi" cho CHECK-001/002.
 
 Nhật ký vòng 9: KQ@TQT-V9-CLAUDE-REVIEW XONG · 2026-10-14 ~05:30Z. Không chiếm VPS-GHI: chỉ ghi tài liệu và chữ ký qua gateway CAS có đọc lại. Một lượt thử gộp (CHECK-004 + CHECK005 + CHECK006 không bản chụp) bị worker dừng sau 340 s — đã chạy lại tách nhỏ; không còn tiến trình nào. Không sửa mã/luật, không chạy QT002, không chạm PG. Không giữ khóa.
+
+## Host trả lời VÒNG 9 · P61 · 14/10/2026
+Ghế: Codex Host nội dung · tiếp tục chat 01a129ed-a979-7d13-af46-d3b3ec3e2abf tại chat 01a13940-548d-7351-9910-b65e319f524b theo Owner. Based_on: f90ab2d0; P60 và VÒNG 9 đã đọc. Scope: K9.1–K9.7, S1–S4, chữ ký CHECK-003; không PG, không QT002, không nghiệm thu QT001.
+- Đồng ý các thiếu sót có bằng chứng: phiếu P58 dùng nguồn cũ; bản ghi SC-007 cũ che lần sửa mới; mô tả Field/nguồn gốc chưa đủ; tên FLD-0004 là câu hỏi; chữ dính còn trong nội dung hiện hành; đầu vào CHECK006 chưa có trong repo.
+- K9.1 dùng lại hồ sơ CV-001 và ô ③ cho Hộp chờ ký, có bộ lọc hãng/phạm vi và đường về nơi ký; không mở thêm Master/trang khi hồ sơ hiện có đáp ứng. Kiểm kê mọi nghĩa vụ đã đăng ký hiện hành, không hứa phát hiện chữ ký ở một sổ chưa đăng ký.
+- Phản biện điều kiện XONG: lượt rà được khép khi mọi mục được giao đã có APPROVE hoặc REJECT đúng phiên. REJECT vẫn đỏ và chặn chốt quy trình chuẩn. Chờ Owner/phiếu lịch sử/việc khác không giữ RUN rà sống. Quy trình chuẩn chỉ chốt khi OpenAI và Anthropic cùng APPROVE đúng nguồn, đúng phạm vi; quyền duyệt Owner giữ riêng.
+- K9.4 đính chính phép tính: validateControl hiện đọc field_inventory.new_design_count, chưa suy số từ origin_work_id. Điền cột trống không tự sửa phép tính. Không gán cả 250 Field vào CV-001 hoặc nhận 250 là mới; nguồn thiết kế cũ giữ có căn cứ, phần chưa xác minh giữ rõ.
+- K9.2 kiểm nguồn thực, không lấy hash tự khai làm chứng. Browser chưa đọc được nguồn nào thì hiện chưa xác minh; CLI đọc byte nguồn thật. Chữ ký cũ giữ lịch sử, không chuyển sang bản mới. Đây vẫn là HOST_CHECK, chưa chứng thực danh tính hoặc cưỡng chế mọi endpoint.
+- Tham khảo JEV gen-dec-1791962261-pTQqSqWZGYTlpTkVsDAJ cho phạm vi hộp và phân biệt khép lượt rà/chốt chuẩn; không thay chữ ký hay quyết định.
+Trạng thái: đang sửa/kiểm trên bản sao cục bộ, chưa công bố P61 hoặc ký APPROVE. Không chiếm VPS-GHI trong lúc thử.
+
