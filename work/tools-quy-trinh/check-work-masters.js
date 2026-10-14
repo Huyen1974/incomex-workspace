@@ -20,16 +20,28 @@ const receiptSource=receiptRepository();
 let html=fs.readFileSync(process.argv[2]||__dirname+'/view.html','utf8');
 const r=JSON.parse(html.match(/<script id="tqt-composite-processes"[^>]*>([\s\S]*?)<\/script>/)[1]).catalog;
 // P51: every dossier is checked; no event suffix or P46-only entrance condition.
+// Shared predicate: used unchanged by CHECK005 and the dossier UI.
+function assessmentBinding(b,a){return JSON.stringify([b.application_id,b.target_version,b.process_version,b.definition_sha256,a.step_id,a.state,a.evaluated_by,a.execution_mode,a.actor,a.subject_vendor,a.evidence_ref,a.at,a.revision]);}
+function validNonApplicable(b,a,def){
+ if(!a||a.state!=='NOT_APPLICABLE'||!a.evidence_ref)return false;
+ const c=b.cycle||{};
+ if(a.evaluated_by==='MACHINE'){const x=c.master_records?.['CAT-229*']?.find(x=>x.record_id===a.evaluation_receipt);return !!(x&&x.application_id===b.application_id&&x.target_version===b.target_version&&x.step_id===a.step_id&&x.state==='SUCCESS'&&x.tool_id&&x.evidence_ref&&Number.isFinite(Date.parse(x.at)));}
+ if(def?.execution_policy?.applicability_evaluator?.automation_current!=='NO_COMMAND'||a.evaluated_by!=='AI'||a.execution_mode!=='MANUAL_ASSISTED'||!a.actor||!['OpenAI','Anthropic'].includes(a.subject_vendor)||!Number.isFinite(Date.parse(a.at))||!Number.isInteger(a.revision)||a.revision<1)return false;
+ const x=c.master_records?.['CAT-015']?.find(x=>x.record_id===a.review_ref),v=x?.review;
+ return !!(x&&x.application_id===b.application_id&&x.target_version===b.target_version&&x.process_version===b.process_version&&x.definition_sha256===b.definition_sha256&&x.step_id==='CP05.03'&&x.decision==='APPROVE'&&x.assessment_binding===assessmentBinding(b,a)&&x.evidence_ref&&Number.isFinite(Date.parse(x.at))&&Date.parse(x.at)>=Date.parse(a.at)&&v?.subject_vendor===a.subject_vendor&&['OpenAI','Anthropic'].includes(v.reviewer_vendor)&&v.reviewer_vendor!==a.subject_vendor&&v.reviewer&&v.reviewer!==a.actor);
+}
+
+if(process.argv.includes('--assessment-binding')){const x=JSON.parse(fs.readFileSync(process.argv[process.argv.indexOf('--assessment-binding')+1],'utf8'));console.log(JSON.stringify({assessment_binding:assessmentBinding(x.dossier,x.assessment)}));process.exit(0);}
 function validateCompact(b,def,context={}){
  if(!def.execution_policy?.compact_contract)return;
  const c=b.cycle||{},policies=def.step_policies,events=[...new Map((b.events||[]).map(e=>[e.step_id+'|'+(e.item_key||''),e])).values()],fail=(x,m)=>assert(x,m),byId=new Map();
  const receipt=(id,step)=>{const x=c.master_records?.['CAT-229*']?.find(x=>x.record_id===id);return x&&x.application_id===b.application_id&&x.target_version===b.target_version&&x.step_id===step&&x.state==='SUCCESS'&&x.tool_id&&x.evidence_ref&&Number.isFinite(Date.parse(x.at))?x:null;};
- for(const a of c.applicability||[]){fail(policies[a.step_id]&&!byId.has(a.step_id),'APPLICABILITY_ID');byId.set(a.step_id,a);fail(['APPLIES','NOT_APPLICABLE','UNKNOWN'].includes(a.state),'APPLICABILITY_STATE');if(a.state==='NOT_APPLICABLE'){fail(policies[a.step_id].applicability==='CONDITIONAL','MANDATORY_NOT_APPLICABLE');fail(a.evidence_ref&&a.evaluated_by==='MACHINE'&&receipt(a.evaluation_receipt,a.step_id),'APPLICABILITY_EVIDENCE');}}
+ for(const a of c.applicability||[]){fail(policies[a.step_id]&&!byId.has(a.step_id),'APPLICABILITY_ID');byId.set(a.step_id,a);fail(['APPLIES','NOT_APPLICABLE','UNKNOWN'].includes(a.state),'APPLICABILITY_STATE');if(a.state==='NOT_APPLICABLE'){fail(policies[a.step_id].applicability==='CONDITIONAL','MANDATORY_NOT_APPLICABLE');fail(validNonApplicable(b,a,def),'APPLICABILITY_EVIDENCE');}}
  for(const e of events){const p=policies[e.step_id];if(!p)continue;if(e.performed==='DONE'){
   if(p.automation_current==='HAS_COMMAND')fail(e.execution_mode==='AUTOMATED'&&p.command&&p.last_real_run_ref&&receipt(e.tool_run_id,e.step_id),'AUTOMATED_RECEIPT_REQUIRED');
   if(p.automation_current==='NO_COMMAND')fail(e.execution_mode==='MANUAL_ASSISTED','MANUAL_FALLBACK_REQUIRED');
   fail(byId.get(e.step_id)?.state!=='NOT_APPLICABLE','EVENT_ON_INAPPLICABLE_BRANCH');
-  if(p.members.length>1){const items=e.obligation_checks||[];fail(items.length===p.members.length&&new Set(items.map(x=>x.step_id)).size===p.members.length&&p.members.every(id=>items.some(x=>x.step_id===id&&x.evidence_ref&&(x.state==='PASS'||(x.state==='NOT_APPLICABLE'&&r.detailed_workflow_history.find(d=>d.version==='0.7-completion-contract')?.groups.flatMap(g=>g.rows).find(row=>row[0]===id)?.[5].startsWith('KHI')&&receipt(x.evaluation_receipt,id))))),'MERGED_OBLIGATIONS_INCOMPLETE');}
+  if(p.members.length>1){const items=e.obligation_checks||[];fail(items.length===p.members.length&&new Set(items.map(x=>x.step_id)).size===p.members.length&&p.members.every(id=>items.some(x=>x.step_id===id&&x.evidence_ref&&(x.state==='PASS'||(x.state==='NOT_APPLICABLE'&&r.detailed_workflow_history.find(d=>d.version==='0.7-completion-contract')?.groups.flatMap(g=>g.rows).find(row=>row[0]===id)?.[5].startsWith('KHI')&&validNonApplicable(b,x,def))))),'MERGED_OBLIGATIONS_INCOMPLETE');}
  }
  const intervals=(c.milestones||[]).filter(x=>x.checkpoint===(e.step_id==='CP03.12'&&e.return_to?e.return_to:e.step_id).slice(0,4));
  if(intervals.length){const start=Date.parse(e.started_at||e.at),end=Date.parse(e.completed_at||e.at);fail(Number.isFinite(start)&&Number.isFinite(end)&&end>=start,'EVENT_INTERVAL');fail(intervals.some(m=>Date.parse(m.start_receipt?.server_committed_at)<=start&&(!m.end_receipt||end<=Date.parse(m.end_receipt.server_committed_at))),'EVENT_OUTSIDE_MILESTONE');}
@@ -44,6 +56,7 @@ function validateFieldRegistry(f,designs){
  const keys=f.records.map(x=>JSON.stringify([x.key,x.dataType,x.validation,x.semantic_key]));assert.equal(new Set(keys).size,keys.length,'DUPLICATE_FIELD_MEANING');
  assert.equal(f.records.length,f.reused_definition_count+f.new_contract_fields+f.new_registry_fields);
  for(const x of f.records){assert(x.semantic_key&&x.definition_version,'FIELD_IDENTITY');for(const u of x.usage_refs)assert(x.usage_labels?.[u],'FIELD_USE_LABEL');if(['Đã tạo trong PG','Đã kiểm PG'].includes(x.pg_state))assert(x.pg_target&&x.pg_evidence_ref,'FIELD_PG_EVIDENCE');}
+ const groups=new Map();for(const x of f.records){const k=JSON.stringify([x.key,x.dataType,x.validation]);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(x.id);}for(const [k,ids] of groups){if(ids.length<2)continue;const decisions=(f.collision_decisions||[]).filter(d=>JSON.stringify([d.key,d.dataType,d.validation])===k);assert.equal(decisions.length,1,'FIELD_COLLISION_DECISION');const d=decisions[0];assert(d.decision==='KEEP'&&d.reason&&d.decided_by,'FIELD_COLLISION_REASON');assert.deepEqual([...d.current_ids].sort(),ids.sort(),'FIELD_COLLISION_MEMBERS');}
  const targets=new Set(f.records.map(x=>x.id));for(const [id,to] of Object.entries(f.old_to_new))assert(targets.has(to),'FIELD_ALIAS_TARGET');
 }
 
@@ -84,7 +97,7 @@ function validateDossier(b,def,context={}){
  for(const issue of c.issues||[])auditIssue(issue);
  if(context.require_complete===true){fail(['CP01','CP02','CP03','CP04','CP05','CP06','CP07'].every(cp=>(c.milestones||[]).some(m=>m.checkpoint===cp&&m.end_receipt)),'SEVEN_MILESTONES_REQUIRED');fail(c.owner_decision_ref&&c.recipient_ack_ref,'OWNER_ACK_REQUIRED');}
  validateCompact(b,def,context);
- return {state:warnings.length?'UNVERIFIED':'PASS',warnings,scope:'HOST_CHECK_ONLY_NOT_SERVER_ENFORCEMENT',events:(b.events||[]).length};
+ return {state:warnings.length?'UNVERIFIED':'PASS',warnings,scope:'HOST_CHECK_ONLY_NOT_SERVER_ENFORCEMENT',events:(b.events||[]).length,manual_assessments:[...(c.applicability||[]),...[...latest.values()].flatMap(e=>e.obligation_checks||[])].filter(a=>a.execution_mode==='MANUAL_ASSISTED').length};
 }
 function reviewConsensus(g){
  if(!g)return false;
@@ -309,6 +322,25 @@ if(adapter&&process.argv[4]){
 if(adapter){const A=globalThis.TQT_WORK_MASTER;const rows=A.toolRows(r);assert.equal(new Set(rows.map(x=>x.record_id)).size,rows.length);assert(rows.filter(x=>x.id.startsWith('DOT.')).every(x=>x.state==='Đã tìm thấy · chưa kiểm chạy'));assert(rows.find(x=>x.id==='TQT-CHECK-004').state.includes('1 tệp'));const matrix=A.reuseMatrix(r);assert(matrix.some(x=>!x.tools.length));assert(matrix.some(x=>x.tool_ids.includes('jev-reference:evaluate')));const bad=cloneFixture(r);bad.tool_registry.reuse_needs[0].tool_ids=['UNKNOWN'];assert.throws(()=>A.reuseMatrix(bad));const cfg=A.configureTools({}, {tqt:r},{masterId:'ML-DEF-023',masterName:'Master Tool'},[{id:'TOOL-TEST',name:'Test legacy'}]);assert.equal(cfg.items.length,1+r.tool_registry.provider_tools.length);assert(cfg.items.some(x=>x.code==='jev-reference:evaluate'));assert(cfg.detailRenderer(cfg,cfg.items[1]).html.includes('Bằng chứng'));console.log('P33 inventory/proof states, provider reuse, missing coverage and detail validated');}
 
 if(adapter){const old=cloneFixture(r);old.tool_registry.records[0].sha256='0'.repeat(64);assert(globalThis.TQT_WORK_MASTER.toolRows(old)[0].state.includes('phiên trước'));console.log('P33 stale tool source is not shown as current TEST proof');}
+
+// P54: executable completion path, no real application records written.
+{const def=JSON.parse(JSON.stringify(r.detailed_workflow)),t='2026-10-14T01:00:00Z',b={application_id:'TEST-P54',target_version:'TEST-V1',process_version:def.version,definition_sha256:def.source_sha256,events:[],cycle:{applicability:[],master_records:{'CAT-015':[]},milestones:Array.from({length:7},(_,i)=>({checkpoint:'CP0'+(i+1),start_receipt:{server_committed_at:t},end_receipt:{server_committed_at:t}}))}},copy=x=>JSON.parse(JSON.stringify(x));let cases=0;
+ function addNA(step){const a={step_id:step,state:'NOT_APPLICABLE',evaluated_by:'AI',execution_mode:'MANUAL_ASSISTED',actor:'Claude Worker',subject_vendor:'Anthropic',evidence_ref:'TEST-condition-'+step,at:t,revision:1,review_ref:'TEST-review-'+step};b.cycle.applicability.push(a);b.cycle.master_records['CAT-015'].push({record_id:a.review_ref,application_id:b.application_id,target_version:b.target_version,process_version:b.process_version,definition_sha256:b.definition_sha256,step_id:'CP05.03',decision:'APPROVE',assessment_binding:assessmentBinding(b,a),evidence_ref:'TEST-reviewed-'+step,at:t,review:{subject_vendor:'Anthropic',reviewer_vendor:'OpenAI',reviewer:'GPT Reviewer'}});}
+ for(const [id,p] of Object.entries(def.step_policies)){if(p.applicability==='CONDITIONAL')addNA(id);else b.events.push({step_id:id,performed:'DONE',execution_mode:'MANUAL_ASSISTED',at:t,obligation_checks:p.members.map(step_id=>({step_id,state:'PASS',evidence_ref:'TEST'}))});}
+ validateCompact(b,def,{require_complete:true});cases++;
+ const fail=(change,pattern='APPLICABILITY_EVIDENCE')=>{const x=copy(b),d=copy(def);change(x,d);assert.throws(()=>validateCompact(x,d,{require_complete:true}),new RegExp(pattern));cases++;};
+ fail(x=>x.cycle.master_records['CAT-015'].shift());
+ fail(x=>x.cycle.master_records['CAT-015'][0].review.reviewer_vendor='Anthropic');
+ fail(x=>x.cycle.master_records['CAT-015'][0].application_id='OTHER');
+ fail(x=>x.cycle.applicability[0].evidence_ref='CHANGED');
+ fail(x=>x.cycle.master_records['CAT-015'][0].step_id='CP06.04');
+ fail((x,d)=>d.execution_policy.applicability_evaluator.automation_current='HAS_COMMAND');
+ fail(x=>x.cycle.applicability[0].state='UNKNOWN','APPLICABLE_STEP_INCOMPLETE');
+ fail(x=>x.cycle.applicability[0].step_id='CP01.01','MANDATORY_NOT_APPLICABLE');
+ if(adapter){const A=globalThis.TQT_WORK_MASTER,a=b.cycle.applicability[0];assert.equal(A.stepApplicability(b,a.step_id,def),'NOT_APPLICABLE');const bad=copy(b);bad.cycle.master_records['CAT-015'][0].assessment_binding='OLD';assert.equal(A.stepApplicability(bad,a.step_id,def),'UNKNOWN');cases+=2;}
+ const f=copy(r.field_registry);f.collision_decisions=f.collision_decisions.filter(x=>x.decision!=='KEEP');assert.throws(()=>validateFieldRegistry(f,r.work_master_designs.records),/FIELD_COLLISION_DECISION/);cases++;
+ const f2=copy(r.field_registry),x=f2.records.find(x=>x.key==='checkpoint');f2.records.push({...x,id:'TEST-UNDECIDED',semantic_key:'different-meaning',usage_refs:[]});f2.new_registry_fields++;assert.throws(()=>validateFieldRegistry(f2,r.work_master_designs.records),/FIELD_COLLISION_MEMBERS/);cases++;
+ console.log(JSON.stringify({p54_cases:cases,steps:71,manual_assessments:b.cycle.applicability.length,completion:'PASS_TEST_ONLY'}));}
 
 // P34: lifecycle and consensus are distinct from TEST results and inventory.
 if(adapter){

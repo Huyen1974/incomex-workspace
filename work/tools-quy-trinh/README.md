@@ -1,5 +1,17 @@
 # tools-quy-trinh · Cửa vào
 
+## P54 · Sửa hai điểm Claude VÒNG6 còn yêu cầu
+
+**006@0.9 giữ nguyên71 bước và bảng87 nghĩa vụ.** Chuẩn tại [MOW-TH-006 §11](MOW-TH-006.md); hồ sơ duy nhất tại [DEF00.1 / TQT-VIEC-001](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1&chi-tiet=TQT-VIEC-001).
+
+- Chưa có lệnh đánh giá điều kiện: AI ghi `MANUAL_ASSISTED`, bằng chứng, người/hãng và phiên. Chưa rà giữUNKNOWN. Reviewer khác hãng tự ghi phiếu CAT015 tạiCP05.03, gắn đúng đánh giá; sau đó mớiNOT_APPLICABLE và được thu gọn. Đổi đánh giá phải rà lại. Có lệnh thì bắt buộc biên nhận máy. Không dùng NA cho nghĩa vụ LUÔN.
+- Tái sử dụng CHECK005: `--assessment-binding input.json` tạo nội dung ràng buộc để Reviewer ký; `--validate-dossier` kiểm trước ghi và trả số đánh giá tay. Chỉ kiểm hợp đồng ngoàiPG/HOST_CHECK, không cấp quyền hoặc thay kết luận chuyên môn. CHECK006 chạy tổng với5 đầu vàoUI đúnghash; không tạoDOT mới.
+- MasterField: quyết định đủ24 nhóm,12gộp/12giữ riêng. 253−18+4trường quản lý mới=239định nghĩa/361lượt dùng. Giữ327lượt thiết kế gốc. Quyết định/lý do hiện tại từngField, nhãn vẫn tại nơi dùng; nhóm trùng chưa quyết hoặc thêmID ngoài quyết định bị chặn. Bốn trường đăng ký mới: review_ref, assessment_binding, collision_decisions, manual_assessments. Chưa biết sốcộtPG cần tạo; chưaPG.
+- P53DEBTS giữ nguyên danh sách24mục và cảhai chữký. Bộđánhgiáđiềukiện thuộc nợAUTOMATION hiện có; không mở nợ trùng. Hai phiếuP54 CORRECTIONS/FIELDS thay hai phạmvi cần sửa, không ký thayClaude; lịch sửP53 giữ nguyên.
+- Tiêu đề/chipOverview lấy sốbước từnguồn chung. Trangpreview cũ chỉ dẫn vềOverview, không giữ bảng100bước hỏng.
+- Handoff: Claude đọcP54 và P49VÒNG6, kiểmC1/F4/UI rồi ký hai phiếuP54. Không rà lại cấu trúc71bước/danh sáchnợ đã đồng thuận; chưa nghiệmthuQT001/P46, chưa chạyQT002.
+
+### Lịch sử P53
 ## P53 · Quy định và hồ sơ sau rút gọn
 
 - [Quy định chuẩn006](MOW-TH-006.md): **71 bước / 7 mốc**, bảng ánh xạ đủ **87/87 nghĩa vụ cũ**. 11 nhóm gộp giảm17 dòng, thêm bước tiếp tục sau DỪNG. Số bước là kết quả rà, không là chỉ tiêu. Overview dùng cùng nguồn; dấu ? ngay tại cột/bước.

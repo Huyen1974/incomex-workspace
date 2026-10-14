@@ -1,7 +1,7 @@
 # QTTH 006 — Quy trình thực hiện QTTH 05
 
 **Mã quy trình:** `MOW-TH-006` · **Tên:** Quy trình thực hiện QTTH 05. Đây là **một quy trình**, không phải loại đối tượng “hướng dẫn” riêng.
-**Phiên:** `0.8-compact-obligations` · **Ngày rà:** 13/10/2026 · **Trạng thái:** ĐÃ RÀ THEO QTTH 05 / HỒ SƠ MOW001 G1, **HOST ĐÃ RÀ THỨ TỰ / CHƯA NGHIỆM THU AI MỚI THỰC HIỆN**. Đăng ký thiết kế MOW-TH-006 trong Master quy trình tổng hợp; chưa tuyên bố đã chạy trọn việc thật theo 006.
+**Phiên:** `0.9-manual-applicability` · **Ngày rà:** 14/10/2026 · **Trạng thái:** ĐÃ RÀ THEO QTTH 05 / HỒ SƠ MOW001 G1, **HOST ĐÃ RÀ THỨ TỰ / CHƯA NGHIỆM THU AI MỚI THỰC HIỆN**. Đăng ký thiết kế MOW-TH-006 trong Master quy trình tổng hợp; chưa tuyên bố đã chạy trọn việc thật theo 006.
 **Nguồn:** tệp này là quy định chuẩn do Host quản lý, hiển thị tại Overview. Bản v0.1 có **100 bước** được lưu trong lịch sử Git; PR20 giữ bảng đối chiếu đầy đủ 100 mã cũ. Không đổi tiến độ MOW001/P37/P38.
 
 ## 1. Nguyên tắc chính
@@ -176,7 +176,7 @@ Mỗi dòng gộp giữ đủ các nghĩa vụ; bằng chứng chi tiết theo i
 ## 3. Ví dụ cách ghi — không chép sẵn vào hồ sơ
 
 - Bước phát sinh: thêm `BS-001`, `after_step=CP02.07`, hành động, lý do và điều kiện xong vào `added_steps`. Kết quả thực hiện chỉ ghi khi đã làm; mã BS không thay mã chuẩn.
-- Nhánh không có UI: CP05.04 là bước có điều kiện. Ghi đánh giá `NOT_APPLICABLE` kèm căn cứ loại sản phẩm và biên nhận máy đúng hồ sơ/phiên trong `cycle.applicability`; máy giữ căn cứ, giao diện thu gọn nhánh. Chưa kiểm được thì `UNKNOWN` và hiện ra; không tự ghi DONE/Không làm để bỏ bước.
+- Nhánh không có UI: CP05.04 là bước có điều kiện. Ghi đánh giá `NOT_APPLICABLE` kèm căn cứ loại sản phẩm và biên nhận máy hoặc phiếu rà khác hãng đúng hồ sơ/phiên theo §11 trong `cycle.applicability`; máy giữ căn cứ, giao diện thu gọn nhánh. Chưa kiểm được thì `UNKNOWN` và hiện ra; không tự ghi DONE/Không làm để bỏ bước.
 - Dùng dấu ? ở cột/bước để tra hướng dẫn. Ô thực tế chưa có bằng chứng để trống.
 
 ## 4. Điều kiện trước khi đưa vào chạy và gắn cùng trang QTTH 05
@@ -293,7 +293,7 @@ A0/phạm vi/quyền Owner (CP01.02) trước mở hồ sơ. Tra trùng là khâ
 
 `step_policies`: actor (AI/REVIEWER/HUMAN/MACHINE là vai dự kiến); automation_current (MANUAL/NO_COMMAND/HAS_COMMAND); applicability (ALWAYS/CONDITIONAL). HAS_COMMAND chỉ được khai khi có command và last_real_run_ref chứng minh lệnh tự thực hiện và ghi cả bước. Có bộ kiểm không có nghĩa đã có lệnh tự thực hiện. Hiện các bước dự kiến máy vẫn NO_COMMAND: AI thực hiện bằng DOT hỗ trợ, ghi `execution_mode=MANUAL_ASSISTED`; nợ lệnh cần làm TQT-P53-AUTOMATION. Không lập DOT mới trong lượt này. Mục tiêu 29 dòng ghi tay chưa được chứng minh.
 
-Hồ sơ mới ghi applicability theo step_id/item_key: APPLIES, NOT_APPLICABLE, UNKNOWN. Chưa có dữ kiện là UNKNOWN, hiện để xử lý; không đồng nghĩa Không làm. NOT_APPLICABLE phải có evidence_ref, evaluated_by=MACHINE và evaluation_receipt; chỉ ẩn khi bộ kiểm đã đọc được biên nhận đánh giá cùng việc/phiên/nhánh. Thiếu công cụ đánh giá thì để UNKNOWN, AI bổ sung dữ kiện; không giả chữ ký máy. ALWAYS không được chuyển NOT_APPLICABLE để lách nghĩa vụ. Khi đã phát sinh nhánh phải có sự kiện tương ứng. Không lấy việc thiếu issue làm bằng chứng không phát sinh lỗi.
+Hồ sơ mới ghi applicability theo step_id/item_key: APPLIES, NOT_APPLICABLE, UNKNOWN. Chưa có dữ kiện là UNKNOWN, hiện để xử lý; không đồng nghĩa Không làm. NOT_APPLICABLE cần bằng chứng đúng việc/phiên/nhánh theo §11: có lệnh đánh giá thì biên nhận máy; chưa có lệnh thì AI làm tay và reviewer khác hãng xác nhận. Chưa đủ xác nhận để UNKNOWN; không giả chữ ký máy. ALWAYS không được chuyển NOT_APPLICABLE để lách nghĩa vụ. Khi đã phát sinh nhánh phải có sự kiện tương ứng. Không lấy việc thiếu issue làm bằng chứng không phát sinh lỗi.
 
 Bước DONE gộp có `obligation_checks`: mỗi mã trong members được kiểm PASS kèm evidence_ref; nghĩa vụ có điều kiện có thể NOT_APPLICABLE với biên nhận đánh giá đúng nghĩa vụ. Không đồng nhất NOT_APPLICABLE với DONE. Bước HAS_COMMAND ghi tool_run_id nối bản ghi CAT-229 cùng application/step/phiên, trạng thái thành công, bằng chứng, người ghi và giờ thật; lệnh hỗ trợ không đủ thay bằng chứng trọn bước.
 
@@ -478,3 +478,15 @@ Field gộp khi cùng nghĩa + khóa + kiểu + miền/ràng buộc. Các nhãn 
 | CP07.08 | MACHINE | NO_COMMAND | ALWAYS | MCP workspace_task_status/exec_status và gateway theo quyền |
 
 </details>
+
+## 11. P54 — đánh giá nhánh khi chưa có lệnh và quyết định Field
+
+Cấu trúc71bước/87nghĩa vụ không đổi. `execution_policy.applicability_evaluator` quy định khả năng **đánh giá điều kiện**, riêng với công cụ thực hiện bước. `NO_COMMAND`: AI ghi đánh giá tay, người rà khác hãng xác nhận tại CP05.03. `HAS_COMMAND`: chỉ nhận biên nhận máy; không dùng đường tay. Nợ dùng lại TQT-P53-AUTOMATION, bao gồm bộ đánh giá điều kiện.
+
+Khi chưa được rà, giữ `UNKNOWN` và ghi bằng chứng dự kiến; kiểm thường cho phép lưu, nhưng kiểm hoàn tất vẫn chặn. Khi đủ rà, ghi `NOT_APPLICABLE`, `evaluated_by=AI`, `execution_mode=MANUAL_ASSISTED`, `actor,subject_vendor,evidence_ref,at,revision,review_ref`. Phiếu CAT-015 tại CP05.03 phải APPROVE, khác người/khác hãng, đúngapplication/phiên/quy trình/hash. `assessment_binding` là JSON tuple do `assessmentBinding` trong CHECK005 tạo từ chính đánh giá; đổi bằng chứng/phiên/revision thì chữ ký không còn khớp. Không tin tên người rà tự điền làm quyền máy chủ: đây vẫn là HOST_CHECK; Reviewer tự ghi phiếu qua đường có quyền. Máy chỉ kiểm hợp đồng, không tự kết luận căn cứ nghiệp vụ đúng.
+
+Luật này áp cho cả nhánh riêng và nghĩa vụ có điều kiện nằm trong bước gộp. Nghĩa vụ LUÔN không được dùng NA. UI chỉ thu nhánh có đánh giá hợp lệ; thiếu rà hoặc không khớp thì hiện Chưa xác định. KPI số đánh giá tay lấy từ các đánh giá thực có execution_mode=MANUAL_ASSISTED (kể cả trong obligation_checks), không khai trước. Cấm lấy không có issue làm bằng chứng không phát sinh.
+
+Tạo binding bằng DOT hiện có: `node check-work-masters.js view.html --assessment-binding input.json`, trong đó input có `dossier` và `assessment`. Bộ kiểm trả `manual_assessments` để đo KPI từ dữ kiện thực, không nhập tay con số.
+
+Field: trước khi thêm, đối chiếu key/type/validation. Nếu nhóm có nhiều định nghĩa, `collision_decisions` phải có quyết địnhKEEP với đủ chính xác cácID hiện hành, lý do theo nghĩa và người quyết. MERGE giữ bảngIDcũ→mới, nhãn theo nơi dùng. ThêmID vào nhóm mà chưa cập nhật quyết định thì bộ kiểm chặn. Quyết định hiện hành nằm trong MasterField, không mở Master mới.
