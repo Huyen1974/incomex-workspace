@@ -4,6 +4,93 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## L2A-20261014 · RUN VPSC-L2A-CTXPACK-CRON-OFF-20261014-01 · tắt 1 lịch context-pack hỏng + khoá crontab user `incomex` vào Config Guard (D25/D26) · executor Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ DỪNG · PARTIAL (đổi lịch + bảo vệ đạt và GIỮ; thiếu biên nhận Telegram vì Guard tổng còn đỏ #22 cũ)
+
+**PROMPT `a27ac0b8` (READY P97 GPT Host + Reviewer ACCEPT P96 `e33cbcae`; delta chỉ thêm cổng D26 §2.4) · khối Owner có nguyên 2 dòng D25 + D26 §0A · STARTED + VPS-GHI `8bc6b7d` 02:55Z · nạp 03:00:17Z · KQ + trả khoá cùng commit này · bằng chứng VPS `/opt/incomex/work/vps-clean-20-9-26/VPSC-L2A-CTXPACK-CRON-OFF-20261014-01/{pre,post,rollback,thu-am}` + `crontab-incomex.truoc`, `crontab-incomex.sau`, `diff.txt`, `kiem-truoc-nap.txt`, `apply-registry.out`, `apply-crontab.out`, `drift-sau-dang-ky.txt`.** Chỉ đổi: crontab user `incomex` (1 dòng tiền tố + 1 dòng biển báo) · Config Guard registry (+1 đích, baseline). 0 PG/Directus/flow/trigger/Graph, 0 restart, 0 sửa Guard/Kuma/DOT/mã context pack, 21 lịch `#L1-OFF` và crontab root không đổi.
+
+### 1. Cho Owner
+- 🟢 Đã tắt đúng 1 lịch dựng «context pack» (3 giờ/lần, không dựng được bản nào từ 04/05/2026, mỗi lượt vẫn quét bảng `birth_registry` 1,22 triệu dòng rồi hỏng). Mọi lịch khác giữ nguyên; bật lại = bỏ tiền tố qua apply-v0.
+- 🟢 Crontab user `incomex` nay có khoá Config Guard (cùng crontab root + 5 tệp cron.d từ L1P). Đường sửa lịch qua `incomex-config-apply-v0` lần đầu chạy thật: cron tự nạp sau 44 giây, chủ/quyền tệp giữ nguyên.
+- 🟡 Chưa có biên nhận Telegram: Guard chỉ gửi khi tổng PASS mà #22 đỏ sẵn (TQT/HJW), như L1P. Mức giảm đọc PG thật thấy từ mốc 04:00Z trở đi — Reviewer đo, không ai ngồi chờ.
+
+### 2. Bảng crontab user (S0.4) — chỉ tên, không in nội dung
+| tệp spool | user | dòng không `#` | Config Guard trước RUN | việc chủ | cờ bận |
+|---|---|---|---|---|---|
+| `/var/spool/cron/crontabs/root` | root | 32 (27 lịch + 3 `CRON_TZ` + 2 trống) | có — `cron-root-crontab` (L1P), sha `cf36da8e` = baseline | VPSC + nhiều việc | — |
+| `/var/spool/cron/crontabs/incomex` | incomex | 6 (3 ENV + 2 lịch + 1 trống) | **KHÔNG** → nay `cron-incomex-crontab` | context pack Đ43 (di sản; đầu tệp ghi «sinh tự động từ `dot_tools`, cài 18/04») | không |
+
+Dòng `context-pack-build`: **đúng 1** — spool `incomex` dòng 11 (dòng 8 của `crontab -l`), cột `0 */3 * * *` theo giờ máy +02 ⇒ 01, 04, 07, 10, 13, 16, 19, 22Z. `/etc/crontab`, `/etc/cron.d/*`, `cron.{hourly,daily,weekly,monthly}`: 0. Người gọi khác (S0.5): 0 — `dot-context-pack-verify.sh` chỉ nhắc trong chú thích `@paired-dot`; `vps-retention.sh` chỉ né lượt khi builder đang chạy; `dot-dieu43-fs-init.sh`, `cp-render-section.py` là thứ builder gọi; 0 unit/timer systemd; 0 tiến trình lúc S0. Trình ghi crontab user: không tìm thấy trình cài trong `/opt/incomex/{dot,scripts}`, `/usr/local/{bin,sbin}` (chỉ Guard + sổ mã đọc tệp).
+
+### 3. Cổng D26 (S0, chỉ đọc) — apply-v0 với spool crontab user: ĐẠT
+- Đăng ký: hàng mới vào `registry.tsv` bằng apply-v0 `--target-id guard-registry` — đường đã chạy thật ở L1P (audit 14/10 00:16:40Z, thêm chính spool root cùng thư mục).
+- Thay đúng tệp theo `--target-id` + `--expected-baseline`: đích lấy từ hàng registry (không mã cứng đường dẫn); sau `flock` so sha tệp sống với baseline, lệch ⇒ `REJECTED_STALE_BASELINE`, không ghi; backup `.pre` bằng `cp -p`.
+- Giữ chủ/quyền: tệp tạm `.cfgguard.XXXXXX` tạo ngay trong `/var/spool/cron/crontabs`, `chown --reference` + `chmod --reference` theo tệp sống, rồi `mv -f` (rename cùng thư mục) — cùng cơ chế `crontab(1)` (chuỗi trong `/usr/bin/crontab`: `tmp.XXXXXX`, `fchmod`, `rename`, `utime`).
+- Cron nạp lại: `man cron(8)` — mỗi phút cron so mtime thư mục spool, đổi thì nạp lại crontab có mtime đổi; rename cập nhật mtime thư mục cha (POSIX). Cron 3.0pl1-184ubuntu2 từ chối tệp sai chủ/nhiều hard link (`WRONG FILE OWNER`, `NUMBER OF HARD LINKS > 1`) ⇒ kiểm sau áp.
+- JEV `gen-dec-1791946367-LLoEmkWN76t1XLAm4fNE` (gate 0,35 · dừng 0,95) và `gen-dec-1791946419-0uKeh126WHglqgqgiZzF` sau khi thêm bằng chứng `crontab(1)` (gate 0,52 · «còn thiếu: đăng ký» 0,51, độ tin 0,39). Executor chốt ĐẠT vì đường đăng ký đã chạy thật ở L1P; giữ kiểm sau áp + lùi `.pre` qua apply-v0. Kết quả thật ở mục 4 khớp cả bốn ý.
+
+### 4. Đăng ký + đổi — apply-v0
+| bước | mutation | trước → sau | lùi `.pre` |
+|---|---|---|---|
+| baseline đích mới (trơ khi chưa có hàng) | `baseline/cron-incomex-crontab.{content,sha256,meta}` 02:59Z | — → `03fd4763` · `incomex:crontab 600` | — |
+| `guard-registry` APPLIED 02:59:06Z | `…-guard-registry-20261014T025854Z` | `8aa47b39` → `28f7464b` (−0/+4: 3 chú thích + hàng `cron-incomex-crontab  /var/spool/cron/crontabs/incomex  CRON  NO  PRIVATE_COPY  GENERIC_FILE  NONE  incomex:crontab  600`; 481 hàng đủ 9 cột, 0 id trùng) | `8aa47b39` |
+| `cron-incomex-crontab` APPLIED 03:00:17Z | `…-cron-incomex-crontab-20261014T025956Z` | spool `03fd4763` → `13577f9a` = baseline mới | `03fd4763` |
+
+- Kiểm trước nạp (`kiem-truoc-nap.txt`) PASS: diff −1/+2 — `3a4` biển báo, `11c12` tiền tố `#L2A-OFF-VPSC-L2A-CTXPACK-CRON-OFF-20261014-01 `; dòng không `#` 6 → 5; mất đúng 1 dòng (builder), 0 dòng chạy mới; dòng `dot-context-pack-verify.sh` (`30 */3`) còn chạy; 3 dòng đầu giữ.
+- Biển báo (dòng 1 của `crontab -l -u incomex`): `# CONFIG GUARD từ 2026-10-14T02:59:56Z (VPSC-L2A-CTXPACK-CRON-OFF-20261014-01 · D25/D26 Owner): tắt lịch context-pack hỏng 100% từ 2026-05-04; bật lại = bỏ tiền tố qua incomex-config-apply-v0; sửa tay ⇒ #22 đỏ.`
+- Sau áp: `incomex:crontab 600`, nlink 1, 0 tệp tạm sót; cron `(incomex) RELOAD (crontabs/incomex)` 03:01:01Z, 0 dòng `WRONG FILE OWNER`/`ORPHAN`; `crontab -l -u incomex` `6b019a0f` → `084cc4ab`.
+
+### 5. drift-check
+| Lượt | TOTAL | MATCH | MISMATCH | ghi chú |
+|---|---|---|---|---|
+| PRE 02:56Z | 480 | 476 | 4 | agent-data-lifecycle-py · agent-data-workspace-tools-py · hvu-signals-py · hermes-config-yaml (TQT/HJW, #22 cũ) |
+| sau đăng ký 02:59:20Z | 481 | 477 | 4 | `cron-incomex-crontab` MATCH (baseline `03fd4763`) |
+| POST 03:01Z | 481 | 477 | 4 | `cron-incomex-crontab` MATCH (baseline `13577f9a`); 6 đích `cron-*` của L1P MATCH |
+
+Thử âm (Điều 30, fixture selftest `sample-sh`, không chạm tệp thật): sửa nội dung ⇒ `MISMATCH CONTENT`; sửa quyền 640→600 ⇒ `MISMATCH MODE`; trả lại ⇒ `MATCH`, fixture nguyên byte (`thu-am/thu-am.txt`).
+
+### 6. Bảng 4 ô Điều 30/31 (Guard `post --coverage`)
+| Mục | Đ31 | Đ30 proof | Canh | Lùi (sha = PRE) |
+|---|---|---|---|---|
+| `file:/var/spool/cron/crontabs/incomex` | `config-guard:cron-incomex-crontab` (baseline = `13577f9a`) | `post/proof/crontab-incomex.txt` | drift-check 5′ → INV5_6 #22 + INV23 sổ mã | `rollback/crontab-incomex.spool.pre` `03fd4763` (= `.pre` của apply-v0) |
+| `file:/var/lib/incomex-config-guard-v0/registry.tsv` | `config-guard:guard-registry` (baseline = `28f7464b`) | `post/proof/guard-registry.txt` | drift-check guard-registry → INV5_6 #22 | `rollback/guard-registry.<mutation>.pre` `8aa47b39` |
+
+**Guard POST** `vpsc-l2a-post` 03:03:20Z: `C3.footprint_coverage` PASS — 2 mục, đủ 4 ô, 0 THIẾU · `C3.change_event` PASS · INV23 sổ mã 559 tệp PASS · INV15 fleet 22/22 gắn Telegram, lịch Disk/Guard đúng · `C3.same_or_better` FAIL chỉ vì câu luân phiên #21: PRE «No heartbeat in the time window» (Kuma tự chèn mỗi 5′) → POST «HERMES gateway=active serve=active ticker=6s HJW:HJW stop=OFF drift=CONFIG» (push thật mỗi 2′); cùng `since` 2026-10-11 14:20, status 0 suốt (`post/kuma21-cau-luan-phien.txt`) · Guard tổng FAIL INV5_6 (4 đích cũ) + INV20 ⇒ `RECEIPT not sent: POST-PROTECT FAIL`.
+
+### 7. PG chỉ đọc (DB `directus`, `query_pg`) — không phải số 24h
+| bảng | T0 L1 13/10 14:57:19Z → Tpre 14/10 02:56:47Z (**11,99 giờ**, chỉ L1) | Tpre → Tnew 03:04:43Z (7′56″, sau nạp) |
+|---|---|---|
+| `birth_registry` | seq_scan +64 · seq_tup_read +34,15 triệu · heap_blks_read +814.870 (~6,2 GiB) | **+0 · +0 · +0** |
+| `system_issues` | seq_scan +108 · heap_blks_read +501.656 (~3,8 GiB) | +3 · +14.374 (watchdog `:00`, L2(d)) |
+| `context_pack_requests` | n_tup_ins +4 (4 lượt builder 16, 19, 22, 01Z) | ins +0 (seq +2 = câu kiểm của RUN) |
+| `meta_catalog` | seq +121 · upd +34 | +0 |
+| `dot_tools` · `normative_registry` | seq +48 · +16 | +0 · +0 |
+| DB | Tpre `blks_read` 172.987.549 · `blks_hit` 404.022.775 | `blks_read` +14.507 (99% `system_issues`) · `blks_hit` +51.118 |
+
+`stats_reset` rỗng (bộ đếm cộng dồn). T0 L1 chỉ có số theo bảng ⇒ chưa tính được tỷ lệ cả DB cho cửa sổ L1-only. Số liệu: `pre/tpre-directus.tsv`, `post/tnew-directus.tsv`. Yêu cầu context pack mới nhất vẫn #1298 01:00:14Z (`pending`, `pipeline exit 126`); manifest cuối vẫn #138 (2026-05-04 04:00:22Z, live/fail) = S0.
+
+### 8. POST
+- 22 đèn: PRE 02:50Z 19/22 · Guard POST 03:03Z (Kuma sống) 19/22 · bảng đèn 03:10:02Z 19/22 · đỏ {#11, #21, #22} = PRE_RED_SET.
+- Health 03:04:22Z: `/` 200 · `/knowledge/modules` 200 · `/api/health` 200 · Directus `pong` · 13 container, 0 unhealthy. Trống 40.300.748.800 B · MemAvailable 5,44 GiB.
+- crontab root (`cf36da8e`, 32 dòng chạy, 21 `#L1-OFF`) + 10 tệp `/etc/cron.d` sha = PRE; 0 tiến trình builder.
+
+### 9. Bật lại / lùi (chỉ qua apply-v0)
+- Bật lại dòng: chép spool `/var/spool/cron/crontabs/incomex` vào `/root/incomex-config-changes/<id>/incomex` (root, 600), bỏ tiền tố `#L2A-OFF-VPSC-L2A-CTXPACK-CRON-OFF-20261014-01 ` (và dòng biển báo nếu muốn), `incomex-config-apply-v0 --target-id cron-incomex-crontab --candidate … --expected-baseline <sha spool hiện tại>`; cron tự nạp ≤ 1 phút.
+- Về đúng PRE: ứng viên = bản chép `rollback/crontab-incomex.spool.pre` (`03fd4763`), `--expected-baseline 13577f9a…`.
+- Gỡ đăng ký (nếu Host quyết): apply-v0 `guard-registry` với ứng viên = bản chép `.pre` `8aa47b39`, `--expected-baseline 28f7464b…`.
+- **Không** dùng `crontab -u incomex …` hay chạy lại trình cài từ `dot_tools` — từ nay là sửa tay ⇒ drift ⇒ #22.
+
+### 10. Giới hạn và việc còn lại cho Host
+- **KQ DỪNG · PARTIAL** vì chưa có biên nhận Telegram/message_id: Guard tổng FAIL do #22 cũ (INV5_6 4 đích TQT/HJW + INV20); `same_or_better` FAIL chỉ vì câu luân phiên #21. Không lỗi mới do lượt này ⇒ GIỮ, không lùi. Nợ receipt gộp với L1P: một lần `post --receipt "NO-CHANGE VERIFY …"` sau khi chủ TQT/HJW khép #22.
+- Kiểm sau (Reviewer, không ai ngồi chờ): mốc 04:00Z và 07:00Z không có `(incomex) CMD (…dot-context-pack-build.sh` trong syslog, `context_pack_requests` không thêm dòng, `birth_registry.seq_scan` không nhảy quanh `:00–:01`; số giảm/ngày đo Tpre → T+24h.
+- Còn chạy trong cùng chủ đề (ngoài đích RUN, Host xét): `dot-context-pack-verify.sh` `30 */3` (kiểm manifest, nay không còn bản dựng mới) · `/etc/cron.d/incomex-context-pack-retention` 03:15 (PROMPT giữ). Watchdog `system_issues` chiếm 99% khối đọc trong 8 phút sau nạp ⇒ L2(d) Owner quyết.
+- `meta_catalog` +34 lượt sửa trong cửa sổ L1-only dù lịch pivot đã tắt — nhiều khả năng flow Count Refresh 6 giờ (2 lượt 18:00/00:00Z); INFERRED, chưa gắn chắc.
+- Sổ mã `code-ledger.tsv` vẫn ghi spool `incomex` cột trạng thái `UNKNOWN`; không đổi.
+- Không làm: L1b, L2(d), xoay khoá O-R7-KEY; không chạm PG/Directus/flow/trigger/Graph/mã context pack/Đ30-31.
+
+**Dọn:** VPS tạo: thư mục bằng chứng `<EV>` (giữ có chủ đích) · 2 thư mục ứng viên apply-v0 `/root/incomex-config-changes/VPSC-L2A-CTXPACK-CRON-OFF-20261014-01-{guard-registry-20261014T025854Z,cron-incomex-crontab-20261014T025956Z}/` + baseline `cron-incomex-crontab.*` + 2 tệp `.pre` (trạng thái Config Guard, giữ làm đường lùi) · `thu-am/sample.sh.bak` (bằng chứng; fixture trả nguyên byte) · 0 tiến trình nền · 0 tệp tạm ngoài `<EV>` · Mac: scratchpad `l2a/` xoá sau KQ · còn lại: không.
+
+---
+
 ## L1P-20261013 · RUN VPSC-L1P-GUARD-CRON-20261013-01 · khoá lịch máy vào Config Guard (D26) + đo Kuma #11/#21 · executor Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ DỪNG · PARTIAL (bảo vệ đạt và GIỮ; thiếu biên nhận Telegram vì Guard tổng còn đỏ #22 cũ)
 
 **PROMPT `79c2102d` (READY P94 GPT Host + Reviewer ACCEPT P93) · khối Owner có nguyên dòng D26 §0A · STARTED + VPS-GHI `bf9b8ec` 00:11Z · KQ + trả khoá cùng commit này · bằng chứng VPS `/opt/incomex/work/vps-clean-20-9-26/VPSC-L1P-GUARD-CRON-20261013-01/{pre,post,rollback,kuma,thu-am}` + `crontab.truoc`, `crontab.sau`, `diff.txt`, `kiem-truoc-nap.txt`, `dang-ky.tsv`, `apply.out`.** Chỉ đổi: 1 dòng chú thích trong crontab root · Config Guard registry (+6 đích, baseline) · 1 commit git cục bộ nhãn DEL-1. 0 dòng lịch chạy đổi, 0 PG/Directus/Graph, 0 restart, 0 sửa Guard/Kuma/DOT/mã.
