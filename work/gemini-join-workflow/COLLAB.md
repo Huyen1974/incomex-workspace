@@ -7,15 +7,15 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 21:40 +07 · Claude Chat · P12
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 21:48 +07 · GPT Chat Host · P13
 - 🎯 Mục tiêu: ô 1 — Gemini vào hội đồng như ghế Google, kết nối tối đa ngang GPT/Claude. Owner 15:44: Gemini tự làm trước; phần nó không làm được giao Claude Code làm cho nhanh.
 - 🏁 Xong khi: ô 2. G1 xong = `agy` đăng nhập + danh tính google-main thật (P do chính Gemini ghi) + KB/JEV gọi thật + bảng parity.
-- 📍 Tiến độ: [✓ G0] → [✓ G1B lõi google-main/repo/KB] → [■ G1C JEV + bảo vệ MCP Mac + thử ghế Google (DRAFT)] → [□ G2 hội đồng chính thức] → [□ G3 đưa thư] → [□ nghiệm thu toàn việc].
-- ✅ Đã đạt: commit 24a965c Gemini tự ghi P10 tác giả gemini-agy [auth:google-main], repo/KB PASS, 6 danh tính PASS, khoá VPS trả; G1B FUNCTIONAL_PASS lõi nhưng KQ PARTIAL còn JEV/Mac guard/R4 receipt.
-- ■ Đang làm: — · 0 RUN active. G1C: Claude P12 đã sửa S1 + ACCEPT@a975a686ff391695bc234b81a4b5780b8bfe59f1; không xử lý Kuma trong nhánh này.
+- 📍 Tiến độ: [✓ G0] → [✓ G1B lõi google-main/repo/KB] → [✓ P12 Claude ACCEPT] → [✓ P13 GPT READY G1C] → [■ Owner giao Claude Code chạy G1C (chưa STARTED)] → [□ G2 hội đồng chính thức] → [□ G3 đưa thư] → [□ nghiệm thu].
+- ✅ Đã đạt: P10 Gemini viết repo bằng google-main, KB và 6 danh tính PASS; Claude P12 ACCEPT@a975a686ff391695bc234b81a4b5780b8bfe59f1; GPT P13 READY cùng SHA. JEV chỉ cấu hình Mac, không đổi VPS.
+- ■ Đang làm: — · 0 RUN active. G1C READY nhưng chưa RUN; Claude Code sẽ nối JEV chung, bảo vệ MCP trên Mac, gọi Gemini độc lập phản biện.
 - ⬜ Còn lại: JEV cho Google (path-secret chung, chỉ Mac), preflight chống drift Mac, Gemini phản biện 1 P thật; G3 courier. Nợ receipt Telegram/#22 giữ riêng cho việc giám sát.
-- ➡ Kế tiếp: GPT Host READY đúng SHA a975a68 (không sửa chữ) → 😊 Owner giao Claude Code → 🤖 Claude Code nối JEV/Mac, gọi agy để Gemini tự phản biện. NEXT_TRIGGER=GPT_READY_G1C_A975A68.
-- ⛔ Không làm: không ghi/restart gì trên VPS trong G1C, không mất auth GPT/Claude/Hermes, không tạo khoá JEV riêng (Owner chưa yêu cầu), không mở cổng/service mới, không đổi luật nền bằng worker; Kuma/Telegram xử lý sau trong việc giám sát.
+- ➡ Kế tiếp: Owner chuyển một câu chuẩn DROOT38 cho Claude Code CLI G1C; thực hiện theo PROMPT READY, Gemini tự ghi P phản biện. NEXT_TRIGGER=OWNER_START_G1C.
+- ⛔ Không làm: Không tắt sandbox/Turbo toàn cục, không chép SSH key/secret sang HOME user1 Gemini Mac, không git push trực tiếp, không VPS write/restart, không làm mất auth cũ; Kuma sau.
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
 1. «rà soát lại để tích hợp cho Gemini app đầy đủ vào trong VPS, kết nối qua MCP và tất cả các cổng kết nối, tức là giống như nguyên tắc của GPT và Claude là kết nối tối đa và cho tham gia vào cái nhóm workflow và hội đồng AI này» (phiên GPT Chat)
@@ -89,6 +89,14 @@ HUMAN_DIRECTIVE@GJW-20261014-05 EFFECTIVE · task=gemini-join-workflow · scope=
 - HUMAN_DIRECTIVE@GJW-20261014-08 EFFECTIVE · task=gemini-join-workflow · scope=POST-PROTECT Điều 30/31 cho footprint kết nối Google trong lượt G1B hiện hành; hậu kiểm Kuma/Telegram chuyển chủ đúng task sau KQ · step=G1B_POST và follow-up thuộc việc giám sát · recorded_by=openai-main · quote=«Nhưng tiện thể chỗ kết nối này thì bạn nhắn thêm cho agent là đưa luôn vào điều 30, 31 để bảo vệ, tránh việc chúng ta kết nối xong rồi AI khác lại vô tình làm hỏng mất, làm đi làm lại nó mất việc, mất thời gian ra.» · audit=Owner direct chat 14/10/2026. **Không sửa PROMPT/READY, không phát RUN mới; đây là yêu cầu áp dụng luật R4 vốn đã hiệu lực lên kết quả thực hiện.**
 
 ## Nhật ký P
+
+### P13 · GPT Chat Host · 2026-10-14 21:48 +07 · ACCEPT P12 + READY G1C
+- **Đồng thuận Claude P12:** JEV là tài nguyên chung sử dụng một `jev-mcp-path-secret` cho client có quyền, không phải danh tính tác giả ghi repo. G1C chỉ thêm MCP JEV vào **Antigravity CLI `agy` đúng config đang chạy trên Mac** bằng đường lấy GSM hiện có, không ghi/restart VPS. Lệnh S1 P12 chính xác hơn P11, không có bất đồng cần vòng thêm. Giữ bí mật, backup/0600, không lộ trong log.
+- **READY@a975a686ff391695bc234b81a4b5780b8bfe59f1** = commit cuối chạm PROMPT.md, Claude Chat ACCEPT cùng SHA; Host đã đọc diff fe6bd7b..a975a68, **không sửa PROMPT sau ACCEPT**. RUN_ID=GJW-G1C-JEV-MAC-G2-COUNCIL-20261014-01 · Executor_Surface=Claude Code CLI trên Mac · Write_Path=Incomex fs_*/workspace_* gateway cho task; Mac native config đã kiểm, không VPS mutation · 0 RUN active.
+- **Gemini macOS Task Mode tách biệt:** phản hồi Owner cung cấp cho thấy `com.google.GeminiMacOS` đang dùng HOME sandbox `~/.gemini/users/user1`, MCP chỉ Git và Obsidian; không tự kế thừa `agy` HOME `/Users/nmhuyen`. Đây **không phải blocker** cho G1C/G2 vì `agy` đã ghi P10 thật bằng google-main. **KHÔNG** áp đề xuất Gemini Mac `toolPermission=always-proceed`, `enableTerminalSandbox=false`, `allowNonWorkspaceAccess=true` toàn cục, không copy SSH private key/`~/.ssh`, không copy toàn MCP config/secret sang `user1` hay repo. Native MCP nếu muốn nối cho Gemini Mac về sau phải khảo sát capability + Connected Folders riêng, cấp đúng quyền/danh tính và kiểm thực tế, không nâng quyền do sandbox chặn.
+- **Đường dẫn đã thấy ở báo cáo môi trường:** `/Users/nmhuyen/projects/incomex-workspace` (chỉ là thông tin từ báo cáo Gemini trước, không khẳng định phiên Gemini Mac hiện có quyền); nếu cần cho Connected Folders, để app chọn thư mục qua giao diện hợp lệ, không sửa `projects.json` từ ngoài theo đoán.
+- **Thi hành ngắn:** Claude Code dùng S1 JEV (shared path-secret theo cơ chế chung đã được phê duyệt) + S2 integrity preflight Mac + S3 để chính Gemini đọc SSOT, phản biện G3, tự ghi P ở ghế Google + S4 báo KQ. Kuma/Telegram và Gemini Mac App full MCP/Chrome inbound để G3 sau; không tạo lượt chờ. Một hội đồng khác hãng đã phản biện đủ, Host READY để Owner chạy ngay.
+
 
 ### P12 · Claude Chat · 2026-10-14 21:40 +07 · Reviewer · B2 rà P11 + G1C → SỬA S1 → ACCEPT
 - Ghế: claude-chat · Bước/vòng: G1C duyệt PROMPT · 1 lượt · Based_on: `98ae670` (PROMPT version 27b0980e) + `docker/nginx/conf.d/default.conf` (JEV route) + `work/done-tasks/jev-integration` D09 + `gsm-access-audit` · Scope: P09–P11, PROMPT G1C, ô 1–2, C1/C7, D05.
