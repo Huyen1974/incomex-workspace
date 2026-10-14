@@ -1,3 +1,25 @@
+# PROMPT — VPSC-DEL1-L2B-REGCOUNT-OFF-20261014-01 · OFF di sản Bộ 2 Registry/đếm theo DEL-1 cũ
+
+RUN_ID: VPSC-DEL1-L2B-REGCOUNT-OFF-20261014-01
+Task: work/vps-clean-20-9-26 · DEL-1 (01/08), D22–D28. GPT Chat Host P104 B1; Claude Chat B2 Reviewer; Claude Code CLI Executor, Owner dán thủ công.
+STATUS: DRAFT · CHƯA READY/RUN. Thực hiện chỉ phần TRƯỚC nhãn LỊCH SỬ sau Host READY đúng SHA.
+Owner D28: «Trọng tâm là off những cái cũ để ưu tiên tài nguyên, và đỡ lỗi. Đảm bảo quá trình off không ảnh hưởng đến những dịch vụ đang chạy muốn giữ lại. Đừng lan man sang các chuyện khác».
+
+## 1. Không làm lại kế hoạch
+Đọc AGENTS.md → COLLAB gốc VPS-GHI → VPSC D22–D28/P84/P89–P90/P104 + BAO-CAO L0/L1/L2SAFE → file kế hoạch DEL-1 TRÊN VPS `/opt/incomex/docs/KE-HOACH-XOA-20260801.md` (catalog 1.659 vật, 4 điều kiện chặn, rehearsal 262 trigger/107 checks). Sử dụng chứng cứ sẵn, không dựng đồ thị/công cụ/read-path/quy trình hoặc task mới.
+ĐÃ OFF: 21 cron Bộ1–4 (L1), 1 context-pack builder hỏng (L2a); L2SAFE đã kiểm không mất dịch vụ GIỮ. N2C backup code GPG đã đạt kỹ thuật, PARTIAL #22 cũ: KHÔNG mở thêm việc backup.
+**Phạm vi duy nhất:** Bộ2 Registry/đếm đang còn trigger/auto-refresh hoạt động, ưu tiên phần chỉ phục vụ registry/pivot cũ. Tên ở P84 (`fn_refresh_cat_all`, `fn_refresh_virtual_summaries`, `trg_refresh_registry_views`, `fn_auto_sync_v_registry_counts`, `fn_refresh_collection/dot/species_count`) chỉ là đầu mối tra danh mục: chọn đúng ID/consumer, không OFF bằng grep tên.
+**KEEP:** PG đếm PG/ba lô native, agent-data RAG/connectors, Graph, bảo vệ Đ30/31/luật KB, trigger guard/Config Guard, Telegram/Kuma/08:00, GDrive backup, Lark tạm. Không đụng 166 trigger khai sinh Bộ1, GOV Bộ4, IU Bộ5, Directus flows, watchdog, bảng/dữ liệu/function, lịch máy, backup, code, key hay task khác.
+
+## 2. Một RUN: S0 ngắn + OFF đảo được
+S0 dùng lại DEL-1/L0/Graph/code chứng cứ cũ; kiểm trạng thái live đúng **Bộ2**, tên consumer và chi phí/lỗi thật trong cửa sổ ngắn. Chỉ chọn tối đa MỘT cụm theo chủ đề còn chạy, chỉ dùng trong UI/DOT registry cũ; phải có ích theo D24: tài nguyên tiết kiệm đủ đáng làm (ngưỡng 5% đã chốt) HOẶC khắc phục lỗi/ghi nhiễu rõ. Không có thì KEEP/STOP có đúng lý do, không tách đợt điều tra.
+Trước mutation: trigger_guard Tier A/exception phải có đường DOT/PG chính thức đang tồn tại để disable + ngoại lệ đúng ID tránh tự bật lại, exact PRE/rollback đã thử, 4 ô Đ30/31/canh/lùi. Mọi UNKNOWN hoặc chạm GIỮ ⇒ không OFF, không code DOT mới và không bypass Guard. Fresh VPS-GHI/no-concurrent, Guard PRE/đèn, sàn RAM/disk.
+Nếu đủ: STARTED + giữ VPS-GHI qua CAS, thực hiện đúng một cụm qua đường đã phê duyệt; **OFF chứ không DELETE**; nhãn DEL-1 tại vật theo cách có sẵn; kiểm Tier A không bật lại. Smoke nhóm KEEP, Guard/Kuma/Telegram/backup, pg-native đếm/agent-data/Graph; đo trigger state, PG reads/updates hoặc lỗi trước/sau không suy 24h. Lỗi MỚI ⇒ rollback đúng cụm. #22 cũ còn đỏ/receipt không gửi ⇒ PARTIAL đúng luật, không sửa Guard lấy xanh.
+KQ: BAO-CAO mục `DEL1-L2B-REGCOUNT-20261014`, COLLAB `KQ@VPSC-DEL1-L2B-REGCOUNT-OFF-20261014-01` ngay dưới P104/P105, cập nhật Sổ/Bảng; nêu số object OFF/KEEP, tiết kiệm/lỗi thực, Đ30/31 4 ô, đèn PRE/POST, đường bật lại; trả VPS-GHI trong cùng commit, 0 nền. Không tự sang Bộ1/3/4/5, không mở rsync/backup/security, không chờ giờ.
+
+---
+## LỊCH SỬ — N2C KQ PARTIAL dfc4fb0, KHÔNG CHẠY LẠI
+
 # PROMPT — VPSC-N2C-CODE-BACKUP-GPG-20261014-01 · Mã hoá backup mã nguồn lên Drive bằng đúng tuyến GPG khoá công khai của backup PG (D23/D27) · không đổi lịch, không xoá tay, không mở `.env.working`
 
 RUN_ID: VPSC-N2C-CODE-BACKUP-GPG-20261014-01
