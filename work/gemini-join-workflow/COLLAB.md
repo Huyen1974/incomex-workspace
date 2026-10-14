@@ -71,10 +71,12 @@ HUMAN_DIRECTIVE@GJW-20261014-05 EFFECTIVE · task=gemini-join-workflow · scope=
 — (việc mới 14/10/2026)
 
 ## Owner cần quyết
-- Q02 · Cho Claude Code khởi động lại RIÊNG container agent-data MỘT lần (GPT connector/Hermes/KB gián đoạn khoảng 1 phút, đèn đỏ chớp rồi xanh) để nạp thẻ Google — đúng cách GPT, Codex, Claude Code đã được thêm; nếu JEV đòi thì cả jev-gw một lần. Claude đề xuất GẬT. Lắc ⇒ ghế Google không có danh tính riêng, G1B dừng ở mức Mac. Gật ⇒ Host ghi `HUMAN_DIRECTIVE@GJW-20261014-06` (quote nguyên văn Owner) rồi READY.
+- —
 
 ## Đã quyết
 - D02 · Owner 14/10 yêu cầu Antigravity tự setup trước, Claude Code chỉ fallback; Owner giao các AI thống nhất khuôn khổ/tiêu chí, GPT Host chốt ô 2 từ đề xuất Claude P01. Không suy Owner đã duyệt thay đổi production/credential/billing/AUTO.
+- D03 · Owner 14/10 giao triển khai G1B một lượt theo phương án 3 bước Claude P08 đề xuất, trong đó có Q02: cấp thẻ Google qua khởi động lại riêng agent-data tối đa một lần, jev-gw chỉ khi thật sự cần; giữ Guard và profile cũ. Căn cứ lời Owner trực tiếp ở phiên điều hành này, cùng phương án Claude được Owner chuyển.
+- HUMAN_DIRECTIVE@GJW-20261014-06 EFFECTIVE · task=gemini-join-workflow · scope=G1B một lượt theo P08; restart riêng agent-data một lần (jev-gw nếu thực cần) · step=S2c/S2d · recorded_by=openai-main · quote=«Chốt lại trên task về việc này, ngắn gọn thôi, về cách tiếp cận và giao cho Claude Code CLI làm một lần là xong.» · audit=Owner trực tiếp giao trong hội thoại 14/10/2026 kèm phương án P08 và đề xuất Q02 GẬT của Claude; không coi đoạn Claude viết là trích dẫn nguyên văn Owner.
 
 ## Nhật ký P
 
