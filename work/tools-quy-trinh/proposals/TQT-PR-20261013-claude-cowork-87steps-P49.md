@@ -940,5 +940,41 @@ KQ@TQT-P61-V9 DỪNG · 2026-10-14T08:09:09Z · VPS_BẬN_VPSC_N2C · đã khép
 ### P61 tiếp tục sau khi VPSC trả cờ
 VPSC đã khép và trả VPS-GHI; Codex lấy cờ theo CAS commit5758d3ba. P61 đã công bố SAME_COMMIT, giữ review REJECT P60/P58 thành lịch sử và tạo TQT-P61-CORRECTIONS/TQT-P61-DEBTS CURRENT chưa có chữ ký. Scope250 định nghĩa quản trị/metadata và quy định/bộ kiểm; FIELD-COVERAGE24 nghĩa nghiệp vụ vẫn OPEN. Đang kiểm UI thật trước khi ký, không chốt chuẩn hoặc nghiệm thu QT001.
 
+---
+
+# VÒNG 10 · Cấu trúc nhẹ hơn để mỗi lượt nhanh hơn · 14/10/2026
+
+Nguồn: Owner 14/10 15:38 (nguyên văn COLLAB §0 ô 3 mục 3.4, R39). Đây là đề xuất để Codex phản biện một vòng trước khi làm. Hai quyết định giữ nguyên: GitHub là nơi các AI làm chung; chưa đưa thiết kế vào PG thật. Luật cũ cũng giữ: một CSDL, không thêm hệ quản trị riêng; chỉ DOT được ghi Directus/PG; Owner không phải vào Directus Studio.
+
+## V10.0 · Nhìn 30 giây
+
+**Số đo hiện trạng (14/10 08:40Z):**
+
+| Chỉ số | Số đo |
+|---|---|
+| Tệp dữ liệu `view.html` | 18,1 MB (16,4 MB một ngày trước) |
+| Trong đó lịch sử G1 cũ (`application_preview`) | 9,0 MB ≈ 50% — gần như không đổi, nhưng lần ghi/kiểm nào cũng phải đọc lại |
+| Khoảng trắng do thụt lề JSON | khoảng 6 MB |
+| Bộ kiểm CHECK005 | 133 KB (54 KB ngày 13/10) — đang tự viết lại những gì một CSDL làm sẵn: duy nhất, bắt buộc, kiểu, quan hệ, lịch sử sửa |
+| Một lần kiểm | CHECK005 40–90 s; CHECK006 ≥ 92 s; tải trang ≈ 9 s |
+| Cờ ghi VPS dùng chung với việc dọn VPS | P61 đứng chờ cờ khoảng 30 phút |
+
+**Kết luận:** chậm do cấu trúc, không do người làm. Ta đang tự xây lại một CSDL + giao diện quản trị + bộ kiểm bên trong một tệp HTML.
+
+**Đề xuất hai bước** (JEV `gen-dec-1791967256-qtVQbysgPCyTmpDVStKb`: chọn hướng 2 bước; thứ tự bước 1 trước rồi thử bước 2 — 0,99):
+
+| Bước | Làm gì | Được gì |
+|---|---|---|
+| **1 · Tách tệp** | Tách `view.html` thành tệp nhỏ theo Master trên GitHub; dời lịch sử G1 sang tệp lưu trữ đóng băng có hash; dữ liệu không thụt lề; bộ kiểm và trang chỉ đọc tệp cần dùng. Ghi dữ liệu chỉ là commit GitHub, không cần cờ ghi VPS; cờ chỉ dùng khi đổi mã giao diện | Kiểm còn vài giây, trang tải ngay, AI đọc trực tiếp, lượt ghi không chờ việc khác |
+| **2 · Thử vùng nháp Directus trên 1 Master** | Một DOT dựng lại vùng nháp `tqt_draft_*` trong Directus đang có từ tệp GitHub mỗi lần công bố (xóa và dựng lại; không nối dữ liệu thật); cấu trúc cột sinh từ Master Field; trang người xem đọc API Directus thay vì tệp. Thử với Master Field trước | Directus làm sẵn phần duy nhất / bắt buộc / kiểu / quan hệ / lịch sử sửa ⇒ bỏ dần phần tự viết trong CHECK005; đồng thời chứng minh liên tục thiết kế lắp được vào PG (R09 bước ③) |
+
+**Không làm:** dựng một Directus thứ hai (trái luật một CSDL, không thêm hệ quản trị riêng — JEV 0,94); chuyển nơi làm chung sang Directus (trái quyết định GitHub).
+
+**❓ Owner gật/lắc:** coi "vùng nháp dựng lại từ GitHub trong Directus đang có" là bản chiếu dùng một lần, không phải "đưa thiết kế vào PG", và cho thử ở bước 2. **Đề xuất PM: gật.** Bước 1 không chạm PG, làm ngay.
+
+## V10.1 · Thứ tự và cách quyết
+
+Xong P61 (đang ký) → bước 1 trong lượt kế tiếp, trước các sửa nội dung lớn → bước 2 thử 1 Master → quyết mở rộng. Đo trước/sau mỗi bước: thời gian kiểm, thời gian tải trang, thời gian một lượt. Bước 2 chỉ mở rộng khi bản thử nhanh hơn và gọn hơn thật. Codex ghi phản biện ngay dưới mục này (một vòng), rồi Host chốt.
+
 
 
