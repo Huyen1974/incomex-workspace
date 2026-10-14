@@ -7,15 +7,15 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 12:30 +07 · Claude Chat · P03
-- 🎯 Mục tiêu: ô 1 — Gemini/Antigravity vào hội đồng, nối VPS/MCP/KB/JEV, thử đưa thư. Owner 14/10: **đưa khuôn khổ, Antigravity tự làm; Claude Code chỉ làm phần nó không tự làm được**.
-- 🏁 Xong khi: bốn tiêu chí ô 2 (GPT–Claude thống nhất theo Owner giao).
-- 📍 Tiến độ: [✓ G0a Claude P01] → [✓ G0b GPT P02 + G1 DRAFT] → [✓ Claude P03 sửa DRAFT + ACCEPT] → [■ G1 GPT READY · Antigravity tự làm] → [□ G2 ghế Google] → [□ G3 đưa thư] → [□ nghiệm thu]
-- ✅ Đã xong: P01 · P02 · P03 (khuôn khổ quyền 🟢🟡🔴, SSH chỉ đọc, đường ghi bằng danh tính Google, DROOT54 a–d) · Claude ACCEPT@a5a08669df1a713b6f6c31cd2bc2b6fc5b9deb86.
-- ■ Đang làm: — · 0 RUN active
-- ⬜ Còn lại: G1 → G2 → G3 → nghiệm thu, đúng thứ tự.
-- ➡ Kế tiếp: Host GPT đọc diff ce05d79..a5a0866, READY đúng SHA · 😊 Owner dán một câu cho Antigravity · 🤖 Antigravity tự chạy G1 · Claude rà KQ. NEXT_TRIGGER=GPT_READY_G1_A5A0866.
-- ⛔ Không làm/để sau: không API trả phí, cổng public, webhook/email ingress; không cho bot vào claude.ai; không thay Hermes hay đụng HJW/Graph/VPSC/TQT; không tắt Guard/Kuma/Telegram/backup Drive.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 14:09 +07 · GPT Chat Host · P04
+- 🎯 Mục tiêu: ô 1 — Gemini/Antigravity vào hội đồng, nối VPS/MCP/KB/JEV, thử đưa thư. Owner 14/10: **Antigravity tự làm; Claude Code chỉ giúp phần có BLOCKED_CAPABILITY thật**.
+- 🏁 Xong khi: bốn tiêu chí ô 2 (GPT–Claude thống nhất; G1 chỉ là bước đầu).
+- 📍 Tiến độ: [✓ G0a Claude P01] → [✓ G0b GPT P02] → [✓ Claude P03 ACCEPT] → [✓ GPT P04 READY G1] → [■ G1 Antigravity thực hiện] → [□ G2 ghế Google] → [□ G3 đưa thư] → [□ nghiệm thu]
+- ✅ Đã xong: P01–P03 đồng thuận; Claude ACCEPT@a5a08669df1a713b6f6c31cd2bc2b6fc5b9deb86, PROMPT last-touch đúng SHA; GPT P04 ACCEPT diff/READY cùng SHA, không sửa PROMPT.
+- ■ Đang làm: — · 0 RUN active; G1 READY, chưa có STARTED, Owner có thể chuyển câu gọi Antigravity ngay.
+- ⬜ Còn lại: Antigravity G1 tự khảo sát + nối trong giới hạn quyền; Claude Code hỗ trợ từng delta nếu không tự làm được; G2 hội đồng; G3 đưa thư; nghiệm thu.
+- ➡ Kế tiếp: 😊 Owner chuyển một câu trỏ PROMPT G1 đúng SHA cho **Antigravity/Gemini**; 🤖 Antigravity tự chạy và báo P/KQ; Claude Chat rà KQ, GPT Host nghiệm thu. NEXT_TRIGGER=OWNER_START_G1.
+- ⛔ Không làm/để sau: không API trả phí, cổng public, webhook/email ingress; không bot vào claude.ai; không thay Hermes hay chạm HJW/Graph/VPSC/TQT; không ảnh hưởng Guard/Kuma/Telegram/backup Drive.
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
 1. «rà soát lại để tích hợp cho Gemini app đầy đủ vào trong VPS, kết nối qua MCP và tất cả các cổng kết nối, tức là giống như nguyên tắc của GPT và Claude là kết nối tối đa và cho tham gia vào cái nhóm workflow và hội đồng AI này» (phiên GPT Chat)
@@ -64,6 +64,16 @@ HUMAN_DIRECTIVE@GJW-20261014-03 EFFECTIVE · task=gemini-join-workflow · scope=
 - D02 · Owner 14/10 yêu cầu Antigravity tự setup trước, Claude Code chỉ fallback; Owner giao các AI thống nhất khuôn khổ/tiêu chí, GPT Host chốt ô 2 từ đề xuất Claude P01. Không suy Owner đã duyệt thay đổi production/credential/billing/AUTO.
 
 ## Nhật ký P
+
+### P04 · GPT Chat Host · 2026-10-14 14:09 +07 · ACCEPT P03 + READY G1
+- **Đã có đồng thuận, không cần vòng mới.** Claude P01 → GPT P02 → Claude P03 sửa DRAFT và ACCEPT đúng SHA. GPT đọc diff ce05d791..a5a08669, chấp nhận cả 5 chỉnh an toàn (SSH read-only; quyền ba màu; identity Google/gateway-only; bảo toàn cấu hình cũ; DROOT54), không còn blocker tranh luận. Đúng DROOT53: không sửa PROMPT sau ACCEPT.
+- **§0.3: đã đối chiếu C1–C6 + Owner directive 14/10**: Google Antigravity chính G1, Claude Code fallback từng BLOCKED_CAPABILITY; một ghế Google chỉ dùng reasoning model Gemini. Kiểm COUNCIL_BOOTSTRAP hợp lệ; không có COUNCIL_ALERT OPEN, STOP hay STARTED tại thời điểm READY; gateway / last-touch PROMPT đã kiểm, không suy từ HEAD chung.
+- **READY@a5a08669df1a713b6f6c31cd2bc2b6fc5b9deb86**
+- Executor_Surface=Antigravity app/agy MacBook Owner (Gemini model); Write_Path=Incomex fs_*/workspace_* gateway, chỉ qua Google identity; GitHub direct chỉ đọc. RUN_ID=GJW-G1-ANTIGRAVITY-SELF-SETUP-20261014-01; 0 RUN active trước Owner giao.
+- **STEP_WALK G1 theo PROMPT đã ACCEPT**: S0=Antigravity, khi Owner giao, kiểm phiên/cấu hình/quyền, evidence trong P04, lỗi báo Host ngay; S1=Antigravity nếu đủ quyền/gate và VPS-GHI thì self-config + smoke các cổng, report P04 và KQ; thiếu capability → dừng nhánh có rủi ro, nêu delta nhỏ nhất, Claude Code hỗ trợ dưới lệnh mới, Host nhận KQ và tổ chức rà khác hãng; G2/G3 chưa chạy. Không canh giờ/dựng waiter.
+- **Owner chỉ cần dán câu con trỏ cho Antigravity**, không dán toàn PROMPT và không chuyển lại Claude rà. Antigravity đọc file thật trên repo tại READY SHA, trước mutation revalidate COLLAB + PROMPT/READY và VPS-GHI, guard; dùng STARTED/KQ đúng DROOT31/50/54.
+- Kết luận: G1 có thể chạy ngay khi Owner giao; mọi nhánh thay đổi production có cổng fail-closed như PROMPT, không tự nới phạm vi.
+
 
 ### P03 · Claude Chat · 2026-10-14 12:30 +07 · Reviewer · RÀ G1 DRAFT → SỬA THẲNG → ACCEPT
 - Ghế: claude-chat · Bước/vòng: G1 duyệt PROMPT · 1/5 · Based_on: `ce05d79` (PROMPT version 7c3cf744) · Scope: PROMPT.md toàn bộ + §0.3 + P02 + root DROOT54. Bảng: khớp · Ô 1–2: khớp (ô 2 bản GPT chốt theo Owner giao hội đồng thống nhất — Claude đồng ý).
