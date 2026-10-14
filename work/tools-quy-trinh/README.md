@@ -1,13 +1,20 @@
 # tools-quy-trinh · Cửa vào
 
-## Bắt đầu tại đây · P61
+## Hướng triển khai đề xuất 14/10/2026 · CHỜ CLAUDE HIỆU CHỈNH / OWNER CHỐT
+- **Đích:** tận dụng Directus/PG/DOT hiện có để dựng nhanh UI và thử quy trình trên **vùng nháp**; không tự phát triển thêm hệ UI/kho thử. Đích quy mô **khoảng hơn 100 Collection** theo các Master List đã chốt; B1 phải đếm/đối chiếu mã chính xác, không tạo thêm Master giả chỉ để đủ số. Một Master nghiệp vụ dự kiến một Collection nháp tương ứng.
+- **GitHub là SSOT về thông tin:** mã Master, tên/cột, quan hệ, nội dung và bản schema/UI đã chấp nhận được lưu theo phiên trên GitHub. Directus/PG nháp là nơi dựng và thử, không là nguồn chuẩn thứ hai. Tất cả thay đổi Directus/PG bằng DOT hiện hữu (thiếu capability mới nâng DOT); xuất/đối soát lên GitHub sau mỗi thay đổi được chấp nhận.
+- **Cô lập:** tên vật lý `tqt_draft_<ma_master>`, nhãn hiện thị `NHÁP · <tên Master>`, nhóm `TQT — NHÁP`; quan hệ chỉ nối trong vùng nháp, không nối bảng/dữ liệu/Flow/permission production. Group chỉ là nhãn hiển thị, DOT phải kiểm cả quyền và footprint PG. **250 định nghĩa Field là ~250 bản ghi của một Master Field, KHÔNG phải 250 Collection/cột vật lý.**
+- **Đường ngắn:** B1 kiểm kê Master + DOT → B2 tạo 1 Collection Master Field → B3 DOT tạo các Collection còn lại theo danh sách đã đối chiếu, dùng giao diện sẵn của Directus → B4 chạy 1 việc thật theo QTTH006/71 bước trên nháp → B5 xuất định nghĩa + dữ liệu cần giữ về GitHub, hai hãng rà, Owner duyệt **G1**. G2 tạo bảng/Collection thật từ bản đã chốt là một quyết định triển khai riêng; sau khi chuyển và xác minh không mất dữ liệu mới **cô lập hoặc xóa sạch nháp bằng DOT theo quyết định Owner**.
+- **Hiện trạng:** chưa giao RUN dựng nháp; chờ Claude phản biện/chỉnh kế hoạch, Owner chốt. G1 và hồ sơ P61 đã có giữ nguyên để tra, không mở rộng HTML và CHECK tự viết. Owner cần đường **xem UI nháp chỉ-đọc, không admin**; phải xử lý đúng quy định DROOT39 trước khi cấp phiên xem.
+
+## Lịch sử P61 trước đổi hướng — KHÔNG là lệnh triển khai hiện tại
 1. Đọc Bảng và phạm vi tại COLLAB. Quy định: MOW-TH-006.md phiên 1.1, 71 bước / 7 mốc; chưa PG/QT002.
 2. Mở CAT-227 → CV-001 → ô ③ **Hộp chờ ký**. Lọc hãng/phạm vi, mở đúng nơi ký và xem mẫu tại **?**. Field và CAT-069 dùng phiếu nguồn, không ký lặp từng dòng. Nguồn đọc khi mở trang; dùng Cập nhật/tải lại trước khi rà bản mới.
 3. Các chữ ký cần kết luận riêng: phiếu bản sửa, phiếu sổ việc tiếp và từng DOT. APPROVE/REJECT phải có reviewer, vendor, decision, reviewed_at, binding, scope, evidence_ref và authority_ref; chữ ký DOT còn receipt_verified và bằng chứng chạy đúng nguồn. Người rà tự ghi rồi đọc lại, báo cáo chat không thay chữ ký.
 4. 🔴 Chưa ký/Cần sửa · 🟡 Nguồn đổi/Chưa xác minh · ✅ Đã thông qua đúng nguồn. XONG lượt rà cần đủ kết luận cho các mục được giao; REJECT không thông qua quy trình. Chốt chuẩn cần OpenAI và Anthropic cùng APPROVE đúng bản/phạm vi; Owner duyệt mục tiêu và nghiệm thu sản phẩm riêng.
 5. Năm ô CV-001 chưa Owner duyệt; G1 đã nhận giữ nguyên. 250 định nghĩa quản trị có mô tả và nguồn thiết kế. 24 nghĩa nghiệp vụ CV-001 còn cần đối chiếu tại FIELD-COVERAGE; không nhận cả danh mục là số Field mới.
 
-## Ghi và kiểm ngoài PG
+## Lịch sử: Ghi và kiểm ngoài PG (giữ bằng chứng, không mở rộng)
 - Hồ sơ/kết quả: catalog.work_schedule.records[].control và detail_tracking; CAT-069 chiếu nguồn vấn đề, CAT-016 ghi mỗi lần sửa, CAT-025 ghi phiếu ký. Chưa đủ nguồn/duyệt giữ rõ chưa đạt.
 - CHECK005 --validate-control kiểm 5 ô, ca kiểm, thứ tự và hoàn thành; --validate-dossier kiểm hồ sơ/bằng chứng/nhánh; --milestone-report sinh bốn dòng báo cáo. Tất cả là HOST_CHECK, chưa chứng thực danh tính hoặc cưỡng chế mọi endpoint.
 - CHECK005 --validate-governance-before BEFORE.html kiểm bản ghi sửa mới đúng binding trước/sau và sequence; không tái dùng bản sửa cũ. Giữ prefix lịch sử, CAS qua gateway, đọc lại nguồn và trang Owner.
@@ -25,8 +32,8 @@ Thêm `--report /đường/kết-quả.json` để lưu bằng chứng. Năm đ�
 - UI-REVIEW-AGGREGATE.json và work/mow-mot-moit-mout/UI-REVIEW-MOW001.json: bằng chứng/sản phẩm hiện hữu, giữ nguyên lịch sử G1.
 - evidence/TQT-P61-checks.json: kết quả kiểm bản sửa P61 khi Host công bố. Mọi pin chuẩn ở catalog, không tạo bảng pin thứ hai.
 
-## Phần còn mở
-Anthropic tự rà/ký P61 và bộ kiểm được giao; CHECK004 cần rà riêng cửa ghi kho thử; HVU ngoài phạm vi cần nguồn riêng. Owner còn 5 ô và duyệt lần đầu các Master. CV-001 còn FIELD-COVERAGE, lượt AI mới làm thật, 7 mốc đo thực và phiếu nghiệm thu/ACK. 16 liên kết nguồn cũ chưa xác minh. Không giữ RUN/cờ để chờ; không chạy QT002/PG trước quyết định sau.
+## Phần còn mở · lịch sử P61
+Các phiếu P61 và CHECK004 cũ lưu để đối chiếu, không tiếp tục ký/mở rộng khi chưa có chỉ đạo mới; HVU ngoài phạm vi cần nguồn riêng. Owner còn 5 ô và duyệt lần đầu các Master. CV-001 còn FIELD-COVERAGE, lượt AI mới làm thật, 7 mốc đo thực và phiếu nghiệm thu/ACK. 16 liên kết nguồn cũ chưa xác minh. Không giữ RUN/cờ để chờ; không chạy QT002/PG trước quyết định sau.
 
 ## Tra lịch sử
 Các mục P58 trở về trước dưới đây chỉ dùng truy nguồn; quy định hiện hành ở trên và MOW-TH-006.md. Không lấy phiên cũ làm luật cho việc mới.
