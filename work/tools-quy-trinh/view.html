@@ -291872,6 +291872,21 @@ main{max-width:1240px} [hidden]{display:none!important}
                         "scope": "Duyệt kiểm kê các nguồn TQT đã kê, các tham chiếu cũ còn phải đối chiếu, bản chiếu CAT-069 và lối vào; không nghiệm thu QT001, không xác nhận toàn server hay nợ đã được phép hoãn.",
                         "evidence_ref": "COLLAB.md#p58",
                         "authority_ref": "Owner yêu cầu trực tiếp rà và ký sổ 14/10/2026"
+                      },
+                      {
+                        "vendor": "Anthropic",
+                        "reviewer": "Claude Cowork · ghế Claude-review",
+                        "decision": "REJECT",
+                        "reviewed_at": "2026-10-14T05:19:39Z",
+                        "binding": "3549a80f34e510120f23a3b9b63bd434c86b0ede26616bb6d0105ce6317f9994",
+                        "scope": "Duyệt kiểm kê các nguồn TQT đã kê, các tham chiếu cũ còn phải đối chiếu, bản chiếu CAT-069 và lối vào; không nghiệm thu QT001, không xác nhận toàn server hay nợ đã được phép hoãn.",
+                        "evidence_ref": "proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md#vòng-9",
+                        "delta": [
+                          "S1: phiếu gắn UI 7a6f44c0 và CHECK005 4e11e750 của P58, nay đã đổi ở P60 nhưng vẫn hiện OK; phát hành phiếu sổ mới gắn bản hiện hành",
+                          "S2: trạng thái chưa cập nhật sau P60 (vd TQT-P50-DEFINITION vẫn Còn mở dù 006 đã viết lại); rà lại 43 vấn đề và 33 nguồn khác",
+                          "S3: thêm các mục mới của P49 VÒNG 9 (hộp chờ ký, phiếu tự hết hiệu lực, bản ghi sửa gắn phiên, mô tả/việc sinh ra của Field)",
+                          "S4: CAT-069 cột Tên lặp nguyên cột Sai/thiếu gì; nhãn \"Đã rà P58 (lịch sử)\" khiến người đọc không biết phiếu còn hiệu lực hay không"
+                        ]
                       }
                     ]
                   },
@@ -291903,6 +291918,24 @@ main{max-width:1240px} [hidden]{display:none!important}
                         "reviewed_at": "2026-10-14T04:53:00.897221+00:00",
                         "evidence_ref": "work/tools-quy-trinh/evidence/TQT-P60-checks.json; COLLAB.md#p60",
                         "note": "Chỉ duyệt quy định/thiết kế/bộ kiểm đã công bố. Đã xem CV-001, Field250 và Overview71 trên trình duyệt. Không nghiệm thu QT001, không duyệt thay Owner/Claude, không xác nhận máy chủ đã cưỡng chế mọi cửa ghi."
+                      },
+                      {
+                        "vendor": "Anthropic",
+                        "reviewer": "Claude Cowork · ghế Claude-review",
+                        "decision": "REJECT",
+                        "reviewed_at": "2026-10-14T05:19:39Z",
+                        "binding": "cdbc013ce9003271222d3c0b042140da00142f028a16bfe67fd1f7aec01cc856",
+                        "scope": "DESIGN_RULES_AND_TESTS_ONLY_NOT_QT001_ACCEPTANCE",
+                        "evidence_ref": "proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md#vòng-9",
+                        "delta": [
+                          "K9.1: thiếu Hộp chờ ký — máy liệt kê mọi chỗ cần chữ ký từng bên (phiếu CAT-025, dòng Master DOT, ô Owner) với trạng thái chưa ký / cần ký lại / đã ký; hiện ở thẻ việc ô 3 và một trang riêng; mọi hướng dẫn rà trỏ vào hộp này",
+                          "K9.2: phiếu CAT-025 không tính lại manifest từ tệp hiện hành nên phiếu đã cũ vẫn hiện OK (P58); phải tự chuyển Cần ký lại như Master DOT đang làm",
+                          "K9.3: bản ghi sửa không gắn đúng phiên trước → sau; thử sửa mô tả 1 field không có bản ghi sửa mới vẫn PASS vì bản ghi cũ ‘đủ’ cho mọi lần sửa sau",
+                          "K9.4: mô tả 250 field là câu sinh máy (dùng ở đâu + kiểu), chưa nói để làm gì; Việc sinh ra trống cả 250 nên ô 2 thẻ việc không bao giờ tính được số field mới",
+                          "K9.5: tên hiển thị dạng câu hỏi (vd Đã ghi chưa?); luật chỉ kiểm độ dài",
+                          "K9.6: chữ dính còn trong COLLAB P60 và dữ liệu sổ (4/43 vấn đề, CAT-016); bộ kiểm chỉ quét 006",
+                          "K9.7: người rà không tự chạy được CHECK006: bản chụp 5 tệp UI không có trong repo; chạy không bản chụp thì treo"
+                        ]
                       }
                     ]
                   }
@@ -299099,6 +299132,36 @@ main{max-width:1240px} [hidden]{display:none!important}
           "authority_ref": "Owner giao Codex Host nội dung TQT",
           "receipt_verified": true,
           "decision": "APPROVE"
+        },
+        {
+          "review_id": "TQT-V9-CLAUDE-TQT-CHECK-001",
+          "target_code": "TQT-CHECK-001",
+          "vendor": "Anthropic",
+          "reviewer": "Claude Cowork · ghế Claude-review",
+          "reviewed_at": "2026-10-14T05:19:39Z",
+          "target_version": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75",
+          "binding": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75:P34.1:contract=[[\"full_purpose\",\"Mô hình, hợp đồng và đường chạy mô phỏng\"],[\"input\",\"view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005\"],[\"output\",\"JSON / exit code; run_id + thời điểm + hash trong báo cáo runner\"],[\"preconditions\",\"Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG\"],[\"argv\",[\"python3\",\"check-process-model.py\",\"view.html\"]],[\"operation_key\",\"tqt.validate-processes\"],[\"limitations\",\"Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật.\"]]",
+          "scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
+          "decision": "APPROVE",
+          "receipt_verified": true,
+          "evidence_ref": "proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md#vòng-9",
+          "test_evidence_ref": "workspace_exec 85618b169bf04254bc121a92b9d0689a · exit 0 · passed 87 · SIMULATION_ONLY",
+          "limitations": "Duyệt bộ kiểm đúng phiên/hợp đồng; không nghiệm thu MOW001/PG."
+        },
+        {
+          "review_id": "TQT-V9-CLAUDE-TQT-CHECK-002",
+          "target_code": "TQT-CHECK-002",
+          "vendor": "Anthropic",
+          "reviewer": "Claude Cowork · ghế Claude-review",
+          "reviewed_at": "2026-10-14T05:19:39Z",
+          "target_version": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270",
+          "binding": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270:P34.1:contract=[[\"full_purpose\",\"Mã quy trình, tham chiếu và mốc G1–G3\"],[\"input\",\"view.html; phiếu MOW001 nếu có; UI adapter tùy chọn cho bộ 005\"],[\"output\",\"JSON / exit code; run_id + thời điểm + hash trong báo cáo runner\"],[\"preconditions\",\"Python 3.11+, Node.js; cùng snapshot task và phiếu MOW001; không cần quyền PG\"],[\"argv\",[\"python3\",\"check-process-catalog.py\",\"view.html\"]],[\"operation_key\",\"tqt.validate-cross-references\"],[\"limitations\",\"Kiểm thiết kế/mô phỏng; không thay nghiệm thu PG, quyền hoặc sản phẩm thật.\"]]",
+          "scope": "TEST thiết kế tools-quy-trinh; chưa PG, chưa nghiệm thu MOW001",
+          "decision": "APPROVE",
+          "receipt_verified": true,
+          "evidence_ref": "proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md#vòng-9",
+          "test_evidence_ref": "workspace_exec 85618b169bf04254bc121a92b9d0689a · exit 0 · checkpoint cases 20 · DESIGN_ONLY",
+          "limitations": "Duyệt bộ kiểm đúng phiên/hợp đồng; không nghiệm thu MOW001/PG."
         }
       ],
       "changes": [
