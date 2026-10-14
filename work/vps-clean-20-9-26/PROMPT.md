@@ -1,3 +1,48 @@
+# PROMPT — VPSC-11-GROWTH-CONTRACT-20261015-01 · Lượt cuối VPSC: khai đúng loại phần tăng của `/opt/incomex/data` bằng van CÓ SẴN · không xoá dữ liệu
+
+RUN_ID: VPSC-11-GROWTH-CONTRACT-20261015-01
+Task: `work/vps-clean-20-9-26` (VPSC) · D22–D31. Soạn: GPT Chat Host P112; Claude Chat Reviewer P113 sửa thành thay đổi GHI SẴN. Executor: Claude Code CLI phiên MỚI trên Mac, qua `ssh contabo`. Ghi repo: Incomex MCP `workspace_*`. Owner dán tay.
+STATUS: DRAFT · **Claude Reviewer ACCEPT (P113) trên bản này** · chờ GPT Host READY đúng SHA last-touch. Chỉ thực hiện phần TRƯỚC dòng `LỊCH SỬ` đầu tiên.
+
+## 0. Vì sao · XONG khi nào
+- Owner D31 (15/10 04:22, VPSC COLLAB §0): «… cần 1 VPS tạm sạch các lỗi, được bảo vệ bới điều 30, 31 để chạy tiếp … không ảnh hưởng đến các chương trình đang chạy, ko tăng ổ cứng bất thường không cần thiết …». Đây là lượt cuối trước khi đóng VPSC.
+- W-FINAL `527e570`: lỗi duy nhất còn lại là Kuma #11 đỏ — storage-watch `EVENT_UNDECLARED /opt/incomex/data +165…227 MiB/24h` vì dòng `/opt/incomex/data` khai STATIC. Nguồn tăng: `workspace-tools/p02-cache` và `workspace-tools/github-workspace` (gương Git, đã có luật (o) `git repack -d`), `workspace-tools/*.before` (đã có luật (m)), `hvu-b2/repo.git` (520 MiB, chưa có van; gương Git cùng kiểu từng 474 MiB object rời / 15 MiB pack).
+- Sổ `/opt/incomex/scripts/storage-registry.tsv` đã hỗ trợ dòng con (dòng sâu nhất khớp thắng; tiền lệ `/opt/incomex/data/workspace-tools/transactions` ROTATING). Không cần công cụ mới.
+- **XONG khi:** 2 tệp sửa đúng §2, đi qua đường Config Guard có sẵn, 4 ô D26 đủ, dịch vụ GIỮ nguyên, `storage-watch.py check` chạy được với sổ mới. #11 xanh ngay sau đổi sổ **chưa phải bằng chứng cuối** (đánh giá theo dòng tạm dừng tới mốc 24h cùng phiên bản sổ) — máy tự kiểm ở mốc 24h, không ai ngồi chờ.
+
+## 1. Luật cứng
+- Chỉ sửa đúng 2 tệp ở §2, không sửa gì khác. Không xoá dữ liệu, không `git gc/prune/reflog expire`, không chạy tay luật (m)(n)(o)(p) ở chế độ `that` — lịch mỗi giờ tự chạy. Không đổi ngưỡng/mã storage-watch, Kuma, Guard. Không đổi loại dòng cha `/opt/incomex/data` (giữ STATIC để bắt tăng lạ).
+- Có sửa ⇒ giữ `VPS-GHI` (CAS) + STARTED dưới P113 trước khi sửa; trả `VPS-GHI: trống` cùng KQ. Báo từng bước, luôn có KQ (DROOT54).
+- Không in env/khoá; cấm `find /`, `du /`, quét đĩa; `du` chỉ đúng 4 đường ở §2.
+- Bất kỳ điều kiện S0 nào hỏng ⇒ DỪNG trước khi sửa, KQ nêu đúng một lý do. Ngân sách ≤ 40 phút; 0 tiến trình nền, 0 tệp tạm ngoài 2 bản `.truoc`.
+- §0A: khối Owner dán phải có nguyên văn D31 (VPSC COLLAB §0); thiếu ⇒ DỪNG trước STARTED.
+
+## 2. Thay đổi GHI SẴN (không thêm, không bớt)
+**(A) `/opt/incomex/scripts/vps-retention.sh` · hàm `luat_o`:** thêm đúng một đường `/opt/incomex/data/hvu-b2/repo.git` vào danh sách `for d in …` (hiện: `/opt/incomex/mcp-roots/gh "$WT_GIT" "$WT"/p02-cache/*/mirror.git /var/lib/incomex-mcp-helper/p02/*/mirror.git`); chú thích (o) đầu tệp thêm tên kho này; 1 dòng nhãn `# SUA 15/10/2026 VPSC-11-GROWTH-CONTRACT-20261015-01: them hvu-b2/repo.git vao luat (o) repack -d (khong gc/prune)`. Giữ nguyên an toàn sẵn có của (o): chạy bằng chủ kho, bỏ lượt khi kho đang có git/lock, fsck trước/sau, so refs trước = sau.
+**(B) `/opt/incomex/scripts/storage-registry.tsv`:** thêm 4 dòng con cạnh dòng `/opt/incomex/data/workspace-tools/transactions`, cột đúng khuôn dòng đó:
+
+| path | class | owner | kind | control |
+|---|---|---|---|---|
+| `/opt/incomex/data/workspace-tools/p02-cache` | RUNTIME_STATE | MCPW/agent-data | ROTATING | `valve:file=/opt/incomex/scripts/vps-retention.sh~^luat_o\(\) \{;cron=vps-retention\.sh;cap=<B>` |
+| `/opt/incomex/data/workspace-tools/github-workspace` | RUNTIME_STATE | MCPW/agent-data | ROTATING | như dòng trên |
+| `/opt/incomex/data/workspace-tools/*.before` | RUNTIME_STATE | agent-data | ROTATING | `valve:file=/opt/incomex/scripts/vps-retention.sh~^luat_m_py\(\) \{;cron=vps-retention\.sh;cap=<B>` |
+| `/opt/incomex/data/hvu-b2/repo.git` | RUNTIME_STATE | HVU | ROTATING | như dòng p02-cache |
+
+`cap` mỗi dòng = (kích thước hiện tại + 2 × tăng 24h theo storage-watch) × 1,3, làm tròn lên MiB; ghi công thức + số vào cột ghi chú (khuôn dòng `mcp-roots`). Dòng cha `/opt/incomex/data` giữ STATIC, chỉ sửa ghi chú: «phần con có dòng riêng: transactions, p02-cache, github-workspace, *.before, hvu-b2/repo.git».
+
+## 3. Các bước
+1. **S0 chỉ đọc:** đọc AGENTS → COLLAB gốc (`VPS-GHI`) → VPSC §0 (D22–D31) + P112–P113 → PROMPT này → BAO-CAO `W-FINAL-SCOPE-20261014` §4/§7 + `HEAL02-20261013` (đường đã dùng để thêm luật (o)(p) vào `vps-retention.sh` qua Config Guard). Kiểm: 2 tệp là đích Config Guard + đường áp hiện có; `hvu-b2/repo.git` là kho Git hợp lệ (`git rev-parse` bằng chủ kho), ghi `count-objects -v` + `du` PRE; biên nhận luật (m)(o) gần nhất OK; Guard PRE + 22 đèn PRE (PRE_RED_SET); `storage-watch.py check` PRE.
+2. **Sửa + áp:** bản `.truoc` 2 tệp (sha) → sửa đúng §2 → `bash -n vps-retention.sh` → áp qua đường S0 (apply-v0 / sổ mã như HEAL-02).
+3. **Kiểm:** `vps-retention.sh` chế độ `thu` cho luật (o) liệt kê `hvu-b2/repo.git` với đúng chủ kho (không `KHONG_GIT`); `storage-watch.py check` đọc được sổ mới, ghi trạng thái + lý do; drift-check: 2 tệp MATCH baseline mới, đích khác không đổi; 22 đèn = PRE_RED_SET hoặc tốt hơn; health 200: `/`, `/knowledge/modules`, `/api/health`, Directus `pong`, Agent Data `/health`.
+4. **KQ:** BAO-CAO mục `11-GROWTH-CONTRACT-20261015` (≤ 3 dòng cho Owner · diff 2 tệp · bảng 4 dòng + cap · PRE/POST #11 + storage-watch · bảng 4 ô D26) → `KQ@VPSC-11-GROWTH-CONTRACT-20261015-01 XONG · SCOPE_DISK_GUARDED | DỪNG · <lý do>` dưới P113 → trả `VPS-GHI`.
+
+**4 ô D26:** Đ30 = `bash -n` + `thu` (o) thấy kho + `storage-watch.py check` chạy · Đ31 = Config Guard nhận baseline mới 2 tệp, drift MATCH · canh = Kuma #11 + bản tin 08:00 + biên nhận luật (o) mỗi giờ · lùi = `.truoc` 2 tệp, áp lại đúng đường; repack không cần lùi (nội dung kho y nguyên, refs trước = sau).
+**Lỗi thì lùi — chỉ lỗi MỚI do lượt này** (`bash -n`/storage-watch lỗi, drift ngoài 2 tệp, đèn mới đỏ, dịch vụ GIỮ hỏng): đặt lại 2 tệp từ `.truoc`, KQ DỪNG.
+Sau KQ XONG: Host đóng VPSC theo D31 (DROOT43); storage-watch mốc 24h + luật (o) mỗi giờ + bản tin 08:00 tự canh; #11 đỏ lại ⇒ mở lại đúng dòng đó.
+
+---
+## LỊCH SỬ — bản #11 của GPT P112 (Claude P113 thay bằng bản GHI SẴN ở trên) · KHÔNG THỰC HIỆN
+
 # PROMPT — VPSC-11-GROWTH-CONTRACT-20261015-01 · Khép đúng #11, KHÔNG xóa dữ liệu sống hoặc che đèn
 
 RUN_ID: VPSC-11-GROWTH-CONTRACT-20261015-01
