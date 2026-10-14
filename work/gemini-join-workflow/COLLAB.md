@@ -7,15 +7,15 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 14:40 +07 · GPT Chat Host · P06
-- 🎯 Mục tiêu: ô 1 — Gemini/Antigravity vào hội đồng, nối VPS/MCP/KB/JEV, thử đưa thư. Owner 14/10: **Antigravity tự làm; Claude Code chỉ giúp phần có BLOCKED_CAPABILITY thật**. **Owner P05:** parity kết nối với GPT/Claude, không giới hạn vĩnh viễn theo mẫu G1.
-- 🏁 Xong khi: bốn tiêu chí ô 2 (GPT–Claude thống nhất; G1 chỉ là bước đầu). Bổ sung tiêu chí capability parity.
-- 📍 Tiến độ: [✓ G0a Claude P01] → [✓ G0b GPT P02] → [✓ Claude P03 ACCEPT] → [✓ GPT P04 READY G1] → [■ G1 Antigravity thực hiện] → [□ G2 ghế Google] → [□ G3 đưa thư] → [□ nghiệm thu]
-- ✅ Đã xong: P01–P03 đồng thuận; Claude ACCEPT@a5a08669df1a713b6f6c31cd2bc2b6fc5b9deb86, PROMPT last-touch đúng SHA; GPT P04 ACCEPT diff/READY cùng SHA, không sửa PROMPT. P05 chốt C6/C7: hạn chế G1 không lan sang G2/G3.
-- ■ Đang làm: — · 0 RUN active; G1 READY, Gemini Mac báo preflight DỪNG do sandbox; chưa có STARTED/KQ trong repo, chưa chứng minh Antigravity 2.0/agy chạy.
-- ⬜ Còn lại: Antigravity G1 tự khảo sát + nối trong giới hạn quyền; Claude Code hỗ trợ từng delta nếu không tự làm được; G2 hội đồng; G3 đưa thư; nghiệm thu. Ma trận capability parity GPT/Claude↔Gemini trong các bước tiếp theo.
-- ➡ Kế tiếp: Owner chuyển đúng G1 READY cho Antigravity 2.0/IDE/agy; chỉ nhờ Claude Code bootstrap nếu Antigravity không tự làm được. Không dựng bản copy tạm làm SSOT. NEXT_TRIGGER=G1_CORRECT_SURFACE.
-- ⛔ Không làm/để sau: không API trả phí, cổng public, webhook/email ingress; không bot vào claude.ai; không thay Hermes hay chạm HJW/Graph/VPSC/TQT; không ảnh hưởng Guard/Kuma/Telegram/backup Drive. Các giới hạn G1 là scope của một RUN, không phải cấm năng lực mãi mãi.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 15:33 +07 · GPT Chat Host · P07
+- 🎯 Mục tiêu: ô 1 — Gemini/Antigravity kết nối tối đa repo/VPS/MCP/KB/JEV, thành viên Google trong Hội đồng AI và workflow Hermes; năng lực tương đương GPT/Claude, Antigravity tự làm, Claude Code chỉ hỗ trợ blocker.
+- 🏁 Xong khi: ô 2 + capability parity; G1 phải có Google identity, authenticated calls repo/KB/JEV và agy headless; G2–G3 nghiệm thu riêng.
+- 📍 Tiến độ: [✓ G0 thiết kế/đồng thuận] → [✓ G1 S0 khảo sát] → [✓ G1 KQ DỪNG tại S1] → [■ G1B hỗ trợ BC01–BC03] → [□ Antigravity tiếp tục G1] → [□ G2 ghế Google] → [□ G3 courier/phone] → [□ nghiệm thu].
+- ✅ Đã xong: báo cáo Gemini G1 08:11–08:16Z xác định CLI/endpoint/auth; P07 Host tiếp nhận STARTED/KQ hồi cứu (không giả là actor Google). Gemini báo đã dọn 1/1 đồ tạm, 0 VPS writes/0 process.
+- ■ Đang làm: — · 0 RUN active; G1 đã KQ DỪNG, không có G1B READY/RUN. Root VPS-GHI có thể đổi liên tục (VPSC nhả 08:18Z; TQT-P61 nhận 08:22Z), kiểm tại thời điểm viết VPS.
+- ⬜ Còn lại: BC02 Mac MCP/TCC, BC03 agy OAuth, BC01 identity Google gateway; Antigravity gọi 4 cổng/ghi thử Google, G2 hội đồng, G3 đưa thư và Remote Control; ma trận capability parity.
+- ➡ Kế tiếp: Claude Chat rà P07 và PROMPT G1B DRAFT một lượt; GPT Host READY đúng SHA, Owner giao Claude Code CLI hỗ trợ ba delta. Local Mac trước; BC01 VPS chỉ khi có khóa/giải pháp không restart. NEXT_TRIGGER=CLAUDE_REVIEW_G1B_DRAFT.
+- ⛔ Không làm: không dọn chung VPS, xoá file legacy, mượn master/profile hãng khác, copy token giữa HOME, bypass TCC, restart container/nginx, làm rớt Guard/backup/Kuma/Telegram hay xâm phạm HJW/Graph/VPSC/TQT.
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
 1. «rà soát lại để tích hợp cho Gemini app đầy đủ vào trong VPS, kết nối qua MCP và tất cả các cổng kết nối, tức là giống như nguyên tắc của GPT và Claude là kết nối tối đa và cho tham gia vào cái nhóm workflow và hội đồng AI này» (phiên GPT Chat)
@@ -74,6 +74,21 @@ HUMAN_DIRECTIVE@GJW-20261014-03 EFFECTIVE · task=gemini-join-workflow · scope=
 - D02 · Owner 14/10 yêu cầu Antigravity tự setup trước, Claude Code chỉ fallback; Owner giao các AI thống nhất khuôn khổ/tiêu chí, GPT Host chốt ô 2 từ đề xuất Claude P01. Không suy Owner đã duyệt thay đổi production/credential/billing/AUTO.
 
 ## Nhật ký P
+
+### P07 · GPT Chat Host · 2026-10-14 · B1 báo cáo G1 và điều hành BC01–BC03
+- **Nguồn:** Owner cung cấp báo cáo 91 dòng tự ghi là Antigravity/Gemini.app/agy G1; Host chưa độc lập kiểm Mac. READY G1 được Agent báo đối chiếu đúng `a5a08669df1a713b6f6c31cd2bc2b6fc5b9deb86`. Trước P07 repo chưa có STARTED/KQ, nên ghi **relay hồi cứu**, không coi đây là bằng chứng Google ghi qua gateway.
+- **STARTED@GJW-G1-ANTIGRAVITY-SELF-SETUP-20261014-01 2026-10-14T08:11:00Z · executor=Antigravity/Gemini.app-1.128.14.1166 + agy-1.3.4 · SOURCE=OWNER_RELAY**
+- S0 bước 1/2 (08:14Z): báo đã đọc GitHub HEAD 94f26bd (chỉ snapshot lúc đo), agy 1.3.4 đóng gói trong Gemini.app, xác định HTTP `/api/mcp` 200 và các đường nginx/internal, mã `wtools.py`/Guard. GET schema HTTP200 **không chứng minh authentication hoặc tool-call pass**. `agy models` không có OAuth trong HOME sandbox `~/.gemini/users/user1`; không có headless model call thành công, JEV/KB chưa pass.
+- S1 bước 2/2 (08:16Z): OAuth well-known của host được hỏi trả 404 (chỉ đúng các URL đã thử); auth key mới qua `credential_env` của `os.environ` container chưa inject nên không thể dùng nếu không restart/no spare env. Mac TCC chặn `~/.gemini` global và `~/.ssh`; không kết nối thực được `fs_*`/`workspace_*`/KB/JEV.
+- **KQ@GJW-G1-ANTIGRAVITY-SELF-SETUP-20261014-01 DỪNG · SOURCE=OWNER_RELAY · reason=S1.1_BC01_BC02_BC03 · NEXT_TRIGGER=G1B_CLAUDE_SUPPORT · Dọn theo báo cáo 1/1, còn lại 0, không giữ VPS-GHI, 0 VPS writes, 0 process nền.**
+- **BC01 Gateway identity:** cần Google principal mới tách GPT/Claude/Hermes, các auth route `workspace_*`+KB, `fs_*`, JEV có thể dùng credential khác. Không mượn master key/profile. Chỉ tạo khi có phương án GSM + gateway audited, no-restart và root VPS-GHI trống; nếu env phải restart thì xuất phương án nhỏ xin Owner/Host duyệt riêng, **không làm sai cổng G1**.
+- **BC02 Mac:** ưu tiên native `agy mcp`/MCP Store; khảo sát chính xác global/workspace/`user1` consumer trước khi cấu hình; backup, không viết hai HOME theo đoán, không copy OAuth/SSH key, không bypass TCC. Không dọn 4 file legacy khi chưa biết dependency.
+- **BC03 agy:** dùng sign-in native Apple Keychain hoặc Google browser OAuth theo CLI; xác minh `agy models`, `agy -p` thực trong HOME của consumer; Owner chỉ thực hiện thao tác consent Google nếu thật cần. Không chuyển sang API trả phí.
+- **Thay đổi khóa theo SSOT:** 08:16Z Gemini thấy `VPSC-N2C` giữ VPS-GHI; root sau đó ghi VPSC nhả 08:18Z và TQT-P61 nhận 08:22Z. Không suy khóa nay đã trống; Claude thực thi đo lại và không chờ. Đèn 19 xanh/3 đỏ chỉ là lúc Gemini đo, Config Guard cần before/after.
+- **Đích vẫn đúng:** G1 S0 PASS-with-limits, S1 DỪNG; G1B chỉ hỗ trợ BC01–03, trả Antigravity tiếp tục authenticated smoke. G2 ghế Google, G3 đưa thư/điện thoại, parity GPT/Claude còn nguyên. Dọn chỉ tệp tạm do lượt này tạo, không đụng task khác.
+- **Điều hành:** soạn G1B đúng một DRAFT trên `PROMPT.md` cũ (không file phụ). Claude Chat Reviewer 1 lượt; không sửa luật nền, không đưa Claude Code làm executor thường trực thay Gemini.
+
+
 
 ### P06 · GPT Chat Host · 14/10/2026 · GEMINI MAC PRECHECK / ROUTING
 - Owner chuyển Gemini report 14:25 +07: process `com.google.GeminiMacOS`, Connected Folders chưa cấp local repo, SSH sandbox từ chối, chỉ thấy MCP `git` và `obsidian`, không có Incomex/KB/JEV. Gemini tuyên bố KQ DỪNG trong chat nhưng **chưa có STARTED/KQ trên SSOT**; đây là preflight của Gemini Mac, không phải chứng minh G1 đã chạy trên Antigravity app/CLI.
