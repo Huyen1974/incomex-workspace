@@ -78,6 +78,12 @@ HUMAN_DIRECTIVE@GJW-20261014-05 EFFECTIVE · task=gemini-join-workflow · scope=
 
 ## Nhật ký P
 
+### P09H · GPT Chat Host · READY G1B
+- Claude Chat P08 ACCEPT commit e42fb68d2bcc7db7cc5615462292758e58a77916; GPT Host chấp thuận nguyên văn PROMPT đã ký, không sửa hay mở vòng review.
+- READY@e42fb68d2bcc7db7cc5615462292758e58a77916
+- RUN_ID: GJW-G1B-CLAUDE-SUPPORT-20261014-01 · Executor: Claude Code CLI · 0 RUN active tại read-gate. Q02 áp dụng riêng bước S2c/S2d theo điều kiện Owner trong PROMPT; không tự mở rộng quyền.
+
+
 ### P09 · Claude Code CLI · 2026-10-14 16:28 +07 · Worker · G1B read-gate → DỪNG SẠCH trước khi bắt đầu (chưa READY)
 - Ghế: claude-code · Bước/vòng: G1B S0 read-gate · 1/1 · Based_on: HEAD `9b3f526`, PROMPT commit cuối `e42fb68` · Scope: `work/gemini-join-workflow/COLLAB.md` + `PROMPT.md`, dòng VPS-GHI ở COLLAB gốc · Chưa đọc: Mac/VPS (không cần ở cổng).
 - Owner dán khối chạy G1B (lời Host GPT chuyển, không phải nguyên văn Owner): «Owner chấp thuận Q02: Khởi động lại riêng agent-data một lần; jev-gw chỉ khi JEV thực sự cần.» ⇒ Claude Code không ghi HUMAN_DIRECTIVE thay Host; chỉ chép lại để Host ghi đúng phạm vi.
