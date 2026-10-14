@@ -1,4 +1,12 @@
 # tools-quy-trinh · Cửa vào
+## P58 · Sổ việc cần xử lý tiếp
+[CAT-069 · Việc cần xử lý tiếp](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-069%3F) có lối vào ngay dưới Master Field, cùng cột. Không mở Master mới.
+- Nguồn hiện hành: cycle.issues của từng hồ sơ, tool_registry.walkthrough.findings, walkthrough_runs[].findings và application_preview.record.execution_walk.findings. UI tự đọc nguồn, không nhập lại bản sao CAT069; bản sao cũ giữ lịch sử, không dùng đè trạng thái mới.
+- P58 đối chiếu76 dòng/76 mã:57phát hiện đã có +17 việc đối chiếu hồ sơ cũ (7TQT,10MOW/Tools) +2 phát hiện bổ sung. 17tham chiếu không phải đã cắt chuyển hoặc đã kiểm trạng thái hiện hành; việc kiểm nguồn đó vẫn OPEN. Không tuyên bố đủ mọi nợ toàn server.
+- Mọi mục phát sinh phải ghi vào nguồn của đúng hồ sơ, có mã/nội dung/người giữ/trạng thái/việc tiếp/bằng chứng; dùng lại mã trước khi thêm. CLOSED cần bằng chứng kiểm độc lập. OPEN không có nghĩa đã được phép hoãn.
+- Tái sử dụng CHECK005: đối chiếu mỗi issue đúng1dòng, đúng nội dung/trạng thái/việc tiếp; đổi nguồn và thêm việc mới phải hiện ngay. Bộ kiểm lưu trong MasterDOT; không tạoDOT mới.
+- Hai ô cuối là chữ ký rà SỔ đúng phiênP58, không nghiệm thu từng việc. PhiếuCAT025 TQT-P58-DEBTS trong hồ sơQT001. OpenAI đã rà; Claude tự kiểm và ký. PhiếuP53 giữ nguyên lịch sử.
+
 ## Thanh điều hướng chung · Owner 14/10/2026
 Mọi UI đang dùng phải giữ thanh **4 Mẹ + Master** ở đáy. Mẫu `master-list.js` và `design-navigation-v1.js` tự nạp thanh mặc định; không được ẩn `.eco-bar` trong chế độ nhúng. Master mới kế thừa mẫu này, không cần nhớ gắn thanh riêng. Nạp `/ui-preview/mcp-writes/eco-nav.js`; không chép menu sang từng trang. Trang con tiếp tục kế thừa thanh từ mẫu cha. Khi kiểm UI bằng `ui_inspect`, kiểm thêm `.eco-bar`: đủ MOW/MOT/MOIT/MOUT/Master, nằm trong viewport, menu trỏ đúng `/ui-preview/mcp-writes/` và thoát khung nhúng khi mở trang khác. Kiểm lại sau khi chuyển tab/mở hồ sơ; thiếu thanh là chưa đạt UI. Không sửa phiếu nghiệm thu hoặc dữ liệu hồ sơ vì thay đổi điều hướng.
 
