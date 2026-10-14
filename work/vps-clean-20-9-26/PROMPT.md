@@ -1,3 +1,23 @@
+# PROMPT — VPSC-L1B-RAM-SWAP-20261014-01 · Theo STEP_WALK_V2, không ép RAM/swap
+
+RUN_ID: VPSC-L1B-RAM-SWAP-20261014-01
+Task: work/vps-clean-20-9-26, D22–D29, L1b đã có trong roadmap. Host GPT P106, Claude Chat B2 P107, Claude Code CLI Executor. Owner giao tay.
+STATUS: DRAFT, CHƯA READY/RUN; chỉ nội dung TRƯỚC LỊCH SỬ. Sau Claude ACCEPT GPT Host mới ký READY SHA.
+
+## Mục tiêu, ranh giới
+Khép L1b để VPS ổn định cho việc mới, không mở mission mới. L0: claude-kb 199/256MiB, swap170MiB, memory.events max7546 (cộng dồn); Directus241MiB/1GiB, swap53MiB, max227. L2SAFE: max 7546/227 **không tăng**, MemAvailable ~5–6GiB, swap dùng gần2GiB nhưng swap-in/out thấp. HEAL trước đã nâng claude-mcp 1→1,5GiB/PG 2→3GiB. Không reset swap hay nâng trần vì chỉ số cũ; mục tiêu ≤1GiB swap chỉ đánh giá khi hoạt động thật, không bắt làm đẹp số.
+KEEP PG đếm PG/agent-data/Graph, Điều30/31/Guard, Telegram/Kuma/08:00, backup Drive; không đụng các task khác, DEL-1 đã dừng theo luật §2, không sửa key/backup/Graph.
+
+## Một RUN bounded
+S0: đọc AGENTS, root COLLAB VPS-GHI, VPSC D22–D29/P84/P105–P106, BAO-CAO L0 Bảng C + L2SAFE, PROMPT READY. Dùng công cụ sẵn có đo ngắn MemAvailable, swap-used và swap-in/out (`sar`), `memory.current/peak/events` của claude-kb/Directus so L0 và L2SAFE, p50 MCP/API; kiểm owner/Config Guard của candidate. Không `find /`, `du /`, không scan rộng. Không dùng `memory.events max` cộng dồn làm lỗi hiện tại.
+Nếu **không có fresh cap hits/OOM, active swap churn hoặc latency thực** => GIỮ trần, NO_MUTATION, báo kết quả ngay; không xả swap nguội để ép ≤1GiB.
+Nếu CÓ pressure thật và ảnh hưởng dịch vụ: chỉ chọn đúng ứng viên Bảng C đã có: claude-kb 256→512MiB và/hoặc Directus 1→1,5GiB, mỗi mục đủ proof và headroom. Cấm đổi agent-data/claude-mcp/PG/HJW/Graph/host swap/swappiness/worker/image, không code hay tool mới.
+Trước ghi: fresh root VPS-GHI, NO_CONCURRENT (TQT-P61 đang giữ tại lượt Host => không mutation khi chưa nhả), STARTED+CAS, Guard PRE, exact SHA+rollback, Config Guard D26 4 ô; apply-v0/đường bảo vệ chính thức. Nếu chỉnh trần đòi recreate/restart không có đường/ủy quyền hợp lệ, DỪNG không tự quyết. Sau thao tác chỉ smoke tối thiểu API/Directus/PG/AD/Graph, p50/si-so/cap events, 22 đèn; lỗi MỚI rollback. #22 lỗi cũ => scoped PASS nhưng KQ tổng PARTIAL/không receipt, không bypass.
+KQ vào BAO-CAO `L1B-RAM-SWAP-20261014` và KQ@VPSC-L1B-RAM-SWAP-20261014-01 dưới P106/P107; nêu số PRE/POST, mục đổi hay KEEP, lý do và Guard/rollback. Trả VPS-GHI cùng commit, 0 nền. Không ngồi chờ 24h; sau đó N2b (Owner gate) rồi W (08:00/24h) theo roadmap.
+
+---
+## LỊCH SỬ — DEL-1 L2(b) Claude P105 KHÔNG ACCEPT, luật dừng §2, KHÔNG RUN
+
 # PROMPT — VPSC-DEL1-L2B-REGCOUNT-OFF-20261014-01 · OFF di sản Bộ 2 Registry/đếm theo DEL-1 cũ
 
 RUN_ID: VPSC-DEL1-L2B-REGCOUNT-OFF-20261014-01
