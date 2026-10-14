@@ -1,4 +1,71 @@
-# PROMPT — VPSC-N2A-DISK-DRIVE-FIRST-20261014-01 · #11 theo số thật, D23/D27, không xóa vật sống
+# PROMPT — VPSC-N2C-CODE-BACKUP-GPG-20261014-01 · Mã hoá backup mã nguồn lên Drive bằng đúng tuyến GPG khoá công khai của backup PG (D23/D27) · không đổi lịch, không xoá tay, không mở `.env.working`
+
+RUN_ID: VPSC-N2C-CODE-BACKUP-GPG-20261014-01
+Task: `work/vps-clean-20-9-26` (VPSC) · D22–D27. Không phải việc mới: lỗ do L2SAFE (`d0af7dd`) tìm ra, bảng backup ghi chủ = VPSC.
+Soạn: Claude Chat P102 (B2 sau GPT P101) — thay bản nháp N2a xoá đĩa (lý do ở P102). Rà: GPT Chat Host B3 một lượt: ổn ⇒ READY đúng SHA; sửa nhỏ chỉ thêm kiểm thì sửa thẳng rồi READY (Claude chấp nhận trước).
+Executor: Claude Code CLI, phiên MỚI trên Mac, qua `ssh contabo`. Ghi repo: Incomex MCP `workspace_*` root `workspace`.
+Status: **DRAFT — Claude Reviewer ACCEPT (P102), chờ GPT Host READY đúng SHA last-touch**.
+Bằng chứng: `/opt/incomex/work/vps-clean-20-9-26/VPSC-N2C-CODE-BACKUP-GPG-20261014-01/` (`<EV>`; chỉ receipt đã làm sạch). Báo cáo: mục `N2C-20261014` trong `BAO-CAO.md`. Tiến độ + KQ: dưới P102 trong `COLLAB.md`. Không tạo tệp repo mới.
+**Chỉ thực hiện phần trên dòng `LỊCH SỬ` đầu tiên.** Tham chiếu: §1 luật cứng + §2 S0 của bản lịch sử HEAL-01; trong `BAO-CAO.md`: mục `L2-SAFETY-MAP-20261014` (bảng backup) và mục `HEAL-20261013` (cách đã sửa `disk-monitor.sh` + sổ mã — dùng đúng đường đó cho script này).
+
+## 0. Vì sao, và thế nào là XONG
+- `scripts/code-backup-to-gdrive.sh` (lịch root 08/12/15/20 giờ VN, giữ 56 bản/repo trên Drive + 1 bản tại chỗ; 2 repo `web-test` = `nuxt-repo`, `agent-data-test` = `agent-data-repo`) đẩy `.tar.gz` **không mã hoá** lên `gdrive-backup:`. Gói có `agent-data-repo/.env.working` (chưa ai mở) và `BACKUP-MANIFEST.txt` ghi `push_token`. Backup PG/cấu hình (`backup-to-gdrive.sh`) đã mã hoá GPG khoá công khai, VPS không giải mã được — tuyến đã chạy thật, dùng lại y nguyên.
+- D23 đòi bản trên Drive mã hoá; D27 đòi giữ vững cơ chế backup ⇒ lượt này là **gia cố** backup, không tắt gì.
+**XONG khi đủ cả 5:**
+1. Bản backup mã nguồn mới là `<repo>_<YYYYMMDD-HHMM>_ICT.tar.gz.gpg`, mã hoá cho ĐÚNG người nhận mà `backup-to-gdrive.sh` đang dùng, gọi `gpg` y hệt cách script đó gọi (cùng cờ, cùng nguồn khoá công khai); luồng `tar | gzip | gpg` không để bản rõ trên đĩa; từ lượt này không còn tệp `.tar.gz` rõ nào mới sinh ra.
+2. Retention giữ nguyên chính sách 56 bản/repo trên Drive + 1 bản tại chỗ, đếm CHUNG hai đuôi `.tar.gz` và `.tar.gz.gpg` theo mốc giờ trong tên ⇒ bản rõ cũ trên Drive tự ra hết trong ≤ 14 ngày (4 lượt/ngày); bản rõ tại chỗ được thay ngay ở lượt chạy thử. Không xoá tay thêm bản nào.
+3. Một lượt chạy thử thật cho cả 2 repo: tệp lên Drive, bytes remote = local, `gpg --list-packets` (không cần khoá bí mật) thấy đúng keyid người nhận; 2 monitor Kuma code backup nhận nhịp `up`.
+4. D26 đủ 4 ô cho script đã sửa: Đ30 (`bash -n` + lượt chạy thử mục 3) · Đ31 (Config Guard/sổ mã INV23 cập nhật đúng đường HEAL-01) · canh (Kuma 2 monitor code backup → Telegram khi lượt sau hỏng) · lùi (bản sao script trước sửa + cách đặt lại đúng đường).
+5. `.env.working`: chỉ đếm số dòng `TÊN=giá_trị` có TÊN chứa KEY/TOKEN/SECRET/PASS và liệt kê TÊN biến (không in giá trị, không in nội dung, không chép, không sửa) → BAO-CAO, để Owner định phạm vi O-R7-KEY.
+
+## 0A. Quyền Owner — khối Owner dán PHẢI có nguyên dòng này
+Owner D27 (14/10/2026): «Trong quá trình thực thi, các bạn phải kiểm tra rất kỹ để tránh tắt nhầm các chức năng vẫn đang sử dụng. Lấy ví dụ như điều 30, 31, luật trong KB để bảo vệ những mã đã làm, tránh AI khác vô tình xóa nhầm. Các cơ chế kiểm soát và báo cáo tự động qua Telegram, các cơ chế giám sát, các cơ chế backup tự động xuống Google Drive. Tất cả những việc đó cần phải bóc tách rất kỹ bằng Grab, tránh việc tắt nhầm các chức năng này rồi lại mất công đi lần mò khôi phục lại.»
+
+RUN này chỉ: sửa 1 tệp `scripts/code-backup-to-gdrive.sh` (mã hoá + biểu thức retention/đếm) + chạy thử 1 lượt + đếm tên biến `.env.working`. Không đổi lịch, số bản giữ, remote hay thư mục Drive; không đụng `backup-to-gdrive.sh`/`pg-backup.sh`/`qdrant-backup.sh`; không tạo khoá mới, không đưa khoá bí mật lên VPS; không xoá tay bản backup nào; không mở/sửa `.env.working`; không xoay khoá. Thiếu dòng trên hoặc thiếu Reviewer ACCEPT + Host READY đúng SHA ⇒ DỪNG trước STARTED.
+
+## 1. Luật cứng
+- Áp nguyên §1 của bản lịch sử HEAL-01 (VPS-GHI · báo từng bước · danh sách KHÔNG ĐƯỢC · bí mật · nghi ngờ thì giữ).
+- Người nhận GPG lấy từ cấu hình đang chạy của `backup-to-gdrive.sh` (đọc mã, không in khoá); không tìm thấy, không khớp hoặc cần khoá bí mật ⇒ DỪNG trước khi sửa.
+- Fail-closed: `gpg` lỗi ⇒ không upload, không rơi về bản rõ, Kuma `down` (giữ cơ chế `on_error` hiện có).
+- Chạy thử khi không có lượt lịch trong ± 10 phút (08/12/15/20 giờ VN) và `.code-backup.lock` trống.
+- Cấm `find /`, `du /`, quét đệ quy từ gốc (P101 PROCESS_DEVIATION).
+- 4 đích lệch cũ (#22) + INV20 giữ nguyên; không sửa Guard/Kuma để lấy PASS.
+- Ngân sách ≤ 45 phút.
+
+## 2. S0 — đọc + PRE (chỉ đọc)
+1. Đọc `AGENTS.md` → COLLAB gốc (`VPS-GHI`) → VPSC COLLAB §0 (D22–D27) + P101–P102 → PROMPT này → `BAO-CAO.md` mục L2-SAFETY-MAP-20261014 + HEAL-20261013.
+2. Kiểm Reviewer ACCEPT + Host READY đúng SHA; khối Owner có dòng D27; Guard PRE + PRE_RED_SET; drift-check PRE.
+3. Script: sha hiện tại; có là đích Config Guard / có trong sổ mã INV23 không; đường sửa hợp lệ theo HEAL-01; lượt chạy gần nhất (log) + trạng thái 2 monitor Kuma code backup.
+4. Cách `backup-to-gdrive.sh` gọi `gpg` (cờ + nguồn khoá công khai) và keyid người nhận (16 ký tự cuối).
+5. Giữ `VPS-GHI` (CAS) + STARTED dưới P102 cùng commit trước mọi thay đổi.
+
+## 3. Thực hiện
+1. **Bản sao:** `<EV>/code-backup-to-gdrive.sh.truoc` (sha).
+2. **Sửa tối thiểu, không sửa gì khác:** (a) `file_name` thêm đuôi `.gpg`; (b) bước `archive`: `tar … -czf - "${repo_name}" | gpg <cờ y hệt backup-to-gdrive.sh> --output "${archive_path}"`; (c) mọi chỗ khớp đuôi `_ICT.tar.gz` (retention tại chỗ, retention Drive, dòng đếm summary) nhận cả `.tar.gz` và `.tar.gz.gpg`, sắp xếp như cũ; (d) `require_cmd` thêm `gpg`; (e) log thêm `recipient=<keyid>`; (f) 1 dòng nhãn đầu tệp: `# SUA 14/10/2026 VPSC-N2C-CODE-BACKUP-GPG-20261014-01: ma hoa GPG khoa cong khai (cung nguoi nhan backup-to-gdrive.sh); khoi phuc can khoa bi mat giu ngoai VPS`. `bash -n` PASS.
+3. **Áp** qua đúng đường S0.3 (Config Guard apply-v0 nếu là đích; sổ mã INV23 theo cách HEAL-01).
+4. **Chạy thử 1 lượt** (§1 giờ chạy) và kiểm đủ §0 mục 3 + mục 2 (bản rõ tại chỗ đã được thay; số bản trên Drive mỗi repo vẫn ≤ 56).
+5. **`.env.working`:** theo §0 mục 5.
+6. **POST:** drift-check (script MATCH baseline mới nếu là đích), Guard `--coverage` 4 ô, 22 đèn = PRE_RED_SET, health 200.
+7. **Báo cáo:** mục `N2C-20261014` (cho Owner ≤ 3 dòng · diff · kết quả chạy thử · bảng 4 ô · tên biến `.env.working` + số đếm · số bản rõ cũ còn trên Drive và ngày dự kiến hết) → `KQ@VPSC-N2C-CODE-BACKUP-GPG-20261014-01 XONG|DỪNG · …` dưới P102 → **trả `VPS-GHI: trống` cùng commit**. Guard tổng FAIL chỉ vì #22 cũ ⇒ KQ PARTIAL nợ receipt, KHÔNG lùi.
+**Lỗi thì lùi — chỉ khi lỗi MỚI do lượt này** (gpg/upload lỗi · bytes lệch · Kuma code backup `down` · đèn mới đỏ): đặt lại script từ `.truoc` đúng đường S0.3, kiểm sha = PRE; các tệp `.gpg` đã lên Drive giữ (vô hại); KQ DỪNG nêu bước.
+**Đồ tạm dự kiến:** `<EV>` (giữ có chủ đích) · thư mục ứng viên apply-v0 nếu dùng (giữ làm đường lùi) · 0 tiến trình nền.
+
+## 4. Bước đi
+| Bước | Việc | Bằng chứng | Lỗi thì |
+|---|---|---|---|
+| 1/5 S0 | đọc, PRE, đường sửa, người nhận GPG, giữ khoá | ảnh PRE, STARTED | DỪNG trước mọi thay đổi |
+| 2/5 Sửa + áp | 6 chỗ §3.2, `bash -n`, áp đúng đường | diff, sha | lùi |
+| 3/5 Chạy thử | 1 lượt, 2 repo | `.gpg` trên Drive, bytes, keyid, Kuma `up` | lùi |
+| 4/5 Kiểm | `.env.working` (tên), drift, coverage 4 ô, 22 đèn | 0 THIẾU | lùi nếu lỗi mới; chỉ #22 cũ ⇒ PARTIAL, giữ |
+| 5/5 KQ | BAO-CAO + KQ + trả khoá | 0 tiến trình nền | — |
+
+Sau RUN (không thuộc RUN này, không ai chờ): Reviewer kiểm lượt lịch kế ra `.gpg` và bản rõ cũ giảm dần. Nếu `.env.working` có khoá thật ⇒ gộp vào câu O-R7-KEY cho Owner gật/lắc (xoay khoá + xoá ngay bản rõ cũ trên Drive). Thử khôi phục định kỳ (S-RESTORE) là việc riêng, cần khoá bí mật ngoài VPS.
+
+---
+
+<details><summary>LỊCH SỬ — bản nháp N2a «xoá đĩa Drive-first» (GPT P101, KHÔNG chạy — P102: không có đối tượng ELIGIBLE, #11 đỏ chỉ vì SLOPE7D đang tự hết) — KHÔNG THỰC HIỆN</summary>
+
+# (Lịch sử) PROMPT — VPSC-N2A-DISK-DRIVE-FIRST-20261014-01 · #11 theo số thật, D23/D27, không xóa vật sống
 RUN_ID: VPSC-N2A-DISK-DRIVE-FIRST-20261014-01
 Task: work/vps-clean-20-9-26. Host GPT Chat P101 B1, Claude Chat Reviewer P102 B2, Claude Code CLI Worker. Owner dán RUN thủ công.
 STATUS: DRAFT — CHƯA READY, CẤM RUN. Chỉ thực hiện phần trên LỊCH SỬ khi Claude ACCEPT và GPT Host READY đúng SHA.
@@ -31,6 +98,8 @@ Không sửa scripts/cron/PG/Directus/Graph/Docker, không sửa Guard/Kuma, kh�
 ## 4. POST & KQ
 Đo df free before/after byte thực, 24h source slopes có cùng taxonomy/version, #11 actual reason, restore proof per object; 22 lights PRE/POST, website/API/Directus/PG/Graph/backup/Guard/08:00 ledger still functional. POST-PROTECT footprint Đ30/Đ31/watchdog/rollback, 0 ô thiếu. Guard toàn cục #22 cũ còn FAIL => KQ DỪNG·PARTIAL, không gửi receipt Telegram bypass hoặc tô xanh; lỗi mới => rollback.
 Ghi BAO-CAO N2A-DISK-DRIVE-FIRST-20261014, KQ@VPSC-N2A-DISK-DRIVE-FIRST-20261014-01, Sổ P84 cập nhật đúng một nơi; trả VPS-GHI cùng commit nếu đã chiếm; 0 process/tệp tạm ngoài bằng chứng. Ghi rõ bytes thu THỰC, gap đến 45GiB, risk chưa đóng (sr-mow, backup code plaintext .env.working, #22, restore, O-R7-KEY) và MỘT bước kế. Không tự chạy L1b, N2b, Graph-clean hay xóa di sản khác.
+
+</details>
 
 ---
 ## LỊCH SỬ — VPSC-L2D-GRAPH-PROTECT-MAP-20261014-01 · KQ XONG d0af7dd · KHÔNG THỰC HIỆN
