@@ -1,3 +1,35 @@
+# PROMPT — VPSC-L2A-COUNT-FLOW-OFF-20261014-01 · ngừng một flow Directus di sản có kiểm D26
+RUN_ID: VPSC-L2A-COUNT-FLOW-OFF-20261014-01
+Task: work/vps-clean-20-9-26. Host GPT Chat; Reviewer Claude Chat; Executor Claude Code CLI, Owner tự dán.
+STATUS: DRAFT B1/P95, CHƯA READY. Không tự RUN. Chỉ phần trước mục LỊCH SỬ là hiện hành. Mục này tiếp tục D25/D26, không mở task mới.
+
+## 0. Mục tiêu / giới hạn
+D25: ngừng theo chủ đề những Registry/Pivot/Matrix/Governance nghỉ dùng, GIỮ PG đếm PG (ba lô), agent-data RAG/connector, Graph và Điều 30/31 (Lark tạm giữ). L1 đã OFF 21 lịch. L1P đã đăng ký 6 config target; KQ DỪNG·PARTIAL vì Guard #22 đỏ cũ nên thiếu receipt Telegram, KHÔNG coi FULL PASS.
+Ứng viên CHỈ MỘT FLOW: [DOT-REG] Count Refresh (6h), nghi POST vào /api/registry/refresh-counts làm đọc birth_registry và viết meta_catalog/v_registry_counts, ~49% PG disk read còn lại trong mẫu 7h (ước, CHƯA đủ chứng minh). Tuyệt đối không xóa các flow khác hoặc ngừng gì thuộc nhóm GIỮ. Chỉ chuyển flow này về trạng thái inactive/disabled có thể bật lại.
+Đích: bắt đúng flow ID/triggers/source/consumer; đo PG và nguồn hoạt động trước/sau, dùng DOT và đủ bốn lớp Đ30/Đ31/canh/lùi cho đúng row flow; không đổi code/PG/trigger/cron đã tắt. Nếu không có DOT hoặc lớp Đ31 hợp lệ đang hoạt động thì DỪNG trước mutation, báo rõ blocker.
+
+## 0A. Quyền Owner (khi phát RUN, Owner dán nguyên văn)
+D25 (13/10): «Xét cho cùng, toàn bộ hệ thống chỉ có mỗi phần nhỏ là: PG đếm PG (ba lo thông tin), agent data (RAG và các connector liên quan) và Graph là cần dùng, tất cả các phần đã triển khi trước đây như: govenance, khai sinh, Miếng thông tin, registries, pivot count, Lark (thì có thể tạm để) Đếu là những thứ có thể off được để tiết kiệm tài nguyên. Nhưng 1 số nội dung như bảo vệ điều 30, 31 thì vẫn cần dùng => vi vậy off theo chủ để rồi xem xét từng phần để tối ưu VPS nhé. Phần thực sự dùng chưa nhiều, nhưng tài nguyên đang bị chiếm dụng nhiều => làm sao bóc tách ra (nhờ graph) để off bớt nhé.»
+D26 (13/10 22:25): «Cần nhắc là mọi thứ nên được bảo vệ bởi điều 30 31 tránh các AI làm hỏng mã của nhau nhé»
+Quyền chỉ cho phép tắt DI SẢN, không cho bypass DOT/Đ31 hoặc xoay key.
+
+## 1. S0 chỉ đọc, fail closed
+1. AGENTS.md (A4/A5/DROOT26/29/39) → root COLLAB/VPS-GHI → VPSC COLLAB D22–D26/P93–P96 + P95 → PROMPT đúng READY SHA → BAO-CAO L0/L1/L1P. Kiểm shared lock/no concurrent mutation, Guard PRE, các task TQT/HJW/GS. Không đủ gate ⇒ DỪNG trước STARTED.
+2. Dùng DOT/query wrapper đã duyệt để tìm flow duy nhất theo tên + lịch sáu giờ, lấy exact ID/status/operations/triggers/schedule và audit; tuyệt đối không đọc/sửa DB bằng SQL/REST/Directus CLI trực tiếp. Nếu flow không duy nhất hoặc quyền owner không rõ thì giữ.
+3. Đối chiếu Graph (không phủ hết Directus/Nuxt), mã nguồn endpoints và runtime caller. Nhóm GIỮ gồm PG Census/report-pg, agent-data, Graph, Guard/backup/Kuma/Lark; 0 consumer thực sự phụ thuộc thì flow được nghỉ, trang registry đứng yên là đúng; bất kỳ retained consumer/UNKNOWN thì GIỮ flow, nêu bằng chứng.
+4. Tra Master DOT/Tool hiện có. Chứng minh bốn ô Đ30/Đ31/watchdog/rollback cho Directus flow ROW (không chỉ tệp chứng cứ); cần ongoing integrity/diff detector báo đúng flow trạng thái. DOT chưa đủ hoặc không bảo vệ được flow không cho mutation; chỉ lập phương án cải tiến công cụ tại task chủ.
+5. Snapshot PG read-only: mốc L1 T0 2026-10-13T14:57:19Z và Tpre của chính RUN (stats_reset/epoch phải khớp), heap_blks_read/seq_scan/pg_stat của birth_registry/system_issues và bảng pivot/meta. Nếu Tpre <24h ghi L1-only window đúng số giờ, CHƯA gọi là 24h; tắt xong ghi Tnew, lập 24h sau Tnew; không trộn attribution. Đo RAM/swap/đĩa, health, PRE_RED_SET.
+6. #22 INV5_6 (4 drift cũ TQT/HJW) + INV20 và receipt chưa có: phân biệt inherited vs new. Không khôi phục cảnh báo bằng rebaseline/bypass, không sửa chủ khác.
+
+## 2. Mutation đúng một flow nếu S0 PASS
+Giữ VPS-GHI bằng CAS + STARTED cùng commit. Backup flow configuration/ID/previous active status/operations/cron với checksum an toàn, không in secrets. Qua DOT đã có, chỉ đổi đúng state/schedule enabled→disabled của flow unique; không xóa flow, không sửa activity/history/111 flow khác, không direct SQL/REST/CLI, không đổi Nuxt/Graph/PG/docker. Có đường bật lại qua cùng DOT.
+Readback bằng DOT: flow inactive, owner/status đúng, các operation không đổi; không cần gọi refresh-counts để thử (tránh tăng tải); smoke nhóm GIỮ (report-pg, agent-data connector, modules, Graph, Kuma, backup) và chú thích trang registry đã nghỉ. Nếu phát hiện retained consumer thất bại, rollback đúng flow ngay và KQ DỪNG.
+POST-PROTECT với footprint thật row flow + DOT config liên quan: Đ30 regression, Đ31 integrity lâu dài, watchdog/selfcheck, rollback. Đủ 4 ô và PRE→POST same-or-better, không tạo đèn mới. Lỗi MỚI do RUN => rollback flow. Nếu Guard tổng vẫn FAIL chỉ do #22 cũ làm không gửi receipt, báo DỪNG·PARTIAL và giữ flow OFF khi các kiểm scoped PASS và D25 cho phép, không tô FULL XONG; cần Claude Reviewer xem rủi ro này trước READY. Không sửa Guard/Kuma để lấy PASS, không gửi Telegram ngoài đường đã duyệt.
+## 3. KQ
+Báo cáo L2A-20261014 (PG Tpre/Tnew, ID/status flow, mapping consumer, DOT/Đ31, rollback, có hay không receipt message_id, lỗi cũ/mới) và KQ@VPSC-L2A-COUNT-FLOW-OFF-20261014-01 XONG|DỪNG trong COLLAB; trả VPS-GHI cùng commit, dọn đồ tạm. Không có RUN mới ngoài L2(a). Sổ P84 giữ L1b RAM, L2(b–f), N2b key/502 Owner-only, #22 TQT/HJW, #11 disk và 08:00/24h.
+---
+## LỊCH SỬ — L1P-GUARD-CRON-20261013-01 KQ DỪNG·PARTIAL (9cc3080), KHÔNG THỰC HIỆN
+
 # PROMPT — VPSC-L1P-GUARD-CRON-20261013-01 · Khoá lịch máy vào Config Guard (lấp ô Điều 31 của L1, theo D26) + đo chỉ đọc câu luân phiên Kuma #11 · không đổi dòng lịch nào đang chạy
 
 RUN_ID: VPSC-L1P-GUARD-CRON-20261013-01
