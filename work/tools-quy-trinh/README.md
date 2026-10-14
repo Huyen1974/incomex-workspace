@@ -1,4 +1,12 @@
 # tools-quy-trinh · Cửa vào
+
+## Mã danh sách và duyệt sử dụng lần đầu · Owner 14/10/2026
+- Từ hai mục trở lên phải có danh sách quản lý. Mỗi Master phải có mã riêng duy nhất; mỗi bản ghi phải có mã riêng ổn định, không dùng số thứ tự hiển thị thay mã. Tra mã hiện có trước khi tạo; không đổi mã theo tên hoặc trạng thái.
+- Liên kết giữa các sổ dùng mã bản ghi nguồn. DEF00.1 dùng record_id (TQT-VIEC-…); CAT-069 dùng work_id trỏ về mã đó. Chưa biết liên kết thì để trống và ghi thiếu, không suy đoán hoặc gán chung cho một việc.
+- Đưa một Master vào sử dụng lần đầu bắt buộc có quyết định trực tiếp của User, gắn đúng mã Master, phiên/phạm vi và bằng chứng. GPT/Claude ký rà không thay User duyệt. AI chỉ ghi lại quyết định đã có, không tự tích hoặc suy diễn đã duyệt từ việc trang đang hoạt động.
+- User duyệt lần đầu không khóa thiết kế vĩnh viễn: thay đổi sau đó giữ lịch sử và đi theo quy trình hiệu chỉnh. Master cũ chưa có bằng chứng duyệt vẫn là chưa xác minh duyệt lần đầu, không tự hợp thức hóa.
+- Lượt P59 chỉ sửa hai cột mã và luật này. Cơ chế nút User duyệt/bằng chứng áp dụng mọi Master chưa triển khai, phải xử lý trong lượt rà tiếp; chưa được báo đã có cổng máy cưỡng chế.
+
 ## P58 · Sổ việc cần xử lý tiếp
 [CAT-069 · Việc cần xử lý tiếp](https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=CAT-069%3F) có lối vào ngay dưới Master Field, cùng cột. Không mở Master mới.
 - Nguồn hiện hành: cycle.issues của từng hồ sơ, tool_registry.walkthrough.findings, walkthrough_runs[].findings và application_preview.record.execution_walk.findings. UI tự đọc nguồn, không nhập lại bản sao CAT069; bản sao cũ giữ lịch sử, không dùng đè trạng thái mới.
