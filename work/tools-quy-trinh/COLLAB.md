@@ -8,12 +8,12 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · P54 · 2026-10-14T00:49:05.073201+00:00 · Codex executor
+### BẢNG ĐIỀU KHIỂN · P55 · 2026-10-14T02:30:00.761458+00:00 · Codex executor
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã xong: G1 Owner nhận7/7 giữ nguyên. P53 quy định006@0.8 có71bước/7mốc, đối chiếu87nghĩa vụ; hồsơ001 xemgộp/historic87, giữ143events. Sửa nợ/Field theoClaudeV5; CHECK001–005 PASS. Đây là bản sửa đã kiểm, chưa nghiệmthuAI mới.
-- ■ Đang làm: 0 RUN · P54 đã công bố và đọc lại; không giữ cờ/khóa chờ rà.
+- ■ Đang làm: TQT-P55-NAV · nối thanh chung và kiểm đường vào UI.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002. · Cấu trúc dữ liệu cho 1.000 việc + luật 1 trang (R26–R27, PR-22): Owner gật → PT-01 có số đo.
 - ➡ Kế tiếp: Claude rà P54 C1/F4/Overview, tự ký hai phiếu đúng phiên; đủ hai hãng mới trình Owner quyết. Chưa QT002/PG/nghiệm thu QT001.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
@@ -42,6 +42,9 @@ Cỗ máy đạt = User chỉ cần mục tiêu → phần còn lại tự chạ
 (Hai dòng đầu Owner duyệt 08/10/2026 · D04. Dòng cuối là lời Owner 10/10/2026 · D24/D25.)
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+
+**Owner 14/10/2026 — thanh điều hướng:** luôn duy trì thanh dưới 4 Mẹ (MOW/MOT/MOIT/MOUT), Master và các UI đã thiết kế tại mọi UI đang dùng. Dùng một nguồn eco-nav.js; không tự bỏ thanh khi sửa hồ sơ/Overview. Kiểm thanh nhìn thấy ở đáy và liên kết đúng trước khi bàn giao.
+
 
 - Owner 13/10/2026 · P51: “Tôi cần cả 2 bên xác nhận ok.” “bạn xác nhận OK, claude xác nhận ok. Lúc đó tôi mới có ý kiến.” Codex hoàn thiện001, Claude rà độc lập; phiếuCAT025 trong hồ sơ001, không chạy002 trước khi đủ điều kiện và Owner quyết.
 
@@ -1266,3 +1269,6 @@ STARTED@TQT-P54-PUBLISH 2026-10-14T00:49:05.073201+00:00 · Executor=Codex Host 
 
 - Công bố P54: commit `17727296d3a837fe97b7a1ab0212022635f9dbde`, pushed; UI transaction `28c1737e070c4a34b83aa3cc8328cc71`. Đọc lại 6 hash nguồn/UI và nội dung COLLAB khớp ứng viên đã kiểm; 71 bước, 239 Field, 24 quyết định, 24 nợ. Hồ sơ chuẩn HTTP200 thấy hai phiếu P54 OpenAI OK/Claude trống; P53-DEBTS giữ hai hãng OK. Preview cũ HTTP200, chỉ liên kết về Overview, 0 lỗi console. Overview: công cụ trình duyệt trả BROWSER_UNAVAILABLE; đã kiểm nguồn/syntax nhưng chưa xác nhận hiển thị lượt này, đề nghị Claude kiểm khi rà. Không nới CSP font cũ.
 KQ@TQT-P54-PUBLISH XONG · 2026-10-14T00:55:39.040171+00:00 · chỉ sửa/kiểm/công bố P54, không nghiệm thu QT001/P46 và chưa chạy QT002. STARTED giữ nguyên. Git sạch, 0 gitlock khi đọc lại; không tạo process nền/container/lease/tệp tạm VPS. Trả VPS-GHI cùng commit; không giữ cờ chờ Claude. NEXT_TRIGGER=CLAUDE_P54_REVIEW_RECORDED.
+
+## P55 · Duy trì thanh 4 Mẹ + Master
+STARTED@TQT-P55-NAV 2026-10-14T02:30:00.761458+00:00 · Codex Host · Owner yêu cầu duy trì thanh dưới ở mọi UI đang dùng. SSOT thanh: /ui-preview/mcp-writes/eco-nav.js; Overview: work/tools-quy-trinh/view.html qua /knowledge/modules?task=tools-quy-trinh&view=content&section=over-view. Không PG/config/restart.
