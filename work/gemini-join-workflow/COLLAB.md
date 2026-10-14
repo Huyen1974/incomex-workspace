@@ -7,14 +7,14 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 14:35 +07 · GPT Chat Host · P05
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 14:40 +07 · GPT Chat Host · P06
 - 🎯 Mục tiêu: ô 1 — Gemini/Antigravity vào hội đồng, nối VPS/MCP/KB/JEV, thử đưa thư. Owner 14/10: **Antigravity tự làm; Claude Code chỉ giúp phần có BLOCKED_CAPABILITY thật**. **Owner P05:** parity kết nối với GPT/Claude, không giới hạn vĩnh viễn theo mẫu G1.
 - 🏁 Xong khi: bốn tiêu chí ô 2 (GPT–Claude thống nhất; G1 chỉ là bước đầu). Bổ sung tiêu chí capability parity.
 - 📍 Tiến độ: [✓ G0a Claude P01] → [✓ G0b GPT P02] → [✓ Claude P03 ACCEPT] → [✓ GPT P04 READY G1] → [■ G1 Antigravity thực hiện] → [□ G2 ghế Google] → [□ G3 đưa thư] → [□ nghiệm thu]
 - ✅ Đã xong: P01–P03 đồng thuận; Claude ACCEPT@a5a08669df1a713b6f6c31cd2bc2b6fc5b9deb86, PROMPT last-touch đúng SHA; GPT P04 ACCEPT diff/READY cùng SHA, không sửa PROMPT. P05 chốt C6/C7: hạn chế G1 không lan sang G2/G3.
-- ■ Đang làm: — · 0 RUN active; G1 READY, chưa có STARTED, Owner có thể chuyển câu gọi Antigravity ngay.
+- ■ Đang làm: — · 0 RUN active; G1 READY, Gemini Mac báo preflight DỪNG do sandbox; chưa có STARTED/KQ trong repo, chưa chứng minh Antigravity 2.0/agy chạy.
 - ⬜ Còn lại: Antigravity G1 tự khảo sát + nối trong giới hạn quyền; Claude Code hỗ trợ từng delta nếu không tự làm được; G2 hội đồng; G3 đưa thư; nghiệm thu. Ma trận capability parity GPT/Claude↔Gemini trong các bước tiếp theo.
-- ➡ Kế tiếp: 😊 Owner chuyển một câu trỏ PROMPT G1 đúng SHA cho **Antigravity/Gemini**; 🤖 Antigravity tự chạy và báo P/KQ; Claude Chat rà KQ, GPT Host nghiệm thu. NEXT_TRIGGER=OWNER_START_G1.
+- ➡ Kế tiếp: Owner chuyển đúng G1 READY cho Antigravity 2.0/IDE/agy; chỉ nhờ Claude Code bootstrap nếu Antigravity không tự làm được. Không dựng bản copy tạm làm SSOT. NEXT_TRIGGER=G1_CORRECT_SURFACE.
 - ⛔ Không làm/để sau: không API trả phí, cổng public, webhook/email ingress; không bot vào claude.ai; không thay Hermes hay chạm HJW/Graph/VPSC/TQT; không ảnh hưởng Guard/Kuma/Telegram/backup Drive. Các giới hạn G1 là scope của một RUN, không phải cấm năng lực mãi mãi.
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
@@ -74,6 +74,15 @@ HUMAN_DIRECTIVE@GJW-20261014-03 EFFECTIVE · task=gemini-join-workflow · scope=
 - D02 · Owner 14/10 yêu cầu Antigravity tự setup trước, Claude Code chỉ fallback; Owner giao các AI thống nhất khuôn khổ/tiêu chí, GPT Host chốt ô 2 từ đề xuất Claude P01. Không suy Owner đã duyệt thay đổi production/credential/billing/AUTO.
 
 ## Nhật ký P
+
+### P06 · GPT Chat Host · 14/10/2026 · GEMINI MAC PRECHECK / ROUTING
+- Owner chuyển Gemini report 14:25 +07: process `com.google.GeminiMacOS`, Connected Folders chưa cấp local repo, SSH sandbox từ chối, chỉ thấy MCP `git` và `obsidian`, không có Incomex/KB/JEV. Gemini tuyên bố KQ DỪNG trong chat nhưng **chưa có STARTED/KQ trên SSOT**; đây là preflight của Gemini Mac, không phải chứng minh G1 đã chạy trên Antigravity app/CLI.
+- GitHub connector kiểm: repo `Huyen1974/incomex-workspace` visibility=`public`; nhận định `private` trong report sai. Snapshot `/private/tmp/tqt-current.json` / Git index là dữ liệu cũ, không đại diện latest HEAD; không dùng bản sao `/private/tmp/gjw-g1` để thay SSOT.
+- **Quyết định:** giữ G1 PROMPT.md và READY@a5a08669df1a713b6f6c31cd2bc2b6fc5b9deb86, không thay đổi quyền prod. Thử G1 trên đúng Antigravity 2.0/IDE/`agy` với MCP native trước. Nếu chưa có cài đặt hoặc client không tự mở được đường kết nối, Claude Code CLI chỉ giúp bootstrap phần thiếu, không chiếm G1. Không đụng SSH key, bypass sandbox, không dùng GitHub direct write.
+- Gemini Mac Tasks/Connected Folders là bề mặt khác; có thể khảo sát kết nối bổ sung cho hội đồng về sau nhưng không xem nó tương đương Antigravity IDE/CLI. MCP custom Gemini Apps web/mobile có điều kiện vùng/tài khoản riêng theo Google. Bản G1 đang READY không cần phản biện lại.
+- **Lưu ý nhật ký:** P04 đã là P của Host; Google sau này phải ghi P tiếp theo còn trống (sau P06), không ghi đè P04. KQ phải có model Gemini thật, đọc live task, gateway Google riêng, KB/JEV proof.
+- Tham khảo: https://www.antigravity.google/docs/mcp ; https://support.google.com/gemini/answer/17208717 ; https://support.google.com/gemini/answer/17209137 .
+
 
 ### P05 · GPT Chat Host · 2026-10-14 · OWNER DIRECTIVE: CAPABILITY PARITY
 - HUMAN_DIRECTIVE@GJW-20261014-04 EFFECTIVE · task=gemini-join-workflow · scope=đích kết nối tối đa + các vòng G1–G3 về capability, không cấp quyền prod ngay · step=G1/G2/G3 · recorded_by=openai-main · quote=«Bây giờ tôi muốn Gemini có năng lực tương tự. Không bị rào cản nào tự đặt ra làm giảm khả năng kết nối của agent với hệ thống => như vậy thì công việc mới thuận tiện được.» · text=không tự áp permanent read-only / chặn tool theo hãng; đạt parity GPT/Claude, tự setup native trước.
