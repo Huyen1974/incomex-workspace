@@ -8,14 +8,14 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · P61 · 14/10/2026 15:09 +07 · Codex Host
+### BẢNG ĐIỀU KHIỂN · P61 · 14/10/2026 15:22 +07 · Codex Host
 - 🎯 Mục tiêu: ô 1 — cỗ máy tạo quy trình chạy được; nhìn là hiểu, làm có bằng chứng.
 - 🏁 Xong khi: ô 2 — người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ: [✅ G1 đã nhận] → [■ Hiệu chỉnh theo VÒNG 9] → [□ AI mới làm thật] → [□ PG sau nghiệm thu]
 - ✅ Đã xong: rà VÒNG 9; ứng viên P61 kiểm tổng PASS. OpenAI và Anthropic cùng REJECT P60/P58 đang sống; chưa chuẩn.
-- ■ Đang làm: — · 0 RUN active · P61 chưa công bố, không giữ cờ VPS.
+- ■ Đang làm: P61 công bố ứng viên đã kiểm tại nguồn sống; VPS-GHI vừa trống, đã lấy cờ cho lượt này.
 - ⬜ Còn lại: công bố ứng viên/kiểm UI sau cờ trống, rồi ký hai hãng; FIELD-COVERAGE/AI mới; Owner 5 ô/Master; CHECK004/HVU riêng.
-- ➡ Kế tiếp: NEXT_TRIGGER=VPS-GHI_TRONG; rà nguồn/cờ, công bố P61, kiểm UI thật rồi ký OpenAI và Owner chuyển Claude.
+- ➡ Kế tiếp: NEXT_TRIGGER=P61_CONG_BO_VA_UI_DAT; ký OpenAI rồi Owner chuyển Claude.
 - ⛔ Không làm: PG · QT002/MOW002 · nghiệm thu QT001 bằng TEST · ký thay Anthropic/Owner · ghi đồng thời VPSC.
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -1372,4 +1372,8 @@ STARTED@TQT-P60-PUBLISH 2026-10-14T04:38:55.612957+00:00 · Codex Host · công 
 - Gói ứng viên duy nhất: /Users/nmhuyen/Documents/Codex/2026-10-14/ch-ng-ta-ang-d-phi/outputs/TQT-P61-candidate.zip. Có nguồn/fixture/biên nhận để giải nén vào nơi thử và chạy CHECK006 mặc định; chưa là SSOT runtime hoặc chuẩn. Khi công bố phải đọc lại nguồn/hash/cờ, giữ các review vừa ghi, CAS tại nguồn sống; không deploy mã từ GitHub.
 - NEXT_TRIGGER=VPS-GHI_TRONG; công bố và kiểm UI thật rồi mới ký OpenAI trên bản công bố; sau đó Owner chuyển Claude mở Hộp chờ ký của Anthropic. Không PG/QT002; không giữ process để đợi.
 KQ@TQT-P61-V9 DỪNG · 2026-10-14T08:09:09Z · VPS_BẬN_VPSC_N2C · đã khép rà và chuẩn bị ứng viên, 0 RUN/cờ TQT.
+
+## Tiếp tục P61 · cờ VPSC đã trả
+STARTED@TQT-P61-PUBLISH 2026-10-14T08:22:19Z · executor=Codex · read-gate: root dfc4fb06, VPS-GHI trống; task/P49 và hash sống đã đọc lại. Ứng viên P61 PASS và đúng scope; giữ review REJECT P60/P58 vừa ghi. Không PG/QT002.
+
 
