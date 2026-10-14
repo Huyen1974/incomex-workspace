@@ -1,4 +1,78 @@
-# PROMPT — VPSC-L2A-COUNT-FLOW-OFF-20261014-01 · ngừng một flow Directus di sản có kiểm D26
+# PROMPT — VPSC-L2A-CTXPACK-CRON-OFF-20261014-01 · L2(a) đổi đích theo số đo: tắt 1 dòng lịch context-pack hỏng 100% từ 04/05 (nguồn đọc PG lớn nhất còn lại) + khoá crontab user vào Config Guard (D26) · không chạm Directus/flow/PG/mã
+
+RUN_ID: VPSC-L2A-CTXPACK-CRON-OFF-20261014-01
+Task: `work/vps-clean-20-9-26` (VPSC) · D22–D26 · bước L2(a) của STEP_WALK_V2. Không phải việc mới.
+Soạn: Claude Chat P96 (B2 sau GPT P95). Thay bản nháp «tắt flow Count Refresh» của P95 vì số đo cho thấy flow không phải nguồn chính, và tắt flow cần DOT + ô canh chưa có (lý do đủ ở P96). Rà: GPT Chat Host B3 một lượt: ổn ⇒ READY đúng SHA; sửa nhỏ chỉ thêm kiểm thì sửa thẳng rồi READY (Claude chấp nhận trước).
+Executor: Claude Code CLI, phiên MỚI trên Mac, qua `ssh contabo`. Ghi repo: Incomex MCP `workspace_*` root `workspace`.
+Status: **DRAFT — Claude Reviewer ACCEPT (P96), chờ GPT Host READY đúng SHA last-touch**.
+Bằng chứng: `/opt/incomex/work/vps-clean-20-9-26/VPSC-L2A-CTXPACK-CRON-OFF-20261014-01/` (`<EV>`; chỉ receipt đã làm sạch). Báo cáo: mục `L2A-20261014` trong `BAO-CAO.md` hiện có. Tiến độ + KQ: dưới P96 trong `COLLAB.md`. Không tạo tệp repo mới.
+**Chỉ thực hiện phần trên dòng `LỊCH SỬ` đầu tiên.** Tham chiếu được nêu tên: §1 luật cứng + §2 S0 của bản lịch sử HEAL-01; trong `BAO-CAO.md`: mục `L1P-20261013` (§2 đăng ký `guard-registry`, dòng «Sửa lịch đúng đường», bảng coverage) và mục `L1-20261013` (tắt dòng lịch bằng tiền tố + bản sao).
+
+## 0. Vì sao, và thế nào là XONG
+Reviewer đo chỉ đọc 14/10 01:00–01:16Z (P96):
+- PG giờ đọc theo đợt: 10 phút yên (01:02→01:12Z) cả DB `directus` chỉ +249 khối. Đợt lớn trùng giây với `dot-context-pack-build.sh` — chạy từ lịch của user `incomex` (sổ mã: `cron-cmd:incomex`) mỗi 3 giờ (01, 04, …, 22Z): đọc `context_trigger_sources` → `meta_catalog` → `COUNT(*)` `birth_registry` (1,22 triệu dòng) + `normative_registry` + `system_issues` (cùng giây 01:01:08) → `dot_tools` → rồi hỏng `pipeline exit 126`.
+- `context_pack_requests`: lần dựng thành công cuối **2026-05-04 04:00Z**; từ đó **1.150 lượt, 100% hỏng**, `manifest_id` rỗng ⇒ 5 tháng không ra sản phẩm nào; tắt lịch không làm ai mất gì mới (gói cũ, nếu đang được đọc, giữ nguyên).
+- `birth_registry` +43 lượt quét ở 15:27–22:33Z (3 lượt builder) và +15 ở 22:33–01:01Z (1 lượt) ⇒ ≈ 14 lượt quét mỗi lượt builder ≈ 40–50% khối PG đọc còn lại (ước; số 24h xác nhận). Flow Count Refresh chỉ đếm `birth_registry` 1 lần/6 giờ (log Directus 18:00:17 · 00:00:15) — không phải nguồn chính.
+- Crontab user `incomex` CHƯA là đích Config Guard (L1P chỉ khoá crontab root + 5 tệp `/etc/cron.d`) ⇒ lỗ D26.
+**XONG khi đủ cả 5:**
+1. Đúng 1 dòng lịch có chuỗi `context-pack-build` bị tắt bằng tiền tố `#L2A-OFF-VPSC-L2A-CTXPACK-CRON-OFF-20261014-01 ` + 1 dòng biển báo; mọi dòng chạy khác (mọi crontab) giữ nguyên nội dung và số lượng.
+2. `/var/spool/cron/crontabs/incomex` (và crontab user tự viết khác nếu S0.4 thấy, trừ của việc đang có cờ bận) là đích Config Guard, MATCH sau khi xong.
+3. Đường sửa lịch qua `incomex-config-apply-v0` được dùng thật ít nhất 1 lần (lấp nợ L1P «chưa thử thật»); Guard `--coverage` cho footprint lượt này đủ 4 ô Đ30 · Đ31 · canh · lùi, 0 THIẾU.
+4. Tpre (đầu RUN) và Tnew (cuối RUN) PG chỉ đọc: `pg_stat_database` (directus) + `pg_stat_user_tables`/`pg_statio_user_tables` của `birth_registry`, `system_issues`, `normative_registry`, `dot_tools`, `meta_catalog`, `context_pack_requests`; ghi cửa sổ L1-only T0 (13/10 14:57:19Z) → Tpre đúng số giờ, không gọi là 24h.
+5. 22 đèn = PRE_RED_SET; agent-data `/health`, Directus ping, Nuxt `/knowledge/modules` 200; manifest context pack cuối = như S0.
+
+## 0A. Quyền Owner — khối Owner dán PHẢI có nguyên 2 dòng này
+Owner D25 (13/10/2026 20:59): «Xét cho cùng, toàn bộ hệ thống chỉ có mỗi phần nhỏ là: PG đếm PG (ba lo thông tin), agent data (RAG và các connector liên quan) và Graph là cần dùng, tất cả các phần đã triển khi trước đây như: govenance, khai sinh, Miếng thông tin, registries, pivot count, Lark (thì có thể tạm để) Đếu là những thứ có thể off được để tiết kiệm tài nguyên. Nhưng 1 số nội dung như bảo vệ điều 30, 31 thì vẫn cần dùng => vi vậy off theo chủ để rồi xem xét từng phần để tối ưu VPS nhé. Phần thực sự dùng chưa nhiều, nhưng tài nguyên đang bị chiếm dụng nhiều => làm sao bóc tách ra (nhờ graph) để off bớt nhé.»
+Owner D26 (13/10/2026 22:25): «Cần nhắc là mọi thứ nên được bảo vệ bởi điều 30 31 tránh các AI làm hỏng mã của nhau nhé»
+
+RUN này chỉ: tắt (đảo được) đúng 1 dòng lịch đã nêu + đăng ký bảo vệ crontab user + đo chỉ đọc. Không xoá tệp/mã/dòng PG, không sửa hay chạy `dot-context-pack-build.sh` hoặc tệp nào của context pack, không Directus/flow/trigger/Nuxt, không sửa Guard/Kuma, không rebaseline đích Config Guard sẵn có, không xoay khoá. Thiếu 1 trong 2 dòng trên hoặc thiếu Reviewer ACCEPT + Host READY đúng SHA PROMPT hiện tại ⇒ DỪNG trước STARTED.
+
+## 1. Luật cứng
+- Áp nguyên §1 của bản lịch sử HEAL-01 (VPS-GHI · báo từng bước · danh sách KHÔNG ĐƯỢC · bí mật · nghi ngờ thì giữ).
+- **Đích định sẵn, agent không chọn:** chỉ dòng lịch có chuỗi `context-pack-build`. 0 hoặc > 1 dòng như vậy (xét mọi crontab), hoặc builder còn người gọi khác đang có lịch (S0.5) ⇒ DỪNG, ghi tệp + số thứ tự dòng (không in nội dung).
+- Dòng nằm trong crontab root (đã canh) ⇒ chỉ sửa qua `incomex-config-apply-v0 --target-id cron-root-crontab` đúng dòng «Sửa lịch đúng đường» của BAO-CAO L1P; không dùng lệnh `crontab`.
+- Dòng nằm trong crontab user `incomex` (chưa canh) ⇒ (a) đăng ký baseline hiện tại qua apply-v0 `guard-registry` TRƯỚC, (b) rồi đổi dòng qua apply-v0 với đích vừa đăng ký. apply-v0 không nhận tệp spool user (đọc `--help`/mã ở S0, không tự chế lệnh) ⇒ đổi bằng cách L1 (`crontab -u incomex -l` → tệp `<EV>` → `crontab -u incomex <tệp>`) rồi đăng ký baseline ngay sau trong cùng bước, ghi lý do.
+- Giữ nguyên `/etc/cron.d/incomex-context-pack-retention` (đã canh, chỉ dọn gói cũ).
+- 4 đích lệch cũ (#22 TQT/HJW) + INV20 giữ nguyên; không sửa Guard/Kuma để lấy PASS.
+- Ngân sách ≤ 30 phút; không chờ lượt 3 giờ kế tiếp (Reviewer kiểm sau).
+
+## 2. S0 — đọc + PRE (chỉ đọc)
+1. Đọc `AGENTS.md` → COLLAB gốc (`VPS-GHI`) → VPSC COLLAB §0 (D25, D26) + P95–P96 → PROMPT này → `BAO-CAO.md` mục L1P-20261013 + L1-20261013.
+2. Kiểm Reviewer ACCEPT + Host READY đúng SHA; khối Owner có 2 dòng §0A; §2 bước 2–3 của bản lịch sử HEAL-01 (sàn tài nguyên, Guard PRE + PRE_RED_SET); drift-check PRE (TOTAL · danh sách MISMATCH).
+3. Tpre PG (§0 mục 4) + 3 dòng `context_pack_requests` mới nhất (giờ · trạng thái · lỗi) + manifest cuối (id · giờ).
+4. Bảng crontab user: `/var/spool/cron/crontabs/*` → tệp · user · số dòng chạy · đã là đích Config Guard? · việc chủ · cờ bận (chỉ tên, không in nội dung). Dòng `context-pack-build`: tệp · số thứ tự · cột lịch.
+5. Người gọi khác của `dot-context-pack-build.sh` (chỉ tên): systemd unit/timer, script, DOT, tiến trình đang chạy. Có lịch khác ⇒ ghi → Host, KHÔNG tắt, DỪNG. Tiến trình đang chạy đúng lúc ⇒ đợi nó tự xong (≤ 2 phút) rồi mới làm §3.
+6. Giữ `VPS-GHI` (CAS) + STARTED dưới P96 cùng commit trước mọi thay đổi.
+
+## 3. Thực hiện
+1. **Bản sao:** crontab chứa dòng → `<EV>/crontab-<user>.truoc` (sha) + bản spool nguyên quyền.
+2. **Đăng ký** (nếu tệp chưa canh): apply-v0 `guard-registry` thêm `/var/spool/cron/crontabs/incomex` (+ tệp đủ điều kiện ở S0.4), baseline = sha hiện tại; `.pre` registry làm đường lùi; drift-check: đích mới MATCH.
+3. **Tắt 1 dòng qua apply-v0:** ứng viên = bản hiện tại + tiền tố `#L2A-OFF-VPSC-L2A-CTXPACK-CRON-OFF-20261014-01 ` cho đúng dòng builder + 1 dòng biển báo đầu tệp: `# CONFIG GUARD từ <UTC> (VPSC-L2A-CTXPACK-CRON-OFF-20261014-01 · D25/D26 Owner): tắt lịch context-pack hỏng 100% từ 2026-05-04; bật lại = bỏ tiền tố qua incomex-config-apply-v0; sửa tay ⇒ #22 đỏ.` Kiểm trước nạp: diff đúng −1/+2, dòng chạy giảm đúng 1. Cron tự nạp ≤ 1 phút; đọc lại bằng `crontab -l -u <user>`.
+4. **drift-check:** đích này MATCH baseline mới; danh sách MISMATCH cũ không dài thêm.
+5. **Thử âm (Đ30):** fixture/selftest của drift-check như L1P (không sửa tay tệp thật); không có ⇒ «chưa thử âm» + lý do.
+6. **Guard POST `--coverage`:** footprint lượt này (crontab đã sửa, registry) ⇒ 4 ô, 0 THIẾU.
+7. **Biển báo chung:** thêm vào câu «LỊCH MÁY CÓ KHOÁ» ở dòng VPSC của COLLAB gốc: crontab user `incomex` (+ tệp khác nếu có) thuộc Config Guard từ <ngày>.
+8. **Tnew + POST:** Tnew PG; 22 đèn = PRE_RED_SET; health 200 (agent-data, Directus ping, Nuxt `/knowledge/modules`); manifest cuối = S0.3; số dòng chạy các crontab khác = PRE.
+9. **Báo cáo:** mục `L2A-20261014` trong BAO-CAO (cho Owner ≤ 3 dòng · bảng crontab user · diff · drift trước/sau · coverage 4 ô · Tpre/Tnew · «kiểm sau» ở §4) → `KQ@VPSC-L2A-CTXPACK-CRON-OFF-20261014-01 XONG|DỪNG · …` dưới P96 → **trả `VPS-GHI: trống` cùng commit**. Guard tổng PASS ⇒ gửi Telegram POST-PROTECT, lưu `message_id`; Guard tổng FAIL chỉ vì #22 cũ (INV5_6 4 đích TQT/HJW + INV20) ⇒ ghi «nợ receipt #22», KQ PARTIAL, KHÔNG lùi, không gửi Telegram ngoài đường Guard.
+**Lỗi thì lùi — chỉ khi lỗi MỚI do lượt này** (apply-v0 lỗi · đích mới MISMATCH · đèn đỏ mới ngoài PRE_RED_SET · health ≠ 200 · dòng chạy khác đổi): crontab về bản `.truoc` qua apply-v0 (hoặc `crontab -u <user> <EV>/crontab-<user>.truoc` nếu tệp chưa đăng ký) + registry về `.pre` qua apply-v0; kiểm sha = PRE; KQ DỪNG nêu bước. Guard FAIL chỉ vì #22 cũ hoặc câu luân phiên #11 ⇒ PARTIAL, GIỮ thay đổi.
+**Đồ tạm dự kiến (DROOT50 c):** `<EV>` (giữ có chủ đích) · thư mục ứng viên apply-v0 `/root/incomex-config-changes/<id>/` + baseline/`.pre` (giữ làm đường lùi) · 0 tiến trình nền · tệp tạm Mac xoá sau KQ.
+
+## 4. Bước đi
+| Bước | Việc | Bằng chứng | Lỗi thì |
+|---|---|---|---|
+| 1/5 S0 | đọc, PRE, Tpre, bảng crontab user, người gọi, giữ khoá | ảnh PRE, STARTED | DỪNG trước mọi thay đổi |
+| 2/5 Bản sao + đăng ký | apply-v0 `guard-registry` | sha, registry `.pre` | lùi |
+| 3/5 Tắt 1 dòng | apply-v0 đích crontab | diff −1/+2, dòng chạy −1 | lùi |
+| 4/5 Kiểm | drift, thử âm, coverage, POST, Tnew | MATCH, 0 THIẾU, 22 đèn = PRE | lùi nếu lỗi mới; chỉ #22 cũ ⇒ PARTIAL, giữ |
+| 5/5 KQ | BAO-CAO + KQ + biển báo chung + trả khoá | 0 tiến trình nền | — |
+
+Sau RUN (không thuộc RUN này, không ai chờ): Reviewer ở lượt điều hành kế tiếp kiểm lượt 3 giờ kế (04:00Z/07:00Z…) KHÔNG sinh dòng `context_pack_requests` mới và `birth_registry` không còn đợt quét quanh :00–:01 của giờ đó; đọc L1 24h (T0→Tpre + Tpre→T+24h). Flow Count Refresh GIỮ tạm (ước ≤ 5–6%; muốn tắt cần DOT bật/tắt flow + ô canh flow — Guard ghi vùng U02 «Directus Flows chưa quét») ⇒ xét lại theo luật < 5% sau số 24h.
+
+---
+
+<details><summary>LỊCH SỬ — bản nháp L2(a) «tắt flow Count Refresh» (GPT P95, KHÔNG chạy — Claude P96 đổi đích theo số đo) — KHÔNG THỰC HIỆN</summary>
+
+# (Lịch sử) PROMPT — VPSC-L2A-COUNT-FLOW-OFF-20261014-01 · ngừng một flow Directus di sản có kiểm D26
 RUN_ID: VPSC-L2A-COUNT-FLOW-OFF-20261014-01
 Task: work/vps-clean-20-9-26. Host GPT Chat; Reviewer Claude Chat; Executor Claude Code CLI, Owner tự dán.
 STATUS: DRAFT B1/P95, CHƯA READY. Không tự RUN. Chỉ phần trước mục LỊCH SỬ là hiện hành. Mục này tiếp tục D25/D26, không mở task mới.
@@ -27,6 +101,9 @@ Readback bằng DOT: flow inactive, owner/status đúng, các operation không �
 POST-PROTECT với footprint thật row flow + DOT config liên quan: Đ30 regression, Đ31 integrity lâu dài, watchdog/selfcheck, rollback. Đủ 4 ô và PRE→POST same-or-better, không tạo đèn mới. Lỗi MỚI do RUN => rollback flow. Nếu Guard tổng vẫn FAIL chỉ do #22 cũ làm không gửi receipt, báo DỪNG·PARTIAL và giữ flow OFF khi các kiểm scoped PASS và D25 cho phép, không tô FULL XONG; cần Claude Reviewer xem rủi ro này trước READY. Không sửa Guard/Kuma để lấy PASS, không gửi Telegram ngoài đường đã duyệt.
 ## 3. KQ
 Báo cáo L2A-20261014 (PG Tpre/Tnew, ID/status flow, mapping consumer, DOT/Đ31, rollback, có hay không receipt message_id, lỗi cũ/mới) và KQ@VPSC-L2A-COUNT-FLOW-OFF-20261014-01 XONG|DỪNG trong COLLAB; trả VPS-GHI cùng commit, dọn đồ tạm. Không có RUN mới ngoài L2(a). Sổ P84 giữ L1b RAM, L2(b–f), N2b key/502 Owner-only, #22 TQT/HJW, #11 disk và 08:00/24h.
+
+</details>
+
 ---
 ## LỊCH SỬ — L1P-GUARD-CRON-20261013-01 KQ DỪNG·PARTIAL (9cc3080), KHÔNG THỰC HIỆN
 
