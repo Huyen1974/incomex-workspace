@@ -7,14 +7,14 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 17:13 +07 · Claude Code CLI · P09
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 17:30 +07 · Claude Code CLI · P09
 - 🎯 Mục tiêu: ô 1 — Gemini vào hội đồng như ghế Google, kết nối tối đa ngang GPT/Claude. Owner 15:44: Gemini tự làm trước; phần nó không làm được giao Claude Code làm cho nhanh.
 - 🏁 Xong khi: ô 2. G1 xong = `agy` đăng nhập + danh tính google-main thật (P do chính Gemini ghi) + KB/JEV gọi thật + bảng parity.
 - 📍 Tiến độ: [✓ G0] → [✓ G1 Gemini tự khảo sát, DỪNG có bằng chứng] → [■ G1B Claude Code làm nốt + Gemini tự chứng minh, 1 lượt] → [□ G2 ghế Google] → [□ G3 đưa thư/điện thoại] → [□ nghiệm thu]
 - ✅ Đã xong: P01–P09; Claude P08 ACCEPT@e42fb68d2bcc7db7cc5615462292758e58a77916; GPT P09H READY cùng SHA; D03/HUMAN_DIRECTIVE-06 ghi phạm vi Owner giao, không sửa PROMPT.
-- ■ Đang làm: — · 0 RUN active · G1B KQ DỪNG VPS_BẬN 10:13Z: S1 Mac xong + secret GSM sẵn; S2–S4 còn (VPS 0 ghi).
+- ■ Đang làm: Bước G1B lượt 2 (S2–S4) · executor Claude Code CLI · RUN GJW-G1B-CLAUDE-SUPPORT-20261014-01 STARTED 10:30Z · giữ VPS-GHI từ 10:29Z, dự kiến trả 10:55Z.
 - ⬜ Còn lại: G1B → G2 → G3 → nghiệm thu, đúng thứ tự.
-- ➡ Kế tiếp: Owner giao Claude Code CLI một lượt: kiểm TQT-P61 cờ bỏ quên (bằng chứng không có ghi VPS thì nhả theo D04), nhận lại VPS-GHI đúng luật → GJW S2–S4 với READY e42fb68; Gemini tự smoke/P10. NEXT_TRIGGER=OWNER_RUN_G1B_RECOVER_THEN_FINISH.
+- ➡ Kế tiếp: 🤖 Claude Code chạy S2–S4 tới KQ · Gemini ghi P10 · Host nghiệm thu sau KQ. NEXT_TRIGGER=KQ_G1B.
 - ⛔ Không làm/để sau: G2/G3 trước khi G1B xong; mượn khoá ghế khác; xoá tệp (chỉ chuyển vào lưu trữ có INDEX); khởi động lại gì ngoài agent-data (+ jev-gw nếu Q02 nêu); đụng HJW/Graph/VPSC/TQT.
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
@@ -106,6 +106,8 @@ HUMAN_DIRECTIVE@GJW-20261014-05 EFFECTIVE · task=gemini-join-workflow · scope=
   - Parity tạm (đo lại ở S4): agent-data GAP (chờ S2) · KB GAP (đi qua agent-data `search_knowledge`, chờ S2) · JEV PARITY_GAP: jev-gw chỉ có một path-secret chung; đề xuất secret GSM riêng cho Google + key-fetch ghi thêm một named-server trong `servers.json` (mcp-proxy nhận nhiều named-server) + restart jev-gw một lần — cần DRAFT riêng vì sửa script root giữ bí mật · `fs_*` N/A (route Anthropic) · Chrome native: chưa đo (G3) · đưa thư: G3. Nhãn `gemini-agy` chưa có dòng trong bảng phiên dịch AGENTS A9 ⇒ Task View sẽ hiện «Chưa rõ»; Founders thêm một dòng (luật nền, ngoài G1B).
   - Rollback: Mac `cp -p ~/.gemini/_luu-tru-gjw-20261014/mcp_config.json.truoc-g1b ~/.gemini/config/mcp_config.json` + `mv` ngược theo INDEX.md; GSM: disable version 1 của `MCP_KEY_GOOGLE_MAIN`.
   - Dọn: 2/2 đồ tạm đã gỡ (script đo/áp ở scratchpad phiên Claude Code; bộ canh khoá nền đã dừng) · không tạo `$TMPDIR/gjw-g1b-*`, VPS 0 tệp/0 thư mục ứng viên · giữ có chủ đích: `~/.gemini/_luu-tru-gjw-20261014/` (5 tệp chuyển + sao lưu mcp_config + INDEX + sha256), secret GSM `MCP_KEY_GOOGLE_MAIN` v1 · còn lại: 0 tiến trình nền, 0 cổng, 0 khoá.
+- STARTED@GJW-G1B-CLAUDE-SUPPORT-20261014-01 2026-10-14T10:30Z · executor=Claude Code CLI · lượt 2 theo D04 + HUMAN_DIRECTIVE-07: chỉ S2–S4, tái dùng agy/MCP Mac/secret GSM v1, không chạy lại S0–S1
+- GJW-G1B-CLAUDE-SUPPORT-20261014-01 · bước 3/5 · thu cờ TQT theo D04: phiên Codex P61 ngắt 09:14:15Z (`turn_aborted`), VPS 0 tiến trình/0 tệp đổi sau 09:15Z, ssh root chỉ là MCP Graph chỉ đọc ⇒ KQ CỜ_BỎ_QUÊN ghi ở COLLAB TQT (`ce6b7a6`, sửa nhãn `081e865`), nhả dòng VPS-GHI gốc `7ef701f`, lấy khoá cho RUN này `b1bf8de` kèm báo trước restart agent-data. Kiểm tươi: READY e42fb68 còn hiệu lực, không STOP; cờ STARTED chưa KQ duy nhất khác là HJW-N3-COURIER-HARD-PART-SPIKE (13/10, cờ treo cũ ở Mac, không đụng) · 2026-10-14T10:30Z · dự kiến xong 11:10Z
 
 ### P08 · Claude Chat · 2026-10-14 15:55 +07 · Reviewer · B2 rà P07 + G1B → SỬA THẲNG → ACCEPT
 - Ghế: claude-chat · Bước/vòng: G1B duyệt PROMPT · 1/3 · Based_on: `9979b7c` (PROMPT version abefc73a) + mã `docker/agent-data-repo/agent_data/workspace_tools.py` (gốc code, chỉ đọc) · Scope: P07, PROMPT G1B, §0.3 C1–C7, báo cáo G1 của Gemini. Bảng: lệch (chưa có Q02 + cách xong G1 trong 1 lượt) ⇒ đã sửa · Ô 1–2: khớp.
