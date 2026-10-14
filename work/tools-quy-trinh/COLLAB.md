@@ -8,15 +8,15 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · P60 · 2026-10-14T04:53:00.897221+00:00 · Codex Host
-- 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
-- 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
-- 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
-- ✅ Đã xong: G1 Owner nhận7/7 giữ nguyên. P53 quy định006@0.8 có71bước/7mốc, đối chiếu87nghĩa vụ; hồsơ001 xemgộp/historic87, giữ143events. Sửa nợ/Field theoClaudeV5; CHECK001–005 PASS. Đây là bản sửa đã kiểm, chưa nghiệmthuAI mới.
-- ■ Đang làm: — · 0 RUN active
-- ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002. · Cấu trúc dữ liệu cho 1.000 việc + luật 1 trang (R26–R27, PR-22): Owner gật → PT-01 có số đo.
-- ➡ Kế tiếp: NEXT_TRIGGER=Claude VÒNG 9 rà và ký TQT-P60-CORRECTIONS. Sau hai hãng, Owner duyệt 5 ô; chưa QT002/PG.
-- ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
+### BẢNG ĐIỀU KHIỂN · P61 · 14/10/2026 15:09 +07 · Codex Host
+- 🎯 Mục tiêu: ô 1 — cỗ máy tạo quy trình chạy được; nhìn là hiểu, làm có bằng chứng.
+- 🏁 Xong khi: ô 2 — người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
+- 📍 Tiến độ: [✅ G1 đã nhận] → [■ Hiệu chỉnh theo VÒNG 9] → [□ AI mới làm thật] → [□ PG sau nghiệm thu]
+- ✅ Đã xong: rà VÒNG 9; ứng viên P61 kiểm tổng PASS. OpenAI và Anthropic cùng REJECT P60/P58 đang sống; chưa chuẩn.
+- ■ Đang làm: — · 0 RUN active · P61 chưa công bố, không giữ cờ VPS.
+- ⬜ Còn lại: công bố ứng viên/kiểm UI sau cờ trống, rồi ký hai hãng; FIELD-COVERAGE/AI mới; Owner 5 ô/Master; CHECK004/HVU riêng.
+- ➡ Kế tiếp: NEXT_TRIGGER=VPS-GHI_TRONG; rà nguồn/cờ, công bố P61, kiểm UI thật rồi ký OpenAI và Owner chuyển Claude.
+- ⛔ Không làm: PG · QT002/MOW002 · nghiệm thu QT001 bằng TEST · ký thay Anthropic/Owner · ghi đồng thời VPSC.
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
 
@@ -1363,3 +1363,13 @@ STARTED@TQT-P60-PUBLISH 2026-10-14T04:38:55.612957+00:00 · Codex Host · công 
 - KQ@TQT-P60-PUBLISH DỪNG 2026-10-14T04:53:00.897221+00:00 · đã công bố và kiểm P60; khép sạch để Claude rà, chưa có đồng thuận hai hãng và Owner. Dọn: 0 tiến trình/khóa/container/tệp tạm tạo trên VPS; báo cáo kiểm là bằng chứng bền trong repo. Bản sao kiểm local không là hồ sơ chuẩn.
 - Phần còn mở có nguồn: 16 liên kết việc cũ chưa xác minh tại CAT-069; 10 bước tự động dự kiến trỏ nợ TQT-P53-AUTOMATION; lịch sử sửa thiếu biên nhận vẫn HISTORICAL_UNVERIFIED; PG/định danh ký/server enforcement/tách tệp lớn theo nợ hiện có. Chưa tuyên bố tất cả các điều kiện nghiệm thu V8.2 đã đạt.
 - Claude: rà VÒNG 9 trên P60 (gồm bổ sung bộ nạp), ký APPROVE/REJECT đúng phiếu/binding/scope, nhận xét vào P49. Không chỉ ký trong chat. Chưa chạy QT002/PG.
+
+## KQ P61 · Codex đối chiếu và ký REJECT bản đang sống · 14/10/2026
+- Hai phiếu P60/P58: OpenAI đã rút kết luận thông qua bản hiện hành bằng review REJECT nối sau, cùng binding/phạm vi; không sửa hoặc xóa chữ ký cũ. Anthropic đã REJECT VÒNG 9. Hai bên chưa thông qua quy trình chuẩn.
+- Ứng viên P61 đã sửa và kiểm local: CHECK006 PASS 001–005; 36 ca chữ ký, 29 ca Field, 11 ca fixture dừng sớm và 3 ca chữ dính. Ca cũ vẫn đạt; G1/143 sự kiện giữ nguyên. Chi tiết evidence/TQT-P61-draft-checks.json.
+- Điều chỉnh đã ghi trước sửa: Hộp dùng lại CV-001; REJECT khép lượt rà nhưng chặn chuẩn; Owner/historical/ngoài phạm vi giữ riêng; không gán 250 Field thành số mới. K9.4 còn 24 nghĩa nghiệp vụ cần đối chiếu tại FIELD-COVERAGE.
+- DỪNG công bố: VPS-GHI đang do VPSC-N2C-CODE-BACKUP-GPG-20261014-01 giữ. Không sửa UI/runtime, không lấy hoặc trả cờ của VPSC; chưa kiểm UI thật P61, chưa ký APPROVE ứng viên.
+- Gói ứng viên duy nhất: /Users/nmhuyen/Documents/Codex/2026-10-14/ch-ng-ta-ang-d-phi/outputs/TQT-P61-candidate.zip. Có nguồn/fixture/biên nhận để giải nén vào nơi thử và chạy CHECK006 mặc định; chưa là SSOT runtime hoặc chuẩn. Khi công bố phải đọc lại nguồn/hash/cờ, giữ các review vừa ghi, CAS tại nguồn sống; không deploy mã từ GitHub.
+- NEXT_TRIGGER=VPS-GHI_TRONG; công bố và kiểm UI thật rồi mới ký OpenAI trên bản công bố; sau đó Owner chuyển Claude mở Hộp chờ ký của Anthropic. Không PG/QT002; không giữ process để đợi.
+KQ@TQT-P61-V9 DỪNG · 2026-10-14T08:09:09Z · VPS_BẬN_VPSC_N2C · đã khép rà và chuẩn bị ứng viên, 0 RUN/cờ TQT.
+

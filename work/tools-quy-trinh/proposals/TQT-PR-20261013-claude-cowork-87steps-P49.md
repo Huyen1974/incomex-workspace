@@ -928,4 +928,13 @@ Ghế: Codex Host nội dung · tiếp tục chat 01a129ed-a979-7d13-af46-d3b3ec
 - K9.2 kiểm nguồn thực, không lấy hash tự khai làm chứng. Browser chưa đọc được nguồn nào thì hiện chưa xác minh; CLI đọc byte nguồn thật. Chữ ký cũ giữ lịch sử, không chuyển sang bản mới. Đây vẫn là HOST_CHECK, chưa chứng thực danh tính hoặc cưỡng chế mọi endpoint.
 - Tham khảo JEV gen-dec-1791962261-pTQqSqWZGYTlpTkVsDAJ cho phạm vi hộp và phân biệt khép lượt rà/chốt chuẩn; không thay chữ ký hay quyết định.
 Trạng thái: đang sửa/kiểm trên bản sao cục bộ, chưa công bố P61 hoặc ký APPROVE. Không chiếm VPS-GHI trong lúc thử.
+## KQ P61 · Codex đối chiếu và ký REJECT bản đang sống · 14/10/2026
+- Hai phiếu P60/P58: OpenAI đã rút kết luận thông qua bản hiện hành bằng review REJECT nối sau, cùng binding/phạm vi; không sửa hoặc xóa chữ ký cũ. Anthropic đã REJECT VÒNG 9. Hai bên chưa thông qua quy trình chuẩn.
+- Ứng viên P61 đã sửa và kiểm local: CHECK006 PASS 001–005; 36 ca chữ ký, 29 ca Field, 11 ca fixture dừng sớm và 3 ca chữ dính. Ca cũ vẫn đạt; G1/143 sự kiện giữ nguyên. Chi tiết evidence/TQT-P61-draft-checks.json.
+- Điều chỉnh đã ghi trước sửa: Hộp dùng lại CV-001; REJECT khép lượt rà nhưng chặn chuẩn; Owner/historical/ngoài phạm vi giữ riêng; không gán 250 Field thành số mới. K9.4 còn 24 nghĩa nghiệp vụ cần đối chiếu tại FIELD-COVERAGE.
+- DỪNG công bố: VPS-GHI đang do VPSC-N2C-CODE-BACKUP-GPG-20261014-01 giữ. Không sửa UI/runtime, không lấy hoặc trả cờ của VPSC; chưa kiểm UI thật P61, chưa ký APPROVE ứng viên.
+- Gói ứng viên duy nhất: /Users/nmhuyen/Documents/Codex/2026-10-14/ch-ng-ta-ang-d-phi/outputs/TQT-P61-candidate.zip. Có nguồn/fixture/biên nhận để giải nén vào nơi thử và chạy CHECK006 mặc định; chưa là SSOT runtime hoặc chuẩn. Khi công bố phải đọc lại nguồn/hash/cờ, giữ các review vừa ghi, CAS tại nguồn sống; không deploy mã từ GitHub.
+- NEXT_TRIGGER=VPS-GHI_TRONG; công bố và kiểm UI thật rồi mới ký OpenAI trên bản công bố; sau đó Owner chuyển Claude mở Hộp chờ ký của Anthropic. Không PG/QT002; không giữ process để đợi.
+KQ@TQT-P61-V9 DỪNG · 2026-10-14T08:09:09Z · VPS_BẬN_VPSC_N2C · đã khép rà và chuẩn bị ứng viên, 0 RUN/cờ TQT.
+
 

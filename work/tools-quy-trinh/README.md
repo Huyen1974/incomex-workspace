@@ -1,5 +1,8 @@
 # tools-quy-trinh · Cửa vào
 
+## P61 · Rà VÒNG 9 đã khép, ứng viên chưa công bố
+P60/P58 hiện có REJECT của OpenAI và Anthropic; chưa chốt chuẩn. Ứng viên P61 kiểm tổng PASS nhưng chưa đưa vào UI do VPS-GHI thuộc VPSC N2C. Đọc COLLAB/P49 P61 và evidence/TQT-P61-draft-checks.json; điều kiện tiếp tục là cờ trống, đọc lại nguồn, công bố/kiểm UI thật rồi ký. Không dùng chữ ký hoặc snapshot thử làm nghiệm thu QT001.
+
 ## Bắt đầu tại đây · P60
 1. Đọc COLLAB mục tiêu/phạm vi và cờ phối hợp. Luật chuẩn: MOW-TH-006.md phiên 1.0, 71 bước / 7 mốc; bản trên Overview dùng cùng nguồn.
 2. Tra mã CAT-227 → chọn CV-001/CV-002. Mã TQT-VIEC-… và DEF00.1/CAT-227* còn là bí danh lịch sử; không mở mã trùng. Mã Field FLD-0001…; tên cột DB là thuộc tính riêng, không phải ID.
