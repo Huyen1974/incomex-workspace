@@ -846,3 +846,46 @@ Nhật ký vòng 8: chỉ ghi danh sách yêu cầu vào tệp này và chỉ đ
 - F1 dùng lại CAT-016. Lịch sử nhập lại từ Git ghi là truy hồi, không bịa giờ bắt đầu/người ký. Chữ ký cũ chỉ có giá trị đúng phiên đã ký.
 - Phần máy chặn trong CHECK005 là HOST_CHECK, chưa phải quyền máy chủ cưỡng chế; không hứa không thể ghi sai qua mọi endpoint.
 - JEV tham khảo gen-dec-1791951068-hxOFfIUvhOPMJOIDGf6d; không thay quyết định hoặc chữ ký.
+
+---
+
+# VÒNG 9 · Rà P60 + kiểm kê toàn bộ chỗ cần chữ ký Claude · 14/10/2026
+
+REVIEWER: Claude (Anthropic) · Claude Chat/Cowork · ghế Claude-review. STARTED@TQT-V9-CLAUDE-REVIEW 2026-10-14T05:03Z. BASED_ON: P60 `6bf1ba12`; view `0141dcad…`; 006 `1.0-clear-contract` (`7223b266…`); CHECK005 `dfeb4371…`; runner `9a12b6f8…`; UI adapter `62059d6c…` — khớp manifest phiếu P60.
+
+## V9.0 · Nhìn 30 giây
+
+Owner chỉ ra Claude bỏ sót chữ ký ở sổ CAT-069 — **đúng**. Kiểm kê lại toàn hệ thấy bỏ sót **2 vùng**: phiếu sổ nợ P58 (quyết định cột Claude của 76 dòng CAT-069) và 6 bộ kiểm ở Master DOT (cột Claude trống từ P34). Gốc: **không có nơi nào liệt kê "chỗ nào đang chờ chữ ký của ai"**; hướng dẫn rà chỉ nêu tên một phiếu, người rà ký đúng phiếu được nêu và bỏ sót phần còn lại. Ghi chú của chữ ký OpenAI ở Master DOT còn viết "thiếu Anthropic không làm blocker". Đây vừa là lỗi hướng dẫn vừa là lỗi của Claude (không tự kiểm kê).
+
+**Ma trận chữ ký sau lượt này**
+
+| Chỗ cần chữ ký | GPT | Claude | Owner | Ghi chú |
+|---|---|---|---|---|
+| Phiếu P60 · quy định, mã, Field, bộ kiểm | ✅ | 🔴 REJECT | — | 7 điểm · V9.2 |
+| Phiếu P58 · sổ việc cần xử lý tiếp (76 dòng CAT-069) | ✅ nhưng phiếu đã cũ | 🔴 REJECT | — | V9.3 |
+| Master DOT · CHECK-001 | ✅ | ✅ APPROVE | — | chạy lại PASS; nay "Dùng được · đúng phạm vi" |
+| Master DOT · CHECK-002 | ✅ | ✅ APPROVE | — | như trên |
+| Master DOT · CHECK-003 | 🟡 cần ký lại (khác phiên) | ⬜ | — | Codex làm mới chữ ký trước, rồi Claude ký |
+| Master DOT · CHECK-004 | ✅ | ⬜ | — | cần rà riêng cửa ghi kho thử; vòng sau |
+| Master DOT · CHECK-005, CHECK-006 | 🟡 cần ký lại | ⬜ | — | theo phiếu P60 (đang REJECT) |
+| Master Field · 250 dòng | ✅ theo P60 | ⬜ theo P60 | — | |
+| CAT-069 · 76 dòng | ✅ theo P58 | 🔴 theo P58 | — | |
+| 5 ô mục tiêu CV-001 | — | — | ⬜ | chờ Owner gật |
+| Duyệt lần đầu 18 Master | — | — | ⬜ | chờ Owner |
+
+Phiếu P51–P54 là lịch sử, không cần ký lại.
+
+**Owner gật/lắc 1 việc:** cho Codex làm **Hộp chờ ký** (K9.1) làm việc đầu tiên của lượt tới, rồi mới sửa các điểm còn lại. **Đề xuất PM: gật.**
+
+## V9.1 · P60 — phần đạt (đã thử thật)
+
+| Yêu cầu V8 | Kiểm | KL |
+|---|---|---|
+| C · mã | CAT-227, CV-001, FLD-0001; 18 Master không còn `*`/`?` trong mã; bí danh cũ giữ | ✅ |
+| B · thẻ việc | Máy tính đúng đỏ cả 3 dòng (0/4 tiêu chí, Field chưa kiểm kê, thiếu chữ ký); không tô xanh giả | ✅ |
+| B · 5 ô + Owner gật trước khi làm | Bắt đầu khi Owner chưa gật ⇒ `OWNER_START_REQUIRED`; AI tự ghi "Owner duyệt" ⇒ bị chặn; thiếu ca cho 1 tiêu chí ⇒ `CRITERION_CASE_MISSING` | ✅ |
+| E · thẻ bước | 71/71 bước đủ 9 câu, không câu nào trống | ✅ |
+| D · Field | Mã DB 250/250, không trùng, đúng quy tắc; 12 nhóm giữ riêng có mã DB khác nhau. Ca âm: trùng mã DB, xoá mô tả, ghi "Đã tạo" không bằng chứng PG, tên > 60 ký tự ⇒ đều FAIL | ✅ |
+| A, G · 006 | Viết lại theo chủ đề (Đọc trước · Mã · Thẻ việc · Thẻ bước · CP01–CP07 · Ghi chép/sửa chữa · Kiểm · Lịch sử); 0 chữ dính trong 006 | ✅ |
+| K2 · giờ | Giờ Việt Nam trên UI | ✅ |
+| Bộ kiểm | CHECK005 mặc định exit 0 (27 ca P60); CHECK-001 và CHECK-002 chạy lại exit 0 | ✅ |
