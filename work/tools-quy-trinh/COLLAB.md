@@ -8,12 +8,12 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · P57 · 2026-10-14T02:45:27.955Z · Codex executor
+### BẢNG ĐIỀU KHIỂN · P57 · 2026-10-14T02:46:25.245Z · Codex executor
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã xong: G1 Owner nhận7/7 giữ nguyên. P53 quy định006@0.8 có71bước/7mốc, đối chiếu87nghĩa vụ; hồsơ001 xemgộp/historic87, giữ143events. Sửa nợ/Field theoClaudeV5; CHECK001–005 PASS. Đây là bản sửa đã kiểm, chưa nghiệmthuAI mới.
-- ■ Đang làm: TQT-P57-FIELD-LINK · thêm Master Field dưới Tool, thụt ba cấp.
+- ■ Đang làm: — · 0 RUN active · P57 đã khép; Master Field có lối vào dưới Tool.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002. · Cấu trúc dữ liệu cho 1.000 việc + luật 1 trang (R26–R27, PR-22): Owner gật → PT-01 có số đo.
 - ➡ Kế tiếp: Claude rà P54 C1/F4/Overview, tự ký hai phiếu đúng phiên; đủ hai hãng mới trình Owner quyết. Chưa QT002/PG/nghiệm thu QT001.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
@@ -1288,3 +1288,5 @@ KQ@TQT-P56-NAV-DEFAULT XONG · 2026-10-14T02:41:54.312361+00:00 · mặc định
 
 ## P57 · Lối vào Master Field
 STARTED@TQT-P57-FIELD-LINK 2026-10-14T02:45:27.955Z · Codex Host · Owner yêu cầu thêm Master Field ngay dưới Master Tool tại master-home-v1.html, thụt3cấp kiểu cây. Dùng Master hiện hữu definition-master-v1.html?stt=8; không tạo danh mục mới.
+- Đã thêm liên kết Master Field ngay dưới Master Tool, margin-left84px = 3 cấp28px theo cây hiện hữu. URL chuẩn stt=8, không tạo Master mới; giữ thanh4Mẹ. UI transaction851d46fdb04a416193052e4ab8d7e9bb; ui_inspect HTTP200, thấy thứ tựDOT→Tool→Field và đúngURL, 0consoleerror.
+KQ@TQT-P57-FIELD-LINK XONG · 2026-10-14T02:46:25.245Z · trả cờ cùngcommit; không tạo process/tệp tạm VPS. ChưaQT002/PG. NEXT_TRIGGER=CLAUDE_P54_REVIEW_RECORDED.
