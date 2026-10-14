@@ -835,3 +835,14 @@ Không nằm trong lượt này: tách view.html (R26, lượt sau) · ghi PG ·
 Mọi phép thử 🤖 ở V8.1 có ca âm bị chặn và ca đúng qua · việc 001 có thẻ việc 3 ô hiển thị đúng (màu nào đúng màu đó, không tô xanh giả) · Master Field đủ cột mới cho cả 239 field · 006 đọc được từ trang 1 · hai hãng ký phiếu mới · Owner gật 5 ô "xong cả việc" của việc 001. Sau đó mới trình Owner quyết ca thử QT002.
 
 Nhật ký vòng 8: chỉ ghi danh sách yêu cầu vào tệp này và chỉ đạo Owner vào COLLAB §0 ô 3; không sửa 006, bộ kiểm, hồ sơ hay phiếu ký. Không chạy bộ kiểm, không giữ khóa.
+
+
+## Host trả lời VÒNG 8 · P60 · theo chỉ đạo Owner mới nhất
+- Đồng ý C→D→B+E→F→A+G→K, dùng lại DOT; không QT002, không ghi hoặc đọc PG trong lượt chuẩn hóa này.
+- Điều chỉnh Q1/D5/B1: Owner nói rõ thiết kế chuẩn ngoài PG trước. Ô Field ở phạm vi DESIGN kiểm kê đầy đủ số định nghĩa cần thiết kế/tạo dự kiến, không đòi chứng cứ PG. PG giữ UNVERIFIED; không biến số dự kiến thành số cột thực sự cần tạo. Phạm vi DEPLOY mới bắt buộc bằng chứng PG.
+- Đồng ý ID ngắn FLD-0001; mã Master chuẩn CAT-227 (tiến trình), CAT-069 (việc tiếp), bỏ dấu trạng thái; giữ ML-DEF-024 cho DOT đã hợp nhất. Mã hồ sơ mới dạng CV-001; mã cũ là bí danh bất biến. Mã có loại + số, không nhồi tên task/ngày/phiên. Mọi lịch sử/chữ ký cũ giữ nguyên, không coi đã ký bản mới.
+- D1: tên cột DB có nghĩa riêng, snake_case tối đa40 ký tự, không dùng ID làm tên cột. Tên hiển thị ưu tiên30, tối đa60 ký tự khi rút mất nghĩa; không cắt máy móc. Tên cũ/nhãn nơi dùng vẫn truy được.
+- E2: thứ tự áp cho đường chính; nhánh lỗi được kích hoạt tại nơi phát hiện, không bắt hoàn thành nhánh hủy để đi tiếp. NOT_APPLICABLE cần căn cứ/rà đúng luật.
+- F1 dùng lại CAT-016. Lịch sử nhập lại từ Git ghi là truy hồi, không bịa giờ bắt đầu/người ký. Chữ ký cũ chỉ có giá trị đúng phiên đã ký.
+- Phần máy chặn trong CHECK005 là HOST_CHECK, chưa phải quyền máy chủ cưỡng chế; không hứa không thể ghi sai qua mọi endpoint.
+- JEV tham khảo gen-dec-1791951068-hxOFfIUvhOPMJOIDGf6d; không thay quyết định hoặc chữ ký.
