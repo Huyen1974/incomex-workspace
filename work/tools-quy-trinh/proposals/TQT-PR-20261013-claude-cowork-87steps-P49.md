@@ -889,3 +889,32 @@ Phiếu P51–P54 là lịch sử, không cần ký lại.
 | A, G · 006 | Viết lại theo chủ đề (Đọc trước · Mã · Thẻ việc · Thẻ bước · CP01–CP07 · Ghi chép/sửa chữa · Kiểm · Lịch sử); 0 chữ dính trong 006 | ✅ |
 | K2 · giờ | Giờ Việt Nam trên UI | ✅ |
 | Bộ kiểm | CHECK005 mặc định exit 0 (27 ca P60); CHECK-001 và CHECK-002 chạy lại exit 0 | ✅ |
+
+## V9.2 · P60 — 7 điểm phải sửa (REJECT)
+
+| ID | Mức | Vấn đề · bằng chứng | Sửa | Phép thử sau sửa |
+|---|---|---|---|---|
+| K9.1 | 🔴 | **Không có Hộp chờ ký.** P58 và 6 bộ kiểm chờ Claude mà không nơi nào nhắc; trường bắt buộc của chữ ký bộ kiểm (`authority_ref`) chỉ biết được khi đọc mã UI — Claude ký thiếu, UI hiện "Thiếu căn cứ", phải ghi bù | Máy liệt kê mọi chỗ cần chữ ký của từng bên (phiếu CAT-025, dòng Master DOT, ô Owner) với 3 trạng thái 🔴 chưa ký · 🟡 cần ký lại · ✅ đã ký; hiện ở thẻ việc ô ③ và một trang riêng; mẫu chữ ký (đủ trường bắt buộc) đặt ngay tại "?" cột ký. Mọi hướng dẫn rà chỉ viết: "mở Hộp chờ ký của <hãng>", không nêu lẻ từng phiếu. Người rà không được ghi KQ XONG khi hộp còn dòng chưa ký/chưa REJECT | Thêm phiếu mới cần Claude ⇒ hộp hiện 1 dòng đỏ; ký ⇒ xanh; đổi nguồn ⇒ vàng; KQ XONG khi hộp còn đỏ ⇒ FAIL |
+| K9.2 | 🔴 | **Phiếu CAT-025 không tự hết hiệu lực khi nguồn đổi.** P58 trỏ UI `7a6f44c0` + CHECK005 `4e11e750` (bản P58) trong khi hiện hành là `62059d6c` + `dfeb4371`, vẫn hiện ✅. Master DOT thì đã làm đúng (CHECK-003/005/006 "Cần duyệt lại"). **Đính chính:** Claude từng nói với Owner "tệp đổi thì chữ ký tự hiện Cần duyệt lại" — mới đúng với Master DOT, chưa đúng với phiếu | Phiếu tính lại manifest từ tệp/dữ liệu hiện hành mỗi lần hiển thị và mỗi lần CHECK005 chạy; lệch ⇒ "Cần ký lại" | Đổi một tệp trong manifest ⇒ phiếu chuyển vàng, không còn ✅ |
+| K9.3 | 🔴 | **Bản ghi sửa không gắn đúng phiên.** Thử: sửa mô tả 1 field, không thêm bản ghi sửa ⇒ `--validate-governance-before` vẫn PASS, vì một bản ghi sửa cũ cho field_registry "đủ" cho mọi lần sửa sau | `before`/`after` của bản ghi sửa phải bằng đúng binding trước/sau của đối tượng; mỗi lần sửa một bản ghi, máy đếm lần thứ mấy | Lặp lại phép thử trên ⇒ FAIL |
+| K9.4 | 🔴 | **Mô tả và Việc sinh ra của Field chưa đúng ý Owner.** Cả 250 mô tả là câu sinh máy "dùng tại …; kiểu …", không nói để làm gì. 250/250 ô Việc sinh ra trống ⇒ ô ② thẻ việc (`new_design_count`) không bao giờ tính được, luôn đỏ | Viết lại mô tả đủ 3 phần: để làm gì · giá trị hợp lệ/ví dụ · khác field gần giống nào; ghi Việc sinh ra cho mọi field (field từ thiết kế cũ gắn mã việc thiết kế gốc hoặc một giá trị chuẩn có nguồn) | Thiếu phần "để làm gì" ⇒ FAIL; thiếu Việc sinh ra ⇒ FAIL; ô ② CV-001 ra một con số |
+| K9.5 | 🟡 | Tên hiển thị dạng câu hỏi (vd "Đã ghi chưa?"); luật chỉ kiểm độ dài | Danh từ đủ nghĩa (đối tượng + thuộc tính); chặn dấu "?" | Tên có "?" ⇒ FAIL |
+| K9.6 | 🟡 | Chữ dính còn trong COLLAB P60, 4/43 vấn đề, bản ghi CAT-016 (vd "thờilượng87bước"); bộ kiểm chỉ quét 006 | Mở rộng phép kiểm cho nội dung mới ở COLLAB và mọi dữ liệu hiển thị; sửa các chỗ đang dính | Ghi mới có chữ dính ⇒ FAIL |
+| K9.7 | 🟡 | Người rà không tự chạy được CHECK006: bản chụp 5 tệp UI không có trong repo; chạy không bản chụp thì treo (lượt thử của Claude bị hủy sau 340 s) | Đặt bản chụp đúng hash vào repo (hoặc runner tự lấy theo hash); thiếu đầu vào thì dừng ngay với lỗi rõ, không treo | Claude chạy CHECK006 trong bản sao của mình ⇒ PASS |
+
+Nhỏ, sửa cùng lượt: đầu mục Master Field còn ghi phiên `P54.1` và phạm vi P53/P54; mô tả Field còn mã cũ có `*`.
+
+## V9.3 · P58 sổ việc cần xử lý tiếp — REJECT
+
+| ID | Vấn đề | Sửa |
+|---|---|---|
+| S1 | Phiếu gắn UI và CHECK005 của P58, nay đã đổi ở P60 | Phát hành phiếu sổ mới gắn bản hiện hành (sau K9.2 thì tự vàng) |
+| S2 | Trạng thái chưa cập nhật sau P60 (vd TQT-P50-DEFINITION vẫn "Còn mở" dù 006 đã viết lại) | Rà lại 43 vấn đề + 33 nguồn khác theo bản P60 |
+| S3 | Chưa có các mục mới của VÒNG 9 | Thêm K9.1–K9.7 |
+| S4 | CAT-069: cột Tên lặp nguyên cột Sai/thiếu gì; nhãn "Đã rà P58 (lịch sử)" khiến người đọc không biết phiếu còn hiệu lực không | Tên = tóm tắt ngắn; nhãn theo trạng thái thật của phiếu |
+
+## V9.4 · Chữ ký đã ghi
+
+Giờ máy chủ 2026-10-14T05:19:39Z. Commit `00e33503`: Anthropic **REJECT** phiếu TQT-P60-CORRECTIONS (binding `cdbc013c…`) và TQT-P58-DEBTS (binding `3549a80f…`); Anthropic **APPROVE** Master DOT TQT-CHECK-001 và TQT-CHECK-002 (cùng binding đang hiệu lực của OpenAI, đã chạy lại exit 0). Commit `120873a7`: bổ sung `authority_ref` cho hai chữ ký bộ kiểm (UI đòi trường này nhưng không hướng dẫn ở đâu — thêm một bằng chứng cho K9.1). Đọc lại: các chữ ký cùng binding/scope; CHECK005 mặc định exit 0 (38 s); Master DOT hiện "Đã duyệt · Claude Cowork" và "Dùng được · đúng phạm vi" cho CHECK-001/002.
+
+Nhật ký vòng 9: KQ@TQT-V9-CLAUDE-REVIEW XONG · 2026-10-14 ~05:30Z. Không chiếm VPS-GHI: chỉ ghi tài liệu và chữ ký qua gateway CAS có đọc lại. Một lượt thử gộp (CHECK-004 + CHECK005 + CHECK006 không bản chụp) bị worker dừng sau 340 s — đã chạy lại tách nhỏ; không còn tiến trình nào. Không sửa mã/luật, không chạy QT002, không chạm PG. Không giữ khóa.
