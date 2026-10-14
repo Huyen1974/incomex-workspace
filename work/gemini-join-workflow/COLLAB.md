@@ -7,14 +7,14 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 16:35 +07 · GPT Chat Host · P09H
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 16:48 +07 · Claude Code CLI · P09
 - 🎯 Mục tiêu: ô 1 — Gemini vào hội đồng như ghế Google, kết nối tối đa ngang GPT/Claude. Owner 15:44: Gemini tự làm trước; phần nó không làm được giao Claude Code làm cho nhanh.
 - 🏁 Xong khi: ô 2. G1 xong = `agy` đăng nhập + danh tính google-main thật (P do chính Gemini ghi) + KB/JEV gọi thật + bảng parity.
 - 📍 Tiến độ: [✓ G0] → [✓ G1 Gemini tự khảo sát, DỪNG có bằng chứng] → [■ G1B Claude Code làm nốt + Gemini tự chứng minh, 1 lượt] → [□ G2 ghế Google] → [□ G3 đưa thư/điện thoại] → [□ nghiệm thu]
 - ✅ Đã xong: P01–P09; Claude P08 ACCEPT@e42fb68d2bcc7db7cc5615462292758e58a77916; GPT P09H READY cùng SHA; D03/HUMAN_DIRECTIVE-06 ghi phạm vi Owner giao, không sửa PROMPT.
-- ■ Đang làm: — · 0 RUN active; G1B READY, chưa STARTED; trước khi ghi VPS phải kiểm lại khóa VPS-GHI, tránh phiên TQT đang giữ.
+- ■ Đang làm: Bước G1B · vòng 1/1 · executor Claude Code CLI · RUN GJW-G1B-CLAUDE-SUPPORT-20261014-01 STARTED 09:48Z · VPS-GHI đang TQT-P61 ⇒ làm S1 Mac trước, kiểm lại khoá trước S2.
 - ⬜ Còn lại: G1B → G2 → G3 → nghiệm thu, đúng thứ tự.
-- ➡ Kế tiếp: Owner chuyển một câu RUN G1B cho Claude Code CLI; agent theo PROMPT cấp profile Google, cấu hình agy Mac, để Gemini tự thử đọc/ghi; VPS-GHI bận thì làm phần Mac và đóng sạch. NEXT_TRIGGER=OWNER_START_G1B.
+- ➡ Kế tiếp: 🤖 Claude Code chạy G1B tới KQ (P09) · Gemini ghi P10 · Host nghiệm thu sau KQ. NEXT_TRIGGER=KQ_G1B.
 - ⛔ Không làm/để sau: G2/G3 trước khi G1B xong; mượn khoá ghế khác; xoá tệp (chỉ chuyển vào lưu trữ có INDEX); khởi động lại gì ngoài agent-data (+ jev-gw nếu Q02 nêu); đụng HJW/Graph/VPSC/TQT.
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
@@ -92,6 +92,8 @@ HUMAN_DIRECTIVE@GJW-20261014-05 EFFECTIVE · task=gemini-join-workflow · scope=
 - Đã làm: chỉ đọc. 0 cờ bận, 0 ghi Mac/VPS, không chạm VPS-GHI, không ghi STARTED/KQ (giữ RUN_ID dùng lại, khỏi sửa PROMPT/review lại — tiền lệ GS P110). Không làm trước S1 Mac khi chưa READY. Dọn: 0/0 · còn lại: không.
 - JEV `gen-dec-1791970049-NYt649VQoZJyYSSJD2l3`: P09 không dấu máy 0,96 · ghi KQ DỪNG 0,01 · ngồi chờ READY 0,03 · làm phần Mac trước READY 0,14. Em không lệch JEV.
 - **Để chạy được:** Host GPT ghi qua gateway (a) HUMAN_DIRECTIVE-06 có quote nguyên văn Owner, phạm vi: chỉ agent-data một lần, jev-gw chỉ khi JEV thực cần; (b) READY đúng SHA e42fb68 đủ 40 hex; Owner dán lại cùng khối. Lượt chạy thật ghi STARTED tiếp dưới chính P09 này. VPS-GHI lúc đó còn bận ⇒ theo PROMPT S2a: làm S1 Mac, KQ DỪNG với NEXT_TRIGGER=VPS_GHI_TRONG.
+- STARTED@GJW-G1B-CLAUDE-SUPPORT-20261014-01 2026-10-14T09:48Z · executor=Claude Code CLI
+- GJW-G1B-CLAUDE-SUPPORT-20261014-01 · bước 0/5 · read-gate PASS: READY đúng SHA e42fb68 (P09H) + HUMAN_DIRECTIVE-06 EFFECTIVE + D03, không STOP, G1 đã có KQ DỪNG; VPS-GHI gốc đang TQT-P61-PUBLISH (dự kiến 09:55Z) ⇒ S0 đo + S1 Mac trước · 2026-10-14T09:48Z · dự kiến xong 11:15Z
 
 ### P08 · Claude Chat · 2026-10-14 15:55 +07 · Reviewer · B2 rà P07 + G1B → SỬA THẲNG → ACCEPT
 - Ghế: claude-chat · Bước/vòng: G1B duyệt PROMPT · 1/3 · Based_on: `9979b7c` (PROMPT version abefc73a) + mã `docker/agent-data-repo/agent_data/workspace_tools.py` (gốc code, chỉ đọc) · Scope: P07, PROMPT G1B, §0.3 C1–C7, báo cáo G1 của Gemini. Bảng: lệch (chưa có Q02 + cách xong G1 trong 1 lượt) ⇒ đã sửa · Ô 1–2: khớp.
