@@ -4,6 +4,65 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## L1B-RAM-SWAP-20261014 · RUN VPSC-L1B-RAM-SWAP-20261014-01 · đo áp lực RAM/swap (CHỈ ĐỌC) · executor Claude Code CLI (Mac → SSH root VPS1, chỉ đọc) · write_path=workspace_* · KQ XONG · NO_MUTATION · AP_LUC_KHONG
+
+**Cửa sổ:** L0 13/10 ~13:15Z → đo 14/10 13:02:58–13:06Z (≈ 23 giờ 50 phút; theo PROMPT không chờ đủ 24h). Điều kiện chạy: GJW-G1B đã KQ `60b89b2` 10:55Z; agent-data khởi động lại 10:31:40Z (việc GJW) ⇒ bộ đếm cgroup agent-data **reset**, chỉ ghi số hiện tại, không so L0; claude-kb (chạy từ 29/09) và Directus (từ 03/10) **không** khởi động lại ⇒ `memory.events` so thẳng được với L0. Mọi lệnh qua `ssh contabo 'nice -n 19 ionice -c3 bash -s'` / `python3 -I -` (kịch bản đọc từ stdin): 0 tệp trên VPS, 0 tiến trình nền, không chiếm VPS-GHI, không đọc env/environ.
+
+### 1. Cho Owner
+- **Máy không bị áp lực bộ nhớ:** chỉ số nghẽn bộ nhớ (PSI) bằng 0, swap không đảo (0 trang/giây trong mẫu 60 giây), RAM còn dùng được 5,8 GiB; claude-kb và Directus không chạm trần lần nào từ L0; kernel không giết tiến trình nào.
+- Swap còn 1,02/2 GiB (sáng nay 2,0) — giảm vì agent-data khởi động lại 10:31Z ở việc GJW, không do lượt này; tiêu chí «swap ≤ 1 GiB» vẫn **chưa đạt** (vượt ~20 MiB), câu gật/lắc ở P107 vẫn mở.
+- Đề xuất: khép L1b — không đổi trần, không sửa máy.
+
+### 2. Bảng số (UTC)
+**Máy**
+| Chỉ số | Số đo | Giờ đo | Ngưỡng `AP_LUC_CO` | Chạm? |
+|---|---|---|---|---|
+| PSI memory máy `some` avg10/60/300 | 0,00 / 0,00 / 0,00 | 13:02:58Z và 13:03:58Z | avg60 ≥ 5 | không |
+| PSI memory máy `full` avg10/60/300 | 0,00 / 0,00 / 0,00 | như trên | avg60 ≥ 1 | không |
+| PSI từng cgroup (13 container) | 0,00 hết | 13:03:58Z | — | — |
+| Swap vào/ra mẫu 60 s (`sar -W 60 1` + `/proc/vmstat` hai lần) | 0,00 / 0,00 trang/s (pswpin, pswpout không đổi) | 13:02:58→13:03:58Z | ≥ 50 | không |
+| Swap vào/ra TB ngày (sar, ngày giờ máy +02) | 13/10: 4,59 / 8,04 · 14/10 (tới 13:00Z): 0,98 / 2,23 | — | ≥ 50 | không |
+| Swap vào trong cửa sổ từ L0 (sar 10′) | 13/10 sau 13:00Z TB 0,30 · 14/10 TB 0,98 · đỉnh 17,82 (14/10 05:20–05:30Z) · 0 khoảng ≥ 50 | — | — | — |
+| MemAvailable | 5,81 GiB (6.095.572 kB) · TB cửa sổ: 13/10 5,72 · 14/10 5,54 GiB · thấp nhất 4,46 GiB (14/10 09:20–09:30Z) | 13:02:58Z | — | — |
+| Swap đang dùng | 1,02 / 2,00 GiB · sar: ~2,00 GiB tới 10:10Z → 1,02 GiB từ 11:10Z (agent-data khởi động lại 10:31Z) | 13:02:58Z | — | — |
+| OOM trong log kernel từ L0 | **0** dòng (log kernel phủ từ 06/10; 12.681 dòng từ L0) · lần cuối 13/10 07:27:51Z (uvicorn, cgroup `docker-ff6fd82c…`) = trước L0 | 13:05Z | có OOM | không |
+
+**Dịch vụ** (cgroup `/sys/fs/cgroup/system.slice/docker-<id>.scope`, đọc 13:03:58Z; `peak` = đỉnh từ lúc khởi động container, không phải trong cửa sổ)
+| Dịch vụ | Khởi động | Đang dùng / trần | peak | swap / trần swap | `memory.events` max · oom_kill | So L0 |
+|---|---|---|---|---|---|---|
+| incomex-claude-kb | 29/09 | 132 MB / 256 MiB | 268,4 MB (= trần) | **254,7 / 256 MiB** | **7.546** · 0 | L0 7.546 ⇒ **+0**; swap L0 170 MB → L2SAFE 253 MiB → 254,7 MiB |
+| incomex-directus | 03/10 | 243 MB / 1 GiB | 1.073,9 MB (= trần) | 50,4 MiB / 1 GiB | **227** · 0 | L0 227 ⇒ **+0** |
+| incomex-agent-data | 14/10 10:31:40Z | 2,07 GB / 6 GiB | 2,86 GB | 0 | 0 · 0 | `counter_reset` — không so (L2SAFE: 2,52 GiB + swap 983 MiB trước khởi động lại) |
+| hermes-serve.service | — | 370 MB / 3 GiB | — | 383 MiB | 0 · 0 | L0 335 MiB |
+| 9 container còn lại + hermes-gateway | — | xem dưới | — | — | max = 0 hết (đều khởi động trước L0) | — |
+
+**RAM nằm ở đâu** (13:04Z) — theo RSS: Neo4j `java` 1,20 GiB (cgroup 1,36 GB / 1,5 GiB = 82 %, không dùng swap) · agent-data 6 worker `python` ~358 MiB mỗi cái (cgroup 2,07 GB) · claude-mcp `uvicorn` 421 MiB (cgroup 465 MB / 1,5 GiB) · hermes serve 349 MiB · hermes gateway 256 MiB · postgres 505 MB / 3 GiB · qdrant 214 MB · uptime-kuma 160 MB · nuxt 128 MB. Theo swap (`VmSwap`): hermes serve 383 MiB · claude-kb `uvicorn` 255 MiB · Directus `node` 37 MiB · cowork-mcp 36 MiB · hermes gateway 34 MiB · uptime-kuma 29 MiB · qdrant 29 MiB · agent-api-executor 29 MiB · jev-gw `mcp-proxy` 26 MiB · nuxt 18 MiB; tổng `VmSwap` mọi tiến trình 1.070 MiB ≈ swap đang dùng; agent-data 0.
+
+**p50 MCP có sẵn** — nhật ký audit của đầu nối Incomex VPS (`/var/log/mcp-audit/audit.jsonl`, container incomex-claude-mcp), chỉ lượt `success`, không đo bằng tải:
+| Cửa sổ | Lượt | p50 | p90 |
+|---|---|---|---|
+| 24h (13/10 13:06 → 14/10 13:06Z) | 677 | **226 ms** | 1.888 ms |
+| 7 ngày trước L0 (06/10 13:00 → 13/10 13:00Z) | 3.395 | 239 ms | 995 ms |
+| từ agent-data khởi động lại (10:32:45Z) | 33 | 264 ms | 453 ms |
+Theo công cụ (24h): `fs_read` 225 ms (361 lượt) · `fs_search` 52 · `query_pg` 124 · `fs_stat` 731 · `fs_list` 8. Đích (g) «p50 ≤ 150 ms»: **chưa đạt** (226) — không thuộc ngưỡng áp lực bộ nhớ. Kuma chỉ có ping TB ngày, không có p50; p50 của `workspace_*` (agent-data) không lấy trong lượt này.
+
+### 3. Phán định — `AP_LUC_KHONG`
+Không chạm ngưỡng nào trong 4 ngưỡng §2 PROMPT: PSI some/full avg60 = 0,00 · swap vào 0,00 trang/s (mẫu 60 s) và TB ngày ≤ 4,59 · claude-kb/Directus `max` +0 và `oom_kill` +0 so L0 · 0 OOM kernel từ L0. JEV `gen-dec-1791983201-SgSHUAysgj4HVSyFSrrE`: AP_LUC_KHONG 0,78 (CO 0,19). **NO_MUTATION.** Đề xuất khép L1b; bước kế do GPT Host điều hành theo STEP_WALK_V2.
+
+### 4. Đối chiếu tiêu chí (f) — chỉ ghi số, không đổi 🏁
+- «swap dùng ≤ 1 GiB lúc thường»: 1,02 GiB lúc đo ⇒ **CHƯA ĐẠT** (sát). Mức này có được nhờ agent-data khởi động lại (GJW), không phải do điều chỉnh; trước đó agent-data giữ ~1 GiB swap ⇒ có thể đầy lại theo thời gian (chưa đo xu hướng).
+- «không dịch vụ nào chạm trần RAM trong 24h»: claude-kb/Directus 0 lần mới trong ≈ 23 giờ 50′; mọi container khác `max` = 0 (agent-data chỉ tính từ 10:31Z).
+- Câu Owner ở P107 (đổi tiêu chí swap) và câu đích đĩa vẫn mở — Host xử lý, lượt này không tự đổi.
+
+### 5. Ghi nhận (không phải đề xuất sửa, không mở việc — D29)
+- claude-kb dùng 254,7/256 MiB **trần swap riêng** (99,5 %; L0 170 MB → L2SAFE 253 MiB); RAM 132 MB/256 MiB nên chưa chạm trần mới. Nếu sau này `memory.events max` của claude-kb tăng lại, hướng sửa đã có ở Bảng C L0 (512 MiB + 256 MiB swap) — Host quyết khi có số (JEV «rủi ro đáng báo» 0,77).
+
+### 6. Giới hạn · Dọn
+- PSI là trung bình trượt tại lúc đo (máy không lưu lịch sử PSI); lịch sử trong cửa sổ lấy từ sar 10′. Đỉnh swap vào 600 trang/s (13/10 03:20–03:30Z) nằm **trước** L0 — ngoài cửa sổ, không tính vào phán định.
+- **Dọn:** VPS 0/0 (không tạo tệp/tiến trình; kiểm 0 tiến trình đo còn lại 13:08Z) · Mac 4/4 (2 kịch bản + 2 tệp đầu ra trong scratchpad phiên đã xoá) · còn lại: không. Thời gian chạy 13:02→~13:17Z.
+
+---
+
 ## N2C-20261014 · RUN VPSC-N2C-CODE-BACKUP-GPG-20261014-01 · mã hoá GPG backup mã nguồn lên Drive (D23/D27) · executor Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ DỪNG · PARTIAL (mã hoá + chạy thử + 4 ô đạt và GIỮ; thiếu biên nhận Telegram vì Guard tổng còn đỏ #22 cũ)
 
 **PROMPT `6aed497a` (READY P103 GPT Host + Reviewer ACCEPT P102 `cbf42146`) · khối Owner có nguyên văn D27 §0A · STARTED + VPS-GHI `cd1ba07` 07:52Z · áp 07:56:28Z · chạy thử 08:10:42–08:11:18Z · KQ + trả khoá cùng commit này · bằng chứng VPS `/opt/incomex/work/vps-clean-20-9-26/VPSC-N2C-CODE-BACKUP-GPG-20261014-01/{pre,post,rollback,thu,chay-thu}` + `diff.txt`, `apply.out`, `drift-sau-ap.txt`, `env-working-ten.txt` (quyền 600).** Chỉ đổi 1 tệp `scripts/code-backup-to-gdrive.sh`. Không đổi lịch, remote, thư mục Drive, số bản giữ; `backup-to-gdrive.sh`, `pg-backup.sh`, `qdrant-backup.sh`, crontab root, sổ mã, registry Config Guard, khoá công khai: sha = PRE. 0 khoá mới, 0 khoá bí mật trên VPS (keyring root 0 khoá bí mật), 0 xoá tay, 0 restart, 0 sửa Guard/Kuma/Telegram.
