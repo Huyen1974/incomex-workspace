@@ -106,6 +106,34 @@ HUMAN_DIRECTIVE@GJW-20261014-10 EFFECTIVE · task=gemini-join-workflow · scope=
 
 ## Nhật ký P
 
+### P19 · Gemini · 2026-10-15 06:37 +07 (23:37Z) · Worker · Smoke google-main & Phản biện G3
+- Ghế: google-main · Bề mặt: Antigravity CLI `agy` · Tên mô hình: `gemini-3.8-flash-high` · Giờ UTC: 2026-10-14T23:37:00Z
+- Bảng khả năng (VERIFIED / BLOCKED):
+
+| Công cụ / Kênh | Trạng thái | Chi tiết / Lỗi nguyên văn |
+|---|---|---|
+| Repo (`workspace_read` 5 dòng `AGENTS.md`) | VERIFIED | Đọc thành công 5 dòng đầu `AGENTS.md` (version `85bba2f916639b92fefb132a598f3c3cd75a5bf07951d489fbc68abffa0e8b7a`). |
+| KB (`search_knowledge` 1 câu) | VERIFIED | Kết quả trả về từ `knowledge/current-state/sessions/2026-05-10-new-session-gpt.md`: "Tra cứu Agent Data trước khi trả lời các vấn đề liên quan đến hệ thống Incomex." |
+| JEV (`evaluate` 1 câu noul) | VERIFIED | Trả lời `noul: 0.99` (id: `gen-dec-1792020797-bg7tL5QAabTEYymMCxe5`, model `typesafe/jev-1.13-20260917`). |
+| Graph (`read-cypher` đếm nút) | VERIFIED | Query `MATCH (n) RETURN count(n) AS node_count` trả về 3596 nút. |
+| Lark (`lark_tables_list` liệt kê bảng) | VERIFIED | Base `88-phai-cu-base-dem` trả về 2 bảng: `TTS` và `Đơn hàng`. |
+| PG (`query_pg` `SELECT 1`) | VERIFIED | Database `directus` trả về `{"res": 1}`, rowcount 1. |
+| Directus (`directus_read` 1 item `tac_*`) | BLOCKED | `[DENIED:upstream_error] directus request failed: [Errno -3] Temporary failure in name resolution` |
+| Drive / Gmail / Calendar (đếm 3 mục) | VERIFIED | Đã đếm thành công >= 3 mục mỗi kênh (Drive >= 3 files, Gmail >= 3 threads, Calendar >= 3 events; không ghi nội dung theo quy định bảo mật). |
+| Chrome (mở Owner view & chụp màn hình) | VERIFIED | Mở `https://vps.incomexsaigoncorp.vn`, chụp màn hình lưu file local scratch, không đưa ảnh lên repo. |
+| Remote Control status | VERIFIED | `agy remote-control status` trả về: `Daemon state = running`, pid `26728`, instance `nguyens-macbook-air-local-solar-comet`. |
+| Firebase (`firebase_list_projects`) | VERIFIED | Liệt kê thành công 1 project (`github-chatgpt-ggcloud`). |
+| Figma (`mcp.figma.com`) | BLOCKED | Chưa hoàn tất cấu hình OAuth. |
+
+- Ý kiến phản biện độc lập về hướng G3 (Gemini làm người đưa thư):
+  - Tham khảo JEV (id `gen-dec-1792021011-t5KSmnXRBLlA03iTGoS1`, model `typesafe/jev-1.13-20260917`):
+    - Đánh giá tính khả thi vận chuyển qua browser CDP (`viable_as_courier`): `brittle` (xác suất 1.0, độ tự tin 1.0 - Fragile and high maintenance due to UI dependencies and host availability).
+    - Tách biệt vai trò Hội đồng và vận chuyển (`role_separation`): `noul: 0.85` (ủng hộ việc tách bạch rõ ràng).
+  - Phản biện độc lập:
+    1. Rủi ro tầng tự động hóa trình duyệt (Brittle UI Transport): Điều khiển Chrome qua CDP để tự động hóa giao diện chat của hãng khác tiềm ẩn rủi ro lớn khi giao diện thay đổi cấu trúc DOM, gặp CAPTCHA, hết hạn session hoặc chính sách chống bot.
+    2. Phụ thuộc máy trạm: Việc đặt vòng lặp vận chuyển trên MacBook của Owner làm mất tính liên tục 24/7 khi máy ngủ hoặc mất mạng, khác biệt lớn so với daemon thường trực trên VPS như Hermes.
+    3. Tách bạch vai trò (Role Separation): Ghế `google-main` nên đóng vai trò Thành viên Hội đồng AI độc lập về suy luận (reasoning) và công cụ Google native, không nên kiêm nhiệm tầng vận chuyển cơ học dễ gãy. Nếu cần đưa thư tự động, cơ chế polling webhook/API hoặc gateway chuyên trách trên VPS là giải pháp ổn định và an toàn hơn.
+
 ### P18 · Claude Code CLI · 2026-10-15 04:25 +07 · RUN `GJW-G1C-MAX-20261014-01` · BẮT ĐẦU
 - Ghế: claude-code · Bước/vòng: G1C-MAX · 1/1 · Based_on: `f467119` · PROMPT last-touch `90f769ddd7c6ab921c2e40071a010b23bb6ff324` = P16 ACCEPT = P17 READY · HUMAN_DIRECTIVE@GJW-20261014-11 EFFECTIVE (S3 được chạy) · không STOP_REQUESTED · root `VPS-GHI: trống` (S3 sẽ lấy rồi trả). PROMPT ghi «Claude Code tạo P17» nhưng P17 đã là của Host ⇒ cờ và tiến độ ghi ở P18 này.
 - STARTED@GJW-G1C-MAX-20261014-01 2026-10-14T21:25Z · executor=Claude Code CLI (MacBook, HOME=/Users/nmhuyen) · dự kiến xong 23:55Z
