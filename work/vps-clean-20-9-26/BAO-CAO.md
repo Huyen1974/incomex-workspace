@@ -4,6 +4,79 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## W-FINAL-SCOPE-20261014 · RUN VPSC-W-FINAL-SCOPE-CHECK-20261014-01 · kiểm kết thúc phạm vi VPSC (CHỈ ĐỌC) · executor Claude Code CLI (Mac → SSH root VPS1, chỉ đọc) · write_path=workspace_* · KQ DỪNG · 1 BLOCKER #11 · W24H_NOT_YET_PROVEN
+
+**Cửa sổ:** PROMPT `7cc8225` (READY P111). Đo 14/10 15:26–15:41Z; phiên Mac bị ngắt 15:41→21:07Z nên **đo lại 21:07Z** trước khi chốt (vượt khung ≤25′ vì ngắt, không phải vì đo thêm). Mutation VPSC cuối = N2C 14/10 08:11Z ⇒ mốc 24h là 15/10 08:11Z ⇒ `W24H_NOT_YET_PROVEN`; bản tin 08:00 15/10 (01:00Z) vẫn nằm trong cửa sổ. Mọi lệnh qua `ssh contabo 'nice -n 19 ionice -c3 bash -s'` (kịch bản stdin); `du`/`find` chỉ trong `/opt/incomex/data` (timeout 60 s): 0 tệp VPS, 0 tiến trình nền, không chiếm VPS-GHI, không đổi ngưỡng/taxonomy, không xoá.
+
+### 1. Cho Owner
+- 🟢 Các dịch vụ cần giữ chạy tốt: PG, Agent Data, Directus, Nuxt, Qdrant, Graph, nginx. 22 lịch đã tắt vẫn tắt, không lịch nào tự bật lại. Backup PG/Qdrant/mã nguồn lên Drive và bản tin 08:00 vẫn chạy.
+- 🔴 Đèn ổ đĩa #11 (đèn của VPSC) **đỏ lại từ 14/10 11:10Z (18:10 VN), còn đỏ lúc 21:07Z**: thư mục `/opt/incomex/data` — vùng khai là «đứng yên» — tăng ~165–227 MiB mỗi 24h mà không ai khai. Ổ chưa nguy (61 %, trống ~37,4 GiB). PROMPT ghi rõ «#11 đỏ thật lúc chốt ⇒ một BLOCKER» nên chưa đóng VPSC được.
+- 🟡 Chưa đủ 24h sau lần sửa cuối ⇒ chưa chứng minh 24h; đèn và bản tin hiện có tự canh, không ai phải ngồi chờ.
+
+### 2. GIỮ (15:26–15:29Z; đo lại 21:07Z giống hệt)
+| Mục | Kết quả |
+|---|---|
+| Container | 13/13 Up; 11 healthy + nginx, cowork-runner (không có healthcheck); PG + claude-mcp chạy từ HEAL 13/10, agent-data từ GJW 10:31Z |
+| PG | `pg_isready` accepting connections · Kuma #7 200 |
+| Agent Data / RAG / MCP | Kuma #1 MCP 200 (keyword), #2 Agent Data 200 (24h: 1.439 up · 2 pending · 0 down; down cuối 03/10 ⇒ chưa thấy 502 tái phát), #18 Host Helper OK |
+| Directus · Nuxt · Qdrant · Graph | `/server/ping` 200 · `/` 200 (0,51 s) · `/readyz` 200 · Neo4j 17474 200; Guard INV22 graph_v1 PASS |
+| nginx (container) | `vps.` 200 · trang chủ 200 · `directus.`/`giaoduc.` 302 |
+| Guard periodic | chỉ INV5_6 (Config Guard DRIFT 4 đích cũ) + INV20 (agent-data cloud) FAIL = #22 cũ TQT/HJW; INV15/16/17/22/23 PASS |
+| Config Guard drift-check | 15:24Z và 21:0xZ: 481 / 477 MATCH / 4 MISMATCH = như L2A/N2C; unit báo `failed` vì thoát mã 2 khi DRIFT — có từ trước |
+
+Đây là kiểm health + smoke HTTP, không phải kiểm thử toàn diện.
+
+### 3. 22 lịch OFF
+- crontab root: 21 dòng còn tiền tố `#L1-OFF-VPSC-L1-CRON-OFF-20261013-01 `; 0 dòng đang chạy chứa khoá bảng T; 30 dòng chạy; spool sha16 `cf36da8e` = baseline Config Guard `cron-root-crontab` (L1P).
+- crontab `incomex`: dòng 12 `#L2A-OFF-VPSC-L2A-CTXPACK-CRON-OFF-20261014-01 0 */3 …` (spool sha16 `13577f9a`).
+- Nhật ký cron 26h (5.136 CMD/24h): 42 lượt khớp khoá 22 lịch, **tất cả trước giờ tắt** (38 lượt L1 13/10 13:29–14:59Z < 15:00:02Z; 4 lượt context-pack 13/10 16Z/19Z/22Z + 14/10 01Z < 03:00:17Z); sau giờ tắt: 0.
+
+### 4. Đĩa — BLOCKER
+| Mục | 15:00–15:41Z | 21:00–21:07Z |
+|---|---|---|
+| df / | 61 % · trống 40,35 GB (37,6 GiB) | 61 % · 37,4 GiB |
+| storage-watch | `red` · lý do duy nhất `EVENT_UNDECLARED /opt/incomex/data +187 MiB/24h (STATIC, không CHANGE_EVENT)` · cả ổ trống d24 +0,49 GiB · drop7d 2,12 GB · unexplained 73 MB | `red` · cùng lý do, +165 MiB/24h · cả ổ trống d24 −0,31 GiB · debt 6 |
+| Kuma #11 | xanh 05:10Z → **đỏ từ 11:10Z** (24h: 143 đỏ / 36 xanh nhịp; số MiB luân phiên +136…+227, cùng một thư mục) | vẫn đỏ, 0 lần xanh từ 11:10Z |
+| `/opt/incomex/data` (taxonomy STATIC, chủ ghi «agent-data/Nuxt») | 1,67 GB, d24 +196,5 MB; riêng `workspace-tools/transactions` ROTATING · VALVE_LIVE 2,04 GB | 1,67 GB, d24 +172,6 MB |
+
+Nợ khác của storage-watch (không phải lý do đỏ): CONTROL_DEBT `/var/lib/hjw-control` hạn 16/10 (HJW) · 3 EVIDENCE_DEBT hạn 21/10 · TĂNG_LẠ STATIC +215 MiB/24h (data +187, containerd +13,5, hermes +4,6).
+
+Tệp mới 24h trong `/opt/incomex/data` (trừ `transactions`; tổng tệp mới, không phải tăng ròng):
+| Nguồn | Tệp mới 24h | Cỡ thư mục | Chủ | Van |
+|---|---|---|---|---|
+| `workspace-tools/p02-cache` (gương P02 agent-data) | 172 MiB / 1.368 tệp | 217 MiB (13/10: 611) | MCPW/agent-data | (o) repack trong `vps-retention.sh` |
+| `workspace-tools/github-workspace` | 67 MiB | 157 MiB | MCPW/agent-data | (o) repack |
+| `hvu-b2/repo.git` | 45 MiB / 898 object | 520 MiB (13/10: 437) | HVU (`hvu-view`) | **không thấy** trong `vps-retention.sh`; `last-gc.json` của HVU chỉ dọn bản revision nginx |
+| gốc `workspace-tools/` (`.before`/`.json`/`audit.jsonl`/`operations.jsonl`) | ~29 MiB | 603 MiB / 1.920 tệp | MCPW/agent-data | (m) xoá `.before` >48h đã có trong Git |
+
+`vps-retention.sh` chạy mỗi giờ (`/etc/cron.d/vps-retention`, thuộc Config Guard); lượt nặng 13/10 22:27Z: (p) xoá 96 giao dịch 30 MB, (o) repack 4 kho.
+
+**Phán định:** nguồn có tên và chủ, phần lớn có van; nhưng (i) taxonomy vẫn coi `/opt/incomex/data` là STATIC nên phần tăng nghiệp vụ của agent-data/HVU thành EVENT_UNDECLARED, (ii) `hvu-b2/repo.git` tăng ~45 MiB/ngày và không thấy van. #11 đỏ là phát hiện thật, kéo dài ~10h. JEV `gen-dec-1791991905-YMzR0yEIAX0BASu1hZlG`: DỪNG 1 blocker 0,91 · đỏ thật 0,70 · nguồn đủ tên/chủ/van 0,08.
+
+### 5. Giám sát · backup
+| Mục | Biên nhận gần nhất |
+|---|---|
+| Bản tin 08:00 | `owner_tin` mid **199** 14/10 01:01Z (08:01 VN); Guard INV17 PASS; bản 15/10 chưa tới lúc chốt |
+| PG local | Kuma #12 OK 14/10 00:28Z (117M) |
+| PG + cấu hình + metadata → Drive (gpg) | `DIRECTUS_DB_BACKUP PASS` 13/10 18:46Z và **14/10 18:46Z**, Kuma #14 OK encrypted |
+| Qdrant | snapshot 14/10 01:00Z `qdrant_2026-10-14_0300.snapshot` 217M |
+| Code backup Drive (gpg, N2C) | Kuma #15/#16 OK 13:00Z và **18:00Z**; `remote_count=56`, retention xoá bản rõ cũ đúng lịch |
+| Kuma | 22/22 có nhịp, đều gắn Telegram (INV15). Đỏ: #11 (VPSC — blocker) · #21 Hermes «No heartbeat» (HJW, cũ) · #22 Guard (TQT/HJW, cũ) |
+| sr-mow Đ30/31 | `latest.log` vẫn `INFRA_FAULT (exit 75)` — nợ cũ chủ sr-mow |
+
+Không thấy lỗi mới do 22 lịch OFF làm mất chuỗi bảo vệ nào.
+
+### 6. Số mang sang (không đổi)
+PG đọc −87…−93 % (P110) · RAM PSI 0, swap không đảo (L1b) · p50 MCP 226 ms (L1b; chưa chứng minh GitHub là thủ phạm duy nhất) · KPI P84 cũ 45 GiB / 1 GiB / 150 ms: ~37,5 GiB / 1,02 GiB / 226 ms CHƯA ĐẠT, không ép · O-R7-KEY Owner-only ở COLLAB gốc, chưa xoay, lượt này không mở/in.
+
+### 7. Blocker duy nhất · chủ
+**#11 đỏ từ 14/10 11:10Z vì `/opt/incomex/data` (STATIC) tăng +165…227 MiB/24h không khai.** Chủ đèn: VPSC (Host quyết). Chủ nguồn: MCPW/agent-data (p02-cache, github-workspace, `.before`) và HVU (`hvu-b2/repo.git`). Lượt này không sửa, không đổi taxonomy/ngưỡng. Các hướng để Host cân (chưa phải việc được giao): khai đúng loại cho phần tăng nghiệp vụ của `workspace-tools`, đề nghị chủ HVU đặt van cho `hvu-b2/repo.git`, hoặc xin Owner chấp nhận đóng VPSC khi #11 đỏ vì đúng lý do này.
+
+### 8. Dọn
+VPS 0/0 (không tạo tệp/tiến trình) · Mac: 10 kịch bản trong scratchpad `w/` xoá sau KQ · còn lại: không.
+
+---
+
 ## L1B-RAM-SWAP-20261014 · RUN VPSC-L1B-RAM-SWAP-20261014-01 · đo áp lực RAM/swap (CHỈ ĐỌC) · executor Claude Code CLI (Mac → SSH root VPS1, chỉ đọc) · write_path=workspace_* · KQ XONG · NO_MUTATION · AP_LUC_KHONG
 
 **Cửa sổ:** L0 13/10 ~13:15Z → đo 14/10 13:02:58–13:06Z (≈ 23 giờ 50 phút; theo PROMPT không chờ đủ 24h). Điều kiện chạy: GJW-G1B đã KQ `60b89b2` 10:55Z; agent-data khởi động lại 10:31:40Z (việc GJW) ⇒ bộ đếm cgroup agent-data **reset**, chỉ ghi số hiện tại, không so L0; claude-kb (chạy từ 29/09) và Directus (từ 03/10) **không** khởi động lại ⇒ `memory.events` so thẳng được với L0. Mọi lệnh qua `ssh contabo 'nice -n 19 ionice -c3 bash -s'` / `python3 -I -` (kịch bản đọc từ stdin): 0 tệp trên VPS, 0 tiến trình nền, không chiếm VPS-GHI, không đọc env/environ.
