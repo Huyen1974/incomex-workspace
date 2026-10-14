@@ -763,3 +763,38 @@ Nguồn: chỉ đạo Owner 14/10/2026 10:43 (nguyên văn ở COLLAB §0 ô 3 m
 **Thứ tự làm (một lượt, chia chặng):** C (mã) → D (Field) → B + E (thẻ việc, thẻ bước) → F (hồ sơ sửa) → A + G (viết lại 006) → K. Lý do: các phần sau tham chiếu mã của phần trước. Claude rà một vòng khi xong cả lượt, theo đúng các phép thử ghi dưới; hai hãng ký phiếu mới.
 
 **Cần Owner gật (PM đề xuất sẵn):** (Q1) cho **đọc PG chỉ đọc, không ghi** để phân loại 239 field "cần tạo mới / đã có" — **gật**, vì không đọc thì ô ② thẻ việc luôn đỏ. (Q2) đổi ID field sang dạng ngắn `FLD-0001` **ngay bây giờ**, trước khi vào PG — **gật**, vì bây giờ rẻ, sau này đắt. Tách tệp view.html 16 MB (R26): PM quyết để lượt sau, không trộn vào lượt này.
+
+## V8.1 · Yêu cầu chi tiết và phép thử nghiệm thu
+
+Quy ước: 🤖 = máy chặn (bộ kiểm FAIL); 📝 = lời dặn. Mỗi yêu cầu phải có ít nhất một 🤖, trừ khi ghi rõ vì sao chưa chặn được.
+
+### A · Nguyên tắc đường độc đạo
+
+| ID | Yêu cầu | Phép thử |
+|---|---|---|
+| A1 | Trang 1 của 006: mục tiêu đường độc đạo + 3 nguyên tắc Owner (nguyên văn) + định nghĩa "xong cả việc" (B2) + cách đọc thẻ bước (E1). Mỗi luật quan trọng ghi rõ 🤖 hay 📝 (R00). | AI mới đọc riêng trang 1 trả lời được: việc xong khi nào, bước đầu tiên là gì, ghi ở đâu |
+
+### B · Thẻ việc 3 ô và định nghĩa "xong cả việc"
+
+| ID | Yêu cầu | Phép thử |
+|---|---|---|
+| B1 | Mỗi việc trong Master tiến trình công việc có **Thẻ việc** ở đầu hồ sơ, 3 dòng, **máy tự tính**, xanh/vàng/đỏ: ① 🏁 Hoàn thành cả việc (đạt mấy/mấy tiêu chí) · ② 🔤 Field mới cần tạo: con số N + đã kiểm kê đủ chưa (chưa kiểm kê thì đỏ; không để trống, không ghi 0) · ③ ✍️ Chữ ký: từng phiếu bắt buộc GPT ✅ · Claude ✅ · Owner ✅. Việc chỉ hiện "✅ Xong" khi cả 3 dòng xanh. | 🤖 Sửa tay màu thẻ ⇒ bộ kiểm tính lại ra khác ⇒ FAIL; thiếu 1 chữ ký ⇒ không được xanh |
+| B2 | "Xong cả việc" = 5 ô bắt buộc, điền ở CP01, **Owner gật trước CP02**, sau đó khóa: 🎯 Mục tiêu (1 câu) · 📦 Sản phẩm giao (mỗi cái có nơi kiểm) · 👤 Người nhận · 🏁 Tiêu chí xong (mỗi tiêu chí đo được, có cách kiểm) · ⛔ Ngoài phạm vi. Đổi sau khi khóa = đi hồ sơ sửa (F1), Owner gật lại. | 🤖 Thiếu 1 trong 5 ô hoặc chưa có Owner gật ⇒ không qua CP01; sửa tiêu chí sau khóa mà không có bản ghi sửa ⇒ FAIL |
+| B3 | Bộ ca nghiệm thu (CP02.12) sinh từ Tiêu chí xong đã khóa: mỗi tiêu chí ≥ 1 ca; AI thực hiện không tự vạch đích. Áp ngay cho việc 001: Codex soạn 5 ô từ yêu cầu gốc của Owner, trình Owner gật. | 🤖 Tiêu chí không có ca ⇒ FAIL |
+
+### C · Mã Master chính thức
+
+| ID | Yêu cầu | Phép thử |
+|---|---|---|
+| C1 | Master tiến trình công việc đang có 2 danh tính ("DEF 00.1" trên UI, `CAT-227*` trong dữ liệu, trạng thái DESIGN_ONLY). Chốt **một mã chính thức** trong Master List; UI hiện mã đó; mọi tham chiếu dùng mã đó; hai tên cũ giữ làm bí danh. | 🤖 UI Master không hiện mã đã đăng ký ⇒ FAIL |
+| C2 | Áp cho mọi Master: 18 Master thiết kế đang DESIGN_ONLY, mã mang ký hiệu `*`/`?`. Mã không chứa ký hiệu trạng thái; trạng thái là cột riêng có "?". | 🤖 Mã chứa `*` hoặc `?` ⇒ FAIL; Master có UI mà không có trong Master List ⇒ FAIL |
+
+### D · Master Field chuẩn để đưa thẳng vào PG
+
+| ID | Yêu cầu | Phép thử |
+|---|---|---|
+| D1 | **Ba định danh, mỗi loại một vai** (có "?"): **ID máy** ngắn, bất biến, quy tắc rõ (đề xuất `FLD-0001` tăng dần; ID cũ giữ làm bí danh) · **Mã DB** = tên cột PG: `snake_case` tiếng Anh, chỉ a–z 0–9 _, bắt đầu bằng chữ, ≤ 40 ký tự, **một mã DB ↔ một định nghĩa** (cùng tên cột ở mọi bảng = cùng nghĩa) · **Tên hiển thị** cho người. Claude phát hiện: 12 nhóm "giữ riêng" ở P54 đang **trùng key** (state, actor ×4, version_ref ×3…); nếu key thành tên cột PG thì hai nghĩa khác nhau dùng chung một tên ⇒ phải đặt mã DB khác nhau (vd `issue_state`, `handoff_state`). Codex nêu ý kiến nếu khác; hai bên chốt một lượt. | 🤖 Hai định nghĩa cùng mã DB ⇒ FAIL; mã DB sai quy tắc ⇒ FAIL |
+| D2 | Cột "Tên" đổi thành **Tên hiển thị**, có "?" hướng dẫn rõ: tiếng Việt có dấu, ngắn (đề xuất ≤ 30 ký tự), đủ nghĩa = đối tượng + thuộc tính ("Trạng thái vấn đề", không phải "Trạng thái"), kèm ví dụ đúng/sai. Rà lại toàn bộ 239 tên. | 🤖 Hai định nghĩa trùng tên hiển thị ⇒ FAIL; vượt độ dài ⇒ FAIL |
+| D3 | Cột **Việc sinh ra** = mã việc (theo mã Master C1) đã yêu cầu tạo field; field từ thiết kế cũ ghi nguồn gốc rõ ràng. | 🤖 Field không có việc sinh ra/nguồn gốc ⇒ FAIL |
+| D4 | Cột **Mô tả** bắt buộc (1–3 câu): dùng để làm gì · giá trị hợp lệ / ví dụ · khác field gần giống nào (nêu mã). Trước khi thêm field: tra theo mã DB + kiểu + mô tả; vùng xám (khoảng 50–65%) phải ghi quyết định như 24 nhóm P54. | 🤖 Thiếu mô tả ⇒ FAIL |
+| D5 | **Vòng đời field**: Cần tạo mới → Đã tạo (có bằng chứng PG) → Đã nghiệm thu; thêm "Đã có sẵn trong PG · dùng lại" và "Ngừng dùng". Mỗi lần chuyển ghi ai, lúc nào, bằng chứng. Thay hai cột "Tình trạng ngoài PG / Tình trạng PG". Số "Cần tạo mới" là con số ở ô ② thẻ việc. Phân loại 239 field cần đọc PG chỉ đọc (chờ Owner gật Q1). | 🤖 "Đã tạo"/"Đã có sẵn" không có bằng chứng PG ⇒ FAIL; nhảy cóc trạng thái ⇒ FAIL |
