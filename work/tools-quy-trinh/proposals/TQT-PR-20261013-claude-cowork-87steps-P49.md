@@ -686,3 +686,54 @@ Hai lệch nhỏ làm cùng lượt C1/F4, không chặn.
 Ba review Anthropic nối sau review OpenAI, không sửa gì khác; giờ máy chủ 2026-10-13T22:38:59Z; commit `6466dd0`. CORRECTIONS **REJECT** + C1 (binding `81d6508c…`) · DEBTS **APPROVE** (binding `6ea50d4a…`) · FIELDS **REJECT** + F4 (binding `562fbd2e…`). Đọc lại: view.html `5f053816…`; ba phiếu cùng binding/scope; 143 sự kiện, 253 field, 24 nợ không đổi; CHECK005 exit 0; UI hồ sơ 001 cột Claude hiện "Cần sửa" / "✅ OK" / "Cần sửa".
 
 Nhật ký vòng 6: KQ@TQT-P53-CLAUDE-REVIEW XONG · 2026-10-13 ~22:50Z (giờ chính xác = commit này). Không chiếm VPS-GHI: chỉ ghi tài liệu + ba phiếu qua gateway CAS có đọc lại. Chạy CHECK005 và các phép thử nhỏ trong bản sao cách ly; tệp tạm tự hủy theo bản sao; lượt CHECK006 `--vps-ui` đã hủy, không còn chạy. Trình duyệt chỉ mở/thu mục, đã đóng tab. Không chạy QT002, PG. Không tạo tiến trình nền, lease hay khóa.
+
+---
+
+# VÒNG 7 · Rà P54 (006@0.9) · 14/10/2026
+
+REVIEWER: Claude (Anthropic) · Claude Chat/Cowork · ghế Claude-review. STARTED@TQT-P54-CLAUDE-REVIEW 2026-10-14T00:58Z. BASED_ON: P54 `17727296`, HEAD `68484e4`; 006 `0.9-manual-applicability` (`f4dfb8ff…`), CHECK005 `cb1b5813…`, UI `63b415fb…` — khớp manifest phiếu.
+
+## V7.0 · Nhìn 30 giây
+
+| Phiếu | GPT | Claude |
+|---|---|---|
+| TQT-P53-DEBTS · 24 nợ | ✅ | ✅ (V6) |
+| TQT-P54-CORRECTIONS · C1 đánh giá tay có rà khác hãng | ✅ | ✅ **APPROVE** |
+| TQT-P54-FIELDS · 24 quyết định, 239 định nghĩa | ✅ | ✅ **APPROVE** |
+
+⇒ **Bộ sửa QTTH006 (71 bước) đủ hai hãng.** Đây là duyệt quy trình và bộ kiểm, **chưa phải nghiệm thu QT001**. Bước kế: Owner quyết ca thử QT002 (đề xuất PM: gật).
+
+## V7.1 · C1 — kiểm thật (bản sao cách ly)
+
+| Phép thử | Kết quả |
+|---|---|
+| Hồ sơ mẫu hoàn tất 71 bước với 27 nhánh đánh giá tay đã rà (ca của Codex trong CHECK005) | PASS `completion: PASS_TEST_ONLY` — hết khóa chết |
+| Đánh giá tay không có phiếu rà | FAIL `APPLICABILITY_EVIDENCE` ✅ |
+| Phiếu rà cùng hãng | FAIL ✅ |
+| Phiếu rà đúng (khác hãng, đúng binding tạo bằng `--assessment-binding`) | PASS, `manual_assessments: 1` ✅ |
+| Sửa căn cứ sau khi rà | FAIL ✅ |
+| Phiếu rà ghi giờ trước lúc đánh giá | FAIL ✅ |
+| "Không áp dụng" cho bước LUÔN | FAIL `MANDATORY_NOT_APPLICABLE` ✅ |
+| Người rà trùng người đánh giá | FAIL ✅ |
+
+Bộ đánh giá khai `NO_COMMAND` + nợ TQT-P53-AUTOMATION; khi có lệnh thì bắt buộc biên nhận máy. Giới hạn đã ghi rõ trong 006 §11: HOST_CHECK, máy không chứng thực danh tính người rà — chấp nhận ở mức này.
+
+## V7.2 · F4 — Field
+
+24 nhóm đều có quyết định, lý do theo nghĩa, người quyết: 12 GỘP (bớt 18 định nghĩa) · 12 GIỮ RIÊNG. 253 − 18 + 4 trường quản lý = **239** định nghĩa / **361** lượt dùng; 327 lượt thiết kế giữ nguyên. Máy đếm lại: còn 12 nhóm cùng khóa + kiểu + ràng buộc, cả 12 khớp đúng ID với quyết định GIỮ RIÊNG. Claude không tranh luận lại nghĩa từng nhóm (đúng cam kết V6.4). Chống bỏ sót: thêm ID vào nhóm đã quyết ⇒ FAIL ✅; tạo nhóm trùng mới không quyết định ⇒ FAIL ✅.
+
+## V7.3 · Giao diện
+
+| Trang | Kiểm | KL |
+|---|---|---|
+| Overview (Chrome, bản HEAD `68484e4`) | Tiêu đề "7 mốc · 11 mục phải ghi · 71 bước thực hiện", chip "71 bước", mục 3 "QTTH 06 · 71 bước" | ✅ |
+| Trang xem trước cũ | Chỉ còn liên kết về Overview, 0 lỗi console | ✅ |
+| Hồ sơ 001 | 3 phiếu hai hãng ✅; Master Field 239 | ✅ |
+
+## V7.4 · Chữ ký đã ghi
+
+Hai review Anthropic **APPROVE** nối sau review OpenAI, không sửa gì khác; giờ máy chủ 2026-10-14T01:01:44Z; commit `1979029`. Binding CORRECTIONS `080555af…`, FIELDS `1c4dc4f6…`. Đọc lại: view.html `1130d8ca…`; các phiếu cùng binding/scope; 143 sự kiện, 239 field, 24 nợ không đổi; CHECK005 exit 0 (44 s, `p54_cases: 11`).
+
+**Còn chặn hoàn thành QT001** (006 §9.1, không đổi từ V5.0): chưa có lượt làm thật bởi AI mới; chưa có 7 mốc đo bằng giờ commit; chưa có rà độc lập hợp đồng/sản phẩm thật; chưa có phiếu nghiệm thu sản phẩm hai hãng, Owner quyết, ACK. FIELD-COVERAGE và AUTOMATION vẫn mở trong danh sách nợ.
+
+Nhật ký vòng 7: KQ@TQT-P54-CLAUDE-REVIEW XONG · 2026-10-14 ~01:05Z (giờ chính xác = commit này). Không chiếm VPS-GHI: chỉ ghi tài liệu + hai phiếu qua gateway CAS có đọc lại. CHECK005 và các phép thử trong bản sao cách ly, tệp tạm tự hủy; CHECK006 không chạy lại (bản sao thiếu sổ Master sống, như V6) — dựa lượt PASS của Codex `TQT-675fbba3…` + CHECK005 + giao diện thật. Trình duyệt đã đóng tab. Không chạy QT002, PG. Không tạo tiến trình nền, lease hay khóa.
