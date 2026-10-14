@@ -7,14 +7,14 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-15 04:12 +07 · GPT Chat Host · P17
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-15 04:25 +07 · Claude Code CLI · P18
 - 🎯 Mục tiêu: Chủ trương Owner 14/10: Gemini thành viên Google chính thức có kết nối **tối đa khả thi** trên các bề mặt Google dùng thật (agy, Gemini Mac/Spark, Antigravity Browser/Remote), cả gọi ra và gọi vào từ HJW; không chỉ dừng ở CLI đủ ghi P.
 - 🏁 Xong khi: ô 2 + C7/C8/C9: google-main độc lập có repo/KB/JEV/Hội đồng; **kiểm thử tất cả** kênh/công cụ Google có triển vọng (không dừng sau một đường PASS); có luồng máy→Gemini→receipt không Owner copy-paste và bảng bằng chứng từng bề mặt, đúng giới hạn thực tế đã thử.
 - 📍 Tiến độ: [✓ G1B google-main/repo/KB] → [✓ G1C cũ huỷ] → [✓ Claude P16 ACCEPT G1C-MAX] → [✓ GPT P17 READY G1C-MAX] → [■ Owner giao Claude Code một lượt nối tối đa] → [□ Google hội đồng chính thức/G3 đưa thư] → [□ nghiệm thu].
 - ✅ Đã đạt: Gemini agy P10 có Git author [auth:google-main], repo/KB và sáu danh tính PASS; Claude P16 ACCEPT@90f769ddd7c6ab921c2e40071a010b23bb6ff324; Host P17 READY cùng SHA, không sửa PROMPT. Q03/Gateway Google theo phương án Owner chuyển giữ nguyên GẬT, có phạm vi/rollback.
-- ■ Đang làm: — · 0 RUN active. G1C-MAX READY nhưng chưa STARTED. G1C cũ chưa từng chạy, READY a975a68 không còn khớp last-touch PROMPT nên hết hiệu lực; tuyệt đối không giao lệnh cũ.
+- ■ Đang làm: Bước G1C-MAX · vòng 1/1 · executor Claude Code CLI (Mac) · RUN GJW-G1C-MAX-20261014-01 STARTED 21:25Z · S0→S5, dự kiến xong 23:55Z. G1C cũ READY a975a68 hết hiệu lực, không dùng.
 - ⬜ Còn lại: đúng G1C-MAX một lượt: JEV/Graph/Lark/MCP ngang Claude, Gemini Mac/native permission/Chrome/Workspace/Remote/SDK/API, Google tự smoke và phản biện; cổng VPS Google riêng theo Q03, kiểm bằng chứng mọi bề mặt; Kuma sau.
-- ➡ Kế tiếp: Owner chuyển duy nhất lệnh chuẩn DROOT38 cho Claude Code CLI chạy G1C-MAX theo P17 READY; làm S0–S5, chứng minh/bảo vệ, ghi KQ và thu cờ. NEXT_TRIGGER=OWNER_START_G1C_MAX.
+- ➡ Kế tiếp: 🤖 Claude Code chạy S0–S5, ghi KQ và thu cờ · 😊 Owner chỉ bấm khi được hỏi (Full Disk Access, Google đồng ý, dán một câu vào Gemini Mac) · Host nghiệm thu sau KQ. NEXT_TRIGGER=KQ_G1C_MAX.
 - ⛔ Không có cấm tính năng Gemini; dùng đầy đủ native Google và tối đa các công cụ hệ thống. Giữ chốt nền chung: gateway-only Git, DOT/Config Guard/Đ30–31, bí mật không lên repo/log, thay đổi có rollback, chi phí/phá dữ liệu chỉ theo Owner; không áp trần riêng cho Google.
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
@@ -105,6 +105,10 @@ HUMAN_DIRECTIVE@GJW-20261014-10 EFFECTIVE · task=gemini-join-workflow · scope=
 - HUMAN_DIRECTIVE@GJW-20261014-08 EFFECTIVE · task=gemini-join-workflow · scope=POST-PROTECT Điều 30/31 cho footprint kết nối Google trong lượt G1B hiện hành; hậu kiểm Kuma/Telegram chuyển chủ đúng task sau KQ · step=G1B_POST và follow-up thuộc việc giám sát · recorded_by=openai-main · quote=«Nhưng tiện thể chỗ kết nối này thì bạn nhắn thêm cho agent là đưa luôn vào điều 30, 31 để bảo vệ, tránh việc chúng ta kết nối xong rồi AI khác lại vô tình làm hỏng mất, làm đi làm lại nó mất việc, mất thời gian ra.» · audit=Owner direct chat 14/10/2026. **Không sửa PROMPT/READY, không phát RUN mới; đây là yêu cầu áp dụng luật R4 vốn đã hiệu lực lên kết quả thực hiện.**
 
 ## Nhật ký P
+
+### P18 · Claude Code CLI · 2026-10-15 04:25 +07 · RUN `GJW-G1C-MAX-20261014-01` · BẮT ĐẦU
+- Ghế: claude-code · Bước/vòng: G1C-MAX · 1/1 · Based_on: `f467119` · PROMPT last-touch `90f769ddd7c6ab921c2e40071a010b23bb6ff324` = P16 ACCEPT = P17 READY · HUMAN_DIRECTIVE@GJW-20261014-11 EFFECTIVE (S3 được chạy) · không STOP_REQUESTED · root `VPS-GHI: trống` (S3 sẽ lấy rồi trả). PROMPT ghi «Claude Code tạo P17» nhưng P17 đã là của Host ⇒ cờ và tiến độ ghi ở P18 này.
+- STARTED@GJW-G1C-MAX-20261014-01 2026-10-14T21:25Z · executor=Claude Code CLI (MacBook, HOME=/Users/nmhuyen) · dự kiến xong 23:55Z
 
 ### P17 · GPT Chat Host · 2026-10-15 · Q03 DISPOSITION + READY G1C-MAX
 - **Claude P16 ACCEPT xác minh:** PROMPT cuối chạm `90f769ddd7c6ab921c2e40071a010b23bb6ff324`. Bản G1C cũ READY `a975a68…` chưa STARTED và đã bị thay thế; GPT Host đồng ý lỗi cũ là hạn chế tự đặt, tuyệt đối **không dùng khối lệnh cũ**. Diff P16 thay bằng `GJW-G1C-MAX-20261014-01`, gộp JEV/Graph/Lark/VPS tools/Google native/first Council review. Không sửa PROMPT sau ACCEPT, không thêm vòng.
