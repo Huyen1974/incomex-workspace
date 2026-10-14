@@ -8,12 +8,12 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · P59 · 2026-10-14T03:53:34.458989+00:00 · Codex executor
+### BẢNG ĐIỀU KHIỂN · P59 · 2026-10-14T03:55:55.666687+00:00 · Codex executor
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã xong: G1 Owner nhận7/7 giữ nguyên. P53 quy định006@0.8 có71bước/7mốc, đối chiếu87nghĩa vụ; hồsơ001 xemgộp/historic87, giữ143events. Sửa nợ/Field theoClaudeV5; CHECK001–005 PASS. Đây là bản sửa đã kiểm, chưa nghiệmthuAI mới.
-- ■ Đang làm: TQT-P59-IDS · hiển thị mã việc và liên kết CAT-069.
+- ■ Đang làm: — · 0 RUN active · P59 đã khép, trả cờ.
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002. · Cấu trúc dữ liệu cho 1.000 việc + luật 1 trang (R26–R27, PR-22): Owner gật → PT-01 có số đo.
 - ➡ Kế tiếp: Owner chuyển Claude rà và ký TQT-P58-DEBTS. P54 đã được Claude APPROVE V7; chưa nghiệm thu QT001.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
@@ -1310,3 +1310,7 @@ KQ@TQT-P58-DEBTS XONG · 2026-10-14T03:40:05.908736+00:00 · hoàn thiện/kiể
 
 ## P59 · Mã việc và liên kết sổ cần xử lý tiếp
 STARTED@TQT-P59-IDS 2026-10-14T03:53:34.458989+00:00 · Codex Host · Owner giao hai cột mã và làm rõ luật mã/duyệt lần đầu. SSOT UI process-work-master-v1.js; nguồn record_id/work_id hiện có, không thêm mã thay thế, không PG.
+- Công bố nguồn/luật commit e2d3118e608282bb25635530ec8df93cf16ce542; UI transaction667fe0136c754f2ba34940969a80f73c. Hai cột dùng record_id/work_id đã có, không sinh mã mới hoặc sửa chữ ký. Hash adapter đã cập nhật tại registry.
+- Kiểm trực tiếp hàm hiện hữu: 2mã việc duy nhất,76dòng,60liên kết hợp lệ/16trống do nguồn P34 chưa khai work_id. Không gán đại16dòng vào TQT-VIEC-001; cần rà nguồn/khai đúng hồ sơ trong lượt tổng hợp Claude tiếp. Syntax PASS; UI cả hai trang HTTP200 hiện đúng cột mã và dấu ?. Cảnh báo fontCSP cũ giữ nguyên. Đây là kiểm sửa UI, không nghiệm thuQT001.
+- AGENTS/README đã ghi luật hai mục phải có danh sách, Master/bản ghi có mã riêng ổn định; User duyệt lần đầu đúng mã/phiên/phạm vi/bằng chứng, AI không tự duyệt thay. User duyệt không đóng băng thiết kế. Cơ chế nút và cổng cưỡng chế duyệt lần đầu chưa triển khai; đưa vào lượt rà tiếp, không coi các Master cũ đã được User duyệt.
+KQ@TQT-P59-IDS XONG · 2026-10-14T03:55:55.666687+00:00 · đúng phạm vi hai cột mã và luật; 16liên kết cũ còn thiếu đã kê ở trên. Giữ STARTED; trả cờ cùngcommit, không process nền/lease/tệp tạm VPS. ChưaPG. NEXT_TRIGGER=OWNER_SENDS_CLAUDE_FINDINGS.
