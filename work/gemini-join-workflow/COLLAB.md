@@ -7,14 +7,14 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-15 06:45 +07 · Claude Code CLI · P18 KQ
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-15 07:00 +07 · Claude Chat · P20
 - 🎯 Mục tiêu: Chủ trương Owner 14/10: Gemini thành viên Google chính thức có kết nối **tối đa khả thi** trên các bề mặt Google dùng thật (agy, Gemini Mac/Spark, Antigravity Browser/Remote), cả gọi ra và gọi vào từ HJW; không chỉ dừng ở CLI đủ ghi P.
 - 🏁 Xong khi: ô 2 + C7/C8/C9: google-main độc lập có repo/KB/JEV/Hội đồng; **kiểm thử tất cả** kênh/công cụ Google có triển vọng (không dừng sau một đường PASS); có luồng máy→Gemini→receipt không Owner copy-paste và bảng bằng chứng từng bề mặt, đúng giới hạn thực tế đã thử.
 - 📍 Tiến độ: [✓ G1B google-main/repo/KB] → [✓ G1C cũ huỷ] → [✓ Claude P16 ACCEPT G1C-MAX] → [✓ GPT P17 READY G1C-MAX] → [■ Owner giao Claude Code một lượt nối tối đa] → [□ Google hội đồng chính thức/G3 đưa thư] → [□ nghiệm thu].
 - ✅ Đã đạt: Gemini agy P10 có Git author [auth:google-main], repo/KB và sáu danh tính PASS; Claude P16 ACCEPT@90f769ddd7c6ab921c2e40071a010b23bb6ff324; Host P17 READY cùng SHA, không sửa PROMPT. Q03/Gateway Google theo phương án Owner chuyển giữ nguyên GẬT, có phạm vi/rollback.
 - ■ Đang làm: — · 0 RUN active. G1C-MAX KQ DỪNG·PARTIAL 23:45Z (P18): agy 12 MCP + cổng VPS riêng 23 tool + Gemini tự ghi P19 (10 VERIFIED) + Điều 30/31 (Config Guard, Guard INV24, vân tay Mac INV20); thiếu Gemini Mac Task Mode + biên nhận R4.
-- ⬜ Còn lại: đúng G1C-MAX một lượt: JEV/Graph/Lark/MCP ngang Claude, Gemini Mac/native permission/Chrome/Workspace/Remote/SDK/API, Google tự smoke và phản biện; cổng VPS Google riêng theo Q03, kiểm bằng chứng mọi bề mặt; Kuma sau.
-- ➡ Kế tiếp: Host nghiệm thu KQ P18 + P19 (Reviewer khác hãng rà) · 😊 việc tay Owner còn lại (để lượt sau, mỗi lần một việc): đăng nhập Antigravity trong Gemini Mac Task Mode rồi dán câu SMOKE đúng Task Mode · OAuth Figma · quyết billing/API key · xoay path-secret JEV (nợ sự cố P18) · Directus tac_* lỗi DNS cả hai cổng = việc chủ claude-mcp. NEXT_TRIGGER=HOST_NGHIEM_THU_G1C_MAX_P18_P19.
+- ⬜ Còn lại: Gemini Mac Task Mode (thử thẳng `agy` HOME user1) → Host công nhận ghế Google (A2/A9) → G3 đưa thư → nghiệm thu. Nợ đã giao đúng chủ (P20): biên nhận Telegram/#22, Directus DNS, xoay JEV, Figma OAuth, canh quyền agy/Remote/token.
+- ➡ Kế tiếp: Host nghiệm thu bước kết nối theo P20 (ĐẠT, nợ có chủ) + giao Claude Code B1 Task Mode (chạy `agy` dưới HOME user1, Owner không phải dán) + ghi ghế `google-main` vào AGENTS A2/A9 → soạn G3. NEXT_TRIGGER=HOST_ACCEPT_P20_TASKMODE_B1_SEAT_G3.
 - ⛔ Không có cấm tính năng Gemini; dùng đầy đủ native Google và tối đa các công cụ hệ thống. Giữ chốt nền chung: gateway-only Git, DOT/Config Guard/Đ30–31, bí mật không lên repo/log, thay đổi có rollback, chi phí/phá dữ liệu chỉ theo Owner; không áp trần riêng cho Google.
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
@@ -107,6 +107,17 @@ HUMAN_DIRECTIVE@GJW-20261014-10 EFFECTIVE · task=gemini-join-workflow · scope=
 - HUMAN_DIRECTIVE@GJW-20261014-08 EFFECTIVE · task=gemini-join-workflow · scope=POST-PROTECT Điều 30/31 cho footprint kết nối Google trong lượt G1B hiện hành; hậu kiểm Kuma/Telegram chuyển chủ đúng task sau KQ · step=G1B_POST và follow-up thuộc việc giám sát · recorded_by=openai-main · quote=«Nhưng tiện thể chỗ kết nối này thì bạn nhắn thêm cho agent là đưa luôn vào điều 30, 31 để bảo vệ, tránh việc chúng ta kết nối xong rồi AI khác lại vô tình làm hỏng mất, làm đi làm lại nó mất việc, mất thời gian ra.» · audit=Owner direct chat 14/10/2026. **Không sửa PROMPT/READY, không phát RUN mới; đây là yêu cầu áp dụng luật R4 vốn đã hiệu lực lên kết quả thực hiện.**
 
 ## Nhật ký P
+
+### P20 · Claude Chat · 2026-10-15 07:00 +07 · Reviewer · B2 rà KQ G1C-MAX (P18) + P19 Gemini
+- Ghế: claude-chat (khác hãng Google) · Based_on: `090de09` · Scope: P18 KQ, P19 bảng khả năng, ô 2, C9.
+- **Đối chiếu ô 2:** (1) đường riêng repo/VPS/KB/JEV đọc ghi thật = ĐẠT (google-main; cổng VPS riêng 23 tool như Claude + agent-data như GPT; P19 10 VERIFIED; khoá sai bị từ chối) · (2) một vòng hội đồng thật = nội dung ĐẠT (P19 có phản biện G3 độc lập + JEV), còn Host công nhận ghế · (3) đưa thư = G3, chưa tới · (4) xem/duyệt từ điện thoại = Remote Control đang chạy, Owner mở bảng trên điện thoại một lần là đủ bằng chứng.
+- **Vì sao thành phức tạp:** (a) «tối đa» không có vạch đích hữu hạn ⇒ luôn còn một món (Figma, API…) ⇒ lượt nào cũng PARTIAL; (b) gắn nợ hạ tầng của việc khác vào (Telegram/#22 đỏ sẵn, Directus DNS lỗi cả cổng Claude) ⇒ Gemini không thể xanh dù phần mình xong; (c) Gemini Mac là app giao diện, chỉ Owner bấm được ⇒ mỗi lần thử tốn một lượt chuyển tay.
+- **Đề xuất Host chốt một lượt (đồng ý hướng GPT B1, chỉnh 1 điểm):**
+  1. Nghiệm thu bước kết nối = ĐẠT theo bảng P19; phần BLOCKED ghi đúng chủ, không chặn Gemini: Telegram/#22 → việc giám sát · Directus DNS → chủ claude-mcp (MCPW) · Figma → Owner một cú bấm khi cần · xoay khoá JEV (in ra terminal Mac, không lên repo) → gộp lượt bảo trì, nhớ xoay kéo theo sửa URL JEV của mọi connector · canh quyền agy/Remote/token Google → việc giám sát · Gemini API: Owner đã nói «không cần API», `agy -p` + Remote Control đã thay ⇒ không bật billing, đóng mục (Owner muốn thì nói).
+  2. Task Mode: chính là `agy` chạy dưới HOME `~/.gemini/users/user1` (P18). Owner đã đăng nhập ⇒ Claude Code chạy thẳng `HOME=…/user1 …/agy -p «SMOKE»`, Gemini ghi P bằng google-main; Owner KHÔNG phải dán. Lỗi thì lấy lỗi nguyên văn, sửa đúng chỗ. Không đụng VPS, không làm lại phần agy đã đạt.
+  3. G2: Host (Founders) ghi ghế `google-main` vào pool AGENTS A2 + dòng nhãn `gemini-agy` vào A9 — sửa repo trực tiếp, không cần agent.
+  4. Sang G3 (đưa thư), dùng phản biện P19 làm đầu vào.
+- JEV `gen-dec-1792021946-auZzaeUJ4XiaeWAW3nzn`: nghiệm thu rồi đi tiếp 1,00 · nợ việc khác chặn Gemini 0,24 · ô 2 tiêu chí 1/2/4 đã đủ 0,45 (đúng: (2) còn Host công nhận, (4) còn Owner mở bảng điện thoại một lần). Claude không lệch JEV.
 
 ### P19 · Gemini · 2026-10-15 06:37 +07 (23:37Z) · Worker · Smoke google-main & Phản biện G3
 - Ghế: google-main · Bề mặt: Antigravity CLI `agy` · Tên mô hình: `gemini-3.8-flash-high` · Giờ UTC: 2026-10-14T23:37:00Z
