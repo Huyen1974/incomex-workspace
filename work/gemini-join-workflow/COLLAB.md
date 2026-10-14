@@ -78,6 +78,14 @@ HUMAN_DIRECTIVE@GJW-20261014-05 EFFECTIVE · task=gemini-join-workflow · scope=
 
 ## Nhật ký P
 
+### P09 · Claude Code CLI · 2026-10-14 16:28 +07 · Worker · G1B read-gate → DỪNG SẠCH trước khi bắt đầu (chưa READY)
+- Ghế: claude-code · Bước/vòng: G1B S0 read-gate · 1/1 · Based_on: HEAD `9b3f526`, PROMPT commit cuối `e42fb68` · Scope: `work/gemini-join-workflow/COLLAB.md` + `PROMPT.md`, dòng VPS-GHI ở COLLAB gốc · Chưa đọc: Mac/VPS (không cần ở cổng).
+- Owner dán khối chạy G1B (lời Host GPT chuyển, không phải nguyên văn Owner): «Owner chấp thuận Q02: Khởi động lại riêng agent-data một lần; jev-gw chỉ khi JEV thực sự cần.» ⇒ Claude Code không ghi HUMAN_DIRECTIVE thay Host; chỉ chép lại để Host ghi đúng phạm vi.
+- **Read-gate A6 FAIL 2026-10-14T09:26Z:** (1) COLLAB việc này không có dòng READY mang SHA e42fb68 (commit cuối của việc là `fddb220` P08 lúc 08:52Z); (2) không có dòng HUMAN_DIRECTIVE-06, Q02 vẫn ở `## Owner cần quyết`; (3) VPS-GHI gốc đang là TQT-P61-PUBLISH (Codex) từ 08:22Z, dự kiến 09:55Z.
+- Đã làm: chỉ đọc. 0 cờ bận, 0 ghi Mac/VPS, không chạm VPS-GHI, không ghi STARTED/KQ (giữ RUN_ID dùng lại, khỏi sửa PROMPT/review lại — tiền lệ GS P110). Không làm trước S1 Mac khi chưa READY. Dọn: 0/0 · còn lại: không.
+- JEV `gen-dec-1791970049-NYt649VQoZJyYSSJD2l3`: P09 không dấu máy 0,96 · ghi KQ DỪNG 0,01 · ngồi chờ READY 0,03 · làm phần Mac trước READY 0,14. Em không lệch JEV.
+- **Để chạy được:** Host GPT ghi qua gateway (a) HUMAN_DIRECTIVE-06 có quote nguyên văn Owner, phạm vi: chỉ agent-data một lần, jev-gw chỉ khi JEV thực cần; (b) READY đúng SHA e42fb68 đủ 40 hex; Owner dán lại cùng khối. Lượt chạy thật ghi STARTED tiếp dưới chính P09 này. VPS-GHI lúc đó còn bận ⇒ theo PROMPT S2a: làm S1 Mac, KQ DỪNG với NEXT_TRIGGER=VPS_GHI_TRONG.
+
 ### P08 · Claude Chat · 2026-10-14 15:55 +07 · Reviewer · B2 rà P07 + G1B → SỬA THẲNG → ACCEPT
 - Ghế: claude-chat · Bước/vòng: G1B duyệt PROMPT · 1/3 · Based_on: `9979b7c` (PROMPT version abefc73a) + mã `docker/agent-data-repo/agent_data/workspace_tools.py` (gốc code, chỉ đọc) · Scope: P07, PROMPT G1B, §0.3 C1–C7, báo cáo G1 của Gemini. Bảng: lệch (chưa có Q02 + cách xong G1 trong 1 lượt) ⇒ đã sửa · Ô 1–2: khớp.
 - Owner hỏi «có đang phức tạp hoá không»: **có**, ba gốc. (1) Thêm thành viên vào gateway = thêm profile + biến env + khởi động lại agent-data một lần (mã dòng ~210–249: khoá so với `os.environ`; chú thích thiết kế «config + env only»). P03 Claude viết «không restart» vào nhánh 🟡(2) khi chưa đọc mã xác thực ⇒ nhánh đó không thể đạt — lỗi của Claude. G1B giữ nguyên điều cấm này ⇒ chạy sẽ DỪNG lần hai ở BC01. (2) Gemini tự làm trong Gemini.app Task Mode bị sandbox/TCC — sai bề mặt; ở Terminal thường BC02/BC03 là việc vài phút. (3) Chia lượt quá nhỏ: G1 → G1B → trả Antigravity chạy lại → … mỗi lượt một vòng chuyển tay của Owner.
