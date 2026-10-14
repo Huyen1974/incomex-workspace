@@ -40,7 +40,7 @@ RUN này chỉ: tắt (đảo được) đúng 1 dòng lịch đã nêu + đăng
 1. Đọc `AGENTS.md` → COLLAB gốc (`VPS-GHI`) → VPSC COLLAB §0 (D25, D26) + P95–P96 → PROMPT này → `BAO-CAO.md` mục L1P-20261013 + L1-20261013.
 2. Kiểm Reviewer ACCEPT + Host READY đúng SHA; khối Owner có 2 dòng §0A; §2 bước 2–3 của bản lịch sử HEAL-01 (sàn tài nguyên, Guard PRE + PRE_RED_SET); drift-check PRE (TOTAL · danh sách MISMATCH).
 3. Tpre PG (§0 mục 4) + 3 dòng `context_pack_requests` mới nhất (giờ · trạng thái · lỗi) + manifest cuối (id · giờ).
-4. Bảng crontab user: `/var/spool/cron/crontabs/*` → tệp · user · số dòng chạy · đã là đích Config Guard? · việc chủ · cờ bận (chỉ tên, không in nội dung). Dòng `context-pack-build`: tệp · số thứ tự · cột lịch.
+4. Bảng crontab user: `/var/spool/cron/crontabs/*` → tệp · user · số dòng chạy · đã là đích Config Guard? · việc chủ · cờ bận (chỉ tên, không in nội dung). Dòng `context-pack-build`: tệp · số thứ tự · cột lịch. **Cổng D26 trước STARTED:** đọc mã/`--help` (read-only) và chứng minh `incomex-config-apply-v0` thực sự hỗ trợ đăng ký + thay đúng spool crontab user `incomex` bằng `--target-id` và expected baseline, bảo toàn owner/mode, khiến cron reload. Nếu không chứng minh được đường chuẩn này, **DỪNG trước mutation**, không dùng nhánh fallback `crontab -u` nêu ở §1 hoặc rebaseline sau sửa tay; ghi blocker cho Host xử lý ngoài RUN. Đây là điều kiện làm chặt theo D26, không mở quyền.
 5. Người gọi khác của `dot-context-pack-build.sh` (chỉ tên): systemd unit/timer, script, DOT, tiến trình đang chạy. Có lịch khác ⇒ ghi → Host, KHÔNG tắt, DỪNG. Tiến trình đang chạy đúng lúc ⇒ đợi nó tự xong (≤ 2 phút) rồi mới làm §3.
 6. Giữ `VPS-GHI` (CAS) + STARTED dưới P96 cùng commit trước mọi thay đổi.
 
