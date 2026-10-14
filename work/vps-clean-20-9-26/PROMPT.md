@@ -1,3 +1,38 @@
+# PROMPT — VPSC-L1B-RAM-SWAP-20261014-01 · L1b đo áp lực RAM/swap · CHỈ ĐỌC · NO_MUTATION
+
+RUN_ID: VPSC-L1B-RAM-SWAP-20261014-01
+Task: `work/vps-clean-20-9-26` (VPSC) · D22–D29 · bước L1b có sẵn trong STEP_WALK_V2. Soạn: GPT Chat Host P106; Claude Chat Reviewer P107 sửa thành lượt CHỈ ĐỌC. Executor: Claude Code CLI phiên MỚI trên Mac, qua `ssh contabo`. Ghi repo: Incomex MCP `workspace_*`. Owner dán tay.
+STATUS: DRAFT · **Claude Reviewer ACCEPT (P107) trên bản này** · chờ GPT Host READY đúng SHA last-touch. Chỉ thực hiện phần TRƯỚC dòng `LỊCH SỬ` đầu tiên. Lượt chỉ đọc ⇒ không cần dòng §0A, không giữ `VPS-GHI`.
+
+## 0. Vì sao · XONG khi nào
+- Tiêu chí đã duyệt (f) (§0, P84/D24): «swap dùng ≤ 1 GiB lúc thường, không dịch vụ nào chạm trần RAM trong 24h, trần đặt theo số đo». Nay swap 2,0/2,0 GiB; RAM còn dùng 5,4 GiB (vps_status 14/10 09:45Z).
+- Số đã có — BAO-CAO `L0-20261013` Bảng C và dòng RAM của `L2-SAFETY-MAP-20261014` (04:50Z): swap vào 0,02–0,92 trang/s; `memory.events max` claude-kb 7.546 · Directus 227 (không tăng từ L0); swap đang giữ: agent-data 983 MiB · Hermes serve 335 MiB · claude-kb 253 MiB. Chưa đo PSI; RAM còn dùng giảm 6,3 → 5,8 → 5,4 GiB trong ~20 giờ.
+- Lượt này CHỈ ĐO để trả lời 3 câu: (1) máy có áp lực bộ nhớ THẬT không; (2) claude-kb/Directus có chạm trần lần nào từ L0 (13/10 ~13:15Z) tới lúc đo không — ghi đúng độ dài cửa sổ, không chờ cho đủ 24h; (3) RAM và swap đang nằm ở đâu.
+- **XONG khi:** đủ bảng số §2 + một phán định `AP_LUC_KHONG | AP_LUC_CO` theo ngưỡng §2 + (nếu CÓ) một đề xuất cụ thể. **NO_MUTATION là kết cục duy nhất** của lượt này.
+
+## 1. Luật cứng
+- CHỈ ĐỌC. Cấm: đổi trần container, `docker update/compose up/restart/recreate`, `swapoff/swapon`, `sysctl`, `drop_caches`, kill tiến trình, sửa tệp/cấu hình/cron/DB. Thấy cần sửa ⇒ ghi đề xuất vào KQ, không làm.
+- Không chiếm `VPS-GHI` (DROOT54 d — lượt chỉ đọc được chạy song song; hiện TQT-P61 đang giữ). Chạy nhẹ `nice -n 19 ionice -c3`; không thử tải; cấm `find /`, `du /`, quét đĩa.
+- Không in env/.env/khoá/token; không đọc `environ` của tiến trình.
+- 0 tệp tạm trên VPS, 0 tiến trình nền; số đo ghi thẳng vào repo. Ngân sách ≤ 30 phút.
+- Đọc trước: `AGENTS.md` → COLLAB gốc (dòng `VPS-GHI`) → VPSC `COLLAB.md` §0 (D22–D29) + P105–P107 → PROMPT này → BAO-CAO hai mục nêu ở §0.
+- Báo từng bước (DROOT54 a): `STARTED@VPSC-L1B-RAM-SWAP-20261014-01` dưới P107, mỗi bước một dòng; luôn kết bằng `KQ@… XONG|DỪNG` (DROOT54 b).
+
+## 2. Đo — đúng cách L0 đã đo
+1. **Máy:** `/proc/meminfo` (MemAvailable, SwapTotal, SwapFree) · `/proc/pressure/memory` (some/full avg10/avg60/avg300) · `pswpin/pswpout` trong `/proc/vmstat`, hai lần cách 60 s ⇒ trang/s · `sar -W` + `sar -r` hôm nay và hôm qua (TB ngày) · `journalctl -k --since "2026-10-13 13:00 UTC"`: chỉ đếm dòng OOM/«Out of memory».
+2. **Dịch vụ** (cgroup như Bảng C L0): claude-kb, Directus — `memory.current`, `memory.max`, `memory.swap.current`, `memory.events` (max, oom, oom_kill) so với L0 (7.546 / 227) ⇒ số lần chạm trần mới + giờ đọc. agent-data, Hermes serve: chỉ ghi current/swap (thuộc N2b/HJW, không đề xuất sửa).
+3. **RAM nằm ở đâu:** 8 container/tiến trình lớn nhất theo RSS và theo swap (`docker stats --no-stream`, `VmSwap` trong `/proc/<pid>/status`) — chỉ tên + số.
+4. p50 MCP/API: chỉ ghi nếu đã có sẵn trong log/Kuma; không đo bằng tải.
+
+**Ngưỡng `AP_LUC_CO`** (chạm bất kỳ một): PSI memory `some avg60 ≥ 5` hoặc `full avg60 ≥ 1` · swap vào ≥ 50 trang/s ở mẫu 60 s hoặc TB ngày · claude-kb/Directus `max` tăng so L0 hoặc `oom_kill` tăng · có OOM trong log kernel từ L0. Không chạm ngưỡng nào ⇒ `AP_LUC_KHONG`.
+
+## 3. Kết quả
+- BAO-CAO mục `L1B-RAM-SWAP-20261014`: ≤ 3 dòng cho Owner · bảng số §2 kèm giờ UTC · phán định · nếu `AP_LUC_CO`: MỘT đề xuất (dịch vụ, trần mới theo Bảng C, lý do) để Host + Reviewer soạn lượt sửa riêng đủ 4 ô D26.
+- VPSC COLLAB dưới P107: `KQ@VPSC-L1B-RAM-SWAP-20261014-01 XONG · NO_MUTATION · AP_LUC_KHONG|AP_LUC_CO · <1 dòng số chính> · Dọn: 0/0`. Không sửa Bảng/Sổ/§0 (Host làm). Không tự sang N2b/W/việc khác.
+
+---
+## LỊCH SỬ — L1b bản GPT P106 (Claude P107 thay bằng bản CHỈ ĐỌC ở trên) · KHÔNG THỰC HIỆN
+
 # PROMPT — VPSC-L1B-RAM-SWAP-20261014-01 · Theo STEP_WALK_V2, không ép RAM/swap
 
 RUN_ID: VPSC-L1B-RAM-SWAP-20261014-01
