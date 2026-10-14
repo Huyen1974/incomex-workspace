@@ -1,3 +1,40 @@
+# PROMPT — VPSC-N2A-DISK-DRIVE-FIRST-20261014-01 · #11 theo số thật, D23/D27, không xóa vật sống
+RUN_ID: VPSC-N2A-DISK-DRIVE-FIRST-20261014-01
+Task: work/vps-clean-20-9-26. Host GPT Chat P101 B1, Claude Chat Reviewer P102 B2, Claude Code CLI Worker. Owner dán RUN thủ công.
+STATUS: DRAFT — CHƯA READY, CẤM RUN. Chỉ thực hiện phần trên LỊCH SỬ khi Claude ACCEPT và GPT Host READY đúng SHA.
+
+## 0. Quyền Owner và đích
+D23: «khi xóa chúng ta chuyển xuống Google Drive trước rồi xoá. Nếu có gì đó vẫn có thể lấy được GGD. Hệ thống backup vẫn đang hoạt động».
+D27: «Trong quá trình thực thi, các bạn phải kiểm tra rất kỹ để tránh tắt nhầm các chức năng vẫn đang sử dụng. Lấy ví dụ như điều 30, 31, luật trong KB để bảo vệ những mã đã làm, tránh AI khác vô tình xóa nhầm. Các cơ chế kiểm soát và báo cáo tự động qua Telegram, các cơ chế giám sát, các cơ chế backup tự động xuống Google Drive. Tất cả những việc đó cần phải bóc tách rất kỹ bằng Grab, tránh việc tắt nhầm các chức năng này rồi lại mất công đi lần mò khôi phục lại.»
+Mục tiêu: đĩa trống >=45GiB, #11 xanh THẬT, các nguồn tăng có van, giữ dịch vụ/backup/Đ30-31. KQ L2SAFE d0af7dd 05:07Z: trống 37,78GiB, còn thiếu ~7,2GiB, storage-watch SLOPE7D -3,06GiB dù 24h gần nhất dung lượng trống tăng 3,6GiB. Không có bằng chứng đang tồn tại 7,2GiB rác được phép dọn. Không ép XONG; nếu không còn đủ ELIGIBLE, KQ PARTIAL và đề xuất Owner nâng dung lượng/cho phép riêng đúng nhóm.
+
+## 1. Cổng D27 PROTECTED — không sửa, không xóa
+- GIỮ: Graph production, image Cognee builder ~3,5GiB, 27 old images dùng làm parent/compose/rollback, image D04 còn tham chiếu, Neo4j volumes chưa rõ chủ; PG/Directus/Qdrant data và backups; sổ /var/lib/hjw-control/ledger.jsonl (INV17, 08:00 Telegram), toàn bộ HJW control; sr-mow, Guard/Config Guard, KB laws, sổ mã, Kuma/Telegram, trigger/permission guards, cron root/incomex/cron.d, lịch GDrive PG/code/Qdrant, staging chưa upload/verify, bản rollback còn dùng.
+- PROOT04 13/10 là kiểm kê CŨ: H1 đã dọn staging/tmp, 5 image (~0,1GiB thực do shared layer) và một container; H2 đã dọn 2.510 snapshots transactions qua van, gỡ pgvector ~0,65GiB. Không dọn lại hoặc suy Cognee 3,5GiB là image thử. CẤM docker system/image/volume prune, docker buildx prune, docker image rm, blanket rm -rf, find /, du /, dọn journal/backup và xóa mọi thứ ngoài whitelist.
+- SECURITY_HOLD: code backup Drive hiện là .tar.gz CHƯA MÃ HÓA, gồm entry .env.working (nội dung chưa mở; không kết luận có secret nhưng không coi an toàn). Không đọc/cat/extract entry này, không in token/credential, không dùng tuyến code-backup plaintext để archive; chỉ đường rescue GPG đã xác minh trong HEAL/H2, khóa ở Secret Manager và không lộ thông tin bí mật. Không thay đổi hoặc tắt backup code đang chạy trong RUN này.
+- sr-mow Đ30/31 silent Directus 403 từ 03/10, #22 Guard INV5_6/INV20 cũ của TQT/HJW, receipt Kuma→Telegram UNKNOWN, restore test cuối 05/10 chưa theo định kỳ. Ghi debt cho đúng chủ, không sửa hộ; không coi toàn bộ hệ thống được bảo vệ full PASS.
+- Thời lượng tối đa 60 phút, không chờ cron/ngày, không chạy hai mutation VPS cùng lúc. Các hoạt động read-only có thể thực hiện song song với task khác nếu thực sự không xung đột. Không giữ worker/process nền sau KQ.
+
+## 2. S0 đo nhanh bằng số có sẵn, kiểm exact quyền và inventory
+Đọc AGENTS, COLLAB gốc VPS-GHI, VPSC D22–D27/P81–P82/P98–P102, BAO-CAO HEAL-20261013/HEAL02-L0/L2SAFE và PROMPT READY hiện hành. Đối chiếu HEAD, khóa, lease, no-concurrent, Guard PRE, 22 lights, tài nguyên, backup/restore sức khỏe và owner của từng vật trước mọi mutation.
+Sử dụng storage-watch taxonomy 24h/7d và các nguồn tăng có tên; bounded ls/du tối đa depth 1–2 trên path nguồn đã được đo, tuyệt đối không find / hoặc quét sâu toàn máy. Snapshot df byte, source size và tốc độ, chủ, last ref/open fd, retention valve, archive receipt/restore hash. Không đo lại cả PROOT04, tránh trùng công việc H1/H2.
+BẢNG EXACT: path/ID hiện có, owner, valid business ref hoặc rollback, Graph/code/cron/compose references, bytes thực có thể reclaim (không cộng chung Docker layers), approved retention/TTL, encrypted Drive receipt, SHA256/readback/decrypt restore sample, phân loại ELIGIBLE / KEEP / OWNER_REQUIRED. Unknown => KEEP.
+Whitelisted ONLY nếu S0 xác minh vẫn cần xử lý, có quyền và existing approved operator: (A) transactions before-images quá 48h và byte ở Git PUSHED/REACHABLE + readback (H2 luật p); (B) completed/unreferenced mcp-helper/mcp-roots đã hết hạn theo retention H1 luật m/n/o có mã hóa+restore proof; (C) VPSC-owned temporary staging/tmp mới hết hạn sau H1, đúng mã/path và không có live refs. Đã ROTATING đúng chính sách thì KEEP, không chạy lại vô nghĩa. Mục thuộc TQT/HJW/HVU/GS => pointer, không thao tác; không chọn thêm bucket mới để cho đủ 45GiB.
+Nếu không có ELIGIBLE và approved operator/backup proof => NO_MUTATION, KQ PARTIAL với đúng blocker và phương án tăng ổ hay xin Owner duyệt từng nhóm. Cấm tuỳ ý nâng TTL/cap, bỏ file khỏe hoặc sửa detector.
+
+## 3. Khi và chỉ khi có ELIGIBLE + bốn lớp bảo vệ
+Giữ VPS-GHI qua CAS cùng STARTED trước ghi; không tự gỡ khóa người khác. Đọc contract của vps-retention.sh/DOT/apply-v0 hiện hữu và bảo vệ footprint, không tự chế lệnh/công cụ mới.
+Lưu exact PRE manifest, sha, refs, proven known-good và rollback. Nếu object chưa có encrypted Drive rescue: stream GPG theo tuyến đã PASS ở HEAL/H2, remote checksum/readback, giải mã kiểm khôi phục mẫu ở vùng cô lập/tạm được phép mà không tạo plaintext archive có secrets; thất bại => KEEP. Nếu đã có receipt hợp lệ không archive lại. Trước delete đối chiếu exact eligible path/id và không có open fd/live refs.
+Chỉ gọi existing approved retention operator với selector chính xác, không trực tiếp rm/glob; nếu không có operator hỗ trợ, không xóa và báo thiếu. Sau từng thao tác kiểm df bytes, refs, logic sống, tránh phá audit/Graph/rollback. Lỗi MỚI do RUN => rollback đúng footprint/STOP.
+Không sửa scripts/cron/PG/Directus/Graph/Docker, không sửa Guard/Kuma, không thay ngưỡng #11. Không thể đạt 45 bằng item hợp lệ => dừng an toàn và báo thiếu; không tự nâng scope.
+
+## 4. POST & KQ
+Đo df free before/after byte thực, 24h source slopes có cùng taxonomy/version, #11 actual reason, restore proof per object; 22 lights PRE/POST, website/API/Directus/PG/Graph/backup/Guard/08:00 ledger still functional. POST-PROTECT footprint Đ30/Đ31/watchdog/rollback, 0 ô thiếu. Guard toàn cục #22 cũ còn FAIL => KQ DỪNG·PARTIAL, không gửi receipt Telegram bypass hoặc tô xanh; lỗi mới => rollback.
+Ghi BAO-CAO N2A-DISK-DRIVE-FIRST-20261014, KQ@VPSC-N2A-DISK-DRIVE-FIRST-20261014-01, Sổ P84 cập nhật đúng một nơi; trả VPS-GHI cùng commit nếu đã chiếm; 0 process/tệp tạm ngoài bằng chứng. Ghi rõ bytes thu THỰC, gap đến 45GiB, risk chưa đóng (sr-mow, backup code plaintext .env.working, #22, restore, O-R7-KEY) và MỘT bước kế. Không tự chạy L1b, N2b, Graph-clean hay xóa di sản khác.
+
+---
+## LỊCH SỬ — VPSC-L2D-GRAPH-PROTECT-MAP-20261014-01 · KQ XONG d0af7dd · KHÔNG THỰC HIỆN
+
 # PROMPT — VPSC-L2D-GRAPH-PROTECT-MAP-20261014-01 · Đối chiếu Graph × luật KB × runtime trước khi xét tắt watchdog/di sản; CHỈ ĐỌC
 
 RUN_ID: VPSC-L2D-GRAPH-PROTECT-MAP-20261014-01
