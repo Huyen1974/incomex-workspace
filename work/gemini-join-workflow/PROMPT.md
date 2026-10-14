@@ -1,61 +1,43 @@
-# PROMPT — GJW-G1-ANTIGRAVITY-SELF-SETUP-20261014-01
-RUN_ID: GJW-G1-ANTIGRAVITY-SELF-SETUP-20261014-01
-Status: DRAFT — Reviewer Claude Chat đã sửa thẳng theo P03 (A6/DROOT53). GPT Host đặt READY đúng SHA commit cuối chạm tệp này; chưa READY ⇒ không chạy.
+# PROMPT — GJW-G1B-CLAUDE-SUPPORT-20261014-01
+RUN_ID: GJW-G1B-CLAUDE-SUPPORT-20261014-01
+Status: DRAFT · CHƯA READY / CHƯA RUN; Claude Chat Reviewer rà đúng SHA, GPT Host ghi READY theo A6, Owner chuyển cho Claude Code CLI.
 Task: work/gemini-join-workflow
-Host: GPT Chat · Reviewer: Claude Chat · Executor: Antigravity (app hoặc `agy`) trên MacBook Owner, chạy bằng mô hình họ Gemini · Dự phòng: Claude Code CLI CHỈ cho từng mục BLOCKED_CAPABILITY · Automation_Level: AUTO0
-Đọc repo: GitHub công khai, chỉ đọc. Ghi repo: chỉ qua gateway Incomex `fs_*`/`workspace_*` bằng danh tính Google riêng của bạn.
+Host: GPT Chat · Reviewer: Claude Chat · Executor_Surface: Claude Code CLI trên MacBook Owner · Role: fallback đúng BC01–BC03; **Google Antigravity vẫn là executor chính G1** · AUTO0.
+Write_Path: tài liệu repo chỉ qua gateway Incomex `fs_*`/`workspace_*` với expected_version; cấu hình local chỉ đúng file Antigravity thực dùng; VPS chỉ theo `VPS-GHI`/GSM/`incomex-config-apply-v0` nếu không restart và được guard. Cấm GitHub native/direct git push.
 
-## MỤC TIÊU
-Bạn là Google Antigravity/Gemini, EXECUTOR CHÍNH. Tự khảo sát và tự nối chính bạn vào repo, VPS MCP, KB và JEV bằng danh tính Google riêng, để từ G2 ngồi ghế Google trong hội đồng.
-Owner 14/10/2026: «nguyên tắc là chúng ta đưa ra khuôn khổ và giao nó tự thực hiện. Cái gì không tự thực hiện được thì chúng ta mới hỗ trợ.» ⇒ Bạn tự làm mọi thứ nằm trong KHUÔN KHỔ dưới đây. Chỉ chuyển Claude Code phần có bằng chứng bạn không làm được.
+## Mục tiêu
+Giải **đúng 3 blocker có bằng chứng** của G1 P07: BC02 cấu hình MCP/TCC Mac; BC03 xác thực `agy` qua cách chính thức; BC01 đăng ký danh tính Google riêng cho gateway nếu có đường no-restart, no-guard-regression. Tận dụng hệ thống sẵn có, **không tái thiết kế MCP/Gateway**. Hoàn tất Mac trước, **không chờ VPS-GHI**. Sau hỗ trợ, Antigravity tự gọi thật các tool và nghiệm thu G1.
 
-## KHUÔN KHỔ QUYỀN — đọc trước lệnh đầu tiên
-🟢 TỰ LÀM NGAY
-- Đọc repo, tài liệu Google, cấu hình Antigravity trên Mac — chỉ metadata, không đọc/in giá trị bí mật.
-- SSH vào VPS CHỈ ĐỂ ĐỌC và nhẹ: `nice`/`ionice`, không quét cả đĩa, không thử tải, không chiếm dòng `VPS-GHI` (DROOT54 d).
-- Cấu hình của chính bạn trên Mac: sao lưu trước; THÊM mục mới, không sửa/xoá mục cũ; tệp chứa khoá `chmod 600`.
-- Gọi `agy -p`, công cụ MCP chỉ đọc, KB, JEV.
+## Read-gate & STEP_WALK (AGENTS A6, DROOT30/31/48/50/54)
+- Đọc AGENTS.md → root COLLAB.md (`VPS-GHI`, Guard) → `work/gemini-join-workflow/COLLAB.md` (§0/Bảng/P07/C1–C7) → PROMPT này. Kiểm PROMPT last-touch, Reviewer ACCEPT cùng SHA và Host READY, G1 cũ đã KQ DỪNG, không có STARTED G1B, không STOP. Thiếu ⇒ DỪNG trước mutation.
+- Khi pass, ghi `STARTED@GJW-G1B-CLAUDE-SUPPORT-20261014-01 <UTC> · executor=Claude Code CLI` qua gateway; từng bước ghi ngắn và cuối lượt `KQ@` XONG/DỪNG trong COLLAB. Không giữ terminal để chờ, không sửa PROMPT giữa lượt.
 
-🟡 TỰ LÀM KHI ĐỦ MỌI ĐIỀU KIỆN — thiếu một ⇒ không làm, ghi BLOCKED_CAPABILITY
-- Tạo đúng MỘT danh tính cho ghế Google, theo thứ tự ưu tiên:
-  (1) gateway có sẵn OAuth/đăng ký client cho MCP client ⇒ đăng nhập theo đường đó, KHÔNG đổi gì trên VPS;
-  (2) nếu không: 1 secret mới trong GSM (tên rõ, không in) + đăng ký vào cơ chế khoá/profile CÓ SẴN của gateway qua đường chính thức (`incomex-config-apply-v0`/Config Guard). Điều kiện: dòng `VPS-GHI` ở COLLAB gốc là `trống` và lượt này đã giữ khoá đúng luật gốc; không sửa mã; không restart/reload/recreate container, nginx hay service; đèn Guard trước/sau không thêm đỏ; có rollback; trả khoá cùng lượt.
-- Ghi repo: chỉ bằng danh tính Google vừa có, qua `fs_*`/`workspace_*`, có expected_version.
+| Bước | Ai/trigger | Evidence/đích | Nếu lỗi | Bước sau |
+|---|---|---|---|---|
+| S0 | Claude Code, Owner giao khi READY | read-gate, versions, lock/Guard baseline và inventory metadata (chỉ đọc) | Ghi DỪNG, báo GPT Host | S1 |
+| S1 BC02 | Claude Code sau S0 | client config thực dùng, before/after hash, agy mcp list, không phá legacy | ghi BLOCKED_CAPABILITY nhỏ nhất | S2 |
+| S2 BC03 | Claude Code sau S0, không phụ thuộc BC01 | native OAuth login/Keychain, agy models + agy -p thật model Gemini | một thao tác Owner consent nếu cần; DỪNG sạch | S3 |
+| S3 BC01 | Claude Code khi root `VPS-GHI: trống` và no-restart path đủ bằng chứng | Google identity riêng, gateway auth real + Guard same-or-better | không restart, báo delta còn thiếu | S4 |
+| S4 | Claude Code sau các bước đo | KQ evidence + manifest dọn + giao lại Antigravity | GPT Host/Reviewer nhận KQ | Google tiếp tục G1 |
 
-🔴 KHÔNG LÀM, kể cả khi có quyền kỹ thuật
-- Xoá/dời tệp; stop/restart/reload service, container, nginx, cron, systemd; sửa Compose hay mã nguồn; ghi PG/Directus; đụng Guard/Kuma/Telegram/backup Drive.
-- Ghi repo bằng SSH, git trên VPS, deploy key, hay khoá/danh tính của ghế khác (sai tác giả); `git push` từ Mac.
-- In/dán bí mật vào chat, log, repo, tệp công khai.
-- Gọi API trả phí; mở cổng public; webhook/email ingress; dịch vụ nền/LaunchAgent/polling (thuộc G3).
-- Đụng việc khác: HJW (cờ courier spike P313 còn mở), Graph, VPSC, TQT.
-- Chạy lượt này bằng mô hình không thuộc họ Gemini; chế độ bỏ qua quyền (`--yolo`, dangerously-skip-permissions).
+## S1 · BC02 — Môi trường Mac + MCP cấu hình đúng client
+- Kiểm metadata `~/.ssh/config`, bốn file `~/.gemini` cũ, `HOME=~/.gemini/users/user1`, `~/.gemini/config/mcp_config.json` và `.agents/mcp_config.json` nếu hiện hữu, không hiển thị nội dung secret/token/private SSH key.
+- Xác định `agy` 1.3.4/Gemini.app Task Mode đọc cấu hình MCP nào bằng **thử nghiệm thực**, ưu tiên công cụ native `agy mcp add/list` hoặc giao diện MCP Settings. Thêm chỉ những server đã audit; không viết song song hai HOME theo phỏng đoán, không tạo symlink chia sẻ credential, không bypass TCC/sandbox.
+- Sao lưu file thực sửa và hash before/after, chỉ THÊM mục mới, giữ tất cả mục cũ không đổi; quyền file 0600 nếu chứa credential. Đăng ký endpoint `workspace_*`+KB, `fs_*`, JEV theo route/transport thực được kiểm tra; chưa có credential thì để trạng thái cấu hình `AUTH_NOT_READY`, tuyệt đối không điền khóa hãng khác.
 
-Bảo vệ trước khi SSH: đặt chính sách lệnh terminal của Antigravity sao cho mọi lệnh 🔴 bị chặn hoặc phải hỏi; ghi lại đã đặt gì vào KQ.
+## S2 · BC03 — OAuth agy official
+- Theo tài liệu Google CLI: `agy` thử Apple Keychain silent authentication; nếu thiếu, chạy interactive auth/browser của chính CLI tại HOME/user được phép, người dùng chỉ bấm consent Google nếu bắt buộc. Không lấy/chép credential từ Gemini.app hoặc HOME khác, không in OAuth URL chứa token/code vào repo/log.
+- Kiểm `agy models` trả danh sách mô hình thật, pin model họ Gemini và `agy -p <pointer-only> --output-format json|stream-json` chạy thật. Ghi version/model/method auth/trạng thái, không ghi thông tin tài khoản nhạy cảm.
+- Không đổi provider, không kích hoạt Gemini API trả phí, không cài/upgrade/viết service/LaunchAgent.
 
-## S0 — TỰ KHẢO SÁT (chỉ đọc, fail-closed)
-1. Đọc AGENTS.md, README.md, work/README.md, COLLAB.md của việc này (§0, Bảng, ô 1–3, P01–P03) và đoạn HJW về dòng yêu cầu đưa thư (COURIER_REQUEST). Kiểm có READY đúng SHA tệp này; không có ⇒ dừng.
-2. Bề mặt: Antigravity app/`agy` — phiên bản, cách đăng nhập, gói + hạn mức, danh sách mô hình (`agy models` nếu có), mô hình đang chạy chính lượt này; Argon có hay không (chỉ ghi khi đo được).
-3. SSH: alias trong `~/.ssh/config`, user, dấu vân tay khoá đang dùng; khoá đó có dùng chung với Claude Code/Owner không; user có phải root không. Không đổi cấu hình SSH.
-4. Cấu hình cũ: 4 tệp `~/.gemini` (`config/mcp_config.json`, `antigravity-cli/mcp_config.json`, `settings.json`, `antigravity.json`) và `.agents/mcp_config.json` nếu có — chỉ metadata: tên server, kiểu xác thực, còn công cụ nào đọc chúng. Lưu ý `config/mcp_config.json` vừa là tệp cũ vừa là tệp dùng chung của IDE + `agy`: được THÊM mục, không sửa/xoá mục cũ. Gemini CLI đã ngừng cho tài khoản cá nhân từ 18/06/2026, còn đường Enterprise/API.
-5. Gateway: mỗi client hiện có danh tính riêng thế nào (claude-mcp, route ChatGPT, Agent Gateway/Hermes, KB, JEV); có OAuth/đăng ký client không; có cơ chế THÊM danh tính mà không sửa mã/không restart không. Không có đường nào ⇒ BLOCKED_CAPABILITY kèm delta nhỏ nhất.
-6. Ma trận bằng chứng: bề mặt · máy · phiên bản · mô hình · đăng nhập · MCP transport · tool bind được · repo/KB/JEV · chiều vào (Hermes/VPS → Google) · chiều ra (Google → MCP) · hạn mức — mỗi ô một mức VERIFIED_LOCAL | DOC_ONLY | UNKNOWN | UNAVAILABLE.
-7. Đèn: đọc `logs/bang-den.json` (gốc code) hoặc `vps_status` trước mọi bước có ghi.
+## S3 · BC01 — Google identity gateway, chỉ nếu no-restart + VPS-GHI
+- Đo lại root `VPS-GHI` tại thời điểm chạy. **VPSC trả 08:18Z nhưng TQT-P61 tiếp nhận từ 08:22Z**; không suy khóa đang rảnh. Nếu busy, bỏ VPS mutation, thực hiện Mac và KQ DỪNG với NEXT_TRIGGER rõ; không chờ đến giờ.
+- Read-only xác định có OAuth/client registration ở đúng route hay không: 404 well-known ở vài URL chưa là bằng chứng toàn hệ không có OAuth. GET `/api/mcp` 200 chỉ là schema, không phải authenticated tool PASS.
+- Từ `wtools.py`, `workspace-tools.json` và live process metadata, xác minh master_profiles + `credential_env` trong `os.environ`. Chỉ đọc **tên** env đã inject, không in value. Không thay key/profiles hiện hữu. Chỉ nhận Google profile khi có credential distinct với **slot chưa dùng thực**, hợp lệ ở process hiện hành, và không cần container restart/recreate/reload/code change; secret theo GSM/profile chính thức đã audit, rollback + guard.
+- Có `VPS-GHI: trống` và no-restart path thật thì lấy khóa root qua gateway với expected_version, kiểm Guard before, áp config bằng cơ chế `incomex-config-apply-v0`, thử auth Google real, negative test quyền ngoài scope, check Guard after same-or-better rồi trả khóa trong cùng lượt. `fs_*`, `workspace_*`+KB, JEV có thể là route/credential riêng — **không nói PASS 4 cổng chỉ từ một đường**.
+- Nếu thiếu slot riêng hoặc bắt buộc restart: BC01 = BLOCKED; ghi chính xác một đề nghị có scope, impact, rollback để Host/Owner duyệt lượt riêng. **Không tự restart container/nginx/compose, không tạo secret mà process không đọc**, không mượn master key của GPT/Claude/Hermes.
 
-## S1 — TỰ NỐI (đúng khuôn khổ)
-1. Danh tính Google (🟡). Có ⇒ THÊM mục MCP mới vào `~/.gemini/config/mcp_config.json` (tên mới, `serverUrl`, khoá đọc từ GSM, không in); mục cũ khoá chết giữ nguyên, có cờ tắt thì tắt, không xoá.
-2. Chứng minh từng cổng qua chính bề mặt Google: `fs_read` AGENTS.md · `workspace_read` một tệp · KB search · JEV `evaluate` — ghi kết quả hay lỗi thật.
-3. `agy -p "<một câu>" --output-format json` (hoặc stream-json): chứng minh status, mã phiên, usage, mô hình họ Gemini.
-4. Ghi P04 (kết quả) vào COLLAB việc này bằng danh tính Google — chính là bằng chứng ghi thật. Thử âm: ghi ngoài `work/gemini-join-workflow/` ⇒ phải bị từ chối; gateway không có phạm vi theo đường dẫn ⇒ ghi UNAVAILABLE + đề xuất, không tính là trượt.
-5. Remote Control: chỉ khảo sát, chưa bật (G3).
-
-## GHI TRẠNG THÁI — DROOT31/50/54
-- Lúc bắt đầu chưa có đường ghi riêng ⇒ in khối `STARTED` (RUN_ID, giờ UTC, executor, mô hình) trong chat; Owner chuyển Host GPT ghi hộ. Có đường ghi rồi thì tự ghi tiến độ/KQ ngay dưới P04.
-- Nhánh 🟡(2) cần khoá `VPS-GHI` mà chưa có đường ghi ⇒ in đúng MỘT dòng xin khoá trong chat; chỉ làm sau khi Host ghi khoá cho RUN này. Không ngồi chờ: kết thúc lượt bằng KQ DỪNG + NEXT_TRIGGER nếu chưa có khoá.
-- Hết mỗi bước S0/S1: một dòng `<RUN_ID> · bước k/N · <đã xong gì> · <UTC> · dự kiến xong <UTC>`.
-- Đồ lượt này có thể tạo (DROOT54 c): bản sao lưu cấu hình Mac (giữ, ghi đường dẫn) · thư mục tạm `$TMPDIR/gjw-g1-*` (xoá trước KQ) · phiên `agy -p` (kết thúc ngay) · trên VPS chỉ đúng 1 mục danh tính nếu nhánh 🟡(2) chạy (giữ, có rollback). Không tiến trình nền, không cổng mở.
-- Kết thúc: `KQ@GJW-G1-ANTIGRAVITY-SELF-SETUP-20261014-01 XONG|DỪNG` · `Dọn: <đã gỡ>/<đã tạo> · còn lại: …` · trả `VPS-GHI: trống` nếu đã giữ · 0 tiến trình nền.
-
-## KẾT QUẢ (P04)
-Ma trận S0.6 · SSH (vân tay, user, dùng chung hay riêng) · chính sách terminal đã đặt · trước/sau cấu hình (hash, không bí mật) · mô hình + kiểu đăng nhập + hạn mức · kết quả repo/KB/JEV/`agy` · thử âm · đèn trước/sau · danh sách BLOCKED_CAPABILITY (mỗi mục: bằng chứng · delta nhỏ nhất · việc gợi ý cho Claude Code).
-XONG khi: S1.2 đủ 4 cổng thật + S1.3 đạt + P04 ghi bằng danh tính Google + đèn không thêm đỏ. Thiếu ⇒ DỪNG, giữ phần đã đạt, không phá gì.
-Không mở G2/G3, không thay Hermes, không bật tự động. Xong thì trả Host GPT nghiệm thu; Claude Chat (khác hãng) rà KQ.
+## Giới hạn, dọn và KQ
+- Không ghi PG/Directus, sửa Graph/HJW/VPSC/TQT, tắt/khởi động Docker/nginx/cron/systemd, mở cổng public, sửa nguồn runtime/Guard; không quét/cleanup ổ, xóa/di chuyển 4 file `~/.gemini` cũ. Chỉ dọn temp/process **G1B tự tạo** có manifest; giữ backup cần phục hồi có INDEX/hash, 0 background processes. Không lộ token/key/header vào chat/repo/log.
+- Đầu ra một mục KQ tại COLLAB (không tạo file mới): `BC01/02/03 | VERIFIED_LOCAL/PASS/BLOCKED | evidence | paths+hash | guard | rollback | NEXT_TRIGGER`, các dòng tiến độ DROOT54, `KQ@GJW-G1B-CLAUDE-SUPPORT-20261014-01 XONG|DỪNG`. Chỉ XONG khi có OAuth `agy` + config Mac đúng và identity Google authenticated thật; còn BC01 bị chặn thì DỪNG nhưng giữ thành quả local.
+- Bàn giao Antigravity chạy lại authenticated G1 S1 (Google tự đọc repo, gateway write test, KB/JEV, headless). Không tự mở G2/G3, không biến Claude Code thành agent Google.
