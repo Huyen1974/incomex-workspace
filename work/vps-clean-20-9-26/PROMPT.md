@@ -1,3 +1,26 @@
+# PROMPT — VPSC-W-FINAL-SCOPE-CHECK-20261014-01 · Kiểm kết thúc dọn VPS, CHỈ ĐỌC
+
+RUN_ID: VPSC-W-FINAL-SCOPE-CHECK-20261014-01
+Task: work/vps-clean-20-9-26 · GPT Host P111–P112 · Claude Reviewer P110 · Claude Code CLI Executor do Owner dán tay.
+STATUS: DRAFT, chỉ RUN khi GPT Host ghi READY@<full SHA last-touch của PROMPT> trong COLLAB. WRITE_PATH: Incomex MCP workspace_* ghi repo; VPS SSH CHỈ ĐỌC. Không chiếm VPS-GHI.
+
+## Đích thật, không thêm nhiệm vụ
+Theo Owner D30: dọn cái cũ không dùng để nhẹ VPS, không hỏng các dịch vụ cần giữ; ổ đĩa không phình/rò dung lượng không kiểm soát. Đã OFF 21 lịch L1 + 1 lịch lỗi L2a, còn core DEL-1 GIỮ theo luật dừng <5%/chạm lõi, PG giảm reads −87…−93%, L1b đo RAM không có áp lực. Các KPI AI P84 45GiB/≤1GiB swap/p50≤150ms vẫn được báo số thực (38GiB,1,02GiB,226ms), không được ép chỉnh máy để lấy số đẹp khi dịch vụ đang khỏe. O-R7-KEY là nợ bảo mật thật chưa xoay thuộc riêng Owner ở COLLAB gốc.
+
+## MỘT LƯỢT W (≤25 phút), không tạo thêm việc
+1. Đọc AGENTS.md, COLLAB gốc (busy), VPSC D22–D30/P109–P112, Sổ P84 + STEP_WALK, PROMPT READY; BAO-CAO L0/L1/L2SAFE/N2C/L1b, Claude P110. Đọc-gate PASS mới ghi STARTED@RUN_ID trong VPSC COLLAB; không tạo tệp hay tiến trình nền trên VPS. Không `find /`, `du /`, quét toàn VPS/DB.
+2. **GIỮ:** kiểm các health/HTTP smoke đã có của PostgreSQL, Agent Data/RAG/MCP, Directus, Nuxt, Qdrant, Graph, nginx và Control/Protection Guard. Kiểm bằng chứng Config Guard/lịch 22 OFF vẫn nguyên, không tự tắt/bật thứ khác, không chạm source/cron/container. Không nhầm HTTP200 với kiểm thử toàn diện.
+3. **ĐĨA:** `df`/storage-watch taxonomy/retention receipt gần nhất và Kuma #11: chứng minh nguồn tăng lớn có tên, chủ, van và không phát sinh rò dung lượng vô danh mới đáng kể. #11 xanh lúc chốt thì ghi xanh và timestamp; nếu đỏ thật hoặc nguồn vô danh lớn chưa chặn ⇒ một BLOCKER. Không xóa dữ liệu, image, backup, ledger hay đổi threshold.
+4. **GIÁM SÁT:** lấy biên nhận Telegram 08:00 gần nhất + Kuma #11/#15/#16 code backup; trạng thái backup PG/code/Qdrant và 4 ô Đ30/31 (chỉ đọc proof sẵn). #21 Hermes, #22 TQT/HJW, sr-mow 403 là debt cũ của đúng chủ, ghi rõ trạng thái đỏ; không giả Guard FULL PASS hoặc gửi Telegram bypass. Nếu có lỗi MỚI do OFF gây mất chuỗi bảo vệ thì dừng, không đánh dấu sạch.
+5. Đưa số PG giảm −87…−93% theo P110, RAM PSI0/swap churn0 L1b, p50 226ms (chưa chứng minh GitHub là thủ phạm), 502 cũ chưa có dấu tái phát/Kuma #2 canh. Khóa O-R7-KEY đang lộ phải GIỮ trong root Owner queue, không mở, in hay xoay.
+6. **KQ:** nếu các dịch vụ GIỮ khỏe, 22 OFF không tái bật, không phình đĩa vô danh mới và backup/monitor đang chạy: ghi KQ@VPSC-W-FINAL-SCOPE-CHECK-20261014-01 XONG · DONE_SCOPE; nếu chưa đủ 24h sau mutation cuối thì nêu `W24H_NOT_YET_PROVEN` và watcher/08:00 hiện hữu tự theo dõi, KHÔNG gọi FULL_24H_PASS, KHÔNG giữ Owner/terminal chờ giờ. Nếu lỗi MỚI đáng kể trong scope thì KQ DỪNG với đúng một blocker và owner, không tự sửa.
+7. Ghi ngắn tại BAO-CAO.md §W-FINAL-SCOPE-20261014 và COLLAB.md KQ ngay dưới P112, Bảng/Sổ 1 dòng. 0 VPS mutation, 0 VPS-GHI; Host quyết archive an toàn sau KQ, Worker không tự chuyển/xóa thư mục task.
+
+KHÔNG chạy N2b, xoay key, sửa Guard/#21/#22/sr-mow, tạo watcher/tool, restart, swapoff, xóa dữ liệu, chỉnh code/cron/backup. Chỉ kiểm kết thúc công việc đang có.
+
+---
+## LỊCH SỬ — L1b AP_LUC_KHONG KQ 98ae670, KHÔNG RUN LẠI
+
 # PROMPT — VPSC-L1B-RAM-SWAP-20261014-01 · L1b đo áp lực RAM/swap · CHỈ ĐỌC · NO_MUTATION
 
 RUN_ID: VPSC-L1B-RAM-SWAP-20261014-01
