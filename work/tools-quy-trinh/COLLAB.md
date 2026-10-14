@@ -99,6 +99,14 @@ Cách ghi hồ sơ (Owner 12–13/10 · P34–P46)
 - R31 🟡 Thử bằng việc thật: AI mới đóng vai làm theo QTTH 06 cho việc thật; không lấy TEST thay việc thật; đo thời gian toàn việc và từng bước; làm đến đâu dọn đến đó; vẫn ngoài PG (P35, P36, P45, P46). Hồ sơ nhẹ mà không mất lịch sử; ô xong tích xanh (P38).
 - R32 🟡 Mọi DOT/tool ghi đủ vào Master List và có 2 cột chữ ký cuối: OpenAI duyệt · Anthropic duyệt (P34).
 
+Đường độc đạo (Owner 14/10/2026 10:43 · nguyên văn 3.4 · việc chi tiết + phép thử: proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md › VÒNG 8 · chặn ca thử QT002 tới khi xong)
+- R33 ⬜ Mục tiêu cuối: một con đường độc đạo — ai vào cũng chỉ một lối, không thể lạc, muốn làm sai cũng không được. Ba nguyên tắc: ① cần làm thế nào thì viết rõ, có thứ tự ② làm đúng thứ tự, phải xong; không xong thì quay lại sửa luật ③ làm phải để lại bằng chứng + ô tích, tìm lại dễ. → trang 1 của 006 (VÒNG 8 A1, G1).
+- R34 ⬜ Mỗi việc có thẻ 3 ô Owner nhìn nhanh, máy tự tính, xanh mới là ok: ① hoàn thành cả việc (định nghĩa rõ, Owner gật trước khi làm) ② cần tạo bao nhiêu field mới, đã ghi chưa ③ GPT/Claude/Owner đã ký đủ chưa. Rõ trong cả 006 và hồ sơ. → VÒNG 8 B1–B3.
+- R35 ⬜ Có Master List thì phải có mã riêng; Master tiến trình công việc có UI mà chưa có mã chính thức ("DEF 00.1" ↔ CAT-227*). → VÒNG 8 C1–C2.
+- R36 ⬜ Master Field chuẩn để đưa thẳng vào PG: mã DB (tên cột) có quy tắc thống nhất · tên hiển thị ngắn, đủ nghĩa, có "?" · mã việc sinh ra field · mô tả để làm gì · vòng đời Cần tạo mới → Đã tạo → Đã nghiệm thu. → VÒNG 8 D1–D5.
+- R37 ⬜ Mỗi bước trả lời một bộ câu hỏi chuẩn (làm gì · sau bước nào · đầu vào · ai · công cụ · xong khi · ghi đâu · khi nào báo cáo · lỗi đi đâu) và tích việc đã làm; máy chặn sai thứ tự. → VÒNG 8 E1–E3.
+- R38 ⬜ Hồ sơ sửa chữa thiết kế từ đầu: sửa ghi vào đâu, đã sửa bao nhiêu lần, sửa gì, lúc nào, ai chịu trách nhiệm; người làm chỉ điền vào ô có sẵn. → VÒNG 8 F1.
+
 Phạm vi: chưa làm quy trình nghiệp vụ (phái cử, tuyển dụng…), là sản phẩm của cỗ máy thuộc Chuỗi 3, để sau. Không làm lúc này: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế.
 
 #### 3.2 Tiêu chí kiểm một quy trình (Host nội dung soạn 09/10, dùng cho ô 2)
