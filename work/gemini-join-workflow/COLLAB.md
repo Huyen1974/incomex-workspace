@@ -17,16 +17,6 @@ Host_Surface: GPT Chat
 - ➡ Kế tiếp: 😊 Owner gật/lắc Q02 · Host GPT ghi HUMAN_DIRECTIVE-06 nếu gật + READY đúng SHA · 🤖 Claude Code chạy G1B. NEXT_TRIGGER=OWNER_Q02_THEN_GPT_READY_G1B_E42FB68.
 - ⛔ Không làm/để sau: G2/G3 trước khi G1B xong; mượn khoá ghế khác; xoá tệp (chỉ chuyển vào lưu trữ có INDEX); khởi động lại gì ngoài agent-data (+ jev-gw nếu Q02 nêu); đụng HJW/Graph/VPSC/TQT.
 
-<!-- Bảng P07 của Host giữ dưới đây làm lịch sử; Bảng hiện hành là khối ngay trên. -->
-#### (lịch sử) Bảng P07 · 2026-10-14 15:33 +07 · GPT Chat Host
-- 🎯 Mục tiêu: ô 1 — Gemini/Antigravity kết nối tối đa repo/VPS/MCP/KB/JEV, thành viên Google trong Hội đồng AI và workflow Hermes; năng lực tương đương GPT/Claude, Antigravity tự làm, Claude Code chỉ hỗ trợ blocker.
-- 🏁 Xong khi: ô 2 + capability parity; G1 phải có Google identity, authenticated calls repo/KB/JEV và agy headless; G2–G3 nghiệm thu riêng.
-- 📍 Tiến độ: [✓ G0 thiết kế/đồng thuận] → [✓ G1 S0 khảo sát] → [✓ G1 KQ DỪNG tại S1] → [■ G1B hỗ trợ BC01–BC03] → [□ Antigravity tiếp tục G1] → [□ G2 ghế Google] → [□ G3 courier/phone] → [□ nghiệm thu].
-- ✅ Đã xong: báo cáo Gemini G1 08:11–08:16Z xác định CLI/endpoint/auth; P07 Host tiếp nhận STARTED/KQ hồi cứu (không giả là actor Google). Gemini báo đã dọn 1/1 đồ tạm, 0 VPS writes/0 process.
-- ■ Đang làm: — · 0 RUN active; G1 đã KQ DỪNG, không có G1B READY/RUN. Root VPS-GHI có thể đổi liên tục (VPSC nhả 08:18Z; TQT-P61 nhận 08:22Z), kiểm tại thời điểm viết VPS.
-- ⬜ Còn lại: BC02 Mac MCP/TCC, BC03 agy OAuth, BC01 identity Google gateway; Antigravity gọi 4 cổng/ghi thử Google, G2 hội đồng, G3 đưa thư và Remote Control; ma trận capability parity.
-- ➡ Kế tiếp: Claude Chat rà P07 và PROMPT G1B DRAFT một lượt; GPT Host READY đúng SHA, Owner giao Claude Code CLI hỗ trợ ba delta. Local Mac trước; BC01 VPS chỉ khi có khóa/giải pháp không restart. NEXT_TRIGGER=CLAUDE_REVIEW_G1B_DRAFT.
-- ⛔ Không làm: không dọn chung VPS, xoá file legacy, mượn master/profile hãng khác, copy token giữa HOME, bypass TCC, restart container/nginx, làm rớt Guard/backup/Kuma/Telegram hay xâm phạm HJW/Graph/VPSC/TQT.
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
 1. «rà soát lại để tích hợp cho Gemini app đầy đủ vào trong VPS, kết nối qua MCP và tất cả các cổng kết nối, tức là giống như nguyên tắc của GPT và Claude là kết nối tối đa và cho tham gia vào cái nhóm workflow và hội đồng AI này» (phiên GPT Chat)
