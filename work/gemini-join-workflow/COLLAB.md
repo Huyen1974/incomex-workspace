@@ -7,15 +7,15 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 21:48 +07 · GPT Chat Host · P13
-- 🎯 Mục tiêu: ô 1 — Gemini vào hội đồng như ghế Google, kết nối tối đa ngang GPT/Claude. Owner 15:44: Gemini tự làm trước; phần nó không làm được giao Claude Code làm cho nhanh.
-- 🏁 Xong khi: ô 2. G1 xong = `agy` đăng nhập + danh tính google-main thật (P do chính Gemini ghi) + KB/JEV gọi thật + bảng parity.
-- 📍 Tiến độ: [✓ G0] → [✓ G1B lõi google-main/repo/KB] → [✓ P12 Claude ACCEPT] → [✓ P13 GPT READY G1C] → [■ Owner giao Claude Code chạy G1C (chưa STARTED)] → [□ G2 hội đồng chính thức] → [□ G3 đưa thư] → [□ nghiệm thu].
-- ✅ Đã đạt: P10 Gemini viết repo bằng google-main, KB và 6 danh tính PASS; Claude P12 ACCEPT@a975a686ff391695bc234b81a4b5780b8bfe59f1; GPT P13 READY cùng SHA. JEV chỉ cấu hình Mac, không đổi VPS.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 21:55 +07 · GPT Chat Host · P14
+- 🎯 Mục tiêu: Chủ trương Owner 14/10: Gemini thành viên Google chính thức có kết nối **tối đa khả thi** trên các bề mặt Google dùng thật (agy, Gemini Mac/Spark, Antigravity Browser/Remote), cả gọi ra và gọi vào từ HJW; không chỉ dừng ở CLI đủ ghi P.
+- 🏁 Xong khi: ô 2 + C7/C8: một ghế google-main độc lập đọc/ghi repo, KB/JEV và phản biện thật; G3 có ít nhất 1 đường inbound máy kích hoạt/nhận receipt không Owner copy-paste, có evidence cho Gmail/Chrome/Mac, các gap sản phẩm/pháp lý ghi thật.
+- 📍 Tiến độ: [✓ G1B google-main/repo/KB] → [✓ P12 ACCEPT/P13 READY G1C] → [■ G1C JEV Mac + Council canary] → [□ G2 Google chính thức + kiểm Gemini Mac] → [□ G3 EMAIL/CLI/CHROME inbound/outbound thật] → [□ parity + nghiệm thu toàn task].
+- ✅ Đã đạt: CLI agy Gemini 3.8 Flash High tự ghi P10 [auth:google-main], repo/KB, sáu identity PASS; P14 rà tài liệu Google xác minh Gmail monitor Pro, CLI JSON, Remote Control/Chrome; chưa chứng minh Mac App MCP hoặc inbound VPS tự gọi.
 - ■ Đang làm: — · 0 RUN active. G1C READY nhưng chưa RUN; Claude Code sẽ nối JEV chung, bảo vệ MCP trên Mac, gọi Gemini độc lập phản biện.
-- ⬜ Còn lại: JEV cho Google (path-secret chung, chỉ Mac), preflight chống drift Mac, Gemini phản biện 1 P thật; G3 courier. Nợ receipt Telegram/#22 giữ riêng cho việc giám sát.
-- ➡ Kế tiếp: Owner chuyển một câu chuẩn DROOT38 cho Claude Code CLI G1C; thực hiện theo PROMPT READY, Gemini tự ghi P phản biện. NEXT_TRIGGER=OWNER_START_G1C.
-- ⛔ Không làm: Không tắt sandbox/Turbo toàn cục, không chép SSH key/secret sang HOME user1 Gemini Mac, không git push trực tiếp, không VPS write/restart, không làm mất auth cũ; Kuma sau.
+- ⬜ Còn lại: G1C như READY; kết nối Gemini Mac đúng Connected Folders/MCP mức sản phẩm thực cho phép, quyền scoped đủ dùng; thử Gmail Monitor, HJW→agy chính thức, Chrome Browser Subagent và receipt; Remote Control dành người; Kuma/R4 để sau.
+- ➡ Kế tiếp: không sửa G1C READY; Owner chuyển Claude Code thực hiện G1C để Gemini phản biện (đang chờ RUN). Sau KQ, G3 ưu tiên test inbound/Chrome thực + app connection theo C8 một lượt, không tự mở API trả phí hay cloud project. NEXT_TRIGGER=OWNER_START_G1C.
+- ⛔ Không làm: không biến quy tắc G1 chỉ-đọc thành trần Google, không mặc nhiên coi Gemini Mac được MCP như agy; không tắt sandbox/Turbo toàn cục hoặc copy SSH private key sang user1; vẫn giữ gateway-only Git/DOT/Guard; Kuma để sau.
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
 1. «rà soát lại để tích hợp cho Gemini app đầy đủ vào trong VPS, kết nối qua MCP và tất cả các cổng kết nối, tức là giống như nguyên tắc của GPT và Claude là kết nối tối đa và cho tham gia vào cái nhóm workflow và hội đồng AI này» (phiên GPT Chat)
@@ -66,6 +66,13 @@ HUMAN_DIRECTIVE@GJW-20261014-05 EFFECTIVE · task=gemini-join-workflow · scope=
 
 - **Giới hạn thực hiện hiện tại:** G1 `READY@a5a08669df1a713b6f6c31cd2bc2b6fc5b9deb86` vẫn hiệu lực như đã duyệt. Chỉ đạo C7 làm rõ **mục tiêu toàn task** và đầu vào thiết kế G2/G3/các vòng sau, không tự cấp quyền ghi prod cho G1, không sửa PROMPT/READY hoặc bắt quay lại vòng review.
 
+- **C8 · MAXIMUM REAL CONNECTIVITY — DIRECT OWNER 14/10 21:48 +07; ƯU TIÊN CÔNG VIỆC THỰC, KHÔNG GIỚI HẠN THEO HÃNG.** Owner: «Tôi buộc phải tin google. Secret chúng ta để trên chỗ họ, email ta dùng của họ, backup trên GGD ta đặt trên máy chủ của họ. Chúng ta buộc phải tin họ thôi. Chỉ đạo của tôi là cần kết nối tốt nhất để công việc hiệu quả, không cần làm khó cho chính mình, trong khi GPT và claude không hỗ trợ gọi từ ngoài vào => Gemini đang hỗ trợ.» Chốt **năng lực cuối** phải đo ở hai chiều:
+  - **Outbound / cùng tài nguyên:** Google identity `google-main` dùng MCP AgentData/KB/JEV/DOT/Graph/hạ tầng theo capability thực đã audit; tích hợp đúng bề mặt `agy` VÀ khảo sát Gemini Mac Task Mode (`com.google.GeminiMacOS`, sandbox HOME `~/.gemini/users/user1`, `Connected Folders`) chứ không giả định hai bề mặt cùng đọc config. Bản Gemini Mac hiện chỉ thấy Git + Obsidian, chưa có Incomex MCP => **GAP THỰC**. Nếu chức năng custom MCP của Spark bị hạn chế sản phẩm theo tài khoản/vùng, ghi rõ và dùng `agy` làm đường chuẩn thay vì dựng máy chủ/cầu bí mật mới.
+  - **Inbound/remote + native Google:** (A) HJW/runner gọi `agy -p --output-format json` qua Mac (đường máy chuẩn, receipt), (B) Gmail Monitor của Gemini Spark kích hoạt qua email filter cho tài khoản Google AI Pro (đo trễ + xem có tool Incomex hay không), (C) Antigravity Browser Subagent + Chrome profile riêng thử trang Incomex rồi chuyển con trỏ theo giao thức `COURIER_REQUEST` đã có, (D) Remote Control của Google cho Owner từ điện thoại/web; daemon remote-control **không tự là HTTP API** cho VPS. Test một lượt/có mã/biên nhận, không mặc định chọn API key trả phí.
+  - **Tài liệu hãng 14/10:** https://www.antigravity.google/docs/cli/headless/ · https://antigravity.google/docs/remote-control/ · https://www.antigravity.google/docs/browser · https://support.google.com/gemini/answer/17094710 · https://support.google.com/gemini/answer/17209137 . **Gmail Monitor** có trên Pro/Spark nhưng độ trễ không bảo đảm real-time. **Custom Gemini Apps MCP** tại thời điểm tra Google giới hạn tài khoản tại Mỹ, web/mobile, tiếng Anh; không tự tuyên chạy trên Gemini Mac tại Việt Nam; kiểm xem UI thực sự có gì theo tài khoản Owner.
+  - **Rủi ro chấp nhận vs rào cản tự đặt:** Owner chấp nhận phụ thuộc nhà cung cấp Google; không dùng lý do đó để cấm khả năng hợp lệ. Nhưng model bị dữ liệu web/email prompt-inject hoặc được phát lệnh nhầm có thể thao tác ngoài ý định **dù Google đáng tin**. Cho tự động `Allow` các MCP/hoạt động trong scope đã được duyệt, `Ask` cho thao tác nhạy cảm, `Deny` cho hành vi làm hỏng Guard/vượt gateway; không bật `--dangerously-skip-permissions`/Turbo toàn cục để lách quyền, không sao chép private SSH key/cookie/token giữa HOME vào repo. Secret đọc qua GSM/loader hoặc cấu hình đúng client đã đo, không in; bảo vệ Đ30/31, CAS/DOT/rollback như các ghế cũ. Đích = **không yêu cầu Owner copy-paste khi courier đã đạt canary**.
+  - **Phạm vi điều hành:** G1C đã ACCEPT@a975a686ff391695bc234b81a4b5780b8bfe59f1 + Host READY, hiện chỉ nối JEV cho `agy`, preflight Mac, Gemini Council canary: **không sửa PROMPT hoặc READY** vì C8 là nghiệm thu cuối G2/G3; bước sau G1C phải ưu tiên Gemini Mac/EMAIL/CLI/CHROME theo thực chứng. Nếu nhiệm vụ đang STARTED, thay đổi này chỉ hướng sau KQ, không hồi tố thay RUN.
+
 ### Vòng trước
 — (việc mới 14/10/2026)
 
@@ -89,6 +96,13 @@ HUMAN_DIRECTIVE@GJW-20261014-05 EFFECTIVE · task=gemini-join-workflow · scope=
 - HUMAN_DIRECTIVE@GJW-20261014-08 EFFECTIVE · task=gemini-join-workflow · scope=POST-PROTECT Điều 30/31 cho footprint kết nối Google trong lượt G1B hiện hành; hậu kiểm Kuma/Telegram chuyển chủ đúng task sau KQ · step=G1B_POST và follow-up thuộc việc giám sát · recorded_by=openai-main · quote=«Nhưng tiện thể chỗ kết nối này thì bạn nhắn thêm cho agent là đưa luôn vào điều 30, 31 để bảo vệ, tránh việc chúng ta kết nối xong rồi AI khác lại vô tình làm hỏng mất, làm đi làm lại nó mất việc, mất thời gian ra.» · audit=Owner direct chat 14/10/2026. **Không sửa PROMPT/READY, không phát RUN mới; đây là yêu cầu áp dụng luật R4 vốn đã hiệu lực lên kết quả thực hiện.**
 
 ## Nhật ký P
+
+### P14 · GPT Chat Host · 2026-10-14 21:55 +07 · OWNER PRIORITY: CONNECT GEMINI TO THE MAX
+- **Disposition:** Đồng ý phản biện Owner. GPT trước đó nói «không cần thiết để tham gia hội đồng» chỉ đúng cho **canary một ghế qua CLI**, chưa đáp ứng mục tiêu *toàn bộ workflow*, trong đó Owner muốn Gemini Mac native + kênh gọi vào + browser thực. Đã sửa C8/Bảng, không phủ nhận P10 core PASS và không phá G1C READY đang chờ RUN.
+- **Current verified:** Google `agy` ghi P10 [auth:google-main] và `search_knowledge`/repo PASS; Mac Task Mode user1 tách HOME, không tự nhận MCP; JEV sắp nối theo Claude P12; Gmail inbound, HJW caller, Chrome chuyển việc, Remote Control chưa E2E. Mặc định coi những điều **chưa có canary** là GAP, không lấy tài liệu hãng thay bằng chứng thực địa.
+- **Risk policy:** Tin tưởng Google là điều kiện nền được Owner chấp nhận, nhưng không đồng nhất với autocho phép mọi lệnh ghi, cấp root SSH cho sandbox hoặc copy secrets vào web. Mở tối đa các tool/connector hợp lệ; dùng đúng các bảo vệ đã xây dựng và quyền tự động có phạm vi, bảo vệ thành quả không bị AI khác làm hỏng.
+- **Host handoff:** giữ G1C Claude P12 ACCEPT/GPT P13 READY không sửa. Hoàn tất JEV + Google Council canary trước; bước kế ưu tiên kiểm Gemini Mac cụ thể, dùng Gmail Monitor/agy headless làm inbound Google và Chrome Browser Subagent làm courier theo C8. Không mở vòng bàn lại kiến trúc khi không có blocker mới.
+
 
 ### P13 · GPT Chat Host · 2026-10-14 21:48 +07 · ACCEPT P12 + READY G1C
 - **Đồng thuận Claude P12:** JEV là tài nguyên chung sử dụng một `jev-mcp-path-secret` cho client có quyền, không phải danh tính tác giả ghi repo. G1C chỉ thêm MCP JEV vào **Antigravity CLI `agy` đúng config đang chạy trên Mac** bằng đường lấy GSM hiện có, không ghi/restart VPS. Lệnh S1 P12 chính xác hơn P11, không có bất đồng cần vòng thêm. Giữ bí mật, backup/0600, không lộ trong log.
