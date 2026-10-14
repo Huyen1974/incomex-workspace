@@ -1,6 +1,6 @@
 # tools-quy-trinh · Cửa vào
 ## Thanh điều hướng chung · Owner 14/10/2026
-Mọi UI đang dùng phải giữ thanh **4 Mẹ + Master** ở đáy. Nạp `/ui-preview/mcp-writes/eco-nav.js`; không chép menu sang từng trang. Trang con tiếp tục kế thừa thanh từ mẫu cha. Khi kiểm UI bằng `ui_inspect`, kiểm thêm `.eco-bar`: đủ MOW/MOT/MOIT/MOUT/Master, nằm trong viewport, menu trỏ đúng `/ui-preview/mcp-writes/` và thoát khung nhúng khi mở trang khác. Kiểm lại sau khi chuyển tab/mở hồ sơ; thiếu thanh là chưa đạt UI. Không sửa phiếu nghiệm thu hoặc dữ liệu hồ sơ vì thay đổi điều hướng.
+Mọi UI đang dùng phải giữ thanh **4 Mẹ + Master** ở đáy. Mẫu `master-list.js` và `design-navigation-v1.js` tự nạp thanh mặc định; không được ẩn `.eco-bar` trong chế độ nhúng. Master mới kế thừa mẫu này, không cần nhớ gắn thanh riêng. Nạp `/ui-preview/mcp-writes/eco-nav.js`; không chép menu sang từng trang. Trang con tiếp tục kế thừa thanh từ mẫu cha. Khi kiểm UI bằng `ui_inspect`, kiểm thêm `.eco-bar`: đủ MOW/MOT/MOIT/MOUT/Master, nằm trong viewport, menu trỏ đúng `/ui-preview/mcp-writes/` và thoát khung nhúng khi mở trang khác. Kiểm lại sau khi chuyển tab/mở hồ sơ; thiếu thanh là chưa đạt UI. Không sửa phiếu nghiệm thu hoặc dữ liệu hồ sơ vì thay đổi điều hướng.
 
 
 ## P54 · Sửa hai điểm Claude VÒNG6 còn yêu cầu
