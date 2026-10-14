@@ -737,3 +737,29 @@ Hai review Anthropic **APPROVE** nối sau review OpenAI, không sửa gì khác
 **Còn chặn hoàn thành QT001** (006 §9.1, không đổi từ V5.0): chưa có lượt làm thật bởi AI mới; chưa có 7 mốc đo bằng giờ commit; chưa có rà độc lập hợp đồng/sản phẩm thật; chưa có phiếu nghiệm thu sản phẩm hai hãng, Owner quyết, ACK. FIELD-COVERAGE và AUTOMATION vẫn mở trong danh sách nợ.
 
 Nhật ký vòng 7: KQ@TQT-P54-CLAUDE-REVIEW XONG · 2026-10-14 ~01:05Z (giờ chính xác = commit này). Không chiếm VPS-GHI: chỉ ghi tài liệu + hai phiếu qua gateway CAS có đọc lại. CHECK005 và các phép thử trong bản sao cách ly, tệp tạm tự hủy; CHECK006 không chạy lại (bản sao thiếu sổ Master sống, như V6) — dựa lượt PASS của Codex `TQT-675fbba3…` + CHECK005 + giao diện thật. Trình duyệt đã đóng tab. Không chạy QT002, PG. Không tạo tiến trình nền, lease hay khóa.
+
+---
+
+# VÒNG 8 · Danh sách yêu cầu tổng hợp cho Codex · 14/10/2026
+
+Nguồn: chỉ đạo Owner 14/10/2026 10:43 (nguyên văn ở COLLAB §0 ô 3 mục 3.4) + ý kiến Claude 14/10 (định nghĩa "xong", % công cụ). Owner đã đồng ý các ý kiến đó và giao: **tổng hợp rồi sửa một thể**; Claude giám sát. Chưa chạy ca thử QT002 trước khi xong danh sách này.
+
+**Mục tiêu tổng quát (Owner):** thiết kế **một con đường độc đạo** — ai vào cũng chỉ có một lối, không thể lạc, muốn làm sai cũng không được.
+**Ba nguyên tắc gốc (Owner):** ① Cần làm thế nào thì viết rõ, có thứ tự. ② Làm đúng thứ tự đã viết và phải làm xong; không xong thì quay lại sửa quy định/luật. ③ Làm phải để lại bằng chứng: xong có ô tích, có thông tin chứng minh; cần tìm lại để sửa/nâng cấp thì dễ.
+
+## V8.0 · Nhìn 30 giây
+
+| Nhóm | Việc | Số yêu cầu | Vì sao gấp |
+|---|---|---|---|
+| A | Nguyên tắc đường độc đạo vào trang 1 của 006 | 1 | Mọi luật khác dựa vào đây |
+| B | **Thẻ việc 3 ô** Owner nhìn nhanh + định nghĩa "xong cả việc" | 3 | Hiện không có ô "Xong khi" cho từng việc |
+| C | Mã Master chính thức | 2 | Master tiến trình công việc có 2 danh tính: "DEF 00.1" trên UI và "CAT-227*" trong dữ liệu |
+| D | **Master Field chuẩn để đưa thẳng vào PG** | 5 | Thiếu mã DB, mô tả, việc sinh ra, vòng đời |
+| E | **Thẻ bước** — bộ câu hỏi chuẩn cho từng bước + máy chặn thứ tự | 3 | Thiếu "làm sau bước nào", "đầu vào", "khi nào báo cáo" |
+| F | **Hồ sơ sửa chữa** | 1 | Gần như chưa thiết kế |
+| G | Dễ đọc | 2 | 006 viết theo lịch sử sửa; chữ dính |
+| K | Kỹ thuật | 3 | Rà độc lập chưa thật sự độc lập; giờ hiển thị |
+
+**Thứ tự làm (một lượt, chia chặng):** C (mã) → D (Field) → B + E (thẻ việc, thẻ bước) → F (hồ sơ sửa) → A + G (viết lại 006) → K. Lý do: các phần sau tham chiếu mã của phần trước. Claude rà một vòng khi xong cả lượt, theo đúng các phép thử ghi dưới; hai hãng ký phiếu mới.
+
+**Cần Owner gật (PM đề xuất sẵn):** (Q1) cho **đọc PG chỉ đọc, không ghi** để phân loại 239 field "cần tạo mới / đã có" — **gật**, vì không đọc thì ô ② thẻ việc luôn đỏ. (Q2) đổi ID field sang dạng ngắn `FLD-0001` **ngay bây giờ**, trước khi vào PG — **gật**, vì bây giờ rẻ, sau này đắt. Tách tệp view.html 16 MB (R26): PM quyết để lượt sau, không trộn vào lượt này.
