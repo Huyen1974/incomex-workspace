@@ -978,5 +978,66 @@ Xong P61 (đang ký) → bước 1 trong lượt kế tiếp, trước các sử
 
 > **Đã thay thế 14/10/2026 16:00.** Owner, GPT và Claude chốt cách đơn giản hơn: làm thẳng trên collection nháp Directus (`tqt_draft_*`, chỉ DOT ghi), đạt thì xuất định nghĩa lên GitHub → Owner duyệt → tạo collection thật → xóa nháp. Bước 1 (tách tệp) và cách "GitHub → bản chiếu Directus" ở trên thôi làm. Nguồn duy nhất của kế hoạch: COLLAB §0 Bảng điều khiển + R40–R42.
 
+---
+
+# VÒNG 11 · Rà kế hoạch Directus NHÁP của GPT (9b3f526 · ca13e17) · 14/10/2026 16:45 · Claude Host Kiểm soát
+
+Nguồn: Owner 14/10 16:21 (nguyên văn COLLAB 3.4) + lệnh giao rà của GPT. Phạm vi: 3 điểm GPT nêu (số Master và ánh xạ · tái dùng DOT · Owner xem an toàn) + 2 điểm Owner thêm (cách cấp tin cho DOT · khoanh vùng + một lệnh). Chỉ đọc: 0 ghi Directus/PG/VPS.
+
+## V11.0 Kết luận
+
+**ĐỒNG THUẬN** hướng GPT: Directus nháp · chỉ DOT ghi · GitHub là nguồn · G1/G2 tách. **CẦN SỬA 4 chỗ — đã sửa thẳng** COLLAB §0 (Bảng, ô 2, R40–R46, 3.4) và đầu README. Owner chỉ còn 1 câu: Q1.
+
+| # | Bản GPT | Đã sửa thành | Vì sao (đo 14/10 ~09:25Z) |
+|---|---|---|---|
+| S1 | "khoảng hơn 100 Collection", "một Master một Collection" | R40: ánh xạ 3 loại — ① dựng nháp · ② dùng bảng có sẵn (không nhân bản) · ③ không dựng; số bảng = số dòng loại ① | Master of Master 86 mục; 72 mục đọc nhanh được: 43 mã mới `*` chưa có bảng, 29 mã cũ trỏ bảng thật (directus_users, dot_tools 314 dòng, entity_labels ~907k, birth_registry…). ML-DEF 28 trùng một phần (ML-DEF-024 = CAT-006). Nhân bản bảng thật vừa nặng vừa đẻ nguồn thứ hai |
+| S2 | "dùng DOT hiện có, thiếu thì nâng" (chung chung) | R41: một DOT mới `dot-tqt-draft` nhân bản mẫu `dot-web-incomex`; cấm `dot-collection-create` | Bảng V11.1 |
+| S3 | Chưa có đường cấp tin cho DOT | R45: 1 tệp/bảng + 2 tệp gốc + 4 nhịp + luật từ chối | Owner 16:21 |
+| S4 | Cô lập/xoá để sau G2, không nói một lệnh | R46: máy khoanh vùng + `co-lap` / `xoa-vung`; thử xoá thật ngay B2 | Owner 16:21; chưa thử thì "một lệnh xoá sạch" chỉ là lời hứa |
+
+Thêm: Owner xem bằng 1 tài khoản chỉ-đọc (Q1). Cờ `VPS-GHI: TQT-P61-PUBLISH` (từ 08:22Z) còn giữ dù P61 đã đóng băng 16:00; GJW P09 (f9227eb) phải dừng vì cờ này ⇒ Codex nhả ngay.
+
+## V11.1 Tái dùng DOT — có / sửa / thiếu
+
+| Việc | Dùng gì | Trạng thái |
+|---|---|---|
+| Vùng riêng, từ chối ngoài vùng, sổ sở hữu, gắn Guard, mặc định chạy thử, khoá GSM | mẫu `dot-web-incomex` v1.1.1 (CWEB-E2E-20261004-03 — web dựng trong 1 đêm) | ✅ có — nhân bản |
+| Tạo bảng/cột/quan hệ theo danh sách | Directus `/schema/snapshot·diff·apply`; `dot-schema-snapshot`, `dot-schema-diff` đã bọc 2 lệnh đầu | 🟡 thiếu bước "áp, chỉ trong vùng" |
+| Ghi nhiều dòng | Directus `/items` ghi theo gói | 🟡 thiếu bọc |
+| Quyền xem cho Owner | Directus policy + `dot-permission-ensure` | 🟡 cần 1 policy + 1 tài khoản |
+| Đọc danh sách bảng từ tệp; `kiem` · `co-lap` · `xoa-vung` | — | 🔴 thiếu ⇒ nằm trong DOT mới |
+| `dot-schema-apply` | chỉ thêm cột cho 1 bảng có sẵn; không tạo bảng, không khoá vùng | ⚪ không đủ, không dùng |
+| `dot-collection-create`, `dot-collection-register`, `dot-registry-*` | gắn trigger khai sinh + sổ registry (bộ đang tắt theo VPSC D25) | ⛔ cấm cho nháp |
+
+## V11.2 Kiểm xung đột với vùng khác (chỉ đọc)
+
+| Nguồn | Đo | Kết luận |
+|---|---|---|
+| Flow Directus | 107 active, tất cả gắn collection có tên | Bảng nháp không kích Flow nào |
+| Event trigger PG | 2, chỉ ghi log khi tạo/xoá TRIGGER | Nháp không tạo trigger ⇒ không kích |
+| Policy "Public Access" | 170 quyền | `kiem` phải chặn mọi quyền public trên nháp |
+| Directus hiện có | 170 collection, 6 nhóm (có `web_incomex`) | Thêm 1 nhóm `tqt_draft`; người khác không thấy vì không có quyền |
+| Guard #22 | `web_incomex` đã gắn checker riêng | Nháp gắn giống vậy; `xoa-vung` gỡ |
+| Cờ VPS-GHI | đang giữ bởi TQT-P61 | Nhả ngay. Về sau: đổi cấu trúc giữ cờ vài phút; ghi dữ liệu nháp không cần cờ (máy đã khoá phạm vi) |
+
+Để B1 đo nốt (chỉ đọc): PG Census có báo bảng chưa nhãn không (có ⇒ 1 luật nhãn theo tiền tố `tqt_draft_`) · Directus có gửi được thư mời để Owner tự đặt mật khẩu không · xoá collection có còn sót lịch sử sửa/nhật ký không (`xoa-vung` phải đếm).
+
+## V11.3 Ví dụ xuyên suốt: thêm cột "Ngày hết hạn visa"
+
+1. AI thêm 1 dòng vào `nhap/field.json`: `{"ma":"F-251","cot":"ngay_het_han_visa","kieu":"date","ten":"Ngày hết hạn visa","mo_ta":"…"}`; thêm `F-251` vào danh sách cột của bảng cần dùng trong `nhap/master.json`. Commit: `claude-code · B3 · thêm cột visa cho hồ sơ`.
+2. Chạy `dot-tqt-draft ap <commit>`.
+3. DOT kiểm: mã chưa có ✓ · kiểu hợp lệ ✓ · đích trong vùng ✓ → thêm dòng vào "NHÁP · Field", thêm cột vào bảng → đọc lại khớp → in `ĐẠT · field +1 · cột +1 · <commit>`.
+4. AI dán dòng biên nhận vào mục P. Owner mở Directus thấy cột mới; lịch sử sửa ghi mã commit.
+
+Gõ trùng `F-250` ⇒ `LỖI · trùng mã F-250`, không ghi gì. Lỡ xoá mất dòng trong tệp ⇒ `LỖI · thiếu dòng … (muốn bỏ thì ghi trang_thai: ngung)`.
+
+## V11.4 JEV
+
+`gen-dec-1791970161-E4A5CszNqT3jYWiWaM9u`: 1 DOT vùng 1,00 · tệp trạng thái theo bảng 0,81 · tài khoản chỉ-đọc 0,60 · thử xoá sớm 0,88. `gen-dec-1791970336-K6beqT9DVATumTlEvAhh`: đếm theo loại ① 0,96 · nhân bản bảng thật 0,17 (không) · gộp B1+B2 một lượt có cổng 0,70. Claude đồng ý cả 7. Tài khoản chỉ-đọc JEV chỉ 0,60 vì ảnh chụp cũng xem được; giữ tài khoản vì Owner cần tự bấm lọc, mở form để chấm UI.
+
+## V11.5 Việc tiếp sau khi Owner gật Q1
+
+GPT (Host) soạn MỘT prompt B1+B2 theo R43 (B1 chỉ đọc là cổng đầu, gặp chặn thì dừng); Claude rà một vòng rồi ký. Không mở task mới.
+
 
 
