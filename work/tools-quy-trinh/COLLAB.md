@@ -125,6 +125,36 @@ Phạm vi: chưa làm quy trình nghiệp vụ (phái cử, tuyển dụng…), 
 - Hội đồng: Astra-Codex (OpenAI) Host nội dung · Claude-review (Anthropic) Host Kiểm soát + phản biện · GPT Chat (OpenAI) góp ý/phản biện. Mode=COUNCIL · Automation_Level=AUTO0. Đường gọi hội đồng chưa đo.
 
 #### 3.4 Nguyên văn chỉ đạo Owner
+- 14/10/2026 10:43 · phiên Claude (nguyên văn, giữ lỗi gõ) → R33–R38:
+  > Tôi đồng ý với các ý kiến của bạn nhưng chúng ta vẫn còn những việc nữa phải làm => bạn tổng hợp lại tất cả các ý kiến rồi sau đó chúng ta sửa 1 thể nhé.
+  >
+  > 1. Tôi có hỏi thế nào là hoàn thành 1 việc. Bạn chưa trả lời cụ thể, có thể do codex viết ở đâu đó chưa rõ rõ ràng => chính bạn là người đọc nhiều lần còn chưa đọc được. Vậy 1 phiên mới/1 AI mới sẽ bỏ qua. Việc của chúng ta là viết cụ thể quy trình để muốn làm sai cũng không làm được. Tôi nhắc lại các mục tiêu lớn (để con người đánh giá) còn những việc chi tiết để cho AI làm đúng bên trên thì bạn nói rất đúng chúng ta phải tiếp tục sửa (đó là tại sao tôi chưa ký lệnh để làm thử 002). Các mục tiêu là:
+  >    1. Thế nào là hoàn thành cho cả việc đó? Phải định nghĩa rõ ràng.
+  >    2. Cần tạo bổ sung bao nhiêu field mới, đã ghi cần tạo bổ sung chưa?
+  >    3. GPT và claude đã ký toàn bô chưa?
+  > (Khi tôi nhìn vào 1 việc, tôi sẽ nhìn nhanh mục tiêu) và có tích xanh là ok. Cái này chưa được viết ra 1 cách rõ ràng, dễ nhìn cho cả con người và AI. Việc này phải biết rõ trong phần QTTH 006 cũng như trong hồ sơ để nhìn cái hiểu ngay.
+  > 2. Master tiến trình công việc (DEF 00.1 · MASTER TIẾN TRÌNH CÔNG VIỆC https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/process-work-master-v1.html?master=DEF00.1) hiện nay bị sai nguyên tắc có UI nhưng lai không có mã của bảng này. Nguyên tắc đã có master list thì phải có mã riêng. Những việc này là hậu quả của việc trình bày chưa rõ rõ ràng lắm, cho nên người sau làm dễ bị sai. Trong khi mục tiêu là không thể hiểu nhầm và không thể làm sai thì chưa đạt được.
+  > 3. https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=8 trong danh sách Master Field này cần sửa lại khá nhiều, vì những việc này là chúng ta thiết kế chuẩn để cứ thế đưa vào PG luôn. Các vấn đề của master này gồm:
+  >    1. Thứ nhất là thiếu cột tên kiểu mã để đưa vào DB. Nếu dùng cột ID thì cả người và AI đọc không hiểu gì, hơn nữa ID không hiểu đang dựng theo nguyên tắc nào nhưng quá dài. Tất nhiên việc dài chưa phải là cấp bách cần sửa nhưng tên đặt trong PG thì tôi nghĩ đang là vấn đề. => cần có ý kiến thống nhất xem việc này nên giải quyết thế nào để làm chuẩn 1 lượt ngay từ đầu.
+  >    2. Cột "Tên" hiện tại đặt chung chung và chưa có hướng dẫn. Nguyên tắc tôi hiểu đây là tên hiển thị. Tên hiển thị cần đầy đủ nhưng cũng ngắn gọn bởi vì đôi khi diện tích Web không cho phép. Tên hiển thị là dành cho con người đọc => nó phải mang bao hàm nội dung bên trong để ít phải hỏi lại. Chỗ này cần phải dùng cơ chế "?" để hướng dẫn ngay tại cột 1 cách rất rõ ràng, việc ban đầu đang làm là tương đối ẩu. Vì chỉ dựng khung cho nên tôi tạm chấp nhận để chạy cho qua 001. Nhưng giờ là lúc phải rà soát.
+  >    3. Chúng ta thiếu mã của "DEF 00.1 · MASTER TIẾN TRÌNH CÔNG VIỆC", cho nên không kết nối được yêu cầu thêm trường đó sinh ta từ công việc nào => cần tìm lại rất khó khăn.
+  >    4. Chúng ta thiếu 1 cột: mô tả về bản trường đó để làm gì. Việc này rất dễ bị bỏ quên khi làm bởi vì trong phạm vi nhỏ thì thấy không cần thiết, nhưng khi tích lũy lại theo số nhiều ngàn và trong thời gian rất dài => việc không có mô tả rõ ràng chi tiết sẽ dẫn đến dễ trùng (tức là có rồi mà vẫn tạo lại) các AI/công cụ tự động sẽ khó tìm kiếm hơn trong các trường hợp vùng xám (tức là xác suất quyết định không cao khoảng từ 50 đến 65% chẳng hạn)
+  >    5. Chúng ta thiếu 3 tình trạng quan trọng của field để quản lý vòng đời sau này: cần tạo mới, đã tạo, đã nghiệm thu. Nếu không có vòng đời này PG rất khó hỗ trợ trong việc tự động quản lý vòng đời.
+  >
+  > Đây là 1 loại vấn đề cần phải xử lý ngay. Bạn tổng hợp với các ý kiến của bạn bên trên, đưa ra 1 danh sách yêu cầu codex xử lý tiếp và bạn tiếp tục giám sát.
+  >
+  > Ngoài ra, nếu bạn thấy còn vấn đề nào cần phải bổ sung ít nhất là về mặt kĩ thuật thì đưa ra ý kiến.
+  > Tôi thấy rất đồng ý là chúng ta đã bổ nhỏ đến từng việc. Tức là xác suất làm nhầm (đi lạc đường) là thấp. Nhưng từng việc cần phải làm theo 1 quy chuẩn nào? Cái gì làm trước cái gì làm sau? Thế nào là hoàn thành? Thế nào thì phải báo cáo? .... Lại chưa có quy chuẩn từ những việc chi tiết. Bản chất thì là trả lời 1 bộ câu hỏi chuẩn. Và làm xong tích việc đã làm.
+  >
+  > Nhắc lại: bản chất là chúng ta đang thiết kế 1 con đường độc đạo, để khi bất cứ ai nào thực hiện, vào đường đó cũng chỉ có 1 lối đi. Không thể lạc đường, muốn làm sai cũng không được. Đấy là mục tiêu tổng quát cuối cùng.
+  >
+  > Nguyên tắc cơ bản tôi mô tả lại nếu cần bạn đưa vào luôn thiết kế của 006. Cho bất cứ thiết kế nào cũng chỉ cần đảm bảo nguyên tắc:
+  >
+  > 1. Cần làm thế nào thì phải viết rõ (có thứ tự).
+  > 2. Thực hiện đúng theo thứ tự đã viết (và phải đảm bảo làm xong, nếu không xong quay lại sửa quy định/sửa luật)
+  > 3. Làm thì phải để lại bằng chứng. Làm xong phải có checkbok, có thông tin để chứng minh là đã làm (chính là hồ sơ hiện nay). Và khi cần tìm lại để nâng cấp sửa chữa sẽ dễ dàng.
+  >
+  > Thêm nữa: về phần hồ sơ thực hiện (thi công) thì đang tiến dần đến bước đủ, nhưng hồ sơ sửa chữa thì gần như chưa thiết kế? Nếu sau này sửa=> Ghi vào đâu? Làm thế nào để biết là đã sửa bao nhiêu lần? Sửa cái gì? Sửa vào lúc nào? Ai chịu trách nhiệm sửa?...... tất cả những việc này hồ sơ phải trả lời và chúng ta phải thiết kế từ đầu. Ai thực hiện đơn giản là điền đủ thông tin vào các lỗ đã có sẵn.
 - 13/10/2026 16:21 · phiên Claude · D28 (nguyên văn, giữ lỗi gõ): “Chúng ta lập ra tool quy trình để giải quyết bài toán của mow-mot-moit-mout
 Khi mới bắt đầu chúng ta chưa tính toán tối ưu về xử lý các dữ liệu và chia sẻ nguồn lực tính toán. Giờ khi bắt đầu nở ra thì vấn đề xuất hiện. Đây là ý kiến của GPT.
 
