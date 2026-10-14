@@ -4,6 +4,55 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## N2C-20261014 · RUN VPSC-N2C-CODE-BACKUP-GPG-20261014-01 · mã hoá GPG backup mã nguồn lên Drive (D23/D27) · executor Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ DỪNG · PARTIAL (mã hoá + chạy thử + 4 ô đạt và GIỮ; thiếu biên nhận Telegram vì Guard tổng còn đỏ #22 cũ)
+
+**PROMPT `6aed497a` (READY P103 GPT Host + Reviewer ACCEPT P102 `cbf42146`) · khối Owner có nguyên văn D27 §0A · STARTED + VPS-GHI `cd1ba07` 07:52Z · áp 07:56:28Z · chạy thử 08:10:42–08:11:18Z · KQ + trả khoá cùng commit này · bằng chứng VPS `/opt/incomex/work/vps-clean-20-9-26/VPSC-N2C-CODE-BACKUP-GPG-20261014-01/{pre,post,rollback,thu,chay-thu}` + `diff.txt`, `apply.out`, `drift-sau-ap.txt`, `env-working-ten.txt` (quyền 600).** Chỉ đổi 1 tệp `scripts/code-backup-to-gdrive.sh`. Không đổi lịch, remote, thư mục Drive, số bản giữ; `backup-to-gdrive.sh`, `pg-backup.sh`, `qdrant-backup.sh`, crontab root, sổ mã, registry Config Guard, khoá công khai: sha = PRE. 0 khoá mới, 0 khoá bí mật trên VPS (keyring root 0 khoá bí mật), 0 xoá tay, 0 restart, 0 sửa Guard/Kuma/Telegram.
+
+### 1. Cho Owner
+- 🟢 Từ 14/10 15:10 (giờ VN) bản sao lưu mã nguồn lên Drive đã **mã hoá GPG**, cùng khoá công khai với backup PG; VPS không tự giải mã được. Chạy thử cả 2 kho đạt, lịch 4 lần/ngày giữ nguyên.
+- 🟡 Trên Drive còn **110 bản cũ chưa mã hoá** (55/kho). Chúng tự ra dần theo lịch, hết vào khoảng **27/10 18:00Z (28/10 01:00 VN)** nếu mọi lượt chạy đạt; chưa xoá tay. `.env.working` có 2 biến, **0 tên** mang dấu hiệu KEY/TOKEN/SECRET/PASS.
+- 🟡 Chưa có biên nhận Telegram (Guard tổng đỏ vì #22 cũ của TQT/HJW) và **chưa thử giải mã/khôi phục** bản mới (cần khoá bí mật ngoài VPS).
+
+### 2. Trả lời 7 câu
+| # | Câu | Trả lời (đo thật) |
+|---|---|---|
+| 1 | Script đã mã hoá đúng chưa? | ĐÚNG. `tar -czf -` nối ống thẳng vào `gpg --batch --yes --quiet --trust-model always --recipient-file /etc/incomex/backup/directus-backup-recipient.pub --encrypt` (cờ + tệp khoá y hệt `backup-to-gdrive.sh`), kiểm vân tay `31799F7A…37BA` trước, kiểm keyid `E800896AF06E9B61` trong bản mã, sha256 trước công bố, md5 Drive trước retention/UP. Bản mới bắt đầu bằng gói OpenPGP (`85 02`), không phải gzip rõ (`1f 8b`). |
+| 2 | Hai repo backup thành công chưa? | ĐẠT, rc=0. `web-test_20261014-1510_ICT.tar.gz.gpg` 31.830.942 B (sha256 `45f83729…`), `agent-data-test_20261014-1511_ICT.tar.gz.gpg` 20.307.520 B (sha256 `99eacaee…`); bytes và md5 Drive = tại chỗ (`e5af418a…`, `e96ceac9…`); Kuma #15/#16 `up` 08:11Z. |
+| 3 | Retention, Kuma, backup cũ? | Retention đếm chung 2 đuôi: Drive mỗi kho vẫn **56** (1 `.gpg` + 55 rõ), xoá đúng bản rõ cũ nhất `…20260930-1700…`; tại chỗ mỗi kho **1** bản (`.gpg`), bản rõ `…1300…` đã thay. Kuma 2 monitor nhận nhịp `up`; lịch Kuma 46.800 s giữ nguyên. Backup PG/cấu hình/Qdrant không chạm (sha = PRE, Config Guard MATCH). |
+| 4 | Đ30/31, Guard, 22 đèn? | Coverage **PASS 1 mục đủ 4 ô** (bảng §4); INV23 sổ mã PASS 559 tệp; drift-check 481/477/4 (lệch đúng 4 đích cũ TQT/HJW). Guard tổng FAIL: INV5_6 + INV20 (#22 cũ) + `same_or_better` vì câu luân phiên #22 (§5) ⇒ `RECEIPT not sent`. 22 đèn PRE = POST 20/22, đỏ {#21, #22} (#11 nay xanh). |
+| 5 | Còn bao nhiêu bản rõ trên Drive? | **110** (55 `web-test` + 55 `agent-data-test`), cũ nhất `…20260930-2000…`, mới nhất `…20261014-1300…`; tại chỗ 0. |
+| 6 | Bao nhiêu TÊN biến nghi chứa khoá? | `.env.working` (106 B, Git có theo dõi từ `a974eb2` 10/02, không bị gitignore): 2 dòng, cả 2 dạng `TÊN=…`; **0 tên** chứa KEY/TOKEN/SECRET/PASS. Không in/chép giá trị. Giới hạn: không mở giá trị nên không loại trừ chuỗi kết nối có mật khẩu bên trong giá trị. |
+| 7 | Nợ bảo mật/khôi phục còn lại | §6. |
+
+### 3. Thay đổi (diff 65 dòng, `4db72316…` → `6b442ec6…`, qua `incomex-config-apply-v0` mutation `…-code-backup-20261014T075627Z`)
+- Nhãn đầu tệp `# SUA 14/10/2026 VPSC-N2C-CODE-BACKUP-GPG-20261014-01: …`; 3 hằng `GPG_RECIPIENT_FILE` / `GPG_RECIPIENT_FPR` / `GPG_ENC_KEYID` = đúng `RECIPIENT` / `RECIPIENT_FPR` / `ENC_KEYID` của `backup-to-gdrive.sh`.
+- Tên tệp `…_ICT.tar.gz.gpg`; bước `gpg-recipient` (kiểm vân tay); bước `archive` = `tar -czf - | gpg … --output <.work>/….partial`, đọc `PIPESTATUS`, khác `0 0` hoặc tệp rỗng ⇒ dừng; bước `encrypt-verify` (keyid, sha256) rồi mới `mv` sang tên thật; `remote-verify` thêm md5 Drive; retention tại chỗ/Drive + dòng đếm nhận cả `.tar.gz` và `.tar.gz.gpg`; `require_cmd` thêm `gpg sha256sum md5sum`; log ghi `sha256=… recipient=E800896AF06E9B61 pipestatus=0 0`.
+- **Phát hiện khi làm S0 (có sẵn từ trước):** `backup_repo` được gọi dạng `backup_repo … || overall_rc=1` ⇒ trong bash 5.2 `set -e` và bẫy `on_error` **bị vô hiệu** bên trong (thử thật trên VPS). Vì vậy các bước mới không dựa `set -e`: mỗi lỗi gọi `fail_closed` ⇒ dùng lại `on_error` (đẩy Kuma `down` + thoát khác 0). Các bước cũ (rsync, git, `rclone copyto`) vẫn như trước — xem nợ §6.
+
+### 4. Bảng 4 ô Điều 30/31 (Guard `post --coverage`)
+| Mục | Đ31 | Đ30 proof | Canh | Lùi (sha = PRE) |
+|---|---|---|---|---|
+| `file:/opt/incomex/scripts/code-backup-to-gdrive.sh` | `config-guard:r7-scripts-code-backup-to-gdrive-sh-274657` (baseline = `6b442ec6`), sổ mã LOCKED theo id đích | `post/proof/code-backup-to-gdrive.txt`: `bash -n` + 7 ca thử harness + lượt chạy thật | drift-check 5′ → INV5_6 #22 + INV23; Kuma #15/#16 (`down` ngay khi lỗi, im 46.800 s ⇒ DOWN) → Telegram #2 | `rollback/code-backup-to-gdrive.sh.truoc` `4db72316` (= `.pre` của apply-v0) |
+
+**Thử Điều 30 trên bản sao harness** (đường dẫn giả trong `thu/`, remote = thư mục cục bộ, Kuma = cổng chết `127.0.0.1:9`; Kuma thật không nhận nhịp nào từ các ca thử): T1 thường ⇒ rc 0, `.gpg` keyid đúng, 56/kho, bản rõ cũ nhất + bản rõ tại chỗ bị thay, tệp lạ trên remote giữ · T2 thiếu khoá công khai · T3 tar lỗi sau khi xuất đủ (`2 0`) · T4 gpg chết giữa luồng (`0 2`) · T5 sai keyid ⇒ rc 1, **0 tải lên, 0 tệp công bố, 0 retention**, log `stage=<bước> exit=1` · T6 md5 Drive lệch ⇒ có tải `.gpg` nhưng **không retention, không UP** · T0 bản CŨ gặp tar lỗi vẫn tải và báo «completed successfully» (lỗ fail-open có sẵn, nay đã bịt ở bước nén/mã hoá).
+
+### 5. POST
+- drift-check POST 481/477/4; script + `backup-to-gdrive-sh` MATCH; 7 tệp khác sha = PRE (`post/sha-khac.txt`).
+- Guard POST `vpsc-n2c-post` 08:13:30Z: footprint đúng 1 mục; `C3.footprint_coverage` PASS; `C3.change_event` PASS; INV15 22/22 gắn Telegram; INV16 75 loại · 73 chạy · 0 hỏng. `C3.same_or_better` FAIL: #22 PRE «INV5_6…» → POST «No heartbeat in the time window». `kuma.db` (`post/kuma22.txt`): Guard đẩy đều 07:30→08:10Z mỗi ~5′ (khoảng lớn nhất 316 s < 570 s), Kuma tự chèn «No heartbeat» ~9,5′/lần, status 0 suốt ⇒ câu luân phiên, không mất nhịp, không do RUN này. Không chạy lại để canh câu.
+- 22 đèn: bảng 07:50Z = 08:10Z 20/22, đỏ {#21, #22}. Health 08:14Z: `/`, `/knowledge/modules`, `/api/health` 200; 13 container, 0 unhealthy; trống 40.484.605.952 B.
+
+### 6. Nợ còn lại (không làm trong RUN này)
+- **S-SEC-CODEBACKUP — CHƯA ĐÓNG:** 110 bản rõ cũ trên Drive (gồm `.env.working` và `BACKUP-MANIFEST.txt` có `push_token` Kuma) còn tới khoảng 27/10 18:00Z nếu mọi lượt đạt; lượt hỏng thì lâu hơn. Xoá sớm hoặc xoay khoá = Owner (O-R7-KEY); không xoá tay.
+- **Thử khôi phục bản `.gpg` mới: CHƯA LÀM** — `gpg --list-packets` chỉ chứng minh người nhận, không chứng minh giải mã/khôi phục; cần khoá bí mật ngoài VPS (S-RESTORE, cùng nợ backup PG).
+- **Fail-open có sẵn ở các bước trước nén** (rsync/git/`rclone copyto`): `set -e`/`on_error` không chạy trong `backup_repo` ⇒ rsync lỗi giữa chừng vẫn có thể ra bản thiếu nhưng được mã hoá và báo UP; tải lỗi chỉ bắt bằng kiểm kích thước (thoát không đẩy `down`, Kuma DOWN sau 13 giờ). Đề xuất lượt nhỏ VPSC sau: kiểm mã thoát rsync tường minh.
+- Rollback = quay về bản rõ ⇒ nếu ai lùi thì phải ghi `SECURITY_HOLD`.
+- Kế thừa: biên nhận Telegram L1P + L2(a) + N2C chờ #22 (TQT/HJW) xanh; sr-mow 403 câm (việc sr-mow-d30d31); Kuma→Telegram chưa có biên nhận gửi.
+- Reviewer kiểm sau (không ai ngồi chờ): lượt lịch 10:00Z/13:00Z/18:00Z ra `.gpg`, bản rõ trên Drive giảm 1/lượt, Kuma #15/#16 `up`.
+
+**Dọn:** VPS tạo: `<EV>` (giữ có chủ đích; `thu/` chỉ còn log + harness không có quyền chạy) · thư mục ứng viên apply-v0 `/root/incomex-config-changes/VPSC-N2C-CODE-BACKUP-GPG-20261014-01-code-backup-20261014T075627Z/` + `.pre` của apply-v0 (vết kiểm toán, đường lùi) · `/dev/shm/n2c-thu-bin.*` đã xoá · 1 tệp tạm `/tmp/.n2c-lsf.*` lúc S0 (trước khoá, tạo + xoá cùng lệnh) · 0 tiến trình nền, lock trống · Mac: scratchpad `n2c/` xoá sau KQ · còn lại: không.
+
+---
+
 ## L2-SAFETY-MAP-20261014 · RUN VPSC-L2D-GRAPH-PROTECT-MAP-20261014-01 · bản đồ bảo vệ trước khi xét tắt (D27) · executor Claude Code CLI (Mac → SSH root VPS1, CHỈ ĐỌC) · write_path=workspace_* · KQ XONG
 
 **PROMPT `22a64405` (READY P100 GPT Host + Reviewer ACCEPT P99) · khối Owner có nguyên văn D27 · STARTED `955a2de` 04:50Z · đo 04:50–05:06Z · KQ cùng commit này.** 0 ghi VPS (không thư mục bằng chứng, không tệp tạm), không chiếm VPS-GHI (khoá thuộc TQT-P60 lúc bắt đầu), 0 DOT có ghi, 0 restart. PG chỉ qua `query_pg` (chỉ đọc), Kuma qua `kuma.db?mode=ro`, Graph qua `graph-v1` `read-cypher`. Bằng chứng = đường dẫn + giờ ghi trong bảng (không chép crontab thô, không đọc tệp khoá).
