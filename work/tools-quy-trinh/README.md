@@ -1,32 +1,32 @@
 # tools-quy-trinh · Cửa vào
 
-## P61 · Rà VÒNG 9 đã khép, ứng viên chưa công bố
-P60/P58 hiện có REJECT của OpenAI và Anthropic; chưa chốt chuẩn. Ứng viên P61 kiểm tổng PASS nhưng chưa đưa vào UI do VPS-GHI thuộc VPSC N2C. Đọc COLLAB/P49 P61 và evidence/TQT-P61-draft-checks.json; điều kiện tiếp tục là cờ trống, đọc lại nguồn, công bố/kiểm UI thật rồi ký. Không dùng chữ ký hoặc snapshot thử làm nghiệm thu QT001.
-
-## Bắt đầu tại đây · P60
-1. Đọc COLLAB mục tiêu/phạm vi và cờ phối hợp. Luật chuẩn: MOW-TH-006.md phiên 1.0, 71 bước / 7 mốc; bản trên Overview dùng cùng nguồn.
-2. Tra mã CAT-227 → chọn CV-001/CV-002. Mã TQT-VIEC-… và DEF00.1/CAT-227* còn là bí danh lịch sử; không mở mã trùng. Mã Field FLD-0001…; tên cột DB là thuộc tính riêng, không phải ID.
-3. Năm ô mục tiêu của CV-001 là dự thảo, chưa Owner duyệt. Duyệt G1 cũ không thay duyệt lượt mới. Thẻ 3 dòng tự tính; chưa đủ thì không xanh.
-4. Kết quả thực tế chỉ ghi ở hồ sơ chuẩn và Master liên quan. CAT-069 là việc tiếp; CAT-016 là hồ sơ sửa; CAT-025 là nơi ký. Không dùng báo cáo chat hoặc trang local thay bản ghi.
-5. Ký P60: mở hồ sơ CV-001 → Xác nhận hai bên → phiếu TQT-P60-CORRECTIONS → đọc đúng scope/manifest/binding → tự ghi review → đọc lại ô của mình. Báo cáo P49 chỉ là giải thích; chưa có review trong phiếu thì chưa ký. Phiếu này duyệt quy định/bộ kiểm, không nghiệm thu sản phẩm QT001.
+## Bắt đầu tại đây · P61
+1. Đọc Bảng và phạm vi tại COLLAB. Quy định: MOW-TH-006.md phiên 1.1, 71 bước / 7 mốc; chưa PG/QT002.
+2. Mở CAT-227 → CV-001 → ô ③ **Hộp chờ ký**. Lọc hãng/phạm vi, mở đúng nơi ký và xem mẫu tại **?**. Field và CAT-069 dùng phiếu nguồn, không ký lặp từng dòng. Nguồn đọc khi mở trang; dùng Cập nhật/tải lại trước khi rà bản mới.
+3. Các chữ ký cần kết luận riêng: phiếu bản sửa, phiếu sổ việc tiếp và từng DOT. APPROVE/REJECT phải có reviewer, vendor, decision, reviewed_at, binding, scope, evidence_ref và authority_ref; chữ ký DOT còn receipt_verified và bằng chứng chạy đúng nguồn. Người rà tự ghi rồi đọc lại, báo cáo chat không thay chữ ký.
+4. 🔴 Chưa ký/Cần sửa · 🟡 Nguồn đổi/Chưa xác minh · ✅ Đã thông qua đúng nguồn. XONG lượt rà cần đủ kết luận cho các mục được giao; REJECT không thông qua quy trình. Chốt chuẩn cần OpenAI và Anthropic cùng APPROVE đúng bản/phạm vi; Owner duyệt mục tiêu và nghiệm thu sản phẩm riêng.
+5. Năm ô CV-001 chưa Owner duyệt; G1 đã nhận giữ nguyên. 250 định nghĩa quản trị có mô tả và nguồn thiết kế. 24 nghĩa nghiệp vụ CV-001 còn cần đối chiếu tại FIELD-COVERAGE; không nhận cả danh mục là số Field mới.
 
 ## Ghi và kiểm ngoài PG
-- Nguồn 5 ô/kết quả thiết kế: catalog.work_schedule.records[].control; nhật ký bước vẫn ở detail_tracking.events. Quy định bước: catalog.detailed_workflow.step_cards. Không chép bộ luật vào kết quả thực tế.
-- CHECK005 --validate-control INPUT.json kiểm hợp đồng/tiêu chí/chữ ký/thứ tự trong bản kê đầu vào. INPUT gồm work và options (start/prepared/complete); before dùng kiểm thay đổi mục tiêu đã duyệt. Chỉ HOST_CHECK, không chứng thực quyền trên mọi endpoint.
-- CHECK005 --validate-dossier INPUT.json tiếp tục kiểm sự kiện/giờ commit/biên nhận/nhánh. Hồ sơ mới bắt phiên hiện hành. CHECK005 --milestone-report INPUT.json sinh bốn dòng báo cáo từ work và milestone; không nhập báo cáo đạt giả.
-- CHECK005 --validate-governance-before BEFORE.html kiểm thay phiên quy trình/Field/DOT có CAT-016. Trước ghi dùng bộ kiểm, CAS qua gateway, đọc lại, kiểm trang Owner. Máy hiện chưa chặn mọi đường ghi; Host không bỏ bước này.
-- Field hiện ở DESIGN: đếm định nghĩa mới dự kiến khi đủ kiểm kê; PG vẫn chưa xác minh. CREATED/REUSED/ACCEPTED phải có biên nhận PG ở lượt triển khai sau. Lượt này không đọc/ghi PG.
+- Hồ sơ/kết quả: catalog.work_schedule.records[].control và detail_tracking; CAT-069 chiếu nguồn vấn đề, CAT-016 ghi mỗi lần sửa, CAT-025 ghi phiếu ký. Chưa đủ nguồn/duyệt giữ rõ chưa đạt.
+- CHECK005 --validate-control kiểm 5 ô, ca kiểm, thứ tự và hoàn thành; --validate-dossier kiểm hồ sơ/bằng chứng/nhánh; --milestone-report sinh bốn dòng báo cáo. Tất cả là HOST_CHECK, chưa chứng thực danh tính hoặc cưỡng chế mọi endpoint.
+- CHECK005 --validate-governance-before BEFORE.html kiểm bản ghi sửa mới đúng binding trước/sau và sequence; không tái dùng bản sửa cũ. Giữ prefix lịch sử, CAS qua gateway, đọc lại nguồn và trang Owner.
+- CHECK005 --signature-box Anthropic --ui-snapshot evidence/ui-inputs xuất danh sách cần rà từ cùng luật UI. --validate-source-gates đối chiếu byte nguồn thật và dữ liệu; nguồn không đọc được không được coi đã thông qua. --review-round ROUND.json kiểm XONG theo vendor và assigned_ids, không kéo chữ ký ngoài phạm vi vào lượt đang làm.
+- CHECK003 --validate-human-text INPUT.txt bắt các chữ dính đã khai và số dính đơn vị; bộ kiểm mặc định quét nội dung hiện hành trên sổ và COLLAB. Lịch sử giữ nguyên, phần hiển thị có sửa chữ dùng bản chiếu và giữ nguồn.
 
-## Rà độc lập bằng CHECK006
-Trên bản sao repo, giữ đúng cấu trúc work/tools-quy-trinh và work/mow-mot-moit-mout/UI-REVIEW-MOW001.json. Giữ UI-REVIEW-AGGREGATE.json là bằng chứng nguồn đã đăng ký. Lấy đúng năm tệp UI theo ui_inputs của TQT-CHECK-005: process-work-master-v1.js, definition-master-registry-v1.js, qtth006-overview-v1.js, ui-child-content-v1.js, ui-child-from-parent-v1.js, cùng một thư mục.
-Chạy `python3 work/tools-quy-trinh/run-tqt-checks.py --verify --ui-snapshot /đường/tới/5-tệp --report /đường/kết-quả.json`.
-Bộ chạy kiểm hash trước khi thử; thiếu/sai tệp phải báo lỗi, không dùng kết quả cũ. Không cần truy cập VPS khi chạy snapshot. Giữ giới hạn bộ nhớ/thời gian trong Master DOT; không tự nới để vượt kiểm. TEST không nghiệm thu việc thật.
+## Rà độc lập bằng một lệnh
+Từ gốc bản sao repo chạy:
+`python3 work/tools-quy-trinh/run-tqt-checks.py --verify`
+Thêm `--report /đường/kết-quả.json` để lưu bằng chứng. Năm đầu vào UI đã ghim có sẵn trong evidence/ui-inputs; bộ chạy mặc định ngoại tuyến, không đòi dựng snapshot tay. Thiếu/sai hash/tệp/symlink thì BLOCKED, exit 3 trước kiểm nặng. --ui-snapshot chỉ dùng khi chọn một bộ khác vẫn đúng pin; --vps-ui là lựa chọn đọc UI công khai.
 
-## Mã và duyệt lần đầu
-Loại + số, ngắn và ổn định. Không lặp tên task/ngày/phiên/trạng thái trong mã. Master/bản ghi có mã riêng; bí danh cũ giữ truy nguồn, không cấp lại. User duyệt lần đầu cần đúng mã/phiên/phạm vi và bằng chứng; AI chỉ ghi quyết định có thật. Chưa có bằng chứng hiện chưa xác minh, không tự tích. Duyệt không đóng băng thiết kế; sửa phải ghi CAT-016 và rà ảnh hưởng chữ ký.
+## Đầu vào được giữ để tái dùng
+- evidence/ui-inputs/: đúng năm tệp được CHECK005.ui_inputs ghim; là fixture đọc, không phải DOT mới. Tệp executable lạ vẫn bị kiểm kê bắt.
+- evidence/field-origin-snapshot.json: bản chụp nguồn thiết kế tối thiểu tại f90ab2d0, có pin và con trỏ; dùng kiểm nguồn gốc 250 định nghĩa, không phải nguồn nhu cầu nghiệp vụ mới.
+- UI-REVIEW-AGGREGATE.json và work/mow-mot-moit-mout/UI-REVIEW-MOW001.json: bằng chứng/sản phẩm hiện hữu, giữ nguyên lịch sử G1.
+- evidence/TQT-P61-checks.json: kết quả kiểm bản sửa P61 khi Host công bố. Mọi pin chuẩn ở catalog, không tạo bảng pin thứ hai.
 
 ## Phần còn mở
-Chưa nghiệm thu QT001, chưa chạy QT002; chưa đủ chữ ký P60/Owner duyệt 5 ô. Lịch sử sửa truy hồi thiếu bằng chứng vẫn chưa xác minh. 16 mục cũ CAT-069 chưa có liên kết mã việc. 10 bước dự kiến tự động hóa ở governance.automation_plan trỏ nợ TQT-P53-AUTOMATION, chưa có lệnh trọn bước. Chưa cưỡng chế mọi endpoint/định danh chữ ký bằng server. Tách tệp lớn ở lượt sau.
+Anthropic tự rà/ký P61 và bộ kiểm được giao; CHECK004 cần rà riêng cửa ghi kho thử; HVU ngoài phạm vi cần nguồn riêng. Owner còn 5 ô và duyệt lần đầu các Master. CV-001 còn FIELD-COVERAGE, lượt AI mới làm thật, 7 mốc đo thực và phiếu nghiệm thu/ACK. 16 liên kết nguồn cũ chưa xác minh. Không giữ RUN/cờ để chờ; không chạy QT002/PG trước quyết định sau.
 
 ## Tra lịch sử
 Các mục P58 trở về trước dưới đây chỉ dùng truy nguồn; quy định hiện hành ở trên và MOW-TH-006.md. Không lấy phiên cũ làm luật cho việc mới.

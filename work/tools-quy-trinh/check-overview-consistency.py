@@ -1,6 +1,29 @@
 """Validate design declarations and stored application; does not enforce production execution."""
 import copy,hashlib,json,re,sys,subprocess,tempfile
 from pathlib import Path
+JOINED_WORDS={'hồsơ':'hồ sơ','thờilượng':'thời lượng','ngườirà':'người rà','bộkiểm':'bộ kiểm','ngườilàm':'người làm','sổnợ':'sổ nợ','kiểmkê':'kiểm kê','bảnchụp':'bản chụp','banđầu':'ban đầu','khôngPG':'không PG','ChưaPG':'Chưa PG','snapshotkiểm':'snapshot kiểm','cảhai':'cả hai','sốbước':'số bước','sốfield':'số field'}
+NUMBER_UNIT=re.compile(r'\d(?=(?:bước|dòng|mục|tệp|ca|lượt|trường|định nghĩa|phút|giây|sự kiện|nghĩa vụ|liên kết|bản ghi|Field)\b)')
+def human_text_errors(text):
+ return ['JOINED_TEXT:'+word for word in JOINED_WORDS if word in text]+(['JOINED_NUMBER_UNIT'] if NUMBER_UNIT.search(text) else [])
+def current_human_windows(r):
+ for f in r.get('field_registry',{}).get('records',[]):
+  yield 'Field:'+f['id'], '\n'.join(str(f.get(k,'')) for k in ['name','description','purpose','valid_values','distinction'])
+ for x in r.get('governance',{}).get('repairs',[]):
+  yield 'Sửa:'+x['id'], '\n'.join(str(x.get(k,'')) for k in ['reason','signature_impact'])
+ for w in r.get('work_schedule',{}).get('records',[]):
+  for x in w.get('detail_tracking',{}).get('cycle',{}).get('issues',[]):
+   yield 'Vấn đề:'+x['id'], '\n'.join(str(x.get(k,'')) for k in ['title','problem','next_action'])
+ sources=[r.get('tool_registry',{}).get('walkthrough',{}).get('findings',[]),*[x.get('findings',[]) for x in r.get('tool_registry',{}).get('walkthrough_runs',[])],r.get('application_preview',{}).get('record',{}).get('execution_walk',{}).get('findings',[])]
+ for rows in sources:
+  for x in rows:
+   override=next((o.get('set',{}) for o in r.get('governance',{}).get('debt_display',{}).get('text_overrides',[]) if o.get('id')==x.get('id')), {})
+   visible={**x,**override}
+   yield 'Phát hiện:'+str(x.get('id',x.get('code',''))), '\n'.join(str(visible.get(k,'')) for k in ['title','problem','next','next_action'])
+if '--validate-human-text' in sys.argv:
+ text=Path(sys.argv[sys.argv.index('--validate-human-text')+1]).read_text()
+ errors=human_text_errors(text);print(json.dumps({'state':'FAIL' if errors else 'PASS','errors':errors},ensure_ascii=False));sys.exit(1 if errors else 0)
+assert human_text_errors('Hồ sơ87bước thiếu thờilượng và ngườirà')
+assert not human_text_errors('Hồ sơ 87 bước; CHECK005, FLD-0001, 1 GiB, CP01.01')
 path=Path(sys.argv[1] if len(sys.argv)>1 else Path(__file__).with_name('view.html'))
 # Decode in place; slicing the 56 MB script duplicates its entire Unicode buffer.
 s=path.read_text();start=re.search(r'<script id="tqt-composite-processes"[^>]*>\s*',s).end()
@@ -12,6 +35,16 @@ def digest(value):
  for chunk in json.JSONEncoder(ensure_ascii=False,sort_keys=True,separators=(',',':')).iterencode(value):h.update(chunk.encode())
  return h.hexdigest()
 real_application=c['catalog']['application_preview']['record']
+joined=[]
+for label,text in current_human_windows(c['catalog']):
+ joined += [label+':'+e for e in human_text_errors(text)]
+collab=path.with_name('COLLAB.md')
+if collab.is_file():
+ text=collab.read_text();board=re.search(r'### BẢNG ĐIỀU KHIỂN[^\n]*\n(.*?)(?=\n\n)',text,re.S)
+ if board:joined += ['COLLAB:Bảng:'+e for e in human_text_errors(board[1])]
+ tail=re.split(r'\n## P\d+[^\n]*\n',text)[-1]
+ joined += ['COLLAB:Lượt hiện hành:'+e for e in human_text_errors(tail)]
+assert not joined, 'JOINED_HUMAN_TEXT:'+json.dumps(joined,ensure_ascii=False)
 real_digest=digest(real_application)
 node_command=['node','--max-old-space-size=512',str(Path(__file__).with_name('check-record-control.js')),str(path)]
 REQUIRED={'application_id','process_code','process_version','target_code','target_version','scope','scope_stage','input_refs','actor','reviewer','recipient','output_ref','issue_register_ref','acceptance','return_to','plan_ref','start_confirmation'}

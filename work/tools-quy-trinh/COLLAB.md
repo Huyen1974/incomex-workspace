@@ -12,8 +12,8 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - 🎯 Mục tiêu: ô 1 — cỗ máy tạo quy trình chạy được; nhìn là hiểu, làm có bằng chứng.
 - 🏁 Xong khi: ô 2 — người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ: [✅ G1 đã nhận] → [■ Hiệu chỉnh theo VÒNG 9] → [□ AI mới làm thật] → [□ PG sau nghiệm thu]
-- ✅ Đã xong: rà VÒNG 9; ứng viên P61 kiểm tổng PASS. OpenAI và Anthropic cùng REJECT P60/P58 đang sống; chưa chuẩn.
-- ■ Đang làm: P61 công bố ứng viên đã kiểm tại nguồn sống; VPS-GHI vừa trống, đã lấy cờ cho lượt này.
+- ✅ Đã xong: rà VÒNG 9; ứng viên P61 kiểm tổng PASS và đã công bố; P60/P58 là lịch sử. Chưa có Anthropic duyệt P61, chưa chuẩn.
+- ■ Đang làm: P61 đã công bố nguồn/UI; đang kiểm trang Owner trước khi ký.
 - ⬜ Còn lại: công bố ứng viên/kiểm UI sau cờ trống, rồi ký hai hãng; FIELD-COVERAGE/AI mới; Owner 5 ô/Master; CHECK004/HVU riêng.
 - ➡ Kế tiếp: NEXT_TRIGGER=P61_CONG_BO_VA_UI_DAT; ký OpenAI rồi Owner chuyển Claude.
 - ⛔ Không làm: PG · QT002/MOW002 · nghiệm thu QT001 bằng TEST · ký thay Anthropic/Owner · ghi đồng thời VPSC.
@@ -1375,5 +1375,7 @@ KQ@TQT-P61-V9 DỪNG · 2026-10-14T08:09:09Z · VPS_BẬN_VPSC_N2C · đã khép
 
 ## Tiếp tục P61 · cờ VPSC đã trả
 STARTED@TQT-P61-PUBLISH 2026-10-14T08:22:19Z · executor=Codex · read-gate: root dfc4fb06, VPS-GHI trống; task/P49 và hash sống đã đọc lại. Ứng viên P61 PASS và đúng scope; giữ review REJECT P60/P58 vừa ghi. Không PG/QT002.
+- Áp P61: SAME_COMMIT · nguồn/code và fixture đã CAS cùng lượt; UI transaction e064ebdae60543f4ade8d23e545c81ff. Chưa ký APPROVE P61, đang đọc UI thật. Không PG/QT002.
+
 
 

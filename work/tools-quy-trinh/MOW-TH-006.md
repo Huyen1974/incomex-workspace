@@ -1,6 +1,6 @@
 # QTTH 006 — Làm đúng, ghi đủ, kiểm được
 
-Phiên **1.0-clear-contract** · 71 bước, 7 mốc · Thiết kế ngoài PG, chưa nghiệm thu AI mới thực hiện.
+Phiên **1.1-signature-sources** · 71 bước, 7 mốc · Thiết kế ngoài PG, chưa nghiệm thu AI mới thực hiện.
 
 ## Đọc trước khi làm
 Mục tiêu: một con đường độc đạo — ai vào cũng chỉ có một lối, không thể lạc, muốn làm sai cũng không được.
@@ -22,7 +22,10 @@ Master và mỗi bản ghi phải có mã riêng. User duyệt lần đầu đú
 ## Thẻ việc và nơi ký
 Năm ô: mục tiêu; sản phẩm có nơi kiểm; người nhận; tiêu chí đo được có cách kiểm; ngoài phạm vi. Owner duyệt đúng nội dung trước CP02. Đổi sau duyệt → CAT-016 + Owner duyệt lại, không tự dời đích.
 Ba dòng tự tính: tiêu chí đạt/tổng; số Field dự kiến và đủ kiểm kê; chữ ký từng phiếu GPT/Claude/Owner. DESIGN chỉ cần kiểm kê thiết kế; số cột thực sự cần tạo PG vẫn chưa xác minh. DEPLOY mới cần bằng chứng PG. Không lấy thiếu truy cập PG làm khóa chết nghiệm thu thiết kế.
-Reviewer mở hồ sơ CAT-227 → phiếu CAT-025 đúng mã/phiên/phạm vi → ghi APPROVE/REJECT, người/hãng/thời điểm/bằng chứng → đọc lại ô ký. Viết “OK” trong báo cáo không thay chữ ký tại phiếu. Ký rà quy trình/sổ không là ký nghiệm thu sản phẩm hoặc quyết định hoãn từng nợ. User duyệt lấy từ quyết định thật; chưa có để trống.
+Reviewer mở Hộp chờ ký tại ô ③ hồ sơ CAT-227, lọc hãng và phạm vi → mở đúng nơi ký → ghi APPROVE/REJECT, người/hãng/thời điểm/bằng chứng/căn cứ thẩm quyền → đọc lại ô ký. Viết “OK” trong báo cáo không thay chữ ký tại phiếu. Ký rà quy trình/sổ không là ký nghiệm thu sản phẩm hoặc quyết định hoãn từng nợ. User duyệt lấy từ quyết định thật; chưa có để trống.
+
+Hộp chờ ký tự liệt kê phiếu CAT-025, bộ kiểm và các mục đã đăng ký cần ký; Field và sổ nợ dùng cùng phiếu nguồn, không nhân chữ ký theo từng dòng. 🔴 Chưa ký/Cần sửa · 🟡 Cần ký lại/Chưa xác minh nguồn · ✅ Đã thông qua đúng nguồn. Ô Owner hiện riêng; lịch sử giữ để truy nguồn. Khi mở, máy kiểm byte UI hiện hành, nguồn tài liệu/bộ kiểm từ đúng revision đã xuất, và dữ liệu đúng phạm vi. Không lấy hash do người ký tự khai làm bằng chứng nguồn; lỗi đọc phải hiện chưa xác minh.
+Lượt rà được khép khi mọi mục được giao đã có APPROVE hoặc REJECT đúng phiên; REJECT vẫn chặn chốt chuẩn. Quy trình chuẩn cần OpenAI và Anthropic cùng APPROVE đúng bản/phạm vi. Quyết định Owner và nghiệm thu sản phẩm là các việc riêng; không giữ RUN sống để đợi chữ ký.
 
 ## Thẻ bước: 9 câu tại nơi thao tác
 Mỗi bước có làm gì; sau bước nào; đầu vào; ai; công cụ; xong khi; nơi ghi; khi báo cáo; lỗi đi đâu. Định nghĩa ghi sẵn, kết quả thực tế để trống tới khi có bằng chứng. Mở dấu ? ở bước để đọc đủ chín câu.
@@ -759,8 +762,10 @@ Mỗi bước có làm gì; sau bước nào; đầu vào; ai; công cụ; xong 
 - HAS_COMMAND bắt lệnh và biên nhận đúng việc. NO_COMMAND cho làm tay ghi MANUAL_ASSISTED, người/bằng chứng và nợ tự động hóa. Không giả đã có robot.
 - Không áp dụng: có đánh giá đúng phiên; nếu làm tay phải có reviewer khác hãng ký đúng assessment_binding ở CAT-015. UNKNOWN vẫn hiện để xử lý; nghĩa vụ LUÔN không được bỏ. Dùng CHECK005 --assessment-binding, --validate-dossier.
 - Tiếp tục sau DỪNG: CP03.12 kiểm lại phiên/quyền, ghi previous_run_id và return_to trước khi tiếp tục.
-- CAT-016 là hồ sơ sửa duy nhất: đối tượng, phiên trước/sau, lý do/mã vấn đề, người yêu cầu/sửa/kiểm/duyệt, giờ, diff, kết quả, chữ ký bị ảnh hưởng. Số lần sửa do đếm bản ghi, không nhập tay. Lịch sử truy hồi thiếu bằng chứng phải ghi chưa xác minh, không bịa giờ hoặc người kiểm.
-- Field: FLD là ID, db_code là tên cột dự kiến, name là tên hiển thị. Mỗi db_code một nghĩa; tên đủ nghĩa, ưu tiên 30/tối đa 60 ký tự. Trước khi thêm tra mã/kiểu/mô tả và nơi dùng; nghĩa khác phải ghi quyết định. DESIGNED → NEEDS_CREATE → CREATED → ACCEPTED; hoặc DESIGNED → REUSED → ACCEPTED; ngừng dùng có bằng chứng. CREATED/REUSED/ACCEPTED cần bằng chứng PG, chưa PG giữ DESIGNED.
+- CAT-016 là hồ sơ sửa duy nhất: đối tượng, phiên trước/sau, lý do/mã vấn đề, người yêu cầu/sửa/kiểm/duyệt, giờ, diff, kết quả, chữ ký bị ảnh hưởng. Mỗi thay đổi mới có đúng một bản ghi mới, before_binding/after_binding bằng hash thực của đúng đối tượng trước/sau; sequence là số lần trước đó của đối tượng cộng một. Bản ghi cũ không che lần sửa mới; không sửa hoặc xóa phần lịch sử đã có. Số lần sửa do đếm bản ghi, không nhập tay. Lịch sử truy hồi thiếu bằng chứng phải ghi chưa xác minh, không bịa giờ hoặc người kiểm.
+- Field: FLD là ID, db_code là tên cột dự kiến, name là tên hiển thị. Mỗi db_code một nghĩa; tên là danh từ đủ nghĩa, không có dấu hỏi, ưu tiên 30/tối đa 60 ký tự. Mô tả có ba phần: mục đích · giá trị/ví dụ · phân biệt với Field gần giống theo mã. Việc sinh ra có mã việc và nguồn; thiết kế cũ có thể ghi LEGACY_DESIGN cùng con trỏ/phiên nguồn bất biến, không gán đoán CV-001. Trước khi thêm tra mã/kiểu/mô tả và nơi dùng; nghĩa khác phải ghi quyết định. DESIGNED → NEEDS_CREATE → CREATED → ACCEPTED; hoặc DESIGNED → REUSED → ACCEPTED; ngừng dùng có bằng chứng. CREATED/REUSED/ACCEPTED cần bằng chứng PG, chưa PG giữ DESIGNED.
+
+Bản kiểm kê Field của việc phải chỉ đúng phạm vi và đối chiếu từng định nghĩa với nguồn; số mới tự kiểm từ danh sách ID/nguồn gốc. Thiếu ánh xạ giữ INCOMPLETE và nêu số mục cần đối chiếu, không nhận 0 hoặc toàn danh mục là số mới. Trường nghiệp vụ của sản phẩm khác cột quản trị Master; cùng tên không đủ để gộp.
 
 ## Kiểm và bàn giao
 CHECK005 kiểm hợp đồng/Field/thứ tự/chữ ký; CHECK006 chạy tổng trên snapshot có 5 đầu vào UI đúng hash. Dùng --ui-snapshot để chạy độc lập, không cần gọi VPS khi kiểm. Cả ca đúng và ca cố tình sai phải được kiểm; TEST không nghiệm thu việc thật. Trước công bố đọc lại nguồn/phiên, xem đúng UI, khép RUN và trả cờ.

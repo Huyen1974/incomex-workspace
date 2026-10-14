@@ -1,5 +1,5 @@
 """Managed read-only test runner. Registry: view.html catalog.tool_registry (CAT-006).
-No credentials, PG, service changes or production mutation. --vps-ui reads pinned public UI inputs. Exit 0 PASS,
+No credentials, PG, service changes or production mutation. Default UI inputs are pinned repo fixtures; --vps-ui explicitly reads public UI. Exit 0 PASS,
 1 failed test/inventory, 2 invalid invocation, 3 blocked by missing prerequisites. Default dry-run; --verify executes.
 """
 import sqlite3, argparse, hashlib, json, re, subprocess, sys, shutil, tempfile, uuid, unicodedata, time, math
@@ -8,7 +8,49 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
+UI_INPUT_NAMES = frozenset({'qtth006-overview-v1.js', 'definition-master-registry-v1.js', 'process-work-master-v1.js', 'ui-child-content-v1.js', 'ui-child-from-parent-v1.js'})
+UI_FIXTURE_DIRECTORY = Path('evidence/ui-inputs')
 def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+
+def ui_input_pins(registry):
+    """Pins belong to CHECK005's declared inputs, never to the fixture's own content."""
+    records=[x for x in registry.get('records',[]) if x.get('id')=='TQT-CHECK-005']
+    pins=records[0].get('ui_inputs') if len(records)==1 else None
+    errors=[]
+    if not isinstance(pins,dict):return {}, ['INVALID_UI_INPUT_INVENTORY']
+    for name in sorted(UI_INPUT_NAMES-set(pins)):errors.append('MISSING_UI_PIN:'+name)
+    for name in sorted(set(pins)-UI_INPUT_NAMES):errors.append('UNEXPECTED_UI_PIN:'+name)
+    for name in sorted(UI_INPUT_NAMES & set(pins)):
+        if not isinstance(pins[name],str) or not re.fullmatch('[0-9a-f]{64}',pins[name]):errors.append('INVALID_UI_PIN:'+name)
+    return pins, errors
+
+def ui_input_preflight(folder, registry):
+    """Read all five immutable inputs before inventory, self-tests or child suites."""
+    pins,errors=ui_input_pins(registry);observed={}
+    if errors:return {'state':'BLOCKED','errors':errors,'inputs':observed}
+    for name in sorted(UI_INPUT_NAMES):
+        path=folder/name
+        try:
+            if path.is_symlink():errors.append('UI_INPUT_SYMLINK:'+name)
+            elif not path.is_file():errors.append('MISSING_UI_INPUT:'+name)
+            else:
+                observed[name]=sha(path)
+                if observed[name]!=pins[name]:errors.append('UI_INPUT_CHANGED:'+name)
+        except OSError:errors.append('UI_INPUT_UNAVAILABLE:'+name)
+    return {'state':'BLOCKED' if errors else 'PASS','errors':errors,'inputs':observed}
+
+def pinned_fixture_paths(base, registry):
+    # Only these five byte-matched read-only inputs are data, not DOT executables.
+    # An extra file, a symlink or a changed fixture remains in executable inventory.
+    pins,errors=ui_input_pins(registry)
+    if errors:return set()
+    paths=set()
+    for name in UI_INPUT_NAMES:
+        relative=UI_FIXTURE_DIRECTORY/name;path=base/relative
+        try:
+            if path.is_file() and not path.is_symlink() and path.resolve().is_relative_to(base.resolve()) and sha(path)==pins[name]:paths.add(str(relative))
+        except OSError:pass
+    return paths
 def identity_name(value):
     value=''.join(c for c in unicodedata.normalize('NFD',str(value).lower().replace('đ','d')) if not unicodedata.combining(c))
     value=re.sub(r'^(master|danh muc)\s+','',value.strip())
@@ -85,7 +127,7 @@ def inventory(base, registry):
             elif value in seen:errors.append('POSSIBLE_DUPLICATE_TOOL:'+field+':'+seen[value]+','+row['id'])
             else:seen[value]=row['id']
     # Scope is explicit: all executable Python/JS sources in this task, including future subfolders.
-    actual = {str(p.relative_to(base)) for p in base.rglob('*') if p.is_file() and p.suffix in {'.py', '.js'}}
+    actual = {str(p.relative_to(base)) for p in base.rglob('*') if p.is_file() and p.suffix in {'.py', '.js'}} - pinned_fixture_paths(base,registry)
     for p in sorted(actual - set(paths)): errors.append('UNREGISTERED:'+p)
     for x in records:
         if not isinstance(x.get('timeout_seconds'),(int,float)) or isinstance(x.get('timeout_seconds'),bool) or not math.isfinite(x['timeout_seconds']) or x['timeout_seconds'] <= 0: errors.append('INVALID_TIME_BUDGET:'+x['id'])
@@ -129,6 +171,74 @@ def source_readback(path, projection):
             rule_checks.append({'ref':source['ref'],'matched':digest==source['content_sha256']})
     except (ValueError, KeyError, OSError): return {'state':'FAIL','reason':'INVALID_PRODUCT_SOURCE'}
     return {'state':'PASS' if actual==projection and all(x['matched'] for x in rule_checks) else 'FAIL','source_sha256':sha(path),'projection_equal':actual==projection,'rule_source_checks':rule_checks,'application_id':actual.get('application_id'),'trial_declarations':len(actual.get('declarations',[])) if actual.get('trial_store',{}).get('state')=='TRIAL' else 0,'scope':'SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL'}
+
+def ui_input_self_test():
+    import copy, contextlib, io
+    cases=[]
+    with tempfile.TemporaryDirectory(prefix='TQT-TEST-ui-inputs-') as tmp:
+        base=Path(tmp);folder=base/UI_FIXTURE_DIRECTORY;folder.mkdir(parents=True)
+        for name in UI_INPUT_NAMES:(folder/name).write_text('// TEST read-only UI input '+name+'\n')
+        pins={name:sha(folder/name) for name in UI_INPUT_NAMES}
+        registry={'records':[{'id':'TQT-CHECK-005','ui_inputs':pins}]}
+        good=ui_input_preflight(folder,registry)
+        assert good['state']=='PASS' and good['inputs']==pins
+        assert ui_input_preflight(folder.resolve(),registry)==good
+        cases.append('default and explicit folder use the same five pins')
+        broken=copy.deepcopy(registry);broken['records'][0]['ui_inputs'].pop('process-work-master-v1.js')
+        assert 'MISSING_UI_PIN:process-work-master-v1.js' in ui_input_preflight(folder,broken)['errors']
+        cases.append('missing expected hash blocks before reading inputs')
+        broken=copy.deepcopy(registry);broken['records'][0]['ui_inputs']['process-work-master-v1.js']='bad'
+        assert 'INVALID_UI_PIN:process-work-master-v1.js' in ui_input_preflight(folder,broken)['errors']
+        cases.append('malformed expected hash blocks')
+        broken=copy.deepcopy(registry);broken['records'][0]['ui_inputs']['new.js']='a'*64
+        assert 'UNEXPECTED_UI_PIN:new.js' in ui_input_preflight(folder,broken)['errors']
+        cases.append('unknown input cannot expand the fixture exemption')
+        file=folder/'process-work-master-v1.js';raw=file.read_bytes();file.unlink()
+        assert 'MISSING_UI_INPUT:process-work-master-v1.js' in ui_input_preflight(folder,registry)['errors']
+        cases.append('missing input blocks')
+        file.write_bytes(raw+b'// changed\n')
+        assert 'UI_INPUT_CHANGED:process-work-master-v1.js' in ui_input_preflight(folder,registry)['errors']
+        assert str(UI_FIXTURE_DIRECTORY/file.name) not in pinned_fixture_paths(base,registry)
+        cases.append('changed input blocks and remains executable inventory')
+        file.write_bytes(raw)
+        assert pinned_fixture_paths(base,registry)=={str(UI_FIXTURE_DIRECTORY/name) for name in UI_INPUT_NAMES}
+        executable=folder/'unexpected.js';executable.write_text('throw Error("TEST must not execute");\n')
+        row={k:'test' for k in ['owner','purpose','preconditions','input','output','verify','rollback','secret_handling','exit_codes','case_set','master_code']}
+        check=base/'check.js';check.write_text('// TEST registered\n')
+        row.update(id='TQT-CHECK-005',path='check.js',sha256=sha(check),operation_key='test',timeout_seconds=60,ui_inputs=pins)
+        assert inventory(base,{'records':[row]})==['UNREGISTERED:evidence/ui-inputs/unexpected.js']
+        cases.append('only pinned fixtures excluded; extra executable still rejected')
+        executable.unlink();file.unlink();file.symlink_to(check)
+        assert 'UI_INPUT_SYMLINK:process-work-master-v1.js' in ui_input_preflight(folder,registry)['errors']
+        assert str(UI_FIXTURE_DIRECTORY/file.name) not in pinned_fixture_paths(base,registry)
+        cases.append('symlink cannot hide another executable')
+        file.unlink();file.write_bytes(raw)
+        (base/'run-tqt-checks.py').write_text('# TEST runner identity only\n')
+        # Exercise the public entry point; any expensive work here is a test failure.
+        saved={name:globals()[name] for name in ('BASE','inventory','source_readback','master_identity_audit','identity_self_test','self_test','audit_self_test')}
+        argv=sys.argv
+        def too_late(*args,**kwargs):raise AssertionError('UI preflight failed to stop before expensive checks')
+        try:
+            globals()['BASE']=base
+            for name in saved:
+                if name!='BASE':globals()[name]=too_late
+            for failure in ('MISSING_PIN','MISSING_FILE','CHANGED_FILE'):
+                selected=copy.deepcopy(registry)
+                if failure=='MISSING_PIN':selected['records'][0]['ui_inputs'].pop(file.name)
+                elif failure=='MISSING_FILE':file.unlink()
+                else:file.write_bytes(raw+b'// TEST changed\n')
+                (base/'view.html').write_text('<script id="tqt-composite-processes" type="application/json">'+json.dumps({'catalog':{'tool_registry':selected}})+'</script>')
+                sys.argv=['run-tqt-checks.py','--verify'];output=io.StringIO()
+                with contextlib.redirect_stdout(output):code=main()
+                result=json.loads(output.getvalue())
+                assert code==3 and result['status']=='BLOCKED' and result['results']==[]
+                assert result['ui_input_mode']=='REPO_PINNED_FIXTURES' and result['prerequisite_errors']
+                file.write_bytes(raw)
+                cases.append('public --verify stops before inventory/self-tests for '+failure)
+        finally:
+            sys.argv=argv
+            globals().update(saved)
+    return {'state':'PASS','cases':len(cases),'checked':cases,'network':'NOT_USED','production':'NOT_TOUCHED'}
 
 def self_test():
     assert memory_admission(2**31,2**30)['state']=='BLOCKED'
@@ -356,8 +466,8 @@ def main():
     ap.add_argument('--verify','--execute',action='store_true',dest='verify',help='run registered read-only suites')
     ap.add_argument('--dry-run',action='store_true',help='validate inventory and print commands without running suites')
     ap.add_argument('--report',type=Path,help='save evidence JSON; use a test/evidence location')
-    ap.add_argument('--ui-adapter',type=Path,help='optional local copy of VPS process-work-master-v1.js; hash recorded')
-    ap.add_argument('--ui-snapshot',type=Path,help='offline folder with all five pinned UI inputs; independently reproducible')
+    ap.add_argument('--ui-adapter',type=Path,help='process-work-master-v1.js in a complete pinned UI input folder')
+    ap.add_argument('--ui-snapshot',type=Path,help='offline folder with all five pinned UI inputs; default: evidence/ui-inputs beside this runner')
     ap.add_argument('--vps-ui',action='store_true',help='fetch all five public UI inputs, verify registry pins, and run the complete UI checks')
     ap.add_argument('--before-product',type=Path,help='actual previous product snapshot; validate revisions/history before submitting any write')
     ap.add_argument('--master-registry',type=Path,help='fresh definition-master-registry-v1.js from the UI source')
@@ -381,28 +491,42 @@ def main():
             print(json.dumps({'state':'BLOCKED','error':str(error)}));return 3
         if args.report:args.report.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
         print(json.dumps({'state':'OBSERVED','dot_files':len(result['dot_inventory']),'other_scripts':len(result.get('script_inventory',[])),'supporting_templates':len(result['supporting_templates']),'usage_events':result['usage']['event_count'],'complete_receipts':result['usage']['complete_receipts'],'execution_receipts':len(result['executions']),'pg':'NOT_RUN'}));return 0
-    fetch_errors=[];ui_temp=None
+    fetch_errors=[];ui_temp=None;preflight=None;input_mode=None
+    if args.master_registry_json and args.verify and not args.dry_run and not args.identity_only:ap.error('--master-registry-json is for --identity-only; complete verification requires five pinned UI files')
+    if not (args.ui_snapshot or args.vps_ui or args.ui_adapter or args.master_registry or args.master_registry_json):
+        args.ui_snapshot=BASE/UI_FIXTURE_DIRECTORY;input_mode='REPO_PINNED_FIXTURES'
     if args.ui_snapshot:
         if args.vps_ui or args.ui_adapter or args.master_registry or args.master_registry_json:ap.error('--ui-snapshot is a complete input mode')
-        pins=next(x for x in reg['records'] if x['id']=='TQT-CHECK-005')['ui_inputs']
-        for name,pin in pins.items():
-            file=args.ui_snapshot/name
-            if not file.is_file() or sha(file)!=pin:fetch_errors.append('SNAPSHOT_INPUT_MISSING_OR_CHANGED:'+name)
+        preflight=ui_input_preflight(args.ui_snapshot,reg);fetch_errors.extend(preflight['errors'])
+        input_mode=input_mode or 'EXPLICIT_PINNED_SNAPSHOT'
         args.master_registry=args.ui_snapshot/'definition-master-registry-v1.js';args.ui_adapter=args.ui_snapshot/'process-work-master-v1.js'
-    if args.vps_ui:
+    elif args.vps_ui:
         if args.ui_adapter or args.master_registry or args.master_registry_json:ap.error('--vps-ui supplies the UI adapter and registry; do not combine input modes')
         ui_temp=tempfile.TemporaryDirectory(prefix='TQT-UI-TEST-');folder=Path(ui_temp.name)
-        pins=next(x for x in reg['records'] if x['id']=='TQT-CHECK-005').get('ui_inputs',{})
-        required={'qtth006-overview-v1.js','definition-master-registry-v1.js','process-work-master-v1.js','ui-child-content-v1.js','ui-child-from-parent-v1.js'}
-        if set(pins)!=required:fetch_errors.append('INVALID_UI_INPUT_INVENTORY')
-        else:
+        pins,pin_errors=ui_input_pins(reg);fetch_errors.extend(pin_errors);input_mode='EXPLICIT_PUBLIC_UI_FETCH'
+        if not pin_errors:
             for name,pin in pins.items():
                 try:
                     raw=urllib.request.urlopen('https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/'+name,timeout=10).read()
                     if hashlib.sha256(raw).hexdigest()!=pin:fetch_errors.append('UI_INPUT_CHANGED:'+name);continue
                     (folder/name).write_bytes(raw)
                 except (OSError,ValueError) as exc:fetch_errors.append('UI_INPUT_UNAVAILABLE:'+name+':'+type(exc).__name__)
+            if not fetch_errors:preflight=ui_input_preflight(folder,reg);fetch_errors.extend(preflight['errors'])
         args.master_registry=folder/'definition-master-registry-v1.js';args.ui_adapter=folder/'process-work-master-v1.js'
+    elif args.ui_adapter or (args.master_registry and not args.identity_only):
+        if args.master_registry_json:ap.error('do not combine file UI inputs with --master-registry-json')
+        folder=(args.ui_adapter or args.master_registry).parent
+        if args.ui_adapter and args.ui_adapter.name!='process-work-master-v1.js':ap.error('--ui-adapter must name process-work-master-v1.js')
+        if args.master_registry and (args.master_registry.name!='definition-master-registry-v1.js' or args.master_registry.parent.resolve()!=folder.resolve()):ap.error('--master-registry must be in the same complete UI input folder')
+        preflight=ui_input_preflight(folder,reg);fetch_errors.extend(preflight['errors']);input_mode='EXPLICIT_PINNED_FILES'
+        args.ui_adapter=folder/'process-work-master-v1.js';args.master_registry=folder/'definition-master-registry-v1.js'
+    if fetch_errors:
+        # Fail before scanning executables, comparing the large product or running tests.
+        blocked={'status':'BLOCKED','results':[],'inventory_errors':[],'prerequisite_errors':fetch_errors,'ui_input_mode':input_mode,'ui_input_preflight':preflight,'source_sha256':sha(source),'runner_sha256':sha(BASE/'run-tqt-checks.py'),'pg':'NOT_RUN','production_ready':False}
+        if args.report:args.report.parent.mkdir(parents=True,exist_ok=True);args.report.write_text(json.dumps(blocked,ensure_ascii=False,indent=2)+'\n')
+        print(json.dumps(blocked,ensure_ascii=False))
+        if ui_temp:ui_temp.cleanup()
+        return 3
     identity={'state':'BLOCKED','errors':['MISSING_LIVE_MASTER_REGISTRY']}
     if args.master_registry or args.master_registry_json:
         try:
@@ -420,6 +544,8 @@ def main():
     if readback['state']!='PASS': errors.append('SOURCE_READBACK_FAILED')
     report={'run_id':'TQT-'+uuid.uuid4().hex,'at':datetime.now(timezone.utc).isoformat(),'scope':reg['scope'],'registry_master':'CAT-006','case_master':'CAT-012','result_master':'CAT-015','source_sha256':sha(source),'runner_sha256':sha(BASE/'run-tqt-checks.py'),'inventory_errors':errors,'source_readback':readback,'results':[],'pg':'NOT_RUN','production_ready':False}
     report['resource_admission']=admission
+    report['ui_input_mode']=input_mode
+    report['ui_input_preflight']=preflight
     report['master_identity_check']=identity
     if identity['state']=='FAIL':errors.append('MASTER_IDENTITY_CONFLICT')
     report['prerequisite_errors']=prerequisites()
@@ -444,7 +570,8 @@ def main():
         if proc.returncode or report['transition_check']['state']!='PASS':errors.append('INVALID_TRANSITION')
     elif args.before_product:
         report['transition_check']={'state':'BLOCKED','reason':'MISSING_RUNTIME'}
-    if not errors and args.verify and not args.dry_run:
+    if not errors and not report['prerequisite_errors'] and args.verify and not args.dry_run:
+        report['ui_input_self_test']=ui_input_self_test()
         report['runner_self_test']=self_test()
         report['usage_audit_self_test']=audit_self_test(data['tool_registry']['audit_sources'])
         projection=data['tool_registry'].get('audit_projection')

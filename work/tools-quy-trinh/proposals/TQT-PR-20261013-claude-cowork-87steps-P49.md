@@ -937,4 +937,8 @@ Trạng thái: đang sửa/kiểm trên bản sao cục bộ, chưa công bố P
 - NEXT_TRIGGER=VPS-GHI_TRONG; công bố và kiểm UI thật rồi mới ký OpenAI trên bản công bố; sau đó Owner chuyển Claude mở Hộp chờ ký của Anthropic. Không PG/QT002; không giữ process để đợi.
 KQ@TQT-P61-V9 DỪNG · 2026-10-14T08:09:09Z · VPS_BẬN_VPSC_N2C · đã khép rà và chuẩn bị ứng viên, 0 RUN/cờ TQT.
 
+### P61 tiếp tục sau khi VPSC trả cờ
+VPSC đã khép và trả VPS-GHI; Codex lấy cờ theo CAS commit5758d3ba. P61 đã công bố SAME_COMMIT, giữ review REJECT P60/P58 thành lịch sử và tạo TQT-P61-CORRECTIONS/TQT-P61-DEBTS CURRENT chưa có chữ ký. Scope250 định nghĩa quản trị/metadata và quy định/bộ kiểm; FIELD-COVERAGE24 nghĩa nghiệp vụ vẫn OPEN. Đang kiểm UI thật trước khi ký, không chốt chuẩn hoặc nghiệm thu QT001.
+
+
 
