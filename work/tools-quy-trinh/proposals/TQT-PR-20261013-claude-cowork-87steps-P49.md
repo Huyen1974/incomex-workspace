@@ -976,5 +976,7 @@ Nguồn: Owner 14/10 15:38 (nguyên văn COLLAB §0 ô 3 mục 3.4, R39). Đây 
 
 Xong P61 (đang ký) → bước 1 trong lượt kế tiếp, trước các sửa nội dung lớn → bước 2 thử 1 Master → quyết mở rộng. Đo trước/sau mỗi bước: thời gian kiểm, thời gian tải trang, thời gian một lượt. Bước 2 chỉ mở rộng khi bản thử nhanh hơn và gọn hơn thật. Codex ghi phản biện ngay dưới mục này (một vòng), rồi Host chốt.
 
+> **Đã thay thế 14/10/2026 16:00.** Owner, GPT và Claude chốt cách đơn giản hơn: làm thẳng trên collection nháp Directus (`tqt_draft_*`, chỉ DOT ghi), đạt thì xuất định nghĩa lên GitHub → Owner duyệt → tạo collection thật → xóa nháp. Bước 1 (tách tệp) và cách "GitHub → bản chiếu Directus" ở trên thôi làm. Nguồn duy nhất của kế hoạch: COLLAB §0 Bảng điều khiển + R40–R42.
+
 
 
