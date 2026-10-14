@@ -106,6 +106,7 @@ Cách ghi hồ sơ (Owner 12–13/10 · P34–P46)
 - R36 ⬜ Master Field chuẩn để đưa thẳng vào PG: mã DB (tên cột) có quy tắc thống nhất · tên hiển thị ngắn, đủ nghĩa, có "?" · mã việc sinh ra field · mô tả để làm gì · vòng đời Cần tạo mới → Đã tạo → Đã nghiệm thu. → VÒNG 8 D1–D5.
 - R37 ⬜ Mỗi bước trả lời một bộ câu hỏi chuẩn (làm gì · sau bước nào · đầu vào · ai · công cụ · xong khi · ghi đâu · khi nào báo cáo · lỗi đi đâu) và tích việc đã làm; máy chặn sai thứ tự. → VÒNG 8 E1–E3.
 - R38 ⬜ Hồ sơ sửa chữa thiết kế từ đầu: sửa ghi vào đâu, đã sửa bao nhiêu lần, sửa gì, lúc nào, ai chịu trách nhiệm; người làm chỉ điền vào ô có sẵn. → VÒNG 8 F1.
+- R39 ⬜ Cấu trúc kỹ thuật phải nhẹ để mỗi lượt nhanh (Owner 14/10 15:38): việc của ta là quy trình, logic, UI — không dựng lại một bộ công nghệ nặng. Giữ GitHub làm nơi làm chung và chưa đưa thiết kế vào PG thật; tận dụng Directus đang có làm vùng nháp hiển thị, lấy nguồn từ GitHub. → P49 VÒNG 10.
 
 Phạm vi: chưa làm quy trình nghiệp vụ (phái cử, tuyển dụng…), là sản phẩm của cỗ máy thuộc Chuỗi 3, để sau. Không làm lúc này: MOW002 · T2.5 · đổi CT-005 · chạy PG thật từ bản thiết kế.
 
@@ -125,6 +126,8 @@ Phạm vi: chưa làm quy trình nghiệp vụ (phái cử, tuyển dụng…), 
 - Hội đồng: Astra-Codex (OpenAI) Host nội dung · Claude-review (Anthropic) Host Kiểm soát + phản biện · GPT Chat (OpenAI) góp ý/phản biện. Mode=COUNCIL · Automation_Level=AUTO0. Đường gọi hội đồng chưa đo.
 
 #### 3.4 Nguyên văn chỉ đạo Owner
+- 14/10/2026 15:38 · phiên Claude (nguyên văn, giữ lỗi gõ) → R39:
+  > Giờ tôi muốn bạn giám sát tool này để bàn tiếp một số nội dung. Về cơ bản thì chúng ta đang xây các quy trình, con đường để đi. Nhưng vấn đề là quy mô triển khai chưa lớn, hiện nay là cái thao tác rất là chậm, đợi nhiều tiếng mới xong một luân lượt. Tất nhiên là ban đầu thì phải chấp nhận, nhưng tôi muốn đặt ra vấn đề về cấu trúc kỹ thuật. Liệu chúng ta đang tự xây dựng một hệ thống để thử, thế này đã phải là tối ưu chưa? Việc mà đã chốt, tức là không đưa vào PG sớm do hệ thống còn phải điều chỉnh rất nhiều, thì việc này vẫn chốt và không thay đổi. Nhưng câu hỏi là chúng ta có cả một hệ thống Directus rất lớn. Việc vẽ ra mấy UI trên hệ thống đấy xử lý rất nhanh, chỉ còn là môi trường chung, tức là SSOT làm việc trên GitHub thôi. Thế thì câu hỏi là cái cấu trúc về mặt kỹ thuật mà chúng ta đang dựng lên rất còng kềnh như thế này đã phải tối ưu chưa? Có thể tận dụng được Directus ở một vùng nháp nào đấy để dựng lên UI thật để làm nhưng mang tính nhẹ hơn được không? Tức là Directus sẽ lấy các nguồn từ GitHub và để show thẳng lên trên đó. Thế hiện nay chúng ta đi dựng lại một bộ công nghệ rất là nặng nề và thao tác rất lâu. Nghiên cứu về vấn đề này và tìm ra giải pháp để xử lý vấn đề nhanh hơn. Việc của chúng ta là quy trình, là logic, là UI chứ không phải đi tập trung vào vấn đề kỹ thuật.
 - 14/10/2026 10:43 · phiên Claude (nguyên văn, giữ lỗi gõ) → R33–R38:
   > Tôi đồng ý với các ý kiến của bạn nhưng chúng ta vẫn còn những việc nữa phải làm => bạn tổng hợp lại tất cả các ý kiến rồi sau đó chúng ta sửa 1 thể nhé.
   >
