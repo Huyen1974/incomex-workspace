@@ -7,15 +7,15 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 17:55 +07 · Claude Code CLI · P09
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 20:00 +07 · GPT Chat Host · P11
 - 🎯 Mục tiêu: ô 1 — Gemini vào hội đồng như ghế Google, kết nối tối đa ngang GPT/Claude. Owner 15:44: Gemini tự làm trước; phần nó không làm được giao Claude Code làm cho nhanh.
 - 🏁 Xong khi: ô 2. G1 xong = `agy` đăng nhập + danh tính google-main thật (P do chính Gemini ghi) + KB/JEV gọi thật + bảng parity.
-- 📍 Tiến độ: [✓ G0] → [✓ G1 Gemini tự khảo sát, DỪNG có bằng chứng] → [■ G1B Claude Code làm nốt + Gemini tự chứng minh, 1 lượt] → [□ G2 ghế Google] → [□ G3 đưa thư/điện thoại] → [□ nghiệm thu]
-- ✅ Đã xong: P01–P09; Claude P08 ACCEPT@e42fb68d2bcc7db7cc5615462292758e58a77916; GPT P09H READY cùng SHA; D03/HUMAN_DIRECTIVE-06 ghi phạm vi Owner giao, không sửa PROMPT.
-- ■ Đang làm: — · 0 RUN active · G1B KQ DỪNG·PARTIAL 10:55Z: mọi tiêu chí XONG của PROMPT đạt (P10 do Gemini ghi), chỉ thiếu biên nhận Telegram R4/D05 vì #22 đỏ sẵn; VPS-GHI đã trả.
-- ⬜ Còn lại: G1B → G2 → G3 → nghiệm thu, đúng thứ tự.
-- ➡ Kế tiếp: Host GPT nghiệm thu G1B (P09 + P10), quyết khoảng trống biên nhận R4 và đề xuất JEV riêng cho Google; Reviewer khác hãng Google rà KQ → mở G2. NEXT_TRIGGER=HOST_NGHIEM_THU_G1B.
-- ⛔ Không làm/để sau: G2/G3 trước khi G1B xong; mượn khoá ghế khác; xoá tệp (chỉ chuyển vào lưu trữ có INDEX); khởi động lại gì ngoài agent-data (+ jev-gw nếu Q02 nêu); đụng HJW/Graph/VPSC/TQT.
+- 📍 Tiến độ: [✓ G0] → [✓ G1B lõi google-main/repo/KB] → [■ G1C JEV + bảo vệ MCP Mac + thử ghế Google (DRAFT)] → [□ G2 hội đồng chính thức] → [□ G3 đưa thư] → [□ nghiệm thu toàn việc].
+- ✅ Đã đạt: commit 24a965c Gemini tự ghi P10 tác giả gemini-agy [auth:google-main], repo/KB PASS, 6 danh tính PASS, khoá VPS trả; G1B FUNCTIONAL_PASS lõi nhưng KQ PARTIAL còn JEV/Mac guard/R4 receipt.
+- ■ Đang làm: — · 0 RUN active. G1C DRAFT chờ Claude Chat rà một lượt/ACCEPT, GPT Host READY rồi Owner giao Claude Code; không xử lý Kuma trong nhánh này.
+- ⬜ Còn lại: JEV riêng cho Google, preflight chống drift Mac, Gemini phản biện 1 P thật; G3 courier. Nợ receipt Telegram/#22 giữ riêng cho việc giám sát.
+- ➡ Kế tiếp: Claude Chat rà DRAFT G1C đúng SHA; đồng thuận thì ACCEPT ngay (một lượt). GPT Host READY; Claude Code hỗ trợ JEV/Mac và gọi agy để Gemini tự tham gia hội đồng. NEXT_TRIGGER=CLAUDE_REVIEW_G1C_DRAFT.
+- ⛔ Không làm: không restart agent-data, không mất auth GPT/Claude/Hermes, không mượn khoá JEV chung, không mở cổng/service mới, không đổi luật nền bằng worker; Kuma/Telegram xử lý sau trong việc giám sát.
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
 1. «rà soát lại để tích hợp cho Gemini app đầy đủ vào trong VPS, kết nối qua MCP và tất cả các cổng kết nối, tức là giống như nguyên tắc của GPT và Claude là kết nối tối đa và cho tham gia vào cái nhóm workflow và hội đồng AI này» (phiên GPT Chat)
@@ -89,6 +89,15 @@ HUMAN_DIRECTIVE@GJW-20261014-05 EFFECTIVE · task=gemini-join-workflow · scope=
 - HUMAN_DIRECTIVE@GJW-20261014-08 EFFECTIVE · task=gemini-join-workflow · scope=POST-PROTECT Điều 30/31 cho footprint kết nối Google trong lượt G1B hiện hành; hậu kiểm Kuma/Telegram chuyển chủ đúng task sau KQ · step=G1B_POST và follow-up thuộc việc giám sát · recorded_by=openai-main · quote=«Nhưng tiện thể chỗ kết nối này thì bạn nhắn thêm cho agent là đưa luôn vào điều 30, 31 để bảo vệ, tránh việc chúng ta kết nối xong rồi AI khác lại vô tình làm hỏng mất, làm đi làm lại nó mất việc, mất thời gian ra.» · audit=Owner direct chat 14/10/2026. **Không sửa PROMPT/READY, không phát RUN mới; đây là yêu cầu áp dụng luật R4 vốn đã hiệu lực lên kết quả thực hiện.**
 
 ## Nhật ký P
+
+### P11 · GPT Chat Host · 14/10/2026 · G1B FUNCTIONAL PASS, G1C → G2
+- **Owner ưu tiên:** hoàn thiện Gemini ổn định và đưa thành viên Google vào Hội đồng; Kuma/Telegram xử lý sau. Không phá kết quả G1B, không mở lại thảo luận hạ tầng.
+- **Bằng chứng độc lập:** commit 24a965c Git author `gemini-agy [auth:google-main]`, model Gemini 3.8 Flash High; P10 đọc repo + KB thật, JEV lỗi thật. Báo cáo KQ 60b89b2: 6 danh tính được xác thực, key sai 401, 2 Config Guard đích mới MATCH, agent-data healthy, VPS-GHI trả. Host **chấp nhận G1B lõi hoạt động (FUNCTIONAL PASS), giữ KQ PARTIAL trung thực**, không tuyên JEV hay bảo vệ R4 XONG.
+- **G1C tập trung đúng 2 khoảng trống:** (1) JEV cần định danh client Google riêng, vì jev-gw hiện chỉ một path-secret dùng chung; ưu tiên thêm named-server Google trên mcp-proxy/jev-gw đã có với GSM secret riêng và Config Guard, kiểm client cũ vẫn sống, không dựng thêm service. (2) config `~/.gemini/config/mcp_config.json` trên Mac đã có hash/backup nhưng thiếu tự canh: bổ sung preflight khi gọi agy bằng native/helper sẵn, không dựng cron/daemon.
+- **G2 cùng lượt sau khi nối:** dùng `agy -p` bằng mô hình họ Gemini cho Google tự đọc C3/G3 và viết một P phản biện độc lập qua gateway, author `google-main`. Đủ bằng chứng mới tính ghế Google chính thức; nếu JEV bị chặn kỹ thuật thì cho canary Council có GAP rõ, không đánh dấu parity hoàn tất. Không sửa Task HJW/Graph, không tự thử Chrome (G3).
+- **R4/Kuma:** receipt Telegram chưa phát do #22 đỏ có trước, phải giữ residual PARTIAL, không fake PASS. Owner xác nhận thấy `Disk Usage Up` 12:10 nên kênh có bằng chứng từng gửi được; tình trạng #21/#22, R4 receipt và ngưỡng Kuma thuộc task giám sát riêng, không chặn G2. POST-PROTECT Điều 30/31 chỉ áp phần JEV/Mac mới thay trong G1C, same-or-better và rollback. Lỗi nhãn Task View `gemini-agy` là alias A9 do Founders sửa sau, không gate Council.
+- **Chỉ đạo Host:** một PROMPT G1C duy nhất, Claude Chat rà một lượt theo DROOT55, GPT READY đúng SHA, Owner chuyển Claude Code làm technical assist và gọi đúng Gemini. Không thêm G1D hay thay workflow.
+
 
 ### P10 · Gemini · 2026-10-14 17:41 +07 (10:41Z) · Worker · Smoke google-main
 - Ghế: google-main · Bề mặt: Antigravity CLI `agy` · Mô hình: `gemini-3.8-flash-high`
