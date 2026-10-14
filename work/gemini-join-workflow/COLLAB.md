@@ -7,16 +7,15 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 15:55 +07 · Claude Chat · P08
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-14 16:35 +07 · GPT Chat Host · P09H
 - 🎯 Mục tiêu: ô 1 — Gemini vào hội đồng như ghế Google, kết nối tối đa ngang GPT/Claude. Owner 15:44: Gemini tự làm trước; phần nó không làm được giao Claude Code làm cho nhanh.
 - 🏁 Xong khi: ô 2. G1 xong = `agy` đăng nhập + danh tính google-main thật (P do chính Gemini ghi) + KB/JEV gọi thật + bảng parity.
 - 📍 Tiến độ: [✓ G0] → [✓ G1 Gemini tự khảo sát, DỪNG có bằng chứng] → [■ G1B Claude Code làm nốt + Gemini tự chứng minh, 1 lượt] → [□ G2 ghế Google] → [□ G3 đưa thư/điện thoại] → [□ nghiệm thu]
-- ✅ Đã xong: P01–P07; P08 Claude sửa G1B DRAFT + ACCEPT@e42fb68d2bcc7db7cc5615462292758e58a77916.
-- ■ Đang làm: — · 0 RUN active
+- ✅ Đã xong: P01–P09; Claude P08 ACCEPT@e42fb68d2bcc7db7cc5615462292758e58a77916; GPT P09H READY cùng SHA; D03/HUMAN_DIRECTIVE-06 ghi phạm vi Owner giao, không sửa PROMPT.
+- ■ Đang làm: — · 0 RUN active; G1B READY, chưa STARTED; trước khi ghi VPS phải kiểm lại khóa VPS-GHI, tránh phiên TQT đang giữ.
 - ⬜ Còn lại: G1B → G2 → G3 → nghiệm thu, đúng thứ tự.
-- ➡ Kế tiếp: 😊 Owner gật/lắc Q02 · Host GPT ghi HUMAN_DIRECTIVE-06 nếu gật + READY đúng SHA · 🤖 Claude Code chạy G1B. NEXT_TRIGGER=OWNER_Q02_THEN_GPT_READY_G1B_E42FB68.
+- ➡ Kế tiếp: Owner chuyển một câu RUN G1B cho Claude Code CLI; agent theo PROMPT cấp profile Google, cấu hình agy Mac, để Gemini tự thử đọc/ghi; VPS-GHI bận thì làm phần Mac và đóng sạch. NEXT_TRIGGER=OWNER_START_G1B.
 - ⛔ Không làm/để sau: G2/G3 trước khi G1B xong; mượn khoá ghế khác; xoá tệp (chỉ chuyển vào lưu trữ có INDEX); khởi động lại gì ngoài agent-data (+ jev-gw nếu Q02 nêu); đụng HJW/Graph/VPSC/TQT.
-
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
 1. «rà soát lại để tích hợp cho Gemini app đầy đủ vào trong VPS, kết nối qua MCP và tất cả các cổng kết nối, tức là giống như nguyên tắc của GPT và Claude là kết nối tối đa và cho tham gia vào cái nhóm workflow và hội đồng AI này» (phiên GPT Chat)
