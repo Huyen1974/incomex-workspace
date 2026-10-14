@@ -4,6 +4,81 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## L2-SAFETY-MAP-20261014 · RUN VPSC-L2D-GRAPH-PROTECT-MAP-20261014-01 · bản đồ bảo vệ trước khi xét tắt (D27) · executor Claude Code CLI (Mac → SSH root VPS1, CHỈ ĐỌC) · write_path=workspace_* · KQ XONG
+
+**PROMPT `22a64405` (READY P100 GPT Host + Reviewer ACCEPT P99) · khối Owner có nguyên văn D27 · STARTED `955a2de` 04:50Z · đo 04:50–05:06Z · KQ cùng commit này.** 0 ghi VPS (không thư mục bằng chứng, không tệp tạm), không chiếm VPS-GHI (khoá thuộc TQT-P60 lúc bắt đầu), 0 DOT có ghi, 0 restart. PG chỉ qua `query_pg` (chỉ đọc), Kuma qua `kuma.db?mode=ro`, Graph qua `graph-v1` `read-cypher`. Bằng chứng = đường dẫn + giờ ghi trong bảng (không chép crontab thô, không đọc tệp khoá).
+
+### 1. Cho Owner
+- 🟢 **22 lịch đã tắt không làm mất bảo vệ nào.** Tên của cả 22 không xuất hiện trong mã Guard, Kuma, giám sát đĩa, 4 script backup, 3 máy canh quyền, drift-check, sr-mow (trigger-guard chỉ nhắc trong chú thích). Luật mô tả (Đ4 §2.1) đang ở chế độ «cho qua, H11 bắt sau» và H11 vẫn chạy ở lịch context-pack-verify. 15 bảng thiếu trigger mô tả là lỗ CŨ có trước L1.
+- 🟢 **Telegram, Guard, luật KB, backup Drive đều sống:** bản tin 08:00 hôm nay gửi 01:01Z (message_id 199, 4 ngày liền không hỏng); Guard chạy 5′/lần; backup PG + cấu hình + Qdrant lên Drive tối 13/10 PASS có mã hoá; code backup 13/10 18:01Z PASS. Chưa có: biên nhận Kuma→Telegram (Kuma không ghi), thử khôi phục định kỳ (lần cuối 05/10).
+- 🟡 **Lỗ cũ phát hiện thêm (không do lượt VPSC nào gây):** máy hồi quy sr-mow (Đ30/31, «cầu tạm») báo lỗi hạ tầng mọi lượt từ 03/10 — Directus trả 403 — và không báo ai; bộ «Điều 31» cũ chỉ ghi vào tệp log không ai đọc (watchdog kêu «runner Đ31 không chạy từ 10/07» suốt 2.285 giờ). Gói code backup lên Drive không mã hoá, có một tệp `.env.working` (chưa mở xem).
+- **5 ứng viên:** watchdog · cron-integrity · context-pack-verify · flow Count Refresh = **GIỮ** (KEEP_UNKNOWN); scanner-counts = **OFF_CANDIDATE** nhưng lợi ích ≈ 0 ⇒ không đáng một lượt riêng.
+- **Bước kế đề xuất (một việc): đĩa #11** — trống 37,78 GiB < 45, #11 đỏ; RAM không chạm trần mới từ 13/10.
+
+### 2. Hồi tố 22 lịch đã tắt (21 L1 + 1 L2a) — có nằm trên chuỗi bảo vệ A–E không
+| Nhóm (L1 bảng T) | Ra đâu / ai đọc | Tham chiếu trong chuỗi bảo vệ (mã) | Graph | Kết luận |
+|---|---|---|---|---|
+| P1–P4 pivot/đếm (`refresh_*`, `fn_refresh_orphan*`) | ghi bảng đếm; trang registries/pivot Nuxt | 0 | hàm không có nút / chỉ trigger cùng chủ đề | không bảo vệ |
+| P5–P7, G8–G14 (health/verify registry, gov, nrm, sổ DOT) | log riêng + PG cùng chủ đề | 0 (`dot-trigger-guard` dòng 118 chỉ là chú thích nhãn DEL-1) | DotCommand chỉ cạnh `REGISTERS` từ `dot_tools` | không bảo vệ |
+| G3/G4 quét orphan/misclass, G5–G7 APR | `birth_registry`, `approval_requests` | 0 | — | không bảo vệ |
+| **G1/G2 `dot-hc-executor` + `-verify`** | `system_issues`, heartbeat `dot_config`, manifest | 0 trong Guard/Kuma/backup; `vps-retention.sh:1225` chỉ né lượt khi đang chạy | `Generic HC Executor` ↔ `Paired verify` (`PAIRED_WITH`, `REGISTERS`) | không bảo vệ chuỗi A–E — xem đoạn mô tả dưới |
+| L2a `dot-context-pack-build.sh` | manifest (bản cuối 04/05) | 0; `vps-retention.sh:1106` chỉ né lượt | `Context Pack Builder` ↔ `Verifier` | không bảo vệ; syslog: CMD cuối 01:00:01Z, mốc 04:00Z không chạy |
+
+**G1 và cơ chế mô tả `trg_desc_guard` (đối luật KB hiện hành):** luật `knowledge/dev/laws/law-04-birth-process.md` (Đ4 §2.1 Birth Description Guard, KB cập nhật 22/04) — bảng `governed`: chế độ WARN «cho qua, H11 bắt sau», BLOCK «từ chối INSERT»; `dot_config.description_enforcement_mode` = **`warn`**. Graph có 21 nút `trg_desc_guard_*` → `fn_description_birth_guard` (khớp P99: 21/36 có, 15 thiếu). Sau L1: (a) HC-TRIGGER không còn tự gắn trigger cho bảng governed mới — `collection_registry` không có bảng mới từ 25/05 ⇒ chưa mất lần nào; (b) H11a không còn tự «chữa» (đã ngừng sinh từ 05/06); (c) **phát hiện H11a/H11b vẫn chạy** trong `dot-context-pack-verify.sh` (`30 */3`, lượt 04:30Z có `H11a … FAIL_CRITICAL`) ⇒ vế «H11 bắt sau» của luật còn chạy. **Phân loại:** 15 bảng thiếu = **GAP CŨ** (có trước L1, P99); mất tự gắn cho bảng mới = rủi ro nhỏ có điều kiện (chỉ khi có bảng governed mới) ⇒ ai tạo bảng governed mới phải gắn `trg_desc_guard` qua DOT. **0 GAP_CRITICAL do L1/L2a.**
+
+### 3. Chuỗi bảo vệ — last proof (giờ UTC · nguồn · trạng thái)
+| Chuỗi | Last proof | Nguồn kiểm | Trạng thái | Chủ |
+|---|---|---|---|---|
+| Luật Đ30 / Đ31 / Đ4 trong KB | Đ30 v1.2, Đ31 v1.2 (KB 06/04/2026), Đ4 §2.1 (22/04) | `incomex_metadata.kb_documents` (`query_pg`; connector KB `search` trả `TRIAL_READ_FORBIDDEN`) | VĂN BẢN CÒN; Đ31 v1.2 đòi WATCHDOG tự kiểm + kênh khẩn Telegram | KB |
+| Protection Guard periodic | 04:50:31Z (5′/lần) | `/var/log/incomex/mcpw-guard.log` | DOWN chỉ vì INV5_6 (drift 4 đích cũ) + INV20 (agent-data) = #22 cũ; còn lại PASS gồm INV15 (22/22 gắn Telegram), INV16 (75 loại, 0 hỏng), INV17, INV22 Graph, INV23, CTR-WATCHDOG-01 | TQT/HJW (2 đỏ) |
+| Config Guard drift-check | 04:50:20Z (5′/lần, systemd) | journal `incomex-config-drift-check` | TOTAL 481 · MATCH 477 · MISMATCH 4 = đúng 4 đích cũ #22 ⇒ 7 đích `cron-*` MATCH | TQT/HJW |
+| INV23 sổ mã | 04:50Z | Guard | PASS 559 tệp (2 vùng UNKNOWN không quét) | VPSC/TQT |
+| Kuma → Telegram | 22/22 đèn có nhịp 04:49–04:50Z; thông báo `Telegram-Jack` bật, mặc định, gắn 22/22 | `kuma.db?mode=ro` | cấu hình PASS · **biên nhận gửi UNKNOWN** (Kuma không ghi; lần đổi trạng thái gần nhất #9 12/10 08:30Z; 0 lỗi gửi trong log 72h) | VPSC |
+| Bản tin 08:00 +07 (dead-man) | **14/10 01:01:29Z message_id 199** (13/10 198, 12/10 193, 11/10 174) | `/var/lib/hjw-control/ledger.jsonl` (`owner_tin`, 0 `owner_tin_fail`) | PASS | HJW/Guard |
+| Biên nhận POST-PROTECT | — | Guard | không gửi được khi #22 đỏ (nợ L1P + L2a) | TQT/HJW → VPSC |
+| trigger-guard | 14/10 01:15Z | `dot-trigger-guard.log` | ALL CLEAR (2/2 trigger sự kiện, 0 tắt trái phép) | VPSC |
+| env-permissions-guard | 04:55Z | log riêng | OK `.env` 600 | VPSC |
+| db-permissions-guard | chạy 05:00Z (syslog CMD) | log chỉ ghi khi lệch (lần cuối 07/04, tự sửa + báo) | chạy · im khi OK ⇒ kết quả OK = INFERRED | VPSC |
+| pg-dump permission guard | 14/10 02:17Z | log + Kuma #17 | PASS | VPSC |
+| **sr-mow Đ30/31 (cầu tạm)** | 14/10 04:20Z | `logs/sr-mow/` 243 lượt | **INFRA_FAULT mọi lượt từ 03/10** (`Directus Health: HTTP 403`), 29/09–03/10 CONTRACT_VIOLATION; không nối Telegram/Guard ⇒ **GAP CŨ, câm** | việc sr-mow-d30d31 (chủ cần xác minh) |
+| Backup PG cục bộ | 14/10 00:28Z | `backups/pg/backup.log` + Kuma #12 | OK 117M + metadata 104M, giữ 7 ngày | VPSC |
+| Backup PG + cấu hình + Qdrant → Drive | 13/10 18:37–18:46Z (kế 14/10 18:37Z) | `logs/backup-gdrive.log` + Kuma #14 | `DIRECTUS_DB_BACKUP PASS`, gpg, 2 snapshot Qdrant sha256 khớp, giữ Drive 30 bản + 12 tháng (đã xoá 4 tệp 15/09) | VPSC |
+| Code backup → Drive | 13/10 18:01Z (kế 06:00Z) | `logs/code-backup-gdrive.log` + Kuma #15/#16 | PASS (remote_bytes = local, giữ 56) · **không mã hoá** (remote kiểu `drive`, `.tar.gz`) | VPSC |
+| Qdrant snapshot cục bộ | 14/10 01:00:36Z | `qdrant-backup.log` | OK 217M, giữ 7 ngày | VPSC |
+| Thử khôi phục | 05/10 (R6, `dot-pg-restore-verify-db` trên bản 20261004T183701Z, PASS) | BAO-CAO R6 | **cũ 9 ngày, không có lịch định kỳ** ⇒ NEED_REMEDIATION (không gấp) | VPSC |
+| Graph (chỉ mục bằng chứng) | INV22 PASS 04:50Z | Guard + `read-cypher` | 3.596 nút / 6.823 cạnh = bản dựng 07/10 (R10 tạm dừng) ⇒ cũ 7 ngày; không phủ cron/Directus HTTP/Nuxt | GS |
+
+### 4. Năm ứng viên
+| Ứng viên | Chức năng thật (đo) | Phụ thuộc · người dùng | Chi phí | Thay thế đang chạy | Chủ · rollback | Kết luận |
+|---|---|---|---|---|---|---|
+| `watchdog-monitor.sh` (root `0 * * * *`, giờ máy +02) | GET Directus `items/system_issues?filter[source_system]=dieu31-runner&filter[issue_class]=watchdog_fault` → so `last_seen_at`; chỉ `echo` + `exit 1` vào `logs/integrity/watchdog.log` (4.913 dòng); đang kêu «Runner Điều 31 không chạy từ 2026-07-10T22:01Z (2.285h)» mỗi giờ | token máy Directus · **0 người đọc** (không script Guard/Kuma/backup/retention nào nhắc log); không Telegram | ≈ 3% mức L0 (P99); nay là một phần của 52% khối đọc `system_issues` | vai «máy canh máy kiểm» cho Guard = Kuma #22 push (DOWN nếu im 570 s) → Telegram + bản tin 08:00 dead-man; **chưa thay** vai canh runner Đ31 cũ (runner chết từ 10/07); biên nhận Kuma→Telegram UNKNOWN | bộ Đ31 cũ · không đổi ⇒ không cần lùi | **KEEP_UNKNOWN** (JEV nghiêng KEEP_CRITICAL 0,64 — cả hai = GIỮ). Không tắt; luật Đ31 v1.2 còn nêu WATCHDOG. Muốn có ích: cho nó báo đúng kênh (lượt riêng), không phải tắt |
+| `cron-integrity.sh` (`0 */6`) | Đ31 Vòng B; **mọi lượt từ 24/07 tự HOLD** (`HOLD_INTEGRITY_MONITOR_MACHINE_PERMISSION_GAP` — danh tính máy thiếu quyền UPDATE `system_issues`), thoát sớm | 0 người đọc log | ≈ 0 | không có (sr-mow là cầu tạm cho Vòng B — đang INFRA_FAULT) | bộ Đ31 cũ | **KEEP_UNKNOWN** (JEV 0,51 / OFF 0,46) — tắt không lợi gì |
+| `scanner-counts.sh` (`0 */3`) | gọi `verify_counts()` (đếm registry D26 = chủ đề đếm DEL-1); **từ 31/03 mỗi lượt chỉ in dòng đầu, không ra kết quả** (lần đủ cuối 31/03 «17 mismatches») | 0 người đọc | UNKNOWN (chưa biết hàm có chạy tới PG không), nhỏ | không cần (chủ đề đếm D25 off) | VPSC · lùi = bỏ tiền tố qua apply-v0 `cron-root-crontab` | **OFF_CANDIDATE** (JEV 0,64) nhưng lợi ích ≈ 0 ⇒ chỉ gom vào một lượt cùng chủ đề khi Owner gật, không làm riêng |
+| `dot-context-pack-verify.sh` (incomex `30 */3`) | Đ43 H1–H11b trên manifest #138 (04/05); mọi lượt `FAIL_CRITICAL`; ghi `context_pack_manifest.health_status` + `system_issues` (`fn_log_issue`); lấy SQL kiểm từ KB agent-data | **H11a/H11b là vế «H11 bắt sau» của luật Đ4 §2.1 (warn)**; người đọc kết quả: trang registries Nuxt | ~6 lần quét `system_issues`/lượt (phần của 52%) | không nơi khác chạy H11 | VPSC · không đổi | **KEEP_UNKNOWN** (JEV 0,75). Muốn tắt phải chuyển H11 đi nơi khác hoặc Owner bỏ vế đó của luật |
+| Flow `[DOT-REG] Count Refresh (6h)` (Directus `0 */6`) | 1 thao tác `POST http://incomex-nuxt:3000/api/registry/refresh-counts`; lượt 00:00Z gọi `aggregate countDistinct` nhiều bảng (một số 403) | 0 nối Guard/Telegram/backup; endpoint Nuxt ghi gì CHƯA đọc | ≤ 5–6% (P96) | — | VPSC · không có DOT bật/tắt flow, không ô canh flow (U02) | **KEEP_UNKNOWN** (JEV 0,68) |
+
+JEV `gen-dec-1791954127-MGU6zLYlVQHF91vy96R4` (bằng chứng phụ): GAP do L1 0,17 · watchdog KEEP_CRITICAL 0,64 · cron-integrity KEEP_UNKNOWN 0,51 · scanner OFF_CANDIDATE 0,64 · verify KEEP_UNKNOWN 0,75 · Count Refresh KEEP_UNKNOWN 0,68 · bước kế đĩa 0,80. Executor chốt watchdog = KEEP_UNKNOWN (không phải CRITICAL) vì đầu ra hiện không tới ai — gọi «critical» sẽ che việc nó đang câm; cả hai nhãn đều là GIỮ.
+
+### 5. Tài nguyên (đo 04:50–05:05Z, không ngoại suy ra ngày)
+- **PG** (`directus`, `stats_reset` rỗng): Tnew L2a 03:04:43Z → 04:59:25Z (1 giờ 54′42″): `blks_read` +83.039 ≈ **724 khối/phút** (L0 12.260 ⇒ ≈ −94%, cùng hướng P99 566/phút; chưa 24h) · `system_issues` heap_blks_read +43.121 (52%), seq_scan +9 (watchdog 04:00Z + verify 04:30Z) · `birth_registry` seq_scan **+0** (đứng 9.308), heap_blks_read +21.974 (26%) qua idx_scan +220.412 — người gọi chưa gắn (ngoài phạm vi) · `context_pack_requests` ins +0 (1.288). Mốc 07:00Z chưa qua — không chờ.
+- **RAM:** MemAvailable 5,81/11,68 GiB · swap 1,99/2,00 GiB · đảo vào 0,02–0,92 trang/s (sar 06:30–06:50 giờ máy; TB hôm nay vào 0,90 / ra 3,71) · `memory.events max`: claude-kb **7.546**, Directus **227** = đúng số L0 13/10 ⇒ **0 lần chạm trần mới** · claude-kb swap 253 MiB (L0 170) · agent-data 2,52 GiB + swap 983 MiB · Neo4j 1,24/1,5 GiB · PG 663 MiB/3 GiB · tải 4,58/3,01/2,73 lúc 04:50Z (một lần đo).
+- **Đĩa:** trống **37,78 GiB** (61%) · storage-watch 04:00Z đỏ `SLOPE7D −3,06 GiB` («chưa có taxonomy cùng mốc 24h») · 24h trống +3,6 GiB, 7 ngày −3,06 GiB · nợ: CONTROL_DEBT `/var/lib/hjw-control` hạn 16/10 01:00Z + 3 EVIDENCE_DEBT hạn 21/10 · thiếu ~7,2 GiB tới đích 45.
+- **Đèn:** 19/22, đỏ {#11 đĩa SLOPE7D, #21 Hermes, #22 Guard INV5_6+INV20} = PRE_RED_SET các lượt trước; không đèn mới đỏ.
+
+### 6. Đề xuất đúng một bước kế (Host chọn, không tự chạy)
+**Không có GAP_CRITICAL do L1/L2a** ⇒ theo luật PROMPT chọn giữa đĩa #11 và L1b: **đĩa #11 (trống ≥ 45 GiB, Drive-first D23)** — đĩa còn đỏ và thiếu ~7,2 GiB; RAM 24h qua không chạm trần mới, đảo swap thấp ⇒ L1b chưa có lý do gấp. Khung DRAFT cho Host (chưa phải PROMPT): đo nguồn tăng theo taxonomy storage-watch khi có mốc 24h cùng phiên bản → chọn đối tượng có tên + chủ → gói Drive mã hoá + manifest + đọc ngược → xoá đúng đối tượng qua đường có canh → POST #11. **Cảnh báo D27 cho lượt đĩa:** nợ `/var/lib/hjw-control` (chủ HJW) chứa `ledger.jsonl` — sổ Guard INV17 dùng để gửi và chứng minh bản tin 08:00 + biên nhận; dọn thư mục đó mà mất sổ thì chuông dead-man mất bằng chứng ⇒ không tỉa sổ này.
+**Con trỏ lỗ cũ cho Host (không phải bước kế, không tự sửa):** (1) sr-mow INFRA_FAULT từ 03/10 (Directus 403 ở health-gate) — máy hồi quy Đ30/31 câm 11 ngày, chủ việc sr-mow-d30d31; (2) gói code backup Drive không mã hoá và gồm `agent-data-repo/.env.working` (chưa mở nội dung) — chủ agent-data/TQT xác nhận có khoá không; (3) thử khôi phục chỉ có lần thủ công 05/10; (4) Kuma→Telegram chưa có biên nhận gửi; (5) 15 bảng governed thiếu `trg_desc_guard` (GAP cũ, P99); (6) dòng `Status:` trong PROMPT còn ghi «CHƯA READY» (chữ cũ, không ảnh hưởng READY).
+
+### 7. Giới hạn
+- Connector KB `search_knowledge`/`list_documents` lỗi `TRIAL_READ_FORBIDDEN` ⇒ đọc luật bằng `query_pg` chỉ đọc vào `kb_documents` (khoá `knowledge__dev__laws__*`); chỉ tra Đ30, Đ31, Đ4 — không rà mọi luật KB.
+- Graph là bản 07/10, không có nút cho `watchdog-monitor`, `cron-integrity`, `scanner-counts`, flow Count Refresh, Guard, backup ⇒ kết luận dựa mã + lịch + nhật ký + Kuma/PG; 0 cạnh không dùng làm bằng chứng «không ai dùng».
+- Một lệnh `find /` tìm tệp restore-verify tôi chạy nhầm (quét rộng, trái tinh thần PROMPT) chạy ~100 s rồi tôi dừng; tiến trình của chính phiên, chỉ đọc, đã giết theo PID, 0 còn lại.
+- Không đo: CPU từng job cron, người gọi `birth_registry` idx_scan, nội dung endpoint `refresh-counts`, nội dung `.env.working`.
+
+**Dọn:** VPS 0 tạo (mọi lệnh đọc qua ssh, 0 tệp, 0 khoá, 0 tiến trình còn lại — đã kiểm sau khi giết `find`) · Mac: scratchpad `l2d/` xoá sau KQ · còn lại: không.
+
+---
+
 ## L2A-20261014 · RUN VPSC-L2A-CTXPACK-CRON-OFF-20261014-01 · tắt 1 lịch context-pack hỏng + khoá crontab user `incomex` vào Config Guard (D25/D26) · executor Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ DỪNG · PARTIAL (đổi lịch + bảo vệ đạt và GIỮ; thiếu biên nhận Telegram vì Guard tổng còn đỏ #22 cũ)
 
 **PROMPT `a27ac0b8` (READY P97 GPT Host + Reviewer ACCEPT P96 `e33cbcae`; delta chỉ thêm cổng D26 §2.4) · khối Owner có nguyên 2 dòng D25 + D26 §0A · STARTED + VPS-GHI `8bc6b7d` 02:55Z · nạp 03:00:17Z · KQ + trả khoá cùng commit này · bằng chứng VPS `/opt/incomex/work/vps-clean-20-9-26/VPSC-L2A-CTXPACK-CRON-OFF-20261014-01/{pre,post,rollback,thu-am}` + `crontab-incomex.truoc`, `crontab-incomex.sau`, `diff.txt`, `kiem-truoc-nap.txt`, `apply-registry.out`, `apply-crontab.out`, `drift-sau-dang-ky.txt`.** Chỉ đổi: crontab user `incomex` (1 dòng tiền tố + 1 dòng biển báo) · Config Guard registry (+1 đích, baseline). 0 PG/Directus/flow/trigger/Graph, 0 restart, 0 sửa Guard/Kuma/DOT/mã context pack, 21 lịch `#L1-OFF` và crontab root không đổi.
