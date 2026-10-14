@@ -798,3 +798,40 @@ Quy ước: 🤖 = máy chặn (bộ kiểm FAIL); 📝 = lời dặn. Mỗi yê
 | D3 | Cột **Việc sinh ra** = mã việc (theo mã Master C1) đã yêu cầu tạo field; field từ thiết kế cũ ghi nguồn gốc rõ ràng. | 🤖 Field không có việc sinh ra/nguồn gốc ⇒ FAIL |
 | D4 | Cột **Mô tả** bắt buộc (1–3 câu): dùng để làm gì · giá trị hợp lệ / ví dụ · khác field gần giống nào (nêu mã). Trước khi thêm field: tra theo mã DB + kiểu + mô tả; vùng xám (khoảng 50–65%) phải ghi quyết định như 24 nhóm P54. | 🤖 Thiếu mô tả ⇒ FAIL |
 | D5 | **Vòng đời field**: Cần tạo mới → Đã tạo (có bằng chứng PG) → Đã nghiệm thu; thêm "Đã có sẵn trong PG · dùng lại" và "Ngừng dùng". Mỗi lần chuyển ghi ai, lúc nào, bằng chứng. Thay hai cột "Tình trạng ngoài PG / Tình trạng PG". Số "Cần tạo mới" là con số ở ô ② thẻ việc. Phân loại 239 field cần đọc PG chỉ đọc (chờ Owner gật Q1). | 🤖 "Đã tạo"/"Đã có sẵn" không có bằng chứng PG ⇒ FAIL; nhảy cóc trạng thái ⇒ FAIL |
+
+### E · Thẻ bước — bộ câu hỏi chuẩn cho từng bước
+
+| ID | Yêu cầu | Phép thử |
+|---|---|---|
+| E1 | Mỗi bước trong 71 bước trả lời cùng **9 câu cố định**: ① Làm gì · ② Làm sau bước nào · ③ Đầu vào lấy ở đâu · ④ Ai làm (✍️/👁/😊/🤖) · ⑤ Dùng công cụ gì · ⑥ Xong khi (kiểm được) · ⑦ Ghi vào đâu · ⑧ Khi nào phải dừng và báo cáo · ⑨ Lỗi thì đi đâu (quy trình nào, quay về bước nào). Hiện có ①④⑤⑥⑦ và một phần ⑨; **thiếu ②③⑧**. Người làm tích ☑ + bằng chứng từng bước. Đây là bản thu nhỏ của bộ 13 câu R01 xuống cấp bước. | 🤖 Bước thiếu 1 trong 9 câu ⇒ FAIL |
+| E2 | **Máy chặn thứ tự**: bước không được ghi "Đã làm" khi bước đứng trước (câu ②) chưa xong. | 🤖 Ghi "Đã làm" bước sau khi bước trước chưa xong ⇒ FAIL |
+| E3 | **Một khuôn báo cáo**: báo khi kết thúc mỗi mốc, khi DỪNG, khi Bị chặn, khi cần Owner quyết; 4 dòng cố định (đang ở đâu · đã xong gì · tắc gì · cần ai làm gì), máy sinh từ hồ sơ. | 🤖 Mốc đã kết thúc mà không có báo cáo ⇒ FAIL |
+
+### F · Hồ sơ sửa chữa
+
+| ID | Yêu cầu | Phép thử |
+|---|---|---|
+| F1 | Thiết kế **Hồ sơ sửa chữa** ngang hàng hồ sơ thi công. Mỗi lần sửa (quy trình, sản phẩm, dữ liệu, field, công cụ) là một bản ghi với các ô có sẵn: Mã lần sửa · Sửa cái gì (mã đối tượng + phiên trước → sau) · Lần sửa thứ mấy (máy đếm) · Vì sao (mã vấn đề) · Ai yêu cầu · Ai sửa · Ai kiểm (khác hãng) · Ai duyệt · Bắt đầu/xong (giờ máy chủ) · Bằng chứng (commit/diff) · Kết quả kiểm · Ảnh hưởng (chữ ký nào mất hiệu lực, việc nào phải kiểm lại). Một nơi ghi có mã: CAT-016 hiện chỉ là "Sổ nhật ký định nghĩa" — mở rộng hoặc lập Master riêng, chọn một, không đẻ hai sổ. QTTH002 (xử lý vấn đề) và QTTH003 (sửa quy trình) ghi vào đây. Hồ sơ mỗi đối tượng hiện "Đã sửa N lần" + danh sách. Dữ liệu thử đầu tiên: 006 từ phiên 0.5 → 0.9 (P50–P54). | 🤖 Đổi phiên một đối tượng đã có chữ ký mà không có bản ghi sửa ⇒ FAIL; số lần sửa hiển thị khác số bản ghi ⇒ FAIL |
+
+### G · Dễ đọc
+
+| ID | Yêu cầu | Phép thử |
+|---|---|---|
+| G1 | Viết lại 006 **theo chủ đề**: trang 1 đọc trước (A1) → bảng 71 bước với thẻ bước (E1) → luật theo chủ đề (ghi chép, thời gian, nhánh, ký, sửa chữa) → phụ lục lịch sử P40–P54. Không mục nào mang tên lượt sửa. | 📝 AI mới (hãng khác) đọc và tóm tắt đúng luật mà không cần đọc phụ lục |
+| G2 | Sửa hết chữ dính ("71bước", "hồsơ001", "ngườirà"…) trong 006, COLLAB và chữ hiển thị trên UI. | 🤖 Bộ kiểm bắt chữ dính (số dính chữ, từ dính) trong nội dung mới ⇒ FAIL |
+
+### K · Kỹ thuật (Claude bổ sung)
+
+| ID | Yêu cầu | Phép thử |
+|---|---|---|
+| K1 | Bộ kiểm tổng CHECK006 phải chạy được trên bản sao repo (kèm bản chụp sổ Master đúng phiên). Hiện Claude không tự chạy được (`MISSING_LIVE_MASTER_REGISTRY`, `--vps-ui` treo) ⇒ rà độc lập chưa thật sự độc lập. | Claude chạy CHECK006 trong bản sao của mình ⇒ PASS |
+| K2 | Giờ trên UI hiện giờ Việt Nam dễ đọc, không hiện dạng máy `2026-10-14T00:13:21.819501+00:00`. | Kiểm giao diện thật |
+| K3 | Ghi sẵn lộ trình DOT cho 10 bước dùng ở mọi việc (7 chốt mốc, ghi an toàn, mở hồ sơ, khép lượt chạy) vào nợ AUTOMATION; làm sau lượt này. Tối đa khoảng 36/71 bước máy làm trọn. | Nợ có danh sách 10 bước |
+
+Không nằm trong lượt này: tách view.html (R26, lượt sau) · ghi PG · ca thử QT002 · xác thực danh tính người ký bằng máy chủ (sau khi nhân bản).
+
+## V8.2 · Điều kiện đóng lượt
+
+Mọi phép thử 🤖 ở V8.1 có ca âm bị chặn và ca đúng qua · việc 001 có thẻ việc 3 ô hiển thị đúng (màu nào đúng màu đó, không tô xanh giả) · Master Field đủ cột mới cho cả 239 field · 006 đọc được từ trang 1 · hai hãng ký phiếu mới · Owner gật 5 ô "xong cả việc" của việc 001. Sau đó mới trình Owner quyết ca thử QT002.
+
+Nhật ký vòng 8: chỉ ghi danh sách yêu cầu vào tệp này và chỉ đạo Owner vào COLLAB §0 ô 3; không sửa 006, bộ kiểm, hồ sơ hay phiếu ký. Không chạy bộ kiểm, không giữ khóa.
