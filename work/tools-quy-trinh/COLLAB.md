@@ -8,14 +8,14 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · P60 · 2026-10-14T04:38:55.612957+00:00 · Codex executor
+### BẢNG ĐIỀU KHIỂN · P60 · 2026-10-14T04:53:00.897221+00:00 · Codex Host
 - 🎯 Mục tiêu: cỗ máy sản xuất quy trình — người đưa ý tưởng → AI + cỗ máy ra quy trình chạy được, tự động tối đa · mọi thứ là quy trình, từ 2 trở lên có Master List · nhìn là hiểu (ô 1). Vì sao (Owner): chuẩn hoá từng chi tiết là cách duy nhất để AI làm đúng theo là ra kết quả.
 - 🏁 Xong khi: ô 2 — Owner chỉ đưa mục tiêu, phần còn lại tự chạy ra kết quả; người/AI mới làm theo, không hỏi thêm, ra đúng sản phẩm thật.
 - 📍 Tiến độ (D27): [✅ ① Thiết kế + hiệu chỉnh hợp đồng thông tin] → [■ ② G1 đã nhận; khép RUN và rà mã/bảo vệ riêng: P39] → [□ ③ Vào PG sau nghiệm thu] → [□ Vận hành]
 - ✅ Đã xong: G1 Owner nhận7/7 giữ nguyên. P53 quy định006@0.8 có71bước/7mốc, đối chiếu87nghĩa vụ; hồsơ001 xemgộp/historic87, giữ143events. Sửa nợ/Field theoClaudeV5; CHECK001–005 PASS. Đây là bản sửa đã kiểm, chưa nghiệmthuAI mới.
-- ■ Đang làm: TQT-P60-PUBLISH · công bố bản đã kiểm, đọc lại và trả cờ.
+- ■ Đang làm: — · 0 RUN active
 - ⬜ Còn mở trước nhân rộng: G2/G3, PG, chuyên môn T3, nguyên nhân supervisor thoát, AI mới tự lặp việc thật. Không tự mở MOW002. · Cấu trúc dữ liệu cho 1.000 việc + luật 1 trang (R26–R27, PR-22): Owner gật → PT-01 có số đo.
-- ➡ Kế tiếp: Claude rà VÒNG 9 đúng P60; Owner duyệt 5 ô mục tiêu trước lượt thật. Chưa QT002/PG.
+- ➡ Kế tiếp: NEXT_TRIGGER=Claude VÒNG 9 rà và ký TQT-P60-CORRECTIONS. Sau hai hãng, Owner duyệt 5 ô; chưa QT002/PG.
 - ⛔ Không làm/để sau: MOW002 · T2.5 · đổi CT-005 · ghi thử hoặc sửa cấu trúc PG trước khi chạy thử ổn (Owner 11/10: vào PG một lần, D27) · quy trình nghiệp vụ Chuỗi 3 (phái cử, tuyển dụng…).
 
 **Chỉ đạo tiếp tục 11/10/2026 · D26:** Owner chuyển sang phiên mới và giao: “Bạn là Host, hãy thực hiện vai trò rà soát và cập nhật thêm các điểm hở để đảm bảo tính khả thi nhé.” Phạm vi: đi bộ QTTH 05 theo phản biện GPT Pro và rà Master DOT/script/bộ kiểm để tái sử dụng. Nguồn chuẩn tiếp tục tools-quy-trinh trên VPS; không mở task mới.
@@ -1354,3 +1354,12 @@ STARTED@TQT-P60-PUBLISH 2026-10-14T04:38:55.612957+00:00 · Codex Host · công 
 - K: CHECK006 --ui-snapshot chạy độc lập với5 đầu vào ghim hash. Tổng PASS trên bản sao:001 0.707s,002 0.448s,003 5.448s,004 49.657s,005 39.425s. CHECK005 kiểm lại sau các thay đổi UI/metadata cuối;27 ca mới PASS (không nghiệm thu QT001). Lỗi thử ban đầu: fixture cũ dùng luật mới; ca âm nhân lịch sử gây vượt512MB; đã sửa fixture, không tăng bộ nhớ. 10 bước DOT dự kiến tại governance.automation_plan trỏ nợ AUTOMATION; chưa có lệnh trọn bước.
 - Phiếu mới TQT-P60-CORRECTIONS chỉ duyệt bản thiết kế/quy định/bộ kiểm; không nghiệm thu QT001, không duyệt5 ô thay Owner. Chữ ký P54/P58 giữ lịch sử. Còn mở: Claude VÒNG9; Owner duyệt5 ô; 16 liên kết nguồn cũ CAT069; biên nhận thiếu trong lịch sử truy hồi; thử AI mới/PG/định danh chữ ký/tách tệp lớn.
 - Handoff Claude: đọc P60 + README hiện hành + 006 trang đầu; rà V8 A–K theo phần Host phản biện. Chạy CHECK006 --verify --ui-snapshot bằng5 tệp đúnghash; kiểm trang CAT227/CAT069/Field/Overview, thử sửa sai qua CHECK005. Ghi VÒNG9 vào P49 và tự ký APPROVE/REJECT TQT-P60-CORRECTIONS đúngbinding/scope tại CAT025. Không ký bằng lời trong báo cáo; không ký thayOwner/không coi TEST là nghiệm thu. Khép lượt, trả cờ ngay.
+
+### P60 · Đọc lại và khép lượt 2026-10-14T04:53:00.897221+00:00
+- Bước 1/3: công bố nguồn 3d49f42b; bộ nạp/mã được ghim ở 4b3727cd. UI giao dịch tqt-p60-ui, tqt-p60-home-code, tqt-p60-loader-alias. Mã nguồn trên VPS là chuẩn.
+- Bước 2/3: phát hiện trên trình duyệt đường CAT-227 chưa qua bộ nạp cũ; sửa nhận cả mã chuẩn/bí danh, 56 ca + mã lạ bị từ chối. Đọc lại CV-001: CAT-227, ba dòng đỏ đúng thực tế, hai ô ký; Field 250 với Tên hiển thị/Mã DB/Nguồn/Vòng đời/?; Overview 71 bước và thanh 4 Mẹ còn nguyên. Hai lượt ui_inspect không có browser; dùng trình duyệt thật Codex IAB để kiểm, không coi lỗi công cụ là lỗi sản phẩm.
+- Bước 3/3: CHECK006 cuối PASS run TQT-af16c7b99aa6421aa3fb0ae1d0436df2; hash nguồn 0b37ace124e663d487d80a7f3c8c8b65b2e9ebb116a9c68674e7c168e5effcbc; 001/002/003/004/005 = 0.696/0.437/5.462/53.606/39.225 giây; 27 ca P60 và các ca hồi quy đạt. Bằng chứng đầy đủ work/tools-quy-trinh/evidence/TQT-P60-checks.json. Chữ ký OpenAI tại CAT-025/TQT-P60-CORRECTIONS, binding cdbc013ce9003271222d3c0b042140da00142f028a16bfe67fd1f7aec01cc856; Claude/Owner trống. Không lấy TEST thay việc thật.
+- ĐÈN 04:50Z: 19 xanh · 3 đỏ: #11 Disk Usage (VPSC), #21 Hermes (HJW), #22 Protection Guard (TQT/HJW, drift có trước). Đây là duyệt thiết kế ngoài PG; chưa nghiệm thu runtime/protection toàn hệ, không tự sửa baseline/restart.
+- KQ@TQT-P60-PUBLISH DỪNG 2026-10-14T04:53:00.897221+00:00 · đã công bố và kiểm P60; khép sạch để Claude rà, chưa có đồng thuận hai hãng và Owner. Dọn: 0 tiến trình/khóa/container/tệp tạm tạo trên VPS; báo cáo kiểm là bằng chứng bền trong repo. Bản sao kiểm local không là hồ sơ chuẩn.
+- Phần còn mở có nguồn: 16 liên kết việc cũ chưa xác minh tại CAT-069; 10 bước tự động dự kiến trỏ nợ TQT-P53-AUTOMATION; lịch sử sửa thiếu biên nhận vẫn HISTORICAL_UNVERIFIED; PG/định danh ký/server enforcement/tách tệp lớn theo nợ hiện có. Chưa tuyên bố tất cả các điều kiện nghiệm thu V8.2 đã đạt.
+- Claude: rà VÒNG 9 trên P60 (gồm bổ sung bộ nạp), ký APPROVE/REJECT đúng phiếu/binding/scope, nhận xét vào P49. Không chỉ ký trong chat. Chưa chạy QT002/PG.

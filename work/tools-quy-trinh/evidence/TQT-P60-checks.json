@@ -1,0 +1,166 @@
+{
+  "run_id": "TQT-af16c7b99aa6421aa3fb0ae1d0436df2",
+  "at": "2026-10-14T04:49:16.141921+00:00",
+  "scope": "Sáu bộ kiểm QTTH; bản quét chỉ đọc DOT/bin, Agent Data/dot/bin, scripts VPS; nhật ký việc tools-quy-trinh. Không quét PG hoặc toàn bộ nền tảng ngoài VPS.",
+  "registry_master": "CAT-006",
+  "case_master": "CAT-012",
+  "result_master": "CAT-015",
+  "source_sha256": "0b37ace124e663d487d80a7f3c8c8b65b2e9ebb116a9c68674e7c168e5effcbc",
+  "runner_sha256": "9a12b6f8abff062b71c81dfc47c138e857eff24d34bab5e676bb7c4abbf42240",
+  "inventory_errors": [],
+  "source_readback": {
+    "state": "PASS",
+    "source_sha256": "c68c20ecfdfaaa01cefc13f474331e36b395a3212c3cb540595abe7302608dae",
+    "projection_equal": true,
+    "rule_source_checks": [
+      {
+        "ref": "work/mow-mot-moit-mout/UI-REVIEW-MOW001.json#/process_trial_20261009/contract",
+        "matched": true
+      }
+    ],
+    "application_id": "MOW-NHC-001-G1-20261010-01",
+    "trial_declarations": 13,
+    "scope": "SOURCE_READBACK_ONLY_NOT_BUSINESS_APPROVAL"
+  },
+  "results": [
+    {
+      "id": "TQT-CHECK-001",
+      "case_set": "TQT-CASE-MODEL",
+      "source_sha256": "eafe487f200c57dae28285fc9ccaca32d6207bfa1a33a535fb2cedaf3292bb75",
+      "argv": [
+        "python3",
+        "check-process-model.py",
+        "view.html"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"SIMULATION_ONLY\", \"passed\": 87, \"model_sha256\": \"f55fcf4fa78b22005604b62d025487f4a3977b5cc106bb9f3b0a6c0a8713ce5a\", \"package_state\": \"NOT_FROZEN\", \"production_ready\": false}\n",
+      "stderr": "",
+      "elapsed_seconds": 0.696,
+      "timeout_seconds": 60
+    },
+    {
+      "id": "TQT-CHECK-002",
+      "case_set": "TQT-CASE-CATALOG",
+      "source_sha256": "09a940854ed435505009fd3a4cea604cc067566231f5036a3d988f069ce21270",
+      "argv": [
+        "python3",
+        "check-process-catalog.py",
+        "view.html"
+      ],
+      "exit_code": 0,
+      "stdout": "checkpoint cases 20\n{\"aggregate\": 6, \"normal\": 12, \"coded_references\": 56, \"bad_reference_cases\": 2, \"scope\": \"DESIGN_ONLY\"}\n",
+      "stderr": "",
+      "elapsed_seconds": 0.437,
+      "timeout_seconds": 60
+    },
+    {
+      "id": "TQT-CHECK-003",
+      "case_set": "TQT-CASE-DECLARATION",
+      "source_sha256": "9c80814f7490c7302fd305d36b91441bff2d667a14fbde199e99bb337e3366e2",
+      "argv": [
+        "python3",
+        "check-overview-consistency.py",
+        "view.html"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"positive\": 1, \"negative\": 37, \"procedures\": 18, \"source_check\": \"MATCH_EXISTING_PRODUCT_RECEIPT\", \"source_integrity\": \"UNCHANGED_DURING_CHECK\", \"application_state\": \"DA_BAN_GIAO\", \"can_start\": true, \"needs_before_start\": [], \"next\": \"Giữ hồ sơ G1 để tái sử dụng; xử lý các đề xuất G2, ánh xạ chuyên môn và lưu bằng chứng theo sổ trước khi nhân rộng. Không tự mở MOW002 hoặc PG.\", \"production_ready\": false}\n",
+      "stderr": "",
+      "elapsed_seconds": 5.462,
+      "timeout_seconds": 180
+    },
+    {
+      "id": "TQT-CHECK-004",
+      "case_set": "TQT-CASE-RECORD",
+      "source_sha256": "755097b9b265860f76a393268793262a5daa9e5719c1b1a917fdccab7b9511c6",
+      "argv": [
+        "node",
+        "--max-old-space-size=640",
+        "check-record-control.js",
+        "view.html"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"p35_preparation_reader\":{\"cases\":10,\"state\":\"PASS\",\"scope\":\"TEST packets validate reader; real checkpoint requires authenticated persisted-source receipt\"}}\nP38 history storage: {\"state\":\"PASS\",\"cases\":17,\"history_events\":18,\"checkpoint_revisions\":20,\"logical_equality\":\"ALL_FIELDS_EXACT\",\"verified_checkpoints\":[\"CP01\",\"CP02\",\"CP03\",\"CP04\",\"CP05\",\"CP06\",\"CP07\"],\"compact_bytes\":8875535,\"pg\":\"NOT_RUN\"}\n{\"tests\":26,\"scope\":\"DESIGN_PROJECTION_ONLY\",\"counts\":{\"total\":34,\"written\":31,\"verified\":31,\"needsFix\":0,\"notRecorded\":3,\"dueMissing\":0,\"due\":31,\"deferred\":3},\"pg\":\"NOT_RUN\"}\n{\"tests\":59,\"regression\":\"QTTH05_WALK\",\"synthetic_full_walk\":7,\"live_application\":7,\"pg\":\"NOT_RUN\"}\n{\"trial_cases\":15,\"persisted_declarations\":31,\"checkpoints\":7,\"scope\":\"TRIAL_NOT_PG\"}\n{\"information_contract_cases\":44,\"actual_contract_rows\":66,\"actual_criteria\":11,\"synthetic_full_walk\":7,\"real_checkpoints\":7,\"server_write_hook\":\"NOT_PROBED_BY_THIS_SUITE\",\"pg\":\"NOT_RUN\"}\n{\"pr14_boundary_cases\":48,\"synthetic_trusted_context_only\":true,\"untrusted_self_attestation_blocked\":true,\"real_checkpoints\":7}\n{\"pr14_product_input_cases\":9,\"sha256_crosscheck_vectors\":4}\n{\"pr14_product_mapping_cases\":8,\"scope\":\"LOGICAL_PACKETS_NOT_BACKEND_EXECUTION\"}\n{\"pr15_product_boundaries\":{\"cases\":26,\"state\":\"PASS\"}}\n{\"pr15_persisted_design_and_recovery\":{\"cases\":15,\"state\":\"PASS\",\"read_plans\":[\"P02\",\"P03\"],\"effects\":1,\"real_endpoint_permissions\":\"NOT_PROVED\",\"mow001_progress\":\"TEST_DOES_NOT_ADVANCE_REAL_CHECKPOINTS\"}}\n{\"p36_server_evidence\":{\"cases\":20,\"state\":\"PASS\",\"future_output_before_start\":\"NOT_REQUIRED\",\"production_progress\":\"NOT_CHANGED_BY_TEST\",\"pg\":\"NOT_RUN\"}}\n{\"pr14_file_handoff\":{\"cases\":17,\"state\":\"PASS\",\"producer\":\"separate process; creates packet from declarations\",\"consumer\":\"separate process; opens persisted packet and uses scope/answers\",\"producer_sha256\":\"1ec05784388888655ec0e874265c5deb4e4d8cb528fb6944d2a5d92bc11c9bc2\",\"readback_sha256\":\"1ec05784388888655ec0e874265c5deb4e4d8cb528fb6944d2a5d92bc11c9bc2\",\"concurrent_effect_count\":1,\"environment\":\"ISOLATED_TEST_NOT_MOW001_COMPLETION\",\"real_endpoint_permissions\":\"NOT_PROVED\",\"pg\":\"NOT_RUN\"}}\n",
+      "stderr": "",
+      "elapsed_seconds": 53.606,
+      "timeout_seconds": 600
+    },
+    {
+      "id": "TQT-CHECK-005",
+      "case_set": "TQT-CASE-MASTER",
+      "source_sha256": "dfeb437190f716cd7c7c33186e3b8395b216c8c318a61ec52027bac5719a2a49",
+      "argv": [
+        "node",
+        "--max-old-space-size=512",
+        "check-work-masters.js",
+        "view.html",
+        "/Users/nmhuyen/Documents/Codex/2026-10-11/y-l-r-so-t-kh/work/p60/candidate/process-work-master-v1.js",
+        "/Users/nmhuyen/Documents/Codex/2026-10-11/y-l-r-so-t-kh/work/p60/candidate/definition-master-registry-v1.js"
+      ],
+      "exit_code": 0,
+      "stdout": "P46: actual rebuilt products read and verified; missing-fields negative case rejected (TEST)\n{\"application_id\":\"MOW-NHC-001-G1-20261010-01\",\"state\":\"PASS\",\"warnings\":[],\"scope\":\"HOST_CHECK_ONLY_NOT_SERVER_ENFORCEMENT\",\"events\":143,\"manual_assessments\":0}\n{\"p51_general_rules\":19,\"scope\":\"NEW_APPLICATION_TEST_NOT_REAL_WORK\",\"state\":\"PASS\"}\nP52: 8 Git receipt/offline/forgery/vendor regression cases PASS; TEST only\n{\"p53_cases\":15,\"state\":\"PASS\",\"scope\":\"TEST_NOT_REAL_WORK\"}\n{\"qt006_steps\":71,\"groups\":7,\"negative_cases\":6,\"state\":\"READ_ONLY_DOSSIER_VERIFIED\",\"real_execution\":\"NOT_RUN\"}\n{\"masters\":18,\"planned_jobs\":2,\"negative_cases\":14,\"scope\":\"DESIGN_ONLY\",\"pg\":\"NOT_RUN\"}\ndossier: 7 checkpoints, 11 groups, 34 obligations; partial/foreign/unlinked/second job cases passed\ncoverage: 7 checkpoints + exception/operations; 8 new UI references resolved; 11 groups preserved\nCAT206 applied contracts visible; field meaning/version/case links preserved\nP30 merged-index guard: 48 inputs -> 47 Masters, one DOT/6 tools, duplicate cases rejected, real UI fails closed, old URL preserved\nP33 inventory/proof states, provider reuse, missing coverage and detail validated\nP33 stale tool source is not shown as current TEST proof\n{\"p54_cases\":13,\"steps\":71,\"manual_assessments\":27,\"completion\":\"PASS_TEST_ONLY\"}\nP34: 12 invalid-approval/version/test mutations + revocation/retirement blocked; 6 existing Masters read their sources; two vendor columns last; no synthetic receipt saved\nP35: real work visible in existing Masters; removing checkpoint evidence clears progress\nP35 UI readback: real findings expose next action, owner and human-readable state\nP36: projection preserves observed results, reviewers and versions; no action-to-result inference; existing product criteria/results visible\nP37: question coverage/version/content, signed G1 file scope, actual closure and unopened successor visible; negative mutations rejected\nP37: all actual Owner decisions, receipts, history and changes projected to existing Masters; no fabricated cancellation\nP58 issue projection PASS: source edits/new issues propagate; old aliases suppressed; visible fields complete; TEST only\n{\"p60_cases\":27,\"state\":\"PASS\",\"scope\":\"TEST_NOT_QT001_ACCEPTANCE\"}\n",
+      "stderr": "",
+      "elapsed_seconds": 39.225,
+      "timeout_seconds": 300
+    }
+  ],
+  "pg": "NOT_RUN",
+  "production_ready": false,
+  "resource_admission": {
+    "state": "LIMIT_UNKNOWN",
+    "required_bytes": 1073741824,
+    "observed_limit_bytes": null
+  },
+  "master_identity_check": {
+    "state": "PASS",
+    "errors": [],
+    "input_rows": 47,
+    "unique_masters": 46,
+    "merged": [
+      {
+        "canonical_id": "ML-DEF-024",
+        "ids": [
+          "ML-DEF-024",
+          "CAT-006"
+        ]
+      }
+    ],
+    "scope": "Definition registry + QTTH work Masters; Config entry checked by live merged-index guard. Not a full PG/VPS inventory.",
+    "input_sha256": "834cc58e86cd3528ea66f809256f9e0a4f1066fde1814669f3aba23aa25f321c",
+    "self_test": {
+      "cases": 13,
+      "scale_rows": 10000,
+      "method": "indexed keys; no pairwise scan"
+    }
+  },
+  "prerequisite_errors": [],
+  "ui_inputs": {
+    "process-work-master-v1.js": "62059d6c805f71d1951b6ba61b2cb45d5184df63ab100820298cfe6392f936cd",
+    "ui-child-content-v1.js": "d9a07be54efe0dd94ac55074d60d32b0414d68bbe35428bb93a5a531d23789de",
+    "ui-child-from-parent-v1.js": "d34e7b55bbc6552f807b17c652d325fb68a012e9fe2844f6ef19ec68b4faf664",
+    "qtth006-overview-v1.js": "7e9c64bb7fea11740a7066de87dbaf6ab9feca626a850430871aabeec73a1953",
+    "definition-master-registry-v1.js": "3401093371e592c7b01203b82bc5334cd9fd9878338059e0b226d9362aa23d67"
+  },
+  "ui_adapter_sha256": "62059d6c805f71d1951b6ba61b2cb45d5184df63ab100820298cfe6392f936cd",
+  "runner_self_test": {
+    "cases": 20,
+    "store": "temporary TEST file in execution snapshot",
+    "write_read_restore": "PASS",
+    "production": "NOT_TOUCHED"
+  },
+  "usage_audit_self_test": {
+    "cases": 23,
+    "state": "PASS",
+    "scope": "TEST SQLite and prepared CAS patches; no production writes"
+  },
+  "status": "PASS",
+  "live_readback": {
+    "at": "2026-10-14T04:53:00.897221+00:00",
+    "browser": "Codex IAB",
+    "dossier": "PASS CV-001; all three current product lines RED; unsigned Claude/Owner",
+    "field": "PASS 250 rows and new columns",
+    "overview": "PASS 71-step standard and bottom 4 mothers dock",
+    "home": "code/link corrected; legacy aliases kept",
+    "alias_tests": 56,
+    "scope": "DESIGN_TEST_NOT_QT001_ACCEPTANCE"
+  }
+}
