@@ -7,14 +7,14 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-15 07:00 +07 · Claude Chat · P20
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-15 09:00 +07 · GPT Chat Host · P21
 - 🎯 Mục tiêu: Chủ trương Owner 14/10: Gemini thành viên Google chính thức có kết nối **tối đa khả thi** trên các bề mặt Google dùng thật (agy, Gemini Mac/Spark, Antigravity Browser/Remote), cả gọi ra và gọi vào từ HJW; không chỉ dừng ở CLI đủ ghi P.
 - 🏁 Xong khi: ô 2 + C7/C8/C9: google-main độc lập có repo/KB/JEV/Hội đồng; **kiểm thử tất cả** kênh/công cụ Google có triển vọng (không dừng sau một đường PASS); có luồng máy→Gemini→receipt không Owner copy-paste và bảng bằng chứng từng bề mặt, đúng giới hạn thực tế đã thử.
 - 📍 Tiến độ: [✓ G1B google-main/repo/KB] → [✓ G1C cũ huỷ] → [✓ Claude P16 ACCEPT G1C-MAX] → [✓ GPT P17 READY G1C-MAX] → [■ Owner giao Claude Code một lượt nối tối đa] → [□ Google hội đồng chính thức/G3 đưa thư] → [□ nghiệm thu].
 - ✅ Đã đạt: Gemini agy P10 có Git author [auth:google-main], repo/KB và sáu danh tính PASS; Claude P16 ACCEPT@90f769ddd7c6ab921c2e40071a010b23bb6ff324; Host P17 READY cùng SHA, không sửa PROMPT. Q03/Gateway Google theo phương án Owner chuyển giữ nguyên GẬT, có phạm vi/rollback.
-- ■ Đang làm: — · 0 RUN active. G1C-MAX KQ DỪNG·PARTIAL 23:45Z (P18): agy 12 MCP + cổng VPS riêng 23 tool + Gemini tự ghi P19 (10 VERIFIED) + Điều 30/31 (Config Guard, Guard INV24, vân tay Mac INV20); thiếu Gemini Mac Task Mode + biên nhận R4.
-- ⬜ Còn lại: Gemini Mac Task Mode (thử thẳng `agy` HOME user1) → Host công nhận ghế Google (A2/A9) → G3 đưa thư → nghiệm thu. Nợ đã giao đúng chủ (P20): biên nhận Telegram/#22, Directus DNS, xoay JEV, Figma OAuth, canh quyền agy/Remote/token.
-- ➡ Kế tiếp: Host nghiệm thu bước kết nối theo P20 (ĐẠT, nợ có chủ) + giao Claude Code B1 Task Mode (chạy `agy` dưới HOME user1, Owner không phải dán) + ghi ghế `google-main` vào AGENTS A2/A9 → soạn G3. NEXT_TRIGGER=HOST_ACCEPT_P20_TASKMODE_B1_SEAT_G3.
+- ■ Đang làm: — · 0 RUN active. P20 đã rà KQ. **B1 Gemini Mac Task Mode DRAFT**: 12 MCP có trong tệp nhưng app chỉ nạp git+obsidian; `Unknown MCP server` chưa xác định nguyên nhân chính xác. Không gọi phần này ĐẠT.
+- ⬜ Còn lại: B1 chứng minh chính Gemini Mac nạp và gọi được agent-data/incomex-vps; xác minh đúng chế độ, source config, MCP Installed Servers/Refresh, phiên runtime, path sandbox/PATH/SSH; G3 courier sau B1. Kuma/Directus/Figma tách chủ.
+- ➡ Kế tiếp: Claude Chat rà B1 PROMPT DRAFT một lượt, ACCEPT đúng SHA; GPT READY rồi Claude Code Mac đo/sửa đúng lỗi runtime một lượt. Không dán lại G1C-MAX đã có KQ. NEXT_TRIGGER=REVIEW_B1_MCP_RUNTIME.
 - ⛔ Không có cấm tính năng Gemini; dùng đầy đủ native Google và tối đa các công cụ hệ thống. Giữ chốt nền chung: gateway-only Git, DOT/Config Guard/Đ30–31, bí mật không lên repo/log, thay đổi có rollback, chi phí/phá dữ liệu chỉ theo Owner; không áp trần riêng cho Google.
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
@@ -107,6 +107,14 @@ HUMAN_DIRECTIVE@GJW-20261014-10 EFFECTIVE · task=gemini-join-workflow · scope=
 - HUMAN_DIRECTIVE@GJW-20261014-08 EFFECTIVE · task=gemini-join-workflow · scope=POST-PROTECT Điều 30/31 cho footprint kết nối Google trong lượt G1B hiện hành; hậu kiểm Kuma/Telegram chuyển chủ đúng task sau KQ · step=G1B_POST và follow-up thuộc việc giám sát · recorded_by=openai-main · quote=«Nhưng tiện thể chỗ kết nối này thì bạn nhắn thêm cho agent là đưa luôn vào điều 30, 31 để bảo vệ, tránh việc chúng ta kết nối xong rồi AI khác lại vô tình làm hỏng mất, làm đi làm lại nó mất việc, mất thời gian ra.» · audit=Owner direct chat 14/10/2026. **Không sửa PROMPT/READY, không phát RUN mới; đây là yêu cầu áp dụng luật R4 vốn đã hiệu lực lên kết quả thực hiện.**
 
 ## Nhật ký P
+
+### P21 · GPT Chat Host · 2026-10-15 09:00 +07 · B1 GEMINI MAC ROOT CAUSE
+- **Owner nêu sự thật từ chính Gemini:** phiên Gemini Mac thấy Gmail/Drive nhưng chỉ `git` và `obsidian`; gọi MCP `agent-data`/`incomex-vps` báo `Unknown MCP server`. SSH/folder báo `Operation not permitted`. Mặc dù P19 của **agy CLI** PASS, điều đó **không chứng minh** Gemini Mac đã nạp MCP. Host bác kết luận 'Gemini Mac đã vào' khi chưa có canary trên chính app.
+- **Phân tích lỗi:** `Unknown MCP server` xảy ra ở tầng **đăng ký/nạp công cụ** của phiên app, trước khi có thể đánh giá auth/URL/VPS. Khả năng còn mở: Chat vs Task Mode; app chưa refresh danh sách MCP sau khi chỉnh JSON; HOME/config path runtime khác CLI; entry disabled/invalid schema; session cũ chưa reload; plugin permission/entitlement. TCC/SSH/PATH là **lỗi riêng** có thể xuất hiện sau khi app đã thấy server, không giải thích được mọi `Unknown MCP server`. Chưa có bằng chứng phân biệt các khả năng trên ⇒ **chưa xác định root cause cuối**.
+- **Sửa đúng chỗ:** Google chính thức hỗ trợ Antigravity app Settings → Customizations → Installed MCP Servers (Enable/Refresh), CLI `/mcp` status/log, global `~/.gemini/config/mcp_config.json` và workspace `.agents/mcp_config.json` (https://antigravity.google/docs/mcp). Ưu tiên đo đúng phiên Gemini Mac, nạp bằng cơ chế native, test remote `workspace_read` và `vps_status` trong **chính app** trước khi kiểm graph/SSH. `HOME=user1 agy -p` chỉ là *đối chứng*, không thay được canary app.
+- **Giao một B1:** một lượt Claude Code Mac, chỉ sửa cấu hình/phiên app nếu đo được lỗi; không làm lại G1C-MAX, không sửa VPS, không xử lý Kuma/Directus/Figma; Gemini Mac tự gọi 2 tool và báo bằng chứng. Chưa biết chính xác cần Owner bấm gì; nếu app yêu cầu thì một chỉ dẫn tối thiểu, không lặp dán PROMPT.
+- **Nghiệm thu:** công nhận ghế `google-main` qua agy/P19 trong hội đồng về mặt suy luận, nhưng Gemini Mac chưa đạt cho tới khi app thực hiện và có receipt. Bản AGENTS.md trên Google Drive là bản sao, không phải bằng chứng truy cập GitHub SSOT live. Không đóng GJW toàn task trước courier G3.
+
 
 ### P20 · Claude Chat · 2026-10-15 07:00 +07 · Reviewer · B2 rà KQ G1C-MAX (P18) + P19 Gemini
 - Ghế: claude-chat (khác hãng Google) · Based_on: `090de09` · Scope: P18 KQ, P19 bảng khả năng, ô 2, C9.
