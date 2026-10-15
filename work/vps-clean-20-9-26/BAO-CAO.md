@@ -4,6 +4,61 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## 11-GROWTH-CONTRACT-20261015 · RUN VPSC-11-GROWTH-CONTRACT-20261015-01 · khai đúng loại phần tăng của `/opt/incomex/data` bằng van có sẵn · executor Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ XONG · SCOPE_DISK_GUARDED
+
+**PROMPT `2857d51` (Reviewer ACCEPT P113, READY P114) · STARTED + VPS-GHI `27680d3` 02:19Z · áp 02:24:28Z · KQ + trả khoá 02:31Z · bằng chứng VPS `/opt/incomex/work/vps-clean-20-9-26/VPSC-11-GROWTH-CONTRACT-20261015-01/{pre,bin,post,rollback}`.**
+
+### 1. Cho Owner
+- Đã khai tên + van + trần cho 4 nguồn tăng trong `/opt/incomex/data` (gương Git p02, clone github-workspace, bản chụp `.before`, kho Git HVU) và đưa kho HVU vào luật nén `git repack -d` có sẵn. Không xoá gì, không gc/prune, không đổi ngưỡng; thư mục cha vẫn «đứng yên» để bắt tăng lạ. Dịch vụ, Gemini mới, 22 lịch đã tắt, backup, giám sát: nguyên như trước.
+- Đèn ổ #11 đang xanh (02:00Z, cả trước khi sửa). Xanh ngay sau đổi sổ chưa phải bằng chứng cuối: máy tự kiểm khi có mốc 24h cùng sổ mới (~16/10 03Z).
+- ⚠ Còn một điểm của chủ HVU: kho HVU còn 76 tệp rác `tmp_pack_*` từ 28–29/09 (160 MiB) nên luật nén sẽ bỏ qua kho này tới khi rác được dọn; kho tăng ~40–50 MiB/ngày ⇒ dự kiến chạm trần 784 MiB khoảng 20–21/10, đèn #11 sẽ báo đúng tên kho. Dọn rác là xoá ⇒ cần Owner gật (Drive-first D23), không làm trong lượt này.
+
+### 2. Thay đổi (qua `incomex-config-apply-v0`, bản lùi `rollback/*.truoc`)
+| Tệp | Trước → sau | Nội dung |
+|---|---|---|
+| `scripts/vps-retention.sh` (đích `r7-scripts-vps-retention-sh-680e4b`) | `fc854451…` → `4aa9acde…` | `luat_o`: thêm `/opt/incomex/data/hvu-b2/repo.git` cuối danh sách `for d in …`; chú thích (o) đầu tệp thêm tên kho HVU; 1 dòng nhãn `# SUA 15/10/2026 VPSC-11-GROWTH-CONTRACT-20261015-01: …`. An toàn sẵn có của (o) giữ nguyên (chủ kho, bỏ lượt khi có git/lock/tmp_pack, fsck trước/sau, so refs) |
+| `scripts/storage-registry.tsv` (đích `storage-registry-tsv`) | `cd743dd8…` → `5bba0d64…` | 4 dòng con ROTATING cạnh dòng `transactions` (bảng §3); dòng cha `/opt/incomex/data` giữ STATIC, chỉ đổi ghi chú «phần con có dòng riêng: transactions, p02-cache, github-workspace, *.before, hvu-b2/repo.git»; `partition_version` `4d1f8424b666` → `1786b13510dd` |
+
+### 3. Bốn dòng sổ mới (đo 02:23:50Z)
+Trần = (cỡ hiện tại + 2 × tăng 24h) × 1,3, làm tròn lên MiB. «Tăng 24h» = byte tệp mới/sửa trong 24h (`find -newermt '-24 hours'`, cách W-FINAL §4) vì storage-watch chưa có dòng riêng cho các đường này — số này ≥ tăng ròng (gồm cả pack mới do repack). Cả 5 dòng con `valve_ok` = đúng (regex hàm + lịch `vps-retention\.sh`).
+| Đường | Chủ | Van | Cỡ | Tệp mới 24h | Trần |
+|---|---|---|---:|---:|---:|
+| `workspace-tools/p02-cache` | MCPW/agent-data | (o) `^luat_o\(\) \{` | 175,4 MiB | 132,9 MiB | 574 MiB |
+| `workspace-tools/github-workspace` | MCPW/agent-data | (o) | 115,5 MiB | 27,8 MiB | 223 MiB |
+| `workspace-tools/*.before` (606 tệp) | agent-data | (m) `^luat_m_py\(\) \{` | 176,4 MiB | 49,8 MiB | 359 MiB |
+| `hvu-b2/repo.git` | HVU | (o) | 522,6 MiB | 39,9 MiB | 784 MiB |
+
+### 4. PRE / POST
+| Mục | PRE 02:20–02:23Z | POST 02:25–02:28Z |
+|---|---|---|
+| storage-watch check | `green` · free 39,21 GiB · d24 −1,62 · fault 0 · debt 5 | `green` · cùng số · fault 0 · debt 4 · rc 0 (check không đi ổ, đánh giá lại taxonomy 02:00Z với sổ mới; dòng TĂNG_LẠ tạm vắng vì đổi `partition_version`) |
+| Kuma #11 | up «OK disk 60%» 02:10Z | up; lượt `hourly` 03:00Z là lần đầu đi ổ với sổ mới |
+| 22 đèn | 20/22, đỏ {#21, #22} | Guard same_or_better PASS: PREEXISTING_SAME #21, #22 |
+| Config Guard drift | 487 / 483 MATCH / 4 (đích cũ agent-data ×3 + Hermes) | 487 / 483 / 4 như PRE · 2 đích mới MATCH |
+| Guard | FAIL chỉ INV5_6 + INV20 (#22 có sẵn) | footprint 2 mục · C3 coverage PASS đủ 4 ô · same_or_better PASS · change_event PASS · INV24.gemini PASS (23 tool, khoá sai 401) · INV22 graph PASS · tổng FAIL chỉ INV5_6 + INV20 ⇒ không có biên nhận Telegram |
+| Dịch vụ | 14 container Up | 14 container cùng image; `incomex-gemini-mcp` cùng StartedAt 14/10 22:01:07Z, RestartCount 0; `/`, `/knowledge/modules`, `/api/health` (agent-data `healthy`) 200; Directus `pong`; PG accepting |
+| 22 lịch OFF | 21 `#L1-OFF` + 1 `#L2A-OFF` | như PRE; sha spool root/incomex, `cron.d/vps-retention`, `storage-watch.py`, `code-ledger.tsv`, guard = PRE |
+| Kho HVU | 547.627.008 B · 3.654 object rời · refs `90c7aac0` | 548.188.160 B · 3.669 · refs `d7c8f73c` — HVU tự đẩy trong lúc chạy; RUN không chạm kho |
+
+### 5. Bốn ô D26
+| Ô | Bằng chứng |
+|---|---|
+| Đ 30 | `bash -n` PASS · `luat_o thu` từ bản đã cài liệt kê 5 kho, HVU `chu=hvu-view` (không KHONG_GIT) · `load_registry` sổ mới 108 dòng, 5 dòng con `valve_ok` · `storage-watch.py check` rc 0 · proof `post/proof/*.txt` |
+| Đ 31 | Config Guard nhận baseline mới 2 đích (apply-v0 FRESH · LIVE_PASS · APPLIED), drift MATCH; sổ mã INV23 theo id đích |
+| Canh | Kuma #11 (storage-watch mỗi giờ: van + trần từng dòng) → Telegram #2 · bản tin 08:00 · biên nhận (m)(o) `/var/lib/incomex/vps-retention-mno.json` mỗi ngày 22Z |
+| Lùi | `rollback/vps-retention.sh.truoc` (`fc854451…`) + `rollback/storage-registry.tsv.truoc` (`cd743dd8…`), áp lại qua apply-v0; repack không cần lùi (nội dung kho y nguyên, refs trước = sau) |
+
+### 6. Sự thật cần biết
+- 🔴 **Kho HVU:** `count-objects` báo 76 `tmp_pack_*` (garbage 160 MiB, mtime 28–29/09, không sinh thêm) + ~3.660 object rời 338 MiB, chỉ 23 MiB trong pack. (o) bỏ lượt kho có `tmp_pack_*` (coi là đang ghi) ⇒ lượt 22Z sẽ ghi `…/hvu-b2/repo.git:BAN_BO_LUOT` trong TOM (o) tới khi chủ HVU dọn rác. Dọn = xoá ⇒ ngoài phạm vi RUN (§1), cần Owner gật Drive-first. Không dọn ⇒ trần 784 MiB chạm khoảng 20–21/10, #11 đỏ đúng dòng `UNVALVED /opt/incomex/data/hvu-b2/repo.git` (không xanh giả). Phát hiện ở S0, không thuộc điều kiện S0 ⇒ vẫn áp đúng §2 và báo (JEV `gen-dec-1792030678-jS5lsCaVJ5YyJgrElqg2`: áp + báo 0,72 · S0 hỏng 0,28 · xanh giả vĩnh viễn 0,16).
+- `storage-watch.py check` không đi ổ (đánh giá lại taxonomy gần nhất). Mốc 24h cùng `partition_version` mới có từ ~16/10 03Z — trước đó EVENT_UNDECLARED/TĂNG_LẠ theo dòng tạm chưa xét; SLOPE24/7D vẫn xét theo df (drop7d hiện 0,24 GiB, ngưỡng 3 GiB).
+- Chú thích hàm `luat_o` «cho 4 kho» giữ nguyên chữ (PROMPT «không thêm, không bớt»).
+- Giữ có chủ đích: thư mục bằng chứng RUN, 2 thư mục ứng viên `/root/incomex-config-changes/VPSC-11-GROWTH-CONTRACT-20261015-01-{vps-retention,registry}` (vết kiểm toán apply-v0, như các lượt trước). Dọn: 5/5 kịch bản Mac scratchpad; VPS 0 tệp tạm, 0 tiến trình nền.
+
+### 7. Kế tiếp
+`NEXT_TRIGGER=HOST_VPSC_CLOSE_D31` — Host đóng VPSC theo D31 (DROOT43). Máy tự canh: storage-watch mỗi giờ + mốc 24h sổ mới, luật (m)(o) 22Z, bản tin 08:00; #11 đỏ lại ⇒ mở lại đúng dòng đó. Kho HVU `tmp_pack_*`: một câu cho Owner/chủ HVU, không chặn đóng VPSC.
+
+---
+
 ## W-FINAL-SCOPE-20261014 · RUN VPSC-W-FINAL-SCOPE-CHECK-20261014-01 · kiểm kết thúc phạm vi VPSC (CHỈ ĐỌC) · executor Claude Code CLI (Mac → SSH root VPS1, chỉ đọc) · write_path=workspace_* · KQ DỪNG · 1 BLOCKER #11 · W24H_NOT_YET_PROVEN
 
 **Cửa sổ:** PROMPT `7cc8225` (READY P111). Đo 14/10 15:26–15:41Z; phiên Mac bị ngắt 15:41→21:07Z nên **đo lại 21:07Z** trước khi chốt (vượt khung ≤25′ vì ngắt, không phải vì đo thêm). Mutation VPSC cuối = N2C 14/10 08:11Z ⇒ mốc 24h là 15/10 08:11Z ⇒ `W24H_NOT_YET_PROVEN`; bản tin 08:00 15/10 (01:00Z) vẫn nằm trong cửa sổ. Mọi lệnh qua `ssh contabo 'nice -n 19 ionice -c3 bash -s'` (kịch bản stdin); `du`/`find` chỉ trong `/opt/incomex/data` (timeout 60 s): 0 tệp VPS, 0 tiến trình nền, không chiếm VPS-GHI, không đổi ngưỡng/taxonomy, không xoá.
