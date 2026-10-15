@@ -67,7 +67,7 @@ QT001 (B3) đạt khi từng bước cần UI có màn hoặc lý do không cầ
 - Owner 13/10/2026 · P51: “Tôi cần cả 2 bên xác nhận ok.” “bạn xác nhận OK, claude xác nhận ok. Lúc đó tôi mới có ý kiến.” Codex hoàn thiện001, Claude rà độc lập; phiếuCAT025 trong hồ sơ001, không chạy002 trước khi đủ điều kiện và Owner quyết.
 
 
-Cách đọc cho mọi AI: đọc hết 3.1 → 3.5, đúng thứ tự. Mỗi yêu cầu có mã R, thuộc mục tiêu M1/M2/M3 của ô 1. Trạng thái: ⬜ chưa có · 🟡 có bản thiết kế, chưa nghiệm thu · 🟢 đã nghiệm thu bằng làm theo thật · 🔴 tắc. Nguyên văn lời Owner ở 3.4; bằng chứng ở các mục P. Thấy thiếu/sai → nộp proposal riêng (3.3); chỉ Host Kiểm soát sửa ô 3. Nhật ký chạy (STARTED/KQ) và báo cáo lượt ghi ở mục P, không ghi vào ô 3.
+Cách đọc cho G1/UI (không bắt AI quét cả lịch sử): `AGENTS.md` → COLLAB gốc → Bảng + ô 1–2 ở đây → README “Đọc nhanh” → R40–R48 → PROMPT S0–S7 **chỉ khi Owner giao RUN**. R00–R39 và các mục 3.2–3.5 là nguồn quy định/bằng chứng để tra **đúng phần liên quan**; R30/R36/R37 vẫn được MOW-TH-007 sử dụng, không bắt làm hồ sơ 71 bước. Mỗi yêu cầu có mã R; ⬜ chưa có · 🟡 mới thiết kế · 🟢 đã kiểm nghiệm thu · 🔴 tắc. Nguyên văn Owner ở 3.4; bằng chứng ở P; thấy sai/thiếu thì đề xuất theo 3.3, Host nhập chuẩn. STARTED/KQ chỉ ghi ở P, không nhét vào ô 3.
 
 #### 3.1 Yêu cầu theo mục tiêu
 - R00 ⬜ Đích nền (Owner 08/10 · D05, vẫn hiệu lực): việc gì lặp lại cũng có quy trình chuẩn → người mới, phiên AI mới làm theo là ra đúng sản phẩm, hướng tới muốn làm sai cũng khó, lý tưởng là muốn làm sai cũng không thể. Mỗi quy trình ghi rõ bước nào đã có chốt chặn làm sai, bước nào mới là lời dặn (AGENTS A10-R2).
