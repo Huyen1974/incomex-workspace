@@ -1248,6 +1248,31 @@ JEV `gen-dec-1792062363-iGhriHAVdWnmlgdLrl6s`: R49–R52 có yêu cầu 3 trạn
 
 **Việc của GPT:** chốt R49–R53 (1 lượt); không viết PROMPT mới khi Owner chưa rà xong.
 
+## V12.9 · Owner 18:14 «mọi đối tượng, không chỉ Field» · R53 viết lại thành LUẬT NHÀ · Claude 18:25
+
+**Sửa:** bản 18:03 lấy Field làm ví dụ và đặt riêng «Sổ Field» làm sổ SSOT — hẹp. Nay R53 hỏi 5 câu cho **mọi đối tượng**, theo đúng thứ tự Owner: ① Nhà ở đâu · ② SSOT ở đâu · ③ Đã ghi danh chưa (chưa làm thì ghi «cần làm» trước) · ④ Ghi đúng chưa · ⑤ Trạng thái. Việc xong = mọi đối tượng nó tạo/sửa/dùng mới trả lời đủ 5 câu. Dòng «Sổ của SSOT = Sổ của các sổ + Sổ Field» ở V12.8 **bị thay**: SSOT của mỗi đối tượng là dòng của nó ở nhà của nó; Sổ của các sổ trả lời «nhà ở đâu» cho mọi loại.
+
+**Gốc rễ lần trước thất bại:** thiết kế «cách làm» mà không thiết kế «nhà của mọi thứ» ⇒ cùng một thứ nằm nhiều chỗ, mỗi AI sửa một chỗ ⇒ lệch ⇒ làm lại. Chính TQT đang mắc — áp ngược Luật Nhà (sơ bộ, B1 đo chính xác):
+
+| Loại đối tượng | Đang ở | ① Nhà | ② 1 gốc |
+|---|---|---|---|
+| Sổ (định nghĩa Master) | `master-of-master-v1.html` · `definition-master-registry-v1.js` · `field-origin-snapshot.json` | ⬜ chưa có Sổ của các sổ thật | 🔴 3 chỗ |
+| Quy trình (MOW-TH) | `view.html` · COLLAB R48/R51 · `MOW-TH-006.md` | ⬜ | 🔴 nhiều chỗ |
+| Field | `view.html` (250) · `field-origin-snapshot.json` · danh sách cột trong COLLAB/PROMPT | ⬜ | 🔴 nhiều chỗ |
+| Màn UI | `UI-REVIEW-MOW001.json` · `ban-duyet.html` | ⬜ | 🟡 |
+| DOT | `/opt/incomex/dot/bin` + sổ DOT (`dot-dot-catalog`) | 🟢 | 🟢 máy tự đối soát |
+| Quyết định Owner | COLLAB 3.4 | 🟡 ML-DEF-027 chưa dựng | 🟢 |
+| Luật hội đồng (R) | COLLAB §0 | ⬜ chưa có dòng nhà | 🟢 |
+| Đề xuất (P/V) | `proposals/*.md` | ⬜ | 🟢 |
+| PROMPT / RUN | `PROMPT.md` + COLLAB | ⬜ | 🟡 |
+| Nợ / vấn đề (TQT-ISS) | COLLAB | 🟡 CAT-069 chưa dựng | 🟢 |
+
+DOT là loại duy nhất đã đúng luật (có nhà, máy tự đối soát) — cũng là loại ít bị làm lại nhất. Ba dòng 🔴 là nơi đã gây làm lại; B1 gom mỗi loại về 1 gốc trước khi làm QT001. Các dòng ⬜ chỉ cần 1 dòng nhà «cần làm» kèm nơi đang ở — không phải chuyển hết vào Directus ngay.
+
+JEV `gen-dec-1792063017-UfgJRxPGcsEH5W6GQbQO` + `gen-dec-1792063042-yNzTEYJoFCq7KLozV66X`: R53 mới phủ mọi đối tượng 0,96 · nhà 0,97 · SSOT 0,91 · ghi danh trước khi làm 0,89 · ghi đúng 0,95 · việc xong 0,96; chỗ hở duy nhất = áp ngược cho đồ đang có (0,92) → đã thêm «Áp ngược 1 lần (B1)».
+
+**Việc của GPT (1 lượt):** ① chốt R49–R53 ② sửa README «Đọc nhanh» và dòng PROMPT chỉ tới R49–R53 ③ đưa 5 câu R53 thành câu đóng của khuôn 005/006/007 trong `view.html` (trỏ mã R53, không chép lại nội dung) ④ viết lại R51 bước ① thành «trả lời câu Nhà cho mọi thứ sẽ sinh ra» nếu cần. Không viết PROMPT mới khi Owner chưa rà xong.
+
 
 
 
