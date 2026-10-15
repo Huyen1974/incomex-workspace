@@ -1,22 +1,38 @@
 # tools-quy-trinh · Cửa vào
 
-## Phân tuyến thiết kế nhanh và triển khai · Owner 15/10/2026 · GPT rà P49 VÒNG 12
-- **G1 — THIẾT KẾ NHÁP:** chỉ chốt 3 sản phẩm **UI đủ · Hợp đồng thông tin/Field đủ · Config khả thi**. Áp dụng 7 bước thiết kế ngắn của P49 V12 (**MOW-TH-007 đã được Owner duyệt; khi dựng phải kiểm và đăng ký đúng mã Master**), làm một quy trình hoặc cả lô theo cùng khuôn. Giai đoạn Thiết kế của 001 **gọi 007 bằng tham chiếu**, không sao chép định nghĩa bước sang nguồn thứ hai. Chưa cần 008; lặp 007 cho từng lô.
-- **005 — KHUÔN CHUNG:** giữ định nghĩa tổng quát, dùng cho điều hành/triển khai và giao nhận chính thức. **Không bắt thiết kế nháp G1 đi toàn bộ hồ sơ, mốc và thủ tục của 005**; khi chuyển G2/G3 mới áp quy trình điều hành phù hợp.
-- **006 — QUY TRÌNH THỰC HIỆN CHI TIẾT (71 bước/7 mốc):** dành cho triển khai thực tế/ghi thật, tác động khó đảo ngược và các ca rủi ro cao. **Không dùng làm đường bắt buộc để vẽ UI, bổ sung Field, rà Config trên nháp**. Không xoá, đổi mã, hoặc hồi tố hồ sơ G1/P61 cũ.
-- **Nghiệm thu thiết kế nhanh:** (1) mỗi bước cần UI có màn/mẫu và hành động, không cần UI ghi N/A có lý do; (2) mọi thông tin bắt buộc của từng màn/hành động có Field, kiểu, nguồn, vai trò, nơi đọc/ghi và bằng chứng; (3) Config đủ trong phạm vi DESIGN, nơi ghi **đã có thật / dự kiến tạo** được phân biệt, không báo đã triển khai PG; (4) DOT áp từ GitHub SHA, màn thật được xem/kiểm. Bộ lọc “thiếu” phải kiểm **nghĩa vụ dự kiến ↔ Field**, không chỉ các liên kết đã có. Bằng chứng lưu ở GitHub SSOT + biên nhận DOT, Directus là bề mặt xem/thử.
-- **Giới hạn Directus:** Data Studio sinh list/form theo **Collection và Field vật lý**; chỉ thêm một dòng vào Master “Màn hình” **không tự sinh một UI nghiệp vụ mới**. Nếu cần UI riêng, ưu tiên cấu hình hoặc tái sử dụng Collection/Interface hiện có; thiết kế nghiệp vụ đặc biệt chỉ bổ sung tối thiểu. Host kiểm một màn thật ở B2/B3 trước khi nhân theo lô.
-- **Đường xử lý:** thiếu/sai sản phẩm → 002; thiếu/sai quy trình → 003; 004 vẫn kiểm thao tác/nhánh của màn thật, không thay thế hoàn toàn bằng bộ lọc. 007 đã được Owner chốt làm khuôn thiết kế G1; chưa nghiệm thu kết quả chạy thật.
+## Đọc trong 90 giây — HƯỚNG HIỆN HÀNH (15/10/2026 · P64)
 
-## Vùng NHÁP Directus · 15/10/2026 14:55 · GPT ↔ Claude đã thống nhất · OWNER ĐÃ DUYỆT Q1 + Q2 + MOW-TH-007 · ƯU TIÊN UI CHẾ TẠO CỖ MÁY
-- **Vòng làm việc (Owner 15/10):** mỗi quy trình chỉ 3 việc làm cùng lúc — vẽ UI · khai Field · rà config — trên 5 bảng nháp lõi (Quy trình · Màn hình · Field · Master · Hợp đồng) nối nhau bằng mã; Directus tự vẽ, tự nối, chặn trùng, lọc ra chỗ thiếu (R40, R45).
-- **Nguồn chuẩn của kế hoạch:** COLLAB §0 Bảng điều khiển + R40–R46 (bằng chứng: P49 VÒNG 11). Mục này chỉ tóm tắt; lệch thì theo COLLAB.
-- **Một câu:** sửa tệp `master/*.json` trên GitHub → `dot-master-apply ap <SHA> --vung nhap` → vùng `tqt_draft_*` trên Directus khớp tệp; Owner xem bằng tài khoản chỉ-đọc; xong thì một lệnh `co-lap nhap` hoặc `xoa-vung nhap`; DOT ở lại dùng cho bảng thật (G2 = cùng lệnh, `--vung that`).
-- **Đích:** tận dụng Directus/PG/DOT hiện có để dựng nhanh UI và thử quy trình trên **vùng nháp**; không tự phát triển thêm hệ UI/kho thử. Master là danh mục mở (R40): 86 + 28 chỉ là số khảo sát đầu; bảng thật không cần đổi thì chỉ tham chiếu, cần thử cột/UI thì dựng nháp.
-- **GitHub là SSOT về thông tin:** mã Master, tên/cột, quan hệ, nội dung và bản schema/UI đã chấp nhận được lưu theo phiên trên GitHub. Directus/PG nháp là nơi dựng và thử, không là nguồn chuẩn thứ hai. Người ghi duy nhất là `dot-master-apply` — DOT lâu dài: 0 dòng sửa DOT cũ, không gọi DOT cũ khi chạy, vùng là dữ liệu trong `master/vung.json`, bảo vệ Điều 30/31 thuộc DOT (R41); cấp tin theo R45: sửa đúng tệp → một lệnh → biên nhận. Cấm `dot-collection-create`/sổ registry.
-- **Cô lập:** tên vật lý `tqt_draft_<ma_master>`, nhãn hiện thị `NHÁP · <tên Master>`, nhóm `TQT — NHÁP`; quan hệ chỉ nối trong vùng nháp, không nối bảng/dữ liệu/Flow/permission production. Group chỉ là nhãn hiển thị, DOT phải kiểm cả quyền và footprint PG. **250 định nghĩa Field là ~250 bản ghi của một Master Field, KHÔNG phải 250 Collection/cột vật lý.**
-- **Đường ngắn:** B1+B2 một lượt (PROMPT `TQT-B12-DRAFT-ZONE-20261015-01`): DOT + 5 bảng lõi + nạp dữ liệu có sẵn + thử `xoa-vung` rồi dựng lại → B3 QT001 xong 3 việc trong 1 lượt → B4 làm theo lô các quy trình còn lại → B5 nghiệm thu **G1**. G2 tạo bảng/Collection thật từ bản đã chốt là một quyết định triển khai riêng; sau khi chuyển và xác minh không mất dữ liệu mới **một lệnh `co-lap` hoặc `xoa-vung` theo quyết định Owner (R46)**.
-- **Hiện trạng:** chưa giao RUN dựng nháp; GPT ↔ Claude đã thống nhất (P49 V11.6–V11.8); PROMPT B1+B2 đã được Claude rà V12.6, Owner gật Q1+Q2+007; GPT chốt READY tại COLLAB. R47 giữ kế hoạch khóa đơn giản của Owner; cải tạo SSH thuộc phạm vi khác, không thành gate mới. G1 và hồ sơ P61 đã có giữ nguyên để tra, không mở rộng HTML và CHECK tự viết. Owner cần đường **xem UI nháp chỉ-đọc, không admin**; phải xử lý đúng quy định DROOT39 trước khi cấp phiên xem.
+**Mục tiêu chuẩn:** xem [COLLAB §0, ô 1–2](COLLAB.md). Ba mục tiêu lâu dài Owner chốt 10/10 vẫn giữ nguyên; **G1 trước mắt** chỉ làm UI · hợp đồng thông tin/Field · Config khả thi cho Chuỗi Chế tạo cỗ máy, bắt đầu QT001. G1 là **thiết kế và thử trên NHÁP**, **chưa** triển khai dữ liệu nghiệp vụ production.
+
+**Quy trình làm việc: MOW-TH-007 (Owner đã duyệt, 7 bước, làm liền một lượt).**
+- **UI (bước 1–2):** từ Công thức suy ra bước nào cần màn, chọn mẫu danh sách/biểu mẫu/duyệt/tổng hợp hoặc không cần UI (nêu lý do); tra màn đã có để dùng lại. Một bước có thể dùng chung màn với bước khác.
+- **Field (bước 3–4):** ghi *từng thông tin cần có* vào Hợp đồng trước; ghép Field đã có hoặc thêm vào Master Field nếu thiếu.
+- **Config (bước 5–6):** mỗi thông tin ghi đúng bảng đọc/ghi, kiểu, vai trò; DOT cấu hình Directus, thử màn thật và đọc lại.
+- **Duyệt (bước 7):** Owner xem và duyệt **theo lô**, không phải ký từng Field hay chạy 71 vòng.
+
+**Năm Collection NHÁP lõi (bàn làm việc, không phải năm giao diện nghiệp vụ hoàn chỉnh):**
+
+| Collection | Lưu những gì? |
+|---|---|
+| **Quy trình** | Mã quy trình và các bước theo Công thức. |
+| **Màn hình** | Mã màn, bước/quy trình, mẫu UI, bảng đích, vai trò, màn dùng lại. |
+| **Field** | Mã, tên cột, kiểu, kiểm hợp lệ, mặc định, mô tả, nguồn sinh, vòng đời. ~250 Field hiện có là **bản ghi định nghĩa**, không phải 250 bảng/cột cần tạo. |
+| **Master** | Danh sách Master, bảng nào đã có, bảng nào cần thiết kế/tạo. Danh mục mở, không có chỉ tiêu số lượng bảng. |
+| **Hợp đồng thông tin** | Mỗi dòng = màn + thông tin cần có + Field (có thể trống) + hành động + bắt buộc + bảng đọc/ghi (có thể trống). Thuộc tính Field không chép lặp. |
+
+**Đường ghi duy nhất:** AI sửa tệp JSON ở `work/tools-quy-trinh/master/` **khi B1+B2 tạo thư mục này** → commit SHA trên GitHub (SSOT tài liệu/thông tin) → `dot-master-apply ap <SHA> --vung nhap` → Directus/PG `tqt_draft_*` để xem/thử → DOT đọc lại và trả biên nhận. **Runtime/mã chạy chuẩn nằm trên VPS**. Không ai ghi trực tiếp Directus/PG; tài khoản Owner chỉ **xem NHÁP**. DOT dùng lâu dài; vùng NHÁP có thể cô lập/xóa, không chạm production.
+
+**Hai kết quả kiểm khác nhau:** ⛔ **CHẶN** = sai mã/vùng/quyền/quan hệ → DOT không ghi, Guard báo lỗi. 🟡 **THIẾU** = thông tin chưa có Field/bảng/màn → **vẫn lưu nháp**, Directus lọc ra để bổ sung; chỉ khi nghiệm thu từng quy trình mới dùng `kiem --du <mã>` để yêu cầu đủ. Đừng nhầm “lưu được bản nháp” với “đã đủ thiết kế”.
+
+**Roadmap và sản phẩm kiểm được:**
+- **B0 ĐÃ CHỐT:** Owner gật Q1 (quyền xem), Q2 (DOT lâu dài), MOW-TH-007; GPT/Claude/Gemini đồng thuận.
+- **B1+B2 READY, CHƯA RUN:** dựng DOT và **5 Collection lõi**, **2 bộ lọc THIẾU**, thử **UI/Form thật**, quyền chỉ xem; kiểm xóa/dựng lại cùng bản nguồn. Nạp trước khai báo ba MOT 1.1/1.2/1.3 của QT001 từ nguồn cũ, **chưa mặc nhiên là ba màn đã hoàn thiện**.
+- **B3 CHƯA LÀM:** dùng 007 hoàn thành QT001 — màn cần thiết, toàn bộ Field bắt buộc, Config khả thi, ảnh/UI và Owner duyệt.
+- **B4–B5 CHƯA LÀM:** nhân lô các quy trình còn lại → nghiệm thu G1. **G2/G3 (production/vận hành) là quyết định riêng, không chạy lúc này.**
+
+**Giữ nguyên / đã thay đổi:** giữ **Công thức**, ba mục tiêu dài hạn, GitHub SSOT, DOT-only, bảo vệ Điều 30/31 và kết quả G1/P61 cũ. **Thay** việc tạo trước hơn 100 bảng bằng 5 bảng lõi trước; bỏ tự viết HTML/UI và kho kiểm riêng; dùng **007 bảy bước** cho thiết kế nháp thay vì **006 71 bước**. **001 tổng hợp** gọi 007 ở giai đoạn Thiết kế; **002** xử lý thiếu/sai; **003** sửa quy trình; **004** kiểm UI có logic riêng; **005** khuôn điều hành chung; **006** dành cho triển khai/ghi thật, không là điều kiện chặn G1. Mã **MOW-TH-001** (quy trình tổng hợp chế tạo) khác **QT001/MOW001** (ca sản phẩm đang thiết kế).
+
+**Ở đâu là nguồn nào?** [COLLAB ô 1–2](COLLAB.md) = mục tiêu/tiêu chí Owner; [COLLAB R40–R48](COLLAB.md) = nguyên tắc và phạm vi đã chốt; [PROMPT.md](PROMPT.md) = chỉ dẫn **B1+B2 S0–S7** khi Owner phát RUN; [P49 V12.7](proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md) = bằng chứng hai hãng/Gemini; [MOW-TH-006.md](MOW-TH-006.md) = quy trình triển khai chi tiết sau. **Trạng thái mới nhất chỉ xem Bảng đầu COLLAB.** Hiện là `READY@914580c442c57e74e2c462a7ca6fc1a823027e84`, **0 RUN**, chờ Owner chỉ đạo. Phần phía dưới là **LỊCH SỬ**, không lấy làm lệnh hiện hành.
 
 ## Lịch sử P61 trước đổi hướng — KHÔNG là lệnh triển khai hiện tại
 1. Đọc Bảng và phạm vi tại COLLAB. Quy định: MOW-TH-006.md phiên 1.1, 71 bước / 7 mốc; chưa PG/QT002.
