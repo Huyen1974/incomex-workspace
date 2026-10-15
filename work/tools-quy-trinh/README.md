@@ -1,10 +1,10 @@
 # tools-quy-trinh · Cửa vào
 
-## Đọc trong 90 giây — HƯỚNG HIỆN HÀNH (15/10/2026 · P64)
+## Đọc nhanh — HƯỚNG HIỆN HÀNH (15/10/2026 · P64)
 
 **Mục tiêu chuẩn:** xem [COLLAB §0, ô 1–2](COLLAB.md). Ba mục tiêu lâu dài Owner chốt 10/10 vẫn giữ nguyên; **G1 trước mắt** chỉ làm UI · hợp đồng thông tin/Field · Config khả thi cho Chuỗi Chế tạo cỗ máy, bắt đầu QT001. G1 là **thiết kế và thử trên NHÁP**, **chưa** triển khai dữ liệu nghiệp vụ production.
 
-**Quy trình làm việc: MOW-TH-007 (Owner đã duyệt, 7 bước, làm liền một lượt).**
+**Quy trình làm việc: MOW-TH-007 (Owner đã duyệt khuôn 7 bước, làm liền một lượt; đăng ký bản ghi Master trong B1+B2).**
 - **UI (bước 1–2):** từ Công thức suy ra bước nào cần màn, chọn mẫu danh sách/biểu mẫu/duyệt/tổng hợp hoặc không cần UI (nêu lý do); tra màn đã có để dùng lại. Một bước có thể dùng chung màn với bước khác.
 - **Field (bước 3–4):** ghi *từng thông tin cần có* vào Hợp đồng trước; ghép Field đã có hoặc thêm vào Master Field nếu thiếu.
 - **Config (bước 5–6):** mỗi thông tin ghi đúng bảng đọc/ghi, kiểu, vai trò; DOT cấu hình Directus, thử màn thật và đọc lại.
@@ -22,7 +22,7 @@
 
 **Đường ghi duy nhất:** AI sửa tệp JSON ở `work/tools-quy-trinh/master/` **khi B1+B2 tạo thư mục này** → commit SHA trên GitHub (SSOT tài liệu/thông tin) → `dot-master-apply ap <SHA> --vung nhap` → Directus/PG `tqt_draft_*` để xem/thử → DOT đọc lại và trả biên nhận. **Runtime/mã chạy chuẩn nằm trên VPS**. Không ai ghi trực tiếp Directus/PG; tài khoản Owner chỉ **xem NHÁP**. DOT dùng lâu dài; vùng NHÁP có thể cô lập/xóa, không chạm production.
 
-**Hai kết quả kiểm khác nhau:** ⛔ **CHẶN** = sai mã/vùng/quyền/quan hệ → DOT không ghi, Guard báo lỗi. 🟡 **THIẾU** = thông tin chưa có Field/bảng/màn → **vẫn lưu nháp**, Directus lọc ra để bổ sung; chỉ khi nghiệm thu từng quy trình mới dùng `kiem --du <mã>` để yêu cầu đủ. Đừng nhầm “lưu được bản nháp” với “đã đủ thiết kế”.
+**Hai kết quả kiểm khác nhau:** ⛔ **CHẶN** = sai mã/vùng/quyền/quan hệ → DOT không ghi, Guard báo lỗi. 🟡 **THIẾU** = thông tin chưa có Field/bảng/màn → **vẫn lưu nháp**, Directus lọc ra để bổ sung; chỉ khi nghiệm thu từng quy trình mới dùng `kiem --du <mã>` để yêu cầu đủ. Đừng nhầm “lưu được bản nháp” với “đã đủ thiết kế”. **Giới hạn đã biết:** chính sách DOT-only chưa cưỡng chế tuyệt đối đối với SSH đặc quyền (R47); B1 chỉ kiểm kê đường còn mở, không tự sửa SSH hoặc tuyên bố đã khóa hết.
 
 **Roadmap và sản phẩm kiểm được:**
 - **B0 ĐÃ CHỐT:** Owner gật Q1 (quyền xem), Q2 (DOT lâu dài), MOW-TH-007; GPT/Claude/Gemini đồng thuận.
@@ -32,7 +32,7 @@
 
 **Giữ nguyên / đã thay đổi:** giữ **Công thức**, ba mục tiêu dài hạn, GitHub SSOT, DOT-only, bảo vệ Điều 30/31 và kết quả G1/P61 cũ. **Thay** việc tạo trước hơn 100 bảng bằng 5 bảng lõi trước; bỏ tự viết HTML/UI và kho kiểm riêng; dùng **007 bảy bước** cho thiết kế nháp thay vì **006 71 bước**. **001 tổng hợp** gọi 007 ở giai đoạn Thiết kế; **002** xử lý thiếu/sai; **003** sửa quy trình; **004** kiểm UI có logic riêng; **005** khuôn điều hành chung; **006** dành cho triển khai/ghi thật, không là điều kiện chặn G1. Mã **MOW-TH-001** (quy trình tổng hợp chế tạo) khác **QT001/MOW001** (ca sản phẩm đang thiết kế).
 
-**Ở đâu là nguồn nào?** [COLLAB ô 1–2](COLLAB.md) = mục tiêu/tiêu chí Owner; [COLLAB R40–R48](COLLAB.md) = nguyên tắc và phạm vi đã chốt; [PROMPT.md](PROMPT.md) = chỉ dẫn **B1+B2 S0–S7** khi Owner phát RUN; [P49 V12.7](proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md) = bằng chứng hai hãng/Gemini; [MOW-TH-006.md](MOW-TH-006.md) = quy trình triển khai chi tiết sau. **Trạng thái mới nhất chỉ xem Bảng đầu COLLAB.** Hiện là `READY@914580c442c57e74e2c462a7ca6fc1a823027e84`, **0 RUN**, chờ Owner chỉ đạo. Phần phía dưới là **LỊCH SỬ**, không lấy làm lệnh hiện hành.
+**Ở đâu là nguồn nào?** [COLLAB ô 1–2](COLLAB.md) = mục tiêu/tiêu chí Owner; [COLLAB R40–R48](COLLAB.md) = nguyên tắc và phạm vi đã chốt; [PROMPT.md](PROMPT.md) = chỉ dẫn **B1+B2 S0–S7** khi Owner phát RUN; [P49 V12.7](proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md) = bằng chứng hai hãng/Gemini; [MOW-TH-006.md](MOW-TH-006.md) = quy trình triển khai chi tiết sau. **Trạng thái mới nhất chỉ xem Bảng đầu COLLAB.** Hiện là `READY@914580c442c57e74e2c462a7ca6fc1a823027e84`, **0 RUN**, chờ Owner chỉ đạo. Dòng `DRAFT r2` ở đầu PROMPT là dấu **trước khi GPT đặt READY tại COLLAB P63**; không sửa PROMPT để xóa chữ đó vì sẽ làm mất hiệu lực SHA. Phần phía dưới là **LỊCH SỬ**, không lấy làm lệnh hiện hành.
 
 ## Lịch sử P61 trước đổi hướng — KHÔNG là lệnh triển khai hiện tại
 1. Đọc Bảng và phạm vi tại COLLAB. Quy định: MOW-TH-006.md phiên 1.1, 71 bước / 7 mốc; chưa PG/QT002.
