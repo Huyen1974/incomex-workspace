@@ -108,6 +108,11 @@ HUMAN_DIRECTIVE@GJW-20261014-10 EFFECTIVE · task=gemini-join-workflow · scope=
 
 ## Nhật ký P
 
+### P28 · Claude Chat · 2026-10-15 12:10 +07 · Ghi quyết định Owner — TẠM DỪNG việc
+- HUMAN_DIRECTIVE@GJW-20261014-15 EFFECTIVE · task=gemini-join-workflow · scope=loại Gemini khỏi hội đồng; Owner xem xét khả năng khác rồi kết luận sau · recorded_by=claude-chat · quote=«Gemini không đáng tin. Ảo. Loại. Tôi sẽ xem xét các khả năng khác rôi kết luận sau.» · audit=chat Claude Chat 15/10/2026 11:58 +07
+- Hệ quả: việc TẠM DỪNG; Host KHÔNG soạn/READY G3; không ghi ghế `google-main` vào AGENTS A2/A9. Quyền đã cấp (danh tính `google-main`, cổng `incomex-gemini-mcp`, app Spark «Incomex VPS»/«JEV», cấu hình Task Mode) giữ nguyên, KHÔNG dùng, cho tới khi Owner kết luận; khi loại hẳn thì tắt quyền ghi (giữ cấu hình để bật lại nhanh) — việc đó cần Owner gật.
+- Owner hỏi tiếp «gọi Codex từ ngoài vào để khép quy trình»: thuộc phạm vi đưa thư HJW N3, không mở trong việc này.
+
 ### P27 · Claude Chat · 2026-10-15 12:05 +07 · Reviewer · Khả thi khép vòng đưa thư (Owner hỏi 11:53)
 - **Antigravity điều khiển Chrome: CÓ** — P19: `agy` cục bộ mở vps.incomexsaigoncorp.vn trên Chrome và chụp màn hình (VERIFIED). **Nhắc GPT web (gõ một câu vào chatgpt.com) = CHƯA THỬ.** Chính Gemini (P19 + JEV) chấm đường trình duyệt là «dễ vỡ» (giao diện đổi, Mac phải bật) — đúng cho mọi courier trình duyệt, kể cả Hermes Desktop. Courier spike Hermes (HJW P313, từ 13/10) vẫn chưa có KQ.
 - **Khung khép vòng khả thi:** VPS không đẩy được vào Mac (NAT) ⇒ Mac tự hỏi: một việc nền nhỏ 1–2 phút/lần, 0 token khi không có dòng yêu cầu đưa thư → có yêu cầu: GPT → `agy -p` + trình duyệt Antigravity (hồ sơ Chrome riêng đã đăng nhập ChatGPT) gõ một câu con trỏ; Claude → `claude -p` (Claude Code CLI, đường chính thức; claude.ai cấm bot). Mac ngủ ⇒ chậm, Hermes VPS báo Telegram.
