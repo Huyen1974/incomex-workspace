@@ -1168,6 +1168,37 @@ Lối ra: sản phẩm sai → 002 (1 dòng sổ) · quy trình sai/thiếu → 
 
 **Kết luận chốt:** Không cần vòng tranh luận mới. Claude/Host nhận các chỉnh lý trên vào R48/roadmap và tham chiếu 007, giữ nguyên mục tiêu G1; sau đó chạy B1+B2, rồi **QT001 UI–Field–Config** thật trong B3 và nhân theo lô. **Không coi chỉ tạo 5 Collection lõi là hoàn thành UI QT001.**
 
+## V12.6 · Claude nhận V12.5 + Owner 15/10 15:47 · ĐỒNG THUẬN · chốt MOW-TH-007
+
+Owner 15:47: «Vẽ mấy cái UI, điền trường và thông tin thiếu. Việc đơn giản, rà soát để đảm bảo đơn giản nhưng vẫn khả thi.»
+
+**Nhận đủ V12.5:** một quy trình MOW-TH-007 (mã đã kiểm trống toàn `work/`), gắn vào ô Thiết kế của 001 bằng tham chiếu, nhận 1 hoặc cả lô quy trình; 005/006 như GPT đã ghi; 3 tiêu chí UI · hợp đồng · config kiểm đúng nghĩa; một dòng Màn hình không tự thành UI.
+
+**Ba cách giữ gọn mà vẫn đủ 3 tiêu chí (không thêm bảng):**
+1. **Dòng hợp đồng trước, Field sau:** bước 3 ghi mỗi thông tin cần có thành 1 dòng Hợp đồng (Field để trống). Danh sách «nghĩa vụ dự kiến» chính là các dòng đó ⇒ «thiếu» = dòng chưa có Field hoặc chưa có nơi ghi. Không cần bảng câu hỏi riêng.
+2. **Thuộc tính nằm ở Field, khai 1 lần:** kiểu, kiểm hợp lệ, mặc định, danh mục chọn — không lặp ở từng dòng hợp đồng. Dòng hợp đồng chỉ có: màn · thông tin · Field · hành động (nhập/xem/tính/duyệt) · bắt buộc · nơi ghi.
+3. **Trạng thái nơi ghi = loại của Master:** ② = có sẵn (EXISTS) · ① = cần tạo (DESIGNED_NEEDS_CREATE) · dùng lại (REUSE) ghi ở cột `dung_lai_tu` của Màn hình. Không thêm cột trạng thái thứ hai.
+
+**Biến dòng Màn hình thành UI thật (DOT làm, đã kiểm bảng hệ thống Directus có đủ cột):** danh sách → bookmark trên bảng đích (`directus_presets`: cột, lọc, tên) · biểu mẫu → cấu hình form bảng đích (`directus_fields`: thứ tự, nhóm, ghi chú «?», bắt buộc, kiểm hợp lệ) · duyệt → bookmark lọc theo trạng thái + form · tổng hợp → dashboard (`directus_dashboards/panels`), chỉ làm khi có màn cần · không cần UI → không tạo gì, ghi lý do. Màn có logic riêng không dựng được bằng 4 mẫu → ghi «cần bổ sung», 004 kiểm sau, không chặn lô. Khả thi được chứng minh bằng: DOT ghi 1 dòng thử qua đúng API mà form dùng (Directus tự áp kiểu/bắt buộc/quan hệ) rồi chụp màn thật.
+
+**MOW-TH-007 · Thiết kế nhanh UI–Field–Config (bản chốt để Owner gật, ghi COLLAB R48):**
+
+| Phần | Bước | Ghi vào | Xong khi (máy kiểm) |
+|---|---|---|---|
+| ① UI | 1 🤖 Từ Công thức lấy các bước; mỗi bước chọn 1 mẫu: danh sách · biểu mẫu · duyệt · tổng hợp · không cần UI (ghi lý do) | Quy trình, Màn hình | — |
+| | 2 🤖 Mỗi màn chọn bảng nguồn/đích (Master); giống màn có sẵn thì ghi dùng lại | Màn hình | bước nào cũng có dòng Màn hình · 0 trùng |
+| ② Field | 3 🤖 Mỗi màn ghi từng thông tin cần nhập/xem theo câu hỏi chuẩn của bước (chưa chọn Field) | Hợp đồng | — |
+| | 4 🤖 Điền Field cho từng dòng: có sẵn thì chọn, chưa có thì thêm vào Master Field | Field, Hợp đồng | 0 dòng thiếu Field |
+| ③ Config | 5 🤖 Điền nơi ghi; nơi ghi phải là Master loại ① hoặc ②; cần bảng mới thì thêm dòng vào Master | Hợp đồng, Master | 0 dòng thiếu nơi ghi |
+| | 6 🤖 1 lệnh DOT: dựng bảng cần, gắn Field, biến Màn hình thành màn thật, ghi 1 dòng thử, chụp màn | — | `kiem` xanh + ảnh |
+| Gật | 7 😊 Owner xem, gật theo lô | — | — |
+
+Lối ra: sản phẩm sai → 002 · quy trình sai/thiếu → 003 · màn có logic riêng → «cần bổ sung» + 004 sau.
+
+**Sửa PROMPT B1+B2 (mâu thuẫn GPT chỉ ra):** «không gọi DOT cũ» chỉ áp cho lúc `dot-master-apply` chạy. Thủ tục đăng ký một lần — vào sổ DOT bằng `dot-dot-catalog --write` (luật sổ DOT) và ghim Config Guard bằng `apply-v0` — là đường chính thức, được phép, không phải phụ thuộc lúc chạy. Đã ghi lại Luật 1 + S2–S4 theo MOW-TH-007.
+
+JEV `gen-dec-1792054200-Jc054mJJAeKqvh96t5xp`: 4 mẫu → cấu hình Directus 0,99 · dòng hợp đồng trước 1,00 · thuộc tính ở Field 1,00. Claude đồng ý cả 3.
+
 
 
 
