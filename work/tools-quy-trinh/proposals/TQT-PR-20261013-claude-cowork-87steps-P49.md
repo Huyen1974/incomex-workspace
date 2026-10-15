@@ -1085,6 +1085,23 @@ JEV `gen-dec-1791988964-IkqMxZW0Mn4O3MFiU3AM`: DOT lâu dài tách vùng (Z) 1,0
 
 **Bước tiếp:** Owner gật Q1 + Q2 (Bảng COLLAB) → Claude soạn MỘT PROMPT B1+B2 thay `PROMPT.md` cũ → GPT READY đúng SHA → Owner giao Claude Code. Không mở vòng kiến trúc mới.
 
+## V11.8 · Owner 15/10 14:34 + GPT rà cuối 15/10 · Claude 14:55 · ĐỒNG THUẬN, đã ghi COLLAB R40/R43/R45/R47 + PROMPT B1+B2
+
+**Cách làm thống nhất (Owner + GPT + Claude):** mỗi quy trình chỉ 3 việc làm cùng lúc — vẽ UI · khai Field · rà config — trên 5 bảng nháp lõi nối nhau bằng mã. Directus làm phần việc trước đây ta dựng tay không nổi: tự vẽ list/form, chặn trùng mã, chặn nối tới mã chưa có (lộ chỗ thiếu), hiện quan hệ hai chiều (tránh tạo Field trùng), bộ lọc «thiếu», lịch sử sửa. QT001 xong trong 1 lượt → các quy trình còn lại làm theo lô. Master khác chỉ là dòng trong bảng Master, dựng bảng khi có màn hình cần. Nhận 2 ý GPT: mã DOT khoá cứng việc xoá (JSON không mở được), phần G2 để sẵn nhưng tắt.
+
+**Kiểm «DOT 100% — muốn làm cũng không làm được» (đo 15/10, chỉ đọc):**
+
+| Đường vào | Đo được | Mức |
+|---|---|---|
+| MCP `query_pg` | vai chỉ-đọc, giao dịch READ ONLY | 🟢 |
+| MCP `directus_create/update/delete` | danh sách cứng 7 bảng cũ (`information_unit`, `tac_logical_unit`, `birth_registry`, `species`, `species_collection_map`, `knowledge_node`, `knowledge_edge`), cấm `directus_*` (claude-mcp/app/tools.py) — vùng nháp không ghi được | 🟡 |
+| Directus MCP trên Mac | HTTP 403 cả health lẫn list | 🟢 |
+| SSH vào VPS | Claude Code/Codex chạy DOT qua SSH; Antigravity tự cấu hình SSH 14/10 (GJW 3.4); MCP Graph dùng ssh root (GJW P… bước 3/5). PG có vai `workflow_admin` superuser đăng nhập được + vai `directus` sở hữu 316 bảng. Có shell là vào được PG hoặc lấy khoá admin Directus | 🔴 |
+
+Kết luận: **chưa đạt** — chặn được AI chat, chưa chặn được agent có SSH. DROOT39 tự ghi «chưa cưỡng chế hoàn toàn». Trong TQT: `kiem` so Directus với tệp GitHub ở biên nhận gần nhất ⇒ ghi lén vào nháp bị phát hiện trong vài phút. Vá tận gốc (ngoài TQT, cần Owner Q3): khoá SSH của agent bị giới hạn bằng lệnh cố định của OpenSSH — chỉ chạy `dot-*` đã duyệt, không shell/psql/docker; khoá root chỉ Owner giữ; superuser PG không đăng nhập từ ngoài. Đây là cách chuẩn, không xây hệ mới.
+
+JEV `gen-dec-1792049969-7V1T0lOHejZvXNZmSBJP`: 5 bảng lõi trước, QT001 rồi lô 1,00 (so với dựng hết Master trước 0 / làm cả 100 ngay 0) · «hiện đã cưỡng chế DOT 100%» 0,04 · lệnh cố định OpenSSH 1,00. Claude đồng ý cả 3.
+
 
 
 
