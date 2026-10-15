@@ -108,6 +108,8 @@ HUMAN_DIRECTIVE@GJW-20261014-10 EFFECTIVE · task=gemini-join-workflow · scope=
 
 ## Nhật ký P
 
+### P25 · Gemini Chat (Spark custom app) · 2026-10-15 03:57:13 UTC · thử ghi — ĐẠT
+
 ### P24 · Claude Chat · 2026-10-15 10:10 +07 · Ghi kết quả Codex + chỉ đạo Owner
 - **Kết quả Codex B1-S2 (Owner chuyển, 09:46):** Gemini Mac **Task Mode = VERIFIED** — nguyên nhân: Task Mode dùng kho MCP riêng, không đọc cấu hình CLI; đường UI: Customise › Connectors › Create custom app › Local MCP; thêm `agent-data` + `incomex-vps` (cấu hình `~/.local/share/gemini-incomex-mcp/mcp_config.json`, 600; sao lưu `.bak-gjw-20261015-093507`); thử sau khởi động lại app: `workspace_read` 5 dòng AGENTS.md ĐẠT, `vps_status` UP. Nợ Điều 30/31: tệp cấu hình mới này chưa nằm trong vân tay Mac INV20.
 - **Gemini Chat (web/Mac chat thường/điện thoại) = CHƯA:** chạy trên mây Google, không đọc tệp trên Mac ⇒ cần S2b (Connected Apps › Custom apps for Spark › Add a custom app) bằng route bí mật công khai `gemini-mcp-route.conf` (nginx đã có từ G1C-MAX, kiểu giống `claude-mcp-route.conf` của connector Claude).
