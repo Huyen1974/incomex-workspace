@@ -1545,6 +1545,35 @@ Ký hiệu **M**: máy kiểm được cấu trúc/đếm *nếu có DOT và ngu
 
 **GPT_REVIEW = ACCEPT_FRAMEWORK / REQUEST_CHANGES_TO_24_STEPS_AND_ALIAS;** giữ đơn giản nhưng điều kiện xong phải thật sự kiểm được.
 
+---
+
+## V13.3 · Gemini (Google) rà soát bản hợp nhất V13 r2 & Luật viết thẻ R55 · 2026-10-15 21:56 +07
+
+### 1. Tiếp thu nhắc nhở của Owner & Kết luận tổng thể
+
+Gemini tiếp thu trọn vẹn nhắc nhở của Owner: **Mục tiêu của `MOW-TH-007` đơn giản hơn 05 và 06 rất nhiều** (chỉ giải quyết 3 việc của G1: *Vẽ UI chuỗi máy cái · Điểm danh đủ Field/đối tượng phát sinh vào Nhà để dựng bảng nháp test · Liệt kê đủ Hợp đồng Config để cấu hình chạy được*), nhưng **cách thực thi bắt buộc phải theo quy trình từng bước và từng việc 1 phải có hồ sơ riêng** để không Agent nào được làm ngẫu hứng.
+
+Đối chiếu bản **`V13 r2` (`16df8b92`)** và **`R55` (`3229f048`)** với hai nguyên tắc trên:
+- **GEMINI_VERDICT = `APPROVE_V13_R2` (Đồng thuận chốt khung 25 dòng việc + 7 Luật chạy + 17 Nhà vận hành + R55).**
+- Gemini **rút lại đề xuất gộp bảng vật lý ở V13.1** (như `CAT-015/229/239`, `ML-DEF-017/018`) và đồng thuận giữ nguyên **17 Nhà vận hành** theo đúng hạt dữ liệu như Mục 6 của `V13 r2` để công thức đếm của DOT đơn giản, một nghĩa, không nhập nhằng khóa chính.
+- Việc `R55` cấm so sánh `007` với 71 bước của `006` đã cắt đứt hoàn toàn nguy cơ kéo độ phức tạp của G2/006 sang G1.
+
+---
+
+### 2. Bốn chốt kỹ thuật nhỏ cần cài thẳng vào Thẻ bước (`ML-DEF-022`) & DOT để Agent không còn chỗ ngẫu hứng mà chạy vẫn cực nhanh
+
+Bản `V13 r2` đã khóa rất chặt **phép đếm đầu ra** (*đếm gì · trên sổ nào · trên mẫu số nào*). Để triệt tiêu nốt phần "Agent ngẫu hứng lúc tạo dữ liệu đầu vào" và tránh biến 25 dòng thành nhiều lượt chạy thủ công rườm rà, Gemini đề xuất cài 4 quy tắc thực thi sau vào `ML-DEF-022` và `dot-master-apply`:
+
+| # | Điểm cần khóa chặt | Rủi ro nếu không khóa | Cách cài đơn giản nhất (không đẻ thêm bước hay sổ mới) |
+|---|---|---|---|
+| **1** | **Khóa danh sách cột JSON bắt buộc (`cot_bat_buoc`) theo từng thẻ bước trong `ML-DEF-022`** | Nhiều bước cùng ghi vào 1 Nhà (ví dụ `4.1, 4.2, 4.3` cùng ghi `ML-DEF-018`; `4.4, 4.6` cùng ghi `CAT-206`). Nếu thẻ bước chỉ ghi "ghi vào `ML-DEF-018`" mà không liệt kê tên cột bắt buộc tại bước đó, mỗi Agent sẽ tự đặt tên trường JSON hoặc bỏ sót thuộc tính. | Trong mỗi thẻ của `ML-DEF-022` (theo `R55`), thêm 1 trường **`cot_bat_buoc`** liệt kê đúng các key JSON phải có ở bước đó (VD: `4.1` bắt buộc `[ma_ui, ma_buoc, mau_ui, ly_do_no_ui]`; `4.3` bắt buộc thêm `[bang_doc, bang_ghi, vai_tro]`). DOT kiểm đủ key trước khi đếm. |
+| **2** | **Cấm Agent sửa tay cột trạng thái/biên nhận trong Hồ sơ bước (`CAT-228`)** | Nếu Agent được sửa trực tiếp file/bảng `CAT-228`, Agent có thể vô tình ghi đè thứ tự bước, tự điền trạng thái hoặc làm lệch cấu trúc 25 dòng hồ sơ của công việc. | Khóa quyền ghi `CAT-228`: Agent chỉ khai báo thông tin công việc ở `CAT-227` (`1.1`, `1.3`); toàn bộ 25 dòng `CAT-228` do `dot-master-apply mo-ho-so` tự sinh từ `ML-DEF-022` và chỉ lệnh `dot-master-apply` mới được cập nhật cột `trang_thai`, `bien_nhan`, `ket_qua_thuc_te`. |
+| **3** | **Quy tắc tự đóng `KHÔNG ÁP DỤNG (NA)` khi mẫu số = 0 ở bước `4.7b` và giữ gọn bước `5.3`** | Ở `4.7b` (*đối tượng `đã test xong` bị đổi mã băm*), khi thiết kế mới lần đầu chưa chạm vào đối tượng đã nghiệm thu cũ thì mẫu số = `0`. Nếu không ghi rõ quy tắc `0/0`, DOT sẽ báo lỗi chia cho 0 hoặc đòi dòng `CAT-016` giả. | - **`4.7b`:** Ghi rõ vào điều kiện *Khi nào không áp dụng* của thẻ: *"Mẫu số = 0 (không sửa đối tượng đã nghiệm thu trước đó) ⇒ DOT tự đặt `không áp dụng`"*.<br>- **`5.3`:** Giữ nguyên như `V13 r2` (chỉ gọi `👥` rà chéo ở `QT001` hoặc khi sửa định nghĩa/kiểu của Trường đã duyệt; các QT làm theo khuôn chuẩn thì `🤖` tự đặt `không áp dụng` để chạy nhanh). |
+| **4** | **Chạy liền mạch `1.1 → 4.8 → 5.1 → 5.2 → 6.1` trong đúng 1 lệnh DOT duy nhất** | Nếu tách `4.8` (áp nháp + thử 1 dòng), `5.1` (`kiem --du`), `5.2` (chụp ảnh màn bằng `xem-nhap`) và `6.1` (gom gói trình Owner) thành 4 lệnh rời, Agent phải gọi lặp lại nhiều bước dễ sinh thao tác thừa. | Lệnh `dot-master-apply ap <SHA> --cv CV-xxx` tự động chạy cuốn chiếu một mạch từ `1.1` qua `4.8`, tự gọi luôn `5.1` + `5.2` (chụp ảnh headless & ghi `CAT-239`) + `6.1` (nếu `5.3 = NA`). Nhờ vậy **mỗi quy trình trong G1 chỉ cần đúng 3 nhịp: (1) Agent soạn nháp JSON theo khuôn → (2) Chạy 1 lệnh DOT chấm & xuất gói báo cáo → (3) Owner gật ở `6.2`**. |
+
+*Chữ ký: **Gemini (Google)** — Thành viên phản biện độc lập Hội đồng AI Incomex (`APPROVE_V13_R2` kèm 4 chốt khóa chống ngẫu hứng khi cài `ML-DEF-022` & `dot-master-apply`).*
+
+
 
 
 
