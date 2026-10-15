@@ -1199,6 +1199,27 @@ Lối ra: sản phẩm sai → 002 · quy trình sai/thiếu → 003 · màn có
 
 JEV `gen-dec-1792054200-Jc054mJJAeKqvh96t5xp`: 4 mẫu → cấu hình Directus 0,99 · dòng hợp đồng trước 1,00 · thuộc tính ở Field 1,00. Claude đồng ý cả 3.
 
+## V12.7 · Tổng hợp GPT + Gemini (Task, Chat) · Owner 16:45 «sửa vào đi … mọi thứ thật sự đơn giản» · Claude 16:55
+
+**Cốt lõi đơn giản:** 5 bảng nối bằng mã · 2 loại kiểm (⛔ chặn lỗi an toàn, 🟡 báo chỗ thiếu) · khai mỗi thứ đúng 1 nơi · 1 lệnh DOT. Mọi chỉnh dưới đây đều là bỏ bớt phức tạp hoặc bịt đúng chỗ hỏng thật.
+
+| Ý | Nguồn | Kết luận | Đã ghi |
+|---|---|---|---|
+| **Thiếu ≠ lỗi:** chỗ trống phải lưu được; máy chỉ chặn lỗi an toàn; Guard chỉ theo dõi lỗi an toàn; chỗ thiếu chỉ chặn khi nghiệm thu | Gem chat #1, GPT | 🟢 Nhận — đây là chỗ hỏng thật: công cụ để tìm chỗ thiếu lại không cho lưu chỗ thiếu, và Guard sẽ đỏ suốt thời gian thiết kế | PROMPT Luật 7, S3, S4, S7 · R48 |
+| Field có cột «việc sinh ra» | Gemini Task #4 (R36) | 🟢 Nhận — Owner đã yêu cầu từ R36, danh sách cột bị sót | PROMPT S2 |
+| Vai trò người dùng | Gem chat #4, GPT | 🟢 Nhận — 1 cột `vai_tro` ở Màn hình (ai dùng màn), không lặp ở từng dòng hợp đồng | PROMPT S2 · R40 |
+| Bảng nghiệp vụ lấy cột từ Hợp đồng, không khai danh sách cột lần 2 | Gem chat C.1, GPT | 🟢 Nhận — khai 1 nơi | PROMPT S2 · R45 |
+| Nạp sẵn 3 màn QT001 + dòng hợp đồng có sẵn; chỗ thiếu để trống | Gem chat C.2, Gemini Task C.1, GPT | 🟢 Nhận — đã là «dữ liệu có sẵn», không phải làm thêm; B3 chỉ còn điền chỗ trống | PROMPT S2 |
+| Bookmark dùng chung + tài khoản xem đọc được; kiểm bằng chính tài khoản xem · xoá ngược chiều phụ thuộc · kéo repo mới trước khi đọc SHA | Gemini Task/Chat, GPT | 🟢 Nhận — chi tiết thực thi, ghi 1 câu mỗi ý | PROMPT S3, S5 |
+| Nhiều màn biểu mẫu cùng bảng → mỗi màn 1 nhóm | Gemini Task/Chat, GPT | 🟢 Nhận (GPT đúng: nhóm chỉ chia form, không tạo 2 form độc lập — đủ cho thiết kế nháp) | PROMPT S3 |
+| Tìm kiếm/chấm điểm JEV ở QT001 là logic, Directus chỉ vẽ UI | Gem chat #3, GPT | 🟢 Nhận — G1 chỉ vẽ UI + hợp đồng, logic để G2 | R48 lối ra |
+| Gom lô B4 theo cùng Bước của Công thức, dùng lại màn gốc | Gemini Task/Chat C.3, GPT | 🟢 Nhận cho B4 | R43 |
+| Cột «nơi đọc» riêng | Gem chat #4, GPT | ⚪ **Bỏ** — 1 cột `bang` + hành động là đủ (nhập = bảng ghi, xem = bảng đọc); nguồn danh mục đã nằm ở Field. Thêm cột thứ hai thì phần lớn dòng để trống, dễ nhầm | PROMPT S2 (đổi `noi_ghi` → `bang`) |
+| Ghi ý kiến ra tệp đề xuất mới | Gemini Task/Chat | 🔴 **Bỏ** — trái luật 1 tài liệu; ghi vào đây | — |
+| Giữ READY cũ, dán chỉ dẫn ngoài PROMPT | Gemini Task/Chat | ⚪ **Bỏ** — đồng ý GPT: đổi hợp đồng thì sửa PROMPT rồi READY lại; Owner đã bảo «sửa vào đi» | PROMPT r2 |
+
+**Trạng thái:** PROMPT r2 đã ghi (50e5469, 914580c) ⇒ READY@c286349 hết hiệu lực. GPT rà đúng phần đổi trong bảng trên rồi READY đúng SHA mới; không mở vòng kiến trúc. Ghi nhận ngoài TQT: hai đầu nối của Gemini có quyền đọc khác nhau (TRIAL_READ_FORBIDDEN) — việc của mục Gemini, không xử lý ở đây.
+
 
 
 
