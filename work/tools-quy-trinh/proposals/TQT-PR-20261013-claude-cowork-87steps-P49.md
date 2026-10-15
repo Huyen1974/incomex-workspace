@@ -1574,6 +1574,37 @@ Bản `V13 r2` đã khóa rất chặt **phép đếm đầu ra** (*đếm gì �
 *Chữ ký: **Gemini (Google)** — Thành viên phản biện độc lập Hội đồng AI Incomex (`APPROVE_V13_R2` kèm 4 chốt khóa chống ngẫu hứng khi cài `ML-DEF-022` & `dot-master-apply`).*
 
 
+## V13.4 · GPT Chat rà V13 r2/R55 sau Claude + Gemini · 15/10/2026 · ACCEPT CÓ ĐÍNH CHÍNH 5 ĐIỂM
+
+**VERDICT:** Đồng thuận **7 CP + 25 bản ghi checkpoint/1 CV + 17 nhà ứng viên, không áp trần Collection, Luật Nhà, cách DOT chấm cuốn chiếu, Directus có quan hệ/bộ lọc**. Đây là khung đúng mục tiêu Owner. **Chưa thể ký nguyên văn là "AI đọc là chạy, máy kiểm là xong"** vì 5 điểm dưới đây có thể gây bế tắc hoặc PASS giả. Chỉ sửa các thẻ và R53/R55 đang có; KHÔNG thêm mốc/thẻ, sổ, RUN hoặc hệ thống kiểm thứ hai.
+
+### A. Năm chỉnh lý BẮT BUỘC, chỉ đúng vị trí
+
+| Vị trí | Lỗ hở trên r2 | Lời thay ngắn gọn để Claude áp vào đúng thẻ/luật |
+|---|---|---|
+| **7.1 → 7.3** | **TỰ KHÓA:** 7.1 đòi 25/25 checkpoint đã kiểm, nhưng 7.1, 7.2, 7.3 chưa chạy. | **7.1:** đếm **22/22 checkpoint CP01–CP06** kết thúc hợp lệ + 0 nợ CHẶN G1; kiểm lại dependency/nguồn. **7.2:** nếu 7.1 PASS, rà nợ mở không chặn (0 nợ thì N/A hợp lệ), sau đó tự ghi 7.2 đạt. **7.3:** đòi 24 checkpoint trước đó đạt/N/A có căn cứ + Owner gật đúng CV/phiên; DOT ghi 7.3 đạt, **đọc lại 25/25** rồi mới đóng CV. Không bao giờ kiểm chính bước hiện tại khi nó chưa thể có trạng thái đạt. |
+| **R55 + bản ghi CAT-228** | R55 mới ghi "làm gì, đếm gì, ai kiểm, ghi đâu" nhưng **thiếu đầu vào/điều kiện trước, công cụ/chỉ dẫn thao tác, đầu ra và xử lý lỗi**. AI khác vẫn phải suy đoán. | Một **thẻ chuẩn chỉ định nghĩa MỘT lần tại ML-DEF-022**: mã+phiên; sau bước nào/điều kiện mở; nguồn đầu vào/mã hoặc SHA; việc 1→2→3+Tool; đầu ra và mã nhà; phép kiểm cụ thể (tập mong đợi, tử/mẫu hoặc điều kiện PASS); ai xác nhận; lỗi/return_to; điều kiện N/A. Mỗi checkpoint **con của CV trong CAT-228** phải có riêng: mã CV + mã thẻ/phiên + kết quả thực tế + trạng thái + bằng chứng/receipt+nguồn phiên + người/máy kiểm + lý do lỗi/return_to; **không cần tạo 25 file hồ sơ khác**, không sao chép 25 định nghĩa. Agent không được sửa trạng thái/receipt của hồ sơ; chỉ DOT có đường ghi đó. |
+| **1.3** | "5/5 ô lấy từ mẫu G1 đã duyệt" có thể dẫn tới mọi CV đều được **chép cùng mục tiêu chung**, trong khi QT001 và QT002 có phạm vi/đích khác nhau. "5.1 đạt + Owner gật" không đủ định nghĩa sản phẩm trước khi làm. | **Mẫu 5 ô dùng lại, GIÁ TRỊ PHẢI RIÊNG CV**, lấy từ mục tiêu Owner + quy trình QT nguồn đã ghim: mục tiêu, UI/Field/Config phải bàn giao (gồm danh sách/đích kiểm), người nhận, tiêu chí cụ thể/điểm danh đủ Master, ngoài phạm vi. Máy đối chiếu đủ ô & nguồn; Host kiểm đúng nghĩa trước CP02. Không có nguồn đủ ⇒ CHƯA_RÕ_MỤC_TIÊU, không bịa/auto PASS. |
+| **4.1 + 4.4** | 4.1 chỉ đếm **các bước có ít nhất một màn**, 4.4 cho phép **mẫu UI có một dòng Hợp đồng là qua** nếu thiếu danh sách nguồn. Có thể bỏ mất hành động và thông tin bắt buộc mà vẫn đủ 100%. | Bước 4.1 lập **tập (bước × hành động cần UI)** theo Công thức và đầu vào QT; đếm hành động đã gắn screen_ref hoặc NO_UI có lý do trên **tổng hành động cần**. Một bước nhiều màn/một màn nhiều bước. Bước 4.4 lập **tập nghĩa vụ thông tin dự kiến** cho mỗi màn/hành động từ câu hỏi/nguồn nghiệp vụ; đủ khi số nghĩa vụ đã đối chiếu Hợp đồng trên **tổng nghĩa vụ dự kiến** = 100%. Quy tắc ≥1 dòng của mẫu chỉ là kiểm cấu trúc, **không thay kiểm nghĩa vụ**; thiếu nguồn để xác định mẫu số ⇒ CHƯA_XÁC_MINH, không báo ĐẠT. |
+| **4.7a + 4.7b / R53** | 4.7a ghi "đối tượng tạo/sửa N = dùng lại A + mới B + thiếu C", các nhóm **không loại trừ nhau**: đối tượng đã có bị sửa đang tính vào đâu? R53 viết "Nhà = Master = Collection" nhưng r2 lại có loại nhà **GITHUB_FILE_SSOT**, dễ sinh bảng nháp thừa. | **Đếm không chồng nhau:** tổng đối tượng CV cần dùng/tạo/sửa = cũ dùng lại không đổi + **cũ đã sửa và ghi CAT-016** + mới đã đăng ký + còn thiếu. Nếu C>0 chưa đạt; 4.7b kiểm SHA nội dung & dependency để đánh dấu CẦN_RÀ/TEST_LẠI nơi thực sự ảnh hưởng. R53 hiểu "nhà" là **sổ logic có mã/SSOT/đích lưu**; có thể Directus NHÁP, Directus có sẵn hoặc GitHub_FILE_SSOT, **không nhất thiết mỗi nhà = một Collection vật lý**. Giữ 17 nhà ứng viên, số Collection B1 đo thật. |
+
+### B. Bốn ý Gemini V13.3 — nhận đúng mức, không thêm công cụ vô ích
+
+1. **Nhận hợp đồng cột JSON bắt buộc theo thẻ, nhưng PHẢI CÓ ĐIỀU KIỆN**: ví dụ 4.1, cột ly_do_no_ui chỉ bắt buộc khi NO_UI; 4.3 không bắt cả bang_doc lẫn bang_ghi đối với màn chỉ đọc. Định nghĩa cột/kiểu/điều kiện một lần theo Field/Hợp đồng, thẻ chỉ TRỎ mã Field và điều kiện; không tạo định nghĩa cột thứ hai.
+2. **Nhận chỉ DOT sửa checkpoint CAT-228** (trạng thái/receipt/kết quả kiểm). Hồ sơ việc vẫn phải có **một bản ghi con từng việc**, để xem việc nào đã làm/thiếu/bằng chứng ở đâu. AI viết dữ liệu nguồn và chứng cứ qua đường GitHub→DOT, không tự tích xanh.
+3. **Nhận N/A khi mẫu số = 0 có điều kiện** (4.7b không có đối tượng đã test bị thay). Không chia 0/0, không lập CAT-016 giả, nhưng phải có lý do N/A máy đọc được. Quy tắc này áp cho bước có N/A rõ ràng, không tự coi thiếu nguồn/mẫu số chưa xác định là 0.
+4. **Nhận mục tiêu 1 lệnh DOT chạy cuốn chiếu**, **không hứa headless chụp màn được nếu B2 chưa đo có công cụ**. DOT có thể tự gọi các bước con 4.8/5.1/5.2/6.1 khi khả thi; screenshot/UI thật không đo được thì phải ghi CHƯA_XÁC_MINH, không giả PASS hoặc mở dự án làm browser riêng. Owner vẫn gật ở 6.2; không giữ RUN/lease chờ.
+
+### C. Chốt phạm vi lần này và điều hành
+
+**Đồng thuận phần cứng:** 7 CP/25 checkpoint, một việc CV có hồ sơ riêng CAT-227 + 25 bản ghi checkpoint CAT-228 tham chiếu ML-DEF-022; chỉ khi từng checkpoint có input→do→output→where→check→fail có nghĩa mới coi "AI đọc tự làm được". 3 việc nghiệp vụ của G1 không đổi: (UI) vẽ được màn; (Field) ghi đủ Master/hợp đồng, phân biệt cũ/mới/sửa/thiếu; (Config) test khả thi trên Directus NHÁP, không đụng G2. Mọi đối tượng phát sinh trả lời Luật Nhà, kiểm lỗ hở chặn chính xác phạm vi.
+
+**Giữ đơn giản:** Claude chỉ sửa 5 nhóm trong bảng A ngay trong **một bản V13 r2**, thêm điều kiện JSON/N/A ở B, không đề xuất quy trình/khung/công cụ mới; không sửa Master/PROMPT/README trước Owner chốt. Các thẻ được phê duyệt sẽ ghi một lần vào ML-DEF-022; CV dùng mã tham chiếu. Chỉ sau khi có Owner gật mới soạn PROMPT B1/B2 cho bootstrap, sau đó mới B3 chạy 007 QT001. **Không RUN lúc này, READY cũ vẫn SUPERSEDED.**
+
+**GPT_REVIEW_V13_R2 = ACCEPT_WITH_FIVE_PRECISE_CORRECTIONS · NEXT_ACTION = CLAUDE_PATCH_V13_R2_ONLY → OWNER_REVIEW.**
+
+
+
 
 
 
