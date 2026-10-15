@@ -1273,61 +1273,66 @@ JEV `gen-dec-1792063017-UfgJRxPGcsEH5W6GQbQO` + `gen-dec-1792063042-yNzTEYJoFCq7
 
 **Việc của GPT (1 lượt):** ① chốt R49–R53 ② sửa README «Đọc nhanh» và dòng PROMPT chỉ tới R49–R53 ③ đưa 5 câu R53 thành câu đóng của khuôn 005/006/007 trong `view.html` (trỏ mã R53, không chép lại nội dung) ④ viết lại R51 bước ① thành «trả lời câu Nhà cho mọi thứ sẽ sinh ra» nếu cần. Không viết PROMPT mới khi Owner chưa rà xong.
 
-## V13 · MOW-TH-007 v2 — ĐƯỜNG ĐỘC ĐẠO cho việc thiết kế G1 · Claude dự thảo 21:20 · CHỜ HỘI ĐỒNG CHỐT
+## V13 · MOW-TH-007 v2 — ĐƯỜNG ĐỘC ĐẠO cho việc thiết kế G1 · Claude dự thảo 21:20 · **r2 22:05: đã gộp Hermes + Gemini V13.1 + GPT V13.2 — BẢN DUY NHẤT, thay r1** · chờ GPT xác nhận r2
 
 **Owner 21:03:** liệt kê nhà vẫn thất bại nếu chỉ định hướng mục tiêu mà không chốt cách làm. Phải: 7 bước lớn như cũ → mỗi bước chia việc nhỏ có thứ tự → mỗi việc nhỏ có «thế nào là xong» → một con đường, kiểm xong là xong, làm khác không được, quên không được. Quy trình ở trên; mỗi công việc có hồ sơ trong sổ công việc. Đơn giản hơn 006, tận dụng tối đa Directus.
 
-### 1. Khung (giữ xương sống 006)
+### 1. Phạm vi và khung
+**Phạm vi:** 007 v2 chỉ dùng cho G1 — thiết kế UI · Field · Config trên vùng nháp. Trong G1 nó **thay** 006; 006 (71 bước) giữ nguyên cho G2/G3 triển khai thật. **Không đo 007 bằng 71 bước.** Chỉ mượn 7 tên mốc CP01–CP07 cho quen.
 
 ```
 QUY TRÌNH (khuôn, ở trên)                    CÔNG VIỆC (thực thể, ở dưới)
 Sổ quy trình: MOW-TH-007@v2         ──►     Sổ việc (CAT-227): CV-xxx = 1 quy trình QTxxx cần thiết kế
-Sổ bước khuôn (ML-DEF-022):                   Hồ sơ của CV = 24 dòng, mỗi dòng = 1 việc nhỏ,
-  24 việc nhỏ, mỗi việc 1 thẻ          ──►     trỏ về thẻ bằng mã (không chép), có trạng thái + bằng chứng
+Sổ bước khuôn (ML-DEF-022):                   Hồ sơ của CV = 25 dòng, mỗi dòng = 1 việc nhỏ,
+  25 thẻ (24 vị trí, 4.7 tách a/b)     ──►     trỏ về thẻ bằng mã (không chép), có trạng thái + bằng chứng
 ```
-DOT `mo-ho-so CV-xxx` sinh đủ 24 dòng từ khuôn ⇒ không thể quên dòng nào. Sau khi chốt, 24 thẻ sống ở Sổ bước khuôn (nhà của chúng); bản trong P49 này chỉ là nháp để bàn.
+DOT `mo-ho-so CV-xxx` sinh đủ 25 dòng từ khuôn ⇒ không thể quên dòng nào. Sau khi chốt, 25 thẻ sống ở Sổ bước khuôn (nhà của chúng); bản trong P49 này chỉ là nháp để bàn.
 
-### 2. Ba luật chạy (thay 9 câu lặp ở từng bước của 006)
-1. **Thứ tự:** việc nhỏ n chỉ được đánh dấu khi n−1 đã kiểm. Một lúc chỉ 1 việc mở.
-2. **Ai đánh dấu:** «đã kiểm» chỉ do DOT đặt sau khi chạy đúng phép kiểm ghi trong thẻ, hoặc do quyết định Owner đã ghi nguyên văn. AI không tự tích. «Không áp dụng» cũng chỉ DOT đặt theo luật ghi trong thẻ.
-3. **Lỗi:** kiểm không qua ⇒ ghi nợ (nối CV + việc nhỏ), đứng nguyên ở việc đó, sửa xong chạy lại kiểm; không sang việc sau. Dừng thì báo 4 dòng (luật cũ).
+### 2. Luật chạy (áp cho mọi việc nhỏ; thẻ không nhắc lại)
+1. **Ghi dữ liệu ≠ đánh dấu xong.** DOT luôn ghi dữ liệu nháp và chỉ từ chối lỗi an toàn ⛔ (sai vùng · trùng mã · nối tới mã không có — Luật 7 PROMPT); chỗ còn thiếu vẫn lưu được. Nhưng một việc nhỏ chỉ được đánh dấu **đã kiểm** khi phép kiểm của nó đạt.
+2. **Chấm cuốn chiếu, 1 lệnh:** AI soạn dữ liệu của nhiều việc nhỏ trong 1 commit rồi chạy `dot-master-apply ap <SHA> --cv CV-xxx`. DOT chấm lần lượt từ việc đầu tiên chưa đạt: đạt thì đóng dấu và chấm tiếp; gặp việc đầu tiên không đạt thì dừng, ghi kết quả (CAT-015) và báo đúng việc + con số thiếu. Không bao giờ chấm việc sau khi việc trước chưa đạt.
+3. **Chỉ DOT hoặc quyết định Owner đánh dấu.** AI không tự tích «đã kiểm» hay «không áp dụng»; «không áp dụng» chỉ khi đúng điều kiện ghi trong thẻ.
+4. **Lỗi:** sửa rồi chạy lại. Kết thúc lượt mà việc vẫn chưa đạt ⇒ bắt buộc 1 dòng nợ CAT-069 (CV · việc · chủ · chặn G1 hay không · quay về việc nào), báo 4 dòng, nhả lượt; không giữ máy chờ.
+5. **Quay lại (Owner lắc hoặc nợ chỉ về việc k):** DOT chấm lại các việc máy từ k trở đi, việc không bị ảnh hưởng tự đạt lại ngay; 5.3 giữ kết quả nếu phần sửa không chạm đối tượng đã rà; 6.2 luôn hỏi lại Owner. Lịch sử giữ nguyên, không xoá.
+6. **Hai loại nhà.** *Nhà vận hành* (sổ của cỗ máy, mục 6) phải được Owner duyệt cột trước khi dùng — làm ở B1; giữa chừng cần nhà vận hành mới ⇒ dừng, quay về 2.2. *Nhà thiết kế* (bảng nghiệp vụ QT cần, là sản phẩm của thiết kế) ghi «cần làm» ở 4.3, cột suy từ Hợp đồng, DOT dựng nháp để thử; Owner duyệt cột lần đầu ngay khi gật ở 6.2.
+7. **Mọi phép kiểm ghi 3 thứ:** đếm gì · trên nhà nào · mẫu số (vd «số bước có màn / tổng bước QT = 100%»). Không có mẫu số thì «0 thiếu» vô nghĩa (R55).
 
-Phép kiểm của mọi việc nhỏ có sinh đối tượng đã gồm Luật Nhà R53 cho thứ vừa sinh.
+### 3. 25 dòng việc (24 vị trí, 4.7 tách a/b)
+🤖 AI/máy làm · 😊 Owner. Cột **Kiểm**: 🤖 DOT đếm · 👥 Reviewer khác hãng/Host · 😊 Owner. Dòng nào có 👥 là phần máy chỉ kiểm được hình thức.
 
-### 3. 24 việc nhỏ (🤖 máy/AI · 😊 Owner)
-
-| Mốc | # | Việc | Ai | Xong khi (phép kiểm) | Ghi ở nhà |
+| Mốc | # | Việc | Xong khi — đếm gì · trên nhà nào · mẫu số | Kiểm | Ghi ở |
 |---|---|---|---|---|---|
-| **CP01 Khai việc** | 1.1 | Tra Sổ việc: QT này đã có việc thiết kế chưa | 🤖 | đúng 1 CV, 0 trùng | Sổ việc |
-| | 1.2 | Mở hồ sơ: `mo-ho-so CV` | 🤖 DOT | số dòng hồ sơ = số việc nhỏ của khuôn@phiên | Hồ sơ |
-| | 1.3 | Điền thẻ việc 5 ô theo mẫu G1 (mục tiêu · sản phẩm · người nhận · tiêu chí · ngoài phạm vi) | 🤖 | 5 ô không trống; mẫu G1 duyệt 1 lần cho khuôn | Sổ việc |
-| **CP02 Chuẩn bị đủ** | 2.1 | Nạp danh sách bước của QT từ Công thức | 🤖 | QT có ≥1 bước; ghi mã nguồn + commit | Sổ quy trình |
-| | 2.2 | Câu Nhà cho các loại sẽ sinh ra (màn, hợp đồng, Field, bảng, nợ) | 🤖 | 0 loại vô gia cư; nhà sẽ dùng đã duyệt cột | Sổ của các sổ |
-| | 2.3 | DOT sẵn sàng: `dot-master-apply thu` | 🤖 DOT | PASS | Sổ lượt thử |
-| **CP03 Xác nhận bắt đầu** | 3.1 | Cổng mở: `kiem CV --cp 01-02` | 🤖 DOT | CP01–02 đã kiểm ⇒ máy mở CP04; không cần người vì khuôn đã duyệt | Hồ sơ |
-| **CP04 Làm: UI → Field → Config** | 4.1 | Mỗi bước QT ⇒ 1 dòng Màn hình, chọn mẫu (danh sách · biểu mẫu · duyệt · tổng hợp · không UI + lý do) | 🤖 | bộ lọc «bước chưa có màn» = 0 | Sổ màn |
-| | 4.2 | Màn giống màn có sẵn ⇒ ghi dùng lại | 🤖 | 0 cặp (bảng, mẫu) trùng mà không ghi dùng lại | Sổ màn |
-| | 4.3 | Mỗi màn chọn bảng; thiếu nhà ⇒ ghi nhà mới «cần làm» | 🤖 | 0 màn thiếu bảng | Sổ màn · Sổ của các sổ |
-| | 4.4 | Mỗi màn liệt kê thông tin ⇒ dòng Hợp đồng | 🤖 | 0 màn (trừ không UI) có 0 dòng | Sổ hợp đồng |
-| | 4.5 | Mỗi dòng gắn Field có sẵn; thiếu thì ghi Field mới đủ mô tả | 🤖 | 0 dòng thiếu Field · 0 Field trùng tên | Sổ Field |
-| | 4.6 | Mỗi dòng ghi bảng đọc/ghi + bắt buộc | 🤖 | 0 dòng thiếu bảng | Sổ hợp đồng |
-| | 4.7 | Ghi mọi phát sinh khác (nợ, việc cần Owner quyết, thay đổi) | 🤖 | Luật Nhà: 0 vô gia cư · 0 thiếu ghi danh · 0 chép trùng | Sổ nợ · Sổ quyết định |
-| | 4.8 | Commit → `dot-master-apply ap <SHA>`: dựng màn thật + 1 dòng thử | 🤖 DOT | biên nhận ĐẠT; đối tượng sang «đã làm» | Sổ lượt thử |
-| **CP05 Kiểm đầu ra** | 5.1 | `kiem --du QTxxx` | 🤖 DOT | 0 thiếu · 0 ghi khống · 0 chép trùng | Sổ kết quả kiểm |
-| | 5.2 | Mở từng màn bằng tài khoản xem, chụp ảnh, đọc lại dòng thử | 🤖 | mỗi màn 1 ảnh + dòng thử khớp ⇒ đối tượng «đã test» | Sổ bằng chứng |
-| | 5.3 | Rà khác hãng phần máy không thấy (Field trùng nghĩa, mẫu màn hợp lý, nợ đủ) — **chỉ khi CV là khuôn (QT001)**, còn lại DOT đặt «không áp dụng» | 🤖 Reviewer | 1 phiếu APPROVE/REJECT | Sổ quyết định |
-| **CP06 Duyệt** | 6.1 | Gom gói duyệt: link bộ lọc theo QT + ảnh + số liệu kiểm | 🤖 | gói đủ 3 thứ | Sổ việc |
-| | 6.2 | Owner xem, gật/lắc theo lô (qua chat) | 😊 | AI ghi nguyên văn vào sổ quyết định, nối CV | Sổ quyết định |
-| | 6.3 | Khi lắc ⇒ ghi nợ + quay lại đúng việc nhỏ Owner chỉ; gật thì DOT đặt «không áp dụng» | 🤖 | nợ nối việc nhỏ; hồ sơ mở lại từ việc đó | Sổ nợ |
-| **CP07 Đóng** | 7.1 | Kiểm liên tục: mọi dòng hồ sơ đã kiểm; Luật Nhà đủ cho mọi đối tượng CV đã tạo | 🤖 DOT | 0 dòng mở | Hồ sơ |
-| | 7.2 | Vấn đề còn mở + bài học vào sổ nợ | 🤖 | 0 vấn đề chỉ nằm trong chat/báo cáo | Sổ nợ |
-| | 7.3 | Đóng CV, báo 4 dòng | 🤖 | CV «đã test xong» | Sổ việc |
+| **CP01 Khai việc** | 1.1 | Tra Sổ việc theo khoá (QT + G1 + phiên khuôn): chưa có ⇒ tạo đúng 1; có ⇒ dùng lại | số CV cùng khoá trong CAT-227 = 1 | 🤖 | CAT-227 |
+| | 1.2 | `mo-ho-so CV`: sinh hồ sơ từ 007@phiên (ghim hash) | số dòng hồ sơ của CV = số thẻ khuôn@phiên (25); mã checkpoint không trùng; chạy lại không thêm dòng | 🤖 | CAT-228 (B1 xác nhận) |
+| | 1.3 | Điền thẻ việc 5 ô theo mẫu G1 | 5/5 ô (mục tiêu · sản phẩm · người nhận · tiêu chí · ngoài phạm vi) lấy từ mẫu G1 đã duyệt; tiêu chí = «5.1 đạt + Owner gật» | 🤖 | CAT-227 |
+| **CP02 Chuẩn bị** | 2.1 | Nạp bước của QT từ Công thức | số bước QT trong Sổ quy trình / số bước của QT trong Sổ Công thức (ghim SHA) = 100%; mã bước không trùng | 🤖 | ML-MOW-TH-001 |
+| | 2.2 | Liệt kê loại đối tượng CV sẽ sinh | số loại có nhà vận hành đã duyệt cột (dòng trong Sổ của các sổ có mã quyết định CAT-025) / số loại sẽ sinh = 100% | 🤖 | ML-DEF-012 |
+| | 2.3 | DOT thử thật: `dot-master-apply thu` | biên nhận PASS cùng phiên DOT, trong lượt này (`--help` không tính) | 🤖 | CAT-229 |
+| **CP03 Cổng** | 3.1 | Cổng vào làm (điều kiện vào khuôn) | 6/6 việc CP01–02 đã kiểm, cùng phiên khuôn, hash không lệch ⇒ máy mở CP04; không cần người | 🤖 | CAT-228 |
+| **CP04 Làm: UI → Field → Config** | 4.1 | Nối bước QT với màn: 1 bước có thể nhiều màn, 1 màn dùng cho nhiều bước; bước không cần màn ghi «không UI» + lý do | số bước có ≥1 màn hoặc «không UI»+lý do / tổng bước QT = 100% | 🤖 + 👥 hợp nghề | ML-DEF-018 (mẫu ở ML-DEF-017) |
+| | 4.2 | Màn giống màn có sẵn ⇒ ghi dùng lại | máy liệt kê cặp màn trùng cả 4 thuộc tính (bảng · mẫu · vai trò · bộ lọc); số cặp có «dùng lại từ» hoặc lý do khác / số cặp = 100% | 🤖 + 👥 | ML-DEF-018 |
+| | 4.3 | Mỗi màn chọn bảng; bảng nghiệp vụ chưa có ⇒ ghi nhà thiết kế «cần làm» | số màn (trừ «không UI») có bảng / tổng màn = 100% | 🤖 | ML-DEF-018 · ML-DEF-012 |
+| | 4.4 | Mỗi màn liệt kê thông tin ⇒ dòng Hợp đồng | (a) theo mẫu: danh sách ≥1 dòng xem; biểu mẫu/duyệt ≥1 dòng vào và ≥1 dòng ra · (b) QT có danh sách thông tin nguồn (vd `UI-REVIEW-MOW001.json`): số thông tin nguồn có dòng hợp đồng / tổng = 100% | 🤖 (a)(b) + 👥 đủ nghĩa | CAT-206 |
+| | 4.5 | Gắn Field: dùng lại hoặc ghi Field mới | Field cần N = dùng lại A + mới đã ghi danh B + còn thiếu C; đạt khi C = 0; Field mới đủ 6 cột R36; tên cột không trùng trong 1 bảng | 🤖 + 👥 trùng nghĩa khác tên | ML-DEF-008 |
+| | 4.6 | Ghi bảng + bắt buộc cho từng dòng hợp đồng | số dòng có bảng đúng hành động (xem ⇒ bảng đọc; nhập/tính/duyệt ⇒ bảng ghi) / tổng dòng = 100% | 🤖 | CAT-206 |
+| | 4.7a | Đếm phát sinh (đã ghi ngay khi gặp; đây chỉ là đếm) | đối tượng CV tạo/sửa N = dùng lại A + mới ghi danh B + chưa ghi danh C; C = 0 (máy so dữ liệu commit với các nhà); 0 chép cơ học (ngoài khoá chỉ ghi mã, không lặp tên/kiểu Field) | 🤖 | các nhà tương ứng |
+| | 4.7b | Rà ảnh hưởng: đối tượng đã test bị CV đổi nội dung (so hash với bản đã test) | mỗi đối tượng đổi có 1 dòng thay đổi (lý do + tác động); mọi đối tượng phụ thuộc theo quan hệ đã sang «cần test lại» | 🤖 | CAT-016 |
+| | 4.8 | Commit → `dot-master-apply ap <SHA>`: dựng/cập nhật màn thật; màn có hành động ghi ⇒ 1 dòng thử, đọc lại | biên nhận ĐẠT đúng SHA; số màn có hành động ghi đã thử + đọc lại khớp / số màn đó = 100% | 🤖 | CAT-229 |
+| **CP05 Kiểm** | 5.1 | `kiem --du QTxxx` | 0 thiếu theo các mẫu số 4.1–4.6 · 0 ghi khống · 0 nợ chặn G1 đang mở | 🤖 | CAT-015 |
+| | 5.2 | Mở từng màn bằng tài khoản xem, chụp ảnh; test lại đối tượng «cần test lại» | số màn có ảnh (tệp + sha256, nối mã màn) / tổng màn = 100%; số «cần test lại» của CV = 0; ảnh đúng màn ⇒ 👥 | 🤖 + 👥 | CAT-239 |
+| | 5.3 | Rà khác hãng phần máy không thấy (hợp nghề, trùng nghĩa, đủ nghĩa) | 1 phiếu APPROVE/REJECT. **Chỉ khi CV là khuôn (QT001)** — Owner đã chốt; CV khác DOT đặt «không áp dụng» | 👥 | CAT-025 |
+| **CP06 Duyệt** | 6.1 | DOT gom gói duyệt | gói đủ 5 thứ: link bộ lọc theo QT · ảnh · số cần/đã/thiếu · nợ + **thay đổi thứ đã duyệt (4.7b) nêu riêng** · biên nhận | 🤖 | CAT-227 |
+| | 6.2 | Owner gật/lắc theo lô (chat), kèm duyệt cột nhà thiết kế mới | 1 dòng quyết định: nguyên văn · CV · phiên/SHA · gật/lắc; AI ghi, DOT đọc lại | 😊 | CAT-025 |
+| | 6.3 | Nhánh lắc | lắc: 1 dòng nợ có «quay về việc k», áp luật chạy 5; gật: DOT đặt «không áp dụng» | 🤖 | CAT-069 |
+| **CP07 Đóng** | 7.1 | Kiểm liên tục | 25/25 dòng hồ sơ ở «đã kiểm» hoặc «không áp dụng» có căn cứ · 0 nợ chặn G1 đang mở | 🤖 | CAT-228 |
+| | 7.2 | Nợ còn mở (không chặn G1) đủ thông tin | số nợ mở có đủ 4 ô (chủ · mức · điều kiện mở lại · đích bàn giao) / tổng nợ mở = 100% · Host xác nhận mọi vấn đề nêu trong lượt/chat đã vào sổ | 🤖 + 👥 | CAT-069 |
+| | 7.3 | Đóng CV, báo 4 dòng | CV sang «G1 thiết kế đã duyệt» khi 7.1 đạt và có gật 6.2; không tự mở G2 | 🤖 | CAT-227 |
 
-**Ví dụ xuyên suốt (số minh hoạ):** CV thiết kế QT001 → 1.2 mở hồ sơ 24 dòng → 4.1 QT001 có 3 bước ⇒ 3 dòng màn (Tìm thường · Tìm nâng cao · Xác nhận phù hợp) → 4.5 10 dòng hợp đồng: 6 Field có sẵn, 4 Field mới ghi danh «cần làm» → 4.8 DOT dựng 3 màn → 5.1 0 thiếu → 5.2 3 ảnh → 5.3 Claude + GPT ký (vì là khuôn) → 6.2 Owner gật → 7.3 đóng. QT002 trở đi: y hệt, bỏ 5.3.
+**Ví dụ xuyên suốt (số minh hoạ):** CV thiết kế QT001 → 1.2 mở hồ sơ 25 dòng → 4.1 QT001 có 3 bước, nối với 3 màn (Tìm thường · Tìm nâng cao · Xác nhận phù hợp) → 4.5 Field cần 10 = dùng lại 6 + mới 4 + thiếu 0 → 4.8 DOT dựng 3 màn, thử màn có hành động ghi → 5.1 0 thiếu → 5.2 3 ảnh → 5.3 Claude + GPT ký (vì là khuôn) → 6.2 Owner gật, kèm duyệt cột bảng nghiệp vụ mới → 7.3 đóng. QT002 trở đi: y hệt, 5.3 «không áp dụng»; nếu sửa thứ đã duyệt thì 6.1 nêu riêng cho Owner thấy.
 
 ### 4. Khoá cứng hay lời dặn (AGENTS A10-R2 — nói thật)
-- **Khoá cứng bằng máy:** thứ tự; đủ dòng hồ sơ; mọi phép đếm (4.1–4.7 phần đếm, 5.1, 7.1); chỉ ghi qua DOT; «đã kiểm» chỉ DOT đặt.
-- **Còn là lời dặn** (máy kiểm hình, không kiểm chất): chọn mẫu màn đúng ý, Field trùng nghĩa khác tên, màn đủ thông tin nghiệp vụ ⇒ bắt ở 5.3 (khuôn) và 6.2 (Owner).
+- **Dự kiến khoá bằng máy:** thứ tự chấm; đủ dòng hồ sơ; mọi phép đếm có mẫu số; chỉ ghi qua DOT; «đã kiểm» chỉ DOT đặt. Chỉ gọi là **khoá** khi B2 chạy ca âm tính và đều bị chặn: mở hồ sơ 2 lần · chấm vượt thứ tự · thiếu nhà · ghi khống · ghi ngoài vùng. Lỗ SSH R47 còn mở.
+- **Còn là lời dặn** (máy kiểm hình, không kiểm chất — các dòng có 👥): màn hợp nghề, Field trùng nghĩa khác tên, đủ nghĩa nghiệp vụ, ảnh đúng màn, vấn đề trong chat đã vào sổ ⇒ bắt ở 5.3 (khuôn), 7.2 (Host) và 6.2 (Owner).
 
 ### 5. Directus làm thay (có sẵn, không viết mã)
 | Cần | Directus có sẵn |
@@ -1336,7 +1341,8 @@ Phép kiểm của mọi việc nhỏ có sinh đối tượng đã gồm Luật
 | Checklist của 1 việc ngay trong trang CV | danh sách O2M |
 | «Việc đang mở», 3 bộ lọc thiếu, «cần test lại» | bookmark |
 | Màu trạng thái nhìn là biết | dropdown có màu |
-| Lịch sử ai sửa gì lúc nào | revisions/activity (khỏi dựng sổ thay đổi riêng cho nháp) |
+| Lịch sử kỹ thuật ai sửa gì lúc nào | revisions/activity (thay đổi có nghĩa nghiệp vụ vẫn ghi CAT-016 ở 4.7b) |
+| Thẻ 3 ô trên mỗi việc: tiến độ x/25 · số đối tượng theo trạng thái · Claude/GPT/Owner (R34) | cột do DOT tính mỗi lần chạy, Directus hiện màu |
 | Ngày tạo/sửa, người sửa | trường hệ thống tự đóng dấu |
 | Đổi tên 1 chỗ, mọi nơi hiện theo | display template qua quan hệ |
 | Thanh tiến độ việc / lô | dashboard đếm theo trạng thái |
@@ -1344,26 +1350,51 @@ Phép kiểm của mọi việc nhỏ có sinh đối tượng đã gồm Luật
 
 Không dùng Flow: mọi tự động có ghi đều đi qua DOT để còn biên nhận.
 
-### 6. Nhà cần có để chạy khuôn (B1 ánh xạ, B2 dựng — không thêm loại mới)
-Sổ của các sổ · Sổ quy trình + bước khuôn (ML-DEF-022) · Sổ việc + hồ sơ (CAT-227) · Sổ màn (ML-DEF-018) · Sổ hợp đồng (CAT-206) · Sổ Field (ML-DEF-008) · Sổ nợ (CAT-069) · Sổ quyết định (CAT-025 / ML-DEF-027 — B1 chọn 1, cái kia làm bí danh) · Sổ kết quả kiểm / lượt thử / bằng chứng (CAT-015 / CAT-229 / CAT-239 — B1 xét gộp) · Sổ DOT (đã có, dùng lại). DOT thêm 2 lệnh: `mo-ho-so` và `kiem CV`.
+### 6. Nhà vận hành (đề xuất; con số chính thức là kết quả B1 đo)
+**Luật mã (GPT V13.2):** chỉ gộp khi cùng loại đối tượng + cùng mức hạt + cùng khoá + cùng SSOT; khác nghĩa thì **nối quan hệ**, muốn xem chung thì dùng màn tổng hợp Directus. Mỗi nhà có cột `loai_luu_tru` ∈ Directus nháp · Directus có sẵn · tệp GitHub (Gemini). Đồ hội đồng (luật R, đề xuất P/V, PROMPT) chỉ 1 dòng «tệp GitHub», không dựng bảng.
+
+| # | Nhà | Mã | Nối với (không phải bí danh) | Dùng ở |
+|---|---|---|---|---|
+| 1 | Sổ của các sổ | ML-DEF-012 | ML-DEF-011 Master List | 2.2 · 4.3 |
+| 2 | Công thức | ML-DEF-021 | — | 2.1 |
+| 3 | Quy trình | ML-MOW-TH-001 | ML-DEF-004 MOW | 2.1 |
+| 4 | Bước khuôn (25 thẻ) | ML-DEF-022 | ML-DEF-005 MOT | 1.2 |
+| 5 | Việc | CAT-227 | — | 1.1 · 1.3 · 6.1 · 7.3 |
+| 6 | Hồ sơ checkpoint | CAT-228 (ứng viên, B1 kiểm schema) | CAT-227 | 1.2 · 3.1 · 7.1 |
+| 7 | Mẫu màn (UI cha) | ML-DEF-017 | — | 4.1 |
+| 8 | Màn (UI con) | ML-DEF-018 | ML-DEF-017 | 4.1–4.3 |
+| 9 | Field | ML-DEF-008 | — | 4.5 |
+| 10 | Hợp đồng | CAT-206 | — | 4.4 · 4.6 |
+| 11 | Nợ | CAT-069 | — | luật 4 · 6.3 · 7.2 |
+| 12 | Quyết định | CAT-025 | ML-DEF-027 (định nghĩa) | 2.2 · 5.3 · 6.2 |
+| 13 | Thay đổi | CAT-016 | — | 4.7b |
+| 14 | Kết quả kiểm | CAT-015 | ML-DEF-025 | 5.1 |
+| 15 | Lượt thử | CAT-229 | — | 2.3 · 4.8 |
+| 16 | Bằng chứng | CAT-239 | ML-DEF-026 | 5.2 |
+| 17 | DOT (dùng lại, đang chạy) | ML-DEF-024 | CAT-006 (B1 kiểm) | 2.3 · 4.8 |
+
+**17 nhà, 1 dùng lại.** Không gộp 3 sổ kiểm 015/229/239 (khác bản chất; JEV 0,99). B1 đo từng nhà (đã có ở đâu, loại lưu trữ) → Owner gật **bảng mã + cột 1 lần theo lô**. DOT thêm: `mo-ho-so` · `kiem CV` · `ap --cv` (chấm cuốn chiếu).
 
 **B1/B2 tự nó** là việc dựng nhà, không phải thiết kế QT ⇒ không chạy 007; chạy theo PROMPT như cũ, nhưng mọi thứ nó tạo phải trả lời Luật Nhà và được ghi bù làm CV đầu tiên ngay khi Sổ việc dựng xong.
 
-### 7. So với 006: giữ bài học, bỏ phần của G2
+### 7. Bài học 006 đã mang sang G1 (006 giữ nguyên cho G2/G3)
 | Bài học 006 | 007 v2 |
 |---|---|
 | Mở hồ sơ trước khi làm, tra trùng (CP01.04) | 1.1–1.2 |
 | Thẻ việc 5 ô | 1.3 (mẫu G1 duyệt 1 lần) |
 | Ghi an toàn: kiểm → ghi → biên nhận → đọc lại (CP04.06) | 4.8 + 5.2 |
-| Rà độc lập khác hãng | 5.3 (chỉ khuôn) |
+| Rà độc lập khác hãng | 5.3 (khuôn QT001, theo Owner) |
 | Quyết định có nguyên văn | 6.2 |
 | Kiểm liên tục CP01–07, bài học, khép RUN báo 4 dòng | 7.1–7.3 |
-| Lỗi → sổ nợ → quay lại bước | luật chạy 3 |
+| Lỗi → sổ nợ → quay lại bước | luật chạy 4–5 |
+| Thẻ bước 9 câu | luật chạy chung + thẻ đủ ô theo R55 |
 | **Bỏ cho G1** (giữ ở 006 cho G2): phiên/hash ký tay (biên nhận DOT thay) · xác thực quyền người làm (khoá GSM của DOT thay) · bộ ca đúng/sai/rỗng · giao điểm MOT · payload giao–nhận · ACK bên nhận có thẩm quyền | — |
 
 JEV `gen-dec-1792073125-qGqFp2ll6auPaVk8XD2b`: Owner gật qua chat, AI ghi = 1,00 · rà khác hãng chỉ ở khuôn = 1,00 · giữ 7 mốc CP01–07 = 0,61 (Owner yêu cầu rõ ⇒ giữ).
 
-**Hội đồng (GPT) cho ý kiến 1 lượt, đúng 3 điểm:** ① 24 việc nhỏ thiếu/thừa gì so với 006 (nêu từng việc, có lý do) ② mỗi phép kiểm «xong khi» có đúng là máy đo được không ③ chọn mã cho các nhà trùng (CAT vs ML-DEF). Chốt xong thì: 24 thẻ vào Sổ bước khuôn, R48/R51 trỏ về đó, rồi mới viết PROMPT B1+B2.
+**Đã gộp ở r2:** Hermes — phạm vi 007/006, cột Kiểm, mẫu số, cổng 3.1, đếm N = A + B + C, rà ảnh hưởng 4.7b, 7.2 đo được · Gemini V13.1 — chấm cuốn chiếu, `loai_luu_tru`, thẻ 3 ô, công thức 1.3/2.1/4.2/4.4/4.5/6.2 · GPT V13.2 — bước↔màn nhiều-nhiều, đối soát 4.4/4.5, quay lại giữ lịch sử, 7.1 nợ chặn G1, 7.3 trạng thái việc, luật mã, so hash thay ngày sửa. **Không nhận:** gộp sổ/bí danh khác nghĩa (Gemini); 5.3 cho mọi CV (GPT) — trái quyết định Owner, rủi ro sửa thứ đã duyệt được nêu riêng ở 6.1 cho Owner thấy. **Lỗi khung r1 do Claude:** đoạn kết r1 mời đo «so với 006» và tiêu đề «So với 006» kéo người đọc sang thước 71 bước (Hermes chỉ ra) — đã sửa, thêm R55. JEV `gen-dec-1792075431-EER4qdnjx4lYlxQ1oMrX`: giữ 3 sổ kiểm riêng 0,99 · bản đầu luật 5.3/6.3 không ổn 0,09 → đã viết lại thành luật chạy 5 và dòng 5.3.
+
+**Việc tiếp:** GPT xác nhận r2 1 lượt (chỉ báo dòng sai, không mở lại khung) → Owner gật khuôn → viết PROMPT B1+B2 (B1 đo 17 nhà · Owner gật bảng mã + cột · B2 dựng) → B3 chạy 007 cho QT001.
 
 ## V13.1 · Phản biện độc lập của Gemini (song song với GPT) · 15/10/2026 · ĐỒNG THUẬN KHUNG V13, CHỐT 3 ĐIỂM ĐỂ MÁY CHẠY TỰ ĐỘNG 100%
 
