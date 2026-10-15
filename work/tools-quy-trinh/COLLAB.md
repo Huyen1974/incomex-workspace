@@ -15,7 +15,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - 📍 Lộ trình: [✅ B0 Owner đã chốt] → [■ B1+B2 PROMPT r2 chờ READY lại: 5 bảng nháp, 2 UI thử, DOT] → [□ B3 ưu tiên QT001 của Chuỗi Chế tạo cỗ máy: UI + Field + Config trong 1 lượt] → [□ B4 các quy trình còn lại theo lô] → [□ B5 nghiệm thu]
 - ✅ Đã có: Directus/PG; mẫu an toàn `dot-web-incomex`; 86 mục Master of Master + 28 ML-DEF + 250 Field + danh sách quy trình theo Công thức; PROMPT B1+B2 bản nháp `TQT-B12-DRAFT-ZONE-20261015-01`.
 - ■ Hiện tại: Owner trực tiếp GẬT Q1 (quyền xem NHÁP), Q2 (DOT lâu dài, 0 sửa DOT cũ), MOW-TH-007 (7 bước). Owner 16:45 «sửa vào đi»: Claude sửa PROMPT r2 theo GPT + Gemini (P49 V12.7) ⇒ **READY@c286349 cũ hết hiệu lực**, chờ GPT READY đúng SHA mới; CHƯA RUN/chưa tạo Collection nháp.
-- ➡ Kế tiếp: GPT rà đúng phần đổi (P49 V12.7) và READY đúng SHA mới của PROMPT → Owner dán RUN B1+B2 cho Claude Code CLI. Sau KQ bàn làm việc có 2 màn xem được, chuyển thẳng B3 vẽ đủ UI QT001 theo 007; Field thiếu thêm Master ngay, Config kiểm cùng lúc. Không mở vòng nghiên cứu mới; GPT Host điều hành node, Claude rà KQ một lượt theo luật.
+- ➡ Kế tiếp: 😊 Owner rà kỹ kế hoạch trước khi chạy (Owner 16:53 «chưa chạy vội») → GPT rà phần đổi P49 V12.7, READY đúng SHA mới → Owner dán RUN B1+B2 cho Claude Code CLI. Sau KQ bàn làm việc có 2 màn xem được, chuyển thẳng B3 vẽ đủ UI QT001 theo 007; Field thiếu thêm Master ngay, Config kiểm cùng lúc. Không mở vòng nghiên cứu mới; GPT Host điều hành node, Claude rà KQ một lượt theo luật.
 - ⛔ Không làm: ghi tay Directus/PG · sửa hoặc gọi DOT cũ · dựng trước hàng loạt bảng chưa có màn hình cần · biến 71 bước thành 71 vòng hỏi · lấy bảng production làm chỗ thử · G2/xoá vùng khi Owner chưa lệnh.
 
 #### Bảng P61 trước đổi hướng (giữ để tra)
@@ -149,9 +149,12 @@ Phạm vi: chưa làm quy trình nghiệp vụ (phái cử, tuyển dụng…), 
 - Sổ (TQT-REGISTER): sổ của task ở view.html#so-van-de, mã TQT-ISS-nnn; hồ sơ task khác giữ mã gốc. Vòng đời Ghi nhận → Phân loại → Giao → Đang xử lý → Chờ kiểm → Đóng, có nhánh Bị chặn · Để sau · Trùng · Mở lại. Chưa có người nhận ghi "Chưa giao". Ổn định mới chuyển PG qua DOT, giữ mã và lịch sử.
 - Nguồn (TQT-SOURCES): nguồn Owner chỉ là trang Công thức MMIM. Hướng dẫn chuẩn nằm ở tools-quy-trinh; Tools cũ (ML-DEF-023) là lịch sử hướng dẫn; hồ sơ sản phẩm vẫn ở nguồn gốc. "Xét nguyên tắc giao việc" thuộc MOT, phải đối chiếu nguồn MOT thật.
 - Quyền sửa (TQT-HOST-GATE): view.html (nội dung + sổ), README (cửa vào) và phần COLLAB dưới §0 do Host nội dung sửa; §0 (Bảng, ô 1–3) do Host Kiểm soát sửa. Host nội dung được cập nhật các dòng trạng thái của Bảng (📍 ✅ ■ ⬜ ➡) đúng sự thật, kèm mục P; Host Kiểm soát giữ 🎯 🏁 ⛔ và ô 1–3, rà lại Bảng mỗi lượt. AI khác chỉ tạo file riêng proposals/TQT-PR-YYYYMMDD-<ghế>-<số>.md: mã · đã thử và kết quả thật · câu/bước thiếu hoặc sai · đề xuất sửa · nguồn và bằng chứng. Host đúng phần ghi ACCEPT / REQUEST_CHANGES / REJECT ở mục P/D. Chưa có khoá kỹ thuật, TQT-ISS-006 mở.
-- Hội đồng: Astra-Codex (OpenAI) Host nội dung · Claude-review (Anthropic) Host Kiểm soát + phản biện · GPT Chat (OpenAI) góp ý/phản biện. Mode=COUNCIL · Automation_Level=AUTO0. Đường gọi hội đồng chưa đo.
+- Hội đồng: Astra-Codex (OpenAI) Host nội dung · Claude-review (Anthropic) Host Kiểm soát + phản biện · GPT Chat (OpenAI) góp ý/phản biện · **Gemini (Google, `google-main`) ghế dự bị** (Owner 15/10 16:53): Owner tự chuyển tay khi cần, không gửi thì là ghế trống; ý kiến để tham khảo, không tính quorum, không thay chữ ký Claude/GPT, vắng không chặn; không ghi repo — Claude/GPT tiếp nhận ý kiến vào P49. **Claude + GPT là chính.** Mode=COUNCIL · Automation_Level=AUTO0. Đường gọi hội đồng chưa đo.
 
 #### 3.4 Nguyên văn chỉ đạo Owner
+- 15/10/2026 16:53 · phiên Claude (nguyên văn, giữ lỗi gõ) → ghế dự bị Gemini (3.3 + bảng HỘI ĐỒNG), Bảng ➡:
+  > Về ghế của Gemini như đề xuất thì sao? Có thể bố trí cho Gem 1 ghế không? tôi đang điều hành nên cần thì tôi gửi, không thì coi như là ghế trống chưa có người ngồi. Bạn và GPT mới là chính.
+  > Chưa chạy vội, lần này tôi sẽ rà soát rất kỹ kế hoạch trước
 - 15/10/2026 16:45 · phiên Claude (nguyên văn, giữ lỗi gõ) → PROMPT r2, R40/R43/R45/R48, P49 V12.7:
   > Đầu tiên bạn sửa vào đi, Ngoài ra Gem chat cũng có ý kiến dài (trước là Gem Task) tôi đang test. => Bạn tổng hợp cả ý kiến của GPT/ và Gem lại. Rà soát cho đúng. Cái đúng nhất là phải nhận ra mọi thứ nó thật sự đơn giản, vì thực tế nó đơn giản thật. Càng phức tạp nên lại càng ngớ ngẩn.
 - 15/10/2026 · Owner trực tiếp GPT Chat · GẬT CẢ 3, ưu tiên UI Chuỗi Chế tạo cỗ máy → quyết định có hiệu lực Q1+Q2+R48:
@@ -660,6 +663,7 @@ Ba chiều độc lập theo ô 1 dòng 2: **Chuỗi × nhóm chuyên môn × l�
 |---|---|---|---|---|
 | Astra-Codex | OpenAI | Astra Codex — Owner giao lại trực tiếp D22 | Host | Cuộc trò chuyện hiện tại của Owner · đường gọi hội đồng CHƯA ĐO |
 | Claude-review | Anthropic | Claude Chat | Reviewer | CHƯA ĐO |
+| Gemini | Google | Gemini (identity `google-main`) | Council · dự bị, tham khảo | Owner chuyển tay khi cần; không gửi = ghế trống · không tính quorum · không ghi repo (Owner 15/10 16:53, 3.4) |
 Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 **Ủy quyền B1+B2 theo Owner 15/10:** GPT Chat chốt PROMPT/READY của node B1+B2, không thay Host nội dung Astra-Codex; Claude-review (Anthropic) đã đồng thuận V12.6 và soạn PROMPT cuối commit c286349b. Chủ trương Q1/Q2/007 Owner phê duyệt trực tiếp; không cần mở thêm vòng lập luận kiến trúc. Executor = Claude Code CLI do Owner dán.
 
