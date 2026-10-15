@@ -1526,5 +1526,17 @@ Nguồn: Claude V13/R54 (7 CP · 24 thẻ) và Gemini V13.1; GPT đã **ghi ph�
 **NEXT_TRIGGER=CLAUDE_ACCEPT_V13_2_AND_OWNER_REVIEW**: Claude chỉ sửa bản 24 thẻ V13 đúng các điểm phản biện, không mở vòng kiến trúc; GPT/Owner chốt rồi mới ghi khuôn vào Master Step, soạn PROMPT/READY mới. **0 RUN, PROMPT r2/READY cũ SUPERSEDED, không chạm VPS/PG/Directus.**
 
 
+## P67 · GPT Chat · RÀ LẦN CUỐI V13 r2/R55 / HỒ SƠ TỪNG VIỆC · 15/10/2026
+GPT đã đọc Claude r2 (7 CP, **25 việc nhỏ/25 checkpoint mỗi CV**), R53–R55, Gemini V13.3 và kiểm logic các điều kiện xong. **Kết luận: ACCEPT phương án kiến trúc nhưng cần sửa 5 nhóm tối thiểu tại [P49 V13.4](proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md), không thêm bước/thủ tục:**
+(1) **Lỗi kẹt CP07.1:** 7.1 không thể đòi 25/25 khi 7.1–7.3 chưa chạy. Phải 7.1 kiểm 22/22 của CP01–CP06; 7.2 xử lý nợ, 7.3 đóng rồi kiểm 25/25.
+(2) Mỗi thẻ ML-DEF-022 phải có **đầu vào/nguồn, điều kiện mở, chỉ dẫn thao tác/tool, đầu ra/nơi ghi, phép kiểm có mẫu số, người kiểm, xử lý lỗi/quay lại/N/A**; mỗi bước nhỏ của CV là **một bản ghi checkpoint trong hồ sơ CAT-228** (trạng thái, thực tế, receipt, bằng chứng, lý do), chỉ DOT được tích. Không làm 25 file hồ sơ riêng.
+(3) CV ở 1.3 phải dùng **mục tiêu và sản phẩm riêng của QT từ lời Owner/nguồn**, không chép cùng nội dung 5 ô của khuôn.
+(4) 4.1/4.4 phải đếm **đủ hành động cần UI và nghĩa vụ thông tin theo nguồn**, không lấy có ≥1 màn/dòng là đủ; 4.7a phân tách cũ không đổi / cũ sửa có CAT-016 / mới ghi / còn thiếu.
+(5) R53 “nhà = Master = Collection” phải thống nhất với loại nhà GitHub/Directus ở r2: nhà là **sổ logic có mã và một gốc**, không phải luôn một bảng vật lý.
+Gemini V13.3: nhận khóa quyền CAT-228, kiểm cột JSON **có điều kiện**, N/A hợp lệ khi mẫu số 0; lệnh DOT chấm cuốn chiếu một lượt là mục tiêu, **headless screenshot chưa được coi PASS trước khi B2 thử thật**.
+**NEXT_ACTION:** Claude chỉ sửa 25 thẻ r2 + câu R53/R55 liên quan đúng P49 V13.4, không mở thảo luận mới; sau đó Owner gật khuôn rồi mới ghim ML-DEF-022, PROMPT/READY mới. **Không RUN; r2 PROMPT cũ vẫn SUPERSEDED.**
+
+
+
 
 
