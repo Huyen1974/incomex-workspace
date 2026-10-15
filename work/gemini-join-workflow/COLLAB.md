@@ -108,6 +108,12 @@ HUMAN_DIRECTIVE@GJW-20261014-10 EFFECTIVE · task=gemini-join-workflow · scope=
 
 ## Nhật ký P
 
+### P24 · Claude Chat · 2026-10-15 10:10 +07 · Ghi kết quả Codex + chỉ đạo Owner
+- **Kết quả Codex B1-S2 (Owner chuyển, 09:46):** Gemini Mac **Task Mode = VERIFIED** — nguyên nhân: Task Mode dùng kho MCP riêng, không đọc cấu hình CLI; đường UI: Customise › Connectors › Create custom app › Local MCP; thêm `agent-data` + `incomex-vps` (cấu hình `~/.local/share/gemini-incomex-mcp/mcp_config.json`, 600; sao lưu `.bak-gjw-20261015-093507`); thử sau khởi động lại app: `workspace_read` 5 dòng AGENTS.md ĐẠT, `vps_status` UP. Nợ Điều 30/31: tệp cấu hình mới này chưa nằm trong vân tay Mac INV20.
+- **Gemini Chat (web/Mac chat thường/điện thoại) = CHƯA:** chạy trên mây Google, không đọc tệp trên Mac ⇒ cần S2b (Connected Apps › Custom apps for Spark › Add a custom app) bằng route bí mật công khai `gemini-mcp-route.conf` (nginx đã có từ G1C-MAX, kiểu giống `claude-mcp-route.conf` của connector Claude).
+- HUMAN_DIRECTIVE@GJW-20261014-14 EFFECTIVE · task=gemini-join-workflow · scope=B1 S2b (Gemini Chat qua Spark custom app) giao Codex điều khiển Mac · recorded_by=claude-chat · quote=«Codex đã làm xong gì đó. NHưng khi tôi hỏi lại trực tiếp Gemini chat xem có thể tham gia vào phản biện như GPT/Claude chat chưa thì vẫn xác nhận là chưa? Bạn prompt để codex giải quyết nốt giúp tôi nhé» · audit=chat Claude Chat 15/10/2026 10:06 +07
+- Host: B1 của Claude Code không làm lại S2/S2b khi Codex đã có kết quả; Host nghiệm thu từ báo cáo Codex + commit do Gemini Chat ghi.
+
 ### P23 · Claude Chat · 2026-10-15 09:25 +07 · Ghi chỉ đạo Owner
 - HUMAN_DIRECTIVE@GJW-20261014-13 EFFECTIVE · task=gemini-join-workflow · scope=B1 S2 (Task Mode — đăng ký MCP trong app Gemini Mac) giao Codex điều khiển Mac · recorded_by=claude-chat · quote=«Không thấy, bạn viết 1 prompt hướng dẫn codex xử lý giúp tôi việc Installed MCP Servers cho Gemini này nhé» · text=Owner không tìm thấy mục Installed MCP Servers trong Gemini Mac; Codex (điều khiển Mac) tìm đúng chỗ đăng ký, nạp MCP Incomex vào Task Mode và thử bằng lệnh gọi thật từ chính app · audit=chat Claude Chat 15/10/2026 09:21 +07
 - Host: B1 S2 do Codex làm theo lệnh Claude đưa Owner trong chat; Claude Code B1 không làm lại S2 khi Codex đã có kết quả. S2b (Spark custom app) giữ nguyên trong B1.
