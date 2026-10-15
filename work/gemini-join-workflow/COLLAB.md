@@ -108,6 +108,10 @@ HUMAN_DIRECTIVE@GJW-20261014-10 EFFECTIVE · task=gemini-join-workflow · scope=
 
 ## Nhật ký P
 
+### P23 · Claude Chat · 2026-10-15 09:25 +07 · Ghi chỉ đạo Owner
+- HUMAN_DIRECTIVE@GJW-20261014-13 EFFECTIVE · task=gemini-join-workflow · scope=B1 S2 (Task Mode — đăng ký MCP trong app Gemini Mac) giao Codex điều khiển Mac · recorded_by=claude-chat · quote=«Không thấy, bạn viết 1 prompt hướng dẫn codex xử lý giúp tôi việc Installed MCP Servers cho Gemini này nhé» · text=Owner không tìm thấy mục Installed MCP Servers trong Gemini Mac; Codex (điều khiển Mac) tìm đúng chỗ đăng ký, nạp MCP Incomex vào Task Mode và thử bằng lệnh gọi thật từ chính app · audit=chat Claude Chat 15/10/2026 09:21 +07
+- Host: B1 S2 do Codex làm theo lệnh Claude đưa Owner trong chat; Claude Code B1 không làm lại S2 khi Codex đã có kết quả. S2b (Spark custom app) giữ nguyên trong B1.
+
 ### P22 · Claude Chat · 2026-10-15 09:20 +07 · Reviewer · RÀ P21 + PROMPT B1 → SỬA THẲNG → ACCEPT
 - Ghế: claude-chat · Based_on: `cd14e31` (PROMPT b1e2f2a8) + tài liệu Google (antigravity.google/docs/mcp; Gemini Spark Connected Apps) · Owner 09:13: «giống như GPT và claude, chúng ta phải thiết lập MCP server trên chính app (bằng tay)».
 - **Đồng ý P21:** `agy` PASS ≠ Gemini Mac PASS; ghi tệp cấu hình ≠ app đã nạp. Cũng sửa P20 của Claude: chạy `agy` HOME user1 chỉ là đối chứng.
