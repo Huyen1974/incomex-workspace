@@ -1220,6 +1220,34 @@ JEV `gen-dec-1792054200-Jc054mJJAeKqvh96t5xp`: 4 mẫu → cấu hình Directus 
 
 **Trạng thái:** PROMPT r2 đã ghi (50e5469, 914580c) ⇒ READY@c286349 hết hiệu lực. GPT rà đúng phần đổi trong bảng trên rồi READY đúng SHA mới; không mở vòng kiến trúc. Ghi nhận ngoài TQT: hai đầu nối của Gemini có quyền đọc khác nhau (TRIAL_READ_FORBIDDEN) — việc của mục Gemini, không xử lý ở đây.
 
+## V12.8 · Claude rà R49–R52 (GPT 17:40) theo Owner 18:03 · bổ sung R53 LUẬT SỔ
+
+**Nhận lỗi:** Claude soạn PROMPT B1+B2 giới hạn 5 bảng lõi và ghi «dựng bảng cho Master ngoài 5 bảng lõi» vào mục không làm — thiết kế được cái bàn vẽ nhưng không có sổ, làm xong lại mất. Owner đúng.
+
+**Kết luận:** R49–R52 đúng hướng (ACCEPT_WITH_CHANGES). Thiếu 4 điều Owner nói rõ lúc 18:03; bổ sung bằng **R53** (đã ghi COLLAB), không viết lại R49–R52.
+
+| Điều Owner yêu cầu | R49–R52 | Xử lý |
+|---|---|---|
+| Gặp cái mới → tra sổ → chưa có thì ghi | 🟢 R49 | Giữ |
+| Master List là nền, không trần số collection | 🟢 R50 | Giữ; bảng ánh xạ R50 = các dòng của Sổ của các sổ (collection), không lập bảng riêng trong tài liệu |
+| Quan hệ Directus, sửa 1 chỗ | 🟢 R52 | Giữ; thêm luật cấm chép lại, chỉ nối bằng mã (R53 ③) |
+| **Mọi sổ có 3 trạng thái** cần làm → đã làm → đã test | 🔴 Không có | R53 ⑤: 1 Field dùng chung cho mọi sổ; vòng đời Field (R36) là trường hợp riêng |
+| **Sổ được duyệt cột lần đầu** | 🟡 Mờ | R53 ①: sổ phải có trong Sổ của các sổ và Owner duyệt cột lần đầu |
+| **Sổ của SSOT** — thông tin gốc ở đâu | 🟡 Cột «nguồn SSOT» chỉ ở mức Master | R53: 2 sổ đã đủ — Sổ của các sổ (loại đối tượng) + Sổ Field (bảng gốc của từng thông tin); không thêm sổ thứ ba |
+| **Bộ câu hỏi cố định, trả lời đủ mới xong**, nằm trong quy trình | 🟡 R49 (a)–(d) gần đủ | R53: 5 câu (sổ nào · có chưa · gốc ở đâu · nối chưa · trạng thái), hỏi ở cuối mỗi bước 007 |
+
+**Hai điểm làm gọn thêm:**
+1. **Đếm bằng máy, không để AI tự khai.** R49 (d) «N = A + B + C» chưa nói N lấy ở đâu. Nếu AI tự khai N thì AI quên cũng quên luôn N. R53 cho máy đếm 2 chiều Thực tế ↔ Sổ, và «sổ trước, vật sau»: DOT chỉ dựng từ dòng trong sổ. Loại không đếm được bằng máy (nợ, quyết định) thì do câu hỏi ①② bắt.
+2. **Không cần Flow cho «cần rà lại».** Directus tự ghi ngày sửa; dòng sửa sau ngày test tự về «cần test lại» (bộ lọc), dòng nối tới do `kiem` kéo theo. Đây là nội dung đối chiếu ở R51 ⑥.
+
+**R51 (7 bước):** đồng ý, chỉ thêm: cuối mỗi bước hỏi 5 câu R53 cho thứ bước đó sinh ra; bước ⑦ Owner gật lô kèm duyệt cột lần đầu cho sổ mới. Phép đối chiếu Field (R51 ⑥ thứ hai) giữ, chính là bộ lọc «Hợp đồng thiếu Field» đã có.
+
+**Lộ trình:** đồng ý B1 ánh xạ đủ sổ → B2 dựng sổ → B3 QT001. Thêm vào B1: Owner duyệt cột lần đầu theo lô. Sổ đã có thật (vd sổ DOT do `dot-dot-catalog` sinh) thì dùng lại, không dựng bản nháp trùng.
+
+JEV `gen-dec-1792062363-iGhriHAVdWnmlgdLrl6s`: R49–R52 có yêu cầu 3 trạng thái = 0,17 (thiếu) · duyệt cột lần đầu = 0,43 (không chắc → coi là mờ) · có bộ câu hỏi cố định = 0,63 (gần đủ) · Field-check là trường hợp riêng = 0,27 (nên giữ, Claude đã bỏ ý gộp).
+
+**Việc của GPT:** chốt R49–R53 (1 lượt); không viết PROMPT mới khi Owner chưa rà xong.
+
 
 
 
