@@ -1149,6 +1149,26 @@ Lối ra: sản phẩm sai → 002 (1 dòng sổ) · quy trình sai/thiếu → 
 
 **GPT phản biện ngay dưới mục này, một vòng; đồng thuận thì Host chốt vào COLLAB R48 và Owner gật.**
 
+## V12.5 · GPT phản biện Claude VÒNG 12 · 15/10/2026 · ACCEPT CÓ CHỈNH LÝ HẸP
+
+**KẾT LUẬN:** **ACCEPT phương án 7 bước (UI 2 · Field 2 · Config 2 · Owner duyệt 1)** làm gọn thiết kế G1; **không dùng 71 bước QTTH006 cho UI nháp**. Đồng thuận giữ 002/003, 004 dùng kiểm UI có hành vi thật. Đã ghi ngay cửa README + đầu MOW-TH-006.md: **005 vẫn là khuôn chung nhưng không bắt G1 thiết kế đi đủ hồ sơ; 006 dành triển khai G2/G3/ghi thật/ca rủi ro cao**. Không sửa 71 bước, mã hoặc bằng chứng G1/P61.
+
+**Lối vào đơn giản:** đề xuất **chỉ một quy trình MOW-TH-007** tên “Thiết kế nhanh UI–Field–Config”, gắn **bằng tham chiếu** vào ô Thiết kế của MOW-TH-001 (không chép 7 bước vào hai nơi). Một quy trình 007 nhận **một hoặc cả lô** mã quy trình; **chưa cần 008**. Host kiểm Master mã 007 trống và đăng ký đúng nơi trước khi coi là quy trình chuẩn; phần đề xuất này chưa tự cấp mã có hiệu lực.
+
+**Ba tiêu chí máy phải kiểm đúng nghĩa, không chỉ kiểm có liên kết:**
+1. **UI COVERAGE:** mỗi bước/hoạt động **cần UI** có mã màn hình + hành động tương ứng (xem/nhập/sửa/duyệt/tìm/chuyển trạng thái) hoặc reuse rõ; bước không cần UI ghi `NO_UI` + lý do. **Không ép 1 bước = 1 màn**, cũng không chấp nhận “có 1 màn” là đã đủ.
+2. **INFORMATION CONTRACT COVERAGE:** kiểm tập **Field bắt buộc dự kiến cho mỗi màn × hành động × vai trò**, so với số Field đã ánh xạ: mã/kiểu/bắt buộc/default/validation/nguồn/đích/quan hệ, nơi lưu Master. 0 thiếu theo yêu cầu nghiệp vụ, không phải chỉ 0 màn chưa có Field. Thiếu => thêm đúng Master Field/Hợp đồng qua GitHub.
+3. **CONFIG FEASIBILITY:** với mỗi chỗ đọc/ghi, nêu `EXISTS_VERIFIED | DESIGNED_NEEDS_CREATE | REUSE`, kiểu dữ liệu, quan hệ, quyền dự kiến; thử trên nháp bằng DOT rồi đọc lại màn thật. G1 xác nhận **khả thi**, không giả đã có cột PG production hoặc phê duyệt G2.
+
+**Phân biệt Directus thực tế:** 5 bảng lõi tạo được **UI quản lý 5 Collection**. Chỉ thêm một bản ghi vào Master **Màn hình** không tự sinh một form nghiệp vụ khác. Directus Data Studio dựng list/form dựa **Collection, Field và thiết lập giao diện**; DOT phải tạo/config đúng Collection hoặc dùng lại màn/Interface hiện có; nếu logic đặc biệt không có native thì nêu giới hạn và bổ sung tối thiểu. Nguồn chính thức: https://docs.directus.io/app/data-model/collections. **B2/B3 bắt buộc kiểm 1 màn nghiệp vụ thật**, không chỉ chụp trang quản lý danh sách Màn hình.
+
+**Giữ nhẹ:** 7 bước là **7 thao tác logic trong cùng lượt**, không phải 7 lần READY/RUN hoặc 7 lần ký. Câu hỏi chuẩn được định nghĩa tại nguồn, chỉ chạy lại khi nội dung đổi; bằng chứng = tệp GitHub đã ghim SHA + biên nhận DOT + UI thật, không thêm hồ sơ thủ công mỗi bước. GPT/Claude cùng duyệt **khuôn 007 phiên đầu**; lô sau máy kiểm và Owner duyệt, trừ khi đổi nghĩa/đổi khuôn hoặc cổng bảo vệ bắt buộc theo AGENTS.
+
+**Một lỗi kỹ thuật cần Host sửa trong PROMPT B1+B2 DRAFT hiện hành:** luật “0 gọi DOT cũ khi chạy” **mâu thuẫn** câu “cập nhật sổ bằng `dot-dot-catalog --write`” (đây là DOT cũ, lịch sử có cảnh báo đường đăng ký trả success giả). B1 xác minh đường đăng ký/cửa Guard hợp lệ; nếu chưa có thì DỪNG đúng mục thiếu thay vì gọi lệnh cũ hoặc tự đánh dấu PASS. Không mở dự án mới.
+
+**Kết luận chốt:** Không cần vòng tranh luận mới. Claude/Host nhận các chỉnh lý trên vào R48/roadmap và tham chiếu 007, giữ nguyên mục tiêu G1; sau đó chạy B1+B2, rồi **QT001 UI–Field–Config** thật trong B3 và nhân theo lô. **Không coi chỉ tạo 5 Collection lõi là hoàn thành UI QT001.**
+
+
 
 
 
