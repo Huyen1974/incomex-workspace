@@ -1435,6 +1435,87 @@ Các việc `1.1, 1.2, 2.3, 3.1, 4.1, 4.3, 4.6, 5.3, 6.1, 7.1, 7.3` trong V13 đ
 - **GEMINI_REVIEW = ACCEPT_WITH_PRECISION_RULES** (Đồng thuận hoàn toàn cấu trúc 7 mốc · 24 việc nhỏ · 3 luật chạy của Claude tại `V13`; đề nghị gộp thẳng 3 điểm làm rõ ở Mục B, C, D trên vào bản chốt `MOW-TH-007 v2` để chuyển sang `B1/B2` ngay trong 1 vòng).
 
 
+## V13.2 · GPT Chat phản biện độc lập V13/R54 + đối chiếu Gemini V13.1 · 15/10/2026 · ACCEPT KHUNG, REQUEST_CHANGES HẸP
+
+**Nguồn đã đọc thật:** 24 việc V13; 71 bước/7 mốc MOW-TH-006; registry ML-DEF (đặc biệt 004/005/008/011/012/017/018/022/024/025/026/027), snapshot 18 CAT (015/016/025/069/206/227/228/229/239), AGENTS. Chưa có runtime DOT/Directus nào được thực thi trong lượt phản biện; không tự báo chốt máy PASS.
+
+### 1. KẾT LUẬN CHO OWNER
+
+**Đồng ý 7 mốc CP01–CP07, giữ đủ 24 vị trí công việc.** Mỗi CV có 1 hồ sơ; 24 checkpoint trỏ về 24 thẻ bước khuôn, có thứ tự/xong khi/nơi ghi; lấy bài học từ 006 nhưng **không gọi 006/71 bước cho G1**. Luật Nhà R53 hỏi cho mọi đối tượng, kết quả ghi/đọc lại đúng Master, ứng dụng Directus tối đa.
+
+**Chưa đồng ý chốt nguyên văn:** 24 dòng hiện còn phép kiểm hình thức dễ báo đạt giả, chưa có nhánh lắc/quay lại khép kín; riêng **4.1, 4.4, 4.5, 6.3, 7.1–7.2** phải sửa. Gemini V13.1 đã phát hiện vấn đề cuốn chiếu và bổ sung nhiều câu kiểm hữu ích; **nhưng bảng gộp mã/sổ của Gemini có các phép gộp sai nghĩa**, không thể lấy làm chuẩn mà không đối chiếu nguồn. Không cần thêm mốc/thẻ, chỉ sửa ngay 24 thẻ.
+
+### 2. RÀ ĐỦ 24 VIỆC: CÁCH LÀM + CÁCH KIỂM CHỐT
+
+Ký hiệu **M**: máy kiểm được cấu trúc/đếm *nếu có DOT và nguồn rõ*; **N**: kiểm nghiệp vụ còn cần AI/Reviewer; **O**: Owner quyết; **T**: cần thử thực tế tại B2, chưa được tự nhận đã cưỡng chế.
+
+| # | Kết luận | Chỉnh tối thiểu để đủ “AI nào đọc cũng làm” |
+|---|---|---|
+| **1.1** | M · sửa | Tra khóa (QT + G1 + phiên): không có CV thì **tạo đúng 1**, có rồi dùng lại, >1 báo trùng; không đòi đúng 1 khi chưa tạo. |
+| **1.2** | M · giữ | Sinh 24 dòng hồ sơ có mã checkpoint duy nhất, theo **007@phiên/hash ghim**, tự chạy lại không nhân dòng/xóa bằng chứng cũ. |
+| **1.3** | M+N · sửa | Năm ô có nguồn mục tiêu/phạm vi Owner, người nhận và tiêu chí **kiểm được**, không chỉ “không rỗng”. |
+| **2.1** | M · sửa | Bước của QT đếm **đủ theo Công thức/nguồn đã ghim**, mã duy nhất, quan hệ chính xác; “>=1 bước” chưa đủ. |
+| **2.2** | M+O · sửa | Mỗi loại sắp sinh có **nhà/SSOT/đích ghi**. Cột sổ mới chỉ xin Owner duyệt **theo một lô lần đầu/phiên đổi**, sổ cũ dùng lại; phát sinh loại mới sau CP02 phải quay đúng 2.2, không tự lách. |
+| **2.3** | T · giữ | DOT thử thật có biên nhận đúng phiên/Guard/phạm vi/quyền; tồn tại lệnh hoặc --help không là PASS. |
+| **3.1** | M · giữ | Sáu checkpoint 01/02 đều có biên nhận hợp lệ và không drift, máy mở CP04; không thêm lượt gật của Owner. |
+| **4.1** | M+N · **sửa bắt buộc** | Quan hệ **bước↔UI 0..N**: bước không cần UI ghi NO_UI+lý do, một UI dùng lại cho nhiều bước; xong khi mọi **hành động cần UI** đã ánh xạ, không ép 1 bước=1 màn. |
+| **4.2** | M+N · sửa | Dùng lại theo hành động, vai trò, nguồn/bảng, bộ Field, filter/ngữ cảnh; không chặn chỉ vì cùng (bảng,mẫu). Máy báo ứng viên trùng, người rà ý nghĩa. |
+| **4.3** | M · giữ | Mã Master đọc/ghi đúng; chưa có bảng vật lý nháp thì đăng ký “cần dựng”, **không ép PG production đã tồn tại**. |
+| **4.4** | M+N · **sửa bắt buộc** | Từ yêu cầu/câu hỏi chuẩn lập tập **nghĩa vụ thông tin dự kiến** của từng màn/hành động. Đối soát số cần = đã có Hợp đồng + còn thiếu; **>=1 dòng/màn không chứng minh đủ**. |
+| **4.5** | M+N · sửa | Số Field cần = Field cũ dùng lại + Field mới đã đăng ký + còn thiếu; kiểm mã/miền/kiểu và định nghĩa; **trùng tên không tất yếu trùng nghĩa**, trùng nghĩa khác tên cần Reviewer. |
+| **4.6** | M+N · giữ có sửa | Theo hành động xác định bảng đọc (xem) và ghi (nhập/tính/duyệt), ràng buộc vai trò/bắt buộc/kiểu/quan hệ; chỗ trống được lưu NHÁP, chỉ chặn độ phủ khi nghiệm thu. |
+| **4.7** | M+N · sửa | **Ghi Master ngay lúc phát hiện**, không chờ 4.7 rồi mới ghi nợ/Field/UI/thay đổi; 4.7 tổng kiểm đối tượng phát sinh = dùng lại + mới ghi + chưa ghi; so nơi ảnh hưởng. |
+| **4.8** | T · giữ | DOT áp đúng commit SHA, dry-run chỉ NHÁP, ghi/đọc lại ca thử **cho đúng hành động cần thử**, có receipt/rollback, không coi 1 POST bất kỳ là đã thử đủ màn. |
+| **5.1** | M+N · sửa | Kiểm đủ **theo tập nghĩa vụ đã xác định**, sổ/thực thể/quan hệ/nợ chặn/nguồn/ảnh hưởng; máy không tự biết nghĩa vụ nghiệp vụ chưa khai hoặc 2 Field trùng nghĩa. |
+| **5.2** | T+N · giữ | Mở màn thật bằng tài khoản xem, có ảnh thật + trường hợp đọc lại đúng; chỉ HTTP 200 của API **không chứng minh UI đã hiển thị**; lỗi UI thì UNVERIFIED. |
+| **5.3** | N · sửa | Rà khác hãng lần đầu khuôn **và khi thay đổi ý nghĩa/kiểu/quan hệ hoặc rủi ro mới**, không mặc định bỏ review bắt buộc theo AGENTS chỉ vì CV khác QT001. |
+| **6.1** | M · giữ | Gói Owner rút tự động từ cùng CV/phiên: link UI, ảnh, số cần/đã/thiếu, nợ/ảnh hưởng, biên nhận; không sinh thêm bộ giấy tờ. |
+| **6.2** | O+M · giữ | Owner gật/lắc qua chat; ghi **nguyên văn, scope, CV, phiên/SHA, nguồn quyết định** vào CAT-025 rồi đọc lại; AI không ký thay. |
+| **6.3** | M · **sửa bắt buộc** | Gật ⇒ nhánh “lắc” NOT_APPLICABLE có luật; lắc ⇒ ghi nợ + return_to; các checkpoint **thực sự phụ thuộc vào phần sửa** về CẦN_RÀ/TEST_LẠI, giữ lịch sử; không reset mù tất cả checkpoint tới 6.3. Chờ Owner ⇒ KQ DỪNG, không giữ RUN/lease. |
+| **7.1** | M · **sửa bắt buộc** | Cả 24 checkpoint ở trạng thái kết thúc hợp lệ (PASS hoặc NA có căn cứ), **0 nợ CHẶN G1 chưa giải quyết**; không bắt mọi nợ trên toàn hệ thống phải đóng. |
+| **7.2** | M+N · sửa | Nợ để G2 chỉ được còn mở nếu **không chặn G1**, có chủ, mức độ, điều kiện mở lại/đích bàn giao; 0 vấn đề thì không lập nợ giả. |
+| **7.3** | M · sửa | CV đóng **G1 thiết kế đã duyệt** khi 7.1 đạt và có quyết định Owner; không dùng “đã test xong” của một đối tượng làm trạng thái công việc. Báo 4 dòng, không tự mở G2. |
+
+**Sửa nghịch lý thứ tự mà Gemini nêu:** AI **được soạn các dữ liệu NHÁP 4.1–4.7 trong một commit**; **chỉ dấu ĐÃ KIỂM** bị khóa theo thứ tự. Một lệnh DOT đọc SHA, kiểm và đóng checkpoint **cuốn chiếu 1.1→4.8**; gặp lỗi thì dừng đúng checkpoint đầu lỗi, ghi vào CAT-069 nếu là nợ thật. Không 8 lần commit/RUN, không tự tích xanh khi mới gõ JSON. Khi cần hồi quy, hạ đúng phụ thuộc, không xoá lịch sử.
+
+### 3. MÁY KIỂM ĐƯỢC VÀ KHÔNG ĐƯỢC
+
+- **Có thể cưỡng chế sau B2 thử thật:** duy nhất mã/quan hệ; checkpoint phiên khuôn; đếm đối tượng Master và nghĩa vụ đã khai; nguồn SHA, receipt và đọc lại; thứ tự và con trỏ; trạng thái PASS/NA hợp lệ, nợ chặn; thay đổi phiên làm nơi dùng CẦN_RÀ_LẠI. **Hiện mới là thiết kế, CHƯA PASS runtime.**
+- **Chưa máy tự biết đúng nghĩa:** chọn mẫu UI hợp nghề, các nghĩa vụ thông tin còn chưa khai, Field khác tên trùng nghĩa, nợ nghiệp vụ đủ chưa. Cần AI/Reviewer/Owner; không lấy “>=1 dòng/màn” hoặc “HTTP 200” thay bằng chứng nghiệp vụ/UI thật.
+- Nguồn NHÁP là GitHub/JSON ⇒ **modified_at của Directus một mình chưa đủ** xác định thay đổi có nghĩa; so **SHA/phiên/hash nội dung đã nghiệm thu + dependency_refs**. Directus revisions là lịch sử kỹ thuật, **không đương nhiên thay CAT-016** (nguyên nhân và tác động sửa nghiệp vụ).
+- **Thẻ chuẩn một nguồn (Master Step):** mã bước · phiên khuôn · bước sau/điều kiện trước · actor/tool · input refs · việc làm · output/where · check/expected · on_fail/return_to · khi nào N/A. Hồ sơ CV chỉ ghi mã thẻ, trạng thái, thực tế, receipt; 9 câu 006 được rút thành trường thẻ **định nghĩa một lần**.
+- Phép khóa cứng phải có ca âm tính tại B2: tạo hồ sơ lại không nhân đôi, cố đi vượt thứ tự, thiếu nhà, ghi khống, drift và ghi ngoài vùng. Trừ khi test đạt, chỉ gọi là **dự kiến khóa**, không tự nói “muốn làm sai cũng không được” (đặc biệt SSH đặc quyền R47 còn hở).
+
+### 4. MÃ NHÀ: PHẢN BIỆN CHỖ GEMINI V13.1 ĐỀ NGHỊ GỘP
+
+**Không chốt bảng “9 Collection mới + 1 dùng lại” của Gemini:** bảng ghi **12 mục**, trong đó mục 1–11 là 11 ứng viên bảng nháp và mục 12 dùng lại; con số **9+1 sai số học**. Quan trọng hơn, chưa đo schema/vị trí thật nên **số Collection phải là kết quả B1**, không phải mục tiêu cố định.
+
+| Mã đang tranh luận | Đề nghị GPT sau đối chiếu registry/schema nguồn |
+|---|---|
+| **ML-DEF-011 ↔ ML-DEF-012** | 011 là **Master Master List** (loại danh mục, đối tượng, UI cha); 012 là **Master Master of Master** (Master List, nhóm, đối tượng, UI). **Không tự coi alias**. Dùng **012** làm danh bạ nơi của các Master (R53), 011 tiếp tục giữ nghĩa Master List/phân loại; chỉ gộp sau khi chứng minh cùng hàng dữ liệu. |
+| **ML-MOW-TH-001 ↔ ML-DEF-004** | Một bên là **Master Quy trình tổng hợp**, bên kia **Master MOW**. Không tự alias; ghi **quan hệ**. |
+| **ML-DEF-022 ↔ ML-DEF-005** | 022 là **Master Step**, còn 005 là **Master MOT**. **Tuyệt đối không alias** Step thành MOT. MOW-TH-007 giữ mã khuôn ở Master tổng hợp, 24 thẻ dùng 022 và liên kết quy trình. |
+| **ML-DEF-018 ↔ ML-DEF-017** | 018 là UI **con**, 017 UI **cha**. Có quan hệ cha–con, **không là bí danh**. |
+| **CAT-227 ↔ DEF00.1** | CAT-227* là **sổ việc/thiết kế hồ sơ**, DEF00.1 là mã/tham chiếu UI/đối tượng trong lịch sử; B1 xác minh liên kết **không mặc định alias cùng cấp**. Một CV là một việc; 24 dòng checkpoint là bản ghi con, không tạo 24 CV. |
+| **CAT-228 ↔ Hồ sơ checkpoint** | CAT-228* trong nguồn có **application_id, order, process_code, depends_on, result_ref** (kế hoạch/tiến độ), **có thể ứng viên dùng cho 24 dòng**, nhưng **chưa chứng minh đã có đủ trạng thái/receipt/template_version/return_to**. B1 kiểm schema và bổ sung Field qua Master nếu hợp; không mặc định đã có nhà checkpoint đạt. |
+| **CAT-025 ↔ ML-DEF-027** | CAT-025 là **quyết định cụ thể** (decision_type, actor, decided_at, scope, authority_ref), ML-DEF-027 là Master **định nghĩa Quyết định** (issue, decider, result, effective). Không tự alias loại với bản ghi quyết định. |
+| **CAT-015 ↔ CAT-229 ↔ CAT-239 ↔ ML-DEF-025/026** | 015 = **kết quả kiểm** (criterion, result, validity...), 229 = **lượt/attempt** (attempt_no, started_at, finished_at...), 239 = **file/bằng chứng** (file_uri, hash, mime_type, retention...), ML-DEF-025/026 = danh mục Test/Bằng chứng. **Không gộp nguồn về CAT-015** chỉ để giảm bảng; có thể gộp **màn hình quản lý** và trỏ mã. Nếu muốn một bảng vật lý dùng chung, phải chứng minh giữ đủ quan hệ/lịch sử/đặc tính từng loại, không tự nhận alias. |
+| **ML-DEF-024 ↔ CAT-006** | 024 = Master DOT, 006 là hồ sơ/Tool kỹ thuật trong snapshot; tra sổ DOT **LIVE** và trạng thái công cụ đang ngừng dùng trước khi coi là alias. Không tạo sổ DOT thứ hai. |
+| **CAT-069? → CAT-069** | Giữ ý định Master nợ; ký hiệu “?” trong snapshot không là quyết định chuyển mã. B1 phải xác định mã chính thức và lịch sử tham chiếu, không tự đổi hàng loạt. |
+
+**Nguyên tắc alias:** cùng **loại đối tượng + mức hạt (định nghĩa/việc/phiên/lượt/kết quả/hiện vật) + khóa + SSOT** mới được gộp. Khác chức năng nhưng muốn người dùng thấy chung ⇒ Directus có **màn tổng hợp/quan hệ**, không nhất thiết gộp bảng hoặc xóa sổ cũ.
+
+### 5. HƯỚNG ĐI NGẮN NHẤT SAU ĐỐI CHIẾU
+
+1. Claude chỉ hiệu chỉnh **24 thẻ trong V13** theo bảng trên; giữ 7 CP/24 việc, Luật Nhà R53 và UI Directus. Trình một bản chốt duy nhất, không viết 2 phiên bản khuôn ở P49/COLLAB/README.
+2. B1 kiểm các alias/gộp **chỉ với các nhà G1/QT001 cần**; Master of Master ghi loại và nơi gốc, đối tượng chưa dựng còn trạng thái “cần làm” (có số cần/đã/thiếu). Không mở dự án dọn toàn bộ văn bản/registry trước QT001.
+3. Khi Owner chốt, 24 thẻ đi vào **một nguồn Master Step ML-DEF-022**; quy trình MOW-TH-007 tham chiếu phiên/hash; CV thuộc CAT-227 mở hồ sơ 24 dòng tham chiếu thẻ. B1/B2 bootstrapping vẫn theo PROMPT đã điều chỉnh/Guard, **chưa chạy chính 007** trước khi các sổ được dựng. B3 mới áp 007 vào QT001.
+4. Sau đó mới viết PROMPT/READY theo AGENTS. Chưa RUN, r2 cũ vẫn SUPERSEDED. **Không mở thêm Gemini vòng ba**; tôi đã đối chiếu ý kiến Gemini V13.1 để Host/Claude/Owner chốt một vòng.
+
+**GPT_REVIEW = ACCEPT_FRAMEWORK / REQUEST_CHANGES_TO_24_STEPS_AND_ALIAS;** giữ đơn giản nhưng điều kiện xong phải thật sự kiểm được.
+
+
+
 
 
 
