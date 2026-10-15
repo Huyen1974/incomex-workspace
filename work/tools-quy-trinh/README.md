@@ -1,5 +1,13 @@
 # tools-quy-trinh · Cửa vào
 
+## Phân tuyến thiết kế nhanh và triển khai · Owner 15/10/2026 · GPT rà P49 VÒNG 12
+- **G1 — THIẾT KẾ NHÁP:** chỉ chốt 3 sản phẩm **UI đủ · Hợp đồng thông tin/Field đủ · Config khả thi**. Áp dụng 7 bước thiết kế ngắn của P49 V12 (đề xuất mã **MOW-TH-007**, chỉ đăng ký chính thức sau khi Host kiểm mã Master và Owner chốt), làm một quy trình hoặc cả lô theo cùng khuôn. Giai đoạn Thiết kế của 001 **gọi 007 bằng tham chiếu**, không sao chép định nghĩa bước sang nguồn thứ hai. Chưa cần 008; lặp 007 cho từng lô.
+- **005 — KHUÔN CHUNG:** giữ định nghĩa tổng quát, dùng cho điều hành/triển khai và giao nhận chính thức. **Không bắt thiết kế nháp G1 đi toàn bộ hồ sơ, mốc và thủ tục của 005**; khi chuyển G2/G3 mới áp quy trình điều hành phù hợp.
+- **006 — QUY TRÌNH THỰC HIỆN CHI TIẾT (71 bước/7 mốc):** dành cho triển khai thực tế/ghi thật, tác động khó đảo ngược và các ca rủi ro cao. **Không dùng làm đường bắt buộc để vẽ UI, bổ sung Field, rà Config trên nháp**. Không xoá, đổi mã, hoặc hồi tố hồ sơ G1/P61 cũ.
+- **Nghiệm thu thiết kế nhanh:** (1) mỗi bước cần UI có màn/mẫu và hành động, không cần UI ghi N/A có lý do; (2) mọi thông tin bắt buộc của từng màn/hành động có Field, kiểu, nguồn, vai trò, nơi đọc/ghi và bằng chứng; (3) Config đủ trong phạm vi DESIGN, nơi ghi **đã có thật / dự kiến tạo** được phân biệt, không báo đã triển khai PG; (4) DOT áp từ GitHub SHA, màn thật được xem/kiểm. Bộ lọc “thiếu” phải kiểm **nghĩa vụ dự kiến ↔ Field**, không chỉ các liên kết đã có. Bằng chứng lưu ở GitHub SSOT + biên nhận DOT, Directus là bề mặt xem/thử.
+- **Giới hạn Directus:** Data Studio sinh list/form theo **Collection và Field vật lý**; chỉ thêm một dòng vào Master “Màn hình” **không tự sinh một UI nghiệp vụ mới**. Nếu cần UI riêng, ưu tiên cấu hình hoặc tái sử dụng Collection/Interface hiện có; thiết kế nghiệp vụ đặc biệt chỉ bổ sung tối thiểu. Host kiểm một màn thật ở B2/B3 trước khi nhân theo lô.
+- **Đường xử lý:** thiếu/sai sản phẩm → 002; thiếu/sai quy trình → 003; 004 vẫn kiểm thao tác/nhánh của màn thật, không thay thế hoàn toàn bằng bộ lọc. 007 là lời đề xuất đang phản biện, chưa tự tuyên bố là quy trình đã nghiệm thu.
+
 ## Vùng NHÁP Directus · 15/10/2026 14:55 · GPT ↔ Claude đã thống nhất · CHỜ OWNER GẬT 2 VIỆC
 - **Vòng làm việc (Owner 15/10):** mỗi quy trình chỉ 3 việc làm cùng lúc — vẽ UI · khai Field · rà config — trên 5 bảng nháp lõi (Quy trình · Màn hình · Field · Master · Hợp đồng) nối nhau bằng mã; Directus tự vẽ, tự nối, chặn trùng, lọc ra chỗ thiếu (R40, R45).
 - **Nguồn chuẩn của kế hoạch:** COLLAB §0 Bảng điều khiển + R40–R46 (bằng chứng: P49 VÒNG 11). Mục này chỉ tóm tắt; lệch thì theo COLLAB.
