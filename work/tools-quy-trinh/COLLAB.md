@@ -40,7 +40,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 Owner cập nhật mục tiêu G1 ngày 15/10/2026 (nguyên văn): “bây giờ mục tiêu ngắn gọn lại là vẽ UI, liệt kê được các trường còn thiếu và để chốt được hợp đồng thông tin và đảm bảo là có đủ trường để config.”
 Phạm vi đã được Owner duyệt: ưu tiên QT001 của Chuỗi Chế tạo cỗ máy; dùng MOW-TH-007 để vẽ UI, làm hợp đồng Field và rà Config trên vùng NHÁP; sau khi đạt mới nhân theo lô. Chủ trương 14/10 dựng hơn 100 Collection NHÁP trước được thay bằng 5 Collection lõi trước, bảng khác chỉ tạo khi có UI cần. Chỉ đạo 14/10 còn lưu trong lịch sử Git và mục 3.4, không là lệnh hiện hành.
 
-**Owner bổ sung 13/10/2026 · P53 (nguyên văn):**
+**Lịch sử yêu cầu 13/10/2026 · P53 (nguyên văn; phần rà 71 bước không là điều kiện chạy G1 hiện tại):**
 > Claude chưa ký. Ngoài ra thì claude có vẻ đồng thuận với bạn về rút gọn 87 bước hiện tại. Nếu bạn thấy rút gọn đã đồng thuận thì sửa luôn cả phần QTTH 006 và hồ sơ.
 > 
 > Những điểm nào bạn thấy claude vô lý cứ phản bác thẳng thừng. tôi khuyên kích các bạn bảo vê quan điểm nếu thấy đúng.
@@ -59,7 +59,7 @@ QT001 (B3) đạt khi từng bước cần UI có màn hoặc lý do không cầ
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
-**Chỉ mục hiện hành (đọc trước nội dung dài):** `README.md` mục “Đọc trong 90 giây” chỉ đường tới ô 1–2, R40–R48 và `PROMPT.md`. G1 dùng MOW-TH-007 (7 bước) để thiết kế; 005 là khuôn chung, 006 (71 bước) dành triển khai/việc rủi ro cao. R04a/R09 và hồ sơ P61 trở về trước là bằng chứng lịch sử trong phạm vi đã bị R40–R48 thay thế, **không tạo cửa RUN mới**. GitHub giữ nguồn thông tin, VPS giữ runtime; không tự coi READY là RUN.
+**Chỉ mục hiện hành (đọc trước nội dung dài):** `README.md` mục “Đọc nhanh” chỉ đường tới ô 1–2, R40–R48 và `PROMPT.md`. G1 dùng MOW-TH-007 (7 bước) để thiết kế; 005 là khuôn chung, 006 (71 bước) dành triển khai/việc rủi ro cao. R04a/R09 và hồ sơ P61 trở về trước là bằng chứng lịch sử trong phạm vi đã bị R40–R48 thay thế, **không tạo cửa RUN mới**. GitHub giữ nguồn thông tin, VPS giữ runtime; không tự coi READY là RUN.
 
 **Owner 14/10/2026 — thanh điều hướng:** luôn duy trì thanh dưới 4 Mẹ (MOW/MOT/MOIT/MOUT), Master và các UI đã thiết kế tại mọi UI đang dùng. Dùng một nguồn eco-nav.js; không tự bỏ thanh khi sửa hồ sơ/Overview. Kiểm thanh nhìn thấy ở đáy và liên kết đúng trước khi bàn giao.
 
@@ -112,7 +112,7 @@ Quy mô và cách làm chung (Owner 13/10 · D28)
 - R28 ⬜ Tận dụng MacBook để tính nhanh nhất; VPS vẫn là nơi các AI nói chuyện chung và Owner xem bản cuối. G1 dùng `tqt_draft_*` là bảng PG nháp được cô lập bằng DOT, không đụng bảng PG nghiệp vụ production; chốt rồi mới xin Owner đưa vào production ở G2 (R40–R44).
 
 Cách ghi hồ sơ (Owner 12–13/10 · P34–P46)
-**Phân tuyến từ 15/10:** R29–R38 về hồ sơ/ký/71 bước vẫn giữ cho triển khai hoặc đối chiếu lịch sử; **không bắt chạy cả bộ để thiết kế UI nháp G1**. Đường G1 hiện hành là R40–R48 / MOW-TH-007.
+**Phân tuyến từ 15/10:** R29–R38 là bộ yêu cầu hồ sơ sâu, **không bắt đi 71 bước/đủ phiếu khi thiết kế UI G1**. Riêng R30 (hướng dẫn ngay tại màn), R36 (Master Field) và R37 (câu hỏi chuẩn) vẫn dùng trong MOW-TH-007; đừng bỏ các nội dung có ích này. Cửa G1 hiện hành là R40–R48.
 - R29 🟡 Hồ sơ ghi thực tế, ít nhất: chưa làm/chưa có/chưa đối chiếu để trống; không điền sẵn tool/kết quả; có xác nhận đã làm/không làm + lý do; bước bổ sung có mã riêng, không đổi mã chuẩn. Luật 7 mốc/11 mục/87 bước nằm ở Overview; hồ sơ quy trình 05 và 06 là cùng một trang (P42, P43, QTTH06).
 - R30 🟡 Hướng dẫn ngay nơi thao tác bằng dấu "?": không cần nhớ, không cần hỏi (P44).
 - R31 🟡 Thử bằng việc thật: AI mới đóng vai làm theo QTTH 06 cho việc thật; không lấy TEST thay việc thật; đo thời gian toàn việc và từng bước; làm đến đâu dọn đến đó; vẫn ngoài PG (P35, P36, P45, P46). Hồ sơ nhẹ mà không mất lịch sử; ô xong tích xanh (P38).
@@ -655,6 +655,7 @@ Ba chiều độc lập theo ô 1 dòng 2: **Chuỗi × nhóm chuyên môn × l�
 - Khi ổn định mới thiết kế chuyển sang bảng PG riêng qua DOT; phải kiểm migration/mapping và chuyển nguồn một lần, giữ nguyên mã/lịch sử. Chưa tạo bảng hay tự bật nhắc việc nền trong lượt khởi tạo.
 
 #### TQT-HOST-GATE — nộp đề xuất riêng, Host mới nhập chuẩn (D08/D09 · 08/10/2026; Host chuyển theo D19)
+**Hiệu lực vai hiện tại (Owner 15/10, P63/P64):** các dòng phân công D19/GPT Host cũ dưới đây là lịch sử. Task còn Astra Codex Host nội dung, Claude Host Kiểm soát/Reviewer, GPT Chat được Owner giao Host chốt READY B1+B2 và rà nguồn P64; Gemini là ghế dự bị. Quyền thực thi theo AGENTS và Bảng ở đầu §0, không suy tự có RUN từ việc sửa văn bản.
 - **Mục tiêu của Owner vẫn chỉ ở §0 ô 1–2**. Mục tiêu nghiệm thu của từng Tool: một phiên Codex/agent mới đọc, thực hiện thật, giao được sản phẩm đúng. Nếu không thể: báo rõ ca lỗi, câu hỏi/bước thiếu, bằng chứng, không tự báo ĐẠT. Một vài ca đạt không bằng cả hành trình đạt.
 - **Nguồn chuẩn trong task này:** `view.html` (nội dung quy trình và sổ TQT), `COLLAB.md` (quyết định Host và trạng thái), `README.md` (cửa vào); chỉ Host GPT Chat (phiên Owner chỉ định 09/10, D19) áp sửa chính. Không nhân thêm sổ thứ hai, không chỉnh ô mục tiêu Owner.
 - **Các AI ngoài phiên Host (Astra Codex, Claude, Codex khác, Claude Code…):** chỉ tạo một đề xuất **riêng** tại `work/tools-quy-trinh/proposals/TQT-PR-YYYYMMDD-<seat>-<so>.md` bằng gateway có expected-version/atomic transaction. Không sửa `view.html`, `COLLAB.md`, `README.md` và các hồ sơ TQT/OPEN được chép ở đó; không tự merge hoặc ghi “đã nhận”. Mỗi đề xuất khác mã/path, không cùng viết một file. Nếu worker thuộc task UI/MOW, bằng chứng thực hiện vẫn ghi ở task sản phẩm theo quyền task đó.
@@ -1480,7 +1481,7 @@ Ghế: GPT Chat (Host READY B1+B2 do Owner giao) · Bước/vòng: B0 chốt cu�
 **OWNER CHƯA CHO CHẠY**: giữ nguyên PROMPT r2; chờ chỉ đạo tiếp, không STARTED, không phát RUN. Áp: SAME_COMMIT.
 
 ## P64 · GPT Chat · RÀ LẠI SSOT CHO NGƯỜI MỚI ĐỌC · 15/10/2026 17:26 +07
-Owner giao GPT Chat rà và viết rõ mục tiêu/nguyên tắc/cách làm/đồng thuận; chỉ sửa cách tổ chức thông tin trên `COLLAB.md` và cửa đọc `README.md`, **không đổi PROMPT r2/READY**, không giao RUN. Đã giữ nguyên ba mục tiêu gốc, cập nhật phạm vi G1 mới ở ô 1–2, đánh dấu phương án “100+ bảng trước” là lịch sử; R40 sửa nhầm lẫn “thiếu thì không lưu” thành “thiếu được lưu, CHẶN lỗi an toàn”; phân tuyến R29–R38 sang hồ sơ triển khai, 005/006 không phải thủ tục G1. Đồng thuận: Owner Q1/Q2/MOW-TH-007; Claude P49 V12.7; Gemini vòng cuối ACCEPT; GPT P63. Người đọc mới xem `README.md` trước; chi tiết kiểm R40–R48, khi Owner phát RUN mới đọc `PROMPT.md` S0–S7. 0 RUN, không tạo hoặc sửa Directus/PG/VPS.
+Owner giao GPT Chat rà và viết rõ mục tiêu/nguyên tắc/cách làm/đồng thuận; chỉ sửa cách tổ chức thông tin trên `COLLAB.md` và cửa đọc `README.md`, **không đổi PROMPT r2/READY**, không giao RUN. Đã giữ nguyên ba mục tiêu gốc, cập nhật phạm vi G1 mới ở ô 1–2, đánh dấu phương án “100+ bảng trước” là lịch sử; R40 sửa nhầm lẫn “thiếu thì không lưu” thành “thiếu được lưu, CHẶN lỗi an toàn”; tách đường hồ sơ 71 bước khỏi G1 nhưng giữ R30/R36/R37 cho 007, 005/006 không phải thủ tục G1. Đồng thuận: Owner Q1/Q2/MOW-TH-007; Claude P49 V12.7; Gemini vòng cuối ACCEPT; GPT P63. Người đọc mới xem `README.md` trước; chi tiết kiểm R40–R48, khi Owner phát RUN mới đọc `PROMPT.md` S0–S7. 0 RUN, không tạo hoặc sửa Directus/PG/VPS.
 
 
 
