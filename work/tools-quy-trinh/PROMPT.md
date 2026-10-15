@@ -1,10 +1,13 @@
 # PROMPT — TQT-B12-DRAFT-ZONE-20261015-01
 RUN_ID: TQT-B12-DRAFT-ZONE-20261015-01
-Status: DRAFT r2 · Claude sửa 15/10 16:55 theo Owner «sửa vào đi» + GPT/Gemini rà (P49 V12.7) · Owner đã gật Q1+Q2+MOW-TH-007 (3.4) · **READY@c286349 cũ HẾT HIỆU LỰC** · chờ GPT READY đúng SHA mới · chưa RUN.
+Status: SUPERSEDED / NOT_READY · Owner 15/10/2026 17:40 xác nhận phương án r2 CHƯA OK: thiếu Master List phát sinh, đối soát số cần/đã/thiếu và rà quan hệ ảnh hưởng. READY@914580c442c57e74e2c462a7ca6fc1a823027e84 CŨ HẾT HIỆU LỰC theo A0/DROOT30. Chưa RUN.
 Task: work/tools-quy-trinh · Host nội dung Codex · Host Kiểm soát Claude Chat · Executor: Claude Code CLI trên Mac · Ghi repo: gateway `workspace_*` có expected_version · Ghi VPS: chỉ 1 tệp DOT mới + vùng `tqt_*` trên Directus + 1 khai báo Guard + ghim Config Guard, giữ `VPS-GHI` suốt lượt.
 Owner 15/10 14:34: «1. Vẽ cái UI cho đủ 2. Liệt kê các trường cho đủ (làm hợp đồng thông tin) 3. rà config cho khả thi (đúng trường, đúng chỗ) … Đừng phức tạp hóa vấn đề lên.» · 14/10 21:39: «… xoá phần tạm => DOT vẫn dùng được».
 
-## Đích lượt này (nôm na)
+## SNAPSHOT R2 ĐÃ BỊ THAY THẾ — KHÔNG THỰC THI S0–S7
+**Phải rà lại phạm vi theo COLLAB P65/R49–R52, Claude phản biện và Owner chốt, sau đó sửa ngay PROMPT.md này và đặt READY SHA mới.** Bản S0–S7 phía dưới chỉ giữ để thấy cách cũ; không có quyền cấp RUN. Không tự mở task mới, không sửa runtime.
+
+## Đích lượt R2 cũ (lịch sử)
 Dựng «bàn làm việc» trên Directus nháp cho MOW-TH-007 (COLLAB R48): 5 bảng nối nhau bằng mã, đổ dữ liệu đã có vào, chứng minh **dòng Màn hình biến được thành màn thật**, Owner mở ra xem được; chứng minh 1 lệnh xoá sạch và dựng lại y nguyên từ GitHub. **Chưa làm QT001** (đó là B3).
 
 ## Luật cứng (chạm ⇒ DỪNG)
