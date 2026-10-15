@@ -1215,7 +1215,7 @@ JEV `gen-dec-1792054200-Jc054mJJAeKqvh96t5xp`: 4 mẫu → cấu hình Directus 
 | Tìm kiếm/chấm điểm JEV ở QT001 là logic, Directus chỉ vẽ UI | Gem chat #3, GPT | 🟢 Nhận — G1 chỉ vẽ UI + hợp đồng, logic để G2 | R48 lối ra |
 | Gom lô B4 theo cùng Bước của Công thức, dùng lại màn gốc | Gemini Task/Chat C.3, GPT | 🟢 Nhận cho B4 | R43 |
 | Cột «nơi đọc» riêng | Gem chat #4, GPT | ⚪ **Bỏ** — 1 cột `bang` + hành động là đủ (nhập = bảng ghi, xem = bảng đọc); nguồn danh mục đã nằm ở Field. Thêm cột thứ hai thì phần lớn dòng để trống, dễ nhầm | PROMPT S2 (đổi `noi_ghi` → `bang`) |
-| Ghi ý kiến ra tệp đề xuất mới | Gemini Task/Chat | 🔴 **Bỏ** — trái luật 1 tài liệu; ghi vào đây | — |
+| Ghi ý kiến ra tệp đề xuất mới | Gemini Task/Chat | ⚪ **Không cần** — Gemini là ghế dự bị do Owner chuyển tay; Claude/GPT ghi tóm tắt ý kiến vào đây, giữ 1 tài liệu (Owner 16:53, COLLAB 3.3) | COLLAB 3.3 + bảng HỘI ĐỒNG |
 | Giữ READY cũ, dán chỉ dẫn ngoài PROMPT | Gemini Task/Chat | ⚪ **Bỏ** — đồng ý GPT: đổi hợp đồng thì sửa PROMPT rồi READY lại; Owner đã bảo «sửa vào đi» | PROMPT r2 |
 
 **Trạng thái:** PROMPT r2 đã ghi (50e5469, 914580c) ⇒ READY@c286349 hết hiệu lực. GPT rà đúng phần đổi trong bảng trên rồi READY đúng SHA mới; không mở vòng kiến trúc. Ghi nhận ngoài TQT: hai đầu nối của Gemini có quyền đọc khác nhau (TRIAL_READ_FORBIDDEN) — việc của mục Gemini, không xử lý ở đây.
