@@ -108,6 +108,13 @@ HUMAN_DIRECTIVE@GJW-20261014-10 EFFECTIVE · task=gemini-join-workflow · scope=
 
 ## Nhật ký P
 
+### P27 · Claude Chat · 2026-10-15 12:05 +07 · Reviewer · Khả thi khép vòng đưa thư (Owner hỏi 11:53)
+- **Antigravity điều khiển Chrome: CÓ** — P19: `agy` cục bộ mở vps.incomexsaigoncorp.vn trên Chrome và chụp màn hình (VERIFIED). **Nhắc GPT web (gõ một câu vào chatgpt.com) = CHƯA THỬ.** Chính Gemini (P19 + JEV) chấm đường trình duyệt là «dễ vỡ» (giao diện đổi, Mac phải bật) — đúng cho mọi courier trình duyệt, kể cả Hermes Desktop. Courier spike Hermes (HJW P313, từ 13/10) vẫn chưa có KQ.
+- **Khung khép vòng khả thi:** VPS không đẩy được vào Mac (NAT) ⇒ Mac tự hỏi: một việc nền nhỏ 1–2 phút/lần, 0 token khi không có dòng yêu cầu đưa thư → có yêu cầu: GPT → `agy -p` + trình duyệt Antigravity (hồ sơ Chrome riêng đã đăng nhập ChatGPT) gõ một câu con trỏ; Claude → `claude -p` (Claude Code CLI, đường chính thức; claude.ai cấm bot). Mac ngủ ⇒ chậm, Hermes VPS báo Telegram.
+- **Điểm chưa biết duy nhất cần thử:** `agy -p` chạy không giao diện có dùng được trình duyệt để gõ vào chatgpt.com, và GPT có đọc repo rồi ghi canary không.
+- Đề xuất Host: G3 = MỘT lượt thử chỗ khó đó (~30 phút, chỉ Mac, 0 ghi VPS); ĐẠT thì mới dựng việc nền hỏi repo; trượt thì ghi lỗi thật và so với Hermes. Quyết thay Hermes-Mac vẫn thuộc HJW N3.
+- JEV `gen-dec-1792040060-VcuFkJ9OaNfZ4mq3QrQC`: khả thi 1,52/3 (giữa «cần một lượt thử» và «khả thi nhưng dễ vỡ») · một lượt thử Antigravity 0,99.
+
 ### P26 · Claude Chat · 2026-10-15 11:55 +07 · Reviewer · nghiệm chứng Gemini Chat + trả lời «có ảo không»
 - **Gemini Chat (Spark custom app) = VERIFIED:** commit `f0009df` tác giả `gemini-agy [auth:google-main]`, 03:57 UTC, đúng bước thử ghi 5b trong lệnh Codex. Cùng P10/P19 (`agy`) và Task Mode (Codex, ảnh) ⇒ **3 bề mặt Gemini đọc/ghi repo thật bằng danh tính riêng**. Mục tiêu «thành viên hội đồng» đã có bằng chứng; còn Host ghi ghế `google-main` vào AGENTS A2/A9.
 - **Câu Gemini Chat «không mở được Chrome trên Mac» KHÔNG phải ảo giác:** chat chạy trên mây Google, chỉ gọi được máy chủ MCP từ xa; điều khiển Chrome là khả năng của agent Antigravity cục bộ (`agy`/Task Mode/IDE + extension Chrome). Ảo giác là ở phía hội đồng: P01 Claude viết «Google điều khiển Chrome tự nhiên» cho cả «Gemini», trong khi đó là 4 bề mặt khác nhau, mỗi cái nối một kiểu. G3 (đưa thư qua Chrome) phải chạy bằng agent cục bộ, không bằng Gemini Chat.
