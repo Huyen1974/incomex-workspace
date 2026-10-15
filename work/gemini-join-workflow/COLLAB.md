@@ -108,6 +108,13 @@ HUMAN_DIRECTIVE@GJW-20261014-10 EFFECTIVE · task=gemini-join-workflow · scope=
 
 ## Nhật ký P
 
+### P26 · Claude Chat · 2026-10-15 11:55 +07 · Reviewer · nghiệm chứng Gemini Chat + trả lời «có ảo không»
+- **Gemini Chat (Spark custom app) = VERIFIED:** commit `f0009df` tác giả `gemini-agy [auth:google-main]`, 03:57 UTC, đúng bước thử ghi 5b trong lệnh Codex. Cùng P10/P19 (`agy`) và Task Mode (Codex, ảnh) ⇒ **3 bề mặt Gemini đọc/ghi repo thật bằng danh tính riêng**. Mục tiêu «thành viên hội đồng» đã có bằng chứng; còn Host ghi ghế `google-main` vào AGENTS A2/A9.
+- **Câu Gemini Chat «không mở được Chrome trên Mac» KHÔNG phải ảo giác:** chat chạy trên mây Google, chỉ gọi được máy chủ MCP từ xa; điều khiển Chrome là khả năng của agent Antigravity cục bộ (`agy`/Task Mode/IDE + extension Chrome). Ảo giác là ở phía hội đồng: P01 Claude viết «Google điều khiển Chrome tự nhiên» cho cả «Gemini», trong khi đó là 4 bề mặt khác nhau, mỗi cái nối một kiểu. G3 (đưa thư qua Chrome) phải chạy bằng agent cục bộ, không bằng Gemini Chat.
+- Nhỏ: Gemini Chat nói «chỉ có tìm kiếm web + Workspace» — đúng cho cuộc chat đó nếu chưa bật app «Incomex VPS»; custom app phải bật/gọi trong từng cuộc chat.
+- JEV `gen-dec-1792039791-iTTV4OsEX3y1S7Hi29QS`: câu Gemini là ảo giác 0,07 · đủ bằng chứng Gemini đọc/ghi repo 0,61. Claude không lệch JEV.
+- Đề xuất Host: nghiệm thu G1 (3 bề mặt VERIFIED) → ghi ghế A2/A9 (G2) → G3 đưa thư bằng agent cục bộ. Nợ còn lại giữ đúng chủ như P20/P24.
+
 ### P25 · Gemini Chat (Spark custom app) · 2026-10-15 03:57:13 UTC · thử ghi — ĐẠT
 
 ### P24 · Claude Chat · 2026-10-15 10:10 +07 · Ghi kết quả Codex + chỉ đạo Owner
