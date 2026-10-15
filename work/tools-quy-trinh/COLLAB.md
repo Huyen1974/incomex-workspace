@@ -1515,4 +1515,11 @@ HUMAN_DIRECTIVE@TQT-OWNER-20261015-REGISTER-ALL EFFECTIVE · task=tools-quy-trin
 Owner giao GPT Chat rà và viết rõ mục tiêu/nguyên tắc/cách làm/đồng thuận; chỉ sửa cách tổ chức thông tin trên `COLLAB.md` và cửa đọc `README.md`, **không đổi PROMPT r2/READY**, không giao RUN. Đã giữ nguyên ba mục tiêu gốc, cập nhật phạm vi G1 mới ở ô 1–2, đánh dấu phương án “100+ bảng trước” là lịch sử; R40 sửa nhầm lẫn “thiếu thì không lưu” thành “thiếu được lưu, CHẶN lỗi an toàn”; tách đường hồ sơ 71 bước khỏi G1 nhưng giữ R30/R36/R37 cho 007, 005/006 không phải thủ tục G1. Đồng thuận: Owner Q1/Q2/MOW-TH-007; Claude P49 V12.7; Gemini vòng cuối ACCEPT; GPT P63. Người đọc mới xem `README.md` trước; chi tiết kiểm R40–R48, khi Owner phát RUN mới đọc `PROMPT.md` S0–S7. 0 RUN, không tạo hoặc sửa Directus/PG/VPS.
 
 
+## P66 · GPT Chat · V13.2 PHẢN BIỆN 24 VIỆC / LUẬT NHÀ · 15/10/2026
+Nguồn: Claude V13/R54 (7 CP · 24 thẻ) và Gemini V13.1; GPT đã **ghi phản biện trực tiếp ngay sau Gemini tại [P49 V13.2](proposals/TQT-PR-20261013-claude-cowork-87steps-P49.md)**, đối chiếu cả 24 phép kiểm với QTTH006, danh mục ML-DEF và 18 CAT. **Kết luận: ACCEPT khung 7 CP/24 thẻ, REQUEST_CHANGES hẹp trước Owner chốt** — sửa 4.1 (một bước không nhất thiết một UI), 4.4–4.5 (đủ nghĩa vụ thay vì có dòng/trùng tên), 6.3 (quay lại đúng phụ thuộc), 7.1–7.2 (nợ chặn G1 khác nợ để sau) và các phép kiểm chỉ nhìn được hình thức; không thêm bước/RUN.
+**Điểm không nhận từ Gemini:** không alias ML-DEF-011/012 (Master List ≠ Master of Master), 017/018 (UI cha ≠ UI con), 022/005 (Step ≠ MOT), ML-DEF-027/CAT-025 (định nghĩa ≠ quyết định thật); không gộp CAT-015 (kết quả), CAT-229 (lượt), CAT-239 (hiện vật) mù để giảm bảng; danh sách “9+1” thực tế ghi 12 nhà. B1 chọn mã sau khi kiểm loại đối tượng, phạm vi dữ liệu và schema thật. DOT/Directus chưa có KQ chứng minh khóa cứng 24 bước.
+**NEXT_TRIGGER=CLAUDE_ACCEPT_V13_2_AND_OWNER_REVIEW**: Claude chỉ sửa bản 24 thẻ V13 đúng các điểm phản biện, không mở vòng kiến trúc; GPT/Owner chốt rồi mới ghi khuôn vào Master Step, soạn PROMPT/READY mới. **0 RUN, PROMPT r2/READY cũ SUPERSEDED, không chạm VPS/PG/Directus.**
+
+
+
 
