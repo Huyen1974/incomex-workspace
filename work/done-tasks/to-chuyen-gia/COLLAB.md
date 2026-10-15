@@ -14,6 +14,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN — Owner 2026-09-29**: chốt **03 thành 
 - GPT, Claude và Hermes cùng review trước khi chốt sang Word.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- **Owner giao 15/10/2026 — ĐÃ XÁC NHẬN trong yêu cầu (lộ trình ngày tháng HSMQT, phường hỏi):** rà soát mọi loại ngày trong HSMQT và trong quá trình kể từ ngày phê duyệt HSMQT; mỗi mốc ghi ngày nào, cách tính và công bố, nếu phải gia hạn thì gia hạn vào ngày nào, bao nhiêu ngày; chia 2 loại **bắt buộc theo luật** và **khuyến nghị (phường tự chọn)**; căn cứ đến điều, khoản; lấy 2 mốc **ngày phê duyệt HSMQT** và **ngày bắt đầu đăng tải công khai**; ra **01 file Word**: timeline chấm bước (tên bước, số ngày) + bảng chi tiết căn cứ; trình bày dễ nhìn. Claude phản biện bản GPT. Kết quả: P13.
 - **Owner giao tài liệu thứ hai 29/09/2026 — ĐÃ XÁC NHẬN trong yêu cầu:** lập bảng STT/Việc/Chủ thể/Cách làm/Căn cứ pháp lý từ sau thành lập Tổ đến hết nhiệm vụ; kèm bảng Tên văn bản/Nội dung hiện tại/Nội dung mới cần thay đổi, đánh giá khả thi và nguồn rõ để hội đồng góp ý. Cho phép tạo đúng `02_trinh_tu_va_dieu_chinh.html` trong task hiện hữu; không xuất Word hoặc sửa các tệp bàn giao trước khi thống nhất.
 - **Owner yêu cầu rút gọn 29/09/2026:** chỉ giữ việc cần làm, tiêu chuẩn, căn cứ và kết luận không phải lập Tổ thẩm định ở bước mời quan tâm; cắt giải nghĩa lặp, không mất ý pháp lý. Sửa trực tiếp HTML SSOT; giữ nguyên đoạn trích luật và nguồn Trung ương/Lai Châu; chưa xuất Word.
 - **Owner giao bổ sung 29/09/2026:** rà chắc căn cứ không bắt buộc lập Tổ thẩm định riêng ở bước mời quan tâm của dự án; kết luận ngắn ở HTML chính, trích đầy đủ căn cứ ở Phần II. Chỉ sau Owner OK mới xuất Word cuối. Owner xác nhận hai tài liệu dự án đã phê duyệt về nội dung; không tự đặt số/ngày Quyết định.
@@ -410,3 +411,30 @@ Based_on `fa0da98` (P11) · Đầu vào Owner 12/10 16:46: **“Bản dự thả
 - Vòng 2 (gốc rễ): khoảng trống không nằm ở luật mà ở cách ghi hồ sơ: bằng chứng đã có nhưng chưa được ghi vào đúng văn bản cần nó.
 - JEV `gen-dec-1791798649-FsJFxJWD1M0xju8qzgk9` (tham khảo): K1 + bổ sung căn cứ 0,95 (tin cậy 0,92); K2 0,04; đọc QĐ 1960 là tỉnh cố ý bác đề nghị 0,27. JEV chấm “điều kiện đã đạt” 0,31 — do điều kiện (1) dựa trên xác nhận của Owner, chưa phải đối chiếu bản ký; Phòng đối chiếu bản lưu khi điền.
 - Nguồn (Owner cung cấp, bản ký): QĐ 1960/QĐ-UBND 08/9/2026 (căn cứ, k1 Đ2, Đ3); BC 5743/BC-STC 03/9/2026 (Phần thứ nhất I; Phần thứ hai III.1, III.7, IV); CV 6188/SNNMT-KHTC 27/8/2026 (mục 6); 02A (QĐ 09, Tờ trình 08, Tờ trình 21, QĐ 22/23).
+
+## P13 · Claude Chat (Phản biện) — Lộ trình ngày tháng HSMQT Phương án 1; ý kiến về bản GPT · 15/10/2026
+
+### 1. Kết quả
+- **File Word (theo chỉ đạo Owner, Tệp 03 nội bộ, không sửa 01/02A/02B):** `Desktop/trường lai châu/phường đề xuất tỉnh/final HSMQT/03_LO_TRINH_MOC_THOI_GIAN_MOI_QUAN_TAM_DOAN_KET.docx` — 7 trang A4 ngang: (1) phường cần chốt; (2) điều kiện trước T1; (3) timeline 9 chấm bước; (4) bảng tra nếu T1 khác; (5) lịch ví dụ; (6) 7 quy tắc tính ngày; (7) bảng chi tiết 17 mốc + căn cứ; (8) gia hạn, xử lý tình huống; (9) điền ngày vào văn bản; (10) ngày khác cần nhớ. Màu: đỏ = luật ấn định · cam = Tờ trình 3445 ấn định cho PA1 · xanh = phường chọn.
+- **Khung đề xuất:** T0 = T2 19/10/2026 · T1 = T3 20/10/2026 trước 10 giờ · C = 15 giờ 00 T2 23/11/2026 (= T1 + 24 NLV, đệm 3 NLV) · có 1–2 hồ sơ → mở ngay (Chủ tịch ký VB 17 trong 2 giờ) · không có hồ sơ → gia hạn đến 15 giờ 00 T2 07/12/2026 · hạn chót công khai kết quả T5 31/12/2026.
+
+### 2. Đối chiếu bản GPT
+- **Đúng (giữ):** 20 NLV (k1 Đ41 NĐ 274); 05/02 NLV (k3, k4 Đ40); mở thầu 2 giờ (k1 Đ42); 0 hồ sơ gia hạn tối đa 30 ngày lịch (k1 Đ63); 1–2 hồ sơ quyết trong 3 NLV, không có trần ngày gia hạn (k2 Đ63); Điều 70–71 (01/01/2027); nghỉ T3 24/11/2026 không hoán đổi (CV 10065/VPCP); Tết 04–10/02/2027 (TB 11483/TB-BNV); TT 129 Mục 16.1 không đóng thầu đầu giờ; bản đính chính cuối của GPT về k4 Đ8 Luật Đấu thầu (có điểm a k2 Đ7) là đúng.
+- **Cần sửa:**
+  1. Bản GPT tự mâu thuẫn (Mục III nói k4 Đ8 không áp cho thông tin dự án, Mục III.3 lại đính chính). Bản cuối chỉ giữ kết luận đúng, thêm: k4 Đ8 **không** áp cho điểm b k2 Đ7 (thông báo, HSMQT, kết quả mời quan tâm) → kết quả mời quan tâm không có hạn 05 NLV luật định; hạn thực tế là trước 01/01/2027 (Tờ trình 3445 II.3.1.c, II.4; Mục 19.5 CDNĐT).
+  2. T0 = 16/10 không thực tế với chuỗi BC 07 → sao y → TTr 08 → QĐ 09. GPT chưa xử lý rủi ro: C đã ghi cứng trong QĐ 09 nên phát hành chậm là vỡ 20 NLV → đề xuất C = T1 + 24 NLV + bảng tra T1 19–30/10.
+  3. Cách đếm: GPT dùng C−5, C−2 làm hạn cho chính việc của phường. Giữ làm "hạn luật", nhưng phường làm sớm hơn 1 NLV (C−6, C−3) vì có cách hiểu "đủ NLV trọn"; 20 NLV đếm an toàn (không tính ngày phát hành và ngày đóng thầu → sớm nhất 18/11).
+  4. Gia hạn khi 0 hồ sơ: GPT chọn 14/12. Kiểm tra độc lập tính lại: chỉ kịp Tuyến A, 0 ngày dự phòng (BC 20 24/12 → QĐ 29/12 → đăng 31/12), Tuyến B không kịp → đổi **07/12** (14 ngày).
+  5. Xung đột k1 Đ42 (mở trong 2 giờ) với k2 Đ63 (3 NLV): GPT chỉ nêu "phối hợp". Đề xuất dứt khoát: mặc định mở ngay, VB 17 ký trong 2 giờ.
+  6. Phần V của GPT (HSMT 45 ngày, ví dụ 21/12 → 18/02/2027, qua mạng 01/04/2027) và lịch PA2 chi tiết ngoài phạm vi HSMQT PA1 (Tệp 01 đã chốt chỉ PA1) → chỉ giữ 1 dòng mốc chuyển bước và 1 dòng dự phòng PA2.
+- **Bổ sung GPT chưa có (GPT chưa đọc 02B):** C phải giống nhau ở 5 chỗ văn bản (VB 09 Đ1.3; VB 10 mục 9; 02B Mục 1.2.k, 10.2, 16.1) và trên Hệ thống, lệch thì k10 Đ63 buộc hủy, đăng lại · 02B Mục 10.2 chỉ có ô "giờ" → điền "15", không thêm chữ · 02B đã bỏ chỉ dẫn [...] của TT 129 ở Mục 16.1 → người điền phải biết quy tắc "không đầu giờ" · bìa 02B "Phát hành ngày" = T1, chậm thì Chủ tịch ký sửa đổi trước khi đăng · thông tin dự án: hạn 05 NLV từ QĐ 1960 = T3 15/9/2026 → kiểm tra đã đăng chưa · QĐ 599: đã có CV 6596/SNNMT-ĐĐB 16/9/2026 (Sở: không cần điều chỉnh) — Chủ tịch xác định để ghi dòng 2 Phiếu 06 · chứng chỉ đào tạo cũ của Tổ chuyên gia chỉ đến 31/12/2026 · 02A thiếu mẫu QĐ sửa đổi HSMQT; VB 15 viết cho gia hạn sau đóng thầu (Đ63), khi gia hạn trước đóng thầu phải đổi căn cứ sang k3, k5 Đ40.
+
+### 3. Đề xuất đưa Owner (gật/lắc)
+- **Q1.** Chốt khung T0 19/10 · T1 20/10 · C 15 giờ 00 23/11; nếu trượt thì C = T1 + 24 NLV theo bảng tra Phần 4. Đề xuất: **GẬT.**
+- **Q2.** Mặc định: 1–2 hồ sơ → mở ngay; 0 hồ sơ → gia hạn đến 07/12. Đề xuất: **GẬT.**
+- Việc cho Host (không phải việc Owner): Owner gật thì gửi Tệp 03 cho phường. Mẫu QĐ sửa đổi HSMQT trong 02A chỉ làm khi phường cần.
+
+### 4. Rà soát, JEV, nguồn
+- **Vòng 1 (nguồn gốc):** NĐ 274 bản docx kho dự án (Đ11, 12, 37–43, 60, 63, 70, 71, 75, 76); Luật 22/2023 Công báo (Đ7, 8, 11, 46–49); Luật 57/2024 (Điều 4 không sửa Đ8, Đ49); Luật 90/2025 bản quét, OCR (chỉ sửa điểm b k1 Đ8 phần nhà thầu, k3 Đ7, Đ11 điểm c k1/c, đ k2 — giữ điểm d k2 Đ11 dưới 800 tỷ); NĐ 96/2026 Đ30–31 (OCR bản Cổng TTĐT CP); 02A, 02B, Tệp 01, Đề xuất/Tờ trình 3445, QĐ 1960; TT 129 (toàn văn TVPL — bản ký số datafiles.chinhphu.vn là bản quét); BLDS 2015 Đ147–148; NQ 28/2026/QH16.
+- **Vòng 2 (gốc rễ, độc lập):** agent riêng kiểm ~60 lượt trích dẫn và tính lại toàn bộ ngày bằng Python: 144 cặp thứ/ngày đúng; 3 lỗi chữ đã sửa (chữ "chỉ" ở k4 Đ8; "không sửa Điều 8" → "khoản 2, 3, 4 Điều 8"; VB 27–29 không có trong 02A) và 7 nghi vấn đã xử lý (07/12 thay 14/12; ghi rõ cách hiểu chặt; PA2 bỏ ví dụ 15/02; dẫn điểm d k2 Đ11 cho đấu thầu trong nước; k3 Đ49 ghi "áp dụng tương tự").
+- **JEV** `gen-dec-1792040115-yIrEhIfDpBw78qWg96P3` (tham khảo): mở ngay khi 1–2 hồ sơ 1,00; C = T1 + 24 NLV 1,75/2; cách đếm an toàn 1,45/2 (tin cậy 0,17); gia hạn 21 ngày 1,53/2 → Claude đổi sang 14 ngày theo kết quả kiểm tra độc lập.
