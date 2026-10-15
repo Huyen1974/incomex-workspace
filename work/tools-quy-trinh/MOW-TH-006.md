@@ -2,6 +2,8 @@
 
 Phiên **1.1-signature-sources** · 71 bước, 7 mốc · Thiết kế ngoài PG, chưa nghiệm thu AI mới thực hiện.
 
+**Phạm vi áp dụng từ chỉ đạo Owner 15/10/2026:** Đây là **quy trình thực hiện chi tiết dành cho triển khai thực tế (G2/G3), ghi/đổi dữ liệu thật, giao nhận và công việc rủi ro cao**; không dùng 71 bước làm điều kiện bắt buộc cho **G1 vẽ UI · chốt hợp đồng Field · rà Config khả thi trên vùng nháp**. G1 dùng đường thiết kế ngắn do Host trình Owner chốt (đề xuất MOW-TH-007 tại README/P49 V12), gọi từ nhánh Thiết kế của MOW-TH-001. MOW-TH-005 vẫn là khuôn quản lý chung; không phải bắt G1 lập toàn bộ hồ sơ. Ghi chú phân tuyến, **không xoá/sửa 71 bước, không thay đổi hiệu lực các biên nhận G1/P61 đã có**.
+
 ## Đọc trước khi làm
 Mục tiêu: một con đường độc đạo — ai vào cũng chỉ có một lối, không thể lạc, muốn làm sai cũng không được.
 
