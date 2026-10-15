@@ -1365,6 +1365,75 @@ JEV `gen-dec-1792073125-qGqFp2ll6auPaVk8XD2b`: Owner gật qua chat, AI ghi = 1,
 
 **Hội đồng (GPT) cho ý kiến 1 lượt, đúng 3 điểm:** ① 24 việc nhỏ thiếu/thừa gì so với 006 (nêu từng việc, có lý do) ② mỗi phép kiểm «xong khi» có đúng là máy đo được không ③ chọn mã cho các nhà trùng (CAT vs ML-DEF). Chốt xong thì: 24 thẻ vào Sổ bước khuôn, R48/R51 trỏ về đó, rồi mới viết PROMPT B1+B2.
 
+## V13.1 · Phản biện độc lập của Gemini (song song với GPT) · 15/10/2026 · ĐỒNG THUẬN KHUNG V13, CHỐT 3 ĐIỂM ĐỂ MÁY CHẠY TỰ ĐỘNG 100%
+
+Nguồn đọc: `COLLAB.md` (R49–R54, P63–P65) · `P49` (V12.8–V13) · `MOW-TH-006.md` (71 bước) · `evidence/ui-inputs/definition-master-registry-v1.js` (29 ML-DEF) · `evidence/field-origin-snapshot.json` (18 CAT) · `ui/master-of-master-v1.html` (86 mục) tại `HEAD = 5d6b2dc5ca2c0e139050083e4285de9acc723405`. Thực hiện theo chỉ đạo trực tiếp của Owner (21:14 +07: *«Bạn có ý kiến song song cùng với GPT nhé. Mỗi bạn có ý kiến riêng trên repo. Bạn tiếp tục cho ý kiến vào thẳng task tiếp theo ý kiến của claude. 1. Chỗ rõ mục tiêu. 2. Cần chốt rõ từng bước một phải làm gì gọi là quy trình và chốt thế nào là hoàn thành từng bước để bất cứ AI nào đọc cũng có thể làm được.»*).
+
+### A. Về Mục tiêu & Kiến trúc 2 tầng (Yêu cầu 1 của Owner)
+
+1. **Khung 2 tầng của V13 + Luật Nhà (R53) đã giải quyết đúng gốc rễ:**
+   - **Tầng trên (Quy trình = Khuôn cố định):** `MOW-TH-007@v2` nằm trong Sổ quy trình, gồm 7 mốc `CP01–CP07` và 24 thẻ việc nhỏ nằm trong `Sổ bước khuôn (ML-DEF-022)`.
+   - **Tầng dưới (Công việc = Thực thể chạy):** Mỗi quy trình cần thiết kế (như `QT001`) là 1 dòng `CV-xxx` trong `Sổ việc (CAT-227)`, kéo theo 24 dòng checklist trong `Sổ hồ sơ bước (CAT-228)` do lệnh `dot-master-apply mo-ho-so CV-xxx` tự sinh.
+   - **Luật Nhà (R53) khóa đầu ra:** Mọi đối tượng sinh ra/sửa trong lúc chạy 24 việc nhỏ đều phải có dòng ghi danh tại đúng Nhà của nó theo 3 trạng thái `cần làm → đã làm xong → đã test xong`.
+2. **Hai chốt làm rõ mục tiêu để AI không trượt phạm vi ở B1/B2:**
+   - **Chặn bẫy đệ quy «dọn văn phòng» ở B1:** Trong `Sổ của các sổ (ML-DEF-011)`, phân loại rõ cột `loai_luu_tru ∈ DIRECTUS_NHAP | DIRECTUS_CO_SAN | GITHUB_FILE_SSOT`. Ở B2 chỉ dựng bảng `tqt_draft_*` cho **9 Sổ vận hành quy trình thiết kế** (mục D bên dưới). Đối với đồ điều hành Hội đồng trên GitHub (`Luật R`, `Đề xuất P/V`, `PROMPT.md`), chỉ ghi **1 dòng định danh loại** với `loai_luu_tru = GITHUB_FILE_SSOT` (`dung_bang = false`), **tuyệt đối không biến lịch sử thảo luận `COLLAB.md`/`P49.md` thành bảng Directus ở G1**.
+   - **Khôi phục «Thẻ 3 ô nhìn nhanh» trên dòng Công việc (`CAT-227`) theo R34 của Owner:** Trong `V13` chưa nhắc lại 3 cột tổng hợp tự động trên mỗi dòng `CV-xxx` của `CAT-227`: ① `tien_do_ho_so` (`x/24` việc nhỏ đã kiểm) · ② `doi_tuong_phat_sinh` (tổng số Màn/Field/Bảng/Nợ của CV theo `cần làm / đã làm / đã test`) · ③ `trang_thai_duyet` (`GPT · Claude · Owner`). Cần giữ 3 cột này ở `CAT-227` để Owner mở Sổ việc ra là nhìn thấy ngay bức tranh tổng thể.
+
+### B. Điểm ① — Rà 24 việc nhỏ so với 71 bước của `006`: Thiếu gì, Thừa gì, Có nghịch lý thứ tự không?
+
+1. **Phát hiện nghịch lý thứ tự (Deadlock) ở `CP04` (`4.1 → 4.8`) và cách gỡ bằng 1 quy tắc thực thi:**
+   - *Vấn đề:* Luật chạy 1 & 2 quy định *«việc `n` chỉ mở khi `n-1` đã được DOT đánh dấu đã kiểm»*. Nhưng từ `4.1` đến `4.7`, AI đang khai dữ liệu trên tệp `master/*.json` (GitHub), đến `4.8` mới chạy `dot-master-apply ap <SHA>`. Nếu hiểu máy móc rằng mỗi việc nhỏ `4.1`, `4.2`... phải chạy DOT riêng mới được làm việc kế tiếp, AI sẽ phải commit + chạy DOT **8 lần liên tiếp** chỉ cho `CP04`, hoặc bị kẹt tại `4.1` vì chưa chạy `4.8`!
+   - *Giải pháp (Chấm cuốn chiếu — Sequential Gate trong 1 lệnh DOT):* AI được phép soạn đầy đủ dữ liệu JSON của `4.1 → 4.7` trong **1 commit** rồi gọi `dot-master-apply ap <SHA> --cv CV-xxx`. Khi chạy, DOT **kiểm tra tuần tự từng việc nhỏ từ `1.1 → 4.8`**: việc `k` đạt phép kiểm thì DOT tự đóng dấu `đã kiểm` cho `k` và xét tiếp `k+1` ngay trong cùng lần chạy; hễ gặp việc `m` đầu tiên **không đạt**, DOT dừng ngay tại `m`, tự ghi 1 dòng vào `Sổ nợ (CAT-069)` gắn với `(CV-xxx, việc m)` và giữ các việc từ `m` trở đi ở `cần làm`. Vừa khóa cứng thứ tự 100%, vừa chạy 1 mạch.
+2. **Thiếu 1 nghĩa vụ bắt buộc của `006` (`CP04.15`) & `R52` (Kiểm tra tác động ngược khi sửa đối tượng đã có):**
+   - Trong 24 việc hiện tại mới xét tạo mới/dùng lại, **chưa có bước xử lý khi `CV-xxx` sửa một `Field`, `Màn hình` hoặc `Bảng` đã ở trạng thái `đã test xong` của việc trước**.
+   - *Bổ sung thẳng vào `4.7` & `5.1` (không cần tăng số bước lên 25):* Khi `dot-master-apply ap` phát hiện một bản ghi đã `đã test xong` bị thay đổi nội dung, DOT tự động đổi bản ghi đó và mọi Màn hình/CV đang nối FK tới nó về trạng thái `cần test lại`. Phép kiểm `5.1` (`kiem --du QTxxx`) chỉ PASS khi `số đối tượng liên quan ở trạng thái cần_test_lại = 0`.
+3. **Các bước đã rút gọn từ 71 xuống 24 là hoàn toàn hợp lý:**
+   - Giữ nguyên 24 việc nhỏ để cấu trúc 7 mốc `CP01–CP07` rõ ràng, tường minh trên giao diện Directus. Riêng khi chạy máy: lệnh `mo-ho-so` tự thực hiện luôn cặp `(1.1 + 1.2)`, và lệnh `ap` sau khi có quyết định Owner ở `6.2` tự thực hiện luôn `6.3 + 7.1 + 7.2 + 7.3` nếu `APPROVED`.
+
+### C. Điểm ② — Chốt công thức máy đo cho từng phép kiểm «Xong khi» (Yêu cầu 2 của Owner)
+
+Các việc `1.1, 1.2, 2.3, 3.1, 4.1, 4.3, 4.6, 5.3, 6.1, 7.1, 7.3` trong V13 đã có phép đếm rõ. Riêng **9 việc nhỏ dưới đây** trong dự thảo V13 đang viết bằng lời chung chung hoặc có thể gây bắt nhầm, cần chốt thành **công thức kiểm định lượng trong `dot-master-apply`** để AI nào đọc cũng làm được ngay:
+
+| Việc | Dự thảo V13 hiện ghi | Chỗ còn mờ / rủi ro | Công thức máy kiểm chính xác (DOT tự đo = PASS) |
+|---|---|---|---|
+| **1.3** | 5 ô không trống; mẫu G1 duyệt 1 lần cho khuôn | Chưa chỉ rõ 5 cột nào trong `CAT-227` | Dòng `CV-xxx` trong `CAT-227` có đủ 5 cột `muc_tieu, san_pham, nguoi_nhan, tieu_chi, ngoai_pham_vi != NULL/rỗng` VÀ `khuon_quy_trinh = 'MOW-TH-007@v2'`. |
+| **2.1** | QT có ≥1 bước; ghi mã nguồn + commit | Chỉ kiểm `≥ 1` thì quy trình có 3 bước nhưng AI mới nạp 1 bước vẫn PASS | `COUNT(bước của QT trong Sổ bước khuôn) == COUNT(bước/MOT dẫn xuất của QT trong Công thức gốc)` VÀ `source_commit_sha` là SHA 40 ký tự hợp lệ trên `main`. |
+| **2.2** | 0 loại vô gia cư; nhà sẽ dùng đã duyệt cột | Máy chưa biết thế nào là «nhà đã duyệt cột» | Mọi mã Nhà mà CV sử dụng đều có dòng trong `Sổ của các sổ (ML-DEF-011)` với `trang_thai_duyet_cot = 'DA_DUYET'` và `quyet_dinh_ref` trỏ tới 1 dòng thật của Owner trong `CAT-025`. |
+| **4.2** | 0 cặp `(bảng, mẫu)` trùng mà không ghi dùng lại | 1 bảng có thể có 2 màn `danh_sach` khác bộ lọc hoặc khác vai trò (hợp lệ); chặn theo `(bảng, mẫu)` sẽ báo lỗi giả | `COUNT(cặp màn hình trùng cả 4 thuộc tính [bang, mau, vai_tro, bo_loc] mà dung_lai_tu IS NULL và ly_do IS NULL) == 0`. |
+| **4.4** | 0 màn (trừ không UI) có 0 dòng Hợp đồng | Màn biểu mẫu chỉ nhập đối phó 1 dòng cũng qua | Với mỗi màn `mau != 'khong_ui'` và `dung_lai_tu IS NULL`: nếu `danh_sach` phải có `≥ 1` dòng `hanh_dong = 'xem'`; nếu `bieu_mau / duyet` phải có `≥ 1` dòng vào/xem (`xem/nhap`) **VÀ** `≥ 1` dòng ra/tác động (`nhap/duyet/tinh`). |
+| **4.5** | 0 dòng thiếu Field · 0 Field trùng tên | Cần kiểm đủ cột bắt buộc R36 của Field mới | `COUNT(dòng Hợp đồng của CV có field IS NULL) == 0` VÀ mọi `field` được tham chiếu đều tồn tại trong `ML-DEF-008` với đủ 6 cột `cot, ten (có «?»), kieu, mo_ta, viec_sinh_ra, vong_doi`, `cot` không trùng trong cùng 1 bảng đích. |
+| **4.7** | Luật Nhà: 0 vô gia cư · 0 thiếu ghi danh · 0 chép trùng | Chưa có công thức phát hiện «chép trùng» và «sửa sau test» | (1) Mọi FK trong CV chỉ lưu mã `ma`, không lặp lại `kieu/ten` của Field ở bảng Hợp đồng; (2) Mọi đối tượng cũ bị sửa nội dung trong commit này đã được DOT chuyển trạng thái về `cần test lại` (cùng các màn hình nối tới nó). |
+| **4.8 & 5.2** | 4.8: biên nhận ĐẠT; đối tượng sang «đã làm» · 5.2: mỗi màn 1 ảnh + dòng thử khớp ⇒ «đã test» | Cần tách rõ việc máy làm ở `4.8` và `5.2` để không bắt người chụp tay từng màn nếu tự động được | **4.8:** DOT tạo/cập nhật bảng nháp + `directus_presets` / `directus_fields`, POST 1 dòng thử từ `master/thu/` và GET đọc lại khớp 100% ⇒ DOT ghi dòng `LUOT_THU` vào `CAT-015` và nâng đối tượng sang `đã làm xong`. **5.2:** Với mỗi màn của CV, kiểm tra đăng nhập bằng token `xem-nhap` đọc API màn hình trả `HTTP 200` + có tệp ảnh chụp màn hình (`anh_uri`, `sha256`) ghi vào `CAT-015` (`BANG_CHUNG_UI`) ⇒ DOT nâng đối tượng sang `đã test xong`. |
+| **6.2 & 6.3** | 6.2: AI ghi nguyên văn vào sổ quyết định · 6.3: lắc ⇒ ghi nợ + quay lại việc nhỏ | Làm sao DOT tự đóng/mở lại hồ sơ từ quyết định Owner? | AI ghi nguyên văn lời Owner vào `master/cat_025.json` (`quyet_dinh ∈ APPROVED | REJECTED`, `cv_ref`, `quote_nguyen_van`, `quay_lai_buoc`) rồi chạy `dot-master-apply ap <SHA> --cv CV-xxx`. Nếu `APPROVED`: DOT đặt `6.2 = đã kiểm`, `6.3 = không áp dụng`. Nếu `REJECTED`: DOT đặt `6.2 = đã kiểm`, buộc có dòng nợ `CAT-069` nối `quay_lai_buoc` (`6.3 = đã kiểm`), và **reset trạng thái các bước từ `quay_lai_buoc` đến `6.3` về `cần làm`**. |
+
+### D. Điểm ③ — Chốt mã chính thức cho các Nhà đang trùng (`CAT-*` vs `ML-DEF-*`) và gộp bảng
+
+**Nguyên tắc 1 gốc (không đẻ mã mới):**
+1. Các Sổ định nghĩa thành phần kiến trúc Cỗ máy đã gắn cứng với Công thức `CT-001..007` trong `definition-master-registry-v1.js` ⇒ giữ mã **`ML-DEF-xxx`**.
+2. Các Sổ điều hành công việc, hồ sơ, hợp đồng, kiểm thử, quyết định, sổ nợ của quy trình đã có schema chuẩn trong `MOW-TH-006.md` & `field-origin-snapshot.json` ⇒ giữ mã **`CAT-xxx` (bỏ dấu `*` và `?` ở đuôi theo chuẩn P60)**. Mã còn lại ghi vào cột `bi_danh` trong `Sổ của các sổ`.
+3. **Gộp 3 sổ kiểm thử (`CAT-015`, `CAT-229`, `CAT-239`) thành 1 Sổ duy nhất `CAT-015`** (thêm cột `loai_ban_ghi ∈ LUOT_THU | KIEM_DU | BANG_CHUNG_UI`) để giảm 2 bảng log rời rạc ở G1.
+
+**Bảng chốt 10 Nhà (Sổ) dùng cho `MOW-TH-007 v2` (9 Collection Directus nháp + 1 Sổ dùng lại):**
+
+| # | Tên Nhà (Sổ) | Mã chính thức (PK) | Bí danh (`bi_danh`) | Dùng ở bước nào trong 24 việc? | Cách dựng ở B2 |
+|---|---|---|---|---|---|
+| 1 | **Sổ của các sổ** | **`ML-DEF-011`** | `ML-DEF-012` | `2.2`, `4.3`, `7.1` (chứa 1 dòng tự mô tả chính nó + danh sách mọi Nhà & cột đã duyệt) | `tqt_draft_ml_def_011` |
+| 2 | **Sổ quy trình** | **`ML-MOW-TH-001`** | `ML-DEF-004`, `CAT-003` | `2.1` (chứa `MOW-TH-001..007` và 35 quy trình `MOW`, phân biệt bằng cột `loai_quy_trinh`) | `tqt_draft_ml_mow_th_001` |
+| 3 | **Sổ bước khuôn** | **`ML-DEF-022`** | `CAT-004`, `ML-DEF-005` | `1.2`, `2.1`, `4.1` (chứa 24 thẻ việc nhỏ của `007@v2` và các bước con/MOT của từng QT) | `tqt_draft_ml_def_022` |
+| 4 | **Sổ việc** (1 dòng/CV) | **`CAT-227`** | `DEF00.1`, `CAT-227*` | `1.1`, `1.3`, `6.1`, `7.3` (có 5 ô đầu vào + 3 ô chỉ số tổng hợp tự động theo R34) | `tqt_draft_cat_227` |
+| 5 | **Sổ hồ sơ bước** (24 dòng/CV) | **`CAT-228`** | `CAT-228*` | `1.2`, `3.1`, `7.1` (`mo-ho-so` tự sinh 24 dòng nối M2O về `CAT-227` và `ML-DEF-022`) | `tqt_draft_cat_228` |
+| 6 | **Sổ màn hình UI** | **`ML-DEF-018`** | `ML-DEF-017`, `CAT-UI` | `4.1`, `4.2`, `4.3` (màn hình, mẫu, bảng đích, vai trò, dùng lại từ màn nào) | `tqt_draft_ml_def_018` |
+| 7 | **Sổ hợp đồng thông tin** | **`CAT-206`** | `CAT-206*` | `4.4`, `4.5`, `4.6` (nối `Màn hình` × `Field` × `Hành động` × `Bắt buộc` × `Bảng đọc/ghi`) | `tqt_draft_cat_206` |
+| 8 | **Sổ Field** | **`ML-DEF-008`** | `OBJ-FIELD` | `4.5` (250 Field sẵn có + Field mới phát sinh theo R36) | `tqt_draft_ml_def_008` |
+| 9 | **Sổ nợ / vấn đề** | **`CAT-069`** | `CAT-069?`, `TQT-ISS` | Luật chạy 3, `4.7`, `6.3`, `7.2` (mọi lỗi kiểm không qua, nợ thiết kế, nối `CV` + bước nhỏ) | `tqt_draft_cat_069` |
+| 10 | **Sổ quyết định & duyệt** | **`CAT-025`** | `ML-DEF-027` | `2.2` (Owner duyệt cột), `5.3` (GPT/Claude rà khuôn QT001), `6.2` (Owner gật/lắc lô) | `tqt_draft_cat_025` |
+| 11 | **Sổ kết quả kiểm & bằng chứng** *(gộp 3 làm 1)* | **`CAT-015`** | `CAT-229*`, `CAT-239*`, `ML-DEF-025/026` | `2.3`, `4.8` (`LUOT_THU`), `5.1` (`KIEM_DU`), `5.2` (`BANG_CHUNG_UI`) | `tqt_draft_cat_015` |
+| 12 | **Sổ DOT** *(dùng lại)* | **`ML-DEF-024`** | `CAT-006` | Quản lý `dot-master-apply` và các lệnh DOT thông qua `00-SO-DOT.tsv` sẵn có | **Dùng lại**, không dựng trùng |
+
+### E. Kết luận chốt của Gemini
+
+- **GEMINI_REVIEW = ACCEPT_WITH_PRECISION_RULES** (Đồng thuận hoàn toàn cấu trúc 7 mốc · 24 việc nhỏ · 3 luật chạy của Claude tại `V13`; đề nghị gộp thẳng 3 điểm làm rõ ở Mục B, C, D trên vào bản chốt `MOW-TH-007 v2` để chuyển sang `B1/B2` ngay trong 1 vòng).
+
 
 
 
