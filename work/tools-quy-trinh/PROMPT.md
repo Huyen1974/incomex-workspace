@@ -1,4 +1,41 @@
-# Hiện hành · Owner giao Host rà QTTH 05 và DOT · 11/10/2026
+# PROMPT — TQT-B12-DRAFT-ZONE-20261015-01
+RUN_ID: TQT-B12-DRAFT-ZONE-20261015-01
+Status: DRAFT · Claude Host Kiểm soát soạn 15/10 theo COLLAB §0 R40–R47 · chờ Owner gật Q1+Q2 (ghi ở 3.4) · GPT rà rồi READY đúng SHA · chưa RUN.
+Task: work/tools-quy-trinh · Host nội dung Codex · Host Kiểm soát Claude Chat · Executor: Claude Code CLI trên Mac · Ghi repo: gateway `workspace_*` có expected_version · Ghi VPS: chỉ 1 tệp DOT mới + vùng `tqt_*` trên Directus + 1 khai báo Guard + ghim Config Guard, giữ `VPS-GHI` suốt lượt.
+Owner 15/10 14:34: «1. Vẽ cái UI cho đủ 2. Liệt kê các trường cho đủ (làm hợp đồng thông tin) 3. rà config cho khả thi (đúng trường, đúng chỗ) … Đừng phức tạp hóa vấn đề lên.» · 14/10 21:39: «… xoá phần tạm => DOT vẫn dùng được».
+
+## Đích lượt này (nôm na)
+Dựng «bàn làm việc» trên Directus nháp: 5 bảng nối nhau bằng mã, đổ dữ liệu đã có vào, Owner mở ra xem được; chứng minh 1 lệnh xoá sạch và dựng lại y nguyên từ GitHub. **Chưa làm QT001** (đó là B3).
+
+## Luật cứng (chạm ⇒ DỪNG)
+1. **0 dòng sửa DOT cũ, không gọi DOT cũ khi chạy.** Chụp hash `/opt/incomex/dot/bin/*` trước/sau; chỉ được thêm `dot-master-apply` và cập nhật sổ bằng `dot-dot-catalog --write`.
+2. Ghi Directus **chỉ qua `dot-master-apply`**, bằng Directus API chính thức + khoá máy GSM (chép cách nạp khoá của `dot-web-incomex`, không import nó). Không SQL ghi, không psql, không ghi tay Studio, không dùng tool MCP `directus_create/update/delete`.
+3. Mọi đối tượng tạo ra mang tiền tố `tqt_draft_` (vùng nháp) hoặc `tqt_selftest_` (bài thử), nhóm «TQT — NHÁP», ghi chú bắt đầu `[TQT_NHAP]`, vào sổ sở hữu `/var/lib/incomex-master-apply/<vung>/owned.json`. Danh sách tiền tố được xoá viết cứng trong mã, không lấy từ JSON.
+4. Không dùng `dot-collection-create`/`dot-collection-register`/`dot-registry-*`; không đăng ký vào sổ hệ thống; không Flow/trigger/hook trên bảng nháp; không quyền public; không khoá ngoại ra ngoài vùng.
+5. Chụp schema Directus đầy đủ trước/sau (API `/schema/snapshot`): diff chỉ được chứa đối tượng `tqt_*` + quyền/tài khoản xem của vùng. Lệch ⇒ `xoa-vung` phần lượt này tạo + DỪNG.
+6. Không đụng SSH/khoá/vai PG (R47 chỉ ghi nhận). Không in bí mật ra màn hình, chat, repo.
+
+## Các bước
+| Bước | Làm gì | Xong khi |
+|---|---|---|
+| S0 cổng | Đọc AGENTS → COLLAB gốc → COLLAB TQT §0 (R40–R47) → PROMPT này. Cần: READY đúng SHA; dòng Owner gật Q1+Q2 ở 3.4 (chưa có Q1 thì bỏ S5, phần khác vẫn chạy); `VPS-GHI: trống` → lấy khoá. | STARTED ghi vào COLLAB TQT |
+| S1 B1 · chỉ đọc | ① Đọc `dot-web-incomex` + Directus API thật: xác nhận làm được 4 luật R41 mà không sửa/gọi DOT cũ. ② Chỉ ra nguồn: danh sách quy trình theo Công thức (dự kiến Nhóm cha/Nhóm con ML-DEF-001/002 từ `chuoi-data-v1.js`) · QT001 = MOW001, 3 màn MOT (`work/mow-mot-moit-mout/UI-REVIEW-MOW001.json`) · Master of Master 86 (gốc `ui` `master-of-master-v1.html` #catalog-data) · 28 ML-DEF (`evidence/ui-inputs/definition-master-registry-v1.js`) · 250 Field (`view.html` → `catalog.field_registry`). ③ Chọn mã có sẵn cho 5 bảng lõi (Quy trình · Màn hình · Field · Master · Hợp đồng); không tự đặt mã trùng. ④ Đo: PG Census có báo bảng chưa nhãn không · Owner mở Directus ở URL nào · xoá collection có để sót gì. | 1 bảng ngắn trong P mới: nguồn · số dòng · mã · vướng. Vướng chặn ⇒ DỪNG báo. |
+| S2 dữ liệu GitHub | Tạo `work/tools-quy-trinh/master/`: `vung.json` (chỉ vùng `nhap`) · `master.json` (mọi Master: mã, tên, loại ①②③, lý do, `dung_bang`; 5 bảng lõi `dung_bang: true` kèm danh sách mã Field làm cột) · `field.json` (250 Field + Field của 5 bảng lõi theo R36: tên cột, tên hiển thị có «?», kiểu, mô tả, vòng đời) · `<mã>.json` dữ liệu có sẵn của từng bảng lõi. Chỉ JSON, một commit. Nguồn nào bẩn/trùng thì để lại cho B3, ghi lý do. | SHA commit |
+| S3 DOT | Viết `/opt/incomex/dot/bin/dot-master-apply` (python3; nhãn đầu tệp như DOT khác; `--help`; chạy thử mặc định, `--execute` mới ghi). Lệnh: `ap <SHA40> --vung nhap` · `kiem` · `co-lap <vung>` · `xoa-vung <vung>` · `thu` (tự tạo vùng `tqt_selftest_`, kiểm, xoá). Đọc tệp bằng `git show <SHA>:…` trên bản sao repo ở VPS; SHA phải nằm trên main; không chạy mã từ repo. Kiểm hết rồi mới ghi; lỗi kiểm thì không ghi gì. Phần G2 để sẵn chỗ nhưng tắt cứng. Bảo vệ Điều 30/31: ghim Config Guard bằng `apply-v0`, sổ DOT, checker `kiem` gắn Guard theo đường `web_incomex` đã dùng (B-CWEB01), rollback = phiên trước của tệp + `xoa-vung`. | `thu` PASS; ghim xong |
+| S4 áp vùng nháp | `ap <SHA S2> --vung nhap --execute`: 5 bảng, `ma` là khoá chính dạng chuỗi, quan hệ theo mã (Màn hình→Quy trình; Hợp đồng→Màn hình, Field, Master nơi ghi), nạp dữ liệu. Tạo 3 bộ lọc «thiếu»: Màn hình chưa có Field · Field chưa ai dùng · Hợp đồng có nơi ghi là Master loại ③. | Biên nhận ĐẠT; đọc lại khớp tệp |
+| S5 tài khoản xem (chỉ khi Q1 gật) | 1 policy «TQT NHÁP · chỉ xem» (app access, admin=false, chỉ đọc `tqt_draft_*` + bộ lọc của vùng), 1 tài khoản `xem-nhap@incomexsaigoncorp.vn`, không gắn policy khác, giao diện sáng, vi-VN. Mật khẩu sinh ngẫu nhiên cất vào GSM, đưa Owner bằng `pbcopy`, không in. | Tự đăng nhập thử: thấy đúng nhóm nháp, không sửa được, không thấy bảng khác; ảnh chụp |
+| S6 thử xoá | `xoa-vung nhap --execute` → đếm còn sót (bảng, cột, quan hệ, nhóm, quyền, tài khoản, bộ lọc, khai báo Guard của vùng) = 0; nhật ký audit hệ thống báo riêng → `ap` lại cùng SHA → so khớp 100% với lần đầu (làm lại S5 nếu đã có). | 2 biên nhận + so khớp |
+| S7 đóng | `kiem` xanh; hash DOT cũ không đổi; trả `VPS-GHI`; dọn đồ tạm; ghi 1 P/KQ vào COLLAB TQT (biên nhận, SHA, số bảng/dòng, còn sót, ảnh). Cập nhật Bảng điều khiển ô ✅/■/➡. Đưa Owner link + 4 bước xem bằng tiếng Việt (mở URL → dán mật khẩu → vào «TQT — NHÁP» → mở bộ lọc «thiếu»); Owner xem khi tiện, không chặn KQ. | KQ |
+
+## KQ
+- `XONG`: S1–S7 đạt, có biên nhận, còn sót = 0, hash DOT cũ không đổi.
+- `DỪNG · <lý do>`: luật cứng bị chạm, B1 thấy vướng chặn, diff ngoài `tqt_*`, xoá còn sót. Trước khi dừng: `xoa-vung` phần lượt này tạo trên Directus (giữ DOT và tệp GitHub), trả cờ, ghi KQ.
+- Không làm trong lượt này: QT001 (B3) · dựng bảng cho Master ngoài 5 bảng lõi · G2 · SSH/vai PG · view.html/CHECK005/006.
+
+---
+# LỊCH SỬ — KHÔNG CÒN HIỆU LỰC từ 15/10/2026 (thay bằng TQT-B12-DRAFT-ZONE-20261015-01 ở trên)
+
+## (cũ) Hiện hành · Owner giao Host rà QTTH 05 và DOT · 11/10/2026
 
 **P33 hiện hành:** trước khi viết script hoặc gọi công cụ, đọc README mục P33, tra Master DOT/Tool và bảng dùng lại. Dùng CHECK-006 để kiểm kê nguồn + sự kiện có bằng chứng; không cộng hook/gateway thành lượt duy nhất, không lấy có tệp làm đã kiểm. Giữ ⑤, 7 mốc, MOW001 0/7 và không PG. VPS là SSOT; không đẩy gateway sang GitHub cũ.
 
