@@ -478,3 +478,9 @@ Based_on `fa0da98` (P11) · Đầu vào Owner 12/10 16:46: **“Bản dự thả
 - **Cách làm (cho vòng sau):** build so từng ô với "kho chuỗi" của bản trước (`v3pool.json` sinh từ script bản trước), so theo từ; ô giống dưới 60% thì tô cả ô. Vòng sửa sau: sinh lại kho chuỗi từ bản 4 → chỉ tô phần sửa của vòng đó (tô cũ tự mất).
 - **Kiểm:** chữ trong tệp trùng 100% bản 4 chưa tô (trừ câu chú giải); 0 lỗi thứ/ngày; xem ảnh 7 trang. **Ghi chú sửa sai:** lần giao P16, bản trên Mac bị ghi nhầm bản 3 (lệnh chép và lệnh ghi chạy song song); đã phát hiện khi kiểm lại và ghi đè đúng bản 4 có tô (34.365 byte). Tệp gửi qua chat lúc P16 là đúng bản 4.
 - **Tệp 01:** vẫn chờ Owner gật sửa 1 ô (P16); khi sửa cũng tô vàng nhạt đúng ô đó.
+
+## P18 · Claude Chat — Vàng nhạt chỉ ở Lịch 2 (chỉ đạo Owner 15:17, thay P17) · 15/10/2026
+- **Bỏ toàn bộ cách tô từng chữ của P17** (Lịch 1, đầu trang, bảng điền ngày không còn màu vàng; bỏ câu chú giải "mới sửa sau ý kiến GPT").
+- **Lịch 2:** tô **cả dòng** (mọi ô, kể cả ô ngày) nền vàng nhạt `FFF2CC` cho 5 việc Lịch 1 không có: dòng 1 (đóng thầu dưới 03 hồ sơ – chưa mở, chờ quyết định), 2 (VB 15 + thông báo gia hạn), 3 (thời gian gia hạn → 03/12), 4 (sửa HSMQT khi gia hạn), 7 (sau gia hạn vẫn dưới 03 hồ sơ). Các dòng 5, 6, 8–13 là việc Lịch 1 đã có (chỉ lùi ngày) → để trắng, cột ngày vẫn xanh. Dòng ghi chú đầu Lịch 2 thêm: "Dòng nền vàng nhạt = việc Lịch 1 không có."
+- **Kiểm:** chữ trùng 100% bản 4 (trừ câu ghi chú); 40 ô vàng = 5 dòng × 8 ô, chỉ nằm trong bảng Lịch 2; 0 tô chữ; vẫn 7 trang; xem ảnh trang 5–6. Trên Mac: 33.010 byte.
+- **Lưu ý kỹ thuật cho phiên sau:** ghi đè tệp trên Mac bằng `device_commit_files` theo **fileUuid** (sau SendUserFile); ghi theo stagedPath đã hai lần ghi lại nội dung cũ. Sau khi ghi luôn kiểm dung lượng bằng device_list_dir.
