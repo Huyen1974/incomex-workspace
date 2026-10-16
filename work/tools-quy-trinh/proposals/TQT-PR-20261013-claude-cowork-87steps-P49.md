@@ -1376,7 +1376,7 @@ Không dùng Flow: mọi tự động có ghi đều đi qua DOT để còn biê
 | 16 | Bằng chứng | CAT-239 | ML-DEF-026 | 5.2 |
 | 17 | DOT (dùng lại, đang chạy) | ML-DEF-024 | CAT-006 (B1 kiểm) | 2.3 · 4.8 |
 
-**17 nhà, 1 dùng lại.** Không gộp 3 sổ kiểm 015/229/239 (khác bản chất; JEV 0,99). B1 đo từng nhà (đã có ở đâu, loại lưu trữ) → Owner gật **bảng mã + cột 1 lần theo lô**. DOT thêm: `mo-ho-so` · `kiem CV` · `ap --cv` (chấm cuốn chiếu; mục tiêu 3 nhịp: AI soạn → 1 lệnh DOT chấm tới 6.1 → Owner gật). **B1 chốt luôn schema CAT-227 · CAT-228 · cột thẻ chuẩn ML-DEF-022 và cột Mục tiêu/Mốc/Mục ghi của Sổ quy trình (MBM), Owner gật cùng lô** (Hermes D4). «Nhà» = sổ có mã + SSOT + nơi lưu: sổ đối tượng là collection (Owner); đồ hội đồng ở GitHub có dòng nhà loại «tệp GitHub», không dựng bảng (GPT V13.4).
+**17 nhà, 1 dùng lại.** Không gộp 3 sổ kiểm 015/229/239 (khác bản chất; JEV 0,99). B1 đo từng nhà (đã có ở đâu, loại lưu trữ) → Owner gật **bảng mã + cột 1 lần theo lô**. DOT thêm: `mo-ho-so` · `kiem CV` · `ap --cv` (chấm cuốn chiếu; mục tiêu 3 nhịp: AI soạn → 1 lệnh DOT chấm tới 6.1 → Owner gật). **B1 chốt luôn schema CAT-227 · CAT-228 · cột thẻ chuẩn ML-DEF-022 và cột Mục tiêu/Mốc/Mục con của Sổ quy trình (MBM), Owner gật cùng lô** (Hermes D4). «Nhà» = sổ có mã + SSOT + nơi lưu: sổ đối tượng là collection (Owner); đồ hội đồng ở GitHub có dòng nhà loại «tệp GitHub», không dựng bảng (GPT V13.4).
 
 **B1/B2 tự nó** là việc dựng nhà, không phải thiết kế QT ⇒ không chạy 007; chạy theo PROMPT như cũ, nhưng mọi thứ nó tạo phải trả lời Luật Nhà và được ghi bù làm CV đầu tiên ngay khi Sổ việc dựng xong.
 
