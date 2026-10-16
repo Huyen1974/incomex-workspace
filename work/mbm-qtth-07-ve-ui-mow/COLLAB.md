@@ -73,7 +73,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 | V12 | bộ tình trạng mục 4 thiếu «rỗng», «dùng lại» (22:15) | chưa sửa — chờ Owner |
 | V13 | mã sổ trong bước và tên sổ thật lệch nghĩa (CAT-227/228/239) (22:15) | chưa sửa — đề xuất thêm ô «nghĩa khớp?» vào bảng kiểm kê |
 | V14 | kết quả bước 3–4 đặt ngoài ô 3 nên trang Task không hiện; «repo» và «workspace» mỗi bên hiểu một kiểu (Owner 22:07) | r5.6 mục 6: «làm ở workspace» |
-| V17 | Host tự đặt bước UI («hành động», «màn») thay vì dùng CT-004/CT-006 có sẵn; rà xuống dữ liệu MOW-001 (con) khi QTTH 07 (mẹ) chưa xong (Owner 17/10 05:15) | r5.9 mục 3.3: bước đã có công thức thì viết theo công thức; mẹ chưa xong thì chưa rà con |
+| V17 | Host tự đặt bước UI («hành động», «màn») thay vì dùng CT-004/CT-006 có sẵn; rà xuống dữ liệu MOW-001 (con) khi QTTH 07 (mẹ) chưa xong (Owner 17/10 05:15) | r5.9 (Owner 05:22): tiêu đề «3.3 Bước (nền tảng = nhóm con, có thể điều chỉnh cho sát thực tế)»; gỡ ghi chú Host tự thêm |
 | V16 | mục 3 chỉ có 1 bảng bước, thiếu tầng Mốc và Mục con có câu hỏi + hoàn thành (Owner 22:57) | r5.8: mục 3 = 3.1 Mốc · 3.2 Mục con · 3.3 Bước |
 | V15 | chuyển vào ô 3 vẫn không đọc được: tab Kiểm soát in thô bảng và ô 3 mặc định gập; tab Nội dung báo «Chưa có view» (Owner 22:19) | r5.7: bảng kết quả ghi vào `view.html` của task → tab Nội dung công việc; tạo task kèm `view.html` |
 
@@ -82,6 +82,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P15 · 17/10 05:22 · tiêu đề 3.3 MBM: «3.3 Bước … => đổi thành: 3.3 Bước (nền tảng = nhóm con, có thể điều chỉnh cho sát thực tế). Không tự viết lung tung vào MBM khi tôi chưa yêu cầu!»
 - P14 · 17/10 05:08 + 05:15 · bước theo công thức: «Bạn chưa hiểu sâu hết đâu. Mục: 3.3 Bước của QTTH 07 => bạn ghi chú ngay sau "3.3 Bước" là: (Bước tính theo nhóm con, mỗi quy trình có số UI tính theo công thức của UI con) Chúng ta đã có những công thức cho việc này rồi. => bạn thử rà soát lại xem số bước đúng chưa?» — «bạn đang nhầm lẫn: 1. công thức ngay trong này (trên phần MBM một tí ...) 2. Chúng ta đang chế tạo QTTH 07 từ MBM: MBM => QTTH 07 (và các quy trình khác sau này) => QT 01 của master mow. Đừng rà cái con khi cái mẹ còn chưa xong. Các bạn đang phức tạp lên. Nhóm con CT-004 Chuỗi+Bước con+Tầng⇒Nhóm con. UI Con CT-006 Chuỗi+Bước+Tầng+Nhóm+UI cha⇒UI Con. Công thức có vài chữ thôi, nhưng con người nhìn vào đây là hiểu hết. Các bạn chữ nhiều nhưng rối tinh lên»
 - P13 · 22:57 · mục 3 thành 3 bảng: «Mục 3 triển khai tôi nhìn thấy phải sửa từ MBM. 1. Thêm mục 3.1. Mốc 3.2 Mục con 3.3 Bước (hiện tại chuyển thành bước) 3.1 Để các cột. STT; Tên Mốc; Câu hỏi cần trả lời; Thế nào là hoàn thành 2. Bảng 3.1 Để các cột. STT; Tên Mốc; Câu hỏi cần trả lời; Thế nào là hoàn thành 3.2 Cột: STT; Tên Mốc; Tên mục con; Câu hỏi cần trả lời; Thế nào là hoàn thành 3.3 Cần thêm 2 cột Câu hỏi cần trả lời; Thế nào là hoàn thành. Sau đó thử làm lại trên Repo xem? Cần hoàn thiện từng bước cho hợp lý.»
 - P12 · 22:19 · lỗi hiển thị: «Bạn kiểm tra xem có lỗi gì không? tôi kiểm tra mbm-qtth-07-ve-ui-mow không thấy chuyển về?»
