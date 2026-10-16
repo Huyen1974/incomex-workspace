@@ -5,7 +5,7 @@ Tên việc: QTTH 07 — vẽ UI theo Master MOW, đủ Master list và hợp đ
 Xác nhận User: ĐÃ XÁC NHẬN — Owner viết ô 1–2 ngày 16/10/2026 17:05.
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-16 23:10 +07 · Claude · P13
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-17 05:25 +07 · Claude · P14
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ: [✓ 1 Nhận yêu cầu] → [✓ 2 Tạo task] → [✓ 3 Chốt mục tiêu] → [◐ 4 Liệt kê bước — bản thử] → [■ 5 Check Master list] → [□ 6 Bộ câu hỏi] → [□ 7 Ký] → [□ 8 Chạy]
@@ -41,7 +41,7 @@ Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công
 | 1 | Nhận yêu cầu (MBM ①) | 🤖 | lời Owner ở Nhật ký | ☑ |
 | 2 | Tạo task + tên + view.html | 🤖 | đúng khuôn, tên `mbm-`, có `view.html` | ☑ `579bec00` |
 | 3 | Chốt mục tiêu (MBM ②) | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
-| 4 | Liệt kê Mốc · Mục con · Bước (MBM ③) | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 23:10 ở view.html · còn 2 ô ❓ (bước 2.1) |
+| 4 | Liệt kê Mốc · Mục con · Bước (MBM ③) | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 17/10 05:25 ở view.html · 0 ô ❓ · bước UI theo CT-004/CT-006 |
 | 5 | Check Master list (MBM ④) | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ; Tình trạng = «đã có» hết | ■ bảng ở view.html · mới 4/17 «đã có» |
 | 6 | Bộ câu hỏi (MBM ⑤) | 🤖 | mọi bước đủ ô | ☐ |
 | 7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
@@ -73,6 +73,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 | V12 | bộ tình trạng mục 4 thiếu «rỗng», «dùng lại» (22:15) | chưa sửa — chờ Owner |
 | V13 | mã sổ trong bước và tên sổ thật lệch nghĩa (CAT-227/228/239) (22:15) | chưa sửa — đề xuất thêm ô «nghĩa khớp?» vào bảng kiểm kê |
 | V14 | kết quả bước 3–4 đặt ngoài ô 3 nên trang Task không hiện; «repo» và «workspace» mỗi bên hiểu một kiểu (Owner 22:07) | r5.6 mục 6: «làm ở workspace» |
+| V17 | Host tự đặt bước UI («hành động», «màn») thay vì dùng CT-004/CT-006 có sẵn; rà xuống dữ liệu MOW-001 (con) khi QTTH 07 (mẹ) chưa xong (Owner 17/10 05:15) | r5.9 mục 3.3: bước đã có công thức thì viết theo công thức; mẹ chưa xong thì chưa rà con |
 | V16 | mục 3 chỉ có 1 bảng bước, thiếu tầng Mốc và Mục con có câu hỏi + hoàn thành (Owner 22:57) | r5.8: mục 3 = 3.1 Mốc · 3.2 Mục con · 3.3 Bước |
 | V15 | chuyển vào ô 3 vẫn không đọc được: tab Kiểm soát in thô bảng và ô 3 mặc định gập; tab Nội dung báo «Chưa có view» (Owner 22:19) | r5.7: bảng kết quả ghi vào `view.html` của task → tab Nội dung công việc; tạo task kèm `view.html` |
 
@@ -81,6 +82,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P14 · 17/10 05:08 + 05:15 · bước theo công thức: «Bạn chưa hiểu sâu hết đâu. Mục: 3.3 Bước của QTTH 07 => bạn ghi chú ngay sau "3.3 Bước" là: (Bước tính theo nhóm con, mỗi quy trình có số UI tính theo công thức của UI con) Chúng ta đã có những công thức cho việc này rồi. => bạn thử rà soát lại xem số bước đúng chưa?» — «bạn đang nhầm lẫn: 1. công thức ngay trong này (trên phần MBM một tí ...) 2. Chúng ta đang chế tạo QTTH 07 từ MBM: MBM => QTTH 07 (và các quy trình khác sau này) => QT 01 của master mow. Đừng rà cái con khi cái mẹ còn chưa xong. Các bạn đang phức tạp lên. Nhóm con CT-004 Chuỗi+Bước con+Tầng⇒Nhóm con. UI Con CT-006 Chuỗi+Bước+Tầng+Nhóm+UI cha⇒UI Con. Công thức có vài chữ thôi, nhưng con người nhìn vào đây là hiểu hết. Các bạn chữ nhiều nhưng rối tinh lên»
 - P13 · 22:57 · mục 3 thành 3 bảng: «Mục 3 triển khai tôi nhìn thấy phải sửa từ MBM. 1. Thêm mục 3.1. Mốc 3.2 Mục con 3.3 Bước (hiện tại chuyển thành bước) 3.1 Để các cột. STT; Tên Mốc; Câu hỏi cần trả lời; Thế nào là hoàn thành 2. Bảng 3.1 Để các cột. STT; Tên Mốc; Câu hỏi cần trả lời; Thế nào là hoàn thành 3.2 Cột: STT; Tên Mốc; Tên mục con; Câu hỏi cần trả lời; Thế nào là hoàn thành 3.3 Cần thêm 2 cột Câu hỏi cần trả lời; Thế nào là hoàn thành. Sau đó thử làm lại trên Repo xem? Cần hoàn thiện từng bước cho hợp lý.»
 - P12 · 22:19 · lỗi hiển thị: «Bạn kiểm tra xem có lỗi gì không? tôi kiểm tra mbm-qtth-07-ve-ui-mow không thấy chuyển về?»
 - P11 · 22:07 · làm ở workspace: «Không, bạn đưa lên repo chứ. Đó bạn thấy không? mỗi người vẫn hiểu 1 kiểu, mỗi AI vẫn hiểu 1 kiểu. Và cái đó rõ ràng chưa thể trở thành quy trình được. Ghi thêm vài chữ là làm ở workspace để không hiểu nhầm nữa»

@@ -32,13 +32,13 @@ ol.issues li{margin:5px 0}
 <body>
 <main>
 <h1>QTTH 07 — bảng làm việc theo MBM</h1>
-<p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 16/10/2026 23:10 · công thức: CT-008 MBM r5.8 · danh sách việc và tiến độ ở tab Kiểm soát.</p>
+<p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 17/10/2026 05:25 · công thức: CT-008 MBM r5.9 · danh sách việc và tiến độ ở tab Kiểm soát.</p>
 
 <h2>⚠ Vấn đề lộ ra</h2>
 <ol class="issues">
 <li><span class="dot n"></span><b>Mới (lần thử 23:10):</b> cột «Thế nào là hoàn thành» ở 3.3 trùng câu A2 (xong khi) của bộ câu hỏi mục 5 → đề xuất: tới mục 5 coi A2 = cột này, không viết lại.</li>
-<li><span class="dot n"></span><b>Mới (lần thử 23:10):</b> cột «Câu hỏi cần trả lời» giúp lộ ngay bước mơ hồ: 2.1 không đặt được câu hỏi rõ → cả 2 cột đều ❓.</li>
-<li><span class="dot r"></span><b>13/17 sổ chưa «đã có»</b> → mục 4 chặn. Cần Owner duyệt lần đầu — đề xuất duyệt theo nhóm.</li>
+<li><span class="dot n"></span><b>Đã sửa (17/10 05:25):</b> bước UI viết theo CT-004 Nhóm con + CT-006 UI con; 2.1 viết theo CT-005 → hết ❓.</li>
+<li><span class="dot r"></span><b>13/19 sổ chưa «đã có»</b> → mục 4 chặn. Cần Owner duyệt lần đầu — đề xuất duyệt theo nhóm.</li>
 <li><span class="dot r"></span><b>Mã sổ lệch nghĩa:</b> CAT-227 (trang: tiến trình công việc ↔ QTTH 07: Sổ việc) · CAT-228 (trang: việc thật MOT ↔ QTTH 07: hồ sơ) · CAT-239 (trang: Sổ tệp ↔ QTTH 07: ảnh màn).</li>
 <li><span class="dot y"></span><b>Sổ của các sổ rỗng</b> (ML-DEF-012 = 0); việc của nó đang ở trang 47 Master List.</li>
 <li><span class="dot y"></span><b>Bộ tình trạng mục 4 thiếu</b> «rỗng» và «dùng lại».</li>
@@ -67,27 +67,28 @@ ol.issues li{margin:5px 0}
 <div class="wrap"><table>
 <thead><tr><th>STT</th><th>Tên Mốc</th><th>Tên mục con</th><th>Câu hỏi cần trả lời</th><th>Thế nào là hoàn thành</th></tr></thead>
 <tbody>
-<tr><td>1</td><td class="c">007-4 Làm</td><td class="c">A UI</td><td>MOW nào giữ, gộp hay tách; mỗi hành động đã có UI chưa, dùng lại được gì?</td><td>4/4 bước đạt (4.0–4.3)</td></tr>
-<tr><td>2</td><td class="c">007-4 Làm</td><td class="c">B Hợp đồng</td><td>Mỗi màn cần thông tin gì, Field đủ chưa, đọc/ghi ở đâu?</td><td>3/3 bước đạt (4.4–4.6)</td></tr>
+<tr><td>1</td><td class="c">007-4 Làm</td><td class="c">A UI</td><td>MOW nào giữ, gộp hay tách; mỗi nhóm con đã có UI con chưa?</td><td>4/4 bước đạt (4.0–4.3)</td></tr>
+<tr><td>2</td><td class="c">007-4 Làm</td><td class="c">B Hợp đồng</td><td>Mỗi UI con cần thông tin gì, Field đủ chưa, đọc/ghi ở đâu?</td><td>3/3 bước đạt (4.4–4.6)</td></tr>
 <tr><td>3</td><td class="c">007-4 Làm</td><td class="c">C Đối soát</td><td>Đối tượng phát sinh đã ghi đủ, bản nháp chạy được chưa?</td><td>3/3 bước đạt (4.7a–4.8)</td></tr>
 </tbody></table></div>
 
 <h3>3.3 Bước</h3>
+<p class="note"><b>(Bước tính theo nhóm con, mỗi quy trình có số UI tính theo công thức của UI con)</b><br>CT-004: Chuỗi + Bước con + Tầng ⇒ Nhóm con · CT-006: Chuỗi + Bước + Tầng + Nhóm + UI cha ⇒ UI Con</p>
 <div class="wrap"><table>
 <thead><tr><th>#</th><th>Mốc</th><th>Mục con</th><th>Bước</th><th>Câu hỏi cần trả lời</th><th>Thế nào là hoàn thành</th></tr></thead>
 <tbody>
 <tr><td>1</td><td class="c">007-1</td><td>—</td><td>1.1 Tạo việc cho MOW đích</td><td>MOW đích đã có việc chưa? Chưa thì tạo.</td><td>1 dòng việc có mã trong CAT-227, đúng MOW đích, không trùng</td></tr>
 <tr><td>2</td><td class="c">007-1</td><td>—</td><td>1.2 Tạo bảng hồ sơ cho việc</td><td>Hồ sơ của việc đủ dòng chưa?</td><td>1 bảng trong CAT-228, số dòng = số bước</td></tr>
 <tr><td>3</td><td class="c">007-1</td><td>—</td><td>1.3 Ghi 5 ô của việc</td><td>Việc làm gì, giao gì, cho ai, xong khi nào, ngoài phạm vi là gì?</td><td>5 ô có nội dung + nguồn trong CAT-227</td></tr>
-<tr><td>4</td><td class="c">007-2</td><td>—</td><td>2.1 Ghi danh sách bước của MOW đích</td><td class="q">❓ Bước của MOW đích lấy từ Công thức nào?</td><td class="q">❓ chưa viết được</td></tr>
+<tr><td>4</td><td class="c">007-2</td><td>—</td><td>2.1 Ghi ngữ cảnh MOW đích (CT-005)</td><td>MOW đích thuộc Chuỗi, Bước, Tầng, Nhóm cha nào?</td><td>4 ô đủ: Chuỗi · Bước · Tầng · Nhóm cha (ML-DEF-004)</td></tr>
 <tr><td>5</td><td class="c">007-2</td><td>—</td><td>2.2 So sổ cần với bảng kiểm kê</td><td>Mọi sổ các bước cần đã có chưa?</td><td>sổ lệch = 0 so với bảng mục 4</td></tr>
 <tr><td>6</td><td class="c">007-2</td><td>—</td><td>2.3 Đếm lượt thử DOT đạt</td><td>DOT có chạy đúng phiên không?</td><td>1 lượt PASS đúng phiên trong CAT-229</td></tr>
 <tr><td>7</td><td class="c">007-3</td><td>—</td><td>3.1 Đếm bước 1.1–2.3 đạt</td><td>Mốc 1–2 xong chưa?</td><td>6/6 đạt trong CAT-228</td></tr>
 <tr><td>8</td><td class="c">007-4</td><td>A UI</td><td>4.0 Duyệt giữ · hợp nhất · tách MOW <i>(đề xuất)</i></td><td>MOW nào giữ, gộp hay tách?</td><td>mỗi MOW 1 quyết định (ML-DEF-004 · CAT-025)</td></tr>
-<tr><td>9</td><td class="c">007-4</td><td>A UI</td><td>4.1 Ghi UI cho từng hành động</td><td>Mỗi hành động của MOW làm trên màn nào?</td><td>hành động có UI / cần = 100% (ML-DEF-018)</td></tr>
-<tr><td>10</td><td class="c">007-4</td><td>A UI</td><td>4.2 So UI mới với UI có sẵn</td><td>Màn nào dùng lại được màn đã có?</td><td>mỗi cặp trùng có quyết định dùng lại (ML-DEF-018)</td></tr>
-<tr><td>11</td><td class="c">007-4</td><td>A UI</td><td>4.3 Ghi bảng cho từng màn</td><td>Mỗi màn đọc/ghi bảng nào?</td><td>màn có bảng / màn = 100% (ML-DEF-018 · ML-DEF-012)</td></tr>
-<tr><td>12</td><td class="c">007-4</td><td>B Hợp đồng</td><td>4.4 Tạo nghĩa vụ thông tin cho từng màn</td><td>Mỗi màn cần những thông tin gì?</td><td>nghĩa vụ có dòng hợp đồng = 100% (CAT-206)</td></tr>
+<tr><td>9</td><td class="c">007-4</td><td>A UI</td><td>4.1 Liệt kê nhóm con của MOW (CT-004)</td><td>MOW có những nhóm con nào?</td><td>danh sách nhóm con đủ (ML-DEF-002)</td></tr>
+<tr><td>10</td><td class="c">007-4</td><td>A UI</td><td>4.2 Chọn UI cha cho từng nhóm con</td><td>Mỗi nhóm con dùng khuôn UI cha nào?</td><td>mỗi nhóm con 1 UI cha (ML-DEF-017)</td></tr>
+<tr><td>11</td><td class="c">007-4</td><td>A UI</td><td>4.3 Ghi UI con cho từng nhóm con (CT-006)</td><td>Mỗi nhóm con có UI con chưa — dùng lại hay tạo mới?</td><td>nhóm con có UI con = 100% (ML-DEF-018)</td></tr>
+<tr><td>12</td><td class="c">007-4</td><td>B Hợp đồng</td><td>4.4 Tạo nghĩa vụ thông tin cho từng UI con</td><td>Mỗi UI con cần những thông tin gì?</td><td>nghĩa vụ có dòng hợp đồng = 100% (CAT-206)</td></tr>
 <tr><td>13</td><td class="c">007-4</td><td>B Hợp đồng</td><td>4.5 So dữ liệu cần với Sổ Field, tạo Field thiếu</td><td>Mỗi thông tin đã có Field chưa?</td><td>Field thiếu = 0 (ML-DEF-008)</td></tr>
 <tr><td>14</td><td class="c">007-4</td><td>B Hợp đồng</td><td>4.6 Ghi bảng đọc/ghi, ô bắt buộc</td><td>Mỗi thông tin đọc/ghi ở đâu, có bắt buộc không?</td><td>dòng hợp đồng đủ ô = 100% (CAT-206)</td></tr>
 <tr><td>15</td><td class="c">007-4</td><td>C Đối soát</td><td>4.7a Đếm đối tượng phát sinh</td><td>Đối tượng phát sinh đã ghi sổ đủ chưa?</td><td>còn thiếu = 0: có sẵn + mới ghi = phát sinh (ML-DEF-012)</td></tr>
@@ -105,7 +106,7 @@ ol.issues li{margin:5px 0}
 </tbody></table></div>
 
 <h2><span class="num">4</span>Check Master list — bảng kiểm kê</h2>
-<p class="note">Nguồn số: trang «47 Master List · đang rà» (cột Total theo nguồn) + sổ đăng ký Master. Gom mã sổ từ cột «Thế nào là hoàn thành» ở 3.3. <b>Tổng 17 sổ: đã có 4 · User chưa duyệt UI 11 · chưa có 2.</b></p>
+<p class="note">Nguồn số: trang «47 Master List · đang rà» (cột Total theo nguồn) + sổ đăng ký Master. Gom mã sổ từ cột «Thế nào là hoàn thành» ở 3.3. <b>Tổng 19 sổ: đã có 6 · User chưa duyệt UI 11 · chưa có 2.</b></p>
 <div class="wrap"><table>
 <thead><tr><th>STT</th><th>Mã bảng</th><th>Tên bảng</th><th>Số lượng</th><th>Tình trạng</th><th>Ghi chú</th></tr></thead>
 <tbody>
@@ -126,6 +127,8 @@ ol.issues li{margin:5px 0}
 <tr><td>15</td><td class="c">CAT-069</td><td>Sổ nhu cầu · góp ý</td><td>83</td><td><span class="chip warn">User chưa duyệt UI</span></td><td></td></tr>
 <tr><td>16</td><td class="c">ML-DEF-012</td><td>Master of Master</td><td>0</td><td><span class="chip bad">chưa có</span></td><td>rỗng; việc của nó đang do trang 47 Master List làm</td></tr>
 <tr><td>17</td><td class="c">ML-DEF-022</td><td>Master Step</td><td>0</td><td><span class="chip bad">chưa có</span></td><td>rỗng; MBM ghi ma trận vào đây</td></tr>
+<tr><td>18</td><td class="c">ML-DEF-002</td><td>Master Nhóm con</td><td>115</td><td><span class="chip ok">đã có</span></td><td>cho bước 4.1 (CT-004)</td></tr>
+<tr><td>19</td><td class="c">ML-DEF-017</td><td>Master UI cha</td><td>6</td><td><span class="chip ok">đã có</span></td><td>cho bước 4.2 (CT-006)</td></tr>
 </tbody></table></div>
 </main>
 </body>
