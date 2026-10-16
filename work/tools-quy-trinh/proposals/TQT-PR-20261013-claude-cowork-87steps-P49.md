@@ -2205,8 +2205,15 @@ Các nhà ML-DEF-008/012/017/018/021/022/024 và ML-MOW-TH-001 đã có mã tron
 | CAT-229 | nhà | Cần làm: đối chiếu/ghi danh Lượt thử theo mã V13 | ML-DEF-012 | 008-2.3, 008-4.8 |
 | CAT-239 | nhà | Cần làm: đối chiếu/ghi danh Bằng chứng theo mã V13 | ML-DEF-012 | 008-5.2 |
 | dot-master-apply | DOT | Cần làm: xác minh/hoàn thiện DOT V13; các lệnh mo-ho-so, thu, ap, kiem không phải DOT riêng | ML-DEF-024 | Các dòng làm bằng DOT |
+| dot-master-apply:mo-viec | lệnh con | Cần làm: `mo-viec <QT> <phiên>` tra khóa QT + G1 + phiên; chưa có thì tạo 1 CV, có 1 thì dùng lại, nhiều hơn 1 thì báo trùng; trả mã CV và biên nhận. Không tạo DOT riêng. | ML-DEF-024, thuộc dot-master-apply | 008-1.1 |
+| CAT-227.muc_tieu | cột | Cần làm: cột đề xuất `muc_tieu`, giá trị mục tiêu riêng của CV kèm nguồn của ô; B1 chốt tên/cấu trúc. | ML-DEF-008; đích CAT-227 | 008-1.3 |
+| CAT-227.san_pham_giao | cột | Cần làm: cột đề xuất `san_pham_giao`, sản phẩm UI/Field/Config phải giao và danh sách kiểm kèm nguồn của ô; B1 chốt tên/cấu trúc. | ML-DEF-008; đích CAT-227 | 008-1.3 |
+| CAT-227.nguoi_nhan | cột | Cần làm: cột đề xuất `nguoi_nhan`, người nhận sản phẩm kèm nguồn của ô; B1 chốt tên/cấu trúc. | ML-DEF-008; đích CAT-227 | 008-1.3 |
+| CAT-227.tieu_chi | cột | Cần làm: cột đề xuất `tieu_chi`, tiêu chí kiểm cụ thể của CV kèm nguồn của ô; B1 chốt tên/cấu trúc. | ML-DEF-008; đích CAT-227 | 008-1.3 |
+| CAT-227.ngoai_pham_vi | cột | Cần làm: cột đề xuất `ngoai_pham_vi`, nội dung không thực hiện kèm nguồn của ô; B1 chốt tên/cấu trúc. | ML-DEF-008; đích CAT-227 | 008-1.3 |
+| dot-chup-man | DOT / công cụ | Cần làm: công cụ chụp UI thật, lệnh đề xuất `chup <CV> <mã_màn> <URL>` bằng quyền xem; trả tệp ảnh, hash và tham chiếu CV/màn/phiên để ghi CAT-239; B2 đo và chọn công cụ có sẵn trước, chưa xác nhận đã chạy. | ML-DEF-024 | 008-5.2 |
 
-**Đếm ghi danh:** 46 mã trong bảng = 1 MOW + 7 Mốc + 3 Mục con + 25 Bước + 9 nhà CAT kế thừa nguồn nhưng cần đối chiếu đăng ký + 1 DOT dự kiến. Đây là số mã ghi vào bảng của phép thử, **không phải 46 Collection hoặc 46 tài nguyên đã dựng**. Không tạo mã cho CV, lần thử, phiếu quyết định, ảnh chưa phát sinh. Các ký hiệu `<CV>`, `<QT>`, `<SHA>`, `<phiên>` là biến thiết kế, không là mã đã cấp. Cột Loại ghi đúng bản chất MOW/Mốc/Mục con/Bước theo CT-008, không gọi chúng thành nhà hay cột chỉ để khớp ba ví dụ trong tiêu đề.
+**Đếm ghi danh:** 53 mã trong bảng = 46 mã lượt 1 (1 MOW + 7 Mốc + 3 Mục con + 25 Bước + 9 nhà CAT kế thừa nguồn nhưng cần đối chiếu đăng ký + 1 DOT dự kiến) + **7 mã bổ sung lượt 2** (1 lệnh con mo-viec + 5 cột CAT-227 + 1 công cụ chụp màn). Bảy mã bổ sung đều **cần làm**, được ghi danh trước khi dùng ở V15.1 theo CT-008 r4 và V15.9 «Quyết nội dung». Đây là số mã của phép thử thiết kế, **không phải 53 Collection hoặc 53 tài nguyên đã dựng**. Không tạo mã cho CV, lần thử, phiếu quyết định, ảnh chưa phát sinh. Các ký hiệu `<CV>`, `<QT>`, `<SHA>`, `<phiên>` là biến thiết kế, không là mã đã cấp. Cột Loại ghi đúng bản chất MOW/Mốc/Mục con/Bước theo CT-008, không gọi chúng thành nhà hay cột chỉ để khớp ba ví dụ trong tiêu đề.
 
 #### V15.3 · Ghế Hermes — kiểm mã, đếm ô, đối soát ⑤
 **✍️ Chữ ký `CT-008 r3`: `KÝ (APPROVE_CT008_R3)`** — ký theo danh tính `agent-gw/hermes` (kiểm bằng tác giả commit của lần ghi này).
