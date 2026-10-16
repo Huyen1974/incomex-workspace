@@ -778,6 +778,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
 #matrix-view-formula .cf-tier-rule{margin:8px 0 2px;font-size:13.5px;color:#1d2b24}
 #matrix-view-formula .cf-num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#174f35;color:#fff;font-size:19px;font-weight:800;font-style:normal;line-height:1;margin-right:8px;vertical-align:middle}
 #matrix-view-formula .cf-num-s{width:24px;height:24px;font-size:14px;margin:0 3px}
+#matrix-view-formula .cf-q{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#e2ece5;color:#174f35;font-size:12px;font-weight:800;margin-left:4px;cursor:help;vertical-align:middle}
 #matrix-view-formula #formula-ct-008 .cf-mbm h4{font-size:17px;margin:18px 0 6px}
 #matrix-view-formula .cf-master-hub-link{display:block;border:1px solid var(--line);border-radius:9px;padding:8px 9px;background:#fff;color:var(--ink);text-decoration:none;font-size:12px;line-height:1.35;cursor:pointer}
 #matrix-view-formula .cf-master-hub-link:hover{border-color:#7ca98a;background:#f7fbf8}
@@ -1227,7 +1228,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
   <div class="cf-mbm">
-  <p><span class="cf-mbm-badge">r5.3 · Owner 16/10 21:25: số trên công thức = số mục bên dưới — nhìn số là tìm được · 16/10 · đang thử thật: làm QTTH 07 ở task mbm-qtth-07-ve-ui-mow · vấp đâu sửa đó</span></p>
+  <p><span class="cf-mbm-badge">r5.4 · Owner 16/10 21:34: mục 4 = bảng kiểm kê Master list · số trên công thức = số mục bên dưới · 16/10 · đang thử thật: làm QTTH 07 ở task mbm-qtth-07-ve-ui-mow · vấp đâu sửa đó</span></p>
   <p><b>MBM = MOW born MOW</b>: <b>công thức gốc</b> để chế tạo ra quy trình. Mọi câu hỏi đặt sẵn trong ma trận. AI chỉ điền câu trả lời vào ô. Ô nào trống là dòng đó chưa xong.</p>
   <p class="cf-mbm-note"><b>Định vị:</b> MBM là CÔNG THỨC, không phải quy trình. Một công thức chế tạo ra nhiều quy trình (kể cả quy trình tổng hợp gọi quy trình khác). Việc thật và mọi phép thử chi tiết thuộc quy trình được chế tạo ra; sửa cách chế tạo thì sửa ở đây.</p>
   <h4><i class="cf-num">1</i>Yêu cầu User</h4>
@@ -1252,8 +1253,14 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <tr><td>…</td><td>…</td><td>…</td><td>…</td></tr>
   </tbody></table></div>
   <p class="cf-mbm-note">Mỗi bước 1 dòng, đánh số liên tục. Mục con chỉ khi mốc có hơn 5 bước, không thì ghi «—». Mã MOW <code>MOW-TH-&lt;số&gt;</code>; mã bước <code>&lt;mốc&gt;.&lt;thứ tự&gt;</code>. Mốc, Mục con: A2 = (bước con đạt + không áp dụng hợp lệ) / tổng; nhóm B, C cộng dồn từ bước con.</p>
-  <h4><i class="cf-num">4</i>Check Master list</h4>
-  <p>Từ bảng ở mục 3, liệt kê mọi Master list (sổ) các bước sẽ đọc hoặc ghi — có sẵn: ghi đường dẫn thật · thiếu: lập, User duyệt lần đầu. Chưa có sổ thì chưa được trả lời câu hỏi ghi vào sổ đó. Mỗi bước phải chỉ được làm ở đâu (đường dẫn thật) và bằng gì (lệnh có thật, hoặc cách làm tay tạm).</p>
+  <h4><i class="cf-num">4</i>Check Master list — bảng kiểm kê</h4>
+  <div class="cf-mbm-scroll"><table>
+  <thead><tr><th>STT</th><th>Mã bảng<span class="cf-q" title="Mã Master list, vd ML-DEF-008">?</span></th><th>Tên bảng</th><th>Số lượng<span class="cf-q" title="Tổng số dòng hiện có trong Master list, đếm thật">?</span></th><th>Tình trạng<span class="cf-q" title="đã có · chưa có · User chưa duyệt UI">?</span></th><th>Ghi chú</th></tr></thead>
+  <tbody>
+  <tr><td>1</td><td>ML-DEF-008</td><td>Sổ Field</td><td>số đếm thật</td><td>đã có</td><td>—</td></tr>
+  <tr><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+  </tbody></table></div>
+  <p class="cf-mbm-note">Liệt kê mọi Master list các bước ở mục 3 cần. Dòng nào chưa «đã có» thì lập hoặc xin User duyệt xong mới sang mục 5.</p>
   <h4><i class="cf-num">5</i>Bộ câu hỏi — ma trận này chính là hồ sơ</h4>
   <p>Mỗi dòng là 1 mốc, 1 mục con hoặc 1 bước. Bộ câu hỏi định nghĩa 1 chỗ và tự gắn vào mọi dòng. Thiết kế: điền cột «Thiết kế». Chạy mỗi việc: hồ sơ chỉ sinh dòng Bước (N_khuôn = số Bước), DOT điền cột «Khi chạy»; dòng Mốc và Mục con tính từ bước con, không lưu riêng.</p>
   <div class="cf-mbm-scroll"><table>
