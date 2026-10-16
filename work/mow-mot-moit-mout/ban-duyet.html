@@ -711,6 +711,12 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
    Long information is split visually for immediate comprehension. */
 #matrix-view-formula :is(#formula-ct-003,#formula-ct-005) :is(.cf-formula-nick,.cf-derived-formula strong){color:#b08a28;-webkit-text-stroke:0;text-shadow:none}
 #matrix-view-formula #formula-ct-007{opacity:.75}
+#matrix-view-formula #formula-ct-008 .cf-notation-rule>summary{font-size:14px;color:#1f4d3a}
+#matrix-view-formula #formula-ct-008 .cf-mbm{font-size:15px;line-height:1.6;color:#26352d;background:#fff;padding:4px 2px}
+#matrix-view-formula #formula-ct-008 .cf-mbm p{margin:6px 0}
+#matrix-view-formula #formula-ct-008 .cf-mbm h4{margin:14px 0 4px;font-size:15px;color:#1f4d3a}
+#matrix-view-formula #formula-ct-008 .cf-mbm ul,#matrix-view-formula #formula-ct-008 .cf-mbm ol{margin:0 0 6px;padding-left:24px}
+#matrix-view-formula #formula-ct-008 .cf-mbm li{margin:3px 0}
 /* Owner 2026-10-07: visual levels only; not a change to formula dependencies. */
 #matrix-view-formula .cf-derived-root[data-visual-depth]{--cf-indent:32px;position:relative}
 #matrix-view-formula .cf-derived-root[data-visual-depth="1"]{margin-left:var(--cf-indent)}
@@ -1198,11 +1204,54 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
     <div class="cf-formula-full">CT-008</div>
     <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh" target="_self">Việc TQT →</a></div>
   </div>
-  <div class="cf-derived-formula cf-derived-formula-root cf-derived-formula-long" aria-label="Yêu cầu User cộng Mục tiêu cộng Mốc cộng Mục ghi cộng Bước cộng 8 câu hỏi tạo MOW">
-    <span>Yêu cầu User</span><b>+</b><span>Mục tiêu</span><b>+</b><span>Mốc</span><b>+</b><span>Mục ghi</span><b>+</b><span>Bước</span><b>+</b><span>8 câu hỏi</span><b>⇒</b><strong>MOW</strong>
+  <div class="cf-derived-formula cf-derived-formula-root cf-derived-formula-long" aria-label="Yêu cầu User cộng Mục tiêu cộng Mốc cộng Mục con cộng Bước cộng 8 câu hỏi tạo MOW">
+    <span>Yêu cầu User</span><b>+</b><span>Mục tiêu</span><b>+</b><span>Mốc</span><b>+</b><span>Mục con</span><b>+</b><span>Bước</span><b>+</b><span>8 câu hỏi</span><b>⇒</b><strong>MOW</strong>
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
-  <p class="cf-derived-note"><b>MBM = MOW born MOW</b> · quy trình dùng để làm ra quy trình. Trước mắt cho CTCM, sau dùng lại cho Chuỗi khác. Câu hỏi đặt sẵn đúng chỗ · AI điền câu trả lời · hội đồng xét trên câu trả lời. Thiếu 1 câu trả lời = chưa xong.</p>
+  <div class="cf-mbm">
+  <p><b>MBM = MOW born MOW</b>: quy trình để làm ra quy trình. Câu hỏi đặt sẵn đúng chỗ, AI điền câu trả lời, hội đồng xét trên câu trả lời. Thiếu một câu trả lời là chưa xong.</p>
+  <h4>① Mục tiêu</h4>
+  <ul><li>3–5 gạch, đo đếm và kiểm chứng được.</li><li>Thế nào là hoàn thành.</li></ul>
+  <h4>② Chia mục</h4>
+  <ul>
+  <li><b>2.1 Mốc</b>: các phần lớn (vd 7 mốc của QTTH 05/06).</li>
+  <li><b>2.2 Mục con</b>: chia mỗi mốc thành phần nhỏ, mỗi phần không quá 5 dòng — dễ nhìn, dễ khoanh vùng để bàn và sửa.</li>
+  <li><b>2.3</b> Mỗi mốc, mỗi mục con trả lời đủ 8 câu.</li>
+  </ul>
+  <h4>③ Thứ tự bước</h4>
+  <ul><li>Xếp theo thứ tự; mỗi bước ghi thuộc mốc nào, mục con nào.</li><li>Mỗi bước trả lời đủ 8 câu.</li></ul>
+  <h4>8 câu hỏi</h4>
+  <p><b>Hỏi cho mỗi mốc, mục con, bước:</b></p>
+  <ol>
+  <li>Nhiệm vụ là gì (đo đếm được)?</li>
+  <li>Thế nào là xong: đếm gì, trên sổ nào, tổng số bao nhiêu?</li>
+  <li>Kết quả xong ghi ở đâu (mã sổ)?</li>
+  <li>Chưa xong thì làm gì tiếp, ghi ở đâu, đã ghi chưa?</li>
+  <li>Có chỗ bỏ lửng, ngõ cụt không? Đã ghi sổ nợ CAT-069 theo mã việc chưa?</li>
+  </ol>
+  <p><b>Hỏi cho từng đối tượng:</b></p>
+  <ol start="6">
+  <li>Có nhà (sổ) chưa? Chưa có thì đã ghi yêu cầu lập sổ chưa?</li>
+  <li>SSOT ở đâu, có mã chưa, thật sự chỉ một SSOT chưa?</li>
+  <li>Đối tượng cũ dùng lại hay mới?</li>
+  </ol>
+  <h4>④ Làm một MOW bằng MBM</h4>
+  <ol>
+  <li>😊→🤖 Nhận yêu cầu, đặt tên và mã MOW, ghi vào Sổ MOW.</li>
+  <li>😊 Thống nhất ① và 2.1, 2.2 với User; hội đồng tham gia.</li>
+  <li>🤖 Hội đồng bàn 2.3 và ③; được thêm bớt cho sát thực tế, ít nhất 85% là việc đã ổn định.</li>
+  <li>🤖😊 Chốt, chạy thử, hiệu chỉnh.</li>
+  <li>🤖 Kiểm câu hỏi đặt đúng chỗ, AI điền đủ; hội đồng xét trên câu trả lời.</li>
+  </ol>
+  <h4>Ghi ở đâu</h4>
+  <ul>
+  <li>① và 2.1, 2.2: dòng MOW trong Sổ quy trình (chưa có cột — bổ sung ở B1 việc TQT).</li>
+  <li>2.3 và ③: thẻ bước trong ML-DEF-022.</li>
+  <li>Mỗi lần chạy: hồ sơ việc CAT-227, CAT-228.</li>
+  </ul>
+  <p>Ứng dụng đầu tiên: MOW-TH-007 (thiết kế UI · Field · Config).</p>
+  </div>
+  <p class="cf-derived-note" hidden><b>MBM = MOW born MOW</b> · quy trình dùng để làm ra quy trình. Trước mắt cho CTCM, sau dùng lại cho Chuỗi khác. Câu hỏi đặt sẵn đúng chỗ · AI điền câu trả lời · hội đồng xét trên câu trả lời. Thiếu 1 câu trả lời = chưa xong.</p>
   <p class="cf-derived-note"><b>① Mục tiêu</b> · 3–5 gạch đo đếm được + <b>Thế nào là xong</b>.</p>
   <p class="cf-derived-note"><b>② Nhóm</b> · 2.1 <b>Mốc</b> lớn (vd 7 mốc QTTH 05/06) · 2.2 <b>Mục ghi</b> = các nhà phải ghi (vd 11 mục QTTH 05/06 — khuyến khích chia theo hướng này) · 2.3 mỗi mốc, mỗi mục trả lời <b>8 câu</b>.</p>
   <p class="cf-derived-note"><b>③ Bước</b> · theo thứ tự; mỗi bước có cột Mốc + Mục ghi + <b>8 câu</b>.</p>
