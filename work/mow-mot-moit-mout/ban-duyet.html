@@ -784,6 +784,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
 #matrix-view-formula .cf-mbm th:hover .t1-mapping-table__help,#matrix-view-formula .cf-mbm th:focus-within .t1-mapping-table__help{opacity:1}
 #matrix-view-formula .cf-mbm th:hover .t1-mapping-table__tip,#matrix-view-formula .cf-mbm th:focus-within .t1-mapping-table__tip{opacity:1;visibility:visible;transform:translateY(0)}
 #matrix-view-formula #formula-ct-008 .cf-mbm h4{font-size:17px;margin:18px 0 6px}
+#matrix-view-formula #formula-ct-008 .cf-mbm h5{font-size:16px;margin:14px 0 6px;color:#1f4d3a}
 #matrix-view-formula .cf-master-hub-link{display:block;border:1px solid var(--line);border-radius:9px;padding:8px 9px;background:#fff;color:var(--ink);text-decoration:none;font-size:12px;line-height:1.35;cursor:pointer}
 #matrix-view-formula .cf-master-hub-link:hover{border-color:#7ca98a;background:#f7fbf8}
 #matrix-view-formula .cf-master-hub-link b{display:block;font-size:12.5px}
@@ -1232,7 +1233,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
   <div class="cf-mbm">
-  <p><span class="cf-mbm-badge">r5.7 · Owner 16/10 22:19: kết quả ở view.html của task · 22:07: làm ở workspace · 21:39: rê chuột vào đầu cột để xem «?» giải thích · mục 4 = bảng kiểm kê Master list · số trên công thức = số mục bên dưới · 16/10 · đang thử thật: làm QTTH 07 ở task mbm-qtth-07-ve-ui-mow · vấp đâu sửa đó</span></p>
+  <p><span class="cf-mbm-badge">r5.8 · Owner 16/10 22:57: mục 3 = 3.1 Mốc · 3.2 Mục con · 3.3 Bước · 22:19: kết quả ở view.html của task · 22:07: làm ở workspace · 21:39: rê chuột vào đầu cột để xem «?» giải thích · mục 4 = bảng kiểm kê Master list · số trên công thức = số mục bên dưới · 16/10 · đang thử thật: làm QTTH 07 ở task mbm-qtth-07-ve-ui-mow · vấp đâu sửa đó</span></p>
   <p><b>MBM = MOW born MOW</b>: <b>công thức gốc</b> để chế tạo ra quy trình. Mọi câu hỏi đặt sẵn trong ma trận. AI chỉ điền câu trả lời vào ô. Ô nào trống là dòng đó chưa xong.</p>
   <p class="cf-mbm-note"><b>Định vị:</b> MBM là CÔNG THỨC, không phải quy trình. Một công thức chế tạo ra nhiều quy trình (kể cả quy trình tổng hợp gọi quy trình khác). Việc thật và mọi phép thử chi tiết thuộc quy trình được chế tạo ra; sửa cách chế tạo thì sửa ở đây.</p>
   <h4><i class="cf-num">1</i>Yêu cầu User</h4>
@@ -1248,13 +1249,29 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <li><b>D1</b> Làm sai, làm khác đi có được không? Cơ chế nào chặn hoặc bắt được?</li>
   <li><b>D2</b> Quên ghi đủ vào sổ thì phát hiện bằng cách nào, bao lâu một lần?</li>
   </ul>
-  <h4><i class="cf-num">3</i>Mốc / Mục con / Bước — liệt kê đủ theo mẫu</h4>
+  <h4><i class="cf-num">3</i>Mốc / Mục con / Bước — 3 bảng, liệt kê đủ theo mẫu</h4>
+  <h5>3.1 Mốc</h5>
   <div class="cf-mbm-scroll"><table>
-  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">#</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột #: Số thứ tự, liên tục từ 1">?</span><span class="t1-mapping-table__tip" role="tooltip">Số thứ tự, liên tục từ 1</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Mốc</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Mốc: Phần lớn của quy trình; mã &lt;số MOW&gt;-&lt;số mốc&gt;">?</span><span class="t1-mapping-table__tip" role="tooltip">Phần lớn của quy trình; mã &lt;số MOW&gt;-&lt;số mốc&gt;</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Mục con</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Mục con: Chỉ khi mốc có hơn 5 bước, không thì ghi —">?</span><span class="t1-mapping-table__tip" role="tooltip">Chỉ khi mốc có hơn 5 bước, không thì ghi «—»</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Bước</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Bước: Việc nhỏ nhất; mã &lt;mốc&gt;.&lt;thứ tự&gt;">?</span><span class="t1-mapping-table__tip" role="tooltip">Việc nhỏ nhất; mã &lt;mốc&gt;.&lt;thứ tự&gt;</span></span></th></tr></thead>
+  <thead><tr><th>STT</th><th>Tên Mốc</th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Câu hỏi cần trả lời</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Câu hỏi cần trả lời: 1 câu hỏi mà dòng này phải trả lời xong">?</span><span class="t1-mapping-table__tip" role="tooltip">1 câu hỏi mà dòng này phải trả lời xong. Trả lời được thì dòng xong.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Thế nào là hoàn thành</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Thế nào là hoàn thành: dấu hiệu đếm được, kèm mã sổ ghi">?</span><span class="t1-mapping-table__tip" role="tooltip">Dấu hiệu đếm được, kèm mã sổ nơi ghi, vd «1 dòng việc trong CAT-227». Mục 4 gom mã sổ từ cột này.</span></span></th></tr></thead>
   <tbody>
-  <tr><td>1</td><td>007-1 Khai việc</td><td>—</td><td>1.1 Tra hoặc tạo việc duy nhất</td></tr>
-  <tr><td>2</td><td>007-1 Khai việc</td><td>—</td><td>1.2 Mở hồ sơ</td></tr>
+  <tr><td>1</td><td>007-1 Khai việc</td><td>Việc này làm cho MOW nào, đã có việc và hồ sơ chưa?</td><td>1 việc có mã (CAT-227) + 1 hồ sơ đủ dòng (CAT-228)</td></tr>
   <tr><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+  </tbody></table></div>
+  <h5>3.2 Mục con</h5>
+  <div class="cf-mbm-scroll"><table>
+  <thead><tr><th>STT</th><th>Tên Mốc</th><th>Tên mục con</th><th>Câu hỏi cần trả lời</th><th>Thế nào là hoàn thành</th></tr></thead>
+  <tbody>
+  <tr><td>1</td><td>007-4 Làm</td><td>A UI</td><td>Mỗi hành động của MOW đã có UI chưa, dùng lại được gì?</td><td>các bước của mục con đạt hết</td></tr>
+  <tr><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+  </tbody></table></div>
+  <p class="cf-mbm-note">Mục con chỉ khi mốc có hơn 5 bước; mốc không tách thì không có dòng ở 3.2.</p>
+  <h5>3.3 Bước</h5>
+  <div class="cf-mbm-scroll"><table>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">#</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột #: Số thứ tự, liên tục từ 1">?</span><span class="t1-mapping-table__tip" role="tooltip">Số thứ tự, liên tục từ 1</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Mốc</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Mốc: Phần lớn của quy trình; mã &lt;số MOW&gt;-&lt;số mốc&gt;">?</span><span class="t1-mapping-table__tip" role="tooltip">Phần lớn của quy trình; mã &lt;số MOW&gt;-&lt;số mốc&gt;</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Mục con</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Mục con: Chỉ khi mốc có hơn 5 bước, không thì ghi —">?</span><span class="t1-mapping-table__tip" role="tooltip">Chỉ khi mốc có hơn 5 bước, không thì ghi «—»</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Bước</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Bước: Việc nhỏ nhất; mã &lt;mốc&gt;.&lt;thứ tự&gt;">?</span><span class="t1-mapping-table__tip" role="tooltip">Việc nhỏ nhất; mã &lt;mốc&gt;.&lt;thứ tự&gt;</span></span></th><th>Câu hỏi cần trả lời</th><th>Thế nào là hoàn thành</th></tr></thead>
+  <tbody>
+  <tr><td>1</td><td>007-1 Khai việc</td><td>—</td><td>1.1 Tạo việc cho MOW đích</td><td>MOW đích đã có việc chưa? Chưa thì tạo.</td><td>1 dòng việc có mã trong CAT-227, không trùng</td></tr>
+  <tr><td>2</td><td>007-1 Khai việc</td><td>—</td><td>1.2 Tạo bảng hồ sơ cho việc</td><td>Hồ sơ của việc đủ dòng chưa?</td><td>1 bảng trong CAT-228, số dòng = số bước</td></tr>
+  <tr><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td></tr>
   </tbody></table></div>
   <p class="cf-mbm-note">Mỗi bước 1 dòng, đánh số liên tục. Mục con chỉ khi mốc có hơn 5 bước, không thì ghi «—». Mã MOW <code>MOW-TH-&lt;số&gt;</code>; mã bước <code>&lt;mốc&gt;.&lt;thứ tự&gt;</code>. Mốc, Mục con: A2 = (bước con đạt + không áp dụng hợp lệ) / tổng; nhóm B, C cộng dồn từ bước con.</p>
   <h4><i class="cf-num">4</i>Check Master list — bảng kiểm kê</h4>
@@ -1322,7 +1339,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <li>🤖 <b>Nhận yêu cầu</b> → mục <i class="cf-num cf-num-s">1</i></li>
   <li>🤖 <b>Tạo task trên workspace</b>: tra/cấp mã MOW (Sổ quy trình ML-MOW-TH-001; sổ chưa là collection thì ghi ở task) rồi tạo <code>work/mbm-&lt;mã-tên-ngắn&gt;/COLLAB.md</code> — <b>tên task bắt đầu bằng mã công thức sinh ra nó</b> (MBM → <code>mbm-</code>; công thức khác dùng mã của mình) để nhìn tên là biết nguồn gốc; chữ thường nối gạch ngang (vd <code>mbm-qtth-07-ve-ui-mow</code>), đúng khuôn AGENTS: dòng «Xác nhận User» · Bảng điều khiển · ô 1 Mục tiêu (lời User) · ô 2 Thế nào là hoàn thành · ô 3 Chi tiết cần đạt (có khối HỘI ĐỒNG, đề xuất 1 Host + lý do) · Vòng trước. Đầu ô 3 đặt <b>danh sách việc cần làm</b> = 8 bước này, kèm «xong khi»; xong bước nào tích bước đó kèm commit. Thêm «Sổ vấp MBM»; tạo kèm <code>view.html</code> (HTML chính của việc) để ghi bảng kết quả các bước. Task là nơi duy nhất làm MOW này; mỗi lượt AI đọc lại task, không cần đọc lại công thức.</li>
   <li>😊 <b>Chốt mục tiêu</b> → mục <i class="cf-num cf-num-s">2</i>: User chốt Mục tiêu, Thế nào là hoàn thành, Host → ghi ô 1–3 của task → «Xác nhận User: ĐÃ XÁC NHẬN».</li>
-  <li>🤖 <b>Liệt kê bước</b> → mục <i class="cf-num cf-num-s">3</i> (1 bảng). <b>Có bản cũ đã gật thì bắt đầu từ bản cũ</b>, chỉ thêm/sửa phần mục tiêu mới đòi.</li>
+  <li>🤖 <b>Liệt kê Mốc · Mục con · Bước</b> → mục <i class="cf-num cf-num-s">3</i> (3 bảng 3.1 · 3.2 · 3.3). <b>Có bản cũ đã gật thì bắt đầu từ bản cũ</b>, chỉ thêm/sửa phần mục tiêu mới đòi.</li>
   <li>🤖 <b>Check Master list</b> → mục <i class="cf-num cf-num-s">4</i></li>
   <li>🤖 <b>Bộ câu hỏi</b> → mục <i class="cf-num cf-num-s">5</i>: điền cho từng bước vào mục «Ma trận» của task (việc thường: model rẻ · việc khó: frontier).</li>
   <li>👥😊 0 ô trống, 0 ô ❓, D1–D2 đã trả lời bằng mã GS → hội đồng ký → User gật. Còn ❓ thì sửa, chưa gật.</li>
