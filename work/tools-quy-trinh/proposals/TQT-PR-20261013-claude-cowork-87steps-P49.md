@@ -1608,6 +1608,100 @@ Bản `V13 r2` đã khóa rất chặt **phép đếm đầu ra** (*đếm gì �
 
 **GPT_REVIEW_V13_R2 = ACCEPT_WITH_FIVE_PRECISE_CORRECTIONS · NEXT_ACTION = CLAUDE_PATCH_V13_R2_ONLY → OWNER_REVIEW.**
 
+## V14 · MBM (CT-008) — BRIEF CHO HỘI ĐỒNG · Claude soạn 16/10 10:50 · XIN Ý KIẾN THEO GHẾ
+
+> **Ai đọc:** GPT · Hermes · Gemini (Claude tự thử sau cùng). **Làm gì:** đúng mục 7. **Ghi ở đâu:** đúng ô ghế mình ở mục 9. **Không sửa** bất cứ chỗ nào khác (kể cả CT-008). Ghế nào chưa ghi được repo thì gửi bản trả lời cho Owner; Claude chép nguyên văn vào ô của ghế đó.
+
+### 1. Mục tiêu (Owner 16/10 10:36)
+- Có **một công thức (MBM)** để **bất kỳ AI nào** cũng làm ra một quy trình theo **cùng một cách**.
+- Quy trình được **chia thành từng bước nhỏ**; **mỗi bước trả lời đủ bộ câu hỏi**.
+- **Hồ sơ có sẵn ô** cho mọi câu hỏi ở mọi bước, kèm câu trả lời.
+- **Mỗi quy trình / đối tượng làm ra luôn có hồ sơ đi kèm.** Hiện ghi tay trên repo; sau này đồng bộ tự động bằng PG.
+
+### 2. Vì sao phải làm lại
+- Các vòng góp ý trước đều tốt, nhưng **mỗi ghế làm một kiểu, góp ý một kiểu**. Đem đi làm thật chắc chắn vẫn thất bại.
+- Vì vậy lần này **chốt công thức trước**, rồi mới áp vào việc.
+- Nguyên nhân gốc đã thấy (15–16/10): mục tiêu viết chung chung · không có ô để điền nên AI tự viết văn · một thông tin nằm nhiều chỗ · «0 thiếu» không có tổng số để so · câu chữ dễ hiểu sai (lỗi «so với 006»).
+
+### 3. Phép thử: QTTH 008
+- **QTTH 008** = quy trình đầu tiên viết bằng MBM: khuôn thiết kế G1 (UI · Field · Config), hiện là bản nháp «007 v2» ở P49 V13 r3. Khi MBM chốt, khuôn này mang mã QTTH 008.
+- **MBM đạt** khi viết được QTTH 008 **chỉ bằng cách điền ô**, không cần ai giải thích thêm.
+- **MBM chưa đạt** nếu phải đoán ở bất kỳ ô nào ⇒ chỉ ra đúng loại lỗi: hướng dẫn chưa rõ · hồ sơ thiếu ô · thiếu câu hỏi.
+
+### 4. Từ điển (đọc đúng một nghĩa)
+| Từ | Nghĩa |
+|---|---|
+| MOW | một quy trình |
+| MBM (CT-008) | công thức để làm ra một MOW (MOW born MOW) |
+| Mốc (2.1) | phần lớn của quy trình (vd 7 mốc CP01–CP07) |
+| Mục con (2.2) | phần nhỏ của một mốc, tối đa 5 bước |
+| Bước | việc nhỏ nhất, có mã, có thứ tự |
+| Bộ câu hỏi | các câu mọi bước đều phải trả lời (nhóm A · B · C) |
+| Ma trận bước | bảng: mỗi dòng 1 bước, mỗi cột 1 thông tin hoặc 1 câu trả lời — **chính là hồ sơ** |
+| Thiết kế / Khi chạy | điền lúc làm khuôn / điền mỗi lần chạy một việc |
+| Sổ (nhà) | master list chứa một loại đối tượng, có mã sổ (vd ML-DEF-008) |
+| Mã bản ghi | mã một dòng trong sổ — bằng chứng «đã ghi» |
+| SSOT | nơi gốc duy nhất của một thông tin |
+| Chữ ký hội đồng | mỗi ghế ghi Đồng ý hoặc Phản đối (kèm lý do) cho một câu trả lời định tính |
+
+### 5. Công thức hiện tại — đọc ở đâu
+- Bản gốc duy nhất: trang Công thức, **CT-008 r2** — tệp `work/mow-mot-moit-mout/ban-duyet.html`, khối `id="formula-ct-008"` (đọc phần «Chi tiết»).
+- Gồm: ① Mục tiêu · ② Mốc → Mục con · ③ Ma trận bước 8 cột · bộ câu hỏi A1–A2 / B1–B3 / C1–C5 (có ví dụ điền đủ bước 007-4.5) · Luật điền · Luật ký · ④ Làm MOW M1–M5 · Ghi ở đâu.
+- Nội dung CT-008 không chép vào đây (SSOT); mọi góp ý trỏ vào đúng mục của CT-008.
+
+### 6. Đã chốt — không bàn lại
+- Luật Nhà R53 · Luật viết thẻ R55 · 1 tài liệu · chỉ DOT ghi Directus · Owner gật qua chat · thiếu ≠ lỗi.
+- Không đề xuất hệ thống, công cụ hay sổ mới; chỉ sửa MBM.
+
+### 7. Việc của mỗi ghế — đúng 2 phần, đúng khuôn
+
+**Phần A — trả lời 7 câu về MBM.**
+
+| # | Câu hỏi cho hội đồng |
+|---|---|
+| H1 | Mục tiêu → Mốc → Mục con → Bước: đủ để chia mọi quy trình thành bước nhỏ chưa? Thiếu tầng nào? |
+| H2 | Ma trận bước 8 cột: thiếu cột nào, thừa cột nào? |
+| H3 | Bộ câu hỏi A/B/C: câu nào thiếu, thừa, mơ hồ? Viết lại nguyên câu. |
+| H4 | Cách trả lời: câu nào trả lời được bằng mã (máy kiểm) mà đang để ký, hoặc ngược lại? |
+| H5 | Luật ký (≥2/4 ghế đồng ý, có ít nhất 1 ghế khác hãng người điền, 0 phản đối): giữ hay sửa? |
+| H6 | Nơi ghi: có câu hỏi hoặc câu trả lời nào chưa có chỗ ghi trong hồ sơ không? |
+| H7 | Hướng dẫn (④ M1–M5 + luật điền): một AI mới đọc có làm được từ đầu đến cuối không? Chỗ nào phải đoán? |
+
+Khuôn trả lời Phần A (bắt buộc):
+
+| # | Kết luận (✅ giữ · ✏️ sửa · ➕ thiếu · ❌ bỏ) | Viết lại cụ thể (nguyên câu / ô / cột mới) | Lý do (1 dòng) |
+|---|---|---|---|
+
+**Phần B — thử thật (bằng chứng quan trọng nhất).** Dùng MBM điền ma trận cho **3 bước đầu của QTTH 008** (mốc CP01; tên bước lấy từ P49 V13 r3 §3, dòng 1.1 · 1.2 · 1.3):
+- Điền đủ 8 cột ma trận cho 3 dòng.
+- Với từng bước, điền bộ câu hỏi A1–C5 (cột «Thiết kế»).
+- Ô nào không điền được nếu không đoán ⇒ ghi ❓ + lý do + loại lỗi (hướng dẫn · hồ sơ · câu hỏi).
+- Không tham khảo bài điền của ghế khác trước khi nộp.
+
+Luật góp ý: không nhận xét chung chung; mỗi ✏️ hoặc ➕ phải có câu/ô thay thế viết sẵn; không mở lại mục 6.
+
+### 8. Sau khi đủ ý kiến
+- Claude tổng hợp ở V14.9: ý nào ≥2/4 ghế đồng ý và 0 phản đối ⇒ nhận; còn lại ⇒ đưa Owner quyết (kèm đề xuất).
+- Ô ❓ ở Phần B là lỗi của MBM, không phải của ghế điền; mỗi ❓ phải được sửa trong CT-008 r3.
+- Sửa CT-008 thành r3 → Owner gật → dùng MBM viết trọn QTTH 008.
+
+### 9. Ô ý kiến theo ghế (mỗi ghế chỉ ghi vào ô của mình)
+
+#### V14.1 · Ghế GPT
+_(trống — chờ GPT)_
+
+#### V14.2 · Ghế Hermes
+_(trống — chờ Hermes)_
+
+#### V14.3 · Ghế Gemini
+_(trống — chờ Gemini)_
+
+#### V14.4 · Ghế Claude — tự thử Phần B, làm sau cùng để không dẫn dắt
+_(trống)_
+
+#### V14.9 · Claude tổng hợp
+_(trống — sau khi đủ ý kiến)_
+
 
 
 
