@@ -16,7 +16,8 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ■ Đang làm: — · 0 RUN active; P68 sửa thanh 4 Mẹ đã xong; lộ trình G1/B0 và quyền triển khai giữ nguyên.
 - ⬜ Còn lại: kiểm các Master định nghĩa vs Collection/dữ liệu thực → sửa 007 (đăng ký phát sinh + đếm thiếu + rà ảnh hưởng) → ✅ Claude: R53 Luật Nhà + dự thảo 007 v2 (R54, P49 V13) → ✅ Gemini V13.1 + GPT V13.2 + Hermes phản biện → ✅ Claude gộp V13 r2 + R55 → ✅ GPT V13.4 + Gemini V13.3 + Hermes-01 → ✅ Claude áp thành V13 r3 + MBM (CT-008, R56) → Owner gật khuôn → PROMPT B1+B2 mới (B1 đo 17 nhà + chốt schema hồ sơ + cột MBM, Owner gật 1 lô).
 - ✅ Hội đồng V14 xong (r2 trượt phép thử: ❓ GPT 26/54 · Gemini 22/39 · Hermes 17) → Claude tổng hợp V14.9 → **CT-008 r3 đã lên trang Công thức** (18 điểm sửa + ⑤ Đối soát đối tượng).
-- ➡ Kế tiếp: **P49 V15 — phép thử r3: viết QTTH 008 chỉ bằng điền ô** — GPT điền (V15.1 + ghi danh «cần làm» V15.2) → Hermes kiểm mã/đếm ô/đối soát ⑤ (V15.3) + Gemini ký nhóm A (V15.4) → Claude tổng hợp V15.9 → 0 ❓ thì Owner gật QTTH 008 · 🤖 Claude Code lượt 1 (P69, `daf1d19`) PARTIAL: thu quyền tạo tệp ✅ · Điều 30 7/7 ✅ · phép thử hỏng bắt được ✅ · watchdog ✅ · thiếu: INV19 của Guard chưa nhận phạm vi TQT + chưa có biên nhận ⇒ **lượt 2 (16/10 11:50)** sửa INV19 + biên nhận · ghế Dots mở sau V15 · chưa phát RUN B1+B2.
+- ✅ V15 lượt 1: GPT điền đủ 35 dòng QTTH 008, còn 25 ô ❓ → Claude quy về 6 lỗi gốc → **CT-008 r4** (P49 V15.9).
+- ➡ Kế tiếp: **V15 lượt 2** — GPT sửa 25 ô ❓ theo r4 → Hermes máy đếm ❓ + kiểm mã + đối soát ⑤ (V15.3) · Gemini ký nhóm A (V15.4) → Claude tổng hợp → 0 ❓ thì Owner gật QTTH 008 · 🤖 Claude Code lượt 1 (P69, `daf1d19`) PARTIAL: thu quyền tạo tệp ✅ · Điều 30 7/7 ✅ · phép thử hỏng bắt được ✅ · watchdog ✅ · thiếu: INV19 của Guard chưa nhận phạm vi TQT + chưa có biên nhận ⇒ **lượt 2 (16/10 11:50)** sửa INV19 + biên nhận · ghế Dots mở sau V15 · chưa phát RUN B1+B2.
 - ⛔ Không làm: coi 5 bảng lõi là đủ mọi sổ; bỏ ghi Master DOT/UI/Field/nợ; nhân bản Master đã có; ghi thẳng production; tự tạo hạ tầng/UI riêng; chạy r2 hoặc G2 trước khi Owner giao.
 
 #### Bảng P61 trước đổi hướng (giữ để tra)
@@ -177,6 +178,8 @@ Phạm vi: chưa làm quy trình nghiệp vụ (phái cử, tuyển dụng…), 
   - **Quyền máy Hermes:** ghi `work/tools-quy-trinh/` (mở 16/10 qua Config Guard, Hermes đã tự ghi được); quyền tạo tệp mới thu lại (tệp của ghế đã có; tránh tạo COLLAB.md ở thư mục lạ — JEV 1,00) — cùng lệnh Claude Code 16/10 10:47. Mode=COUNCIL · Automation_Level=AUTO0.
 
 #### 3.4 Nguyên văn chỉ đạo Owner
+- 16/10/2026 11:58 · phiên Claude (nguyên văn) → V15.9 lượt 1, CT-008 r4, giao lượt 2:
+  > Hội đồng đã có ý kiến xong, bạn kiểm tra xem còn gì cần sửa nữa, rồi tôi làm việc tiếp với bạn.
 - 16/10/2026 11:43 · phiên Claude (nguyên văn; bỏ phần dán báo cáo Claude Code) → rà P69, lệnh Claude Code lượt 2:
   > Báo cáo của claude code, bạn xem xét xem các vấn đề đã được giải quyết như yêu cầu chưa. nếu ok chúng ta sẽ đợi hội đồng trả lời. Còn chưa ok thì tranh thủ giao claude code xử lý tiếp.
 - 16/10/2026 11:22 · phiên Claude (nguyên văn, giữ lỗi gõ) → V14.9 tổng hợp, CT-008 r3 (⑤ Đối soát đối tượng), R58, V15:
