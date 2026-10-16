@@ -1219,12 +1219,12 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
     <div class="cf-formula-full">CT-008</div>
     <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh" target="_self">Việc TQT →</a></div>
   </div>
-  <div class="cf-derived-formula cf-derived-formula-root cf-derived-formula-long" aria-label="Yêu cầu User cộng Mục tiêu cộng Mốc cộng Mục con cộng Bước cộng Bộ câu hỏi tạo MOW">
-    <span>Yêu cầu User</span><b>+</b><span>Mục tiêu</span><b>+</b><span>Mốc</span><b>+</b><span>Mục con</span><b>+</b><span>Bước</span><b>+</b><span>Bộ câu hỏi</span><b>⇒</b><strong>MOW</strong>
+  <div class="cf-derived-formula cf-derived-formula-root cf-derived-formula-long" aria-label="Yêu cầu User cộng Mục tiêu cộng Master list cộng Bước (Mốc, Mục con, Bước) cộng Bộ câu hỏi tạo MOW">
+    <span>Yêu cầu User</span><b>+</b><span>Mục tiêu</span><b>+</b><span>Master list</span><b>+</b><span>Bước (Mốc · Mục con · Bước)</span><b>+</b><span>Bộ câu hỏi</span><b>⇒</b><strong>MOW</strong>
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
   <div class="cf-mbm">
-  <p><span class="cf-mbm-badge">r4.6 · 16/10 · đang thử thật: làm QTTH 07 ở task mbm-qtth-07-ve-ui-mow · vấp đâu sửa đó</span></p>
+  <p><span class="cf-mbm-badge">r5 · Owner 16/10 20:41: ② thành bảng mẫu · thêm bước Rà soát Master list · 16/10 · đang thử thật: làm QTTH 07 ở task mbm-qtth-07-ve-ui-mow · vấp đâu sửa đó</span></p>
   <p><b>MBM = MOW born MOW</b>: <b>công thức gốc</b> để chế tạo ra quy trình. Mọi câu hỏi đặt sẵn trong ma trận. AI chỉ điền câu trả lời vào ô. Ô nào trống là dòng đó chưa xong.</p>
   <p class="cf-mbm-note"><b>Định vị:</b> MBM là CÔNG THỨC, không phải quy trình. Một công thức chế tạo ra nhiều quy trình (kể cả quy trình tổng hợp gọi quy trình khác). Việc thật và mọi phép thử chi tiết thuộc quy trình được chế tạo ra; sửa cách chế tạo thì sửa ở đây.</p>
   <h4>① Mục tiêu</h4>
@@ -1238,12 +1238,15 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <li><b>D1</b> Làm sai, làm khác đi có được không? Cơ chế nào chặn hoặc bắt được?</li>
   <li><b>D2</b> Quên ghi đủ vào sổ thì phát hiện bằng cách nào, bao lâu một lần?</li>
   </ul>
-  <h4>② Chia mục và đặt mã</h4>
-  <ul>
-  <li><b>2.1 Mốc</b>: các phần lớn. <b>2.2 Mục con</b>: chỉ tách khi mốc có hơn 5 bước; mốc ≤ 5 bước thì mục con trùng mốc, không tạo dòng giả. <b>2.3 Bước</b>: việc nhỏ nhất.</li>
-  <li>Mã: MOW <code>MOW-TH-&lt;số&gt;</code> (gọi tắt QTTH &lt;số&gt;) · Mốc <code>007-1</code> · Mục con <code>007-4.B</code> · Bước <code>007-1.1</code> (ví dụ QTTH 07).</li>
-  <li>Mốc và Mục con cũng trả lời đủ bộ câu hỏi: A1 tự viết; A2 mặc định = (bước con đạt + bước con không áp dụng hợp lệ) / tổng bước con = 100%; nhóm B và C máy cộng dồn từ bước con, không chép lại.</li>
-  </ul>
+  <h4>② Bước = Mốc · Mục con · Bước — liệt kê đủ theo mẫu</h4>
+  <div class="cf-mbm-scroll"><table>
+  <thead><tr><th>#</th><th>Mốc</th><th>Mục con</th><th>Bước</th></tr></thead>
+  <tbody>
+  <tr><td>1</td><td>007-1 Khai việc</td><td>—</td><td>1.1 Tra hoặc tạo việc duy nhất</td></tr>
+  <tr><td>2</td><td>007-1 Khai việc</td><td>—</td><td>1.2 Mở hồ sơ</td></tr>
+  <tr><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+  </tbody></table></div>
+  <p class="cf-mbm-note">Mỗi bước 1 dòng, đánh số liên tục. Mục con chỉ khi mốc có hơn 5 bước, không thì ghi «—». Mã MOW <code>MOW-TH-&lt;số&gt;</code>; mã bước <code>&lt;mốc&gt;.&lt;thứ tự&gt;</code>. Mốc, Mục con: A2 = (bước con đạt + không áp dụng hợp lệ) / tổng; nhóm B, C cộng dồn từ bước con.</p>
   <h4>③ Ma trận — đây chính là hồ sơ</h4>
   <p>Mỗi dòng là 1 mốc, 1 mục con hoặc 1 bước. Bộ câu hỏi định nghĩa 1 chỗ và tự gắn vào mọi dòng. Thiết kế: điền cột «Thiết kế». Chạy mỗi việc: hồ sơ chỉ sinh dòng Bước (N_khuôn = số Bước), DOT điền cột «Khi chạy»; dòng Mốc và Mục con tính từ bước con, không lưu riêng.</p>
   <div class="cf-mbm-scroll"><table>
@@ -1298,9 +1301,11 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <h4>④ Làm một MOW bằng MBM</h4>
   <ol>
   <li>🤖 <b>Nhận yêu cầu</b>: ghi nguyên văn lời User vào task (mục P01).</li>
-  <li>🤖 <b>Tạo task trên workspace</b>: tra/cấp mã MOW (Sổ quy trình ML-MOW-TH-001; sổ chưa là collection thì ghi ở task) rồi tạo <code>work/mbm-&lt;mã-tên-ngắn&gt;/COLLAB.md</code> — <b>tên task bắt đầu bằng mã công thức sinh ra nó</b> (MBM → <code>mbm-</code>; công thức khác dùng mã của mình) để nhìn tên là biết nguồn gốc; chữ thường nối gạch ngang (vd <code>mbm-qtth-07-ve-ui-mow</code>), đúng khuôn AGENTS: dòng «Xác nhận User» · Bảng điều khiển · ô 1 Mục tiêu (lời User) · ô 2 Thế nào là hoàn thành · ô 3 Chi tiết cần đạt (có khối HỘI ĐỒNG, đề xuất 1 Host + lý do) · Vòng trước. Đầu ô 3 đặt <b>danh sách việc cần làm</b> = 6 bước này, kèm «xong khi»; xong bước nào tích bước đó kèm commit. Thêm «Sổ vấp MBM» và «Ma trận». Task là nơi duy nhất làm MOW này; mỗi lượt AI đọc lại task, không cần đọc lại công thức.</li>
-  <li>😊 <b>Chốt mục tiêu</b>: User chốt ①, Thế nào là hoàn thành, Mốc, Mục con, Host → ghi ô 1–3 của task → «Xác nhận User: ĐÃ XÁC NHẬN».</li>
-  <li>🤖 Điền ma trận và cột «Thiết kế» cho mọi dòng vào mục «Ma trận» của task (việc thường: model rẻ · việc khó: frontier). <b>Có bản cũ đã gật thì bắt đầu từ bản cũ</b>: chỉ thêm, sửa phần mục tiêu mới đòi, ghi rõ dùng lại bản nào.</li>
+  <li>🤖 <b>Tạo task trên workspace</b>: tra/cấp mã MOW (Sổ quy trình ML-MOW-TH-001; sổ chưa là collection thì ghi ở task) rồi tạo <code>work/mbm-&lt;mã-tên-ngắn&gt;/COLLAB.md</code> — <b>tên task bắt đầu bằng mã công thức sinh ra nó</b> (MBM → <code>mbm-</code>; công thức khác dùng mã của mình) để nhìn tên là biết nguồn gốc; chữ thường nối gạch ngang (vd <code>mbm-qtth-07-ve-ui-mow</code>), đúng khuôn AGENTS: dòng «Xác nhận User» · Bảng điều khiển · ô 1 Mục tiêu (lời User) · ô 2 Thế nào là hoàn thành · ô 3 Chi tiết cần đạt (có khối HỘI ĐỒNG, đề xuất 1 Host + lý do) · Vòng trước. Đầu ô 3 đặt <b>danh sách việc cần làm</b> = 8 bước này, kèm «xong khi»; xong bước nào tích bước đó kèm commit. Thêm «Sổ vấp MBM» và «Ma trận». Task là nơi duy nhất làm MOW này; mỗi lượt AI đọc lại task, không cần đọc lại công thức.</li>
+  <li>😊 <b>Chốt mục tiêu</b>: User chốt ①, Thế nào là hoàn thành, Host → ghi ô 1–3 của task → «Xác nhận User: ĐÃ XÁC NHẬN».</li>
+  <li>🤖 <b>Rà soát Master list</b>: liệt kê mọi Master list (sổ) quy trình sẽ đọc hoặc ghi — có sẵn: ghi đường dẫn thật · thiếu: lập, User duyệt lần đầu. Chưa có sổ thì chưa được viết bước ghi vào sổ đó.</li>
+  <li>🤖 <b>Liệt kê bước</b> theo mẫu ② (1 bảng). <b>Có bản cũ đã gật thì bắt đầu từ bản cũ</b>, chỉ thêm/sửa phần mục tiêu mới đòi. Mỗi bước phải làm được ngay: ghi làm ở đâu (đường dẫn thật) và bằng gì (lệnh có thật, hoặc cách làm tay tạm khi công cụ chưa có).</li>
+  <li>🤖 Điền bộ câu hỏi cho từng bước vào mục «Ma trận» của task (việc thường: model rẻ · việc khó: frontier).</li>
   <li>👥😊 0 ô trống, 0 ô ❓, D1–D2 đã trả lời bằng mã GS → hội đồng ký → User gật. Còn ❓ thì sửa, chưa gật.</li>
   <li>🤖 Chạy thử 1 việc: DOT điền «Khi chạy»; lỗi thì sửa thiết kế, giữ lịch sử, ký lại phần đổi.</li>
   </ol>
