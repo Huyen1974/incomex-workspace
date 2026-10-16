@@ -11,7 +11,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - 📍 Tiến độ: [✓ 1 Nhận yêu cầu] → [✓ 2 Tạo task] → [✓ 3 Chốt mục tiêu] → [■ 4 Liệt kê bước] → [□ 5 Check Master list] → [□ 6 Bộ câu hỏi] → [□ 7 Ký] → [□ 8 Chạy]
 - ✅ Đã xong: task `mbm-qtth-07-ve-ui-mow` · Owner chốt ô 1–2 (17:05) · ma trận = bản 25 bước Owner đã gật 15:19 + 1 bước đề xuất.
 - ■ Đang làm: — · 0 RUN active
-- ⬜ Còn lại: 4 → 5 → 6 → 7 → 8, đúng thứ tự (MBM ④ r5).
+- ⬜ Còn lại: 4 → 5 → 6 → 7 → 8, đúng thứ tự (MBM mục ⑥).
 - ➡ Kế tiếp: bước 4 Liệt kê bước — chốt cách viết bước để mọi AI hiểu giống nhau (Sổ vấp V10), rồi hoàn thiện bảng từ bản 25 bước.
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
@@ -36,12 +36,12 @@ Owner 16/10/2026 17:05:
 #### ☑ Việc cần làm — đọc lại mỗi lượt, xong tích kèm commit
 | # | Việc | Ai | Xong khi | |
 |---|---|---|---|---|
-| 1 | Nhận yêu cầu | 🤖 | lời Owner ở Nhật ký | ☑ |
+| 1 | Nhận yêu cầu (MBM ①) | 🤖 | lời Owner ở Nhật ký | ☑ |
 | 2 | Tạo task + tên | 🤖 | đúng khuôn, tên `mbm-` | ☑ `c8bfe619` |
-| 3 | Chốt mục tiêu | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
-| 4 | Liệt kê bước | 🤖 | bảng # · Mốc · Mục con · Bước, mọi AI hiểu giống nhau (bản 25 bước đã gật làm gốc) | ■ |
-| 5 | Check Master list | 🤖 → 😊 | mọi sổ các bước đọc/ghi: có đường dẫn thật, hoặc đã lập + Owner duyệt lần đầu | ☐ |
-| 6 | Bộ câu hỏi | 🤖 | mọi bước đủ ô | ☐ |
+| 3 | Chốt mục tiêu (MBM ②) | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
+| 4 | Liệt kê bước (MBM ③) | 🤖 | bảng # · Mốc · Mục con · Bước, mọi AI hiểu giống nhau (bản 25 bước đã gật làm gốc) | ■ |
+| 5 | Check Master list (MBM ④) | 🤖 → 😊 | mọi sổ các bước đọc/ghi: có đường dẫn thật, hoặc đã lập + Owner duyệt lần đầu | ☐ |
+| 6 | Bộ câu hỏi (MBM ⑤) | 🤖 | mọi bước đủ ô | ☐ |
 | 7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
 | 8 | Chạy | 🤖 | đạt ô 2 | ☐ |
 
