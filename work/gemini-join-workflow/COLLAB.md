@@ -8,6 +8,7 @@ Host_ID: openai-main
 Host_Surface: GPT Chat
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-15 09:00 +07 · GPT Chat Host · P21
+- 📥 **Trỏ từ COLLAB gốc PROOT05 · Claude Chat · 16/10/2026** (Owner: việc dở của phiên nào phân về phiên đó): đèn #22 còn đỏ phần GJW — Config Guard lệch `nginx-route-gemini-mcp` + INV24 gemini (drift-check 16/10 08:37Z). Chi tiết: COLLAB gốc mục PROOT05.
 - 🎯 Mục tiêu: Chủ trương Owner 14/10: Gemini thành viên Google chính thức có kết nối **tối đa khả thi** trên các bề mặt Google dùng thật (agy, Gemini Mac/Spark, Antigravity Browser/Remote), cả gọi ra và gọi vào từ HJW; không chỉ dừng ở CLI đủ ghi P.
 - 🏁 Xong khi: ô 2 + C7/C8/C9: google-main độc lập có repo/KB/JEV/Hội đồng; **kiểm thử tất cả** kênh/công cụ Google có triển vọng (không dừng sau một đường PASS); có luồng máy→Gemini→receipt không Owner copy-paste và bảng bằng chứng từng bề mặt, đúng giới hạn thực tế đã thử.
 - 📍 Tiến độ: [✓ G1B google-main/repo/KB] → [✓ G1C cũ huỷ] → [✓ Claude P16 ACCEPT G1C-MAX] → [✓ GPT P17 READY G1C-MAX] → [■ Owner giao Claude Code một lượt nối tối đa] → [□ Google hội đồng chính thức/G3 đưa thư] → [□ nghiệm thu].

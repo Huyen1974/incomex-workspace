@@ -9,6 +9,7 @@ Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner ch�
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-16 15:30 +07 · Claude · OWNER GẬT QTTH 07 BẢN 2 / CHỐT ĐẾN ĐÂY
+- 📥 **Trỏ từ COLLAB gốc PROOT05 · Claude Chat · 16/10/2026** (Owner: việc dở của phiên nào phân về phiên đó): (1) agent-data `Child process died` 4 lần/42 h, 3 lần trùng 502 `/api/health` (15/10 11:22 · 15:10 · 16/10 01:24Z), không Traceback, container không restart — chủ agent-data; (2) Guard nhóm D «script tự nhắn» (D01–D03) gửi Telegram bằng `curl … >/dev/null || true` ⇒ script báo hỏng mà không có biên nhận máy — nợ thiết kế mã Guard/tin báo (TQT đang giữ mã Guard). Chi tiết: COLLAB gốc mục PROOT05.
 
 #### 🧭 ĐỊNH VỊ — ĐỌC TRƯỚC MỌI THỨ (Owner 16/10 15:19)
 

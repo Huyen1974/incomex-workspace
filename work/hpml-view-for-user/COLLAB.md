@@ -30,6 +30,7 @@ Hướng đúng: một đường duy nhất theo §12, cấm URL tạm, không n
 Xác nhận User: **ĐÃ XÁC NHẬN** — nguyên văn lời Owner 06/10/2026 14:59 (vòng mở lại; ghi ở ô 1).
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-06 20:00 +07 · GPT Chat (Host) · **P45 SSOT CLOSEOUT CLEANUP XONG · CHỜ CLAUDE CLOSE-CHECK → CLOSE**
+- 📥 **Trỏ từ COLLAB gốc PROOT05/PROOT06 · Claude Chat · 16/10/2026** (Owner: việc dở của phiên nào phân về phiên đó): kho `/opt/incomex/data/hvu-b2/repo.git` còn 76 tệp `tmp_pack_*` rác 28–29/09 (160 MiB, chủ `hvu-view`). PROOT06 chỉ sửa để luật (o) `git repack -d` không còn bị chúng chặn (không xoá). Dọn hẳn 76 tệp này là việc của HVU trước khi đóng/archive: Drive-first + Owner gật.
 - 🎯 **Mục tiêu (Owner 06/10 14:59, nguyên văn):** “các bạn cứ bàn trên repo, viết cái gì ra thì chayn xuống VPS. VPS đơn giản chỉ là cái kênh để cho user có thể xem trực tiếp và dễ nhìn. Đặc biệt là thông tin tiến độ theo thời gian thực (ai đang làm? ai vừa làm)”.
 - 🏁 **Xong khi:** Bảng điều khiển + mục tiêu tự xuống trang; đổi tiêu đề không làm mất dữ liệu; lỗi parse có đèn; “ai vừa làm/đang làm” giữ đúng; có test + rollback.
 - 📍 **Tiến độ:** `✅ Mở lại + mục tiêu` · `✅ Hội đồng rà đề bài` · `✅ RUN` · `✅ KQ XONG` · `■ Host ACCEPT / Reviewer close-check`.

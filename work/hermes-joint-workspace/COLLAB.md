@@ -486,6 +486,7 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-13 09:22 +07 · Claude Code CLI P313 · **COURIER SPIKE ĐANG CHẠY · MAC-ONLY · 0 GHI VPS**
+- 📥 **Trỏ từ COLLAB gốc PROOT05 · Claude Chat · 16/10/2026** (Owner: việc dở của phiên nào phân về phiên đó): (1) Stop-hook báo «RUN … chưa có KQ» sai dù KQ đã trên repo — 2 lần 16/10 (`0eaa062`, `1453fed`), khớp residual control-plane đã ghi ở mục Stop-hook; (2) đèn #11 đỏ từ 16/10 01:10Z chỉ vì nợ `/var/lib/hjw-control` quá hạn (hạn 16/10 01:00Z, ~+178 MiB/ngày chưa có van) — cần van hoặc Owner gia hạn; (3) đèn #22: Config Guard lệch `hermes-config-yaml` + INV20 connector twin. Chi tiết: COLLAB gốc mục PROOT05.
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Hermes VPS] → [✓ N1] → [✓ N2] → [✓ N3: khoá Mac MAC_LOCAL_PASS (P309)] → [■ N3: hard-part spike cron zero-token + GPT web, Mac-only] → [□ N3: khôi phục drift Hermes-VPS #21 / phân chủ #22] → [□ N3: Courier + T9] → [□ N4] → [□ N5] → [□ N6]`. Update phiên bản Hermes là nhánh N3 riêng không gate Courier; phương án Claude Code CLI courier đợi Owner GẬT/LẮC rõ, không thử claude.ai web.
