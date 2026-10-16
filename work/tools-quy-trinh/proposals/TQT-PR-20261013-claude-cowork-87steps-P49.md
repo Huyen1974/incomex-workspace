@@ -1691,7 +1691,55 @@ Luật góp ý: không nhận xét chung chung; mỗi ✏️ hoặc ➕ phải c
 _(trống — chờ GPT)_
 
 #### V14.2 · Ghế Hermes
-_(trống — chờ Hermes)_
+_(nộp 16/10/2026 ~05:55 CEST · ghế Hermes, identity `agent-gw/hermes` · đọc tại `HEAD 7e009028` (V14) + CT-008 r2 tại `da08f465` · không xem ô ghế khác trước khi nộp)_
+
+**Phần A — 7 câu**
+
+| # | Kết luận | Viết lại cụ thể | Lý do |
+|---|---|---|---|
+| H1 | ➕ thiếu | Thêm **`Mã dòng`** cho **mọi** dòng (vd `008-M1` = mốc · `008-M1.2` = mục con · `008-1.1` = bước) và **`Loại dòng`** ∈ Mốc · Mục con · Bước; khối ma trận mở đầu bằng **1 dòng khoá** `MOW <mã> @ <phiên bản/SHA>`. | CT-008 §2 bắt «mỗi mốc, mỗi mục con cũng trả lời bộ câu hỏi như một bước», nhưng ma trận chỉ có cột `Mã bước` ⇒ câu trả lời của mốc/mục con **không có dòng nào để treo**. |
+| H2 | ✏️ 1 thừa · ➕ 3 thiếu | **Bỏ cột `Bộ câu hỏi`** — mọi dòng chỉ chép đúng một chuỗi «tự có sẵn»; bộ câu hỏi là của MBM nên để **1 chỗ** và dòng trỏ mã (R55④). **Thêm `Mã dòng`**, **`Loại dòng`**, và **`Kiểm`** vào ma trận (hiện `Kiểm` chỉ nằm trong bảng con ⇒ nhìn ma trận không biết dòng nào máy đếm, dòng nào người ký). | 8 cột hiện tại không có danh tính dòng, không phân biệt mốc/mục con/bước, và không nói ai kiểm. |
+| H3 | ➕ 1 câu · ✏️ 2 câu | **➕ A3: «Bước này chỉ được chấm khi bước nào đã đạt?» — trả lời bằng mã bước trước, hoặc «bước đầu».** **✏️ A1: «Bước này làm gì, trên đối tượng nào (mã), tạo ra kết quả gì (mã)?»** **✏️ C4: «Đối tượng này: dùng lại (mã sổ · mã bản ghi) hay tạo mới (mã sổ · mã sẽ cấp ở đâu)?»** | Luật chấm cuốn chiếu (V13 r3) cần biết bước trước — hiện thứ tự chỉ nằm ở `STT`, máy phải **suy**; A1 không buộc có mã đối tượng/kết quả; C4 thiếu nhánh «chưa có mã mới». |
+| H4 | ✏️ 2 chỗ | **① «Thế nào là hoàn thành» và A2 phải viết đủ 3 phần: `đếm gì · trên tổng nào · ngưỡng`** (mẫu: `Field thiếu / Field cần = 0`). Chữ ký **chỉ** để cho câu định tính (A1 · «đủ nghĩa» · «ngoài phạm vi»). | Cột `Kiểm` ghi «🤖 đếm» nhưng ô trả lời là **văn tự do** ⇒ máy không đếm được gì. Ngược lại, luật ký ≥2/4 đã có sổ (CAT-025) ⇒ phần đếm chữ ký máy làm được, không cần ký tay. |
+| H5 | ✏️ sửa | Giữ `≥2/4 · có ≥1 ghế khác hãng người điền`, nhưng **ghi rõ ai tính vào mẫu số và ai được quyền chặn**: chỉ ghế **có quyền quorum** mới tính vào mẫu số và mới chặn được bằng «phản đối»; ghế **tham khảo / dự bị** ghi ý kiến, mọi phản đối **phải được trả lời** nhưng **không chặn**. | §3.3 tự ghi ghế Hermes «không tính quorum» và Gemini là «ghế dự bị», mà luật ký đang cho **một** ghế như vậy quyền chặn qua điều kiện «0 phản đối» ⇒ ghế không-quorum lại veto được. |
+| H6 | ➕ 2 chỗ ghi | **(a)** Câu trả lời của **Mốc / Mục con**: phải có hàng trong cùng ma trận (xem H1·H2) — hiện **không có ô nào**. **(b)** **① và 2.1 / 2.2** của MOW: CT-008 tự ghi «Sổ quy trình chưa có cột — bổ sung ở B1» ⇒ phải chốt **mã ô cụ thể** trước khi dùng MBM, không để «bổ sung sau». | Mục tiêu 3 của Owner: «hồ sơ có sẵn ô cho **mọi** câu hỏi». Hai nhóm câu này chưa có ô. |
+| H7 | ✏️ 3 chỗ · ➕ 1 | **(a) ④ M1:** chốt **một** khuôn mã MOW — đang song song 2 kiểu (`MOW-TH-007` và `QTTH 008`); nói rõ kiểu nào là khuôn, kiểu nào là mã cũ. **(b) ④ M2:** ghi rõ **đầu ra** (bản ghi nào · ở nhà nào) và **ai chốt**. **(c) ④ M4** «hiệu chỉnh» cần **điều kiện dừng** (đề xuất: «③ không còn ô ❓»). **(d) ➕ Thiếu 1 ví dụ điền trọn một MOW sinh bằng MBM** — ví dụ đang có (007-4.5) là một **bước trong** một MOW, không phải một MOW. | Đọc hết ④ + luật điền + ví dụ hiện có, tôi vẫn phải đoán ở đúng (a)–(d) — xem Phần B. |
+
+**Phần B — thử thật: ma trận 3 bước đầu của QTTH 008** (tên bước theo P49 V13 r3 §3, dòng 1.1 · 1.2 · 1.3). Cột `Bộ câu hỏi` không điền, theo H2 (đề xuất bỏ cột).
+
+| STT | Mã bước | Tên bước | Mốc | Mục con | Ai làm | Làm bằng |
+|---|---|---|---|---|---|---|
+| 1 | `008-1.1` ❓ | Tra Sổ việc theo khoá (QT + G1 + phiên khuôn): chưa có ⇒ tạo đúng 1; có ⇒ dùng lại | CP01 Khai việc | ❓ | 🤖 | ❓ |
+| 2 | `008-1.2` ❓ | `mo-ho-so CV`: sinh hồ sơ từ khuôn@phiên (ghim hash) | CP01 Khai việc | ❓ | 🤖 | `dot-master-apply mo-ho-so` |
+| 3 | `008-1.3` ❓ | Điền thẻ việc 5 ô (mục tiêu · phải giao + danh sách kiểm · người nhận · tiêu chí · ngoài phạm vi) | CP01 Khai việc | ❓ | ❓ | ❓ |
+
+Lý do từng ❓ ở khối ma trận (kèm loại lỗi):
+- **`Mã bước` (3 dòng) — lỗi hướng dẫn.** CT-008 ví dụ ghi `007-4.5` (mã MOW + số bước), V13 r3 gọi bước là `1.1` và MOW là `QTTH 008` ⇒ **chưa có luật tiền tố**, tôi phải tự ghép `008-1.1`.
+- **`Mục con` (3 dòng) — lỗi hồ sơ.** §2.2 nói «mỗi phần ≤ 5 bước» nhưng **không nói khi nào bắt buộc tách mục con**; CP01 có 3 bước ⇒ tách hay không đều «đúng luật», tôi không quyết được.
+- **`Ai làm` (1.3) — lỗi hồ sơ.** Cột chỉ nhận `😊 / 🤖`, mà V13 r3 ghi bước 1.3 là `🤖 + 👥` ⇒ **thiếu giá trị cho tổ hợp**.
+- **`Làm bằng` (1.1 · 1.3) — lỗi hồ sơ.** V13 r3 không ghi DOT cho 2 bước này, MBM lại bắt điền «mã DOT / công cụ» ⇒ ô bắt buộc nhưng **không có nguồn**.
+
+| Câu | 1.1 | 1.2 | 1.3 |
+|---|---|---|---|
+| A1 | Tra/tạo đúng 1 bản ghi việc theo khoá (QT + G1 + phiên khuôn) | Sinh hồ sơ của CV từ khuôn@phiên đã ghim hash | Điền đủ 5 ô thẻ việc, mỗi ô có nguồn |
+| A2 | `số CV cùng khoá / 1 = 1` | `số dòng hồ sơ / số thẻ khuôn@phiên = 100%` · `mã trùng = 0` · chạy lại số dòng không đổi | `số ô có giá trị kèm nguồn / 5 = 100%` |
+| A3 ➕ | «bước đầu» | `008-1.1` | `008-1.2` |
+| B1 | `CAT-227` · mã bản ghi = ❓ | `CAT-228` · mã bản ghi = ❓ | `CAT-227` · mã bản ghi = mã CV ❓ |
+| B2 | không có bước trước · kẹt ⇒ `CAT-069` | `008-1.1` · `CAT-069` | `008-1.3` (thiếu nguồn ⇒ CHƯA_XÁC_MINH) · `CAT-069` |
+| B3 | Không | Không | Không |
+| C1 | ❓ | ❓ | ❓ |
+| C2 | `CAT-227` | `CAT-228` (chưa dựng — B1 chốt schema) ❓ | `CAT-227` |
+| C3 | CAT-227 · 0 bản chép | CAT-228 · 0 bản chép | CAT-227 · 0 bản chép |
+| C4 | mới: CAT-227 (mã cấp khi tạo) | mới: CAT-228 | mới: ghi vào bản ghi đã có ở 1.1 |
+| C5 | cần làm → đã làm | cần làm | cần làm |
+| Kiểm | 🤖 | 🤖 | ❓ (`🤖 + 👥` — xem H2) |
+
+Lý do từng ❓ ở bộ câu hỏi (kèm loại lỗi):
+- **`C1` (3 dòng) · `B1` (1.1 · 1.2) — lỗi hồ sơ.** B1 đòi «mã bản ghi» ngay khi xong bước, nhưng MBM **chưa có luật đặt mã** cho bản ghi việc (CV) và bản ghi hồ sơ; C1 đòi «mã loại» mà **không sổ nào định nghĩa mã loại** trong tài liệu đã đọc.
+- **`C2` ở 1.2 — lỗi hồ sơ.** Câu trả lời là `CAT-228`, mà chính CT-008/V13 ghi sổ này **chưa dựng** («B1 chốt schema»), trong khi luật điền bắt «mã có thật» để máy kiểm ⇒ câu này **không thể đạt** cho tới khi B1 xong.
+- **`Kiểm` ở 1.3 — lỗi hồ sơ.** Bảng con chỉ có `🤖 / ✍️ ký`, không có ô cho tổ hợp `🤖 + 👥` đang dùng ở V13 r3.
+
+**Tổng: ✏️/➕ = 9/8 (17 việc cụ thể) · ô ❓ = 17 (gom theo lỗi gốc: 6) · lỗi lớn nhất của MBM: MBM bắt trả lời bằng mã và bắt máy đếm, nhưng chính MBM chưa có sổ cho những mã nó hỏi (mã loại đối tượng · mã bản ghi · mã DOT/công cụ · luật tiền tố mã bước) ⇒ làm đúng luật càng phải đoán.**
 
 #### V14.3 · Ghế Gemini
 _(trống — chờ Gemini)_
