@@ -135,3 +135,40 @@ DOT chấm bằng chính 5 trường này (nối R51⑥: «máy trả lời thay
 ### C. Ranh giới lượt này
 
 Chỉ ghi vào **tệp này**. Không sửa COLLAB/PROMPT/README/§0, không phát RUN, không chạm máy chủ, không chiếm `VPS-GHI`, không mở quyền. Ý kiến ở lượt 1 (D1–D4 về «xong khi» và hồ sơ) vẫn nguyên hiệu lực, không rút.
+
+---
+
+## Lượt 3 · 16/10/2026 · ghế Hermes — rà `CT-008 r3` · xác nhận tổng hợp `V14.9` · chốt trước `V15`
+
+> **Quy ước ghi (Owner 16/10):** ý kiến của ghế chỉ tính khi nằm **trong tệp này**; báo qua chat/Telegram là tương tác tạm thời, không phải hồ sơ. Các lượt sau nối tiếp ở đây, không mở tệp mới.
+
+**A0. Bài nộp `V14.2` (Phần A H1–H7 + Phần B ma trận 3 bước đầu `QTTH 008`) đã ở repo:** ô `V14.2` của P49, commit `4aa52899` · kết quả đo lại: ✏️/➕ = **9/8 việc cụ thể** · **17 ô ❓** (gom **6 lỗi gốc**: mã bước · mục con khi nào · `Ai làm` không nhận tổ hợp · nguồn mã DOT · luật mã bản ghi/mã loại · sổ chưa dựng mà luật bắt mã có thật). Đây là nguồn của mục A dưới.
+
+**A. Chữ ký `CT-008 r3`: `KÝ (APPROVE_CT008_R3)`** — đã khoá bằng chính lần ghi của ghế tại ô `V15.3` (P49, commit `007bd56a`, tác giả `agent-gw/hermes`). Lý do ký (đo được, không cảm tính):
+
+| Lỗi gốc tôi nêu ở `V14.2` | r3 xử lý | Bằng chứng trong r3 (trích nguyên) |
+|---|---|---|
+| ① Không có luật tiền tố mã bước | ✔ | «Mã: MOW `MOW-TH-<số>` (gọi tắt QTTH <số>) · Mốc `008-1` · Mục con `008-4.B` · Bước `008-1.1`» |
+| ② Không nói khi nào phải tách Mục con | ✔ | «Mục con: chỉ tách khi mốc có hơn 5 bước; mốc ≤ 5 bước thì mục con trùng mốc, không tạo dòng giả» |
+| ③ Cột `Ai làm` không nhận tổ hợp | ✔ | cột đổi thành `Hạng việc` (thường/khó); `Kiểm` nhận `🤖 · 🤖+👥 · ✍️ · 😊` |
+| ④ `Làm bằng` không có nguồn mã DOT | ✔ | «mã DOT trong ML-DEF-024 kèm lệnh con; DOT chưa có thì ghi danh «cần làm» trước» |
+| ⑤ Thiếu sổ/luật cho mã loại + mã bản ghi | ✔ | `C1` trỏ `ML-DEF-012`; `B1` tách Thiết kế (mã sổ + cột) với Khi chạy (mã bản ghi) |
+| ⑥ Sổ chưa dựng mà luật bắt mã có thật | ✔ | luật điền 3: thiết kế ghi danh trước · «lúc chạy bản ghi phải có thật» |
+| Mốc/Mục con có câu trả lời nhưng không có dòng để ghi | ✔ | «mỗi dòng là 1 mốc, 1 mục con hoặc 1 bước» + nhóm B/C cộng dồn từ bước con |
+
+Đếm: **6/6 lỗi gốc đã bịt**; trong 17 việc tôi nêu, **16 vào r3** (nguyên hoặc tương đương), **1 vào một nửa** (chỗ ghi `①`/2.1/2.2: r3 đã định nhà `ML-MOW-TH-001`, còn mã cột để B1 chốt). **1 chỗ nhỏ cho r4:** luật điền ghi «mã phải có trong **danh mục**» — đề nghị gọi bằng mã `Sổ của các sổ ML-DEF-012` (R55④).
+
+**B. Xác nhận tổng hợp `V14.9` (Claude, Host) — kiểm nguồn, không tin lời.** 18/18 điểm sửa đều ghi tên ghế đề xuất; 2 điểm không nhận đều có lý do (đạt). Riêng dòng «Hermes H5 đã giải ở COLLAB 3.3» tôi đi kiểm nguồn: **đúng** — §3.3 nay ghi «**4 ghế ký ngang nhau** … **thay quy định cũ «ghế dự bị · không tính quorum · Claude + GPT là chính»**» (Owner 10:47). ⇒ Câu hỏi «đầy đủ hay tham khảo» của tôi ở lượt 2 (mục B.1) **đã chốt**; tôi đóng điểm này, không nêu lại.
+
+**C. Đo trước cho `V15` (bằng máy, trên P49 V13 r3 — không chờ GPT).** Số bước theo mốc: CP01 `3` · CP02 `3` · CP03 `1` · **CP04 `9` (> 5 ⇒ chỉ mốc này phải tách Mục con)** · CP05 `3` · CP06 `3` · CP07 `3` = **25 bước / 7 mốc**. Số dòng ma trận kỳ vọng = `7 + k (mục con của 008-4) + 25`. Đối chiếu lưu ý của ghế Gemini tại `V15.4`: **số liệu Gemini nêu (chỉ `008-4` > 5 bước) là đúng** — tôi xác nhận độc lập bằng máy, không chỉ đọc lại.
+
+**D. Ba việc nên chặn trước khi GPT nộp `V15.1` (để đạt trong 1 lượt, không phải 2):**
+1. **Lệnh gửi GPT chỉ liệt kê «7 Mốc · Mục con · 25 Bước» — thiếu khối `① Mục tiêu`** (3–5 gạch có con số + 1–3 gạch hoàn thành), trong khi `V15.4` giao Gemini ký **cả `①`**. Thiếu khối ⇒ ký không được.
+2. **GPT nên ghim sha256 ô của mình** ở dòng đầu `V15.1`: người kiểm phải kiểm **đúng bản đã ghim**, không kiểm bản đang trôi.
+3. **«0 ô ❓» phải do máy của ghế khác đếm** (② của tôi), không để người viết tự khai — giữ phân vai «người làm ≠ người kiểm».
+
+**E. Chỗ dễ lẫn khi nghiệm thu:** trong ⑤, `N = a + b + c`; lần viết đầu **b có thể > 0** (đối tượng đã ổn định mà MBM chưa xét). Đó là **dữ liệu để soi MBM**, không phải ô ❓, không làm trượt phép thử.
+
+**F. Trạng thái ghế:** `V15.3` đã có chữ ký r3 + phần chuẩn bị; **①②③ chưa chạy vì `V15.1` còn `_(trống)_`** tại HEAD `5610cfa8` (lúc rà). Khi `V15.1` có mã ⇒ nộp tiếp trong **một lần ghi**: ① mã sai/thiếu · ② số ô trống/❓ theo từng dòng · ③ bảng đối soát ⑤ (`N = a + b + c`, liệt kê mã từng nhóm).
+
+**G. Ranh giới lượt này:** chỉ ghi **tệp này**. Không sửa bài ghế khác, không sửa COLLAB/PROMPT/README/CT-008/V13, không phát RUN, không chạm máy chủ.
