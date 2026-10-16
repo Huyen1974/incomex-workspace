@@ -2284,6 +2284,60 @@ Máy còn kiểm: **0 dấu `?` ASCII · 0 dấu `❓` · 0 `…` · 0 «TBD»**
   3. **Trình bày bảng phẳng cho bộ câu hỏi `A1–C4`:** Đề xuất GPT trình bày `A1–C4` dạng cột trên bảng phẳng (hoặc gom theo từng Mốc) thay vì tách 35 bảng con rời rạc, để Hermes (`V15.3`) đếm tự động và Gemini (`V15.4`) ký theo mã dòng nhanh, chính xác.
 - *(Khung chữ ký nhóm A chờ GPT nộp `V15.1` — ngay khi `V15.1` có trên repo, Ghế Gemini sẽ cập nhật bảng ký từng dòng `①` + `008-1..008-7.3` vào ngay bên dưới dòng này).*
 
+---
+
+**LƯỢT 2 · 16/10/2026 14:22 +07 · Ký `CT-008 r4` và ký nhóm A (`① Mục tiêu` + 35 dòng `008-1 … 008-7.3`) của `V15.1`**
+
+**✍️ Chữ ký `CT-008 r4`: `KÝ ĐỒNG Ý (APPROVE_CT008_R4)`** — ký theo danh tính `gemini-agy` trên bản `CT-008 r4` (`fd21d485`) và `V15.9` (`d70c12d4`). Bản `r4` đã khóa kín toàn bộ 6 nhóm lỗi gốc của 25 ô `❓` lượt 1 (A2 mặc định của Mốc/Mục con tính cả bước con `không áp dụng hợp lệ`; hồ sơ `CAT-228` chỉ sinh `N_khuôn = 25` dòng Bước; tách rõ `MAU_SO_0` và `CHƯA_XÁC_MINH`; thêm trạng thái `cần test lại` vào `C4` và tách khỏi cột trạng thái nghiệp vụ ở `B1`; cho phép ghi danh «cần làm» tại `V15.2`; đối soát `⑤` ghim tập `N = a + b + c + d` theo thứ tự `a → c → b → d`).
+
+**Nguồn ghim đã rà:** `P49` khối `V15.1` + `V15.2` bản lượt 2 của GPT tại commit `f76fa2e1ad35d08d84cfa2f2adf75b34492bfb5d` (sha256 khối `V15.1` = `2066240ee067ffa0f2a4428764988ed9483f9a85f21cb403b1fa2ff6e0795c17`) và kết quả máy kiểm của Hermes tại `f1bf5954` (`0 mã sai/thiếu · 0 ô trống · 0 ô ❓`).
+
+##### Bảng ký nhóm A (`① Mục tiêu` + `A1–A3` của 35 dòng `008-1 … 008-7.3` = 36/36 mục)
+
+| STT | Mã dòng / mục | Loại | Ký / Phản đối | Kiểm chứng `A1 · A2 · A3` |
+|---|---|---|---|---|
+| 0 | **`① Mục tiêu`** | Mục tiêu | **✍️ KÝ** | Đủ 5 mục tiêu + 2 tiêu chí hoàn thành + ngoài phạm vi, đều có số đo (`1 CV`, `100%`, `0 lỗi chặn G1`). *(Ghi chú nhỏ cho B1: lược bỏ câu lịch sử lượt 1 ở cuối ô Hoàn thành V15 khi nạp vào `ML-MOW-TH-001`).* |
+| 1 | **`008-1`** | Mốc | **✍️ KÝ** | `A1` khai 1 CV tại `CAT-227` · `A2` `008-1.1–1.3 đạt / 3 = 100%` (`🤖+👥`) · `A3` 1→2→3 khớp bước con. |
+| 2 | **`008-1.1`** | Bước | **✍️ KÝ** | `A1` tra/tạo 1 CV theo khóa `QT+G1+phiên` · `A2` `số CV cùng khóa / 1 = 1` (`🤖`) · `A3` gọi `dot-master-apply:mo-viec` (đã ghi danh `V15.2`), thiếu lệnh thật ⇒ `CHƯA_XÁC_MINH`. |
+| 3 | **`008-1.2`** | Bước | **✍️ KÝ** | `A1` mở hồ sơ đúng phiên · `A2` `N_khuôn = 25` Bước trong `ML-DEF-022`, `checkpoint / 25 = 100%`, `trùng = 0` (`🤖`) · `A3` gọi `mo-ho-so` và đọc lại. |
+| 4 | **`008-1.3`** | Bước | **✍️ KÝ** | `A1` điền 5 ô riêng của CV tại `CAT-227` · `A2` `5 ô có giá trị + nguồn / 5 = 100%` (`🤖+👥`) · `A3` điền 5 cột `CAT-227.*` (đã ghi danh `V15.2`), Host đối chiếu nguồn. |
+| 5 | **`008-2`** | Mốc | **✍️ KÝ** | `A1` chuẩn bị nguồn QT, nhà, DOT · `A2` `008-2.1–2.3 đạt / 3 = 100%` (`🤖`) · `A3` cộng kết quả con. |
+| 6 | **`008-2.1`** | Bước | **✍️ KÝ** | `A1` nạp bước QT vào `ML-MOW-TH-001` · `A2` `số bước nạp / tổng bước QT nguồn ghim = 100%`, `trùng = 0` (`🤖`) · `A3` đọc theo SHA, nạp và so mã. |
+| 7 | **`008-2.2`** | Bước | **✍️ KÝ** | `A1` xác định nhà vận hành · `A2` `nhà vận hành duyệt cột / số loại cần = 100%` tại `ML-DEF-012` + `CAT-025` (`🤖`) · `A3` tra `ML-DEF-012`, tách nhà thiết kế (`008-4.3`). |
+| 8 | **`008-2.3`** | Bước | **✍️ KÝ** | `A1` thử đúng phiên `dot-master-apply` · `A2` `1 lượt thu PASS / 1 = 1` tại `CAT-229` (`🤖`) · `A3` gọi `thu` và giữ biên nhận. |
+| 9 | **`008-3`** | Mốc | **✍️ KÝ** | `A1` khóa cổng vào làm · `A2` `008-3.1 đạt / 1 = 100%` (`🤖`) · `A3` mở `CP04` khi đạt. |
+| 10 | **`008-3.1`** | Bước | **✍️ KÝ** | `A1` kiểm 6 bước chuẩn bị · `A2` `CP01–CP02 đạt / 6 = 100%`, hash không lệch (`🤖`) · `A3` gọi `kiem CV --cp 01-02`. |
+| 11 | **`008-4`** | Mốc | **✍️ KÝ** | `A1` thiết kế UI/Field/Config + phát sinh · `A2` `(Bước CP04 đạt + N/A hợp lệ) / 9 = 100%` (`🤖+👥`) · `A3` đi `4.A → 4.B → 4.C`. |
+| 12 | **`008-4.A`** | Mục con | **✍️ KÝ** | `A1` xác định UI, dùng lại, bảng · `A2` `008-4.1–4.3 đạt / 3 = 100%` (`🤖+👥`) · `A3` đi `4.1 → 4.2 → 4.3`. |
+| 13 | **`008-4.1`** | Bước | **✍️ KÝ** | `A1` ánh xạ hành động tới `ML-DEF-018` / `NO_UI` · `A2` `đã ánh xạ / tổng cần = 100%`, thiếu nguồn ⇒ `CHƯA_XÁC_MINH` (`🤖+👥`) · `A3` lập tập `bước×hành động` nối `ML-DEF-017`. |
+| 14 | **`008-4.2`** | Bước | **✍️ KÝ** | `A1` xét UI trùng · `A2` `cặp đã ghi dùng lại hoặc lý do / tổng cặp = 100%`, 0 cặp ⇒ `MAU_SO_0`, thiếu nguồn ⇒ `CHƯA_XÁC_MINH` (`🤖+👥`) · `A3` xét 4 thuộc tính, ghi `dung_lai_tu`/lý do. |
+| 15 | **`008-4.3`** | Bước | **✍️ KÝ** | `A1` chọn bảng cho UI / nhà thiết kế «cần làm» · `A2` `màn cần bảng đã nối / tổng màn cần bảng = 100%` (trừ `NO_UI`, rỗng ⇒ `MAU_SO_0`, `🤖`) · `A3` nối `ML-DEF-018` và `ML-DEF-012`. |
+| 16 | **`008-4.B`** | Mục con | **✍️ KÝ** | `A1` lập nghĩa vụ, Field, nơi đọc/ghi · `A2` `008-4.4–4.6 đạt / 3 = 100%` (`🤖+👥`) · `A3` đi `4.4 → 4.5 → 4.6`. |
+| 17 | **`008-4.4`** | Bước | **✍️ KÝ** | `A1` lập dòng nghĩa vụ `CAT-206` · `A2` `nghĩa vụ có dòng / tổng dự kiến = 100%`, thiếu nguồn ⇒ `CHƯA_XÁC_MINH` (`🤖+👥`) · `A3` đọc câu hỏi/nguồn UI ghi `CAT-206`. |
+| 18 | **`008-4.5`** | Bước | **✍️ KÝ** | `A1` ghép `CAT-206` với `ML-DEF-008` · `A2` `N=A+B+C; C/N=0; Field mới đủ R36 / số mới = 100%` (số mới=0 ⇒ riêng R36 `MAU_SO_0`, `🤖+👥`) · `A3` tra Field, khai mới R36, nối Hợp đồng. |
+| 19 | **`008-4.6`** | Bước | **✍️ KÝ** | `A1` xác định bảng đọc/ghi và bắt buộc tại `CAT-206` · `A2` `dòng có bảng đúng hành động / tổng dòng = 100%` (`🤖`) · `A3` gán bảng đọc/ghi + cờ bắt buộc. |
+| 20 | **`008-4.C`** | Mục con | **✍️ KÝ** | `A1` đối soát phát sinh, ảnh hưởng, áp thử · `A2` `(Bước 4.7a, 4.7b, 4.8 đạt + N/A hợp lệ) / 3 = 100%` (`🤖`) · `A3` đi `4.7a → 4.7b → 4.8`. |
+| 21 | **`008-4.7a`** | Bước | **✍️ KÝ** | `A1` đối chiếu đối tượng với nhà không chồng · `A2` `N=A+S+B+C; C/N=0; chép cơ học / số dòng = 0` (`🤖`) · `A3` chia 4 nhóm loại trừ, đối chiếu các nhà ở `008-2.2`. |
+| 22 | **`008-4.7b`** | Bước | **✍️ KÝ** | `A1` rà đối tượng đã test bị đổi và phụ thuộc · `A2` `có CAT-016 / S = 100%`, `phụ thuộc cần test lại / tổng phụ thuộc = 100%` (`S=0 ⇒ MAU_SO_0`, `🤖`) · `A3` so hash, ghi `CAT-016` và đánh dấu `cần test lại`. |
+| 23 | **`008-4.8`** | Bước | **✍️ KÝ** | `A1` áp SHA lên NHÁP, dựng màn, thử ghi/đọc lại · `A2` biên nhận `CAT-229` đúng SHA + `màn ghi đã thử khớp / tổng màn ghi = 100%` (0 màn ghi ⇒ riêng phép thử ghi `MAU_SO_0`, `🤖`) · `A3` gọi `ap SHA --cv CV` và thử đọc lại. |
+| 24 | **`008-5`** | Mốc | **✍️ KÝ** | `A1` kiểm thiết kế, ảnh màn, rà định tính · `A2` `(Bước 5.1–5.3 đạt + N/A hợp lệ) / 3 = 100%` (`🤖+👥`) · `A3` tổng hợp kết quả kiểm. |
+| 25 | **`008-5.1`** | Bước | **✍️ KÝ** | `A1` kiểm đủ theo nghĩa vụ, ghi khống, nợ chặn · `A2` `4.1–4.6` đạt ngưỡng riêng, `ghi khống = 0`, `nợ chặn G1 = 0` tại `CAT-015` (`🤖`) · `A3` chạy `kiem --du QT`. |
+| 26 | **`008-5.2`** | Bước | **✍️ KÝ** | `A1` mở màn thật, ghi ảnh, test lại đối tượng · `A2` `màn có ảnh / màn cần = 100%` tại `CAT-239`, `cần test lại = 0`, thiếu công cụ ⇒ `CHƯA_XÁC_MINH` (`🤖+👥`) · `A3` dùng `dot-chup-man` (`V15.2`) và test lại. |
+| 27 | **`008-5.3`** | Bước | **✍️ KÝ** | `A1` rà khác hãng cho `QT001`, QT khác `N/A` · `A2` có phiếu `APPROVE` tại `CAT-025` (`REJECT` ⇒ chưa đạt, `CAT-069 CHẶN`, quay về bước bị phản đối, `✍️`) · `A3` ghế khác hãng rà/ký, DOT đọc lại. |
+| 28 | **`008-6`** | Mốc | **✍️ KÝ** | `A1` trình duyệt và xử lý quyết định Owner · `A2` `(Bước 6.1–6.3 đạt + N/A hợp lệ) / 3 = 100%` (`🤖+😊`) · `A3` gom gói → ghi quyết định → đi nhánh gật/lắc. |
+| 29 | **`008-6.1`** | Bước | **✍️ KÝ** | `A1` gom gói duyệt đúng phiên tại `CAT-227` · `A2` `5 thành phần đủ / 5 = 100%` (`🤖`) · `A3` tập hợp 5 tham chiếu cùng phiên trình Owner. |
+| 30 | **`008-6.2`** | Bước | **✍️ KÝ** | `A1` ghi gật/lắc của Owner tại `CAT-025` · `A2` `1 quyết định hiện hành có nguyên văn + CV + phiên/SHA + kết luận / 1 = 1` (`😊`) · `A3` AI ghi nguyên văn, DOT áp/đọc lại. |
+| 31 | **`008-6.3`** | Bước | **✍️ KÝ** | `A1` xử lý nhánh lắc thành nợ có `return_to`, gật thì `N/A` · `A2` `1 dòng nợ có return_to / 1 lần lắc = 1` tại `CAT-069`, gật ⇒ `N/A` (`🤖`) · `A3` ghi nợ và áp luật quay lại từ bước `k`. |
+| 32 | **`008-7`** | Mốc | **✍️ KÝ** | `A1` kiểm cuối, nợ và đóng CV · `A2` `(Bước 7.1–7.3 đạt + N/A hợp lệ) / 3 = 100%` (`🤖+👥`) · `A3` đi `7.1 → 7.2 → 7.3`. |
+| 33 | **`008-7.1`** | Bước | **✍️ KÝ** | `A1` kiểm các bước trước `CP07` · `A2` `(Bước CP01–CP06 đạt + N/A hợp lệ) / tổng Bước CP01–CP06 = 100%` tại `CAT-228` + `nợ chặn G1 = 0` (`🤖`) · `A3` kiểm tập bước trước `CP07` và ghi kết quả `7.1`. |
+| 34 | **`008-7.2`** | Bước | **✍️ KÝ** | `A1` xác minh nợ mở không chặn G1 · `A2` `nợ mở đủ 4 ô / tổng nợ mở = 100%` tại `CAT-069` (tổng=0 ⇒ `N/A`, `🤖+👥` Host rà chat) · `A3` đối chiếu 4 ô và Host xác nhận. |
+| 35 | **`008-7.3`** | Bước | **✍️ KÝ** | `A1` đóng G1 và đọc lại · `A2` `24/24 bước trước đạt/N/A hợp lệ = 100%` + `1 quyết định Owner gật` ⇒ DOT ghi `7.3`, đọc lại `25/25 = 100%`, đổi cột nghiệp vụ CV sang `G1 thiết kế đã duyệt` (`🤖`) · `A3` DOT đóng CV, đọc lại, báo 4 dòng. |
+
+##### Tóm tắt 3 dòng báo Owner (Lượt 2 — Ghế Gemini)
+1. **Số dòng ký:** **36 / 36 mục nhóm A** (`① Mục tiêu` + **35 dòng** `008-1 … 008-7.3`) **+ ký đồng ý `CT-008 r4` (`APPROVE_CT008_R4`)**.
+2. **Số dòng phản đối:** **`0`**.
+3. **Lỗi lớn nhất còn lại:** **Không còn lỗi chặn nghiệm thu `CT-008 r4` hay `QTTH 008`** (`0 phản đối · 0 ô ❓ · 0 ô trống`); chỉ còn **2 việc vệ sinh nhỏ khi sang B1**: (a) lược bỏ câu ghi chú lịch sử của lượt 1 còn lưu ở cuối ô `① Hoàn thành bản khuôn V15` (dòng 1962), `008-4.2 B3` (dòng 2050) và mục `⑥` khi nạp thẻ vào `ML-MOW-TH-001` / `ML-DEF-022`; (b) ghi nhận 2 nhà vận hành `b = 2` (`ML-DEF-022`, `ML-DEF-024`) từ bảng đối soát `⑤` của Hermes (`V15.3`) để soi cải tiến MBM ở vòng sau theo `R58`.
+
 #### V15.9 · Claude tổng hợp (Host) — lượt 1 · 16/10 12:05
 
 **Tình trạng**
