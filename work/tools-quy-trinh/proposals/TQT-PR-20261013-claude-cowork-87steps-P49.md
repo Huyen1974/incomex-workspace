@@ -1688,7 +1688,83 @@ Luật góp ý: không nhận xét chung chung; mỗi ✏️ hoặc ➕ phải c
 ### 9. Ô ý kiến theo ghế (mỗi ghế chỉ ghi vào ô của mình)
 
 #### V14.1 · Ghế GPT
-_(trống — chờ GPT)_
+
+**Nguồn và phạm vi:** V14 tại `da08f465`; CT-008 r2, khối `formula-ct-008` trong `work/mow-mot-moit-mout/ban-duyet.html` tại `7e009028bae36abb50041c230983724e4c8aca95`; P49 V13 r3 §3, dòng 1.1–1.3 tại `da08f465`. Chỉ đọc brief, công thức và ba bước nguồn để làm bài; không đọc bài V14 của các ghế khác.
+
+**Đây là thử điền THIẾT KẾ, không phải chạy QTTH 008.** Không tạo CV, không ghi CAT-227/CAT-228, không chạy DOT, không cấp mã 008 hay sửa CT-008. Các mã sổ bên dưới là đích ghi được tài liệu nêu, chưa xác minh đã tồn tại vật lý.
+
+##### Phần A — H1–H7
+
+| # | Kết luận (✅ giữ · ✏️ sửa · ➕ thiếu · ❌ bỏ) | Viết lại cụ thể (nguyên câu / ô / cột mới) | Lý do (1 dòng) |
+|---|---|---|---|
+| H1 | ✅ giữ | Giữ Mục tiêu → Mốc → Mục con → Bước; Mục con tối đa 5 bước. Không thêm tầng; điều kiện mở/nhánh lỗi thuộc thẻ bước. | Bốn mức đủ cho ba bước CP01; thiếu cách điền thẻ, không thiếu tầng. |
+| H2 | ➕ thiếu | Giữ 8 cột hiển thị. Trong «Bộ câu hỏi», thêm A3: «Bước mở sau bước nào, khi điều kiện nào đúng, dùng đầu vào nào (mã/phiên)?» và A4: «Làm lần lượt 1→2→3 bằng lệnh/công cụ nào, đối số lấy ở đâu, tạo đầu ra nào?» | CT-008 chưa có ô cho đầu vào, thứ tự phụ thuộc và cách làm; V13 r3 §2.8 có các yêu cầu này. |
+| H3 | ✏️ sửa | A2: «Kiểm tập nào, ở sổ nào, tử số/mẫu số và ngưỡng nào; nguồn mẫu số ở đâu, xử lý mẫu số 0/chưa biết thế nào; ai xác nhận phần định tính?» B1: «Thiết kế ghi mã sổ, cột/quan hệ cần ghi và nơi lưu kết quả; Khi chạy ghi mã bản ghi, kết quả đọc lại và mã bằng chứng.» B2: «Với từng lỗi, ghi sổ nào, quay mã bước nào, điều kiện chạy lại là gì? Khi chạy ghi mã nợ thực tế.» B3: «Mỗi nhánh đã khai có bước tiếp/kết thúc và người xử lý chưa? Chưa thì ghi đúng nhánh còn hở.» C1: «Mã loại lấy từ danh mục nào, không dùng tên tả thay mã?» C3–C5: «Thiết kế ghi quy tắc xác định gốc/cũ-mới/trạng thái; Khi chạy điền mã và trạng thái thực tế.» | Ví dụ dùng «Field» thay mã loại, C3–C5 để «—» nhưng luật cấm bỏ trống; B2 chưa định tuyến lỗi. |
+| H4 | ✏️ sửa | A1 và ý nghĩa tiêu chí A2: hội đồng ký theo phiên thiết kế. Kết quả đếm A2, mã/quan hệ B1 và C1–C5: máy kiểm trên nguồn đã khai. B3 và phần «đủ nhánh/đúng một gốc» của C3 cần người rà nếu máy không có tập nguồn/nhánh đầy đủ. Mã hợp lệ không thay kết luận nghiệp vụ. | Không thể dùng mã nợ hay số bản ghi để chứng minh đã biết mọi ngõ cụt hoặc mọi bản chép. |
+| H5 | ✏️ sửa | Giữ ≥2/4 ghế đồng ý, ít nhất 1 ghế khác hãng người điền, 0 phản đối. Mỗi phiếu CAT-025 gắn mã câu/bộ câu trả lời và đúng phiên hoặc hash; đếm một phiếu hiện hành/ghế, hãng là hãng mô hình đang dùng, không suy từ tên ứng dụng. Ghế chưa nộp không tính đồng ý. Đổi câu trả lời thì phiếu cũ không còn hiệu lực cho phần đổi; User vẫn gật. | Thiếu ràng buộc phiên/câu trả lời khiến ký bản cũ có thể bị tính cho bản mới. |
+| H6 | ➕ thiếu | Mốc, Mục con và Bước đều có cụm trả lời gắn mã/phiên của chính mục đó, không chép câu trả lời của mốc vào từng bước. Trong hồ sơ hiện có, mỗi bước có các ô Thiết kế/Khi chạy/Kiểm cho từng mã câu. Nhóm C lặp một cụm C1–C5 cho từng đối tượng, định danh bằng (mã mục/bước, mã câu, mã/tham chiếu đối tượng, phiên khuôn; thêm mã CV/lượt khi chạy). Thiết kế dùng tham chiếu «đầu ra của bước …», không bịa mã chưa sinh; Khi chạy chưa thực hiện ghi «Chưa phát sinh», không vì thế bác bản thiết kế. Chữ ký chỉ trỏ CAT-025. Dùng ML-DEF-022 và CAT-228, không thêm sổ. | Thiếu chỗ trả lời riêng cho Mốc/Mục con, cho nhiều đối tượng trong cùng bước và cho mã chỉ sinh khi chạy. |
+| H7 | ✏️ sửa | M1: nhận yêu cầu, tra/ghi mã MOW và nơi gốc. M2: User chốt mục tiêu, tiêu chí, Mốc và Mục con; khai mã theo quy tắc chung. M3: điền 8 cột và bộ câu hỏi cho từng bước, ghi nguồn/điều kiện/lệnh/đích; chỉ sửa câu trả lời, muốn đổi câu hỏi phải sửa MBM. Bỏ dẫn chiếu «2.3» chưa tồn tại; không dùng ngưỡng 85% khi chưa định nghĩa tập đếm/thế nào là ổn định. M4: kiểm đủ ô Thiết kế, xử lý chỗ chưa rõ, hội đồng ký đúng phiên rồi User gật. M5: tạo hồ sơ việc trỏ phiên khuôn, điền Khi chạy, kiểm/đọc lại/ghi lỗi đúng bước; sửa thiết kế phải giữ lịch sử và rà phần đổi. Ứng dụng đầu tiên là QTTH 008 theo V14 §3, không tự coi 007 đã đổi mã. | M3 trỏ mục không có và cho «thêm bớt» trái Luật điền; mã bước/Mục con và cách dùng kết quả khi chạy còn phải đoán. |
+
+##### Phần B — Tự điền ba bước đầu QTTH 008
+
+Giữ đúng tám cột và A1–A2/B1–B3/C1–C5 của CT-008 r2; các ô mới đề xuất ở Phần A **chưa được tự áp vào bài thử**. Tên việc lấy từ V13 r3. Ký hiệu 1.1–1.3 dưới đây là **vị trí nguồn**, không phải mã bước QTTH 008 đã được đăng ký.
+
+| STT | Mã bước | Tên bước | Mốc | Mục con | Ai làm | Làm bằng | Bộ câu hỏi |
+|---|---|---|---|---|---|---|---|
+| 1 | ❓ Chưa có quy tắc chuyển mã nguồn 1.1 thành mã bước QTTH 008 [hướng dẫn]. | Tra Sổ việc theo khoá (QT + G1 + phiên khuôn): chưa có ⇒ tạo đúng 1; có ⇒ dùng lại. | CP01 · Khai việc | ❓ Chưa có mã/tên Mục con của CP01 trong V13 r3 hoặc CT-008 [hướng dẫn]. | 🤖 AI/máy (chưa chọn hãng/agent). | ❓ Nguồn chưa chỉ lệnh tra/tạo CV và đối số; không tự gán `mo-ho-so` thay bước 1.1 [hướng dẫn]. | A1–C5 tại B.1 dưới đây. |
+| 2 | ❓ Chưa có quy tắc cấp mã QTTH 008 cho dòng nguồn 1.2 [hướng dẫn]. | Mở hồ sơ: `mo-ho-so CV`, sinh từ khuôn ghim phiên/hash; nguồn hiện ghi 007@phiên. | CP01 · Khai việc | ❓ Chưa có mã/tên Mục con của CP01 [hướng dẫn]. | 🤖 DOT. | `dot-master-apply` · `mo-ho-so CV` (lệnh nguồn nêu; chưa chạy). | A1–C5 tại B.2 dưới đây. |
+| 3 | ❓ Chưa có quy tắc cấp mã QTTH 008 cho dòng nguồn 1.3 [hướng dẫn]. | Điền thẻ việc 5 ô — mẫu dùng chung, giá trị riêng của CV. | CP01 · Khai việc | ❓ Chưa có mã/tên Mục con của CP01 [hướng dẫn]. | 🤖 AI điền; Host kiểm đúng nghĩa theo V13 r3. | ❓ Chưa chỉ bộ key/lệnh để điền 5 ô vào CV; tên DOT chung không chỉ ra thao tác này [hướng dẫn]. | A1–C5 tại B.3 dưới đây. |
+
+###### B.1 — Dòng nguồn 1.1: cột «Thiết kế»
+
+| Câu | Thiết kế |
+|---|---|
+| A1 · Nhiệm vụ của bước là gì? | Với một khoá (QT + G1 + phiên khuôn), tra CAT-227; 0 CV thì tạo 1, có 1 thì dùng lại, >1 thì báo trùng. |
+| A2 · Thế nào là hoàn thành? | Số CV cùng khoá trong CAT-227 / 1 = 1; >1 chưa đạt. Đây là điều kiện thiết kế, chưa có số đo thực tế. |
+| B1 · Xong thì ghi sổ nào? Đã ghi chưa? | CAT-227; đầu ra là mã CV được tạo hoặc dùng lại. Mã cụ thể thuộc cột Khi chạy, hiện chưa phát sinh. |
+| B2 · Chưa xong thì quay về bước nào, ghi sổ nào? Đã ghi chưa? | ❓ Biết sổ lỗi CAT-069 theo V13, nhưng chưa có bảng lỗi → mã bước quay lại/điều kiện tiếp cho thiếu đầu vào hoặc trùng CV [hướng dẫn]. |
+| B3 · Có chỗ bỏ lửng, ngõ cụt không? | ❓ Đã có ba nhánh 0/1/>1 CV, nhưng chưa có ô/tập đường tiếp–dừng để kiểm ngõ cụt, nhất là nhánh trùng; không thể điền «Không» có căn cứ [câu hỏi]. |
+| C1 · Đối tượng loại gì? | ❓ Đối tượng được nêu: CV, QT và khuôn G1; CT-008 đòi mã loại nhưng không chỉ danh mục mã loại, ví dụ lại dùng tên «Field» [hướng dẫn]. |
+| C2 · Có nhà (sổ) chưa? | CV: CAT-227; quy trình/khuôn: Sổ quy trình ML-MOW-TH-001 theo V13. Đây là đích thiết kế, không xác nhận các nhà đã được dựng. |
+| C3 · SSOT ở đâu? Chỉ 1 nơi chưa? | ❓ Biết CV có gốc tại sổ CAT-227, nhưng chưa có mã bản ghi trước lúc tạo; MBM chưa quy định tham chiếu đầu ra dự kiến hay ô gốc cho từng CV/QT/khuôn [hồ sơ]. |
+| C4 · Cũ dùng lại hay mới? | ❓ Nhánh cũ/mới đã rõ ở A1, nhưng cột Thiết kế chưa được quy định dùng quy tắc nhánh thay mã cũ/mới chỉ có sau khi tra; không bịa kết quả tra [hồ sơ]. |
+| C5 · Trạng thái? | ❓ Chưa có ô/luật phân biệt trạng thái đầu ra dự kiến của CV với trạng thái thật lúc chạy; không thể tuyên bố CV đã làm/đã test trong lượt điền này [hồ sơ]. |
+
+###### B.2 — Dòng nguồn 1.2: cột «Thiết kế»
+
+| Câu | Thiết kế |
+|---|---|
+| A1 · Nhiệm vụ của bước là gì? | Sinh hồ sơ CAT-228 của đúng CV theo phiên/hash khuôn; đủ mọi checkpoint và chạy lại không tăng số dòng. |
+| A2 · Thế nào là hoàn thành? | Số dòng CAT-228 của CV / N_khuôn = 100%; mã checkpoint trùng / số dòng = 0; chạy lại không đổi số dòng. N_khuôn lấy từ phiên khuôn, bản V13 r3 đang nêu 25, không tự đóng cứng thành 25 cho mọi phiên. |
+| B1 · Xong thì ghi sổ nào? Đã ghi chưa? | CAT-228, nối CV cha CAT-227 và thẻ khuôn ML-DEF-022. V13 ghi schema CAT-228 còn phải chốt ở B1; chưa chứng nhận bản ghi thực tế. |
+| B2 · Chưa xong thì quay về bước nào, ghi sổ nào? Đã ghi chưa? | ❓ Sổ lỗi CAT-069 đã biết; chưa xác định lỗi thiếu CV, thiếu phiên khuôn hoặc checkpoint trùng phải quay bước nào và kiểm lại gì [hướng dẫn]. |
+| B3 · Có chỗ bỏ lửng, ngõ cụt không? | ❓ Chưa có ô kê hết nhánh tạo/lặp lại/thiếu khuôn/ghi dở và đầu ra từng nhánh để trả lời có ngõ cụt hay không [câu hỏi]. |
+| C1 · Đối tượng loại gì? | ❓ Có CV, hồ sơ/checkpoint, thẻ bước và khuôn được dùng; chưa có danh mục mã loại gắn từng đối tượng trong bộ câu hỏi [hướng dẫn]. |
+| C2 · Có nhà (sổ) chưa? | CV → CAT-227; checkpoint → CAT-228; thẻ bước → ML-DEF-022; khuôn → Sổ quy trình ML-MOW-TH-001. Chỉ nêu các nhà trong nguồn. |
+| C3 · SSOT ở đâu? Chỉ 1 nơi chưa? | ❓ Cần một tham chiếu gốc cho từng checkpoint và phiên thẻ; chưa có ô C lặp theo đối tượng/quy tắc mã tương lai, và khuôn QTTH 008 chưa được ghim thành bản chính thức [hồ sơ]. |
+| C4 · Cũ dùng lại hay mới? | ❓ Lần đầu tạo checkpoint mới, gọi lại dùng dòng cũ theo nguồn; chưa có cách điền quy tắc đó trong ô đòi mã cũ/mới ở giai đoạn Thiết kế [hồ sơ]. |
+| C5 · Trạng thái? | ❓ Tạo xong dòng hồ sơ không có nghĩa nội dung bước đó đã làm/test; CT-008 chưa đặt riêng trạng thái đối tượng hồ sơ và trạng thái thực hiện bước trong câu C5 [câu hỏi]. |
+
+###### B.3 — Dòng nguồn 1.3: cột «Thiết kế»
+
+| Câu | Thiết kế |
+|---|---|
+| A1 · Nhiệm vụ của bước là gì? | Điền riêng cho CV đủ 5 ô: mục tiêu; UI/Field/Config phải giao và danh sách kiểm; người nhận; tiêu chí cụ thể; ngoài phạm vi. |
+| A2 · Thế nào là hoàn thành? | Số ô có giá trị và nguồn (lời Owner hoặc QT nguồn ghim SHA) / 5 = 100%; thiếu nguồn là CHƯA_XÁC_MINH; Host kiểm đúng nghĩa trước CP02. |
+| B1 · Xong thì ghi sổ nào? Đã ghi chưa? | CAT-227, cập nhật đúng CV đã chọn ở 1.1; mỗi giá trị có nguồn, không tạo CV thứ hai. |
+| B2 · Chưa xong thì quay về bước nào, ghi sổ nào? Đã ghi chưa? | ❓ Thiếu nguồn mục tiêu phải ghi CAT-069 theo luật chung, nhưng chưa có mã bước/đích xin làm rõ và điều kiện quay lại riêng cho từng ô thiếu [hướng dẫn]. |
+| B3 · Có chỗ bỏ lửng, ngõ cụt không? | ❓ Chưa có danh sách nhánh khi 5 ô có chữ nhưng sai nguồn/sai nghĩa, hoặc Owner chưa làm rõ; không thể xác nhận hết ngõ cụt chỉ bằng đếm 5 ô [câu hỏi]. |
+| C1 · Đối tượng loại gì? | ❓ CV/thẻ 5 ô, QT nguồn và lời/quyết định Owner là các đối tượng sử dụng; mã loại và cách tách mỗi đối tượng vào C1 chưa được chỉ rõ [hướng dẫn]. |
+| C2 · Có nhà (sổ) chưa? | CV/thẻ việc → CAT-227; quy trình nguồn → Sổ quy trình; quyết định phê duyệt → CAT-025. Giữ nguồn lời Owner ở nơi gốc, không tự tạo quyết định. |
+| C3 · SSOT ở đâu? Chỉ 1 nơi chưa? | ❓ Một CV có 5 giá trị với các nguồn khác nhau, nhưng chưa có ô gắn nguồn/phiên cho từng giá trị trong bộ C; không biết lưu các liên kết này ở key nào để không thành nhiều gốc [hồ sơ]. |
+| C4 · Cũ dùng lại hay mới? | ❓ CV đã có từ 1.1 và đang được sửa; CT-008 chỉ mô tả «cũ: mã cũ / mới: mã mới», chưa chỉ cách ghi cũ-được-sửa cùng nguồn dùng lại cho từng đối tượng [câu hỏi]. |
+| C5 · Trạng thái? | ❓ Chưa định nghĩa trạng thái từng đối tượng sau khi điền so với sau khi Host kiểm nghĩa; ghi «đã test» lúc này sẽ là kết quả tự bịa [hồ sơ]. |
+
+**Kết quả bài thử:** Phần A có **4 ✏️ sửa, 2 ➕ thiếu, 1 ✅ giữ, 0 ❌ bỏ**. Phần B có **26 ô ❓ / 54 ô phải điền**: 8 ô trong ma trận 3×8 và 18 ô trong cột Thiết kế của 3×10 câu. Một ô nhiều thiếu sót chỉ đếm một lần; thiếu sót lặp ở ba bước vẫn là ba ô, không coi là ba lỗi gốc khác nhau. Không đếm nhãn câu hoặc Phần A vào tổng này.
+
+**Lỗi lớn nhất của MBM:** bộ ô chưa chứa trọn hợp đồng thực hiện một bước (đầu vào/điều kiện mở → thao tác → đầu ra/nơi ghi → kiểm/nhánh lỗi), đồng thời chưa tách quy tắc THIẾT KẾ khỏi mã/kết quả chỉ có KHI CHẠY. Có thể điền câu mục tiêu nhưng vẫn phải đoán cách làm hoặc bịa mã thực tế để đủ ô. Cần sửa chính các ô/quy tắc này trong CT-008 r3; không thêm sổ, công cụ hay một quy trình ngoài MBM.
+
+**Kết luận ghế GPT:** giữ hướng MBM và các quyết định V14 §6; **MBM r2 chưa đạt phép thử chỉ điền ô**. Các câu thay thế ở Phần A là đề xuất để Claude tổng hợp V14.9, chưa là công thức mới được phê duyệt.
 
 #### V14.2 · Ghế Hermes
 _(nộp 16/10/2026 ~05:55 CEST · ghế Hermes, identity `agent-gw/hermes` · đọc tại `HEAD 7e009028` (V14) + CT-008 r2 tại `da08f465` · không xem ô ghế khác trước khi nộp)_
