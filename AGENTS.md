@@ -133,7 +133,7 @@ Mode=COUNCIL|SINGLE_AI · Automation_Level=AUTO0|AUTO1|AUTO2|AUTO3 · Khác mặ
 - Lock, version/head, transaction, `operation_id`, các đường ghi, quyền xoá, file lớn/Unicode và giới hạn connector nằm trong **README Shared Workspace Technical Contract**; không lặp lại tại đây.
 
 ## A8_OWNER_VIEW — Một việc, một HTML chính
-- **Tách SSOT tuyệt đối:** **MÃ/runtime: VPS là SSOT; NGHIÊM CẤM GitHub → VPS** dưới mọi hình thức pull/deploy/sync/ghi đè. **TÀI LIỆU công việc: GitHub/workspace là SSOT; VPS chỉ là view/mirror**, không sửa nguồn tài liệu tại VPS.
+- **Tách SSOT tuyệt đối:** **MÃ/runtime: VPS là SSOT; NGHIÊM CẤM GitHub → VPS** dưới mọi hình thức pull/deploy/sync/ghi đè. **Muốn nối lại GitHub → VPS dưới bất kỳ hình thức nào (kể cả tạm, thử, một lần) phải xin phép Owner trước và có lời Owner đồng ý ghi trên repo — không Host/AI/agent nào tự quyết (DROOT56 · Owner 16/10/2026).** Nếu còn job đẩy VPS → GitHub thì đó chỉ là cất bản sao, không phải nguồn mã. **TÀI LIỆU công việc: GitHub/workspace là SSOT; VPS chỉ là view/mirror**, không sửa nguồn tài liệu tại VPS.
 - Mỗi việc có **một thư mục riêng** và đúng **một file HTML chính dành cho Owner**. Mặc định dùng `view.html`; nếu dùng tên khác thì phải khai báo rõ trong `COLLAB.md` của việc.
 - HTML chính là màn hình/sản phẩm Owner dùng để nhìn, duyệt và chỉ đạo. AI có thể dùng `COLLAB.md`, `PROMPT.md`, evidence, assets và file kỹ thuật phụ ở phía sau, nhưng không yêu cầu Owner đọc chúng nếu Owner không hỏi.
 - Khi Owner yêu cầu thay đổi, AI sửa **HTML chính trong workspace/Git**. Bản hiển thị trên VPS chỉ là **mirror dẫn xuất** để Owner xem; không tạo thêm một nguồn nội dung độc lập trên VPS.
