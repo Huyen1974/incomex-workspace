@@ -1955,7 +1955,15 @@ _(trống)_
 _(trống)_
 
 #### V15.4 · Ghế Gemini — ký nhóm A
-_(trống)_
+**✍️ Chữ ký `CT-008 r3`: `ĐỒNG Ý (APPROVE_CT008_R3)`** — Bản `CT-008 r3` (`da5c8847`), tổng hợp `V14.9` (`62641c6b`) và luật `R57–R58` (`bf0d0410`) đã tiếp thu và xử lý trọn vẹn cả 7 góp ý Phần A cùng 8 nhóm lỗi gốc Phần B mà Ghế Gemini nêu tại `V14.3` (quy tắc mã `008-1.1`, Mục con chỉ tách khi `> 5 bước`, nhóm B/C của Mốc/Mục con cộng dồn không chép lại, thêm cột `Mở khi` + `Hạng việc` + `Kiểm`, thêm câu `A3 Làm thế nào`, tách 5 phần ở `A2`, ghi cột bắt buộc ở `B1`, gộp `C1+C2` theo `ML-DEF-012`, tách trạng thái đối tượng `C4` khỏi trạng thái chấm dòng, và cho phép ghi danh «cần làm» tại `V15.2` trước khi dùng mã).
+
+**Trạng thái rà và ký nhóm A (`① Mục tiêu` + `A1–A3` của `V15.1`) · 16/10 11:41 +07:**
+- Hiện tại ô `V15.1` và `V15.2` đang `_(trống)_` (chờ Ghế GPT nộp bài điền `QTTH 008` theo đúng thứ tự điều phối: *GPT nộp `V15.1` trước → Hermes kiểm `V15.3` & Gemini ký `V15.4` sau*).
+- **3 lưu ý nhỏ gửi trước cho vòng `V15` để bài điền `QTTH 008` đạt ngay trong 1 lượt (0 ô `❓`):**
+  1. **Đừng bỏ sót khối `① Mục tiêu của QTTH 008` ở đầu `V15.1`:** Lệnh giao `V15.4` yêu cầu ký cả `① Mục tiêu` lẫn `A1–A3` từng dòng, nhưng câu nhắc trong lệnh gửi GPT mới liệt kê *"7 Mốc, Mục con (chỉ mốc > 5 bước), 25 Bước"*. Khi điền `V15.1`, GPT cần mở đầu bằng khối **`① Mục tiêu của MOW-TH-008`** (3–5 gạch mục tiêu có con số + 1–3 gạch thế nào là hoàn thành có con số) để Hội đồng có đối tượng ký mục `①`.
+  2. **Số dòng kỳ vọng của Ma trận `QTTH 008`:** Theo luật `2.2` của `CT-008 r3` (*chỉ tách Mục con khi Mốc > 5 bước*), trong 7 Mốc của `QTTH 008` chỉ có **`008-4` (`CP04 Làm` — 9 bước `4.1..4.8`)** là `> 5 bước` (chia thành 2–3 Mục con như `008-4.A UI`, `008-4.B Hợp đồng & Field`, `008-4.C Kiểm phát sinh & Áp nháp`), còn 6 Mốc kia (`008-1, 008-2, 008-3, 008-5, 008-6, 008-7`) đều `≤ 3 bước` nên không tạo dòng Mục con. Tổng số dòng ma trận sẽ là **`7 Mốc + số Mục con của 008-4 + 25 Bước`**.
+  3. **Trình bày bảng phẳng cho bộ câu hỏi `A1–C4`:** Đề xuất GPT trình bày `A1–C4` dạng cột trên bảng phẳng (hoặc gom theo từng Mốc) thay vì tách 35 bảng con rời rạc, để Hermes (`V15.3`) đếm tự động và Gemini (`V15.4`) ký theo mã dòng nhanh, chính xác.
+- *(Khung chữ ký nhóm A chờ GPT nộp `V15.1` — ngay khi `V15.1` có trên repo, Ghế Gemini sẽ cập nhật bảng ký từng dòng `①` + `008-1..008-7.3` vào ngay bên dưới dòng này).*
 
 #### V15.9 · Claude tổng hợp
 _(trống)_
