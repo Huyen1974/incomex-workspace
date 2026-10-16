@@ -12,8 +12,8 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - 📥 **Trỏ từ COLLAB gốc PROOT05 · Claude Chat · 16/10/2026** (Owner: việc dở của phiên nào phân về phiên đó): (1) agent-data `Child process died` 4 lần/42 h, 3 lần trùng 502 `/api/health` (15/10 11:22 · 15:10 · 16/10 01:24Z), không Traceback, container không restart — chủ agent-data; (2) Guard nhóm D «script tự nhắn» (D01–D03) gửi Telegram bằng `curl … >/dev/null || true` ⇒ script báo hỏng mà không có biên nhận máy — nợ thiết kế mã Guard/tin báo (TQT đang giữ mã Guard). Chi tiết: COLLAB gốc mục PROOT05.
 
 #### 🧭 ĐỊNH VỊ — ĐỌC TRƯỚC MỌI THỨ (Owner 16/10 15:19 · 15:47)
-- **4 tầng:** ① Công thức → ② Quy trình (tổng hợp hoặc con) → ③ Bước · DOT · Tool → ④ Hồ sơ. **Nơi duy nhất:** ô «4 TẦNG» đầu tab Công thức (`work/mow-mot-moit-mout/ban-duyet.html`). Không chép ra chỗ khác.
-- **Áp vào việc này:** ① CT-008 MBM · ② QTTH 07 = MOW-TH-007 bản 2 (mọi test chi tiết ở đây, chạy trên MOW-001) · ③ bước ML-DEF-022 · DOT ML-DEF-024 · Tool ML-DEF-023 · ④ hồ sơ CAT-227 (việc) + CAT-228 (dòng hồ sơ).
+- **4 tầng:** ① Công thức → ② Quy trình tổng hợp (giải 1 vấn đề lớn, gọi nhiều quy trình, nhỏ hơn chuyên môn ≈ tầng 2.5) → ③ Quy trình con (MOW · T2, quản lý Task MOT · T1) → ④ Hồ sơ (bản ghi thực tế từng việc). Bước · DOT · Tool là thành phần bên trong quy trình, không phải tầng. **Nơi duy nhất:** ô «4 TẦNG» đầu tab Công thức (`work/mow-mot-moit-mout/ban-duyet.html`). Không chép ra chỗ khác.
+- **Áp vào việc này:** ① CT-008 MBM · ② QTTH 07 = MOW-TH-007 bản 2 (mọi test chi tiết ở đây) · ③ MOW-001 (quy trình con được vẽ UI) · ④ hồ sơ CAT-227 (việc) + CAT-228 (dòng hồ sơ). Sổ thành phần: bước ML-DEF-022 · DOT ML-DEF-024 · Tool ML-DEF-023.
 - **Giám sát:** mỗi quy trình trả lời D1 (làm sai có được không) · D2 (quên ghi sổ phát hiện thế nào) bằng mã GS ở CT-008 ⑥ (R60).
 
 - **QTTH 07 — 3 mục tiêu ngắn hạn (Owner):** ① vẽ UI theo Master MOW (MOW-001 đang thử) · ② hoàn thiện các Master list liên quan, điền đủ thông tin (SSOT) · ③ rà đủ trường để Config thành công.
@@ -197,6 +197,12 @@ Phạm vi: chưa làm quy trình nghiệp vụ (phái cử, tuyển dụng…), 
   - **Quyền máy Hermes:** ghi `work/tools-quy-trinh/` (mở 16/10 qua Config Guard, Hermes đã tự ghi được); quyền tạo tệp mới thu lại (tệp của ghế đã có; tránh tạo COLLAB.md ở thư mục lạ — JEV 1,00) — cùng lệnh Claude Code 16/10 10:47. ⚠ **Đổi phạm vi đọc/ghi của Hermes thì trong cùng RUN phải sửa `HERMES_READ_EXACT` / `HERMES_WRITE_MAX` trong mã Guard (INV19), không thì Guard đỏ** (P69 lượt 2). Mode=COUNCIL · Automation_Level=AUTO0.
 
 #### 3.4 Nguyên văn chỉ đạo Owner
+- 16/10/2026 16:03 · phiên Claude (nguyên văn, giữ lỗi gõ) → sửa ô 4 tầng + Định vị:
+  > Bạn vẫn đang hiểu sai khái niệm. Bảo sao các bạn viết nhiều nhưng không hiệu quả. Sai cái này: "③ Bước · DOT · ToolMảnh để làm; cũng có thể lắp từ công thức.vd: bước 007-4.5 Gắn Field · dot-master-apply"
+  > 2. Quy trình tổng hợp: Giải quyết 1 vấn đề lớn, gọi nhiều quy trình khác, nhưng bé hơn chuyên môn (kiểu tầng 2.5 trong cấu trúc 10 tầng của incomex)
+  > 3. Quy trình con (MOW): là quy trình được đinh nghĩa ở T2, quy trình quản lý các Task (T1)
+  > 4. Hồ sơ: Bản ghi thông tin thực tế, cụ thể, chi tiết của từng việc cụ thể thực hiện theo quy trình.
+  > Sửa lại chỗ này đã.
 - 16/10/2026 15:47 · phiên Claude (nguyên văn, giữ lỗi gõ; kèm ảnh ô «CÔNG THỨC = ghép… / TRUNG TÂM MASTER LIST») → ô 4 tầng, CT-008 D1–D2 + ⑥, R60, 3 việc tiếp:
   > Điều tộ rất lo lắng. và cách làm của các bạn tôi chưa thấy yên tầm là
   > 1. Các bạn viết dài, nhưng lại khó đọc, đến lúc đọc lại cũng chẳng hiểu và viết ở mỗi nơi 1 chút. Những viêc Tôi nói đều bàn rồi, nhưng đến khi sợ đến thì lại bị rút mất 1 phần thông tin.
