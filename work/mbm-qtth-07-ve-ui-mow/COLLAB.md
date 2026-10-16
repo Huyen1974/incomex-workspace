@@ -40,7 +40,7 @@ Owner 16/10/2026 17:05:
 | 2 | Tạo task + tên | 🤖 | đúng khuôn, tên `mbm-` | ☑ `c8bfe619` |
 | 3 | Chốt mục tiêu (MBM ②) | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
 | 4 | Liệt kê bước (MBM ③) | 🤖 | bảng đủ bước, mọi AI hiểu giống nhau | ◐ bản thử bên dưới · còn 1 ô ❓ (2.1) · chờ Owner gật khuôn + thử chéo |
-| 5 | Check Master list (MBM ④) | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ; Tình trạng = «đã có» hết | ■ bảng có · mới 3/17 «đã có» |
+| 5 | Check Master list (MBM ④) | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ; Tình trạng = «đã có» hết | ■ bảng có · mới 4/17 «đã có» |
 | 6 | Bộ câu hỏi (MBM ⑤) | 🤖 | mọi bước đủ ô | ☐ |
 | 7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
 | 8 | Chạy | 🤖 | đạt ô 2 | ☐ |
