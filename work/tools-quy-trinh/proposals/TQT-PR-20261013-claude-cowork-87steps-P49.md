@@ -1652,6 +1652,7 @@ Bản `V13 r2` đã khóa rất chặt **phép đếm đầu ra** (*đếm gì �
 ### 6. Đã chốt — không bàn lại
 - Luật Nhà R53 · Luật viết thẻ R55 · 1 tài liệu · chỉ DOT ghi Directus · Owner gật qua chat · thiếu ≠ lỗi.
 - Không đề xuất hệ thống, công cụ hay sổ mới; chỉ sửa MBM.
+- **Bổ sung Owner 16/10 11:01 (COLLAB R57) — cũng là điều đã chốt:** Host do Owner chỉ định, AI đang nhận lệnh Owner là Host của lệnh đó · ghế ≠ model · **việc thường (trả lời bằng mã, máy kiểm) → model rẻ chạy 24/7 (Hermes); việc khó (định tính, cần ký, thiết kế) → model frontier** · không phụ thuộc 1 agent nào · ghế OpenAI Dots chờ mở. Hệ quả cho MBM: cột «Ai làm» đổi thành **«Hạng việc» (thường / khó)** — trả lời H2 theo hướng này; ngưỡng ký khi số ghế thay đổi (đề xuất: ≥50% số ghế được gọi trong vòng, tối thiểu 2, có khác hãng, 0 phản đối) — trả lời ở H5. Ghế đã nộp trước 11:01 được ghi thêm đúng 1 dòng H2/H5 vào ô của mình.
 
 ### 7. Việc của mỗi ghế — đúng 2 phần, đúng khuôn
 
