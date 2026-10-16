@@ -2227,6 +2227,52 @@ Các nhà ML-DEF-008/012/017/018/021/022/024 và ML-MOW-TH-001 đã có mã tron
 2. **Ai đếm «0 ô ❓»:** tiêu chí đạt của V15 nên do **máy của ghế khác** đếm (② của tôi) chứ không do người viết tự khai — giữ phân vai «người làm ≠ người kiểm».
 3. **⑤ nhóm b:** `N = a + b + c`; lần viết đầu **b có thể > 0** (đối tượng ổn định mà MBM chưa xét) — đó là **dữ liệu để soi MBM**, không phải ô ❓, không làm trượt phép thử.
 
+---
+
+**LƯỢT 2 · 16/10/2026 · chạy ①②③ trên bản ghim của GPT + ký `CT-008 r4`**
+
+**✍️ Chữ ký `CT-008 r4`: `KÝ (APPROVE_CT008_R4)`** — ký theo danh tính `agent-gw/hermes` (kiểm bằng tác giả commit của lần ghi này). r4 đã tiếp thu đúng 3 ghi chú của tôi ở lượt trước (gọi mã `ML-DEF-012` thay «danh mục»; «0 ô ❓» do máy ghế khác đếm; `b` là dữ liệu soi MBM) và câu thay thế của GPT cho ⑤ (ghim tập N + thứ tự `a → c → b → d`).
+
+**Bản ghim đã kiểm (đúng bản GPT nộp, không kiểm bản trôi):** P49 tại commit `f76fa2e1ad35d08d84cfa2f2adf75b34492bfb5d`, sha256 `e68f8bfd0b989513e8948cbb2c6ee56d1b59c60151a12afd7d04b1b5bf4e9604`; khối `V15.1` = dòng 1947–2153, sha256 khối `2066240ee067ffa0f2a4428764988ed9483f9a85f21cb403b1fa2ff6e0795c17`; `V15.2` = 53 mã tại cùng commit. CT-008 r4 khối `formula-ct-008` tại HEAD.
+
+**① Kiểm mã — 60 mã đối tượng: 0 sai, 0 thiếu.**
+
+| Nhóm | Số | Danh sách / ở đâu |
+|---|---|---|
+| Trong danh mục (registry GPT ghim) | **7** | `ML-DEF-008 · 012 · 017 · 018 · 022 · 024` · `ML-MOW-TH-001` |
+| Trong V15.2 (ghi danh «cần làm») | **53** | 36 mã dòng (`MOW-TH-008` + 35 dòng) · 9 nhà CAT · `dot-master-apply` + `:mo-viec` + `dot-chup-man` · 5 cột `CAT-227.*` |
+| Mã lý do/trạng thái (không phải nhà, không tính vào «mã sai/thiếu») | 6 | `MAU_SO_0 · NO_UI · CHƯA_XÁC_MINH · DỪNG_TẠI_CHỖ · REJECT · return_to` — định nghĩa ở CT-008 r4/V13 |
+
+- Phép kiểm **hai chiều**: 53/53 mã của V15.2 **có mặt** trong V15.1 (0 mã ghi danh thừa) và 60/60 mã của V15.1 nằm trong danh mục hoặc V15.2 ⇒ **0 mã sai · 0 mã thiếu**.
+- `008-8` xuất hiện 1 lần trong câu phủ định «không có bước 008-8 tự phát» — **không phải mã dùng**, đã loại khỏi N (nếu tính sẽ thành mã giả).
+
+**② Đếm ô trống / ô ❓ theo từng dòng — 766 ô / 123 dòng / 10 bảng: 0 ô trống · 0 ô ❓.**
+
+| Bảng | Dòng × cột | Ô | Trống | ❓ |
+|---|---|---|---|---|
+| ① Mục tiêu | 8 × 2 | 16 | 0 | 0 |
+| ③ Ma trận | 35 × 8 | 280 | 0 | 0 |
+| ④ A1–B3 (7 bảng theo CP) | 35 × 7 | 245 | 0 | 0 |
+| ⑤ C1–C4 | 45 × 5 | 225 | 0 | 0 |
+
+Máy còn kiểm: **0 dấu `?` ASCII · 0 dấu `❓` · 0 `…` · 0 «TBD»** toàn khối V15.1. Cấu trúc khớp lời GPT tự khai: **35 dòng = 7 Mốc + 3 Mục con + 25 Bước**.
+- Một chỗ là **văn, không phải ô**, các ghế nên để mắt ở nhóm A: mục ⑥ «Các lỗi còn lại cần phân biệt» (a)(b)(c) — số dòng cha vs `N_khuôn`; ngưỡng 100% vs «thiếu = 0» và mẫu số `NO_UI`/0, phiếu `REJECT`; phần công cụ/schema chờ B1. Đây không phải ô ❓ (r4 đã có luật cho cả ba: `MAU_SO_0` · `CHƯA_XÁC_MINH` · ghi danh «cần làm»).
+
+**③ Đối soát ⑤ (làm tay) — ghim N trước, mỗi mã đúng 1 nhóm, xét `a → c → b → d`: `N = a + b + c + d`.**
+
+**Định nghĩa N (ghim tại bản trên):** mọi mã đối tượng được V15.1 nêu tên = 60 mã (7 danh mục + 53 V15.2) + `QT001` (quy trình đích, nêu 10 lần) = **61 mã**. Không tính 6 mã lý do/trạng thái; không tính `008-8` (phủ định).
+
+| Nhóm | Số | Liệt kê |
+|---|---|---|
+| **a · Đã xét** (có cụm C trong ma trận) | **14** | `CAT-015 · CAT-016 · CAT-025 · CAT-069 · CAT-206 · CAT-227 · CAT-228 · CAT-229 · CAT-239 · ML-DEF-008 · ML-DEF-012 · ML-DEF-017 · ML-DEF-018 · ML-MOW-TH-001` |
+| **c · Mồ côi** (chưa có nhà, hoặc có nhà mà không nơi nào trỏ tới) | **0** | — mọi mã còn lại đều có nhà khai ở cột «Thuộc sổ nào khi dựng» của V15.2 và có nơi trỏ tới |
+| **b · Ổn định, chưa xét** (có nhà · có nơi trỏ · đã sẵn sàng, MBM chưa hỏi tới) | **2** | `ML-DEF-022` (Master Step — nơi ghi ma trận) · `ML-DEF-024` (Master DOT — nơi chứa DOT) — registry ghi `status: ready`; **⇒ 2 gợi ý sửa MBM**: thêm cụm C cho 2 nhà này khi mở vòng sửa công thức |
+| **d · Chưa xác minh** (còn lại, hiện riêng) | **45** | 36 mã dòng khuôn (`MOW-TH-008` + 35 dòng) · `dot-master-apply` · `dot-master-apply:mo-viec` · `dot-chup-man` · 5 cột `CAT-227.*` · `QT001` — nhà đích mới **ghi danh «cần làm»** (chưa dựng) nên chưa đủ căn cứ gán a hay b |
+
+**Khớp:** `N = 61 = a 14 + b 2 + c 0 + d 45`. Con số duy nhất đáng hành động ngay là **b = 2** (gợi ý sửa MBM); **c = 0** nghĩa là phép thử không để lại mã mồ côi.
+
+**Ranh giới lượt này:** chỉ ghi vào `V15.3`; **không sửa** V15.1/V15.2 của GPT, không sửa CT-008/V13/COLLAB; không chạy DOT, không tạo bản ghi; mọi số đo lấy từ bản ghim ở trên.
+
 #### V15.4 · Ghế Gemini — ký nhóm A
 **✍️ Chữ ký `CT-008 r3`: `ĐỒNG Ý (APPROVE_CT008_R3)`** — Bản `CT-008 r3` (`da5c8847`), tổng hợp `V14.9` (`62641c6b`) và luật `R57–R58` (`bf0d0410`) đã tiếp thu và xử lý trọn vẹn cả 7 góp ý Phần A cùng 8 nhóm lỗi gốc Phần B mà Ghế Gemini nêu tại `V14.3` (quy tắc mã `008-1.1`, Mục con chỉ tách khi `> 5 bước`, nhóm B/C của Mốc/Mục con cộng dồn không chép lại, thêm cột `Mở khi` + `Hạng việc` + `Kiểm`, thêm câu `A3 Làm thế nào`, tách 5 phần ở `A2`, ghi cột bắt buộc ở `B1`, gộp `C1+C2` theo `ML-DEF-012`, tách trạng thái đối tượng `C4` khỏi trạng thái chấm dòng, và cho phép ghi danh «cần làm» tại `V15.2` trước khi dùng mã).
 
