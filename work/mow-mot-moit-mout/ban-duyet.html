@@ -770,6 +770,11 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
 #matrix-view-formula .cf-master-hub-head b{font-size:14px;color:#174f35}
 #matrix-view-formula .cf-master-hub-head span{font-size:11px;color:var(--mut)}
 #matrix-view-formula .cf-master-hub-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+#matrix-view-formula .cf-tiers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#matrix-view-formula .cf-tier{border:1px solid #bfd5c4;border-radius:10px;padding:9px 10px;background:#f7fbf8;color:#1d2b24;font-size:13.5px;line-height:1.45}
+#matrix-view-formula .cf-tier b{display:block;font-size:15px;color:#174f35;margin-bottom:3px}
+#matrix-view-formula .cf-tier i{display:block;font-style:normal;color:#5a4a00;background:#fff8dc;border-radius:6px;padding:3px 6px;margin-top:6px;font-size:13px}
+#matrix-view-formula .cf-tier-rule{margin:8px 0 2px;font-size:13.5px;color:#1d2b24}
 #matrix-view-formula .cf-master-hub-link{display:block;border:1px solid var(--line);border-radius:9px;padding:8px 9px;background:#fff;color:var(--ink);text-decoration:none;font-size:12px;line-height:1.35;cursor:pointer}
 #matrix-view-formula .cf-master-hub-link:hover{border-color:#7ca98a;background:#f7fbf8}
 #matrix-view-formula .cf-master-hub-link b{display:block;font-size:12.5px}
@@ -855,19 +860,21 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
 #matrix-view-formula .cf-core-grid{grid-template-columns:minmax(0,1fr)}
 #matrix-view-formula .cf-subgrid{grid-template-columns:minmax(0,1fr)}
 #matrix-view-formula .cf-master-hub-links{grid-template-columns:minmax(0,1fr)}
+#matrix-view-formula .cf-tiers{grid-template-columns:minmax(0,1fr)}
 #matrix-view-formula .cf-pool-groups{grid-template-columns:minmax(0,1fr)}
 }
 </style><section class="owner-part"><div class="wf4-top"><h2>Công thức và định nghĩa</h2></div>
 <section class="cf-core" aria-labelledby="cf-core-title">
-  <div class="cf-core-principle"><b id="cf-core-title">CÔNG THỨC = ghép các thành phần đã định nghĩa</b><span>Mặt này dành cho người · chi tiết để phía dưới cho AI/máy.</span></div>
-  <nav class="cf-master-hub" aria-label="Trung tâm Master List">
-    <div class="cf-master-hub-head"><b>TRUNG TÂM MASTER LIST</b><span>Một chỗ vào nhanh để kiểm tra và ghi đúng danh mục.</span></div>
-    <div class="cf-master-hub-links">
-      <a class="cf-master-hub-link primary" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html" target="_blank" rel="noopener"><b>29 Master List ↗</b><small>28 định nghĩa + Master Config · Total theo nguồn</small></a>
-      <a class="cf-master-hub-link" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html" target="_blank" rel="noopener"><b>Duyệt thiết kế Master ↗</b><small>Xem mapping, cột và thiết kế từng Master</small></a>
-      <a class="cf-master-hub-link" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-of-master-v1.html" target="_blank" rel="noopener"><b>Master of Master ↗</b><small>Danh mục Master gốc hiện có</small></a>
+  <div class="cf-core-principle"><b id="cf-core-title">4 TẦNG: CÔNG THỨC → QUY TRÌNH → BƯỚC · DOT · TOOL → HỒ SƠ</b><span>Đọc trước khi làm bất cứ gì · Owner 16/10</span></div>
+  <nav class="cf-master-hub" aria-label="4 tầng">
+    <div class="cf-tiers">
+      <div class="cf-tier"><b>① Công thức</b>Tầng gốc. Cách chế tạo ra quy trình.<i>vd: CT-008 MBM</i></div>
+      <div class="cf-tier"><b>② Quy trình</b>Tổng hợp hoặc con, do công thức chế ra. Quy định từng bước: làm gì · trả lời câu gì · ghi hồ sơ gì.<i>vd: QTTH 07 vẽ UI MOW</i></div>
+      <div class="cf-tier"><b>③ Bước · DOT · Tool</b>Mảnh để làm; cũng có thể lắp từ công thức.<i>vd: bước 007-4.5 Gắn Field · dot-master-apply</i></div>
+      <div class="cf-tier"><b>④ Hồ sơ</b>Bản ghi thật của từng lần làm, đúng quy định của quy trình.<i>vd: việc vẽ UI cho QT001 — dòng 007-4.5: 6 Field cũ · 4 Field mới (kèm mã)</i></div>
     </div>
-    <div class="cf-master-hub-quick"><span>Công thức:</span><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?mode=new" target="_self">Mẫu chi tiết →</a><span>Danh sách xanh:</span><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html" target="_self">MOW →</a><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html" target="_self">MOT →</a><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html" target="_self">MOIT →</a><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-master-v1.html" target="_self">MOUT →</a></div>
+    <p class="cf-tier-rule">Sửa cách chế tạo → sửa ① · Sửa cách làm → sửa ② · Kết quả thật chỉ nằm ở ④ · Test chi tiết chạy ở ②, sinh ra ④.</p>
+    <div class="cf-master-hub-quick"><span>Master:</span><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-index-v1.html" target="_blank" rel="noopener">29 Master List ↗</a><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html" target="_blank" rel="noopener">Duyệt thiết kế ↗</a><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-of-master-v1.html" target="_blank" rel="noopener">Master of Master ↗</a><span>Công thức:</span><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?mode=new" target="_self">Mẫu chi tiết →</a><span>Danh sách xanh:</span><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mow-master-nhap2-v1.html" target="_self">MOW →</a><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mot-master-v1.html" target="_self">MOT →</a><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/moit-master-v1.html" target="_self">MOIT →</a><a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/mout-master-v1.html" target="_self">MOUT →</a></div>
   </nav>
   <details class="cf-ai-readme" data-ai-readme="required" data-ai-readme-path="work/mow-mot-moit-mout/FORMULA-AI-README.md">
     <summary>AI README · bắt buộc đọc trước khi sửa Công thức / Định nghĩa / Master / UI</summary>
@@ -1225,6 +1232,11 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <li>Thế nào là hoàn thành: 1–3 gạch, có con số.</li>
   <li>Hội đồng ký (luật ký bên dưới), User gật.</li>
   </ul>
+  <p><b>Giám sát — 2 câu cho cả quy trình</b> (trả lời 1 lần ở dòng MOW bằng mã cơ chế ở ⑥; không trả lời từng bước):</p>
+  <ul>
+  <li><b>D1</b> Làm sai, làm khác đi có được không? Cơ chế nào chặn hoặc bắt được?</li>
+  <li><b>D2</b> Quên ghi đủ vào sổ thì phát hiện bằng cách nào, bao lâu một lần?</li>
+  </ul>
   <h4>② Chia mục và đặt mã</h4>
   <ul>
   <li><b>2.1 Mốc</b>: các phần lớn. <b>2.2 Mục con</b>: chỉ tách khi mốc có hơn 5 bước; mốc ≤ 5 bước thì mục con trùng mốc, không tạo dòng giả. <b>2.3 Bước</b>: việc nhỏ nhất.</li>
@@ -1287,11 +1299,11 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <li>🤖 Nhận yêu cầu → tra/cấp mã MOW trong Sổ quy trình ML-MOW-TH-001.</li>
   <li>😊 User chốt ①, Mốc, Mục con → ghi vào dòng MOW.</li>
   <li>🤖 Điền ma trận và cột «Thiết kế» cho mọi dòng (việc thường: model rẻ · việc khó: frontier).</li>
-  <li>👥😊 0 ô trống và 0 ô ❓ → hội đồng ký → User gật. Còn ❓ thì sửa, chưa gật.</li>
+  <li>👥😊 0 ô trống, 0 ô ❓, D1–D2 đã trả lời bằng mã GS → hội đồng ký → User gật. Còn ❓ thì sửa, chưa gật.</li>
   <li>🤖 Chạy thử 1 việc: DOT điền «Khi chạy»; lỗi thì sửa thiết kế, giữ lịch sử, ký lại phần đổi.</li>
   </ol>
   <p class="cf-mbm-note">Mục tiêu dài hạn: ≥ 85% bước dùng lại từ MOW đã ổn định (đo khi có sổ bước).</p>
-  <h4>⑤ Đối soát đối tượng — mục tiêu dài hạn (Owner 16/10)</h4>
+  <h4>⑤ Đối soát đối tượng — mục tiêu dài hạn (Owner 16/10) · là cơ chế GS-07 ở ⑥</h4>
   <p>Hỏi: làm 1 MOW hoặc MOT đã đụng bao nhiêu đối tượng (Field, sổ, DOT, công cụ, script…)? <b>N = a + b + c + d</b>, phải khớp. Ghim tập N và phiên trước; mỗi mã vào đúng 1 nhóm, xét theo thứ tự a → c → b → d.</p>
   <ul>
   <li><b>a · Đã xét</b>: có cụm C trong ma trận.</li>
@@ -1304,9 +1316,29 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <li>Directus làm được phần nào dùng ngay khi dựng nhà: bộ lọc quan hệ rỗng (mồ côi) và có cụm C trỏ tới (đã xét) — có sẵn, không viết mã.</li>
   <li>Phần còn lại chờ PG. Không viết chương trình mới, không thành dự án riêng.</li>
   </ol>
+  <h4>⑥ Giám sát chung — 1 giải pháp cho mọi quy trình (Owner 16/10)</h4>
+  <p>Không giải riêng từng việc. Mỗi quy trình chỉ kéo mã cơ chế vào D1–D2. Dùng tối đa thứ Directus/PG đã có; hạn chế viết mã mới.</p>
+  <div class="cf-mbm-scroll"><table>
+  <thead><tr><th>Mã</th><th>Cơ chế có sẵn</th><th>Bắt được</th><th>Trạng thái</th></tr></thead>
+  <tbody>
+  <tr class="cf-mbm-grp"><td colspan="4">D1 · chặn làm sai, làm khác đi</td></tr>
+  <tr><td>GS-01</td><td>Quyền ghi theo danh tính + phạm vi (cổng agent)</td><td>ghi sai chỗ</td><td>🟢 đang chạy</td></tr>
+  <tr><td>GS-02</td><td>Khoá cấu hình/mã + kiểm lệch 5 phút (Config Guard, đèn Kuma)</td><td>sửa ngoài đường đã duyệt</td><td>🟢 đang chạy</td></tr>
+  <tr><td>GS-03</td><td>Chỉ DOT được ghi sổ: Directus Roles / Permissions</td><td>AI, người ghi tay vào sổ</td><td>🟡 có sẵn, bật khi dựng sổ</td></tr>
+  <tr><td>GS-04</td><td>Ràng buộc ô: Directus bắt buộc · Validation · quan hệ M2O</td><td>ghi thiếu, sai giá trị</td><td>🟡 có sẵn, bật khi dựng sổ</td></tr>
+  <tr><td>GS-05</td><td>Ràng buộc PG: NOT NULL · FK · CHECK · UNIQUE</td><td>chặn tận gốc</td><td>⚪ khi PG tham gia</td></tr>
+  <tr><td>GS-06</td><td>So hash với bản đã test → «cần test lại»</td><td>đổi mà không test lại</td><td>🟡 luật có, DOT kiểm</td></tr>
+  <tr class="cf-mbm-grp"><td colspan="4">D2 · phát hiện quên ghi sổ</td></tr>
+  <tr><td>GS-07</td><td>Đối soát N = a + b + c + d (⑤): nguồn thật ↔ sổ</td><td>quên ghi, mồ côi</td><td>🟡 làm tay; Directus lọc quan hệ rỗng khi dựng sổ</td></tr>
+  <tr><td>GS-08</td><td>Nhật ký có sẵn: Directus Revisions / Activity · git log</td><td>thay đổi không có dòng hồ sơ = làm ngoài quy trình</td><td>🟡 dữ liệu có, đối chiếu tay</td></tr>
+  <tr><td>GS-09</td><td>Danh sách đích bị canh (Config Guard) ↔ sổ Tool/DOT</td><td>tool/DOT làm mà không ghi sổ</td><td>🟡 đối chiếu tay</td></tr>
+  <tr><td>GS-10</td><td>Báo tự động: Directus Flows (sự kiện / hẹn giờ) · Insights (bảng đếm) · Telegram</td><td>có lỗi mà không ai nhìn</td><td>🟡 có sẵn, bật khi dựng sổ</td></tr>
+  <tr><td>GS-11</td><td>PG đếm toàn hệ thống (view / trigger)</td><td>mọi thứ trên, tự động</td><td>⚪ khi PG tham gia</td></tr>
+  </tbody></table></div>
+  <p class="cf-mbm-note">🟢 đang chạy · 🟡 có sẵn nhưng chưa bật / còn làm tay · ⚪ chờ PG. Bật thêm cơ chế nào thì sửa dòng đó ở bảng này, mọi quy trình tự hưởng.</p>
   <h4>Ghi ở đâu</h4>
   <ul>
-  <li>①, Mốc, Mục con: dòng MOW trong ML-MOW-TH-001 (cột thêm ở B1 việc TQT).</li>
+  <li>①, D1–D2, Mốc, Mục con: dòng MOW trong ML-MOW-TH-001 (cột thêm ở B1 việc TQT).</li>
   <li>Ma trận + cột «Thiết kế»: thẻ dòng ML-DEF-022 (mỗi câu 1 cột cố định; cụm C là danh sách).</li>
   <li>Cột «Khi chạy» + biên nhận: CAT-227 (việc) · CAT-228 (dòng hồ sơ). Chữ ký: CAT-025. Nợ: CAT-069.</li>
   <li>Bảng đối soát ⑤: hồ sơ việc làm MOW đó (CAT-227).</li>
