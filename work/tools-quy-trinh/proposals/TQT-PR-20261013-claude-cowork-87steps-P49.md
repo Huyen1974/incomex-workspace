@@ -1945,7 +1945,209 @@ Không điền Phần B trên r2: ba ghế đã chứng minh r2 trượt (❓ GP
 | Claude | khó | Ký nhóm A + tổng hợp; đủ điều kiện đạt thì đưa Owner gật. | V15.9 |
 
 #### V15.1 · Ghế GPT — ma trận QTTH 008
-_(trống)_
+
+**PHẢN ĐỐI ký CT-008 r3 là khuôn đã đủ để thực thi không cần đoán.** Giữ hướng và bộ ô r3; bài điền dưới đây chỉ ra các điểm chưa khớp nguồn, không sửa công thức. Câu thay thế đề nghị cho vòng sau: **“Đếm riêng dòng tổng hợp và bước thực hiện; chỉ bước thực hiện tiến con trỏ, dòng cha tổng hợp từ con. Một điều kiện hoàn thành phải giữ đúng ngưỡng của nó, kể cả 0; N/A hợp lệ không phải thiếu. Khi thiếu lệnh/schema/nguồn mẫu số thì ghi CHƯA_XÁC_MINH, không tự bổ sung rồi báo đạt.”** Đây là phiếu riêng của GPT cho r3, không phải chữ ký thay Owner/Hermes/Gemini.
+
+**Nguồn ghim:** brief V14.9 + V15 và nội dung V13 r3 tại `62641c6b`; CT-008 r3, khối `formula-ct-008` tại `da5c8847`; R57 phân hạng trong COLLAB; registry ML-DEF trong `evidence/ui-inputs/definition-master-registry-v1.js`. Chỉ sửa V15.1/V15.2. Mã mới đã ghi danh trước tại V15.2, commit `cc5b43beeefdde403af1243341c941fd0a569ac2`. Không chạy DOT, không tạo CV/checkpoint/Collection, không điền kết quả “Khi chạy”, không sửa 007 cũ.
+
+##### ① Mục tiêu và thế nào là hoàn thành — THIẾT KẾ MOW-TH-008
+
+| Mục | Nội dung điền |
+|---|---|
+| Mục tiêu 1 | Với mỗi công việc thiết kế G1, có đúng 1 CV trong CAT-227 theo khóa QT + G1 + phiên khuôn, gắn hồ sơ và nguồn yêu cầu; không tạo CV trùng. |
+| Mục tiêu 2 | Bao phủ 100% hành động cần UI và nghĩa vụ thông tin đã xác định từ QT nguồn; màn nào không cần phải có lý do, không lấy có 1 màn hoặc 1 Field làm đủ. |
+| Mục tiêu 3 | 100% đối tượng tạo/sửa/dùng lại vào kết quả có nhà, một gốc và ghi danh; Field cần phân tách cũ/mới/thiếu, đối tượng đổi có CAT-016 và nơi ảnh hưởng. |
+| Mục tiêu 4 | Dùng các lệnh DOT và Directus đã được V13 nêu để thử UI/Field/Config trên NHÁP, có bằng chứng và 0 lỗi chặn G1 trước duyệt; không ghi production/G2. |
+| Mục tiêu 5 | Mỗi bước có ô Thiết kế và ô Khi chạy riêng theo MBM; 0 kết quả chạy hoặc mã bản ghi thực tế tự bịa. Việc chỉ đóng sau quyết định Owner đúng CV/phiên. |
+| Hoàn thành bản khuôn V15 | Có đủ ma trận cho 7 Mốc, 3 Mục con của CP04, 25 Bước; đủ câu A1–C4 cho từng dòng; mọi mã ở danh mục hoặc V15.2; 0 ô trống, 0 ô phải đoán và đủ chữ ký nhóm A + Owner theo brief. Bản nộp hiện có ô phải đoán nên CHƯA đạt điều kiện cuối này. |
+| Hoàn thành một CV khi chạy khuôn sau này | Các bước thực hiện có kết quả hợp lệ, nguồn không lệch, 0 nợ chặn G1; số đối tượng/Field cần và đã ghi khớp; UI có bằng chứng; Owner gật đúng phiên; đóng và đọc lại theo 008-7.3. Đây là tiêu chí thiết kế, không phải báo một CV đã chạy. |
+| Ngoài phạm vi | Không dựng PG production, không chạy B1/B2 trong lượt điền, không viết chương trình mới, không tự hợp nhất sổ khác nghĩa, không đổi CT-008/V13 hay ký thay ghế khác. |
+
+##### ② Quy tắc đọc bài điền và phân nhóm
+
+`<QT>`, `<CV>`, `<SHA>`, `<phiên>` là biến lấy từ công việc khi chạy, không phải mã đã cấp. “Theo nguồn” nghĩa V13 r3 đã ghim ở trên. Tên lệnh DOT dưới đây là hợp đồng dự kiến trong nguồn, không phải xác nhận lệnh đã chạy được.
+
+CP04 có 9 bước, được chia theo CT-008 §② thành `008-4.A` (4.1–4.3, UI), `008-4.B` (4.4–4.6, Field/Hợp đồng), `008-4.C` (4.7a, 4.7b, 4.8, đối soát/áp). Mỗi mục 3 bước, không thêm bước nghiệp vụ. Các mốc còn lại ≤5 bước: mục con trùng mốc, không sinh dòng giả. Việc chọn ba tên nhóm là nội dung thiết kế được công thức cho phép, chưa phải quyết định Owner duyệt.
+
+Các bảng A/B bên dưới trình bày ngang **các ô “Thiết kế”** theo đúng mã câu CT-008; không có câu hỏi mới. Nhóm C có bảng riêng, một dòng cho một đối tượng đầu ra hoặc một quy tắc lặp **cho từng đối tượng**, không coi danh sách nhiều đối tượng là một bản ghi. Với Mốc/Mục con, B và C chỉ cộng dồn theo mã bước con, đúng công thức; không chép thành nguồn thứ hai. Ô Khi chạy chưa thuộc bài này: khi triển khai phải do DOT điền mã thật/receipt hoặc “Chưa phát sinh”.
+
+##### ③ Ma trận 8 cột — 35 dòng thiết kế
+
+| STT | Mã dòng | Loại dòng | Tên | Hạng việc | Mở khi | Làm bằng | Kiểm |
+|---|---|---|---|---|---|---|---|
+| 1 | 008-1 | Mốc | CP01 Khai việc | khó | Bước đầu; yêu cầu G1 có nguồn; không N/A | Theo các bước 008-1.1–1.3 | 🤖+👥 |
+| 2 | 008-1.1 | Bước | Tra hoặc tạo CV duy nhất | thường | Bước đầu; nhận QT và phiên; không N/A | ❓ V13 chưa chỉ lệnh tra/tạo khi CV chưa có; `ap --cv` cần CV [hướng dẫn] | 🤖 |
+| 3 | 008-1.2 | Bước | Mở hồ sơ ghim phiên/hash | thường | 008-1.1 đạt; không N/A | dot-master-apply : mo-ho-so <CV> | 🤖 |
+| 4 | 008-1.3 | Bước | Điền 5 ô riêng của CV | khó | 008-1.2 đạt; không N/A | AI điền nguồn; dot-master-apply : ap <SHA> --cv <CV> | 🤖+👥 |
+| 5 | 008-2 | Mốc | CP02 Chuẩn bị | thường | 008-1 đạt; không N/A | Theo 008-2.1–2.3 | 🤖 |
+| 6 | 008-2.1 | Bước | Nạp bước QT từ Công thức | thường | 008-1.3 đạt; không N/A | dot-master-apply : ap <SHA> --cv <CV> | 🤖 |
+| 7 | 008-2.2 | Bước | Điểm danh nhà vận hành | thường | 008-2.1 đạt; nhà mới cần quyết định duyệt cột; không N/A | dot-master-apply : ap <SHA> --cv <CV> | 🤖 |
+| 8 | 008-2.3 | Bước | Thử DOT đúng phiên | thường | 008-2.2 đạt; không N/A | dot-master-apply : thu | 🤖 |
+| 9 | 008-3 | Mốc | CP03 Cổng bắt đầu | thường | 008-2 đạt; không N/A | Theo 008-3.1 | 🤖 |
+| 10 | 008-3.1 | Bước | Kiểm cổng CP01–CP02 | thường | 008-2.3 đạt; không N/A | dot-master-apply : kiem <CV> --cp 01-02 | 🤖 |
+| 11 | 008-4 | Mốc | CP04 UI–Field–Config | khó | 008-3 đạt; không N/A | Theo 008-4.A, 008-4.B, 008-4.C | 🤖+👥 |
+| 12 | 008-4.A | Mục con | UI | khó | 008-3.1 đạt; mở nhóm đầu CP04, không đợi CP04 hoàn thành | Theo 008-4.1–4.3 | 🤖+👥 |
+| 13 | 008-4.1 | Bước | Nối hành động QT với UI | khó | 008-3.1 đạt; không N/A toàn bước; NO_UI phải có lý do theo hành động | AI điền; dot-master-apply : ap <SHA> --cv <CV> | 🤖+👥 |
+| 14 | 008-4.2 | Bước | Xét UI dùng lại | khó | 008-4.1 đạt; ❓ chưa quy định kết quả khi tập cặp trùng rỗng [câu hỏi] | AI điền; dot-master-apply : ap <SHA> --cv <CV> | 🤖+👥 |
+| 15 | 008-4.3 | Bước | Chọn bảng, khai nhà thiết kế | thường | 008-4.2 đạt; NO_UI không cần bảng | dot-master-apply : ap <SHA> --cv <CV> | 🤖 |
+| 16 | 008-4.B | Mục con | Field và Hợp đồng | khó | Các bước nhóm 008-4.A đạt | Theo 008-4.4–4.6 | 🤖+👥 |
+| 17 | 008-4.4 | Bước | Lập nghĩa vụ thông tin | khó | 008-4.3 đạt; thiếu nguồn không tự tính 0 | AI điền; dot-master-apply : ap <SHA> --cv <CV> | 🤖+👥 |
+| 18 | 008-4.5 | Bước | Ghép Field cũ hoặc mới | khó | 008-4.4 đạt; ❓ ví dụ CT-008 cho N/A khi không có thông tin mới, nhưng V13 vẫn đòi kiểm mọi Field dùng lại [hướng dẫn] | AI điền; dot-master-apply : ap <SHA> --cv <CV> | 🤖+👥 |
+| 19 | 008-4.6 | Bước | Khai bảng đọc/ghi, bắt buộc | thường | 008-4.5 đạt; không bỏ dòng có Field dùng lại | dot-master-apply : ap <SHA> --cv <CV> | 🤖 |
+| 20 | 008-4.C | Mục con | Đối soát và áp thử | thường | Các bước nhóm 008-4.B đạt | Theo 008-4.7a, 008-4.7b, 008-4.8 | 🤖 |
+| 21 | 008-4.7a | Bước | Đếm phát sinh không chồng | thường | 008-4.6 đạt; dùng tập đối tượng của CV | dot-master-apply : ap <SHA> --cv <CV> | 🤖 |
+| 22 | 008-4.7b | Bước | Rà tác động thay đổi | thường | 008-4.7a đạt; S=0 thì N/A theo V13, DOT phải ghi lý do | dot-master-apply : ap <SHA> --cv <CV> | 🤖 |
+| 23 | 008-4.8 | Bước | Áp nháp, thử và đọc lại | thường | 008-4.7b đạt hoặc N/A có căn cứ theo nhánh nguồn; không tự N/A việc dựng UI | dot-master-apply : ap <SHA> --cv <CV> | 🤖 |
+| 24 | 008-5 | Mốc | CP05 Kiểm | khó | 008-4 hoàn thành các bước thực hiện | Theo 008-5.1–5.3 | 🤖+👥 |
+| 25 | 008-5.1 | Bước | Kiểm đủ theo nghĩa vụ | thường | 008-4.8 đạt; không N/A | dot-master-apply : kiem --du <QT> | 🤖 |
+| 26 | 008-5.2 | Bước | Xem màn, ảnh và test lại | khó | 008-5.1 đạt; thiếu công cụ chụp là CHƯA_XÁC_MINH, không N/A | ❓ Nguồn chưa chỉ công cụ/lệnh chụp; không tự gán khả năng browser cho DOT [hướng dẫn] | 🤖+👥 |
+| 27 | 008-5.3 | Bước | Rà khác hãng cho QT001 | khó | 008-5.2 đạt; chỉ QT001 thực hiện, QT khác N/A theo V13 | Ghế khác hãng rà; dot-master-apply : ap <SHA> --cv <CV> ghi phiếu | ✍️ |
+| 28 | 008-6 | Mốc | CP06 Duyệt | khó | CP05 kết thúc; cần giữ nhánh N/A của 008-5.3 | Theo 008-6.1–6.3 | 🤖+😊 |
+| 29 | 008-6.1 | Bước | Gom gói duyệt đúng phiên | thường | 008-5.3 đạt hoặc N/A theo luật nguồn; không N/A gói duyệt | dot-master-apply : ap <SHA> --cv <CV> | 🤖 |
+| 30 | 008-6.2 | Bước | Ghi quyết định Owner | khó | 008-6.1 đạt; không N/A; chưa có ý kiến thì không chạy vượt | Owner gật/lắc qua chat; dot-master-apply : ap <SHA> --cv <CV> | 😊 |
+| 31 | 008-6.3 | Bước | Nhánh lắc và quay lại | thường | 008-6.2 có quyết định; gật thì N/A, lắc thì theo return_to | dot-master-apply : ap <SHA> --cv <CV> | 🤖 |
+| 32 | 008-7 | Mốc | CP07 Đóng | khó | CP06 có gật đúng phiên và nhánh lắc N/A hợp lệ | Theo 008-7.1–7.3 | 🤖+👥 |
+| 33 | 008-7.1 | Bước | Kiểm CP01–CP06 | thường | 008-6.3 kết thúc hợp lệ; không N/A | dot-master-apply : kiem <CV> | 🤖 |
+| 34 | 008-7.2 | Bước | Rà nợ mở không chặn | khó | 008-7.1 đạt; tổng nợ mở=0 thì N/A có lý do | Host rà; dot-master-apply : ap <SHA> --cv <CV> | 🤖+👥 |
+| 35 | 008-7.3 | Bước | Đóng G1, đọc lại và báo | thường | 008-7.2 đạt hoặc N/A hợp lệ; Owner đã gật đúng phiên | dot-master-apply : ap <SHA> --cv <CV> | 🤖 |
+
+##### ④ Cột Thiết kế A1–B3 cho từng dòng
+
+Mỗi ô A2 ghi nhà, tử/tập cần kiểm, mẫu số, ngưỡng, người kiểm; không có số đo runtime. A3 là thao tác được suy trực tiếp từ nhiệm vụ nguồn theo thứ tự, không phải bằng chứng đã thực thi. B3 ghi nhánh tiếp, lỗi theo B2 và N/A theo Mở khi; không dùng “không có ngõ cụt” nếu chưa có điều kiện để chứng minh.
+
+**CP01 — Khai việc**
+
+| Dòng | A1 · Thiết kế | A2 · Thiết kế | A3 · Thiết kế | B1 · Thiết kế | B2 · Thiết kế | B3 · Thiết kế |
+|---|---|---|---|---|---|---|
+| 008-1 | Khai đúng 1 CV tại CAT-227, hồ sơ và 5 ô riêng trước chuẩn bị. | CAT-228; số bước 008-1.1–1.3 đạt / 3 =100%; máy đếm, Host xác nhận mục tiêu. | 1 nhận yêu cầu/QT/phiên → 2 đi 008-1.1–1.3 → 3 tổng hợp kết quả, không tự thêm CV. | Cộng dồn B1 của 008-1.1–1.3: CAT-227, CAT-228; giữ mã nguồn mỗi kết quả. | Cộng dồn B2 các bước con; CAT-069; CHẶN; về bước con lỗi, bước đầu DỪNG_TẠI_CHỖ. | Đạt → 008-2; chưa đạt → B2 con; mốc không N/A. |
+| 008-1.1 | Tra khóa QT+G1+phiên trong CAT-227; tạo hoặc dùng lại đúng 1 CV. | CAT-227; số CV cùng khóa / 1 =1; >1 chưa đạt; máy. | 1 nhận QT/phiên → 2 tra 0/1/nhiều → 3 tạo hoặc dùng lại; ❓ thiếu lệnh/đối số để tra và tạo CV trước khi có CV [hướng dẫn]. | CAT-227: mã CV, QT đích, G1, phiên khuôn; Khi chạy lưu mã CV + đọc lại. | DỪNG_TẠI_CHỖ; CAT-069; CHẶN nếu thiếu đầu vào/trùng; sửa đúng khóa rồi chạy lại. | 0 CV → tạo; 1 CV → dùng lại; >1 → B2; đạt → 008-1.2; không N/A. |
+| 008-1.2 | Tạo hồ sơ của CV theo đúng phiên MOW-TH-008, không nhân checkpoint. | CAT-228; đủ mã duy nhất, chạy lại không tăng; ❓ N_khuôn trong V13 là 25 bước, CT-008 lại nhân ma trận gồm 35 dòng, chưa biết mẫu số cần tạo [hồ sơ]. | 1 lấy CV từ 008-1.1 và khuôn ghim → 2 mo-ho-so → 3 đọc lại tập mã/phiên, kiểm trùng. | CAT-228: CV, mã dòng@phiên, trạng thái chấm, thực tế, biên nhận; schema chính thức B1 chốt. | 008-1.1 nếu sai CV; lỗi hồ sơ sửa tại 008-1.2; CAT-069; CHẶN; giữ bản cũ. | Đạt → 008-1.3; chưa đạt → B2; không N/A; số dòng chưa xác định không tính 0. |
+| 008-1.3 | Điền 5 ô riêng của CV CAT-227 từ yêu cầu Owner và QT nguồn. | CAT-227; 5 ô có giá trị và nguồn / 5 =100%; máy kiểm đủ, Host kiểm nghĩa trước CP02. | 1 đọc yêu cầu và QT ghim → 2 điền mục tiêu/sản phẩm/người nhận/tiêu chí/ngoài phạm vi → 3 Host đối chiếu nguồn, DOT ghi/readback. | CAT-227: 5 ô nêu ở A3 + tham chiếu nguồn; ❓ chưa có ánh xạ cột/key chính thức cho cả 5 ô, nguồn vẫn giao B1 chốt [hồ sơ]. | 008-1.3; thiếu yêu cầu thì DỪNG_TẠI_CHỖ và CAT-069 CHẶN; không điền mục tiêu giả. | Đạt → 008-2.1; chưa đạt → B2; không N/A; không lấy 5 ô mẫu chung thay giá trị riêng CV. |
+
+**CP02 — Chuẩn bị**
+
+| Dòng | A1 · Thiết kế | A2 · Thiết kế | A3 · Thiết kế | B1 · Thiết kế | B2 · Thiết kế | B3 · Thiết kế |
+|---|---|---|---|---|---|---|
+| 008-2 | Chuẩn bị nguồn QT, nhà và khả năng DOT cho CV đã khai. | CAT-228; 008-2.1–2.3 đạt / 3 =100%; máy, quyết định cột được kiểm bằng CAT-025. | 1 nhận CV hợp lệ → 2 nạp bước, điểm danh nhà, thử DOT → 3 cộng kết quả con. | Cộng dồn B1 của 008-2.1–2.3, không ghi bản sao danh sách vào mốc. | B2 của bước con lỗi; CAT-069; CHẶN, không bỏ qua việc duyệt nhà vận hành. | Đạt → 008-3; lỗi → B2 con; không N/A. |
+| 008-2.1 | Nạp đủ bước QT từ Công thức vào Sổ quy trình ML-MOW-TH-001. | ML-MOW-TH-001; số bước nạp / tổng bước QT nguồn ghim =100%; mã trùng=0; máy. | 1 nhận QT và SHA từ CV → 2 đọc tập bước nguồn → 3 nạp và so tập mã, không chỉ đếm ≥1. | ML-MOW-TH-001: mã QT, tập bước, mã Công thức và SHA nguồn. | 008-1.3 nếu sai phạm vi QT; còn lại sửa 008-2.1; CAT-069; CHẶN khi thiếu nguồn/mã. | Đạt → 008-2.2; chưa đạt → B2; nguồn rỗng chưa xác minh không đồng nghĩa N/A. |
+| 008-2.2 | Xác định nhà vận hành của các loại CV sẽ tạo/sửa/dùng trong kết quả. | ML-DEF-012; số loại có nhà vận hành được duyệt cột / số loại cần =100%; máy kiểm quyết định CAT-025. | 1 đọc đầu vào và loại sẽ sinh → 2 tra ML-DEF-012 → 3 nhà mới ghi cần làm/duyệt cột, nhà cũ trỏ nguồn; nhà thiết kế xử lý 008-4.3. | ML-DEF-012: mã nhà, SSOT, đích lưu, loại nhà, trạng thái cột và quyết định CAT-025. | 008-2.2; CAT-069 CHẶN khi nhà vận hành chưa đủ; giữa CP04 phát sinh nhà vận hành mới cũng quay đây. | Đạt → 008-2.3; chưa đạt → B2; chờ Owner không giữ RUN/lease; không N/A việc điểm danh. |
+| 008-2.3 | Thử đúng phiên dot-master-apply trước áp thiết kế. | CAT-229; có 1 lượt thu PASS cùng phiên DOT trong lượt / 1 =1; máy; --help không tính. | 1 xác định phiên DOT → 2 gọi thu → 3 giữ biên nhận và so phiên. | CAT-229: mã lượt, phiên DOT, phạm vi, kết quả và biên nhận thử. | 008-2.3; CAT-069; CHẶN nếu công cụ/kiểm chưa sẵn sàng; không báo PASS từ tài liệu. | Đạt → 008-3.1; chưa đạt → B2; không N/A. |
+
+**CP03 — Cổng**
+
+| Dòng | A1 · Thiết kế | A2 · Thiết kế | A3 · Thiết kế | B1 · Thiết kế | B2 · Thiết kế | B3 · Thiết kế |
+|---|---|---|---|---|---|---|
+| 008-3 | Chỉ cho CV đi vào làm khi chuẩn bị đã kiểm đủ. | CAT-228; 008-3.1 đạt / 1 =100%; máy. | 1 lấy kết quả CP01–CP02 → 2 thực hiện 008-3.1 → 3 tổng hợp để mở CP04. | Cộng dồn B1 của 008-3.1, tham chiếu hồ sơ CV. | B2 của 008-3.1; CAT-069; CHẶN. | Đạt → 008-4; chưa đạt → bước con lỗi; không N/A. |
+| 008-3.1 | Kiểm nguồn/phiên và kết quả 6 bước chuẩn bị trước CP04. | CAT-228; các bước CP01–CP02 đạt / số bước đó của phiên =100%; hash không lệch; máy. | 1 đọc kết quả bước nguyên tử CP01–02 → 2 kiem CV --cp 01-02 → 3 mở CP04 nếu đạt. | CAT-228: mã CV, mã 008-3.1@phiên, kết quả, bằng chứng hash, trạng thái do DOT ghi. | Bước CP01/CP02 chưa đạt; CAT-069 CHẶN; nêu đúng mã bước để sửa. | Đạt → 008-4.1; chưa đạt → B2; không tự mở nếu còn CHƯA_XÁC_MINH. |
+
+**CP04 — UI, Field, Config**
+
+| Dòng | A1 · Thiết kế | A2 · Thiết kế | A3 · Thiết kế | B1 · Thiết kế | B2 · Thiết kế | B3 · Thiết kế |
+|---|---|---|---|---|---|---|
+| 008-4 | Tạo thiết kế UI/Field/Config và ghi đủ phát sinh của CV. | CAT-228; 9 bước CP04 đủ / 9; ❓ A2 mặc định CT-008 chỉ đếm “đạt”, chưa nói N/A hợp lệ của 4.7b có tính hoàn thành mốc [câu hỏi]. | 1 nhận cổng 008-3 → 2 đi nhóm 4.A, 4.B, 4.C theo thứ tự → 3 tổng hợp từ các bước con, không tự tạo sản phẩm khác. | Cộng dồn B1 của 9 bước CP04 theo mã nhà và bản ghi; giữ một nguồn. | B2 của bước con đầu tiên chưa đạt; CAT-069; CHẶN phần bắt buộc G1. | Con đạt → 008-5; con lỗi → B2 con; nhánh N/A của con theo điều kiện của con, không giả PASS. |
+| 008-4.A | Xác định các UI cần có, dùng lại và bảng thiết kế. | CAT-228; 008-4.1–4.3 đạt / 3 =100%; máy, Host kiểm nghĩa. | 1 lấy hành động QT → 2 đi 4.1, 4.2, 4.3 → 3 trả tập UI và nhà, không sinh UI trùng. | Hợp B1 của 008-4.1–4.3: ML-DEF-018, ML-DEF-012; không sao chép hàng. | B2 của bước con lỗi; CAT-069 CHẶN nếu thiếu UI/bảng cần thiết. | Đạt → 008-4.B; lỗi → B2 con; không N/A toàn nhóm. |
+| 008-4.1 | Ánh xạ từng hành động QT cần giao diện tới UI ML-DEF-018 hoặc NO_UI có lý do. | ML-DEF-018 và tập hành động nguồn; hành động đã ánh xạ / tổng cần =100%; thiếu nguồn là CHƯA_XÁC_MINH; máy+Host. | 1 đọc Công thức/QT → 2 lập tập bước×hành động → 3 nối UI có mẫu ML-DEF-017 hoặc ghi lý do không UI. | ML-DEF-018: mã, tên, tham chiếu bước/hành động, mẫu, NO_UI/lý do khi áp dụng. | 008-2.1 nếu nguồn bước sai, còn lại 008-4.1; CAT-069 CHẶN; không bịa hành động. | Đạt → 008-4.2; chưa đạt → B2; NO_UI là lựa chọn từng hành động, không bỏ toàn bước kiểm. |
+| 008-4.2 | Xét ứng viên UI trùng để dùng lại hoặc ghi lý do khác. | ML-DEF-018; cặp trùng 4 thuộc tính đã giải thích / tổng cặp =100%; ❓ tổng cặp=0 chưa có luật PASS/N/A [câu hỏi]. | 1 liệt kê cặp bảng/mẫu/vai trò/bộ lọc giống → 2 xét ngữ cảnh → 3 ghi dung_lai_tu hoặc lý do, không tự gộp. | ML-DEF-018: mã UI, dùng lại từ hoặc lý do khác; không chép UI gốc. | 008-4.2; CAT-069 CHẶN nếu cặp bắt buộc chưa xét; sai tập UI thì 008-4.1. | Đạt → 008-4.3; chưa đạt → B2; trường hợp 0 cặp chờ làm rõ A2, không dựng cặp giả. |
+| 008-4.3 | Chọn bảng cho UI; thiếu bảng nghiệp vụ thì ghi nhà thiết kế cần làm. | ML-DEF-018/012; ❓ nguồn lấy tử số loại NO_UI nhưng mẫu “tổng màn” không loại, chưa có cách đếm nhất quán khi có NO_UI [câu hỏi]. | 1 đọc UI và mục đích → 2 tra bảng/nhà → 3 nối bảng hoặc đăng ký nhà thiết kế dự kiến; không đòi production đã dựng. | ML-DEF-018: tham chiếu bảng; ML-DEF-012: mã nhà thiết kế, trạng thái cần làm, gốc/đích. | 008-4.3; nếu nhà vận hành mới thì 008-2.2; CAT-069 CHẶN khi thiếu đích bắt buộc. | Đạt → 008-4.4; lỗi → B2; NO_UI không dựng bảng chỉ để đủ chỉ tiêu. |
+| 008-4.B | Lập nghĩa vụ thông tin, Field và nơi đọc/ghi của UI. | CAT-228; 008-4.4–4.6 đạt / 3 =100%; máy+Host; không đo bằng số Field tùy ý. | 1 nhận UI/nhà từ 4.A → 2 đi 4.4–4.6 → 3 tổng hợp hợp đồng và Field theo mã. | Hợp B1 của 008-4.4–4.6: CAT-206, ML-DEF-008. | B2 của bước con lỗi; CAT-069 CHẶN nếu nghĩa vụ chưa đủ. | Đạt → 008-4.C; lỗi → B2 con; không N/A toàn nhóm. |
+| 008-4.4 | Biến mỗi nghĩa vụ thông tin dự kiến thành dòng CAT-206. | CAT-206; nghĩa vụ có dòng / tổng nghĩa vụ dự kiến =100%; máy, Host xác nhận đủ nghĩa; thiếu nguồn là CHƯA_XÁC_MINH. | 1 đọc câu hỏi/nguồn UI → 2 lập tập nghĩa vụ theo màn/hành động → 3 ghi mỗi nghĩa vụ một dòng, không lấy ≥1 dòng làm đủ. | CAT-206: mã dòng, UI/hành động, thông tin cần, nguồn yêu cầu; Field/bảng có thể chưa điền tại thời điểm này. | 008-4.1 nếu thiếu hành động; còn lại 008-4.4; CAT-069 CHẶN phần thiếu thông tin G1. | Đạt → 008-4.5; chưa đạt → B2; thiếu nguồn không coi là tập rỗng/N/A. |
+| 008-4.5 | Ghép mỗi thông tin CAT-206 với Field ML-DEF-008, dùng lại hoặc đăng ký mới. | CAT-206/ML-DEF-008; N=A+B+C, C/N=0; Field mới đủ R36 / số mới =100%; ❓ số mới=0 và N/A “không thông tin mới” chưa được làm rõ với kiểm Field cũ [câu hỏi]. | 1 tra Field theo định nghĩa/kiểu/ngữ cảnh → 2 dùng mã cũ hoặc khai mới đủ R36 → 3 nối Hợp đồng; máy kiểm, Host xét trùng nghĩa. | ML-DEF-008: mã, tên cột, tên hiển thị, kiểu, mô tả, việc sinh ra/vòng đời theo R36; CAT-206: mã Field. | 008-4.4 nếu thông tin chưa rõ; còn lại 008-4.5; CAT-069 CHẶN khi còn thiếu Field. | Đạt → 008-4.6; chưa đạt → B2; không tự bỏ việc kiểm các Field cũ. |
+| 008-4.6 | Xác định bảng và tính bắt buộc cho từng dòng Hợp đồng. | CAT-206; dòng có bảng đúng hành động / tổng dòng =100%; máy; ngữ nghĩa lấy theo nguồn. | 1 đọc hành động mỗi dòng → 2 xem chọn bảng đọc, nhập/tính/duyệt chọn bảng ghi → 3 ghi bắt buộc và nối đúng mã Master. | CAT-206: bảng, hành động, bắt buộc, Field, mã màn; không sao chép kiểu của Field. | 008-4.3 nếu thiếu nhà, 008-4.5 nếu Field sai; CAT-069 CHẶN; sửa rồi kiểm lại. | Đạt → 008-4.7a; chưa đạt → B2; dòng thiếu vẫn lưu nháp nhưng chưa đóng bước. |
+| 008-4.C | Đối soát mọi phát sinh, ảnh hưởng và áp UI thử trên NHÁP. | CAT-228; 3 bước con hoàn thành / 3; ❓ cách tính 4.7b N/A vào mốc/mục con chưa có trong A2 mặc định CT-008 [câu hỏi]. | 1 lấy hợp đồng → 2 đi 4.7a, 4.7b, 4.8 → 3 tổng hợp biên nhận và số thiếu, không bỏ ghi sổ. | Cộng dồn B1 của 008-4.7a, 4.7b, 4.8 theo các nhà đã khai. | B2 của bước con lỗi; CAT-069 CHẶN với lỗi phạm vi/thiếu ghi danh. | Kết thúc hợp lệ → 008-5.1; lỗi → B2 con; giữ dấu N/A, không đổi thành PASS giả. |
+| 008-4.7a | Đối chiếu đối tượng CV dùng/tạo/sửa với từng nhà, không đếm chồng. | Các nhà 008-2.2; N=A không đổi + S sửa có CAT-016 + B mới ghi + C thiếu; C/N=0, sao chép cơ học/số dòng=0; máy. | 1 lấy tập đối tượng của commit và CV → 2 chia 4 nhóm loại trừ → 3 đối chiếu mã với nhà, ghi kết quả; đăng ký phải làm ngay lúc phát sinh. | Các mã nhà đã khai ở 008-2.2; CAT-015 lưu kết quả chấm theo luật chạy, hồ sơ CAT-228 trỏ biên nhận. | Bước đã sinh đối tượng thiếu ghi danh; CAT-069 CHẶN; không sửa tổng N để giấu phần thiếu. | Đạt → 008-4.7b; chưa đạt → B2; nơi chỉ đọc để kiểm không tự kê là sản phẩm mới. |
+| 008-4.7b | Rà đối tượng đã test bị đổi nội dung và các đối tượng phụ thuộc. | CAT-016; đổi có dòng thay đổi / S =100%; phụ thuộc đã đánh cần test lại / tổng phụ thuộc =100%; S=0 N/A; ❓ khi S>0 nhưng phụ thuộc=0 chưa có luật mẫu số 0 [câu hỏi]. | 1 so hash với bản đã test → 2 ghi lý do/tác động → 3 truy quan hệ và đánh cần test lại; không tự sửa nghiệp vụ nơi phụ thuộc. | CAT-016: mã đối tượng, phiên trước/sau, lý do, tác động; các nhà phụ thuộc: trạng thái cần test lại. | 008-4.7b hoặc bước đã sửa đối tượng; CAT-069 CHẶN nếu ảnh hưởng G1 chưa kiểm; giữ lịch sử. | S=0 → N/A rồi 008-4.8; đạt → 008-4.8; chưa đạt → B2; không tạo thay đổi giả. |
+| 008-4.8 | Áp đúng SHA lên NHÁP, dựng màn, thử mỗi màn có hành động ghi và đọc lại. | CAT-229; receipt đúng SHA và số màn ghi đã thử / tổng màn ghi =100%; ❓ nguồn chưa quy định nếu toàn bộ màn chỉ đọc, mẫu số ghi=0 [câu hỏi]. | 1 lấy commit dữ liệu → 2 ap SHA --cv CV, dựng theo nguồn → 3 ghi thử màn có ghi và đọc lại; không chạy mã lấy từ GitHub. | CAT-229: mã lượt, SHA, kết quả, biên nhận; các nhà UI/Field/bảng nhận kết quả áp thuộc vùng NHÁP. | Bước dữ liệu/check đầu tiên báo lỗi; CAT-069 CHẶN nếu sai vùng/quyền/đích; giữ receipt và nhả RUN khi dừng. | Đạt → 008-5.1; lỗi → B2; không tự coi 0 màn ghi là đã thử ghi, giữ câu hỏi A2. |
+
+**CP05 — Kiểm**
+
+| Dòng | A1 · Thiết kế | A2 · Thiết kế | A3 · Thiết kế | B1 · Thiết kế | B2 · Thiết kế | B3 · Thiết kế |
+|---|---|---|---|---|---|---|
+| 008-5 | Kiểm thiết kế, bằng chứng màn và phần định tính theo hạng việc. | CAT-228; 3 bước CP05 hoàn thành / 3; ❓ A2 mặc định đếm đạt chưa nêu N/A của 008-5.3 cho QT khác QT001 [câu hỏi]. | 1 đọc kết quả áp → 2 kiểm đủ, mở màn/test lại, rà theo phạm vi → 3 tổng hợp không ký thay ghế. | Cộng dồn B1 của 008-5.1–5.3: CAT-015, CAT-239, CAT-025. | B2 của bước kiểm không đạt; CAT-069 CHẶN G1; chưa có chữ ký cần thiết không tự bỏ. | Kết thúc hợp lệ → 008-6; lỗi → B2 con; nhánh N/A giữ căn cứ QT. |
+| 008-5.1 | Kiểm đủ thiết kế theo các nghĩa vụ đã khai, ghi khống và nợ chặn G1. | CAT-015/206/các nhà CV; ❓ nguồn nói 4.1–4.6 “đều 100%” nhưng 4.5 đòi thiếu/N=0; chưa có quy tắc quy đổi kết quả hợp lệ, và tổng nợ=0 chưa quy định [câu hỏi]. | 1 đọc cùng CV/SHA → 2 kiem --du QT → 3 đối chiếu thiếu/khống/nợ với số nguồn, không xác nhận nghĩa vụ chưa được khai. | CAT-015: tiêu chí, tập/tử/mẫu đo, kết quả, phiên, người/máy, bằng chứng; hồ sơ CAT-228 trỏ kết quả. | Đúng bước 4.1–4.8 phát sinh lỗi; CAT-069 CHẶN; không tự nâng thiếu thành đạt. | Đạt → 008-5.2; chưa đạt → B2; CHƯA_XÁC_MINH không tính PASS. |
+| 008-5.2 | Mở màn thật, ghi ảnh và kiểm lại đối tượng bị ảnh hưởng. | CAT-239 và nhà liên quan; màn có ảnh/màn cần=100%, cần test lại/tổng đối tượng=0; máy kiểm tệp/hash, Host kiểm ảnh; thiếu công cụ là CHƯA_XÁC_MINH. | 1 mở đúng UI/quyền xem → 2 chụp và nối ảnh với mã màn → 3 test lại theo nguồn; ❓ V13 giao B2 đo công cụ/lệnh chụp, chưa có thao tác xác định để điền [hướng dẫn]. | CAT-239: mã ảnh, URI, hash, mã màn, phiên; CAT-015/kết quả test và CAT-228 giữ liên kết kiểm. | 008-5.2 khi thiếu công cụ; lỗi nội dung về bước sinh UI/Field; CAT-069 CHẶN nếu chưa xem được màn bắt buộc. | Đạt → 008-5.3; chưa đạt → B2; không lấy HTTP 200 thay ảnh/UI thật. |
+| 008-5.3 | Với QT001, ghi phiếu rà khác hãng phần máy không biết nghĩa; QT khác theo N/A nguồn. | CAT-025; ❓ nguồn chỉ đòi 1 phiếu APPROVE/REJECT, chưa nói REJECT có đóng bước hay chặn trước 6.1; không tự coi phản đối là đạt [câu hỏi]. | 1 xác định QT001 hay không → 2 QT001 gửi nguồn đúng phiên để ghế tự rà/ký → 3 DOT ghi và đọc phiếu; QT khác ghi N/A theo luật. | CAT-025: đối tượng/phiên, người và hãng ký, kết luận, lý do, bằng chứng; không nhân chữ ký theo Field. | Bước có nội dung bị phản đối; CAT-069 CHẶN khi thiếu điều kiện duyệt; chưa có ghế thì kết thúc lượt, không giữ máy. | QT khác → N/A tới 008-6.1; APPROVE → 008-6.1; ❓ REJECT thiếu luật trạng thái/đường đi chính xác trong nguồn [hướng dẫn]. |
+
+**CP06 — Duyệt**
+
+| Dòng | A1 · Thiết kế | A2 · Thiết kế | A3 · Thiết kế | B1 · Thiết kế | B2 · Thiết kế | B3 · Thiết kế |
+|---|---|---|---|---|---|---|
+| 008-6 | Trình thiết kế và ghi quyết định Owner, xử lý lắc đúng đường. | CAT-228; các bước CP06 hoàn thành / 3; ❓ A2 mặc định “đạt” chưa bao gồm 6.3 N/A khi Owner gật [câu hỏi]. | 1 gom gói → 2 ghi quyết định có nguồn → 3 đi nhánh gật/lắc, không bỏ lịch sử. | Cộng dồn B1 của 008-6.1–6.3: CAT-227, CAT-025, CAT-069. | Theo B2 của bước con và return_to Owner; CAT-069; CHẶN đóng G1 nếu chưa được gật. | Gật đúng phiên, nhánh lắc N/A → 008-7; lắc → return_to; chưa quyết định → kết thúc lượt, giữ hồ sơ chưa đóng. |
+| 008-6.1 | Gom gói duyệt đúng phiên CV, không lập hồ sơ trình riêng. | CAT-227; 5 thành phần đủ/5 =100%: link, ảnh, số liệu, nợ/thay đổi đã duyệt, biên nhận; máy. | 1 lấy cùng phiên CV → 2 tập hợp 5 tham chiếu → 3 lưu gói trong CV và đưa Owner xem. | CAT-227: link bộ lọc/QT, ảnh, số cần/đã/thiếu, nợ/ảnh hưởng, receipt; giữ tham chiếu nguồn. | Bước tạo thành phần thiếu trong CP04/05; CAT-069 CHẶN; không đưa gói khác phiên. | Đạt → 008-6.2; chưa đạt → B2; không N/A. |
+| 008-6.2 | Ghi gật/lắc của Owner cho CV và cột nhà thiết kế mới. | CAT-025; đúng 1 quyết định hiện hành có nguyên văn+CV+phiên/SHA+kết luận /1; DOT đọc lại; Owner quyết. | 1 Owner xem gói → 2 AI ghi nguyên văn và nguồn vào quyết định → 3 DOT áp/readback, không suy chat chung thành duyệt bản khác. | CAT-025: CV, phạm vi, phiên/SHA, nguyên văn, actor, quyết định; nhà mới được duyệt liên kết quyết định. | 008-6.2; CAT-069 CHẶN đóng nếu chưa có quyết định rõ; nhả lượt và không tạo gật giả. | Gật → 008-6.3 N/A; lắc → 008-6.3 xử lý; chưa quyết định → B2, không tới CP07. |
+| 008-6.3 | Xử lý lắc thành nợ có bước quay lại; gật thì N/A. | CAT-069; 1 dòng nợ có return_to /1 lần lắc =1; gật N/A có căn cứ; máy. | 1 đọc quyết định hiện hành → 2 lắc ghi nợ/bước k → 3 áp luật quay lại, giữ lịch sử và hỏi Owner lại sau sửa; gật ghi N/A. | CAT-069: CV, bước k, chủ, mức/chặn, điều kiện tiếp; CAT-228: kết quả nhánh và phần cần chấm lại. | return_to trong quyết định; thiếu mã k thì dừng tại 008-6.3, CAT-069 CHẶN; không chọn ngẫu hứng. | Lắc → k và các bước phụ thuộc theo luật; gật → N/A rồi 008-7.1; thiếu quyết định → 008-6.2. |
+
+**CP07 — Đóng**
+
+| Dòng | A1 · Thiết kế | A2 · Thiết kế | A3 · Thiết kế | B1 · Thiết kế | B2 · Thiết kế | B3 · Thiết kế |
+|---|---|---|---|---|---|---|
+| 008-7 | Kiểm điều kiện cuối, nợ và đóng CV sau Owner duyệt. | CAT-228; 3 bước CP07 hoàn thành /3; ❓ mặc định “đạt” chưa nói cộng N/A của 7.2 vào mốc [câu hỏi]. | 1 kiểm CP01–06 → 2 rà nợ còn mở → 3 đóng/đọc lại theo 7.3, không tự mở G2. | Cộng dồn B1 của 008-7.1–7.3: CAT-228, CAT-069, CAT-227. | B2 bước con lỗi; CAT-069; CHẶN phần thiết kế chưa được nghiệm thu. | Đạt → kết thúc G1; chưa đạt → B2 con; không có bước 008-8 tự phát. |
+| 008-7.1 | Kiểm các bước trước CP07, không tự kiểm chính 7.1. | CAT-228; bước CP01–06 đạt/N/A hợp lệ trên số bước đó =100%; nợ chặn/tổng nợ=0; ❓ nếu tổng nợ=0 nguồn chưa nêu cách xử lý tỷ lệ [câu hỏi]. | 1 lấy tập bước trước CP07 theo phiên → 2 kiểm kết quả/nguồn/nợ → 3 ghi kết quả của 7.1; không đòi bước sau đã xong. | CAT-228: CV, 008-7.1@phiên, tử/mẫu, receipt và trạng thái chấm. | Bước trước CP07 không đạt hoặc nơi xử lý nợ chặn; CAT-069 CHẶN; giữ phần đã kiểm không đổi. | Đạt → 008-7.2; chưa đạt → B2; không N/A toàn bước. |
+| 008-7.2 | Xác minh nợ còn mở không chặn G1 có đủ nơi quản lý và bàn giao. | CAT-069; nợ mở đủ 4 ô / tổng nợ mở=100%; tổng=0 N/A; máy đếm, Host rà vấn đề trong chat đã ghi. | 1 liệt kê nợ mở của CV → 2 đối chiếu chủ/mức/điều kiện mở lại/đích → 3 Host xác nhận không sót vấn đề, không đóng nợ thay người nhận. | CAT-069: chủ, mức, điều kiện mở lại, đích bàn giao, liên kết CV; giữ trạng thái nợ thực tế. | 008-7.2 hoặc bước xử lý nợ chặn nếu phát hiện phân loại sai; CAT-069; CHẶN đóng khi hồ sơ nợ chưa đủ. | Có nợ đủ → 008-7.3; 0 nợ → N/A rồi 008-7.3; chưa đủ → B2. |
+| 008-7.3 | Đóng G1 và đọc lại sau các bước trước + quyết định Owner đúng phiên. | CAT-227/228; ❓ V13 đếm N_khuôn−1 rồi N_khuôn với N=25 bước, CT-008 tạo cả dòng cha 35; chưa quy định tập đếm để tránh đếm cha hoặc tự khóa mốc [hồ sơ]. | 1 kiểm các bước thực hiện trước và quyết định → 2 DOT ghi kết quả 7.3/đóng CV → 3 đọc lại và báo 4 dòng; không G2. | CAT-227: trạng thái G1 thiết kế đã duyệt, quyết định, biên nhận đóng; CAT-228: kết quả 7.3 và tập đã kết thúc. | Đúng bước/nợ chưa đạt; CAT-069 CHẶN; chưa khớp phiên thì về bước sửa, không xóa lịch sử. | Đạt/đọc lại đủ → kết thúc CV G1; lỗi → B2; không N/A việc đóng một CV đã được giao. |
+
+##### ⑤ Cột Thiết kế C1–C4 — từng đối tượng, không bịa mã Khi chạy
+
+Trong bảng dưới, “gốc <nhà>” nghĩa dữ liệu chuẩn trong `work/tools-quy-trinh/master/<mã nhà>.json` theo luật nguồn; Directus là bản áp một chiều. Đây là **quy tắc định vị**, B1 còn phải chốt đường/key/schema thực tế, không xác nhận tệp đã có. Mã bản ghi cụ thể chỉ do DOT điền Khi chạy. “Đã làm/đã test” dưới đây là **trạng thái đích dự kiến có điều kiện**, không phải trạng thái hiện nay.
+
+Nhóm C không kê lại tài liệu chỉ đọc để kiểm. Các biên nhận kỹ thuật của từng bước được B1 của bước và hồ sơ CAT-228 tham chiếu; chúng không thay thế đối tượng nghiệp vụ. Dòng dạng “mỗi X” là **một mẫu cụm cho từng X**, Khi chạy phải bung riêng theo mã, không ghép nhiều bản ghi thành một đối tượng.
+
+| Dòng / đối tượng đầu ra | C1 · Loại = nhà | C2 · SSOT | C3 · Cũ hay mới | C4 · Trạng thái đích |
+|---|---|---|---|---|
+| 008-1 / toàn bộ đối tượng con | Cộng các C1 của 008-1.1–1.3, theo mã | Hợp các gốc C2 con, khử trùng cùng mã | Tổng hợp từng quy tắc C3 con, không cấp lại mã | Tổng hợp C4 con; không đổi trạng thái con bằng trạng thái mốc |
+| 008-1.1 / CV được tạo hoặc dùng lại | CAT-227 | Gốc CAT-227; Khi chạy mã CV duy nhất theo khóa | Có cùng khóa thì dùng lại; chưa có tạo mới | Cần làm: CV được khai, chưa nhận thiết kế đã xong |
+| 008-1.2 / mỗi dòng hồ sơ được sinh | CAT-228 | Gốc hồ sơ CAT-228 theo CV+mã dòng+phiên; thẻ định nghĩa ở ML-DEF-022 chỉ được trỏ | Có cùng CV+dòng+phiên thì dùng lại; thiếu mới sinh | Đã làm khi dòng được tạo/readback; trạng thái chấm dòng lưu riêng, không tự PASS |
+| 008-1.3 / CV có 5 ô riêng | CAT-227 | Dùng lại đúng gốc CV từ 008-1.1 | Sửa CV hiện có, không tạo CV thứ hai | Cần làm đối với cả việc; 5 ô được điền/Host kiểm là kết quả checkpoint riêng |
+| 008-2 / toàn bộ đối tượng con | Cộng C1 của 008-2.1–2.3 | Cộng gốc C2 con theo mã | Cộng C3 con | Cộng C4 con |
+| 008-2.1 / QT với tập bước nguồn | ML-MOW-TH-001 | Gốc Sổ quy trình, có ref Công thức và SHA; không chép định nghĩa Công thức | Dùng QT đã xác định trong CV; bổ sung dữ liệu bước theo nguồn | Đã làm khi nạp đủ và đối chiếu nguồn; chưa là QT đã nghiệm thu |
+| 008-2.2 / mỗi nhà cần dùng của CV | ML-DEF-012 | Gốc danh bạ nhà theo mã nhà; định nghĩa cột trỏ nguồn và CAT-025 | Có mã thì dùng lại; chưa có ghi danh cần làm trước | Cần làm nếu chưa dựng/duyệt; nhà đã có giữ trạng thái thật, không hạ tùy ý |
+| 008-2.3 / biên nhận lượt thử | CAT-229 | Gốc lượt thử, nối đúng DOT/phiên và bằng chứng | Mỗi lượt thử thực tế có mã riêng; không sao lại lượt cũ làm lượt mới | Đã làm khi có kết quả; chỉ nêu PASS khi thử đạt thật |
+| 008-3 / toàn bộ đối tượng con | Cộng C1 của 008-3.1 | Cộng C2 của 008-3.1 | Cộng C3 của 008-3.1 | Cộng C4 của 008-3.1 |
+| 008-3.1 / kết quả cổng của CV | CAT-228 | Gốc checkpoint 008-3.1@phiên trong hồ sơ CV | Dùng dòng đã sinh; cập nhật kết quả, không nhân dòng | Đã làm khi kiểm có receipt; trạng thái chấm đạt/chưa đạt là cột khác |
+| 008-4 / toàn bộ đối tượng CP04 | Cộng C1 của ba Mục con 008-4.A/B/C | Hợp C2 con theo nhà+mã, không đếm đôi UI/Field dùng lại | Cộng C3 từng đối tượng con | Giữ kết quả C4 từng đối tượng, không ép tất cả cùng trạng thái |
+| 008-4.A / đối tượng UI | Cộng C1 của 008-4.1–4.3 | Hợp gốc C2 các bước UI | Cộng C3 con | Cộng C4 con |
+| 008-4.1 / mỗi UI cần tạo hoặc dùng vào kết quả | ML-DEF-018; mẫu trỏ ML-DEF-017 | Gốc mã UI; liên kết hành động/bước, không chép mẫu cha | Tra UI có sẵn; chưa có ghi mới trước dựng | Cần làm khi mới khai màn; chưa tự coi có UI runtime |
+| 008-4.2 / mỗi UI được xét dùng lại | ML-DEF-018 | Giữ mã UI gốc và quan hệ dung_lai_tu/lý do | Dùng lại hoặc sửa quan hệ của UI đã khai | Giữ trạng thái đã kiểm nếu nội dung không đổi; sửa thì phải rà theo nguồn |
+| 008-4.3 / mỗi UI có bảng | ML-DEF-018 | Gốc UI, bảng là mã nhà | Sửa UI đã khai, không tạo lại màn | Cần làm cho phần cấu hình chưa áp; không giả đã có bảng thật |
+| 008-4.3 / mỗi nhà thiết kế mới | ML-DEF-012 | Gốc mã nhà với cột từ Hợp đồng, không nhập lại danh sách cột thứ hai | Có nhà tương ứng thì dùng; chưa có ghi mới cần làm | Cần làm trước khi DOT dựng nháp |
+| 008-4.B / đối tượng Field–Hợp đồng | Cộng C1 của 008-4.4–4.6 | Cộng gốc C2 con theo mã | Cộng C3 con | Cộng C4 con |
+| 008-4.4 / mỗi dòng nghĩa vụ Hợp đồng | CAT-206 | Gốc dòng Hợp đồng gắn UI/hành động/nguồn nghĩa vụ | Dùng dòng đã có cùng nghĩa vụ, thiếu mới tạo | Cần làm khi Field/bảng còn trống; không đánh thiết kế đủ |
+| 008-4.5 / mỗi Field sử dụng vào kết quả | ML-DEF-008 | Gốc Field; Hợp đồng chỉ trỏ mã, không chép tên/kiểu | Tra định nghĩa; tương đương dùng mã cũ, chưa có ghi mã mới | Cần làm với Field mới; dùng lại không đổi giữ trạng thái thực tế; đủ dữ liệu không tự thành đã test |
+| 008-4.5 / mỗi Hợp đồng được ghép Field | CAT-206 | Gốc Hợp đồng đã lập ở 008-4.4 | Cập nhật dòng cũ, không nhân dòng theo lần điền | Đã làm phần ghép khi Field có mã hợp lệ; toàn CV còn phải kiểm |
+| 008-4.6 / mỗi Hợp đồng được khai đích/bắt buộc | CAT-206 | Giữ gốc dòng; bảng tham chiếu ML-DEF-012 | Sửa dòng đã có | Đã làm phần khai báo; chưa phải Config đã thử |
+| 008-4.C / đối tượng đối soát–áp | Cộng C1 của 008-4.7a, 008-4.7b, 008-4.8 | Cộng C2 con theo mã, không sao sổ | Cộng C3 con | Cộng C4 con |
+| 008-4.7a / kết quả đối chiếu phát sinh | CAT-015; các đối tượng chỉ đọc để đếm không kê lại | Gốc kết quả kiểm gắn CV/phiên/nguồn | Một kết quả cho lần kiểm hiện hành; giữ lịch sử lần trước | Đã làm khi báo đủ tập/nhóm; trạng thái đạt theo phép kiểm, không dựa câu khẳng định |
+| 008-4.7b / mỗi thay đổi đã phát hiện | CAT-016 | Gốc thay đổi nối đối tượng, phiên trước/sau, lý do và tác động | Cùng thay đổi đã ghi thì dùng lại; thay đổi mới ghi dòng mới | Đã làm khi ghi/đọc lại đủ thông tin tác động |
+| 008-4.7b / mỗi đối tượng phụ thuộc bị ảnh hưởng | Nhà gốc của chính đối tượng theo quan hệ và 008-2.2 | Giữ mã/gốc cũ, chỉ ghi quan hệ và trạng thái ảnh hưởng | Cũ được sửa trạng thái, không tạo bản sao | ❓ nguồn yêu cầu “cần test lại”, C4 chỉ liệt kê cần làm/đã làm/đã test; chưa có mã/ánh xạ cho trạng thái này [câu hỏi] |
+| 008-4.8 / mỗi UI được dựng | ML-DEF-018 | Mã UI gốc + đích nháp do DOT tạo; không là nguồn nghiệp vụ thứ hai | Tạo theo khai báo mới hoặc cập nhật UI cũ | Đã làm sau biên nhận áp/readback; chưa test mọi nghĩa UI |
+| 008-4.8 / mỗi bảng nháp được dựng | ML-DEF-012 | Gốc định nghĩa bảng và Hợp đồng; Directus theo bản áp | Tạo nếu chưa có, dùng/cập nhật nếu có đúng vùng | Đã làm sau áp thành công; chưa production |
+| 008-4.8 / mỗi Field được áp | ML-DEF-008 | Gốc định nghĩa Field + đích nháp đọc lại | Dùng/cập nhật Field đã đăng ký, không cấp mã do apply lại | Đã làm sau đọc lại đúng; test theo bước kiểm sau |
+| 008-4.8 / lượt thử ghi/đọc | CAT-229 | Gốc lượt thử + SHA, CV, đối tượng, kết quả | Lượt mới có mã thực do DOT sinh khi chạy | Đã làm khi có biên nhận thật; không dùng receipt tự khai |
+| 008-5 / các đối tượng kiểm | Cộng C1 của 008-5.1–5.3 | Hợp C2 con theo mã | Cộng C3 con | Cộng C4 con |
+| 008-5.1 / kết quả kiểm đủ | CAT-015 | Gốc kết quả với CV, tiêu chí và SHA | Tạo kết quả lần kiểm, giữ bản cũ khi kiểm lại | Đã làm khi có kết quả đo; PASS chỉ khi ngưỡng đúng |
+| 008-5.2 / mỗi ảnh màn thực tế | CAT-239 | Gốc metadata bằng chứng trỏ tệp thật + hash, CV/màn/phiên | Ảnh của lần kiểm có mã thật; không dùng ảnh cũ khác phiên | Đã làm khi tệp/hash có thật; Host xác nhận ảnh đúng màn trước tính bằng chứng đạt |
+| 008-5.2 / mỗi đối tượng được test lại | Nhà gốc của đối tượng, trỏ kết quả kiểm CAT-015 | Giữ gốc đã có, không copy vào sổ bằng chứng | Cũ được test lại vì có thay đổi ảnh hưởng | Đã test chỉ sau test thực đúng phiên; thất bại không nâng trạng thái |
+| 008-5.3 / phiếu rà khác hãng | CAT-025 | Gốc phiếu do đúng ghế ký, gắn câu/đối tượng và phiên | Mỗi phiếu hiện hành đúng người/phiên; không tái dùng chữ ký bản cũ | Đã làm khi có phiếu hợp lệ; kết luận APPROVE/REJECT không bị thay bằng trạng thái vòng đời |
+| 008-6 / các đối tượng duyệt | Cộng C1 của 008-6.1–6.3 | Hợp C2 con theo mã | Cộng C3 con | Cộng C4 con |
+| 008-6.1 / CV có gói duyệt | CAT-227 | Giữ gốc CV; chỉ nối link/ảnh/receipt/nợ đúng phiên | Sửa CV hiện có | Đã làm phần chuẩn bị gói; chưa đóng CV trước Owner |
+| 008-6.2 / quyết định Owner | CAT-025 | Gốc nguyên văn/nguồn quyết định, CV, SHA, phạm vi | Ghi quyết định mới cho phiên được xem; không chép quyết định cũ | Đã làm khi ghi/readback; gật hay lắc là nội dung quyết định, không phải 3 trạng thái C4 |
+| 008-6.2 / mỗi nhà thiết kế được duyệt cột | ML-DEF-012 | Gốc nhà đã khai; trỏ CAT-025 đúng phạm vi/cột | Cập nhật quyết định của nhà có sẵn | Giữ trạng thái xây dựng thật; bổ sung duyệt cột không đồng nghĩa đã tạo production |
+| 008-6.3 / nợ từ quyết định lắc | CAT-069 | Gốc nợ nối CV/bước k/nguồn từ chối | Ghi một nợ cho lần lắc; dùng lại nếu đúng nợ đã ghi | Đã làm phần ghi nợ; nợ vẫn mở cho tới xử lý, không tự đóng |
+| 008-6.3 / mỗi checkpoint cần chấm lại | CAT-228 | Giữ dòng CV+dòng@phiên và lịch sử trước | Cũ cập nhật do return_to; không sinh hồ sơ thứ hai | Đã làm phần cập nhật hồ sơ; trạng thái chấm chưa đạt/cần kiểm nằm riêng, không PASS giả |
+| 008-7 / các đối tượng đóng việc | Cộng C1 của 008-7.1–7.3 | Hợp C2 con theo mã | Cộng C3 con | Cộng C4 con |
+| 008-7.1 / kết quả kiểm liên tục | CAT-228 | Gốc checkpoint 008-7.1 của CV, trỏ receipt kiểm | Dùng dòng đã sinh, ghi kết quả hiện hành | Đã làm khi có kết quả; chấm đạt/chưa đạt giữ cột riêng |
+| 008-7.2 / mỗi nợ còn mở | CAT-069 | Giữ gốc nợ và các liên kết chủ/đích/điều kiện | Cũ bổ sung thiếu sót; nợ mới phát hiện ghi trước theo Luật Nhà | Đã làm phần ghi đủ; không tự đổi nợ chưa xử lý thành đã giải quyết |
+| 008-7.3 / CV đóng G1 | CAT-227 | Giữ gốc CV, quyết định và biên nhận đúng phiên | Sửa CV đã có sau kiểm cuối | ❓ V13 quy định “G1 thiết kế đã duyệt”; C4 chỉ 3 trạng thái, chưa có quan hệ rõ với trạng thái nghiệp vụ CV [câu hỏi] |
+| 008-7.3 / checkpoint đóng | CAT-228 | Gốc 008-7.3 trong cùng CV/phiên | Cập nhật dòng đã sinh sau các tiền điều kiện | Đã làm sau DOT ghi/readback; trạng thái chấm đạt chỉ khi toàn bộ điều kiện cuối thật sự thỏa |
+
+##### ⑥ Đối chiếu sau khi điền — chưa phải nghiệm thu khuôn
+
+**Đã có dữ liệu để ghế sau kiểm:** ma trận 35 dòng, A1–B3 đủ cho cùng 35 mã dòng, các cụm C1–C4 và bảng ghi danh V15.2. Nhóm B/C của 10 dòng cha chỉ trỏ tập con để cộng dồn; không phải 10 lần chép thông tin hoặc 10 bước RUN mới. Mỗi CV khi chạy phải lưu kết quả riêng theo phiên; bài này không nhận thay công việc B2 dựng sổ.
+
+**Các lỗi còn lại cần phân biệt:** (a) lỗi công thức/hồ sơ: số dòng cha so với 25 bước thực hiện, N/A trong tổng hợp và C4; (b) lỗi nội dung nguồn V13 chưa khớp công thức: ngưỡng 100% đối với chỉ tiêu thiếu=0, mẫu số NO_UI/0 và phiếu REJECT; (c) phần công cụ/schema chưa định nghĩa hoặc chưa chốt B1: lệnh tạo CV, 5 key CV và công cụ chụp. Không xóa các ô đó bằng kiến thức ngoài nguồn.
+
+**Ý kiến đối với ⑤ đối soát:** giữ mục tiêu N=a+b+c và cách làm tay, không viết chương trình. Tuy nhiên, CT-008 chưa bảo đảm a/b/c loại trừ: một đối tượng đã test, có nhà nhưng chưa có cụm C và chưa có tham chiếu có thể cùng thuộc b lẫn c. Câu thay thế đề nghị: “Ghim tập N và phiên trước khi phân nhóm; định nghĩa thứ tự ưu tiên phân loại để mỗi mã thuộc đúng một nhóm; trường hợp chưa phân loại được phải hiện riêng là chưa xác minh, không gán tùy ý.” Đây là phản biện công thức; bảng đối soát thực tế của bài để Hermes thực hiện tại V15.3 theo phân công, GPT không điền hộ.
+
+**Trạng thái nộp:** đã điền trọn cấu trúc được giao, nhưng chưa ký r3 đủ điều kiện 0 ô phải đoán; chưa có chữ ký nghiệm thu nhóm A của các ghế còn lại hoặc Owner. Những mã ở V15.2 là ghi danh trong hồ sơ hội đồng, không phải tài nguyên runtime đã được tạo. Chỉ tiếp nhận nguồn V13 theo phép thử, không đưa thêm luật hoặc tự sửa CT-008.
 
 #### V15.2 · Bảng ghi danh «cần làm» (mã nhà / DOT chưa có trong danh mục) — GPT ghi, B1 chuyển về đúng sổ
 
