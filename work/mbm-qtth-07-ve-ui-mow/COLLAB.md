@@ -5,14 +5,14 @@ Tên việc: QTTH 07 — vẽ UI theo Master MOW, đủ Master list và hợp đ
 Xác nhận User: ĐÃ XÁC NHẬN — Owner viết ô 1–2 ngày 16/10/2026 17:05.
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-16 22:20 +07 · Claude · P11
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-16 22:35 +07 · Claude · P12
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ: [✓ 1 Nhận yêu cầu] → [✓ 2 Tạo task] → [✓ 3 Chốt mục tiêu] → [◐ 4 Liệt kê bước — bản thử] → [■ 5 Check Master list] → [□ 6 Bộ câu hỏi] → [□ 7 Ký] → [□ 8 Chạy]
-- ✅ Đã xong: ô 1–2 (17:05) · bản thử bước 3 (26 bước) + bước 4 (kiểm kê 17 sổ) — nằm trong ô 3 «Chi tiết cần đạt».
+- ✅ Đã xong: ô 1–2 (17:05) · bản thử bước 3 (26 bước) + bước 4 (kiểm kê 17 sổ) — xem tab «Nội dung công việc» (`view.html`).
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt bước 4 → đạt bước 5 → 6 → 7 → 8.
-- ➡ Kế tiếp: 😊 Owner xem «Vấn đề lộ ra» trong ô 3 — nhất là 13 sổ cần duyệt lần đầu và 3 mã CAT lệch nghĩa.
+- ➡ Kế tiếp: 😊 Owner xem «Vấn đề lộ ra» ở tab Nội dung công việc — nhất là 13 sổ cần duyệt lần đầu và 3 mã CAT lệch nghĩa.
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
 ### 1. Mục tiêu
@@ -45,7 +45,9 @@ Owner 16/10/2026 17:05:
 | 7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
 | 8 | Chạy | 🤖 | đạt ô 2 | ☐ |
 
-#### Vấn đề lộ ra khi làm bước 3–4 (22:15)
+Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công việc» trên trang Task (tệp `view.html` của việc này) — 1 nơi, không chép lại ở đây.
+
+<!-- BEGIN-REMOVE-P12
 1. 🔴 **13/17 sổ chưa «đã có»** → mục 4 chặn, không sang được bộ câu hỏi. Cần Owner duyệt lần đầu — đề xuất duyệt theo nhóm.
 2. 🔴 **Mã lệch nghĩa:** CAT-227 (trang: tiến trình công việc ↔ QTTH 07: Sổ việc) · CAT-228 (trang: việc thật MOT ↔ QTTH 07: hồ sơ 25 dòng) · CAT-239 (trang: Sổ tệp ↔ QTTH 07: ảnh). Không sửa thì ghi nhầm sổ.
 3. 🟡 **Sổ của các sổ rỗng:** ML-DEF-012 = 0, việc của nó đang ở trang 47 Master List → 2 nơi cho 1 việc. Mục 4 cần ghi nguồn kiểm kê chuẩn.
@@ -110,7 +112,7 @@ Nguồn số: trang «47 Master List · đang rà» (`ui-preview/mcp-writes/defi
 | 16 | ML-DEF-012 | Master of Master | 0 | chưa có | rỗng; việc của nó đang do trang 47 Master List làm |
 | 17 | ML-DEF-022 | Master Step | 0 | chưa có | rỗng; MBM ghi ma trận vào đây |
 
-**Tổng:** 17 sổ · đã có 4 · User chưa duyệt UI 11 · chưa có 2. Theo mục 4: chưa được sang mục 5.
+END-REMOVE-P12 -->
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -137,13 +139,15 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 | V11 | mục 4 không nói tra số lượng ở đâu; Sổ của các sổ rỗng (22:15) | chưa sửa — đề xuất ghi nguồn kiểm kê chuẩn vào mục 4 |
 | V12 | bộ tình trạng mục 4 thiếu «rỗng», «dùng lại» (22:15) | chưa sửa — chờ Owner |
 | V13 | mã sổ trong bước và tên sổ thật lệch nghĩa (CAT-227/228/239) (22:15) | chưa sửa — đề xuất thêm ô «nghĩa khớp?» vào bảng kiểm kê |
-| V14 | kết quả bước 3–4 đặt ngoài ô 3 nên trang Task (workspace) không hiện; «repo» và «workspace» mỗi bên hiểu một kiểu (Owner 22:07) | r5.6 mục 6: «làm ở workspace» — kết quả ghi trong ô 3 của task, chat chỉ tóm tắt + link |
+| V14 | kết quả bước 3–4 đặt ngoài ô 3 nên trang Task (workspace) không hiện; «repo» và «workspace» mỗi bên hiểu một kiểu (Owner 22:07) | r5.6 mục 6: «làm ở workspace» |
+| V15 | chuyển vào ô 3 vẫn không đọc được: tab Kiểm soát in thô bảng markdown và ô 3 mặc định gập; tab Nội dung báo «Chưa có view» (Owner 22:19) | r5.7: kết quả bước ghi vào `view.html` của task (HTML chính theo README) → tab Nội dung công việc; tạo task kèm `view.html` |
 
 ### Vòng trước
 - 16/10 15:19 (Owner, nay gộp vào ô 1 bản 17:05): vẽ UI theo Master MOW · hoàn thiện Master list, điền đủ SSOT · đủ trường để Config · dùng DOT tạo collection.
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P12 · 22:19 · lỗi hiển thị: «Bạn kiểm tra xem có lỗi gì không? tôi kiểm tra mbm-qtth-07-ve-ui-mow không thấy chuyển về?»
 - P11 · 22:07 · làm ở workspace: «Không, bạn đưa lên repo chứ. Đó bạn thấy không? mỗi người vẫn hiểu 1 kiểu, mỗi AI vẫn hiểu 1 kiểu. Và cái đó rõ ràng chưa thể trở thành quy trình được. Ghi thêm vài chữ là làm ở workspace để không hiểu nhầm nữa»
 - P10 · 21:57 · làm thử bước 3–4: «Giờ quay lại QTTH 007. bạn làm bước 3,4 trên repo để thử xem còn vấn đề gì nữa chúng ta bàn tiếp.»
 - P01 · 16:29 · tạo việc: «Thấy bạn lúng túng lắm. Tức là các bạn viết ra đó nhưng các bạn chưa chắc đã làm được 1 quy trình từ MBM đâu. Đây sẽ là bài test thử. Đầu tiên bạn sửa lại việc này. Bổ sung phải taọ task trên workspace nữa. => bạn thấy đấy. Viết không đủ cụ thể, khôgn tính đến khi làm => vào làm là mắc. Chúng ta vừa làm vừa hiệu chỉnh toàn bộ MBM để làm sao các bước thật chi tiết. Lần 2 không có tôi AI thưc sự chạy được. Các bạn viết thì hay, nhưng khi các bạn làm là hỏng ngay. Giờ bổ sung phần đó và việc đầu tiên bạn tạo task trên WP đi. qtth.07-ve-UI-mow»
