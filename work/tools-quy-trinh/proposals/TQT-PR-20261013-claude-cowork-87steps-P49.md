@@ -1897,10 +1897,68 @@ Lý do từng ❓ ở bộ câu hỏi (kèm loại lỗi):
 3. **Lỗi lớn nhất của MBM (`CT-008 r2`) hiện tại:** Nhóm **C (`C1–C5`) và `A2/B1`** chưa khớp với kiến trúc thực thi của `V13 r3`: (i) `C1–C5` gộp chung *"tạo, dùng, sửa"* vào 1 dòng đơn và để trống `—` ở `C3–C5` lúc Thiết kế (trái `Luật điền 1` và làm vênh 3 trạng thái đối tượng `cần làm/đã làm/đã test` với 4 trạng thái chấm bước của `CAT-228`); (ii) `A2` và `B1` chưa tách ô cho **5 thành phần công thức đếm (`nha_dich · tu_so · mau_so · nguong · ai_kiem`) + điều kiện `Không áp dụng` + danh sách cột `Field` bắt buộc của bước**, khiến AI điền phải tự đoán cấu trúc.
 
 #### V14.4 · Ghế Claude — tự thử Phần B, làm sau cùng để không dẫn dắt
+Không điền Phần B trên r2: ba ghế đã chứng minh r2 trượt (❓ GPT 26/54 · Gemini 22/39 · Hermes 17). Phép thử của r3 là V15, do ghế **khác hãng người viết MBM** điền (GPT), để đo đúng «bất kỳ AI nào cũng làm được».
+
+#### V14.9 · Claude tổng hợp (Host) — 16/10 11:45
+
+**Kết luận:** MBM r2 chưa qua phép thử «chỉ điền ô»; ba ghế cùng chỉ một nhóm lỗi gốc: (1) ô chưa chứa trọn hợp đồng một bước (mở khi → cách làm → ghi đâu → kiểm/nhánh lỗi); (2) chưa tách Thiết kế với Khi chạy; (3) MBM hỏi mã nhưng chưa có quy tắc/sổ cho mã nó hỏi. Đã sửa thành **CT-008 r3** (trang Công thức, commit `da5c8847`).
+
+| # | Điểm sửa trong r3 | Nguồn ghế | Quyết |
+|---|---|---|---|
+| 1 | Quy tắc mã: `MOW-TH-<số>` · Mốc `008-1` · Mục con `008-4.B` · Bước `008-1.1` | Hermes H1/H7 · Gemini H1 · GPT B | nhận |
+| 2 | Mục con chỉ tách khi mốc > 5 bước; ≤ 5 thì trùng mốc | Gemini H1 · Hermes B | nhận |
+| 3 | Mốc/Mục con có dòng riêng, trả lời đủ câu; A2 mặc định = bước con đạt/tổng; B, C máy cộng dồn | GPT H6 · Hermes H1 · Gemini H1 (chống chép) · yêu cầu Owner | nhận dạng gộp (JEV 0,43 cho bản «theo bước con» ⇒ đổi thành cộng dồn) |
+| 4 | Ma trận: Mã dòng · Loại dòng · Tên · Hạng việc · Mở khi · Làm bằng (mã DOT : lệnh con) · Kiểm; bỏ cột «Bộ câu hỏi» | Hermes H2 · Gemini H2 · GPT H2 · R57 | nhận (JEV 0,70 bỏ cột) |
+| 5 | A1 nêu mã đối tượng và kết quả | Hermes H3 | nhận |
+| 6 | A2 đủ 5 phần: nhà · đếm gì · trên tổng nào · ngưỡng · ai kiểm | GPT H3 · Hermes H4 · Gemini H3 | nhận |
+| 7 | A3 «Làm thế nào» (1→2→3, đầu vào, đầu ra); «Mở khi» thành cột | GPT H2 · Hermes H3 · Gemini H2 | nhận |
+| 8 | B1 Thiết kế = mã sổ + cột bắt buộc; Khi chạy = mã bản ghi + biên nhận | GPT H3 · Gemini H3/H6 | nhận |
+| 9 | B2 bước đầu = DỪNG_TẠI_CHỖ, có mức CHẶN/KHÔNG_CHẶN | Gemini H3 · GPT H3 | nhận |
+| 10 | B3 = mọi nhánh có đường tiếp (giữ nghĩa ngõ cụt của Owner) | GPT H3 | nhận |
+| 11 | Nhóm C: chỉ đối tượng tạo/sửa/dùng lại vào kết quả; 1 cụm mỗi đối tượng | Gemini H3/H6 · GPT H6 | nhận |
+| 12 | Gộp C1+C2: loại = nhà, mã là dòng trong Sổ của các sổ ML-DEF-012 | Hermes (thiếu sổ mã loại) · Claude | nhận (JEV 0,68) |
+| 13 | Tách trạng thái đối tượng (C4) với trạng thái chấm dòng | Gemini B · GPT C5 | nhận |
+| 14 | Luật điền: không «—»; Thiết kế ghi quy tắc; Khi chạy DOT điền / «Chưa phát sinh»; mã thiết kế phải có trong danh mục, chưa có thì ghi danh «cần làm» trước | cả 3 ghế | nhận |
+| 15 | Không áp dụng: khai sẵn ở «Mở khi», ký 1 lần; khi chạy DOT tự ghi | Gemini H4 | nhận |
+| 16 | Luật ký: gắn phiên; ký 1 lần khi duyệt khuôn; quá 1 vòng ⇒ Owner; ngưỡng ≥50% ghế được gọi (tối thiểu 2) | GPT H5 · Gemini H5 · R57; Hermes H5 đã giải ở COLLAB 3.3 | nhận |
+| 17 | ④: mã sổ ML-MOW-TH-001; điều kiện dừng = 0 ❓; bỏ «2.3» treo; 85% chuyển thành mục tiêu dài hạn, không làm cổng | GPT H7 · Hermes H7 · Gemini H7 | nhận |
+| 18 | Ví dụ trọn một MOW | Hermes H7d | nhận: QTTH 008 là ví dụ trọn |
+
+**Không nhận (kèm lý do):** Gemini H6 «cụm C lưu JSON array» — chi tiết kỹ thuật, để B1 chốt schema. GPT A4 tách câu riêng về lệnh/công cụ — đã có cột «Làm bằng» + A3.
+
+**Mới theo Owner 11:22 — ⑤ Đối soát đối tượng (mục tiêu dài hạn):** N đối tượng liên quan = a đã xét + b ổn định chưa xét + c mồ côi. Bây giờ AI làm tay ở ④.4; Directus dùng bộ lọc quan hệ có sẵn khi dựng nhà (B2); phần còn lại chờ PG; không viết chương trình, không thành dự án riêng.
+
+**Phụ thuộc phát hiện:** mã nhà mới (CAT-227/228/229/239…) và DOT mới (`mo-ho-so`…) chưa có trong danh mục ⇒ khi viết QTTH 008 phải ghi danh «cần làm» trước (luật điền 3). Việc ghi danh này chính là phần điểm danh của B1 ⇒ gộp vào V15, không làm hai lần.
+
+**Chữ ký r3:** Claude (Host) ký r3 = tổng hợp. GPT · Hermes · Gemini ký hoặc phản đối r3 ngay trong bài V15 của ghế mình (dòng đầu ô ghế).
+
+## V15 · PHÉP THỬ MBM r3 — VIẾT QTTH 008 CHỈ BẰNG ĐIỀN Ô · Claude (Host) giao 16/10 11:45
+
+> **Mục tiêu:** viết trọn QTTH 008 (MOW-TH-008 · khuôn thiết kế G1: UI · Field · Config) chỉ bằng cách điền ô theo CT-008 r3. **Đạt khi:** 0 ô trống · 0 ô ❓ · mọi mã có trong danh mục hoặc đã ghi danh «cần làm» · đủ chữ ký nhóm A. Còn ❓ ⇒ lỗi của MBM, sửa CT-008 r4.
+> **Nguồn nội dung:** P49 V13 r3 (25 dòng việc, 7 mốc CP01–CP07, 10 luật, 17 nhà). **Nguồn công thức:** CT-008 r3 (`work/mow-mot-moit-mout/ban-duyet.html`, khối `formula-ct-008`). Không sửa CT-008, không sửa V13.
+
+| Ghế | Hạng việc | Làm gì | Ghi ở |
+|---|---|---|---|
+| GPT | khó | Điền ma trận + cột «Thiết kế» cho mọi dòng: 7 Mốc · Mục con (chỉ mốc > 5 bước) · 25 Bước. Mã nào chưa có ⇒ ghi vào Bảng ghi danh «cần làm» (V15.2). Ô nào phải đoán ⇒ ❓ + lý do + loại lỗi. | V15.1 |
+| Hermes | thường | Sau khi GPT nộp: máy kiểm từng mã (có trong danh mục hoặc V15.2) · đếm ô trống/❓ theo từng dòng · lập bảng đối soát ⑤ làm tay (N = a + b + c). | V15.3 |
+| Gemini | khó | Sau khi GPT nộp: ký hoặc phản đối nhóm A (A1–A3) từng dòng + ① Mục tiêu; phản đối ghi lý do + câu thay thế. | V15.4 |
+| Claude | khó | Ký nhóm A + tổng hợp; đủ điều kiện đạt thì đưa Owner gật. | V15.9 |
+
+#### V15.1 · Ghế GPT — ma trận QTTH 008
 _(trống)_
 
-#### V14.9 · Claude tổng hợp
-_(trống — sau khi đủ ý kiến)_
+#### V15.2 · Bảng ghi danh «cần làm» (mã nhà / DOT chưa có trong danh mục) — GPT ghi, B1 chuyển về đúng sổ
+| Mã | Loại (nhà / DOT / cột) | Tên | Thuộc sổ nào khi dựng | Dòng QTTH 008 cần |
+|---|---|---|---|---|
+
+#### V15.3 · Ghế Hermes — kiểm mã, đếm ô, đối soát ⑤
+_(trống)_
+
+#### V15.4 · Ghế Gemini — ký nhóm A
+_(trống)_
+
+#### V15.9 · Claude tổng hợp
+_(trống)_
 
 
 
