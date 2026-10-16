@@ -13,7 +13,7 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - 🏁 Xong khi: ô 2 — có danh mục các Master cần dùng, nơi lưu trên Directus; mọi UI/Field/DOT/nợ/thay đổi phát sinh đã ghi đủ, kiểm đếm đối chiếu được; QT001 có UI thật và Config khả thi.
 - 📍 Tiến độ: [■ B0 RÀ LẠI: điều chỉnh Master + MOW-TH-007] → [□ B1 điểm danh mọi loại đối tượng → Sổ của các sổ + Owner duyệt cột] → [□ B2 dựng sổ Directus + DOT] → [□ B3 hoàn thành QT001/đối soát] → [□ B4 lô tiếp] → [□ B5 nghiệm thu]. Không tự nhảy G2.
 - ✅ Đã xong: Owner từng chốt Q1 tài khoản xem NHÁP, Q2 DOT lâu dài và khung bảy bước 007; đã có định nghĩa Master, Công thức, bản r2 và các ý kiến Claude/GPT/Gemini. **Đồng thuận cũ chỉ đúng phạm vi cũ.**
-- ■ Đang làm: — · 0 RUN active; GPT Chat rà lại phạm vi Owner sửa. `PROMPT.md` r2, `READY@914580c4...` **KHÔNG CÒN HIỆU LỰC** do thay đổi yêu cầu, chưa tạo Collection nháp.
+- ■ Đang làm: Codex sửa hyperlink thanh 4 Mẹ theo Owner 16/10; phạm vi G1/B0 giữ nguyên, không chạy r2.
 - ⬜ Còn lại: kiểm các Master định nghĩa vs Collection/dữ liệu thực → sửa 007 (đăng ký phát sinh + đếm thiếu + rà ảnh hưởng) → ✅ Claude: R53 Luật Nhà + dự thảo 007 v2 (R54, P49 V13) → ✅ Gemini V13.1 + GPT V13.2 + Hermes phản biện → ✅ Claude gộp thành V13 r2 (25 dòng) + R55 luật viết thẻ → GPT xác nhận r2 1 lượt → Owner gật khuôn → PROMPT B1+B2 mới (B1 đo 17 nhà, Owner gật bảng mã + cột).
 - ➡ Kế tiếp: GPT xác nhận P49 V13 r2 1 lượt (chỉ báo dòng sai, không mở lại khung) → Owner gật khuôn; chưa phát RUN.
 - ⛔ Không làm: coi 5 bảng lõi là đủ mọi sổ; bỏ ghi Master DOT/UI/Field/nợ; nhân bản Master đã có; ghi thẳng production; tự tạo hạ tầng/UI riêng; chạy r2 hoặc G2 trước khi Owner giao.
@@ -1540,3 +1540,10 @@ Gemini V13.3: nhận khóa quyền CAT-228, kiểm cột JSON **có điều ki�
 
 
 
+
+
+## P66 · Sửa hyperlink thanh 4 Mẹ theo Owner 16/10/2026
+STARTED@TQT-NAV-LINKS-20261016 2026-10-16T02:19:57.070290+00:00 · executor=Codex · Write_Path=workspace_transaction(root=ui/workspace), nguồn mã VPS; Owner giao trực tiếp sửa liên kết, không đổi phạm vi G1/P61.
+- Owner: “Lần trước tôi có yêu cầu bạn đưa thanh \"4 mẹ\" và tất cả các trang con mà chúng ta làm để dễ dàng truy cập. Tuy nhiên bạn làm viẹc đó chưa cẩn thận, không coppy được hyperlink (bấm vào chưa chạy) kiểm tra lại hết và khắc phục việc này giúp tôi nhé. Đảm bảo cơ chế kĩ thuật không bị lỗi”.
+- Đường vào: knowledge/modules?task=tools-quy-trinh → nội dung nhúng; nguồn thanh duy nhất /opt/incomex/docs/mcp-writes/eco-nav.js. Bậc 3: sửa mỏng cơ chế dùng chung để dùng hyperlink HTML có sẵn, không tạo UI/kho mới.
+- Đã xác minh: sáu mục đầu là BUTTON không href; Master có danh mục con nhưng click luôn đi Home; popup chưa giới hạn chiều cao và hot reload chưa thu hồi tài nguyên. Kiểm toàn bộ đích menu và consumers trước/sau; kiểm bấm/copy/mở trực tiếp/màn hẹp/iframe trước KQ.
