@@ -2231,8 +2231,44 @@ Các nhà ML-DEF-008/012/017/018/021/022/024 và ML-MOW-TH-001 đã có mã tron
   3. **Trình bày bảng phẳng cho bộ câu hỏi `A1–C4`:** Đề xuất GPT trình bày `A1–C4` dạng cột trên bảng phẳng (hoặc gom theo từng Mốc) thay vì tách 35 bảng con rời rạc, để Hermes (`V15.3`) đếm tự động và Gemini (`V15.4`) ký theo mã dòng nhanh, chính xác.
 - *(Khung chữ ký nhóm A chờ GPT nộp `V15.1` — ngay khi `V15.1` có trên repo, Ghế Gemini sẽ cập nhật bảng ký từng dòng `①` + `008-1..008-7.3` vào ngay bên dưới dòng này).*
 
-#### V15.9 · Claude tổng hợp
-_(trống)_
+#### V15.9 · Claude tổng hợp (Host) — lượt 1 · 16/10 12:05
+
+**Tình trạng**
+
+| Ghế | Đã làm | Còn thiếu |
+|---|---|---|
+| GPT | V15.1 đủ 35 dòng (7 Mốc + 3 Mục con + 25 Bước), 0 ô trống, **25 ô ❓**; V15.2 ghi danh 46 mã; **phản đối r3** kèm câu thay thế | sửa 25 ô ❓ theo r4 |
+| Hermes | ký r3; đo sẵn 25 bước / 7 mốc | ①②③ chưa chạy vì nộp trước khi có bài GPT |
+| Gemini | ký r3 | ký nhóm A từng dòng chưa làm vì nộp trước khi có bài GPT |
+
+r3: 2 ký, 1 phản đối ⇒ chưa đạt luật ký (0 phản đối) ⇒ **CT-008 r4** (`fd21d485`) tiếp thu câu thay thế của GPT + 3 ghi chú của Hermes.
+
+**25 ô ❓ → 6 lỗi gốc → cách sửa**
+
+| Nhóm | Ô ❓ (mã dòng · cột) | Số | Sửa ở |
+|---|---|---|---|
+| G1 Mốc/Mục con chưa tính «không áp dụng» | 008-4 · 008-4.C · 008-5 · 008-6 · 008-7 — A2 | 5 | r4 ②: A2 mặc định = (con đạt + con không áp dụng hợp lệ) / tổng |
+| G2 Ngưỡng 0 · mẫu số 0 · mẫu số chưa biết | 008-4.2 Mở khi + A2 · 008-4.3 A2 · 008-4.7b A2 · 008-4.8 A2 · 008-5.1 A2 · 008-7.1 A2 | 7 | r4 luật điền 4–5 (đạt = đúng ngưỡng riêng; mẫu số 0 ⇒ MAU_SO_0; chưa biết ⇒ CHƯA_XÁC_MINH) + nội dung 4.3 |
+| G3 Dòng cha so với N_khuôn | 008-1.2 A2 · 008-7.3 A2 | 2 | r4 ③: hồ sơ chỉ sinh dòng Bước; N_khuôn = 25 |
+| G4 Thứ chưa có (lệnh con, cột, công cụ) | 008-1.1 Làm bằng + A3 · 008-1.3 B1 · 008-5.2 Làm bằng + A3 | 5 | r4 luật điền 3: đặt tên đề xuất + ghi danh «cần làm» ở V15.2 |
+| G5 Trạng thái C4 | 008-4.7b C4 (đối tượng phụ thuộc) · 008-7.3 C4 | 2 | r4: C4 thêm «cần test lại»; «G1 đã duyệt» là cột nghiệp vụ (B1), không phải C4 |
+| G6 Nội dung nguồn | 008-4.5 Mở khi + A2 · 008-5.3 A2 + B3 | 4 | ví dụ CT-008 sai nguồn đã sửa; quyết nội dung bên dưới |
+
+**Quyết nội dung (Host) — GPT áp ở lượt 2:**
+- 008-5.3: REJECT ⇒ chưa đạt; B2 quay về mã bước bị phản đối (ghi trong phiếu) · CAT-069 · CHẶN; ghế đó rà lại sau khi sửa; không sang 008-6.1 tới khi APPROVE. QT khác QT001 ⇒ không áp dụng.
+- 008-4.3: mẫu số = số màn cần bảng (không tính NO_UI).
+- 008-4.5: không có trường hợp không áp dụng toàn bước; riêng phần «Field mới đủ R36 / số Field mới»: số mới = 0 ⇒ MAU_SO_0.
+- 008-1.1: đề xuất lệnh con `mo-viec <QT> <phiên>` (tra/tạo CV) dưới dot-master-apply, ghi danh «cần làm».
+- 008-1.3: đề xuất 5 cột của CAT-227 (mục tiêu · sản phẩm giao · người nhận · tiêu chí · ngoài phạm vi, kèm nguồn từng ô), ghi danh «cần làm»; B1 chốt tên cột.
+- 008-5.2: GPT đặt tên đề xuất cho công cụ chụp màn, ghi danh «cần làm» ở ML-DEF-024; B2 đo và chọn.
+- Phân biệt rõ: lúc **thiết kế**, thiếu lệnh/cột/công cụ ⇒ ghi danh «cần làm» (không ❓); lúc **chạy**, thiếu thật ⇒ CHƯA_XÁC_MINH (câu thay thế của GPT áp cho pha chạy).
+
+**Ghi chú các ghế đã tiếp thu:** Hermes 1 (gọi mã ML-DEF-012 → r4 luật điền 3) · Hermes 2 («0 ❓» do máy ghế khác đếm → r4 luật điền 7) · Hermes 3 (b > 0 là dữ liệu soi MBM, không làm trượt phép thử) · GPT ⑤ (a/b/c chưa loại trừ → r4: ghim tập N, thứ tự a → c → b → d, thêm d chưa xác minh) · Gemini 1–3 (GPT đã làm đúng).
+
+**Lượt 2 (giao 12:05):**
+1. **GPT** — sửa đúng 25 ô ❓ trong V15.1 theo r4 + quyết nội dung trên (sửa tại chỗ, không viết lại phần đã đạt); bổ sung V15.2 (lệnh con, cột, công cụ «cần làm»); dòng đầu V15.1 ký hoặc phản đối r4.
+2. **Sau GPT, song song:** Hermes chạy ①②③ của V15.3 trên bản GPT lượt 2 (máy đếm ❓, kiểm mã, ⑤ N = a + b + c + d) + ký r4 · Gemini ký nhóm A từng dòng + ① Mục tiêu + ký r4.
+3. **Claude** ký nhóm A + tổng hợp lượt 2. Đạt khi: máy Hermes đếm 0 ❓ · 0 ô trống · mọi mã có trong danh mục hoặc V15.2 · r4 và nhóm A đủ chữ ký ⇒ Owner gật QTTH 008.
 
 
 
