@@ -11,8 +11,8 @@ Host: Claude Chat (đề xuất — chờ Owner gật) · lý do: đang giữ c�
 - 📍 Tiến độ: [✓ 1 Nhận yêu cầu] → [✓ 2 Tạo task + danh sách việc] → [■ 3 😊 Chốt mục tiêu] → [□ 4 Điền ma trận] → [□ 5 Ký + D1/D2] → [□ 6 Chạy thử MOW-001] — chi tiết ở «Việc cần làm» đầu ô 3.
 - ✅ Đã xong: nhận yêu cầu (P01) · tạo task đúng khuôn AGENTS, mã MOW-TH-007, danh sách việc cần làm (P01–P02).
 - ■ Đang làm: — · 0 RUN active
-- ⬜ Còn lại: ④.3 → ④.4 → ④.5 → ④.6, đúng thứ tự.
-- ➡ Kế tiếp: 😊 Owner gật ô 2 + Mốc + Host (đề xuất ở ô 3) · rồi Host giao hội đồng điền ma trận (④.4), dùng lại bài thử P49 V15 của tools-quy-trinh.
+- ⬜ Còn lại: 3 Chốt mục tiêu → 4 Điền ma trận → 5 Ký + D1/D2 → 6 Chạy thử MOW-001, đúng thứ tự.
+- ➡ Kế tiếp: 😊 Owner gật ô 2 + Mốc + Host (đề xuất ở ô 3) · rồi Host giao hội đồng điền ma trận (bước 4), dùng lại bài thử P49 V15 của tools-quy-trinh.
 - ⛔ Không làm/để sau: dựng collection trước khi ma trận được ký · làm việc B1/B2 của tools-quy-trinh ở đây · sửa CT-008 ngoài chỗ vấp đã ghi ở Sổ vấp.
 
 ### 1. Mục tiêu
