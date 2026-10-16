@@ -17,7 +17,8 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - ⬜ Còn lại: kiểm các Master định nghĩa vs Collection/dữ liệu thực → sửa 007 (đăng ký phát sinh + đếm thiếu + rà ảnh hưởng) → ✅ Claude: R53 Luật Nhà + dự thảo 007 v2 (R54, P49 V13) → ✅ Gemini V13.1 + GPT V13.2 + Hermes phản biện → ✅ Claude gộp V13 r2 + R55 → ✅ GPT V13.4 + Gemini V13.3 + Hermes-01 → ✅ Claude áp thành V13 r3 + MBM (CT-008, R56) → Owner gật khuôn → PROMPT B1+B2 mới (B1 đo 17 nhà + chốt schema hồ sơ + cột MBM, Owner gật 1 lô).
 - ✅ Hội đồng V14 xong (r2 trượt phép thử: ❓ GPT 26/54 · Gemini 22/39 · Hermes 17) → Claude tổng hợp V14.9 → **CT-008 r3 đã lên trang Công thức** (18 điểm sửa + ⑤ Đối soát đối tượng).
 - ✅ V15 lượt 1: GPT điền đủ 35 dòng QTTH 008, còn 25 ô ❓ → Claude quy về 6 lỗi gốc → **CT-008 r4** (P49 V15.9).
-- ➡ Kế tiếp: **V15 lượt 2** — GPT sửa 25 ô ❓ theo r4 → Hermes máy đếm ❓ + kiểm mã + đối soát ⑤ (V15.3) · Gemini ký nhóm A (V15.4) → Claude tổng hợp → 0 ❓ thì Owner gật QTTH 008 · 🤖 Claude Code: **ghế hội đồng XONG** (P69 lượt 1+2: INV7 · INV19 xanh, 3 phép thử hỏng bị bắt, mã Guard đã khoá, biên nhận #207) · ➡ **lượt 3: trả nợ TQT P41** — 3 tệp mã agent-data (Codex P32–P38) lệch mốc từ 12/10, Owner đã duyệt trước 13/10 nhưng chưa chạy ⇒ đèn #22 đỏ suốt 4 ngày · đỏ của việc khác: hermes-config-yaml (HJW) · nginx-route-gemini-mcp + INV24 (GJW) · INV20 sổ connector (HJW) · ghế Dots mở sau V15 · chưa phát RUN B1+B2.
+- ✅ V15 lượt 2: **QTTH 008 đạt phép thử** — máy Hermes đếm 0 ô trống · 0 ❓ / 766 ô · 60 mã 0 sai · r4 đủ 3 ghế ký · nhóm A Gemini 36/36 + Claude 36/36 · 0 phản đối (P49 V15.9).
+- ➡ Kế tiếp: 😊 **Owner gật QTTH 008** (đề xuất PM: gật) → CT-008 r5 (④ thành ma trận tự áp, từ ⑤ b = 2 · d = 45) → B1 nạp QTTH 008 + ghi danh 53 mã + chốt schema (bỏ 3 câu cũ lượt 1 khi nạp) → B2 dựng (kèm bộ lọc ⑤) → B3 chạy QT001 · 🤖 Claude Code: **ghế hội đồng XONG** (P69 lượt 1+2: INV7 · INV19 xanh, 3 phép thử hỏng bị bắt, mã Guard đã khoá, biên nhận #207) · ➡ **lượt 3: trả nợ TQT P41** — 3 tệp mã agent-data (Codex P32–P38) lệch mốc từ 12/10, Owner đã duyệt trước 13/10 nhưng chưa chạy ⇒ đèn #22 đỏ suốt 4 ngày · đỏ của việc khác: hermes-config-yaml (HJW) · nginx-route-gemini-mcp + INV24 (GJW) · INV20 sổ connector (HJW) · ghế Dots mở sau V15 · chưa phát RUN B1+B2.
 - ⛔ Không làm: coi 5 bảng lõi là đủ mọi sổ; bỏ ghi Master DOT/UI/Field/nợ; nhân bản Master đã có; ghi thẳng production; tự tạo hạ tầng/UI riêng; chạy r2 hoặc G2 trước khi Owner giao.
 
 #### Bảng P61 trước đổi hướng (giữ để tra)
@@ -178,6 +179,8 @@ Phạm vi: chưa làm quy trình nghiệp vụ (phái cử, tuyển dụng…), 
   - **Quyền máy Hermes:** ghi `work/tools-quy-trinh/` (mở 16/10 qua Config Guard, Hermes đã tự ghi được); quyền tạo tệp mới thu lại (tệp của ghế đã có; tránh tạo COLLAB.md ở thư mục lạ — JEV 1,00) — cùng lệnh Claude Code 16/10 10:47. ⚠ **Đổi phạm vi đọc/ghi của Hermes thì trong cùng RUN phải sửa `HERMES_READ_EXACT` / `HERMES_WRITE_MAX` trong mã Guard (INV19), không thì Guard đỏ** (P69 lượt 2). Mode=COUNCIL · Automation_Level=AUTO0.
 
 #### 3.4 Nguyên văn chỉ đạo Owner
+- 16/10/2026 14:54 · phiên Claude (nguyên văn, giữ lỗi gõ) → V15.9 lượt 2, trình Owner gật QTTH 008:
+  > Hôii đồng đã đánh giá xong. Bạn kiểm tra trước rồi chúng ta bàn tiếp
 - 16/10/2026 14:14 · phiên Claude (nguyên văn; bỏ phần dán báo cáo Claude Code) → rà P69 lượt 2, phát hiện nợ P41, lệnh lượt 3:
   > Kiểm tra giúp tôi xem còn vấn đề gì nữa không. Đây là báo cáo từ claude code cli
 - 16/10/2026 11:58 · phiên Claude (nguyên văn) → V15.9 lượt 1, CT-008 r4, giao lượt 2:
