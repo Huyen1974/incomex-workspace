@@ -2147,7 +2147,9 @@ Nhóm C không kê lại tài liệu chỉ đọc để kiểm. Các biên nhậ
 
 **Ý kiến đối với ⑤ đối soát:** giữ mục tiêu N=a+b+c và cách làm tay, không viết chương trình. Tuy nhiên, CT-008 chưa bảo đảm a/b/c loại trừ: một đối tượng đã test, có nhà nhưng chưa có cụm C và chưa có tham chiếu có thể cùng thuộc b lẫn c. Câu thay thế đề nghị: “Ghim tập N và phiên trước khi phân nhóm; định nghĩa thứ tự ưu tiên phân loại để mỗi mã thuộc đúng một nhóm; trường hợp chưa phân loại được phải hiện riêng là chưa xác minh, không gán tùy ý.” Đây là phản biện công thức; bảng đối soát thực tế của bài để Hermes thực hiện tại V15.3 theo phân công, GPT không điền hộ.
 
-**Trạng thái nộp:** đã điền trọn cấu trúc được giao, nhưng chưa ký r3 đủ điều kiện 0 ô phải đoán; chưa có chữ ký nghiệm thu nhóm A của các ghế còn lại hoặc Owner. Những mã ở V15.2 là ghi danh trong hồ sơ hội đồng, không phải tài nguyên runtime đã được tạo. Chỉ tiếp nhận nguồn V13 theo phép thử, không đưa thêm luật hoặc tự sửa CT-008.
+**Tự kiểm cấu trúc sau khi ghi:** phép đếm chỉ đọc trên snapshot `962ed5cac00275fd1bfccd99f44f14e27a2c92b8`, job `09a4c496eef7429da9a09565e16fe917`, exit_code=0: **35 dòng ma trận = 7 Mốc + 3 Mục con + 25 Bước; 35 dòng trả lời A/B cùng tập mã; 45 dòng cụm C phủ đủ 35 mã; 25 ô phải đoán; 0 ô trống; 46 mã ghi danh duy nhất; toàn bộ 35 mã dòng có trong V15.2.** Phép đếm chỉ kiểm hình thức và sự có mặt, không ký thay Hermes hoặc Gemini và không chứng minh nội dung đã đúng. Các ô vướng nằm trong chính bảng, có lý do và loại lỗi; không cộng phần nhận xét vào số ô.
+
+**Trạng thái nộp:** đã điền trọn cấu trúc được giao, nhưng chưa ký r3 đủ điều kiện 0 ô phải đoán; chưa có chữ ký nghiệm thu nhóm A của các ghế còn lại hoặc Owner. Những mã ở V15.2 là ghi danh trong hồ sơ hội đồng, không phải tài nguyên runtime đã được tạo. Chỉ tiếp nhận nguồn V13 theo phép thử, không đưa thêm luật hoặc tự sửa CT-008. Hermes tiếp tục kiểm độc lập V15.3; Gemini tiếp tục rà/ký nhóm A tại V15.4 theo brief, GPT không điền thay hai ghế.
 
 #### V15.2 · Bảng ghi danh «cần làm» (mã nhà / DOT chưa có trong danh mục) — GPT ghi, B1 chuyển về đúng sổ
 
