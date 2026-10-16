@@ -570,3 +570,7 @@ Chuẩn hướng dẫn sử dụng là dấu **?** đặt ngay tại cột, mụ
 ## P45 · AI mới đi lại từ cửa vào
 Lượt thật MOW001-QT006-P45-REAL ở CAT229, nối từ DEF00.1/TQT-VIEC-001. Host đã đọc/đối chiếu CP01.01–03; DỪNG tại CP01.04, chưa mở hồ sơ vòng mới. CAT069 có TQT-P45-F01/F02 (đã sửa luật/bộ kiểm) và F03 (chốt quyền/hợp đồng vòng mới chưa xác minh). Policy live chỉ ghim G1 cũ; không dùng quyền ghi tệp chung để coi vòng mới đã qua gate. Không đụng G1, MOW002, PG hoặc runtime. Nguồn lượt/bước thực tế: catalog.tool_registry.walkthrough_runs; đây là phần nhiều lượt của CAT229 hiện hữu, không Master mới. CHECK005 đã hỗ trợ kiểm pool hồ sơ đúng ID/nguồn/phiên; phép thử không thay việc thật.
 Bằng chứng P60: [bộ kiểm và đọc lại UI](evidence/TQT-P60-checks.json). Ký đúng phiếu `TQT-P60-CORRECTIONS` trong hồ sơ CV-001, không ký bằng chat. Nguồn/phiên ghi trong manifest của phiếu.
+
+
+## Thanh 4 Mẹ · sửa 16/10/2026 (P68)
+Bấm tên để mở trang; bấm ▾ để xem trang con. Tên và mục con là hyperlink thật, dùng chuột phải để sao chép địa chỉ/mở tab. Từ trang công việc nhúng, mở tab mới theo popup contract đã có; từ trang độc lập, mở bình thường. Menu duy nhất tại `ui/eco-nav.js`; điều hướng trên tại `ui/design-navigation-v1.js`; bộ nạp con `ui/ui-child-from-parent-v1.js` phải ghép dữ liệu bằng callback, giữ nguyên byte chứa dấu `$`. Hai ca hồi quy ở `ui/qa-contracts.js` hiện hữu. Kiểm và phạm vi tại COLLAB P68; không mở lại bộ thử P61 hoặc phê duyệt G1.

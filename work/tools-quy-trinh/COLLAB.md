@@ -8,12 +8,12 @@ Host_ID: Astra-Codex (nội dung) · Claude-review (Kiểm soát)
 Host_Surface: Codex · phiên 01a129ed-a979-7d13-af46-d3b3ec3e2abf do Owner chỉ định 11/10/2026 · Claude · phiên Claude Chat Owner giao ngày 10/10/2026
 Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu hỏi, giữ nội dung cũ, tiếp nhận ý kiến qua Host. Chỉ đạo này thay phần Host/PROMPT READ-ONLY cũ trong phạm vi tools-quy-trinh.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-15 17:40 +07 · GPT Chat · P65 · OWNER ĐỔI PHẠM VI
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-16 09:47 +07 · Codex · P68 · SỬA ĐIỀU HƯỚNG XONG / G1 GIỮ PHẠM VI
 - 🎯 Mục tiêu: ô 1 — cỗ máy biến ý tưởng thành quy trình. G1: vẽ UI, đủ Field/Hợp đồng/Config **và ghi đủ mọi đối tượng phát sinh vào Master List tương ứng**, theo dõi quan hệ/đổi nguồn.
 - 🏁 Xong khi: ô 2 — có danh mục các Master cần dùng, nơi lưu trên Directus; mọi UI/Field/DOT/nợ/thay đổi phát sinh đã ghi đủ, kiểm đếm đối chiếu được; QT001 có UI thật và Config khả thi.
 - 📍 Tiến độ: [■ B0 RÀ LẠI: điều chỉnh Master + MOW-TH-007] → [□ B1 điểm danh mọi loại đối tượng → Sổ của các sổ + Owner duyệt cột] → [□ B2 dựng sổ Directus + DOT] → [□ B3 hoàn thành QT001/đối soát] → [□ B4 lô tiếp] → [□ B5 nghiệm thu]. Không tự nhảy G2.
-- ✅ Đã xong: Owner từng chốt Q1 tài khoản xem NHÁP, Q2 DOT lâu dài và khung bảy bước 007; đã có định nghĩa Master, Công thức, bản r2 và các ý kiến Claude/GPT/Gemini. **Đồng thuận cũ chỉ đúng phạm vi cũ.**
-- ■ Đang làm: Codex sửa hyperlink thanh 4 Mẹ theo Owner 16/10; phạm vi G1/B0 giữ nguyên, không chạy r2.
+- ✅ Đã xong: Owner từng chốt Q1 tài khoản xem NHÁP, Q2 DOT lâu dài và khung bảy bước 007; đã có định nghĩa Master, Công thức, bản r2 và các ý kiến Claude/GPT/Gemini. **Đồng thuận cũ chỉ đúng phạm vi cũ.** 16/10: sửa hyperlink/thanh 4 Mẹ và bộ nạp trang con, kiểm rộng/hẹp/khung thật đạt (P68).
+- ■ Đang làm: — · 0 RUN active; P68 sửa thanh 4 Mẹ đã xong; lộ trình G1/B0 và quyền triển khai giữ nguyên.
 - ⬜ Còn lại: kiểm các Master định nghĩa vs Collection/dữ liệu thực → sửa 007 (đăng ký phát sinh + đếm thiếu + rà ảnh hưởng) → ✅ Claude: R53 Luật Nhà + dự thảo 007 v2 (R54, P49 V13) → ✅ Gemini V13.1 + GPT V13.2 + Hermes phản biện → ✅ Claude gộp V13 r2 + R55 → ✅ GPT V13.4 + Gemini V13.3 + Hermes-01 → ✅ Claude áp thành V13 r3 + MBM (CT-008, R56) → Owner gật khuôn → PROMPT B1+B2 mới (B1 đo 17 nhà + chốt schema hồ sơ + cột MBM, Owner gật 1 lô).
 - ➡ Kế tiếp: 😊 Owner xem MBM (CT-008) + gật khuôn 007 r3 · Claude Code mở quyền ghi cho Hermes (lệnh trong chat 16/10) · chưa phát RUN.
 - ⛔ Không làm: coi 5 bảng lõi là đủ mọi sổ; bỏ ghi Master DOT/UI/Field/nợ; nhân bản Master đã có; ghi thẳng production; tự tạo hạ tầng/UI riêng; chạy r2 hoặc G2 trước khi Owner giao.
@@ -1552,8 +1552,18 @@ Gemini V13.3: nhận khóa quyền CAT-228, kiểm cột JSON **có điều ki�
 
 
 
-## P66 · Sửa hyperlink thanh 4 Mẹ theo Owner 16/10/2026
+## P68 · Sửa hyperlink thanh 4 Mẹ theo Owner 16/10/2026
 STARTED@TQT-NAV-LINKS-20261016 2026-10-16T02:19:57.070290+00:00 · executor=Codex · Write_Path=workspace_transaction(root=ui/workspace), nguồn mã VPS; Owner giao trực tiếp sửa liên kết, không đổi phạm vi G1/P61.
 - Owner: “Lần trước tôi có yêu cầu bạn đưa thanh \"4 mẹ\" và tất cả các trang con mà chúng ta làm để dễ dàng truy cập. Tuy nhiên bạn làm viẹc đó chưa cẩn thận, không coppy được hyperlink (bấm vào chưa chạy) kiểm tra lại hết và khắc phục việc này giúp tôi nhé. Đảm bảo cơ chế kĩ thuật không bị lỗi”.
 - Đường vào: knowledge/modules?task=tools-quy-trinh → nội dung nhúng; nguồn thanh duy nhất /opt/incomex/docs/mcp-writes/eco-nav.js. Bậc 3: sửa mỏng cơ chế dùng chung để dùng hyperlink HTML có sẵn, không tạo UI/kho mới.
 - Đã xác minh: sáu mục đầu là BUTTON không href; Master có danh mục con nhưng click luôn đi Home; popup chưa giới hạn chiều cao và hot reload chưa thu hồi tài nguyên. Kiểm toàn bộ đích menu và consumers trước/sau; kiểm bấm/copy/mở trực tiếp/màn hẹp/iframe trước KQ.
+
+
+### P68 · Kết quả kiểm và khép lượt sửa điều hướng
+- **Đã sửa đúng nguồn chung:** `eco-nav.js`, `design-navigation-v1.js`, `ui-child-from-parent-v1.js`; thêm 2 ca vào `qa-contracts.js` hiện có. 11 cửa vào chỉ đổi mã cache. Mốc khôi phục UI `75a9614`; không tạo trang/kho/dịch vụ mới.
+- **Cách dùng:** bấm tên để mở trang; bấm ▾ để mở các trang con; chuột phải vào tên/mục con để sao chép địa chỉ hoặc mở tab. Khi ở trang công việc nhúng, liên kết mở tab mới bằng quyền popup/escape đã có, có `noopener`; trang độc lập mở bình thường. Giữ nguyên hai lớp sandbox và trang công việc ban đầu.
+- **Ba lỗi đã chứng minh và sửa:** BUTTON không href; điều hướng `_top` bị khung chặn (còn `_self` làm mất nguồn đọc trong origin cô lập); ghép init bằng replacement string làm `$'`/`$$` trong byte nguồn biến đổi, gây trang trắng. Bộ nạp dùng callback để dữ liệu giữ nguyên. Menu Master mở được; popup giới hạn/ cuộn dưới thanh trên; nạp lại không nhân timer/listener/observer và không đóng menu khi cùng phiên.
+- **Bằng chứng:** 47 đích menu = 39 cũ + 8 lối vào Master; 93/93 URL trả 200; 4/4 hash HTTP/VPS khớp; 11/11 cửa vào dùng bản loader mới. 45 ca cơ chế + 13 ca chạy loader thật đạt, gồm dữ liệu `$&`, `$` + dấu nháy, `</script>` và Unicode. Hai ca hồi quy đã gắn vào bộ QA hiện có; không nhận đã chạy toàn bộ QA nền.
+- **Trình duyệt thật:** cả 5 menu đạt trên 1810px. Màn 390×844: popup 21 link cuộn được, đầu link y=149 > đáy thanh trên y=107, không che/cắt mục đầu. Đúng đường Owner: bấm Master tạo tab mới, tab có danh mục 86 Master; từ đó bấm Master DOT tải bảng 311 mục và đủ 6 hyperlink, không còn lỗi cú pháp/trang trắng. Link tuyệt đối đọc/sao chép được, giữ nguyên query đã chốt.
+- **Phạm vi giữ rõ:** không sửa dữ liệu/quy định/fixture/pin hay ký P61; bộ thử cũ tiếp tục đóng băng. Loader sống đổi thì phiếu/fixture cũ không được suy là đã kiểm bản mới. Không PG/Directus, không QT002, không build/restart, không đổi quyền. Phần G1 đang rà theo Bảng không được duyệt thêm bởi lượt sửa menu.
+KQ@TQT-NAV-LINKS-20261016 XONG · 2026-10-16T02:47:37.326467+00:00 · phạm vi sửa/công bố/kiểm điều hướng; 0 RUN nền, 0 lease/container/tệp tạm VPS; trả đúng VPS-GHI của lượt này cùng commit. UI snapshot 75a9614, giữ bằng chứng local/test trong phiên; không nhận nghiệm thu G1/P61.
