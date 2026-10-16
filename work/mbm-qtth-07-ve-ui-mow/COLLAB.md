@@ -5,11 +5,11 @@ Tên việc: QTTH 07 — vẽ UI theo Master MOW, đủ Master list và hợp đ
 Xác nhận User: ĐÃ XÁC NHẬN — Owner viết ô 1–2 ngày 16/10/2026 17:05.
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-16 17:20 +07 · Claude · P05
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-16 17:35 +07 · Claude · P06
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ: [✓ 1 Nhận yêu cầu] → [✓ 2 Tạo task] → [✓ 3 Chốt mục tiêu] → [■ 4 Ma trận] → [□ 5 Ký] → [□ 6 Chạy]
-- ✅ Đã xong: task `mbm-qtth-07-ve-ui-mow` · Owner chốt ô 1–2 (17:05) · ma trận bản gọn (Claude).
+- ✅ Đã xong: task `mbm-qtth-07-ve-ui-mow` · Owner chốt ô 1–2 (17:05) · ma trận = bản 25 bước Owner đã gật 15:19 + 1 bước đề xuất.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: 5 Ký (Hermes kiểm mã + đếm ô · GPT, Gemini ký) → 6 Chạy từ bước 007-2.1.
 - ➡ Kế tiếp: Host gửi hội đồng ký ma trận · 😊 Owner gật → chạy 007-2.1.
@@ -39,7 +39,7 @@ Owner 16/10/2026 17:05:
 | 1 | Nhận yêu cầu | 🤖 | lời Owner ở Nhật ký | ☑ |
 | 2 | Tạo task + tên | 🤖 | đúng khuôn, tên `mbm-` | ☑ `c8bfe619` |
 | 3 | Chốt mục tiêu | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
-| 4 | Ma trận | 🤖 Claude viết | đủ Mốc · Bước · ô | ■ bản gọn đã có |
+| 4 | Ma trận | 🤖 | dùng bản 25 bước đã gật + bước thiếu cho mục tiêu mới | ■ chờ Owner gật bước 4.0 |
 | 5 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
 | 6 | Chạy | 🤖 | đạt ô 2 | ☐ |
 
@@ -59,13 +59,31 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 | V2 | chưa có khuôn tên task | ④ r4.3 |
 | V3 | sai thứ tự; task chưa có danh sách việc | ④ r4.4 |
 | V4 | tên task chưa cho biết nguồn gốc | ④ r4.5 (`mbm-`) |
-| V5 | ma trận đủ A1–C4 từng dòng quá dài, người không đọc được | chưa sửa — đề xuất bản gọn (5 cột + luật chung); đổi bộ câu hỏi nên cần hội đồng ký ở bước 5 |
+| V5 | ma trận đủ A1–C4 từng dòng quá dài, người không đọc được | chưa sửa — task chỉ đặt mục lục, bản đủ để ở nơi đã ký; đổi bộ câu hỏi cần hội đồng |
+| V6 | Host bỏ qua bản 25 bước đã gật, tự viết ma trận mới (Owner phát hiện 17:25) | ④.4 r4.6: có bản cũ thì bắt đầu từ bản cũ, chỉ thêm/sửa phần mục tiêu mới đòi |
 
 ### Vòng trước
 - 16/10 15:19 (Owner, nay gộp vào ô 1 bản 17:05): vẽ UI theo Master MOW · hoàn thiện Master list, điền đủ SSOT · đủ trường để Config · dùng DOT tạo collection.
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
-## Ma trận QTTH 07 — Yêu cầu + Mục tiêu + Mốc + Bước + Bộ câu hỏi ⇒ MOW
+## Ma trận QTTH 07 — bản Owner đã gật 16/10 15:19 (viết bằng MBM)
+Bản đủ (mỗi bước đủ câu A1–C4, 53 mã ghi danh): tools-quy-trinh P49 V15.1 + V15.2 tại `f76fa2e1` — mã 008-x.y đọc là 007-x.y. Bảng dưới là mục lục 7 mốc · 25 bước. **Hồ sơ:** mỗi lần chạy = 1 việc (CAT-227) + 25 dòng hồ sơ (CAT-228).
+
+| Mốc | Bước | Hồ sơ ghi ở |
+|---|---|---|
+| 007-1 Khai việc | 1.1 tra/tạo 1 việc · 1.2 mở hồ sơ 25 dòng · 1.3 điền 5 ô riêng của việc | CAT-227 · CAT-228 |
+| 007-2 Chuẩn bị | 2.1 nạp bước từ Công thức · 2.2 điểm danh sổ cần, Owner duyệt cột · 2.3 thử DOT | ML-MOW-TH-001 · ML-DEF-012 · CAT-229 |
+| 007-3 Cổng | 3.1 6 bước trên đạt mới mở làm | CAT-228 |
+| 007-4 Làm | **A UI:** 4.1 hành động → UI · 4.2 xét UI dùng lại · 4.3 chọn bảng, khai sổ mới · **B Hợp đồng:** 4.4 nghĩa vụ thông tin · 4.5 ghép Field cũ/mới · 4.6 bảng đọc/ghi, bắt buộc · **C Đối soát:** 4.7a đếm phát sinh, thiếu = 0 · 4.7b rà ảnh hưởng · 4.8 DOT áp nháp, thử, đọc lại | ML-DEF-018 · CAT-206 · ML-DEF-008 · CAT-016 · CAT-229 |
+| 007-5 Kiểm | 5.1 kiểm đủ · 5.2 xem màn, ảnh · 5.3 ghế khác hãng rà | CAT-015 · CAT-239 · CAT-025 |
+| 007-6 Duyệt | 6.1 gom gói · 6.2 Owner gật/lắc · 6.3 lắc thì quay lại | CAT-227 · CAT-025 · CAT-069 |
+| 007-7 Đóng | 7.1 kiểm toàn bộ · 7.2 rà nợ · 7.3 đóng, báo | CAT-228 · CAT-069 · CAT-227 |
+
+**Đối chiếu 5 mục tiêu 17:05:** MT1 UI ← 4.1–4.3 · 4.8 · 5.2 · MT2 Master list + duyệt lần đầu ← 2.2 · 4.3 · 6.2 · MT3 không mồ côi ← 4.7a (DOT đếm) · MT4 hợp đồng thông tin ← 4.4–4.6 · MT5 DOT ← 2.3 · 4.8 + DOT ghi danh ở V15.2.
+**Thiếu 1 bước** cho ô 2 mục 1 (hợp nhất hoặc tách MOW): đề xuất thêm **4.0 Rà Master MOW: giữ · hợp nhất · tách → Owner gật** (chờ Owner gật).
+
+<details><summary>Bản 14 bước Claude tự viết 17:20 — SAI, bỏ (giữ để tra V6)</summary>
+
 **Luật chung (mọi bước, không chép lại):** chưa đạt → làm lại chính bước đó, ghi nợ CAT-069 · đối tượng mới phát sinh ghi danh vào sổ trước khi làm · việc thường giao Hermes, việc khó giao frontier · D1 làm sai bị chặn: GS-01 · 02 · 03 · 04 · D2 quên ghi bị bắt: GS-07 (DOT đếm mồ côi) · 08 · 09.
 
 | Mã | Bước | Làm bằng | Xong khi | Ghi ở |
@@ -94,9 +112,12 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 **DOT cần (MT5):** tạo collection + nạp + thử Config (`dot-master-apply`) · đếm mồ côi · chụp màn. Chưa có thì ghi danh «cần làm» ở ML-DEF-024 rồi dựng để dùng lâu dài.
 **Nguồn:** CT-008 MBM (`work/mow-mot-moit-mout/ban-duyet.html#formula-ct-008`) · dùng lại bài thử V15 (tools-quy-trinh P49 tại `f76fa2e1`).
 
+</details>
+
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
 - P01 · 16:29 · tạo việc: «Thấy bạn lúng túng lắm. Tức là các bạn viết ra đó nhưng các bạn chưa chắc đã làm được 1 quy trình từ MBM đâu. Đây sẽ là bài test thử. Đầu tiên bạn sửa lại việc này. Bổ sung phải taọ task trên workspace nữa. => bạn thấy đấy. Viết không đủ cụ thể, khôgn tính đến khi làm => vào làm là mắc. Chúng ta vừa làm vừa hiệu chỉnh toàn bộ MBM để làm sao các bước thật chi tiết. Lần 2 không có tôi AI thưc sự chạy được. Các bạn viết thì hay, nhưng khi các bạn làm là hỏng ngay. Giờ bổ sung phần đó và việc đầu tiên bạn tạo task trên WP đi. qtth.07-ve-UI-mow»
 - P02 · 16:39 · thứ tự ④ + danh sách việc: «Không tôi nghĩ là nên làm ngược lại: ④ Làm một MOW bằng MBM. Nhận yêu cầu => tạo task Tạo task trên workspace => Chốt mục tiêu (quy trình sẵn cũ). Đưa 1 danh sách list những viẹc cần làm lên Task, cái nào làm xong thì tích. Lý do là các bạn ít đọc công thức, chỉ đọc 1 lần thôi. Còn lại task là cái mà lần nào cũng phải đọc lại, xem lại. Dễ bàn hơn. Sửa lại và làm thử theo xem có hợp lý không. Chưa hợp lý lại tiếp tục sửa. Chỉ có phần quét chi tiết mà hội đồng đã góp Ý nhiều lần => chúng ta nên hạn chế sửa bừa bừa bãi. Bởi vì sửa lại phải kéo cả hội đồng và góp Ý. Còn lại thứ tự quy trình, tôi và bạn làm là đủ rồi. Cho nhanh. Cái gì đúng là nó chạy được thực tế. Còn vào thực tế mà mắc => phải sửa lại hết.»
 - P03 · 16:52 · tên task: «Bạn ghi luôn là tên task mà làm theo MBM thì chữ đầu tiên phải là mbm-.... sau này chúng ta có nhiều công thức, quy định luôn cách đặt tên để còn biết tìm. Nhìn cái là phải hiểu nguồn gốc nó từ đâu.»
 - P04 · 16:50 · viết gọn: «Giờ bạn tạo task trước đi, viết ngắn thôi nhưng đủ. 2 tạo tên 3. chôt mục tiêu + thê nào là hoàn thành => Kiểm tra lại các thông tin tôi đã chỉ đạo trước đây để viết vào. 4. Liệt kê ngắn gọn các đầu việc task (cái này để xem làm thế nào cho gọn). Nhắc lại tổng thể là viết ngắn gọn. Đừng viết dài quá các bạn cũng không đọc được đâu lại làm sai hết.»
+- P06 · 17:25 · dùng lại bản cũ: «Tôi chả hiểu bạn đang viết cái này là cái gì nữa? Bạn kiểm tra xem trước nếu chưa có MBM chúng ta đã bàn thế nào? mấy chục cái bước gồm những bước gì? Việc này mà chúng ta không MBM thì chúng ta cũng làm xong rồi đấy. Kiểm tra lại xem nào? Liệt kê cho tôi các cái bước chi tiết, theo tôi nhớ chúng ta còn làm cả hồ sơ rồi cơ mà? Các bạn cứ viết Tràng giang đại học xong lúc quay lại viết như là người không hiểu gì? Tôi cũng chả hiểu bạn đang viết gì luôn?»
 - P05 · 17:05 · chốt ô 1–2: «1. Mục tiêu này 1. vẽ UI theo Master MOW 2. hoàn thiện Master list (đủ các master list có cần dùng và từn master phải được user duyệt lần đầu) 3. Điền đủ (SSOT) ( không có đối tượng liên quan đến quy trình này bị mồi côi (không có "sổ" để ghi, có sổ nhưng chưa được ghi, ghi ở 2 SSOT...) 4. Đủ trường để Config => list được hợp đồng thông tin liên quan 5. Dùng 100% DOT tạo collection, không làm hệ nặng. Bổ sung các DOT cần thiết, để dùng lại lâu dài. Ưu tiên chạy DOT nếu nếu có thể (tức là tự động 2. Thế nào là hoàn thành 1. Vẽ xong UI theo masterlist mow bao gồm hợp nhất các Mow hoặc tách cách mow 2. Xác đinh tin cậy số lượng đối tượng "mồ côi" (dùng dot) => đảm bảo không có đối tượng liên quan mô côi. 3. Các master list điền đầy đủ thông tin, đảm bảo SSOT 4. Xác đinh đủ hợp đồng thông tin để config không lỗi. Theo công thức: Yêu cầu User+Mục tiêu+Mốc+Mục con+Bước+Bộ câu hỏi⇒MOW chúng bạn đưa lên task và hoàn thành mục tiêu. Viết sao cho ngắn gọn nhưng làm được. Kinh nghiệm đau thương của tôi là các bạn viết dài nhưng cuối cùng vẫn sai, con người thì không nhìn được vì nó quá nhiều chữ»

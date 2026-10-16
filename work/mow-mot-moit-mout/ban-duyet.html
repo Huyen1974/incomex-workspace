@@ -1224,7 +1224,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
   <div class="cf-mbm">
-  <p><span class="cf-mbm-badge">r4.5 · 16/10 · đang thử thật: làm QTTH 07 ở task mbm-qtth-07-ve-ui-mow · vấp đâu sửa đó</span></p>
+  <p><span class="cf-mbm-badge">r4.6 · 16/10 · đang thử thật: làm QTTH 07 ở task mbm-qtth-07-ve-ui-mow · vấp đâu sửa đó</span></p>
   <p><b>MBM = MOW born MOW</b>: <b>công thức gốc</b> để chế tạo ra quy trình. Mọi câu hỏi đặt sẵn trong ma trận. AI chỉ điền câu trả lời vào ô. Ô nào trống là dòng đó chưa xong.</p>
   <p class="cf-mbm-note"><b>Định vị:</b> MBM là CÔNG THỨC, không phải quy trình. Một công thức chế tạo ra nhiều quy trình (kể cả quy trình tổng hợp gọi quy trình khác). Việc thật và mọi phép thử chi tiết thuộc quy trình được chế tạo ra; sửa cách chế tạo thì sửa ở đây.</p>
   <h4>① Mục tiêu</h4>
@@ -1300,7 +1300,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <li>🤖 <b>Nhận yêu cầu</b>: ghi nguyên văn lời User vào task (mục P01).</li>
   <li>🤖 <b>Tạo task trên workspace</b>: tra/cấp mã MOW (Sổ quy trình ML-MOW-TH-001; sổ chưa là collection thì ghi ở task) rồi tạo <code>work/mbm-&lt;mã-tên-ngắn&gt;/COLLAB.md</code> — <b>tên task bắt đầu bằng mã công thức sinh ra nó</b> (MBM → <code>mbm-</code>; công thức khác dùng mã của mình) để nhìn tên là biết nguồn gốc; chữ thường nối gạch ngang (vd <code>mbm-qtth-07-ve-ui-mow</code>), đúng khuôn AGENTS: dòng «Xác nhận User» · Bảng điều khiển · ô 1 Mục tiêu (lời User) · ô 2 Thế nào là hoàn thành · ô 3 Chi tiết cần đạt (có khối HỘI ĐỒNG, đề xuất 1 Host + lý do) · Vòng trước. Đầu ô 3 đặt <b>danh sách việc cần làm</b> = 6 bước này, kèm «xong khi»; xong bước nào tích bước đó kèm commit. Thêm «Sổ vấp MBM» và «Ma trận». Task là nơi duy nhất làm MOW này; mỗi lượt AI đọc lại task, không cần đọc lại công thức.</li>
   <li>😊 <b>Chốt mục tiêu</b>: User chốt ①, Thế nào là hoàn thành, Mốc, Mục con, Host → ghi ô 1–3 của task → «Xác nhận User: ĐÃ XÁC NHẬN».</li>
-  <li>🤖 Điền ma trận và cột «Thiết kế» cho mọi dòng vào mục «Ma trận» của task (việc thường: model rẻ · việc khó: frontier).</li>
+  <li>🤖 Điền ma trận và cột «Thiết kế» cho mọi dòng vào mục «Ma trận» của task (việc thường: model rẻ · việc khó: frontier). <b>Có bản cũ đã gật thì bắt đầu từ bản cũ</b>: chỉ thêm, sửa phần mục tiêu mới đòi, ghi rõ dùng lại bản nào.</li>
   <li>👥😊 0 ô trống, 0 ô ❓, D1–D2 đã trả lời bằng mã GS → hội đồng ký → User gật. Còn ❓ thì sửa, chưa gật.</li>
   <li>🤖 Chạy thử 1 việc: DOT điền «Khi chạy»; lỗi thì sửa thiết kế, giữ lịch sử, ký lại phần đổi.</li>
   </ol>
