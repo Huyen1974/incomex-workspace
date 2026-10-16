@@ -1948,8 +1948,61 @@ Không điền Phần B trên r2: ba ghế đã chứng minh r2 trượt (❓ GP
 _(trống)_
 
 #### V15.2 · Bảng ghi danh «cần làm» (mã nhà / DOT chưa có trong danh mục) — GPT ghi, B1 chuyển về đúng sổ
+
+**Ghi danh THIẾT KẾ trước khi dùng ở V15.1, chưa tạo đối tượng runtime.** Mã MOW/Mốc/Mục con/Bước sinh theo CT-008 r3 §②; tên và công việc kế thừa V13 r3. CP04 có 9 bước nên người điền chia thành 3 Mục con, mỗi mục 3 bước: UI / Field–Hợp đồng / Đối soát–Áp thử (lựa chọn thiết kế theo giới hạn ≤5, không thêm bước). Các CAT đã được nêu trong V13/snapshot nhưng chưa có dòng trong registry ML-DEF đã đọc; ghi danh dùng lại đúng mã nguồn và chờ B1 xác minh, không tuyên bố là sổ hoàn toàn mới hay đã có Collection. DOT dưới đây là công cụ dự kiến của V13, chưa được thử trong V15.
+
+Các nhà ML-DEF-008/012/017/018/021/022/024 và ML-MOW-TH-001 đã có mã trong `evidence/ui-inputs/definition-master-registry-v1.js`, không tạo thêm mã nhà cho chúng. Không tự đổi mã 007 cũ; MOW-TH-008 là bản viết bằng MBM của phép thử này.
+
 | Mã | Loại (nhà / DOT / cột) | Tên | Thuộc sổ nào khi dựng | Dòng QTTH 008 cần |
 |---|---|---|---|---|
+| MOW-TH-008 | MOW | Cần làm: khuôn thiết kế G1 bằng MBM | ML-MOW-TH-001 | Toàn bộ V15.1 |
+| 008-1 | Mốc | Cần làm: Khai việc | ML-DEF-022; liên kết MOW-TH-008 | CP01 |
+| 008-2 | Mốc | Cần làm: Chuẩn bị | ML-DEF-022; liên kết MOW-TH-008 | CP02 |
+| 008-3 | Mốc | Cần làm: Cổng bắt đầu | ML-DEF-022; liên kết MOW-TH-008 | CP03 |
+| 008-4 | Mốc | Cần làm: UI–Field–Config | ML-DEF-022; liên kết MOW-TH-008 | CP04 |
+| 008-5 | Mốc | Cần làm: Kiểm | ML-DEF-022; liên kết MOW-TH-008 | CP05 |
+| 008-6 | Mốc | Cần làm: Duyệt | ML-DEF-022; liên kết MOW-TH-008 | CP06 |
+| 008-7 | Mốc | Cần làm: Đóng | ML-DEF-022; liên kết MOW-TH-008 | CP07 |
+| 008-4.A | Mục con | Cần làm: UI | ML-DEF-022; thuộc 008-4 | 008-4.1, 008-4.2, 008-4.3 |
+| 008-4.B | Mục con | Cần làm: Field và Hợp đồng | ML-DEF-022; thuộc 008-4 | 008-4.4, 008-4.5, 008-4.6 |
+| 008-4.C | Mục con | Cần làm: Đối soát và áp thử | ML-DEF-022; thuộc 008-4 | 008-4.7a, 008-4.7b, 008-4.8 |
+| 008-1.1 | Bước | Cần làm: Tra hoặc tạo CV duy nhất | ML-DEF-022 | 008-1 |
+| 008-1.2 | Bước | Cần làm: Mở hồ sơ ghim phiên | ML-DEF-022 | 008-1 |
+| 008-1.3 | Bước | Cần làm: Điền 5 ô riêng của CV | ML-DEF-022 | 008-1 |
+| 008-2.1 | Bước | Cần làm: Nạp bước QT từ Công thức | ML-DEF-022 | 008-2 |
+| 008-2.2 | Bước | Cần làm: Điểm danh nhà vận hành | ML-DEF-022 | 008-2 |
+| 008-2.3 | Bước | Cần làm: Thử DOT đúng phiên | ML-DEF-022 | 008-2 |
+| 008-3.1 | Bước | Cần làm: Kiểm cổng CP01–CP02 | ML-DEF-022 | 008-3 |
+| 008-4.1 | Bước | Cần làm: Ánh xạ hành động với UI | ML-DEF-022 | 008-4.A |
+| 008-4.2 | Bước | Cần làm: Xét UI dùng lại | ML-DEF-022 | 008-4.A |
+| 008-4.3 | Bước | Cần làm: Chọn bảng và khai nhà thiết kế | ML-DEF-022 | 008-4.A |
+| 008-4.4 | Bước | Cần làm: Lập nghĩa vụ thông tin | ML-DEF-022 | 008-4.B |
+| 008-4.5 | Bước | Cần làm: Ghép Field cũ hoặc mới | ML-DEF-022 | 008-4.B |
+| 008-4.6 | Bước | Cần làm: Khai bảng đọc/ghi và bắt buộc | ML-DEF-022 | 008-4.B |
+| 008-4.7a | Bước | Cần làm: Đếm phát sinh không chồng nhóm | ML-DEF-022 | 008-4.C |
+| 008-4.7b | Bước | Cần làm: Rà tác động thay đổi | ML-DEF-022 | 008-4.C |
+| 008-4.8 | Bước | Cần làm: Áp nháp và thử đọc lại | ML-DEF-022 | 008-4.C |
+| 008-5.1 | Bước | Cần làm: Kiểm đủ theo nghĩa vụ | ML-DEF-022 | 008-5 |
+| 008-5.2 | Bước | Cần làm: Xem màn, ảnh và test lại | ML-DEF-022 | 008-5 |
+| 008-5.3 | Bước | Cần làm: Rà khác hãng cho QT001 | ML-DEF-022 | 008-5 |
+| 008-6.1 | Bước | Cần làm: Gom gói duyệt đúng phiên | ML-DEF-022 | 008-6 |
+| 008-6.2 | Bước | Cần làm: Ghi quyết định Owner | ML-DEF-022 | 008-6 |
+| 008-6.3 | Bước | Cần làm: Nhánh lắc và quay lại | ML-DEF-022 | 008-6 |
+| 008-7.1 | Bước | Cần làm: Kiểm CP01–CP06 | ML-DEF-022 | 008-7 |
+| 008-7.2 | Bước | Cần làm: Rà nợ mở không chặn | ML-DEF-022 | 008-7 |
+| 008-7.3 | Bước | Cần làm: Đóng G1, đọc lại và báo | ML-DEF-022 | 008-7 |
+| CAT-227 | nhà | Cần làm: xác minh/ghi danh sổ việc, kế thừa mã V13 | ML-DEF-012 | 008-1.1, 008-1.3, 008-6.1, 008-7.3 |
+| CAT-228 | nhà | Cần làm: xác minh schema hồ sơ checkpoint, không mặc định đã dựng | ML-DEF-012 | 008-1.2, 008-3.1, 008-7.1 |
+| CAT-206 | nhà | Cần làm: đối chiếu/ghi danh Hợp đồng thông tin theo mã V13 | ML-DEF-012 | 008-4.4, 008-4.6 |
+| CAT-069 | nhà | Cần làm: đối chiếu/ghi danh Nợ theo mã V13 | ML-DEF-012 | B2 của mọi dòng; 008-6.3, 008-7.2 |
+| CAT-025 | nhà | Cần làm: đối chiếu/ghi danh Quyết định theo mã V13 | ML-DEF-012 | 008-2.2, 008-5.3, 008-6.2 |
+| CAT-016 | nhà | Cần làm: đối chiếu/ghi danh Thay đổi theo mã V13 | ML-DEF-012 | 008-4.7a, 008-4.7b |
+| CAT-015 | nhà | Cần làm: đối chiếu/ghi danh Kết quả kiểm theo mã V13 | ML-DEF-012 | 008-5.1; kết quả chấm cuốn chiếu |
+| CAT-229 | nhà | Cần làm: đối chiếu/ghi danh Lượt thử theo mã V13 | ML-DEF-012 | 008-2.3, 008-4.8 |
+| CAT-239 | nhà | Cần làm: đối chiếu/ghi danh Bằng chứng theo mã V13 | ML-DEF-012 | 008-5.2 |
+| dot-master-apply | DOT | Cần làm: xác minh/hoàn thiện DOT V13; các lệnh mo-ho-so, thu, ap, kiem không phải DOT riêng | ML-DEF-024 | Các dòng làm bằng DOT |
+
+**Đếm ghi danh:** 46 mã trong bảng = 1 MOW + 7 Mốc + 3 Mục con + 25 Bước + 9 nhà CAT kế thừa nguồn nhưng cần đối chiếu đăng ký + 1 DOT dự kiến. Đây là số mã ghi vào bảng của phép thử, **không phải 46 Collection hoặc 46 tài nguyên đã dựng**. Không tạo mã cho CV, lần thử, phiếu quyết định, ảnh chưa phát sinh. Các ký hiệu `<CV>`, `<QT>`, `<SHA>`, `<phiên>` là biến thiết kế, không là mã đã cấp. Cột Loại ghi đúng bản chất MOW/Mốc/Mục con/Bước theo CT-008, không gọi chúng thành nhà hay cột chỉ để khớp ba ví dụ trong tiêu đề.
 
 #### V15.3 · Ghế Hermes — kiểm mã, đếm ô, đối soát ⑤
 **✍️ Chữ ký `CT-008 r3`: `KÝ (APPROVE_CT008_R3)`** — ký theo danh tính `agent-gw/hermes` (kiểm bằng tác giả commit của lần ghi này).
