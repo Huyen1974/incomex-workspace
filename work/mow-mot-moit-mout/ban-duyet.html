@@ -717,6 +717,13 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
 #matrix-view-formula #formula-ct-008 .cf-mbm h4{margin:14px 0 4px;font-size:15px;color:#1f4d3a}
 #matrix-view-formula #formula-ct-008 .cf-mbm ul,#matrix-view-formula #formula-ct-008 .cf-mbm ol{margin:0 0 6px;padding-left:24px}
 #matrix-view-formula #formula-ct-008 .cf-mbm li{margin:3px 0}
+#matrix-view-formula #formula-ct-008 .cf-mbm-scroll{overflow-x:auto;max-width:100%}
+#matrix-view-formula #formula-ct-008 .cf-mbm table{border-collapse:collapse;width:100%;min-width:640px;margin:6px 0 10px;font-size:14px;background:#fff}
+#matrix-view-formula #formula-ct-008 .cf-mbm th,#matrix-view-formula #formula-ct-008 .cf-mbm td{border:1px solid #d8e1da;padding:6px 8px;text-align:left;vertical-align:top;color:#26352d}
+#matrix-view-formula #formula-ct-008 .cf-mbm th{background:#f1f6f2;color:#1f4d3a;font-weight:700}
+#matrix-view-formula #formula-ct-008 .cf-mbm tr.cf-mbm-grp td{background:#f7faf8;font-weight:700;color:#1f4d3a}
+#matrix-view-formula #formula-ct-008 .cf-mbm-badge{display:inline-block;background:#fff6d6;border:1px solid #e5c75a;border-radius:7px;padding:2px 8px;font-size:13px;color:#6b5600}
+#matrix-view-formula #formula-ct-008 .cf-mbm-note{font-size:13.5px;color:#4b5a52}
 /* Owner 2026-10-07: visual levels only; not a change to formula dependencies. */
 #matrix-view-formula .cf-derived-root[data-visual-depth]{--cf-indent:32px;position:relative}
 #matrix-view-formula .cf-derived-root[data-visual-depth="1"]{margin-left:var(--cf-indent)}
@@ -1204,36 +1211,66 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
     <div class="cf-formula-full">CT-008</div>
     <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh" target="_self">Việc TQT →</a></div>
   </div>
-  <div class="cf-derived-formula cf-derived-formula-root cf-derived-formula-long" aria-label="Yêu cầu User cộng Mục tiêu cộng Mốc cộng Mục con cộng Bước cộng 8 câu hỏi tạo MOW">
-    <span>Yêu cầu User</span><b>+</b><span>Mục tiêu</span><b>+</b><span>Mốc</span><b>+</b><span>Mục con</span><b>+</b><span>Bước</span><b>+</b><span>8 câu hỏi</span><b>⇒</b><strong>MOW</strong>
+  <div class="cf-derived-formula cf-derived-formula-root cf-derived-formula-long" aria-label="Yêu cầu User cộng Mục tiêu cộng Mốc cộng Mục con cộng Bước cộng Bộ câu hỏi tạo MOW">
+    <span>Yêu cầu User</span><b>+</b><span>Mục tiêu</span><b>+</b><span>Mốc</span><b>+</b><span>Mục con</span><b>+</b><span>Bước</span><b>+</b><span>Bộ câu hỏi</span><b>⇒</b><strong>MOW</strong>
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
   <div class="cf-mbm">
-  <p><b>MBM = MOW born MOW</b>: quy trình để làm ra quy trình. Câu hỏi đặt sẵn đúng chỗ, AI điền câu trả lời, hội đồng xét trên câu trả lời. Thiếu một câu trả lời là chưa xong.</p>
+  <p><span class="cf-mbm-badge">Dự thảo r2 · 16/10 · chờ hội đồng góp ý</span></p>
+  <p><b>MBM = MOW born MOW</b>: quy trình để làm ra quy trình. Mọi câu hỏi đặt sẵn trong ma trận. AI chỉ điền câu trả lời vào ô. Ô nào trống là bước đó chưa xong.</p>
   <h4>① Mục tiêu</h4>
-  <ul><li>3–5 gạch, đo đếm và kiểm chứng được.</li><li>Thế nào là hoàn thành.</li></ul>
+  <ul>
+  <li>3–5 gạch, mỗi gạch có con số kiểm được.</li>
+  <li>Thế nào là hoàn thành: 1–3 gạch, có con số.</li>
+  <li>Hội đồng ký (luật ký bên dưới), User gật.</li>
+  </ul>
   <h4>② Chia mục</h4>
   <ul>
   <li><b>2.1 Mốc</b>: các phần lớn (vd 7 mốc của QTTH 05/06).</li>
-  <li><b>2.2 Mục con</b>: chia mỗi mốc thành phần nhỏ, mỗi phần không quá 5 dòng — dễ nhìn, dễ khoanh vùng để bàn và sửa.</li>
-  <li><b>2.3</b> Mỗi mốc, mỗi mục con trả lời đủ 8 câu.</li>
+  <li><b>2.2 Mục con</b>: chia mỗi mốc thành phần nhỏ, mỗi phần không quá 5 bước — dễ nhìn, dễ khoanh vùng để bàn và sửa.</li>
+  <li>Mỗi mốc, mỗi mục con cũng trả lời bộ câu hỏi như một bước.</li>
   </ul>
-  <h4>③ Thứ tự bước</h4>
-  <ul><li>Xếp theo thứ tự; mỗi bước ghi thuộc mốc nào, mục con nào.</li><li>Mỗi bước trả lời đủ 8 câu.</li></ul>
-  <h4>8 câu hỏi</h4>
-  <p><b>Hỏi cho mỗi mốc, mục con, bước:</b></p>
+  <h4>③ Ma trận bước — đây chính là hồ sơ</h4>
+  <p>Mỗi dòng là 1 bước. Mỗi bước tự có sẵn bộ câu hỏi (máy nhân bản). Khi thiết kế: điền cột «Thiết kế». Khi chạy mỗi việc: hồ sơ việc nhân bản đúng ma trận này và điền cột «Khi chạy».</p>
+  <div class="cf-mbm-scroll"><table>
+  <thead><tr><th>STT</th><th>Mã bước</th><th>Tên bước</th><th>Mốc</th><th>Mục con</th><th>Ai làm</th><th>Làm bằng</th><th>Bộ câu hỏi</th></tr></thead>
+  <tbody>
+  <tr><td>1</td><td>…</td><td>…</td><td>…</td><td>…</td><td>😊 / 🤖</td><td>mã DOT / công cụ</td><td>tự có sẵn</td></tr>
+  <tr><td>12</td><td>007-4.5</td><td>Gắn Field cho hợp đồng</td><td>CP04 Làm</td><td>4.B Field</td><td>🤖</td><td>dot-master-apply</td><td>xem bảng dưới</td></tr>
+  </tbody></table></div>
+  <p class="cf-mbm-note">«Ai làm» và «Làm bằng» là 2 cột đề xuất thêm: cùng một công cụ thì AI nào cũng làm cùng một cách.</p>
+  <h4>Bộ câu hỏi của một bước (ví dụ bước 007-4.5)</h4>
+  <div class="cf-mbm-scroll"><table>
+  <thead><tr><th>Câu</th><th>Trả lời bằng</th><th>Thiết kế</th><th>Khi chạy</th><th>Kiểm</th></tr></thead>
+  <tbody>
+  <tr class="cf-mbm-grp"><td colspan="5">A · Việc — câu định tính, hội đồng ký</td></tr>
+  <tr><td>A1 Nhiệm vụ của bước là gì?</td><td>1 câu, có con số</td><td>Mỗi thông tin trong hợp đồng có đúng 1 Field</td><td>—</td><td>✍️ ký</td></tr>
+  <tr><td>A2 Thế nào là hoàn thành?</td><td>tiêu chí có con số</td><td>Field thiếu / Field cần = 0</td><td>0 / 10</td><td>✍️ ký · 🤖 đếm</td></tr>
+  <tr class="cf-mbm-grp"><td colspan="5">B · Ghi chép — trả lời bằng mã</td></tr>
+  <tr><td>B1 Xong thì ghi sổ nào? Đã ghi chưa?</td><td>mã sổ · mã bản ghi</td><td>ML-DEF-008</td><td>mã của 4 Field mới</td><td>🤖 mã có thật</td></tr>
+  <tr><td>B2 Chưa xong thì quay về bước nào, ghi sổ nào? Đã ghi chưa?</td><td>mã bước · mã sổ · mã bản ghi</td><td>007-4.4 · CAT-069</td><td>không phát sinh</td><td>🤖</td></tr>
+  <tr><td>B3 Có chỗ bỏ lửng, ngõ cụt không?</td><td>Không / Có + mã bản ghi nợ</td><td>Có thì ghi CAT-069 theo mã việc</td><td>Không</td><td>🤖</td></tr>
+  <tr class="cf-mbm-grp"><td colspan="5">C · Từng đối tượng bước tạo, dùng, sửa — trả lời bằng mã</td></tr>
+  <tr><td>C1 Đối tượng loại gì?</td><td>mã loại</td><td>Field</td><td>Field</td><td>🤖</td></tr>
+  <tr><td>C2 Có nhà (sổ) chưa?</td><td>mã sổ · chưa có: mã yêu cầu lập sổ</td><td>ML-DEF-008</td><td>ML-DEF-008</td><td>🤖</td></tr>
+  <tr><td>C3 SSOT ở đâu? Chỉ 1 nơi chưa?</td><td>mã bản ghi gốc · số bản chép</td><td>—</td><td>mã từng Field · 0 bản chép</td><td>🤖</td></tr>
+  <tr><td>C4 Cũ dùng lại hay mới?</td><td>cũ: mã cũ · mới: mã mới</td><td>—</td><td>6 cũ · 4 mới (kèm mã)</td><td>🤖</td></tr>
+  <tr><td>C5 Trạng thái?</td><td>cần làm / đã làm / đã test</td><td>—</td><td>đã làm</td><td>🤖</td></tr>
+  </tbody></table></div>
+  <p class="cf-mbm-note">Số trong ví dụ là minh hoạ. C1 và C5 là 2 câu đề xuất thêm: không biết loại thì không biết nhà; trạng thái là luật chung của mọi sổ.</p>
+  <h4>Luật điền</h4>
   <ol>
-  <li>Nhiệm vụ là gì (đo đếm được)?</li>
-  <li>Thế nào là xong: đếm gì, trên sổ nào, tổng số bao nhiêu?</li>
-  <li>Kết quả xong ghi ở đâu (mã sổ)?</li>
-  <li>Chưa xong thì làm gì tiếp, ghi ở đâu, đã ghi chưa?</li>
-  <li>Có chỗ bỏ lửng, ngõ cụt không? Đã ghi sổ nợ CAT-069 theo mã việc chưa?</li>
+  <li>Không để trống ô nào; ô trống là bước chưa xong.</li>
+  <li>Nhóm B và C trả lời bằng mã; máy kiểm mã có thật trong sổ.</li>
+  <li>Không áp dụng thì ghi «Không áp dụng» kèm lý do; hội đồng ký.</li>
+  <li>Không sửa câu hỏi khi điền; muốn sửa thì đề xuất sửa MBM.</li>
   </ol>
-  <p><b>Hỏi cho từng đối tượng:</b></p>
-  <ol start="6">
-  <li>Có nhà (sổ) chưa? Chưa có thì đã ghi yêu cầu lập sổ chưa?</li>
-  <li>SSOT ở đâu, có mã chưa, thật sự chỉ một SSOT chưa?</li>
-  <li>Đối tượng cũ dùng lại hay mới?</li>
+  <h4>Luật ký hội đồng (nhóm A và Mục tiêu)</h4>
+  <ol>
+  <li>Ghế ký: Claude · GPT · Hermes · Gemini; mỗi ghế ký 1 lần, đúng danh tính của mình.</li>
+  <li>Đạt khi ≥ 2/4 ghế đồng ý (50%), trong đó có ít nhất 1 ghế khác hãng với người điền, và 0 phản đối.</li>
+  <li>Phản đối phải ghi lý do và cách sửa; sửa xong thì ký lại.</li>
+  <li>Chữ ký ghi ở sổ quyết định CAT-025; ma trận chỉ hiện số đã ký.</li>
   </ol>
   <h4>④ Làm một MOW bằng MBM</h4>
   <ol>
@@ -1246,8 +1283,9 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <h4>Ghi ở đâu</h4>
   <ul>
   <li>① và 2.1, 2.2: dòng MOW trong Sổ quy trình (chưa có cột — bổ sung ở B1 việc TQT).</li>
-  <li>2.3 và ③: thẻ bước trong ML-DEF-022.</li>
-  <li>Mỗi lần chạy: hồ sơ việc CAT-227, CAT-228.</li>
+  <li>Ma trận bước + câu trả lời «Thiết kế»: thẻ bước trong ML-DEF-022.</li>
+  <li>Câu trả lời «Khi chạy»: hồ sơ việc CAT-227 (việc) · CAT-228 (ma trận của việc).</li>
+  <li>Câu hỏi: định nghĩa 1 lần tại đây cho tới khi có sổ câu hỏi; hồ sơ chỉ trỏ mã câu.</li>
   </ul>
   <p>Ứng dụng đầu tiên: MOW-TH-007 (thiết kế UI · Field · Config).</p>
   </div>
