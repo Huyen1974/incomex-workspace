@@ -110,3 +110,28 @@ DOT chấm bằng chính 5 trường này (nối R51⑥: «máy trả lời thay
 3. **Chưa đo được:** liệu mở phạm vi ghi có đủ để ghế tự chạy các lượt sau hay không (phải thử sau khi mở; lượt này không có quyền nên không thử được).
 
 **Lượt này vì vậy đi bằng đường dự phòng:** bản đề xuất được giao cho Owner dưới dạng tệp để dán/commit vào đúng mã `work/tools-quy-trinh/proposals/TQT-PR-20261015-hermes-01.md` (không tự sửa COLLAB/PROMPT/README, không phát RUN).
+
+---
+
+## Lượt 2 · 16/10/2026 · ghế Hermes tự ghi qua cổng — xác nhận trạng thái ghế + 3 việc cần chốt
+
+Đọc tại `HEAD = 46ce15ea4e8b2bc4c20be1f56582f6df1cc6a687` · `COLLAB.md` §3.3 (dòng Hội đồng), bảng `HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1`, §3.4 (nguyên văn Owner 15/10 21:29 · 21:38 · 16/10 09:21).
+
+### A. Xác nhận theo đúng câu hỏi của Owner 16/10
+
+| Câu hỏi | Trả lời | Bằng chứng |
+|---|---|---|
+| Có ghế trong hội đồng chưa? | **CÓ** | bảng HỘI ĐỒNG, dòng `Hermes` (identity `agent-gw/hermes`, bản VPS); §3.3 · §3.4 |
+| Đã là thành viên đầy đủ chưa? | **Ghi như thành viên đầy đủ từ 16/10 09:21** — nhưng trong cùng đoạn vẫn còn «không tính quorum» ⇒ **đầy đủ về quyền ghi, CHƯA đầy đủ về phiếu** | §3.3: «từ 16/10 09:21 Hermes ghi như thành viên đầy đủ (Owner) … ý kiến tham khảo, không tính quorum» |
+| Comment vào repo được chưa? | **ĐƯỢC — chính mục này là bằng chứng**: ghế tự ghi qua cổng, nối tiếp vào tệp đề xuất cố định của ghế, không qua Owner chuyển tay | lượt 1 (15/10) trả `SCOPE_DENIED`; lượt này cổng nhận lệnh ghi |
+| Mở tệp mới bằng cổng | **CHƯA** — tệp lượt 1 phải do Claude tạo hộ | commit `d2ef4063` «[Claude] TQT · tạo hộ tệp đề xuất cố định của ghế Hermes» |
+
+### B. Ba việc cần chốt (đề xuất — không tự làm, không tự mở quyền)
+
+1. **«Thành viên đầy đủ» và «không tính quorum» đang nói hai nghĩa khác nhau trong cùng một đoạn** (vi phạm R55①/⑥: một AI khác hãng đọc không biết chắc ghế này vắng thì có chặn vòng hay không). Đề nghị Owner chốt **đúng một câu**: *ghế Hermes có phiếu ý kiến, không có phiếu quorum* — hoặc cấp quorum thật. Đây là quyền, không phải kỹ thuật.
+2. **«Mục ý kiến hội đồng» chưa có nhà + mã.** §3.3 ghi «mục ý kiến hội đồng ở P49/COLLAB như GPT Chat», nhưng theo Luật Nhà (R53) mọi thứ phải có đúng 1 gốc có mã. Đề nghị chốt: ý kiến hội đồng của ghế sống ở tệp `proposals/TQT-PR-<ngày>-hermes-<n>.md` (đang dùng) và mọi nơi khác chỉ trỏ tới — hoặc cấp một nhà khác có mã; không để phần P49 vừa chép vừa trỏ.
+3. **Đường gọi ghế vẫn «chưa đo»** (§3.3 tự ghi). Hiện ghế chỉ biết mình được gọi khi Owner nói trực tiếp; **không có đường máy** báo cho ghế (webhook/scanner/Telegram). Nếu muốn ghế tự nhận lượt, cần chọn 1: GitHub webhook → VPS · scanner đọc tệp gọi · Owner nhắn Telegram. Việc này thuộc **Owner + root**, tôi không tự dựng.
+
+### C. Ranh giới lượt này
+
+Chỉ ghi vào **tệp này**. Không sửa COLLAB/PROMPT/README/§0, không phát RUN, không chạm máy chủ, không chiếm `VPS-GHI`, không mở quyền. Ý kiến ở lượt 1 (D1–D4 về «xong khi» và hồ sơ) vẫn nguyên hiệu lực, không rút.
