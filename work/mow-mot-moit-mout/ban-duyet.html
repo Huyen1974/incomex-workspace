@@ -1216,8 +1216,9 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
   <div class="cf-mbm">
-  <p><span class="cf-mbm-badge">r4 · 16/10 · sửa theo phép thử V15 (25 ô ❓ → 6 lỗi gốc) · chờ ký r4</span></p>
-  <p><b>MBM = MOW born MOW</b>: quy trình để làm ra quy trình. Mọi câu hỏi đặt sẵn trong ma trận. AI chỉ điền câu trả lời vào ô. Ô nào trống là dòng đó chưa xong.</p>
+  <p><span class="cf-mbm-badge">r4.1 · 16/10 · đã ký (GPT · Hermes · Gemini) · phép thử ĐẠT: QTTH 07 viết được chỉ bằng điền ô</span></p>
+  <p><b>MBM = MOW born MOW</b>: <b>công thức gốc</b> để chế tạo ra quy trình. Mọi câu hỏi đặt sẵn trong ma trận. AI chỉ điền câu trả lời vào ô. Ô nào trống là dòng đó chưa xong.</p>
+  <p class="cf-mbm-note"><b>Định vị:</b> MBM là CÔNG THỨC, không phải quy trình. Một công thức chế tạo ra nhiều quy trình (kể cả quy trình tổng hợp gọi quy trình khác). Việc thật và mọi phép thử chi tiết thuộc quy trình được chế tạo ra; sửa cách chế tạo thì sửa ở đây.</p>
   <h4>① Mục tiêu</h4>
   <ul>
   <li>3–5 gạch, mỗi gạch có con số kiểm được.</li>
@@ -1227,7 +1228,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <h4>② Chia mục và đặt mã</h4>
   <ul>
   <li><b>2.1 Mốc</b>: các phần lớn. <b>2.2 Mục con</b>: chỉ tách khi mốc có hơn 5 bước; mốc ≤ 5 bước thì mục con trùng mốc, không tạo dòng giả. <b>2.3 Bước</b>: việc nhỏ nhất.</li>
-  <li>Mã: MOW <code>MOW-TH-&lt;số&gt;</code> (gọi tắt QTTH &lt;số&gt;) · Mốc <code>008-1</code> · Mục con <code>008-4.B</code> · Bước <code>008-1.1</code>.</li>
+  <li>Mã: MOW <code>MOW-TH-&lt;số&gt;</code> (gọi tắt QTTH &lt;số&gt;) · Mốc <code>007-1</code> · Mục con <code>007-4.B</code> · Bước <code>007-1.1</code> (ví dụ QTTH 07).</li>
   <li>Mốc và Mục con cũng trả lời đủ bộ câu hỏi: A1 tự viết; A2 mặc định = (bước con đạt + bước con không áp dụng hợp lệ) / tổng bước con = 100%; nhóm B và C máy cộng dồn từ bước con, không chép lại.</li>
   </ul>
   <h4>③ Ma trận — đây chính là hồ sơ</h4>
@@ -1235,8 +1236,8 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <div class="cf-mbm-scroll"><table>
   <thead><tr><th>STT</th><th>Mã dòng</th><th>Loại dòng</th><th>Tên</th><th>Hạng việc</th><th>Mở khi</th><th>Làm bằng</th><th>Kiểm</th></tr></thead>
   <tbody>
-  <tr><td>…</td><td>008-4</td><td>Mốc</td><td>Làm</td><td>khó</td><td>008-3 đạt</td><td>theo bước con</td><td>🤖</td></tr>
-  <tr><td>12</td><td>008-4.5</td><td>Bước</td><td>Gắn Field cho hợp đồng</td><td>thường</td><td>008-4.4 đạt · không có trường hợp không áp dụng</td><td>mã DOT : lệnh con</td><td>🤖+👥</td></tr>
+  <tr><td>…</td><td>007-4</td><td>Mốc</td><td>Làm</td><td>khó</td><td>007-3 đạt</td><td>theo bước con</td><td>🤖</td></tr>
+  <tr><td>12</td><td>007-4.5</td><td>Bước</td><td>Gắn Field cho hợp đồng</td><td>thường</td><td>007-4.4 đạt · không có trường hợp không áp dụng</td><td>mã DOT : lệnh con</td><td>🤖+👥</td></tr>
   </tbody></table></div>
   <ul>
   <li><b>Hạng việc</b>: thường = trả lời bằng mã, máy kiểm → model rẻ chạy 24/7 làm trước; khó = định tính, cần ký, thiết kế → model frontier. Người làm cụ thể do luật phân việc gán lúc chạy.</li>
@@ -1244,7 +1245,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <li><b>Làm bằng</b>: mã DOT trong ML-DEF-024 kèm lệnh con; DOT, lệnh con hay công cụ chưa có thì đặt tên đề xuất, ghi danh «cần làm» rồi ghi mã đó.</li>
   <li><b>Kiểm</b>: 🤖 máy · 🤖+👥 máy rồi Host xác nhận nghĩa · ✍️ hội đồng ký · 😊 User.</li>
   </ul>
-  <h4>Bộ câu hỏi của mỗi dòng (ví dụ bước 008-4.5)</h4>
+  <h4>Bộ câu hỏi của mỗi dòng (ví dụ bước 007-4.5)</h4>
   <div class="cf-mbm-scroll"><table>
   <thead><tr><th>Câu</th><th>Trả lời bằng</th><th>Thiết kế</th><th>Khi chạy</th><th>Kiểm</th></tr></thead>
   <tbody>
@@ -1254,8 +1255,8 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <tr><td>A3 Làm thế nào?</td><td>1→2→3 · đầu vào lấy ở đâu · đầu ra</td><td>1 tra Field cùng 4 thuộc tính · 2 thiếu thì soạn dòng mới · 3 DOT áp</td><td>biên nhận CAT-229 + SHA</td><td>✍️</td></tr>
   <tr class="cf-mbm-grp"><td colspan="5">B · Ghi chép — trả lời bằng mã</td></tr>
   <tr><td>B1 Xong ghi ở đâu?</td><td>Thiết kế: mã sổ + cột bắt buộc · Khi chạy: mã bản ghi + biên nhận</td><td>ML-DEF-008 : mã · tên · kiểu</td><td>mã 4 Field mới</td><td>🤖 mã có thật</td></tr>
-  <tr><td>B2 Chưa đạt thì sao?</td><td>quay về mã bước (bước đầu: DỪNG_TẠI_CHỖ) · CAT-069 · CHẶN / KHÔNG_CHẶN</td><td>008-4.4 · CAT-069 · CHẶN</td><td>Không phát sinh</td><td>🤖</td></tr>
-  <tr><td>B3 Còn nhánh hở?</td><td>mọi nhánh (đạt · chưa đạt · không áp dụng) có bước tiếp hoặc kết thúc; hở thì ghi CAT-069</td><td>đạt → 008-4.6 · chưa đạt → B2 · không áp dụng → 008-4.6</td><td>Không</td><td>🤖+👥</td></tr>
+  <tr><td>B2 Chưa đạt thì sao?</td><td>quay về mã bước (bước đầu: DỪNG_TẠI_CHỖ) · CAT-069 · CHẶN / KHÔNG_CHẶN</td><td>007-4.4 · CAT-069 · CHẶN</td><td>Không phát sinh</td><td>🤖</td></tr>
+  <tr><td>B3 Còn nhánh hở?</td><td>mọi nhánh (đạt · chưa đạt · không áp dụng) có bước tiếp hoặc kết thúc; hở thì ghi CAT-069</td><td>đạt → 007-4.6 · chưa đạt → B2</td><td>Không</td><td>🤖+👥</td></tr>
   <tr class="cf-mbm-grp"><td colspan="5">C · Từng đối tượng bước tạo, sửa hoặc dùng lại vào kết quả — mỗi đối tượng 1 cụm; chỉ đọc để kiểm thì không kê</td></tr>
   <tr><td>C1 Loại = nhà nào?</td><td>mã dòng trong Sổ của các sổ ML-DEF-012 · chưa có: mã yêu cầu lập sổ</td><td>ML-DEF-008 (Field)</td><td>ML-DEF-008</td><td>🤖</td></tr>
   <tr><td>C2 SSOT ở đâu, 1 nơi chưa?</td><td>Thiết kế: nơi lưu + mã sổ gốc · Khi chạy: mã bản ghi gốc · số bản chép</td><td>master/ → ML-DEF-008</td><td>mã từng Field · 0 bản chép</td><td>🤖</td></tr>
@@ -1311,7 +1312,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <li>Bảng đối soát ⑤: hồ sơ việc làm MOW đó (CAT-227).</li>
   <li>Câu hỏi: định nghĩa 1 lần tại đây; hồ sơ chỉ trỏ mã câu.</li>
   </ul>
-  <p>Ứng dụng đầu tiên và ví dụ trọn: <b>QTTH 008</b> (MOW-TH-008 · khuôn thiết kế G1: UI · Field · Config).</p>
+  <p>Sản phẩm đầu tiên và ví dụ trọn: <b>QTTH 07</b> (MOW-TH-007 bản 2 · vẽ UI theo Master MOW · hoàn thiện Master list · đủ Field để Config) — Owner gật 16/10.</p>
   </div>
   </details>
 </article>
