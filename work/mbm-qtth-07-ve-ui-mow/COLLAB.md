@@ -5,14 +5,14 @@ Tên việc: QTTH 07 — vẽ UI theo Master MOW, đủ Master list và hợp đ
 Xác nhận User: ĐÃ XÁC NHẬN — Owner viết ô 1–2 ngày 16/10/2026 17:05.
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-16 22:15 +07 · Claude · P10
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-16 22:20 +07 · Claude · P11
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ: [✓ 1 Nhận yêu cầu] → [✓ 2 Tạo task] → [✓ 3 Chốt mục tiêu] → [◐ 4 Liệt kê bước — bản thử] → [■ 5 Check Master list] → [□ 6 Bộ câu hỏi] → [□ 7 Ký] → [□ 8 Chạy]
-- ✅ Đã xong: ô 1–2 (17:05) · bản thử bước 3 (26 bước) + bước 4 (kiểm kê 17 sổ) — 22:15.
+- ✅ Đã xong: ô 1–2 (17:05) · bản thử bước 3 (26 bước) + bước 4 (kiểm kê 17 sổ) — nằm trong ô 3 «Chi tiết cần đạt».
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt bước 4 → đạt bước 5 → 6 → 7 → 8.
-- ➡ Kế tiếp: 😊 Owner xem «Vấn đề lộ ra» — nhất là 13 sổ cần duyệt lần đầu và 3 mã CAT lệch nghĩa.
+- ➡ Kế tiếp: 😊 Owner xem «Vấn đề lộ ra» trong ô 3 — nhất là 13 sổ cần duyệt lần đầu và 3 mã CAT lệch nghĩa.
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
 ### 1. Mục tiêu
@@ -45,38 +45,18 @@ Owner 16/10/2026 17:05:
 | 7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
 | 8 | Chạy | 🤖 | đạt ô 2 | ☐ |
 
-#### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
-| Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
-|---|---|---|---|---|
-| Claude | Anthropic | Claude Chat (`[auth:claude-chat]`) | Host | Owner làm việc trực tiếp |
-| GPT Chat | OpenAI | GPT Chat (`openai-mcp`) | Council · ghế ký | Owner chuyển tay |
-| Hermes | Hermes VPS (DeepSeek) | `agent-gw/hermes` | Council · ghế ký · việc thường | Owner chuyển tay |
-| Gemini | Google | `gemini-agy` | Council · ghế ký | Owner chuyển tay |
-Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = luật ký MBM (CT-008)
+#### Vấn đề lộ ra khi làm bước 3–4 (22:15)
+1. 🔴 **13/17 sổ chưa «đã có»** → mục 4 chặn, không sang được bộ câu hỏi. Cần Owner duyệt lần đầu — đề xuất duyệt theo nhóm.
+2. 🔴 **Mã lệch nghĩa:** CAT-227 (trang: tiến trình công việc ↔ QTTH 07: Sổ việc) · CAT-228 (trang: việc thật MOT ↔ QTTH 07: hồ sơ 25 dòng) · CAT-239 (trang: Sổ tệp ↔ QTTH 07: ảnh). Không sửa thì ghi nhầm sổ.
+3. 🟡 **Sổ của các sổ rỗng:** ML-DEF-012 = 0, việc của nó đang ở trang 47 Master List → 2 nơi cho 1 việc. Mục 4 cần ghi nguồn kiểm kê chuẩn.
+4. 🟡 **Bộ tình trạng thiếu** «rỗng» và «dùng lại».
+5. 🟡 **Bước 2.1 mơ hồ:** «nạp bước từ Công thức» — không viết được «Ra cái gì» chắc chắn → ❓.
+6. 🟡 **Bước 2.2 trùng mục 4 MBM:** lúc chạy chỉ còn «So sổ cần với bảng kiểm kê».
+7. 🟡 **Số lượng «—»** (CAT-239): nguồn chưa đọc, chưa đếm được.
+8. ⚠ **Claude ghi sai số ở R59** (Master Tool 9 → thật 35; Master DOT «trống» → thật 311 qua CAT-006) vì đếm từ 1 tệp thay vì trang tổng — đã sửa R59.
 
-#### Sổ vấp MBM — vấp đâu ghi ngay, sửa CT-008 tại chỗ
-| # | Vấp | Đã sửa ở CT-008 |
-|---|---|---|
-| V1 | thiếu bước tạo task | r4.3 |
-| V2 | chưa có khuôn tên task | r4.3 |
-| V3 | sai thứ tự; task chưa có danh sách việc | r4.4 |
-| V4 | tên task chưa cho biết nguồn gốc | r4.5 (`mbm-`) |
-| V5 | ma trận đủ A1–C4 từng dòng quá dài | chưa sửa — đổi bộ câu hỏi cần hội đồng |
-| V6 | Host bỏ qua bản 25 bước đã gật, tự viết mới (17:25) | r4.6: có bản cũ thì bắt đầu từ bản cũ |
-| V7 | bước trỏ tới sổ và lệnh chưa có — AI thường không làm được (18:01) | r5: thêm bước Check Master list |
-| V8 | mục «Chia mục và đặt mã» dài, làm không được (20:41) | r5: bảng mẫu |
-| V9 | Check Master list đặt trước khi có bước là ngược (21:12) | r5.1: Bước → Check Master list → Bộ câu hỏi |
-| V10 | tên bước ngắn, mỗi AI hiểu một kiểu (21:12) | chưa sửa — đang thử khuôn «Ra cái gì + Ghi vào sổ + động từ chuẩn» ở bảng bước 3, chờ Owner gật |
-| V11 | mục 4 không nói tra số lượng ở đâu; Sổ của các sổ ML-DEF-012 rỗng, việc của nó đang do trang «47 Master List» làm (22:15) | chưa sửa — đề xuất ghi nguồn kiểm kê chuẩn vào mục 4 |
-| V12 | bộ tình trạng mục 4 thiếu «rỗng» (có định nghĩa, 0 dòng) và «dùng lại» (22:15) | chưa sửa — chờ Owner |
-| V13 | mã sổ trong bước và tên sổ thật lệch nghĩa (CAT-227/228/239) — MBM chưa bắt đối chiếu nghĩa (22:15) | chưa sửa — đề xuất thêm ô «nghĩa khớp?» vào bảng kiểm kê |
-
-### Vòng trước
-- 16/10 15:19 (Owner, nay gộp vào ô 1 bản 17:05): vẽ UI theo Master MOW · hoàn thiện Master list, điền đủ SSOT · đủ trường để Config · dùng DOT tạo collection.
-- 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
-
-## Bước 3 · Mốc / Mục con / Bước — bản thử 16/10 22:15
-Gốc: 25 bước Owner đã gật 15:19 (tools-quy-trinh P49 V15.1 tại `f76fa2e1`) + 4.0 đề xuất. Thử khuôn chưa gật: bước mở đầu bằng động từ chuẩn (Tạo · Ghi · Đếm · So · Duyệt · Chụp · Báo) + cột «Ra cái gì» + «Ghi vào sổ».
+#### Bước 3 · Mốc / Mục con / Bước — bản thử 16/10 22:15
+Gốc: 25 bước Owner đã gật 15:19 (tools-quy-trinh P49 V15.1 tại `f76fa2e1`) + 4.0 đề xuất. Thử khuôn chưa gật: động từ chuẩn (Tạo · Ghi · Đếm · So · Duyệt · Chụp · Báo) + cột «Ra cái gì» + «Ghi vào sổ».
 
 | # | Mốc | Mục con | Bước | Ra cái gì | Ghi vào sổ |
 |---|---|---|---|---|---|
@@ -107,7 +87,7 @@ Gốc: 25 bước Owner đã gật 15:19 (tools-quy-trinh P49 V15.1 tại `f76fa
 | 25 | 007-7 Đóng | — | 7.2 Đếm nợ mở đủ 4 ô | 100% | CAT-069 |
 | 26 | 007-7 Đóng | — | 7.3 Ghi đóng việc, Báo Owner | việc «G1 đã duyệt» · 1 tin báo | CAT-227 |
 
-## Bước 4 · Check Master list — bảng kiểm kê 16/10 22:15
+#### Bước 4 · Check Master list — bảng kiểm kê 16/10 22:15
 Nguồn số: trang «47 Master List · đang rà» (`ui-preview/mcp-writes/definition-master-index-v1.html`, cột Total theo nguồn) + sổ đăng ký `definition-master-registry-v1.js`. Gom từ cột «Ghi vào sổ» của bước 3.
 
 | STT | Mã bảng | Tên bảng | Số lượng | Tình trạng | Ghi chú |
@@ -115,34 +95,56 @@ Nguồn số: trang «47 Master List · đang rà» (`ui-preview/mcp-writes/defi
 | 1 | ML-DEF-004 | Master MOW | 35 | đã có | xanh |
 | 2 | ML-DEF-018 | Master UI con | 29 | đã có | xanh |
 | 3 | ML-DEF-024 | Master DOT | 311 | đã có | dùng lại CAT-006 |
-| 4 | ML-DEF-008 | Master Field | 250 | User chưa duyệt UI | đã kiểm kê, PG chưa xác minh |
-| 5 | ML-MOW-TH-001 | Master Quy trình tổng hợp | 6 | User chưa duyệt UI | đang thiết kế; QTTH 07 phải thành 1 dòng ở đây |
-| 6 | ML-DEF-012 | Master of Master | 0 | chưa có | rỗng; việc của nó đang do trang 47 Master List làm (V11) |
-| 7 | CAT-227 | Master tiến trình công việc | 2 | User chưa duyệt UI | QTTH 07 dùng làm «Sổ việc» — cần đối chiếu nghĩa (V13) |
-| 8 | CAT-228 | Sổ việc thật MOT · bản ghi · người | 8 | User chưa duyệt UI | QTTH 07 dùng làm «hồ sơ 25 dòng» — nghĩa lệch (V13) |
+| 4 | ML-DEF-023 | Master Tool | 35 | đã có | xanh; cho DOT/công cụ mới (R59) |
+| 5 | ML-DEF-008 | Master Field | 250 | User chưa duyệt UI | đã kiểm kê, PG chưa xác minh |
+| 6 | ML-MOW-TH-001 | Master Quy trình tổng hợp | 6 | User chưa duyệt UI | đang thiết kế; QTTH 07 phải thành 1 dòng ở đây |
+| 7 | CAT-227 | Master tiến trình công việc | 2 | User chưa duyệt UI | QTTH 07 dùng làm «Sổ việc» — cần đối chiếu nghĩa |
+| 8 | CAT-228 | Sổ việc thật MOT · bản ghi · người | 8 | User chưa duyệt UI | QTTH 07 dùng làm «hồ sơ 25 dòng» — nghĩa lệch |
 | 9 | CAT-229 | Sổ lần thử | 11 | User chưa duyệt UI | |
 | 10 | CAT-206 | Danh mục hợp đồng vào/ra loại bản ghi | 66 | User chưa duyệt UI | |
 | 11 | CAT-016 | Sổ nhật ký định nghĩa | 69 | User chưa duyệt UI | |
 | 12 | CAT-015 | Sổ kết quả kiểm | 36 | User chưa duyệt UI | |
-| 13 | CAT-239 | Sổ tệp | — | User chưa duyệt UI | chưa đọc nguồn nên chưa đếm được; QTTH 07 dùng cho «ảnh màn» (V13) |
+| 13 | CAT-239 | Sổ tệp | — | User chưa duyệt UI | chưa đọc nguồn nên chưa đếm; QTTH 07 dùng cho «ảnh màn» |
 | 14 | CAT-025 | Sổ phiếu duyệt ý · bản | 41 | User chưa duyệt UI | |
 | 15 | CAT-069 | Sổ nhu cầu · góp ý | 83 | User chưa duyệt UI | |
-| 16 | ML-DEF-022 | Master Step | 0 | chưa có | rỗng; MBM ghi ma trận vào đây |
-| 17 | ML-DEF-023 | Master Tool | 35 | đã có | xanh; cho DOT/công cụ mới (R59) |
+| 16 | ML-DEF-012 | Master of Master | 0 | chưa có | rỗng; việc của nó đang do trang 47 Master List làm |
+| 17 | ML-DEF-022 | Master Step | 0 | chưa có | rỗng; MBM ghi ma trận vào đây |
 
 **Tổng:** 17 sổ · đã có 4 · User chưa duyệt UI 11 · chưa có 2. Theo mục 4: chưa được sang mục 5.
 
-## Vấn đề lộ ra khi làm bước 3–4 (22:15)
-1. 🔴 **13/17 sổ chưa «đã có»** → mục 4 chặn, không sang được bộ câu hỏi. Cần Owner duyệt lần đầu — đề xuất duyệt theo nhóm, không từng sổ.
-2. 🔴 **Mã lệch nghĩa:** CAT-227 (trang: tiến trình công việc ↔ QTTH 07: Sổ việc) · CAT-228 (trang: việc thật MOT ↔ QTTH 07: hồ sơ 25 dòng) · CAT-239 (trang: Sổ tệp ↔ QTTH 07: ảnh). Không sửa thì ghi nhầm sổ.
-3. 🟡 **Sổ của các sổ rỗng:** ML-DEF-012 = 0, việc của nó đang ở trang 47 Master List → 2 nơi cho 1 việc. Mục 4 cần ghi nguồn kiểm kê chuẩn.
-4. 🟡 **Bộ tình trạng thiếu** «rỗng» và «dùng lại».
-5. 🟡 **Bước 2.1 mơ hồ:** «nạp bước từ Công thức» — em không viết được «Ra cái gì» chắc chắn → ❓. Đúng kiểu lỗi V10.
-6. 🟡 **Bước 2.2 trùng mục 4 MBM:** đã kiểm kê lúc thiết kế thì lúc chạy chỉ còn «So sổ cần với bảng kiểm kê» (đã viết lại như vậy ở bảng bước 3).
-7. 🟡 **Số lượng «—»** (CAT-239): nguồn chưa đọc, chưa đếm được.
-8. ⚠ **Em ghi sai số ở R59** (Master Tool 9 → thật 35; Master DOT «trống» → thật 311 qua CAT-006) vì đếm từ 1 tệp thay vì trang tổng — đã sửa R59. Chính là lý do cần nguồn kiểm kê chuẩn (vấn đề 3).
+#### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
+| Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
+|---|---|---|---|---|
+| Claude | Anthropic | Claude Chat (`[auth:claude-chat]`) | Host | Owner làm việc trực tiếp |
+| GPT Chat | OpenAI | GPT Chat (`openai-mcp`) | Council · ghế ký | Owner chuyển tay |
+| Hermes | Hermes VPS (DeepSeek) | `agent-gw/hermes` | Council · ghế ký · việc thường | Owner chuyển tay |
+| Gemini | Google | `gemini-agy` | Council · ghế ký | Owner chuyển tay |
+Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = luật ký MBM (CT-008)
+
+#### Sổ vấp MBM — vấp đâu ghi ngay, sửa CT-008 tại chỗ
+| # | Vấp | Đã sửa ở CT-008 |
+|---|---|---|
+| V1 | thiếu bước tạo task | r4.3 |
+| V2 | chưa có khuôn tên task | r4.3 |
+| V3 | sai thứ tự; task chưa có danh sách việc | r4.4 |
+| V4 | tên task chưa cho biết nguồn gốc | r4.5 (`mbm-`) |
+| V5 | ma trận đủ A1–C4 từng dòng quá dài | chưa sửa — đổi bộ câu hỏi cần hội đồng |
+| V6 | Host bỏ qua bản 25 bước đã gật, tự viết mới (17:25) | r4.6: có bản cũ thì bắt đầu từ bản cũ |
+| V7 | bước trỏ tới sổ và lệnh chưa có — AI thường không làm được (18:01) | r5: thêm bước Check Master list |
+| V8 | mục «Chia mục và đặt mã» dài, làm không được (20:41) | r5: bảng mẫu |
+| V9 | Check Master list đặt trước khi có bước là ngược (21:12) | r5.1: Bước → Check Master list → Bộ câu hỏi |
+| V10 | tên bước ngắn, mỗi AI hiểu một kiểu (21:12) | chưa sửa — đang thử khuôn «Ra cái gì + Ghi vào sổ + động từ chuẩn», chờ Owner gật |
+| V11 | mục 4 không nói tra số lượng ở đâu; Sổ của các sổ rỗng (22:15) | chưa sửa — đề xuất ghi nguồn kiểm kê chuẩn vào mục 4 |
+| V12 | bộ tình trạng mục 4 thiếu «rỗng», «dùng lại» (22:15) | chưa sửa — chờ Owner |
+| V13 | mã sổ trong bước và tên sổ thật lệch nghĩa (CAT-227/228/239) (22:15) | chưa sửa — đề xuất thêm ô «nghĩa khớp?» vào bảng kiểm kê |
+| V14 | kết quả bước 3–4 đặt ngoài ô 3 nên trang Task (workspace) không hiện; «repo» và «workspace» mỗi bên hiểu một kiểu (Owner 22:07) | r5.6 mục 6: «làm ở workspace» — kết quả ghi trong ô 3 của task, chat chỉ tóm tắt + link |
+
+### Vòng trước
+- 16/10 15:19 (Owner, nay gộp vào ô 1 bản 17:05): vẽ UI theo Master MOW · hoàn thiện Master list, điền đủ SSOT · đủ trường để Config · dùng DOT tạo collection.
+- 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P11 · 22:07 · làm ở workspace: «Không, bạn đưa lên repo chứ. Đó bạn thấy không? mỗi người vẫn hiểu 1 kiểu, mỗi AI vẫn hiểu 1 kiểu. Và cái đó rõ ràng chưa thể trở thành quy trình được. Ghi thêm vài chữ là làm ở workspace để không hiểu nhầm nữa»
 - P10 · 21:57 · làm thử bước 3–4: «Giờ quay lại QTTH 007. bạn làm bước 3,4 trên repo để thử xem còn vấn đề gì nữa chúng ta bàn tiếp.»
 - P01 · 16:29 · tạo việc: «Thấy bạn lúng túng lắm. Tức là các bạn viết ra đó nhưng các bạn chưa chắc đã làm được 1 quy trình từ MBM đâu. Đây sẽ là bài test thử. Đầu tiên bạn sửa lại việc này. Bổ sung phải taọ task trên workspace nữa. => bạn thấy đấy. Viết không đủ cụ thể, khôgn tính đến khi làm => vào làm là mắc. Chúng ta vừa làm vừa hiệu chỉnh toàn bộ MBM để làm sao các bước thật chi tiết. Lần 2 không có tôi AI thưc sự chạy được. Các bạn viết thì hay, nhưng khi các bạn làm là hỏng ngay. Giờ bổ sung phần đó và việc đầu tiên bạn tạo task trên WP đi. qtth.07-ve-UI-mow»
 - P02 · 16:39 · thứ tự ④ + danh sách việc: «Không tôi nghĩ là nên làm ngược lại: ④ Làm một MOW bằng MBM. Nhận yêu cầu => tạo task Tạo task trên workspace => Chốt mục tiêu (quy trình sẵn cũ). Đưa 1 danh sách list những viẹc cần làm lên Task, cái nào làm xong thì tích. Lý do là các bạn ít đọc công thức, chỉ đọc 1 lần thôi. Còn lại task là cái mà lần nào cũng phải đọc lại, xem lại. Dễ bàn hơn. Sửa lại và làm thử theo xem có hợp lý không. Chưa hợp lý lại tiếp tục sửa. Chỉ có phần quét chi tiết mà hội đồng đã góp Ý nhiều lần => chúng ta nên hạn chế sửa bừa bừa bãi. Bởi vì sửa lại phải kéo cả hội đồng và góp Ý. Còn lại thứ tự quy trình, tôi và bạn làm là đủ rồi. Cho nhanh. Cái gì đúng là nó chạy được thực tế. Còn vào thực tế mà mắc => phải sửa lại hết.»
