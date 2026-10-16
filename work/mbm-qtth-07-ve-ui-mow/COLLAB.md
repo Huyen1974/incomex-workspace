@@ -5,14 +5,14 @@ Tên việc: QTTH 07 — vẽ UI theo Master MOW, đủ Master list và hợp đ
 Xác nhận User: ĐÃ XÁC NHẬN — Owner viết ô 1–2 ngày 16/10/2026 17:05.
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-16 20:55 +07 · Claude · P08
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-16 21:20 +07 · Claude · P09
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
-- 📍 Tiến độ: [✓ 1 Nhận yêu cầu] → [✓ 2 Tạo task] → [✓ 3 Chốt mục tiêu] → [■ 4 Rà soát Master list] → [□ 5 Liệt kê bước] → [□ 6 Bộ câu hỏi] → [□ 7 Ký] → [□ 8 Chạy]
+- 📍 Tiến độ: [✓ 1 Nhận yêu cầu] → [✓ 2 Tạo task] → [✓ 3 Chốt mục tiêu] → [■ 4 Liệt kê bước] → [□ 5 Check Master list] → [□ 6 Bộ câu hỏi] → [□ 7 Ký] → [□ 8 Chạy]
 - ✅ Đã xong: task `mbm-qtth-07-ve-ui-mow` · Owner chốt ô 1–2 (17:05) · ma trận = bản 25 bước Owner đã gật 15:19 + 1 bước đề xuất.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: 4 → 5 → 6 → 7 → 8, đúng thứ tự (MBM ④ r5).
-- ➡ Kế tiếp: bước 4 Rà soát Master list — chờ Owner hướng dẫn tiếp (20:41).
+- ➡ Kế tiếp: bước 4 Liệt kê bước — chốt cách viết bước để mọi AI hiểu giống nhau (Sổ vấp V10), rồi hoàn thiện bảng từ bản 25 bước.
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
 ### 1. Mục tiêu
@@ -39,8 +39,8 @@ Owner 16/10/2026 17:05:
 | 1 | Nhận yêu cầu | 🤖 | lời Owner ở Nhật ký | ☑ |
 | 2 | Tạo task + tên | 🤖 | đúng khuôn, tên `mbm-` | ☑ `c8bfe619` |
 | 3 | Chốt mục tiêu | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
-| 4 | Rà soát Master list | 🤖 → 😊 | mọi sổ quy trình đọc/ghi: có đường dẫn thật, hoặc đã lập + Owner duyệt lần đầu | ■ |
-| 5 | Liệt kê bước | 🤖 | bảng # · Mốc · Mục con · Bước; mỗi bước có nơi làm thật (bản 25 bước đã gật làm gốc) | ☐ |
+| 4 | Liệt kê bước | 🤖 | bảng # · Mốc · Mục con · Bước, mọi AI hiểu giống nhau (bản 25 bước đã gật làm gốc) | ■ |
+| 5 | Check Master list | 🤖 → 😊 | mọi sổ các bước đọc/ghi: có đường dẫn thật, hoặc đã lập + Owner duyệt lần đầu | ☐ |
 | 6 | Bộ câu hỏi | 🤖 | mọi bước đủ ô | ☐ |
 | 7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
 | 8 | Chạy | 🤖 | đạt ô 2 | ☐ |
@@ -65,6 +65,8 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 | V6 | Host bỏ qua bản 25 bước đã gật, tự viết ma trận mới (Owner phát hiện 17:25) | ④.4 r4.6: có bản cũ thì bắt đầu từ bản cũ, chỉ thêm/sửa phần mục tiêu mới đòi |
 | V7 | Thử làm 1.1–1.3: bước trỏ tới sổ và lệnh chưa có (CAT-227/228, mo-viec, mo-ho-so) → AI thường không làm được; Mốc 1 còn trùng bước tạo task (18:01) | ④ r5: thêm bước Rà soát Master list trước khi liệt kê bước; mỗi bước phải có nơi làm thật hoặc cách làm tay tạm |
 | V8 | Mục ② «Chia mục và đặt mã» viết dài, làm không được (Owner 20:41) | ② r5: thay bằng bảng mẫu # · Mốc · Mục con · Bước; công thức gộp Mốc · Mục con · Bước thành 1 thành phần |
+| V9 | Rà Master list đặt trước khi có bước là ngược: chưa biết bước thì chưa biết cần sổ nào (Owner 21:12) | r5.1: công thức và ④ đổi thành Bước → Check Master list → Bộ câu hỏi |
+| V10 | Tên bước ngắn (vd «1.2 Mở hồ sơ») mỗi AI hiểu một kiểu; Host đang suy diễn theo cách hiểu riêng (Owner 21:12) | chưa sửa — đề xuất chờ Owner gật |
 
 ### Vòng trước
 - 16/10 15:19 (Owner, nay gộp vào ô 1 bản 17:05): vẽ UI theo Master MOW · hoàn thiện Master list, điền đủ SSOT · đủ trường để Config · dùng DOT tạo collection.
@@ -123,6 +125,7 @@ Bản đủ (mỗi bước đủ câu A1–C4, 53 mã ghi danh): tools-quy-trinh
 - P02 · 16:39 · thứ tự ④ + danh sách việc: «Không tôi nghĩ là nên làm ngược lại: ④ Làm một MOW bằng MBM. Nhận yêu cầu => tạo task Tạo task trên workspace => Chốt mục tiêu (quy trình sẵn cũ). Đưa 1 danh sách list những viẹc cần làm lên Task, cái nào làm xong thì tích. Lý do là các bạn ít đọc công thức, chỉ đọc 1 lần thôi. Còn lại task là cái mà lần nào cũng phải đọc lại, xem lại. Dễ bàn hơn. Sửa lại và làm thử theo xem có hợp lý không. Chưa hợp lý lại tiếp tục sửa. Chỉ có phần quét chi tiết mà hội đồng đã góp Ý nhiều lần => chúng ta nên hạn chế sửa bừa bừa bãi. Bởi vì sửa lại phải kéo cả hội đồng và góp Ý. Còn lại thứ tự quy trình, tôi và bạn làm là đủ rồi. Cho nhanh. Cái gì đúng là nó chạy được thực tế. Còn vào thực tế mà mắc => phải sửa lại hết.»
 - P03 · 16:52 · tên task: «Bạn ghi luôn là tên task mà làm theo MBM thì chữ đầu tiên phải là mbm-.... sau này chúng ta có nhiều công thức, quy định luôn cách đặt tên để còn biết tìm. Nhìn cái là phải hiểu nguồn gốc nó từ đâu.»
 - P04 · 16:50 · viết gọn: «Giờ bạn tạo task trước đi, viết ngắn thôi nhưng đủ. 2 tạo tên 3. chôt mục tiêu + thê nào là hoàn thành => Kiểm tra lại các thông tin tôi đã chỉ đạo trước đây để viết vào. 4. Liệt kê ngắn gọn các đầu việc task (cái này để xem làm thế nào cho gọn). Nhắc lại tổng thể là viết ngắn gọn. Đừng viết dài quá các bạn cũng không đọc được đâu lại làm sai hết.»
+- P09 · 21:12 · công thức + 2 vấn đề: «Yêu cầu User+Mục tiêu+Master list+Bước (Mốc · Mục con · Bước)+Bộ câu hỏi⇒MOW đổi thành => Yêu cầu User+ Mục tiêu + Mốc /Mục con/Bước+ Check Master list + Bộ câu hỏi⇒MOW. Tôi thấy bạn làm thực đang có 2 vấn đề: 1. Mục bước ví dụ QTTH 07 đã liệt kê ra, nhưng nhìn vào cột bước (chưa bàn thiếu đủ) thì chắc làm thế nào để hiểu cho nhất quán được. Bạn đang suy diễn theo cách hiểu của bạn để làm. Ai khác có thể sẽ làm theo cách không giống bạn. 2. Việc tiếp theo việc chốt được bước => như bạn vừa làm là kiểm kê lại các danh sách master list rõ ràng là việc cần, nhưng nên đưa vào đâu? Phải làm thực mới rút ra được kinh nghiệm => để ở vị trí đó có hợp lý không?»
 - P08 · 20:41 · sửa MBM r5: «rõ ràng là làm thử thấy mắc ngày => cả MBM lẫn quy trình đều không khả thi. Giờ cần sửa lại cả. Chúng ta sẽ vừa sửa MBM vừa làm thử lại. Quy trình mà không thực hiện được hoặc thực hiện không nhất quán, hoặc không thể đạt mục tiêu => chả có nghĩa gì. 1. "② Chia mục và đặt mã" muc hướng dẫn này viết dài rồi cũng không làm được. Quy đinh là liệt kê đầy đủ theo mẫu: # Mốc Mục con Bước / 1 007-1 Khai việc — 1.1 Tra hoặc tạo việc duy nhất / 2 007-1 Khai việc — 1.2 Mở hồ sơ. Như bước bạn vừa làm 2. Trên công thức: Mốc, mục con, bước gồm thành 1 bước. 3. Bước tiếp theo nên là: Rà soát các master list. bạn sửa đi rồi tôi hướng dẫn tiếp. Sửa MBM trước đi»
 - P07 · 18:01 · thử hiểu bước 1: «Vấn đề là các bước chúng ta đã bàn. AI bình thường có thực sự biết làm gì không> ví dụ bạn thử mô tả cho tôi mục 1 gồm: 1.1, 1.2 và 1.3 xem bản thân bạn hiểu là bạn cần phải làm gì nếu bạn được giao làm việc này?»
 - P06 · 17:25 · dùng lại bản cũ: «Tôi chả hiểu bạn đang viết cái này là cái gì nữa? Bạn kiểm tra xem trước nếu chưa có MBM chúng ta đã bàn thế nào? mấy chục cái bước gồm những bước gì? Việc này mà chúng ta không MBM thì chúng ta cũng làm xong rồi đấy. Kiểm tra lại xem nào? Liệt kê cho tôi các cái bước chi tiết, theo tôi nhớ chúng ta còn làm cả hồ sơ rồi cơ mà? Các bạn cứ viết Tràng giang đại học xong lúc quay lại viết như là người không hiểu gì? Tôi cũng chả hiểu bạn đang viết gì luôn?»
