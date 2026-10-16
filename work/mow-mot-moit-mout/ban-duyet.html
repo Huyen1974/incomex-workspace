@@ -1233,7 +1233,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
   <div class="cf-mbm">
-  <p><span class="cf-mbm-badge">r5.10 · Owner 17/10 05:36: mục 2 — AI viết số · hoàn thành 3–5 gạch · User quyết ký · r5.9 · 05:22: 3.3 Bước nền tảng = nhóm con · r5.8 · 16/10 22:57: mục 3 = 3.1 Mốc · 3.2 Mục con · 3.3 Bước · 22:19: kết quả ở view.html của task · 22:07: làm ở workspace · 21:39: rê chuột vào đầu cột để xem «?» giải thích · mục 4 = bảng kiểm kê Master list · số trên công thức = số mục bên dưới · 16/10 · đang thử thật: làm QTTH 07 ở task mbm-qtth-07-ve-ui-mow · vấp đâu sửa đó</span></p>
+  <p><span class="cf-mbm-badge">r5.11 · Owner 17/10 05:46: D1, D2 là câu hỏi mở, không chặn · r5.10 · 05:36: mục 2 — AI viết số · hoàn thành 3–5 gạch · User quyết ký · r5.9 · 05:22: 3.3 Bước nền tảng = nhóm con · r5.8 · 16/10 22:57: mục 3 = 3.1 Mốc · 3.2 Mục con · 3.3 Bước · 22:19: kết quả ở view.html của task · 22:07: làm ở workspace · 21:39: rê chuột vào đầu cột để xem «?» giải thích · mục 4 = bảng kiểm kê Master list · số trên công thức = số mục bên dưới · 16/10 · đang thử thật: làm QTTH 07 ở task mbm-qtth-07-ve-ui-mow · vấp đâu sửa đó</span></p>
   <p><b>MBM = MOW born MOW</b>: <b>công thức gốc</b> để chế tạo ra quy trình. Mọi câu hỏi đặt sẵn trong ma trận. AI chỉ điền câu trả lời vào ô. Ô nào trống là dòng đó chưa xong.</p>
   <p class="cf-mbm-note"><b>Định vị:</b> MBM là CÔNG THỨC, không phải quy trình. Một công thức chế tạo ra nhiều quy trình (kể cả quy trình tổng hợp gọi quy trình khác). Việc thật và mọi phép thử chi tiết thuộc quy trình được chế tạo ra; sửa cách chế tạo thì sửa ở đây.</p>
   <h4><i class="cf-num">1</i>Yêu cầu User</h4>
@@ -1244,11 +1244,19 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <li>Thế nào là hoàn thành: 3–5 gạch, có con số.</li>
   <li>User quyết hội đồng ký hay bỏ qua bước ký; User duyệt là bắt buộc.</li>
   </ul>
-  <p><b>Giám sát — 2 câu cho cả quy trình</b> (trả lời 1 lần ở dòng MOW bằng mã cơ chế ở mục 8; không trả lời từng bước):</p>
+  <p><b>Giám sát — 2 câu hỏi mở cho cả quy trình</b> (không chặn):</p>
   <ul>
   <li><b>D1</b> Làm sai, làm khác đi có được không? Cơ chế nào chặn hoặc bắt được?</li>
   <li><b>D2</b> Quên ghi đủ vào sổ thì phát hiện bằng cách nào, bao lâu một lần?</li>
   </ul>
+  <details><summary>Ghi chú D1, D2</summary>
+  <ul>
+  <li>Không giải xong trong 1 việc: giải ở tầm MBM hoặc cao hơn, bằng công nghệ chung (chống lệch PG, Directus, DOT…), tích luỹ theo thời gian.</li>
+  <li>Mỗi việc là 1 lần nhìn lại: đã có cơ chế nào dùng được? Cái đã bàn, đã làm mà chưa áp dụng? Có gì mới áp dụng được?</li>
+  <li>Phương án đã áp dụng ghi ở bảng Giám sát chung (mục 8) để không quên.</li>
+  <li>Không chặn: chưa trả lời được thì ghi «chưa có», việc vẫn đi tiếp.</li>
+  </ul>
+  </details>
   <h4><i class="cf-num">3</i>Mốc / Mục con / Bước — 3 bảng, liệt kê đủ theo mẫu</h4>
   <h5>3.1 Mốc</h5>
   <div class="cf-mbm-scroll"><table>
@@ -1342,7 +1350,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <li>🤖 <b>Liệt kê Mốc · Mục con · Bước</b> → mục <i class="cf-num cf-num-s">3</i> (3 bảng 3.1 · 3.2 · 3.3). <b>Có bản cũ đã gật thì bắt đầu từ bản cũ</b>, chỉ thêm/sửa phần mục tiêu mới đòi.</li>
   <li>🤖 <b>Check Master list</b> → mục <i class="cf-num cf-num-s">4</i></li>
   <li>🤖 <b>Bộ câu hỏi</b> → mục <i class="cf-num cf-num-s">5</i>: điền cho từng bước vào mục «Ma trận» của task (việc thường: model rẻ · việc khó: frontier).</li>
-  <li>👥😊 0 ô trống, 0 ô ❓, D1–D2 đã trả lời bằng mã GS → hội đồng ký → User gật. Còn ❓ thì sửa, chưa gật.</li>
+  <li>👥😊 0 ô trống, 0 ô ❓ → hội đồng ký → User gật. Còn ❓ thì sửa, chưa gật. D1–D2 không chặn bước này.</li>
   <li>🤖 Chạy thử 1 việc: DOT điền «Khi chạy»; lỗi thì sửa thiết kế, giữ lịch sử, ký lại phần đổi.</li>
   </ol>
   <p class="cf-mbm-note">Vấp ở bước nào thì ghi ngay vào «Sổ vấp MBM» của task rồi sửa CT-008 tại chỗ — để lần sau AI tự chạy không cần User. Sửa thứ tự ④: User + Host là đủ. Sửa bộ câu hỏi / ma trận: cần hội đồng ký — hạn chế sửa.</p>
