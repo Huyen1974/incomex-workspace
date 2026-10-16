@@ -1,11 +1,11 @@
-# COLLAB — qtth-07-ve-ui-mow
+# COLLAB — mbm-qtth-07-ve-ui-mow
 Tên việc: QTTH 07 — vẽ được UI cho một MOW theo Master MOW, làm bằng công thức MBM (thử trên MOW-001)
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: CHƯA XÁC NHẬN — Owner giao tạo việc 16/10/2026 16:29; chờ Owner gật ô 2 (đề xuất), Mốc và Host ở ô 3 (MBM ④.3).
 Host: Claude Chat (đề xuất — chờ Owner gật) · lý do: đang giữ công thức MBM (CT-008) và nhận lệnh Owner trực tiếp cho việc này.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-16 16:50 +07 · Claude · P02
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-16 16:55 +07 · Claude · P03
 - 🎯 Mục tiêu: ô 1 — QTTH 07 vẽ UI cho MOW theo Master MOW, làm bằng MBM. Vì sao: đây là bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy được.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ: [✓ 1 Nhận yêu cầu] → [✓ 2 Tạo task + danh sách việc] → [■ 3 😊 Chốt mục tiêu] → [□ 4 Điền ma trận] → [□ 5 Ký + D1/D2] → [□ 6 Chạy thử MOW-001] — chi tiết ở «Việc cần làm» đầu ô 3.
@@ -65,6 +65,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 |---|---|---|---|---|
 | V1 | 16/10 16:29 | ④ (trước ④.2) | MBM thiếu bước tạo task trên workspace; viết không tính đến lúc làm thật (Owner phát hiện) | ④.2 «Tạo task trên workspace», User chốt cả Host ở ④.3, nơi ghi tạm ở COLLAB task (r4.3 `f091ae11`) |
 | V2 | 16/10 16:35 | ④.2 | Tên Owner đặt `qtth.07-ve-UI-mow` có dấu chấm, chữ hoa; MBM chưa nói khuôn tên | ④.2 ghi rõ «chữ thường nối gạch ngang»; đã chuẩn hoá thành `qtth-07-ve-ui-mow` (JEV 1,00) |
+| V4 | 16/10 16:52 | ④.2 | Tên task không cho biết nó sinh từ công thức nào; sau này nhiều công thức sẽ khó tìm (Owner phát hiện) | ④.2 r4.5: tên task bắt đầu bằng mã công thức (MBM → `mbm-`); đã đổi thành `mbm-qtth-07-ve-ui-mow` |
 | V3 | 16/10 16:39 | ④.1–④.3 | Thứ tự chưa đúng và task chưa có danh sách việc: AI ít đọc lại công thức, task mới là thứ đọc mỗi lượt (Owner phát hiện) | ④ r4.4: Nhận yêu cầu → Tạo task (kèm mã + danh sách việc, xong tích) → Chốt mục tiêu; luật sửa: thứ tự ④ User + Host · bộ câu hỏi cần hội đồng |
 
 #### Nơi ghi
@@ -86,3 +87,7 @@ _(trống — điền sau khi Owner gật ④.3)_
 - Owner (nguyên văn, giữ lỗi gõ): «Không tôi nghĩ là nên làm ngược lại: ④ Làm một MOW bằng MBM. Nhận yêu cầu => tạo task Tạo task trên workspace => Chốt mục tiêu (quy trình sẵn cũ). Đưa 1 danh sách list những viẹc cần làm lên Task, cái nào làm xong thì tích. Lý do là các bạn ít đọc công thức, chỉ đọc 1 lần thôi. Còn lại task là cái mà lần nào cũng phải đọc lại, xem lại. Dễ bàn hơn. Sửa lại và làm thử theo xem có hợp lý không. Chưa hợp lý lại tiếp tục sửa. Chỉ có phần quét chi tiết mà hội đồng đã góp Ý nhiều lần => chúng ta nên hạn chế sửa bừa bừa bãi. Bởi vì sửa lại phải kéo cả hội đồng và góp Ý. Còn lại thứ tự quy trình, tôi và bạn làm là đủ rồi. Cho nhanh. Cái gì đúng là nó chạy được thực tế. Còn vào thực tế mà mắc => phải sửa lại hết.»
 - Đã làm: MBM ④ r4.4 (đổi thứ tự + danh sách việc trên task + luật sửa) · áp ngay lên task này: danh sách việc đầu ô 3 (bước 1–2 đã tích) · Sổ vấp V3.
 - Đi thử theo thứ tự mới: bước 1–2 khớp việc đã làm, không vấp thêm; bước 3 cần Owner gật — đề xuất sẵn ở mục «Đề xuất cho ④.3».
+
+## P03 · Claude · tên task theo công thức · 16/10/2026 16:55 +07
+- Owner (nguyên văn): «Bạn ghi luôn là tên task mà làm theo MBM thì chữ đầu tiên phải là mbm-.... sau này chúng ta có nhiều công thức, quy định luôn cách đặt tên để còn biết tìm. Nhìn cái là phải hiểu nguồn gốc nó từ đâu.»
+- Đã làm: đổi thư mục `work/qtth-07-ve-ui-mow/` → `work/mbm-qtth-07-ve-ui-mow/` (giữ lịch sử Git) · MBM ④.2 r4.5 ghi luật: tên task = mã công thức viết thường + «-» + mã-tên-ngắn · tools-quy-trinh trỏ đường mới · Sổ vấp V4.
