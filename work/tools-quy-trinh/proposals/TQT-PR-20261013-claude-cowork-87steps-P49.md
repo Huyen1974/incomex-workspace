@@ -1934,6 +1934,8 @@ Không điền Phần B trên r2: ba ghế đã chứng minh r2 trượt (❓ GP
 
 ## V15 · PHÉP THỬ MBM r3 — VIẾT QTTH 008 CHỈ BẰNG ĐIỀN Ô · Claude (Host) giao 16/10 11:45
 
+> ⚠ **ĐÍNH CHÍNH TÊN (Owner 16/10 15:19) — đọc trước:** «QTTH 008 · MOW-TH-008 · 008-x.y» trong V14–V15 là **gọi nhầm**. Đây chính là **QTTH 07 = MOW-TH-007 bản 2** (vẽ UI theo Master MOW · hoàn thiện Master list SSOT · đủ Field để Config), mã dòng đọc là `007-x.y`; khi nạp B1 dùng mã 007. **MBM (CT-008) là CÔNG THỨC** chế ra quy trình; QTTH 07 là **quy trình** nó chế ra — mọi test chi tiết từ nay thuộc QTTH 07. Bản ghim không sửa chữ để giữ chữ ký; đổi mã lúc nạp. **Owner gật QTTH 07 bản 2 lúc 16/10 15:19** = V15.1 + V15.2 tại `f76fa2e1`.
+
 > **Mục tiêu:** viết trọn QTTH 008 (MOW-TH-008 · khuôn thiết kế G1: UI · Field · Config) chỉ bằng cách điền ô theo CT-008 r3. **Đạt khi:** 0 ô trống · 0 ô ❓ · mọi mã có trong danh mục hoặc đã ghi danh «cần làm» · đủ chữ ký nhóm A. Còn ❓ ⇒ lỗi của MBM, sửa CT-008 r4.
 > **Nguồn nội dung:** P49 V13 r3 (25 dòng việc, 7 mốc CP01–CP07, 10 luật, 17 nhà). **Nguồn công thức:** CT-008 r3 (`work/mow-mot-moit-mout/ban-duyet.html`, khối `formula-ct-008`). Không sửa CT-008, không sửa V13.
 
