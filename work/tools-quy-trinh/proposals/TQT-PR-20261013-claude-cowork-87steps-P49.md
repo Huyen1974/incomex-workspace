@@ -2377,6 +2377,32 @@ r3: 2 ký, 1 phản đối ⇒ chưa đạt luật ký (0 phản đối) ⇒ **C
 2. **Sau GPT, song song:** Hermes chạy ①②③ của V15.3 trên bản GPT lượt 2 (máy đếm ❓, kiểm mã, ⑤ N = a + b + c + d) + ký r4 · Gemini ký nhóm A từng dòng + ① Mục tiêu + ký r4.
 3. **Claude** ký nhóm A + tổng hợp lượt 2. Đạt khi: máy Hermes đếm 0 ❓ · 0 ô trống · mọi mã có trong danh mục hoặc V15.2 · r4 và nhóm A đủ chữ ký ⇒ Owner gật QTTH 008.
 
+---
+
+**LƯỢT 2 · 16/10 15:05 · Claude (Host) tổng hợp + ký**
+
+**✍️ Chữ ký nhóm A của ghế Claude: KÝ 36/36** (① Mục tiêu + 35 dòng 008-1 … 008-7.3), 0 phản đối — trên bản ghim V15.1 tại `f76fa2e1`, sha256 khối `2066240e…`. Đã tự đọc lại các ô lượt 2 sửa theo «Quyết nội dung» (008-1.1 · 008-4.2 · 008-5.2 · 008-5.3 · 008-7.3 · C4 của 008-4.7b và 008-7.3): khớp r4. Không ký thay ghế khác.
+
+**Kết quả phép thử: ĐẠT.**
+
+| Tiêu chí (V15) | Kết quả | Ai đo |
+|---|---|---|
+| 0 ô trống · 0 ô ❓ | 0 · 0 trên 766 ô / 10 bảng | 🤖 Hermes, ghế khác người điền |
+| Mọi mã có trong danh mục hoặc V15.2 | 60 mã: 0 sai · 0 thiếu, kiểm hai chiều | 🤖 Hermes |
+| CT-008 r4 đủ chữ ký | GPT · Hermes · Gemini ký, 0 phản đối (Claude là người viết r4) | ✍️ |
+| Nhóm A đủ chữ ký | Gemini 36/36 + Claude 36/36 — 2 ghế, đều khác hãng người điền (GPT), 0 phản đối | ✍️ |
+
+**Nói thẳng:** phải 2 lượt và 6 quyết nội dung của Host mới đạt. Phần vướng còn lại nằm ở nguồn V13 (nội dung), không nằm ở khuôn; các ca chung (mẫu số 0, ngưỡng 0, thứ chưa có) nay đã thành luật trong r4.
+
+**⑤ Đối soát (Hermes): N = 61 = a 14 + b 2 + c 0 + d 45.** c = 0: không mã mồ côi. Hai tín hiệu để sửa MBM, đúng mục đích R58:
+- **b = 2** (ML-DEF-022 nơi ghi ma trận · ML-DEF-024 nơi ghi DOT): MBM chưa hỏi tới hai nhà này.
+- **d = 45**: gồm chính các thứ MBM sinh ra khi viết khuôn (dòng MOW, 35 dòng ma trận, mã ghi danh «cần làm», lệnh con, công cụ, cột). Gốc rễ: **MBM đòi mọi MOW có ma trận, riêng phần ④ của chính MBM thì chưa viết thành ma trận** nên sản phẩm của nó không có cụm C.
+- Đề xuất **CT-008 r5** (không chặn QTTH 008): viết ④ M1–M5 thành ma trận có cụm C — MBM tự áp lên chính nó. Sản phẩm: dòng MOW (ML-MOW-TH-001) · thẻ dòng (ML-DEF-022) · mã «cần làm» (sổ của loại, kể cả ML-DEF-024) · chữ ký (CAT-025). Khi đó b và phần lớn d chuyển sang a.
+
+**Vệ sinh khi nạp (B1, không chặn, Gemini đã nêu):** bỏ 3 câu cũ của lượt 1 — ô ① «Hoàn thành bản khuôn V15» (câu «chưa đạt») · ô B3 của 008-4.2 (câu «chờ làm rõ A2», nay theo r4 là MAU_SO_0 → 008-4.3) · mục ⑥ (trạng thái lượt 1).
+
+**Trình Owner:** gật **QTTH 008** = V15.1 + V15.2 tại `f76fa2e1` (53 mã «cần làm»), kèm 3 câu vệ sinh trên. Đề xuất PM: **gật**. Sau gật: CT-008 r5 (1 vòng ký ngắn) → B1 nạp QTTH 008 + ghi danh 53 mã vào đúng sổ + chốt schema CAT-227/228 + cột MBM → B2 dựng (kèm bộ lọc đối soát ⑤) → B3 chạy QT001.
+
 
 
 
