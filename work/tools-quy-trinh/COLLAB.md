@@ -15,6 +15,8 @@ Xác nhận bổ sung: Owner giao trực tiếp dựng ma trận và UI câu h�
 - **4 tầng:** ① Công thức → ② Quy trình tổng hợp (giải 1 vấn đề lớn, gọi nhiều quy trình, nhỏ hơn chuyên môn ≈ tầng 2.5) → ③ Quy trình con (MOW · T2, quản lý Task MOT · T1) → ④ Hồ sơ (bản ghi thực tế từng việc). Bước · DOT · Tool là thành phần bên trong quy trình, không phải tầng. **Nơi duy nhất:** ô «4 TẦNG» đầu tab Công thức (`work/mow-mot-moit-mout/ban-duyet.html`). Không chép ra chỗ khác.
 - **Áp vào việc này:** ① CT-008 MBM · ② QTTH 07 = MOW-TH-007 bản 2 (mọi test chi tiết ở đây) · ③ MOW-001 (quy trình con được vẽ UI) · ④ hồ sơ CAT-227 (việc) + CAT-228 (dòng hồ sơ). Sổ thành phần: bước ML-DEF-022 · DOT ML-DEF-024 · Tool ML-DEF-023.
 - **Giám sát:** mỗi quy trình trả lời D1 (làm sai có được không) · D2 (quên ghi sổ phát hiện thế nào) bằng mã GS ở CT-008 ⑥ (R60).
+- **Nơi ở QTTH (Owner 16:13):** trang việc TQT chỉ là chỗ tạm để thảo luận; nhà lâu dài của mọi QTTH là Sổ quy trình ML-MOW-TH-001 khi đã thành collection. QTTH 07 viết tạm ở `MOW-TH-007.md`, chuyển vào sổ ở bước dựng collection.
+- **Cách dựng sổ (Owner 16:13 xác nhận):** thiết kế (cột · quan hệ · ô bắt buộc, Owner gật) → DOT tạo collection, Directus tự hiện bảng/form → DOT nạp dữ liệu từ gốc (tệp master trên GitHub) → cần thêm/sửa thì sửa gốc rồi DOT áp lại. Không gõ tay vào Directus (GS-03).
 
 - **QTTH 07 — 3 mục tiêu ngắn hạn (Owner):** ① vẽ UI theo Master MOW (MOW-001 đang thử) · ② hoàn thiện các Master list liên quan, điền đủ thông tin (SSOT) · ③ rà đủ trường để Config thành công.
 - **Cách làm QTTH 07:** dùng DOT tạo Collection; Master list tổ chức thành Collection — không dựng hệ nặng như trước.
@@ -197,6 +199,9 @@ Phạm vi: chưa làm quy trình nghiệp vụ (phái cử, tuyển dụng…), 
   - **Quyền máy Hermes:** ghi `work/tools-quy-trinh/` (mở 16/10 qua Config Guard, Hermes đã tự ghi được); quyền tạo tệp mới thu lại (tệp của ghế đã có; tránh tạo COLLAB.md ở thư mục lạ — JEV 1,00) — cùng lệnh Claude Code 16/10 10:47. ⚠ **Đổi phạm vi đọc/ghi của Hermes thì trong cùng RUN phải sửa `HERMES_READ_EXACT` / `HERMES_WRITE_MAX` trong mã Guard (INV19), không thì Guard đỏ** (P69 lượt 2). Mode=COUNCIL · Automation_Level=AUTO0.
 
 #### 3.4 Nguyên văn chỉ đạo Owner
+- 16/10/2026 16:13 · phiên Claude (nguyên văn, giữ lỗi gõ) → Định vị: nơi ở QTTH + cách dựng sổ:
+  > https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh&view=content Chỗ này không phải là nơi thích hợp để lưu nhiều Quy trình tổng hợp. Nhưng vì ban đầu ban đầu khi mọi chuyện còn mơ hồ => nên muốn có 1 nơi trực quan để dễ thảo luận chúng ta đưa tạm vào đây. Giờ dùng MBM làm  QTTH 07. Sau đó chúng ta bắt đầu rà soát các lập các collection để ghi các masterlist.
+  > (tôi hiểu là chúng ta cứ dùng DOT tạo ra collection và nó có thể hiện ra các bảng nhưng chúng ta vẫn thiết kế đúng không? Dữ liệu cần thiết thì yêu cầu DOT nạp thêm vào collectiosn. Hiểu như vậy có đúng không?)
 - 16/10/2026 16:03 · phiên Claude (nguyên văn, giữ lỗi gõ) → sửa ô 4 tầng + Định vị:
   > Bạn vẫn đang hiểu sai khái niệm. Bảo sao các bạn viết nhiều nhưng không hiệu quả. Sai cái này: "③ Bước · DOT · ToolMảnh để làm; cũng có thể lắp từ công thức.vd: bước 007-4.5 Gắn Field · dot-master-apply"
   > 2. Quy trình tổng hợp: Giải quyết 1 vấn đề lớn, gọi nhiều quy trình khác, nhưng bé hơn chuyên môn (kiểu tầng 2.5 trong cấu trúc 10 tầng của incomex)
