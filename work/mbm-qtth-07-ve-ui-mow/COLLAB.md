@@ -86,6 +86,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P31 · 18/10 05:30 · CT-006: «Trong phần côg thức: UI Con CT-006 Chuỗi+Bước+Tầng+Nhóm+UI cha⇒UI Con. Bạn đổi giúp tôi đây là Nhóm con (bản chất UI con chính là bước con, hay nhóm con (xét về số lượng và thứ tự)).» → CT-006 = Chuỗi + Bước + Tầng + Nhóm con + UI cha ⇒ UI Con.
 - P30 · 17/10 21:33 · nợ kỹ thuật: «Cái gì chưa làm được do công cụ thì ghi chú nợ kỹ thuật QTTH 007 (chúng ta không cố build hệ thống phức tạp như codex đã làm mà sẽ đưa lên collection sau khi hoàn thành QTTH 007. DOT trên collection sẽ rất nhanh, giờ chỉ cần ghi chú danh sách là được, có một ít thông tin không đáng ngại.» → N01–N08 ở view.html.
 - P29 · 17/10 21:18 + 21:26 · rà tới 3.2: «đồng ý, bạn sửa tiếp đi, làm sao để chạy không vướng. AI biết phải làm gì? hiểu ngay và không hiểu sai» → MBM r5.22 · mục tiêu + hoàn thành có số · rà D1/D2 · CAT-249 chưa có đường nạp dòng nên bảng 8 MBM là dữ liệu đầu tạm thời.
 - P28 · 17/10 19:43 · đánh mã xong: MBM r5.21 (mục 1–9 đánh mã; 6.0 luật chung, bước 6.1–6.8) → danh sách việc của task dùng mã 6.1–6.8.
