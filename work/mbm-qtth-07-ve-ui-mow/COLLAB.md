@@ -43,7 +43,7 @@ Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công
 | 2 | Tạo task + tên + view.html | 🤖 | đúng khuôn, tên `mbm-`, có `view.html` | ☑ `579bec00` |
 | 3 | Chốt mục tiêu (MBM ②) | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
 | 4 | Liệt kê Mốc · Mục con · Bước (MBM ③) | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 17/10 17:30 theo MBM r5.18 (5 mốc · 26 bước) ở view.html · 7 chỗ vướng chờ Owner |
-| 5 | Check Master list (MBM ④) | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ; Tình trạng = «đã có» hết | ■ bảng ở view.html · mới 4/17 «đã có» |
+| 5 | Check Master list (MBM ④) | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ, DOT, Tool; Tình trạng = «có» hết | ■ bảng ở view.html · Master list 6/19 «có» · DOT, Tool chưa điểm danh |
 | 6 | Bộ câu hỏi (MBM ⑤) | 🤖 | mọi bước đủ ô | ☐ |
 | 7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
 | 8 | Chạy | 🤖 | đạt ô 2 | ☐ |
