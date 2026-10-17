@@ -9,7 +9,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ (MBM 6.x): [✓ 6.1 Nhận yêu cầu] → [✓ 6.2 Tạo task] → [✓ 6.3 Chốt mục tiêu] → [◐ 6.4 Liệt kê bước — bản thử] → [■ 6.5 Check Master list] → [□ 6.6 Bộ câu hỏi] → [□ 6.7 Ký] → [□ 6.8 Chạy]
-- ✅ Đã xong: ô 1–2 (17:05) · bước 4 làm lại theo MBM r5.8: 3.1 Mốc (7) · 3.2 Mục con (3) · 3.3 Bước (26), có Câu hỏi + Hoàn thành · kiểm kê 17 sổ — xem tab «Nội dung công việc» (`view.html`).
+- ✅ Đã xong: ô 1–2 (17:05) · 6.4 bản thử theo MBM r5.21: 5 mốc · mục con 3A–3C · 26 bước · kiểm kê 19 sổ — xem tab «Nội dung công việc» (`view.html`).
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
 - ➡ Kế tiếp: 😊 Owner xem «Vấn đề lộ ra» ở tab Nội dung công việc — nhất là 13 sổ cần duyệt lần đầu và 3 mã CAT lệch nghĩa.
