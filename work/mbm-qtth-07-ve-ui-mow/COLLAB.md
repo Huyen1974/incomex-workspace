@@ -42,7 +42,7 @@ Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công
 | 1 | Nhận yêu cầu (MBM ①) | 🤖 | lời Owner ở Nhật ký | ☑ |
 | 2 | Tạo task + tên + view.html | 🤖 | đúng khuôn, tên `mbm-`, có `view.html` | ☑ `579bec00` |
 | 3 | Chốt mục tiêu (MBM ②) | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
-| 4 | Liệt kê Mốc · Mục con · Bước (MBM ③) | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 17/10 05:25 ở view.html · 0 ô ❓ · bước UI theo CT-004/CT-006 |
+| 4 | Liệt kê Mốc · Mục con · Bước (MBM ③) | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 17/10 17:30 theo MBM r5.18 (5 mốc · 26 bước) ở view.html · 7 chỗ vướng chờ Owner |
 | 5 | Check Master list (MBM ④) | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ; Tình trạng = «đã có» hết | ■ bảng ở view.html · mới 4/17 «đã có» |
 | 6 | Bộ câu hỏi (MBM ⑤) | 🤖 | mọi bước đủ ô | ☐ |
 | 7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
@@ -85,6 +85,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P25 · 17/10 17:07 · sửa MBM + rà lại mục 3: «OK. bạn sửa, sau đó lại thử rà lại QTTH 007 đến hết mục 3 xem còn thấy vướng gì không? Như AI lần đầu làm? (bối cảnh sau việc này, chúng ta sẽ cố định các master list trên VPS làm 1 trang chủ để treeview và các thao tác thì giao DOT. Nhưng giờ cái đó chưa chạy => ko nên coi đó là mắc nhé» → MBM r5.18 + bản thử mục 3 (5 mốc, 26 bước), 7 chỗ vướng ở view.html.
 - P24 · 17/10 14:29 · Mốc 2 cụ thể: «2 Rà soát chuẩn bị (Master list, DOT, Tool) Đủ Master list, DOT, Tool để làm chưa? mục con 2.1–2.4 xong; thiếu = 0. Mục này vẫn mơ hồ. Nên liệt kê cụ thể từng dòng, có thì là có, không ghi không cần. Như vậy mới không cần gỉai thích nhiều» → MBM r5.17.
 - P23 · 17/10 14:17 · chốt 5 mốc + mục con: «Vẫn mơ hồ (ý tôi là chưa thật cụ thể) và mỗi Ai có thể làm 1 kiểu. … Mốc gồm: 1. Khai việc 2. Rà soát chuẩn bị (master list, DOT, tool) 3. Triển khai (nếu Dài AI tự chia bước) 4. Kiểm tra: 5. Báo cáo. Mục con: Trong mục 2 (rà soát), mục 3 triển khai có thể chia nhỏ hơn thành mục con) Tuỳ AI cân đối 1. Lập danh sách DOT đã có, DOT cần thêm và DOT sửa lại (nếu có) 2. Lập danh sách Master list đã có/cần user phê duyệt UI/ Cần làm mới (nếu cần) 3. Tạo mới/nâng cấp các danh sách DOT cần làm nếu có 4. Tạo mới/nâng cấp các danh sách master list cần làm nếu có 5. (Option) AI chia nhỏ triển khai thành nhiều phần nếu cần. => Viết 1 định nghĩa rất ngắn và chốt bảng mốc và mục con luôn. => Bước thực sự phải triển khai theo cả mốc và mục con + Nhóm con đấy (việc này phải nghĩ thêm chút). … Bạn sửa thêm rồi tôi nhìn vào đó bàn tiếp (Sửa MBM trước), chúng xem đưa thẳng vào MBM khoá cứng ổn không?»
 - P22 · 17/10 13:54 · định nghĩa Mốc/Mục con: «… Tư duy đơn giản là: cứ có chỗ để điền, AI sẽ biết cách điền thông tin. => Vấn đề là quy định về form mẫu chuẩn. Đọc có thể hiểu. Giờ nhìn vào bạn làm thử: tôi thấy khái niệm: Mốc là gì chưa rõ (AI - Bạn) đang tự làm theo ý. Mục con cũng tương tự. Cái này phải định nghĩa rõ từ MBM. Mốc phải > mục con, mốc chứa nhiều mục con mới đúng (và mục con là nếu có) tức là quá dài thì mới cần mục con để chia nhỏ mốc => Bạn rà soát cái này.»
