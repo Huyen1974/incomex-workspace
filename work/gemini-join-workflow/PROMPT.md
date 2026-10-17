@@ -1,39 +1,36 @@
-# PROMPT — GJW-R1-ROUTE-MEASURE-20261017-01
-RUN_ID: GJW-R1-ROUTE-MEASURE-20261017-01
-Status: DRAFT — Claude Chat soạn theo Owner 17/10 (P29). Reviewer khác hãng (GPT Host) rà một lượt, READY đúng SHA commit cuối chạm tệp này. Thay PROMPT B1 (B1 Task Mode đã VERIFIED qua Codex, P24).
-Task: work/gemini-join-workflow · Host: GPT Chat · Reviewer: Claude Chat · Executor: Claude Code CLI trên MacBook (SSH `contabo`) · AUTO0
-LOẠI LƯỢT: **CHỈ ĐỌC.** Không sửa tệp, không reload/restart, không apply-v0, không giữ `VPS-GHI`. Lượt nhẹ: `nice`/`ionice`, không quét cả đĩa (DROOT54 d). Không đụng phần HJW (`hermes-config-yaml`, INV20).
+# PROMPT — GJW-R2-CLOSE-HOLE-20261017-01
+RUN_ID: GJW-R2-CLOSE-HOLE-20261017-01
+Status: DRAFT — Claude Chat P32. Read-gate: READY của Host GPT đúng SHA commit cuối chạm tệp này. Nếu Host không ghi được repo: chạy khi COLLAB có `HUMAN_DIRECTIVE@GJW-20261017-18` do executor ghi NGUYÊN VĂN câu Owner cho chạy khẩn (SAFETY, AGENTS dòng 117). Bước S3 chỉ chạy khi COLLAB có Owner GẬT Q04.
+Task: work/gemini-join-workflow · Host GPT Chat · Reviewer Claude Chat · Executor Claude Code CLI trên Mac (SSH `contabo`) · AUTO0 · chuông `COUNCIL_ALERT@GJW-20261017-01` SAFETY đang mở.
 
 ## MỤC TIÊU
-Owner 17/10: «không được để lại tình trạng lỗi, cả server bị ảnh hưởng»; «chỉ cần Gemini tham gia đầy đủ … hiện nay cũng đã có ghế và tham gia đầy đủ».
-Hai đỏ của GJW đang làm Guard tổng FAIL cho MỌI việc (biên nhận Telegram của việc khác không gửi được):
-1. INV24 `badkey=400` — INV24 (G1C-MAX 14/10) gọi `https://…/gemini-mcp/mcp` với `X-API-Key` sai, đòi **401**.
-2. INV5_6 lệch Config Guard đích `nginx-route-gemini-mcp` (`/opt/incomex/docker/nginx/secrets/gemini-mcp-route.conf`).
-Giả thuyết (JEV 0,87): ngày 15/10 khoảng 03:00–04:00Z, lúc gắn Gemini Chat (Spark custom app — chỉ nhận URL, không nhận header), có người sửa tệp route để thêm đường dẫn chứa khoá rồi reload nginx ngoài Config Guard. Gemini Chat đang chạy nhờ đường đó (commit `f0009df`) ⇒ lùi mù về baseline có thể làm Gemini Chat mất kết nối (JEV 0,79). Lượt này đo để quyết đúng, KHÔNG sửa.
+Owner 17/10: «Chúng ta từ bỏ chuyện VPS gọi vào Gemini … Giờ cần VPS kín kẽ và không lỗi. Không để lại vấn đề cho VPS và các chương trình khác.»
+Đóng lỗ hở cổng Gemini (P31 S3), xanh phần GJW của đèn #22, dọn dấu chân thừa. KHÔNG mở đường bí mật mới cho Gemini Chat (Owner chấp nhận Gemini Chat mất kết nối VPS). agy · Gemini Mac · Task Mode tự gửi header nên vẫn chạy.
 
-## BÍ MẬT
-Không in khoá, đường dẫn chứa khoá, nội dung `.env`. Khi cần so tệp: thay mọi chuỗi ≥16 ký tự `[A-Za-z0-9_-]` bằng `<SECRET-n>` (cùng chuỗi ⇒ cùng n) **và che cả token chứa ký tự đặc biệt, URL/query/header mang secret** TRƯỚC KHI in/lưu log. Không lưu hoặc in `nginx -T`, diff, curl body, shell trace ở dạng thô. Dùng nguồn credential an toàn đã có, tránh truyền URL chứa path-secret qua argv/process list nếu có thể; tắt verbose/xtrace. Chỉ báo mã HTTP, tên header `Server` và số tool; nếu cần tối đa 120 ký tự thân lỗi thì **redact trước**, không in secret khi chưa chắc quy tắc che đủ.
+## LUẬT LƯỢT NÀY
+Giữ `VPS-GHI` đúng luật gốc, trả ngay khi xong. Mọi thay đổi VPS qua `incomex-config-apply-v0`, có `.pre`. Không in khoá/đường chứa khoá. Không đụng HJW (`hermes-config-yaml`, INV20), route GPT/Claude/Hermes, `mcpw-protection-guard`. Không xoá tệp (chỉ chuyển vào hồ sơ có INDEX). Không restart container nào ngoài `incomex-gemini-mcp` ở S3.
 
 ## S0 · Cửa (≤5')
-Read-gate A6 (READY đúng SHA, không STOP, không STARTED treo). Ghi `STARTED@GJW-R1-ROUTE-MEASURE-20261017-01` dưới P30 (Claude Code tạo P30) qua gateway.
+Read-gate trên. `VPS-GHI` trống ⇒ giữ; bận ⇒ KQ DỪNG · NEXT_TRIGGER=VPS_GHI_TRONG. Guard PRE (đèn, INV24, INV5_6). Ghi STARTED dưới P33.
 
-## S1 · Lệch là gì (≤10')
-- Tìm trong registry Config Guard dòng `nginx-route-gemini-mcp`: nơi lưu baseline, sha baseline, sha live.
-- So baseline ↔ live đã che bí mật (S-BÍ MẬT): dòng thêm/bớt, location nào, `proxy_set_header` nào, `return` nào.
-- Trạng thái đích anh em `nginx-http-gemini-mcp` và 8 đích Gemini còn lại: MATCH hay không.
-- `nginx -T` đang nạp có đúng bản live không (đã che).
+## S1 · Đóng lỗ hở (≤10')
+apply-v0 đích `nginx-route-gemini-mcp` về ĐÚNG baseline `a1a8f251…` (đã nghiệm thu G1C-MAX; bỏ dòng nginx tự chèn khoá; log bật lại như baseline). Lý do apply-v0: «R2 GJW: lùi sửa tay Codex 15/10 03:52Z — đóng lỗi an toàn; không rebaseline bản 15/10». `nginx -t` rồi reload qua post_action. Không sửa tệp nào khác ở bước này.
 
-## S2 · Ai, khi nào (≤10')
-mtime/ctime tệp live; mốc nginx reload (log container nginx từ 14/10); log apply-v0 cho đích này; lần đầu drift-check báo MISMATCH; phiên SSH trong ±30' quanh mtime (user, IP nguồn, giờ — không in lệnh). Ghép với mốc: G1C-MAX (14/10), Codex S2b (15/10 ~03:00–04:00Z), Gemini Task Mode. **Mốc giờ trùng không đủ quy trách nhiệm; nếu audit không xác định được người/lượt ghi, kết luận ACTOR_UNKNOWN, không đoán.**
+## S2 · Kiểm cổng (≤10')
+Khuôn đầy đủ (initialize → mcp-session-id): không header = 401 · header sai = 401 · header đúng = 23 tool. Khuôn INV24 cũ (không phiên, khoá sai) = 401. Chạy INV24 thật = PASS. drift-check: 10/10 đích Gemini MATCH. Connector GPT/Claude/Hermes giữ như PRE.
 
-## S3 · Vì sao 400 (≤10')
-Ma trận curl (không in khoá): A `/gemini-mcp/mcp` + khoá đúng → số tool · B + khoá sai → mã, `Server`, thân **đã che** · C không khoá → mã · D đường chứa khoá (nếu có trong live) → số tool · E đường chứa khoá sai → mã. **Dùng đúng HTTP method, Accept/Content-Type, body MCP và header như INV24/client thật để phân biệt 400 do request sai protocol với 401 do auth; không lấy khác method làm kết luận.** Xem log container `incomex-gemini-mcp` cùng phút để biết 400 do nginx hay ứng dụng, chỉ trích log đã che.
+## S3 · Xoay khoá cổng Gemini — chỉ khi Owner GẬT Q04 (≤15')
+Khoá `MCP_KEY_GEMINI_VPS` đã bị chép vào tệp route 15/10 và có thể nằm trong transcript Codex. Tạo phiên bản GSM mới (không in) → cập nhật `.env` của `incomex-gemini-mcp` qua apply-v0 → khởi động lại RIÊNG container này → cập nhật khoá trong cấu hình Mac của agy, Task Mode (`~/.local/share/gemini-incomex-mcp/mcp_config.json`), Gemini Mac (sao lưu trước, 0600). Kiểm: khoá cũ = 401, khoá mới = 23 tool; INV24 PASS. Không có Q04 ⇒ bỏ S3, ghi lý do.
 
-## S4 · Phân loại + đề xuất lượt sửa R2 (KHÔNG làm)
-Kết luận một trong: `INTENDED_S2B` (chỉ thêm đường cho Spark) · `UNINTENDED` · `MIXED`. Đề xuất R2 nhỏ nhất, đủ 4 điều: (a) Gemini Chat vẫn chạy (D = 23 tool); (b) đường header sai khoá trả lại 401; (c) Config Guard khớp qua apply-v0 với lý do ghi rõ, không rebaseline để che phần không chủ đích; (d) INV24 kiểm cả A–E và có phép thử hỏng. Nêu rollback.
+## S4 · Dọn + Điều 30/31 (≤10')
+- Bản sao Codex `gemini-mcp-route.conf.bak-gjw-20261015-035214-475520` CHUYỂN vào `/opt/incomex/work/gemini-join-workflow/evidence/` (root 600) + một dòng INDEX.
+- Mac: dừng và gỡ nạp LaunchAgent `com.google.antigravity-cli-daemon` (`agy remote-control`) — hướng gọi vào Gemini đã bỏ; giữ tệp plist, ghi cách bật lại.
+- Phép thử hỏng trên BẢN SAO: route kiểu 15/10 (nginx chèn khoá) ⇒ drift-check MISMATCH và INV24 khuôn cũ FAIL; bản thật PASS.
+- Guard POST: footprint đúng các mục đã chạm; same_or_better so PRE.
 
-## S5 · Dấu chân GJW còn trên máy (≤5')
-Container `incomex-gemini-mcp` (health, RAM); 10 đích Config Guard của Gemini; dòng INV24 mới nhất; cron/timer nào của GJW. Mac: daemon `agy remote-control` còn chạy không; tệp `~/.local/share/gemini-incomex-mcp/mcp_config.json` (Codex P24) có trong canh vân tay không — chỉ báo.
+## S5 · Rà dấu vết (chỉ đọc, ≤10')
+Audit container `incomex-gemini-mcp` từ 15/10 03:52Z tới lúc đóng: đếm theo TÊN tool × nguồn; mọi `directus_*` ghi và `query_pg` liệt kê (nguồn, giờ, bảng — không in dữ liệu). Commit tác giả `gemini-agy [auth:google-main]` từ 15/10 03:53Z (kỳ vọng `f0009df` + 5 vào TQT proposals). Thấy nguồn lạ hoặc ghi lạ ⇒ báo Owner, không tự xử lý.
 
-## KẾT QUẢ (P30)
-Mỗi bước một dòng tiến độ (DROOT54). Bảng S1–S5 + kết luận S4 + đề xuất R2. `KQ@GJW-R1-ROUTE-MEASURE-20261017-01 XONG|DỪNG` · `Dọn: tệp tạm đã xoá · 0 tiến trình nền` · `0 ghi VPS`.
+## KẾT QUẢ (P33)
+Tiến độ từng bước (DROOT54). `KQ@GJW-R2-CLOSE-HOLE-20261017-01 XONG|DỪNG` · Dọn · trả `VPS-GHI`. XONG khi: S2 đủ 401/401/23 · INV24 PASS · 10/10 Gemini MATCH · S5 không có gì lạ · đèn không xấu hơn PRE. Ghi «R2 PASS» để Reviewer Claude xác nhận bằng chứng và Host đóng chuông.
+Rollback: chỉ khi `nginx -t`/reload hỏng ⇒ `.pre` của apply-v0; known-good = baseline `a1a8f251`; tuyệt đối không quay về bản 15/10.
