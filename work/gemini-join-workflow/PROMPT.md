@@ -12,7 +12,7 @@ Hai đỏ của GJW đang làm Guard tổng FAIL cho MỌI việc (biên nhận 
 Giả thuyết (JEV 0,87): ngày 15/10 khoảng 03:00–04:00Z, lúc gắn Gemini Chat (Spark custom app — chỉ nhận URL, không nhận header), có người sửa tệp route để thêm đường dẫn chứa khoá rồi reload nginx ngoài Config Guard. Gemini Chat đang chạy nhờ đường đó (commit `f0009df`) ⇒ lùi mù về baseline có thể làm Gemini Chat mất kết nối (JEV 0,79). Lượt này đo để quyết đúng, KHÔNG sửa.
 
 ## BÍ MẬT
-Không in khoá, đường dẫn chứa khoá, nội dung `.env`. Khi cần so tệp: thay mọi chuỗi ≥16 ký tự `[A-Za-z0-9_-]` bằng `<SECRET-n>` (cùng chuỗi ⇒ cùng n) trước khi in. Curl chỉ in mã HTTP, header `Server`, 120 ký tự đầu thân lỗi, hoặc SỐ tool.
+Không in khoá, đường dẫn chứa khoá, nội dung `.env`. Khi cần so tệp: thay mọi chuỗi ≥16 ký tự `[A-Za-z0-9_-]` bằng `<SECRET-n>` (cùng chuỗi ⇒ cùng n) **và che cả token chứa ký tự đặc biệt, URL/query/header mang secret** TRƯỚC KHI in/lưu log. Không lưu hoặc in `nginx -T`, diff, curl body, shell trace ở dạng thô. Dùng nguồn credential an toàn đã có, tránh truyền URL chứa path-secret qua argv/process list nếu có thể; tắt verbose/xtrace. Chỉ báo mã HTTP, tên header `Server` và số tool; nếu cần tối đa 120 ký tự thân lỗi thì **redact trước**, không in secret khi chưa chắc quy tắc che đủ.
 
 ## S0 · Cửa (≤5')
 Read-gate A6 (READY đúng SHA, không STOP, không STARTED treo). Ghi `STARTED@GJW-R1-ROUTE-MEASURE-20261017-01` dưới P30 (Claude Code tạo P30) qua gateway.
@@ -24,10 +24,10 @@ Read-gate A6 (READY đúng SHA, không STOP, không STARTED treo). Ghi `STARTED@
 - `nginx -T` đang nạp có đúng bản live không (đã che).
 
 ## S2 · Ai, khi nào (≤10')
-mtime/ctime tệp live; mốc nginx reload (log container nginx từ 14/10); log apply-v0 cho đích này; lần đầu drift-check báo MISMATCH; phiên SSH trong ±30' quanh mtime (user, IP nguồn, giờ — không in lệnh). Ghép với mốc: G1C-MAX (14/10), Codex S2b (15/10 ~03:00–04:00Z), Gemini Task Mode.
+mtime/ctime tệp live; mốc nginx reload (log container nginx từ 14/10); log apply-v0 cho đích này; lần đầu drift-check báo MISMATCH; phiên SSH trong ±30' quanh mtime (user, IP nguồn, giờ — không in lệnh). Ghép với mốc: G1C-MAX (14/10), Codex S2b (15/10 ~03:00–04:00Z), Gemini Task Mode. **Mốc giờ trùng không đủ quy trách nhiệm; nếu audit không xác định được người/lượt ghi, kết luận ACTOR_UNKNOWN, không đoán.**
 
 ## S3 · Vì sao 400 (≤10')
-Ma trận curl (không in khoá): A `/gemini-mcp/mcp` + khoá đúng → số tool · B + khoá sai → mã, `Server`, thân · C không khoá → mã · D đường chứa khoá (nếu có trong live) → số tool · E đường chứa khoá sai → mã. Xem log container `incomex-gemini-mcp` cùng phút để biết 400 do nginx hay ứng dụng.
+Ma trận curl (không in khoá): A `/gemini-mcp/mcp` + khoá đúng → số tool · B + khoá sai → mã, `Server`, thân **đã che** · C không khoá → mã · D đường chứa khoá (nếu có trong live) → số tool · E đường chứa khoá sai → mã. **Dùng đúng HTTP method, Accept/Content-Type, body MCP và header như INV24/client thật để phân biệt 400 do request sai protocol với 401 do auth; không lấy khác method làm kết luận.** Xem log container `incomex-gemini-mcp` cùng phút để biết 400 do nginx hay ứng dụng, chỉ trích log đã che.
 
 ## S4 · Phân loại + đề xuất lượt sửa R2 (KHÔNG làm)
 Kết luận một trong: `INTENDED_S2B` (chỉ thêm đường cho Spark) · `UNINTENDED` · `MIXED`. Đề xuất R2 nhỏ nhất, đủ 4 điều: (a) Gemini Chat vẫn chạy (D = 23 tool); (b) đường header sai khoá trả lại 401; (c) Config Guard khớp qua apply-v0 với lý do ghi rõ, không rebaseline để che phần không chủ đích; (d) INV24 kiểm cả A–E và có phép thử hỏng. Nêu rollback.
