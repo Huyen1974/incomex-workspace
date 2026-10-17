@@ -271356,6 +271356,122 @@ main{max-width:1240px} [hidden]{display:none!important}
       "selection": "17 Master theo dõi QTTH 05: 9 đã có + 8 bổ sung UI, dùng lại mã trong Master of Master; không tạo Master mới/trùng.",
       "records": [
         {
+          "code": "CAT-249*",
+          "name": "Master công cụ giám sát",
+          "view_name": "Công cụ giám sát D1 · D2",
+          "parent": "UI.MASTER",
+          "ui_code": "UI.MASTER.TQT.249",
+          "url": "./process-work-master-v1.html?master=CAT-249%2A",
+          "state": "DESIGN_ONLY",
+          "columns": [
+            {
+              "key": "record_id",
+              "label": "Mã",
+              "help": "Mã công cụ, vd GS-01. Mỗi công cụ 1 dòng."
+            },
+            {
+              "key": "name",
+              "label": "Tên công cụ",
+              "help": "Tên ngắn của cơ chế giám sát."
+            },
+            {
+              "key": "answers",
+              "label": "Trả lời câu",
+              "help": "D1: làm sai bị chặn/bắt · D2: quên ghi sổ bị phát hiện · cả hai."
+            },
+            {
+              "key": "how",
+              "label": "Làm bằng",
+              "help": "Công nghệ, DOT hoặc mã kiểm dùng để chặn/bắt, vd Directus Flow, trigger PG, DOT đối soát."
+            },
+            {
+              "key": "applied",
+              "label": "Đã áp dụng ở",
+              "help": "Quy trình hoặc việc đã dùng công cụ này, vd QTTH 07. Trống = chưa áp dụng."
+            },
+            {
+              "key": "state",
+              "label": "Tình trạng",
+              "help": "Đang chạy · Đã bàn chưa làm · Ý tưởng mới · Ngừng."
+            },
+            {
+              "key": "note",
+              "label": "Ghi chú",
+              "help": "Hạn chế, việc cần làm tiếp."
+            }
+          ],
+          "fields": [
+            {
+              "key": "record_id",
+              "label": "Mã công cụ",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "name",
+              "label": "Tên công cụ",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "answers",
+              "label": "Trả lời câu",
+              "type": "select",
+              "required": true,
+              "options": [
+                "D1",
+                "D2",
+                "D1 + D2"
+              ]
+            },
+            {
+              "key": "how",
+              "label": "Làm bằng",
+              "type": "text",
+              "required": true
+            },
+            {
+              "key": "source_ref",
+              "label": "Nơi định nghĩa / bằng chứng",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "applied",
+              "label": "Đã áp dụng ở",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "state",
+              "label": "Tình trạng",
+              "type": "select",
+              "required": true,
+              "options": [
+                "Đang chạy",
+                "Đã bàn chưa làm",
+                "Ý tưởng mới",
+                "Ngừng"
+              ]
+            },
+            {
+              "key": "next",
+              "label": "Việc tiếp",
+              "type": "text",
+              "required": false
+            },
+            {
+              "key": "note",
+              "label": "Ghi chú",
+              "type": "text",
+              "required": false
+            }
+          ],
+          "storage": "Thiết kế UI.MASTER; chưa nối dữ liệu, chưa PG. Nội dung khởi tạo: bảng Giám sát chung GS-01…GS-11 ở MBM mục 8.",
+          "record_source": null,
+          "schema_version": "1.0-design"
+        },
+        {
           "code": "CAT-227*",
           "name": "MASTER TIẾN TRÌNH CÔNG VIỆC",
           "view_name": "MASTER TIẾN TRÌNH CÔNG VIỆC",
@@ -331399,6 +331515,20 @@ main{max-width:1240px} [hidden]{display:none!important}
       "version": "P60.1",
       "scope": "DESIGN_OUTSIDE_PG",
       "masters": [
+        {
+          "id": "CAT-249",
+          "source_code": "CAT-249*",
+          "aliases": [
+            "CAT-249*"
+          ],
+          "name": "Master công cụ giám sát",
+          "initial_approval": {
+            "state": "UNVERIFIED",
+            "actor": "",
+            "version": "",
+            "evidence_ref": ""
+          }
+        },
         {
           "id": "CAT-227",
           "source_code": "CAT-227*",
