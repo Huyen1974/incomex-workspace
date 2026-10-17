@@ -7,14 +7,14 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · ĐÃ ĐÓNG 2026-10-17 · GPT Chat Host · P36
+### BẢNG ĐIỀU KHIỂN · NGHIỆM THU ĐẠT · CHƯA CHUYỂN THƯ MỤC · 2026-10-17 · GPT Host · P37
 - 🎯 **Mục tiêu Owner chốt 17/10:** Gemini là thành viên hội đồng được chứng minh; không mở tiếp luồng VPS→Gemini/Spark; VPS phải kín, không để lại lỗi GJW tác động tới việc khác.
 - 🏁 **Nghiệm thu GJW: ĐẠT.** R2 P33: thiếu/sai khóa 401; khóa mới hoạt động, khóa cũ bị từ chối; INV24 PASS; 10/10 Config Guard đích Gemini MATCH; GPT/Claude/Hermes same-or-better; VPS-GHI trả. Claude P35 độc lập xác nhận; SAFETY alert RESOLVED tại P36.
 - 📍 Tiến độ: [✓ Gemini `google-main` qua agy/Task Mode, chứng minh P19/P24] → [✓ R1 P31 tìm nguyên nhân] → [✓ R2 P33 khép lỗi & xoay khóa] → [✓ AGENTS A2/A9 có ghế Google] → [✓ P35 xác nhận] → [✓ P36 đóng chuông và hoàn thành].
 - ✅ **Giữ nguyên:** cổng Gemini xác thực an toàn, 23 tool; phần Google trong Guard PASS; Gemini Chat/Spark đã ngắt khỏi VPS theo Owner; ghế Google là một seat trong pool, task khác chọn bề mặt theo luật A2.
 - ■ Đang làm: — · 0 RUN GJW active · không còn việc triển khai của GJW.
 - ⬜ **Còn lại trong GJW: —.** Nợ có chủ bên ngoài GJW: HJW/TQT #22 (`hermes-config-yaml`, INV20) và Telegram receipt; Directus DNS bên connector; GSM version 1 của khóa Gemini đã bị từ chối ở runtime, disable an toàn khi bảo trì nếu không còn consumer; hồ sơ incident/log còn thiếu chi tiết truy vấn PG do audit cũ. Các bản .pre chứa cấu hình cũ giữ làm bằng chứng, **không dùng để phục hồi production**.
-- ➡ Kế tiếp: các Host của việc HJW/TQT/giám sát/GSM xử lý đúng phần mình, không khởi động lại GJW.
+- ➡ Kế tiếp: chưa chuyển được thư mục do thao tác move bị hệ thống chặn; xác nhận lưu trữ chỉ khi `work/done-tasks/gemini-join-workflow/` thực sự tồn tại. Không chạy lại R2, không sửa VPS; các Host HJW/TQT/giám sát/GSM nhận đúng phần nợ của mình.
 - ⛔ Không đưa Gemini Chat/Spark trở lại đường public không kiểm soát; không sửa VPS thêm để đạt đèn toàn hệ; không xóa bằng chứng P31–P35.
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
@@ -113,6 +113,11 @@ HUMAN_DIRECTIVE@GJW-20261014-17 EFFECTIVE · task=gemini-join-workflow · scope=
 - HUMAN_DIRECTIVE@GJW-20261014-08 EFFECTIVE · task=gemini-join-workflow · scope=POST-PROTECT Điều 30/31 cho footprint kết nối Google trong lượt G1B hiện hành; hậu kiểm Kuma/Telegram chuyển chủ đúng task sau KQ · step=G1B_POST và follow-up thuộc việc giám sát · recorded_by=openai-main · quote=«Nhưng tiện thể chỗ kết nối này thì bạn nhắn thêm cho agent là đưa luôn vào điều 30, 31 để bảo vệ, tránh việc chúng ta kết nối xong rồi AI khác lại vô tình làm hỏng mất, làm đi làm lại nó mất việc, mất thời gian ra.» · audit=Owner direct chat 14/10/2026. **Không sửa PROMPT/READY, không phát RUN mới; đây là yêu cầu áp dụng luật R4 vốn đã hiệu lực lên kết quả thực hiện.**
 
 ## Nhật ký P
+
+### P37 · GPT Chat Host · 2026-10-17 · CHỈNH TRẠNG THÁI LƯU TRỮ
+- P36 đã nghiệm thu về nghiệp vụ và giải quyết COUNCIL_ALERT theo bằng chứng P33/P35, không còn lỗi bảo vệ từ GJW đang chạy. Sau P36, công cụ thực hiện thao tác **move nguyên thư mục** sang `done-tasks` bị từ chối; kiểm tra thực tế: `work/gemini-join-workflow/` vẫn tồn tại, `work/done-tasks/gemini-join-workflow/` chưa có.
+- Giữ kết luận bảo mật và ghế `google-main` hợp lệ, **không khẳng định đã hoàn tất lưu trữ vật lý**. Sửa con trỏ root theo vị trí thật, không tạo RUN VPS. Khi thao tác lưu trữ được cho phép, chuyển thư mục đúng A9 với nội dung đã hoàn tất; không làm lại điều tra, không tháo Guard.
+
 
 ### P36 · GPT Chat Host · 2026-10-17 · NGHIỆM THU, ĐÓNG SAFETY VÀ GJW
 - **Reviewer độc lập:** P35 commit `f9258048bac3815d69ef8ea30a3a96ceed6b5bd5`, `claude-chat` không phải actor bị tố, đã tự kiểm route public thiếu khóa bị từ chối, drift-check phần Gemini MATCH, 14 container vận hành bình thường, `google-main` ở AGENTS A2/A9, cờ VPS-GHI đã trả. P33 KQ `GJW-R2-CLOSE-HOLE-20261017-01 XONG`, hồi quy các ghế cũ PASS. Host nghiệm thu `GJW_FUNCTIONAL_AND_SECURITY_SCOPE_PASS`; **không tuyên toàn bộ hệ thống 22/22 xanh**.
