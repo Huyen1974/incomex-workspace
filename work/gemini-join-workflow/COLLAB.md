@@ -7,21 +7,21 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-17 17:13 +07 · Claude Code CLI · P33
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-17 17:30 +07 · GPT Chat Host · P34
 - 📥 **Trỏ từ COLLAB gốc PROOT05 · Claude Chat · 16/10/2026** (Owner: việc dở của phiên nào phân về phiên đó): đèn #22 còn đỏ phần GJW — Config Guard lệch `nginx-route-gemini-mcp` + INV24 gemini (drift-check 16/10 08:37Z). Chi tiết: COLLAB gốc mục PROOT05.
 - 📥 **Owner 17/10/2026 07:15 qua Claude Chat (root) — GIẢI QUYẾT NỐT VƯỚNG MẮC GJW** (Owner: «phên Gemini JW và HJW đang vướng gì chưa giải quyết … soạn prompt yêu cầu 2 phiên đó giải quyết nốt các vướng mắc»). Đèn #22 đỏ từ 11/10; phần của GJW (bảng đèn 17/10 00:10Z):
   1. **INV24 FAIL:** `INV24.gemini: vps tools=23 e2e=ok badkey=400` — INV24 (G1C-MAX 14/10) đòi khoá sai trả **401**, nay trả **400**.
   2. **INV5_6 drift `nginx-route-gemini-mcp`:** tệp route nginx cổng Gemini lệch baseline Config Guard lập ở G1C-MAX (đếm fail > 1.500 lượt). Nhiều khả năng (1) và (2) cùng một nguyên nhân.
   - **Cần:** một lượt đo chỉ đọc (diff baseline ↔ live; ai/khi nào đổi qua log apply-v0, mtime, commit; vì sao 400) rồi một lượt sửa theo chu kỳ một vòng: thay đổi không chủ đích ⇒ lùi về baseline qua apply-v0 (401 trở lại); có chủ đích ⇒ apply-v0 baseline mới kèm lý do + cập nhật INV24 nếu kỳ vọng đổi, có phép thử hỏng. Không rebaseline để che; không đụng phần HJW (`hermes-config-yaml`, INV20).
   - **Thứ tự (Owner):** Bảng GJW đứng từ 15/10 (chờ rà B1 Gemini Mac) ⇒ Host cập nhật Bảng, làm việc sửa đèn này trước B1. Đích: phần GJW của #22 sạch. Báo cáo trên repo, chat chỉ tóm tắt.
-- 🎯 Mục tiêu (Owner 17/10 thu hẹp, HUMAN_DIRECTIVE-16): Gemini tham gia đầy đủ hội đồng — đã có bằng chứng ở 3 bề mặt (`agy` P10/P19 · Task Mode P24 · Gemini Chat P25 `f0009df`) — và **đóng việc không để lại lỗi nào trên server**. Mục khác giảm/chuyển chủ.
-- 🏁 Xong khi: (1) cổng Gemini kín (không khoá/khoá sai = 401), INV24 PASS, 10/10 đích Gemini MATCH — Owner 17/10 bỏ đường Gemini Chat → VPS; (2) ghế `google-main` ghi vào AGENTS A2/A9; (3) nợ còn lại có chủ; (4) chuyển `work/done-tasks/`.
-- 📍 Tiến độ: [✓ Gemini nối agy + Task Mode] → [✓ R1 đo chỉ đọc (P31)] → [■ R2 đóng lỗ hở + dọn] → [□ ghi ghế A2/A9 + đóng việc]
-- ✅ Đã đạt: P10/P19 agy · P24 Task Mode (Codex) · P25 Gemini Chat (`f0009df`) · P29 soạn R1 · P30 GPT reviewer ACCEPT và Host READY@afbced8d1b2ef49df3aa267d3371a5d4caaaa77f (chỉ sửa 3 điều bảo vệ bằng chứng).
-- ■ Đang làm: — · 0 RUN active; R2 KQ XONG (P33): cổng Gemini kín từ 10:00:10Z, INV24 PASS, 10/10 đích Gemini MATCH, khoá đã xoay; VPS-GHI đã trả · ⚠️ COUNCIL_ALERT@GJW-20261017-01 còn mở chờ Reviewer + Host đóng.
-- ⬜ Còn lại: R1 → R2 → ghế + đóng. Bỏ khỏi việc này: B1 (đã VERIFIED qua Codex P24) · G3 đưa thư (→ HJW N3) · Figma · Gemini API/billing. Nợ có chủ: Directus DNS (chủ claude-mcp) · biên nhận Telegram (giám sát) · xoay khoá JEV (bảo trì).
-- ➡ Kế tiếp: Claude Chat xác nhận bằng chứng P33 (R2 PASS) → Host GPT đóng chuông, ghi ghế A2/A9, chuyển done-tasks. NEXT_TRIGGER=REVIEWER_CONFIRM_R2.
-- ⛔ Không mở đường bí mật mới cho Gemini Chat; không quay về bản route 15/10; không rebaseline để che; không đụng HJW (`hermes-config-yaml`, INV20); không ghi chi tiết cơ chế lỗi lên repo công khai.
+- 🎯 Owner 17/10 chốt phạm vi: Gemini có ghế hội đồng độc lập đã được chứng minh; dừng VPS→Gemini và không mở lại Spark, ưu tiên GJW không để lại lỗi/đường hở ảnh hưởng VPS.
+- 🏁 GJW đủ điều kiện đóng khi: R2 P33 đã PASS 401/401/23, INV24 PASS, 10/10 Gemini Config Guard MATCH, khóa cũ bị từ chối, ba cổng GPT/Claude/Hermes không suy giảm; AGENTS A2/A9 ghi ghế; SAFETY alert được reviewer không bị tố xác nhận và Host resolve đúng A5; nợ khác có chủ.
+- 📍 Tiến độ: [✓ 2 đường Gemini council đã có bằng chứng: agy+Task Mode] → [✓ R1/R2 xử lý lỗ hở] → [✓ GJW specific INV24+Guard PASS] → [✓ AGENTS A2/A9 bổ sung google-main] → [■ Claude Reviewer xác nhận P33, Host đóng SAFETY] → [□ chuyển done-tasks].
+- ✅ Đã đạt: R2 P33 KQ XONG, khóa GSM v2 được nạp, v1 không còn hiệu lực ở cổng, Mac agy/Task Mode đã cập nhật khóa; Config Guard Gemini 10/10 MATCH; kiểm hồi quy INV2/3/7/24 PASS; Gemini Spark ngắt theo quyết định Owner. Không tuyên toàn bộ Guard #22 xanh vì còn lỗi HJW/TQT.
+- ■ Đang làm: — · 0 RUN active. GPT Host P34 kiểm P33 + ghi danh tính Google vào AGENTS; COUNCIL_ALERT@GJW-20261017-01 còn OPEN chờ Reviewer xác nhận hậu sửa rồi Host xử lý, không tự xóa.
+- ⬜ Còn lại: Claude Chat xác nhận độc lập bằng chứng P33 và quyền resolve SAFETY; Host đóng chuông, move GJW vào done-tasks. Khóa GSM version 1 đã bị từ chối (401), chỉ còn đề xuất disable v1 tại Secret Manager nếu xác nhận không consumer nào giữ pin phiên cũ; đó là housekeeping, không phải đường hở đang sống. Nợ HJW/TQT #22, Directus DNS và audit query_pg giới hạn đã có chủ.
+- ➡ Kế tiếp: Claude Chat REVIEW P33 + P34 đúng một lượt: kiểm R2 PASS, xác nhận SAFETY có thể đóng; GPT Host resolve, cập nhật KQ/Owner decision rồi chuyển work/gemini-join-workflow → work/done-tasks/gemini-join-workflow. NEXT_TRIGGER=CLAUDE_CONFIRM_P33_SAFETY_CLOSE.
+- ⛔ Không mở lại Spark/public route, không xoay/restart thêm khi chưa cần, không chạm HJW/TQT/Directus, không lùi về route cũ, không giả tổng Guard xanh, không xóa dấu vết an ninh; Gemini giữ ghế Google qua đúng bề mặt còn hoạt động.
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
 1. «rà soát lại để tích hợp cho Gemini app đầy đủ vào trong VPS, kết nối qua MCP và tất cả các cổng kết nối, tức là giống như nguyên tắc của GPT và Claude là kết nối tối đa và cho tham gia vào cái nhóm workflow và hội đồng AI này» (phiên GPT Chat)
@@ -119,6 +119,13 @@ HUMAN_DIRECTIVE@GJW-20261014-17 EFFECTIVE · task=gemini-join-workflow · scope=
 - HUMAN_DIRECTIVE@GJW-20261014-08 EFFECTIVE · task=gemini-join-workflow · scope=POST-PROTECT Điều 30/31 cho footprint kết nối Google trong lượt G1B hiện hành; hậu kiểm Kuma/Telegram chuyển chủ đúng task sau KQ · step=G1B_POST và follow-up thuộc việc giám sát · recorded_by=openai-main · quote=«Nhưng tiện thể chỗ kết nối này thì bạn nhắn thêm cho agent là đưa luôn vào điều 30, 31 để bảo vệ, tránh việc chúng ta kết nối xong rồi AI khác lại vô tình làm hỏng mất, làm đi làm lại nó mất việc, mất thời gian ra.» · audit=Owner direct chat 14/10/2026. **Không sửa PROMPT/READY, không phát RUN mới; đây là yêu cầu áp dụng luật R4 vốn đã hiệu lực lên kết quả thực hiện.**
 
 ## Nhật ký P
+
+### P34 · GPT Chat Host · 2026-10-17 · R2 REVIEW + ĐĂNG KÝ GHẾ GOOGLE, CHỜ ĐÓNG SAFETY
+- **Kiểm P33:** R2 `2025e88`, KQ XONG, baseline route chuẩn, HTTP thiếu/sai khóa = 401, đúng khóa = 23 tool, INV24 PASS, Gemini Config Guard 10/10 MATCH; khóa `MCP_KEY_GEMINI_VPS` v2 đã nạp, v1 bị cổng từ chối; 3 client Mac đã cập nhật; sau áp, INV2 GPT/INV3 Claude/INV7 Hermes vẫn PASS, VPS-GHI trả. Lỗ hở không còn theo bằng chứng kiểm thử của executor. Không tuyên không có truy cập lạ tuyệt đối: thời gian trước khôi phục, nginx access log có khoảng trống; truy vấn PG đã ghi thành công nhưng audit không lưu câu truy vấn.
+- **Ghế hội đồng:** Owner trực tiếp 17/10 yêu cầu Gemini vẫn tham gia đầy đủ, đã có bằng chứng P19 `agy` và P24 Gemini Mac Task Mode. GPT Founder ghi `google-main` vào pool A2 và nhãn `gemini-agy` vào A9 (dùng đúng một ghế/hãng theo roster từng task). Đây là đăng ký danh tính **đã có**, không tự thêm Gemini vào quorum của các task khác. Gemini Chat/Spark không vào VPS từ 17/10 theo quyết định Owner, không coi surface đó vẫn kết nối.
+- **Nợ được phân loại:** `COUNCIL_ALERT@GJW-20261017-01 OPEN` (P31) chỉ được Host xử lý khi có Reviewer không bị tố xác nhận bằng chứng P33; **không tự xóa chuông**. Guard toàn hệ `GLOBAL_GUARD_PARTIAL` vì HJW/TQT (#22, `hermes-config-yaml`, INV20); điều này không phải lỗi Config Guard Gemini. `incomex-config-drift-check.service` có trạng thái failed trên mẫu systemd sau R2 nhưng cần task chủ hạ tầng xác minh nguyên nhân, không suy GJW gây ra. Khóa GSM v1 vẫn có thể tồn tại phiên bản lưu trữ: v1 đã chết trên cổng, khuyến nghị disable có xác nhận không legacy consumer (không bắt buộc làm thay đổi VPS thêm để đóng GJW).
+- **Bảo vệ không phá thành quả:** Mac agy/Task Mode dùng khóa v2, điều 30/31 phần route/env Gemini PASS; vì Gemini Chat đã bị ngắt chủ động, không mở lại để đạt vanity PASS. Đề xuất Reviewer Claude Chat rà P33+P34 một lượt, xác nhận `SAFETY_RESOLVED_EVIDENCE` nếu đạt; GPT Host sau đó đóng alert bằng dòng RESOLVED, làm trống Owner cần quyết, chuyển task vào `done-tasks`. Không tự mở RUN mới/không giữ Owner chờ giờ.
+
 
 ### P33 · Claude Code CLI · 2026-10-17 16:58 +07 · Worker · R2 đóng lỗ hở cổng Gemini
 - Ghế: claude-code · Bước/vòng: R2 · 1/1 · Based_on: HEAD `76ee058`, PROMPT commit cuối `da40662dedc498584b117e8faa1debf6b6412551` · Scope: PROMPT S0–S5; VPS qua SSH `contabo` + apply-v0; Mac cấu hình Gemini + LaunchAgent `agy remote-control` · Chưa đọc: —.
