@@ -32,13 +32,13 @@ ol.issues li{margin:5px 0}
 <body>
 <main>
 <h1>QTTH 07 — bảng làm việc theo MBM</h1>
-<p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 17/10/2026 17:20 · làm lại mục 3 theo MBM r5.19, như AI lần đầu · danh sách việc và tiến độ ở tab Kiểm soát.</p>
+<p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 17/10/2026 19:55 · làm lại mục 3 theo MBM r5.20, như AI lần đầu · danh sách việc và tiến độ ở tab Kiểm soát.</p>
 
 <h2>⚠ Vướng khi làm mục 3 theo MBM r5.18</h2>
 <ol class="issues">
 <li>✅ <b>Đã sửa (MBM r5.19):</b> mục con Triển khai đánh 3A, 3B, 3C; mã bước trong mục con 3A.1, 3A.2…</li>
 <li>✅ <b>Đã sửa (MBM r5.19):</b> bỏ câu «Mục con chỉ khi mốc có hơn 5 bước» dưới bảng 3.3.</li>
-<li><span class="dot y"></span><b>Mốc 2:</b> mục con 2.1–2.4 có phải cũng là bước không? Em coi mỗi mục con = 1 bước.</li>
+<li>✅ <b>Đã sửa (MBM r5.20):</b> 2.1–2.4 là bước cố định của Mốc 2; Mốc 2 không có mục con. Luật mã: có chữ = mục con, có chấm = bước.</li>
 <li><span class="dot y"></span><b>Đóng việc ở đâu?</b> (đổi việc ở CAT-227 sang «xong», đếm khúc mắc còn mở) — 5 mốc không có «Đóng». Em đặt vào Mốc 5 Báo cáo.</li>
 <li><span class="dot y"></span><b>Hồ sơ CAT-228</b> (bước cũ «tạo bảng hồ sơ cho việc»): đã có CAT-227 + CAT-069 thì còn cần không? Em tạm bỏ.</li>
 <li><span class="dot y"></span><b>Bước theo nhóm con</b> ở Triển khai: anh đang nghĩ thêm — em tạm viết theo CT-004 / CT-006, chưa lặp từng nhóm con.</li>
@@ -51,7 +51,7 @@ ol.issues li{margin:5px 0}
 <thead><tr><th>STT</th><th>Tên Mốc</th><th>Câu hỏi cần trả lời</th><th>Thế nào là hoàn thành</th></tr></thead>
 <tbody>
 <tr><td>1</td><td class="c">Khai việc</td><td>Vẽ UI cho MOW nào, đã có mã việc chưa?</td><td>1 việc có mã ở CAT-227, ghi rõ MOW đích</td></tr>
-<tr><td>2</td><td class="c">Rà soát chuẩn bị</td><td>Cần Master list nào? DOT nào? Tool nào?</td><td>bảng mục 4 đủ dòng; còn «cần…» = 0</td></tr>
+<tr><td>2</td><td class="c">Rà soát chuẩn bị</td><td>Cần Master list nào? DOT nào? Tool nào?</td><td>bảng 4.1 đủ dòng; còn «cần…» = 0</td></tr>
 <tr><td>3</td><td class="c">Triển khai</td><td>UI, hợp đồng thông tin, đối soát đã xong chưa?</td><td>đạt «Thế nào là hoàn thành» (ô 2 tab Kiểm soát)</td></tr>
 <tr><td>4</td><td class="c">Kiểm tra</td><td>Đúng và đủ chưa?</td><td>lỗi = 0, có ảnh màn; DOT, Master list đã dùng đều có trong bảng mục 4</td></tr>
 <tr><td>5</td><td class="c">Báo cáo</td><td>Owner đã nhận và duyệt chưa?</td><td>1 gói báo cáo + Owner duyệt; việc ở CAT-227 «xong»</td></tr>
@@ -61,13 +61,9 @@ ol.issues li{margin:5px 0}
 <div class="wrap"><table>
 <thead><tr><th>STT</th><th>Tên Mốc</th><th>Tên mục con</th><th>Câu hỏi cần trả lời</th><th>Thế nào là hoàn thành</th></tr></thead>
 <tbody>
-<tr><td>1</td><td class="c">2 Rà soát chuẩn bị</td><td>2.1 Danh sách DOT, Tool</td><td>DOT, Tool nào dùng được, thiếu, phải sửa?</td><td>mỗi DOT/Tool 1 dòng ở bảng mục 4</td></tr>
-<tr><td>2</td><td class="c">2 Rà soát chuẩn bị</td><td>2.2 Danh sách Master list</td><td>Sổ nào có, chờ duyệt, thiếu?</td><td>mỗi sổ 1 dòng ở bảng mục 4</td></tr>
-<tr><td>3</td><td class="c">2 Rà soát chuẩn bị</td><td>2.3 Tạo mới / nâng cấp DOT, Tool</td><td>DOT, Tool thiếu hoặc cần sửa đã xong chưa?</td><td>còn «cần thêm», «cần sửa» = 0</td></tr>
-<tr><td>4</td><td class="c">2 Rà soát chuẩn bị</td><td>2.4 Tạo mới / nâng cấp Master list</td><td>Sổ thiếu đã tạo, sổ chờ đã duyệt chưa?</td><td>còn «cần duyệt», «cần làm mới» = 0</td></tr>
-<tr><td>5</td><td class="c">3 Triển khai</td><td>3A UI</td><td>Mỗi nhóm con đã có UI con chưa?</td><td>4/4 bước đạt</td></tr>
-<tr><td>6</td><td class="c">3 Triển khai</td><td>3B Hợp đồng thông tin</td><td>Mỗi UI con cần thông tin gì, Field đủ chưa?</td><td>3/3 bước đạt</td></tr>
-<tr><td>7</td><td class="c">3 Triển khai</td><td>3C Đối soát và áp nháp</td><td>Đối tượng phát sinh ghi đủ, bản nháp chạy được chưa?</td><td>3/3 bước đạt</td></tr>
+<tr><td>1</td><td class="c">3 Triển khai</td><td>3A UI</td><td>Mỗi nhóm con đã có UI con chưa?</td><td>4/4 bước đạt</td></tr>
+<tr><td>2</td><td class="c">3 Triển khai</td><td>3B Hợp đồng thông tin</td><td>Mỗi UI con cần thông tin gì, Field đủ chưa?</td><td>3/3 bước đạt</td></tr>
+<tr><td>3</td><td class="c">3 Triển khai</td><td>3C Đối soát và áp nháp</td><td>Đối tượng phát sinh ghi đủ, bản nháp chạy được chưa?</td><td>3/3 bước đạt</td></tr>
 </tbody></table></div>
 
 <h3>3.3 Bước (nền tảng = nhóm con, có thể điều chỉnh cho sát thực tế)</h3>
@@ -78,10 +74,10 @@ ol.issues li{margin:5px 0}
 <tr><td>1</td><td class="c">1</td><td>—</td><td>1.1 Tạo việc cho MOW đích</td><td>MOW đích đã có việc chưa? Chưa thì tạo.</td><td>1 dòng việc có mã ở CAT-227, không trùng</td></tr>
 <tr><td>2</td><td class="c">1</td><td>—</td><td>1.2 Ghi ngữ cảnh MOW đích (CT-005)</td><td>MOW đích thuộc Chuỗi, Bước, Tầng, Nhóm cha nào?</td><td>4 ô đủ (ML-DEF-004)</td></tr>
 <tr><td>3</td><td class="c">1</td><td>—</td><td>1.3 Ghi mục tiêu, phạm vi của việc</td><td>Việc giao gì, cho ai, xong khi nào?</td><td>các ô của việc có nội dung (CAT-227)</td></tr>
-<tr><td>4</td><td class="c">2</td><td>2.1</td><td>2.1 Lập danh sách DOT, Tool</td><td>DOT, Tool nào có, thiếu, cần sửa?</td><td>mỗi cái 1 dòng ở bảng mục 4</td></tr>
-<tr><td>5</td><td class="c">2</td><td>2.2</td><td>2.2 Lập danh sách Master list</td><td>Sổ nào có, chờ duyệt, thiếu?</td><td>mỗi sổ 1 dòng ở bảng mục 4</td></tr>
-<tr><td>6</td><td class="c">2</td><td>2.3</td><td>2.3 Tạo mới / nâng cấp DOT, Tool</td><td>Cái thiếu, cái cần sửa đã làm chưa?</td><td>còn «cần thêm», «cần sửa» = 0</td></tr>
-<tr><td>7</td><td class="c">2</td><td>2.4</td><td>2.4 Tạo mới / nâng cấp Master list</td><td>Sổ thiếu đã tạo, sổ chờ đã duyệt chưa?</td><td>còn «cần duyệt», «cần làm mới» = 0</td></tr>
+<tr><td>4</td><td class="c">2</td><td>—</td><td>2.1 Lập danh sách DOT, Tool</td><td>DOT, Tool nào có, thiếu, cần sửa?</td><td>mỗi cái 1 dòng ở bảng mục 4</td></tr>
+<tr><td>5</td><td class="c">2</td><td>—</td><td>2.2 Lập danh sách Master list</td><td>Sổ nào có, chờ duyệt, thiếu?</td><td>mỗi sổ 1 dòng ở bảng mục 4</td></tr>
+<tr><td>6</td><td class="c">2</td><td>—</td><td>2.3 Tạo mới / nâng cấp DOT, Tool</td><td>Cái thiếu, cái cần sửa đã làm chưa?</td><td>còn «cần thêm», «cần sửa» = 0</td></tr>
+<tr><td>7</td><td class="c">2</td><td>—</td><td>2.4 Tạo mới / nâng cấp Master list</td><td>Sổ thiếu đã tạo, sổ chờ đã duyệt chưa?</td><td>còn «cần duyệt», «cần làm mới» = 0</td></tr>
 <tr><td>8</td><td class="c">3</td><td>3A UI</td><td>3A.1 Duyệt giữ · gộp · tách MOW <i>(đề xuất)</i></td><td>MOW nào giữ, gộp hay tách?</td><td>mỗi MOW 1 quyết định (ML-DEF-004)</td></tr>
 <tr><td>9</td><td class="c">3</td><td>3A UI</td><td>3A.2 Liệt kê nhóm con của MOW (CT-004)</td><td>MOW có những nhóm con nào?</td><td>danh sách nhóm con đủ (ML-DEF-002)</td></tr>
 <tr><td>10</td><td class="c">3</td><td>3A UI</td><td>3A.3 Chọn UI cha cho từng nhóm con</td><td>Mỗi nhóm con dùng khuôn UI cha nào?</td><td>mỗi nhóm con 1 UI cha (ML-DEF-017)</td></tr>
@@ -127,7 +123,7 @@ ol.issues li{margin:5px 0}
 <tr><td>17</td><td class="c">Master list</td><td class="c">CAT-228</td><td>Sổ việc thật MOT · bản ghi · người</td><td>8</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>bước cũ «hồ sơ» — còn cần không? (vướng 6)</td></tr>
 <tr><td>18</td><td class="c">Master list</td><td class="c">ML-DEF-012</td><td>Master of Master</td><td>0</td><td><span class="chip bad">cần làm mới</span></td><td class="c">điểm danh</td><td>rỗng; việc của nó đang ở trang 48 Master List</td></tr>
 <tr><td>19</td><td class="c">Master list</td><td class="c">ML-DEF-022</td><td>Master Step</td><td>0</td><td><span class="chip bad">cần làm mới</span></td><td class="c">điểm danh</td><td>rỗng</td></tr>
-<tr><td>20</td><td class="c">DOT · Tool</td><td class="c">—</td><td>chưa điểm danh</td><td>—</td><td>—</td><td class="c">—</td><td>mục con 2.1 chưa làm</td></tr>
+<tr><td>20</td><td class="c">DOT · Tool</td><td class="c">—</td><td>chưa điểm danh</td><td>—</td><td>—</td><td class="c">—</td><td>bước 2.1 chưa làm</td></tr>
 </tbody></table></div>
 </main>
 </body>
