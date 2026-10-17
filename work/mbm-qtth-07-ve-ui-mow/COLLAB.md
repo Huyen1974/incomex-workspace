@@ -16,6 +16,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
 ### 1. Mục tiêu
+Tình trạng: User tạm chốt (Owner 17/10 11:59).
 Owner 16/10/2026 17:05:
 1. Vẽ UI theo Master MOW.
 2. Hoàn thiện Master list: đủ các Master list cần dùng, và từng Master phải được User duyệt lần đầu.
@@ -84,6 +85,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P20 · 17/10 11:59 + 12:04 · tình trạng mục tiêu: «bạn có đang phức tạp hoá lên không. Mục tiêu user tam chốt rồi => đi quay lại 1 vấn đề đã chốt rồi làm gì? Cái chính là hiện nay AI không biết được là User chốt chưa? Thiếu tình trạng. … Chìa làm kỹ lưỡng từng chút 1. Làm ào là gãy. … Bàn ít một đã» — «Đồng ý thêm tình trạng.»
 - P19 · 17/10 11:52 · D1/D2 trỏ CAT-249: «Như vậy cần ghi rõ trên MBM => đọc từ MBM sang QTTH 007 để Ai hiểu là rà soát lại (không chặn) để cập nhật thêm các Tool/giải pháp mới, dùng lại nếu có..... ghi nhắn gọn nhưng mọi người hiểu là có vấn đề D1, D2 và dẫn chiếu đến Cat 249 là ok. Nhìn lại lần nữa xem QTTH 007 làm theo MBM từ 1-4 có còn mắc gì không? Nhìn như AI phải làm việc này lần đầu tiên, để đọc xem còn chỗ nào khó hiểu? Chỗ nào không hiểu?»
 - P18 · 17/10 07:13 · Master công cụ giám sát: «Thay vì lý thuyết. Bạn tạo luôn giup tôi 1 master list về: Master công cụ giám sát. Đăt mã, đặt tên, vẽ Ui cho nó và đưa vào thành 48 list. Chỉ cần có list master có chỗ là AI biết điền, giải thích dài dòng làm gì?» → đã tạo CAT-249* · UI.MASTER.TQT.249 · `process-work-master-v1.html?master=CAT-249%2A` · danh sách Master = 48 (commit `65785b73`, `3bd15fae`).
 - P17 · 17/10 05:46 · bản chất D1, D2: «D1. D2 bạn cho vào đó là sai => lòi ra. bản chất tôi đã giải thích. 1. Cơ chế này không thể giải quyết hiệu quả trong 1 việc/ trong 1 quy trình cụ thể. Mà phải giải quyết ở tầm MBM hoặc cao hơn. Các giải pháp đưa ra sẽ phức tạp và cần được tích luỹ theo thời gian. Ví dụ cơ chế chốgn lệch của PG giống như các dịch vụ của google về bất đối xứng... các công nghệ chung của Direcutus. Những việc này có thể là tổng hợp của nhiều công nghệ/DOT và giải pháp khác nhau. 2. Tôi muốn viết vào từng việc như QTTH 07 và xét vào từng việc là để 1 lần nhìn lại vấn đề này xem cí làm được gì không? Có cái gì đã bàn , đã làm mà chưa áp dụng không? Có áp dụng được cái mới gì không?.... 3. D1, D2 nó giống như câu hỏi mở, có quy trình để xem, có nơi (sổ /master list) để ghi các phương án đã áp dụng... để trả lời những câu hỏi ở mục 2. Cái này làm rõ và nên ghi chú ẩn được về D1, D2. Không làm thì kết quả tệ,. không ghi thì mai quên lãng không ai nhớ, chẳng ai bàn và viẹc này quên lãng + kết quả tệ. Nhưng ghi ra không được biến thành block»
