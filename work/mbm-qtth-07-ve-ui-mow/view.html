@@ -32,14 +32,13 @@ ol.issues li{margin:5px 0}
 <body>
 <main>
 <h1>QTTH 07 — bảng làm việc theo MBM</h1>
-<p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 17/10/2026 17:30 · làm lại mục 3 theo MBM r5.18, như AI lần đầu · danh sách việc và tiến độ ở tab Kiểm soát.</p>
+<p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 17/10/2026 17:20 · làm lại mục 3 theo MBM r5.19, như AI lần đầu · danh sách việc và tiến độ ở tab Kiểm soát.</p>
 
 <h2>⚠ Vướng khi làm mục 3 theo MBM r5.18</h2>
 <ol class="issues">
-<li><span class="dot r"></span><b>Số trùng «3.1, 3.2, 3.3»:</b> vừa là tên 3 bảng của MBM (Mốc · Mục con · Bước), vừa là mã mục con của Triển khai. Đọc «3.1» không biết là cái nào.</li>
-<li><span class="dot r"></span><b>Hai câu trái nhau:</b> ghi chú dưới bảng 3.3 vẫn ghi «Mục con chỉ khi mốc có hơn 5 bước», còn 3.2 ghi «Mốc 2 luôn có 2.1–2.4».</li>
+<li>✅ <b>Đã sửa (MBM r5.19):</b> mục con Triển khai đánh 3A, 3B, 3C; mã bước trong mục con 3A.1, 3A.2…</li>
+<li>✅ <b>Đã sửa (MBM r5.19):</b> bỏ câu «Mục con chỉ khi mốc có hơn 5 bước» dưới bảng 3.3.</li>
 <li><span class="dot y"></span><b>Mốc 2:</b> mục con 2.1–2.4 có phải cũng là bước không? Em coi mỗi mục con = 1 bước.</li>
-<li><span class="dot y"></span><b>Mã bước trong mục con:</b> MBM chỉ có «mốc.thứ tự». Em phải tự đặt «3.1.1».</li>
 <li><span class="dot y"></span><b>Đóng việc ở đâu?</b> (đổi việc ở CAT-227 sang «xong», đếm khúc mắc còn mở) — 5 mốc không có «Đóng». Em đặt vào Mốc 5 Báo cáo.</li>
 <li><span class="dot y"></span><b>Hồ sơ CAT-228</b> (bước cũ «tạo bảng hồ sơ cho việc»): đã có CAT-227 + CAT-069 thì còn cần không? Em tạm bỏ.</li>
 <li><span class="dot y"></span><b>Bước theo nhóm con</b> ở Triển khai: anh đang nghĩ thêm — em tạm viết theo CT-004 / CT-006, chưa lặp từng nhóm con.</li>
@@ -66,9 +65,9 @@ ol.issues li{margin:5px 0}
 <tr><td>2</td><td class="c">2 Rà soát chuẩn bị</td><td>2.2 Danh sách Master list</td><td>Sổ nào có, chờ duyệt, thiếu?</td><td>mỗi sổ 1 dòng ở bảng mục 4</td></tr>
 <tr><td>3</td><td class="c">2 Rà soát chuẩn bị</td><td>2.3 Tạo mới / nâng cấp DOT, Tool</td><td>DOT, Tool thiếu hoặc cần sửa đã xong chưa?</td><td>còn «cần thêm», «cần sửa» = 0</td></tr>
 <tr><td>4</td><td class="c">2 Rà soát chuẩn bị</td><td>2.4 Tạo mới / nâng cấp Master list</td><td>Sổ thiếu đã tạo, sổ chờ đã duyệt chưa?</td><td>còn «cần duyệt», «cần làm mới» = 0</td></tr>
-<tr><td>5</td><td class="c">3 Triển khai</td><td>3.1 UI</td><td>Mỗi nhóm con đã có UI con chưa?</td><td>4/4 bước đạt</td></tr>
-<tr><td>6</td><td class="c">3 Triển khai</td><td>3.2 Hợp đồng thông tin</td><td>Mỗi UI con cần thông tin gì, Field đủ chưa?</td><td>3/3 bước đạt</td></tr>
-<tr><td>7</td><td class="c">3 Triển khai</td><td>3.3 Đối soát và áp nháp</td><td>Đối tượng phát sinh ghi đủ, bản nháp chạy được chưa?</td><td>3/3 bước đạt</td></tr>
+<tr><td>5</td><td class="c">3 Triển khai</td><td>3A UI</td><td>Mỗi nhóm con đã có UI con chưa?</td><td>4/4 bước đạt</td></tr>
+<tr><td>6</td><td class="c">3 Triển khai</td><td>3B Hợp đồng thông tin</td><td>Mỗi UI con cần thông tin gì, Field đủ chưa?</td><td>3/3 bước đạt</td></tr>
+<tr><td>7</td><td class="c">3 Triển khai</td><td>3C Đối soát và áp nháp</td><td>Đối tượng phát sinh ghi đủ, bản nháp chạy được chưa?</td><td>3/3 bước đạt</td></tr>
 </tbody></table></div>
 
 <h3>3.3 Bước (nền tảng = nhóm con, có thể điều chỉnh cho sát thực tế)</h3>
@@ -83,16 +82,16 @@ ol.issues li{margin:5px 0}
 <tr><td>5</td><td class="c">2</td><td>2.2</td><td>2.2 Lập danh sách Master list</td><td>Sổ nào có, chờ duyệt, thiếu?</td><td>mỗi sổ 1 dòng ở bảng mục 4</td></tr>
 <tr><td>6</td><td class="c">2</td><td>2.3</td><td>2.3 Tạo mới / nâng cấp DOT, Tool</td><td>Cái thiếu, cái cần sửa đã làm chưa?</td><td>còn «cần thêm», «cần sửa» = 0</td></tr>
 <tr><td>7</td><td class="c">2</td><td>2.4</td><td>2.4 Tạo mới / nâng cấp Master list</td><td>Sổ thiếu đã tạo, sổ chờ đã duyệt chưa?</td><td>còn «cần duyệt», «cần làm mới» = 0</td></tr>
-<tr><td>8</td><td class="c">3</td><td>3.1 UI</td><td>3.1.1 Duyệt giữ · gộp · tách MOW <i>(đề xuất)</i></td><td>MOW nào giữ, gộp hay tách?</td><td>mỗi MOW 1 quyết định (ML-DEF-004)</td></tr>
-<tr><td>9</td><td class="c">3</td><td>3.1 UI</td><td>3.1.2 Liệt kê nhóm con của MOW (CT-004)</td><td>MOW có những nhóm con nào?</td><td>danh sách nhóm con đủ (ML-DEF-002)</td></tr>
-<tr><td>10</td><td class="c">3</td><td>3.1 UI</td><td>3.1.3 Chọn UI cha cho từng nhóm con</td><td>Mỗi nhóm con dùng khuôn UI cha nào?</td><td>mỗi nhóm con 1 UI cha (ML-DEF-017)</td></tr>
-<tr><td>11</td><td class="c">3</td><td>3.1 UI</td><td>3.1.4 Ghi UI con cho từng nhóm con (CT-006)</td><td>Dùng lại hay tạo mới?</td><td>nhóm con có UI con = 100% (ML-DEF-018)</td></tr>
-<tr><td>12</td><td class="c">3</td><td>3.2 Hợp đồng</td><td>3.2.1 Tạo nghĩa vụ thông tin cho từng UI con</td><td>Mỗi UI con cần thông tin gì?</td><td>nghĩa vụ có dòng hợp đồng = 100% (CAT-206)</td></tr>
-<tr><td>13</td><td class="c">3</td><td>3.2 Hợp đồng</td><td>3.2.2 So với Sổ Field, tạo Field thiếu</td><td>Mỗi thông tin có Field chưa?</td><td>Field thiếu = 0 (ML-DEF-008)</td></tr>
-<tr><td>14</td><td class="c">3</td><td>3.2 Hợp đồng</td><td>3.2.3 Ghi đọc/ghi, ô bắt buộc</td><td>Đọc/ghi ở đâu, có bắt buộc không?</td><td>dòng hợp đồng đủ ô = 100% (CAT-206)</td></tr>
-<tr><td>15</td><td class="c">3</td><td>3.3 Đối soát</td><td>3.3.1 Đếm đối tượng phát sinh</td><td>Đã ghi sổ đủ chưa?</td><td>còn thiếu = 0</td></tr>
-<tr><td>16</td><td class="c">3</td><td>3.3 Đối soát</td><td>3.3.2 So đối tượng đổi với nơi dùng</td><td>Đổi cái này ảnh hưởng chỗ nào?</td><td>mỗi thay đổi có dòng ảnh hưởng (CAT-016)</td></tr>
-<tr><td>17</td><td class="c">3</td><td>3.3 Đối soát</td><td>3.3.3 Tạo bản nháp bằng DOT, thử, đọc lại</td><td>Bản nháp chạy được chưa?</td><td>biên nhận ĐẠT (CAT-229)</td></tr>
+<tr><td>8</td><td class="c">3</td><td>3A UI</td><td>3A.1 Duyệt giữ · gộp · tách MOW <i>(đề xuất)</i></td><td>MOW nào giữ, gộp hay tách?</td><td>mỗi MOW 1 quyết định (ML-DEF-004)</td></tr>
+<tr><td>9</td><td class="c">3</td><td>3A UI</td><td>3A.2 Liệt kê nhóm con của MOW (CT-004)</td><td>MOW có những nhóm con nào?</td><td>danh sách nhóm con đủ (ML-DEF-002)</td></tr>
+<tr><td>10</td><td class="c">3</td><td>3A UI</td><td>3A.3 Chọn UI cha cho từng nhóm con</td><td>Mỗi nhóm con dùng khuôn UI cha nào?</td><td>mỗi nhóm con 1 UI cha (ML-DEF-017)</td></tr>
+<tr><td>11</td><td class="c">3</td><td>3A UI</td><td>3A.4 Ghi UI con cho từng nhóm con (CT-006)</td><td>Dùng lại hay tạo mới?</td><td>nhóm con có UI con = 100% (ML-DEF-018)</td></tr>
+<tr><td>12</td><td class="c">3</td><td>3B Hợp đồng</td><td>3B.1 Tạo nghĩa vụ thông tin cho từng UI con</td><td>Mỗi UI con cần thông tin gì?</td><td>nghĩa vụ có dòng hợp đồng = 100% (CAT-206)</td></tr>
+<tr><td>13</td><td class="c">3</td><td>3B Hợp đồng</td><td>3B.2 So với Sổ Field, tạo Field thiếu</td><td>Mỗi thông tin có Field chưa?</td><td>Field thiếu = 0 (ML-DEF-008)</td></tr>
+<tr><td>14</td><td class="c">3</td><td>3B Hợp đồng</td><td>3B.3 Ghi đọc/ghi, ô bắt buộc</td><td>Đọc/ghi ở đâu, có bắt buộc không?</td><td>dòng hợp đồng đủ ô = 100% (CAT-206)</td></tr>
+<tr><td>15</td><td class="c">3</td><td>3C Đối soát</td><td>3C.1 Đếm đối tượng phát sinh</td><td>Đã ghi sổ đủ chưa?</td><td>còn thiếu = 0</td></tr>
+<tr><td>16</td><td class="c">3</td><td>3C Đối soát</td><td>3C.2 So đối tượng đổi với nơi dùng</td><td>Đổi cái này ảnh hưởng chỗ nào?</td><td>mỗi thay đổi có dòng ảnh hưởng (CAT-016)</td></tr>
+<tr><td>17</td><td class="c">3</td><td>3C Đối soát</td><td>3C.3 Tạo bản nháp bằng DOT, thử, đọc lại</td><td>Bản nháp chạy được chưa?</td><td>biên nhận ĐẠT (CAT-229)</td></tr>
 <tr><td>18</td><td class="c">4</td><td>—</td><td>4.1 Đếm nghĩa vụ đã đủ</td><td>Mọi nghĩa vụ thông tin đã đáp ứng chưa?</td><td>100%; ghi khống = 0 (CAT-015)</td></tr>
 <tr><td>19</td><td class="c">4</td><td>—</td><td>4.2 Chụp mọi màn</td><td>Mọi màn đã có ảnh chưa?</td><td>màn có ảnh = 100%</td></tr>
 <tr><td>20</td><td class="c">4</td><td>—</td><td>4.3 Duyệt chéo (ghế khác hãng)</td><td>Ghế khác hãng có đồng ý không?</td><td>1 phiếu APPROVE hoặc REJECT (CAT-025)</td></tr>
@@ -113,8 +112,8 @@ ol.issues li{margin:5px 0}
 <tr><td>2</td><td class="c">Master list</td><td class="c">ML-DEF-018</td><td>Master UI con</td><td>29</td><td><span class="chip ok">có</span></td><td class="c">điểm danh</td><td></td></tr>
 <tr><td>3</td><td class="c">Master list</td><td class="c">ML-DEF-024</td><td>Master DOT</td><td>311</td><td><span class="chip ok">có</span></td><td class="c">điểm danh</td><td>dùng lại CAT-006</td></tr>
 <tr><td>4</td><td class="c">Master list</td><td class="c">ML-DEF-023</td><td>Master Tool</td><td>35</td><td><span class="chip ok">có</span></td><td class="c">điểm danh</td><td></td></tr>
-<tr><td>5</td><td class="c">Master list</td><td class="c">ML-DEF-002</td><td>Master Nhóm con</td><td>115</td><td><span class="chip ok">có</span></td><td class="c">điểm danh</td><td>cho 3.1.2 (CT-004)</td></tr>
-<tr><td>6</td><td class="c">Master list</td><td class="c">ML-DEF-017</td><td>Master UI cha</td><td>6</td><td><span class="chip ok">có</span></td><td class="c">điểm danh</td><td>cho 3.1.3 (CT-006)</td></tr>
+<tr><td>5</td><td class="c">Master list</td><td class="c">ML-DEF-002</td><td>Master Nhóm con</td><td>115</td><td><span class="chip ok">có</span></td><td class="c">điểm danh</td><td>cho 3A.2 (CT-004)</td></tr>
+<tr><td>6</td><td class="c">Master list</td><td class="c">ML-DEF-017</td><td>Master UI cha</td><td>6</td><td><span class="chip ok">có</span></td><td class="c">điểm danh</td><td>cho 3A.3 (CT-006)</td></tr>
 <tr><td>7</td><td class="c">Master list</td><td class="c">ML-DEF-008</td><td>Master Field</td><td>250</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>PG chưa xác minh</td></tr>
 <tr><td>8</td><td class="c">Master list</td><td class="c">ML-MOW-TH-001</td><td>Master Quy trình tổng hợp</td><td>6</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>QTTH 07 phải thành 1 dòng ở đây</td></tr>
 <tr><td>9</td><td class="c">Master list</td><td class="c">CAT-227</td><td>Master tiến trình công việc</td><td>2</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>sổ việc (MBM mục 1)</td></tr>
