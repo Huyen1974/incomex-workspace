@@ -1235,7 +1235,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
   <div class="cf-mbm">
-  <p><span class="cf-mbm-badge">r5.20 · Owner 17/10 19:43: đánh mã nhất quán mục 1–4 · r5.19 · 17:14: mã mục con 3A, bước 3A.1 · r5.18 · 17:07: bảng mục 4 dùng chung + cột Lúc ghi · r5.17 · 14:29: Mốc 2 liệt kê từng dòng · r5.16 · 14:17: chốt 5 mốc + mục con · r5.15 · 13:54: định nghĩa Mốc, Mục con · r5.14 · 12:25: mục 1 = việc ở CAT-227, khúc mắc ở CAT-069 · r5.13 · 12:04: mục 2 có Tình trạng · r5.12 · 11:52: D1, D2 rà lại CAT-249 · r5.11 · 05:46: D1, D2 là câu hỏi mở, không chặn · r5.10 · 05:36: mục 2 — AI viết số · hoàn thành 3–5 gạch · User quyết ký · r5.9 · 05:22: 3.3 Bước nền tảng = nhóm con · r5.8 · 16/10 22:57: mục 3 = 3.1 Mốc · 3.2 Mục con · 3.3 Bước · 22:19: kết quả ở view.html của task · 22:07: làm ở workspace · 21:39: rê chuột vào đầu cột để xem «?» giải thích · mục 4 = bảng kiểm kê Master list · số trên công thức = số mục bên dưới · 16/10 · đang thử thật: làm QTTH 07 ở task mbm-qtth-07-ve-ui-mow · vấp đâu sửa đó</span></p>
+  <p><span class="cf-mbm-badge">r5.21 · Owner 17/10 19:43: đánh mã nhất quán mục 1–9 · r5.19 · 17:14: mã mục con 3A, bước 3A.1 · r5.18 · 17:07: bảng mục 4 dùng chung + cột Lúc ghi · r5.17 · 14:29: Mốc 2 liệt kê từng dòng · r5.16 · 14:17: chốt 5 mốc + mục con · r5.15 · 13:54: định nghĩa Mốc, Mục con · r5.14 · 12:25: mục 1 = việc ở CAT-227, khúc mắc ở CAT-069 · r5.13 · 12:04: mục 2 có Tình trạng · r5.12 · 11:52: D1, D2 rà lại CAT-249 · r5.11 · 05:46: D1, D2 là câu hỏi mở, không chặn · r5.10 · 05:36: mục 2 — AI viết số · hoàn thành 3–5 gạch · User quyết ký · r5.9 · 05:22: 3.3 Bước nền tảng = nhóm con · r5.8 · 16/10 22:57: mục 3 = 3.1 Mốc · 3.2 Mục con · 3.3 Bước · 22:19: kết quả ở view.html của task · 22:07: làm ở workspace · 21:39: rê chuột vào đầu cột để xem «?» giải thích · mục 4 = bảng kiểm kê Master list · số trên công thức = số mục bên dưới · 16/10 · đang thử thật: làm QTTH 07 ở task mbm-qtth-07-ve-ui-mow · vấp đâu sửa đó</span></p>
   <p><b>MBM = MOW born MOW</b>: <b>công thức gốc</b> để chế tạo ra quy trình. Mọi câu hỏi đặt sẵn trong ma trận. AI chỉ điền câu trả lời vào ô. Ô nào trống là dòng đó chưa xong.</p>
   <p class="cf-mbm-note"><b>Định vị:</b> MBM là CÔNG THỨC, không phải quy trình. Một công thức chế tạo ra nhiều quy trình (kể cả quy trình tổng hợp gọi quy trình khác). Việc thật và mọi phép thử chi tiết thuộc quy trình được chế tạo ra; sửa cách chế tạo thì sửa ở đây.</p>
   <h4><i class="cf-num">1</i>Yêu cầu User</h4>
@@ -1301,20 +1301,18 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   </tbody></table></div>
   <p class="cf-it"><b>4.2</b> Danh sách không đóng: làm tới đâu thấy thiếu thì thêm dòng («phát sinh ở bước …») và làm luôn như 2.3 / 2.4; không quay lại Mốc 2. <i>Vd: đang làm 3A.2 thấy thiếu DOT xuất ảnh → thêm dòng → tạo DOT → làm tiếp.</i></p>
   <h4><i class="cf-num">5</i>Bộ câu hỏi — ma trận này chính là hồ sơ</h4>
-  <p>Mỗi dòng là 1 mốc, 1 mục con hoặc 1 bước. Bộ câu hỏi định nghĩa 1 chỗ và tự gắn vào mọi dòng. Thiết kế: điền cột «Thiết kế». Chạy mỗi việc: hồ sơ chỉ sinh dòng Bước (N_khuôn = số Bước), DOT điền cột «Khi chạy»; dòng Mốc và Mục con tính từ bước con, không lưu riêng.</p>
+  <p class="cf-it"><b>5.1</b> Mỗi dòng là 1 mốc, 1 mục con hoặc 1 bước. Bộ câu hỏi định nghĩa 1 chỗ và tự gắn vào mọi dòng. Thiết kế: điền cột «Thiết kế». Chạy mỗi việc: hồ sơ chỉ sinh dòng Bước (N_khuôn = số Bước), DOT điền cột «Khi chạy»; dòng Mốc và Mục con tính từ bước con, không lưu riêng.</p>
   <div class="cf-mbm-scroll"><table>
   <thead><tr><th>STT</th><th>Mã dòng</th><th>Loại dòng</th><th>Tên</th><th>Hạng việc</th><th>Mở khi</th><th>Làm bằng</th><th>Kiểm</th></tr></thead>
   <tbody>
-  <tr><td>…</td><td>007-4</td><td>Mốc</td><td>Làm</td><td>khó</td><td>007-3 đạt</td><td>theo bước con</td><td>🤖</td></tr>
-  <tr><td>12</td><td>007-4.5</td><td>Bước</td><td>Gắn Field cho hợp đồng</td><td>thường</td><td>007-4.4 đạt · không có trường hợp không áp dụng</td><td>mã DOT : lệnh con</td><td>🤖+👥</td></tr>
+  <tr><td>…</td><td>3</td><td>Mốc</td><td>Triển khai</td><td>khó</td><td>2 đạt</td><td>theo bước con</td><td>🤖</td></tr>
+  <tr><td>…</td><td>3B.2</td><td>Bước</td><td>Gắn Field cho hợp đồng</td><td>thường</td><td>3B.1 đạt · không có trường hợp không áp dụng</td><td>mã DOT : lệnh con</td><td>🤖+👥</td></tr>
   </tbody></table></div>
-  <ul>
-  <li><b>Hạng việc</b>: thường = trả lời bằng mã, máy kiểm → model rẻ chạy 24/7 làm trước; khó = định tính, cần ký, thiết kế → model frontier. Người làm cụ thể do luật phân việc gán lúc chạy.</li>
-  <li><b>Mở khi</b>: bước trước phải đạt (bước đầu ghi «bước đầu») · điều kiện · khi nào không áp dụng.</li>
-  <li><b>Làm bằng</b>: mã DOT trong ML-DEF-024 kèm lệnh con; DOT, lệnh con hay công cụ chưa có thì đặt tên đề xuất, ghi danh «cần làm» rồi ghi mã đó.</li>
-  <li><b>Kiểm</b>: 🤖 máy · 🤖+👥 máy rồi Host xác nhận nghĩa · ✍️ hội đồng ký · 😊 User.</li>
-  </ul>
-  <h4>Bộ câu hỏi của mỗi dòng (ví dụ bước 007-4.5)</h4>
+  <p class="cf-it"><b>5.1.1</b> <b>Hạng việc</b>: thường = trả lời bằng mã, máy kiểm → model rẻ chạy 24/7 làm trước; khó = định tính, cần ký, thiết kế → model frontier. Người làm cụ thể do luật phân việc gán lúc chạy.</p>
+  <p class="cf-it"><b>5.1.2</b> <b>Mở khi</b>: bước trước phải đạt (bước đầu ghi «bước đầu») · điều kiện · khi nào không áp dụng.</p>
+  <p class="cf-it"><b>5.1.3</b> <b>Làm bằng</b>: mã DOT trong ML-DEF-024 kèm lệnh con; DOT, lệnh con hay công cụ chưa có thì đặt tên đề xuất, ghi danh «cần làm» rồi ghi mã đó.</p>
+  <p class="cf-it"><b>5.1.4</b> <b>Kiểm</b>: 🤖 máy · 🤖+👥 máy rồi Host xác nhận nghĩa · ✍️ hội đồng ký · 😊 User.</p>
+  <h5>5.2 Bộ câu hỏi của mỗi dòng (ví dụ bước QTTH 07 · 3B.2)</h5>
   <div class="cf-mbm-scroll"><table>
   <thead><tr><th>Câu</th><th>Trả lời bằng</th><th>Thiết kế</th><th>Khi chạy</th><th>Kiểm</th></tr></thead>
   <tbody>
@@ -1324,62 +1322,52 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <tr><td>A3 Làm thế nào?</td><td>1→2→3 · đầu vào lấy ở đâu · đầu ra</td><td>1 tra Field cùng 4 thuộc tính · 2 thiếu thì soạn dòng mới · 3 DOT áp</td><td>biên nhận CAT-229 + SHA</td><td>✍️</td></tr>
   <tr class="cf-mbm-grp"><td colspan="5">B · Ghi chép — trả lời bằng mã</td></tr>
   <tr><td>B1 Xong ghi ở đâu?</td><td>Thiết kế: mã sổ + cột bắt buộc · Khi chạy: mã bản ghi + biên nhận</td><td>ML-DEF-008 : mã · tên · kiểu</td><td>mã 4 Field mới</td><td>🤖 mã có thật</td></tr>
-  <tr><td>B2 Chưa đạt thì sao?</td><td>quay về mã bước (bước đầu: DỪNG_TẠI_CHỖ) · CAT-069 · CHẶN / KHÔNG_CHẶN</td><td>007-4.4 · CAT-069 · CHẶN</td><td>Không phát sinh</td><td>🤖</td></tr>
-  <tr><td>B3 Còn nhánh hở?</td><td>mọi nhánh (đạt · chưa đạt · không áp dụng) có bước tiếp hoặc kết thúc; hở thì ghi CAT-069</td><td>đạt → 007-4.6 · chưa đạt → B2</td><td>Không</td><td>🤖+👥</td></tr>
+  <tr><td>B2 Chưa đạt thì sao?</td><td>quay về mã bước (bước đầu: DỪNG_TẠI_CHỖ) · CAT-069 · CHẶN / KHÔNG_CHẶN</td><td>3B.1 · CAT-069 · CHẶN</td><td>Không phát sinh</td><td>🤖</td></tr>
+  <tr><td>B3 Còn nhánh hở?</td><td>mọi nhánh (đạt · chưa đạt · không áp dụng) có bước tiếp hoặc kết thúc; hở thì ghi CAT-069</td><td>đạt → 3B.3 · chưa đạt → B2</td><td>Không</td><td>🤖+👥</td></tr>
   <tr class="cf-mbm-grp"><td colspan="5">C · Từng đối tượng bước tạo, sửa hoặc dùng lại vào kết quả — mỗi đối tượng 1 cụm; chỉ đọc để kiểm thì không kê</td></tr>
   <tr><td>C1 Loại = nhà nào?</td><td>mã dòng trong Sổ của các sổ ML-DEF-012 · chưa có: mã yêu cầu lập sổ</td><td>ML-DEF-008 (Field)</td><td>ML-DEF-008</td><td>🤖</td></tr>
   <tr><td>C2 SSOT ở đâu, 1 nơi chưa?</td><td>Thiết kế: nơi lưu + mã sổ gốc · Khi chạy: mã bản ghi gốc · số bản chép</td><td>master/ → ML-DEF-008</td><td>mã từng Field · 0 bản chép</td><td>🤖</td></tr>
   <tr><td>C3 Cũ hay mới?</td><td>Thiết kế: quy tắc · Khi chạy: mã</td><td>trùng 4 thuộc tính thì dùng lại, không thì tạo mới</td><td>6 cũ · 4 mới (kèm mã)</td><td>🤖</td></tr>
   <tr><td>C4 Trạng thái đích?</td><td>cần làm / đã làm / đã test / cần test lại</td><td>đã làm</td><td>đã làm</td><td>🤖</td></tr>
   </tbody></table></div>
-  <p class="cf-mbm-note">Số trong ví dụ là minh hoạ. Trạng thái đối tượng (C4) khác trạng thái chấm dòng (đạt · chưa đạt · không áp dụng · CHƯA_XÁC_MINH) và khác trạng thái nghiệp vụ (vd «G1 đã duyệt» là một cột của đối tượng, ghi ở B1).</p>
-  <h4>Luật điền</h4>
-  <ol>
-  <li>Thiết kế: điền 100% ô cột «Thiết kế», không dùng «—»; thứ chỉ có khi chạy thì ghi quy tắc, không bịa mã.</li>
-  <li>Khi chạy: DOT điền; chưa chạy ghi «Chưa phát sinh».</li>
-  <li>Mã: lúc thiết kế phải có trong Sổ của các sổ ML-DEF-012 hoặc sổ của loại đó. Thứ chưa có (sổ, cột, DOT, lệnh con, công cụ) thì đặt tên đề xuất, ghi danh «cần làm» rồi dùng — không để ❓. Lúc chạy bản ghi phải có thật. Máy kiểm.</li>
-  <li>Đạt = đạt đúng ngưỡng riêng ở A2 của dòng đó (kể cả ngưỡng = 0); chỗ tổng hợp ghi «đạt», không ghi «100%».</li>
-  <li>Mẫu số = 0 ⇒ không áp dụng (mã lý do MAU_SO_0), DOT tự ghi, trừ khi A2 ghi rõ 0 là lỗi. Mẫu số chưa biết (thiếu nguồn) ⇒ CHƯA_XÁC_MINH, không tính đạt.</li>
-  <li>Không áp dụng khác: điều kiện khai sẵn ở cột «Mở khi», ký 1 lần khi duyệt khuôn; khi chạy DOT tự ghi kèm mã lý do.</li>
-  <li>«0 ô ❓» do máy của ghế khác người điền đếm. Không sửa câu hỏi khi điền; muốn sửa thì đề xuất sửa MBM.</li>
-  </ol>
-  <h4>Luật ký hội đồng (nhóm A và Mục tiêu)</h4>
-  <ol>
-  <li>Ghế ký: các ghế trong bảng hội đồng của việc; mỗi ghế tự ký bằng danh tính của mình (kiểm bằng tác giả lần ghi); ghi hộ không tính là chữ ký.</li>
-  <li>Đạt khi ≥ 50% số ghế được gọi (tối thiểu 2) đồng ý, có ít nhất 1 ghế khác hãng với người điền, và 0 phản đối.</li>
-  <li>Chữ ký gắn đúng phiên của câu trả lời; câu trả lời đổi thì chữ ký cũ hết hiệu lực cho phần đổi.</li>
-  <li>Ký 1 lần khi duyệt thiết kế khuôn (và khi nâng phiên); lúc chạy kiểm theo cột «Kiểm».</li>
-  <li>Phản đối ghi lý do + cách sửa; quá 1 vòng chưa chốt thì Owner quyết. Chữ ký ở CAT-025.</li>
-  </ol>
+  <p class="cf-it"><b>5.2.1</b> Số trong ví dụ là minh hoạ. Trạng thái đối tượng (C4) khác trạng thái chấm dòng (đạt · chưa đạt · không áp dụng · CHƯA_XÁC_MINH) và khác trạng thái nghiệp vụ (vd «G1 đã duyệt» là một cột của đối tượng, ghi ở B1).</p>
+  <h5>5.3 Luật điền</h5>
+  <p class="cf-it"><b>5.3.1</b> Thiết kế: điền 100% ô cột «Thiết kế», không dùng «—»; thứ chỉ có khi chạy thì ghi quy tắc, không bịa mã.</p>
+  <p class="cf-it"><b>5.3.2</b> Khi chạy: DOT điền; chưa chạy ghi «Chưa phát sinh».</p>
+  <p class="cf-it"><b>5.3.3</b> Mã: lúc thiết kế phải có trong Sổ của các sổ ML-DEF-012 hoặc sổ của loại đó. Thứ chưa có (sổ, cột, DOT, lệnh con, công cụ) thì đặt tên đề xuất, ghi danh «cần làm» rồi dùng — không để ❓. Lúc chạy bản ghi phải có thật. Máy kiểm.</p>
+  <p class="cf-it"><b>5.3.4</b> Đạt = đạt đúng ngưỡng riêng ở A2 của dòng đó (kể cả ngưỡng = 0); chỗ tổng hợp ghi «đạt», không ghi «100%».</p>
+  <p class="cf-it"><b>5.3.5</b> Mẫu số = 0 ⇒ không áp dụng (mã lý do MAU_SO_0), DOT tự ghi, trừ khi A2 ghi rõ 0 là lỗi. Mẫu số chưa biết (thiếu nguồn) ⇒ CHƯA_XÁC_MINH, không tính đạt.</p>
+  <p class="cf-it"><b>5.3.6</b> Không áp dụng khác: điều kiện khai sẵn ở cột «Mở khi», ký 1 lần khi duyệt khuôn; khi chạy DOT tự ghi kèm mã lý do.</p>
+  <p class="cf-it"><b>5.3.7</b> «0 ô ❓» do máy của ghế khác người điền đếm. Không sửa câu hỏi khi điền; muốn sửa thì đề xuất sửa MBM.</p>
+  <h5>5.4 Luật ký hội đồng (nhóm A và Mục tiêu)</h5>
+  <p class="cf-it"><b>5.4.1</b> Ghế ký: các ghế trong bảng hội đồng của việc; mỗi ghế tự ký bằng danh tính của mình (kiểm bằng tác giả lần ghi); ghi hộ không tính là chữ ký.</p>
+  <p class="cf-it"><b>5.4.2</b> Đạt khi ≥ 50% số ghế được gọi (tối thiểu 2) đồng ý, có ít nhất 1 ghế khác hãng với người điền, và 0 phản đối.</p>
+  <p class="cf-it"><b>5.4.3</b> Chữ ký gắn đúng phiên của câu trả lời; câu trả lời đổi thì chữ ký cũ hết hiệu lực cho phần đổi.</p>
+  <p class="cf-it"><b>5.4.4</b> Ký 1 lần khi duyệt thiết kế khuôn (và khi nâng phiên); lúc chạy kiểm theo cột «Kiểm».</p>
+  <p class="cf-it"><b>5.4.5</b> Phản đối ghi lý do + cách sửa; quá 1 vòng chưa chốt thì Owner quyết. Chữ ký ở CAT-025.</p>
   <h4><i class="cf-num">6</i>Cách làm một MOW bằng MBM — đúng thứ tự</h4>
-  <p class="cf-mbm-note"><b>Làm ở workspace:</b> mọi bước làm và ghi trong task trên workspace (repo incomex-workspace, <code>work/mbm-…/</code>). Danh sách việc ở <code>COLLAB.md</code> (tab Kiểm soát, chỉ hiện chữ thô). Bảng kết quả (mục 3, 4, ma trận mục 5) ở <code>view.html</code> của task — hiện ở tab «Nội dung công việc». Chat chỉ báo tóm tắt kèm link.</p>
-  <ol>
-  <li>🤖 <b>Nhận yêu cầu</b> → mục <i class="cf-num cf-num-s">1</i></li>
-  <li>🤖 <b>Tạo task trên workspace</b>: tra/cấp mã MOW (Sổ quy trình ML-MOW-TH-001; sổ chưa là collection thì ghi ở task) rồi tạo <code>work/mbm-&lt;mã-tên-ngắn&gt;/COLLAB.md</code> — <b>tên task bắt đầu bằng mã công thức sinh ra nó</b> (MBM → <code>mbm-</code>; công thức khác dùng mã của mình) để nhìn tên là biết nguồn gốc; chữ thường nối gạch ngang (vd <code>mbm-qtth-07-ve-ui-mow</code>), đúng khuôn AGENTS: dòng «Xác nhận User» · Bảng điều khiển · ô 1 Mục tiêu (lời User) · ô 2 Thế nào là hoàn thành · ô 3 Chi tiết cần đạt (có khối HỘI ĐỒNG, đề xuất 1 Host + lý do) · Vòng trước. Đầu ô 3 đặt <b>danh sách việc cần làm</b> = 8 bước này, kèm «xong khi»; xong bước nào tích bước đó kèm commit. Thêm «Sổ vấp MBM»; tạo kèm <code>view.html</code> (HTML chính của việc) để ghi bảng kết quả các bước. Task là nơi duy nhất làm MOW này; mỗi lượt AI đọc lại task, không cần đọc lại công thức.</li>
-  <li>😊 <b>Chốt mục tiêu</b> → mục <i class="cf-num cf-num-s">2</i>: User chốt Mục tiêu, Thế nào là hoàn thành, Host → ghi ô 1–3 của task → «Xác nhận User: ĐÃ XÁC NHẬN».</li>
-  <li>🤖 <b>Liệt kê Mốc · Mục con · Bước</b> → mục <i class="cf-num cf-num-s">3</i> (3 bảng 3.1 · 3.2 · 3.3). <b>Có bản cũ đã gật thì bắt đầu từ bản cũ</b>, chỉ thêm/sửa phần mục tiêu mới đòi.</li>
-  <li>🤖 <b>Check Master list</b> → mục <i class="cf-num cf-num-s">4</i></li>
-  <li>🤖 <b>Bộ câu hỏi</b> → mục <i class="cf-num cf-num-s">5</i>: điền cho từng bước vào mục «Ma trận» của task (việc thường: model rẻ · việc khó: frontier).</li>
-  <li>👥😊 0 ô trống, 0 ô ❓ → hội đồng ký → User gật. Còn ❓ thì sửa, chưa gật. D1–D2 không chặn bước này.</li>
-  <li>🤖 Chạy thử 1 việc: DOT điền «Khi chạy»; lỗi thì sửa thiết kế, giữ lịch sử, ký lại phần đổi.</li>
-  </ol>
-  <p class="cf-mbm-note">Vấp ở bước nào thì ghi ngay vào «Sổ vấp MBM» của task rồi sửa CT-008 tại chỗ — để lần sau AI tự chạy không cần User. Sửa thứ tự ④: User + Host là đủ. Sửa bộ câu hỏi / ma trận: cần hội đồng ký — hạn chế sửa.</p>
-  <p class="cf-mbm-note">Mục tiêu dài hạn: ≥ 85% bước dùng lại từ MOW đã ổn định (đo khi có sổ bước).</p>
+  <p class="cf-it"><b>6.0</b> <b>Làm ở workspace:</b> mọi bước làm và ghi trong task trên workspace (repo incomex-workspace, <code>work/mbm-…/</code>). Danh sách việc ở <code>COLLAB.md</code> (tab Kiểm soát, chỉ hiện chữ thô). Bảng kết quả (mục 3, 4, ma trận mục 5) ở <code>view.html</code> của task — hiện ở tab «Nội dung công việc». Chat chỉ báo tóm tắt kèm link.</p>
+  <p class="cf-it"><b>6.1</b> 🤖 <b>Nhận yêu cầu</b> → mục <i class="cf-num cf-num-s">1</i></p>
+  <p class="cf-it"><b>6.2</b> 🤖 <b>Tạo task trên workspace</b>: tra/cấp mã MOW (Sổ quy trình ML-MOW-TH-001; sổ chưa là collection thì ghi ở task) rồi tạo <code>work/mbm-&lt;mã-tên-ngắn&gt;/COLLAB.md</code> — <b>tên task bắt đầu bằng mã công thức sinh ra nó</b> (MBM → <code>mbm-</code>; công thức khác dùng mã của mình) để nhìn tên là biết nguồn gốc; chữ thường nối gạch ngang (vd <code>mbm-qtth-07-ve-ui-mow</code>), đúng khuôn AGENTS: dòng «Xác nhận User» · Bảng điều khiển · ô 1 Mục tiêu (lời User) · ô 2 Thế nào là hoàn thành · ô 3 Chi tiết cần đạt (có khối HỘI ĐỒNG, đề xuất 1 Host + lý do) · Vòng trước. Đầu ô 3 đặt <b>danh sách việc cần làm</b> = 8 bước này, kèm «xong khi»; xong bước nào tích bước đó kèm commit. Thêm «Sổ vấp MBM»; tạo kèm <code>view.html</code> (HTML chính của việc) để ghi bảng kết quả các bước. Task là nơi duy nhất làm MOW này; mỗi lượt AI đọc lại task, không cần đọc lại công thức.</p>
+  <p class="cf-it"><b>6.3</b> 😊 <b>Chốt mục tiêu</b> → mục <i class="cf-num cf-num-s">2</i>: User chốt Mục tiêu, Thế nào là hoàn thành, Host → ghi ô 1–3 của task → «Xác nhận User: ĐÃ XÁC NHẬN».</p>
+  <p class="cf-it"><b>6.4</b> 🤖 <b>Liệt kê Mốc · Mục con · Bước</b> → mục <i class="cf-num cf-num-s">3</i> (3 bảng 3.1 · 3.2 · 3.3). <b>Có bản cũ đã gật thì bắt đầu từ bản cũ</b>, chỉ thêm/sửa phần mục tiêu mới đòi.</p>
+  <p class="cf-it"><b>6.5</b> 🤖 <b>Check Master list</b> → mục <i class="cf-num cf-num-s">4</i></p>
+  <p class="cf-it"><b>6.6</b> 🤖 <b>Bộ câu hỏi</b> → mục <i class="cf-num cf-num-s">5</i>: điền cho từng bước vào mục «Ma trận» của task (việc thường: model rẻ · việc khó: frontier).</p>
+  <p class="cf-it"><b>6.7</b> 👥😊 0 ô trống, 0 ô ❓ → hội đồng ký → User gật. Còn ❓ thì sửa, chưa gật. D1–D2 không chặn bước này.</p>
+  <p class="cf-it"><b>6.8</b> 🤖 Chạy thử 1 việc: DOT điền «Khi chạy»; lỗi thì sửa thiết kế, giữ lịch sử, ký lại phần đổi.</p>
+  <p class="cf-it"><b>6.9</b> Vấp ở bước nào thì ghi ngay vào «Sổ vấp MBM» của task rồi sửa CT-008 tại chỗ — để lần sau AI tự chạy không cần User. Sửa thứ tự mục 6: User + Host là đủ. Sửa bộ câu hỏi / ma trận: cần hội đồng ký — hạn chế sửa.</p>
+  <p class="cf-it"><b>6.10</b> Mục tiêu dài hạn: ≥ 85% bước dùng lại từ MOW đã ổn định (đo khi có sổ bước).</p>
   <h4><i class="cf-num">7</i>Đối soát đối tượng — mục tiêu dài hạn (Owner 16/10) · là cơ chế GS-07 ở mục 8</h4>
   <p>Hỏi: làm 1 MOW hoặc MOT đã đụng bao nhiêu đối tượng (Field, sổ, DOT, công cụ, script…)? <b>N = a + b + c + d</b>, phải khớp. Ghim tập N và phiên trước; mỗi mã vào đúng 1 nhóm, xét theo thứ tự a → c → b → d.</p>
-  <ul>
-  <li><b>a · Đã xét</b>: có cụm C trong ma trận.</li>
-  <li><b>c · Mồ côi</b>: chưa có nhà, hoặc có nhà mà không nơi nào trỏ tới.</li>
-  <li><b>b · Ổn định, chưa xét</b>: có nhà, có nơi trỏ, đã test, nhưng MBM chưa hỏi tới → gợi ý sửa MBM.</li>
-  <li><b>d · Chưa xác minh</b>: còn lại; hiện riêng, không gán tuỳ ý.</li>
-  </ul>
-  <ol>
-  <li>Bây giờ: AI làm tay ở bước ④.4 — bảng đối soát trong hồ sơ MOW.</li>
-  <li>Directus làm được phần nào dùng ngay khi dựng nhà: bộ lọc quan hệ rỗng (mồ côi) và có cụm C trỏ tới (đã xét) — có sẵn, không viết mã.</li>
-  <li>Phần còn lại chờ PG. Không viết chương trình mới, không thành dự án riêng.</li>
-  </ol>
+  <p class="cf-it"><b>7.1</b> <b>a · Đã xét</b>: có cụm C trong ma trận.</p>
+  <p class="cf-it"><b>7.2</b> <b>c · Mồ côi</b>: chưa có nhà, hoặc có nhà mà không nơi nào trỏ tới.</p>
+  <p class="cf-it"><b>7.3</b> <b>b · Ổn định, chưa xét</b>: có nhà, có nơi trỏ, đã test, nhưng MBM chưa hỏi tới → gợi ý sửa MBM.</p>
+  <p class="cf-it"><b>7.4</b> <b>d · Chưa xác minh</b>: còn lại; hiện riêng, không gán tuỳ ý.</p>
+  <p class="cf-it"><b>7.5</b> Bây giờ: AI làm tay ở bước 6.6 — bảng đối soát trong hồ sơ MOW.</p>
+  <p class="cf-it"><b>7.6</b> Directus làm được phần nào dùng ngay khi dựng nhà: bộ lọc quan hệ rỗng (mồ côi) và có cụm C trỏ tới (đã xét) — có sẵn, không viết mã.</p>
+  <p class="cf-it"><b>7.7</b> Phần còn lại chờ PG. Không viết chương trình mới, không thành dự án riêng.</p>
   <h4><i class="cf-num">8</i>Giám sát chung — 1 giải pháp cho mọi quy trình (Owner 16/10)</h4>
-  <p>Không giải riêng từng việc. Mỗi quy trình chỉ kéo mã cơ chế vào D1–D2. Dùng tối đa thứ Directus/PG đã có; hạn chế viết mã mới.</p>
+  <p class="cf-it"><b>8.1</b> Không giải riêng từng việc. Mỗi quy trình chỉ kéo mã cơ chế vào D1–D2. Dùng tối đa thứ Directus/PG đã có; hạn chế viết mã mới.</p>
   <div class="cf-mbm-scroll"><table>
   <thead><tr><th>Mã</th><th>Cơ chế có sẵn</th><th>Bắt được</th><th>Trạng thái</th></tr></thead>
   <tbody>
@@ -1397,16 +1385,14 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <tr><td>GS-10</td><td>Báo tự động: Directus Flows (sự kiện / hẹn giờ) · Insights (bảng đếm) · Telegram</td><td>có lỗi mà không ai nhìn</td><td>🟡 có sẵn, bật khi dựng sổ</td></tr>
   <tr><td>GS-11</td><td>PG đếm toàn hệ thống (view / trigger)</td><td>mọi thứ trên, tự động</td><td>⚪ khi PG tham gia</td></tr>
   </tbody></table></div>
-  <p class="cf-mbm-note">🟢 đang chạy · 🟡 có sẵn nhưng chưa bật / còn làm tay · ⚪ chờ PG. Bật thêm cơ chế nào thì sửa dòng đó ở bảng này, mọi quy trình tự hưởng.</p>
+  <p class="cf-it"><b>8.2</b> 🟢 đang chạy · 🟡 có sẵn nhưng chưa bật / còn làm tay · ⚪ chờ PG. Bật thêm cơ chế nào thì sửa dòng đó ở bảng này, mọi quy trình tự hưởng.</p>
   <h4><i class="cf-num">9</i>Ghi ở đâu</h4>
-  <ul>
-  <li>Mục tiêu (mục 2), D1–D2, Mốc, Mục con: dòng MOW trong ML-MOW-TH-001 — tới khi sổ thành collection: ô 1–3 COLLAB của task.</li>
-  <li>Ma trận + cột «Thiết kế»: thẻ dòng ML-DEF-022 (mỗi câu 1 cột cố định; cụm C là danh sách) — tới khi có collection: mục «Ma trận» trong COLLAB của task.</li>
-  <li>Cột «Khi chạy» + biên nhận: CAT-227 (việc) · CAT-228 (dòng hồ sơ). Chữ ký: CAT-025. Nợ: CAT-069.</li>
-  <li>Bảng đối soát (mục 7): hồ sơ việc làm MOW đó (CAT-227).</li>
-  <li>Câu hỏi: định nghĩa 1 lần tại đây; hồ sơ chỉ trỏ mã câu.</li>
-  </ul>
-  <p>Sản phẩm đầu tiên và ví dụ trọn: <b>QTTH 07</b> (MOW-TH-007 bản 2 · vẽ UI theo Master MOW · hoàn thiện Master list · đủ Field để Config) — Owner gật 16/10.</p>
+  <p class="cf-it"><b>9.1</b> Mục tiêu (mục 2), D1–D2, Mốc, Mục con: dòng MOW trong ML-MOW-TH-001 — tới khi sổ thành collection: ô 1–3 COLLAB của task.</p>
+  <p class="cf-it"><b>9.2</b> Ma trận + cột «Thiết kế»: thẻ dòng ML-DEF-022 (mỗi câu 1 cột cố định; cụm C là danh sách) — tới khi có collection: mục «Ma trận» trong COLLAB của task.</p>
+  <p class="cf-it"><b>9.3</b> Cột «Khi chạy» + biên nhận: CAT-227 (việc) · CAT-228 (dòng hồ sơ). Chữ ký: CAT-025. Nợ: CAT-069.</p>
+  <p class="cf-it"><b>9.4</b> Bảng đối soát (mục 7): hồ sơ việc làm MOW đó (CAT-227).</p>
+  <p class="cf-it"><b>9.5</b> Câu hỏi: định nghĩa 1 lần tại đây; hồ sơ chỉ trỏ mã câu.</p>
+  <p class="cf-it"><b>9.6</b> Sản phẩm đầu tiên và ví dụ trọn: <b>QTTH 07</b> (MOW-TH-007 bản 2 · vẽ UI theo Master MOW · hoàn thiện Master list · đủ Field để Config) — Owner gật 16/10.</p>
   </div>
   </details>
 </article>
