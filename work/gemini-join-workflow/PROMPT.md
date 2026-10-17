@@ -14,18 +14,18 @@ Giữ `VPS-GHI` đúng luật gốc, trả ngay khi xong. Mọi thay đổi VPS 
 Read-gate trên. `VPS-GHI` trống ⇒ giữ; bận ⇒ KQ DỪNG · NEXT_TRIGGER=VPS_GHI_TRONG. Guard PRE (đèn, INV24, INV5_6). Ghi STARTED dưới P33.
 
 ## S1 · Đóng lỗ hở (≤10')
-apply-v0 đích `nginx-route-gemini-mcp` về ĐÚNG baseline `a1a8f251…` (đã nghiệm thu G1C-MAX; bỏ dòng nginx tự chèn khoá; log bật lại như baseline). Lý do apply-v0: «R2 GJW: lùi sửa tay Codex 15/10 03:52Z — đóng lỗi an toàn; không rebaseline bản 15/10». `nginx -t` rồi reload qua post_action. Không sửa tệp nào khác ở bước này.
+apply-v0 đích `nginx-route-gemini-mcp` về ĐÚNG baseline `a1a8f251…` (đã nghiệm thu G1C-MAX; log bật lại như baseline). Lý do apply-v0: «R2 GJW: lùi sửa tay Codex 15/10 03:52Z — đóng lỗi an toàn; không rebaseline bản 15/10». `nginx -t` rồi reload qua post_action. Không sửa tệp nào khác ở bước này.
 
 ## S2 · Kiểm cổng (≤10')
 Khuôn đầy đủ (initialize → mcp-session-id): không header = 401 · header sai = 401 · header đúng = 23 tool. Khuôn INV24 cũ (không phiên, khoá sai) = 401. Chạy INV24 thật = PASS. drift-check: 10/10 đích Gemini MATCH. Connector GPT/Claude/Hermes giữ như PRE.
 
 ## S3 · Xoay khoá cổng Gemini — chỉ khi Owner GẬT Q04 (≤15')
-Khoá `MCP_KEY_GEMINI_VPS` đã bị chép vào tệp route 15/10 và có thể nằm trong transcript Codex. Tạo phiên bản GSM mới (không in) → cập nhật `.env` của `incomex-gemini-mcp` qua apply-v0 → khởi động lại RIÊNG container này → cập nhật khoá trong cấu hình Mac của agy, Task Mode (`~/.local/share/gemini-incomex-mcp/mcp_config.json`), Gemini Mac (sao lưu trước, 0600). Kiểm: khoá cũ = 401, khoá mới = 23 tool; INV24 PASS. Không có Q04 ⇒ bỏ S3, ghi lý do.
+Khoá cổng Gemini có thể đã nằm ngoài nơi cất chuẩn (chi tiết trong chat Owner, không ghi repo). Tạo phiên bản GSM mới (không in) → cập nhật `.env` của `incomex-gemini-mcp` qua apply-v0 → khởi động lại RIÊNG container này → cập nhật khoá trong cấu hình Mac của agy, Task Mode (`~/.local/share/gemini-incomex-mcp/mcp_config.json`), Gemini Mac (sao lưu trước, 0600). Kiểm: khoá cũ = 401, khoá mới = 23 tool; INV24 PASS. Không có Q04 ⇒ bỏ S3, ghi lý do.
 
 ## S4 · Dọn + Điều 30/31 (≤10')
 - Bản sao Codex `gemini-mcp-route.conf.bak-gjw-20261015-035214-475520` CHUYỂN vào `/opt/incomex/work/gemini-join-workflow/evidence/` (root 600) + một dòng INDEX.
 - Mac: dừng và gỡ nạp LaunchAgent `com.google.antigravity-cli-daemon` (`agy remote-control`) — hướng gọi vào Gemini đã bỏ; giữ tệp plist, ghi cách bật lại.
-- Phép thử hỏng trên BẢN SAO: route kiểu 15/10 (nginx chèn khoá) ⇒ drift-check MISMATCH và INV24 khuôn cũ FAIL; bản thật PASS.
+- Phép thử hỏng trên BẢN SAO: bản route 15/10 ⇒ drift-check MISMATCH và INV24 khuôn cũ FAIL; bản thật PASS.
 - Guard POST: footprint đúng các mục đã chạm; same_or_better so PRE.
 
 ## S5 · Rà dấu vết (chỉ đọc, ≤10')
