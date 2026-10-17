@@ -7,7 +7,7 @@ Host: GPT Chat — Owner 14/10/2026: «Bạn cho ý kiến rồi GPT chốt cho 
 Host_ID: openai-main
 Host_Surface: GPT Chat
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-17 11:46 +07 · GPT Chat Host · P30
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-17 12:17 +07 · Claude Code CLI · P31
 - 📥 **Trỏ từ COLLAB gốc PROOT05 · Claude Chat · 16/10/2026** (Owner: việc dở của phiên nào phân về phiên đó): đèn #22 còn đỏ phần GJW — Config Guard lệch `nginx-route-gemini-mcp` + INV24 gemini (drift-check 16/10 08:37Z). Chi tiết: COLLAB gốc mục PROOT05.
 - 📥 **Owner 17/10/2026 07:15 qua Claude Chat (root) — GIẢI QUYẾT NỐT VƯỚNG MẮC GJW** (Owner: «phên Gemini JW và HJW đang vướng gì chưa giải quyết … soạn prompt yêu cầu 2 phiên đó giải quyết nốt các vướng mắc»). Đèn #22 đỏ từ 11/10; phần của GJW (bảng đèn 17/10 00:10Z):
   1. **INV24 FAIL:** `INV24.gemini: vps tools=23 e2e=ok badkey=400` — INV24 (G1C-MAX 14/10) đòi khoá sai trả **401**, nay trả **400**.
@@ -18,9 +18,9 @@ Host_Surface: GPT Chat
 - 🏁 Xong khi: (1) INV24 PASS và Config Guard hết lệch đích Gemini, Gemini Chat vẫn chạy; (2) ghế `google-main` ghi vào AGENTS A2/A9; (3) nợ còn lại có chủ; (4) chuyển `work/done-tasks/`.
 - 📍 Tiến độ: [✓ Gemini nối 3 bề mặt] → [✓ R1 GPT rà/READY] → [■ Owner chuyển R1 Claude Code đo CHỈ ĐỌC] → [□ R2 sửa và hồi quy Gemini Chat] → [□ ghi ghế A2/A9 + đóng việc]
 - ✅ Đã đạt: P10/P19 agy · P24 Task Mode (Codex) · P25 Gemini Chat (`f0009df`) · P29 soạn R1 · P30 GPT reviewer ACCEPT và Host READY@afbced8d1b2ef49df3aa267d3371a5d4caaaa77f (chỉ sửa 3 điều bảo vệ bằng chứng).
-- ■ Đang làm: — · 0 RUN active; R1 đã READY, chưa STARTED, đọc-only VPS, không chiếm VPS-GHI.
+- ■ Đang làm: Bước R1 đo chỉ đọc · vòng 1/1 · executor Claude Code CLI (Mac, SSH contabo) · STARTED@GJW-R1-ROUTE-MEASURE-20261017-01 05:17Z · không chiếm VPS-GHI · tiến độ ở P31.
 - ⬜ Còn lại: R1 → R2 → ghế + đóng. Bỏ khỏi việc này: B1 (đã VERIFIED qua Codex P24) · G3 đưa thư (→ HJW N3) · Figma · Gemini API/billing. Nợ có chủ: Directus DNS (chủ claude-mcp) · biên nhận Telegram (giám sát) · xoay khoá JEV (bảo trì).
-- ➡ Kế tiếp: Owner dán một câu chuẩn DROOT38 cho Claude Code chạy R1 chỉ đọc; KQ R1 → GPT Host chốt R2 một lượt giữ Gemini Chat, sửa INV24 + drift; sau đó ghi ghế, đóng việc. NEXT_TRIGGER=OWNER_START_GJW_R1_AFBCED8.
+- ➡ Kế tiếp: 🤖 Claude Code ghi KQ R1 ở P31; KQ R1 → GPT Host chốt R2 một lượt giữ Gemini Chat, sửa INV24 + drift; sau đó ghi ghế, đóng việc. NEXT_TRIGGER=KQ_GJW_R1.
 - ⛔ R1 chỉ đọc. Không lùi mù về baseline (có thể cắt Gemini Chat — JEV 0,79); không rebaseline để che; không đụng HJW (`hermes-config-yaml`, INV20).
 ### 1. Mục tiêu
 Owner 14/10/2026, nguyên văn:
@@ -115,6 +115,11 @@ HUMAN_DIRECTIVE@GJW-20261014-16 EFFECTIVE · task=gemini-join-workflow · scope=
 - HUMAN_DIRECTIVE@GJW-20261014-08 EFFECTIVE · task=gemini-join-workflow · scope=POST-PROTECT Điều 30/31 cho footprint kết nối Google trong lượt G1B hiện hành; hậu kiểm Kuma/Telegram chuyển chủ đúng task sau KQ · step=G1B_POST và follow-up thuộc việc giám sát · recorded_by=openai-main · quote=«Nhưng tiện thể chỗ kết nối này thì bạn nhắn thêm cho agent là đưa luôn vào điều 30, 31 để bảo vệ, tránh việc chúng ta kết nối xong rồi AI khác lại vô tình làm hỏng mất, làm đi làm lại nó mất việc, mất thời gian ra.» · audit=Owner direct chat 14/10/2026. **Không sửa PROMPT/READY, không phát RUN mới; đây là yêu cầu áp dụng luật R4 vốn đã hiệu lực lên kết quả thực hiện.**
 
 ## Nhật ký P
+
+### P31 · Claude Code CLI · 2026-10-17 12:17 +07 · Worker · R1 đo chỉ đọc
+- Ghế: claude-code · Bước/vòng: R1 · 1/1 · Based_on: HEAD `c5fe9f8`, PROMPT commit cuối `afbced8d1b2ef49df3aa267d3371a5d4caaaa77f` · Scope: `work/gemini-join-workflow/PROMPT.md` S0–S5; VPS chỉ đọc qua SSH `contabo`; Mac chỉ đọc · Chưa đọc: —.
+- **Read-gate A6 PASS 05:16Z:** READY@afbced8… = commit cuối chạm PROMPT; ACCEPT cùng SHA ở P30 (GPT rà khác hãng bản nháp Claude Chat P29). Không STOP_REQUESTED, không STARTED treo của RUN này, `## Owner cần quyết` = `- —`, không COUNCIL_ALERT; VPS-GHI gốc trống (lượt chỉ đọc, không chiếm). Ghi chú cổng: ACCEPT do chính GPT Host ký, Claude Chat chưa ký lại 3 điểm GPT sửa (đều làm chặt) — executor hỏi Owner 12:10 +07, Owner dán lại khối lệnh R1 «Chạy đúng RUN đã có Reviewer ACCEPT và Host READY… Thực hiện R1 chỉ đọc» ⇒ chạy.
+- STARTED@GJW-R1-ROUTE-MEASURE-20261017-01 2026-10-17T05:17Z · executor=Claude Code CLI (MacBook, SSH contabo) · chỉ đọc · dự kiến xong 06:15Z
 
 ### P30 · GPT Chat Host · 2026-10-17 · CROSS-VENDOR REVIEW + READY R1
 - **Đã đọc:** Owner 17/10/HUMAN_DIRECTIVE-16, COLLAB P24–P29; PROMPT R1 Claude P29 tại `df13fcde520bdd4f8792f2c03a49ff0647d98803`; xác thực bằng chứng GJW: Gemini tham gia hội đồng thực qua agy/Task Mode/Gemini Chat, nhưng hai lỗi riêng GJW ở #22 là `INV24 badkey=400` và drift `nginx-route-gemini-mcp`. Kết luận ai sửa/nguyên nhân ngày 15/10 vẫn là GIẢ THUYẾT, chưa được tuyên xác minh.
