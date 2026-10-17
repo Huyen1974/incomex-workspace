@@ -9,6 +9,11 @@ Host_Surface: GPT Chat
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-15 09:00 +07 · GPT Chat Host · P21
 - 📥 **Trỏ từ COLLAB gốc PROOT05 · Claude Chat · 16/10/2026** (Owner: việc dở của phiên nào phân về phiên đó): đèn #22 còn đỏ phần GJW — Config Guard lệch `nginx-route-gemini-mcp` + INV24 gemini (drift-check 16/10 08:37Z). Chi tiết: COLLAB gốc mục PROOT05.
+- 📥 **Owner 17/10/2026 07:15 qua Claude Chat (root) — GIẢI QUYẾT NỐT VƯỚNG MẮC GJW** (Owner: «phên Gemini JW và HJW đang vướng gì chưa giải quyết … soạn prompt yêu cầu 2 phiên đó giải quyết nốt các vướng mắc»). Đèn #22 đỏ từ 11/10; phần của GJW (bảng đèn 17/10 00:10Z):
+  1. **INV24 FAIL:** `INV24.gemini: vps tools=23 e2e=ok badkey=400` — INV24 (G1C-MAX 14/10) đòi khoá sai trả **401**, nay trả **400**.
+  2. **INV5_6 drift `nginx-route-gemini-mcp`:** tệp route nginx cổng Gemini lệch baseline Config Guard lập ở G1C-MAX (đếm fail > 1.500 lượt). Nhiều khả năng (1) và (2) cùng một nguyên nhân.
+  - **Cần:** một lượt đo chỉ đọc (diff baseline ↔ live; ai/khi nào đổi qua log apply-v0, mtime, commit; vì sao 400) rồi một lượt sửa theo chu kỳ một vòng: thay đổi không chủ đích ⇒ lùi về baseline qua apply-v0 (401 trở lại); có chủ đích ⇒ apply-v0 baseline mới kèm lý do + cập nhật INV24 nếu kỳ vọng đổi, có phép thử hỏng. Không rebaseline để che; không đụng phần HJW (`hermes-config-yaml`, INV20).
+  - **Thứ tự (Owner):** Bảng GJW đứng từ 15/10 (chờ rà B1 Gemini Mac) ⇒ Host cập nhật Bảng, làm việc sửa đèn này trước B1. Đích: phần GJW của #22 sạch. Báo cáo trên repo, chat chỉ tóm tắt.
 - 🎯 Mục tiêu: Chủ trương Owner 14/10: Gemini thành viên Google chính thức có kết nối **tối đa khả thi** trên các bề mặt Google dùng thật (agy, Gemini Mac/Spark, Antigravity Browser/Remote), cả gọi ra và gọi vào từ HJW; không chỉ dừng ở CLI đủ ghi P.
 - 🏁 Xong khi: ô 2 + C7/C8/C9: google-main độc lập có repo/KB/JEV/Hội đồng; **kiểm thử tất cả** kênh/công cụ Google có triển vọng (không dừng sau một đường PASS); có luồng máy→Gemini→receipt không Owner copy-paste và bảng bằng chứng từng bề mặt, đúng giới hạn thực tế đã thử.
 - 📍 Tiến độ: [✓ G1B google-main/repo/KB] → [✓ G1C cũ huỷ] → [✓ Claude P16 ACCEPT G1C-MAX] → [✓ GPT P17 READY G1C-MAX] → [■ Owner giao Claude Code một lượt nối tối đa] → [□ Google hội đồng chính thức/G3 đưa thư] → [□ nghiệm thu].
