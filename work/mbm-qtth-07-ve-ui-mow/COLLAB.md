@@ -35,7 +35,7 @@ D1, D2 (MBM 2.5, không chặn): đã rà — xem tab Nội dung công việc, m
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
-Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công việc» trên trang Task (tệp `view.html` của việc này) — 1 nơi, không chép lại ở đây.
+Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công việc» trên trang Task (tệp `view.html` của việc này) — 1 nơi, không chép lại ở đây. Nợ kỹ thuật (việc chưa làm được do công cụ, N01…): cũng ở đó — không dựng hệ phức tạp, xong QTTH 07 thì lên collection + DOT.
 
 #### ☑ Việc cần làm — đọc lại mỗi lượt, xong tích kèm commit
 | MBM | Việc | Ai | Xong khi | |
@@ -86,6 +86,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P30 · 17/10 21:33 · nợ kỹ thuật: «Cái gì chưa làm được do công cụ thì ghi chú nợ kỹ thuật QTTH 007 (chúng ta không cố build hệ thống phức tạp như codex đã làm mà sẽ đưa lên collection sau khi hoàn thành QTTH 007. DOT trên collection sẽ rất nhanh, giờ chỉ cần ghi chú danh sách là được, có một ít thông tin không đáng ngại.» → N01–N08 ở view.html.
 - P29 · 17/10 21:18 + 21:26 · rà tới 3.2: «đồng ý, bạn sửa tiếp đi, làm sao để chạy không vướng. AI biết phải làm gì? hiểu ngay và không hiểu sai» → MBM r5.22 · mục tiêu + hoàn thành có số · rà D1/D2 · CAT-249 chưa có đường nạp dòng nên bảng 8 MBM là dữ liệu đầu tạm thời.
 - P28 · 17/10 19:43 · đánh mã xong: MBM r5.21 (mục 1–9 đánh mã; 6.0 luật chung, bước 6.1–6.8) → danh sách việc của task dùng mã 6.1–6.8.
 - P27 · 17/10 18:45 + 19:43 · đánh mã nhất quán: «Bạn rà lại, nên đánh số nhất quán thống nhất tuyệt đối từ MBM công thức => hướng dẫn => QTTH 07 và các quy trình sau này. Ví dụ hướng dẫn không nên để chấm/gjach đầu dòng mà đển 1.1, 1.2... Nguyên tắc mỗi thứ có tên riêng, duy nhất để dễ gọi tên, dễ định nghĩa. 2.1 đến 2.4 là cùng bước. Nên có cách ghi THẬT NGHẮN GỌN để cả con người và AI cùng hiểu là cùng bước hoặc khác bước. Những thứ như thế này nên nhất quán tuyệt đối» — «Miễn là nhất quán, nhìn ngắn gọn và nguyên tắc đơn giản nhất có thể. Bạn đánh mã đi» → MBM r5.20 (mục 1–4) + QTTH 07 đổi theo; mục 5–9 làm tiếp.
