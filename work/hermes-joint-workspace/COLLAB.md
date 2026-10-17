@@ -495,6 +495,7 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
   5. **Stop-hook báo «chưa có KQ» sai 3 lần** (`0eaa062`, `1453fed`, `d0b21631`; hook Mac `send failed: http` 14:36:04Z 16/10).
   - **Gỡ khoá chéo (Owner cho phép):** luật ⛔ của Bảng «không sửa Hermes VPS khi … #11 đỏ/Guard FAIL» KHÔNG chặn lượt sửa có mục đích làm xanh chính #11/#21/#22-phần-HJW (đèn đỏ do chính HJW, không sửa thì không bao giờ xanh). Lượt đó vẫn giữ VPS-GHI, Điều 30/31, `.pre`/lùi, không rebaseline che lỗi, không đụng phần GJW (INV24, `nginx-route-gemini-mcp`).
   - **Thứ tự (Owner):** (1) → một lượt sửa gộp (2)(3)(4) theo chu kỳ một vòng (DROOT55) → (5) → rồi mới quay lại Courier. Đích: #11, #21 xanh; #22 chỉ còn phần GJW nếu GJW chưa xong. Báo cáo trên repo, chat chỉ tóm tắt.
+- 📥 **Owner 17/10/2026 21:23 qua Claude Chat — NÚT NÂNG CẤP HERMES (P316):** sau KQ GREEN-FIX, Owner dán Claude Code một câu để chạy đề bài P316 `HJW-UPGRADE-BUTTON-20261017-01`: máy tự diễn tập, Owner bấm một nút Telegram, Mac tự theo; đích bản chính thức v0.22.1 (`297552a9`), không chạy hai lệnh Codex (đích `main` `7e9eb8d`). Không chen vào GREEN-FIX.
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
 - 📍 **Tiến độ:** `[✓ Hermes VPS] → [✓ N1] → [✓ N2] → [✓ N3: khoá Mac MAC_LOCAL_PASS (P309)] → [■ N3: sửa xanh đèn HJW #11/#21/#22 + stop-hook (Owner 17/10)] → [□ N3: thử chỗ khó Courier, làm lại phần thiếu của P313] → [□ N3: Courier + T9] → [□ N4] → [□ N5] → [□ N6]`. Update phiên bản Hermes là nhánh N3 riêng không gate Courier; phương án Claude Code CLI courier đợi Owner GẬT/LẮC rõ, không thử claude.ai web.
@@ -686,6 +687,7 @@ CẤM: model gọi AI khác, lập lịch, tạo assignment, sửa repo/Guard, t
 - Lộ trình sáu bước: N1 đồng bộ Mac–Cloud đã đạt; N2 Dots đã đạt với residual đã ghi; **N3: Hermes Mac Remote VPS + Local OpenRouter trước, MAC_PASS rồi Hermes Mac nhắc GPT/Claude vào repo, T9**, 2a residual có chủ không chặn Mac; N4 lõi hội đồng, N5 hai cấp, N6 nghiệm thu. Bước đang làm theo Bảng.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- **OWNER 17/10/2026 21:23 +07 · VỚI CLAUDE CHAT (ý chính, viết lại gọn) — NÂNG CẤP HERMES ĐƠN GIẢN, TỰ ĐỘNG:** Hermes chạy trên VPS, bản MacBook chỉ làm màn hình; lần nâng cấp nào cũng khó, bản VPS và Mac đôi khi lệch gây lỗi. Codex vừa xử lý nhưng Hermes vẫn không tự nâng được. Kiểm lại lịch sử, tìm cách nâng an toàn và đơn giản hoá; cần thì giao Claude Code CLI làm dứt điểm (đã làm vài lần vẫn thất bại); muốn tự động hoặc Hermes tự nâng cấp cho chính nó. ⇒ Áp (P316): một nút Telegram do Owner bấm, còn lại máy làm (chuẩn bị, diễn tập, nâng, kiểm, lùi, báo); đích bản chính thức của hãng; Mac tự theo đúng bản VPS; chạy sau GREEN-FIX.
 - **OWNER 17/10/2026 11:32 +07 · NGUYÊN VĂN (với Claude Chat ghế HJW, kèm khối 07:15 gửi Host HJW):** “Còn 1 số vấn đề cần xử lý để HJW không bị lỗi. Bạn kiểm tra và cho xử lý. Có thể chưa làm xong nhưng không được để lại tình trạng lỗi, cả server bị ảnh hưởng về việc đang làm.” ⇒ Áp: Claude Chat làm Host tạm lượt sửa, GPT Chat rà một vòng; mỗi pha sửa phải lùi được ngay, không bỏ máy chủ nửa chừng (P314). Khối 07:15 (5 việc, thứ tự, ngoại lệ đèn đỏ): dòng 📥 đầu Bảng.
 - **OWNER 12/10/2026 15:35 +07 · NGUYÊN VĂN (với Reviewer, kèm mẫu B2 sau P302 — RÀ CHẶT ROADMAP · HERMES HỎI REPO ĐỊNH KỲ 0 TOKEN · THỬ ĐIỀU KHIỂN GPT/CLAUDE QUA WEB · LÀM CHỖ KHÓ TRƯỚC):** “Bạn cần giúp tôi rà soát thật chặt lại roadmap, tránh để lệch hoặc bổ sung các phương pháp không được phép. Vừa rồi các bạn đã tự động bổ sung thêm việc kết nối trực tiếp API mà trong kế hoạch đã thống nhất loại bỏ từ đầu. Phải bám sát roadmap không để lệch nữa nhé. Hình dung của tôi bây giờ là: Cho hermes gọi vào workspace theo định kỳ để xem có thông tin gì mới? (dùng cơ chế mặc định của hermes không cần dùng token cho việc này. Và nếu có thì thử điều khiển GPT và claude qua web xem có khả thi không? Phải xử lý được chỗ này thì mới khép kín được vòng lặp, nếu không phải tìm cách khác. Vì vậy ưu tiên xử lý những chỗ khó trước để chốt lại có cần điều chỉnh hướng đi hay không.” ⇒ Áp: mỗi cách làm trên repo phải truy được về một lời Owner ở mục này, không có thì gỡ; Hermes hỏi repo bằng cron có cổng script của chính Hermes, 0 token khi không có gì mới; việc kế trong N3 là thử chỗ khó (Hermes nhắc GPT/Claude qua web), kết quả quyết giữ hay đổi hướng (P303).
 - **OWNER 12/10/2026 14:41 +07 · CHỈ ĐẠO TRỰC TIẾP KHI RUN ĐANG CHẠY — MIỄN CREDIT LIMIT:** “Các đề xuất của claude chưa cần thiết, tôi có thể kiểm soát mọi thứ trên openrouter được, nếu cần thì thay khóa, không cần phức tạp lắm làm mất thời gian.” Bối cảnh RUN `HJW-N3-MAC-KEY-20261012-01` P300 đang STARTED; worker báo usage khóa mới 0→0,000472615 USD lúc 07:37:58Z sau PONG CLI, `Credit limit=null`, và đề nghị Owner vào web đặt 10 USD. Host áp trực tiếp quyền Owner: **không bắt Owner đặt Credit limit 10 USD, chấp nhận `limit=null` trong lượt này**, Owner tự quản lý chi phí/rotation trên OpenRouter; không coi null là lỗi/gate chặn; không xin Owner thêm thao tác liên quan hạn mức, không tạo khóa/secret mới. Giữ nguyên kiểm khóa khác VPS, secret `openrouter_for_hermes_macbook`, usage CLI+Desktop và GUI Local/Remote; Claude Code tiếp tục ngay phần Desktop khi Owner xác nhận trong terminal đang mở. **DROOT31:** không thay PROMPT/READY/HOLD vì RUN đã STARTED; chỉ ghi chỉ đạo Owner + Host vào COLLAB, không tự khởi chạy agent.
@@ -6467,6 +6469,82 @@ Ghế: claude-main làm **Host tạm** lượt này — Owner 17/10 11:32 nói t
 - **Phạm vi và rủi ro còn:** A/B/C mỗi pha PRE→mutation→POST→negative/canh/lùi độc lập, pha hỏng phải lùi về PRE trước khi trả VPS-GHI, pha PASS thật giữ. Nếu C không có pinned image/digest đúng hoặc không chứng minh hồi quy/rollback thì **C DỪNG trước recreate**, A/B vẫn đạt; không để lại trạng thái agent-data nửa mới/nửa cũ. KQ XONG chỉ khi cả mục HJW đạt thật, nếu không KQ DỪNG PARTIAL + đúng một NEXT_TRIGGER, không bỏ VPS treo. #22 còn `nginx-route-gemini-mcp` + INV24 thuộc **GJW**; dù HJW tốt vẫn có thể 21/22, không được đổ GJW về HJW, không tự sửa. Đ30/31/VPS-GHI/DROOT56/biên nhận theo đường cũ; không tắt Guard.
 - **ĐÈN/nguồn sự thật:** P314 04:30Z 17/10: 19 xanh · 3 đỏ (#11 DEBT_OVERDUE HJW, #21 drift HJW, #22 composite HJW+GJW); VPS sample còn ~40 GiB trống, `incomex-config-drift-check.service` failed. Reviewer không đo trực tiếp Kuma mới sau P314, executor S0/POST đo tươi. Chưa có RUN sửa trên VPS; không claim server đã xanh.
 - **SHA/READY:** GPT sửa PROMPT qua 3 commit `c90e04b`, `aaaa385`, `31976ce`, **last-touch chính xác 31976ce9671dbf1daed2dc1cf12f1c588986c5ab**. Dòng `READY@5a9f064...` Host đã ký sẵn trong P314 **HẾT HIỆU LỰC** theo chính điều kiện P314/A6 vì PROMPT thay. Reviewer **KHÔNG** phát READY/RUN. **NEXT_TRIGGER=CLAUDE_HOST_RECHECK_SHA_31976CE_SIGN_NEW_READY_THEN_OWNER_MAC_CLI**. Claude Chat (Host tạm) chỉ cần đọc P315/diff mới, nếu chấp nhận giữ nguyên PROMPT và ký `READY@31976ce9671dbf1daed2dc1cf12f1c588986c5ab` trong một mục Host kế tiếp, rồi trả Owner đúng một câu DROOT38(c) để giao Claude Code mới. Không thêm vòng Reviewer khác khi không có thay đổi PROMPT.
+
+### P316 · Claude Chat (claude-main · lệnh trực tiếp Owner) · 2026-10-17 21:55 +07 · **NÂNG CẤP HERMES: VÌ SAO LẦN NÀO CŨNG KHÓ · CHỐT «NÚT NÂNG CẤP» · ĐÍCH BẢN CHÍNH THỨC v0.22.1 (KHÔNG DÙNG 7e9eb8d) · ĐỀ BÀI CLAUDE CODE CHẠY SAU GREEN-FIX · 0 RUN**
+Ghế: claude-main · Owner hỏi thẳng Claude Chat 17/10 21:23 (dòng §3), kèm báo cáo Codex 17/10 và tin Hermes «không chạy được vì NoNewPrivileges». Based_on `4f6e4af`. Đã đọc: P70, P288–P291, P314–P315, README `HJW-UPGRADE-20261017` và `evidence/hermes-safe-update-20260921`, ghi chú phát hành v0.22.0 + v0.22.1 của hãng (đọc 17/10), `bang-den.json` 14:20Z (19 xanh · 3 đỏ: #11, #21, #22). Không RUN, không sửa máy.
+
+**1 · Gốc rễ — năm lần, một chuỗi**
+
+| Ngày | Chuyện | Gốc |
+|---|---|---|
+| 21/09 | Nút Update chạy `hermes update` trong hộp cát → mã lẫn, mất định tuyến | cập nhật cần root, Hermes không có (đúng thiết kế) |
+| 02/10 | App Mac đi trước VPS ~2.000 commit → lỗi giao thức | hai nơi tự cập nhật riêng |
+| 10–11/10 | `apply` không bao giờ áp được | hãng chỉ có `main` (bản 0.0.0), không có đích chuẩn để ghim |
+| 11/10 | Desktop ghi hai dòng vào config VPS → #21 đỏ tới nay | app Mac chạm cấu hình VPS |
+| 17/10 | Codex sửa xong bộ nâng cấp nhưng không ai có root chạy | mỗi lần phải mời một agent có root vào, mỗi lần một kiểu |
+
+⇒ Chuỗi chung: cần root + phải mời agent ngoài + không có đích chuẩn + hai nơi cập nhật + mỗi lần nâng làm đỏ đèn bảo vệ.
+
+**2 · Sự thật mới (tài liệu hãng)**
+- Từ v0.22.0 (13/10) hãng có kênh ổn định SemVer: bản cài từ nguồn mặc định đi theo bản phát hành, `main` là kênh thử. Bản ổn định mới nhất: v0.22.1 = `297552a9d646119871391d202509822cd86330df` (14/10).
+- Đích Codex `7e9eb8d` = `main` ngày 17/10, không phải bản phát hành ⇒ bỏ. Bộ nâng cấp Codex (ghim SHA, biên nhận, khôi phục dữ liệu, giới hạn tài nguyên) vẫn dùng.
+- Rủi ro v0.22 chưa ai thử trên máy mình: bỏ lớp import tương thích plugin (đụng plugin HJW); `sessions.auto_prune` mặc định bật (xoá phiên đã đóng quá 90 ngày); một gateway + một backend mỗi máy; Python 3.14 + `hermes pm` (thế hệ môi trường, tốn đĩa tới khi gc); app macOS là gói ký sẵn, tự cập nhật; `auth.adopt_external_logins` (tắt để Hermes Mac không mượn đăng nhập Claude Code — Owner cấm 11/10).
+
+**3 · Chốt**
+- Không chạy hai lệnh trong README Codex (đích `main`).
+- «Nút nâng cấp»: máy tự chuẩn bị + diễn tập → Owner bấm một nút Telegram → máy nâng, tự kiểm, hỏng tự lùi, tự báo → app Mac tự theo đúng bản VPS. Hermes được xin nâng (nhắn «nâng cấp» thì ra thẻ), không tự áp; hộp cát giữ nguyên.
+- Thứ tự: GREEN-FIX (P315 đã rà) → đề bài mục 4 → Owner bấm thẻ.
+- Đề bài để ở đây vì `PROMPT.md` đang giữ GREEN-FIX; không mở việc, không tạo tài liệu mới; tài liệu vận hành duy nhất = README `HJW-UPGRADE-20261017` (sửa tại chỗ).
+- JEV `gen-dec-1792247597-SRO5CSl6PrvpBe8q2Afi`: đích v0.22.1 0,85 (`7e9eb8d` 0,00) · nút + root 0,99 · Mac gói ký đúng bản 0,97 · GREEN-FIX trước 1,00 · diễn tập Codex còn hở rủi ro v0.22 0,94.
+
+**4 · ĐỀ BÀI `HJW-UPGRADE-BUTTON-20261017-01`** · Claude Code CLI trên MacBook, cửa sổ mới · có sửa VPS + Mac · lệnh trực tiếp Owner (§3, 17/10 21:23)
+
+**Đ1 · Bối cảnh** (đọc rồi chỉ kiểm lại, không khảo sát lại từ đầu)
+- Đ1.1 Hermes VPS: `hermes-serve` (API 127.0.0.1:9119) + `hermes-gateway` (Telegram), user `hermes`, hộp cát systemd `NoNewPrivileges=yes`; mã `/var/lib/hermes/hermes-agent`, nhà `/var/lib/hermes/.hermes`, khoá tmpfs `/run/hermes`; đang 0.21.5 @`749220ef`.
+- Đ1.2 App Mac: màn hình nối VPS qua đường hầm launchd `com.nmhuyen.hermes-tunnel` + Hermes Local (This device) dùng khoá riêng GSM `openrouter_for_hermes_macbook`; app build từ cây `~/.hermes/hermes-agent` (origin = gương VPS, `mac-lock`, hook báo bản cho INV14).
+- Đ1.3 Đường nâng duy nhất `/usr/local/sbin/hermes-safe-update` (root, Codex sửa 17/10) + timer đêm sẵn có (đang chỉ báo). Hồ sơ Codex: `/opt/incomex/work/hermes-joint-workspace/HJW-UPGRADE-20261017/` (`README.md`, `src/rehearse.py`, `src/test_safety.py`, `src/Dockerfile`, `src/adopt-verified-launcher.sh`). Bộ kiểm Hermes tự viết: `/var/lib/hermes/work/bao-cao/verify-sau-nang-cap.sh`.
+- Đ1.4 Hãng (đọc ghi chú phát hành v0.22.0, v0.22.1 và tài liệu update channels / managed deployment / desktop trước khi làm): kênh ổn định; đích lượt này **v0.22.1 = `297552a9d646119871391d202509822cd86330df`**; phải xử: plugin mất lớp tương thích, `sessions.auto_prune` bật mặc định, một gateway + một backend, Python 3.14 + `hermes pm`, app macOS gói ký tự cập nhật.
+- Đ1.5 Không được lặp: 21/09 cập nhật trong hộp cát; 02/10 Mac đi trước VPS; 11/10 app Mac ghi config VPS.
+
+**Đ2 · Đích (Owner)** — Nâng Hermes chỉ còn một nút: máy tự chuẩn bị + diễn tập → Owner bấm một nút Telegram → máy nâng, tự kiểm, hỏng tự lùi, tự báo → app Mac tự lên đúng bản VPS. Hermes được xin nâng, không bao giờ tự áp; không bỏ hộp cát, không cấp sudo cho Hermes.
+
+**Đ3 · Điều kiện bắt đầu** (chỉ đọc)
+- Đ3.1 `HJW-GREEN-FIX-20261017-01` đã có KQ và cấu hình Hermes (#21) đã sạch; VPS-GHI trống. Thiếu ⇒ ghi một dòng KQ DỪNG `CHUA_GREEN_FIX`, thoát, không chờ.
+- Đ3.2 Đo tươi: `logs/bang-den.json`, Config Guard mục Hermes, `hermes-safe-update status`, đĩa trống ≥ 25 GiB. Giữ VPS-GHI; ghi STARTED trong một P mới của HJW.
+
+**Đ4 · Làm** (một lượt, đúng thứ tự; sửa tại chỗ, không dựng hệ thứ hai)
+- Đ4.1 Diễn tập v0.22.1 bằng bộ thử Codex (sửa tại chỗ), thêm: chạy đúng ExecStart + môi trường của 2 unit thật; nạp plugin HJW thật (hjw-control ×3, `hjw_gate.py`) và chạy hàm cổng duyệt ở chế độ thử; Telegram qua máy chủ giả (không token thật, không tranh getUpdates); MCP 6533 (401 khi thiếu khoá, 200 với khoá hẹp Hermes); `sessions.auto_prune: false` giữ sau migrate; đo đĩa sinh thêm. Plugin vỡ ⇒ sửa plugin (không vá lõi Hermes), diễn tập lại. Dọn sạch, ghi sổ `storage-registry`.
+- Đ4.2 Chặn nâng lén: đặt bản VPS ở chế độ «managed» theo cách chính thức của hãng ⇒ `hermes update` trong hộp cát, `/update` Telegram, nút Update / Update all instances từ app Mac đều bị từ chối rõ, kèm câu chỉ về nút nâng cấp.
+- Đ4.3 Nút nâng cấp — mở rộng `hermes-safe-update`:
+  - Đ4.3.1 Timer đêm sẵn có: có bản ổn định đã ra ≥ 3 ngày, mới hơn bản đang chạy ⇒ tự diễn tập (Đ4.1) ⇒ đạt thì gửi thẻ, trượt thì một tin «giữ bản cũ + lý do». Không có bản mới ⇒ im.
+  - Đ4.3.2 Thẻ do root gửi thẳng Bot API (không phụ thuộc tiến trình Hermes), khuôn S8: `HJW · NÂNG CẤP HERMES · CHỜ DUYỆT` · `Từ: 🤖 máy → Tới: 😊 Owner` · bản cũ → bản mới (ngày phát hành) · diễn tập đạt N/N · Hermes nghỉ ~15′ · hỏng tự lùi. Nút xanh `✅ Nâng cấp ngay`, nút thường `Để sau`. Bấm xong: trả lời callback ngay, sửa chính tin thành ĐÃ DUYỆT + giờ, gỡ nút.
+  - Đ4.3.3 Duyệt không giả được: chỉ ID Telegram của Owner; mã dùng một lần, root chỉ giữ mã băm; hết hạn sau 7 ngày hoặc khi có bản mới hơn; ưu tiên dùng lại xử lý callback tất định của plugin HJW. Mô hình Hermes tự ghi tệp yêu cầu ⇒ bị từ chối.
+  - Đ4.3.4 Hermes xin nâng: chỉ được bảo máy gửi lại thẻ (một lệnh cố định), không có quyền áp.
+  - Đ4.3.5 Sau khi bấm: systemd path → service root oneshot: `hermes-safe-update apply` đúng SHA đã diễn tập → ghi nhận launcher (`adopt-verified-launcher.sh`) → ghi nhận config sau migrate qua `incomex-config-apply-v0` chỉ khi khác biệt = phần migrate + khoá ở Đ4.3.7 (khoá cũ giữ nguyên) → kiểm thật (bộ kiểm của Hermes nhận đích theo tham số + `hermes-safe-update health`): model mặc định và alias `fast` trả lời qua OpenRouter thật; Telegram nối + một tin qua gateway có message_id; MCP 6533; plugin HJW nạp; Config Guard Hermes sạch; #21 xanh. Hỏng bất kỳ ⇒ tự lùi + báo. Tin tiến độ: BẮT ĐẦU → XONG hoặc ĐÃ LÙI.
+  - Đ4.3.6 Không chạy khi VPS-GHI bận hoặc apply-v0/Guard đang chạy, đĩa thiếu, đèn đỏ thuộc Hermes. Đỏ của việc khác chỉ ghi trong thẻ, không chặn. Bị chặn ⇒ thẻ đổi «tự chạy khi máy rỗi», không bắt bấm lại.
+  - Đ4.3.7 Cấu hình trong lần nâng: `sessions.auto_prune: false` (Owner chưa duyệt xoá dữ liệu); kênh `stable`; `security.allow_lazy_installs: false` nếu không làm hỏng tính năng đang dùng (giữ thì ghi lý do).
+- Đ4.4 Mac tự theo VPS:
+  - Đ4.4.1 Chuyển app Mac sang gói ký chính thức của hãng (Apple Silicon) đúng bản VPS; tắt hoặc ghim tự cập nhật của app theo cách hãng hỗ trợ.
+  - Đ4.4.2 launchd `com.nmhuyen.hermes-sync`: chạy khi đăng nhập/thức dậy + mỗi 60′ khi máy thức; VPS đổi bản ⇒ tải đúng gói, kiểm chữ ký, thay khi app tắt (đang mở thì thông báo macOS «mở lại Hermes»), báo bản về VPS cho INV14. Không giữ terminal.
+  - Đ4.4.3 Hermes Local: giữ khoá riêng; đặt `auth.adopt_external_logins: false`, `sessions.auto_prune: false`; kiểm lại đường hầm tới backend VPS sau v0.22.
+  - Đ4.4.4 Cây nguồn Mac cũ, `mac-lock`, hook: không xoá, chuyển vào kho lưu trữ có INDEX. `~/.local/bin/hermes-sync` (P291): sửa tại chỗ thành lệnh xem trạng thái / đồng bộ tay, không tạo lệnh trùng.
+- Đ4.5 Điều 30/31 trong cùng lượt: Config Guard cho mọi tệp mới/đổi trên VPS (unit path/service, `hermes-safe-update`, plugin, cấu hình managed); INV14 đổi sang so bản app Mac ↔ VPS — Mac sau VPS = một tin Telegram, không làm Guard tổng đỏ; Mac trước VPS hoặc khác nhánh = đỏ; selftest + mutant; sổ `storage-registry` cho diễn tập, thế hệ `hermes pm` (giữ hiện tại + liền trước để lùi), bản chụp. Chạy Guard POST.
+- Đ4.6 Đ4.1–Đ4.5 đạt ⇒ gửi thẻ thật đầu tiên (0.21.5 → v0.22.1) và nói Owner một câu «thẻ đã gửi, bấm lúc tiện». Owner bấm khi phiên còn mở ⇒ theo tới XONG, nghiệm thu thật cả Mac. Không bấm ⇒ kết thúc lượt, không chờ; máy tự làm khi Owner bấm và ghi kết quả vào README.
+
+**Đ5 · Cấm** — Tự áp nâng cấp production; đích `main` hoặc `7e9eb8d`; bấm Update trong app Mac; bỏ `NoNewPrivileges` hay cấp sudo cho Hermes; vá lõi Hermes; xoá dữ liệu (chỉ dọn đồ thử của chính lượt); tạo tài liệu mới — README `HJW-UPGRADE-20261017` là tài liệu vận hành duy nhất, sửa tại chỗ (đầu trang cho Owner: «nâng cấp = bấm nút» + thanh trạng thái; giữa cho AI; cuối là bằng chứng); báo cáo Hermes `2026-10-17-hermes-nang-cap-vps-mac.md` chỉ thêm một dòng trỏ về README.
+
+**Đ6 · Nghiệm thu** (bảng đạt/không + số đo thật trong KQ; mã U riêng, không lẫn T1–T9 của HJW)
+- U1 diễn tập v0.22.1 đạt (plugin HJW, Telegram giả, MCP, auto_prune false) · U2 nâng lén bị từ chối (hộp cát, /update, Update all instances), VPS không đổi · U3 tệp yêu cầu giả, nút cũ, bấm lặp, sai người ⇒ không chạy · U4 thẻ đúng khuôn, bấm xong đổi trạng thái.
+- U5 cài lỗi thử trên bản sao ⇒ tự lùi, báo đúng · U6 sau khi bấm: VPS = v0.22.1, model thật trả lời, Telegram có message_id, MCP đúng, #21 xanh, Config Guard sạch · U7 app Mac = bản VPS trong ≤ 60′ sau khi Mac thức, INV14 xanh, chat được tới VPS · U8 app Mac không tự lên quá bản VPS (không thử được thì ghi giới hạn).
+- U9 nhắn Hermes «nâng cấp» ⇒ chỉ ra thẻ · U10 đồ thử dọn sạch, sổ khớp, #11 không đỏ vì lượt này · U11 Guard POST đạt, mutant bắt · U12 README duy nhất cập nhật, ba tuần sau đọc vẫn hiểu.
+- U6–U7 chỉ có khi Owner bấm; chưa bấm thì ghi «máy tự kiểm khi bấm», không tính đạt.
+
+**Đ7 · KQ** — Một P mới của HJW: dòng đầu cho Owner; bảng U1–U12; đường lùi; việc còn lại có chủ. Trả VPS-GHI. Sửa Bảng HJW + dòng HJW ở COLLAB gốc cùng commit.
+
+**5 · Hai vòng rà**
+- V1 — đối chiếu lời Owner và luật: một nút (không agent tự áp), không chờ, không giữ terminal Mac, một tài liệu, ghi số bản cụ thể, bản ổn định chứ không phải mới nhất trong ngày, Đ30/31 trong cùng lượt, không xoá dữ liệu.
+- V2 — gốc rễ: mỗi mắt xích ở mục 1 có một việc ở mục 4 gỡ (root trực sẵn thay agent mời vào; đích chính thức; Mac gói ký tự theo; ghi nhận Guard nằm trong lượt nâng). Rủi ro mới đều có phép thử âm: duyệt giả, nâng lén, plugin vỡ, xoá phiên, đĩa phình.
+- Bước kế: GREEN-FIX có KQ ⇒ Owner dán một câu vào Claude Code cửa sổ mới: «Đọc AGENTS.md và work/hermes-joint-workspace/COLLAB.md mục P316, thực hiện đề bài HJW-UPGRADE-BUTTON-20261017-01 (lệnh trực tiếp Owner); báo kết quả vào COLLAB.»
 
 
 
