@@ -32,17 +32,32 @@ ol.issues li{margin:5px 0}
 <body>
 <main>
 <h1>QTTH 07 — bảng làm việc theo MBM</h1>
-<p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 17/10/2026 19:55 · làm lại mục 3 theo MBM r5.20, như AI lần đầu · danh sách việc và tiến độ ở tab Kiểm soát.</p>
+<p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 17/10/2026 21:40 · theo MBM r5.22, như AI lần đầu · danh sách việc và tiến độ ở tab Kiểm soát.</p>
 
 <h2>⚠ Vướng khi làm mục 3 theo MBM r5.18</h2>
 <ol class="issues">
 <li>✅ <b>Đã sửa (MBM r5.19):</b> mục con Triển khai đánh 3A, 3B, 3C; mã bước trong mục con 3A.1, 3A.2…</li>
 <li>✅ <b>Đã sửa (MBM r5.19):</b> bỏ câu «Mục con chỉ khi mốc có hơn 5 bước» dưới bảng 3.3.</li>
 <li>✅ <b>Đã sửa (MBM r5.20):</b> 2.1–2.4 là bước cố định của Mốc 2; Mốc 2 không có mục con. Luật mã: có chữ = mục con, có chấm = bước.</li>
-<li><span class="dot y"></span><b>Đóng việc ở đâu?</b> (đổi việc ở CAT-227 sang «xong», đếm khúc mắc còn mở) — 5 mốc không có «Đóng». Em đặt vào Mốc 5 Báo cáo.</li>
+<li>✅ <b>Đã sửa (MBM r5.22):</b> Mốc 5 Báo cáo gồm đóng việc (CAT-227 «xong»).</li>
 <li><span class="dot y"></span><b>Hồ sơ CAT-228</b> (bước cũ «tạo bảng hồ sơ cho việc»): đã có CAT-227 + CAT-069 thì còn cần không? Em tạm bỏ.</li>
 <li><span class="dot y"></span><b>Bước theo nhóm con</b> ở Triển khai: anh đang nghĩ thêm — em tạm viết theo CT-004 / CT-006, chưa lặp từng nhóm con.</li>
 </ol>
+
+<h2><span class="num">2</span>Mục tiêu · 2.5 Giám sát D1, D2 (không chặn)</h2>
+<p class="note">Mục tiêu và hoàn thành (có số) ở tab Kiểm soát, ô 1–2. Dưới đây: rà CAT-249 — tạm đọc bảng 8 MBM (GS-01…GS-11).</p>
+<div class="wrap"><table>
+<thead><tr><th>Câu</th><th>Mã</th><th>Cơ chế</th><th>Dùng cho QTTH 07</th><th>Khi nào</th></tr></thead>
+<tbody>
+<tr><td>D1</td><td class="c">GS-01</td><td>Quyền ghi theo danh tính</td><td>mọi ghi đi qua cổng agent</td><td><span class="chip ok">đang chạy</span></td></tr>
+<tr><td>D1</td><td class="c">GS-02</td><td>Config Guard</td><td>khoá sửa ngoài đường đã duyệt</td><td><span class="chip ok">đang chạy</span></td></tr>
+<tr><td>D1</td><td class="c">GS-03</td><td>Chỉ DOT ghi sổ (Directus Roles)</td><td>mục tiêu 5: gõ tay = 0</td><td><span class="chip warn">bật ở bước 2.4</span></td></tr>
+<tr><td>D1</td><td class="c">GS-04</td><td>Ràng buộc ô (Directus)</td><td>mục tiêu 4: ô bắt buộc của hợp đồng thông tin</td><td><span class="chip warn">bật ở bước 2.4</span></td></tr>
+<tr><td>D2</td><td class="c">GS-07</td><td>Đối soát N = a + b + c + d</td><td>mục tiêu 3: mồ côi = 0 (bước 3C.1)</td><td><span class="chip warn">làm tay</span></td></tr>
+<tr><td>D2</td><td class="c">GS-09</td><td>Config Guard ↔ sổ DOT</td><td>mục tiêu 5: DOT mới đều có dòng sổ</td><td><span class="chip warn">đối chiếu tay</span></td></tr>
+<tr><td>D2</td><td class="c">GS-10</td><td>Directus Flows báo tự động</td><td>báo khi ô bắt buộc trống</td><td><span class="chip warn">bật ở bước 2.4</span></td></tr>
+</tbody></table></div>
+<p class="note">Đã bàn chưa làm: GS-03, GS-04, GS-10 — bật cùng lúc khi dựng collection (bước 2.4). Mới: chưa có. Không chặn.</p>
 
 <h2><span class="num">3</span>Mốc / Mục con / Bước</h2>
 

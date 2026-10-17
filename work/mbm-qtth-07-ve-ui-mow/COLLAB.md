@@ -18,19 +18,20 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 ### 1. Mục tiêu
 Tình trạng: User tạm chốt (Owner 17/10 11:59).
 Owner 16/10/2026 17:05:
-1. Vẽ UI theo Master MOW.
-2. Hoàn thiện Master list: đủ các Master list cần dùng, và từng Master phải được User duyệt lần đầu.
-3. Điền đủ (SSOT): không có đối tượng liên quan đến quy trình này bị mồ côi (không có sổ để ghi, có sổ nhưng chưa được ghi, ghi ở 2 SSOT…).
-4. Đủ trường để Config: liệt kê được hợp đồng thông tin liên quan.
-5. Dùng 100% DOT tạo collection, không làm hệ nặng. Bổ sung các DOT cần thiết để dùng lại lâu dài. Ưu tiên chạy DOT nếu có thể (tự động).
+1. Vẽ UI theo Master MOW. → nhóm con có UI con = 100%.
+2. Hoàn thiện Master list: đủ các Master list cần dùng, và từng Master phải được User duyệt lần đầu. → sổ thiếu = 0; sổ đã duyệt lần đầu = 100%.
+3. Điền đủ (SSOT): không có đối tượng liên quan đến quy trình này bị mồ côi (không có sổ để ghi, có sổ nhưng chưa được ghi, ghi ở 2 SSOT…). → mồ côi = 0.
+4. Đủ trường để Config: liệt kê được hợp đồng thông tin liên quan. → Field thiếu trong hợp đồng thông tin = 0.
+5. Dùng 100% DOT tạo collection, không làm hệ nặng. Bổ sung các DOT cần thiết để dùng lại lâu dài. Ưu tiên chạy DOT nếu có thể (tự động). → collection tạo bằng DOT = 100%; gõ tay = 0; DOT mới có dòng sổ = 100%.
 Owner 16/10 16:29: đây là bài test MBM — vừa làm vừa sửa MBM để lần 2 không có Owner, AI vẫn chạy được.
 
 ### 2. Thế nào là hoàn thành
 Owner 16/10/2026 17:05:
-1. Vẽ xong UI theo Master list MOW, bao gồm hợp nhất các MOW hoặc tách MOW.
-2. Xác định tin cậy số lượng đối tượng mồ côi (dùng DOT), đảm bảo không có đối tượng liên quan mồ côi.
-3. Các Master list điền đầy đủ thông tin, đảm bảo SSOT.
-4. Xác định đủ hợp đồng thông tin để Config không lỗi.
+1. Vẽ xong UI theo Master list MOW, bao gồm hợp nhất các MOW hoặc tách MOW. → MOW chưa có quyết định gộp/tách = 0; nhóm con thiếu UI con = 0.
+2. Xác định tin cậy số lượng đối tượng mồ côi (dùng DOT), đảm bảo không có đối tượng liên quan mồ côi. → mồ côi do DOT đếm = 0.
+3. Các Master list điền đầy đủ thông tin, đảm bảo SSOT. → ô bắt buộc trống = 0; ghi 2 nơi = 0.
+4. Xác định đủ hợp đồng thông tin để Config không lỗi. → thử Config lỗi = 0.
+D1, D2 (MBM 2.5, không chặn): đã rà — xem tab Nội dung công việc, mục 2.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
@@ -85,6 +86,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P29 · 17/10 21:18 + 21:26 · rà tới 3.2: «đồng ý, bạn sửa tiếp đi, làm sao để chạy không vướng. AI biết phải làm gì? hiểu ngay và không hiểu sai» → MBM r5.22 · mục tiêu + hoàn thành có số · rà D1/D2 · CAT-249 chưa có đường nạp dòng nên bảng 8 MBM là dữ liệu đầu tạm thời.
 - P28 · 17/10 19:43 · đánh mã xong: MBM r5.21 (mục 1–9 đánh mã; 6.0 luật chung, bước 6.1–6.8) → danh sách việc của task dùng mã 6.1–6.8.
 - P27 · 17/10 18:45 + 19:43 · đánh mã nhất quán: «Bạn rà lại, nên đánh số nhất quán thống nhất tuyệt đối từ MBM công thức => hướng dẫn => QTTH 07 và các quy trình sau này. Ví dụ hướng dẫn không nên để chấm/gjach đầu dòng mà đển 1.1, 1.2... Nguyên tắc mỗi thứ có tên riêng, duy nhất để dễ gọi tên, dễ định nghĩa. 2.1 đến 2.4 là cùng bước. Nên có cách ghi THẬT NGHẮN GỌN để cả con người và AI cùng hiểu là cùng bước hoặc khác bước. Những thứ như thế này nên nhất quán tuyệt đối» — «Miễn là nhất quán, nhìn ngắn gọn và nguyên tắc đơn giản nhất có thể. Bạn đánh mã đi» → MBM r5.20 (mục 1–4) + QTTH 07 đổi theo; mục 5–9 làm tiếp.
 - P26 · 17/10 17:14 · sửa format trước: «Ok. Những thứ thuộc về chính tả, format bạn sửa trước đi.» → MBM r5.19 (3A/3B, mã 3A.1, bỏ câu trái nhau); vướng 3, 5, 6, 7 (thiết kế) chưa đụng.
