@@ -8,10 +8,10 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-17 05:25 +07 · Claude · P14
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
-- 📍 Tiến độ: [✓ 1 Nhận yêu cầu] → [✓ 2 Tạo task] → [✓ 3 Chốt mục tiêu] → [◐ 4 Liệt kê bước — bản thử] → [■ 5 Check Master list] → [□ 6 Bộ câu hỏi] → [□ 7 Ký] → [□ 8 Chạy]
+- 📍 Tiến độ (MBM 6.x): [✓ 6.1 Nhận yêu cầu] → [✓ 6.2 Tạo task] → [✓ 6.3 Chốt mục tiêu] → [◐ 6.4 Liệt kê bước — bản thử] → [■ 6.5 Check Master list] → [□ 6.6 Bộ câu hỏi] → [□ 6.7 Ký] → [□ 6.8 Chạy]
 - ✅ Đã xong: ô 1–2 (17:05) · bước 4 làm lại theo MBM r5.8: 3.1 Mốc (7) · 3.2 Mục con (3) · 3.3 Bước (26), có Câu hỏi + Hoàn thành · kiểm kê 17 sổ — xem tab «Nội dung công việc» (`view.html`).
 - ■ Đang làm: — · 0 RUN active
-- ⬜ Còn lại: chốt bước 4 → đạt bước 5 → 6 → 7 → 8.
+- ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
 - ➡ Kế tiếp: 😊 Owner xem «Vấn đề lộ ra» ở tab Nội dung công việc — nhất là 13 sổ cần duyệt lần đầu và 3 mã CAT lệch nghĩa.
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
@@ -37,16 +37,16 @@ Owner 16/10/2026 17:05:
 Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công việc» trên trang Task (tệp `view.html` của việc này) — 1 nơi, không chép lại ở đây.
 
 #### ☑ Việc cần làm — đọc lại mỗi lượt, xong tích kèm commit
-| # | Việc | Ai | Xong khi | |
+| MBM | Việc | Ai | Xong khi | |
 |---|---|---|---|---|
-| 1 | Nhận yêu cầu (MBM ①) | 🤖 | lời Owner ở Nhật ký | ☑ |
-| 2 | Tạo task + tên + view.html | 🤖 | đúng khuôn, tên `mbm-`, có `view.html` | ☑ `579bec00` |
-| 3 | Chốt mục tiêu (MBM ②) | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
-| 4 | Liệt kê Mốc · Mục con · Bước (MBM ③) | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 17/10 17:30 theo MBM r5.18 (5 mốc · 26 bước) ở view.html · 7 chỗ vướng chờ Owner |
-| 5 | Check Master list (MBM ④) | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ, DOT, Tool; Tình trạng = «có» hết | ■ bảng ở view.html · Master list 6/19 «có» · DOT, Tool chưa điểm danh |
-| 6 | Bộ câu hỏi (MBM ⑤) | 🤖 | mọi bước đủ ô | ☐ |
-| 7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
-| 8 | Chạy | 🤖 | đạt ô 2 | ☐ |
+| 6.1 | Nhận yêu cầu | 🤖 | lời Owner ở Nhật ký | ☑ |
+| 6.2 | Tạo task + tên + view.html | 🤖 | đúng khuôn, tên `mbm-`, có `view.html` | ☑ `579bec00` |
+| 6.3 | Chốt mục tiêu | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
+| 6.4 | Liệt kê Mốc · Mục con · Bước | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 17/10 17:30 theo MBM r5.18 (5 mốc · 26 bước) ở view.html · 7 chỗ vướng chờ Owner |
+| 6.5 | Check Master list | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ, DOT, Tool; Tình trạng = «có» hết | ■ bảng ở view.html · Master list 6/19 «có» · DOT, Tool chưa điểm danh |
+| 6.6 | Bộ câu hỏi | 🤖 | mọi bước đủ ô | ☐ |
+| 6.7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
+| 6.8 | Chạy | 🤖 | đạt ô 2 | ☐ |
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -85,6 +85,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P28 · 17/10 19:43 · đánh mã xong: MBM r5.21 (mục 1–9 đánh mã; 6.0 luật chung, bước 6.1–6.8) → danh sách việc của task dùng mã 6.1–6.8.
 - P27 · 17/10 18:45 + 19:43 · đánh mã nhất quán: «Bạn rà lại, nên đánh số nhất quán thống nhất tuyệt đối từ MBM công thức => hướng dẫn => QTTH 07 và các quy trình sau này. Ví dụ hướng dẫn không nên để chấm/gjach đầu dòng mà đển 1.1, 1.2... Nguyên tắc mỗi thứ có tên riêng, duy nhất để dễ gọi tên, dễ định nghĩa. 2.1 đến 2.4 là cùng bước. Nên có cách ghi THẬT NGHẮN GỌN để cả con người và AI cùng hiểu là cùng bước hoặc khác bước. Những thứ như thế này nên nhất quán tuyệt đối» — «Miễn là nhất quán, nhìn ngắn gọn và nguyên tắc đơn giản nhất có thể. Bạn đánh mã đi» → MBM r5.20 (mục 1–4) + QTTH 07 đổi theo; mục 5–9 làm tiếp.
 - P26 · 17/10 17:14 · sửa format trước: «Ok. Những thứ thuộc về chính tả, format bạn sửa trước đi.» → MBM r5.19 (3A/3B, mã 3A.1, bỏ câu trái nhau); vướng 3, 5, 6, 7 (thiết kế) chưa đụng.
 - P25 · 17/10 17:07 · sửa MBM + rà lại mục 3: «OK. bạn sửa, sau đó lại thử rà lại QTTH 007 đến hết mục 3 xem còn thấy vướng gì không? Như AI lần đầu làm? (bối cảnh sau việc này, chúng ta sẽ cố định các master list trên VPS làm 1 trang chủ để treeview và các thao tác thì giao DOT. Nhưng giờ cái đó chưa chạy => ko nên coi đó là mắc nhé» → MBM r5.18 + bản thử mục 3 (5 mốc, 26 bước), 7 chỗ vướng ở view.html.
