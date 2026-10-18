@@ -8,7 +8,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-17 05:25 +07 · Claude · P14
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
-- 📍 Tiến độ (MBM 6.x): [✓ 6.1 Nhận yêu cầu] → [✓ 6.2 Tạo task] → [✓ 6.3 Chốt mục tiêu] → [◐ 6.4 Liệt kê bước — bản thử] → [■ 6.5 Check Master list] → [□ 6.6 Bộ câu hỏi] → [□ 6.7 Ký] → [□ 6.8 Chạy]
+- 📍 Tiến độ (MBM 6.x): [✓ 6.1 Nhận yêu cầu] → [✓ 6.2 Tạo task] → [✓ 6.3 Chốt mục tiêu] → [◐ 6.4 Liệt kê bước — bản thử] → [◐ 6.5 Bộ câu hỏi] → [■ 6.6 Check Master list] → [□ 6.7 Ký] → [□ 6.8 Chạy]
 - ✅ Đã xong: ô 1–2 (17:05) · 6.4 bản thử theo MBM r5.24: 5 mốc · 18 + N bước (Mốc 3: 1 bước / nhóm con) · kiểm kê 18 sổ — xem tab «Nội dung công việc» (`view.html`).
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
@@ -44,8 +44,8 @@ Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công
 | 6.2 | Tạo task + tên + view.html | 🤖 | đúng khuôn, tên `mbm-`, có `view.html` | ☑ `579bec00` |
 | 6.3 | Chốt mục tiêu | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
 | 6.4 | Liệt kê Mốc · Mục con · Bước | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 18/10 09:20 theo MBM r5.24 (5 mốc · 18 + N bước) ở view.html |
-| 6.5 | Check Master list | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ, DOT, Tool; Tình trạng = «có» hết | ■ bảng ở view.html · Master list 6/18 «có» · DOT, Tool chưa điểm danh |
-| 6.6 | Bộ câu hỏi | 🤖 | mọi bước đủ ô | ◐ thử H1–H7 18/10 18:40 · 19 dòng · 0 ô trống · vướng VD-020…024 |
+| 6.5 | Bộ câu hỏi | 🤖 | mọi bước đủ ô | ◐ thử H1–H7 18/10 18:40 · 19 dòng · 0 ô trống · vướng VD-020…024 |
+| 6.6 | Check Master list | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ, DOT, Tool; Tình trạng = «có» hết | ■ bảng ở view.html · Master list 6/19 «có» · DOT, Tool chưa điểm danh |
 | 6.7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
 | 6.8 | Chạy | 🤖 | đạt ô 2 | ☐ |
 
@@ -86,6 +86,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P36 · 18/10 20:17 · «1. Mục 3.3.3 cần có hướng dẫn dùng "?" như bảng của 3.1. Đây là hướng dẫn chuẩn nên cần viết rõ để tất cả hiểu thống nhất. 2. Phần câu hỏi nên đưa thành mục 4 vì dùng cho mục 3 => cấu trúc lại và hiệu chỉnh ở các nơi liên quan.» → MBM r5.27 + đồng bộ task.
 - P35 · 18/10 18:25 · làm từng phần: «Tôi thấy bạn lại đang làm rối, làm từng phần nhỏ nhé. Trước tiên là MBM mục 3. Tôi chưa thấy sửa gì? Phải bắt đầu từ đó đã. làm từng bước, đừng rối tinh lên.» → MBM r5.26: chỉ viết lại 3.3 theo khuôn mục tiêu chuyên môn; QTTH 07 để lượt sau.
 - P34 · 18/10 16:36–18:07 · bộ câu hỏi: «Câu hỏi cần cụ thể hơn kiểu: Cần cái gì? ghi cái cần ở đâu? đã ghi chưa? đã kiểm lại chưa??… Nguyên tắc là những cái gì lập đi lập lại thì đưa thành bộ công thức chuẩn» — «Đồng ý, bạn sửa vào MBM, làm thử quả QTHT 007 xem có vướng gì không? xác nhận đã, nếu không vướng, lượt sau chúng ta sẽ áp xuống QT 001» → MBM r5.25 (H1–H7 + đặc thù + ➖/🟡/🔴) + điền thử 19 dòng.
 - P33 · 18/10 07:39–09:00 · định nghĩa Bước: «… Ý tôi là trong MBM phải định nghĩa bước là gì? nguyên tắc 6W thì đầu tiên what mà chúng ta toàn quên» — «Đồng ý. bạn sửa đi, và đưa thử vào QTTH 007, cuối cùng bước là những gì?» → MBM r5.24 + QTTH 07 còn 18 + N bước.
