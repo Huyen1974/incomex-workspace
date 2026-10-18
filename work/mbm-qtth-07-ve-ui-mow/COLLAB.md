@@ -9,28 +9,25 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ (MBM 6.x): [✓ 6.1 Nhận yêu cầu] → [✓ 6.2 Tạo task] → [✓ 6.3 Chốt mục tiêu] → [◐ 6.4 Liệt kê bước — bản thử] → [◐ 6.5 Bộ câu hỏi] → [■ 6.6 Check Master list] → [□ 6.7 Ký] → [□ 6.8 Chạy]
-- ✅ Đã xong: ô 1–2 (17:05) · rà tới hết mục 4 theo MBM r5.32: 9 bước (5 cố định + 4 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · khúc mắc K1 đã gỡ, K2 chờ — xem tab «Nội dung công việc» (`view.html`).
+- ✅ Đã xong: ô 1–2 (17:05) · rà tới hết mục 4 theo MBM r5.33: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`).
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
 - ➡ Kế tiếp: 😊 Owner xem «Vấn đề lộ ra» ở tab Nội dung công việc — nhất là 13 sổ cần duyệt lần đầu và 3 mã CAT lệch nghĩa.
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
 ### 1. Mục tiêu
-Tình trạng: User tạm chốt (Owner 17/10 11:59).
-Owner 16/10/2026 17:05:
-1. Vẽ UI theo Master MOW. → nhóm con có UI con = 100%.
-2. Hoàn thiện Master list: đủ các Master list cần dùng, và từng Master phải được User duyệt lần đầu. → sổ thiếu = 0; sổ đã duyệt lần đầu = 100%.
-3. Điền đủ (SSOT): không có đối tượng liên quan đến quy trình này bị mồ côi (không có sổ để ghi, có sổ nhưng chưa được ghi, ghi ở 2 SSOT…). → mồ côi = 0.
-4. Đủ trường để Config: liệt kê được hợp đồng thông tin liên quan. → Field thiếu trong hợp đồng thông tin = 0.
-5. Dùng 100% DOT tạo collection, không làm hệ nặng. Bổ sung các DOT cần thiết để dùng lại lâu dài. Ưu tiên chạy DOT nếu có thể (tự động). → collection tạo bằng DOT = 100%; gõ tay = 0; DOT mới có dòng sổ = 100%.
+Tình trạng: User chốt (Owner 18/10 21:25).
+Owner 18/10/2026 21:25 (thay bản 16/10 17:05):
+1. Vẽ UI.
+2. Chốt hợp đồng thông tin.
+3. Config thành công.
 Owner 16/10 16:29: đây là bài test MBM — vừa làm vừa sửa MBM để lần 2 không có Owner, AI vẫn chạy được.
 
 ### 2. Thế nào là hoàn thành
-Owner 16/10/2026 17:05:
-1. Vẽ xong UI theo Master list MOW, bao gồm hợp nhất các MOW hoặc tách MOW. → MOW chưa có quyết định gộp/tách = 0; nhóm con thiếu UI con = 0.
-2. Xác định tin cậy số lượng đối tượng mồ côi (dùng DOT), đảm bảo không có đối tượng liên quan mồ côi. → mồ côi do DOT đếm = 0.
-3. Các Master list điền đầy đủ thông tin, đảm bảo SSOT. → ô bắt buộc trống = 0; ghi 2 nơi = 0.
-4. Xác định đủ hợp đồng thông tin để Config không lỗi. → thử Config lỗi = 0.
+Owner 18/10/2026 21:25:
+1. Vẽ đủ UI theo các bước con (bao gồm tách ra hoặc gộp theo bước con nếu có). → bước con thiếu UI = 0.
+2. Đảm bảo các UI đó ghi đủ đầu mối hợp đồng thông tin (có phương pháp test, đếm phù hợp). → UI thiếu đầu mối = 0.
+3. Đảm bảo kiểm đủ đầu vào và xác nhận sẵn sàng cho Config (không thiếu thông tin). → thiếu thông tin = 0.
 D1, D2 (MBM 2.5, không chặn): đã rà — xem tab Nội dung công việc, mục 2.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
@@ -43,8 +40,8 @@ Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công
 | 6.1 | Nhận yêu cầu | 🤖 | lời Owner ở Nhật ký | ☑ |
 | 6.2 | Tạo task + tên + view.html | 🤖 | đúng khuôn, tên `mbm-`, có `view.html` | ☑ `579bec00` |
 | 6.3 | Chốt mục tiêu | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
-| 6.4 | Liệt kê Mốc · Mục con · Bước | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 18/10 21:30 theo MBM r5.32 (9 bước: 5 cố định + 4 chuyên môn; Mốc 4 = tích 🟢/🔴) ở view.html |
-| 6.5 | Bộ câu hỏi | 🤖 | mọi bước đủ ô | ◐ bảng câu hỏi QTTH 07 = H1–H7 + Đ1, Đ2 · 9 bước · 0 ô trống |
+| 6.4 | Liệt kê Mốc · Mục con · Bước | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 18/10 21:30 theo MBM r5.32 (8 bước: 5 cố định + 3 chuyên môn; Mốc 4 = tích 🟢/🔴) ở view.html |
+| 6.5 | Bộ câu hỏi | 🤖 | mọi bước đủ ô | ◐ bảng câu hỏi QTTH 07 = H1–H7 + Đ1, Đ2 · 8 bước · 0 ô trống |
 | 6.6 | Check Master list | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ, DOT, Tool; Tình trạng = «có» hết | ■ bảng ở view.html · Master list 6/19 «có» · DOT, Tool chưa điểm danh |
 | 6.7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
 | 6.8 | Chạy | 🤖 | đạt ô 2 | ☐ |
@@ -86,6 +83,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P42 · 18/10 21:25 · 3 mục tiêu: «Mục tiêu của chúng ta chỉ có 3. vẽ UI · Chốt hợp đồng thông tin · Config thành công. Thế nào là hoàn thành: 1. vẽ đủ UI theo các bước con (bao gồm tách ra hoặc gộp theo bước con nếu có) 2. Đảm bảo các UI đó ghi đủ đầu mối hợp đồng thông tin (có phương pháp test, đếm phù hợp) 3. Đảm bảo kiểm đủ đầu vào và xác nhận sẵn sàng cho config (không thiếu thông tin). Đơn giản có thế này thôi mà?» → ô 1–2 thay bản 16/10; 3 bước chuyên môn; 8 bước.
 - P41 · 18/10 21:18 · «1. K1: Kiểm tra thì chỉ tích xanh hoặc đỏ vào tất cả các các bước trong báo cáo. Vì chưa đến phần báo cáo => bạn cứ hướng dẫn như vậy là ok. 2. K2: Bạn giải thích thêm giúp tôi vấn đề là gì?» → MBM r5.33 (3.1 dòng 4 + 3.3.6).
 - P40 · 18/10 21:05 · «Giờ bạn rà soát lại QTTH 007 để làm đến hết mục 4 theo MBM xem có khúc mắc những gì nữa? rồi tôi nhìn vào QTTH 007 sẽ cho ý kiến tiếp» → 9 bước + bảng câu hỏi; K1 (Mốc 4, 5 chưa có bước), K2 (mục tiêu trùng bước cố định).
 - P39 · 18/10 20:57–21:01 · câu đặc thù: «Bản chất là: trong QTTH nếu nhiệm vụ của QTTH có những câu hỏi đặc thù riêng cần bổ sung thì thêm vào bảng câu hỏi chuẩn từ MBM cho riêng QTTH đó. viết cho rõ ràng» → MBM r5.32 (mã Đ1, Đ2…).
