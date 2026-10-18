@@ -44,7 +44,7 @@ Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công
 | 6.4 | Liệt kê Mốc · Mục con · Bước | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 18/10 21:40 theo MBM r5.34 (8 bước: 5 cố định + 3 chuyên môn; Mốc 4 = tích 🟢/🔴) ở view.html |
 | 6.5 | Bộ câu hỏi | 🤖 | mọi bước đủ ô | ◐ bảng câu hỏi QTTH 07 = H1–H7 + Đ1, Đ2 · 8 bước · 0 ô trống |
 | 6.6 | Check Master list | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ, DOT, Tool; Tình trạng = «có» hết | ■ bảng ở view.html · Master list 6/19 «có» · DOT, Tool chưa điểm danh |
-| 6.7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
+| 6.7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 phản đối (User quyết ký hay bỏ qua) | ☐ |
 | 6.8 | Chạy | 🤖 | đạt ô 2 | ☐ |
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
@@ -80,6 +80,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 | V15 | chuyển vào ô 3 vẫn không đọc được: tab Kiểm soát in thô bảng và ô 3 mặc định gập; tab Nội dung báo «Chưa có view» (Owner 22:19) | r5.7: bảng kết quả ghi vào `view.html` của task → tab Nội dung công việc; tạo task kèm `view.html` |
 
 ### Vòng trước
+- 16/10 17:05 (Owner, 5 mục tiêu): nay thay bằng bản 18/10 21:25 (3 mục tiêu: Vẽ UI · Chốt hợp đồng thông tin · Config thành công).
 - 16/10 15:19 (Owner, nay gộp vào ô 1 bản 17:05): vẽ UI theo Master MOW · hoàn thiện Master list, điền đủ SSOT · đủ trường để Config · dùng DOT tạo collection.
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
