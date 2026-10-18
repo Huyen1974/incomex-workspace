@@ -7,7 +7,7 @@
 <style>
 :root{color-scheme:light}
 body{margin:0;background:#fff;color:#1d2b24;font:16px/1.55 system-ui,-apple-system,"Segoe UI","Be Vietnam Pro",sans-serif}
-main{max-width:1180px;margin:0 auto;padding:18px 16px 40px}
+main{max-width:1280px;margin:0 auto;padding:18px 16px 40px}
 h1{font-size:21px;margin:0 0 4px;color:#174f35}
 .sub{color:#4b5a52;font-size:14.5px;margin:0 0 18px}
 h2{font-size:18px;margin:26px 0 8px;color:#174f35;display:flex;align-items:center;gap:8px}
@@ -23,33 +23,39 @@ tr.m td{background:#f6faf7;font-weight:700;color:#174f35}
 .chip{display:inline-block;border-radius:999px;padding:1px 9px;font-size:13.5px;font-weight:700;white-space:nowrap}
 .ok{background:#e3f4e8;color:#14532d}.warn{background:#fff3d1;color:#7a5200}.bad{background:#fde4e1;color:#8a1c12}.gray{background:#eceff1;color:#4b5a52}
 .note{color:#4b5a52;font-size:14px;margin:6px 0 8px}
+table.h td{font-size:14px}
 </style>
 </head>
 <body>
 <main>
 <h1>QTTH 07 — bảng làm việc theo MBM</h1>
-<p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 18/10/2026 09:20 · theo MBM r5.24 · danh sách việc và tiến độ ở tab Kiểm soát.</p>
+<p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 18/10/2026 18:40 · theo MBM r5.25 · danh sách việc và tiến độ ở tab Kiểm soát.</p>
 
 <h2>🧾 Vấn đề của việc — mẫu CAT-069 (tạm ghi ở đây)</h2>
-<p class="note"><b>🔴 9 · 🟡 5 · ⚪ 5</b> — 🟢 xử lý ngay · 🟡 xử lý sau · 🔴 nợ kỹ thuật · ⚪ đã đóng</p>
+<p class="note"><b>🔴 11 · 🟡 7 · ⚪ 5</b> — 🟢 xử lý ngay · 🟡 xử lý sau · 🔴 nợ kỹ thuật · ⚪ đã đóng</p>
 <div class="wrap"><table>
 <thead><tr><th>Mã</th><th>Ở bước</th><th>Vấn đề</th><th>Tình trạng</th><th>Người giữ</th><th>Tạm thời · xong khi</th></tr></thead>
 <tbody>
+<tr><td class="c">VD-022</td><td class="c">3.x · MBM 3.3</td><td>Bước 3.x ra 3 kết quả, ghi 3 nơi (UI con · hợp đồng · Field) — trái «1 bước = 1 kết quả»</td><td><span class="chip warn">🟡</span></td><td>😊 User</td><td>giữ 3.x · User quyết cách tách</td></tr>
+<tr><td class="c">VD-023</td><td class="c">1.4</td><td>Gộp/tách có 2 nơi ghi (quyết định CAT-025 + nhóm con ML-DEF-002) — H4 phải 1 sổ</td><td><span class="chip warn">🟡</span></td><td>😊 User</td><td>đề xuất: CAT-025 là bằng chứng (H6), ML-DEF-002 là nơi ghi (H4)</td></tr>
+<tr><td class="c">VD-020</td><td class="c">4.1</td><td>Chưa có DOT đếm mồ côi</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>đếm tay · DOT đếm mồ côi</td></tr>
+<tr><td class="c">VD-021</td><td class="c">4.4</td><td>Chưa xác minh có DOT áp nháp Config</td><td><span class="chip warn">🟡</span></td><td>Host</td><td>— · tra ML-DEF-024 ở bước 2.1</td></tr>
+<tr><td class="c">VD-024</td><td class="c">2.4</td><td>Chưa có DOT tạo collection cho Master list</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>khai thiết kế UI.MASTER · DOT khi lên collection</td></tr>
 <tr><td class="c">VD-001</td><td class="c">MBM 1.1</td><td>Chưa thêm được việc QTTH 07 vào CAT-227</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>task này là việc · DOT thêm việc</td></tr>
 <tr><td class="c">VD-002</td><td class="c">MBM 1.2</td><td>CAT-227 chưa có ô «Yêu cầu User»</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>Nhật ký COLLAB · thêm ô khi lên collection</td></tr>
 <tr><td class="c">VD-003</td><td class="c">MBM 1.3</td><td>Chưa ghi được dòng vào CAT-069</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>bảng này · DOT thêm vấn đề</td></tr>
 <tr><td class="c">VD-004</td><td class="c">MBM 2.5</td><td>CAT-249 chưa nạp được GS-01…GS-11</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>đọc bảng 8 MBM · DOT nạp 11 dòng</td></tr>
 <tr><td class="c">VD-005</td><td class="c">MBM 2.5</td><td>Chưa ghi được kết quả rà D1, D2 vào CAT-249</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>ghi ở mục 2 dưới đây · DOT ghi</td></tr>
 <tr><td class="c">VD-006</td><td class="c">2.2</td><td>Sổ của các sổ ML-DEF-012 rỗng</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>kiểm kê theo trang 48 Master List · ML-DEF-012 là nguồn</td></tr>
-<tr><td class="c">VD-007</td><td class="c">MBM 5</td><td>Master Step ML-DEF-022 rỗng</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>ma trận ghi ở view.html · DOT nạp</td></tr>
+<tr><td class="c">VD-007</td><td class="c">MBM 5</td><td>Master Step ML-DEF-022 rỗng</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>bảng H1–H7 ghi ở view.html · DOT nạp</td></tr>
 <tr><td class="c">VD-008</td><td class="c">MBM 6.0</td><td>Tab Kiểm soát không dựng bảng</td><td><span class="chip bad">🔴</span></td><td>hpml-view-for-user</td><td>bảng ở view.html · hết khi lên collection</td></tr>
 <tr><td class="c">VD-009</td><td class="c">MBM 1.3</td><td>CAT-069 cũ: 83 dòng chưa có mã việc; tình trạng cũ (OPEN…) chưa đổi sang 4 màu</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>giữ nguyên · DOT đổi khi lên collection</td></tr>
-<tr><td class="c">VD-010</td><td class="c">2.4</td><td>12/18 sổ chưa «có» (10 cần duyệt, 2 cần làm mới)</td><td><span class="chip warn">🟡</span></td><td>😊 User</td><td>— · còn «cần…» = 0</td></tr>
+<tr><td class="c">VD-010</td><td class="c">2.4</td><td>13/19 sổ chưa «có» (11 cần duyệt, 2 cần làm mới)</td><td><span class="chip warn">🟡</span></td><td>😊 User</td><td>— · còn «cần…» = 0</td></tr>
 <tr><td class="c">VD-011</td><td class="c">2.2</td><td>Mã CAT-227/228 lệch nghĩa với sổ thật</td><td><span class="chip warn">🟡</span></td><td>Host</td><td>ghi chú ở bảng 4.1 · đối chiếu nghĩa xong</td></tr>
 <tr><td class="c">VD-012</td><td class="c">2.1</td><td>DOT, Tool chưa điểm danh</td><td><span class="chip warn">🟡</span></td><td>Host</td><td>— · bảng 4.1 có dòng DOT, Tool</td></tr>
-<tr><td class="c">VD-013</td><td class="c">MBM 3.3</td><td>Bước «tạo hồ sơ» (CAT-228) còn cần không</td><td><span class="chip warn">🟡</span></td><td>😊 User</td><td>tạm bỏ · User quyết</td></tr>
-<tr><td class="c">VD-015</td><td class="c">1.4</td><td>Gộp/tách nhóm con (đề xuất) chưa gật</td><td><span class="chip warn">🟡</span></td><td>😊 User</td><td>để đề xuất · User gật</td></tr>
-<tr><td class="c">VD-014</td><td class="c">MBM 3.3</td><td>Bước theo nhóm con</td><td><span class="chip gray">⚪</span></td><td>—</td><td>MBM r5.24: 1 bước = 1 nhóm con</td></tr>
+<tr><td class="c">VD-013</td><td class="c">MBM 3.3</td><td>Bước «tạo hồ sơ» (CAT-228) còn cần không</td><td><span class="chip warn">🟡</span></td><td>😊 User</td><td>tạm bỏ · bàn cùng hồ sơ</td></tr>
+<tr><td class="c">VD-015</td><td class="c">1.4</td><td>Gộp/tách nhóm con (đề xuất) chưa gật</td><td><span class="chip gray">⚪</span></td><td>—</td><td>gộp vào VD-023</td></tr>
+<tr><td class="c">VD-014</td><td class="c">MBM 3.3</td><td>Bước theo nhóm con</td><td><span class="chip gray">⚪</span></td><td>—</td><td>MBM r5.24</td></tr>
 <tr><td class="c">VD-016</td><td class="c">MBM 3.2</td><td>Số «3.1» trùng với mã mục con</td><td><span class="chip gray">⚪</span></td><td>—</td><td>MBM r5.19</td></tr>
 <tr><td class="c">VD-017</td><td class="c">MBM 3.3</td><td>Hai câu trái nhau về mục con</td><td><span class="chip gray">⚪</span></td><td>—</td><td>MBM r5.19</td></tr>
 <tr><td class="c">VD-018</td><td class="c">MBM 3.2</td><td>2.1–2.4 là bước hay mục con</td><td><span class="chip gray">⚪</span></td><td>—</td><td>MBM r5.20</td></tr>
@@ -88,41 +94,64 @@ tr.m td{background:#f6faf7;font-weight:700;color:#174f35}
 <p class="note">Không có. Mốc 3 có N bước = số nhóm con của MOW đích (thường 2–4), luôn ≤ 5.</p>
 
 <h3>3.3 Bước (nền tảng = nhóm con, có thể điều chỉnh cho sát thực tế)</h3>
-<p class="note"><b>Bước</b> = việc nhỏ nhất, làm xong thì ra 1 kết quả kiểm được; 1 bước = 1 nhóm con (CT-004). <b>Tổng: 18 + N bước.</b></p>
+<p class="note"><b>Bước</b> = việc nhỏ nhất, làm xong thì ra 1 kết quả kiểm được; 1 bước = 1 nhóm con (CT-004). <b>Tổng: 18 + N bước.</b> Câu chuẩn H1–H7 ở mục 5 dưới đây; cột này chỉ ghi câu đặc thù.</p>
 <div class="wrap"><table>
-<thead><tr><th>Mã</th><th>Bước</th><th>Câu hỏi cần trả lời</th><th>Thế nào là hoàn thành</th></tr></thead>
+<thead><tr><th>Mã</th><th>Bước</th><th>Câu hỏi đặc thù</th><th>Thế nào là hoàn thành</th></tr></thead>
 <tbody>
 <tr class="m"><td colspan="4">1 · Khai việc — 4 bước</td></tr>
-<tr><td class="c">1.1</td><td>Tạo việc cho MOW đích</td><td>MOW đích đã có việc chưa?</td><td>1 việc có mã ở CAT-227, không trùng</td></tr>
-<tr><td class="c">1.2</td><td>Ghi ngữ cảnh MOW đích (CT-005)</td><td>Thuộc Chuỗi, Bước, Tầng, Nhóm cha nào?</td><td>4 ô đủ (ML-DEF-004)</td></tr>
-<tr><td class="c">1.3</td><td>Liệt kê nhóm con của MOW đích (CT-004)</td><td>Có những nhóm con nào?</td><td>danh sách N nhóm con (ML-DEF-002) = số bước Mốc 3</td></tr>
-<tr><td class="c">1.4</td><td>Duyệt gộp · tách nhóm con <i>(đề xuất)</i></td><td>Nhóm con nào giữ, gộp, tách?</td><td>mỗi nhóm con 1 quyết định, ghi tại nhóm con</td></tr>
+<tr><td class="c">1.1</td><td>Tạo việc cho MOW đích</td><td>—</td><td>1 việc có mã ở CAT-227, không trùng</td></tr>
+<tr><td class="c">1.2</td><td>Ghi ngữ cảnh MOW đích (CT-005)</td><td>—</td><td>4 ô đủ (ML-DEF-004)</td></tr>
+<tr><td class="c">1.3</td><td>Liệt kê nhóm con của MOW đích (CT-004)</td><td>—</td><td>danh sách N nhóm con (ML-DEF-002) = số bước Mốc 3</td></tr>
+<tr><td class="c">1.4</td><td>Duyệt gộp · tách nhóm con <i>(đề xuất)</i></td><td>Nhóm con nào giữ, gộp, tách?</td><td>mỗi nhóm con 1 quyết định</td></tr>
 <tr class="m"><td colspan="4">2 · Rà soát chuẩn bị — 4 bước cố định</td></tr>
-<tr><td class="c">2.1</td><td>Lập danh sách DOT, Tool</td><td>Cái nào có, thiếu, cần sửa?</td><td>mỗi cái 1 dòng ở bảng 4.1</td></tr>
-<tr><td class="c">2.2</td><td>Lập danh sách Master list</td><td>Sổ nào có, chờ duyệt, thiếu?</td><td>mỗi sổ 1 dòng ở bảng 4.1</td></tr>
-<tr><td class="c">2.3</td><td>Tạo mới / nâng cấp DOT, Tool</td><td>Cái thiếu, cái cần sửa xong chưa?</td><td>còn «cần thêm», «cần sửa» = 0</td></tr>
-<tr><td class="c">2.4</td><td>Tạo mới / nâng cấp Master list</td><td>Sổ thiếu đã tạo, sổ chờ đã duyệt chưa?</td><td>còn «cần duyệt», «cần làm mới» = 0</td></tr>
+<tr><td class="c">2.1</td><td>Lập danh sách DOT, Tool</td><td>—</td><td>mỗi cái 1 dòng ở bảng 4.1</td></tr>
+<tr><td class="c">2.2</td><td>Lập danh sách Master list</td><td>—</td><td>mỗi sổ 1 dòng ở bảng 4.1</td></tr>
+<tr><td class="c">2.3</td><td>Tạo mới / nâng cấp DOT, Tool</td><td>—</td><td>còn «cần thêm», «cần sửa» = 0</td></tr>
+<tr><td class="c">2.4</td><td>Tạo mới / nâng cấp Master list</td><td>—</td><td>còn «cần duyệt», «cần làm mới» = 0</td></tr>
 <tr class="m"><td colspan="4">3 · Triển khai — mỗi nhóm con 1 bước (N bước)</td></tr>
-<tr><td class="c">3.1</td><td>Vẽ UI con cho nhóm con 1</td><td>Nhóm con này có UI con và đủ thông tin chưa?</td><td>1 UI con (CT-006, dùng lại hoặc tạo mới) + hợp đồng thông tin đủ, Field thiếu = 0</td></tr>
-<tr><td class="c">3.N</td><td>Vẽ UI con cho nhóm con N</td><td>(như 3.1)</td><td>(như 3.1)</td></tr>
+<tr><td class="c">3.1 … 3.N</td><td>Vẽ UI con cho nhóm con k</td><td>Dùng lại UI nào, vẽ mới UI nào?</td><td>1 UI con (CT-006) + hợp đồng thông tin đủ, Field thiếu = 0</td></tr>
 <tr class="m"><td colspan="4">4 · Kiểm tra — 5 bước</td></tr>
-<tr><td class="c">4.1</td><td>Đếm mồ côi bằng DOT</td><td>Có đối tượng không sổ, chưa ghi, ghi 2 nơi?</td><td>mồ côi = 0 (GS-07)</td></tr>
-<tr><td class="c">4.2</td><td>Đối chiếu DOT, Master list đã dùng với bảng 4.1</td><td>Có cái nào dùng mà chưa ghi?</td><td>thiếu = 0</td></tr>
+<tr><td class="c">4.1</td><td>Đếm mồ côi bằng DOT</td><td>—</td><td>mồ côi = 0 (GS-07)</td></tr>
+<tr><td class="c">4.2</td><td>Đối chiếu DOT, Master list đã dùng với bảng 4.1</td><td>—</td><td>thiếu = 0</td></tr>
 <tr><td class="c">4.3</td><td>Rà ảnh hưởng thay đổi</td><td>Đổi cái này ảnh hưởng chỗ nào?</td><td>mỗi thay đổi có dòng ảnh hưởng (CAT-016)</td></tr>
-<tr><td class="c">4.4</td><td>Áp nháp bằng DOT, thử Config</td><td>Config chạy được chưa?</td><td>lỗi = 0 (CAT-229)</td></tr>
-<tr><td class="c">4.5</td><td>Chụp mọi màn</td><td>Mọi UI con đã có ảnh chưa?</td><td>màn có ảnh = 100%</td></tr>
+<tr><td class="c">4.4</td><td>Áp nháp bằng DOT, thử Config</td><td>—</td><td>lỗi = 0 (CAT-229)</td></tr>
+<tr><td class="c">4.5</td><td>Chụp mọi màn</td><td>—</td><td>màn có ảnh = 100%</td></tr>
 <tr class="m"><td colspan="4">5 · Báo cáo — 5 bước</td></tr>
-<tr><td class="c">5.1</td><td>Tạo gói báo cáo</td><td>Owner có đủ thứ để quyết chưa?</td><td>1 gói: link · ảnh · số · đếm 🔴🟡🟢 ở CAT-069</td></tr>
-<tr><td class="c">5.2</td><td>Duyệt chéo (khi User yêu cầu ký)</td><td>Ghế khác hãng có đồng ý không?</td><td>1 phiếu, hoặc «bỏ qua» theo MBM 2.3</td></tr>
-<tr><td class="c">5.3</td><td>Owner duyệt</td><td>Owner gật hay lắc?</td><td>1 quyết định (CAT-025)</td></tr>
-<tr><td class="c">5.4</td><td>Lắc thì ghi CAT-069, quay về bước</td><td>Quay về bước nào?</td><td>mỗi lần lắc 1 dòng 🟡 ở CAT-069</td></tr>
-<tr><td class="c">5.5</td><td>Ghi việc «xong», báo Owner</td><td>Việc đã đóng và báo chưa?</td><td>việc ở CAT-227 «xong» + 1 tin báo</td></tr>
+<tr><td class="c">5.1</td><td>Tạo gói báo cáo</td><td>—</td><td>1 gói: link · ảnh · số · đếm 🔴🟡🟢 ở CAT-069</td></tr>
+<tr><td class="c">5.2</td><td>Duyệt chéo (khi User yêu cầu ký)</td><td>—</td><td>1 phiếu, hoặc «bỏ qua» theo MBM 2.3</td></tr>
+<tr><td class="c">5.3</td><td>Owner duyệt</td><td>—</td><td>1 quyết định (CAT-025)</td></tr>
+<tr><td class="c">5.4</td><td>Lắc thì ghi CAT-069, quay về bước</td><td>—</td><td>mỗi lần lắc 1 dòng 🟡 ở CAT-069</td></tr>
+<tr><td class="c">5.5</td><td>Ghi việc «xong», báo Owner</td><td>—</td><td>việc ở CAT-227 «xong» + 1 tin báo</td></tr>
 </tbody></table></div>
-<p class="note"><b>Trong mỗi bước 3.x</b> (cách làm, ghi ở bộ câu hỏi mục 5 — không phải bước riêng): chọn UI cha → dùng lại hoặc tạo UI con (CT-006) → nghĩa vụ thông tin → so Sổ Field → đọc/ghi, ô bắt buộc.</p>
-<p class="note"><b>So với bản 26 bước:</b> «Ghi mục tiêu» bỏ (đã ở MBM mục 2) · 7 bước UI/hợp đồng thành cách làm trong 3.x · đếm mồ côi, ảnh hưởng, áp nháp chuyển sang Kiểm tra · đếm nghĩa vụ nằm trong kết quả 3.x · đếm khúc mắc nằm trong 5.1.</p>
+
+<h2><span class="num">5</span>Bộ câu hỏi H1–H7 — điền thử cho từng bước</h2>
+<p class="note">H1 Cần gì · H2 Lấy ở đâu · H3 Làm ra gì · H4 Ghi ở đâu · H5 Đã ghi chưa · H6 Đã kiểm chưa · H7 Làm bằng gì. Không trả lời được thì ➖ / 🟡 VD / 🔴 VD (MBM 5.4). <b>19 dòng · 133 ô · 0 ô trống.</b></p>
+<div class="wrap"><table class="h">
+<thead><tr><th>Mã</th><th>H1</th><th>H2</th><th>H3</th><th>H4</th><th>H5</th><th>H6</th><th>H7</th></tr></thead>
+<tbody>
+<tr><td class="c">1.1</td><td>MOW đích</td><td>ML-DEF-004</td><td>1 việc có mã</td><td>CAT-227</td><td>việc = 1</td><td>🤖 không trùng</td><td>🔴 VD-001</td></tr>
+<tr><td class="c">1.2</td><td>Chuỗi · Bước · Tầng · Nhóm cha</td><td>ML-DEF-004</td><td>4 ô ngữ cảnh</td><td>CAT-227</td><td>4/4 ô</td><td>🤖 khớp Master</td><td>tay</td></tr>
+<tr><td class="c">1.3</td><td>nhóm con của MOW đích</td><td>ML-DEF-002</td><td>danh sách N nhóm con</td><td>➖ chỉ đọc Master, không ghi mới</td><td>N = số dòng ở ML-DEF-002</td><td>🤖</td><td>tay</td></tr>
+<tr><td class="c">1.4</td><td>đề xuất gộp/tách</td><td>ML-DEF-002</td><td>1 quyết định / nhóm con</td><td>🟡 VD-023</td><td>chưa quyết = 0</td><td>😊 User</td><td>tay</td></tr>
+<tr><td class="c">2.1</td><td>DOT, Tool cần</td><td>ML-DEF-024 · ML-DEF-023</td><td>danh sách</td><td>bảng 4.1</td><td>🟡 VD-012</td><td>🤖 mã có thật</td><td>tay</td></tr>
+<tr><td class="c">2.2</td><td>Master list cần</td><td>trang 48 Master List (🔴 VD-006)</td><td>danh sách sổ</td><td>bảng 4.1</td><td>19/19 dòng</td><td>🤖</td><td>tay</td></tr>
+<tr><td class="c">2.3</td><td>DOT, Tool thiếu</td><td>bảng 4.1</td><td>DOT chạy được</td><td>ML-DEF-024</td><td>còn «cần thêm» = 0</td><td>🤖 chạy thử</td><td>Claude Code</td></tr>
+<tr><td class="c">2.4</td><td>sổ cần duyệt, cần làm mới</td><td>bảng 4.1</td><td>sổ «có»</td><td>trang 48 Master List</td><td>🟡 VD-010</td><td>😊 User duyệt</td><td>🔴 VD-024</td></tr>
+<tr><td class="c">3.x</td><td>nhóm con + UI cha</td><td>ML-DEF-002 · ML-DEF-017 · ML-DEF-018</td><td>🟡 VD-022 (3 kết quả)</td><td>🟡 VD-022 (3 nơi)</td><td>thiếu UI = 0 · thiếu hợp đồng = 0 · Field thiếu = 0</td><td>🤖 đếm + 😊 xem màn</td><td>tay + DOT áp Field</td></tr>
+<tr><td class="c">4.1</td><td>đối tượng phát sinh</td><td>các sổ ở bảng 4.1</td><td>số mồ côi</td><td>CAT-069</td><td>mồ côi = 0</td><td>🤖</td><td>🔴 VD-020</td></tr>
+<tr><td class="c">4.2</td><td>DOT, sổ đã dùng</td><td>H4 của các bước</td><td>danh sách lệch</td><td>bảng 4.1</td><td>lệch = 0</td><td>🤖</td><td>tay</td></tr>
+<tr><td class="c">4.3</td><td>đối tượng đã đổi</td><td>ML-DEF-018 · CAT-206 · ML-DEF-008</td><td>dòng ảnh hưởng</td><td>CAT-016</td><td>thay đổi chưa có dòng = 0</td><td>🤖 + 😊</td><td>tay</td></tr>
+<tr><td class="c">4.4</td><td>bản nháp Config</td><td>kết quả 3.x</td><td>Config chạy được</td><td>CAT-229</td><td>lỗi = 0</td><td>🤖</td><td>🟡 VD-021</td></tr>
+<tr><td class="c">4.5</td><td>mọi UI con</td><td>ML-DEF-018</td><td>ảnh màn</td><td>CAT-239 (phát sinh ở 4.5)</td><td>màn có ảnh = 100%</td><td>😊 xem</td><td>Tool chụp màn</td></tr>
+<tr><td class="c">5.1</td><td>link · ảnh · số · đếm CAT-069</td><td>view.html · CAT-069</td><td>1 gói</td><td>view.html (🔴 VD-008)</td><td>1 gói</td><td>😊</td><td>tay</td></tr>
+<tr><td class="c">5.2</td><td>phiếu ghế khác hãng</td><td>gói 5.1</td><td>1 phiếu</td><td>CAT-025</td><td>1 phiếu · ➖ khi User bỏ ký</td><td>✍️</td><td>ghế AI</td></tr>
+<tr><td class="c">5.3</td><td>quyết định của Owner</td><td>gói 5.1</td><td>gật / lắc</td><td>CAT-025</td><td>1 quyết định</td><td>😊</td><td>Owner</td></tr>
+<tr><td class="c">5.4</td><td>lý do lắc</td><td>5.3</td><td>1 dòng 🟡</td><td>CAT-069</td><td>lắc chưa ghi = 0 · ➖ khi gật</td><td>🤖</td><td>tay</td></tr>
+<tr><td class="c">5.5</td><td>trạng thái việc</td><td>CAT-227</td><td>việc «xong» + tin báo</td><td>CAT-227</td><td>1</td><td>🤖</td><td>🔴 VD-001</td></tr>
+</tbody></table></div>
 
 <h2><span class="num">4</span>Check Master list — bảng kiểm kê chung</h2>
-<p class="note">Nguồn số: trang «48 Master List» (cột Total theo nguồn). Mới có phần Master list; <b>DOT, Tool (bước 2.1) chưa điểm danh</b>. <b>18 sổ: có 6 · cần duyệt 10 · cần làm mới 2.</b></p>
+<p class="note">Nguồn số: trang «48 Master List» (cột Total theo nguồn). Mới có phần Master list; <b>DOT, Tool (bước 2.1) chưa điểm danh</b>. <b>19 sổ: có 6 · cần duyệt 11 · cần làm mới 2.</b></p>
 <div class="wrap"><table>
 <thead><tr><th>STT</th><th>Loại</th><th>Mã</th><th>Tên</th><th>Số lượng</th><th>Tình trạng</th><th>Lúc ghi</th><th>Ghi chú</th></tr></thead>
 <tbody>
@@ -139,12 +168,13 @@ tr.m td{background:#f6faf7;font-weight:700;color:#174f35}
 <tr><td>11</td><td class="c">Master list</td><td class="c">CAT-229</td><td>Sổ lần thử</td><td>11</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>cho 4.4</td></tr>
 <tr><td>12</td><td class="c">Master list</td><td class="c">CAT-206</td><td>Danh mục hợp đồng vào/ra loại bản ghi</td><td>66</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>cho 3.x (hợp đồng thông tin)</td></tr>
 <tr><td>13</td><td class="c">Master list</td><td class="c">CAT-016</td><td>Sổ nhật ký định nghĩa</td><td>69</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>cho 4.3</td></tr>
-<tr><td>14</td><td class="c">Master list</td><td class="c">CAT-025</td><td>Sổ phiếu duyệt ý · bản</td><td>41</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>cho 5.3</td></tr>
+<tr><td>14</td><td class="c">Master list</td><td class="c">CAT-025</td><td>Sổ phiếu duyệt ý · bản</td><td>41</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>cho 5.2, 5.3</td></tr>
 <tr><td>15</td><td class="c">Master list</td><td class="c">CAT-249*</td><td>Master công cụ giám sát</td><td>0</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>D1/D2 (MBM 2.5)</td></tr>
 <tr><td>16</td><td class="c">Master list</td><td class="c">CAT-228</td><td>Sổ việc thật MOT · bản ghi · người</td><td>8</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>bước «hồ sơ» còn cần không? (VD-013)</td></tr>
-<tr><td>17</td><td class="c">Master list</td><td class="c">ML-DEF-012</td><td>Master of Master</td><td>0</td><td><span class="chip bad">cần làm mới</span></td><td class="c">điểm danh</td><td>rỗng (VD-006)</td></tr>
-<tr><td>18</td><td class="c">Master list</td><td class="c">ML-DEF-022</td><td>Master Step</td><td>0</td><td><span class="chip bad">cần làm mới</span></td><td class="c">điểm danh</td><td>rỗng (VD-007)</td></tr>
-<tr><td>19</td><td class="c">DOT · Tool</td><td class="c">—</td><td>chưa điểm danh</td><td>—</td><td>—</td><td class="c">—</td><td>bước 2.1 chưa làm (VD-012)</td></tr>
+<tr><td>17</td><td class="c">Master list</td><td class="c">CAT-239</td><td>Sổ tệp</td><td>—</td><td><span class="chip warn">cần duyệt</span></td><td class="c">phát sinh ở 4.5</td><td>nơi ghi ảnh màn (H4 của 4.5)</td></tr>
+<tr><td>18</td><td class="c">Master list</td><td class="c">ML-DEF-012</td><td>Master of Master</td><td>0</td><td><span class="chip bad">cần làm mới</span></td><td class="c">điểm danh</td><td>rỗng (VD-006)</td></tr>
+<tr><td>19</td><td class="c">Master list</td><td class="c">ML-DEF-022</td><td>Master Step</td><td>0</td><td><span class="chip bad">cần làm mới</span></td><td class="c">điểm danh</td><td>rỗng (VD-007)</td></tr>
+<tr><td>20</td><td class="c">DOT · Tool</td><td class="c">—</td><td>chưa điểm danh</td><td>—</td><td>—</td><td class="c">—</td><td>bước 2.1 chưa làm (VD-012)</td></tr>
 </tbody></table></div>
 </main>
 </body>
