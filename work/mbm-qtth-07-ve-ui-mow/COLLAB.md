@@ -45,7 +45,7 @@ Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công
 | 6.3 | Chốt mục tiêu | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
 | 6.4 | Liệt kê Mốc · Mục con · Bước | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 18/10 09:20 theo MBM r5.24 (5 mốc · 18 + N bước) ở view.html |
 | 6.5 | Check Master list | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ, DOT, Tool; Tình trạng = «có» hết | ■ bảng ở view.html · Master list 6/18 «có» · DOT, Tool chưa điểm danh |
-| 6.6 | Bộ câu hỏi | 🤖 | mọi bước đủ ô | ☐ |
+| 6.6 | Bộ câu hỏi | 🤖 | mọi bước đủ ô | ◐ thử H1–H7 18/10 18:40 · 19 dòng · 0 ô trống · vướng VD-020…024 |
 | 6.7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
 | 6.8 | Chạy | 🤖 | đạt ô 2 | ☐ |
 
@@ -86,6 +86,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P34 · 18/10 16:36–18:07 · bộ câu hỏi: «Câu hỏi cần cụ thể hơn kiểu: Cần cái gì? ghi cái cần ở đâu? đã ghi chưa? đã kiểm lại chưa??… Nguyên tắc là những cái gì lập đi lập lại thì đưa thành bộ công thức chuẩn» — «Đồng ý, bạn sửa vào MBM, làm thử quả QTHT 007 xem có vướng gì không? xác nhận đã, nếu không vướng, lượt sau chúng ta sẽ áp xuống QT 001» → MBM r5.25 (H1–H7 + đặc thù + ➖/🟡/🔴) + điền thử 19 dòng.
 - P33 · 18/10 07:39–09:00 · định nghĩa Bước: «… Ý tôi là trong MBM phải định nghĩa bước là gì? nguyên tắc 6W thì đầu tiên what mà chúng ta toàn quên» — «Đồng ý. bạn sửa đi, và đưa thử vào QTTH 007, cuối cùng bước là những gì?» → MBM r5.24 + QTTH 07 còn 18 + N bước.
 - P32 · 18/10 05:51 + 07:06 · CAT-069: «Đúng, Quy định đơn giản. Mọi nợ đều nằm trong CAT 068, có cột mã của 227. 227 và 069 (và có thể 1 số master list khác là sổ tông hợp của mọi con MBM. Làm như vậy thì sẽ hiểu được nhất quán. bạn sửa thật gọn. Cố gằng logic để ít chữ nhé. … Con người cần biểu tượng, suy luận logic, màu sắc để dễ nhận ra vấn đề.» («CAT 068» = CAT-069) → MBM r5.23 + CAT-069 đổi nhãn + bảng vấn đề VD-001…019.
 - P31 · 18/10 05:30 · CT-006: «Trong phần côg thức: UI Con CT-006 Chuỗi+Bước+Tầng+Nhóm+UI cha⇒UI Con. Bạn đổi giúp tôi đây là Nhóm con (bản chất UI con chính là bước con, hay nhóm con (xét về số lượng và thứ tự)).» → CT-006 = Chuỗi + Bước + Tầng + Nhóm con + UI cha ⇒ UI Con.
