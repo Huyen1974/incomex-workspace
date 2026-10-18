@@ -866,6 +866,7 @@ HJW | **HIỆN HÀNH: XEM BẢNG ĐIỀU KHIỂN (mục 0) + LỘ TRÌNH 0.9/0.1
 - D13 · 2026-09-24 · **HOST ARCHITECTURE — GENERIC_AGENT_GATEWAY:** một route chung + profile server-side theo credential (`agent_id`, tool allowlist, read/write root+path scope, attribution). Không dùng một shared narrow key và không tạo route code riêng từng agent. JEV `gen-dec-1790217958-q1i8W3GQZj6EZBKY6cMG`: GENERIC_AGENT_GATEWAY 1.00.
 - D14 · 2026-09-24 · **OWNER APPROVED HJW.2C:** mở RUN mới có review để (G0) vá auth bypass đã phát hiện, rồi (G1) triển khai Agent Gateway generic và onboard Hermes làm profile đầu tiên. Auth patch là gate bắt buộc trước khi bật gateway.
 - D15 · 2026-09-24 · **OWNER REAFFIRMED ALWAYS-ON/API:** Hermes phải được khai thác triệt để lợi thế chạy VPS 24/7, nhận trigger từ bên ngoài và bất cứ lúc nào; HJW.3 phải nối tốt nhất các đường assignment/schedule/API-webhook/Telegram, không dừng ở parity đọc/ghi repo.
+- D17 · 2026-10-18 · **BỎ mục «luôn cho phép» `command_allowlist` trên Hermes VPS** (ghi 17/10 09:45Z từ Hermes Desktop): Hermes VPS hỏi duyệt từng lần như trước. Owner trả lời trực tiếp Claude Code CLI 18/10 09:24 +07, chọn «Bỏ (Recommended)» (O-HJW-ALLOWLIST-20261018, P319→P320).
 - D16 · 2026-09-24 · **HOST HJW.3 INGRESS ARCHITECTURE:** Telegram = human ingress; Git assignment + cron/script-gate = zero-token backstop; built-in Hermes webhook = external machine ingress sau nginx hiện hữu, HMAC/filter/idempotency/rate-limit và chỉ fire cùng `ws-dispatch`; direct Hermes API Server giữ loopback trong Phase 1, chỉ public sau khi có profile/toolset/API key riêng đủ hẹp. JEV `gen-dec-1790241698-LNju0s9zxYbOrssd8idg`: WEBHOOK_PLUS_CRON 0.74.
 
 ## Kế hoạch
@@ -1739,7 +1740,7 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - Không coi đây là KQ DỪNG toàn RUN; là **PARTIAL checkpoint** do phát hiện topology không khớp assumption. Không rollback phần đã PASS.
 
 ## Owner cần quyết
-- O-HJW-ALLOWLIST-20261018 · Giữ hay bỏ mục «luôn cho phép» một loại lệnh (chạy script dạng heredoc) mà Hermes Desktop ghi vào cấu hình Hermes VPS lúc 17/10 09:45Z khi người dùng bấm «luôn cho phép»? Đề xuất: BỎ — Hermes VPS hỏi duyệt từng lần như trước; giữ thì mục này vào baseline Config Guard có lý do. Trả lời xong máy làm nốt pha B (P319).
+- —
 
 ## NEXT
 - Executor tiếp tục từ checkpoint hiện tại theo P24; **không chạy option 1**, không tự tạo bridge/service/listener.
@@ -6593,6 +6594,12 @@ Ghế: Claude Code CLI (executor) · Bước/vòng: sửa xanh đèn HJW · 1/1 
 - **Dọn:** đã gỡ 6/đã tạo 9 — 3 thư mục thử `/var/tmp/hjwgf-*` (xoá, đã kiểm), tag `agent-data-hvu:hjw-green-20261017-cand` (gỡ), 2 symlink `.env` tạm (gỡ) · còn lại: thư mục bằng chứng `/root/incomex-config-changes/HJW-GREEN-FIX-20261017-01/` (giữ, vết kiểm toán + `rollback/`), image `agent-data-hvu:hjw-green-20261017` (đang chạy), image cũ `tqt-p38` (đường lùi), commit `3b37102` trên repo VPS, 1 lớp build cache nhỏ (buildkit có van 5 GB) · 0 tiến trình nền. Mac: 0 thay đổi (đồ P313 không còn gì chạy; giữ script + hồ sơ Chrome có lý do).
 - **Việc còn lại có chủ:** (1) **B — chờ Owner** quyết giữ/bỏ `command_allowlist`; sau đó executor làm nốt cùng RUN/READY: apply-v0 `hermes-config-yaml` (2 khoá display + quyết định allowlist) + `hjw-control-root.py baseline <lý do>` (#21 đọc sổ riêng `baseline.json`, đang báo khoá display) + kiểm không tái phát; (2) `test_acc15_outage_then_self_heal` chập chờn — chủ MCPW/P02; (3) `HOOK_DELIVERY_RESIDUAL` presence 499 khi agent-data trả > 2 s — chủ MCPW; (4) 6 tiến trình gpg-agent mồ côi từ 26/05 trên VPS (không phải lượt này) — chủ VPSC; (5) **P316 chưa bắt đầu:** Đề bài Đ 3.1 đòi #21 sạch và GREEN-FIX chưa XONG ⇒ bàn giao: B xong thì Owner dán câu P316 (mục 5 của P316) cho Claude Code cửa sổ mới.
 - Chi phí model trả tiền: 0 (chỉ JEV). JEV `gen-dec-1792283704-KRhB0ojIeAgPa0FxVGzL`: containerd để tự hết 0,97 · B dừng 0,99 · cách dựng C 0,73.
+
+### P320 · Claude Code CLI · 2026-10-18 09:25 +07 · RUN `HJW-GREEN-FIX-20261017-01` · **OWNER CHỌN BỎ ALLOWLIST · BẮT ĐẦU LẠI CHỈ PHA B (CÙNG READY, PROMPT KHÔNG ĐỔI) · GIỮ VPS-GHI**
+Ghế: Claude Code CLI (executor) · Bước/vòng: sửa xanh đèn HJW · 1/1 · Based_on `6d99fda`.
+- HUMAN_DIRECTIVE@HJW-20261018-ALLOWLIST EFFECTIVE · task=hermes-joint-workspace · scope=pha B `hermes-config-yaml` · step=sửa xanh đèn HJW · recorded_by=Claude Code CLI · quote=«Bỏ (Recommended)» (Owner chọn trực tiếp trong câu hỏi của Claude Code CLI 18/10 09:24 +07: «Giữ hay bỏ mục này?») · text=gỡ `command_allowlist` khỏi cấu hình Hermes VPS, đưa 2 khoá display vào baseline, máy làm nốt pha B · audit=transcript phiên Claude Code + D17. Directive làm CHẶT (thu hồi quyền), không nới phạm vi.
+- **Sự thật đo trước khi làm:** mã Hermes (`tools/approval.py`) nạp allowlist **một lần khi tiến trình khởi động**, không đọc lại trên đường duyệt ⇒ quyền đang nằm trong bộ nhớ `hermes-serve` (PID chạy từ 25/09; phiên Desktop 17/10 chạy trong nó). Gateway khởi động 09/10 (trước lần bấm) và worker cron sinh mới mỗi lượt ⇒ không giữ. Mã trên đĩa `749220ef` checkout 24/09 21:21Z, trước khi serve khởi động ⇒ khởi động lại serve **không đổi phiên bản**. Mặt phẳng điều khiển HJW (#21) chỉ có đúng điều kiện CONFIG (từ 11/10) ⇒ `hjw-control-root.py baseline` chỉ hấp thụ 2 khoá display.
+- STARTED@HJW-GREEN-FIX-20261017-01 2026-10-18T02:25Z · executor=Claude Code CLI · lượt 2, chỉ pha B · READY `31976ce` (P317) còn hiệu lực, PROMPT không đổi, 0 STOP · giữ VPS-GHI (cùng commit) · sẽ làm: Guard PRE → ứng viên = tệp sống bỏ đúng 2 dòng `command_allowlist` (khác baseline đúng 2 dòng display) → mô phỏng writer Hermes trên bản sao → apply-v0 `hermes-config-yaml` → khởi động lại `hermes-serve` → `hjw-control-root.py baseline` → kiểm #21/#22 + thử hỏng bản sao → Guard POST → KQ · 0 tiến trình nền · dự kiến KQ ≤ 02:55Z
 
 
 
