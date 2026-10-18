@@ -35,7 +35,7 @@ D1, D2 (MBM 2.5, không chặn): đã rà — xem tab Nội dung công việc, m
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
-Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công việc» trên trang Task (tệp `view.html` của việc này) — 1 nơi, không chép lại ở đây. Nợ kỹ thuật (việc chưa làm được do công cụ, N01…): cũng ở đó — không dựng hệ phức tạp, xong QTTH 07 thì lên collection + DOT.
+Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công việc» trên trang Task (tệp `view.html` của việc này) — 1 nơi, không chép lại ở đây. Vấn đề và nợ kỹ thuật (mẫu CAT-069, mã VD-…): cũng ở đó — không dựng hệ phức tạp, xong QTTH 07 thì lên collection + DOT.
 
 #### ☑ Việc cần làm — đọc lại mỗi lượt, xong tích kèm commit
 | MBM | Việc | Ai | Xong khi | |
@@ -58,7 +58,7 @@ Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công
 | Gemini | Google | `gemini-agy` | Council · ghế ký | Owner chuyển tay |
 Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = luật ký MBM (CT-008)
 
-#### Sổ vấp MBM — vấp đâu ghi ngay, sửa CT-008 tại chỗ
+#### Sổ vấp MBM — lịch sử V1–V19 (từ 18/10 vấp ghi ở bảng vấn đề mẫu CAT-069 trong view.html)
 | # | Vấp | Đã sửa ở CT-008 |
 |---|---|---|
 | V1 | thiếu bước tạo task | r4.3 |
@@ -86,6 +86,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P32 · 18/10 05:51 + 07:06 · CAT-069: «Đúng, Quy định đơn giản. Mọi nợ đều nằm trong CAT 068, có cột mã của 227. 227 và 069 (và có thể 1 số master list khác là sổ tông hợp của mọi con MBM. Làm như vậy thì sẽ hiểu được nhất quán. bạn sửa thật gọn. Cố gằng logic để ít chữ nhé. … Con người cần biểu tượng, suy luận logic, màu sắc để dễ nhận ra vấn đề.» («CAT 068» = CAT-069) → MBM r5.23 + CAT-069 đổi nhãn + bảng vấn đề VD-001…019.
 - P31 · 18/10 05:30 · CT-006: «Trong phần côg thức: UI Con CT-006 Chuỗi+Bước+Tầng+Nhóm+UI cha⇒UI Con. Bạn đổi giúp tôi đây là Nhóm con (bản chất UI con chính là bước con, hay nhóm con (xét về số lượng và thứ tự)).» → CT-006 = Chuỗi + Bước + Tầng + Nhóm con + UI cha ⇒ UI Con.
 - P30 · 17/10 21:33 · nợ kỹ thuật: «Cái gì chưa làm được do công cụ thì ghi chú nợ kỹ thuật QTTH 007 (chúng ta không cố build hệ thống phức tạp như codex đã làm mà sẽ đưa lên collection sau khi hoàn thành QTTH 007. DOT trên collection sẽ rất nhanh, giờ chỉ cần ghi chú danh sách là được, có một ít thông tin không đáng ngại.» → N01–N08 ở view.html.
 - P29 · 17/10 21:18 + 21:26 · rà tới 3.2: «đồng ý, bạn sửa tiếp đi, làm sao để chạy không vướng. AI biết phải làm gì? hiểu ngay và không hiểu sai» → MBM r5.22 · mục tiêu + hoàn thành có số · rà D1/D2 · CAT-249 chưa có đường nạp dòng nên bảng 8 MBM là dữ liệu đầu tạm thời.
