@@ -31,20 +31,20 @@ table.h td{font-size:14px}
 <body>
 <main>
 <h1>QTTH 07 — bảng làm việc theo MBM</h1>
-<p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 18/10/2026 21:30 · theo MBM r5.32, rà tới hết mục 4 · danh sách việc và tiến độ ở tab Kiểm soát.</p>
+<p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 18/10/2026 21:25 · theo MBM r5.33, rà tới hết mục 4 · danh sách việc và tiến độ ở tab Kiểm soát.</p>
 
 <div class="k">
-<p><b>⚠ 2 khúc mắc mới khi làm đúng theo chữ MBM</b> (chi tiết: VD-025, VD-026 ở bảng dưới)</p>
-<p><b>K1 · VD-025</b> — MBM 3.3 chỉ có bước cố định (1.1, 2.1–2.4) và bước chuyên môn (Mốc 3). <b>Mốc 4 Kiểm tra và Mốc 5 Báo cáo không có bước nào</b> → AI không biết hai mốc này làm gì.</p>
+<p><b>⚠ Khúc mắc khi làm đúng theo chữ MBM</b> (chi tiết ở bảng dưới)</p>
+<p>✅ <b>K1 · VD-025</b> — đã gỡ (MBM r5.33): Mốc 4 Kiểm tra = tích 🟢 / 🔴 cho từng bước trong báo cáo; Mốc 5 bàn sau cùng hồ sơ.</p>
 <p><b>K2 · VD-026</b> — Mục tiêu chuyên môn lấy từ mục 2. QTTH 07 có 5 mục tiêu, nhưng 2 mục tiêu (<i>Master list</i>, <i>DOT</i>) đã do bước cố định 2.1–2.4 lo; 1 mục tiêu (<i>Đủ trường để Config</i>) ra 2 kết quả. MBM chưa nói xử lý thế nào. Em đã làm: bỏ 2 mục tiêu trùng, tách mục tiêu ra 2 kết quả → <b>4 bước chuyên môn</b>.</p>
 </div>
 
 <h2>🧾 Vấn đề của việc — mẫu CAT-069 (tạm ghi ở đây)</h2>
-<p class="note"><b>🔴 11 · 🟡 7 · ⚪ 8</b> — 🟢 xử lý ngay · 🟡 xử lý sau · 🔴 nợ kỹ thuật · ⚪ đã đóng</p>
+<p class="note"><b>🔴 11 · 🟡 6 · ⚪ 9</b> — 🟢 xử lý ngay · 🟡 xử lý sau · 🔴 nợ kỹ thuật · ⚪ đã đóng</p>
 <div class="wrap"><table>
 <thead><tr><th>Mã</th><th>Ở bước</th><th>Vấn đề</th><th>Tình trạng</th><th>Người giữ</th><th>Tạm thời · xong khi</th></tr></thead>
 <tbody>
-<tr><td class="c">VD-025</td><td class="c">MBM 3.3</td><td>Mốc 4 Kiểm tra, Mốc 5 Báo cáo không có bước</td><td><span class="chip warn">🟡</span></td><td>😊 User</td><td>đề xuất: thêm bước cố định cho Mốc 4, 5 ở MBM 3.3.2</td></tr>
+<tr><td class="c">VD-025</td><td class="c">MBM 3.3</td><td>Mốc 4 Kiểm tra, Mốc 5 Báo cáo không có bước</td><td><span class="chip gray">⚪</span></td><td>—</td><td>MBM r5.33: Mốc 4 = tích 🟢/🔴 từng bước; Mốc 5 bàn sau</td></tr>
 <tr><td class="c">VD-026</td><td class="c">MBM 3.3.3</td><td>Mục tiêu trùng bước cố định (Master list, DOT); mục tiêu ra 2 kết quả</td><td><span class="chip warn">🟡</span></td><td>😊 User</td><td>đã bỏ trùng, đã tách · User duyệt cách làm</td></tr>
 <tr><td class="c">VD-020</td><td class="c">3.4</td><td>Chưa có DOT đếm mồ côi</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>đếm tay · DOT đếm mồ côi</td></tr>
 <tr><td class="c">VD-021</td><td class="c">3.3</td><td>Chưa xác minh có DOT áp Field, áp nháp Config</td><td><span class="chip warn">🟡</span></td><td>Host</td><td>— · tra ML-DEF-024 ở bước 2.1</td></tr>
@@ -96,8 +96,8 @@ table.h td{font-size:14px}
 <tr><td>1</td><td class="c">Khai việc</td><td>Việc gì, đã có mã việc chưa?</td><td>1 việc có mã ở CAT-227</td></tr>
 <tr><td>2</td><td class="c">Rà soát chuẩn bị</td><td>Cần Master list nào? DOT nào? Tool nào?</td><td>bảng 5.1 đủ dòng; còn «cần…» = 0</td></tr>
 <tr><td>3</td><td class="c">Triển khai</td><td>4 mục tiêu chuyên môn đã xong chưa?</td><td>4/4 bước chuyên môn đạt</td></tr>
-<tr><td>4</td><td class="c">Kiểm tra</td><td>Đúng và đủ chưa?</td><td>⚠ chưa có bước (K1)</td></tr>
-<tr><td>5</td><td class="c">Báo cáo</td><td>Owner đã nhận và duyệt chưa?</td><td>⚠ chưa có bước (K1)</td></tr>
+<tr><td>4</td><td class="c">Kiểm tra</td><td>Đúng và đủ chưa?</td><td>9 bước đều được tích 🟢 hoặc 🔴 trong báo cáo</td></tr>
+<tr><td>5</td><td class="c">Báo cáo</td><td>Owner đã nhận và duyệt chưa?</td><td>bàn sau, cùng phần hồ sơ</td></tr>
 </tbody></table></div>
 
 <h3>3.2 Mục con</h3>
@@ -114,7 +114,7 @@ table.h td{font-size:14px}
 <tr><td class="c">3.3</td><td>Bổ sung đủ trường (đúng, đủ, chính xác) để Config thành công <i>(mục tiêu 4, phần 2)</i></td><td>Field thiếu = 0; thử Config lỗi = 0</td><td>—</td></tr>
 <tr><td class="c">3.4</td><td>Không có đối tượng mồ côi — điền đủ, 1 nơi ghi (SSOT) <i>(mục tiêu 3)</i></td><td>mồ côi = 0</td><td>—</td></tr>
 </tbody></table></div>
-<p class="note"><b>Tổng: 9 bước</b> (5 cố định + 4 chuyên môn) · Mốc 4, 5: chưa có bước (K1). <b>Nhân xuống (3.3.5):</b> 4 bước × 35 quy trình = 35 checklist.</p>
+<p class="note"><b>Tổng: 9 bước</b> (5 cố định + 4 chuyên môn) · Mốc 4: tích 🟢/🔴 cho 9 bước · Mốc 5: bàn sau. <b>Nhân xuống (3.3.5):</b> 4 bước × 35 quy trình = 35 checklist.</p>
 
 <h2><span class="num">4</span>Bộ câu hỏi — bảng câu hỏi của QTTH 07</h2>
 <p class="note"><b>Bảng câu hỏi QTTH 07 = H1–H7 (MBM 4.2) + Đ1, Đ2 (riêng QTTH 07).</b> Đ1 «Dùng lại UI nào, vẽ mới UI nào?» · Đ2 «Nhóm con nào giữ, gộp, tách?» — cả hai dùng cho bước 3.1.</p>
@@ -151,11 +151,11 @@ table.h td{font-size:14px}
 <tr><td>10</td><td class="c">Master list</td><td class="c">CAT-069</td><td>Việc cần xử lý tiếp</td><td>83</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>H4 của 3.4 · sổ vấn đề</td></tr>
 <tr><td>11</td><td class="c">Master list</td><td class="c">CAT-229*</td><td>Sổ lần thử</td><td>11</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>biên nhận thử Config (3.3)</td></tr>
 <tr><td>12</td><td class="c">Master list</td><td class="c">CAT-206*</td><td>Danh mục hợp đồng vào/ra loại bản ghi</td><td>66</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>H4 của 3.2 · H2 của 3.3</td></tr>
-<tr><td>13</td><td class="c">Master list</td><td class="c">CAT-016</td><td>Sổ nhật ký định nghĩa</td><td>69</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>rà ảnh hưởng (Mốc 4 — chờ K1)</td></tr>
-<tr><td>14</td><td class="c">Master list</td><td class="c">CAT-025</td><td>Sổ phiếu duyệt ý · bản</td><td>41</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>duyệt (Mốc 5 — chờ K1)</td></tr>
+<tr><td>13</td><td class="c">Master list</td><td class="c">CAT-016</td><td>Sổ nhật ký định nghĩa</td><td>69</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>chưa bước nào dùng — rà ở mục 5</td></tr>
+<tr><td>14</td><td class="c">Master list</td><td class="c">CAT-025</td><td>Sổ phiếu duyệt ý · bản</td><td>41</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>duyệt (Mốc 5 — bàn sau)</td></tr>
 <tr><td>15</td><td class="c">Master list</td><td class="c">CAT-249*</td><td>Master công cụ giám sát</td><td>0</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>D1/D2 (MBM 2.5)</td></tr>
 <tr><td>16</td><td class="c">Master list</td><td class="c">CAT-228*</td><td>Sổ việc thật MOT · bản ghi · người</td><td>8</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>bước «hồ sơ» còn cần không? (VD-013)</td></tr>
-<tr><td>17</td><td class="c">Master list</td><td class="c">CAT-239*</td><td>Sổ tệp</td><td>—</td><td><span class="chip warn">cần duyệt</span></td><td class="c">phát sinh ở 4.5 cũ</td><td>ảnh màn (Mốc 4 — chờ K1)</td></tr>
+<tr><td>17</td><td class="c">Master list</td><td class="c">CAT-239*</td><td>Sổ tệp</td><td>—</td><td><span class="chip warn">cần duyệt</span></td><td class="c">phát sinh ở 4.5 cũ</td><td>chưa bước nào dùng — rà ở mục 5</td></tr>
 <tr><td>18</td><td class="c">Master list</td><td class="c">ML-DEF-012</td><td>Master of Master</td><td>0</td><td><span class="chip bad">cần làm mới</span></td><td class="c">điểm danh</td><td>rỗng (VD-006)</td></tr>
 <tr><td>19</td><td class="c">Master list</td><td class="c">ML-DEF-022</td><td>Master Step</td><td>0</td><td><span class="chip bad">cần làm mới</span></td><td class="c">điểm danh</td><td>rỗng (VD-007)</td></tr>
 <tr><td>20</td><td class="c">DOT · Tool</td><td class="c">—</td><td>chưa điểm danh</td><td>—</td><td>—</td><td class="c">—</td><td>bước 2.1 chưa làm (VD-012)</td></tr>

@@ -9,7 +9,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ (MBM 6.x): [✓ 6.1 Nhận yêu cầu] → [✓ 6.2 Tạo task] → [✓ 6.3 Chốt mục tiêu] → [◐ 6.4 Liệt kê bước — bản thử] → [◐ 6.5 Bộ câu hỏi] → [■ 6.6 Check Master list] → [□ 6.7 Ký] → [□ 6.8 Chạy]
-- ✅ Đã xong: ô 1–2 (17:05) · rà tới hết mục 4 theo MBM r5.32: 9 bước (5 cố định + 4 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · khúc mắc K1, K2 — xem tab «Nội dung công việc» (`view.html`).
+- ✅ Đã xong: ô 1–2 (17:05) · rà tới hết mục 4 theo MBM r5.32: 9 bước (5 cố định + 4 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · khúc mắc K1 đã gỡ, K2 chờ — xem tab «Nội dung công việc» (`view.html`).
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
 - ➡ Kế tiếp: 😊 Owner xem «Vấn đề lộ ra» ở tab Nội dung công việc — nhất là 13 sổ cần duyệt lần đầu và 3 mã CAT lệch nghĩa.
@@ -43,7 +43,7 @@ Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công
 | 6.1 | Nhận yêu cầu | 🤖 | lời Owner ở Nhật ký | ☑ |
 | 6.2 | Tạo task + tên + view.html | 🤖 | đúng khuôn, tên `mbm-`, có `view.html` | ☑ `579bec00` |
 | 6.3 | Chốt mục tiêu | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
-| 6.4 | Liệt kê Mốc · Mục con · Bước | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 18/10 21:30 theo MBM r5.32 (9 bước: 5 cố định + 4 chuyên môn; Mốc 4, 5 chờ K1) ở view.html |
+| 6.4 | Liệt kê Mốc · Mục con · Bước | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 18/10 21:30 theo MBM r5.32 (9 bước: 5 cố định + 4 chuyên môn; Mốc 4 = tích 🟢/🔴) ở view.html |
 | 6.5 | Bộ câu hỏi | 🤖 | mọi bước đủ ô | ◐ bảng câu hỏi QTTH 07 = H1–H7 + Đ1, Đ2 · 9 bước · 0 ô trống |
 | 6.6 | Check Master list | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ, DOT, Tool; Tình trạng = «có» hết | ■ bảng ở view.html · Master list 6/19 «có» · DOT, Tool chưa điểm danh |
 | 6.7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
@@ -86,6 +86,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P41 · 18/10 21:18 · «1. K1: Kiểm tra thì chỉ tích xanh hoặc đỏ vào tất cả các các bước trong báo cáo. Vì chưa đến phần báo cáo => bạn cứ hướng dẫn như vậy là ok. 2. K2: Bạn giải thích thêm giúp tôi vấn đề là gì?» → MBM r5.33 (3.1 dòng 4 + 3.3.6).
 - P40 · 18/10 21:05 · «Giờ bạn rà soát lại QTTH 007 để làm đến hết mục 4 theo MBM xem có khúc mắc những gì nữa? rồi tôi nhìn vào QTTH 007 sẽ cho ý kiến tiếp» → 9 bước + bảng câu hỏi; K1 (Mốc 4, 5 chưa có bước), K2 (mục tiêu trùng bước cố định).
 - P39 · 18/10 20:57–21:01 · câu đặc thù: «Bản chất là: trong QTTH nếu nhiệm vụ của QTTH có những câu hỏi đặc thù riêng cần bổ sung thì thêm vào bảng câu hỏi chuẩn từ MBM cho riêng QTTH đó. viết cho rõ ràng» → MBM r5.32 (mã Đ1, Đ2…).
 - P38 · 18/10 20:44–20:46 · H2: «H2 Lấy ở đâu? mã sổ nguồn CAT-206 · ML-DEF-008 — Câu này nghĩa là gì?… đừng ghi lung tung!!!» — «Bạn ghi rõ ràng như vậy. CAT-206 có đúng tên đính đặt không? trong danh sách này (master-design-review-v1.html) tôi chưa thấy có đâu đấy. Viết làm sao để dễ hiểu, tránh hiểu nhầm tối đa» → MBM r5.30: mã đúng là CAT-206* (có dấu *), sổ ghi mã + tên.
