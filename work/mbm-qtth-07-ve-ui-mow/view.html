@@ -19,35 +19,23 @@ th{background:#eef5f0;text-align:left;font-weight:700;color:#1f4d3a}
 th,td{border-bottom:1px solid #e3ebe5;padding:7px 9px;vertical-align:top}
 tr:last-child td{border-bottom:0}
 td.c{white-space:nowrap;color:#4b5a52}
-tr.m td{background:#f6faf7;font-weight:700;color:#174f35}
 .chip{display:inline-block;border-radius:999px;padding:1px 9px;font-size:13.5px;font-weight:700;white-space:nowrap}
 .ok{background:#e3f4e8;color:#14532d}.warn{background:#fff3d1;color:#7a5200}.bad{background:#fde4e1;color:#8a1c12}.gray{background:#eceff1;color:#4b5a52}
 .note{color:#4b5a52;font-size:14px;margin:6px 0 8px}
 table.h td{font-size:14px}
-.k{border:2px solid #e0a800;border-radius:10px;padding:10px 14px;background:#fffbea;margin:8px 0}
-.k p{margin:4px 0}
 </style>
 </head>
 <body>
 <main>
 <h1>QTTH 07 — bảng làm việc theo MBM</h1>
-<p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 18/10/2026 21:25 · theo MBM r5.33, rà tới hết mục 4 · danh sách việc và tiến độ ở tab Kiểm soát.</p>
-
-<div class="k">
-<p><b>⚠ Khúc mắc khi làm đúng theo chữ MBM</b> (chi tiết ở bảng dưới)</p>
-<p>✅ <b>K1 · VD-025</b> — đã gỡ (MBM r5.33): Mốc 4 Kiểm tra = tích 🟢 / 🔴 cho từng bước trong báo cáo; Mốc 5 bàn sau cùng hồ sơ.</p>
-<p><b>K2 · VD-026</b> — Mục tiêu chuyên môn lấy từ mục 2. QTTH 07 có 5 mục tiêu, nhưng 2 mục tiêu (<i>Master list</i>, <i>DOT</i>) đã do bước cố định 2.1–2.4 lo; 1 mục tiêu (<i>Đủ trường để Config</i>) ra 2 kết quả. MBM chưa nói xử lý thế nào. Em đã làm: bỏ 2 mục tiêu trùng, tách mục tiêu ra 2 kết quả → <b>4 bước chuyên môn</b>.</p>
-</div>
+<p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 18/10/2026 21:40 · theo MBM r5.33 · mục tiêu User chốt 18/10 21:25 · danh sách việc và tiến độ ở tab Kiểm soát.</p>
 
 <h2>🧾 Vấn đề của việc — mẫu CAT-069 (tạm ghi ở đây)</h2>
-<p class="note"><b>🔴 11 · 🟡 6 · ⚪ 9</b> — 🟢 xử lý ngay · 🟡 xử lý sau · 🔴 nợ kỹ thuật · ⚪ đã đóng</p>
+<p class="note"><b>🔴 11 · 🟡 5 · ⚪ 10</b> — 🟢 xử lý ngay · 🟡 xử lý sau · 🔴 nợ kỹ thuật · ⚪ đã đóng</p>
 <div class="wrap"><table>
 <thead><tr><th>Mã</th><th>Ở bước</th><th>Vấn đề</th><th>Tình trạng</th><th>Người giữ</th><th>Tạm thời · xong khi</th></tr></thead>
 <tbody>
-<tr><td class="c">VD-025</td><td class="c">MBM 3.3</td><td>Mốc 4 Kiểm tra, Mốc 5 Báo cáo không có bước</td><td><span class="chip gray">⚪</span></td><td>—</td><td>MBM r5.33: Mốc 4 = tích 🟢/🔴 từng bước; Mốc 5 bàn sau</td></tr>
-<tr><td class="c">VD-026</td><td class="c">MBM 3.3.3</td><td>Mục tiêu trùng bước cố định (Master list, DOT); mục tiêu ra 2 kết quả</td><td><span class="chip warn">🟡</span></td><td>😊 User</td><td>đã bỏ trùng, đã tách · User duyệt cách làm</td></tr>
-<tr><td class="c">VD-020</td><td class="c">3.4</td><td>Chưa có DOT đếm mồ côi</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>đếm tay · DOT đếm mồ côi</td></tr>
-<tr><td class="c">VD-021</td><td class="c">3.3</td><td>Chưa xác minh có DOT áp Field, áp nháp Config</td><td><span class="chip warn">🟡</span></td><td>Host</td><td>— · tra ML-DEF-024 ở bước 2.1</td></tr>
+<tr><td class="c">VD-020</td><td class="c">3.2</td><td>Chưa có DOT đếm đầu mối hợp đồng thông tin</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>đếm tay · DOT đếm</td></tr>
 <tr><td class="c">VD-024</td><td class="c">2.4</td><td>Chưa có DOT tạo collection cho Master list</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>khai thiết kế UI.MASTER · DOT khi lên collection</td></tr>
 <tr><td class="c">VD-001</td><td class="c">1.1</td><td>Chưa thêm được việc QTTH 07 vào CAT-227</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>task này là việc · DOT thêm việc</td></tr>
 <tr><td class="c">VD-002</td><td class="c">MBM 1.2</td><td>CAT-227 chưa có ô «Yêu cầu User»</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>Nhật ký COLLAB · thêm ô khi lên collection</td></tr>
@@ -58,12 +46,15 @@ table.h td{font-size:14px}
 <tr><td class="c">VD-007</td><td class="c">MBM 4</td><td>Master Step ML-DEF-022 rỗng</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>bảng câu hỏi ghi ở view.html · DOT nạp</td></tr>
 <tr><td class="c">VD-008</td><td class="c">MBM 6.0</td><td>Tab Kiểm soát không dựng bảng</td><td><span class="chip bad">🔴</span></td><td>hpml-view-for-user</td><td>bảng ở view.html · hết khi lên collection</td></tr>
 <tr><td class="c">VD-009</td><td class="c">MBM 1.3</td><td>CAT-069 cũ: 83 dòng chưa có mã việc; tình trạng cũ (OPEN…) chưa đổi sang 4 màu</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>giữ nguyên · DOT đổi khi lên collection</td></tr>
+<tr><td class="c">VD-021</td><td class="c">3.3</td><td>Chưa xác minh có DOT kiểm đủ đầu vào Config</td><td><span class="chip warn">🟡</span></td><td>Host</td><td>— · tra ML-DEF-024 ở bước 2.1</td></tr>
 <tr><td class="c">VD-010</td><td class="c">2.4</td><td>13/19 sổ chưa «có» (11 cần duyệt, 2 cần làm mới)</td><td><span class="chip warn">🟡</span></td><td>😊 User</td><td>— · còn «cần…» = 0</td></tr>
 <tr><td class="c">VD-011</td><td class="c">2.2</td><td>Mã CAT-227/228 lệch nghĩa với sổ thật</td><td><span class="chip warn">🟡</span></td><td>Host</td><td>ghi chú ở bảng 5.1 · đối chiếu nghĩa xong</td></tr>
 <tr><td class="c">VD-012</td><td class="c">2.1</td><td>DOT, Tool chưa điểm danh</td><td><span class="chip warn">🟡</span></td><td>Host</td><td>— · bảng 5.1 có dòng DOT, Tool</td></tr>
 <tr><td class="c">VD-013</td><td class="c">MBM 3.3</td><td>Bước «tạo hồ sơ» (CAT-228*) còn cần không</td><td><span class="chip warn">🟡</span></td><td>😊 User</td><td>tạm bỏ · bàn cùng hồ sơ</td></tr>
+<tr><td class="c">VD-026</td><td class="c">MBM 3.3.3</td><td>Mục tiêu trùng bước cố định; mục tiêu ra 2 kết quả</td><td><span class="chip gray">⚪</span></td><td>—</td><td>User chốt 3 mục tiêu (18/10 21:25)</td></tr>
+<tr><td class="c">VD-025</td><td class="c">MBM 3.3</td><td>Mốc 4 Kiểm tra, Mốc 5 Báo cáo không có bước</td><td><span class="chip gray">⚪</span></td><td>—</td><td>MBM r5.33: Mốc 4 = tích 🟢/🔴 từng bước; Mốc 5 bàn sau</td></tr>
 <tr><td class="c">VD-022</td><td class="c">3.x</td><td>Bước 3.x ra 3 kết quả, ghi 3 nơi</td><td><span class="chip gray">⚪</span></td><td>—</td><td>MBM r5.26: bước = mục tiêu chuyên môn</td></tr>
-<tr><td class="c">VD-023</td><td class="c">1.4</td><td>Gộp/tách có 2 nơi ghi</td><td><span class="chip gray">⚪</span></td><td>—</td><td>bỏ bước 1.4; gộp/tách thành Đ2 của bước 3.1</td></tr>
+<tr><td class="c">VD-023</td><td class="c">1.4</td><td>Gộp/tách có 2 nơi ghi</td><td><span class="chip gray">⚪</span></td><td>—</td><td>bỏ bước 1.4; tách/gộp thành Đ2 của bước 3.1</td></tr>
 <tr><td class="c">VD-015</td><td class="c">1.4</td><td>Gộp/tách nhóm con (đề xuất) chưa gật</td><td><span class="chip gray">⚪</span></td><td>—</td><td>gộp vào VD-023</td></tr>
 <tr><td class="c">VD-014</td><td class="c">MBM 3.3</td><td>Bước theo nhóm con</td><td><span class="chip gray">⚪</span></td><td>—</td><td>MBM r5.26: nhóm con là chỗ nhân xuống (3.3.5)</td></tr>
 <tr><td class="c">VD-016</td><td class="c">MBM 3.2</td><td>Số «3.1» trùng với mã mục con</td><td><span class="chip gray">⚪</span></td><td>—</td><td>MBM r5.19</td></tr>
@@ -73,17 +64,17 @@ table.h td{font-size:14px}
 </tbody></table></div>
 
 <h2><span class="num">2</span>Mục tiêu · 2.5 Giám sát D1, D2 (không chặn)</h2>
-<p class="note">Mục tiêu và hoàn thành (có số) ở tab Kiểm soát, ô 1–2. Dưới đây: rà CAT-249* — tạm đọc bảng 8 MBM (GS-01…GS-11).</p>
+<p class="note">3 mục tiêu và 3 tiêu chí hoàn thành ở tab Kiểm soát, ô 1–2 (User chốt 18/10 21:25). Dưới đây: rà CAT-249* — tạm đọc bảng 8 MBM (GS-01…GS-11).</p>
 <div class="wrap"><table>
 <thead><tr><th>Câu</th><th>Mã</th><th>Cơ chế</th><th>Dùng cho QTTH 07</th><th>Khi nào</th></tr></thead>
 <tbody>
 <tr><td>D1</td><td class="c">GS-01</td><td>Quyền ghi theo danh tính</td><td>mọi ghi đi qua cổng agent</td><td><span class="chip ok">đang chạy</span></td></tr>
 <tr><td>D1</td><td class="c">GS-02</td><td>Config Guard</td><td>khoá sửa ngoài đường đã duyệt</td><td><span class="chip ok">đang chạy</span></td></tr>
-<tr><td>D1</td><td class="c">GS-03</td><td>Chỉ DOT ghi sổ (Directus Roles)</td><td>mục tiêu 5: gõ tay = 0</td><td><span class="chip warn">bật ở bước 2.4</span></td></tr>
-<tr><td>D1</td><td class="c">GS-04</td><td>Ràng buộc ô (Directus)</td><td>mục tiêu 4: ô bắt buộc của hợp đồng thông tin</td><td><span class="chip warn">bật ở bước 2.4</span></td></tr>
-<tr><td>D2</td><td class="c">GS-07</td><td>Đối soát N = a + b + c + d</td><td>mục tiêu 3: mồ côi = 0 (bước 3.4)</td><td><span class="chip warn">làm tay</span></td></tr>
-<tr><td>D2</td><td class="c">GS-09</td><td>Config Guard ↔ sổ DOT</td><td>mục tiêu 5: DOT mới đều có dòng sổ</td><td><span class="chip warn">đối chiếu tay</span></td></tr>
-<tr><td>D2</td><td class="c">GS-10</td><td>Directus Flows báo tự động</td><td>báo khi ô bắt buộc trống</td><td><span class="chip warn">bật ở bước 2.4</span></td></tr>
+<tr><td>D1</td><td class="c">GS-03</td><td>Chỉ DOT ghi sổ (Directus Roles)</td><td>sổ chỉ ghi bằng DOT, gõ tay = 0</td><td><span class="chip warn">bật ở bước 2.4</span></td></tr>
+<tr><td>D1</td><td class="c">GS-04</td><td>Ràng buộc ô (Directus)</td><td>ô bắt buộc của hợp đồng thông tin (3.2)</td><td><span class="chip warn">bật ở bước 2.4</span></td></tr>
+<tr><td>D2</td><td class="c">GS-07</td><td>Đối soát N = a + b + c + d</td><td>đếm đủ đầu mối hợp đồng (3.2)</td><td><span class="chip warn">làm tay</span></td></tr>
+<tr><td>D2</td><td class="c">GS-09</td><td>Config Guard ↔ sổ DOT</td><td>DOT mới đều có dòng sổ (2.3)</td><td><span class="chip warn">đối chiếu tay</span></td></tr>
+<tr><td>D2</td><td class="c">GS-10</td><td>Directus Flows báo tự động</td><td>báo khi ô bắt buộc trống (3.2, 3.3)</td><td><span class="chip warn">bật ở bước 2.4</span></td></tr>
 </tbody></table></div>
 <p class="note">Đã bàn chưa làm: GS-03, GS-04, GS-10 — bật cùng lúc khi dựng collection (bước 2.4). Mới: chưa có. Không chặn.</p>
 
@@ -95,30 +86,29 @@ table.h td{font-size:14px}
 <tbody>
 <tr><td>1</td><td class="c">Khai việc</td><td>Việc gì, đã có mã việc chưa?</td><td>1 việc có mã ở CAT-227</td></tr>
 <tr><td>2</td><td class="c">Rà soát chuẩn bị</td><td>Cần Master list nào? DOT nào? Tool nào?</td><td>bảng 5.1 đủ dòng; còn «cần…» = 0</td></tr>
-<tr><td>3</td><td class="c">Triển khai</td><td>4 mục tiêu chuyên môn đã xong chưa?</td><td>4/4 bước chuyên môn đạt</td></tr>
-<tr><td>4</td><td class="c">Kiểm tra</td><td>Đúng và đủ chưa?</td><td>9 bước đều được tích 🟢 hoặc 🔴 trong báo cáo</td></tr>
+<tr><td>3</td><td class="c">Triển khai</td><td>3 mục tiêu chuyên môn đã xong chưa?</td><td>3/3 bước chuyên môn đạt</td></tr>
+<tr><td>4</td><td class="c">Kiểm tra</td><td>Đúng và đủ chưa?</td><td>8 bước đều được tích 🟢 hoặc 🔴 trong báo cáo</td></tr>
 <tr><td>5</td><td class="c">Báo cáo</td><td>Owner đã nhận và duyệt chưa?</td><td>bàn sau, cùng phần hồ sơ</td></tr>
 </tbody></table></div>
 
 <h3>3.2 Mục con</h3>
-<p class="note">Không có. Mốc 3 có 4 bước (≤ 5).</p>
+<p class="note">Không có. Mốc 3 có 3 bước (≤ 5).</p>
 
 <h3>3.3 Bước</h3>
 <p class="note"><b>3.3.2 Bước cố định</b> (chép nguyên từ MBM): 1.1 Tạo việc ở CAT-227 · 2.1 Lập danh sách DOT, Tool · 2.2 Lập danh sách Master list · 2.3 Tạo mới / nâng cấp DOT, Tool · 2.4 Tạo mới / nâng cấp Master list.</p>
-<p class="note"><b>3.3.3 Bước chuyên môn</b> — từ 5 mục tiêu ở mục 2 (tab Kiểm soát, ô 1): bỏ mục tiêu 2 (Master list) và 5 (DOT) vì bước 2.1–2.4 đã lo; mục tiêu 4 tách 2 vì ra 2 kết quả (K2).</p>
+<p class="note"><b>3.3.3 Bước chuyên môn</b> — 3 mục tiêu User chốt ở mục 2 (18/10 21:25), mỗi mục tiêu 1 bước:</p>
 <div class="wrap"><table>
 <thead><tr><th>Mã</th><th>Mục tiêu chuyên môn</th><th>Thế nào là hoàn thành</th><th>Câu hỏi đặc thù (nếu có)</th></tr></thead>
 <tbody>
-<tr><td class="c">3.1</td><td>Thiết kế UI (gồm tất cả các bước con) của các quy trình trong Master list MOW <i>(mục tiêu 1)</i></td><td>mọi bước con của mọi quy trình đều có UI con; thiếu = 0</td><td>Đ1 Dùng lại UI nào, vẽ mới UI nào? · Đ2 Nhóm con nào giữ, gộp, tách?</td></tr>
-<tr><td class="c">3.2</td><td>Chốt hợp đồng thông tin của các quy trình đã vẽ UI <i>(mục tiêu 4, phần 1)</i></td><td>mọi UI con có hợp đồng thông tin đã chốt; thiếu = 0</td><td>—</td></tr>
-<tr><td class="c">3.3</td><td>Bổ sung đủ trường (đúng, đủ, chính xác) để Config thành công <i>(mục tiêu 4, phần 2)</i></td><td>Field thiếu = 0; thử Config lỗi = 0</td><td>—</td></tr>
-<tr><td class="c">3.4</td><td>Không có đối tượng mồ côi — điền đủ, 1 nơi ghi (SSOT) <i>(mục tiêu 3)</i></td><td>mồ côi = 0</td><td>—</td></tr>
+<tr><td class="c">3.1</td><td>Vẽ UI</td><td>vẽ đủ UI theo các bước con (bao gồm tách ra hoặc gộp theo bước con nếu có); bước con thiếu UI = 0</td><td>Đ1 Dùng lại UI nào, vẽ mới UI nào? · Đ2 Bước con nào cần tách hoặc gộp?</td></tr>
+<tr><td class="c">3.2</td><td>Chốt hợp đồng thông tin</td><td>các UI đó ghi đủ đầu mối hợp đồng thông tin, có phương pháp test, đếm phù hợp; UI thiếu đầu mối = 0</td><td>—</td></tr>
+<tr><td class="c">3.3</td><td>Config thành công</td><td>kiểm đủ đầu vào và xác nhận sẵn sàng cho Config (không thiếu thông tin); thiếu thông tin = 0</td><td>—</td></tr>
 </tbody></table></div>
-<p class="note"><b>Tổng: 9 bước</b> (5 cố định + 4 chuyên môn) · Mốc 4: tích 🟢/🔴 cho 9 bước · Mốc 5: bàn sau. <b>Nhân xuống (3.3.5):</b> 4 bước × 35 quy trình = 35 checklist.</p>
+<p class="note"><b>Tổng: 8 bước</b> (5 cố định + 3 chuyên môn) · Mốc 4: tích 🟢/🔴 cho 8 bước · Mốc 5: bàn sau. <b>Nhân xuống (3.3.5):</b> 3 bước × 35 quy trình = 35 checklist.</p>
 
 <h2><span class="num">4</span>Bộ câu hỏi — bảng câu hỏi của QTTH 07</h2>
-<p class="note"><b>Bảng câu hỏi QTTH 07 = H1–H7 (MBM 4.2) + Đ1, Đ2 (riêng QTTH 07).</b> Đ1 «Dùng lại UI nào, vẽ mới UI nào?» · Đ2 «Nhóm con nào giữ, gộp, tách?» — cả hai dùng cho bước 3.1.</p>
-<p class="note">H1 Cần gì · H2 Cái cần nằm ở sổ nào · H3 Làm ra gì · H4 Ghi ở đâu · H5 Đã ghi chưa · H6 Đã kiểm chưa · H7 Làm bằng gì. Không trả lời được thì ➖ / 🟡 VD / 🔴 VD (MBM 4.4). <b>9 bước · 63 ô · 0 ô trống.</b></p>
+<p class="note"><b>Bảng câu hỏi QTTH 07 = H1–H7 (MBM 4.2) + Đ1, Đ2 (riêng QTTH 07, cho bước 3.1).</b> Đ1 «Dùng lại UI nào, vẽ mới UI nào?» · Đ2 «Bước con nào cần tách hoặc gộp?»</p>
+<p class="note">H1 Cần gì · H2 Cái cần nằm ở sổ nào · H3 Làm ra gì · H4 Ghi ở đâu · H5 Đã ghi chưa · H6 Đã kiểm chưa · H7 Làm bằng gì. Không trả lời được thì ➖ / 🟡 VD / 🔴 VD (MBM 4.4). <b>8 bước · 56 ô · 0 ô trống.</b></p>
 <div class="wrap"><table class="h">
 <thead><tr><th>Mã</th><th>H1</th><th>H2</th><th>H3</th><th>H4</th><th>H5</th><th>H6</th><th>H7</th></tr></thead>
 <tbody>
@@ -127,12 +117,11 @@ table.h td{font-size:14px}
 <tr><td class="c">2.2</td><td>sổ mà các bước cần (H2, H4)</td><td>trang Danh sách Master (🔴 VD-006)</td><td>danh sách</td><td>bảng 5.1</td><td>19/19 dòng</td><td>🤖</td><td>tay</td></tr>
 <tr><td class="c">2.3</td><td>dòng «cần thêm», «cần sửa»</td><td>bảng 5.1</td><td>DOT chạy được</td><td>ML-DEF-024 Master DOT</td><td>còn «cần thêm» = 0</td><td>🤖 chạy thử</td><td>Claude Code</td></tr>
 <tr><td class="c">2.4</td><td>dòng «cần duyệt», «cần làm mới»</td><td>bảng 5.1</td><td>sổ «có»</td><td>trang Danh sách Master</td><td>🟡 VD-010</td><td>😊 User duyệt</td><td>🔴 VD-024</td></tr>
-<tr><td class="c">3.1</td><td>bước con (nhóm con) của từng quy trình + UI cha</td><td>ML-DEF-004 Master MOW · ML-DEF-002 Master Nhóm con · ML-DEF-017 Master UI cha</td><td>mỗi bước con 1 UI con</td><td>ML-DEF-018 Master UI con</td><td>thiếu UI = 0</td><td>🤖 đếm + 😊 xem màn</td><td>tay (vẽ)</td></tr>
-<tr><td class="c">3.2</td><td>thông tin mỗi UI con đọc / ghi</td><td>ML-DEF-018 Master UI con</td><td>dòng hợp đồng (đọc/ghi, bắt buộc)</td><td>CAT-206* Danh mục hợp đồng vào/ra loại bản ghi</td><td>UI con thiếu hợp đồng = 0</td><td>🤖 + 😊</td><td>tay</td></tr>
-<tr><td class="c">3.3</td><td>thông tin trong hợp đồng</td><td>CAT-206* Danh mục hợp đồng vào/ra loại bản ghi</td><td>mỗi thông tin gắn 1 Field; Config thử chạy</td><td>ML-DEF-008 Master Field</td><td>Field thiếu = 0; Config lỗi = 0</td><td>🤖 DOT đếm + 😊 xem nghĩa</td><td>🟡 VD-021</td></tr>
-<tr><td class="c">3.4</td><td>đối tượng phát sinh ở 3.1–3.3</td><td>các sổ ở bảng 5.1</td><td>số mồ côi</td><td>CAT-069 (mỗi mồ côi 1 dòng)</td><td>mồ côi = 0</td><td>🤖</td><td>🔴 VD-020</td></tr>
+<tr><td class="c">3.1</td><td>bước con của từng quy trình + UI cha</td><td>ML-DEF-004 Master MOW · ML-DEF-002 Master Nhóm con · ML-DEF-017 Master UI cha</td><td>mỗi bước con 1 UI con (tách / gộp nếu có)</td><td>ML-DEF-018 Master UI con</td><td>bước con thiếu UI = 0</td><td>🤖 đếm + 😊 xem màn</td><td>tay (vẽ)</td></tr>
+<tr><td class="c">3.2</td><td>đầu mối thông tin mỗi UI con đọc / ghi</td><td>ML-DEF-018 Master UI con</td><td>dòng hợp đồng đủ đầu mối</td><td>CAT-206* Danh mục hợp đồng vào/ra loại bản ghi</td><td>UI thiếu đầu mối = 0</td><td>🤖 test + đếm · 😊 xem nghĩa</td><td>tay · đếm: 🔴 VD-020</td></tr>
+<tr><td class="c">3.3</td><td>đầu vào Config của từng UI con</td><td>CAT-206* Danh mục hợp đồng vào/ra loại bản ghi · ML-DEF-008 Master Field</td><td>xác nhận sẵn sàng Config; Field thiếu được bổ sung</td><td>ML-DEF-008 Master Field</td><td>thiếu thông tin = 0</td><td>🤖 kiểm đủ đầu vào + 😊 xác nhận</td><td>🟡 VD-021</td></tr>
 </tbody></table></div>
-<p class="note"><b>Câu đặc thù của 3.1:</b> Đ1 Dùng lại UI nào, vẽ mới UI nào? → trả lời theo từng bước con (dùng lại mã UI nào / vẽ mới) · Đ2 Nhóm con nào giữ, gộp, tách? → mỗi nhóm con 1 quyết định (đề xuất, User duyệt).</p>
+<p class="note"><b>Câu đặc thù của 3.1:</b> Đ1 → với từng bước con: dùng lại mã UI nào, hay vẽ mới · Đ2 → bước con nào cần tách hoặc gộp (đề xuất, User duyệt).</p>
 
 <h2><span class="num">5</span>Check Master list — bảng kiểm kê chung <span class="chip gray">chưa rà lượt này</span></h2>
 <p class="note">Nguồn số: trang Danh sách Master. Mới có phần Master list; <b>DOT, Tool (bước 2.1) chưa điểm danh</b>. <b>19 sổ: có 6 · cần duyệt 11 · cần làm mới 2.</b></p>
@@ -148,8 +137,8 @@ table.h td{font-size:14px}
 <tr><td>7</td><td class="c">Master list</td><td class="c">ML-DEF-008</td><td>Master Field</td><td>250</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>H4 của 3.3 · PG chưa xác minh</td></tr>
 <tr><td>8</td><td class="c">Master list</td><td class="c">ML-MOW-TH-001</td><td>Master Quy trình tổng hợp</td><td>6</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>QTTH 07 phải thành 1 dòng ở đây</td></tr>
 <tr><td>9</td><td class="c">Master list</td><td class="c">CAT-227</td><td>Master tiến trình công việc</td><td>2</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>H4 của 1.1</td></tr>
-<tr><td>10</td><td class="c">Master list</td><td class="c">CAT-069</td><td>Việc cần xử lý tiếp</td><td>83</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>H4 của 3.4 · sổ vấn đề</td></tr>
-<tr><td>11</td><td class="c">Master list</td><td class="c">CAT-229*</td><td>Sổ lần thử</td><td>11</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>biên nhận thử Config (3.3)</td></tr>
+<tr><td>10</td><td class="c">Master list</td><td class="c">CAT-069</td><td>Việc cần xử lý tiếp</td><td>83</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>sổ vấn đề (MBM 1.3)</td></tr>
+<tr><td>11</td><td class="c">Master list</td><td class="c">CAT-229*</td><td>Sổ lần thử</td><td>11</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>biên nhận xác nhận sẵn sàng Config (3.3)</td></tr>
 <tr><td>12</td><td class="c">Master list</td><td class="c">CAT-206*</td><td>Danh mục hợp đồng vào/ra loại bản ghi</td><td>66</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>H4 của 3.2 · H2 của 3.3</td></tr>
 <tr><td>13</td><td class="c">Master list</td><td class="c">CAT-016</td><td>Sổ nhật ký định nghĩa</td><td>69</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>chưa bước nào dùng — rà ở mục 5</td></tr>
 <tr><td>14</td><td class="c">Master list</td><td class="c">CAT-025</td><td>Sổ phiếu duyệt ý · bản</td><td>41</td><td><span class="chip warn">cần duyệt</span></td><td class="c">điểm danh</td><td>duyệt (Mốc 5 — bàn sau)</td></tr>
