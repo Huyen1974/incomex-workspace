@@ -9,7 +9,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ (MBM 6.x): [✓ 6.1 Nhận yêu cầu] → [✓ 6.2 Tạo task] → [✓ 6.3 Chốt mục tiêu] → [◐ 6.4 Liệt kê bước — bản thử] → [■ 6.5 Check Master list] → [□ 6.6 Bộ câu hỏi] → [□ 6.7 Ký] → [□ 6.8 Chạy]
-- ✅ Đã xong: ô 1–2 (17:05) · 6.4 bản thử theo MBM r5.21: 5 mốc · mục con 3A–3C · 26 bước · kiểm kê 19 sổ — xem tab «Nội dung công việc» (`view.html`).
+- ✅ Đã xong: ô 1–2 (17:05) · 6.4 bản thử theo MBM r5.24: 5 mốc · 18 + N bước (Mốc 3: 1 bước / nhóm con) · kiểm kê 18 sổ — xem tab «Nội dung công việc» (`view.html`).
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
 - ➡ Kế tiếp: 😊 Owner xem «Vấn đề lộ ra» ở tab Nội dung công việc — nhất là 13 sổ cần duyệt lần đầu và 3 mã CAT lệch nghĩa.
@@ -43,8 +43,8 @@ Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công
 | 6.1 | Nhận yêu cầu | 🤖 | lời Owner ở Nhật ký | ☑ |
 | 6.2 | Tạo task + tên + view.html | 🤖 | đúng khuôn, tên `mbm-`, có `view.html` | ☑ `579bec00` |
 | 6.3 | Chốt mục tiêu | 😊 | Owner viết ô 1–2 | ☑ 17:05 |
-| 6.4 | Liệt kê Mốc · Mục con · Bước | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 17/10 17:30 theo MBM r5.18 (5 mốc · 26 bước) ở view.html · 7 chỗ vướng chờ Owner |
-| 6.5 | Check Master list | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ, DOT, Tool; Tình trạng = «có» hết | ■ bảng ở view.html · Master list 6/19 «có» · DOT, Tool chưa điểm danh |
+| 6.4 | Liệt kê Mốc · Mục con · Bước | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 18/10 09:20 theo MBM r5.24 (5 mốc · 18 + N bước) ở view.html |
+| 6.5 | Check Master list | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ, DOT, Tool; Tình trạng = «có» hết | ■ bảng ở view.html · Master list 6/18 «có» · DOT, Tool chưa điểm danh |
 | 6.6 | Bộ câu hỏi | 🤖 | mọi bước đủ ô | ☐ |
 | 6.7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 ô ❓, 0 phản đối | ☐ |
 | 6.8 | Chạy | 🤖 | đạt ô 2 | ☐ |
@@ -86,6 +86,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P33 · 18/10 07:39–09:00 · định nghĩa Bước: «… Ý tôi là trong MBM phải định nghĩa bước là gì? nguyên tắc 6W thì đầu tiên what mà chúng ta toàn quên» — «Đồng ý. bạn sửa đi, và đưa thử vào QTTH 007, cuối cùng bước là những gì?» → MBM r5.24 + QTTH 07 còn 18 + N bước.
 - P32 · 18/10 05:51 + 07:06 · CAT-069: «Đúng, Quy định đơn giản. Mọi nợ đều nằm trong CAT 068, có cột mã của 227. 227 và 069 (và có thể 1 số master list khác là sổ tông hợp của mọi con MBM. Làm như vậy thì sẽ hiểu được nhất quán. bạn sửa thật gọn. Cố gằng logic để ít chữ nhé. … Con người cần biểu tượng, suy luận logic, màu sắc để dễ nhận ra vấn đề.» («CAT 068» = CAT-069) → MBM r5.23 + CAT-069 đổi nhãn + bảng vấn đề VD-001…019.
 - P31 · 18/10 05:30 · CT-006: «Trong phần côg thức: UI Con CT-006 Chuỗi+Bước+Tầng+Nhóm+UI cha⇒UI Con. Bạn đổi giúp tôi đây là Nhóm con (bản chất UI con chính là bước con, hay nhóm con (xét về số lượng và thứ tự)).» → CT-006 = Chuỗi + Bước + Tầng + Nhóm con + UI cha ⇒ UI Con.
 - P30 · 17/10 21:33 · nợ kỹ thuật: «Cái gì chưa làm được do công cụ thì ghi chú nợ kỹ thuật QTTH 007 (chúng ta không cố build hệ thống phức tạp như codex đã làm mà sẽ đưa lên collection sau khi hoàn thành QTTH 007. DOT trên collection sẽ rất nhanh, giờ chỉ cần ghi chú danh sách là được, có một ít thông tin không đáng ngại.» → N01–N08 ở view.html.
