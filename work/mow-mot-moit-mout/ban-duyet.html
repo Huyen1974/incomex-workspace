@@ -1208,7 +1208,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
   <p class="cf-derived-note">Tạo UI Con từ đúng Bước, Tầng, Nhóm con và khuôn UI cha. Mỗi nhóm con 1 UI con (cùng số lượng, cùng thứ tự).</p>
   <p class="cf-derived-note"><b>Khi chạy — chung cho con của UI con (Info contract, Config).</b> <b>Hồ sơ</b> = 1 lần chạy 1 quy trình sản phẩm cho 1 đối tượng, có 1 mã hồ sơ; mọi lượt chạy và bản ghi sinh ra mang mã này. <b>Lưu ở đâu:</b> lượt chạy = 1 dòng ở CAT-228* Sổ việc thật MOT (mã hồ sơ · MOT · UI con · mã việc CAT-227 · bản ghi · người · phiên bản Info contract + Config · trạng thái) · hàng đợi = các dòng CAT-228* «chờ», không lập bảng riêng · thông tin vào = sổ gốc theo dòng «đọc», nhập qua MOIT · thông tin ra = sổ gốc theo dòng «ghi», hiện qua MOUT · biên nhận trong dòng lượt chạy · lệch, lỗi → CAT-069 kèm mã lượt.</p>
-  <p class="cf-derived-note"><b>Luật chạy LC — luật cứng, máy tự áp cho mọi lượt, không phải lựa chọn:</b> LC-1 mỗi lượt 1 mã, ghim phiên bản Info contract + Config · LC-2 vào hàng khi đủ thông tin «đọc» bắt buộc và trigger bật; chờ → đang làm → xong / lỗi · LC-3 đọc và ghi trong 1 giao dịch, lỗi thì lùi hết · LC-4 chạy lại cùng mã lượt không tạo bản ghi trùng · LC-5 lấy việc thì khoá dòng, lượt khác bỏ qua dòng đang khoá · LC-6 xong lượt đếm bản ghi ghi ra đúng «Số lượng», lệch là 🔴 · LC-7 mỗi lượt 1 biên nhận: ai, lúc nào, đọc gì, ghi gì · LC-8 dữ liệu của hồ sơ chỉ đọc / ghi bản ghi cùng mã hồ sơ, đúng tình trạng cần; sổ dùng chung (Master, danh mục) đọc toàn bộ.</p>
+  <p class="cf-derived-note"><b>Luật chạy LC — luật cứng, máy tự áp cho mọi lượt, không phải lựa chọn:</b> LC-1 mỗi lượt 1 mã, ghim phiên bản Info contract + Config · LC-2 vào hàng khi đủ điều kiện trước (Info contract) và trigger bật; chờ → đang làm → đang chờ người → xong / trả về / lỗi · LC-3 (chuẩn Saga) mỗi bước: ghi dữ liệu nội bộ trong 1 giao dịch, lỗi thì lùi phần đó; gửi ra ngoài qua hộp thư đi, gửi đúng 1 lần; chờ người thì lưu «đang chờ người», không giữ giao dịch; bước đã xong cần đổi thì làm bước bù, không lùi · LC-4 chạy lại cùng mã lượt không tạo bản ghi trùng, không gửi trùng · LC-5 lấy việc thì khoá dòng, lượt khác bỏ qua dòng đang khoá · LC-6 xong lượt đếm bản ghi ghi ra đúng «Số lượng», lệch là 🔴 · LC-7 mỗi lượt 1 biên nhận: ai, lúc nào, đọc gì, ghi gì · LC-8 dữ liệu của hồ sơ chỉ đọc / ghi bản ghi cùng mã hồ sơ, đúng tình trạng cần; sổ dùng chung (Master, danh mục) đọc toàn bộ.</p>
   </details>
 </article>
 
@@ -1236,16 +1236,18 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
     <div class="cf-formula-full">CT-007</div>
     <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-007" target="_self">Chi tiết →</a></div>
   </div>
-  <div class="cf-derived-formula cf-derived-formula-root cf-derived-formula-long" aria-label="Chuỗi cộng Bước cộng Tầng cộng Nhóm con cộng UI cha cộng Bản ghi cộng Người làm NTGV cộng Trigger cộng Hàng đợi cộng Lượt chạy tạo Config">
-    <span>Chuỗi</span><b>+</b><span>Bước</span><b>+</b><span>Tầng</span><b>+</b><span>Nhóm con</span><b>+</b><span>UI cha</span><b>+</b><span>Bản ghi</span><b>+</b><span>Người làm (NTGV)</span><b>+</b><span>Trigger</span><b>+</b><span>Hàng đợi</span><b>+</b><span>Lượt chạy</span><b>⇒</b><strong>Config</strong>
+  <div class="cf-derived-formula cf-derived-formula-root cf-derived-formula-long" aria-label="Chuỗi cộng Bước cộng Tầng cộng Nhóm con cộng UI cha cộng Bản ghi cộng Người làm NTGV cộng Trigger cộng Hàng đợi cộng Song song cộng Chạy lại cộng Hết giờ tạo Config">
+    <span>Chuỗi</span><b>+</b><span>Bước</span><b>+</b><span>Tầng</span><b>+</b><span>Nhóm con</span><b>+</b><span>UI cha</span><b>+</b><span>Bản ghi</span><b>+</b><span>Người làm (NTGV)</span><b>+</b><span>Trigger</span><b>+</b><span>Hàng đợi</span><b>+</b><span>Song song</span><b>+</b><span>Chạy lại</span><b>+</b><span>Hết giờ</span><b>⇒</b><strong>Config</strong>
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
   <p class="cf-derived-note">Config dùng nguyên tắc nếu/thì: khai báo một lần, hệ thống tự nhận diện theo ngữ cảnh. <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-007">7 câu hỏi cần trả lời và nguyên tắc bản ghi →</a></p>
-  <p class="cf-derived-note"><b>Vào</b> UI con + Info contract (CT-006.2) + nguyên tắc giao việc, điều kiện, trigger, hàng đợi, lượt chạy · <b>Lưu</b> CAT-248* Master Config (khuôn, có phiên bản) · <b>Ra</b> lượt chạy đọc để biết ai làm, khi nào, báo cho ai, chuyển cho ai.</p>
+  <p class="cf-derived-note"><b>Vào</b> UI con + Info contract (CT-006.2) + nguyên tắc giao việc, điều kiện, trigger, hàng đợi, song song, chạy lại, hết giờ · <b>Lưu</b> CAT-248* Master Config (khuôn, có phiên bản) · <b>Ra</b> lượt chạy đọc để biết ai làm, khi nào, báo cho ai, chuyển cho ai.</p>
   <p class="cf-derived-note"><b>Bản ghi</b> — bản ghi cùng mã hồ sơ của việc đang làm; máy tự lọc (LC-8).</p>
   <p class="cf-derived-note"><b>Kết quả → đi đâu</b> — mỗi kết quả của Info contract (đạt · trả về · lỗi) chuyển cho ai, ai xác nhận: theo câu 6–7 (báo cáo, chuyển tiếp).</p>
   <p class="cf-derived-note"><b>Hàng đợi</b> — nhiều việc cùng chờ thì làm cái nào trước? Chọn 1: theo thời gian vào · theo ưu tiên · theo hạn chót.</p>
-  <p class="cf-derived-note"><b>Lượt chạy</b> — 1 bản ghi chạy mấy lần, có chạy lại, mấy lượt cùng lúc? Chọn 1: 1 lượt / bản ghi · được chạy lại · song song tối đa N.</p>
+  <p class="cf-derived-note"><b>Song song</b> — tối đa mấy lượt chạy cùng lúc? Ghi số N.</p>
+  <p class="cf-derived-note"><b>Chạy lại</b> — lỗi thì chạy lại tối đa mấy lần, cách nhau bao lâu? Không chạy lại thì ghi 0.</p>
+  <p class="cf-derived-note"><b>Hết giờ</b> — chờ quá bao lâu thì báo ai? Vd người duyệt chưa phản hồi sau 1 ngày → báo trưởng phòng.</p>
   <p class="cf-derived-note">Khi chạy: theo LC-1…LC-8 và nơi lưu khi chạy (ghi ở UI con).</p>
   </details>
 </article>

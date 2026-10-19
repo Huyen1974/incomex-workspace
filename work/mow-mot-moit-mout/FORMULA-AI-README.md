@@ -206,7 +206,7 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 | CT-005.3 | **MOUT** | `Chuỗi + Nhóm con ⇒ MOUT` |
 | CT-006 | **UI Con** | `Chuỗi + Bước + Tầng + Nhóm con + UI cha ⇒ UI Con` |
 | CT-006.2 | **Info contract** | `UI con + Đầu vào + Điều kiện trước + Đầu ra + Điều kiện sau + Kết quả có thể + Kiểm hợp lệ + Phiên bản ⇒ Info contract` |
-| CT-007 | **Config** | `Chuỗi + Bước + Tầng + Nhóm con + UI cha + Bản ghi + Người làm (NTGV) + Trigger + Hàng đợi + Lượt chạy ⇒ Config` |
+| CT-007 | **Config** | `Chuỗi + Bước + Tầng + Nhóm con + UI cha + Bản ghi + Người làm (NTGV) + Trigger + Hàng đợi + Song song + Chạy lại + Hết giờ ⇒ Config` |
 
 **Luật Master:** một dòng CT-xxx = một công thức hoàn chỉnh. Các node nội bộ 1–9 / 1.x của CT-001 không phải công thức Master riêng.
 
