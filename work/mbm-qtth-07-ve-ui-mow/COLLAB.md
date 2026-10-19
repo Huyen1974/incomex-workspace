@@ -5,7 +5,7 @@ Tên việc: QTTH 07 — vẽ UI, chốt hợp đồng thông tin, Config thành
 Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt ô 1–2 ngày 18/10/2026 21:25 (thay bản 16/10/2026 17:05).
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 17:45 +07 · Claude · P51
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 17:50 +07 · Claude · P52
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ⬜ · ➡ · tên việc (nếu mục tiêu đổi).
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
@@ -13,7 +13,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`).
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
-- ➡ Kế tiếp: QTTH 07 tạm dừng (Owner 18/10 21:47) → thử CT-006.2 Info contract trên 3 quy trình thật (QT 001 Tìm · 1 quy trình Tạo mới · 1 quy trình Duyệt cho dùng) → bàn MBM: định nghĩa bước chuyên môn.
+- ➡ Kế tiếp: QTTH 07 tạm dừng (Owner 18/10 21:47) → xong ý kiến Astra ngoài MBM → sửa MBM theo danh sách M1–M5 (ô 3, «Chờ bàn khi sửa MBM»).
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
 ### 1. Mục tiêu
@@ -34,6 +34,15 @@ D1, D2 (MBM 2.5, không chặn): đã rà — xem tab Nội dung công việc, m
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
 Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công việc» trên trang Task (tệp `view.html` của việc này) — 1 nơi, không chép lại ở đây. Vấn đề và nợ kỹ thuật (mẫu CAT-069, mã VD-…): cũng ở đó — không dựng hệ phức tạp, xong QTTH 07 thì lên collection + DOT.
+
+#### ⏳ Chờ bàn khi sửa MBM (Owner 19/10 17:36)
+| Mã | Việc | Nguồn |
+|---|---|---|
+| M1 | Câu đầu MBM nói rõ 3 tầng: QTTH là quy trình trung gian, làm ra quy trình sản phẩm | Astra hiểu nhầm QTTH = quy trình sản phẩm |
+| M2 | Định nghĩa bước chuyên môn (đề xuất: mục tiêu = mục con 3A, bước = việc làm) + hướng Owner: mỗi QTTH chỉ làm đúng 1 việc | Owner 18/10 21:47, 19/10 17:00 |
+| M3 | 1 bước chuyên môn × 1 đối tượng = 1 việc con ở CAT-227 (mã việc cha); bước cha xong khi mọi việc con 🟢 | Astra mục 1 |
+| M4 | Tên mục tiêu = trạng thái cuối; QTTH 07 «Config thành công» → «Sẵn sàng Config» (Owner gật); mỗi bước chuyên môn có 1 lần thử thật (nghiệm thu) | Astra mục 4 |
+| M5 | Bước «Chốt hợp đồng thông tin» của QTTH 07 dùng Info contract chuẩn mới (CT-006.2, 8 thành tố) làm tiêu chí xong | CT-006.2 19/10 17:25 |
 
 #### ☑ Việc cần làm — đọc lại mỗi lượt, xong tích kèm commit
 | MBM | Việc | Ai | Xong khi | |
@@ -85,6 +94,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P52 · 19/10 17:36 · «Tất cả những gì liên quan đến MBM bạn tổng hợp lại, chúng ta sẽ bàn khi sửa đến MBM. Còn vấn đề gì astra có ý kiến ngoài MBM nữa không?» → danh sách M1–M5.
 - P51 · 19/10 17:31 · «Đồng ý nếu mà ngành IT đã giải câu đấy chuẩn rồi thì bạn làm theo ngành IT đi… các bạn mới là người biến nó khả thi và các bạn phải tận dụng tất cả những kiến thức của ngành IT để đưa vào đây… Phần này bạn sửa đi và chúng ta sẽ đi tiếp phần tiếp theo của astra trước khi chúng ta quay lại sửa MBM» → Config 3 ô Song song · Chạy lại · Hết giờ; LC theo Saga.
 - P50 · 19/10 17:15–17:25 · Info contract: «…Bắt buộc trong công thức 006.2 là cái gì vậy?… hợp đồng thông tin nhiều khi còn phải đầy đủ hơn cả config…» — «Bạn phải rà soát tổng xem nó là cái gì và thực tế ngành IT làm thế nào??? chứ tôi nói gì bạn làm cái đấy…» — «Rồi bạn tạm ghi vào đi và bạn phải lưu ý là quét đầy đủ thông tin trước khi trả lời…» → CT-006.2 theo chuẩn ngành; bỏ ô Bắt buộc; Config nhận định tuyến kết quả.
 - P49 · 19/10 17:00–17:08 · ý kiến Astra: «…Astra chưa hiểu được là quy trình tổng hợp là quy trình trung gian chứ không phải quy trình sản phẩm… Mục 2… tôi đồng ý là vấn đề cần phải sửa… Đi từng việc 1» — «Chúng ta đang bàn về công thức. Tư duy đơn giản là chỗ nào có thể nhầm chúng ta phải đưa thành phần bản ghi vào đó. Thế còn bản khi nào, thì vào chi tiết… Đây là công thức tổng mà?» → Info contract thêm ô Bản ghi; Chi tiết: cùng mã hồ sơ, LC-8. Ghi nhớ cho MBM: câu đầu phải nói QTTH là quy trình trung gian làm ra quy trình sản phẩm.
