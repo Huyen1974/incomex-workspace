@@ -592,3 +592,26 @@ Based_on `fa0da98` (P11) · Đầu vào Owner 12/10 16:46: **“Bản dự thả
 - **Kiểm:** máy so toàn văn trước–sau: 02B 22 khối đổi, 02A 3 khối — đúng danh sách, không thay đổi ngoài danh sách. So 02B với Phụ lục V hợp nhất (theo từ): Chương I–III chỉ còn ô điền, lựa chọn trong nước, Mẫu 07 không áp dụng, 2 lỗi gõ của mẫu không chép. Thông báo (VB 10) khớp mẫu trừ ô điền. validate.py PASS; xem ảnh trang 02B tr.1, 15–20; 02A tr.20, 30, 32.
 - **Phường điền trước khi ký VB 09 (không phải sửa mẫu):** 02B Mục 3.5.1 a (địa chỉ UBND tỉnh), b (địa chỉ UBND phường); VB 10 mục 10 (địa chỉ, điện thoại, fax); các ngày/giờ theo bảng điền Tệp 03 (bìa, 1.2k, 10.2, 16.1, Mẫu 01, VB 09, VB 10).
 - **Chưa làm (Owner để bàn sau):** bản giải thích Phụ lục V / V.A cho phường. Bản sạch để ký: xóa vàng khi phường duyệt xong (01 thao tác), không đẻ tệp riêng (luật 1 tài liệu).
+
+## P27 · Claude Chat — Trả lời báo cáo kiểm tra của GPT (03_BAO_CAO_KIEM_TRA_BAN_SUA): đối chiếu bản ký TT 98 + dàn trang khối ký · 19/10/2026
+- **Owner 11:47:** “Không phức tạp hoá chi tiết nhưng rà soát cẩn thận; đúng luật và đơn giản nhất có thể.”
+- **Nguồn:** bản ký TT 98/2025/TT-BTC tại datafiles.chinhphu.vn/cpp/files/vbpq/2025/11/98-btc.pdf (526 trang, bản quét; Phụ lục V = trang PDF 171–210). Claude đã xem ảnh gốc (không chỉ OCR) từng vị trí. Tệp trích 10 trang nguyên bản (không chỉnh sửa) đã gửi Owner để chuyển GPT: `TT98_2025_PhuLucV_trich_10_trang_doi_chieu.pdf` = trang PDF 172, 173, 185, 186, 196, 198, 201, 202, 203, 206.
+
+| Mã | Vị trí | Trang bản ký TT 98 | Nguyên văn bản ký | 02A/02B hiện tại |
+|---|---|---|---|---|
+| S06 | Thông báo — dòng ký | 172 | “Đại diện của Bên mời quan tâm / [ghi tên, chức danh, ký tên và đóng dấu]” | khớp |
+| S06 | Bìa HSMQT | 173 | “Bên mời quan tâm / [ghi tên, ký tên, đóng dấu (nếu có)]” | khớp |
+| S05 | Mục 12.1 a | 185 | “…doanh nghiệp hoặc quyết định thành lập…” (chữ thường) | khớp |
+| S05 | Mục 14.1 | 186 | “…theo yêu cầu của HSMQT. HSĐKTHDA của nhà đầu tư bao gồm…” | khớp |
+| S02 | Mẫu 01 — đoạn đầu, khối ký | 196 | “…số ___ ngày___ [ghi số, ngày của văn bản sửa đổi (nếu có)], chúng tôi…”; “Đại diện hợp pháp của nhà đầu tư ⁽³⁾ / [ghi tên, chức danh, ký tên và đóng dấu (nếu có)⁽⁴⁾]” | khớp |
+| S03, S06 | Mẫu 02 | 198 | “[Phạm vi ủy quyền gồm một hoặc một số công việc sau:”; “[Ghi tên, chức danh, ký tên và đóng dấu (nếu có)⁽²⁾]” | “[Ghi tên người đại diện theo pháp luật của nhà đầu tư, chức danh, ký tên và đóng dấu (nếu có)⁽³⁾]” | khớp |
+| S08 | Mẫu 03 — bảng | 201 | tiêu đề “Vốn chủ sở hữu” gộp 2 cột “Giá trị | Tỉ lệ %”; “[Ghi phần công việc mà thành viên đảm nhận (thu xếp tài chính, xây dựng, quản lý, vận hành,...]”; “Thành viên 1 [Đứng đầu liên danh]”; “[tối thiểu 30%]”, “[tối thiểu 15%]” | khớp |
+| S06 | Mẫu 03 — khối ký | 202 | “Đại diện hợp pháp của từng thành viên liên danh ⁽²⁾ / [ghi tên đại diện hợp pháp của từng thành viên, chức danh, ký tên và đóng dấu (nếu có)⁽³⁾]” | khớp |
+| S08, S06 | Mẫu 04 — bảng, khối ký | 203 | “[Tổ chức cung cấp tài chính]”, “[Nhà thầu xây lắp]”, “[Nhà thầu vận hành/ Quản lý]”; “[ghi tên, chức danh, ký tên và đóng dấu (nếu có)]” | khớp (không chép dấu “(” thừa ở tiêu đề cột “Hợp đồng với đối tác” của bản ký) |
+| S06 | Mẫu 05 — khối ký | 206 | “Đại diện hợp pháp của nhà đầu tư / [ghi tên, chức danh, ký tên và đóng dấu (nếu có)]” | khớp |
+
+- **Kiểm bản hợp nhất dùng để so:** máy so toàn văn Phụ lục V (VBHN 45) với bản ký TT 98 (OCR): mọi khác biệt đều nằm đúng các mục TT 129 sửa (k1–k15 PL IV, k9 Đ1) hoặc là nhiễu OCR → bản hợp nhất tin cậy để so phần còn lại. Bản ký TT 98 cũng có sẵn hai số “20.4” (đồng ý GPT giữ nguyên).
+- **Nội dung đã XÓA (không thể bôi vàng):** (1) Mẫu 01: dòng ký lặp “(Ký, ghi rõ họ tên, chức danh và đóng dấu nếu có) (4)” và cụm hướng dẫn trùng sau tiêu đề ký; (2) Mục 19.2c: chữ “việc”; (3) Mục 14.1: dấu phẩy thay bằng dấu chấm; (4) Mẫu 03: cụm “— Giá trị”, “— Tỉ lệ %” trong tiêu đề (thay bằng tiêu đề gộp) và 2 ô trống dòng Tổng (gộp 3 ô); (5) S01: cụm “doanh nghiệp thành lập mới từ dự án đầu tư sản xuất sản phẩm công nghệ cao”; (6) các chỉ dẫn tự viết “(Ký, ghi rõ họ tên…)”, “(Phần công việc đảm nhận)”, “Phạm vi ủy quyền:” (đã thay bằng nguyên văn mẫu, phần mới bôi vàng).
+- **D01 dàn trang (theo GPT mục 3):** bật “giữ cùng trang với đoạn sau” cho 5 tiêu đề khối ký (02B Mẫu 01, 03, 04, 05; 02A Thông báo) — bản nền đang đặt tắt. Không đổi chữ; Mẫu 03 nay tiêu đề + dòng ký cùng trang 19; số trang vẫn 55 / 25; số đoạn vàng vẫn 5 / 25.
+- **Bản trên Mac sau P27:** 02A `52f6922d…`, 02B `85cbb974…` (validate PASS; so trước–sau: vẫn 22 / 3 khối đổi chữ như P26).
+- **Đề nghị GPT (1 vòng, chỉ xác nhận hoặc nêu vị trí sai cụ thể):** đối chiếu bảng trên với tệp trích 10 trang. Không mở thêm phạm vi.
