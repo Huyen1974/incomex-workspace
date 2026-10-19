@@ -1,19 +1,19 @@
 # COLLAB — mbm-qtth-07-ve-ui-mow
-Tên việc: QTTH 07 — vẽ UI, chốt hợp đồng thông tin, Config thành công cho các quy trình trong Master list MOW, làm bằng công thức MBM
+Tên việc: MMOW 07 — vẽ UI, chốt hợp đồng thông tin, Config thành công cho các MOW trong Master MOW, làm bằng công thức MBM
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt ô 1–2 ngày 18/10/2026 21:25 (thay bản 16/10/2026 17:05).
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 17:50 +07 · Claude · P52
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 18:00 +07 · Claude · P53
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ⬜ · ➡ · tên việc (nếu mục tiêu đổi).
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ (MBM 6.x): [✓ 6.1 Nhận yêu cầu] → [✓ 6.2 Tạo task] → [✓ 6.3 Chốt mục tiêu] → [◐ 6.4 Liệt kê bước — bản thử] → [◐ 6.5 Bộ câu hỏi] → [■ 6.6 Check Master list] → [□ 6.7 Ký] → [□ 6.8 Chạy]
-- ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`).
+- ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`) · 19/10: Info contract chuẩn ngành, Config + Saga, ý kiến Astra ngoài MBM · M1: QTTH đổi tên MMOW, 4 tầng MBM → MMOW → MOW → Hồ sơ (MBM r5.35).
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
-- ➡ Kế tiếp: QTTH 07 tạm dừng (Owner 18/10 21:47) → xong ý kiến Astra ngoài MBM → sửa MBM theo danh sách M1–M5 (ô 3, «Chờ bàn khi sửa MBM»).
+- ➡ Kế tiếp: MMOW 07 tạm dừng (Owner 18/10 21:47) → sửa MBM tiếp M2–M5 (ô 3, «Chờ bàn khi sửa MBM») · đổi mã sổ ML-MOW-TH-001 → Master MMOW.
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
 ### 1. Mục tiêu
@@ -33,16 +33,16 @@ D1, D2 (MBM 2.5, không chặn): đã rà — xem tab Nội dung công việc, m
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
-Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công việc» trên trang Task (tệp `view.html` của việc này) — 1 nơi, không chép lại ở đây. Vấn đề và nợ kỹ thuật (mẫu CAT-069, mã VD-…): cũng ở đó — không dựng hệ phức tạp, xong QTTH 07 thì lên collection + DOT.
+Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công việc» trên trang Task (tệp `view.html` của việc này) — 1 nơi, không chép lại ở đây. Vấn đề và nợ kỹ thuật (mẫu CAT-069, mã VD-…): cũng ở đó — không dựng hệ phức tạp, xong MMOW 07 thì lên collection + DOT.
 
 #### ⏳ Chờ bàn khi sửa MBM (Owner 19/10 17:36)
 | Mã | Việc | Nguồn |
 |---|---|---|
-| M1 | Câu đầu MBM nói rõ 3 tầng: QTTH là quy trình trung gian, làm ra quy trình sản phẩm | Astra hiểu nhầm QTTH = quy trình sản phẩm |
-| M2 | Định nghĩa bước chuyên môn (đề xuất: mục tiêu = mục con 3A, bước = việc làm) + hướng Owner: mỗi QTTH chỉ làm đúng 1 việc | Owner 18/10 21:47, 19/10 17:00 |
+| M1 ✅ | Đầu MBM nói rõ 4 tầng MBM → MMOW → MOW → Hồ sơ; QTTH đổi tên MMOW (Mother of MOW) — MBM r5.35 | Astra hiểu nhầm; Owner 19/10 17:46 |
+| M2 | Định nghĩa bước chuyên môn (đề xuất: mục tiêu = mục con 3A, bước = việc làm) + hướng Owner: mỗi MMOW chỉ làm đúng 1 việc | Owner 18/10 21:47, 19/10 17:00 |
 | M3 | 1 bước chuyên môn × 1 đối tượng = 1 việc con ở CAT-227 (mã việc cha); bước cha xong khi mọi việc con 🟢 | Astra mục 1 |
-| M4 | Tên mục tiêu = trạng thái cuối; QTTH 07 «Config thành công» → «Sẵn sàng Config» (Owner gật); mỗi bước chuyên môn có 1 lần thử thật (nghiệm thu) | Astra mục 4 |
-| M5 | Bước «Chốt hợp đồng thông tin» của QTTH 07 dùng Info contract chuẩn mới (CT-006.2, 8 thành tố) làm tiêu chí xong | CT-006.2 19/10 17:25 |
+| M4 | Tên mục tiêu = trạng thái cuối; MMOW 07 «Config thành công» → «Sẵn sàng Config» (Owner gật); mỗi bước chuyên môn có 1 lần thử thật (nghiệm thu) | Astra mục 4 |
+| M5 | Bước «Chốt hợp đồng thông tin» của MMOW 07 dùng Info contract chuẩn mới (CT-006.2, 8 thành tố) làm tiêu chí xong | CT-006.2 19/10 17:25 |
 
 #### ☑ Việc cần làm — đọc lại mỗi lượt, xong tích kèm commit
 | MBM | Việc | Ai | Xong khi | |
@@ -51,7 +51,7 @@ Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công
 | 6.2 | Tạo task + tên + view.html | 🤖 | đúng khuôn, tên `mbm-`, có `view.html` | ☑ `579bec00` |
 | 6.3 | Chốt mục tiêu | 😊 | Owner viết ô 1–2 | ☑ 18/10 21:25 |
 | 6.4 | Liệt kê Mốc · Mục con · Bước | 🤖 | 3 bảng 3.1–3.3 đủ dòng, mỗi dòng có Câu hỏi + Hoàn thành, 0 ô ❓ | ◐ bản thử 18/10 21:40 theo MBM r5.34 (8 bước: 5 cố định + 3 chuyên môn; Mốc 4 = tích 🟢/🔴) ở view.html |
-| 6.5 | Bộ câu hỏi | 🤖 | mọi bước đủ ô | ◐ bảng câu hỏi QTTH 07 = H1–H7 + Đ1, Đ2 · 8 bước · 0 ô trống |
+| 6.5 | Bộ câu hỏi | 🤖 | mọi bước đủ ô | ◐ bảng câu hỏi MMOW 07 = H1–H7 + Đ1, Đ2 · 8 bước · 0 ô trống |
 | 6.6 | Check Master list | 🤖 → 😊 | bảng kiểm kê đủ mọi sổ, DOT, Tool; Tình trạng = «có» hết | ■ bảng ở view.html · Master list 6/19 «có» · DOT, Tool chưa điểm danh |
 | 6.7 | Ký | 🤖 Hermes kiểm · ✍️ GPT, Gemini · 😊 Owner | 0 ô trống, 0 phản đối (User quyết ký hay bỏ qua) | ☐ |
 | 6.8 | Chạy | 🤖 | đạt ô 2 | ☐ |
@@ -94,6 +94,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P53 · 19/10 17:40–17:46 · «Bây giờ quay trở lại chúng ta sửa MBM… AI thông minh nhất hiện nay vẫn hiểu => thì ghi chép chả có nghĩa…» — «MOW là mow. Mow là các quy trình đích đến. Còn QTTH là để sinh ra các quy trình trình đó…» — «Giờ tốt nhất đổi QTTH thành MMow (mother of mow) ghi rõ như thế để đỡ nhầm lẫn khái niệm…» → MBM r5.35: 4 tầng MBM → MMOW → MOW → Hồ sơ; task đổi tên MMOW 07 (nhật ký cũ giữ nguyên chữ QTTH).
 - P52 · 19/10 17:36 · «Tất cả những gì liên quan đến MBM bạn tổng hợp lại, chúng ta sẽ bàn khi sửa đến MBM. Còn vấn đề gì astra có ý kiến ngoài MBM nữa không?» → danh sách M1–M5.
 - P51 · 19/10 17:31 · «Đồng ý nếu mà ngành IT đã giải câu đấy chuẩn rồi thì bạn làm theo ngành IT đi… các bạn mới là người biến nó khả thi và các bạn phải tận dụng tất cả những kiến thức của ngành IT để đưa vào đây… Phần này bạn sửa đi và chúng ta sẽ đi tiếp phần tiếp theo của astra trước khi chúng ta quay lại sửa MBM» → Config 3 ô Song song · Chạy lại · Hết giờ; LC theo Saga.
 - P50 · 19/10 17:15–17:25 · Info contract: «…Bắt buộc trong công thức 006.2 là cái gì vậy?… hợp đồng thông tin nhiều khi còn phải đầy đủ hơn cả config…» — «Bạn phải rà soát tổng xem nó là cái gì và thực tế ngành IT làm thế nào??? chứ tôi nói gì bạn làm cái đấy…» — «Rồi bạn tạm ghi vào đi và bạn phải lưu ý là quét đầy đủ thông tin trước khi trả lời…» → CT-006.2 theo chuẩn ngành; bỏ ô Bắt buộc; Config nhận định tuyến kết quả.
