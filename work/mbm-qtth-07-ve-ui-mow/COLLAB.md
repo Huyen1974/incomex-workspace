@@ -5,15 +5,15 @@ Tên việc: MMOW 07 — vẽ UI, chốt hợp đồng thông tin, Config thành
 Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt ô 1–2 ngày 18/10/2026 21:25 (thay bản 16/10/2026 17:05).
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 18:00 +07 · Claude · P53
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 18:15 +07 · Claude · P54
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ⬜ · ➡ · tên việc (nếu mục tiêu đổi).
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ (MBM 6.x): [✓ 6.1 Nhận yêu cầu] → [✓ 6.2 Tạo task] → [✓ 6.3 Chốt mục tiêu] → [◐ 6.4 Liệt kê bước — bản thử] → [◐ 6.5 Bộ câu hỏi] → [■ 6.6 Check Master list] → [□ 6.7 Ký] → [□ 6.8 Chạy]
-- ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`) · 19/10: Info contract chuẩn ngành, Config + Saga, ý kiến Astra ngoài MBM · M1: QTTH đổi tên MMOW, 4 tầng MBM → MMOW → MOW → Hồ sơ (MBM r5.35).
+- ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`) · 19/10: Info contract chuẩn ngành, Config + Saga, ý kiến Astra ngoài MBM · M1: QTTH đổi tên MMOW, 4 tầng MBM → MMOW → MOW → Hồ sơ (MBM r5.35) · tên hiển thị «Master MMOW», «MMOW 05/06» trên các trang (mã khoá ML-MOW-TH-001 / MOW-TH-xxx giữ tới khi lên collection).
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
-- ➡ Kế tiếp: MMOW 07 tạm dừng (Owner 18/10 21:47) → sửa MBM tiếp M2–M5 (ô 3, «Chờ bàn khi sửa MBM») · đổi mã sổ ML-MOW-TH-001 → Master MMOW.
+- ➡ Kế tiếp: MMOW 07 tạm dừng (Owner 18/10 21:47) → sửa MBM tiếp M2–M5 (ô 3, «Chờ bàn khi sửa MBM»).
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
 ### 1. Mục tiêu
@@ -94,6 +94,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P54 · 19/10 17:56 · «Đồng ý nếu sửa không mất quá nhiều thời gian thì bạn sửa luôn giúp tôi.» → đổi tên hiển thị 10 tệp trang + catalog TQT; mã khoá (ghim trong code, >100 chỗ) giữ tới khi lên collection.
 - P53 · 19/10 17:40–17:46 · «Bây giờ quay trở lại chúng ta sửa MBM… AI thông minh nhất hiện nay vẫn hiểu => thì ghi chép chả có nghĩa…» — «MOW là mow. Mow là các quy trình đích đến. Còn QTTH là để sinh ra các quy trình trình đó…» — «Giờ tốt nhất đổi QTTH thành MMow (mother of mow) ghi rõ như thế để đỡ nhầm lẫn khái niệm…» → MBM r5.35: 4 tầng MBM → MMOW → MOW → Hồ sơ; task đổi tên MMOW 07 (nhật ký cũ giữ nguyên chữ QTTH).
 - P52 · 19/10 17:36 · «Tất cả những gì liên quan đến MBM bạn tổng hợp lại, chúng ta sẽ bàn khi sửa đến MBM. Còn vấn đề gì astra có ý kiến ngoài MBM nữa không?» → danh sách M1–M5.
 - P51 · 19/10 17:31 · «Đồng ý nếu mà ngành IT đã giải câu đấy chuẩn rồi thì bạn làm theo ngành IT đi… các bạn mới là người biến nó khả thi và các bạn phải tận dụng tất cả những kiến thức của ngành IT để đưa vào đây… Phần này bạn sửa đi và chúng ta sẽ đi tiếp phần tiếp theo của astra trước khi chúng ta quay lại sửa MBM» → Config 3 ô Song song · Chạy lại · Hết giờ; LC theo Saga.
