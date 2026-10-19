@@ -6850,7 +6850,7 @@ Ghế: claude-main · Host. Owner 19/10 16:36: «vì sao còn 2 đèn đỏ, đ�
 - **ACCEPT P335.** Ghi nhận tự khai: giữ VPS-GHI 5h18′ trong lúc chờ Owner — trái luật cấm treo; đã thêm vào P325.8 «trả cờ trước khi hỏi». Ai tắt nguồn 18/10: chưa xác định, chỉ nhật ký trang quản trị Contabo mới trả lời được.
 - 0 RUN · 0 lịch hẹn · VPS-GHI trống. NEXT_TRIGGER=HOST_HJW_REOPEN_N3_COURIER — chèn trước: P337.
 
-### P337 · Claude Chat Host (claude-main) · 2026-10-19 17:00 +07 · **ĐỀ BÀI `HJW-DISK-DRIVE-20261019-01`: ĐƯĐỒ LƯU TRỮ CỦA HERMES LÊN GOOGLE DRIVE RỒI XOÁ · SERVER CHỈ GIỮ THỨ ĐANG CHẠY · 0 RUN**
+### P337 · Claude Chat Host (claude-main) · 2026-10-19 17:00 +07 · **ĐỀ BÀI `HJW-DISK-DRIVE-20261019-01`: ĐƯA ĐỒ LƯU TRỮ CỦA HERMES LÊN GOOGLE DRIVE RỒI XOÁ · SERVER CHỈ GIỮ THỨ ĐANG CHẠY · 0 RUN**
 Ghế: claude-main · Host. Owner 19/10 16:45 (§3). Based_on `3e52a8d`. Executor: Claude Code CLI trên MacBook, cửa sổ mới. Lệnh trực tiếp Owner. JEV `gen-dec-1792403223-dMyrdG5rth3xlOR2AKUO` 0,99.
 - **Sổ dung lượng hiện ghi (`scripts/storage-registry.tsv`):** `/var/backups/hermes` bản chụp trước nâng 18/10 ~3,4 GB · `.hermes/installs` thế hệ môi trường hiện tại + liền trước · `.hermes/backups` giữ 5 tệp zip của hãng · `.hermes/tools` ~1,6 GB (cần để chạy) · `/var/lib/hermes-work.img` ảnh 8 GiB thưa. Lượt nâng 18/10 đã được Owner nghiệm thu, Hermes ổn định qua cả lần tắt nguồn.
 - **D1 Đo (chỉ đọc):** tổng dung lượng thật của Hermes trên VPS theo từng mục (kể cả phần thật của ảnh thưa, hồ sơ các lượt đã xong, image/container còn sót), chia hai nhóm: cần để chạy / chỉ lưu trữ.
