@@ -5,7 +5,7 @@ Tên việc: QTTH 07 — vẽ UI, chốt hợp đồng thông tin, Config thành
 Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt ô 1–2 ngày 18/10/2026 21:25 (thay bản 16/10/2026 17:05).
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 17:15 +07 · Claude · P49
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 17:35 +07 · Claude · P50
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ⬜ · ➡ · tên việc (nếu mục tiêu đổi).
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
@@ -85,6 +85,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P50 · 19/10 17:15–17:25 · Info contract: «…Bắt buộc trong công thức 006.2 là cái gì vậy?… hợp đồng thông tin nhiều khi còn phải đầy đủ hơn cả config…» — «Bạn phải rà soát tổng xem nó là cái gì và thực tế ngành IT làm thế nào??? chứ tôi nói gì bạn làm cái đấy…» — «Rồi bạn tạm ghi vào đi và bạn phải lưu ý là quét đầy đủ thông tin trước khi trả lời…» → CT-006.2 theo chuẩn ngành; bỏ ô Bắt buộc; Config nhận định tuyến kết quả.
 - P49 · 19/10 17:00–17:08 · ý kiến Astra: «…Astra chưa hiểu được là quy trình tổng hợp là quy trình trung gian chứ không phải quy trình sản phẩm… Mục 2… tôi đồng ý là vấn đề cần phải sửa… Đi từng việc 1» — «Chúng ta đang bàn về công thức. Tư duy đơn giản là chỗ nào có thể nhầm chúng ta phải đưa thành phần bản ghi vào đó. Thế còn bản khi nào, thì vào chi tiết… Đây là công thức tổng mà?» → Info contract thêm ô Bản ghi; Chi tiết: cùng mã hồ sơ, LC-8. Ghi nhớ cho MBM: câu đầu phải nói QTTH là quy trình trung gian làm ra quy trình sản phẩm.
 - P48 · 19/10 16:55 · «Phần đề xuất của bạn: cái đó bạn ghi ghi chú tạm vào chi tiết, tôi chỉ nhìn vào những cái thứ đơn giản tôi mới tư duy được. Còn chi tiết là việc của các bạn… Miễn là chạy được là ok… trừ MBM là cái đầu tiên cho nên phải thiết kế cho đúng logic để nó chạy.» → LC-1…LC-7 + nơi lưu khi chạy ghi 1 lần ở Chi tiết UI Con; Info contract, Config chỉ trỏ về.
 - P47 · 19/10 16:39–16:46 · «hàng đợi, lượt chạy chưa thấy có trong công thức thì điều phối kiểu gì?» — «đưa thành công thức con của config có hợp lý không nhỉ?… nó có 1 thành tố trong 1 ô +… Phải đi từ cái đơn giản đến cái phức tạp. Tạo ra công thức là để xử lý các vấn đề phức tạp trở thành những lựa chọn đơn giản và ghép lại…» — «Mục 1 và 2 chị đồng ý» → Config thêm ô Hàng đợi + Lượt chạy; không tạo CT-007.1/007.2; điểm 3 (7 luật PG) chờ giải thích.

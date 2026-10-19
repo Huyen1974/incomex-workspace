@@ -1218,11 +1218,12 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
     <div class="cf-formula-full">CT-006.2</div>
     <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-006.2" target="_self">Chi tiết →</a></div>
   </div>
-  <div class="cf-derived-formula cf-derived-formula-root cf-derived-formula-long" aria-label="UI con cộng Thông tin cộng Đọc hay ghi cộng Lấy từ đâu cộng Bản ghi cộng Bắt buộc cộng Số lượng tạo Info contract">
-    <span>UI con</span><b>+</b><span>Thông tin</span><b>+</b><span>Đọc / ghi</span><b>+</b><span>Lấy từ đâu</span><b>+</b><span>Bản ghi</span><b>+</b><span>Bắt buộc</span><b>+</b><span>Số lượng</span><b>⇒</b><strong>Info contract</strong>
+  <div class="cf-derived-formula cf-derived-formula-root cf-derived-formula-long" aria-label="UI con cộng Đầu vào cộng Điều kiện trước cộng Đầu ra cộng Điều kiện sau cộng Kết quả có thể cộng Kiểm hợp lệ cộng Phiên bản tạo Info contract">
+    <span>UI con</span><b>+</b><span>Đầu vào</span><b>+</b><span>Điều kiện trước</span><b>+</b><span>Đầu ra</span><b>+</b><span>Điều kiện sau</span><b>+</b><span>Kết quả có thể</span><b>+</b><span>Kiểm hợp lệ</span><b>+</b><span>Phiên bản</span><b>⇒</b><strong>Info contract</strong>
   </div>
   <details class="cf-notation-rule"><summary>Chi tiết</summary>
-  <p class="cf-derived-note">Con của UI con (CT-006), cùng tầng với Config (CT-007): làm 1 bước con thì cần đọc gì, ghi gì. Mỗi dòng = 1 đầu mối. Thông tin trỏ sổ gốc, không chép. <b>Bản ghi</b> = «cùng hồ sơ» (đúng bản ghi cùng mã hồ sơ của việc đang làm, đúng tình trạng cần, vd đã duyệt) hoặc «dùng chung» (sổ Master, danh mục — đọc toàn bộ); máy tự lọc (LC-8). UI con không đọc / ghi gì thì ➖.</p>
+  <p class="cf-derived-note">Con của UI con (CT-006), cùng tầng với Config (CT-007). Theo chuẩn ngành (Design by Contract · API contract · Data contract): hợp đồng nói vào gì, ra gì, xong khi nào, lỗi trả kết quả gì; ai làm, khi nào, chuyển cho ai là việc của Config.</p>
+  <p class="cf-derived-note"><b>Đầu vào</b> đọc gì: sổ · Field · bản ghi («cùng hồ sơ» hoặc «dùng chung», LC-8) · số lượng · <b>Điều kiện trước</b> đầu vào phải đủ và ở tình trạng nào mới được làm · <b>Đầu ra</b> ghi gì: sổ · Field · tạo mới / sửa · số lượng · <b>Điều kiện sau</b> thế nào là xong: đầu ra đã ghi, tình trạng chuyển sang đâu · <b>Kết quả có thể</b> đạt · trả về (kèm lý do) · lỗi — Config quyết mỗi kết quả đi đâu · <b>Kiểm hợp lệ</b> kiểu, định dạng, giá trị cho phép (mặc định theo Master Field) · <b>Phiên bản</b> đổi hợp đồng thì lên phiên bản; lượt đang chạy giữ bản cũ. UI con không đọc / ghi gì thì ➖.</p>
   <p class="cf-derived-note"><b>Vào</b> UI con (ML-DEF-018) + thông tin ở sổ gốc (ML-DEF-008 Master Field hoặc loại bản ghi) · <b>Lưu</b> CAT-206* (khuôn, có phiên bản) · <b>Ra</b> Config và lượt chạy đọc để biết lấy gì, ghi gì.</p>
   <p class="cf-derived-note">Khi chạy: theo LC-1…LC-8 và nơi lưu khi chạy (ghi ở UI con).</p>
   <p class="cf-derived-note">Nháp — thử trên nhiều trường hợp thật trước khi chốt. CT-006.1 để trống có chủ đích.</p>
@@ -1242,6 +1243,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <p class="cf-derived-note">Config dùng nguyên tắc nếu/thì: khai báo một lần, hệ thống tự nhận diện theo ngữ cảnh. <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-007">7 câu hỏi cần trả lời và nguyên tắc bản ghi →</a></p>
   <p class="cf-derived-note"><b>Vào</b> UI con + Info contract (CT-006.2) + nguyên tắc giao việc, điều kiện, trigger, hàng đợi, lượt chạy · <b>Lưu</b> CAT-248* Master Config (khuôn, có phiên bản) · <b>Ra</b> lượt chạy đọc để biết ai làm, khi nào, báo cho ai, chuyển cho ai.</p>
   <p class="cf-derived-note"><b>Bản ghi</b> — bản ghi cùng mã hồ sơ của việc đang làm; máy tự lọc (LC-8).</p>
+  <p class="cf-derived-note"><b>Kết quả → đi đâu</b> — mỗi kết quả của Info contract (đạt · trả về · lỗi) chuyển cho ai, ai xác nhận: theo câu 6–7 (báo cáo, chuyển tiếp).</p>
   <p class="cf-derived-note"><b>Hàng đợi</b> — nhiều việc cùng chờ thì làm cái nào trước? Chọn 1: theo thời gian vào · theo ưu tiên · theo hạn chót.</p>
   <p class="cf-derived-note"><b>Lượt chạy</b> — 1 bản ghi chạy mấy lần, có chạy lại, mấy lượt cùng lúc? Chọn 1: 1 lượt / bản ghi · được chạy lại · song song tối đa N.</p>
   <p class="cf-derived-note">Khi chạy: theo LC-1…LC-8 và nơi lưu khi chạy (ghi ở UI con).</p>
