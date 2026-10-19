@@ -5,7 +5,7 @@ Tên việc: QTTH 07 — vẽ UI, chốt hợp đồng thông tin, Config thành
 Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt ô 1–2 ngày 18/10/2026 21:25 (thay bản 16/10/2026 17:05).
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 16:30 +07 · Claude · P45
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 16:50 +07 · Claude · P46
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ⬜ · ➡ · tên việc (nếu mục tiêu đổi).
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
@@ -13,7 +13,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`).
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
-- ➡ Kế tiếp: QTTH 07 tạm dừng (Owner 18/10 21:47) → thử CT-006.2 Hợp đồng thông tin trên 3 quy trình thật (QT 001 Tìm · 1 quy trình Tạo mới · 1 quy trình Duyệt cho dùng) → bàn MBM: định nghĩa bước chuyên môn.
+- ➡ Kế tiếp: QTTH 07 tạm dừng (Owner 18/10 21:47) → thử CT-006.2 Info contract trên 3 quy trình thật (QT 001 Tìm · 1 quy trình Tạo mới · 1 quy trình Duyệt cho dùng) → bàn MBM: định nghĩa bước chuyên môn.
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
 ### 1. Mục tiêu
@@ -85,6 +85,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P46 · 19/10 16:31 · «1. Dùng info contract cho nó ngắn. Tôi đã chỉ thị như thế rồi là có Ý của nó. 2. Cái này nó phải là con của UI con cùng hàng với config và cũng cho mờ đi 1 chút như config. 3. Những hệ thống như, hàng đợi, bảng chạy, lượt chạy..... chưa thấy bạn đưa vào đây… bảng lưu nơi lưu (tóm lại là thông tin vào ở đâu và ra ở đâu)… chi tiết kỹ thuật bạn phải tính kỹ chứ» (kèm 16:16: CT-006.1 để trống chừa chỗ chèn giữa) → Info contract · depth 2 · Vào/Lưu/Ra + khi chạy dùng sổ có sẵn (CAT-206*, CAT-248*, CAT-228*, MOIT, MOUT, CAT-069).
 - P45 · 19/10 16:12 · «Vậy chị bổ sung thêm CT 006.2 info contract. Ít nhất chỗ này nó cũng giống như config, nhưng chỗ này bạn phải xét tới, cả các yếu tố của lượt chạy, hàng đợi.... nói chung cả config và inforcontract.... cần phải xét đến cái này (về câu chuyện này mà thiết kế theo kiểu PG chứ tôi không rành lắm => bạn phải rà soát để làm sao chạy đúng chuẩn là được.» → CT-006.2 + 7 luật khi chạy dùng chung với CT-007.
 - P44 · 19/10 16:03 · «1. Trước hết cần cho sửa công thức CT 007, đổi Nhóm => nhóm con… 2. Bên trên Config, vẫn nằm trong UI con => chúng ta làm hợp đồng thông tin (info contract). => chúng ta cần lấy 1 đối tượng để làm cha của info contract và tôi nghĩ là UI con (Bản chất gần như task) sẽ là hợp lý. Cái này phải áp vào nhiều trường hợp thực tế khác nhau thì mới nhìn ra được hết tất cả các góc cạnh… Cứ thử xây rồi tính. bạn sửa luôn điều 1, điều 2 tôi muốn nghe ý kiến bạn trước khi quyết định sửa thẳng vào Repo.» (chèn P43b: 18/10 21:47 «khoan hẵy sờ đến 007, quay lại MBM») → CT-007 đã đổi; điều 2 chờ Owner quyết.
 - P43 · 18/10 21:31 · «Tôi thấy thông tin có vẻ không cập nhật ở đây. Bạn chú ý, việc này bạn đẻ lỗi nhiều lần rồi đó.» → sửa dòng tổng (tên việc, xác nhận User, giờ cập nhật, Đã xong, Kế tiếp, 6.3, 6.4) + dòng nhắc ở đầu Bảng điều khiển.
