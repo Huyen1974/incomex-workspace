@@ -1,34 +1,32 @@
 # COLLAB — mbm-qtth-07-ve-ui-mow
-Tên việc: MMOW 07 — vẽ UI, chốt hợp đồng thông tin, Config thành công cho các MOW trong Master MOW, làm bằng công thức MBM
+Tên việc: MMOW 07 — vẽ UI cho các MOW trong Master MOW, làm bằng công thức MBM
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt ô 1–2 ngày 18/10/2026 21:25 (thay bản 16/10/2026 17:05).
+Xác nhận User: ĐÃ XÁC NHẬN — Owner 19/10/2026 18:28: MMOW 07 chỉ Vẽ UI (thay bản 18/10 21:25 gồm 3 mục tiêu; Chốt Info contract → MMOW 08, Config → MMOW 09).
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 18:30 +07 · Claude · P56
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 18:40 +07 · Claude · P57
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ⬜ · ➡ · tên việc (nếu mục tiêu đổi).
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ (MBM 6.x): [✓ 6.1 Nhận yêu cầu] → [✓ 6.2 Tạo task] → [✓ 6.3 Chốt mục tiêu] → [◐ 6.4 Liệt kê bước — bản thử] → [◐ 6.5 Bộ câu hỏi] → [■ 6.6 Check Master list] → [□ 6.7 Ký] → [□ 6.8 Chạy]
-- ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`) · 19/10: Info contract chuẩn ngành, Config + Saga, ý kiến Astra ngoài MBM · M1: QTTH đổi tên MMOW, 4 tầng MBM → MMOW → MOW → Hồ sơ (MBM r5.35) · tên hiển thị «Master MMOW», «MMOW 05/06» trên các trang (mã khoá ML-MOW-TH-001 / MOW-TH-xxx giữ tới khi lên collection — nợ 🔴 VD-027) · Master MMOW có dòng MMOW-007 (việc này), trang hiện mã MMOW-xxx.
+- ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`) · 19/10: Info contract chuẩn ngành, Config + Saga, ý kiến Astra ngoài MBM · M1: QTTH đổi tên MMOW, 4 tầng MBM → MMOW → MOW → Hồ sơ (MBM r5.35) · tên hiển thị «Master MMOW», «MMOW 05/06» trên các trang (mã khoá ML-MOW-TH-001 / MOW-TH-xxx giữ tới khi lên collection — nợ 🔴 VD-027) · Master MMOW có dòng MMOW-007 (việc này), trang hiện mã MMOW-xxx · 18:28: MMOW 07 chỉ Vẽ UI; Master MMOW thêm MMOW-008 (Info contract), MMOW-009 (Config).
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
-- ➡ Kế tiếp: MMOW 07 tạm dừng (Owner 18/10 21:47) → sửa MBM tiếp M2–M5 (ô 3, «Chờ bàn khi sửa MBM»).
+- ➡ Kế tiếp: sửa MBM M2–M6 (ô 3, «Chờ bàn khi sửa MBM») → viết lại bước chuyên môn MMOW 07 (chỉ Vẽ UI; bước 3.2, 3.3 cũ chuyển sang MMOW 08, 09) → hoàn thiện MMOW 07.
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
 ### 1. Mục tiêu
 Tình trạng: User chốt (Owner 18/10 21:25).
-Owner 18/10/2026 21:25 (thay bản 16/10 17:05):
-1. Vẽ UI.
-2. Chốt hợp đồng thông tin.
-3. Config thành công.
+Owner 19/10/2026 18:28 (thay bản 18/10 21:25): mỗi MMOW chỉ giải quyết 1 việc.
+1. Vẽ UI (gồm tất cả bước con) cho các MOW trong Master MOW — sẽ vẽ hàng ngàn UI. Trước mắt gắn theo list MOW; sau này gắn thêm list Task, MOIT, MOUT.
+Đã tách: Chốt Info contract → MMOW 08 · Config → MMOW 09 (Master MMOW).
 Owner 16/10 16:29: đây là bài test MBM — vừa làm vừa sửa MBM để lần 2 không có Owner, AI vẫn chạy được.
 
 ### 2. Thế nào là hoàn thành
-Owner 18/10/2026 21:25:
-1. Vẽ đủ UI theo các bước con (bao gồm tách ra hoặc gộp theo bước con nếu có). → bước con thiếu UI = 0.
-2. Đảm bảo các UI đó ghi đủ đầu mối hợp đồng thông tin (có phương pháp test, đếm phù hợp). → UI thiếu đầu mối = 0.
-3. Đảm bảo kiểm đủ đầu vào và xác nhận sẵn sàng cho Config (không thiếu thông tin). → thiếu thông tin = 0.
+Owner 18/10/2026 21:25, ý 1 (giữ cho MMOW 07):
+1. Vẽ đủ UI theo các bước con (kể cả tách hoặc gộp theo bước con nếu có). → bước con thiếu UI = 0.
+Ý 2 (đầu mối Info contract) → MMOW 08 · ý 3 (sẵn sàng Config) → MMOW 09.
 D1, D2 (MBM 2.5, không chặn): đã rà — xem tab Nội dung công việc, mục 2.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
@@ -42,6 +40,7 @@ Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công
 | M2 | Định nghĩa bước chuyên môn (đề xuất: mục tiêu = mục con 3A, bước = việc làm) + hướng Owner: mỗi MMOW chỉ làm đúng 1 việc | Owner 18/10 21:47, 19/10 17:00 |
 | M3 | 1 bước chuyên môn × 1 đối tượng = 1 việc con ở CAT-227 (mã việc cha); bước cha xong khi mọi việc con 🟢 | Astra mục 1 |
 | M4 | Tên mục tiêu = trạng thái cuối; MMOW 07 «Config thành công» → «Sẵn sàng Config» (Owner gật); mỗi bước chuyên môn có 1 lần thử thật (nghiệm thu) | Astra mục 4 |
+| M6 | Ví dụ MMOW 07 trong MBM (3.3.3 ba dòng, 4.2 «bước Config thành công», 9.6) đổi theo MMOW 07 chỉ Vẽ UI | Owner 19/10 18:28 |
 | M5 | Bước «Chốt hợp đồng thông tin» của MMOW 07 dùng Info contract chuẩn mới (CT-006.2, 8 thành tố) làm tiêu chí xong | CT-006.2 19/10 17:25 |
 
 #### ☑ Việc cần làm — đọc lại mỗi lượt, xong tích kèm commit
@@ -94,6 +93,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P57 · 19/10 18:28 · «Như tinh thần chúng ta nói là để bớt phức tạp hóa cho MMOW => mỗi MMOW sẽ chỉ giải quyết 1 việc để cho dễ. => MMOW 007 chỉ là vẽ UI. Nó sẽ vẽ hàng ngàn cái UI. chúng ta sẽ có: MMOW 008 là chôt contract infor, MMOW 009 là config… nguyên tắc là chỉ làm 1 việc duy nhất… Danh sách thiết kế UI thì trước mắt gắn theo list mow, sau này có thể gắn thêm vơi list Task, list MOIT/MOUT... nhưng trước mắt hoàn thiện được MMOW 007 đã.» → Master MMOW: 007 chỉ Vẽ UI, thêm 008, 009; ô 1–2 theo Owner; M6.
 - P56 · 19/10 18:14–18:18 · thanh Master MMOW trên Master Home; «Mã bạn vãn đang để: MOW-TH-001 chứ không phải MMOW à? Chúng ta đang chốt làm thử QTTH 007 để thử MBM sao không thấy có trong này??» → thêm dòng MMOW-007 (khoá MOW-TH-007); trang hiển thị mã MMOW-xxx, mã cũ ở «Tên/mã cũ».
 - P55 · 19/10 18:04 · «Như vậy là do cơ cấu bảng phức tạp, chúng ta chưa thể tạo ra được bảng master view như các bảng khác cho MMOW đúng không? Nếu phức tạp quá thì ghi nợ vào MBM cũng được.» → master view MMOW đã có (UI.MASTER); nợ là chưa collection + mã khoá cũ → VD-027 🔴 ở CAT-069 (Ô bước MBM 6.2).
 - P54 · 19/10 17:56 · «Đồng ý nếu sửa không mất quá nhiều thời gian thì bạn sửa luôn giúp tôi.» → đổi tên hiển thị 10 tệp trang + catalog TQT; mã khoá (ghim trong code, >100 chỗ) giữ tới khi lên collection.

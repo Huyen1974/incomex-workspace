@@ -10900,8 +10900,8 @@ main{max-width:1240px} [hidden]{display:none!important}
       },
       {
         "code": "MOW-TH-007",
-        "name": "MMOW 07 · Vẽ UI, chốt Info contract, Config cho các MOW trong Master MOW",
-        "goal": "1. Vẽ UI · 2. Chốt hợp đồng thông tin · 3. Config thành công — cho các MOW trong Master MOW (Owner chốt 18/10/2026 21:25). Bài thử MBM.",
+        "name": "MMOW 07 · Vẽ UI cho các MOW trong Master MOW",
+        "goal": "Vẽ UI (gồm tất cả bước con) cho các MOW trong Master MOW. Chỉ làm 1 việc: vẽ UI. Trước mắt gắn list MOW; sau này gắn thêm list Task, MOIT, MOUT (Owner 19/10/2026 18:28).",
         "version": "bản thử · MBM r5.35",
         "object_type": "MOW",
         "process_kind": "aggregate",
@@ -10921,17 +10921,79 @@ main{max-width:1240px} [hidden]{display:none!important}
         ],
         "child_refs": [],
         "guide": {
-          "purpose": "Bài thử MBM: làm MMOW 07 theo MBM, vừa làm vừa sửa MBM. Làm ở task mbm-qtth-07-ve-ui-mow.",
-          "when": "Khi cần vẽ UI, chốt Info contract và chuẩn bị Config cho các MOW trong Master MOW.",
-          "avoid": "Không dựng collection trước khi ma trận được ký; không gõ tay vào Directus.",
-          "done": "Bước con thiếu UI = 0 · UI thiếu đầu mối thông tin = 0 · thiếu thông tin cho Config = 0."
+          "purpose": "Vẽ UI cho từng MOW: mỗi bước con 1 UI con (CT-006), kể cả tách hoặc gộp. Bài thử MBM; làm ở task mbm-qtth-07-ve-ui-mow.",
+          "when": "Khi MOW chưa có đủ UI con theo bước con.",
+          "avoid": "Không chốt Info contract (MMOW-008), không Config (MMOW-009) trong việc này; không dựng collection trước khi ma trận được ký.",
+          "done": "Bước con thiếu UI = 0 (trước mắt: các MOW trong Master MOW)."
         },
         "gates": {
           "identity": "Mã MMOW-007 (khoá MOW-TH-007 — nợ VD-027)",
           "records": "Task mbm-qtth-07-ve-ui-mow",
           "closure": "Chưa ký (MBM 6.7)"
         },
-        "host_review": "19/10 · thêm dòng theo MBM 6.2."
+        "host_review": "19/10 · thêm dòng theo MBM 6.2 · 18:28 Owner: mỗi MMOW chỉ làm 1 việc — 007 chỉ Vẽ UI."
+      },
+      {
+        "code": "MOW-TH-008",
+        "name": "MMOW 08 · Chốt Info contract cho các UI đã vẽ",
+        "goal": "Chốt Info contract (CT-006.2) cho mọi UI con đã vẽ ở MMOW-007. Chỉ làm 1 việc (Owner 19/10/2026 18:28).",
+        "version": "chưa làm",
+        "object_type": "MOW",
+        "process_kind": "aggregate",
+        "chainId": "CH-001",
+        "state": "Chưa làm · chờ MMOW-007",
+        "aliases": [],
+        "route": [
+          "Khai việc",
+          "Rà soát chuẩn bị",
+          "Triển khai",
+          "Kiểm tra",
+          "Báo cáo"
+        ],
+        "child_refs": [],
+        "guide": {
+          "purpose": "Mỗi UI con có Info contract đủ 8 thành tố CT-006.2.",
+          "when": "Sau khi MMOW-007 vẽ xong UI.",
+          "avoid": "Không vẽ UI, không Config trong việc này.",
+          "done": "UI thiếu Info contract = 0."
+        },
+        "gates": {
+          "identity": "Mã MMOW-008 (khoá MOW-TH-008 — nợ VD-027)",
+          "records": "Chưa mở task",
+          "closure": "Chưa làm"
+        },
+        "host_review": "19/10 18:28 Owner: tách từ MMOW 07 — mỗi MMOW 1 việc."
+      },
+      {
+        "code": "MOW-TH-009",
+        "name": "MMOW 09 · Config cho các UI đã có Info contract",
+        "goal": "Config (CT-007) cho mọi UI con đã có Info contract ở MMOW-008. Chỉ làm 1 việc (Owner 19/10/2026 18:28).",
+        "version": "chưa làm",
+        "object_type": "MOW",
+        "process_kind": "aggregate",
+        "chainId": "CH-001",
+        "state": "Chưa làm · chờ MMOW-008",
+        "aliases": [],
+        "route": [
+          "Khai việc",
+          "Rà soát chuẩn bị",
+          "Triển khai",
+          "Kiểm tra",
+          "Báo cáo"
+        ],
+        "child_refs": [],
+        "guide": {
+          "purpose": "Mỗi UI con có Config đủ thành tố CT-007.",
+          "when": "Sau khi MMOW-008 chốt xong Info contract.",
+          "avoid": "Không vẽ UI, không chốt Info contract trong việc này.",
+          "done": "UI thiếu Config = 0."
+        },
+        "gates": {
+          "identity": "Mã MMOW-009 (khoá MOW-TH-009 — nợ VD-027)",
+          "records": "Chưa mở task",
+          "closure": "Chưa làm"
+        },
+        "host_review": "19/10 18:28 Owner: tách từ MMOW 07 — mỗi MMOW 1 việc."
       }
     ],
     "normal_processes": [
