@@ -6753,6 +6753,11 @@ Ghế: Claude Code CLI (executor) · Based_on `8e7f63f` · đã đọc PROOT11 (
   | Sổ `storage-registry` (`~/.hermes/tools`) | Config Guard 17500a3e | bộ đọc sổ storage-watch + event-post PASS | storage-watch hằng giờ → #11 | `rollback/storage-registry-p329.truoc-luot` d4841c8d | ĐẠT |
   | Bản chụp 0.21.4 trên Drive | md5 + sha256 ghi trong `evidence/archive-previous-p329.json` | tải lại toàn bộ khớp | hệ backup Drive (không tỉa thư mục này) | tải về + giải mã bằng khoá Owner | ĐẠT |
 
+### P331 · Claude Code CLI · 2026-10-19 08:40 +07 · RUN `HJW-UPGRADE-BUTTON-20261017-01` · **BÁO CÁO CHÍNH THỨC NGÀY 18/10 + KIỂM CUỐI · 0 GHI VPS**
+Ghế: Claude Code CLI · Owner: «Bạn kiểm tra lại lần cuối rồi làm báo cáo chính thức về công việc đã làm ngày hôm qua».
+- Báo cáo: `work/hermes-joint-workspace/BAO-CAO-NANG-HERMES-2026-10-18.md` (tóm tắt cho Owner, diễn biến theo giờ, kết quả từng việc, bảng bảo vệ Đ30/31, sự cố + bài học, việc còn mở, kiểm cuối, chi phí, hồ sơ).
+- Kiểm cuối 19/10 01:35Z (chỉ đọc): Hermes VPS + app Mac + lệnh `hermes` Mac cùng v0.22.2 `d923a5eb`; Guard UP mọi bất biến; Config Guard CLEAN 490/490; #21 drift=none; timer đêm 21:19Z «đã mới nhất» không gửi tin; 0 đồ thử còn sót; #11 còn SLOPE24 −3,44 GiB — đúng P330, chờ mẫu 19/10 14:00Z. NEXT_TRIGGER=VERIFY_DEN11_XANH_19_10_14Z (giữ).
+
 
 
 
