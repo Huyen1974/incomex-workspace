@@ -17,7 +17,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
 ### 1. Mục tiêu
-Tình trạng: User chốt (Owner 18/10 21:25).
+Tình trạng: User chốt (Owner 19/10 18:28).
 Owner 19/10/2026 18:28 (thay bản 18/10 21:25): mỗi MMOW chỉ giải quyết 1 việc.
 1. Vẽ UI (gồm tất cả bước con) cho các MOW trong Master MOW — sẽ vẽ hàng ngàn UI. Trước mắt gắn theo list MOW; sau này gắn thêm list Task, MOIT, MOUT.
 Đã tách: Chốt Info contract → MMOW 08 · Config → MMOW 09 (Master MMOW).
