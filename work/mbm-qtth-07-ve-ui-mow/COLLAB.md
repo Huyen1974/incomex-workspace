@@ -5,7 +5,7 @@ Tên việc: QTTH 07 — vẽ UI, chốt hợp đồng thông tin, Config thành
 Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt ô 1–2 ngày 18/10/2026 21:25 (thay bản 16/10/2026 17:05).
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 16:55 +07 · Claude · P47
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 17:05 +07 · Claude · P48
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ⬜ · ➡ · tên việc (nếu mục tiêu đổi).
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
@@ -85,6 +85,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P48 · 19/10 16:55 · «Phần đề xuất của bạn: cái đó bạn ghi ghi chú tạm vào chi tiết, tôi chỉ nhìn vào những cái thứ đơn giản tôi mới tư duy được. Còn chi tiết là việc của các bạn… Miễn là chạy được là ok… trừ MBM là cái đầu tiên cho nên phải thiết kế cho đúng logic để nó chạy.» → LC-1…LC-7 + nơi lưu khi chạy ghi 1 lần ở Chi tiết UI Con; Info contract, Config chỉ trỏ về.
 - P47 · 19/10 16:39–16:46 · «hàng đợi, lượt chạy chưa thấy có trong công thức thì điều phối kiểu gì?» — «đưa thành công thức con của config có hợp lý không nhỉ?… nó có 1 thành tố trong 1 ô +… Phải đi từ cái đơn giản đến cái phức tạp. Tạo ra công thức là để xử lý các vấn đề phức tạp trở thành những lựa chọn đơn giản và ghép lại…» — «Mục 1 và 2 chị đồng ý» → Config thêm ô Hàng đợi + Lượt chạy; không tạo CT-007.1/007.2; điểm 3 (7 luật PG) chờ giải thích.
 - P46 · 19/10 16:31 · «1. Dùng info contract cho nó ngắn. Tôi đã chỉ thị như thế rồi là có Ý của nó. 2. Cái này nó phải là con của UI con cùng hàng với config và cũng cho mờ đi 1 chút như config. 3. Những hệ thống như, hàng đợi, bảng chạy, lượt chạy..... chưa thấy bạn đưa vào đây… bảng lưu nơi lưu (tóm lại là thông tin vào ở đâu và ra ở đâu)… chi tiết kỹ thuật bạn phải tính kỹ chứ» (kèm 16:16: CT-006.1 để trống chừa chỗ chèn giữa) → Info contract · depth 2 · Vào/Lưu/Ra + khi chạy dùng sổ có sẵn (CAT-206*, CAT-248*, CAT-228*, MOIT, MOUT, CAT-069).
 - P45 · 19/10 16:12 · «Vậy chị bổ sung thêm CT 006.2 info contract. Ít nhất chỗ này nó cũng giống như config, nhưng chỗ này bạn phải xét tới, cả các yếu tố của lượt chạy, hàng đợi.... nói chung cả config và inforcontract.... cần phải xét đến cái này (về câu chuyện này mà thiết kế theo kiểu PG chứ tôi không rành lắm => bạn phải rà soát để làm sao chạy đúng chuẩn là được.» → CT-006.2 + 7 luật khi chạy dùng chung với CT-007.
