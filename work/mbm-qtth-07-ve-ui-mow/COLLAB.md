@@ -5,12 +5,12 @@ Tên việc: MMOW 07 — vẽ UI, chốt hợp đồng thông tin, Config thành
 Xác nhận User: ĐÃ XÁC NHẬN — Owner chốt ô 1–2 ngày 18/10/2026 21:25 (thay bản 16/10/2026 17:05).
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 18:20 +07 · Claude · P55
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-19 18:30 +07 · Claude · P56
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ⬜ · ➡ · tên việc (nếu mục tiêu đổi).
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ (MBM 6.x): [✓ 6.1 Nhận yêu cầu] → [✓ 6.2 Tạo task] → [✓ 6.3 Chốt mục tiêu] → [◐ 6.4 Liệt kê bước — bản thử] → [◐ 6.5 Bộ câu hỏi] → [■ 6.6 Check Master list] → [□ 6.7 Ký] → [□ 6.8 Chạy]
-- ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`) · 19/10: Info contract chuẩn ngành, Config + Saga, ý kiến Astra ngoài MBM · M1: QTTH đổi tên MMOW, 4 tầng MBM → MMOW → MOW → Hồ sơ (MBM r5.35) · tên hiển thị «Master MMOW», «MMOW 05/06» trên các trang (mã khoá ML-MOW-TH-001 / MOW-TH-xxx giữ tới khi lên collection — nợ 🔴 VD-027).
+- ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`) · 19/10: Info contract chuẩn ngành, Config + Saga, ý kiến Astra ngoài MBM · M1: QTTH đổi tên MMOW, 4 tầng MBM → MMOW → MOW → Hồ sơ (MBM r5.35) · tên hiển thị «Master MMOW», «MMOW 05/06» trên các trang (mã khoá ML-MOW-TH-001 / MOW-TH-xxx giữ tới khi lên collection — nợ 🔴 VD-027) · Master MMOW có dòng MMOW-007 (việc này), trang hiện mã MMOW-xxx.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
 - ➡ Kế tiếp: MMOW 07 tạm dừng (Owner 18/10 21:47) → sửa MBM tiếp M2–M5 (ô 3, «Chờ bàn khi sửa MBM»).
@@ -94,6 +94,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P56 · 19/10 18:14–18:18 · thanh Master MMOW trên Master Home; «Mã bạn vãn đang để: MOW-TH-001 chứ không phải MMOW à? Chúng ta đang chốt làm thử QTTH 007 để thử MBM sao không thấy có trong này??» → thêm dòng MMOW-007 (khoá MOW-TH-007); trang hiển thị mã MMOW-xxx, mã cũ ở «Tên/mã cũ».
 - P55 · 19/10 18:04 · «Như vậy là do cơ cấu bảng phức tạp, chúng ta chưa thể tạo ra được bảng master view như các bảng khác cho MMOW đúng không? Nếu phức tạp quá thì ghi nợ vào MBM cũng được.» → master view MMOW đã có (UI.MASTER); nợ là chưa collection + mã khoá cũ → VD-027 🔴 ở CAT-069 (Ô bước MBM 6.2).
 - P54 · 19/10 17:56 · «Đồng ý nếu sửa không mất quá nhiều thời gian thì bạn sửa luôn giúp tôi.» → đổi tên hiển thị 10 tệp trang + catalog TQT; mã khoá (ghim trong code, >100 chỗ) giữ tới khi lên collection.
 - P53 · 19/10 17:40–17:46 · «Bây giờ quay trở lại chúng ta sửa MBM… AI thông minh nhất hiện nay vẫn hiểu => thì ghi chép chả có nghĩa…» — «MOW là mow. Mow là các quy trình đích đến. Còn QTTH là để sinh ra các quy trình trình đó…» — «Giờ tốt nhất đổi QTTH thành MMow (mother of mow) ghi rõ như thế để đỡ nhầm lẫn khái niệm…» → MBM r5.35: 4 tầng MBM → MMOW → MOW → Hồ sơ; task đổi tên MMOW 07 (nhật ký cũ giữ nguyên chữ QTTH).
