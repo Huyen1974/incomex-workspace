@@ -5,12 +5,12 @@ Tên việc: MMOW 07 — vẽ UI cho các MOW trong Master MOW, làm bằng côn
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 19/10/2026 18:28: MMOW 07 chỉ Vẽ UI (thay bản 18/10 21:25 gồm 3 mục tiêu; Chốt Info contract → MMOW 08, Config → MMOW 09).
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 15:20 +07 · Claude · P60
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 15:30 +07 · Claude · P61
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ⬜ · ➡ · tên việc (nếu mục tiêu đổi).
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ (MBM 6.x): [✓ 6.1 Nhận yêu cầu] → [✓ 6.2 Tạo task] → [✓ 6.3 Chốt mục tiêu] → [◐ 6.4 Liệt kê bước — bản thử] → [◐ 6.5 Bộ câu hỏi] → [■ 6.6 Check Master list] → [□ 6.7 Ký] → [□ 6.8 Chạy]
-- ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`) · 19/10: Info contract chuẩn ngành, Config + Saga, ý kiến Astra ngoài MBM · M1: QTTH đổi tên MMOW, 4 tầng MBM → MMOW → MOW → Hồ sơ (MBM r5.35) · tên hiển thị «Master MMOW», «MMOW 05/06» trên các trang (mã khoá ML-MOW-TH-001 / MOW-TH-xxx giữ tới khi lên collection — nợ 🔴 VD-027) · Master MMOW có dòng MMOW-007 (việc này), trang hiện mã MMOW-xxx · 18:28: MMOW 07 chỉ Vẽ UI; Master MMOW thêm MMOW-008 (Info contract), MMOW-009 (Config) · 22:26: Master MOW có 3 cột tích Vẽ UI · Info contract · Config (35/35 ☐; tích trên giao diện = nợ VD-028) · 20/10: trang Công thức có khối KHÁI NIỆM · CAT-000.5 (54 loài, 5 định luật ĐL1–ĐL5, ký hiệu tạm chờ vector); MMOW mã OBJ-MMOW · 14:18: CAT-000.5 hợp nhất 107 loài mã SPE (gộp entity_species + khái niệm nháp + CAT-237*; quét máy Q1–Q6: 4 bảng vô chủ, mã mồ côi audit_log, 6 loài lệch tiền tố, 10 sổ 2 mã) · Master Duyệt thiết kế có CAT-000.5 + cột Duyệt TK (xanh = User đã duyệt; CAT-000.5 tạm duyệt 20/10) · nợ VD-029 (ghi PG).
+- ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`) · 19/10: Info contract chuẩn ngành, Config + Saga, ý kiến Astra ngoài MBM · M1: QTTH đổi tên MMOW, 4 tầng MBM → MMOW → MOW → Hồ sơ (MBM r5.35) · tên hiển thị «Master MMOW», «MMOW 05/06» trên các trang (mã khoá ML-MOW-TH-001 / MOW-TH-xxx giữ tới khi lên collection — nợ 🔴 VD-027) · Master MMOW có dòng MMOW-007 (việc này), trang hiện mã MMOW-xxx · 18:28: MMOW 07 chỉ Vẽ UI; Master MMOW thêm MMOW-008 (Info contract), MMOW-009 (Config) · 22:26: Master MOW có 3 cột tích Vẽ UI · Info contract · Config (35/35 ☐; tích trên giao diện = nợ VD-028) · 20/10: trang Công thức có khối KHÁI NIỆM · CAT-000.5 (54 loài, 5 định luật ĐL1–ĐL5, ký hiệu tạm chờ vector); MMOW mã OBJ-MMOW · 14:18: CAT-000.5 hợp nhất 107 loài mã SPE (gộp entity_species + khái niệm nháp + CAT-237*; quét máy Q1–Q6: 4 bảng vô chủ, mã mồ côi audit_log, 6 loài lệch tiền tố, 10 sổ 2 mã) · Master Duyệt thiết kế có CAT-000.5 + cột Duyệt TK (xanh = User đã duyệt; CAT-000.5 tạm duyệt 20/10) · nợ VD-029 (ghi PG) · 15:08: chuẩn «?» cho mọi bảng mới (ĐL6), CAT-000.5 đã có «?» ở tiêu đề, ma trận, 8 cột.
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
 - ➡ Kế tiếp: Owner duyệt Miền CV (CAT-250*) + nháp MBM 3.3 viết theo luật CAT-000.5 (Bước làm = Mục tiêu + Miền CV + Công thức) → sửa MBM M2–M6 (ô 3, «Chờ bàn khi sửa MBM») → viết lại bước chuyên môn MMOW 07 (chỉ Vẽ UI; bước 3.2, 3.3 cũ chuyển sang MMOW 08, 09) → hoàn thiện MMOW 07.
@@ -32,6 +32,10 @@ D1, D2 (MBM 2.5, không chặn): đã rà — xem tab Nội dung công việc, m
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
 Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công việc» trên trang Task (tệp `view.html` của việc này) — 1 nơi, không chép lại ở đây. Vấn đề và nợ kỹ thuật (mẫu CAT-069, mã VD-…): cũng ở đó — không dựng hệ phức tạp, xong MMOW 07 thì lên collection + DOT.
+
+#### 📏 Chuẩn chung (Owner 20/10 15:08)
+- Mọi bảng mới có «?» ở tiêu đề bảng và từng cột, giải thích cái gì + hướng dẫn cho người mới. Lên collection vẫn giữ: «?» = ghi chú (note) của bảng và của từng trường. (CAT-000.5 ĐL6)
+- CAT-000.5 tạm đặt trên trang Công thức; sau chuyển sang collection (nợ VD-029).
 
 #### ⏳ Chờ bàn khi sửa MBM (Owner 19/10 17:36)
 | Mã | Việc | Nguồn |
@@ -93,6 +97,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P61 · 20/10 15:08 · «Được rồi sẽ tạm 000.5 vào đây => sau này chúng ta chuyển sang collection cho nhanh. Mặc định các bảng mới tạo dùng "?" để giải thích nó là cái gì cũng như hướng dẫn… Sau này chuyển vào collection cũng duy trì cơ chế "?".» → ĐL6 + «?» cho CAT-000.5 + chuẩn chung trong task.
 - P60 · 20/10 11:20–14:5x · «L0 L1, L2… chấm to chấm nhỏ… cái mẹ thì to hơn cái con…» — «…những gì có từ 2 đối tượng cùng loại => phải có Master list… còn có loài nào đang mô côi…» — «Đồng ý ghép 3 cái này thành 1… trong 000.5 tối thiểu: Mã loài · Tên · Quản lý tại · Mô tả · thuộc khái niệm nào · L0–L6 · ĐL1–ĐL5…» — «Bạn dựng đi… quét lại bằng máy…» — «…master of master là danh sách tổng… Những master list mới bổ sung + 000.5 cần phải được hiện ở bên này… Chuyển màu xanh với những phần đã duyệt thiết kế…» → CAT-000.5 hợp nhất; cột Duyệt TK.
 - P59 · 20/10 10:02–11:11 · «Phải có định nghĩa miền là gì?… Miền CV… cần phải có 1 bảng master list Miền CV…» — «chúng ta thiếu 1 master list mà lẽ ra chúng ta phải làm đầu tiên: Master of concept (khái niệm)… CAT - 000.5… Nguyên tử = 1 chấm, phân tử bằng 2 hoặc 3 chấm… Hợp chất… Vật liệu… mã loài… Toàn bộ tôi chỉ cần ở trang Công thức… nguyên tắc chỉ là công thức và định luật.» → khối CAT-000.5 trên trang Công thức.
 - P58 · 19/10 22:11–22:26 · «Bước trong MBM: Mục tiêu chuyên môn của MMOW + Phạm vi công việc + 1 công thức (CT001–CT007)… 35 chỉ là ví dụ… đó là miền nhiệm vụ… Ta ghép từng bước… Mỗi lần chúng ta chỉ ghép 1 bước… Trong ML-DEF-004 · Master MOW chúng ta cần thêm 3 cột check box: Vẽ UI, Infor contract, config…» → 3 cột tích; nháp MBM 3.3 gửi Owner duyệt.
