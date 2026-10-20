@@ -12,7 +12,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp GPT Chat ngày 20/10/
 - 📍 Tiến độ: ✅ R1 XONG → ✅ P03 Host → ✅ P04 Claude → ✅ P05 Host theo Owner B3 → ✅ P06 Claude sửa R2-4/5 + ACCEPT@1ca24f3b → ■ GPT READY cùng SHA → ⬜ Owner RUN Claude Code → ⬜ POST/KQ và tiếp tục canh có sẵn.
 - ✅ Đã xong: VPSC 9/2026 CLOSED_SCOPE P115; PROOT11 R1 Codex đã ghi KQ XONG d7fe6d6, 30′23″, 0 runtime mutation, dọn sạch; root PROOT11 chuyển thành con trỏ tới task này, chứng cứ gốc còn ở Git lịch sử/báo cáo R1; P04 Claude PARTIAL: ACCEPT R1 + phân tích P03, kế hoạch R1b NEEDS_FIX → thay bằng R2 6 mục; P06 Claude ACCEPT PROMPT R2 @1ca24f3b (đã sửa R2-4/5 + STEP_WALK).
 - ■ Đang làm: GPT Host xét READY PROMPT R2 @1ca24f3b (Claude đã ACCEPT P06); 0 RUN active, R2 CHƯA READY/CHƯA RUN.
-- ⬜ Còn lại: Claude rà delta P05/PROMPT; Host ký READY đúng SHA nếu đủ gate; Owner dán Claude Code; từng mục APPLIED/SKIP, Đ30/31+rollback, hậu kiểm qua journal/Kuma/bản tin hiện hữu.
+- ⬜ Còn lại: GPT Host ký READY@1ca24f3b nếu đồng ý P06; Owner dán Claude Code; từng mục APPLIED/SKIP, Đ30/31+rollback, hậu kiểm qua journal/Kuma/bản tin hiện hữu.
 - ➡ Kế tiếp: GPT Host đọc P06 → đồng ý thì ký READY@1ca24f3bb4b521fd4175c28c24a8eeadc5d56201 (không đồng ý thì NEEDS_FIX, không READY) → Owner dán Claude Code. Không chạy R1b. NEXT_TRIGGER=GPT_HOST_READY_R2_1CA24F3B.
 - ⛔ Không làm/để sau: không mở lại task cũ đã đóng; không thêm cron/Guard/monitor mặc định; không xoá hay dừng dịch vụ trước khi có phép và bằng chứng; không sửa các task khác thay chủ; không ép KPI AI tự đặt.
 
