@@ -6,14 +6,14 @@ Nguồn chứng cứ: root COLLAB.md §PROOT11 và PROOT04; work/done-tasks/vps-
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp GPT Chat ngày 20/10/2026, yêu cầu mở phiên work/vps-clean-20-10-26, cho phép lựa chọn tạo task mới và giao GPT tiếp tục làm Host.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 14:26 +07 · Codex executor R1 · P02 / root PROOT11 STARTED
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 15:05 +07 · Codex executor R1 · root PROOT11 KQ
 - 🎯 Mục tiêu: dọn lỗi/rác phát sinh, giảm chi phí tính toán, rà lại kiến trúc và số lượng cổng kiểm soát để VPS an toàn nhưng không lãng phí tài nguyên.
 - 🏁 Xong khi: việc không cần thiết được xác định/tắt an toàn; các phần cần dùng, Điều 30/31, backup và cảnh báo vẫn hoạt động; chi phí và lỗi có số đo; kiểm tra hằng ngày tận dụng cơ chế hiện hữu.
 - 📍 Tiến độ: ■ R1 đo nền PROOT11 (READY + GPT ACCEPT cùng SHA, Owner giao Codex) → ⬜ quyết TOP 10 → ⬜ R2 xử lý mục được duyệt → ⬜ cơ chế rà soát thường xuyên chi phí thấp.
-- ✅ Đã xong: VPSC đợt 9/2026 CLOSED_SCOPE P115 ngày 15/10; PROOT11 R1 đã được GPT rà, chấp thuận khảo sát CHỈ ĐỌC; Claude Reviewer P02 đồng thuận P01 và xác nhận R1 đủ điều kiện giao Codex; chưa có KQ R1.
-- ■ Đang làm: R1 tại root PROOT11 · Codex STARTED@PROOT11-R1-VPS-LOAD-AUDIT-20261020-01 07:26Z; chỉ đọc VPS, không chiếm VPS-GHI; dự kiến KQ ≤08:20Z; 0 RUN sửa trong task này.
+- ✅ Đã xong: VPSC đợt 9/2026 CLOSED_SCOPE P115 ngày 15/10; PROOT11 R1 đã được GPT rà, chấp thuận khảo sát CHỈ ĐỌC; Claude Reviewer P02 đồng thuận P01 và xác nhận R1 đủ điều kiện giao Codex; KQ R1 xem root PROOT11 và dòng ■, chưa Host nghiệm thu.
+- ■ Đang làm: — · 0 RUN active. Codex đã ghi KQ R1 XONG có giới hạn bằng chứng tại root PROOT11/BAO-CAO (SAME_COMMIT); chưa Host nghiệm thu, TOP 10 chưa đủ bằng chứng, R2 chưa READY; không chiếm VPS-GHI, đã dọn sạch.
 - ⬜ Còn lại: số đo R1; phân loại GIỮ/GỘP/GIÃN/TẮT; Owner gật TOP 10; Claude Code sửa có bảo vệ; kiểm hậu quả/rollback; dùng kết quả đo để tối ưu nhịp rà hằng ngày.
-- ➡ Kế tiếp: Codex ghi số đo/KQ R1 tại root PROOT11 và BAO-CAO đã ký; GPT Host nhận KQ và yêu cầu Claude Chat phản biện một vòng; Owner duyệt từng mục có mutation. NEXT_TRIGGER=PROOT11_R1_KQ.
+- ➡ Kế tiếp: GPT Host đọc KQ/báo cáo R1 tại nguồn đã ký, nhận các khoảng CHƯA ĐO và đưa kết luận về task này; Claude Chat phản biện một vòng. Chỉ soạn R2 cho mục có đủ bằng chứng và Owner duyệt mutation; không sao chép báo cáo. NEXT_TRIGGER=GPT_HOST_REVIEW_R1_KQ.
 - ⛔ Không làm/để sau: không mở lại task cũ đã đóng; không thêm cron/Guard/monitor mặc định; không xoá hay dừng dịch vụ trước khi có phép và bằng chứng; không sửa các task khác thay chủ; không ép KPI AI tự đặt.
 
 ### 1. Mục tiêu

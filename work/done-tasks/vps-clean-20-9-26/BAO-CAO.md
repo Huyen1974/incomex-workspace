@@ -4,6 +4,276 @@ Tài liệu báo cáo duy nhất của việc này (D04). Lượt mới chèn l�
 
 ---
 
+## PROOT11-R1 · 20/10
+
+RUN_ID: `PROOT11-R1-VPS-LOAD-AUDIT-20261020-01` · executor Codex · R1 CHỈ ĐỌC · KQ XONG CÓ GIỚI HẠN SỐ ĐO; chưa nghiệm thu vận hành thay Host. Nguồn lệnh: root PROOT11 R1.0–R1.8, TC1–TC7; READY + ACCEPT cùng `9fd9f14d9efa2dc4c91d54c40dda49c45d025e29`; kiểm khối ký giống tuyệt đối. STARTED `7aa73daa`, checkpoint `730f5bea`, `be270baf`, `a98dfc80`. Không chiếm VPS-GHI, không sửa READY hay chạy R2.
+
+### Cho Owner — 5 câu trả lời
+1. **Telegram/giám sát:** riêng 6 timer giám sát có biên nhận CPU đã tốn **ít nhất 8.143,93 CPU-giây/24h**, tương đương ít nhất **1.57% công suất 6 vCPU**; Kuma **54.39 CPU-giây/30.38 phút**, RAM 159.8 MiB, I/O đọc/ghi 0.71/21.32 MiB. Tổng toàn lớp và CPU riêng Telegram **CHƯA ĐO**; không cộng hai cửa sổ thành một tổng.
+2. **Đang chạy:** 14 container, 13 healthcheck, 22 monitor Kuma, 23 dòng kiểm định nghĩa trong Guard, 491 đích Config Guard; 31 timer hệ thống + 1 timer user, 45 dòng cron + 9 tệp periodic; Hermes 2 job bật/1 nghỉ. PG có 417 trigger bảng + 4 event trigger, không đồng nghĩa 421 chương trình chạy nền; số flow bật hiện tại CHƯA ĐO.
+3. **Cân bằng:** ưu tiên rà presence 30s, drift 5′, healthcheck 10–15s và container tạm; giữ phạm vi Đ30/31/Telegram/backup. **Chưa có TOP 10 đủ bằng chứng cho R2**; chi phí hiện tại không phải lượng tiết kiệm. 10 ứng viên và khoảng thiếu ở dưới, không phải READY.
+4. **Di sản/lỗi:** PG ghi nhận 8 lỗi `btrim(integer)`, 16 lỗi `varchar(50)`, 12 lần UPDATE đếm bị Guard chặn; còn 3 cron Runner cũ, ép bỏ cache/trim mỗi giờ. Mồ côi tmux/htop/2 Node của 13/10 không còn trong mẫu >6h/cổng cũ. Nguồn gốc 503 **chưa chứng minh**, không phải cứ 5′ lại 503.
+5. **Chậm:** cửa sổ 30.38 phút CPU idle 81.04%, iowait 0.58%, memory PSI some/full 0.0116/0.0111%; swap-in/out 0.26/89.16 MiB. Chưa thấy nghẽn toàn máy kéo dài; chậm theo đợt ở Directus/Nuxt có thật, cần phân nguyên nhân ở dịch vụ/đường gọi; chưa quy cho CPU, swap hay RUN khác.
+
+### 1. Cửa sổ và cách đọc số
+
+- Giờ Owner **20/10 14:27:54 → 20/10 14:58:17 +07**. Mốc VPS UTC **2026-10-20T07:27:54Z → 2026-10-20T07:58:17Z**, `/proc/uptime` chênh **1823.00s**; boot-id `0fe034b5-89e8-4cec-9d1e-bdd90a64cd99` không đổi. Số cửa sổ là hiệu hai counter trên cùng boot/cgroup/container; không lấy counter từ tháng 7/03-10/13-10 chia tuổi máy. Đối chiếu PID starttime và container ID/StartedAt; số âm/reset phải bỏ, không nội suy thành ngày. RAM trong bảng là `memory.current` cuối cửa sổ, **gồm page cache**, không phải peak hay RSS; swap là trang đang lưu, không tự chứng minh thrashing. I/O là block-device `8:0` trong `io.stat`, không phải dung lượng tệp sinh mới.
+- CPU-giây/ngày chỉ dùng journal `_PID=1`, `CPU_USAGE_NSEC`, 3.843 resource records trong 24h trước 07:33:29Z. Đây là **mức thấp nhất đã ghi nhận** vì nhiều job ngắn không được systemd phát resource record; không cộng user slice/container lifetime/session vào timer. `IOAccounting` của timer chưa có nên I/O/ngày từng timer CHƯA ĐO. CPU % công suất = CPU-giây/(6 × thời gian uptime); % idle/iowait theo counter CPU kernel; hai mẫu số này không được tráo.
+- `sar19`: 143 khoảng, tổng 23h49m57s, **18/10 22:00Z → 19/10 21:50Z**, không phải ngày Việt Nam 19/10: idle TB 80,25%, iowait 0,92%, steal 0; RAM khả dụng 4,63–6,46 GiB; đọc 63,15 GiB, ghi 117,97 GiB; await TB 3,80ms, util 6,75%. Tích phân tốc độ fork ≈2,572 triệu và swap-in/out ≈10.675/384.446 trang trong các khoảng ghi nhận; không phải exec, không phải số dự báo/ngày. `sar20` tới 07:20Z: idle 79,19%, iowait 0,97%, steal 0; await 3,79ms. Không suy steal=0 thành đã loại hết trễ nhà cung cấp.
+- Host boot mới **18/10 15:27:56Z**; 13 container tạo lại 15:28Z, Nuxt StartedAt 19/10 23:13:14Z, restart counter 2 có trước R1. Claude MCP đã có trần 1,5 GiB; PG 3 GiB, agent-data 6 GiB: không lặp lại đề xuất nâng 1→1,5 hoặc 2→3 GiB của 13/10 như việc chưa làm.
+- Root VPS-GHI trống khi vào. Bảng Graph P157, HJW P339 và TQT P68 ghi 0 RUN active tại 07:41Z; GS-CLEAN inventory đã KQ trước cửa sổ. Container/cgroup tách trong bảng; helper, workspace-exec, cron, SSH là tài nguyên **dùng chung**, gồm cả lệnh đọc/ghi tài liệu R1 và hoạt động client khác. Không có RUN_ID trên mọi request/PID, nên phần chi phí từng RUN trong nhóm này **CHƯA ĐO**; không quy toàn bộ cho rác/giám sát. R1 có 9 GET nhẹ hợp lệ trên Nuxt/health/MCP và 3 GET nhầm `/mcp/health` trả 404 đã loại khỏi số độ trễ MCP.
+
+### 2. Ma trận nhóm chương trình — số thực theo cửa sổ trên
+
+CPU là CPU-giây, % = công suất 6 vCPU; RAM/swap MiB; I/O đọc/ghi MiB. 🟢 giữ phần cần dùng · 🟡 có phương án giãn/gộp cần kiểm · ⚪ thiếu quy nguồn/tiết kiệm · 🔴 lỗi lặp đã thấy; màu không thay bằng chứng.
+
+| Nhóm | CPU / % | RAM / trần; swap | I/O R/W | Nhịp | Trùng lặp | Chủ · người dùng đầu ra | Mức cần thiết · đề xuất TC1–TC7 |
+|---|---|---|---|---|---|---|---|
+| incomex-agent-data | 175.98 / 1.61% | 1928.1/6144; swap 653.0 | 5.02/527.08 | liên tục; HC 15s | HC/Kuma/Guard có cùng đích; chưa chứng minh trùng chức năng | TQT/agent-data; RAG, connector; GIỮ D25/D27 | 🟢 GIỮ; HC nhanh là 🟡 ứng viên TC2–4, CPU HC chưa tách |
+| incomex-claude-mcp | 88.99 / 0.81% | 1470.1/1536; swap 8.3 | 611.00/2.01 | liên tục; HC 15s | HC/Kuma/Guard có cùng đích; chưa chứng minh trùng chức năng | MCPW; client Claude; GIỮ hạ tầng | 🟢 GIỮ; HC nhanh là 🟡 ứng viên TC2–4, CPU HC chưa tách |
+| postgres | 101.42 / 0.93% | 760.4/3072; swap 11.3 | 308.75/0.81 | liên tục; HC 10s | HC/Kuma/Guard có cùng đích; chưa chứng minh trùng chức năng | PG/VPS; PG đếm, app; GIỮ D25/D27 | 🟢 GIỮ; HC nhanh là 🟡 ứng viên TC2–4, CPU HC chưa tách |
+| incomex-directus | 164.92 / 1.51% | 242.8/1024; swap 64.6 | 0.05/1.49 | liên tục; HC 15s | HC/Kuma/Guard có cùng đích; chưa chứng minh trùng chức năng | DOT/Directus; nghiệp vụ + phần giữ; phụ thuộc từng flow chưa đủ | 🟢 GIỮ; HC nhanh là 🟡 ứng viên TC2–4, CPU HC chưa tách |
+| incomex-graph-neo4j | 57.41 / 0.52% | 1228.4/1536; swap 0.0 | 0.00/2.35 | liên tục; HC 30s | HC/Kuma/Guard có cùng đích; chưa chứng minh trùng chức năng | GS; Graph; GIỮ D25 | 🟢 GIỮ; chưa có bằng chứng cần đổi nhịp này |
+| incomex-nuxt | 41.18 / 0.38% | 249.5/512; swap 0.0 | 0.00/0.00 | liên tục; HC 15s | HC/Kuma/Guard có cùng đích; chưa chứng minh trùng chức năng | CWEB/TQT theo route; web/Owner View; GIỮ đường dùng | 🟢 GIỮ; HC nhanh là 🟡 ứng viên TC2–4, CPU HC chưa tách |
+| uptime-kuma | 54.39 / 0.50% | 159.8/∞; swap 21.0 | 0.71/21.32 | liên tục; HC 60s | HC/Kuma/Guard có cùng đích; chưa chứng minh trùng chức năng | MCPW/VPS; Owner qua Telegram; GIỮ D27 | 🟢 GIỮ; chưa có bằng chứng cần đổi nhịp này |
+| incomex-gemini-mcp | 23.21 / 0.21% | 170.1/1536; swap 5.8 | 0.00/0.02 | liên tục; HC 15s | HC/Kuma/Guard có cùng đích; chưa chứng minh trùng chức năng | GJW; client Gemini; GIỮ | 🟢 GIỮ; HC nhanh là 🟡 ứng viên TC2–4, CPU HC chưa tách |
+| incomex-claude-kb | 23.47 / 0.21% | 79.9/256; swap 3.6 | 0.00/0.00 | liên tục; HC 15s | HC/Kuma/Guard có cùng đích; chưa chứng minh trùng chức năng | KB/MCPW; KB luật + tìm kiếm; GIỮ D27 | 🟢 GIỮ; HC nhanh là 🟡 ứng viên TC2–4, CPU HC chưa tách |
+| incomex-cowork-mcp | 35.73 / 0.33% | 19.2/256; swap 36.0 | 0.00/0.25 | liên tục; HC 15s | HC/Kuma/Guard có cùng đích; chưa chứng minh trùng chức năng | MCPW; client Cowork; GIỮ | 🟢 GIỮ; HC nhanh là 🟡 ứng viên TC2–4, CPU HC chưa tách |
+| incomex-cowork-runner | 0.23 / 0.00% | 14.2/768; swap 0.0 | 0.00/0.00 | liên tục; HC 30s | HC/Kuma/Guard có cùng đích; chưa chứng minh trùng chức năng | MCPW; runner; còn dùng theo sổ | 🟢 GIỮ; chưa có bằng chứng cần đổi nhịp này |
+| incomex-agent-api-executor | 22.24 / 0.20% | 11.3/512; swap 28.3 | 0.00/0.00 | liên tục; HC 30s | HC/Kuma/Guard có cùng đích; chưa chứng minh trùng chức năng | DOT/MCPW; executor; consumer từng request CHƯA ĐO | 🟢 GIỮ; chưa có bằng chứng cần đổi nhịp này |
+| incomex-nginx | 9.79 / 0.09% | 22.1/256; swap 6.0 | 0.18/0.02 | liên tục; không HC | HC/Kuma/Guard có cùng đích; chưa chứng minh trùng chức năng | VPS/CWEB; gateway/web; GIỮ | 🟢 GIỮ; chưa có bằng chứng cần đổi nhịp này |
+| incomex-qdrant | 24.31 / 0.22% | 91.9/1024; swap 18.9 | 0.01/0.00 | liên tục; HC 10s | HC/Kuma/Guard có cùng đích; chưa chứng minh trùng chức năng | agent-data/KB; vector/RAG; GIỮ | 🟢 GIỮ; HC nhanh là 🟡 ứng viên TC2–4, CPU HC chưa tách |
+| Cron chung | 325.51 / 2.98% | 1807.2; swap 0.4 | 10.29/56.43 | liên tục/theo lịch | CHƯA ĐO phần trùng | VPS/DOT/MCPW; lịch ở phụ lục; nhiều chủ/reader; không tắt cả nhóm | ⚪ GIỮ; tách quy nguồn trước đổi |
+| MCP helper | 117.43 / 1.07% | 366.0; swap 2.3 | 166.95/473.24 | liên tục/theo lịch | CHƯA ĐO phần trùng | MCPW; request từ nhiều client; chi phí từng RUN chưa tách | ⚪ GIỮ; tách quy nguồn trước đổi |
+| Workspace exec | 87.28 / 0.80% | 11.9; swap 7.1 | 0.00/0.98 | liên tục/theo lịch | CHƯA ĐO phần trùng | TQT/MCPW; job theo yêu cầu; không tự xem là quét nền | ⚪ GIỮ; tách quy nguồn trước đổi |
+| Hermes gateway | 109.28 / 1.00% | 414.6; swap 13.5 | 8.06/10.51 | liên tục/theo lịch | CHƯA ĐO phần trùng | HJW; chat/courier/Telegram trộn chung | ⚪ GIỮ; tách quy nguồn trước đổi |
+| Hermes serve | 39.00 / 0.36% | 617.2; swap 17.6 | 0.52/1.89 | liên tục/theo lịch | CHƯA ĐO phần trùng | HJW; hạ tầng hội đồng; giữ D25/D27 | ⚪ GIỮ; tách quy nguồn trước đổi |
+| containerd | 216.09 / 1.98% | 149.5; swap 8.9 | 0.29/7.15 | liên tục/theo lịch | CHƯA ĐO phần trùng | VPS; Docker dùng chung; không quy toàn bộ cho HC | ⚪ GIỮ; tách quy nguồn trước đổi |
+| dockerd | 116.30 / 1.06% | 305.6; swap 14.8 | 99.37/9.24 | liên tục/theo lịch | CHƯA ĐO phần trùng | VPS; Docker dùng chung; không quy toàn bộ cho HC | ⚪ GIỮ; tách quy nguồn trước đổi |
+
+**Timer đã có CPU thực 24h:** sáu unit giám sát tính trong mức thấp nhất đã ghi nhận ở đầu; HVU sync được liệt kê riêng vì còn làm đồng bộ tài liệu. Tổng 7 hàng không được gọi toàn bộ là chi phí giám sát.
+
+| Unit | Nhịp | CPU-giây ghi nhận/24h | Records có CPU | Chủ · reader | Trạng thái |
+|---|---|---|---|---|---|
+| mcpw-presence-import.service | 30s | ≥4188.68 | 2498 | MCPW/HVU · sổ phiên/presence | RAM/I/O từng lượt CHƯA ĐO; GIỮ, rà giãn/gộp theo TC1–4 |
+| incomex-config-drift-check.service | 5′ | ≥3252.12 | 286 | VPS/Config Guard · Đ31, Guard→Owner | RAM/I/O từng lượt CHƯA ĐO; GIỮ, rà giãn/gộp theo TC1–4 |
+| incomex-hvu-sync.service | 4′ | ≥674.99 | 199 | HVU · workspace/Owner View | RAM/I/O từng lượt CHƯA ĐO; GIỮ, rà giãn/gộp theo TC1–4 |
+| jev-gw-health.service | 5′ | ≥486.61 | 280 | JEV · Kuma/Owner | RAM/I/O từng lượt CHƯA ĐO; GIỮ, rà giãn/gộp theo TC1–4 |
+| wf-universal-scanner.service | ngày 04:10 giờ VPS | ≥109.48 | 1 | DOT · snapshot workflow | RAM/I/O từng lượt CHƯA ĐO; GIỮ, rà giãn/gộp theo TC1–4 |
+| incomex-hvu-presence.service | 15s | ≥100.81 | 77 | HVU · presence/lifecycle | RAM/I/O từng lượt CHƯA ĐO; GIỮ, rà giãn/gộp theo TC1–4 |
+| mcp-writes-git-snapshot.service | 5′ | ≥6.23 | 4 | MCPW · lịch sử UI | RAM/I/O từng lượt CHƯA ĐO; GIỮ, rà giãn/gộp theo TC1–4 |
+
+**Tài nguyên/áp lực:** 59,164 fork trong 1823.00s = 32.45/s; số **exec** theo nhóm/ngày CHƯA ĐO (không có audit/process accounting phù hợp). Tổng máy có memory PSI some/full 0.0116/0.0111% trong cửa sổ; I/O PSI some/full 0.909/0.626%, CPU PSI some 4.999%. Deltas memory.events từng cgroup và CPU throttling trình bày cùng kết quả mẫu cuối; counter `max=960` của Claude MCP lúc t0 là lịch sử, không gọi 960 lỗi mới. Không restart để trả swap.
+
+### 3. Đếm cơ chế và đầu ra — không cộng trùng
+
+| Loại | Số thấy thực tế | Ý nghĩa/giới hạn |
+|---|---|---|
+| Kuma | 22 active = 4 HTTP + 4 keyword + 1 port + 13 PUSH | 22/22 gắn 1 notifier Telegram active; PUSH là nhận kết quả từ script/Guard, không phải 13 phép dò độc lập |
+| Protection Guard | 23 dòng kiểm trong mode_periodic | số dòng logic đã đọc mã; INV10 có 2 tên, INV5_6 gộp; không đếm theo số lớn nhất INV24 |
+| Config Guard | 491 đích | 234 CWEB, 133 HOST_SCRIPT, 37 HOST_CONFIG, 30 ROOT_CRON_SCRIPT, 15 SYSTEMD và các lớp khác; là tệp/đích, không phải 491 chương trình; 28 secret-bearing/463 không, YES/NO không phải bật/tắt |
+| Docker HEALTHCHECK | 13/14 container | 7×15s, 3×30s, 2×10s, 1×60s; 67.680 lịch/ngày là phép tính từ config, KHÔNG là số thực thi/fork đo được |
+| Timer | 31 system (28 active, 3 inactive) + 1 root-user active | không lấy số file timer làm số thực thi; nhịp phụ lục |
+| Cron | 45 dòng = 27 root + 1 incomex + 13 cron.d + 4 crontab launcher; 9 periodic executable | 9 tệp con không được cộng launcher như 9 job độc lập nữa; sysstat cron có guard thoát khi systemd chạy |
+| Hermes jobs | 3: ws-dispatch 2′ và ws-run-watch 15′ bật; ws-handoff-watch 15′ nghỉ từ 05/10 | no_agent=true, dùng hjw_gate.py, failure streak0; reader/control HJW; không đếm là LLM chạy mỗi nhịp |
+| PG | Directus 410 + metadata 7 relation triggers; mỗi DB2 event triggers | không phải tất cả bật hay bảo vệ; enabled/type/function/nhịp/cost CHƯA ĐO; trigger chỉ chạy theo sự kiện, không tự chạy nền |
+| Directus flows | hiện hành CHƯA ĐO | Host03:30Z đã báo104event+5schedule (66WATCHDOG,21DOT-REG); giữ làm snapshot có tuổi, không dùng thay inventory R1 mới |
+| TIN_BAO | 81 registry rows; N75 = M73 active + U2 | 73 =22Kuma+26 phép trong đèn gộp+21bot trực tiếp+3script tự nhắn+1canh ngoài; ngoài ra4nghỉ/thay+2ngoài phạm vi. Các nhóm chồng nhau; tổng cơ chế duy nhất toàn hệ CHƯA ĐO |
+
+**Telegram:** HJW ledger có receipt ghi nhận 24h: 1 heartbeat + 2 postreceipt; 7d: 7 heartbeat + 8 postreceipt + 4 condition_raised + 1 event_sent + 5 hermes_commit_surfaced, có message ID. Đây là biên nhận nội bộ, không phải đọc độc lập toàn bộ Telegram. Kuma `notification_sent_history` trống và không có timestamp phù hợp: không suy thành 0 tin. Tổng tin 24h/7d theo mọi loại và CPU/I/O riêng bộ gửi **CHƯA ĐO**; Hermes/Kuma CPU không đồng nhất CPU Telegram.
+
+### 4. Lỗi, di sản, tăng đĩa và nguyên nhân chậm
+
+- **Runner tháng 7:** 3 cron vẫn có: watchdog mỗi giờ; cron-integrity 6h; scanner-counts 3h. Không phải 5′. Scanner gọi `verify_counts()`, lỗi `btrim(integer)` 8 lần/24h; source SQL lỗi và caller được đối chiếu. `system_issues` lỗi giới hạn varchar(50) 16 lần; Guard S129-A chặn UPDATE đếm 12 lần. Có công việc lặp vô ích ở lỗi, nhưng CPU/I/O riêng CHƯA ĐO. Không đụng SR-MOW Đ30/31 đời mới (cron 6h) hay các luật bảo vệ.
+- **Count refresh:** mã triển khai `/api/registry/refresh-counts` tổng hợp count rồi PATCH trường bị Guard cấm; trả status ok ngay cả khi patch lỗi. Source setup flow lịch 6h; live flow/caller các lần lỗi chưa xác minh. Bàn giao DOT/owner registry, không tắt cả nhóm WATCHDOG/trigger.
+- **503:** license-watch 19/10 có 288 lượt thật: 285 PASS, 3 FAIL, chỉ 2 FAIL báo503; 20/10 tới07:30Z có91 lượt/1FAIL503. Nginx retained window 19/10 23:08:44Z→20/10 07:32:54Z:16.312 request HTTP parse được, 2 response503 (`/items/system_issues` từ curl00:00:04Z; `/items/tasks` từ Kuma06:57:18Z),143×502,10×504. 139/143×502 là UA WebSiphon/next-0.1 quét đường config quanh lần Nuxt thay/restart; không nhân thành traffic người dùng. Log cap20.000 dòng nên **không** gọi tổng24h.
+- **503_SOURCE_UNPROVEN:** Directus v12.4.1 có middleware Underpressure đứng trước logger, mặc định kiểm event-loop; chưa có response reason/runtime event khớp nên không quy nguyên nhân cho nó. Có caller là license-watch/Kuma không chứng minh caller gây503. Không có bằng chứng 3 cron Runner là nguồn503 mỗi5′. [Nguồn appv12.4.1](https://github.com/directus/directus/blob/v12.4.1/api/src/app.ts).
+- **Agent-data:** log tail20k chỉ phủ19/10 23:08→20/10 07:30Z có1 `Child process died` lúc02:55:13Z; không gọi tổng24h, không tự đồng nhất với mọi502. Nuxt restart counter2/StartedAt23:13Z, nguyên nhân restart và ảnh hưởng từng RUN chưa quy được.
+- **Kuma24h tới07:36Z:** MCP1440 mẫu p50 53ms/avg70,4/max574; AgentData1440 p50 416/avg453,6/max1749; Directus1442 records,1431latencies p50 40/avg142,4/max47.056ms,11PENDING(5×503,6×504),0DOWN; Nuxt1446records,1429latencies p50 750/avg1032,7/max57.726ms,15PENDING+2DOWN. Cùng đợt quanh19/10 23:09–23:11Z và20/10 03:19Z; **tương quan, chưa phải nhân quả**. Monitor “PG” là keyword `/api/health`, không phải đo latency truy vấn PG. Trong30′07:06→07:36Z các đích đềuUP; avg MCP62,9/AD473,6/Directus53,7/Nuxt747,6ms.
+- **GET kiểm thực R1:** Nuxt200 541–1194ms; `/api/health`200 387–620ms; MCP đúng `/api/mcp`200 67–143ms. Ba lượt/đích chỉ xác nhận ở lúc gọi, không thay lịch sử. Directus/PG không gọi REST/SQL trực tiếp để đo: chỉ dùng DOT/cached Kuma.
+- **Cache/trim cũ:** `/etc/cron.hourly/free` executable chạy `echo 1 > /proc/sys/vm/drop_caches`; `/etc/cron.hourly/fstrim` chạy `fstrim /`, trong khi `fstrim.timer` weekly còn active. Có24 cron.hourly launcher CMD/24h; chưa có counter riêng từng child. Sar19 cache TB mốc:10=2632MiB, :20=1307MiB, có reset cache phù hợp lịch:17 nhưng không đủ quy lượng đọc tăng cho nó. Kernel cảnh báo ép bỏ cache có thể tăng CPU/I/O tái dựng; chưa có số tiết kiệm VPS nếu bỏ lịch. [Kernel drop_caches](https://docs.kernel.org/admin-guide/sysctl/vm.html#drop-caches).
+- **Mồ côi:** không thấy tmux/htop/2Node `.output/server/index.mjs` >6h và cổng3101/3909; tmux/screen0. Userlayer có gpg-agent.service đang chạy, không được nhầm với35gpg-agent mồ côi Lark cũ; không kill theo báo cáo13/10.
+
+**Đĩa:** watcher có sẵn lúc07:00:02Z báo trống40,10GiB, tăng chỗ trống3,70GiB/24h; partition_version394cb1b0f1df. Đo `df`07:30Z available43.042.340.864B/102.888.095.744B, inode9%. Không quét ổ mới. Watcher ghi walk153s/1.213.822entries mỗi lượt hiện hữu — có chi phí kiểm kê, chưa đo CPU/I/O riêng. Vẫn có4 debt/note, gồm3 vùng chỉ2mẫu/0,4ngày và STATIC tăng35,4MiB; xanh không thay đủ bằng chứng. Nhóm tăng24h đáng theo dõi từ cùng sample: /var/log+39,13MiB; containerd+32,53MiB; backup-staging+31,18MiB; HVU repo+26,71MiB; helper+16,45MiB; transactions+13,50MiB; .before+8,15MiB. Các van được sổ khai, không xóa hay đổi ngưỡng. Net giảm chủ yếu có phần Hermes backup đã được HJW dọn trước R1; không nhận là công R1.
+
+**PG (DOT fixed inventory):** t0 07:29:54Z Directus1.738.675.903B, metadata423.302.847B; PostgreSQL18.6. `shared_buffers=16384` và `effective_cache_size=524288` theo đơn vị block, `work_mem=4096` KiB (block_size không có trong template này); đây là setting, không phải mức bộ nhớ dùng thực tế. T1 / delta bổ sung ở dưới. Cache hit theo cửa sổ, tempfiles, 10bảng lớn nhất, activity/revisions tăng/ngày và stats_reset **CHƯA ĐO** vì template DOT hiện hữu không có; không suy từ pg_stat cộng dồn/restore. Trigger/counter không là danh sách flow.
+
+### 5. TOP 10 đủ bằng chứng: CHƯA CÓ — không phát R2
+
+Số đo nền cho phép ưu tiên **phân tích có điều kiện**; R1 không đòi có số sau sửa. Tuy nhiên chưa tách được phần công việc thật sự loại bỏ, các consumer/freshness bắt buộc và tiết kiệm có căn cứ cho10 mục. Không biến chi phí cả service thành tiền/tài nguyên sẽ thu hồi, không xếp số bằng trọng số AI tự đặt. Bảng sau là **CHƯA ĐỦ BẰNG CHỨNG**, không phải thứ tự R2 hay quyền sửa. Mỗi mutation đều cần Owner duyệt đúng phạm vi sau Host/Reviewer; xoá/purge còn phải Drive-first và restore proof.
+
+| Ứng viên / chứng cứ thực | Cách đổi có điều kiện · số thiếu | Rủi ro · rollback | Chủ · Owner |
+|---|---|---|---|
+| Presence importer ≥4188,68CPU-s/24h,30s | TC2–4: thử giãn/gộp với producer hiện hữu sau khi đối chiếu TTL/consumer; tiết kiệm CHƯA ĐO, không gọi4188s là số thu hồi | trễ presence/claim; lùi timer+import contract qua apply-v0 | MCPW/HVU; Owner duyệt nhịp và delay tăng |
+| Config drift ≥3252,12CPU-s/24h,491targets/5′ | TC3–5: bỏ đọc/hash trùng nếu chứng minh trùng; giữ đủ phạm vi, cân nhắc nhịp≤15′ chỉ sau contract. Chi phí phần trùng/độ trễ chấp nhận CHƯA ĐO | chậm phát hiện sửa mã; lùi unit/Guard config+baseline đúng known-good, không rebaseline drift | Config Guard/MCPW; Owner duyệt phạm vi/nhịp |
+| 13HC,10–60s; 67.680 lịch/ngày là tính config | TC2/4: chuẩn hóa30–60s tùy dịch vụ sau SLA; CPU/exec tiết kiệm CHƯA ĐO, dockerd+containerd còn phục vụ việc khác | phát hiện lỗi muộn≤phần chênh nhịp; lùi compose qua guarded apply | VPS + chủ từng container; Owner duyệt |
+| license-watch288lượt19/10,285PASS | TC4: tái dùng runtime/wrapper có sẵn thay container tạm nếu giữ kiểm OIG/licensing. Sốcontainer thật/CPU tiết kiệm CHƯA ĐO | mất phép kiểm license riêng; lùi DOT/cron cũ, giữ monitor | DOT/OIG; Owner duyệt, không gộp thành health chung |
+| hourly drop_caches source+24launcher | TC2/4: bỏ ép cache nếu không có phụ thuộc còn dùng; lượng read/CPU tránh được CHƯA ĐO | thay hành vi cache/RAM hiển thị; lùi đúng tệp/lịch qua apply-v0 | VPS; Owner duyệt đúng lịch |
+| hourly fstrim + weekly timer | TC3: giữ lịch trim chính sau xác minh storage support và lần chạy; chi phí/benefit riêng CHƯA ĐO | trim quá thưa; lùi script/lịch cũ; không đụng filesystem data | VPS; Owner duyệt |
+| 3Runnercũ; verify_counts8lỗi/24h | TC1/3: tắt cả đúng chủ đề cũ chỉ khi reader0 được chứng minh; giữ SR-MOW/Đ30–31 mới. CPU/I/O riêng CHƯA ĐO | tắt nhầm bảo vệ/consumer; lùi cron-root-crontab guarded từ beforeimage | VPS/DOT, hỏi chủ luật; Owner duyệt exact3cron |
+| 12UPDATEblocked + route statusok cả khi lỗi | TC1/3: xác minh caller/liveflow rồi sửa/retire đúng lịch count cũ. Sốflow/consumer và chi phí truy vấn CHƯA ĐO | mất PG đếm còn dùng hoặc canh Guard; lùi route/flow config, không disabletriggerbảo vệ | DOT/registry; Owner duyệt scope, không sửa hộ taskactive |
+| Directus DB1,739GB; retention mặc định OFF, hiệu lực CHƯA ĐO | TC4/5: dùng scheduler retention12.4.1 đã có sau khi đo tuổi/activity/revisions/index/retention cần giữ; tiết kiệm CHƯA ĐO | purge mất audit; rollback cần backup Drive + restore, đổi env lại không phục hồi dữ liệu | Directus/PG; Owner duyệt thời hạn+tập dữ liệu purge chính xác |
+| Helper/workspace-exec/cron I/O trong ma trận | TC3–5: tách request/RUN, dữ liệu kết quả và tempcontainer trước tối ưu batching/cache; không tính I/O R1/client khác là vô ích | mất kết quả/rollback hoặc latency client; lùi wrapper/config known-good | MCPW/TQT/HVU theo request; Owner duyệt đúng phần, không mở rộng task |
+
+### 6. Kiến trúc và config — dùng đúng TC1–TC7
+
+- **TC1:** một hàng trong sổ hiện hữu phải có chủ+người đọc+lastuse; UNKNOWN về bảo vệ giữ theo D27. Không suy “cũ/di sản” = không ai dùng. CPU journal giúp chọn nơi rà trước, không cho quyền tắt.
+- **TC2:** dịch vụ1–5′ và HC30–60s là khung đã ký, không thay SLA hiện hành. Các nhịp15/30s presence cần kiểm TTL/claim; kiểm cấu hình đầy đủ≤15′ có tradeoff detection delay rõ. Kê đúng timezone trước khi đổi: VPS đang Europe/Berlin, root cron có các dòng CRON_TZ Asia/Ho_Chi_Minh/Europe/Berlin/UTC nhưng cron 3.0pl1-184ubuntu2 cài trên máy chỉ hỗ trợ một timezone theo tài liệu đi kèm. Không coi CRON_TZ là giờ thực thi đã xác minh; không đổi timezone trong R1.
+- **TC3:** sơ đồ hiện có = producer/script → Kuma PUSH/Guard → Telegram; không coi từng mắt xích là trùng chỉ vì cùng nhãnhealth. Rà trùng health:/api/health, MCP checks, cron testmcp và containerHC ở cùng tầng; cân nhắc dùng lại kết quả cùng tuổi/đúng phạm vi thay gọi lại. ConfigGuard/hash và regression không thay được bằng ping.
+- **TC4:** gộp kiểm nhỏ trong Guard/collector hiện hữu và tái dùng runtime kiểm license; không thêm daemon,cron,Guard. Giảm container/exec theo số thực, không lấy67.680config thành số syscall thực.
+- **TC5:** đã có mức thấp nhất đã ghi nhận CPU và I/O30′; tổng lớp còn thiếu, nên chưa đặt trần %. R2 cần ghi trước / sau dự kiến/cửa sổ so sánh và delay, dùng accounting sẵn có. Không thêm monitor chỉ để đo một mục chưa biết.
+- **TC6:** giữ transition + bản tin 08:00. ReceiptID nội bộ không thay independent delivery proof; chưa có ledger toàn hệ thì ghi CHƯA ĐO, không đếm log dòng gửi như tin độc lập.
+- **TC7:** mọi đổi vẫn giữ Đ30/31, KB luật, Guard/ConfigGuard, Telegram, backup Drive + restore. Guard xanh/Kuma22UP không tự chứng minh312UNKNOWN code đã được bảo vệ.
+
+**Config chạy liên tục:** chưa có bằng chứng cần nâng RAM PG thêm. Claude MCP có 54 lần chạm memory.max trong cửa sổ, nhưng RSS chỉ465,5→469,4MiB; mốc07:59:07Z cgroup gồm445,8MiB anon+1010,9MiB filecache+12,7MiB kernel, memory PSI some/full≈0,001253% trong cửa sổ và0OOM. Không coi1470MiB (xấp xỉ1,44GiB) cgroup là heap tiến trình/ròRAM; bàn giao MCPW rà cache/reclaim, không tự restart/nâng trần. Directus12.4.1 mặc định `RETENTION_ENABLED=false`, `RETENTION_BATCH=500`, schedule`0 0 * * *`, activity/revisions/flow logs 90d;90d không tự dọn nếu enabled=false. Batch500 là mỗiquery, vòng lặp có thể tiếp tục nên không phải trần500mỗiđêm. Chưa đo tuổi và index nên chưa chọn thời hạn/ước tiết kiệm. [Defaults12.4.1](https://github.com/directus/directus/blob/v12.4.1/packages/env/src/constants/defaults.ts), [scheduler12.4.1](https://github.com/directus/directus/blob/v12.4.1/api/src/schedules/retention.ts).
+
+Neo4j cấu hình hiện tại heap initial=max768m, pagecache256m (đọc env allowlist), RAMcgroup cuối1228,4MiB/trần1536MiB, swap0; vẫn phải dành chỗ cho heap+pagecache+native trong trần1,5GiB; không tăng heap theo12GBtoànVPS. Nếu tối ưu, dùng cấu hình sẵn `server.memory.heap.initial_size/max_size` và `server.memory.pagecache.size` đúng version/ngân sách; số tối ưu và tiết kiệm CHƯA ĐO. Tương tự, không hạ retentionKuma/journald/docker log theo cảm giác: journald hiện1,0GiB, Docker lớn nhấtQdrant28,43MiB tại t0, chưa có bằng chứng log là nút nghẽn. PG shared_buffers=16384 block là ứng viên khảo sát sau khi có window cache-hit/tempfiles; không hứa nâng buffer sẽ thu hồi I/O đã thấy. [Neo4j memory](https://neo4j.com/docs/operations-manual/5/performance/memory-configuration/).
+
+### 7. Rà hằng ngày bằng cơ chế hiện hữu
+
+**Có thể tái sử dụng, không cần thêm chương trình nền:** Guard `ban_tin_extra/ban_tin/heartbeat_step` đã đọc Kuma24h transient, agent-data childdied, storagewatch/debt và lifecycle/hook; có daily idempotent receipt. Receipt gần nhất20/10 **08:01:03+07**, cómessageID. Route thực hành: Owner nhận bản tin 08:00; dòngđỏ/UNKNOWN dẫn về sổ và chủ hiện hữu; GPT Host chỉ mở đúng nhánh sau evidence. Không giữ AI/terminal qua ngày. Dữ liệu CPU-giây,I/O theo nhóm và toàn bộ Telegram hiện chưa có trong bản tin: có thể tổng hợp từnguồnsẵncó sau Owner duyệt scope, không mặc định thêmjob.
+
+**Sổ có sẵn và lỗ hở:** `storage-registry.tsv`112hàng + watcher bắt tăng theo taxonomy/nguồn lạ; `code-ledger.tsv`567hàng =253LOCKED+312UNKNOWN+2EXCLUDED, latestscan566/new0/unscanned3; guard có phát hiện file mới ngoài sổ nhưng UNKNOWNcũ vẫn có thểPASS. ConfigGuard491đích chỉ bảo vệđích đăng ký, không tự bao hết mã/job mới. `wf_*_snapshot`/wf-scanner có output mới20/10 02:11Z nhưng chưa chứng minh phủ mọi cron/container/Flow/trigger; bản thân snapshot không phải sổ hợp nhất các job. TIN_BAO vẫn có2vùngU. Vì vậy câu “có bắt mọi chương trình mới không khai không?” = **CHƯA CHỨNG MINH**, không báo kiểm kê toàn hệ đã khép.
+
+### 8. Phụ lục kiểm kê lịch — nguồn đọc trực tiếp
+
+Cadence dưới là config, không phải lượt thực thi. UTC/+07 của mẫu ở trên; cột TZ chỉ ghi biến khai trong nguồn, chưa xác minh giờ thực thi của từng job. Cron cài trên VPS ghi rõ chỉ hỗ trợ một timezone; host đang Europe/Berlin. Chủ/reader chỉ khẳng định đến nhóm có chứng cứ; chưa rõ thì giữ, không tự tắt. Không liệt kê secret/URL cótoken.
+
+| User | Cron | TZ khai trong nguồn | Chương trình/nguồn | Chủ · reader · xử lý |
+|---|---|---|---|---|
+| root | 17 * * * * | Europe/Berlin | /etc/cron.hourly | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 25 6 * * * | Europe/Berlin | crontab | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 47 6 * * 7 | Europe/Berlin | crontab | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 52 6 1 * * | Europe/Berlin | crontab | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 0 3 1 * * | Europe/Berlin | certbot-renew | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | * * * * * | Europe/Berlin | /opt/incomex/scripts/collect-workspace-status.py | MCPW/HJW; trạng thái/sổ; chi tiết consumer CHƯA RÕ |
+| root | */5 * * * * | Europe/Berlin | /opt/incomex/dot/bin/dot-directus-license-watch | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 23 * * * * | Europe/Berlin | /opt/incomex/scripts/vps-retention.sh | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 5-55/10 * * * * | Europe/Berlin | sysstat | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 59 23 * * * | Europe/Berlin | sysstat | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 15 3 * * * | Europe/Berlin | /opt/incomex/dot/bin/dot-context-pack-retention-cleanup | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 0 */12 * * * | Europe/Berlin | certbot | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | @reboot | Europe/Berlin | staticroute | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 30 3 * * 0 | Europe/Berlin | e2scrub_all | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 10 3 * * * | Europe/Berlin | e2scrub_all | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | */10 * * * * | Europe/Berlin | /opt/incomex/scripts/kuma-push.sh | VPS/MCPW/DOT theo chương trình; canh→Owner; GIỮ TC7 |
+| root | */2 * * * * | Europe/Berlin | /opt/incomex/scripts/kuma-push.sh | VPS/MCPW/DOT theo chương trình; canh→Owner; GIỮ TC7 |
+| incomex | 30 */3 * * * | Europe/Berlin | /opt/incomex/dot/bin/dot-context-pack-verify.sh | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 0 * * * * | Europe/Berlin | /opt/incomex/scripts/disk-monitor.sh | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 0 4 * * * | Europe/Berlin | /opt/incomex/scripts/cdn-cache-warm.sh | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 0 */6 * * * | Europe/Berlin | /opt/incomex/scripts/reconcile-tasks.sh | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 0 */6 * * * | Europe/Berlin | /opt/incomex/scripts/reconcile-knowledge.sh | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | */5 * * * * | Europe/Berlin | /opt/incomex/scripts/test-mcp-connectivity.sh | VPS/MCPW/DOT theo chương trình; canh→Owner; GIỮ TC7 |
+| root | 0 */6 * * * | Europe/Berlin | /opt/incomex/deploys/web-test/scripts/integrity/cron-integrity.sh | Runner cũ/DOT; reader hiện hành CHƯA RÕ; ứng viên theo TC1 |
+| root | 0 * * * * | Europe/Berlin | /opt/incomex/deploys/web-test/scripts/integrity/watchdog-monitor.sh | Runner cũ/DOT; reader hiện hành CHƯA RÕ; ứng viên theo TC1 |
+| root | 0 */3 * * * | Europe/Berlin | /opt/incomex/deploys/web-test/scripts/integrity/scanner-counts.sh | Runner cũ/DOT; reader hiện hành CHƯA RÕ; ứng viên theo TC1 |
+| root | 0 2 * * 0 | Europe/Berlin | /opt/incomex/scripts/cron-env.sh | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 37 20 * * * | Europe/Berlin | /opt/incomex/scripts/backup-to-gdrive.sh | Backup/VPS; bản sao+Owner/Kuma; GIỮ TC7 |
+| root | 0 8,12,15,20 * * * | Asia/Ho_Chi_Minh | /opt/incomex/scripts/code-backup-to-gdrive.sh | Backup/VPS; bản sao+Owner/Kuma; GIỮ TC7 |
+| root | 0 3 1 1,4,7,10 * | Europe/Berlin | /opt/incomex/dot/bin/dot-doc-partition | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 30 3 * * 0 | Europe/Berlin | /opt/incomex/dot/bin/dot-script-lint | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 0 21 * * * | Europe/Berlin | /opt/incomex/scripts/dot-kb-verify.sh | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 30 21 * * * | Europe/Berlin | /opt/incomex/scripts/dot-api-health.sh | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 15 3 * * * | Europe/Berlin | /opt/incomex/dot/bin/dot-trigger-guard | VPS/MCPW/DOT theo chương trình; canh→Owner; GIỮ TC7 |
+| root | 30 4 * * * | Europe/Berlin | /opt/incomex/dot/bin/dot-vector-audit | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 0 5 * * * | Europe/Berlin | /opt/incomex/dot/bin/dot-sync-orphan-scan | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | 0 * * * * | Europe/Berlin | /opt/incomex/scripts/db-permissions-guard.sh | VPS/MCPW/DOT theo chương trình; canh→Owner; GIỮ TC7 |
+| root | 0 6,18 * * * | Europe/Berlin | /opt/incomex/scripts/git-push-gh-daily-v2.sh | VPS/DOT/OS theo nguồn; reader cụ thể CHƯA RÕ; giữ tới xác minh |
+| root | */5 * * * * | Europe/Berlin | /opt/incomex/scripts/env-permissions-guard.sh | VPS/MCPW/DOT theo chương trình; canh→Owner; GIỮ TC7 |
+| root | 27 2 * * * | Europe/Berlin | /opt/incomex/scripts/pg-backup.sh | Backup/VPS; bản sao+Owner/Kuma; GIỮ TC7 |
+| root | 0 3 * * * | UTC | /opt/incomex/scripts/qdrant-backup.sh | Backup/VPS; bản sao+Owner/Kuma; GIỮ TC7 |
+| root | 17 4 * * * | UTC | /opt/incomex/scripts/pg-dump-permission-guard-monitor.sh | Backup/VPS; bản sao+Owner/Kuma; GIỮ TC7 |
+| root | 20 */6 * * * | UTC | /opt/incomex/work/sr-mow-d30d31/bin/run-sr-mow.sh | VPS/MCPW/DOT theo chương trình; canh→Owner; GIỮ TC7 |
+| root | * * * * * | UTC | /opt/incomex/scripts/phai-cu/cron.sh | MCPW/HJW; trạng thái/sổ; chi tiết consumer CHƯA RÕ |
+| root | */5 * * * * | UTC | /opt/incomex/scripts/mcpw-protection-guard | VPS/MCPW/DOT theo chương trình; canh→Owner; GIỮ TC7 |
+
+| Timer | Trạng thái | Nhịp (timezone unit/VPS nếu không ghiUTC) | Chủ · reader |
+|---|---|---|---|
+| mcpw-presence-import.timer | active | interval 30s | MCPW/HVU/JEV · trạng thái/Guard/Owner; GIỮ/không sửa |
+| incomex-hvu-presence.timer | active | interval 15s | MCPW/HVU/JEV · trạng thái/Guard/Owner; GIỮ/không sửa |
+| sysstat-collect.timer | active | *-*-* *:00/10:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| incomex-config-drift-check.timer | active | interval 5min | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| jev-gw-health.timer | active | interval 5min | MCPW/HVU/JEV · trạng thái/Guard/Owner; GIỮ/không sửa |
+| mcp-writes-git-snapshot.timer | active | interval 5min | MCPW/HVU/JEV · trạng thái/Guard/Owner; GIỮ/không sửa |
+| incomex-hvu-sync.timer | active | *-*-* *:00/4:00 | MCPW/HVU/JEV · trạng thái/Guard/Owner; GIỮ/không sửa |
+| mcp-writes-perms.timer | active | interval 15min | MCPW/HVU/JEV · trạng thái/Guard/Owner; GIỮ/không sửa |
+| fwupd-refresh.timer | active | *-*-* *:00:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| man-db.timer | active | *-*-* 00:00:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| motd-news.timer | active | *-*-* 00,12:00:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| update-notifier-download.timer | active | interval 1d | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| systemd-tmpfiles-clean.timer | active | interval 1d | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| certbot.timer | active | *-*-* 00,12:00:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| hermes-safe-update.timer | active | *-*-* 23:15:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| dpkg-db-backup.timer | active | *-*-* 00:00:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| logrotate.timer | active | *-*-* 00:00:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| apt-daily.timer | active | *-*-* 06,18:00:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| incomex-cowork-audit-retention.timer | active | *-*-* 00:00:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| sysstat-summary.timer | active | *-*-* 00:07:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| wf-universal-scanner.timer | active | *-*-* 04:10:00 | DOT · workflow/policy snapshot; GIỮ/không sửa |
+| process-discovery-policy-scan.timer | active | *-*-* 06:30:00 | DOT · workflow/policy snapshot; GIỮ/không sửa |
+| apt-daily-upgrade.timer | active | *-*-* 06:00:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| s177-lark-backup.timer | active | Mon,Thu *-*-* 03:15:00 UTC | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| update-notifier-motd.timer | active | Sun *-*-* 06:00:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| e2scrub_all.timer | active | Sun *-*-* 03:10:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| mcp-writes-git-gc.timer | active | Sun *-*-* 04:30:00 | MCPW/HVU/JEV · trạng thái/Guard/Owner; GIỮ/không sửa |
+| fstrim.timer | active | Mon *-*-* 00:00:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| apport-autoreport.timer | inactive | interval 3h | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| snapd.snap-repair.timer | inactive | *-*-* 05,11,17,23:00:00 | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| ua-timer.timer | inactive | interval 6h | VPS/HJW/Lark/OS theo unit; reader chi tiết CHƯA RÕ; GIỮ/không sửa |
+| root-user launchpadlib-cache-clean.timer | active | ngày | OS/user; reader cụ thể CHƯA RÕ; GIỮ |
+
+Periodic files: hourly `free`, `fstrim`; daily `apport`, `apt-compat`, `dpkg`, `logrotate`, `man-db`, `sysstat`; weekly `man-db`; monthly0. Có run-parts--test xác minh đủ9executable. Systemd có 67 active services=31running+36exited,60enabledunits; exited≠chươngtrìnhđangchiếmCPU. Root user còn gpg-agent.service. Chi phí/reader chi tiết của các OSunit chưa chứng minh thì không gán OFF. Container restartpolicy đềuunless-stopped; executor không tạo container/image/RUN mới trong R1; các lịch đang chạy có thể tự tạo container tạm, số thực tế chưa đo đủ.
+
+### 9. Giới hạn và bàn giao
+
+- Directus/PG chỉ gọi wrapper hiện hữu `dot-stack-cutover inventory --mode prod --conf /opt/incomex/dot/config/stack-cutover.prod-vps1.conf --run-id PROOT11-R1-VPS-LOAD-AUDIT-20261020-01`; productionstate/timing/log→/dev/null, PGOPTIONSread_only=on, không tệp tạm/container. Đây là chỉ đọc của session, không phải cấu hình PG toàn cục. Wrapper flow hiện hữu tạo tmpfs/tokenfile nên không gọi; không tạo config/memfd hay fallbackREST/SQL trực tiếp. Phần thiếu nằm trong CHƯA ĐO, không phải Owner cần duyệt lại R1.
+- Số chưa có: tổng lớp giám sát/TelegramCPU-RAM-IO, countallTelegram24h/7d, exec theo nhóm/ngày, tempcontainer thực/ngày, flow hiện hành, trigger bật / chi phí,10 bảng lớn,tăng activity/revisions,pgstatreset/cachehit/tempfiles, quy nguồn từng RUN, phần có thể thu hồi. Không biến thành sốước/0.
+- KQ dành GPT Host nhận tại `work/vps-clean-20-10-26`, Claude Chat phản biện đúng một vòng. Host chuyển kết luận/kế hoạchR2 về task mới rồi rút root PROOT11 thành con trỏ sau KQ; executor không tự rút khối ký. Không đề nghị RUNR2 từ bảng 10 ứng viên chưa đủchứng cứ.
+- JEV tham khảo `gen-dec-1792482143-0NM4ylOUMCPCb6T3giMh`: giữ coverage rồi rà nhịp/batching, cachecandidatechưacósavings, tái dùng 08; chỉ là ý kiến phụ, không thay chữ ký Owner hay số đo.
+
+
+### 10. Kiểm tra mẫu cuối và dấu vết số đo
+
+RAM khả dụng đầu/cuối 5.559/5.669 GiB; swap đang dùng đầu/cuối 0.880/0.967 GiB. Đây là hai mẫu, không gọi peak. Cửa sổ ghi nhận 0.262 MiB swap-in và 89.160 MiB swap-out; PSI memory theo tổng thời gian stall ở trên.
+
+Kiểm counter: container ID/StartedAt 14/14 không đổi=True; boot không đổi=True; nhóm có CPU/I/O delta âm=[]; OOM/oom_kill tăng ở 0 nhóm; counter memory.events:max tăng +54 ở Claude MCP như bảng. Không suy counter `max/oom` cũ thành sự kiện trong cửa sổ.
+
+| Nhóm có throttle/sự kiện | Δnr_throttled | Δthrottled_usec / 1e6 | memory.events tăng |
+|---|---|---|---|
+| /system.slice/incomex-mcp-helper.service | 216 | 21.557 | 0 |
+| /system.slice/hermes-gateway.service | 35 | 1.850 | 0 |
+| incomex-claude-mcp | 5 | 0.313 | max=54 |
+| /system.slice/hermes-serve.service | 3 | 0.007 | 0 |
+| incomex-cowork-mcp | 445 | 22.522 | 0 |
+| incomex-claude-kb | 161 | 7.770 | 0 |
+
+Throttled time là counter cgroup, không đồng nhất thời gian người dùng chờ hay chứng minh nguyên nhân các incident trước cửa sổ. Timer/cgroup đã biến mất giữa hai mẫu không được gán0CPU; dùng journal và ghi giới hạn riêng.
+
+| Mốc | uptime s | CPU counter user/nice/system/idle/iowait/irq/softirq/steal |
+|---|---|---|
+| 2026-10-20T07:27:54Z | 144001.87 | 8320499 473337 5199916 64428733 668080 0 488255 0 |
+| 2026-10-20T07:58:17Z | 145824.87 | 8419596 485755 5270900 65261818 674084 0 494715 0 |
+
+**PG DOT hai mốc 2026-10-20T07:29:54Z → 2026-10-20T08:00:33Z:**
+
+| DB | Bytes đầu | Bytes cuối | Δbytes | Δcounter DB |
+|---|---|---|---|---|
+| directus | 1738675903 | 1738684095 | 8192 | xact+1670; ins+14; upd+6; del+0 |
+| incomex_metadata | 423302847 | 423302847 | 0 | xact+310; ins+0; upd+0; del+0 |
+
+Đây là net size và hiệu counter DB, không phải tốc độ tăng activity/revisions hoặc CPU của trigger/flow. `stats_reset` chưa có trong template; không loại trừ reset bằng việc counter vẫn lớn hơn trước, nên counter delta có điều kiện không reset; không quy đổi/ngày.
+
+**31 service hệ thống đang running tại 07:40Z:** `containerd.service`, `cron.service`, `dbus.service`, `docker.service`, `fail2ban.service`, `fwupd.service`, `getty@tty1.service`, `hermes-agentdata-relay.service`, `hermes-gateway.service`, `hermes-serve.service`, `incomex-coworkd.service`, `incomex-mcp-helper.service`, `incomex-workspace-exec.service`, `jev-gw.service`, `lark-mcp-remote.service`, `ModemManager.service`, `mow-table2-state.service`, `multipathd.service`, `polkit.service`, `rsyslog.service`, `serial-getty@ttyS0.service`, `ssh.service`, `systemd-journald.service`, `systemd-logind.service`, `systemd-networkd.service`, `systemd-resolved.service`, `systemd-timesyncd.service`, `systemd-udevd.service`, `udisks2.service`, `unattended-upgrades.service`, `user@0.service`. Các unit hạ tầng trong ma trận có chủ/reader riêng; unit OS còn lại thuộc VPS, tiêu thụ/consumer cụ thể chưa tách nên không đề nghị tắt. Root-user còn gpg-agent.service.
+
+### 11. Kết thúc R1 sạch
+
+- Executor không sửa runtime/config/lịch, không dừng/restart/xóa/cài/build/pull trên VPS; không gọi Telegram; không chiếm VPS-GHI. Mọi lệnh đo qua stdin, nice/ionice khi phù hợp; không tạo tệp đo/container/image/cổng trên VPS. Các job sản xuất tự chạy không tính là đồ R1 tạo.
+- 0 tiến trình/SSH/terminal nền do R1 còn giữ; các nhánh nội bộ đều đã kết thúc. Dọn VPS0/0; dọn tệp đo tạm tại máy Codex 46/46, còn0 (thực hiện trước commit KQ). Không tạo deliverable hoặc bản báo cáo song song ở task mới.
+- R1 là ngoại lệ không lưu raw thành tệp VPS: các số chọn lọc/counter/cửa sổ/cách đo ở báo cáo này là hồ sơ bàn giao; log, journal, sar và registry nguồn vẫn tại đường hiện hữu. Tệp sample/script ở máy Codex chỉ là đồ tạm, đã dọn; không bảo AI khác đi tìm chúng để tiếp tục.
+- KQ XONG = đã hoàn tất lượt chỉ đọc có giới hạn bằng chứng, không phải đã xử lý VPS hay nghiệm thu toàn mục tiêu. TOP10 đủ điều kiện: **KHÔNG**; 10 ứng viên trong CHƯA ĐỦ BẰNG CHỨNG không là quyền chạy R2. GPT Host nhận KQ, rút kết luận về task mới và Claude Chat phản biện một vòng; không mở thêm chương trình chạy nền.
+
+---
+
 ## 11-GROWTH-CONTRACT-20261015 · RUN VPSC-11-GROWTH-CONTRACT-20261015-01 · khai đúng loại phần tăng của `/opt/incomex/data` bằng van có sẵn · executor Claude Code CLI (Mac → SSH root VPS1) · write_path=workspace_* · KQ XONG · SCOPE_DISK_GUARDED
 
 **PROMPT `2857d51` (Reviewer ACCEPT P113, READY P114) · STARTED + VPS-GHI `27680d3` 02:19Z · áp 02:24:28Z · KQ + trả khoá 02:31Z · bằng chứng VPS `/opt/incomex/work/vps-clean-20-9-26/VPSC-11-GROWTH-CONTRACT-20261015-01/{pre,bin,post,rollback}`.**
