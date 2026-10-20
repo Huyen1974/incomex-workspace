@@ -6,14 +6,14 @@ Nguồn chứng cứ: root COLLAB.md §PROOT11 ở commit d7fe6d6 (bản đã k�
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp GPT Chat ngày 20/10/2026, yêu cầu mở phiên work/vps-clean-20-10-26, cho phép lựa chọn tạo task mới và giao GPT tiếp tục làm Host.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 15:57 +07 · GPT Chat Host · P05
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 16:25 +07 · Claude Chat Reviewer · P06
 - 🎯 Mục tiêu: dọn lỗi/rác phát sinh, giảm chi phí tính toán, rà lại kiến trúc và số lượng cổng kiểm soát để VPS an toàn nhưng không lãng phí tài nguyên.
 - 🏁 Xong khi: việc không cần thiết được xác định/tắt an toàn; các phần cần dùng, Điều 30/31, backup và cảnh báo vẫn hoạt động; chi phí và lỗi có số đo; kiểm tra hằng ngày tận dụng cơ chế hiện hữu.
-- 📍 Tiến độ: ✅ R1 XONG → ✅ P03 Host → ✅ P04 Claude → ■ P05 Host theo Owner B3, PROMPT R2 DRAFT → ⬜ Claude rà delta/ACCEPT → ⬜ GPT READY → ⬜ Owner RUN Claude Code → ⬜ POST/KQ và tiếp tục canh có sẵn.
-- ✅ Đã xong: VPSC 9/2026 CLOSED_SCOPE P115; PROOT11 R1 Codex đã ghi KQ XONG d7fe6d6, 30′23″, 0 runtime mutation, dọn sạch; root PROOT11 chuyển thành con trỏ tới task này, chứng cứ gốc còn ở Git lịch sử/báo cáo R1; P04 Claude PARTIAL: ACCEPT R1 + phân tích P03, kế hoạch R1b NEEDS_FIX → thay bằng R2 6 mục.
-- ■ Đang làm: P05/PROMPT.md DRAFT; mời Claude Chat review nhịp Owner B3 và guard; 0 RUN active, R2 CHƯA READY/CHƯA RUN.
+- 📍 Tiến độ: ✅ R1 XONG → ✅ P03 Host → ✅ P04 Claude → ✅ P05 Host theo Owner B3 → ✅ P06 Claude sửa R2-4/5 + ACCEPT@1ca24f3b → ■ GPT READY cùng SHA → ⬜ Owner RUN Claude Code → ⬜ POST/KQ và tiếp tục canh có sẵn.
+- ✅ Đã xong: VPSC 9/2026 CLOSED_SCOPE P115; PROOT11 R1 Codex đã ghi KQ XONG d7fe6d6, 30′23″, 0 runtime mutation, dọn sạch; root PROOT11 chuyển thành con trỏ tới task này, chứng cứ gốc còn ở Git lịch sử/báo cáo R1; P04 Claude PARTIAL: ACCEPT R1 + phân tích P03, kế hoạch R1b NEEDS_FIX → thay bằng R2 6 mục; P06 Claude ACCEPT PROMPT R2 @1ca24f3b (đã sửa R2-4/5 + STEP_WALK).
+- ■ Đang làm: GPT Host xét READY PROMPT R2 @1ca24f3b (Claude đã ACCEPT P06); 0 RUN active, R2 CHƯA READY/CHƯA RUN.
 - ⬜ Còn lại: Claude rà delta P05/PROMPT; Host ký READY đúng SHA nếu đủ gate; Owner dán Claude Code; từng mục APPLIED/SKIP, Đ30/31+rollback, hậu kiểm qua journal/Kuma/bản tin hiện hữu.
-- ➡ Kế tiếp: Owner chuyển DRAFT PROMPT.md và P05 cho Claude Chat rà đúng delta an toàn; Claude ký ACCEPT đúng SHA hoặc PARTIAL/NEEDS_FIX. GPT Host quyết READY sau review; Owner dán Claude Code mới RUN. Không chạy R1b. NEXT_TRIGGER=CLAUDE_REVIEW_R2_DRAFT_P05.
+- ➡ Kế tiếp: GPT Host đọc P06 → đồng ý thì ký READY@1ca24f3bb4b521fd4175c28c24a8eeadc5d56201 (không đồng ý thì NEEDS_FIX, không READY) → Owner dán Claude Code. Không chạy R1b. NEXT_TRIGGER=GPT_HOST_READY_R2_1CA24F3B.
 - ⛔ Không làm/để sau: không mở lại task cũ đã đóng; không thêm cron/Guard/monitor mặc định; không xoá hay dừng dịch vụ trước khi có phép và bằng chứng; không sửa các task khác thay chủ; không ép KPI AI tự đặt.
 
 ### 1. Mục tiêu
@@ -105,4 +105,12 @@ Không có vòng của task này. work/done-tasks/vps-clean-20-9-26/COLLAB.md P1
 - **Delta quan trọng R2-4/5:** P04 đề xuất drift 5′→10′ và presence 30″→90″; KHÔNG phù hợp nhịp mới. Mục tiêu Owner: full scan 20′ (tối đa30′ nếu đủ proof), presence nền 10′, đồng bộ event/Refresh và error push qua collector/notifier có sẵn. Hiện Guard đòi drift age ≤15′, presence.py LEDGER_MAX_AGE=180s; không thể chỉ giãn timer. Không tự nới timeout/freshness/Guard để PASS. Phải chứng minh cơ chế change/event cho cả sửa trái phép + producer chết, consumer TTL, negative test và cảnh báo sống; thiếu ⇒ SKIP đúng R2-4/5, giữ nhịp và báo NEEDS_DESIGN. Không tạo cron/daemon/Guard mới.
 - **Chủ vụ khác:** Nuxt/Agent Data latency và child died thuộc CWEB/TQT, Directus retention/purge riêng, 502/503 chưa chứng minh; không đưa vào R2.
 - **DRAFT:** `work/vps-clean-20-10-26/PROMPT.md` là một nguồn lệnh duy nhất R2. Claude Reviewer lượt kế chỉ cần rà delta Owner B3 và cổng an toàn 6 ứng viên, ký ACCEPT hoặc PARTIAL đúng SHA trong task; GPT Host READY sau đó, Owner dán Claude Code. Không đi vòng khảo sát nữa. `NEXT_TRIGGER=CLAUDE_REVIEW_R2_DRAFT_P05`.
+
+## P06 · Claude Chat Reviewer · 20/10/2026 16:25 +07 · B4 Owner · ACCEPT@1ca24f3bb4b521fd4175c28c24a8eeadc5d56201 (sau khi sửa DRAFT R2-4/R2-5)
+- **Đồng thuận P05:** bỏ R1b; R2-1/2/3/6 giữ nguyên bản GPT; nhịp mới đúng lời Owner B3 (presence 10′, cấu hình 20–30′).
+- **Blocker đã sửa tại DRAFT (A6):** bản `0184441` bắt R2-4/5 giữ nguyên ngưỡng 180 s/600 s/15′ và đòi «đường sự kiện + nút Refresh ghi ngay» — hai thứ không tồn tại ⇒ cả hai mục gần chắc chắn SKIP, tức quyết định của Owner không được thực hiện (JEV `gen-dec-1792487718-csFZNM9XJDSa7rCdPeBw`: 0,73).
+- **Sự thật đọc mã (gốc `code`, chỉ đọc):** (1) Guard đọc drift ở 2 chỗ `--since '-15min'` (dòng ~680, ~1725); (2) `presence.py` LEDGER_MAX_AGE=180, Guard LIFECYCLE_MAX_AGE=600; (3) sự kiện hook Claude Code/Codex đã ghi tức thời vào agent-data (`agent_data/lifecycle.py`), importer chỉ bổ sung sshd/claude-mcp/commit/Hermes; (4) nút «Cập nhật» = `window.location.reload()`, không ép import.
+- **Nguyên tắc sửa:** ngưỡng tuổi là tham số của nhịp ⇒ đổi nhịp theo Owner thì đổi ngưỡng cùng mục (≈ 2–2,5 × nhịp), bắt buộc phép thử âm chứng minh vẫn bắt được producer chết và sửa lệch; điều cấm là đổi ngưỡng KHÔNG có phép thử. JEV: không phải che lỗi 0,75 · bản sửa tốt hơn 0,66.
+- **Đã sửa PROMPT `1ca24f3b`:** R2-4 = 20′ + Guard 2 chỗ 45′ + phép thử (a)(b)(c) + SELFTEST; R2-5 = 10′ + 1500 s ở presence.py và Guard + cổng importer đọc theo con trỏ + grep consumer + phép thử; thứ tự chạy (4 mục độc lập trước, 2 mục sửa Guard sau); bảng STEP_WALK_V1 (DROOT48). Không xây đường sự kiện/nút mới.
+- **Ký ACCEPT@1ca24f3bb4b521fd4175c28c24a8eeadc5d56201.** GPT Host không đồng ý phần sửa ⇒ ghi NEEDS_FIX, không READY. Đồng ý ⇒ READY cùng SHA, Owner dán Claude Code. `NEXT_TRIGGER=GPT_HOST_READY_R2_1CA24F3B`
 
