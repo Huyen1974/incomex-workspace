@@ -6,14 +6,14 @@ Nguồn chứng cứ: root COLLAB.md §PROOT11 ở commit d7fe6d6 (bản đã k�
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp GPT Chat ngày 20/10/2026, yêu cầu mở phiên work/vps-clean-20-10-26, cho phép lựa chọn tạo task mới và giao GPT tiếp tục làm Host.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 17:22 +07 · GPT Chat Host · P07
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 17:48 +07 · Claude Code CLI · P08
 - 🎯 Mục tiêu: dọn lỗi/rác phát sinh, giảm chi phí tính toán, rà lại kiến trúc và số lượng cổng kiểm soát để VPS an toàn nhưng không lãng phí tài nguyên.
 - 🏁 Xong khi: việc không cần thiết được xác định/tắt an toàn; các phần cần dùng, Điều 30/31, backup và cảnh báo vẫn hoạt động; chi phí và lỗi có số đo; kiểm tra hằng ngày tận dụng cơ chế hiện hữu.
 - 📍 Tiến độ: ✅ R1 XONG → ✅ P03/P05 Host → ✅ P04/P06 Claude Review → ✅ P07 GPT READY@1ca24f3b → ■ Owner dán Claude Code CLI (0 RUN active) → ⬜ R2 POST/KQ → ⬜ hậu kiểm dùng cơ chế có sẵn.
 - ✅ Đã xong: VPSC 9/2026 CLOSED_SCOPE P115; PROOT11 R1 Codex đã ghi KQ XONG d7fe6d6, 30′23″, 0 runtime mutation, dọn sạch; root PROOT11 chuyển thành con trỏ tới task này, chứng cứ gốc còn ở Git lịch sử/báo cáo R1; P04 Claude PARTIAL: ACCEPT R1 + phân tích P03, kế hoạch R1b NEEDS_FIX → thay bằng R2 6 mục; P06 Claude ACCEPT PROMPT R2 @1ca24f3b (đã sửa R2-4/5 + STEP_WALK).
-- ■ Đang làm: — · 0 RUN active, PROMPT R2 READY@1ca24f3bb4b521fd4175c28c24a8eeadc5d56201; Owner dán Claude Code CLI, executor S0 CAS VPS-GHI.
+- ■ Đang làm: Bước R2 · vòng 1/1 · gọi: claude-code-cli · STARTED@VPSC2-R2-LEAN-OPS-20261020-01 (P08), giữ VPS-GHI; thứ tự R2-1 → R2-2 → R2-3 → R2-6 → R2-4 → R2-5.
 - ⬜ Còn lại: Owner giao Claude Code; mỗi R2-1..6 APPLIED/SKIP theo gate, Đ30/31+rollback, trả cờ VPS-GHI và KQ sạch; Host hậu kiểm qua journal/Kuma/bản tin hiện hữu.
-- ➡ Kế tiếp: 😊 Owner dán lệnh RUN cho Claude Code CLI, agent đọc AGENTS/Bảng/PROMPT, kiểm ACCEPT/READY full SHA, VPS-GHI CAS rồi STARTED; xử lý theo điều kiện từng mục, KQ/nhả cờ cùng lượt. Không R1b. NEXT_TRIGGER=OWNER_PASTE_R2_READY_1CA24F3B.
+- ➡ Kế tiếp: 🤖 Claude Code chạy R2 đúng PROMPT, ghi KQ APPLIED/SKIP từng mục + trả VPS-GHI cùng commit; sau đó GPT Host nghiệm thu, Claude Chat rà khác hãng. Không R1b. NEXT_TRIGGER=KQ_VPSC2_R2.
 - ⛔ Không làm/để sau: không mở lại task cũ đã đóng; không thêm cron/Guard/monitor mặc định; không xoá hay dừng dịch vụ trước khi có phép và bằng chứng; không sửa các task khác thay chủ; không ép KPI AI tự đặt.
 
 ### 1. Mục tiêu
@@ -119,5 +119,9 @@ Không có vòng của task này. work/done-tasks/vps-clean-20-9-26/COLLAB.md P1
 - **Disposition P06: ACCEPT:** giãn cấu hình fullscan 20 phút + no-run threshold 45 phút; presence nền 10 phút + tuổi dữ liệu 1500s (25 phút) như lời Owner, có cổng kiểm consumer/offset và negative test trên bản sao. Nút Cập nhật chỉ reload, không xây nút/sự kiện mới; sự kiện hook Claude Code/Codex đang ghi realtime vẫn giữ. Thời gian phát hiện chậm hơn đã công khai; không coi tamper detection tức thời. Bốn mục dọn độc lập chạy trước, hai mục Guard sau; fail thì rollback đúng mục, SKIP, không phá mục trước đã PASS.
 - **Điều kiện vận hành:** đầy đủ Đ30/31, Config Guard baseline và SELFTEST, bản nguyên xanh, hai ca âm lệch/mất producer phải đỏ, PRE/POST 22 Kuma theo ID; cảnh báo dùng đường Guard 5 phút→Kuma→Telegram đã có. Nếu fail gate không nới thêm threshold; SKIP/rollback. Không xây giám sát mới.
 - **READY@1ca24f3bb4b521fd4175c28c24a8eeadc5d56201** · RUN_ID=VPSC2-R2-LEAN-OPS-20261020-01 · Executor_Surface=Claude Code CLI · Write_Path=Incomex workspace_* + approved VPS apply-v0/DOT. READY chỉ là phát hành lệnh, KHÔNG tự RUN; Owner sẽ dán cho executor. Không sửa PROMPT.md sau READY. NEXT_TRIGGER=OWNER_PASTE_R2_READY_1CA24F3B.
+
+## P08 · Claude Code CLI · Worker R2 · 20/10/2026 17:48 +07
+- Ghế: claude-code-cli · Bước/vòng: R2 · 1/1 · Based_on: `605ac14d` (đọc AGENTS → COLLAB §0/Bảng/P01–P07 → PROMPT).
+- STARTED@VPSC2-R2-LEAN-OPS-20261020-01 2026-10-20T10:48Z · executor=Claude Code CLI · S0 PASS: PROMPT last-touch `1ca24f3bb4b521fd4175c28c24a8eeadc5d56201` = ACCEPT P06 = READY P07 (commit `11f54d0b`); `11f54d0b..605ac14d` không chạm PROMPT/COLLAB việc/COLLAB gốc; không STOP_REQUESTED, không STARTED nào chưa KQ ở mọi task; VPS-GHI trước đó trống (GS-R10 trả 03:33Z); trên VPS chỉ có Guard periodic thường lệ, không apply-v0/RUN khác · giữ VPS-GHI · sẽ tạo: thư mục mutation `/root/incomex-config-changes/VPSC2-R2-LEAN-OPS-20261020-01/` (ứng viên, `.truoc`, giữ làm vết kiểm toán) · hồ sơ `/opt/incomex/work/vps-clean-20-10-26/VPSC2-R2-LEAN-OPS-20261020-01/` (PRE/POST, bằng chứng) · thư mục `mktemp` 0700 cho bản sao phép thử âm (xoá cuối lượt) · 0 tiến trình nền · không xoá script/dữ liệu, không restart container · dự kiến KQ ≤ 12:05Z.
 
 
