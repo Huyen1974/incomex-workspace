@@ -6,14 +6,14 @@ Nguồn chứng cứ: root COLLAB.md §PROOT11 ở commit d7fe6d6 (bản đã k�
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp GPT Chat ngày 20/10/2026, yêu cầu mở phiên work/vps-clean-20-10-26, cho phép lựa chọn tạo task mới và giao GPT tiếp tục làm Host.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 16:25 +07 · Claude Chat Reviewer · P06
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 17:22 +07 · GPT Chat Host · P07
 - 🎯 Mục tiêu: dọn lỗi/rác phát sinh, giảm chi phí tính toán, rà lại kiến trúc và số lượng cổng kiểm soát để VPS an toàn nhưng không lãng phí tài nguyên.
 - 🏁 Xong khi: việc không cần thiết được xác định/tắt an toàn; các phần cần dùng, Điều 30/31, backup và cảnh báo vẫn hoạt động; chi phí và lỗi có số đo; kiểm tra hằng ngày tận dụng cơ chế hiện hữu.
-- 📍 Tiến độ: ✅ R1 XONG → ✅ P03 Host → ✅ P04 Claude → ✅ P05 Host theo Owner B3 → ✅ P06 Claude sửa R2-4/5 + ACCEPT@1ca24f3b → ■ GPT READY cùng SHA → ⬜ Owner RUN Claude Code → ⬜ POST/KQ và tiếp tục canh có sẵn.
+- 📍 Tiến độ: ✅ R1 XONG → ✅ P03/P05 Host → ✅ P04/P06 Claude Review → ✅ P07 GPT READY@1ca24f3b → ■ Owner dán Claude Code CLI (0 RUN active) → ⬜ R2 POST/KQ → ⬜ hậu kiểm dùng cơ chế có sẵn.
 - ✅ Đã xong: VPSC 9/2026 CLOSED_SCOPE P115; PROOT11 R1 Codex đã ghi KQ XONG d7fe6d6, 30′23″, 0 runtime mutation, dọn sạch; root PROOT11 chuyển thành con trỏ tới task này, chứng cứ gốc còn ở Git lịch sử/báo cáo R1; P04 Claude PARTIAL: ACCEPT R1 + phân tích P03, kế hoạch R1b NEEDS_FIX → thay bằng R2 6 mục; P06 Claude ACCEPT PROMPT R2 @1ca24f3b (đã sửa R2-4/5 + STEP_WALK).
-- ■ Đang làm: GPT Host xét READY PROMPT R2 @1ca24f3b (Claude đã ACCEPT P06); 0 RUN active, R2 CHƯA READY/CHƯA RUN.
-- ⬜ Còn lại: GPT Host ký READY@1ca24f3b nếu đồng ý P06; Owner dán Claude Code; từng mục APPLIED/SKIP, Đ30/31+rollback, hậu kiểm qua journal/Kuma/bản tin hiện hữu.
-- ➡ Kế tiếp: GPT Host đọc P06 → đồng ý thì ký READY@1ca24f3bb4b521fd4175c28c24a8eeadc5d56201 (không đồng ý thì NEEDS_FIX, không READY) → Owner dán Claude Code. Không chạy R1b. NEXT_TRIGGER=GPT_HOST_READY_R2_1CA24F3B.
+- ■ Đang làm: — · 0 RUN active, PROMPT R2 READY@1ca24f3bb4b521fd4175c28c24a8eeadc5d56201; Owner dán Claude Code CLI, executor S0 CAS VPS-GHI.
+- ⬜ Còn lại: Owner giao Claude Code; mỗi R2-1..6 APPLIED/SKIP theo gate, Đ30/31+rollback, trả cờ VPS-GHI và KQ sạch; Host hậu kiểm qua journal/Kuma/bản tin hiện hữu.
+- ➡ Kế tiếp: 😊 Owner dán lệnh RUN cho Claude Code CLI, agent đọc AGENTS/Bảng/PROMPT, kiểm ACCEPT/READY full SHA, VPS-GHI CAS rồi STARTED; xử lý theo điều kiện từng mục, KQ/nhả cờ cùng lượt. Không R1b. NEXT_TRIGGER=OWNER_PASTE_R2_READY_1CA24F3B.
 - ⛔ Không làm/để sau: không mở lại task cũ đã đóng; không thêm cron/Guard/monitor mặc định; không xoá hay dừng dịch vụ trước khi có phép và bằng chứng; không sửa các task khác thay chủ; không ép KPI AI tự đặt.
 
 ### 1. Mục tiêu
@@ -113,4 +113,11 @@ Không có vòng của task này. work/done-tasks/vps-clean-20-9-26/COLLAB.md P1
 - **Nguyên tắc sửa:** ngưỡng tuổi là tham số của nhịp ⇒ đổi nhịp theo Owner thì đổi ngưỡng cùng mục (≈ 2–2,5 × nhịp), bắt buộc phép thử âm chứng minh vẫn bắt được producer chết và sửa lệch; điều cấm là đổi ngưỡng KHÔNG có phép thử. JEV: không phải che lỗi 0,75 · bản sửa tốt hơn 0,66.
 - **Đã sửa PROMPT `1ca24f3b`:** R2-4 = 20′ + Guard 2 chỗ 45′ + phép thử (a)(b)(c) + SELFTEST; R2-5 = 10′ + 1500 s ở presence.py và Guard + cổng importer đọc theo con trỏ + grep consumer + phép thử; thứ tự chạy (4 mục độc lập trước, 2 mục sửa Guard sau); bảng STEP_WALK_V1 (DROOT48). Không xây đường sự kiện/nút mới.
 - **Ký ACCEPT@1ca24f3bb4b521fd4175c28c24a8eeadc5d56201.** GPT Host không đồng ý phần sửa ⇒ ghi NEEDS_FIX, không READY. Đồng ý ⇒ READY cùng SHA, Owner dán Claude Code. `NEXT_TRIGGER=GPT_HOST_READY_R2_1CA24F3B`
+## P07 · GPT Chat Host · 20/10/2026 17:22 +07 · B3 SAU P06 · CHẤP NHẬN + READY
+- **Bảng:** khớp P06 ACCEPT@1ca24f3bb4b521fd4175c28c24a8eeadc5d56201, không STARTED/STOP R2, 0 RUN active; root VPS-GHI trống theo HEAD tại thời điểm ký, executor vẫn phải CAS lại tại S0. §0.3 Owner B3 đã đối chiếu.
+- **Xác minh bằng chứng:** PROMPT.md tại HEAD giống nguyên văn commit 1ca24f3b; diff 1ca24f3b..HEAD không chạm PROMPT.md. P06 reviewer khác hãng đã sửa DRAFT + ký ACCEPT đúng last-touch; không mở vòng mới.
+- **Disposition P06: ACCEPT:** giãn cấu hình fullscan 20 phút + no-run threshold 45 phút; presence nền 10 phút + tuổi dữ liệu 1500s (25 phút) như lời Owner, có cổng kiểm consumer/offset và negative test trên bản sao. Nút Cập nhật chỉ reload, không xây nút/sự kiện mới; sự kiện hook Claude Code/Codex đang ghi realtime vẫn giữ. Thời gian phát hiện chậm hơn đã công khai; không coi tamper detection tức thời. Bốn mục dọn độc lập chạy trước, hai mục Guard sau; fail thì rollback đúng mục, SKIP, không phá mục trước đã PASS.
+- **Điều kiện vận hành:** đầy đủ Đ30/31, Config Guard baseline và SELFTEST, bản nguyên xanh, hai ca âm lệch/mất producer phải đỏ, PRE/POST 22 Kuma theo ID; cảnh báo dùng đường Guard 5 phút→Kuma→Telegram đã có. Nếu fail gate không nới thêm threshold; SKIP/rollback. Không xây giám sát mới.
+- **READY@1ca24f3bb4b521fd4175c28c24a8eeadc5d56201** · RUN_ID=VPSC2-R2-LEAN-OPS-20261020-01 · Executor_Surface=Claude Code CLI · Write_Path=Incomex workspace_* + approved VPS apply-v0/DOT. READY chỉ là phát hành lệnh, KHÔNG tự RUN; Owner sẽ dán cho executor. Không sửa PROMPT.md sau READY. NEXT_TRIGGER=OWNER_PASTE_R2_READY_1CA24F3B.
+
 
