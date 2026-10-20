@@ -31,10 +31,11 @@ table.h td{font-size:14px}
 <p class="sub">Task <code>mbm-qtth-07-ve-ui-mow</code> · cập nhật 19/10/2026 18:00 · theo MBM r5.35 (QTTH đổi tên MMOW) · mục tiêu 19/10 18:28: <b>chỉ Vẽ UI</b> — bước 3.2, 3.3 bên dưới là bản 18/10, chuyển sang MMOW 08, 09; viết lại khi sửa MBM · danh sách việc và tiến độ ở tab Kiểm soát.</p>
 
 <h2>🧾 Vấn đề của việc — mẫu CAT-069 (tạm ghi ở đây)</h2>
-<p class="note"><b>🔴 13 · 🟡 5 · ⚪ 10</b> — 🟢 xử lý ngay · 🟡 xử lý sau · 🔴 nợ kỹ thuật · ⚪ đã đóng</p>
+<p class="note"><b>🔴 14 · 🟡 5 · ⚪ 10</b> — 🟢 xử lý ngay · 🟡 xử lý sau · 🔴 nợ kỹ thuật · ⚪ đã đóng</p>
 <div class="wrap"><table>
 <thead><tr><th>Mã</th><th>Ở bước</th><th>Vấn đề</th><th>Tình trạng</th><th>Người giữ</th><th>Tạm thời · xong khi</th></tr></thead>
 <tbody>
+<tr><td class="c">VD-029</td><td class="c">CAT-000.5</td><td>CAT-000.5 mới trên trang Công thức; PG chưa ghi: entity_species thiếu 2 cột (Quản lý tại · Lớp), 65 loài mới (SPE-*) chưa nạp; 4 bảng vô chủ; mã mồ côi audit_log; 6 loài lệch tiền tố</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>sau khi User duyệt chính thức: DOT thêm 2 cột + nạp loài + sửa tiền tố (Điều 30/31)</td></tr>
 <tr><td class="c">VD-028</td><td class="c">MBM 3.3</td><td>3 cột tích ở Master MOW (Vẽ UI · Info contract · Config) đang là hiển thị: AI ghi bảng MOW_STEP_DONE trong tệp dữ liệu; chưa bấm tích trên giao diện, chưa có máy tự tích</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>khi Master MOW lên Directus: thêm 3 trường đúng/sai (ve_ui · info_contract · config) + DOT tự tích khi dòng thiếu = 0</td></tr>
 <tr><td class="c">VD-027</td><td class="c">MBM 6.2</td><td>Master MMOW chưa là collection (dữ liệu nằm trong tệp TQT, chưa sửa bằng nút được); mã khoá cũ ML-MOW-TH-001 / MOW-TH-xxx còn dính trong code</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>tên hiển thị đã là Master MMOW · khi lên collection: gán mã ML-MMOW-001 / MMOW-xxx + bảng đối chiếu mã cũ → mới</td></tr>
 <tr><td class="c">VD-020</td><td class="c">3.2</td><td>Chưa có DOT đếm đầu mối hợp đồng thông tin</td><td><span class="chip bad">🔴</span></td><td>Host</td><td>đếm tay · DOT đếm</td></tr>
