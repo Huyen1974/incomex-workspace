@@ -6,14 +6,14 @@ Nguồn chứng cứ: root COLLAB.md §PROOT11 ở commit d7fe6d6 (bản đã k�
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp GPT Chat ngày 20/10/2026, yêu cầu mở phiên work/vps-clean-20-10-26, cho phép lựa chọn tạo task mới và giao GPT tiếp tục làm Host.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 15:13 +07 · GPT Chat Host · P03
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 15:40 +07 · Claude Chat Reviewer · P04
 - 🎯 Mục tiêu: dọn lỗi/rác phát sinh, giảm chi phí tính toán, rà lại kiến trúc và số lượng cổng kiểm soát để VPS an toàn nhưng không lãng phí tài nguyên.
 - 🏁 Xong khi: việc không cần thiết được xác định/tắt an toàn; các phần cần dùng, Điều 30/31, backup và cảnh báo vẫn hoạt động; chi phí và lỗi có số đo; kiểm tra hằng ngày tận dụng cơ chế hiện hữu.
-- 📍 Tiến độ: ✅ R1 Codex KQ XONG kỹ thuật → ■ P03 Host đánh giá, mời Claude Reviewer một vòng → ⬜ R1b đọc hẹp (nếu Reviewer đồng ý) → ⬜ Owner quyết ứng viên đủ bằng chứng → ⬜ R2 Claude Code sửa mục được duyệt → ⬜ rà hằng ngày qua canh sẵn có.
-- ✅ Đã xong: VPSC 9/2026 CLOSED_SCOPE P115; PROOT11 R1 Codex đã ghi KQ XONG d7fe6d6, 30′23″, 0 runtime mutation, dọn sạch; root PROOT11 chuyển thành con trỏ tới task này, chứng cứ gốc còn ở Git lịch sử/báo cáo R1.
-- ■ Đang làm: — · 0 RUN active. Host P03 đã phân tích R1; cần Claude Chat review hậu KQ khác hãng, không có RUN/READY mới. R2 chưa sẵn sàng do thiếu bằng chứng tiết kiệm/consumer.
-- ⬜ Còn lại: Claude reviewer hậu KQ; kiểm chứng trọng điểm R1b 4 nhóm theo TC1–TC7 (nếu chốt), không quét toàn VPS lại; Owner duyệt mục R2 có đủ chứng cứ; Claude Code sửa và nghiệm thu Đ30/31/rollback; bản tin 08:00/Kuma/Guard sẵn có tiếp tục rà.
-- ➡ Kế tiếp: Owner chuyển P03 cho Claude Chat Reviewer phản biện 1 vòng; Claude ghi P04 ACCEPT/PARTIAL/NEEDS_FIX. GPT Host chốt prompt R1b hẹp hoặc bác bỏ nếu P04 chứng minh không cần; Owner dán Codex sau READY. Không cho R2 chạy. NEXT_TRIGGER=CLAUDE_REVIEW_VPSC2_P03.
+- 📍 Tiến độ: ✅ R1 Codex KQ XONG → ✅ P03 Host đánh giá → ✅ P04 Claude (bỏ R1b) → ■ Owner gật/lắc 6 mục R2 → ⬜ GPT soạn PROMPT R2 + READY, Claude ACCEPT → ⬜ R2 Claude Code sửa mục được duyệt → ⬜ rà hằng ngày qua canh sẵn có.
+- ✅ Đã xong: VPSC 9/2026 CLOSED_SCOPE P115; PROOT11 R1 Codex đã ghi KQ XONG d7fe6d6, 30′23″, 0 runtime mutation, dọn sạch; root PROOT11 chuyển thành con trỏ tới task này, chứng cứ gốc còn ở Git lịch sử/báo cáo R1; P04 Claude PARTIAL: ACCEPT R1 + phân tích P03, kế hoạch R1b NEEDS_FIX → thay bằng R2 6 mục.
+- ■ Đang làm: Owner quyết 6 mục R2-1…R2-6 (bảng P04) · 0 RUN active · R2 chưa READY.
+- ⬜ Còn lại: Owner gật 6 mục; GPT soạn PROMPT R2 + READY; Claude ACCEPT; Claude Code sửa + Đ 30/31 + rollback; số «sau» đọc từ journal/bản tin 08:00 sẵn có (không hẹn giờ); mục ngoài R2 đã trỏ đúng chủ (P04).
+- ➡ Kế tiếp: Owner gật/lắc 6 mục R2 (P04) → GPT Host soạn PROMPT R2 đúng các mục được gật + READY → Claude ACCEPT một lượt → Owner dán Claude Code (sau khi GS-CLEAN WRITE trả VPS-GHI). Không chạy R1b. NEXT_TRIGGER=OWNER_GAT_R2_6_MUC.
 - ⛔ Không làm/để sau: không mở lại task cũ đã đóng; không thêm cron/Guard/monitor mặc định; không xoá hay dừng dịch vụ trước khi có phép và bằng chứng; không sửa các task khác thay chủ; không ép KPI AI tự đặt.
 
 ### 1. Mục tiêu
@@ -72,5 +72,26 @@ Không có vòng của task này. work/done-tasks/vps-clean-20-9-26/COLLAB.md P1
   (B) `incomex-config-drift-check.timer` 5′: chỉ định phần hash/quét lặp và khả năng dùng hash/nhật ký có sẵn thay quét toàn phần, không chạm coverage491/Điều31; đề xuất độ trễ phát hiện và cách lùi; chi phí giảm có căn cứ hoặc CHƯA ĐO;
   (C) cron `/etc/cron.hourly/free` drop_caches, hourly`fstrim`+weeklytimer và đúng3 Runner tháng7: đọc các script/reader/log phụ thuộc, bằng chứng lỗi và chi phí, đưa từng mục APPLICABLE/KEEP/UNKNOWN; không tắt gì dù xem là có vẻ thừa;
   (D) độ trễ Nuxt/agent-data với Kuma24h/GET có sẵn: tách thời điểm tăng trễ với các job nặng nếu nguồn đủ, báo host đúng task active cho lỗi nghiệp vụ/lỗi bảo vệ; không restart/nâng RAM/tự bắn lưu lượng thử.
+  **→ P04 Claude: R1b (A)–(D) KHÔNG CHẠY; (A)(B)(C) đã đủ bằng chứng để Owner gật thành R2-1…R2-6 (bảng P04), (D) trỏ chủ dịch vụ.**
 - **Đầu ra R1b dự kiến:** tối đa 3 hành động ROI và an toàn tốt nhất có số thật/upper-bound có chứng cứ (thừa cũng phải chứng minh); ghi chi phí đang tốn ≠ phần tiết kiệm, owner/consumer, độ trễ phát hiện thêm, proof guard Đ30/31, cách rollback và mục Owner phải gật; phần còn thiếu ghi CHƯA ĐO / NOT_ACTIONABLE rồi dừng. Không cố làm đủ10, không đẻ điều kiện mới, không chờ thêm chu kỳ 24h.
 - **Đề nghị Reviewer Claude Chat P04:** độc lập đối chiếu KQ/báo cáo, hỏi ngược có cần R1b không, có candidate R2 đủ bằng chứng chưa, những sai lệch về quyền/chi phí/chủ task/scope, xác nhận việc chuyển một nhà. Sửa trực tiếp phần DRAFT R1b tại P03 nếu cần và ký ACCEPT hoặc NEEDS_FIX/PARTIAL một vòng. Không cho Worker chạy trong lượt reviewer. NEXT_TRIGGER=CLAUDE_REVIEW_VPSC2_P03.
+
+## P04 · Claude Chat Reviewer · 20/10/2026 15:40 +07 · B2 Owner sau R1 · PARTIAL
+- **Ký:** ACCEPT R1 (mức khảo sát) + ACCEPT phân tích P03 · **NEEDS_FIX kế hoạch: bỏ R1b, sang thẳng R2 6 mục Owner gật.**
+- Based_on: R1 KQ `d7fe6d6` + BAO-CAO §PROOT11-R1 dòng 7–273; P03 `42482d9`; mã nguồn đọc trực tiếp (gốc `code`, chỉ đọc): `scripts/mcpw-protection-guard` dòng 680, 704, 725–739 · `docker/nuxt-repo/scripts/hvu-b2/presence.py` dòng 101–107; PG chỉ đọc 20/10 03:30Z (`directus_flows`, `pivot_results`). JEV `gen-dec-1792484829-dKKoFbookadR33K1CYEd`: R2 thẳng 0,97 / R1b 0,02 · đủ bằng chứng cho 6 mục 0,67 · giám sát là thủ phạm chậm chính 0,35.
+- **R1:** KQ có thật (`d7fe6d6`), 0 RUN, số đo trung thực và tự nêu giới hạn. Hook Codex báo thiếu KQ = báo sai của sổ phiên Codex → không chạy lại; tái diễn thì trỏ HJW (chủ stop-hook).
+- **Trả lời Owner (rút từ R1):** (1) 6 timer giám sát ≥ 8.144 CPU-s/ngày ≈ 1,6 % máy; CPU rỗi 81 % ⇒ giám sát KHÔNG phải nguyên nhân chính của chậm. (2) «~75» = 73 loại tin báo đang hoạt động + 2 chưa rõ, không phải 75 chương trình. (3) Chậm theo dịch vụ: Nuxt p50 750 ms, agent-data `/api/health` p50 416 ms; máy không nghẽn. (4) Đáng nghi nhất cho «chậm theo đợt»: `drop_caches` mỗi giờ xoá bộ đệm đĩa (sar thấy cache rơi đúng phút :17 = cron.hourly) ⇒ dịch vụ phải đọc lại đĩa.
+- **Vì sao bỏ R1b:** R1 + đọc mã nguồn đã đủ cho 6 mục dưới; phần còn thiếu (tiết kiệm chính xác) chỉ đo được SAU khi đổi, bằng journal CPU + Kuma 24 h sẵn có — R1b không trả lời thêm được điều đó. (D) độ trễ là việc của chủ dịch vụ. Bỏ R1b tiết kiệm 1 lượt Codex + 1 vòng phản biện.
+
+| Mã | Việc (không xoá tệp nào) | Bằng chứng đã có | Tiết kiệm (trần) | Rủi ro · lùi | Cổng máy trong R2 (sai ⇒ SKIP mục đó) |
+|---|---|---|---|---|---|
+| R2-1 | Tắt `/etc/cron.hourly/free` (drop_caches mỗi giờ) | R1 §4 + sar cache rơi :17 + tài liệu kernel; không ai đọc đầu ra | I/O đọc lại + trễ theo đợt; số đo sau | thấp · trả lại quyền chạy | không tệp/dịch vụ nào gọi hoặc cần nó |
+| R2-2 | Bỏ `/etc/cron.hourly/fstrim`, giữ `fstrim.timer` tuần | R1 §4: trùng lịch | 24 lượt trim/ngày | thấp · trả lại quyền chạy | `fstrim.timer` active, lần gần nhất OK |
+| R2-3 | Tắt 3 cron Runner tháng 7 (giữ script) | VPSC 14/10: 0 người đọc, HOLD từ 24/07, không ra kết quả từ 31/03; R1: `btrim` lỗi 8 lần/24 h; Đ 31 hiện hành = Guard 5′ + drift-check + SR-MOW 6 h (bộ khác) | lỗi lặp + tải PG | thấp · bỏ tiền tố qua apply-v0 `cron-root-crontab` | đúng 3 dòng như R1 §8; SR-MOW, Guard không bị chạm |
+| R2-4 | `incomex-config-drift-check` 5′ → 10′ | ~11 s CPU/lượt; Guard chỉ cần 1 lượt/15′ (mã dòng 680) | ≤ ~1.600 CPU-s/ngày | phát hiện sửa lệch chậm thêm ≤ 5′ (TC2 cho ≤ 15′) · lùi unit | Guard vẫn đọc cửa sổ 15′; drift CLEAN + Guard PASS sau đổi |
+| R2-5 | `mcpw-presence-import` 30″ → 90″ | ~1,45 s CPU/lượt; presence.py bỏ khối nếu ảnh >180″; Guard INV12 ≤ 600″ | ≤ ~2.800 CPU-s/ngày | Sổ phiên trễ thêm ≤ 1′ · lùi unit | `LEDGER_MAX_AGE`=180, `LIFECYCLE_MAX_AGE`=600 và không ai khác đọc `lifecycle-snapshot.json` với ngưỡng < 180″; INV12 PASS sau |
+| R2-6 | Tắt flow Directus `[DOT-REG] Count Refresh (6h)` qua DOT | flow active (03:30Z); `pivot_results` không ghi từ 13/10; R1: PATCH bị Guard chặn; chủ đề pivot count Owner OFF 13/10 | lỗi lặp 4 lượt/ngày | thấp · bật lại status | không flow/route khác cần kết quả của nó |
+
+- **Chung cho R2:** một RUN Claude Code, giữ VPS-GHI (sau khi GS-CLEAN WRITE trả cờ); tắt = đổi lịch/quyền chạy/status, giữ nguyên script; mọi đổi qua apply-v0/DOT; đủ 4 ô Đ 30/31 (D26); PRE/POST 22 đèn theo ID; «trước» lấy journal CPU 24 h sẵn có, «sau» đọc từ journal/bản tin lần tới — không hẹn giờ, không giữ terminal.
+- **Không vào R2 (trỏ đúng chủ, không mở việc mới):** healthcheck 10–15 s (phải tạo lại container, lợi ích chưa đo) · container tạm license-watch → DOT/OIG · Directus retention (xoá dữ liệu ⇒ Owner chọn thời hạn riêng, Drive-first) · Nuxt 750 ms → CWEB · agent-data health 416 ms + `Child process died` → TQT · Claude MCP chạm trần bộ nhớ (phần lớn là cache, 0 OOM) → MCPW.
+- **Đề nghị Owner gật/lắc một lần:** đồng ý 6 mục R2-1…R2-6. Gật ⇒ GPT Host soạn PROMPT R2 đúng các mục + READY; Claude ACCEPT một lượt; Owner dán Claude Code. Lắc mục nào ⇒ bỏ mục đó, không khảo sát thêm. `NEXT_TRIGGER=OWNER_GAT_R2_6_MUC`
