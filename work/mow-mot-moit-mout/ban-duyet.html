@@ -1201,14 +1201,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
 <section class="cf-formula-piece cf-tier-formula" id="formula-ct-000-2" aria-label="CT-000.2 · Cấp ghép">
 <div class="cf-formula-titlebar"><div class="cf-formula-nick">Cấp ghép</div><div class="cf-formula-full">CT-000.2 · Đo độ ghép</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-CGH* · mã master list: CAT-201*</div><div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a></div></div>
 <div class="cf-formula-expression"><code>Cấp ghép 1 =&gt; Cấp ghép 2 =&gt; Cấp ghép 3 =&gt; Cấp ghép 4</code></div>
-<div class="cf-tier-main">
-  <div class="cf-tier-chain" aria-label="Cấp ghép 1 đến 4">
-    <div class="cf-tier-node" title="~ nguyên tử · chưa ghép"><b>1</b><span>Cấp ghép 1</span></div><span class="cf-tier-assemble">=&gt;</span>
-    <div class="cf-tier-node" title="vd Nhóm cha"><b>2</b><span>Cấp ghép 2</span></div><span class="cf-tier-assemble">=&gt;</span>
-    <div class="cf-tier-node" title="vd MOW"><b>3</b><span>Cấp ghép 3</span></div><span class="cf-tier-assemble">=&gt;</span>
-    <div class="cf-tier-node" title="vd Info contract"><b>4</b><span>Cấp ghép 4</span></div>
-  </div>
-</div>
+<div class="cf-flow" role="group" aria-label="Cấp ghép 1 đến 4"><div class="cf-chain"><span class="s" title="~ nguyên tử · chưa ghép"><b class="cf-root-no">1</b> Cấp ghép 1</span><span class="a" aria-hidden="true">→</span><span class="s" title="vd Nhóm cha"><b class="cf-root-no">2</b> Cấp ghép 2</span><span class="a" aria-hidden="true">→</span><span class="s" title="vd MOW"><b class="cf-root-no">3</b> Cấp ghép 3</span><span class="a" aria-hidden="true">→</span><span class="s" title="vd Info contract"><b class="cf-root-no">4</b> Cấp ghép 4</span></div></div>
 <details class="cf-notation-rule"><summary>Chi tiết</summary>
   <p class="cf-derived-note"><b>Cấp ghép = cấp ghép lớn nhất của thành tố + 1.</b> Công thức gốc: không làm ra thứ gì, mà đo mọi công thức chuyên môn. Thành tố chưa ghép = Cấp ghép 1. Vd Nhóm cha = Chuỗi + Bước + Tầng (đều 1) ⇒ 2 · MOW có Nhóm cha (2) ⇒ 3 · Info contract có UI con (3) ⇒ 4.</p>
 </details>
