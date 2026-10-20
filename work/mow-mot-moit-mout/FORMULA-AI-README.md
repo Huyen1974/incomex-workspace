@@ -195,6 +195,7 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 
 | CT | Nickname | Công thức |
 |---|---|---|
+| CT-000.1 | **Điều luật** | `Khi nào + Làm gì + Kiểm bằng ⇒ Điều luật` · công thức gốc; loài SPE-LAW, sổ CAT-140 (normative_registry); mã NRM-LAW-số.khoản |
 | CT-000.2 | **Cấp ghép** | `Cấp ghép = cấp ghép lớn nhất của thành tố + 1` · công thức gốc (đo mọi công thức); Cấp ghép 1 (~ nguyên tử) ⇒ 2 ⇒ 3 ⇒ 4 |
 | CT-001 | **Bước** | `Tìm → { Dùng | Tạo mới | Sửa | Vô hiệu }` |
 | CT-002 | **Tầng** | `Field => { MOIT | MOUT } => MOT => MOW` · T3→T7 chỉ bối cảnh, thu gọn |
