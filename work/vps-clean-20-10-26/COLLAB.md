@@ -6,14 +6,14 @@ Nguồn chứng cứ: root COLLAB.md §PROOT11 ở commit d7fe6d6 (bản đã k�
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp GPT Chat ngày 20/10/2026, yêu cầu mở phiên work/vps-clean-20-10-26, cho phép lựa chọn tạo task mới và giao GPT tiếp tục làm Host.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 20:40 +07 · Claude Code CLI · P08
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 20:43 +07 · GPT Chat Host · P09
 - 🎯 Mục tiêu: dọn lỗi/rác phát sinh, giảm chi phí tính toán, rà lại kiến trúc và số lượng cổng kiểm soát để VPS an toàn nhưng không lãng phí tài nguyên.
 - 🏁 Xong khi: việc không cần thiết được xác định/tắt an toàn; các phần cần dùng, Điều 30/31, backup và cảnh báo vẫn hoạt động; chi phí và lỗi có số đo; kiểm tra hằng ngày tận dụng cơ chế hiện hữu.
-- 📍 Tiến độ: ✅ R1 XONG → ✅ P03/P05 Host → ✅ P04/P06 Claude Review → ✅ P07 GPT READY@1ca24f3b → ■ Owner dán Claude Code CLI (0 RUN active) → ⬜ R2 POST/KQ → ⬜ hậu kiểm dùng cơ chế có sẵn.
-- ✅ Đã xong: VPSC 9/2026 CLOSED_SCOPE P115; PROOT11 R1 Codex đã ghi KQ XONG d7fe6d6, 30′23″, 0 runtime mutation, dọn sạch; root PROOT11 chuyển thành con trỏ tới task này, chứng cứ gốc còn ở Git lịch sử/báo cáo R1; P04 Claude PARTIAL: ACCEPT R1 + phân tích P03, kế hoạch R1b NEEDS_FIX → thay bằng R2 6 mục; P06 Claude ACCEPT PROMPT R2 @1ca24f3b (đã sửa R2-4/5 + STEP_WALK).
-- ■ Đang làm: — · 0 RUN active · R2 KQ XONG (P08): APPLIED R2-1, R2-2, R2-3, R2-4, R2-5 · SKIP R2-6 (chưa có DOT đã duyệt đổi trạng thái một flow) · VPS-GHI đã trả.
-- ⬜ Còn lại: Owner giao Claude Code; mỗi R2-1..6 APPLIED/SKIP theo gate, Đ30/31+rollback, trả cờ VPS-GHI và KQ sạch; Host hậu kiểm qua journal/Kuma/bản tin hiện hữu.
-- ➡ Kế tiếp: GPT Host nghiệm thu KQ P08 (số «sau» từ journal/Kuma/bản tin 08:00 sẵn có), Claude Chat rà khác hãng; R2-6 cần node riêng: thêm chế độ `status` cho `dot-directus-flow` (DROOT27) rồi mới tắt flow. NEXT_TRIGGER=GPT_HOST_NGHIEM_THU_KQ_R2.
+- 📍 Tiến độ: ✅ R1 KQ · ✅ P03–P07 hội đồng/READY · ✅ P08 R2 KQ APPLIED 5/6 · ■ P09 GPT Host hậu kiểm sơ bộ (0 RUN) · ⬜ Reviewer hậu KQ · ⬜ R2-6 xử lý riêng khi có DOT status approved · ⬜ đối chiếu savings qua canh sẵn có.
+- ✅ Đã xong: R1 KQ d7fe6d6; R2 P08 KQ XONG commit 72f26d8: R2-1,2,3,4,5 APPLIED, R2-6 SKIP; Guard POST PASS (Telegram mid 249), 22/22 Kuma theo ID UP, Config Guard 493/493 CLEAN, 0 restart/0 tiến trình nền; VPSC2 trả VPS-GHI 13:40Z. Chỉ nghiệm thu kỹ thuật trong scope, không gọi FULL_PROJECT_DONE.
+- ■ Đang làm: — · 0 RUN active VPSC2. P09 Host hậu kiểm sơ bộ; R2 không tái chạy. Owner cho biết Graph vừa kết thúc, nhưng Graph COLLAB tại HEAD vẫn ở P159 READY, chưa có STARTED/KQ mới cho GS-CLEAN-WRITE; không suy root VPS-GHI trống là chứng cứ lượt Graph đã khép.
+- ⬜ Còn lại: Claude Chat Reviewer hậu KQ một lượt; xác minh KQ/nhả VPS-GHI của Graph trong task Graph trước mọi ghi VPS mới; R2-6 cần DOT status approved trên đúng một flow, node riêng khi đủ chứng cứ; so tiền/số CPU 24h sau bằng journal/Kuma/08:00 hiện hữu, không chờ terminal.
+- ➡ Kế tiếp: Claude Chat xem P08/P09 và POST Guard/R2-5; xác nhận số APPLIED/SKIP + rủi ro; Graph Host/executor đối chiếu GS-CLEAN-WRITE KQ với Git/receipt nếu vừa hoàn tất. Không RUN VPSC R2 lần nữa, không mở VPS mutation mới trước xác minh cờ Graph. NEXT_TRIGGER=CLAUDE_REVIEW_VPSC2_P09_AND_GRAPH_KQ.
 - ⛔ Không làm/để sau: không mở lại task cũ đã đóng; không thêm cron/Guard/monitor mặc định; không xoá hay dừng dịch vụ trước khi có phép và bằng chứng; không sửa các task khác thay chủ; không ép KPI AI tự đặt.
 
 ### 1. Mục tiêu
@@ -139,3 +139,11 @@ Không có vòng của task này. work/done-tasks/vps-clean-20-9-26/COLLAB.md P1
 - **Hồ sơ:** VPS `/opt/incomex/work/vps-clean-20-10-26/VPSC2-R2-LEAN-OPS-20261020-01/` (pre/ · post/ Guard PRE/POST json, coverage.tsv, proof/, kuma22-pre/post · r2-6/) + `/root/incomex-config-changes/VPSC2-R2-LEAN-OPS-20261020-01/` (candidate/, rollback/*.truoc + SHA256SUMS, evidence/ thử âm · selftest · apply). Số «sau» chưa đo trong RUN: đọc journal/Kuma/bản tin 08:00 sẵn có. NEXT_TRIGGER=GPT_HOST_NGHIEM_THU_KQ_R2.
 
 
+
+
+## P09 · GPT Chat Host · 20/10/2026 20:43 +07 · B1 hậu KQ Worker R2 · NO_NEW_RUN
+- **Bảng:** đối chiếu KQ@VPSC2-R2-LEAN-OPS-20261020-01 XONG tại commit `72f26d8973f144d4990e1f4162ebb316fdb41e7d`, 0 RUN VPSC2 active; root ghi VPS-GHI trống từ 13:40Z, **không** chứng minh lượt GS-CLEAN mà Owner báo vừa chạy đã trả cờ. §0.3 đã đối chiếu.
+- **Nghiệm thu sơ bộ:** ACCEPT hoàn thành kỹ thuật R2-1/2/3/4/5 đúng KQ P08; R2-6 SKIP đúng luật do không có DOT approved đổi status một flow. Guard PRE/POST PASS 22/22, C3 493/493 CLEAN, Telegram receipt mid249; không restart, không còn temp/process. Đây là xác nhận evidence tại repo/KQ, không thay hậu kiểm sống sau Graph và không nhận số savings thật sau 24h khi chưa có.
+- **Điểm cần theo dõi, không tự sửa:** nhịp drift20′ + Guard no-run45′ và presence10′ + age1500s; phát hiện chậm hơn nhưng Owner đã chấp thuận. KQ P08 nêu RUN 2h52 vượt SLA75′ vì phiên executor treo ~70′, đã nhả cờ; Guard POST lần 2 có INV18 Directus 503 tạm (lượt periodic sau UP) — nếu tái diễn chuyển chủ CWEB/TQT, không tự restart hoặc sửa Guard. Hai mô tả `every 30 s`/`INV12 <=10 phut` đã lỗi thời, chỉnh đúng chủ/lượt hợp lệ sau, không mở RUN mới chỉ vì chữ.
+- **Graph — CỔNG ĐỐI CHIẾU SAU RUN:** Owner nói Graph vừa hoàn tất. Tại HEAD kiểm lúc này, Graph `COLLAB.md` vẫn P159 READY@4c567ae2, chưa thấy `STARTED@GS-CLEAN-WRITE-20261020-01` hay `KQ@...` trên repo. Không tự kết luận Graph chưa chạy; **CHƯA XÁC MINH** cờ/Guard hậu Graph. Graph Host hoặc executor cần ghi KQ/biên nhận, POST/KEEP/Drive proof và trạng thái VPS-GHI của chính RUN đã làm; VPSC Host không sửa thay task Graph.
+- **Roadmap:** không gửi Owner lệnh R2 cũ (đã chạy), không lặp R1; một lượt Claude Chat rà hậu KQ (GPT Host khác hãng với Claude Code Worker đã đối chiếu), sau đó Host nhận KQ. R2-6 là khoản chưa hoàn thành duy nhất trong 6 mục: chỉ làm qua công cụ DOT status được duyệt, tránh `dot-apply` cả spec, và khi Graph đã kết thúc có chứng cứ; không tự tạo tool/lịch mới. Theo dõi chi phí sau bằng bản tin/nhật ký đang có. `NEXT_TRIGGER=CLAUDE_REVIEW_VPSC2_P09_AND_GRAPH_KQ`.
