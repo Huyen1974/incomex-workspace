@@ -6,14 +6,14 @@ Nguồn chứng cứ: root COLLAB.md §PROOT11 ở commit d7fe6d6 (bản đã k�
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp GPT Chat ngày 20/10/2026, yêu cầu mở phiên work/vps-clean-20-10-26, cho phép lựa chọn tạo task mới và giao GPT tiếp tục làm Host.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 15:40 +07 · Claude Chat Reviewer · P04
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 15:57 +07 · GPT Chat Host · P05
 - 🎯 Mục tiêu: dọn lỗi/rác phát sinh, giảm chi phí tính toán, rà lại kiến trúc và số lượng cổng kiểm soát để VPS an toàn nhưng không lãng phí tài nguyên.
 - 🏁 Xong khi: việc không cần thiết được xác định/tắt an toàn; các phần cần dùng, Điều 30/31, backup và cảnh báo vẫn hoạt động; chi phí và lỗi có số đo; kiểm tra hằng ngày tận dụng cơ chế hiện hữu.
-- 📍 Tiến độ: ✅ R1 Codex KQ XONG → ✅ P03 Host đánh giá → ✅ P04 Claude (bỏ R1b) → ■ Owner gật/lắc 6 mục R2 → ⬜ GPT soạn PROMPT R2 + READY, Claude ACCEPT → ⬜ R2 Claude Code sửa mục được duyệt → ⬜ rà hằng ngày qua canh sẵn có.
+- 📍 Tiến độ: ✅ R1 XONG → ✅ P03 Host → ✅ P04 Claude → ■ P05 Host theo Owner B3, PROMPT R2 DRAFT → ⬜ Claude rà delta/ACCEPT → ⬜ GPT READY → ⬜ Owner RUN Claude Code → ⬜ POST/KQ và tiếp tục canh có sẵn.
 - ✅ Đã xong: VPSC 9/2026 CLOSED_SCOPE P115; PROOT11 R1 Codex đã ghi KQ XONG d7fe6d6, 30′23″, 0 runtime mutation, dọn sạch; root PROOT11 chuyển thành con trỏ tới task này, chứng cứ gốc còn ở Git lịch sử/báo cáo R1; P04 Claude PARTIAL: ACCEPT R1 + phân tích P03, kế hoạch R1b NEEDS_FIX → thay bằng R2 6 mục.
-- ■ Đang làm: Owner quyết 6 mục R2-1…R2-6 (bảng P04) · 0 RUN active · R2 chưa READY.
-- ⬜ Còn lại: Owner gật 6 mục; GPT soạn PROMPT R2 + READY; Claude ACCEPT; Claude Code sửa + Đ 30/31 + rollback; số «sau» đọc từ journal/bản tin 08:00 sẵn có (không hẹn giờ); mục ngoài R2 đã trỏ đúng chủ (P04).
-- ➡ Kế tiếp: Owner gật/lắc 6 mục R2 (P04) → GPT Host soạn PROMPT R2 đúng các mục được gật + READY → Claude ACCEPT một lượt → Owner dán Claude Code (sau khi GS-CLEAN WRITE trả VPS-GHI). Không chạy R1b. NEXT_TRIGGER=OWNER_GAT_R2_6_MUC.
+- ■ Đang làm: P05/PROMPT.md DRAFT; mời Claude Chat review nhịp Owner B3 và guard; 0 RUN active, R2 CHƯA READY/CHƯA RUN.
+- ⬜ Còn lại: Claude rà delta P05/PROMPT; Host ký READY đúng SHA nếu đủ gate; Owner dán Claude Code; từng mục APPLIED/SKIP, Đ30/31+rollback, hậu kiểm qua journal/Kuma/bản tin hiện hữu.
+- ➡ Kế tiếp: Owner chuyển DRAFT PROMPT.md và P05 cho Claude Chat rà đúng delta an toàn; Claude ký ACCEPT đúng SHA hoặc PARTIAL/NEEDS_FIX. GPT Host quyết READY sau review; Owner dán Claude Code mới RUN. Không chạy R1b. NEXT_TRIGGER=CLAUDE_REVIEW_R2_DRAFT_P05.
 - ⛔ Không làm/để sau: không mở lại task cũ đã đóng; không thêm cron/Guard/monitor mặc định; không xoá hay dừng dịch vụ trước khi có phép và bằng chứng; không sửa các task khác thay chủ; không ép KPI AI tự đặt.
 
 ### 1. Mục tiêu
@@ -22,6 +22,8 @@ Owner 20/10/2026, nguyên văn: «Chúng ta mở một phiên mới để tiếp
 Owner 20/10/2026: «Bạn tiếp tục làm host cho việc này. Hoặc tạo 1 task mới trên Repo.»
 
 Owner 20/10/2026 10:27 +07 (nói với Claude Chat, đã sửa lỗi gõ; bản gốc tại root §PROOT11): «Hiện nay các cơ chế bảo vệ đã lên khoảng 75, nếu tiếp tục sẽ còn lên nhiều nữa. Tôi không phản đối việc tăng cơ chế bảo vệ, nhưng dù đã cố dọn server thường xuyên tôi vẫn thấy hơi chậm. Cảnh báo là tốt nhưng phải vừa đủ. Các hệ thống cảnh báo qua Telegram và giám sát server có tốn nhiều tài nguyên không? Những chương trình gì đang chạy ngầm định kỳ làm tiêu hao tài nguyên? Đâu là điểm cân bằng giữa quản lý chặt, giám sát chặt và tối ưu tài nguyên? Còn lỗi gì chưa dọn hết hoặc mới phát sinh làm tốn tài nguyên tính toán không? Phải tiếp tục dọn server song song với phát triển chương trình, vì cứ viết mã là sinh rác; nhiều cấu trúc cũ không hợp lý đã phải làm lại — chỗ nào chưa tắt hết mã sẽ gây nặng không cần thiết. Chương trình nào chạy liên tục thì xem config thế nào cho hợp lý.»
+
+Owner 20/10/2026 B3 trực tiếp GPT Chat: «Việc cập nhật, không cần dày quá đâu, 10 phút 1 lần cũng được. Nếu cần refresh đã có nút cặp chặt tay rồi. Không nên làm ảnh hưởng đến cả server chỉ vì chuyện mỗi ngày dùng 1 tiếng.» «Tương tự kiểm cấu hình cũng vậy, không nhất thiết phải làm quá dày, biết nó hỏng hay vẫn còn chạy là được. Để khoảng 20 đến 30 phút 1 lần. Nên sử dụng cơ chế nếu hỏng thì đẩy lỗi (nếu có thể) thay vì cứ hỏi liên tục sẽ làm lãng phí tài nguyên của máy chủ.» Mục tiêu nhịp mới không đồng nghĩa được giảm bảo vệ Đ30/31 hoặc bỏ freshness trên consumer hiện hành.
 
 ### 2. Thế nào là hoàn thành
 VPS được kiểm kê, dọn lỗi/rác và tối ưu tài nguyên theo bằng chứng; các cơ chế kiểm soát, Guard Điều 30/31, cảnh báo và backup còn đủ tác dụng với chi phí phù hợp; không gây lỗi mới cho phần đang dùng. Có phương án rà hằng ngày dựa trên bộ canh hiện có, nêu rõ người chịu trách nhiệm và đầu ra. Mỗi lượt khảo sát/sửa phải đóng KQ sạch; không giữ RUN hay tăng thêm cơ chế chạy nền chỉ để theo dõi việc.
@@ -33,6 +35,7 @@ VPS được kiểm kê, dọn lỗi/rác và tối ưu tài nguyên theo bằng
 4. Tối ưu kiến trúc (chấm theo đúng Thước cân bằng TC1–TC7 tại root §PROOT11 commit d7fe6d6 — không soạn thước thứ hai; ngưỡng Owner chốt khi có số): phân chủ từng kiểm tra, nhận diện một chức năng bị canh nhiều lần, đánh giá nhịp theo thời gian hỏng/chịu lỗi và chi phí thật, đề xuất GIỮ/GIÃN/GỘP/TẮT. Không tạo lớp canh mới nếu cơ chế cũ làm được; không làm giảm coverage Đ30/31/backup/Telegram.
 5. Rà hằng ngày trước hết dùng Kuma/Guard/Config Guard, storage-watch và bản tin 08:00 đã tồn tại; đo được gì, thiếu gì thì ghi vào sổ hiện hành. Đề xuất nâng cấp bản tin sau khi kiểm chi phí, Owner duyệt trước khi bổ sung job/cron/monitor. Không giữ AI/terminal chờ giữa các ngày.
 6. Ranh giới: VPSC 9/2026 đóng ở P115, là kho bằng chứng cũ. Task mới xử lý vệ sinh, tối ưu tài nguyên và lỗi nhỏ của việc đã đóng; lỗi lớn hoặc liên quan nghiệp vụ task đang hoạt động chuyển về Host đúng việc. Các thay đổi có phá huỷ/mất dữ liệu hoặc ảnh hưởng thiết kế quyền Owner quyết.
+7. B3 Owner đặt mục tiêu presence nền 10 phút, update ngay theo sự kiện/Refresh, quét cấu hình 20–30 phút và đẩy lỗi qua hệ thống hiện hữu; R2-4/R2-5 chỉ thực thi nếu vẫn đảm bảo consumer TTL, detection và bảo vệ Đ30/31 bằng chứng thật, không sửa ngưỡng để tô xanh. Sai cổng thì SKIP riêng mục, không tắt bảo vệ.
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -94,4 +97,12 @@ Không có vòng của task này. work/done-tasks/vps-clean-20-9-26/COLLAB.md P1
 
 - **Chung cho R2:** một RUN Claude Code, giữ VPS-GHI (sau khi GS-CLEAN WRITE trả cờ); tắt = đổi lịch/quyền chạy/status, giữ nguyên script; mọi đổi qua apply-v0/DOT; đủ 4 ô Đ 30/31 (D26); PRE/POST 22 đèn theo ID; «trước» lấy journal CPU 24 h sẵn có, «sau» đọc từ journal/bản tin lần tới — không hẹn giờ, không giữ terminal.
 - **Không vào R2 (trỏ đúng chủ, không mở việc mới):** healthcheck 10–15 s (phải tạo lại container, lợi ích chưa đo) · container tạm license-watch → DOT/OIG · Directus retention (xoá dữ liệu ⇒ Owner chọn thời hạn riêng, Drive-first) · Nuxt 750 ms → CWEB · agent-data health 416 ms + `Child process died` → TQT · Claude MCP chạm trần bộ nhớ (phần lớn là cache, 0 OOM) → MCPW.
-- **Đề nghị Owner gật/lắc một lần:** đồng ý 6 mục R2-1…R2-6. Gật ⇒ GPT Host soạn PROMPT R2 đúng các mục + READY; Claude ACCEPT một lượt; Owner dán Claude Code. Lắc mục nào ⇒ bỏ mục đó, không khảo sát thêm. `NEXT_TRIGGER=OWNER_GAT_R2_6_MUC`
+- **Đề nghị P04 tại thời điểm 15:40 (đã được Owner B3 cập nhật):** Owner muốn 10′ presence và 20–30′ config thay cho 90s/10′; Host đã sửa DRAFT tại P05. Không coi số cũ là Owner gật. `NEXT_TRIGGER=CLAUDE_REVIEW_R2_DRAFT_P05`
+
+## P05 · GPT Chat Host · 20/10/2026 15:57 +07 · B3 sau P04 · CHỐT HƯỚNG/DRAFT (không READY)
+- **Bảng:** khớp R1 d7fe6d6 XONG, P04 PARTIAL fe276193, 0 RUN active. §0.3 đã đối chiếu. Owner B3 trực tiếp đổi nhịp mục tiêu sang presence 10′, config 20–30′, báo theo sự kiện lỗi nếu có thể; Owner chưa nói nguyên văn «GẬT đủ 6 mục». Host được giao soạn lệnh, mutation chỉ sau khi DRAFT được review, Host READY và Owner RUN.
+- **Disposition P04:** ACCEPT bỏ R1b; ACCEPT bốn ứng viên có điều kiện R2-1 hourly drop_caches, R2-2 hourly fstrim (giữ weekly), R2-3 đúng 3 Runner legacy, R2-6 đúng một flow Count Refresh. Không coi đây là nguyên nhân chậm đã chứng minh; không phá bất cứ chương trình đang dùng.
+- **Delta quan trọng R2-4/5:** P04 đề xuất drift 5′→10′ và presence 30″→90″; KHÔNG phù hợp nhịp mới. Mục tiêu Owner: full scan 20′ (tối đa30′ nếu đủ proof), presence nền 10′, đồng bộ event/Refresh và error push qua collector/notifier có sẵn. Hiện Guard đòi drift age ≤15′, presence.py LEDGER_MAX_AGE=180s; không thể chỉ giãn timer. Không tự nới timeout/freshness/Guard để PASS. Phải chứng minh cơ chế change/event cho cả sửa trái phép + producer chết, consumer TTL, negative test và cảnh báo sống; thiếu ⇒ SKIP đúng R2-4/5, giữ nhịp và báo NEEDS_DESIGN. Không tạo cron/daemon/Guard mới.
+- **Chủ vụ khác:** Nuxt/Agent Data latency và child died thuộc CWEB/TQT, Directus retention/purge riêng, 502/503 chưa chứng minh; không đưa vào R2.
+- **DRAFT:** `work/vps-clean-20-10-26/PROMPT.md` là một nguồn lệnh duy nhất R2. Claude Reviewer lượt kế chỉ cần rà delta Owner B3 và cổng an toàn 6 ứng viên, ký ACCEPT hoặc PARTIAL đúng SHA trong task; GPT Host READY sau đó, Owner dán Claude Code. Không đi vòng khảo sát nữa. `NEXT_TRIGGER=CLAUDE_REVIEW_R2_DRAFT_P05`.
+
