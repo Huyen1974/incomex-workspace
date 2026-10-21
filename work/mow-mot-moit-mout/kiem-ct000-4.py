@@ -20,10 +20,10 @@ BB = ['B%d' % i for i in range(1, 12)]
 CODES = ['OK', 'PARTIAL', 'UNAVAILABLE', 'RESOURCE_EXHAUSTED', 'ABORTED', 'FAILED_PRECONDITION', 'PERMISSION_DENIED', 'INVALID_ARGUMENT', 'UNKNOWN', 'DEADLINE_EXCEEDED', 'HUMAN']
 QUYET = ['thiếu ô', 'làm tiếp', 'giao lại', 'ngoại lệ', 'huỷ', 'rút huỷ']
 CAP = ('làm tiếp', 'giao lại', 'rút huỷ')
-NGUOI_MAX = 2
+NGUOI_MAX = 1
 TRO_LAI = {'G1': 'Chấm G1', 'G2': 'Chấm G2', 'G4': 'Chấm G4', 'G5': 'Chấm G5', 'Bù': 'Bù',
            'ĐS·TT': 'Đối soát·TT', 'ĐS·Huỷ': 'Đối soát·Huỷ', 'ĐS·QH': 'Đối soát·QH', 'ĐS·Bù': 'Đối soát·Bù'}
-TRAN = {'lần_nhận': 8, 'thế_hệ': 30, 'lần_gia_hạn': 6, 'vòng': 6, 'lần_bù': 8, 'đang_bay': 3, 'đã_làm': 3,
+TRAN = {'lần_nhận': 8, 'lần_gia_hạn': 6, 'vòng': 6, 'lần_bù': 8, 'đang_bay': 3, 'đã_làm': 3,
         'tổng_làm': 4, 'đã_bù': 4, 'bù_bay': 3, 'M': 8, 'N': 8, 'MB': 8, 'lần_thay': 4}
 MAC_DINH = dict(lần_nhận=0, M=2, thế_hệ=0, gen_giữ=-1, người_giữ=True, có_lịch=True, giữ_chỗ=False, còn_chỗ=True,
                 hết_hạn_giữ=False, lần_gia_hạn=0, GH=1,
@@ -200,7 +200,16 @@ def kiem_tinh(S):
     return list(dict.fromkeys(E))
 
 # ---------- chạy 1 bước ----------
-def dong(s): return tuple(sorted(s.items()))
+KEYS = sorted(list(MAC_DINH) + list(AN) + ['st'])
+
+def dong(s):
+    """chuẩn hoá: chỉ quan hệ «trùng thế hệ hiện tại hay không» có nghĩa, nên quy thế hệ về giá trị tương đối"""
+    s = dict(s); h = s['thế_hệ']
+    def rel(g): return -1 if g < 0 else 3 - min(3, h - g)
+    s['gen_giữ'] = rel(s['gen_giữ']); s['_ma'] = rel(s['_ma']); s['thế_hệ'] = 3
+    return tuple(s[k] for k in KEYS)
+
+def mo(t): return dict(zip(KEYS, t))
 
 def ap_dung(S, s, ev, chon):
     st = s['st']
@@ -326,7 +335,7 @@ def kham(S, init, gioi=200000, nhanh=False):
     E += vi_pham(S, init)
     q = collections.deque([0])
     while q:
-        u = q.popleft(); s = dict(nodes[u])
+        u = q.popleft(); s = mo(nodes[u])
         for name, lop, nx in buoc(S, s):
             if isinstance(nx, tuple):
                 E.append(nx + ('@', s['st']))
@@ -378,7 +387,7 @@ def bfs_rev(tgt, radj):
 
 def song(nodes, ed):
     E = []; n = len(nodes)
-    st = [dict(x)['st'] for x in nodes]
+    ist = KEYS.index('st'); st = [x[ist] for x in nodes]
     adj = [[] for _ in range(n)]; radj = [[] for _ in range(n)]; rall = [[] for _ in range(n)]
     for u, v, lop in ed:
         rall[v].append(u)
