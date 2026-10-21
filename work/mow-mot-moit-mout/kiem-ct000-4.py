@@ -207,6 +207,12 @@ def dong(s):
     s = dict(s); h = s['thế_hệ']
     def rel(g): return -1 if g < 0 else 3 - min(3, h - g)
     s['gen_giữ'] = rel(s['gen_giữ']); s['_ma'] = rel(s['_ma']); s['thế_hệ'] = 3
+    st = s['st']
+    if not st.startswith('Chờ người'): s['lần_quá_chờ'] = 0; s['lần_thay'] = 0
+    if st not in ('Đang chạy', 'Bù'): s['hết_hạn_giữ'] = False; s['lần_gia_hạn'] = 0
+    if st != 'Đang chạy': s['_gửi_lượt'] = False
+    if not st.startswith('Chờ ĐK'): s['nguồn'] = 'không'
+    if s['_ma_thử'] or s['_ma'] < 0: s['_ma'] = -1; s['_ma_thử'] = False
     return tuple(s[k] for k in KEYS)
 
 def mo(t): return dict(zip(KEYS, t))
@@ -560,7 +566,9 @@ def dot_bien(T):
     sua(G, lambda r: r[0] == 'kết quả' and r[1] == 'Đang chạy', 4, ' and chống_trùng', '', 'coi mọi lỗi tạm là an toàn')
     sua(G, lambda r: r[0] == 'bù', 4, ' and bù_bay == 0 and', ' and', 'đóng huỷ khi lệnh bù còn bay')
     sua(C, lambda r: r[3] == 'Lỗi tạm không an toàn', 5, 'Đối soát·TT', 'Chờ', 'T24 gửi lại ngay không đối soát')
-    sua(C, lambda r: r[1] == 'Đối soát·TT' and 'chưa thấy' in r[3], 4, 'cùng mã', 'mã mới', 'thử lại bằng mã mới khi lệnh cũ còn bay')
+    sua(C, lambda r: r[1] == 'Đối soát·TT' and 'chưa thấy' in r[3], 4, 'cùng mã', 'kết luận · mã mới', 'thử lại bằng mã mới khi lệnh cũ còn bay')
+    sua(G, lambda r: r[0] == 'làm thao tác', 4, ' and (not ý_định or kết_luận or chống_trùng)', '', 'gửi khi ý định cũ chưa kết luận')
+    sua(G, lambda r: r[0] == 'quyết định', 4, " or (quyết == 'huỷ' and cờ_huỷ)", '', 'Owner huỷ lại khi đang huỷ')
     sua(C, lambda r: r[1] == 'Xét huỷ' and r[3] == 'có dở', 5, 'Đối soát·Huỷ', 'Kết thúc·Huỷ', 'huỷ đóng luôn khi còn lệnh dở')
     sua(C, lambda r: r[1] == 'Bù' and r[3] == 'chưa biết', 5, 'Đối soát·Bù', 'Bù', 'bù mất phản hồi thì bù lại ngay', 4, 'lần bù +1 · gửi bù')
     sua(C, lambda r: r[2] == 'quyết định' and r[3] == 'giao lại', 5, '[trở lại]', 'Chấm G2', 'giao lại lúc bù quay về nghiệp vụ')
