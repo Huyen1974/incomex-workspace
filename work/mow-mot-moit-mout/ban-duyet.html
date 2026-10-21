@@ -921,6 +921,8 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
 #matrix-view-formula .cf-group-sum small{font-weight:500;color:var(--mut);margin-left:6px}
 #matrix-view-formula details.cf-group[open]>.cf-group-sum{margin-bottom:10px}
 #matrix-view-formula #formula-ct-000-3 .cf-formula-expression code{font-size:13px;font-weight:500;opacity:.45}
+#matrix-view-formula .cf-formula-piece .kn b.cf-root-no{background:#7fa892}
+#matrix-view-formula .kn caption{caption-side:top;text-align:left;padding:2px 0 8px;font-weight:700;font-size:14.5px;color:var(--ink)}
 #matrix-view-formula .cf-formula-meta{font-size:10px;line-height:1.35;color:#b7bcc1;margin-left:8px;flex:1 1 0;min-width:0;white-space:normal;cursor:help}
 #matrix-view-formula .kn .t1-mapping-table__head{position:relative;display:inline-flex;align-items:center;gap:5px}
 #matrix-view-formula .kn .t1-mapping-table__help{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;flex:0 0 16px;border:1px solid #c7c7cc;border-radius:50%;color:#6e6e73;background:#fff;font:700 11px/1 "Be Vietnam Pro",sans-serif;opacity:0;transition:opacity .12s ease;cursor:help}
@@ -1206,6 +1208,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <p class="cf-derived-note"><b>Công thức:</b> Việc = Muốn gì + Đang thế nào · máy lặp Quan sát → So sánh → Làm → Ghi tới khi khớp (vòng điều hoà, chuẩn ngành). <b>Mỗi câu có 1 trong 4 trạng thái:</b> Có · Không áp dụng (ghi lý do) · Chưa biết · Sai. Cổng chỉ mở khi mọi câu của giai đoạn là Có hoặc Không áp dụng. Việc thuộc Loại việc có sẵn: người yêu cầu chỉ khai 8 câu G1.1–G1.8; câu khác lấy từ Loại việc hoặc máy tự điền.</p>
   <div class="kn">
   <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Giai đoạn và cổng</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Giai đoạn và cổng">?</span><span class="t1-mapping-table__tip" role="tooltip">5 giai đoạn G1–G5 của mọi việc, cổng phải qua ở mỗi giai đoạn, và chưa qua thì làm gì.</span></span></caption>
   <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Giai đoạn</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Giai đoạn">?</span><span class="t1-mapping-table__tip" role="tooltip">5 giai đoạn G1–G5 của mọi việc. Trước = G1–G2 · Trong = G3 · Sau = G4–G5.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Cổng</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Cổng">?</span><span class="t1-mapping-table__tip" role="tooltip">Điều kiện phải đạt để sang giai đoạn sau.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Chưa qua cổng thì</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Chưa qua cổng">?</span><span class="t1-mapping-table__tip" role="tooltip">Dừng đúng chỗ đó và xử lý; không cố làm tiếp với đề bài chưa trọn.</span></span></th></tr></thead>
   <tbody>
   <tr><td><b class="cf-root-no">G1</b>Khai báo</td><td>Hợp lệ (Definition of Ready)</td><td>trả về người yêu cầu, chờ khai đủ; không chạy tiếp</td></tr>
@@ -1217,6 +1220,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   </div>
   <div class="kn">
   <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Nhóm công cụ</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Nhóm công cụ">?</span><span class="t1-mapping-table__tip" role="tooltip">7 nhóm công cụ CC1–CC7 cần để trả lời Bộ câu hỏi chuẩn. Số công cụ cụ thể bàn khi làm.</span></span></caption>
   <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Nhóm công cụ</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Nhóm công cụ">?</span><span class="t1-mapping-table__tip" role="tooltip">7 nhóm công cụ CC1–CC7 cần để trả lời bộ câu hỏi. Số lượng cụ thể bàn khi làm.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Làm gì</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Làm gì">?</span><span class="t1-mapping-table__tip" role="tooltip">Vai của nhóm trong vòng điều hoà.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Dùng ở giai đoạn</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Dùng ở giai đoạn">?</span><span class="t1-mapping-table__tip" role="tooltip">Giai đoạn cần tới nhóm này.</span></span></th></tr></thead>
   <tbody>
   <tr><td><b class="cf-root-no">CC1</b>Khai báo</td><td>sổ + mẫu theo Loại việc: ghi «muốn gì»</td><td>G1 · G2</td></tr>
@@ -1230,56 +1234,57 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   </div>
   <div class="kn">
   <table>
-  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Mã câu</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột STT">?</span><span class="t1-mapping-table__tip" role="tooltip">Mã câu = giai đoạn + thứ tự, vd G2.4. Mã ổn định, không đổi khi thêm câu.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Câu hỏi</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Câu hỏi">?</span><span class="t1-mapping-table__tip" role="tooltip">Câu bắt buộc trả lời, giống nhau cho mọi việc ở mọi vị trí.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Trả lời phải là</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Trả lời phải là">?</span><span class="t1-mapping-table__tip" role="tooltip">Dạng trả lời máy kiểm được (mã, số, lựa chọn). Lý do viết thêm được, nhưng không thay các ô bắt buộc.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Ai trả lời</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Ai trả lời">?</span><span class="t1-mapping-table__tip" role="tooltip">Người yêu cầu · Loại việc (khai 1 lần, mọi việc cùng loại kế thừa) · Máy (tự điền khi chạy) · Người làm · Người duyệt.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Nhóm</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Nhóm">?</span><span class="t1-mapping-table__tip" role="tooltip">Nhóm công cụ CC1–CC7 giúp trả lời câu này.</span></span></th></tr></thead>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Bộ câu hỏi chuẩn (43 câu)</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Bộ câu hỏi chuẩn">?</span><span class="t1-mapping-table__tip" role="tooltip">Câu hỏi giống nhau cho mọi việc. Câu trả lời của từng việc ghi ở bảng trả lời CAT-206* (1 dòng = 1 việc).</span></span></caption>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Mã câu</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột STT">?</span><span class="t1-mapping-table__tip" role="tooltip">Mã câu = giai đoạn + thứ tự, vd G2.4. Mã ổn định, không đổi khi thêm câu.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Câu hỏi</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Câu hỏi">?</span><span class="t1-mapping-table__tip" role="tooltip">Câu bắt buộc trả lời, giống nhau cho mọi việc ở mọi vị trí.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Trả lời phải là</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Trả lời phải là">?</span><span class="t1-mapping-table__tip" role="tooltip">Dạng trả lời máy kiểm được (mã, số, lựa chọn). Lý do viết thêm được, nhưng không thay các ô bắt buộc.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Ai trả lời</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Ai trả lời">?</span><span class="t1-mapping-table__tip" role="tooltip">Người yêu cầu · Loại việc (khai 1 lần, mọi việc cùng loại kế thừa) · Máy (tự điền khi chạy) · Người làm · Người duyệt.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Nhóm</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Nhóm">?</span><span class="t1-mapping-table__tip" role="tooltip">Nhóm công cụ CC1–CC7 giúp trả lời câu này.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Master List</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Master List">?</span><span class="t1-mapping-table__tip" role="tooltip">Sổ đọc hoặc lưu câu trả lời. Ô trống = chưa có sổ, cần lập. Dấu * = sổ mới là thiết kế.</span></span></th></tr></thead>
   <tbody>
-  <tr><th colspan="5"><b class="cf-root-no">G1</b>Khai báo · cổng Hợp lệ (Definition of Ready)</th></tr>
-  <tr><td>G1.1</td><td>Ai yêu cầu?</td><td>mã người + mã vai + mã Việc</td><td>Người yêu cầu</td><td>CC1</td></tr>
-  <tr><td>G1.2</td><td>Muốn gì?</td><td>1 động từ + 1 đối tượng</td><td>Người yêu cầu</td><td>CC1</td></tr>
-  <tr><td>G1.3</td><td>Vì sao cần?</td><td>lý do 1 câu</td><td>Người yêu cầu</td><td>CC1</td></tr>
-  <tr><td>G1.4</td><td>Xong khi nào?</td><td>danh sách tiêu chí kiểm chứng được, mỗi tiêu chí có cách kiểm</td><td>Người yêu cầu</td><td>CC1</td></tr>
-  <tr><td>G1.5</td><td>Không được làm hỏng gì?</td><td>danh sách thứ phải giữ nguyên</td><td>Người yêu cầu</td><td>CC1</td></tr>
-  <tr><td>G1.6</td><td>Áp lên những đối tượng nào?</td><td>danh sách mã, hoặc điều kiện chọn (Miền CV)</td><td>Người yêu cầu</td><td>CC1</td></tr>
-  <tr><td>G1.7</td><td>Hạn chót?</td><td>mốc tính + thời lượng</td><td>Người yêu cầu</td><td>CC1</td></tr>
-  <tr><td>G1.8</td><td>Ưu tiên?</td><td>cao · thường · thấp</td><td>Người yêu cầu</td><td>CC1</td></tr>
-  <tr><td>G1.9</td><td>Thuộc Loại việc nào?</td><td>mã Loại việc (MOW) / chưa có</td><td>Máy gợi · người xác nhận</td><td>CC1 · CC2</td></tr>
-  <tr><th colspan="5"><b class="cf-root-no">G2</b>Chuẩn bị · cổng Sẵn sàng</th></tr>
-  <tr><td>G2.1</td><td>Ai làm lượt này?</td><td>mã người hoặc agent cụ thể + vai</td><td>Máy (theo Config)</td><td>CC3</td></tr>
-  <tr><td>G2.2</td><td>Ai duyệt kết quả?</td><td>mã người + vai, khác người làm</td><td>Loại việc</td><td>CC7</td></tr>
-  <tr><td>G2.3</td><td>Ai được báo?</td><td>mã vai</td><td>Loại việc</td><td>CC7</td></tr>
-  <tr><td>G2.4</td><td>Cần đầu vào gì?</td><td>danh sách mã Field</td><td>Loại việc</td><td>CC1</td></tr>
-  <tr><td>G2.5</td><td>Đọc ở đâu, bản ghi nào?</td><td>mã Master list + điều kiện chọn bản ghi</td><td>Loại việc</td><td>CC1</td></tr>
-  <tr><td>G2.6</td><td>Dữ liệu lấy ở bản nào, lúc nào?</td><td>phiên bản hoặc thời điểm chụp</td><td>Máy</td><td>CC5</td></tr>
-  <tr><td>G2.7</td><td>Đầu vào hợp lệ khi nào?</td><td>mã Điều luật</td><td>Loại việc</td><td>CC2</td></tr>
-  <tr><td>G2.8</td><td>Cần việc nào xong trước?</td><td>mã Hồ sơ + chờ tất cả / một trong + việc trước hỏng thì sao</td><td>Loại việc</td><td>CC3</td></tr>
-  <tr><td>G2.9</td><td>Có quyền làm đúng phạm vi này?</td><td>mã quyền + phạm vi + quyết định còn hiệu lực</td><td>Máy kiểm</td><td>CC2 · CC7</td></tr>
-  <tr><td>G2.10</td><td>Dùng phiên bản quy trình nào?</td><td>số phiên bản, ghim lại</td><td>Máy</td><td>CC7</td></tr>
-  <tr><td>G2.11</td><td>Dùng công cụ, quy trình nào?</td><td>mã MOW / DOT / Tool</td><td>Loại việc</td><td>CC4</td></tr>
-  <tr><th colspan="5"><b class="cf-root-no">G3</b>Thực hiện</th></tr>
-  <tr><td>G3.1</td><td>Làm theo bước nào?</td><td>mã MOW + bước</td><td>Loại việc</td><td>CC4</td></tr>
-  <tr><td>G3.2</td><td>Người hay máy làm bước này?</td><td>😊 / 🤖</td><td>Loại việc</td><td>CC4</td></tr>
-  <tr><td>G3.3</td><td>Chạy song song tối đa?</td><td>số</td><td>Loại việc</td><td>CC3</td></tr>
-  <tr><td>G3.4</td><td>Giữ việc thế nào?</td><td>thời hạn giữ + số thế hệ; lượt cũ không được ghi đè</td><td>Máy</td><td>CC3</td></tr>
-  <tr><td>G3.5</td><td>Chạy lại có tạo trùng?</td><td>mã thao tác chống trùng</td><td>Loại việc</td><td>CC4</td></tr>
-  <tr><td>G3.6</td><td>Tạo, sửa đúng đối tượng nào?</td><td>mã đối tượng cụ thể + phạm vi</td><td>Máy</td><td>CC4</td></tr>
-  <tr><td>G3.7</td><td>Ghi đầu ra ở đâu?</td><td>mã Master list + mã Field</td><td>Loại việc</td><td>CC1</td></tr>
-  <tr><td>G3.8</td><td>Gửi ra ngoài gì, đi đâu?</td><td>nội dung + đích + mã thao tác; mất phản hồi ⇒ Chưa biết, đối soát</td><td>Loại việc</td><td>CC4 · CC6</td></tr>
-  <tr><td>G3.9</td><td>Đang thế nào?</td><td>Hợp lệ · Sẵn sàng · Xong: Đúng / Sai / Chưa biết + lý do</td><td>Máy</td><td>CC5</td></tr>
-  <tr><td>G3.10</td><td>Chờ người thì sao?</td><td>lưu trạng thái + người giữ việc + hạn chờ</td><td>Loại việc</td><td>CC3</td></tr>
-  <tr><td>G3.11</td><td>Bị huỷ giữa chừng thì sao?</td><td>điểm dừng an toàn + bước bù</td><td>Loại việc</td><td>CC6</td></tr>
-  <tr><th colspan="5"><b class="cf-root-no">G4</b>Nghiệm thu · cổng Xong (Definition of Done)</th></tr>
-  <tr><td>G4.1</td><td>Từng tiêu chí ở câu G1.4 đạt chưa?</td><td>mỗi tiêu chí Đúng / Sai / Chưa biết; 1 tiêu chí bắt buộc Sai ⇒ không Xong</td><td>Máy + người duyệt</td><td>CC2</td></tr>
-  <tr><td>G4.2</td><td>Có làm hỏng thứ phải giữ (câu G1.5)?</td><td>Đúng / Sai</td><td>Máy</td><td>CC2</td></tr>
-  <tr><td>G4.3</td><td>Số lượng có khớp?</td><td>lệch = 0</td><td>Máy</td><td>CC5</td></tr>
-  <tr><td>G4.4</td><td>Ai kiểm?</td><td>🤖 mã DOT / 😊 mã người, khác người làm</td><td>Loại việc</td><td>CC2</td></tr>
-  <tr><td>G4.5</td><td>Bằng chứng ở đâu?</td><td>mã bản ghi hoặc tệp cụ thể + phiên bản + lượt + người + lúc nào</td><td>Máy</td><td>CC5</td></tr>
-  <tr><td>G4.6</td><td>Kết quả lượt này?</td><td>đạt · đạt một phần · lỗi · chưa biết · huỷ · từ chối</td><td>Máy</td><td>CC5</td></tr>
-  <tr><td>G4.7</td><td>Chưa đạt thì sao?</td><td>vào Xử lý lỗi: thử lại nếu an toàn · đối soát nếu chưa biết · bù nếu đã tác động</td><td>Máy</td><td>CC6</td></tr>
-  <tr><th colspan="5"><b class="cf-root-no">G5</b>Bàn giao · cổng Đã nhận</th></tr>
-  <tr><td>G5.1</td><td>Việc tiếp theo, ai nhận?</td><td>mã Việc + mã người; người nhận xác nhận đã nhận</td><td>Loại việc</td><td>CC3</td></tr>
-  <tr><td>G5.2</td><td>Cập nhật tổng ở đâu?</td><td>tính từ nguồn, không ghi tay 2 nơi</td><td>Loại việc</td><td>CC5</td></tr>
-  <tr><td>G5.3</td><td>Ai được báo kết quả?</td><td>mã vai</td><td>Loại việc</td><td>CC7</td></tr>
-  <tr><td>G5.4</td><td>Có luật mới cần đề xuất?</td><td>mã đề xuất; có hiệu lực khi được duyệt + phiên bản</td><td>Người làm</td><td>CC7</td></tr>
-  <tr><td>G5.5</td><td>Có Vấn đề cần ghi?</td><td>mã Vấn đề / không</td><td>Người làm</td><td>CC6</td></tr>
+  <tr><th colspan="6"><b class="cf-root-no">G1</b>Khai báo · cổng Hợp lệ (Definition of Ready)</th></tr>
+  <tr><td>G1.1</td><td>Ai yêu cầu?</td><td>mã người + mã vai + mã Việc</td><td>Người yêu cầu</td><td>CC1</td><td>CAT-213* · CAT-214* · CAT-227</td></tr>
+  <tr><td>G1.2</td><td>Muốn gì?</td><td>1 động từ + 1 đối tượng</td><td>Người yêu cầu</td><td>CC1</td><td>CAT-227</td></tr>
+  <tr><td>G1.3</td><td>Vì sao cần?</td><td>lý do 1 câu</td><td>Người yêu cầu</td><td>CC1</td><td>CAT-227</td></tr>
+  <tr><td>G1.4</td><td>Xong khi nào?</td><td>danh sách tiêu chí kiểm chứng được, mỗi tiêu chí có cách kiểm</td><td>Người yêu cầu</td><td>CC1</td><td>CAT-220*</td></tr>
+  <tr><td>G1.5</td><td>Không được làm hỏng gì?</td><td>danh sách thứ phải giữ nguyên</td><td>Người yêu cầu</td><td>CC1</td><td></td></tr>
+  <tr><td>G1.6</td><td>Áp lên những đối tượng nào?</td><td>danh sách mã, hoặc điều kiện chọn (Miền CV)</td><td>Người yêu cầu</td><td>CC1</td><td></td></tr>
+  <tr><td>G1.7</td><td>Hạn chót?</td><td>mốc tính + thời lượng</td><td>Người yêu cầu</td><td>CC1</td><td>CAT-227</td></tr>
+  <tr><td>G1.8</td><td>Ưu tiên?</td><td>cao · thường · thấp</td><td>Người yêu cầu</td><td>CC1</td><td>CAT-227 · CAT-201*</td></tr>
+  <tr><td>G1.9</td><td>Thuộc Loại việc nào?</td><td>mã Loại việc (MOW) / chưa có</td><td>Máy gợi · người xác nhận</td><td>CC1 · CC2</td><td>ML-DEF-004</td></tr>
+  <tr><th colspan="6"><b class="cf-root-no">G2</b>Chuẩn bị · cổng Sẵn sàng</th></tr>
+  <tr><td>G2.1</td><td>Ai làm lượt này?</td><td>mã người hoặc agent cụ thể + vai</td><td>Máy (theo Config)</td><td>CC3</td><td>CAT-248* · CAT-213* · CAT-010</td></tr>
+  <tr><td>G2.2</td><td>Ai duyệt kết quả?</td><td>mã người + vai, khác người làm</td><td>Loại việc</td><td>CC7</td><td>CAT-248* · CAT-214*</td></tr>
+  <tr><td>G2.3</td><td>Ai được báo?</td><td>mã vai</td><td>Loại việc</td><td>CC7</td><td>CAT-248* · CAT-214*</td></tr>
+  <tr><td>G2.4</td><td>Cần đầu vào gì?</td><td>danh sách mã Field</td><td>Loại việc</td><td>CC1</td><td>CAT-206* · ML-DEF-008</td></tr>
+  <tr><td>G2.5</td><td>Đọc ở đâu, bản ghi nào?</td><td>mã Master list + điều kiện chọn bản ghi</td><td>Loại việc</td><td>CC1</td><td>CAT-206* · CAT-000</td></tr>
+  <tr><td>G2.6</td><td>Dữ liệu lấy ở bản nào, lúc nào?</td><td>phiên bản hoặc thời điểm chụp</td><td>Máy</td><td>CC5</td><td></td></tr>
+  <tr><td>G2.7</td><td>Đầu vào hợp lệ khi nào?</td><td>mã Điều luật</td><td>Loại việc</td><td>CC2</td><td>CAT-140</td></tr>
+  <tr><td>G2.8</td><td>Cần việc nào xong trước?</td><td>mã Hồ sơ + chờ tất cả / một trong + việc trước hỏng thì sao</td><td>Loại việc</td><td>CC3</td><td>CAT-228*</td></tr>
+  <tr><td>G2.9</td><td>Có quyền làm đúng phạm vi này?</td><td>mã quyền + phạm vi + quyết định còn hiệu lực</td><td>Máy kiểm</td><td>CC2 · CC7</td><td>CAT-240* · CAT-215*</td></tr>
+  <tr><td>G2.10</td><td>Dùng phiên bản quy trình nào?</td><td>số phiên bản, ghim lại</td><td>Máy</td><td>CC7</td><td>CAT-225*</td></tr>
+  <tr><td>G2.11</td><td>Dùng công cụ, quy trình nào?</td><td>mã MOW / DOT / Tool</td><td>Loại việc</td><td>CC4</td><td>ML-DEF-004 · CAT-006 · ML-DEF-023</td></tr>
+  <tr><th colspan="6"><b class="cf-root-no">G3</b>Thực hiện</th></tr>
+  <tr><td>G3.1</td><td>Làm theo bước nào?</td><td>mã MOW + bước</td><td>Loại việc</td><td>CC4</td><td>ML-DEF-004</td></tr>
+  <tr><td>G3.2</td><td>Người hay máy làm bước này?</td><td>😊 / 🤖</td><td>Loại việc</td><td>CC4</td><td>CAT-248*</td></tr>
+  <tr><td>G3.3</td><td>Chạy song song tối đa?</td><td>số</td><td>Loại việc</td><td>CC3</td><td>CAT-248*</td></tr>
+  <tr><td>G3.4</td><td>Giữ việc thế nào?</td><td>thời hạn giữ + số thế hệ; lượt cũ không được ghi đè</td><td>Máy</td><td>CC3</td><td>CAT-230*</td></tr>
+  <tr><td>G3.5</td><td>Chạy lại có tạo trùng?</td><td>mã thao tác chống trùng</td><td>Loại việc</td><td>CC4</td><td>CAT-238*</td></tr>
+  <tr><td>G3.6</td><td>Tạo, sửa đúng đối tượng nào?</td><td>mã đối tượng cụ thể + phạm vi</td><td>Máy</td><td>CC4</td><td>CAT-228*</td></tr>
+  <tr><td>G3.7</td><td>Ghi đầu ra ở đâu?</td><td>mã Master list + mã Field</td><td>Loại việc</td><td>CC1</td><td>CAT-206*</td></tr>
+  <tr><td>G3.8</td><td>Gửi ra ngoài gì, đi đâu?</td><td>nội dung + đích + mã thao tác; mất phản hồi ⇒ Chưa biết, đối soát</td><td>Loại việc</td><td>CC4 · CC6</td><td>CAT-238* · CAT-241*</td></tr>
+  <tr><td>G3.9</td><td>Đang thế nào?</td><td>Hợp lệ · Sẵn sàng · Xong: Đúng / Sai / Chưa biết + lý do</td><td>Máy</td><td>CC5</td><td>CAT-228*</td></tr>
+  <tr><td>G3.10</td><td>Chờ người thì sao?</td><td>lưu trạng thái + người giữ việc + hạn chờ</td><td>Loại việc</td><td>CC3</td><td>CAT-231*</td></tr>
+  <tr><td>G3.11</td><td>Bị huỷ giữa chừng thì sao?</td><td>điểm dừng an toàn + bước bù</td><td>Loại việc</td><td>CC6</td><td></td></tr>
+  <tr><th colspan="6"><b class="cf-root-no">G4</b>Nghiệm thu · cổng Xong (Definition of Done)</th></tr>
+  <tr><td>G4.1</td><td>Từng tiêu chí ở câu G1.4 đạt chưa?</td><td>mỗi tiêu chí Đúng / Sai / Chưa biết; 1 tiêu chí bắt buộc Sai ⇒ không Xong</td><td>Máy + người duyệt</td><td>CC2</td><td>CAT-229* · CAT-012</td></tr>
+  <tr><td>G4.2</td><td>Có làm hỏng thứ phải giữ (câu G1.5)?</td><td>Đúng / Sai</td><td>Máy</td><td>CC2</td><td>CAT-229*</td></tr>
+  <tr><td>G4.3</td><td>Số lượng có khớp?</td><td>lệch = 0</td><td>Máy</td><td>CC5</td><td>CAT-142</td></tr>
+  <tr><td>G4.4</td><td>Ai kiểm?</td><td>🤖 mã DOT / 😊 mã người, khác người làm</td><td>Loại việc</td><td>CC2</td><td>CAT-012 · CAT-006</td></tr>
+  <tr><td>G4.5</td><td>Bằng chứng ở đâu?</td><td>mã bản ghi hoặc tệp cụ thể + phiên bản + lượt + người + lúc nào</td><td>Máy</td><td>CC5</td><td>ML-DEF-026 · CAT-239*</td></tr>
+  <tr><td>G4.6</td><td>Kết quả lượt này?</td><td>đạt · đạt một phần · lỗi · chưa biết · huỷ · từ chối</td><td>Máy</td><td>CC5</td><td>CAT-228*</td></tr>
+  <tr><td>G4.7</td><td>Chưa đạt thì sao?</td><td>vào Xử lý lỗi: thử lại nếu an toàn · đối soát nếu chưa biết · bù nếu đã tác động</td><td>Máy</td><td>CC6</td><td>CAT-017 · CAT-230*</td></tr>
+  <tr><th colspan="6"><b class="cf-root-no">G5</b>Bàn giao · cổng Đã nhận</th></tr>
+  <tr><td>G5.1</td><td>Việc tiếp theo, ai nhận?</td><td>mã Việc + mã người; người nhận xác nhận đã nhận</td><td>Loại việc</td><td>CC3</td><td>CAT-227 · CAT-231*</td></tr>
+  <tr><td>G5.2</td><td>Cập nhật tổng ở đâu?</td><td>tính từ nguồn, không ghi tay 2 nơi</td><td>Loại việc</td><td>CC5</td><td>CAT-142</td></tr>
+  <tr><td>G5.3</td><td>Ai được báo kết quả?</td><td>mã vai</td><td>Loại việc</td><td>CC7</td><td>CAT-223* · CAT-214*</td></tr>
+  <tr><td>G5.4</td><td>Có luật mới cần đề xuất?</td><td>mã đề xuất; có hiệu lực khi được duyệt + phiên bản</td><td>Người làm</td><td>CC7</td><td>CAT-140</td></tr>
+  <tr><td>G5.5</td><td>Có Vấn đề cần ghi?</td><td>mã Vấn đề / không</td><td>Người làm</td><td>CC6</td><td>CAT-069</td></tr>
   </tbody></table>
   </div>
 </details>
@@ -1292,6 +1297,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <p class="cf-derived-note">Sổ: CAT-140 (bảng PG normative_registry, đã có 2 Hiến pháp + 45 luật, 272 liên kết Điều ↔ DOT kiểm). Nhóm = luật cha. Lên collection chỉ thêm 2 trường: Khi nào · Làm gì. Luật đưa vào dần khi va chạm. Bảng dưới là mẫu.</p>
   <div class="kn">
   <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Điều luật (mẫu)</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Điều luật">?</span><span class="t1-mapping-table__tip" role="tooltip">Mẫu cách ghi Điều luật vào sổ luật CAT-140. Luật thật đưa vào dần khi va chạm.</span></span></caption>
   <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">STT</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột STT">?</span><span class="t1-mapping-table__tip" role="tooltip">Số thứ tự để đọc và gọi tên nhanh.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Mã</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Mã">?</span><span class="t1-mapping-table__tip" role="tooltip">Mã máy cấp theo sổ luật: NRM-LAW-số luật.khoản. Chưa vào sổ thì ghi «máy cấp».</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Tên</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Tên">?</span><span class="t1-mapping-table__tip" role="tooltip">Gọi ngắn 1–2 chữ, nói đúng bản chất.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Khi nào</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Khi nào">?</span><span class="t1-mapping-table__tip" role="tooltip">Tình huống làm luật này có hiệu lực (vế NẾU).</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Làm gì</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Làm gì">?</span><span class="t1-mapping-table__tip" role="tooltip">Việc bắt buộc phải làm khi gặp tình huống đó (vế THÌ).</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Kiểm bằng</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Kiểm bằng">?</span><span class="t1-mapping-table__tip" role="tooltip">🤖 máy tự kiểm (DOT) hoặc 😊 người kiểm. Vi phạm thì sang ô Xử lý bằng.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Xử lý bằng</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Xử lý bằng">?</span><span class="t1-mapping-table__tip" role="tooltip">Quy trình (MOW) được gọi khi vi phạm. Chưa có MOW ⇒ vào Xử lý lỗi (CT-000.4).</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Hiệu lực</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Hiệu lực">?</span><span class="t1-mapping-table__tip" role="tooltip">✅ đang áp · 🟡 nháp · ⚪ đã bỏ.</span></span></th></tr></thead>
   <tbody>
   <tr><th colspan="8">Luật Registry · NRM-LAW-02 (có sẵn)</th></tr>
@@ -1326,6 +1332,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <p class="cf-derived-note"><b>Vòng đời 1 sự cố:</b> 🔴 Mới → 🟠 Xếp hàng → 🟡 Đang xử lý → ✅ Xong · 🔁 Thử lại · ⚫ Kẹt → 🟣 Vấn đề → 🔵 Có quy trình → 🟠 Xếp lại. Đáy cuối cùng là 😊 Owner: không lỗi nào rơi khỏi vòng. Định tuyến = ô Xử lý bằng của Điều luật (CT-000.2), không lập bảng mới.</p>
   <div class="kn">
   <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Bước xử lý lỗi (X1–X9)</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Bước xử lý lỗi">?</span><span class="t1-mapping-table__tip" role="tooltip">9 bước mọi sự cố đi qua; mỗi bước ghi rõ kết quả nào thì đi đâu.</span></span></caption>
   <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Bước</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Bước">?</span><span class="t1-mapping-table__tip" role="tooltip">Bước X1–X9 của vòng xử lý (X = Xử lý). Mọi sự cố đều đi đúng các bước này.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Làm gì</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Làm gì">?</span><span class="t1-mapping-table__tip" role="tooltip">Việc cụ thể của bước, ai cũng làm giống nhau.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Kết quả → đi đâu</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Kết quả">?</span><span class="t1-mapping-table__tip" role="tooltip">Mọi kết quả có thể xảy ra và bước tiếp theo. Không nhánh nào kết thúc bằng «dừng, báo».</span></span></th></tr></thead>
   <tbody>
   <tr><td><b class="cf-root-no">X1</b></td><td>Ghi sự cố (câu nào · thiếu hay sai · loài · đối tượng · hồ sơ gốc)</td><td>trùng ⇒ chỉ tăng số lần · mới ⇒ X2</td></tr>
@@ -1341,6 +1348,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   </div>
   <div class="kn">
   <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Yêu cầu cho PG</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Yêu cầu cho PG">?</span><span class="t1-mapping-table__tip" role="tooltip">Điều PG phải đảm bảo khi lắp vòng xử lý lỗi. Lắp đặt bàn sau, làm 1 lượt.</span></span></caption>
   <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">STT</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột STT">?</span><span class="t1-mapping-table__tip" role="tooltip">Số yêu cầu.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Yêu cầu cho PG</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Yêu cầu cho PG">?</span><span class="t1-mapping-table__tip" role="tooltip">Điều PG phải đảm bảo khi lắp vòng này. Lắp đặt bàn sau, làm 1 lượt.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Vì sao</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Vì sao">?</span><span class="t1-mapping-table__tip" role="tooltip">Hậu quả nếu thiếu yêu cầu này.</span></span></th></tr></thead>
   <tbody>
   <tr><td>1</td><td>ghi sự cố và xếp hàng trong cùng 1 giao dịch</td><td>không mất lỗi nào</td></tr>
