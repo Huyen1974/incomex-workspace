@@ -11,7 +11,7 @@ Mã thoát: 0 đạt · 1 có lỗi xác định (có vết chạy), ca trượt
           · 2 sai khuôn, chưa duyệt xong (INCONCLUSIVE), máy kiểm lỗi (CHECKER_ERROR) hoặc chỉ xét một phần kịch bản.
           Mã 2 KHÔNG được coi là đạt.
 Kết quả đột biến: KILLED (bắt được, có bằng chứng) · SURVIVED · INCONCLUSIVE · CHECKER_ERROR; chỉ KILLED được tính là bắt.
-Chạy: python3 work/mow-mot-moit-mout/kiem-ct000-4.py [--dot-bien] [--kb TÊN,TÊN] [--json ĐƯỜNG_DẪN] [--trang ĐƯỜNG_DẪN]
+Chạy: python3 work/mow-mot-moit-mout/kiem-ct000-4.py [--dot-bien] [--kb TÊN,TÊN | --kb -] [--gioi N] [--json ĐƯỜNG_DẪN] [--trang ĐƯỜNG_DẪN]
 Master Công cụ ML-DEF-023 · mã python:kiem-ct000-4 (work/tools-quy-trinh/view.html). Phản biện độc lập: python:ct000-audit.
 """
 import re, html, sys, ast, unicodedata, collections, time, json
@@ -354,8 +354,11 @@ def vet(nodes, cha, u, them=None):
     if them: out.append(them)
     return 'Mới · ' + ' · '.join(out)
 
-def kham(S, init, gioi=400000, nhanh=False):
+GIOI = 400000   # --gioi N: trần trạng thái mỗi kịch bản; vượt trần = INCONCLUSIVE (không phải đạt)
+
+def kham(S, init, gioi=None, nhanh=False):
     import array
+    gioi = gioi or GIOI
     E = []; ids = {}; nodes = []; cha = {}; da_bao = set()
     ed = (array.array('i'), array.array('i'), array.array('b'))
     k0 = dong(init); ids[k0] = 0; nodes.append(k0)
@@ -664,8 +667,9 @@ def kiem_cau_truc(h):
     return E, da
 
 def main():
-    global KB_CHON
+    global KB_CHON, GIOI
     a = sys.argv[1:]
+    if '--gioi' in a: GIOI = int(a[a.index('--gioi') + 1])
     path = a[a.index('--trang') + 1] if '--trang' in a else TRANG
     if '--kb' in a: KB_CHON = set(a[a.index('--kb') + 1].split(','))
     t0 = time.time()
