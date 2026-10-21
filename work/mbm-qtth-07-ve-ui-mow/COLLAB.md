@@ -93,6 +93,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - Đọc PG: `query_pg` database `directus` (chỉ đọc). `directus_read` đang lỗi phân giải tên miền.
 - Neo trang: `formula-ct-000-1` … `formula-ct-000-4` · `formula-ct-001` … · `kn-cat-000-5`.
 - Mỗi lượt sửa: cập nhật Bảng điều khiển + Nhật ký (P tăng dần) trong COLLAB này.
+- Mọi mục chèn vào §0 dùng cấp `###` trở xuống. Cấp `##` cắt §0 ⇒ trang Task mất Bảng điều khiển (bộ đọc `hvu-b2/sync.py` lấy §0 tới dòng `##` kế). Lỗi P67, sửa P68.
 
 #### H8. Nợ đang treo — không làm xen
 - VD-029 ghi CAT-000.5 vào PG (2 cột Quản lý tại · Lớp; ~65 loài mới; 4 bảng vô chủ; mã mồ côi audit_log; 6 loài lệch tiền tố).
