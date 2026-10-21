@@ -195,9 +195,10 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 
 | CT | Nickname | Công thức |
 |---|---|---|
-| CT-000.1 | **Điều luật** | `Khi nào + Làm gì + Kiểm bằng ⇒ Điều luật` · công thức gốc; loài SPE-LAW, sổ CAT-140 (normative_registry); mã NRM-LAW-số.khoản |
-| CT-000.1.1 | **Info contract law** | `Trước (5) + Trong (2) + Sau (3) ⇒ Info contract · Thiếu X ⇒ MOW Tạo mới X · Sai X ⇒ MOW Sửa X` · 10 câu bắt buộc cho mọi việc ở mọi vị trí: 1 Ai làm · 2 Ai duyệt/báo · 3 Khi nào · 4 Vào gì (mã Field) · 5 Đọc ở (Master list + Field) · 6 Làm gì (1 động từ + 1 đối tượng) · 7 Ghi ở (Master list + Field) · 8 Xong khi (đếm được) · 9 Bằng chứng · 10 Chưa xong thì (chạy lại · hết giờ · báo ai). MOW chưa có ⇒ MMOW tạo; mỗi lần ghi Vấn đề CAT-069; khai báo ở CAT-206* |
-| CT-000.2 | **Cấp ghép** | `Cấp ghép = cấp ghép lớn nhất của thành tố + 1` · công thức gốc (đo mọi công thức); Cấp ghép 1 (~ nguyên tử) ⇒ 2 ⇒ 3 ⇒ 4 |
+| CT-000.1 | **Bộ câu hỏi chuẩn** (Info contract law) | `Trước + Trong + Sau ⇒ Xong` · mọi việc lớn nhỏ trả lời đủ 43 câu (Trước 1–18: mục tiêu · người · thời điểm · đầu vào · phụ thuộc và quyền; Trong 19–30: cách làm · đầu ra · theo dõi; Sau 31–43: kiểm · bằng chứng · chưa xong · bàn giao); mỗi câu: Đạt ⇒ tiếp · Thiếu X ⇒ MOW Tạo mới X · Sai X ⇒ MOW Sửa X · gọi được ⇒ kiểm lại · không được ⇒ CT-000.4; trả lời ở CAT-206*; JEV chấm. Danh sách 43 câu: trang Công thức, thẻ CT-000.1, Chi tiết |
+| CT-000.2 | **Điều luật** | `Khi nào + Làm gì + Kiểm bằng + Xử lý bằng ⇒ Điều luật` · công thức gốc; Xử lý bằng = MOW được gọi khi vi phạm (định tuyến); loài SPE-LAW, sổ CAT-140 (normative_registry); mã NRM-LAW-số.khoản |
+| CT-000.3 | **Cấp ghép** | `Cấp ghép = cấp ghép lớn nhất của thành tố + 1` · công thức gốc (đo mọi công thức); Cấp ghép 1 (~ nguyên tử) ⇒ 2 ⇒ 3 ⇒ 4 |
+| CT-000.4 | **Xử lý lỗi** | `Sự cố ⇒ Hàng đợi ⇒ Hồ sơ ⇒ Xong · Kẹt ⇒ Vấn đề ⇒ MMOW ⇒ Xếp lại · Không được ⇒ Owner` · Sự cố = 1 lần sai/thiếu (ITIL Incident, CAT-017); Vấn đề = gốc rễ thiếu cách xử lý (ITIL Problem, CAT-069); Hàng đợi CAT-230*; Hồ sơ CAT-228*; định tuyến = ô Xử lý bằng của Điều luật; vòng đời 🔴 Mới → 🟠 Xếp hàng → 🟡 Đang xử lý → ✅ Xong · 🔁 Thử lại · ⚫ Kẹt → 🟣 Vấn đề → 🔵 Có quy trình → 🟠 Xếp lại; 10 yêu cầu PG trong Chi tiết thẻ |
 | CT-001 | **Bước** | `Tìm → { Dùng | Tạo mới | Sửa | Vô hiệu }` |
 | CT-002 | **Tầng** | `Field => { MOIT | MOUT } => MOT => MOW` · T3→T7 chỉ bối cảnh, thu gọn |
 | CT-002.1 | **Chuỗi** | `CH-001 · CH-002 · CH-003` — ba icon; tên hiện khi hover/focus |
