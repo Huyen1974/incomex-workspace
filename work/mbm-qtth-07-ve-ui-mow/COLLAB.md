@@ -5,7 +5,9 @@ Tên việc: MMOW 07 — vẽ UI cho các MOW trong Master MOW, làm bằng côn
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 19/10/2026 18:28: MMOW 07 chỉ Vẽ UI (thay bản 18/10 21:25 gồm 3 mục tiêu; Chốt Info contract → MMOW 08, Config → MMOW 09).
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-21 10:25 +07 · Claude · P65
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-21 11:10 +07 · Claude · P66
+
+> **⏳ Chờ hội đồng rà rồi Owner duyệt từng dòng:** CT-000.1 Bộ câu hỏi chuẩn v2 trên trang Công thức (thẻ CT-000.1, Chi tiết): ① Công thức · ② 5 giai đoạn có cổng · ③ 7 nhóm công cụ · ④ 43 câu. Đã sửa theo phản biện GPT Pro (3 loại đạt → 3 cổng; 4 trạng thái trả lời; người yêu cầu có định danh; tiêu chí kiểm chứng được + thứ phải giữ; mốc hạn; kiểu phụ thuộc; giữ việc có thế hệ; gửi ngoài mất phản hồi ⇒ Chưa biết, đối soát; kết quả 6 loại; huỷ giữa chừng; xác nhận đã nhận; tổng tính từ nguồn; luật mới phải duyệt; ghi kết quả lỗi luôn được phép). GPT Pro rà lại bản v2 bằng 8 tình huống thử của chính GPT Pro, ghi ý kiến ngay dưới đoạn này. Chưa sửa CT-000.4 theo 6 điểm của GPT Pro (phân loại lỗi, tái phát, giới hạn theo vấn đề gốc, chờ Owner có hạn, bộ xử lý lỗi tự hỏng): làm sau khi hội đồng chốt v2.
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ⬜ · ➡ · tên việc (nếu mục tiêu đổi).
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
@@ -97,6 +99,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P66 · 21/10 10:39–10:46 · «Đây là ý kiến đầu tiên của GPT pro… phải tìm ra 1 công thức vạn năng… vẽ cho tôi bức tranh về các nhóm công cụ… không phải việc gì cũng cần trả lời hết…» — «…ngay từ ông yêu cầu cũng phải chuẩn… khai báo chưa chuẩn thì dừng ở chỗ khai báo… đầu ra trước mắt là 1 Công thức 2 Chia giai đoạn 3 Danh sách các công cụ cần… cả hội đồng thống nhất trước khi tôi duyệt… Bạn tiếp tục điều chỉnh bộ câu hỏi chuẩn» → CT-000.1 v2.
 - P65 · 21/10 10:02 · «Thiếu => tạo mới chưa đúng => logic gốc mà bị sai… Nguyên tắc là thiếu => đưa vào hàng đợi + quản lý vòng đời… work Flow chúng ta phải đi bộ từng bước… đây là làm cơ mà?» → CT-000.1 không đạt ⇒ hàng đợi; CT-000.4 = 9 bước.
 - P64 · 21/10 09:29–09:51 · «…sai thiếu ở bất cứ khâu nào… phải ghi vào 1 nơi để quản lý hàng đợi… gọi các quy trình liên quan… không có thì quay lại hàng đợi…» — «PG bạn không phải kiểm tra… thiết kế từ yêu cầu…» — «…cần đẩy các số thứ tự lên để dành cho Công thức đầu tiên: BỘ CÂU HỎI CHUẨN CT-000.1… Mọi việc dù lớn nhỏ chỉ cần 1 bộ câu hỏi chuẩn… trước, trong, sau… không quá 50 câu… nếu thiếu thì làm gì… nếu được thì sao? Nếu không được thì sao?… chuẩn ngành IT…» → CT-000.1…000.4.
 - P63 · 20/10 20:15 – 21/10 08:08 · «…Không tạo ra các concept mới. Dùng lại…» — «…sổ điều luật… Không có số quản lý…» — «…Điều luật… STT… nhóm nằm ngang… ‘?’… mã cũ còn trống thì dùng…» — «…Ai làm? Đầu vào cần gì? Thế nào là hoàn thành?… tư duy theo chuẩn ngành IT…» — «…Infor contract law… giống như skill để cả agent code tự kiểm tra…» — «…Thiếu thì sao? Sai thì sao?… Mục tiêu là xong việc chứ không phải là dừng… gọi 1 trong những quy trình có sẵn… Luật đâu? Bảng nào? Công thức gốc gì nữa?» → CT-000.1 + CT-000.1.1.
