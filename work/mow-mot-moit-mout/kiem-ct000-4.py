@@ -616,7 +616,8 @@ def dot_bien(T):
     sua(G, lambda r: r[0] == 'gia hạn', 4, ' and lần_gia_hạn < GH', '', 'gia hạn không trần')
     sua(G, lambda r: r[0] == 'làm thao tác', 4, 'tác_nhân == thế_hệ and not hết_hạn_giữ', 'True', 'gửi không kiểm thế hệ')
     sua(G, lambda r: r[0] == 'đối soát', 4, 'đã_làm == 0 and đang_bay == 0 and', 'đã_làm == 0 and', 'coi «chưa thấy» là «chưa làm»')
-    sua(G, lambda r: r[0] == 'chấm' and r[1] == 'Chấm G4', 4, '(not q1 and not miễn_q1)', '(not q1)', 'G4 bỏ qua miễn')
+    sua(G, lambda r: r[0] == 'chấm' and r[1] == 'Chấm G4', 4, '(q1 is False and not miễn_q1)', '(q1 is False)', 'G4 bỏ qua miễn')
+    sua(G, lambda r: r[0] == 'chấm' and r[1] == 'Chấm G4', 4, 'or q2 is False) and', 'or not q2) and', 'thiếu G4 coi là sai (hết vòng)')
     sua(G, lambda r: r[0] == 'chấm' and r[1] == 'Chấm G1', 4, ' and not miễn_g1', '', 'G1 bỏ qua miễn')
     sua(G, lambda r: r[0] == 'kết quả' and r[1] == 'Đang chạy', 4, ' and chống_trùng', '', 'coi mọi lỗi tạm là an toàn')
     sua(G, lambda r: r[0] == 'bù', 4, ' and bù_bay == 0 and', ' and', 'đóng huỷ khi lệnh bù còn bay')
@@ -707,7 +708,7 @@ def main():
     print('MÃ THOÁT:', ma, {0: 'ĐẠT trong phạm vi đã khai', 1: 'CÒN LỖI', 2: 'CHƯA KẾT LUẬN (không phải đạt)'}[ma])
     if '--json' in a:
         with open(a[a.index('--json') + 1], 'w', encoding='utf-8') as f:
-            json.dump({'tráng': path, 'mã_thoát': ma, 'kịch_bản_xét': xet, 'kịch_bản_bỏ': bo, 'số_ca': len(CA),
+            json.dump({'trang': path, 'mã_thoát': ma, 'kịch_bản_xét': xet, 'kịch_bản_bỏ': bo, 'số_ca': len(CA),
                        'lỗi': [list(map(str, e)) for e in loi], 'chưa_kết_luận': [list(map(str, e)) for e in chua],
                        'đột_biến': {k: v for k, v in kq.items()}, 'giây': round(time.time() - t0)}, f, ensure_ascii=False, indent=1)
     sys.exit(ma)
