@@ -7,16 +7,20 @@
   L  sống: L1 không kẹt · L2 không vòng máy · L3 không mồ côi · L4 Owner luôn tới được Kết thúc
   C  ca thử: nhập dữ kiện, máy tự tính giá trị (không đưa sẵn nhãn)
   D  đột biến (--dot-bien): tự làm hỏng bảng từng chỗ; bản hỏng nào không bị bắt = máy kiểm còn hở
-Mã thoát: 0 đạt · 1 có lỗi, ca trượt hoặc đột biến sống · 2 thiếu bảng hoặc sai khuôn.
-Chạy: python3 work/mow-mot-moit-mout/kiem-ct000-4.py [--dot-bien] [--trang ĐƯỜNG_DẪN]
+Mã thoát: 0 đạt · 1 có lỗi xác định (có vết chạy), ca trượt hoặc đột biến sống
+          · 2 sai khuôn, chưa duyệt xong (INCONCLUSIVE), máy kiểm lỗi (CHECKER_ERROR) hoặc chỉ xét một phần kịch bản.
+          Mã 2 KHÔNG được coi là đạt.
+Kết quả đột biến: KILLED (bắt được, có bằng chứng) · SURVIVED · INCONCLUSIVE · CHECKER_ERROR; chỉ KILLED được tính là bắt.
+Chạy: python3 work/mow-mot-moit-mout/kiem-ct000-4.py [--dot-bien] [--kb TÊN,TÊN] [--json ĐƯỜNG_DẪN] [--trang ĐƯỜNG_DẪN]
+Master Công cụ ML-DEF-023 · mã python:kiem-ct000-4 (work/tools-quy-trinh/view.html). Phản biện độc lập: python:ct000-audit.
 """
-import re, html, sys, ast, unicodedata, collections, time
+import re, html, sys, ast, unicodedata, collections, time, json
 
 def nf(s): return unicodedata.normalize('NFKC', s)
 
 TRANG = 'work/mow-mot-moit-mout/ban-duyet.html'
 COT = {'Bảng Trạng thái': 5, 'Bảng Biến': 3, 'Bảng Giá trị': 5, 'Bảng Thao tác': 4, 'Bảng Bất biến': 3, 'Bảng Chuyển trạng thái': 6}
-BB = ['B%d' % i for i in range(1, 12)]
+BB = ['B%d' % i for i in range(1, 14)]
 CODES = ['OK', 'PARTIAL', 'UNAVAILABLE', 'RESOURCE_EXHAUSTED', 'ABORTED', 'FAILED_PRECONDITION', 'PERMISSION_DENIED', 'INVALID_ARGUMENT', 'UNKNOWN', 'DEADLINE_EXCEEDED', 'HUMAN']
 QUYET = ['thiếu ô', 'làm tiếp', 'giao lại', 'ngoại lệ', 'huỷ', 'rút huỷ']
 CAP = ('làm tiếp', 'giao lại', 'rút huỷ')
@@ -35,7 +39,7 @@ MAC_DINH = dict(lần_nhận=0, M=2, thế_hệ=0, gen_giữ=-1, người_giữ=
                 cờ_huỷ=False, vòng=0, N=2,
                 g1='đủ', miễn_g1=False, g2='đủ', q1=True, q2=True, miễn_q1=False, chờ_duyệt=False,
                 g4_chưa_biết=False, g5='đủ', chờ_nhận=False, còn_tác_động_G5=False,
-                bước='G1', trở_lại='G2')
+                bước='G1', trở_lại='G2', gửi_sau_hạn=False, bù_sai=False)
 AN = {'_gửi_lượt': False, '_ma': -1, '_ma_thử': False, '_owner': 0}
 NOB = {'__builtins__': {}}
 
@@ -197,6 +201,12 @@ def kiem_tinh(S):
             for c in CODES:
                 ns = dict(MAC_DINH); ns.update(st=n, mã=c)
                 if not any(ev_(code, ns) for _, code, _ in f[2]): E.append(('S7 mã chưa có giá trị', n, c))
+    # S9: cổng không được mở bằng nhánh mặc định; dữ liệu thiếu/sai phải có nhánh riêng đứng cuối
+    for (n, ev), f in FORM.items():
+        if n.startswith('Chấm G') and ev == 'chấm':
+            for v, _, ex in f[2]:
+                if v == 'đủ' and ex.strip() == 'True': E.append(('S9 «đủ» là nhánh mặc định: dữ liệu thiếu/sai sẽ lọt cổng', n))
+            if not f[2] or f[2][-1][0] != 'dữ liệu sai': E.append(('S9 thiếu nhánh cuối «dữ liệu sai»', n))
     return list(dict.fromkeys(E))
 
 # ---------- chạy 1 bước ----------
@@ -368,7 +378,7 @@ def kham(S, init, gioi=400000, nhanh=False):
                     if nhanh: return E, None
             ed[0].append(u); ed[1].append(ids[k]); ed[2].append(0 if lop in ('máy', 'giờ') else 1)
         if len(nodes) > gioi:
-            E.append(('quá lớn', len(nodes))); return E, None
+            E.append(('INCONCLUSIVE quá trần trạng thái', len(nodes))); return E, None
     return E, (nodes, ed)
 
 def scc(n, adj):
@@ -425,35 +435,54 @@ def song(nodes, ed):
     return E
 
 # ---------- 2 việc cùng phạm vi, trần chỗ = 1 ----------
+# Chạy ĐÚNG công thức «xin nhận», dòng chuyển và thao tác của bảng (ap_dung), không chạy chương trình riêng.
+# còn_chỗ tính từ giữ_chỗ của cả hai việc. Có «khoá phạm vi»: đọc + ghi là 1 bước; không có: đọc trước, ghi sau
+# (việc kia có thể xen giữa). Phủ: hết chỗ, tranh chỗ cuối, nhả chỗ rồi việc kia nhận lại.
 def dong_thoi(S):
-    def ops_of(st, ev, v):
-        rs = S['idx'].get((st, ev, v), [])
-        return [o.split('(')[0] for o in rs[0]['ops']] if rs else []
-    o1 = ops_of('Chờ', 'xin nhận', 'được'); o2 = ops_of('Đang chạy', 'kết quả', 'Đạt')
-    khoa, giu, nha = 'khoá phạm vi' in o1, 'giữ chỗ' in o1, 'nhả chỗ' in o2
-    start = ('Chờ', 'Chờ', 0, False, False); seen = {start}; q = [start]
+    TRAN_CHO = 1
+    rs = S['idx'].get(('Chờ', 'xin nhận', 'được'), [])
+    if len(rs) != 1: return ('D0 thiếu dòng Chờ · xin nhận · được',)
+    nguyen_tu = 'khoá phạm vi' in [o.split('(')[0] for o in rs[0]['ops']]
+    def goc():
+        s = dict(MAC_DINH); s.update(AN); s.update(st='Chờ', bước='G3'); return s
+    def dem(js): return sum(1 for j in js if j['giữ_chỗ'])
+    def nhan(j, con_cho):
+        s = dict(j); s['còn_chỗ'] = con_cho
+        new, x = ap_dung(S, s, 'xin nhận', {})
+        if new is None: return None, x
+        new['còn_chỗ'] = True
+        return new, None
+    def xong(j):
+        new, x = ap_dung(S, j, 'kết quả', {'mã': 'OK'})
+        if new is None: return None, x
+        new['st'] = 'Xong'; return new, None
+    q = [((goc(), goc()), (None, None))]; seen = set(); ca_hai_xong = False
     while q:
-        a, b, used, pa, pb = q.pop()
-        if [a, b].count('Đang chạy') > 1: return ('D1 hai việc cùng chạy khi trần chỗ = 1',)
-        for j in (0, 1):
-            x = (a, b)[j]; p = (pa, pb)[j]; nx = []
-            if x == 'Chờ':
-                if khoa:
-                    if used < 1: nx.append(('Đang chạy', used + (1 if giu else 0), False))
-                else:
-                    if not p and used < 1: nx.append(('Chờ', used, True))
-                    if p: nx.append(('Đang chạy', used + (1 if giu else 0), False))
-            elif x == 'Đang chạy':
-                nx.append(('Xong', max(0, used - (1 if nha else 0)), False))
-            for (y, u2, p2) in nx:
-                L = [a, b]; P = [pa, pb]; L[j] = y; P[j] = p2
-                t = (L[0], L[1], u2, P[0], P[1])
-                if t not in seen: seen.add(t); q.append(t)
-    if not any(t[0] == 'Xong' and t[1] == 'Xong' for t in seen): return ('D2 việc thứ hai không bao giờ được chạy',)
+        js, ps = q.pop()
+        k = tuple(dong(j) for j in js) + ps
+        if k in seen: continue
+        seen.add(k)
+        if sum(1 for j in js if j['st'] == 'Đang chạy') > TRAN_CHO or dem(js) > TRAN_CHO:
+            return ('D1 hai việc cùng chạy khi trần chỗ = 1', [j['st'] for j in js])
+        if all(j['st'] == 'Xong' for j in js):
+            ca_hai_xong = True; continue
+        for i in (0, 1):
+            j, p = js[i], ps[i]; ra = []
+            if j['st'] == 'Chờ':
+                if nguyen_tu: ra.append(nhan(j, dem(js) < TRAN_CHO) + (None,))
+                elif p is None: ra.append((j, None, dem(js) < TRAN_CHO))
+                else: ra.append(nhan(j, p) + (None,))
+            elif j['st'] == 'Đang chạy':
+                ra.append(xong(j) + (None,))
+            for nj, loi, np_ in ra:
+                if nj is None: return ('D0 bảng không chạy được khi tranh chỗ', loi)
+                js2 = list(js); js2[i] = nj; ps2 = list(ps); ps2[i] = np_
+                q.append((tuple(js2), tuple(ps2)))
+    if not ca_hai_xong: return ('D2 không có đường để cả hai việc cùng xong (chỗ không được nhả hoặc không nhận lại)',)
     return None
 
 # ---------- ca thử: nhập dữ kiện, máy tự tính ----------
-def chay_ca(S, ten, them, buoc_ds, cuoi, phai=(), cam=()):
+def chay_ca(S, ten, them, buoc_ds, cuoi, phai=(), cam=(), kiem=None):
     s = dict(MAC_DINH); s.update(AN); s.update(them); s['st'] = 'Mới'
     qua = ['Mới']
     for i, (ev, chon) in enumerate(buoc_ds):
@@ -480,6 +509,8 @@ def chay_ca(S, ten, them, buoc_ds, cuoi, phai=(), cam=()):
         if p not in qua: return 'không đi qua %s' % p
     for p in cam:
         if p in qua: return 'đi qua %s (cấm)' % p
+    for k, v in (kiem or {}).items():
+        if s.get(k) != v: return 'cuối: %s = %r, mong %r · đường: %s' % (k, s.get(k), v, ' → '.join(qua))
     return None
 
 K, C1, C2 = ('khai xong', {}), ('chấm', {}), ('chấm', {})
@@ -487,23 +518,41 @@ NHAN, GUI, LAM = ('xin nhận', {}), ('làm thao tác', {'_ai': 'chính'}), ('b�
 def KQ(m): return ('kết quả', {'mã': m})
 def QD(q): return ('quyết định', {'quyết': q})
 VAO = [K, C1, C2, NHAN]
+BD = ('bắt đầu', {})
+HUY_SAU_LAM = VAO + [GUI, LAM, KQ('OK'), ('chấm', {}), ('yêu cầu huỷ', {}), ('xét', {}), BD]   # đã làm 1 lần, huỷ → lần bù thứ nhất
 CA = [
     ('1 việc bình thường tới đóng hồ sơ', {}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {}), ('chấm', {})], 'Kết thúc·Đạt'),
     ('2 M=1: lượt duy nhất vẫn chạy, lần xin sau bị chặn', {'M': 1, 'chống_trùng': True}, VAO + [KQ('UNAVAILABLE'), NHAN], 'Chờ Owner', ['Đang chạy']),
     ('3 gửi rồi máy chết, người xác nhận đã gửi', {'tra_được': False}, VAO + [GUI, LAM, ('qua hạn giữ', {}), ('hết hạn giữ', {}), ('đối soát', {}), ('trả lời', {}), ('đối soát', {})], 'Chấm G4', [], ['Chờ người·ĐS·Huỷ']),
     ('4 lượt cũ cố gửi sau khi bị thu hồi', {}, VAO + [('qua hạn giữ', {}), ('hết hạn giữ', {}), NHAN, ('làm thao tác', {'_ai': 'ma'}), GUI, LAM], 'Đang chạy'),
     ('5 không chống trùng, tra «chưa thấy»: không gửi lại', {}, VAO + [GUI, KQ('UNAVAILABLE'), ('đối soát', {}), ('qua hạn PH', {}), ('đến lúc kiểm', {}), ('kiểm lại', {})], 'Chờ Owner'),
-    ('6 huỷ khi lệnh ngoài chưa rõ, lệnh cũ thành công sau', {'tra_được': False}, VAO + [GUI, ('yêu cầu huỷ', {}), ('xét', {}), ('đối soát', {}), LAM, ('trả lời', {}), ('đối soát', {}), ('bù làm', {}), ('bù', {})], 'Kết thúc·Huỷ', [], ['Chấm G4']),
+    ('6 huỷ khi lệnh ngoài chưa rõ, lệnh cũ thành công sau', {'tra_được': False}, VAO + [GUI, ('yêu cầu huỷ', {}), ('xét', {}), ('đối soát', {}), LAM, ('trả lời', {}), ('đối soát', {}), BD, ('bù làm', {}), ('bù', {})], 'Kết thúc·Huỷ', ['Bắt đầu bù'], ['Chấm G4']),
     ('7 huỷ sau hạn chót', {}, [K, C1, C2, ('qua hạn gốc', {}), ('đến lúc kiểm', {}), ('quá hạn', {}), QD('huỷ'), ('xét', {})], 'Kết thúc·Huỷ'),
     ('8 chờ hợp lệ đến giờ kiểm: không thành mồ côi', {'g2': 'chờ'}, [K, C1, C2, ('kiểm lại', {}), ('kiểm lại', {})], 'Chờ ĐK·G2'),
     ('9 miễn G4.1 nhưng G4.2 vẫn sai: cổng không mở', {'q1': False, 'q2': False, 'N': 1}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {}), QD('ngoại lệ'), ('chấm', {})], 'Chờ Owner', [], ['Chấm G5']),
     ('10 miễn G4.1, câu khác đạt: cổng mở', {'q1': False, 'N': 1}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {}), QD('ngoại lệ'), ('chấm', {}), ('chấm', {})], 'Kết thúc·Đạt'),
     ('11 miễn G1 hợp lệ: chấm lại không bắt câu đã miễn', {'g1': 'thiếu'}, [K, C1, ('qua hạn chờ', {}), ('đến lúc kiểm', {}), ('qua hạn gốc', {}), ('kiểm lại', {}), ('quá hạn', {}), QD('ngoại lệ'), ('chấm', {})], 'Chấm G2'),
     ('12 lỗi điều kiện: sửa xong chấm lại G2 rồi mới chạy', {}, VAO + [KQ('FAILED_PRECONDITION'), ('X6 gỡ', {}), ('kiểm lại', {}), ('chấm', {})], 'Chờ'),
-    ('13 bù mất phản hồi: đối soát lần bù, không bù 2 lần', {'tra_được': False, 'chờ_duyệt': True}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {}), ('yêu cầu huỷ', {}), ('xét', {}), ('bù', {}), ('đối soát bù', {}), ('bù làm', {}), ('trả lời', {}), ('đối soát bù', {})], 'Kết thúc·Huỷ'),
-    ('14 giao lại lúc bù: về đúng bước bù', {'có_cách_bù': False, 'chờ_duyệt': True}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {}), ('yêu cầu huỷ', {}), ('xét', {}), ('bù', {}), QD('giao lại')], 'Bù'),
-    ('15 Owner chấp nhận phần không bù được: đóng huỷ', {'có_cách_bù': False, 'chờ_duyệt': True}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {}), ('yêu cầu huỷ', {}), ('xét', {}), ('bù', {}), QD('ngoại lệ'), ('bù', {})], 'Kết thúc·Huỷ'),
+    ('13 bù mất phản hồi: đối soát lần bù, không bù 2 lần', {'tra_được': False, 'chờ_duyệt': True}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {}), ('yêu cầu huỷ', {}), ('xét', {}), BD, ('bù', {}), ('đối soát bù', {}), ('bù làm', {}), ('trả lời', {}), ('đối soát bù', {})], 'Kết thúc·Huỷ', [], [], {'lần_bù': 1}),
+    ('14 giao lại lúc bù: về đúng bước bù', {'có_cách_bù': False, 'chờ_duyệt': True}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {}), ('yêu cầu huỷ', {}), ('xét', {}), BD, ('bù', {}), QD('giao lại')], 'Bù'),
+    ('15 Owner chấp nhận phần không bù được: đóng huỷ', {'có_cách_bù': False, 'chờ_duyệt': True}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {}), ('yêu cầu huỷ', {}), ('xét', {}), BD, ('bù', {}), QD('ngoại lệ'), ('bù', {})], 'Kết thúc·Huỷ'),
     ('16 thử lại cùng mã khi có chống trùng: bên nhận làm 1 lần', {'chống_trùng': True}, VAO + [GUI, KQ('UNAVAILABLE'), NHAN, GUI, LAM, LAM, KQ('OK')], 'Chấm G4'),
+    # P74 — 3 đường sai GPT v6 tái hiện + ca được phép tương ứng (sửa đúng chỗ bắt đầu lệnh mới, không chặn nhận kết quả)
+    ('17 quá hạn gốc khi còn quyền giữ: không gửi mới', {}, VAO + [('qua hạn gốc', {}), GUI], 'Đang chạy', [], [], {'đang_bay': 0, 'gửi_sau_hạn': False}),
+    ('18 lệnh gửi trước hạn vẫn nhận kết quả sau hạn', {}, VAO + [GUI, ('qua hạn gốc', {}), LAM, KQ('OK')], 'Chấm G4'),
+    ('19 MB=1: bù mất rồi hết hạn giữ → không bù lần 2', {'MB': 1, 'chờ_duyệt': True}, HUY_SAU_LAM + [('bù mất', {}), ('qua hạn giữ', {}), ('hết hạn giữ', {}), BD], 'Chờ Owner', [], [], {'lần_bù': 1}),
+    ('20 MB=2: lần bù thứ hai vẫn được', {'MB': 2, 'chờ_duyệt': True}, HUY_SAU_LAM + [('bù mất', {}), ('qua hạn giữ', {}), ('hết hạn giữ', {}), BD], 'Bù', [], [], {'lần_bù': 2, 'bù_bay': 1}),
+    ('21 hết hạn phục hồi: không bắt đầu bù mới', {'MB': 3, 'chờ_duyệt': True}, HUY_SAU_LAM + [('bù mất', {}), ('qua hạn PH', {}), ('qua hạn giữ', {}), ('hết hạn giữ', {}), BD], 'Chờ Owner', [], [], {'lần_bù': 1}),
+    ('22 hết hạn PH nhưng lệnh bù cũ vẫn được nhận kết quả', {'chờ_duyệt': True}, HUY_SAU_LAM + [('qua hạn PH', {}), ('bù làm', {}), ('bù', {})], 'Kết thúc·Huỷ'),
+    # dữ liệu thiếu / sai / chưa biết không được mở cổng
+    ('23 G2 thiếu dữ liệu', {'g2': None}, [K, C1, C2], 'Chờ ĐK·G2'),
+    ('24 G2 giá trị lạ', {'g2': 'DU'}, [K, C1, C2], 'Chờ ĐK·G2'),
+    ('25 G5 thiếu dữ liệu', {'g5': None}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {}), ('chấm', {})], 'Chờ ĐK·G5', [], ['Kết thúc·Đạt']),
+    ('26 G5 chưa biết', {'g5': 'chưa biết'}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {}), ('chấm', {})], 'Chờ ĐK·G5', [], ['Kết thúc·Đạt']),
+    ('27 G1 thiếu dữ liệu', {'g1': None}, [K, C1], 'Chờ ĐK·G1'),
+    ('28 G4 thiếu dữ liệu câu 2', {'q2': None}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {})], 'Chờ ĐK·G4'),
+    # hết chỗ (17 kịch bản cũ đều còn_chỗ=True nên không bao giờ xét)
+    ('29 hết chỗ: không vào chạy', {'còn_chỗ': False}, [K, C1, C2, NHAN], 'Chờ', [], ['Đang chạy'], {'giữ_chỗ': False}),
 ]
 
 KICH_BAN = [
@@ -513,7 +562,9 @@ KICH_BAN = [
     ('G4 câu miễn được sai', {'q1': False, 'N': 1}), ('G4 câu khác sai', {'q2': False}), ('G4 chờ duyệt', {'chờ_duyệt': True}),
     ('G4 chưa biết', {'g4_chưa_biết': True}), ('G5 lỗi, chờ nhận', {'g5': 'lỗi', 'chờ_nhận': True, 'còn_tác_động_G5': True}),
     ('không có cách bù', {'có_cách_bù': False}), ('làm một phần', {'làm_một_phần': True}), ('làm sai', {'làm_sai': True}),
+    ('hết chỗ', {'còn_chỗ': False}), ('G2 thiếu dữ liệu', {'g2': None}), ('G5 chưa biết', {'g5': 'chưa biết'}), ('MB=1', {'MB': 1}),
 ]
+KB_CHON = None   # --kb: chỉ xét một phần; khi đó mã thoát tối đa là 2 (chưa kết luận toàn phạm vi)
 
 def kiem_het(T, nhanh=False, in_ra=False):
     S = nap(T)
@@ -530,6 +581,7 @@ def kiem_het(T, nhanh=False, in_ra=False):
             if nhanh: return E, S
         elif in_ra: print('  ✓ ca', ca[0])
     for ten, them in KICH_BAN:
+        if KB_CHON and ten not in KB_CHON: continue
         s0 = dict(MAC_DINH); s0.update(AN); s0.update(them); s0['st'] = 'Mới'
         e, g = kham(S, s0, nhanh=nhanh)
         E += [('K ' + ten,) + tuple(x) for x in e]
@@ -576,40 +628,89 @@ def dot_bien(T):
     sua(C, lambda r: r[1] == 'Bù' and r[3] == 'chưa biết', 5, 'Đối soát·Bù', 'Bù', 'bù mất phản hồi thì bù lại ngay', 4, 'lần bù +1 · gửi bù')
     sua(C, lambda r: r[2] == 'quyết định' and r[3] == 'giao lại', 5, '[trở lại]', 'Chấm G2', 'giao lại lúc bù quay về nghiệp vụ')
     sua(C, lambda r: r[2] == 'quyết định' and r[3] == 'ngoại lệ', 5, '[trở lại]', 'Chấm G5', 'ngoại lệ tự mở cả cổng')
+    # P74 — đột biến cho 3 đường sai GPT v6, dữ liệu thiếu/sai, hết chỗ
+    sua(G, lambda r: r[0] == 'làm thao tác', 4, ' and not quá_hạn_gốc', '', 'gửi mới sau hạn gốc')
+    sua(G, lambda r: r[0] == 'bắt đầu', 4, 'lần_bù >= MB', 'lần_bù > MB', 'trần lần bù lệch 1')
+    sua(G, lambda r: r[0] == 'bắt đầu', 4, 'quá hạn PH ← quá_hạn_PH', 'quá hạn PH ← False', 'bắt đầu bù sau hạn PH')
+    sua(C, lambda r: r[1] == 'Đối soát·Bù' and r[3] == 'chắc chưa làm', 5, 'Bắt đầu bù', 'Bù', 'bù lại vòng qua cửa Bắt đầu bù', 4, 'cùng mã · nhận lượt · lần bù +1 · gửi bù')
+    sua(C, lambda r: r[1] == 'Bù' and r[3] == 'không dở', 5, 'Bắt đầu bù', 'Bù', 'hết hạn giữ bù lại ngay', 4, 'thế hệ +1 · nhận lượt · lần bù +1 · gửi bù')
+    sua(G, lambda r: r[0] == 'xin nhận', 4, 'hết chỗ ← not còn_chỗ', 'hết chỗ ← False', 'hết chỗ luôn báo còn')
+    sua(G, lambda r: r[0] == 'chấm' and r[1] == 'Chấm G2', 4, "đủ ← g2 == 'đủ'", 'đủ ← True', 'G2 mặc định đủ')
+    sua(G, lambda r: r[0] == 'chấm' and r[1] == 'Chấm G5', 4, "đủ ← g5 == 'đủ' and chờ_nhận is False", 'đủ ← True', 'G5 mặc định đủ')
+    sua(G, lambda r: r[0] == 'chấm' and r[1] == 'Chấm G5', 4, " ; chưa biết ← g5 == 'chưa biết'", '', 'G5 bỏ nhánh chưa biết')
     T2 = dict(T); T2.pop('Bảng Giá trị')
     M.append(('xoá Bảng Giá trị', T2))
     return M
 
+def kiem_cau_truc(h):
+    """S8: mọi bảng trong CT-000.1 / .2 / .4 có số ô mỗi dòng = số cột đầu bảng.
+    (Phép kiểm dùng tay ở P70–P72, gộp vào đây để không phải viết lại.)"""
+    E = []; da = 0
+    for sid in ('formula-ct-000-1', 'formula-ct-000-2', 'formula-ct-000-4'):
+        a = h.find('id="%s"' % sid)
+        if a < 0: E.append(('S8 không thấy mục', sid)); continue
+        b = h.find('<section', a + 10); s = h[a:b if b > 0 else len(h)]
+        for t in re.findall(r'<table[^>]*>(.*?)</table>', s, re.S):
+            th = re.search(r'<thead>(.*?)</thead>', t, re.S)
+            if not th: continue
+            nh = len(re.findall(r'<th[ >]', th.group(1))) + sum(int(x) - 1 for x in re.findall(r'colspan="(\d+)"', th.group(1)))
+            m = re.search(r'<caption>(.*?)</caption>', t, re.S); cap = re.sub(r'<[^>]+>', '', m.group(1))[:40] if m else '?'
+            bd = re.search(r'<tbody>(.*?)</tbody>', t, re.S); da += 1
+            for r in re.findall(r'<tr>(.*?)</tr>', bd.group(1) if bd else '', re.S):
+                n = len(re.findall(r'<td[ >]', r)) + sum(int(x) - 1 for x in re.findall(r'<td[^>]*colspan="(\d+)"', r))
+                if n == 0: continue
+                if n != nh: E.append(('S8 lệch cột', sid, cap, nh, n, re.sub(r'<[^>]+>', '', r)[:50]))
+    return E, da
+
 def main():
+    global KB_CHON
     a = sys.argv[1:]
     path = a[a.index('--trang') + 1] if '--trang' in a else TRANG
+    if '--kb' in a: KB_CHON = set(a[a.index('--kb') + 1].split(','))
     t0 = time.time()
     try:
-        T = cat_bang(open(path, encoding='utf-8').read())
+        h = open(path, encoding='utf-8').read()
+        T = cat_bang(h)
         E, S = kiem_het(T, in_ra=True)
     except SaiKhuon as e:
         print('SAI KHUÔN:', e); sys.exit(2)
-    print('BẢNG: %d trạng thái · %d dòng chuyển · %d cặp trạng thái×giá trị · %d thao tác · %d bất biến · %d ca · %d kịch bản' % (
-        len(S['ST']), len(T['Bảng Chuyển trạng thái']), len([k for k in S['idx'] if S['idx'][k]]), len(S['OPS']), len(S['INV']), len(CA), len(KICH_BAN)))
-    for e in E[:80]: print('  ✗', e)
-    print('LỖI: %d · %.0f giây' % (len(E), time.time() - t0))
-    song_sot = []
+    e8, n8 = kiem_cau_truc(h); E = e8 + E
+    xet = [k for k, _ in KICH_BAN if not KB_CHON or k in KB_CHON]; bo = [k for k, _ in KICH_BAN if k not in xet]
+    print('BẢNG: %d trạng thái · %d dòng chuyển · %d cặp trạng thái×giá trị · %d thao tác · %d bất biến · %d ca · %d/%d kịch bản · %d bảng kiểm cấu trúc' % (
+        len(S['ST']), len(T['Bảng Chuyển trạng thái']), len([k for k in S['idx'] if S['idx'][k]]), len(S['OPS']), len(S['INV']), len(CA), len(xet), len(KICH_BAN), n8))
+    if bo: print('  ⚠ KHÔNG xét (phần này chưa kết luận):', ', '.join(bo))
+    chua = [e for e in E if 'INCONCLUSIVE' in repr(e)]; loi = [e for e in E if e not in chua]
+    for e in loi[:80]: print('  ✗', e)
+    for e in chua: print('  ⏳', e)
+    print('LỖI XÁC ĐỊNH: %d · CHƯA KẾT LUẬN: %d · %.0f giây' % (len(loi), len(chua), time.time() - t0))
+    kq = collections.OrderedDict((k, []) for k in ('KILLED', 'SURVIVED', 'INCONCLUSIVE', 'CHECKER_ERROR'))
     if '--dot-bien' in a:
-        M = dot_bien(T); bat = 0
-        for ten, T2 in M:
-            if T2 is None:
-                song_sot.append(ten); continue
-            try:
-                e, _ = kiem_het(T2, nhanh=True)
-            except SaiKhuon as x:
-                e = [('sai khuôn', str(x))]
-            except Exception as x:
-                e = [('máy kiểm lỗi', repr(x))]
-            if e: bat += 1
-            else: song_sot.append(ten)
-        print('ĐỘT BIẾN: %d bản hỏng · bắt được %d · sống sót %d · %.0f giây' % (len(M), bat, len(song_sot), time.time() - t0))
-        for t in song_sot: print('  ☠', t)
-    sys.exit(1 if (E or song_sot) else 0)
+        if loi or chua:
+            print('ĐỘT BIẾN: chưa chạy — bản gốc chưa sạch thì kết quả đột biến không có nghĩa')
+        else:
+            for ten, T2 in dot_bien(T):
+                if T2 is None: kq['CHECKER_ERROR'].append((ten, 'không áp được đột biến')); continue
+                try:
+                    e, _ = kiem_het(T2, nhanh=True)
+                except SaiKhuon as x:
+                    e = [('sai khuôn', str(x))]
+                except Exception as x:
+                    kq['CHECKER_ERROR'].append((ten, repr(x)[:160])); continue
+                if not e: kq['SURVIVED'].append((ten, ''))
+                elif any('INCONCLUSIVE' in repr(x) for x in e): kq['INCONCLUSIVE'].append((ten, repr(e[0])[:160]))
+                else: kq['KILLED'].append((ten, repr(e[0])[:200]))
+            print('ĐỘT BIẾN: ' + ' · '.join('%s %d' % (k, len(v)) for k, v in kq.items()) + ' · %.0f giây' % (time.time() - t0))
+            for k in ('SURVIVED', 'INCONCLUSIVE', 'CHECKER_ERROR'):
+                for t, why in kq[k]: print('  ☠' if k == 'SURVIVED' else '  ⏳', k, t, why)
+    ma = 1 if (loi or kq['SURVIVED']) else (2 if (chua or bo or kq['INCONCLUSIVE'] or kq['CHECKER_ERROR']) else 0)
+    if ma == 0 and '--dot-bien' not in a: print('  ℹ chưa chạy --dot-bien: chưa đủ điều kiện đưa duyệt')
+    print('MÃ THOÁT:', ma, {0: 'ĐẠT trong phạm vi đã khai', 1: 'CÒN LỖI', 2: 'CHƯA KẾT LUẬN (không phải đạt)'}[ma])
+    if '--json' in a:
+        with open(a[a.index('--json') + 1], 'w', encoding='utf-8') as f:
+            json.dump({'tráng': path, 'mã_thoát': ma, 'kịch_bản_xét': xet, 'kịch_bản_bỏ': bo, 'số_ca': len(CA),
+                       'lỗi': [list(map(str, e)) for e in loi], 'chưa_kết_luận': [list(map(str, e)) for e in chua],
+                       'đột_biến': {k: v for k, v in kq.items()}, 'giây': round(time.time() - t0)}, f, ensure_ascii=False, indent=1)
+    sys.exit(ma)
 
 if __name__ == '__main__':
     main()
