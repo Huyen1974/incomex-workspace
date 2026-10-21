@@ -1399,7 +1399,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <tr><td>Chờ người·ĐS·{m} [m: TT, Huỷ, QH, Bù]</td><td>chờ</td><td>người đối soát</td><td>hạn chờ, không quá hạn phục hồi</td><td>trả lời: có ; đến lúc kiểm: quá hạn PH / quá lần 2 / quá lần 1 / chưa quá</td></tr>
   <tr><td>Chờ ĐK·ĐS·{m} [m: TT, Huỷ, QH, Bù]</td><td>chờ</td><td>nguồn chờ (sự cố)</td><td>khi nguồn đổi; mỗi chu kỳ</td><td>kiểm lại: quá hạn PH / không thể thoả / thoả / còn chờ</td></tr>
   <tr><td>Xét huỷ</td><td>tạm</td><td>máy</td><td>ngay</td><td>xét: có dở / có tác động / không gì</td></tr>
-  <tr><td>Bù</td><td>máy</td><td>máy bù (G3.11)</td><td>hạn giữ</td><td>bù: xong / chưa biết / không bù được / hết lần bù / lỗi ; hết hạn giữ: có dở / không dở</td></tr>
+  <tr><td>Bù</td><td>máy</td><td>máy bù (G3.11)</td><td>hạn giữ</td><td>bù: xong / hết lần bù / chưa biết / không bù được / lỗi ; hết hạn giữ: có dở / không dở</td></tr>
   <tr><td>Đối soát·Bù</td><td>tạm</td><td>máy đối soát (G3.8)</td><td>ngay</td><td>đối soát bù: đủ / chắc chưa làm / chưa thấy, có chống trùng / không kết luận</td></tr>
   <tr><td>Chờ ĐK·Bù</td><td>chờ</td><td>nguồn chờ (sự cố)</td><td>khi nguồn đổi; mỗi chu kỳ</td><td>kiểm lại: quá hạn PH / không thể thoả / thoả / còn chờ</td></tr>
   <tr><td>Chờ Owner</td><td>chờ</td><td>😊 Owner</td><td>lịch nhắc</td><td>quyết định: thiếu ô / làm tiếp / giao lại / ngoại lệ / huỷ / rút huỷ ; đến lúc kiểm: chưa trả lời</td></tr>
@@ -1454,7 +1454,7 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <tr><td>quá hạn</td><td>Quá hạn</td><td>máy</td><td>True</td><td>có dở ← ý_định and not kết_luận ; không dở ← True</td></tr>
   <tr><td>đối soát</td><td>Đối soát·{m} [m: TT, Huỷ, QH]</td><td>máy</td><td>True</td><td>một phần ← đã_làm &gt;= 1 and làm_một_phần and (tra_được or bằng_chứng) ; sai ← đã_làm &gt;= 1 and làm_sai and (tra_được or bằng_chứng) ; đủ ← đã_làm &gt;= 1 and (tra_được or bằng_chứng) ; chắc chưa làm ← đã_làm == 0 and đang_bay == 0 and (xác_nhận_vắng or bằng_chứng) ; chưa thấy, có chống trùng ← đã_làm == 0 and chống_trùng and tra_được ; không kết luận ← True</td></tr>
   <tr><td>xét</td><td>Xét huỷ</td><td>máy</td><td>True</td><td>có dở ← ý_định and not kết_luận ; có tác động ← tổng_làm &gt; đã_bù ; không gì ← True</td></tr>
-  <tr><td>bù</td><td>Bù</td><td>máy</td><td>True</td><td>xong ← (đã_bù &gt;= tổng_làm or miễn_bù) and bù_bay == 0 and (đang_bay == 0 or chống_trùng) ; chưa biết ← bù_bay &gt; 0 ; không bù được ← not có_cách_bù ; hết lần bù ← lần_bù &gt; MB ; lỗi ← True</td></tr>
+  <tr><td>bù</td><td>Bù</td><td>máy</td><td>True</td><td>xong ← (đã_bù &gt;= tổng_làm or miễn_bù) and bù_bay == 0 and (đang_bay == 0 or chống_trùng) ; hết lần bù ← lần_bù &gt; MB ; chưa biết ← bù_bay &gt; 0 ; không bù được ← not có_cách_bù ; lỗi ← True</td></tr>
   <tr><td>đối soát bù</td><td>Đối soát·Bù</td><td>máy</td><td>True</td><td>đủ ← đã_bù &gt;= tổng_làm and bù_bay == 0 and (tra_được or bằng_chứng) ; chắc chưa làm ← đã_bù &lt; tổng_làm and bù_bay == 0 and (xác_nhận_vắng or bằng_chứng) ; chưa thấy, có chống trùng ← đã_bù &lt; tổng_làm and chống_trùng and tra_được ; không kết luận ← True</td></tr>
   <tr><td>quyết định</td><td>Chờ Owner</td><td>người</td><td>True</td><td>thiếu ô ← quyết == 'thiếu ô' or (quyết == 'rút huỷ' and not cờ_huỷ) ; làm tiếp ← quyết == 'làm tiếp' ; giao lại ← quyết == 'giao lại' ; ngoại lệ ← quyết == 'ngoại lệ' ; huỷ ← quyết == 'huỷ' ; rút huỷ ← quyết == 'rút huỷ'</td></tr>
   <tr><td>đến lúc kiểm</td><td>Chờ Owner</td><td>máy</td><td>True</td><td>chưa trả lời ← True</td></tr>
