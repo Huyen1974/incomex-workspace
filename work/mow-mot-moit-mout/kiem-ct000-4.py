@@ -550,7 +550,7 @@ CA = [
     ('25 G5 thiếu dữ liệu', {'g5': None}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {}), ('chấm', {})], 'Chờ ĐK·G5', [], ['Kết thúc·Đạt']),
     ('26 G5 chưa biết', {'g5': 'chưa biết'}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {}), ('chấm', {})], 'Chờ ĐK·G5', [], ['Kết thúc·Đạt']),
     ('27 G1 thiếu dữ liệu', {'g1': None}, [K, C1], 'Chờ ĐK·G1'),
-    ('28 G4 thiếu dữ liệu câu 2', {'q2': None}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {})], 'Chờ ĐK·G4'),
+    ('28 G4 thiếu dữ liệu câu 2 ở vòng cuối', {'q2': None, 'N': 1}, VAO + [GUI, LAM, KQ('OK'), ('chấm', {})], 'Chờ ĐK·G4'),
     # hết chỗ (17 kịch bản cũ đều còn_chỗ=True nên không bao giờ xét)
     ('29 hết chỗ: không vào chạy', {'còn_chỗ': False}, [K, C1, C2, NHAN], 'Chờ', [], ['Đang chạy'], {'giữ_chỗ': False}),
 ]
