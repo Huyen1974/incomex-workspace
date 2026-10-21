@@ -5,13 +5,13 @@ Tên việc: MMOW 07 — vẽ UI cho các MOW trong Master MOW, làm bằng côn
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 19/10/2026 18:28: MMOW 07 chỉ Vẽ UI (thay bản 18/10 21:25 gồm 3 mục tiêu; Chốt Info contract → MMOW 08, Config → MMOW 09).
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-## ⇢ HANDOFF CHO PHIÊN SAU · 21/10/2026 14:25 +07 · Claude · P67 · cập nhật 14:50 P68
+### ⇢ HANDOFF CHO PHIÊN SAU · 21/10/2026 14:25 +07 · Claude · P67 · cập nhật 14:50 P68
 > Phiên mới: đọc hết mục này → mở 3 trang ở H2 → làm việc đầu tiên chưa ✅ ở H4 (hiện: H4.4). Không bàn lại những gì ở H3.
 
-### H1. Đang ở đâu
+#### H1. Đang ở đâu
 Đang thiết kế **4 Công thức gốc** (khung chung cho MỌI việc) trên trang Công thức. Vừa nhận **phản biện vòng 2 của GPT Pro** (Owner dán 21/10 14:19) cho Bộ câu hỏi chuẩn v2 + Xử lý lỗi. Owner yêu cầu: **áp sát chuẩn ngành IT tốt nhất**, mỗi luật viết **yes/no rõ ràng, chỉ 1 cách làm**, không nói định hướng chung chung. Việc kế tiếp = H4.1.
 
-### H2. Mở đâu
+#### H2. Mở đâu
 | Gì | Địa chỉ |
 |---|---|
 | Khối Công thức gốc (CT-000.1…000.4) | https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=formula-ct-000-1 |
@@ -19,7 +19,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 | Master Duyệt thiết kế | https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html |
 | Nguồn trang (SSOT) | gh `work/mow-mot-moit-mout/ban-duyet.html` · `FORMULA-AI-README.md` · ui `definition-master-data-v1.js` (sổ ML-DEF-021 = Master Công thức) · ui `definition-master-registry-v1.js` |
 
-### H3. Đã chốt — không bàn lại
+#### H3. Đã chốt — không bàn lại
 1. **CAT-000.5 Master Khái niệm** (tạm ở trang Công thức, sau lên collection): gộp entity_species (CAT-020) + sua_re_khai_niem_nhap + CAT-237*; mã loài chuẩn **SPE-xxx** (* = đề xuất); 7 cột + Tình trạng; 107 loài; ĐL1–ĐL6 (ĐL6 = mọi bảng có «?»). Master Duyệt thiết kế có cột **Duyệt TK** (xanh = User đã duyệt; CAT-000.5 tạm duyệt 20/10).
 2. **Khối «Công thức gốc»** (thu/mở) trên khối «Công thức chuyên môn» (CT-001→008):
    - **CT-000.1 Bộ câu hỏi chuẩn** (= Info contract law) v2: Việc = Muốn gì + Đang thế nào · 5 giai đoạn có cổng G1 Khai báo (Definition of Ready) · G2 Chuẩn bị · G3 Thực hiện · G4 Nghiệm thu (Definition of Done) · G5 Bàn giao · 7 nhóm công cụ CC1–CC7 · 43 câu G1.1–G5.5, cột Ai trả lời · Nhóm · Master List (mã · 🟡 thiếu ô · 🔴 chưa có sổ · ⚪ không cần) · 4 trạng thái trả lời Có · Không áp dụng · Chưa biết · Sai.
@@ -29,7 +29,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 3. **Logic gốc:** không đạt ⇒ vào hàng đợi. Không viết «thiếu ⇒ tạo mới» (đó là khái niệm, không phải bước làm). Gọi quy trình nào là việc của hàng đợi.
 4. **Ký hiệu:** G = giai đoạn · G1.4 = câu · CC = nhóm công cụ · X = bước xử lý lỗi. Không dùng B (trùng Bước B1–B7).
 
-### H4. Việc kế tiếp — đúng thứ tự, mỗi lần 1 việc
+#### H4. Việc kế tiếp — đúng thứ tự, mỗi lần 1 việc
 - ✅ **H4.1** Ghi tóm tắt phản biện vòng 2 (H5) vào mục «Chờ hội đồng» của Bảng điều khiển. (P68)
 - ✅ **H4.2** (P68: 2 Bảng Chuẩn ngành, 32 chuẩn có nguồn, đặt trong Chi tiết thẻ CT-000.1 và CT-000.4) Lập **Bảng chuẩn ngành** (Owner 14:19: «chuẩn ngành IT đâu, mang ra áp sát, kiếm chuẩn tốt nhất»): mỗi điểm H5 → chuẩn cụ thể (tên, mục, nguồn) → luật yes/no. Chuẩn đã khớp, cần tìm và dẫn nguồn: Scrum Guide (Definition of Ready/Done) · ISO/IEC/IEEE 29148 (yêu cầu kiểm chứng được) · RFC 2119 (PHẢI/KHÔNG ĐƯỢC) · BPMN 2.0 (error/boundary event, compensation) · CMMN 1.1 (sentry = cổng) · DMN (bảng quyết định) · Kubernetes conditions (True/False/Unknown + reason) · ITIL 4 (Incident/Problem) · Transactional outbox + idempotency key · lease + fencing token · PostgreSQL 18 (SKIP LOCKED, UPDATE 0 dòng, LISTEN/NOTIFY + quét bù, transaction) · Directus Flow (Filter chặn cùng giao dịch / Action sau giao dịch). Không tự sáng tạo.
 - ✅ **H4.3** Sửa CT-000.1 + CT-000.4 trên trang theo H5, mỗi luật dạng yes/no. (P68 · commit `9275bd59` + `d4d38d27` · Master Công thức ui `9bd5a22`)
@@ -37,7 +37,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - **H4.5** Hội đồng thống nhất → Owner duyệt từng dòng.
 - Chưa mở (sau H4.5): ghép 7 nhóm CC × Master List (rà mức ô cho 39 câu còn lại) · skill tự kiểm 43 câu cho agent · thanh lọc 45 luật cũ CAT-140.
 
-### H5. Phản biện vòng 2 GPT Pro — 29 điểm phải sửa
+#### H5. Phản biện vòng 2 GPT Pro — 29 điểm phải sửa
 1. Cổng: «có câu trả lời» ≠ «điều kiện đạt»; Sai hoặc Chưa biết ở điều kiện bắt buộc đều chặn cổng; Không áp dụng chỉ theo Loại việc + lý do; câu của giai đoạn chưa tới không phải sự cố.
 2. G4.1 = «mọi tiêu chí bắt buộc Đúng»; G4.2 đổi thành «thứ phải giữ ở G1.5 còn đúng không».
 3. G1.9 chưa có Loại việc ⇒ dừng ở G1, giao người bổ sung quy trình, có hạn.
@@ -72,7 +72,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 32. (mục 6) 10 tình huống thử → H4.4.
 > P68 đã giải 1–31 trên trang. Điểm 28: vai các sổ chốt ở «Bảng Sổ của vòng xử lý» (CT-000.4); riêng ánh xạ CAT-069 ↔ bảng PG `feedbacks` làm lúc ghi PG (VD-029). Điểm 30: 1 bảng việc CAT-228* (chuẩn River/Oban), khớp CT-007 đã chốt. Điểm 31: câu G3.9.
 
-### H6. Nguyên tắc Owner đã nhắc trong phiên — không để nhắc lại
+#### H6. Nguyên tắc Owner đã nhắc trong phiên — không để nhắc lại
 1. Không tạo khái niệm, kiểu trình bày mới: dùng lại cái có sẵn (nút số `cf-root-no` của thẻ Bước, khuôn «?» `t1-mapping-table__help`). Tra PG/repo trước khi đặt tên.
 2. Tên ngắn nói bản chất; mã chỉ cho máy; dòng mã phụ chữ nhỏ mờ nhưng có nhãn («mã loài: …», «mã master list: …»).
 3. Mỗi loại số 1 chữ đầu (G / CC / X); không để nhiều «số 1» khác nghĩa.
@@ -86,7 +86,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 11. Đề xuất kèm sẵn 1 phương án, Owner chỉ gật/lắc.
 12. Thiết kế PG từ yêu cầu, không đi khảo sát PG đang có gì (Owner 21/10 09:33); PG chỉ cần «có hỗ trợ».
 
-### H7. Mẹo kỹ thuật
+#### H7. Mẹo kỹ thuật
 - Sửa trang: `fs_edit` root gh; tệp ~760KB, luôn dùng old_str nguyên văn; báo «không khớp» thì `fs_search` lấy nguyên văn; push bị từ chối (phiên khác vừa đẩy) thì gửi lại cùng expected_version.
 - Trang xem giữ bản cũ: mở `ui-preview/hpml-view-for-user/view.html?task=mow-mot-moit-mout`, bấm `header button`, đợi ~18 giây, rồi chụp `knowledge/modules?…&section=<id>`.
 - Công cụ chụp không mở được «Chi tiết» trong khung trang → kiểm bằng đếm mã (`fs_search` count) và nói rõ giới hạn.
@@ -94,7 +94,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - Neo trang: `formula-ct-000-1` … `formula-ct-000-4` · `formula-ct-001` … · `kn-cat-000-5`.
 - Mỗi lượt sửa: cập nhật Bảng điều khiển + Nhật ký (P tăng dần) trong COLLAB này.
 
-### H8. Nợ đang treo — không làm xen
+#### H8. Nợ đang treo — không làm xen
 - VD-029 ghi CAT-000.5 vào PG (2 cột Quản lý tại · Lớp; ~65 loài mới; 4 bảng vô chủ; mã mồ côi audit_log; 6 loài lệch tiền tố).
 - L0–L6 → đề xuất thay bằng FAC-02 «Vai trò hệ thống» (5 giá trị có sẵn). **Chưa áp lên trang, chờ Owner.**
 - ĐL1–ĐL6 → đề xuất chuyển thành dòng Điều luật (CAT-140). Chờ Owner.
