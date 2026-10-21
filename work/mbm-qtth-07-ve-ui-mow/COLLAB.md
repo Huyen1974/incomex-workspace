@@ -34,7 +34,8 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - ✅ **H4.2** (P68: 2 Bảng Chuẩn ngành, 32 chuẩn có nguồn, đặt trong Chi tiết thẻ CT-000.1 và CT-000.4) Lập **Bảng chuẩn ngành** (Owner 14:19: «chuẩn ngành IT đâu, mang ra áp sát, kiếm chuẩn tốt nhất»): mỗi điểm H5 → chuẩn cụ thể (tên, mục, nguồn) → luật yes/no. Chuẩn đã khớp, cần tìm và dẫn nguồn: Scrum Guide (Definition of Ready/Done) · ISO/IEC/IEEE 29148 (yêu cầu kiểm chứng được) · RFC 2119 (PHẢI/KHÔNG ĐƯỢC) · BPMN 2.0 (error/boundary event, compensation) · CMMN 1.1 (sentry = cổng) · DMN (bảng quyết định) · Kubernetes conditions (True/False/Unknown + reason) · ITIL 4 (Incident/Problem) · Transactional outbox + idempotency key · lease + fencing token · PostgreSQL 18 (SKIP LOCKED, UPDATE 0 dòng, LISTEN/NOTIFY + quét bù, transaction) · Directus Flow (Filter chặn cùng giao dịch / Action sau giao dịch). Không tự sáng tạo.
 - ✅ **H4.3** Sửa CT-000.1 + CT-000.4 trên trang theo H5, mỗi luật dạng yes/no. (P68 · commit `9275bd59` + `d4d38d27` · Master Công thức ui `9bd5a22`)
 - ✅ **H4.3b** (P70) Sửa CT-000.1, CT-000.2, CT-000.4 theo phản biện vòng 3 GPT Pro (H5 · Vòng 3): 3 lưới khép kín, Bảng Trạng thái, 4 giới hạn, 8 kết quả. Commit `8d1479e2` + `a4648ef4`.
-- ➡ **H4.4a** Thử trên giấy 15 tình huống trên 1 việc sửa UI thật: 10 cũ + 5 vòng 3 (máy chết sau khi gửi · hết hạn còn phải bù · kiểm lại ra Chưa biết · 1 sự cố chặn nhiều việc · Owner cho làm tiếp sau khi hết trần); mỗi tình huống ghi đường đi qua các bảng.
+- ✅ **H4.3c** (P71) Đổi cách làm theo Owner 16:24 «cơ chế, không phải nguyên tắc»: logic chạy viết 1 chỗ = Bảng Chuyển trạng thái (92 dòng) + Bảng Trạng thái (32 trạng thái) + Bảng Giá trị; bỏ Bảng Kết quả lượt; bảng khác chỉ trỏ mã T. Máy kiểm 6 điều: 0 lỗi; 14 ca thử: 14/14. Commit `da9609f9` · `7cc4ecec` · `e14ad530`.
+- ➡ **H4.4a** Gửi GPT Pro rà vòng 5 trên Bảng Chuyển trạng thái. Mỗi ca GPT Pro nêu thêm ⇒ thêm vào danh sách ca thử của máy (H7) rồi chạy, không tranh luận bằng lời. Sau đó gắn 1 việc sửa UI thật.
 - **H4.4b** Thử thật trên PG + Flow (hàm X1, nhận việc, thu hồi, quét mồ côi): ghi bằng chứng riêng với H4.4a; chưa có H4.4b thì không ghi «đã chạy được».
 - **H4.5** Hội đồng thống nhất → Owner duyệt từng dòng.
 - Chưa mở (sau H4.5): ghép 7 nhóm CC × Master List (rà mức ô cho 39 câu còn lại) · skill tự kiểm 43 câu cho agent · thanh lọc 45 luật cũ CAT-140.
@@ -93,6 +94,21 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 15. Phép thử PG 1, 6, 8 phải sửa; H4.4 tách thử giấy và thử thật.
 > P70 thêm theo Owner 15:35 «không mồ côi»: luật 9 Không mồ côi + Flow quét (PG 14) + giới hạn D độ sâu chuỗi sự cố + ghi ý định trước khi làm (G3) + Bảng Trạng thái 10 trạng thái.
 
+#### H5 · Vòng 4 GPT Pro (21/10 16:24) — 11 điểm, P71 nhận cả 11
+Gốc rễ: logic viết bằng lời rải 6 bảng ⇒ hở chỗ nối; phép kiểm cũ chỉ xem tên đích có tồn tại. P71 đổi sang cơ chế: 1 bảng chuyển trạng thái + máy kiểm + ca thử.
+1. G5 đủ ⇒ đóng hồ sơ (T41) · Config chung khi chưa có Loại việc · nguồn «một trong» còn nguồn khác ⇒ tiếp tục chờ · chờ nghiệm thu ⇒ Chờ người·G4 (T36) · G5 lỗi trước, chờ nhận sau · Chờ người ghi chờ ai, trả lời gì, bước trở lại.
+2. M xét TRƯỚC khi tăng, lượt thứ M vẫn chạy (ca 2) · trần song song khoá phạm vi (PG 3) · gia hạn kiểm còn hạn, thu hồi cùng 1 lệnh (PG 5) · số lần nhận tách khỏi thế hệ (G3.4).
+3. CAT-238*: 1 dòng = 1 biên nhận; nhiều biên nhận cùng trỏ 1 mã thao tác.
+4. «Chưa thấy» không phải «chưa làm»; không chống trùng ⇒ người đối soát, không quay vòng (ca 7) · biên nhận muộn vẫn ghi (X5, PG 8).
+5. Huỷ ⇒ Xét huỷ ⇒ đối soát ⇒ bù ⇒ đóng, không quay về G4 (ca 8) · huỷ sau hạn dùng hạn phục hồi (ca 9, 13) · Đạt muộn: G5 «dừng hạn» nếu còn tác động.
+6. Đến giờ kiểm không phải mồ côi (PG 14; ca 10) · 3 loại hạn (Bảng Giá trị).
+7. Tự chờ sự cố của chính mình ⇒ X7 (X1 ②); độ sâu theo đường xử lý.
+8. Nhiều gốc khác hạn: lượt sửa dùng hạn muộn nhất còn hiệu lực; gỡ chặn ⇒ kiểm lại hạn, huỷ, Owner (T57).
+9. Ngoại lệ chấm lại cả cổng (T87; ca 11); Làm tiếp về đúng bước trở lại (T85).
+10. Tái phát sau kết thúc: không tự mở lại việc đã kết thúc; không còn gốc mở ⇒ X9 (X1 ⑥).
+11. X1 tự lỗi: cờ «chưa chuyển sự cố» + Uptime Kuma kiểm lần quét hoàn tất (PG 12, 15).
+> Tự phát hiện thêm khi rà P71: G4.6 còn ghi bộ kết quả cũ ⇒ đã sửa khớp từng chữ; máy kiểm có bước đối chiếu chéo.
+
 #### H6. Nguyên tắc Owner đã nhắc trong phiên — không để nhắc lại
 1. Không tạo khái niệm, kiểu trình bày mới: dùng lại cái có sẵn (nút số `cf-root-no` của thẻ Bước, khuôn «?» `t1-mapping-table__help`). Tra PG/repo trước khi đặt tên.
 2. Tên ngắn nói bản chất; mã chỉ cho máy; dòng mã phụ chữ nhỏ mờ nhưng có nhãn («mã loài: …», «mã master list: …»).
@@ -108,6 +124,7 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 12. Thiết kế PG từ yêu cầu, không đi khảo sát PG đang có gì (Owner 21/10 09:33); PG chỉ cần «có hỗ trợ».
 13. PG là tầng gốc giữ sự thật, khai thác tối đa PG trước; dịch vụ như Kubernetes chỉ là lớp trên cho bài toán chuyên biệt (Owner 21/10 15:15 → CT-000.2 luật 7–8).
 14. Khép kín mọi trường hợp, đi đến cùng mọi nhánh; tệ nhất là vào hàng đợi; không để tình trạng mồ côi (Owner 21/10 15:35 → CT-000.2 luật 9–10, CT-000.4 3 lưới).
+15. Viết nguyên tắc không có nghĩa gì; quan trọng là hành động, cơ chế để không hiểu sai, không thể làm sai (Owner 21/10 16:24 → Bảng Chuyển trạng thái + máy kiểm H7 + PG 16: hàm chỉ chuyển theo dòng có trong bảng).
 
 #### H7. Mẹo kỹ thuật
 - Sửa trang: `fs_edit` root gh; tệp ~760KB, luôn dùng old_str nguyên văn; báo «không khớp» thì `fs_search` lấy nguyên văn; push bị từ chối (phiên khác vừa đẩy) thì gửi lại cùng expected_version.
@@ -117,6 +134,144 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - Neo trang: `formula-ct-000-1` … `formula-ct-000-4` · `formula-ct-001` … · `kn-cat-000-5`.
 - Mỗi lượt sửa: cập nhật Bảng điều khiển + Nhật ký (P tăng dần) trong COLLAB này.
 - Mọi mục chèn vào §0 dùng cấp `###` trở xuống. Cấp `##` cắt §0 ⇒ trang Task mất Bảng điều khiển (bộ đọc `hvu-b2/sync.py` lấy §0 tới dòng `##` kế). Lỗi P67, sửa P68.
+
+- **Máy kiểm Bảng Chuyển trạng thái (P71).** Mỗi lần sửa Bảng Trạng thái, Bảng Chuyển trạng thái hoặc câu G4.6 PHẢI chạy khối dưới (workspace_exec, root workspace, `python3 -c`). Đạt = «LỖI 0» và «CA THỬ ĐẠT n / n». Ca mới: thêm 1 dòng vào `TR` (tên, trạng thái đầu, các bước sự kiện–giá trị, trạng thái cuối mong đợi, biến, trạng thái phải qua / `!` không được qua).
+<details><summary>Lệnh máy kiểm (6 điều + 14 ca)</summary>
+
+```python
+import re,html,collections,sys
+sys.setrecursionlimit(10000)
+h=open('work/mow-mot-moit-mout/ban-duyet.html',encoding='utf-8').read()
+a=h.index('id="formula-ct-000-4"'); s=h[a:h.index('</section>',a)]
+def table(name):
+  i=s.index('head-label">'+name+'<'); t=s[i:s.index('</table>',i)]
+  body=re.search(r'<tbody>(.*?)</tbody>',t,re.S).group(1)
+  return [[html.unescape(re.sub('<[^>]+>','',c)).strip() for c in re.findall(r'<td[^>]*>(.*?)</td>',r,re.S)] for r in re.findall(r'<tr>(.*?)</tr>',body,re.S)]
+def expand(cell):
+  out=[]
+  for part in cell.split(' + '):
+    m=re.match(r'(.*?)\s*\[(\w): ([^\]]+)\]$',part.strip())
+    if m:
+      base,var,vals=m.groups()
+      for v in [x.strip() for x in vals.split(',')]: out.append((base.replace('{'+var+'}',v),{var:v}))
+    else: out.append((part.strip(),{}))
+  return out
+ST={}
+for c in table('Bảng Trạng thái'):
+  dom={}
+  if c[4] not in ('—',''):
+    for seg in c[4].split(' ; '):
+      ev,vals=seg.split(': ',1); dom[ev.strip()]=[v.strip() for v in vals.split(' / ')]
+  for name,b in expand(c[0]): ST[name]=dict(kind=c[1],holder=c[2],check=c[3],dom=dom)
+term={n for n,v in ST.items() if v['kind']=='kết thúc'}; nonterm=[n for n in ST if n not in term]
+TT=table('Bảng Chuyển trạng thái'); ROWS=[]
+for tid,frm,ev,vals,act,to in TT:
+  if frm.startswith('*'):
+    exc=[x.strip() for x in frm.split('trừ',1)[1].split(',')] if 'trừ' in frm else []
+    froms=[(n,{}) for n in nonterm if n not in exc]
+  else: froms=expand(frm)
+  for f,b in froms:
+    for v in [x.strip() for x in vals.split(' / ')]:
+      t=to
+      for k,val in b.items(): t=t.replace('{'+k+'}',val)
+      tg=[f] if t=='(giữ nguyên)' else (['Chấm G1','Chấm G2','Chấm G4','Chấm G5'] if '[bước trở lại]' in t else [t])
+      ROWS.append(dict(id=tid,frm=f,ev=ev,val=v,act=act,to=tg,bound=bool(re.search(r'(lần nhận|vòng) \+1|trần',act))))
+glob=set(c[2] for c in TT if c[1].startswith('*')); HUMAN={'yêu cầu huỷ','trả lời','quyết định'}
+err=[]; idx=collections.defaultdict(list)
+for r in ROWS: idx[(r['frm'],r['ev'],r['val'])].append(r['id'])
+def evs(n):
+  e=dict(ST[n]['dom'])
+  for g in glob: e.setdefault(g,['ok'])
+  return e
+for n in nonterm:
+  for ev,vals in evs(n).items():
+    for v in vals:
+      if len(idx[(n,ev,v)])!=1: err.append(('1',n,ev,v,idx[(n,ev,v)]))
+for (n,ev,v),ids in list(idx.items()):
+  if ids and (n not in ST or n in term or ev not in evs(n) or v not in evs(n)[ev]): err.append(('1b',n,ev,v,ids))
+E=[]
+for r in ROWS:
+  for t in r['to']:
+    if t not in ST: err.append(('2',r['id'],t))
+    else: E.append((r['frm'],t,r['bound'],r['id'],r['ev']))
+G=collections.defaultdict(set); R=collections.defaultdict(set)
+for e in E: G[e[0]].add(e[1]); R[e[1]].add(e[0])
+seen={'Mới'}; st=['Mới']
+while st:
+  x=st.pop()
+  for y in G[x]:
+    if y not in seen: seen.add(y); st.append(y)
+err+=[('3',n) for n in ST if n not in seen]
+ok=set(term); st=list(term)
+while st:
+  x=st.pop()
+  for y in R[x]:
+    if y not in ok: ok.add(y); st.append(y)
+err+=[('4',n) for n in nonterm if n not in ok]
+def sccs(nodes,edges):
+  adj=collections.defaultdict(list)
+  for e in edges: adj[e[0]].append(e[1])
+  index={};low={};stack=[];on=set();res=[];i=[0]
+  def sc(v):
+    index[v]=low[v]=i[0]; i[0]+=1; stack.append(v); on.add(v)
+    for w in adj[v]:
+      if w not in index: sc(w); low[v]=min(low[v],low[w])
+      elif w in on: low[v]=min(low[v],index[w])
+    if low[v]==index[v]:
+      comp=set()
+      while True:
+        w=stack.pop(); on.discard(w); comp.add(w)
+        if w==v: break
+      res.append(comp)
+  for v in nodes:
+    if v not in index: sc(v)
+  return res
+mach={n for n in ST if ST[n]['kind'] in ('tạm','máy')}
+unb=[e for e in E if e[0] in mach and e[1] in mach and not e[2] and e[4] not in HUMAN]
+for comp in sccs(mach,unb):
+  inner=[e[3] for e in unb if e[0] in comp and e[1] in comp]
+  if inner: err.append(('5',sorted(comp),sorted(set(inner))))
+for n in nonterm:
+  if ST[n]['holder'] in ('','—') or ST[n]['check'] in ('','—'): err.append(('6',n))
+  if ST[n]['kind']=='chờ' and not any(e in ST[n]['dom'] for e in ('đến lúc kiểm','kiểm lại','quyết định')): err.append(('6b',n))
+print('TRẠNG THÁI',len(ST),'· DÒNG',len(TT),'· LỖI',len(err))
+for e in err: print('  ',e)
+def run(stt,steps,ctx):
+  path=[stt]
+  for ev,val in steps:
+    if ev=='xin nhận' and val is None: val='hết M' if ctx['lan']>=ctx['M'] else 'được'
+    ids=idx.get((stt,ev,val),[])
+    if len(ids)!=1: return None,path+['KẸT %s|%s=%s'%(stt,ev,val)]
+    r=[x for x in ROWS if x['id']==ids[0] and x['frm']==stt and x['ev']==ev and x['val']==val][0]
+    if 'lần nhận +1' in r['act']: ctx['lan']+=1
+    stt=r['to'][0] if len(r['to'])==1 else ctx['trolai']; path.append(r['id']+'→'+stt)
+  return stt,path
+TR=[
+('1 bình thường','Mới',[('khai xong','ok'),('chấm','đủ'),('chấm','đủ'),('xin nhận',None),('kết quả','Đạt'),('chấm','đủ'),('chấm','đủ')],'Kết thúc·Đạt',{},None),
+('2 M=1','Chờ',[('xin nhận',None),('kết quả','Lỗi tạm an toàn'),('xin nhận',None)],'Chờ ĐK·G2',{'M':1},'Đang chạy'),
+('3 B hoặc C','Chờ ĐK·G2',[('kiểm lại','còn chờ'),('kiểm lại','thoả'),('chấm','đủ')],'Chờ',{},None),
+('4 chờ nghiệm thu','Chấm G4',[('chấm','chờ người'),('đến lúc kiểm','chưa quá'),('trả lời','có'),('chấm','đủ')],'Chấm G5',{},None),
+('5 G5 lỗi trước','Chấm G5',[('chấm','lỗi')],'Chờ ĐK·G5',{},None),
+('6 gửi rồi chết','Đang chạy',[('hết hạn giữ','có dở'),('đối soát','không kết luận'),('trả lời','có'),('đối soát','đủ')],'Chấm G4',{},None),
+('7 chưa thấy','Đang chạy',[('kết quả','Lỗi tạm không an toàn'),('đối soát','không kết luận'),('đến lúc kiểm','quá hạn PH')],'Chờ ĐK·ĐS·TT',{},None),
+('8 huỷ khi lệnh chưa rõ','Đang chạy',[('yêu cầu huỷ','ok'),('xét','có dở'),('đối soát','đủ'),('bù','xong')],'Kết thúc·Huỷ',{},'!Chấm G4'),
+('9 huỷ sau hạn','Chờ',[('đến lúc kiểm','quá hạn gốc'),('quá hạn','không dở'),('quyết định','huỷ'),('xét','có tác động'),('bù','xong')],'Kết thúc·Huỷ',{},None),
+('10 đến giờ không mồ côi','Chờ ĐK·G2',[('kiểm lại','còn chờ'),('kiểm lại','còn chờ')],'Chờ ĐK·G2',{},None),
+('11 miễn 1 câu','Chấm G4',[('chấm','sai, hết vòng'),('quyết định','ngoại lệ'),('chấm','sai, hết vòng')],'Chờ Owner',{'trolai':'Chấm G4'},'!Chấm G5'),
+('12 lỗi điều kiện','Đang chạy',[('kết quả','Lỗi điều kiện'),('kiểm lại','thoả'),('chấm','đủ')],'Chờ',{},None),
+('13 quá hạn rồi huỷ','Quá hạn',[('quá hạn','có dở'),('đối soát','không kết luận'),('yêu cầu huỷ','ok'),('xét','có dở'),('đối soát','đủ'),('bù','xong')],'Kết thúc·Huỷ',{},None),
+('14 chết 2 lần, M=2','Chờ',[('xin nhận',None),('hết hạn giữ','không dở'),('xin nhận',None),('hết hạn giữ','không dở'),('xin nhận',None)],'Chờ ĐK·G2',{'M':2},None),
+]
+np=0
+for name,start,steps,exp,ctx,need in TR:
+  c=dict(lan=0,M=99); c.update(ctx); end,path=run(start,steps,c); okk=(end==exp)
+  if need and need.startswith('!'): okk=okk and not any(p.endswith('→'+need[1:]) for p in path)
+  elif need: okk=okk and any(p.endswith('→'+need) for p in path)
+  np+=okk; print(('ĐẠT ' if okk else 'TRƯỢT ')+name+' :: '+' · '.join(path))
+print('CA THỬ ĐẠT',np,'/',len(TR))
+```
+
+</details>
 
 #### H8. Nợ đang treo — không làm xen
 - VD-029 ghi CAT-000.5 vào PG (2 cột Quản lý tại · Lớp; ~65 loài mới; 4 bảng vô chủ; mã mồ côi audit_log; 6 loài lệch tiền tố).
@@ -128,17 +283,17 @@ Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 - (P68) 🔴 Bảng nối Sự cố ↔ Việc gốc (1 dòng = 1 lần phát sinh, khoá = mã sự kiện) chưa có sổ, chưa có mã CAT — lập khi lên collection.
 - (P68) Các «1 hàm PG», «Directus Flow lịch» trong 13 yêu cầu PG là yêu cầu thiết kế, chưa có công cụ thật — dựng khi lên PG (thiết kế từ yêu cầu, H6.12).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-21 16:15 +07 · Claude · P70
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-21 16:25 +07 · Claude · P71
 
-> **⏳ Chờ hội đồng rà rồi Owner duyệt từng dòng:** CT-000.1 + CT-000.4 bản luật yes/no (P68, trang Công thức, Chi tiết của 2 thẻ), đã sửa theo vòng 3 GPT Pro (P70): 3 lưới khép kín — dòng Còn lại, Bảng Trạng thái, Flow quét mồ côi; 4 giới hạn M · N · D · hạn; thu hồi có đối soát; 8 kết quả. Phản biện vòng 2 GPT Pro (21/10 14:19) = 29 điểm ở H5 + 3 ý thêm (30–32); P68 giải 1–31: **Luật cổng** Đúng · Sai · Chưa biết (chỉ Đúng qua; Không áp dụng chỉ theo Loại việc + lý do) · **cột Đạt khi** cho 43 câu · cổng 1 đường (bảng quyết định DMN Unique) · **X1–X9** thành hàng thao tác Đọc · Làm · Ghi · Kết quả · **Bảng Kết quả lượt** 7 kết quả, mỗi kết quả 1 đường (chia lỗi theo gRPC) · **Bảng Sổ** (hàng đợi = dòng chờ CAT-228*, khớp CT-007; CAT-206* = khuôn) · **13 yêu cầu PG** có phép thử yes/no · **2 Bảng Chuẩn ngành** (32 chuẩn có nguồn) · khuôn viết luật EARS + RFC 2119 ở CT-000.2. Kế tiếp H4.4a (thử giấy 15 tình huống) → H4.4b (thử thật) → GPT Pro rà 1 vòng gồm cả kết quả thử.
+> **⏳ Chờ hội đồng rà rồi Owner duyệt từng dòng:** CT-000.1 + CT-000.4 bản luật yes/no (P68, trang Công thức, Chi tiết của 2 thẻ), đã sửa theo vòng 3 GPT Pro (P70), rồi đổi sang cơ chế theo vòng 4 (P71): Bảng Chuyển trạng thái 92 dòng là nơi duy nhất giữ đường đi; máy kiểm 6 điều 0 lỗi; 14/14 ca thử đạt. Phản biện vòng 2 GPT Pro (21/10 14:19) = 29 điểm ở H5 + 3 ý thêm (30–32); P68 giải 1–31: **Luật cổng** Đúng · Sai · Chưa biết (chỉ Đúng qua; Không áp dụng chỉ theo Loại việc + lý do) · **cột Đạt khi** cho 43 câu · cổng 1 đường (bảng quyết định DMN Unique) · **X1–X9** thành hàng thao tác Đọc · Làm · Ghi · Kết quả · **Bảng Kết quả lượt** 7 kết quả, mỗi kết quả 1 đường (chia lỗi theo gRPC) · **Bảng Sổ** (hàng đợi = dòng chờ CAT-228*, khớp CT-007; CAT-206* = khuôn) · **13 yêu cầu PG** có phép thử yes/no · **2 Bảng Chuẩn ngành** (32 chuẩn có nguồn) · khuôn viết luật EARS + RFC 2119 ở CT-000.2. Kế tiếp H4.4a: GPT Pro rà vòng 5 trên Bảng Chuyển trạng thái, ca mới thêm vào máy kiểm → H4.4b thử thật.
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ⬜ · ➡ · tên việc (nếu mục tiêu đổi).
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ (MBM 6.x): [✓ 6.1 Nhận yêu cầu] → [✓ 6.2 Tạo task] → [✓ 6.3 Chốt mục tiêu] → [◐ 6.4 Liệt kê bước — bản thử] → [◐ 6.5 Bộ câu hỏi] → [■ 6.6 Check Master list] → [□ 6.7 Ký] → [□ 6.8 Chạy]
-- ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`) · 19/10: Info contract chuẩn ngành, Config + Saga, ý kiến Astra ngoài MBM · M1: QTTH đổi tên MMOW, 4 tầng MBM → MMOW → MOW → Hồ sơ (MBM r5.35) · tên hiển thị «Master MMOW», «MMOW 05/06» trên các trang (mã khoá ML-MOW-TH-001 / MOW-TH-xxx giữ tới khi lên collection — nợ 🔴 VD-027) · Master MMOW có dòng MMOW-007 (việc này), trang hiện mã MMOW-xxx · 18:28: MMOW 07 chỉ Vẽ UI; Master MMOW thêm MMOW-008 (Info contract), MMOW-009 (Config) · 22:26: Master MOW có 3 cột tích Vẽ UI · Info contract · Config (35/35 ☐; tích trên giao diện = nợ VD-028) · 20/10: trang Công thức có khối KHÁI NIỆM · CAT-000.5 (54 loài, 5 định luật ĐL1–ĐL5, ký hiệu tạm chờ vector); MMOW mã OBJ-MMOW · 14:18: CAT-000.5 hợp nhất 107 loài mã SPE (gộp entity_species + khái niệm nháp + CAT-237*; quét máy Q1–Q6: 4 bảng vô chủ, mã mồ côi audit_log, 6 loài lệch tiền tố, 10 sổ 2 mã) · Master Duyệt thiết kế có CAT-000.5 + cột Duyệt TK (xanh = User đã duyệt; CAT-000.5 tạm duyệt 20/10) · nợ VD-029 (ghi PG) · 15:08: chuẩn «?» cho mọi bảng mới (ĐL6), CAT-000.5 đã có «?» ở tiêu đề, ma trận, 8 cột · 17:32: trang Công thức có 2 thanh thu/mở «Công thức gốc» (CT-000.2 Cấp ghép 1–4) + «Công thức chuyên môn» (CT-001→008); 14 thẻ có dòng mờ loài + sổ · 20–21/10: Công thức gốc (21/10 09:51): CT-000.1 Bộ câu hỏi chuẩn (43 câu Trước · Trong · Sau + 1 luật rẽ nhánh; gộp Info contract law) · CT-000.2 Điều luật (+ Xử lý bằng) · CT-000.3 Cấp ghép · CT-000.4 Xử lý lỗi = quy trình 9 bước (Ghi sự cố → Xếp hàng → Tra quy trình → Chạy → Kết quả → Kiểm lại · Vấn đề → MMOW → Owner). 10:02: CT-000.1 không đạt ⇒ chỉ vào hàng đợi (bỏ «Thiếu ⇒ Tạo mới»: khái niệm, không phải bước làm). Kế tiếp: skill tự kiểm 43 câu cho agent (chờ Owner). · 21/10 P68: CT-000.1 + CT-000.4 thành luật yes/no theo chuẩn ngành (commit 9275bd59, d4d38d27; Master Công thức ui 9bd5a22). · 15:30 P69: luật Kiến trúc — PG gốc + Lớp trên (CT-000.2 dòng 7–8); 2 Bảng Chuẩn ngành ghi rõ «chỉ mượn cách làm, không cài, không trả phí» (commit b6bc677d). · 16:15 P70: sửa theo vòng 3 GPT Pro + luật Không mồ côi (commit 8d1479e2, a4648ef4; ui 19d9d4a).
+- ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`) · 19/10: Info contract chuẩn ngành, Config + Saga, ý kiến Astra ngoài MBM · M1: QTTH đổi tên MMOW, 4 tầng MBM → MMOW → MOW → Hồ sơ (MBM r5.35) · tên hiển thị «Master MMOW», «MMOW 05/06» trên các trang (mã khoá ML-MOW-TH-001 / MOW-TH-xxx giữ tới khi lên collection — nợ 🔴 VD-027) · Master MMOW có dòng MMOW-007 (việc này), trang hiện mã MMOW-xxx · 18:28: MMOW 07 chỉ Vẽ UI; Master MMOW thêm MMOW-008 (Info contract), MMOW-009 (Config) · 22:26: Master MOW có 3 cột tích Vẽ UI · Info contract · Config (35/35 ☐; tích trên giao diện = nợ VD-028) · 20/10: trang Công thức có khối KHÁI NIỆM · CAT-000.5 (54 loài, 5 định luật ĐL1–ĐL5, ký hiệu tạm chờ vector); MMOW mã OBJ-MMOW · 14:18: CAT-000.5 hợp nhất 107 loài mã SPE (gộp entity_species + khái niệm nháp + CAT-237*; quét máy Q1–Q6: 4 bảng vô chủ, mã mồ côi audit_log, 6 loài lệch tiền tố, 10 sổ 2 mã) · Master Duyệt thiết kế có CAT-000.5 + cột Duyệt TK (xanh = User đã duyệt; CAT-000.5 tạm duyệt 20/10) · nợ VD-029 (ghi PG) · 15:08: chuẩn «?» cho mọi bảng mới (ĐL6), CAT-000.5 đã có «?» ở tiêu đề, ma trận, 8 cột · 17:32: trang Công thức có 2 thanh thu/mở «Công thức gốc» (CT-000.2 Cấp ghép 1–4) + «Công thức chuyên môn» (CT-001→008); 14 thẻ có dòng mờ loài + sổ · 20–21/10: Công thức gốc (21/10 09:51): CT-000.1 Bộ câu hỏi chuẩn (43 câu Trước · Trong · Sau + 1 luật rẽ nhánh; gộp Info contract law) · CT-000.2 Điều luật (+ Xử lý bằng) · CT-000.3 Cấp ghép · CT-000.4 Xử lý lỗi = quy trình 9 bước (Ghi sự cố → Xếp hàng → Tra quy trình → Chạy → Kết quả → Kiểm lại · Vấn đề → MMOW → Owner). 10:02: CT-000.1 không đạt ⇒ chỉ vào hàng đợi (bỏ «Thiếu ⇒ Tạo mới»: khái niệm, không phải bước làm). Kế tiếp: skill tự kiểm 43 câu cho agent (chờ Owner). · 21/10 P68: CT-000.1 + CT-000.4 thành luật yes/no theo chuẩn ngành (commit 9275bd59, d4d38d27; Master Công thức ui 9bd5a22). · 15:30 P69: luật Kiến trúc — PG gốc + Lớp trên (CT-000.2 dòng 7–8); 2 Bảng Chuẩn ngành ghi rõ «chỉ mượn cách làm, không cài, không trả phí» (commit b6bc677d). · 16:15 P70: sửa theo vòng 3 GPT Pro + luật Không mồ côi (commit 8d1479e2, a4648ef4; ui 19d9d4a). · 16:25 P71: Bảng Chuyển trạng thái + máy kiểm 0 lỗi, 14/14 ca (commit da9609f9, 7cc4ecec, e14ad530).
 - ■ Đang làm: — · 0 RUN active
 - ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
-- ➡ Kế tiếp: H4.4a thử trên giấy 15 tình huống (1 việc sửa UI thật) → H4.4b thử thật trên PG + Flow → GPT Pro rà 1 vòng → Owner duyệt từng dòng (H4.5). Sau đó: Owner duyệt Miền CV (CAT-250*) + nháp MBM 3.3 viết theo luật CAT-000.5 (Bước làm = Mục tiêu + Miền CV + Công thức) → sửa MBM M2–M6 (ô 3, «Chờ bàn khi sửa MBM») → viết lại bước chuyên môn MMOW 07 (chỉ Vẽ UI; bước 3.2, 3.3 cũ chuyển sang MMOW 08, 09) → hoàn thiện MMOW 07.
+- ➡ Kế tiếp: H4.4a GPT Pro rà vòng 5 trên Bảng Chuyển trạng thái (ca mới ⇒ thêm vào máy kiểm) → gắn 1 việc sửa UI thật → H4.4b thử thật trên PG + Flow → Owner duyệt từng dòng (H4.5). Sau đó: Owner duyệt Miền CV (CAT-250*) + nháp MBM 3.3 viết theo luật CAT-000.5 (Bước làm = Mục tiêu + Miền CV + Công thức) → sửa MBM M2–M6 (ô 3, «Chờ bàn khi sửa MBM») → viết lại bước chuyên môn MMOW 07 (chỉ Vẽ UI; bước 3.2, 3.3 cũ chuyển sang MMOW 08, 09) → hoàn thiện MMOW 07.
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
 ### 1. Mục tiêu
@@ -163,6 +318,7 @@ Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công
 - CAT-000.5 tạm đặt trên trang Công thức; sau chuyển sang collection (nợ VD-029).
 - Kiến trúc (Owner 21/10 15:15): PG là tầng gốc giữ sự thật — dữ liệu, hàng đợi, trạng thái, khoá; khai thác tối đa PG trước cho đơn giản, tin cậy. Dịch vụ như Kubernetes chỉ là lớp trên cho bài toán chuyên biệt, không giữ dữ liệu gốc, tắt đi chỉ chậm hơn. Chuẩn ngành = mượn cách làm, không mua dịch vụ. Luật: CT-000.2 dòng 7 «PG gốc», 8 «Lớp trên».
 - Khép kín (Owner 21/10 15:35): mọi điểm có thể gãy phải đi đến cùng mọi nhánh, mọi trường hợp; tệ nhất là vào hàng đợi (quản lý được); không để tình trạng mồ côi. Luật: CT-000.2 dòng 9 «Không mồ côi», 10 «Còn lại»; CT-000.4 Bảng Trạng thái + Yêu cầu PG 14.
+- Cơ chế thay nguyên tắc (Owner 21/10 16:24): viết nguyên tắc không có nghĩa gì; phải có cơ chế để không hiểu sai, không thể làm sai. Áp dụng: đường đi của việc chỉ viết 1 chỗ (Bảng Chuyển trạng thái); máy kiểm (H7) phải ra 0 lỗi trước khi đưa duyệt; lên PG thì hàm chuyển trạng thái chỉ đi theo dòng có trong bảng (PG 16).
 
 #### ⏳ Chờ bàn khi sửa MBM (Owner 19/10 17:36)
 | Mã | Việc | Nguồn |
@@ -224,6 +380,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P71 · 21/10 16:24 · [GPT Pro phản biện vòng 4] — «Sao GPT vẫn còn nhiều ý kiến thế nhỉ? Ngoài ra tôi vẫn phải nhấn mạnh: Viết nguyên tắc không có nghĩa gì. Quan trọng là hanh động, cơ chế để không hiểu sai, không thể làm sai. Bạn rà soát chặt chẽ từng bước giúp tôi.» → H4.3c: Bảng Chuyển trạng thái + máy kiểm, 0 lỗi, 14/14 ca.
 - P70 · 21/10 15:35 · [GPT Pro phản biện vòng 3] — «Bạn rà soát lại tất cả các ý kiến đó, với những điểm tiềm năng được gọi là gãy, phải đi đến cùng theo tất cả các nhánh theo tất cả các trường hợp. Phải khép kín mọi trường hợp, tệ nhất là tình trạng chui vào hàng đợi… không được để tình trạng nào kiểu mồ côi.» → H4.3b: 15/15 điểm, 3 lưới khép kín, luật 9–10.
 - P69 · 21/10 15:15 · «Tóm lại GPT pro góp ý dài như vậy thì gồm những ý lớn gì? Đã được sửa thế nào? Những cái gì bạn chấp nhận và những cái gì không chấp nhận?» — «…Ưu tiên của mình là chạy trong các dịch vụ của PG trước (khai thác tối đa) để đơn giản và đáng tin cậy, sau đó có thể trồng lên 1 lớp các dịch vụ như Kubernetes… là lớp bên trên để giải quyết những bài toán chuyên biệt. Trong khi mức độ tin cậy và ổn định chính vẫn dựa vào PG. Nếu được thì hãy hướng theo kiến trúc đấy giúp tôi.» → CT-000.2 luật 7 PG gốc, 8 Lớp trên; H6.13; Chi tiết cần đạt.
 - P68 · 21/10 14:30 · «Chúng ta chuyển phiên… Bạn đọc ký HO và tài liệu, tiếp tục chỉnh sửa nhé.» — «ý kiến phản biện của GPT. Nguyên tắc là không nói định hướng, khôgn nói chung chung (nguyên tắc) chúng ta phải thiết kế để thế nào là yes thế nào là no rõ ràng, chỉ có làm theo 1 cách thôi mới được nhé. Chuẩn của ngành IT đâu? mang ra đây áp sát vào? Kiếm những chuẩn tốt nhất ra giúp tôi xem nào?» → H4.1–H4.3: CT-000.1 + CT-000.4 luật yes/no, 2 Bảng Chuẩn ngành.
