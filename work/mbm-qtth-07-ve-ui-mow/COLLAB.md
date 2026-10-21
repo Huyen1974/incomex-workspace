@@ -5,9 +5,101 @@ Tên việc: MMOW 07 — vẽ UI cho các MOW trong Master MOW, làm bằng côn
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 19/10/2026 18:28: MMOW 07 chỉ Vẽ UI (thay bản 18/10 21:25 gồm 3 mục tiêu; Chốt Info contract → MMOW 08, Config → MMOW 09).
 Host: Claude Chat · Owner giao trực tiếp 16/10 16:29–17:05.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-21 11:10 +07 · Claude · P66
+## ⇢ HANDOFF CHO PHIÊN SAU · 21/10/2026 14:25 +07 · Claude · P67
+> Phiên mới: đọc hết mục này → mở 3 trang ở H2 → làm H4.1. Không bàn lại những gì ở H3.
 
-> **⏳ Chờ hội đồng rà rồi Owner duyệt từng dòng:** CT-000.1 Bộ câu hỏi chuẩn v2 trên trang Công thức (thẻ CT-000.1, Chi tiết): ① Công thức · ② 5 giai đoạn có cổng · ③ 7 nhóm công cụ · ④ 43 câu. Đã sửa theo phản biện GPT Pro (3 loại đạt → 3 cổng; 4 trạng thái trả lời; người yêu cầu có định danh; tiêu chí kiểm chứng được + thứ phải giữ; mốc hạn; kiểu phụ thuộc; giữ việc có thế hệ; gửi ngoài mất phản hồi ⇒ Chưa biết, đối soát; kết quả 6 loại; huỷ giữa chừng; xác nhận đã nhận; tổng tính từ nguồn; luật mới phải duyệt; ghi kết quả lỗi luôn được phép). GPT Pro rà lại bản v2 bằng 8 tình huống thử của chính GPT Pro, ghi ý kiến ngay dưới đoạn này. Chưa sửa CT-000.4 theo 6 điểm của GPT Pro (phân loại lỗi, tái phát, giới hạn theo vấn đề gốc, chờ Owner có hạn, bộ xử lý lỗi tự hỏng): làm sau khi hội đồng chốt v2.
+### H1. Đang ở đâu
+Đang thiết kế **4 Công thức gốc** (khung chung cho MỌI việc) trên trang Công thức. Vừa nhận **phản biện vòng 2 của GPT Pro** (Owner dán 21/10 14:19) cho Bộ câu hỏi chuẩn v2 + Xử lý lỗi. Owner yêu cầu: **áp sát chuẩn ngành IT tốt nhất**, mỗi luật viết **yes/no rõ ràng, chỉ 1 cách làm**, không nói định hướng chung chung. Việc kế tiếp = H4.1.
+
+### H2. Mở đâu
+| Gì | Địa chỉ |
+|---|---|
+| Khối Công thức gốc (CT-000.1…000.4) | https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=formula-ct-000-1 |
+| CAT-000.5 Khái niệm | cùng trang, `section=kn-cat-000-5` |
+| Master Duyệt thiết kế | https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/master-design-review-v1.html |
+| Nguồn trang (SSOT) | gh `work/mow-mot-moit-mout/ban-duyet.html` · `FORMULA-AI-README.md` · ui `definition-master-data-v1.js` (sổ ML-DEF-021 = Master Công thức) · ui `definition-master-registry-v1.js` |
+
+### H3. Đã chốt — không bàn lại
+1. **CAT-000.5 Master Khái niệm** (tạm ở trang Công thức, sau lên collection): gộp entity_species (CAT-020) + sua_re_khai_niem_nhap + CAT-237*; mã loài chuẩn **SPE-xxx** (* = đề xuất); 7 cột + Tình trạng; 107 loài; ĐL1–ĐL6 (ĐL6 = mọi bảng có «?»). Master Duyệt thiết kế có cột **Duyệt TK** (xanh = User đã duyệt; CAT-000.5 tạm duyệt 20/10).
+2. **Khối «Công thức gốc»** (thu/mở) trên khối «Công thức chuyên môn» (CT-001→008):
+   - **CT-000.1 Bộ câu hỏi chuẩn** (= Info contract law) v2: Việc = Muốn gì + Đang thế nào · 5 giai đoạn có cổng G1 Khai báo (Definition of Ready) · G2 Chuẩn bị · G3 Thực hiện · G4 Nghiệm thu (Definition of Done) · G5 Bàn giao · 7 nhóm công cụ CC1–CC7 · 43 câu G1.1–G5.5, cột Ai trả lời · Nhóm · Master List (mã · 🟡 thiếu ô · 🔴 chưa có sổ · ⚪ không cần) · 4 trạng thái trả lời Có · Không áp dụng · Chưa biết · Sai.
+   - **CT-000.2 Điều luật** = Khi nào + Làm gì + Kiểm bằng + Xử lý bằng; sổ CAT-140 (normative_registry, đã có NRM-LAW-02 Registry, NRM-LAW-07 Tận dụng…).
+   - **CT-000.3 Cấp ghép** = cấp ghép lớn nhất của thành tố + 1 (Cấp ghép 1 ~ nguyên tử → 4).
+   - **CT-000.4 Xử lý lỗi** = 9 bước X1–X9 (Ghi sự cố → Xếp hàng → Tra quy trình → Chạy → Kết quả → Kiểm lại · Vấn đề → MMOW → Owner); Sự cố = ITIL Incident (CAT-017), Vấn đề = ITIL Problem (CAT-069).
+3. **Logic gốc:** không đạt ⇒ vào hàng đợi. Không viết «thiếu ⇒ tạo mới» (đó là khái niệm, không phải bước làm). Gọi quy trình nào là việc của hàng đợi.
+4. **Ký hiệu:** G = giai đoạn · G1.4 = câu · CC = nhóm công cụ · X = bước xử lý lỗi. Không dùng B (trùng Bước B1–B7).
+
+### H4. Việc kế tiếp — đúng thứ tự, mỗi lần 1 việc
+- **H4.1** Ghi tóm tắt phản biện vòng 2 (H5) vào mục «Chờ hội đồng» của Bảng điều khiển.
+- **H4.2** Lập **Bảng chuẩn ngành** (Owner 14:19: «chuẩn ngành IT đâu, mang ra áp sát, kiếm chuẩn tốt nhất»): mỗi điểm H5 → chuẩn cụ thể (tên, mục, nguồn) → luật yes/no. Chuẩn đã khớp, cần tìm và dẫn nguồn: Scrum Guide (Definition of Ready/Done) · ISO/IEC/IEEE 29148 (yêu cầu kiểm chứng được) · RFC 2119 (PHẢI/KHÔNG ĐƯỢC) · BPMN 2.0 (error/boundary event, compensation) · CMMN 1.1 (sentry = cổng) · DMN (bảng quyết định) · Kubernetes conditions (True/False/Unknown + reason) · ITIL 4 (Incident/Problem) · Transactional outbox + idempotency key · lease + fencing token · PostgreSQL 18 (SKIP LOCKED, UPDATE 0 dòng, LISTEN/NOTIFY + quét bù, transaction) · Directus Flow (Filter chặn cùng giao dịch / Action sau giao dịch). Không tự sáng tạo.
+- **H4.3** Sửa CT-000.1 + CT-000.4 trên trang theo H5, mỗi luật dạng yes/no.
+- **H4.4** Thử 1 việc thật nhỏ (sửa 1 UI có sẵn) qua 10 tình huống GPT Pro nêu.
+- **H4.5** Hội đồng thống nhất → Owner duyệt từng dòng.
+- Chưa mở (sau H4.5): ghép 7 nhóm CC × Master List (rà mức ô cho 39 câu còn lại) · skill tự kiểm 43 câu cho agent · thanh lọc 45 luật cũ CAT-140.
+
+### H5. Phản biện vòng 2 GPT Pro — 29 điểm phải sửa
+1. Cổng: «có câu trả lời» ≠ «điều kiện đạt»; Sai hoặc Chưa biết ở điều kiện bắt buộc đều chặn cổng; Không áp dụng chỉ theo Loại việc + lý do; câu của giai đoạn chưa tới không phải sự cố.
+2. G4.1 = «mọi tiêu chí bắt buộc Đúng»; G4.2 đổi thành «thứ phải giữ ở G1.5 còn đúng không».
+3. G1.9 chưa có Loại việc ⇒ dừng ở G1, giao người bổ sung quy trình, có hạn.
+4. Đưa xác nhận song song · giữ việc · chống trùng · nơi ghi · gửi ngoài · bù lên cổng G2 (trước lần ghi đầu tiên).
+5. G2.4–G2.6: số bản ghi mong đợi 0/1/n + nhánh khi lệch; dữ liệu đã dùng phải tái hiện được.
+6. G2.8 phụ thuộc: mã không tồn tại · tự chờ mình · vòng A↔B · việc trước huỷ ⇒ trả về người sửa, không chờ vô hạn.
+7. G2.9–G2.10: sau khi chờ phải kiểm lại quyền và phiên bản; đổi phiên bản phải có quyết định.
+8. G2.11 trỏ công cụ có thật + thao tác + tham số + quyền.
+9. G3.3–G3.4: phạm vi song song (hệ thống / loại / đối tượng); giữ việc: ai · lượt · hạn · gia hạn · thu hồi.
+10. G3.5: Loại việc cho cách tạo mã thao tác, không cho mã cố định.
+11. G3.6–G3.7: tạo khác sửa; tạo/sửa/xoá gì, bản ghi nào, trường nào, giá trị từ đâu.
+12. G3.8, G3.11: đối soát và bù trỏ thao tác thật; không kiểm được ⇒ chờ người.
+13. G3.9 trạng thái: bước hiện tại · đang chạy/chờ · chờ ai/gì · việc tiếp · hạn.
+14. G4.7: M, N lấy ở cấu hình nào.
+15. G4.3: số mong đợi · thực tế · chênh; G5.2: tổng xem ở đâu, tính bằng gì.
+16. Vai phải ra người/agent cụ thể; hạn chờ thành thời điểm; gửi thông báo ≠ đã xác nhận nhận.
+17. G1.1 mã Việc do máy cấp; G1.7 hạn có múi giờ; G5.4 cho phép «không có».
+18. X1 phân 3 ca: gửi lại · phát sinh khi đang mở · tái phát sau đóng (mở lại + xếp hàng); giữ liên kết việc gốc.
+19. X2: điều kiện được lấy việc (đến giờ, đủ điều kiện, chưa huỷ, không ai giữ, có người làm) + chống đói việc ưu tiên thấp.
+20. X3: quy trình đã duyệt, còn dùng, đủ tham số và công cụ.
+21. X4: nhận việc bằng 1 thao tác nguyên tử, có bằng chứng; chờ người = trạng thái chờ, không giữ lượt vô hạn.
+22. X5 xử lý đủ 6 kết quả G4.6 + hết lượt; thử lại quay về X2 (không X4); thiếu quyền/dữ liệu sai không tự thử lại.
+23. X6 kiểm lại MỌI điểm chặn của việc gốc trước khi cho chạy tiếp.
+24. X7: Vấn đề ghi đâu, việc MMOW nào nhận, gộp trùng nguyên nhân; không có MMOW ⇒ X9.
+25. X8: quy trình mới qua thử + duyệt (CT-001); chỉ xếp lại việc còn mở; giới hạn vòng tính theo việc gốc.
+26. X9: 4 lựa chọn tiếp tục · giao lại · huỷ/kết thúc · ngoại lệ có phạm vi; chờ Owner có hạn + người thay; không tự cho qua.
+27. PG: «ghi sự cố + xếp hàng» trong cùng 1 giao dịch thật; rollback không huỷ tác động bên ngoài; không giữ transaction lâu; UPDATE 0 dòng phải có nhánh; NOTIFY + quét bù khi kết nối lại; PG chết ⇒ giám sát ngoài PG; CHECK không thay kiểm quy trình; Directus Flow phân biệt Filter / Action.
+28. Sổ chưa chốt vai: CAT-206* (định nghĩa hay trả lời?) · CAT-228* · CAT-230* (định nghĩa hàng đợi hay dòng việc?) · CAT-238* (3 ứng viên) · CAT-069 (đang trỏ feedbacks).
+29. Mỗi bước có 1 hàng thao tác: Đọc ở đâu · Làm bằng gì · Ghi vào đâu · Hoàn thành · Không hoàn thành.
+
+### H6. Nguyên tắc Owner đã nhắc trong phiên — không để nhắc lại
+1. Không tạo khái niệm, kiểu trình bày mới: dùng lại cái có sẵn (nút số `cf-root-no` của thẻ Bước, khuôn «?» `t1-mapping-table__help`). Tra PG/repo trước khi đặt tên.
+2. Tên ngắn nói bản chất; mã chỉ cho máy; dòng mã phụ chữ nhỏ mờ nhưng có nhãn («mã loài: …», «mã master list: …»).
+3. Mỗi loại số 1 chữ đầu (G / CC / X); không để nhiều «số 1» khác nghĩa.
+4. Mọi bảng có tên bảng + «?» ở tên và từng cột; chấm trong bảng nhạt hơn chấm trên thẻ.
+5. Không để ô trống: mã · 🟡 có sổ thiếu ô · 🔴 chưa có · ⚪ không cần.
+6. Ít chữ trên mặt; giải thích giấu vào «?», «Chi tiết», chữ hiện khi rê chuột.
+7. Thiết kế phải duyệt được từng dòng; hội đồng (GPT Pro phản biện) thống nhất trước, ghi vào repo.
+8. Chuẩn ngành IT, không hùa Owner, không tự sáng tạo; tìm chuẩn tốt nhất và dẫn nguồn.
+9. Không nói chung chung: mỗi luật yes/no, 1 cách làm; tư duy tận cùng, không để nhánh lửng lơ.
+10. Đi từng bước, mỗi lần 1 việc; không tự sửa MBM (CT-008) khi chưa được yêu cầu.
+11. Đề xuất kèm sẵn 1 phương án, Owner chỉ gật/lắc.
+12. Thiết kế PG từ yêu cầu, không đi khảo sát PG đang có gì (Owner 21/10 09:33); PG chỉ cần «có hỗ trợ».
+
+### H7. Mẹo kỹ thuật
+- Sửa trang: `fs_edit` root gh; tệp ~760KB, luôn dùng old_str nguyên văn; báo «không khớp» thì `fs_search` lấy nguyên văn; push bị từ chối (phiên khác vừa đẩy) thì gửi lại cùng expected_version.
+- Trang xem giữ bản cũ: mở `ui-preview/hpml-view-for-user/view.html?task=mow-mot-moit-mout`, bấm `header button`, đợi ~18 giây, rồi chụp `knowledge/modules?…&section=<id>`.
+- Công cụ chụp không mở được «Chi tiết» trong khung trang → kiểm bằng đếm mã (`fs_search` count) và nói rõ giới hạn.
+- Đọc PG: `query_pg` database `directus` (chỉ đọc). `directus_read` đang lỗi phân giải tên miền.
+- Neo trang: `formula-ct-000-1` … `formula-ct-000-4` · `formula-ct-001` … · `kn-cat-000-5`.
+- Mỗi lượt sửa: cập nhật Bảng điều khiển + Nhật ký (P tăng dần) trong COLLAB này.
+
+### H8. Nợ đang treo — không làm xen
+- VD-029 ghi CAT-000.5 vào PG (2 cột Quản lý tại · Lớp; ~65 loài mới; 4 bảng vô chủ; mã mồ côi audit_log; 6 loài lệch tiền tố).
+- L0–L6 → đề xuất thay bằng FAC-02 «Vai trò hệ thống» (5 giá trị có sẵn). **Chưa áp lên trang, chờ Owner.**
+- ĐL1–ĐL6 → đề xuất chuyển thành dòng Điều luật (CAT-140). Chờ Owner.
+- CAT-201* giá trị cố định (Cấp ghép, Lớp, Bước, Tầng, Mốc, Câu hỏi) chưa lập · CAT-250* Miền CV chưa lập.
+- MBM M2–M6 · VD-028 · lỗi DNS Directus.
+
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-21 14:25 +07 · Claude · P67
+
+> **⏳ Chờ hội đồng rà rồi Owner duyệt từng dòng:** CT-000.1 Bộ câu hỏi chuẩn v2 trên trang Công thức (thẻ CT-000.1, Chi tiết): ① Công thức · ② 5 giai đoạn có cổng · ③ 7 nhóm công cụ · ④ 43 câu. Đã sửa theo phản biện GPT Pro (3 loại đạt → 3 cổng; 4 trạng thái trả lời; người yêu cầu có định danh; tiêu chí kiểm chứng được + thứ phải giữ; mốc hạn; kiểu phụ thuộc; giữ việc có thế hệ; gửi ngoài mất phản hồi ⇒ Chưa biết, đối soát; kết quả 6 loại; huỷ giữa chừng; xác nhận đã nhận; tổng tính từ nguồn; luật mới phải duyệt; ghi kết quả lỗi luôn được phép). GPT Pro đã rà vòng 2 (21/10 14:19): 29 điểm ở HANDOFF H5; việc kế tiếp HANDOFF H4.1. Chưa sửa CT-000.4 theo 6 điểm của GPT Pro (phân loại lỗi, tái phát, giới hạn theo vấn đề gốc, chờ Owner có hạn, bộ xử lý lỗi tự hỏng): làm sau khi hội đồng chốt v2.
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ⬜ · ➡ · tên việc (nếu mục tiêu đổi).
 - 🎯 Mục tiêu: ô 1. Vì sao: bài thử MBM — lần 2 không có Owner, AI vẫn tự chạy.
 - 🏁 Xong khi: ô 2.
@@ -99,6 +191,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P67 · 21/10 11:16–14:22 · «…chấm trong G, CC nhạt hẳn xuống… nên có tên bảng… bổ sung 1 cột master list…» — «…chưa có thì ghi chưa có màu đỏ… bạn để trống thì hiểu thế nào?…» — [GPT Pro phản biện vòng 2] — «…thiết kế để thế nào là yes thế nào là no rõ ràng… Chuẩn của ngành IT đâu? mang ra đây áp sát vào?…» — «Viết cho tôi 1 Hand off để chuyển phiên mới…» → HANDOFF P67.
 - P66 · 21/10 10:39–10:46 · «Đây là ý kiến đầu tiên của GPT pro… phải tìm ra 1 công thức vạn năng… vẽ cho tôi bức tranh về các nhóm công cụ… không phải việc gì cũng cần trả lời hết…» — «…ngay từ ông yêu cầu cũng phải chuẩn… khai báo chưa chuẩn thì dừng ở chỗ khai báo… đầu ra trước mắt là 1 Công thức 2 Chia giai đoạn 3 Danh sách các công cụ cần… cả hội đồng thống nhất trước khi tôi duyệt… Bạn tiếp tục điều chỉnh bộ câu hỏi chuẩn» → CT-000.1 v2.
 - P65 · 21/10 10:02 · «Thiếu => tạo mới chưa đúng => logic gốc mà bị sai… Nguyên tắc là thiếu => đưa vào hàng đợi + quản lý vòng đời… work Flow chúng ta phải đi bộ từng bước… đây là làm cơ mà?» → CT-000.1 không đạt ⇒ hàng đợi; CT-000.4 = 9 bước.
 - P64 · 21/10 09:29–09:51 · «…sai thiếu ở bất cứ khâu nào… phải ghi vào 1 nơi để quản lý hàng đợi… gọi các quy trình liên quan… không có thì quay lại hàng đợi…» — «PG bạn không phải kiểm tra… thiết kế từ yêu cầu…» — «…cần đẩy các số thứ tự lên để dành cho Công thức đầu tiên: BỘ CÂU HỎI CHUẨN CT-000.1… Mọi việc dù lớn nhỏ chỉ cần 1 bộ câu hỏi chuẩn… trước, trong, sau… không quá 50 câu… nếu thiếu thì làm gì… nếu được thì sao? Nếu không được thì sao?… chuẩn ngành IT…» → CT-000.1…000.4.
