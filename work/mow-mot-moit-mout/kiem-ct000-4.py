@@ -12,6 +12,8 @@ Mã thoát: 0 đạt · 1 có lỗi xác định (có vết chạy), ca trượt
           Mã 2 KHÔNG được coi là đạt.
 Kết quả đột biến: KILLED (bắt được, có bằng chứng) · SURVIVED · INCONCLUSIVE · CHECKER_ERROR; chỉ KILLED được tính là bắt.
 Chạy: python3 work/mow-mot-moit-mout/kiem-ct000-4.py [--dot-bien] [--kb TÊN,TÊN | --kb -] [--gioi N] [--json ĐƯỜNG_DẪN] [--trang ĐƯỜNG_DẪN]
+Kiểm kê đăng ký: python3 work/mow-mot-moit-mout/kiem-ct000-4.py --kiem-ke  (Master Tool có đủ mục, đường dẫn, sha256,
+          manifest từng tệp, mục ghi nhớ; liệt kê script trong thư mục việc chưa có trong Master). Mã 0 đủ · 1 lệch.
 Master Công cụ ML-DEF-023 · mã python:kiem-ct000-4 (work/tools-quy-trinh/view.html). Phản biện độc lập: python:ct000-audit.
 """
 import re, html, sys, ast, unicodedata, collections, time, json
@@ -646,6 +648,51 @@ def dot_bien(T):
     M.append(('xoá Bảng Giá trị', T2))
     return M
 
+# ---------- kiểm kê đăng ký công cụ (Owner 21/10 20:37 + 21:33) ----------
+MASTER_TOOL = 'work/tools-quy-trinh/view.html'   # Master Tool ML-DEF-023 đọc catalog.tool_registry.provider_tools từ đây
+BO_CONG_CU = {'python:kiem-ct000-4': 'work/mow-mot-moit-mout/kiem-ct000-4.py',
+              'python:ct000-audit': 'work/mow-mot-moit-mout/audit-ct000/run.py'}
+THU_MUC_VIEC = ['work/mow-mot-moit-mout', 'work/mbm-qtth-07-ve-ui-mow']
+
+def kiem_ke():
+    import hashlib, os
+    def sha(p): return hashlib.sha256(open(p, 'rb').read()).hexdigest()
+    h = open(MASTER_TOOL, encoding='utf-8').read(); E = []; R = []
+    for tid, path in BO_CONG_CU.items():
+        a = h.find('"id": "%s"' % tid)
+        if a < 0: E.append(('KK1 chưa có trong Master Tool', tid)); continue
+        blk = h[a:h.find('\n}', a)]
+        def get(k):
+            m = re.search(r'"%s": "([^"]*)"' % k, blk); return m.group(1) if m else None
+        p, s, mf, ms = get('path'), get('sha256'), get('manifest'), get('manifest_sha256')
+        if p != path: E.append(('KK2 đường dẫn trong Master khác', tid, p)); continue
+        if not os.path.isfile(p): E.append(('KK3 tệp không có', tid, p)); continue
+        if s != sha(p): E.append(('KK4 sha256 trong Master lệch tệp', tid, (s or '')[:12], sha(p)[:12]))
+        n = '—'
+        if mf:
+            if not os.path.isfile(mf) or ms != sha(mf): E.append(('KK5 manifest thiếu hoặc sha256 lệch', tid, mf))
+            else:
+                goc = os.path.dirname(mf); fs = json.load(open(mf)).get('files', [])
+                for f in fs:
+                    fp = os.path.join(goc, f['path'])
+                    if not os.path.isfile(fp) or sha(fp) != f['sha256']: E.append(('KK6 tệp trong manifest lệch hoặc thiếu', tid, f['path']))
+                n = '%d tệp' % len(fs)
+        if '"tool_id": "%s"' % tid not in h: E.append(('KK7 thiếu mục ghi nhớ (memory)', tid))
+        R.append((tid, p, sha(p)[:12], n))
+    ngoai = []
+    for d in THU_MUC_VIEC:
+        for goc, _, ts in os.walk(d):
+            if any(x in goc for x in ('/ct000-audit-v5', '/audit-ct000')): continue   # thuộc python:ct000-audit (manifest / phiên v5)
+            for t in ts:
+                if t.endswith(('.py', '.js', '.sh', '.mjs')) and t not in h and t != os.path.basename(BO_CONG_CU['python:kiem-ct000-4']):
+                    ngoai.append(os.path.join(goc, t))
+    print('KIỂM KÊ ĐĂNG KÝ · Master Tool ML-DEF-023 (%s)' % MASTER_TOOL)
+    for r in R: print('  ✓ %-22s %-48s sha256 %s · manifest %s' % r)
+    for e in E: print('  ✗', e)
+    for f in sorted(ngoai): print('  ⚠ chưa có trong Master Tool (chỉ ghi sổ riêng của việc):', f)
+    print('KIỂM KÊ: %d công cụ đủ · %d lệch · %d script ngoài Master' % (len(R) - len({e[1] for e in E}), len(E), len(ngoai)))
+    return E
+
 def kiem_cau_truc(h):
     """S8: mọi bảng trong CT-000.1 / .2 / .4 có số ô mỗi dòng = số cột đầu bảng.
     (Phép kiểm dùng tay ở P70–P72, gộp vào đây để không phải viết lại.)"""
@@ -669,6 +716,7 @@ def kiem_cau_truc(h):
 def main():
     global KB_CHON, GIOI
     a = sys.argv[1:]
+    if '--kiem-ke' in a: sys.exit(1 if kiem_ke() else 0)
     if '--gioi' in a: GIOI = int(a[a.index('--gioi') + 1])
     path = a[a.index('--trang') + 1] if '--trang' in a else TRANG
     if '--kb' in a: KB_CHON = set(a[a.index('--kb') + 1].split(','))
