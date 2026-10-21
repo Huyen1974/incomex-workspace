@@ -1223,6 +1223,33 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   </div>
 </details>
 </section>
+<section class="cf-formula-piece cf-tier-formula" id="formula-ct-000-1-1" aria-label="CT-000.1.1 · Info contract law">
+<div class="cf-formula-titlebar"><div class="cf-formula-nick">Info contract law</div><div class="cf-formula-full">CT-000.1.1 · Khung 10 câu</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-LAW · mã master list: CAT-140 · bảng khai báo: CAT-206*</div><div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a></div></div>
+<div class="cf-formula-expression"><code>Trước + Trong + Sau =&gt; Info contract · Thiếu =&gt; Tạo mới · Sai =&gt; Sửa</code></div>
+<div class="cf-flow" role="group" aria-label="Info contract law: Trước, Trong, Sau"><div class="cf-chain"><span class="s" title="câu 1–5: ai làm · ai duyệt · khi nào · vào gì · đọc ở"><b class="cf-root-no">1</b> Trước</span><span class="a" aria-hidden="true">→</span><span class="s" title="câu 6–7: làm gì · ghi ở"><b class="cf-root-no">2</b> Trong</span><span class="a" aria-hidden="true">→</span><span class="s" title="câu 8–10: xong khi · bằng chứng · chưa xong thì"><b class="cf-root-no">3</b> Sau</span></div></div>
+<details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <p class="cf-derived-note"><b>Thiếu X ⇒ gọi MOW «Tạo mới X» · Sai X ⇒ gọi MOW «Sửa X»</b> (MOW = Bước × Loài, CT-001 × CT-005). MOW đó chưa có ⇒ MMOW tạo. Mỗi lần đều ghi 1 dòng Vấn đề (CAT-069) để theo vòng đời 🔴 → 🟡 → 🟢. Bảng khai báo: CAT-206*, 1 dòng = 1 việc, 10 cột = 10 câu.</p>
+  <div class="kn">
+  <table>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">STT</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột STT">?</span><span class="t1-mapping-table__tip" role="tooltip">Số câu, gọi tắt «câu 4».</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Câu hỏi</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Câu hỏi">?</span><span class="t1-mapping-table__tip" role="tooltip">Câu bắt buộc trả lời trước khi làm bất kỳ việc gì, ở mọi vị trí.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Trả lời phải là</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Trả lời phải là">?</span><span class="t1-mapping-table__tip" role="tooltip">Dạng trả lời máy kiểm được. Không nhận văn xuôi.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Loài kiểm</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Loài kiểm">?</span><span class="t1-mapping-table__tip" role="tooltip">Loài mà câu trả lời phải trỏ tới: mã phải có thật trong sổ của loài đó.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Thiếu ⇒</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Thiếu">?</span><span class="t1-mapping-table__tip" role="tooltip">Chưa trả lời hoặc mã chưa có ⇒ gọi MOW Tạo mới loài đó, ghi 1 dòng Vấn đề.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Sai ⇒</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Sai">?</span><span class="t1-mapping-table__tip" role="tooltip">Có trả lời nhưng sai hoặc không khớp ⇒ gọi MOW Sửa loài đó, ghi 1 dòng Vấn đề.</span></span></th></tr></thead>
+  <tbody>
+  <tr><th colspan="6">Trước</th></tr>
+  <tr><td>1</td><td>Ai làm?</td><td>😊 người / 🤖 máy + mã vai</td><td>Vai</td><td>Tạo mới Vai</td><td>Sửa Vai</td></tr>
+  <tr><td>2</td><td>Ai duyệt, ai được báo?</td><td>mã vai</td><td>Vai</td><td>Tạo mới Vai</td><td>Sửa Vai</td></tr>
+  <tr><td>3</td><td>Khi nào bắt đầu?</td><td>sự kiện + điều kiện</td><td>Trigger</td><td>Tạo mới Trigger</td><td>Sửa Trigger</td></tr>
+  <tr><td>4</td><td>Cần đầu vào gì?</td><td>danh sách mã Field</td><td>Field</td><td>Tạo mới Field</td><td>Sửa Field</td></tr>
+  <tr><td>5</td><td>Đọc ở đâu?</td><td>mã Master list + mã Field</td><td>Master list</td><td>Tạo mới Master list</td><td>Sửa Master list</td></tr>
+  <tr><th colspan="6">Trong</th></tr>
+  <tr><td>6</td><td>Làm gì?</td><td>1 động từ + 1 đối tượng</td><td>Bước con</td><td>Tạo mới Bước con</td><td>Sửa Bước con (tách đôi)</td></tr>
+  <tr><td>7</td><td>Ghi đầu ra ở đâu?</td><td>mã Master list + mã Field</td><td>Master list</td><td>Tạo mới Master list</td><td>Sửa Master list</td></tr>
+  <tr><th colspan="6">Sau</th></tr>
+  <tr><td>8</td><td>Thế nào là xong?</td><td>điều kiện đếm được, có số</td><td>Điều kiện</td><td>Tạo mới Điều kiện</td><td>Sửa Điều kiện</td></tr>
+  <tr><td>9</td><td>Bằng chứng gì?</td><td>ai · lúc nào · đọc gì · ghi gì</td><td>Bằng chứng</td><td>Tạo mới Bằng chứng</td><td>Sửa Bằng chứng</td></tr>
+  <tr><td>10</td><td>Chưa xong thì sao?</td><td>chạy lại M lần · quá X báo ai</td><td>Config</td><td>Tạo mới Config</td><td>Sửa Config</td></tr>
+  </tbody></table>
+  </div>
+</details>
+</section>
 <section class="cf-formula-piece cf-tier-formula" id="formula-ct-000-2" aria-label="CT-000.2 · Cấp ghép">
 <div class="cf-formula-titlebar"><div class="cf-formula-nick">Cấp ghép</div><div class="cf-formula-full">CT-000.2 · Đo độ ghép</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-CGH* · mã master list: CAT-201*</div><div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a></div></div>
 <div class="cf-formula-expression"><code>Cấp ghép 1 =&gt; Cấp ghép 2 =&gt; Cấp ghép 3 =&gt; Cấp ghép 4</code></div>

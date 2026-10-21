@@ -196,6 +196,7 @@ Chỉ escalates Owner khi kết quả phản biện dẫn tới **một công th
 | CT | Nickname | Công thức |
 |---|---|---|
 | CT-000.1 | **Điều luật** | `Khi nào + Làm gì + Kiểm bằng ⇒ Điều luật` · công thức gốc; loài SPE-LAW, sổ CAT-140 (normative_registry); mã NRM-LAW-số.khoản |
+| CT-000.1.1 | **Info contract law** | `Trước (5) + Trong (2) + Sau (3) ⇒ Info contract · Thiếu X ⇒ MOW Tạo mới X · Sai X ⇒ MOW Sửa X` · 10 câu bắt buộc cho mọi việc ở mọi vị trí: 1 Ai làm · 2 Ai duyệt/báo · 3 Khi nào · 4 Vào gì (mã Field) · 5 Đọc ở (Master list + Field) · 6 Làm gì (1 động từ + 1 đối tượng) · 7 Ghi ở (Master list + Field) · 8 Xong khi (đếm được) · 9 Bằng chứng · 10 Chưa xong thì (chạy lại · hết giờ · báo ai). MOW chưa có ⇒ MMOW tạo; mỗi lần ghi Vấn đề CAT-069; khai báo ở CAT-206* |
 | CT-000.2 | **Cấp ghép** | `Cấp ghép = cấp ghép lớn nhất của thành tố + 1` · công thức gốc (đo mọi công thức); Cấp ghép 1 (~ nguyên tử) ⇒ 2 ⇒ 3 ⇒ 4 |
 | CT-001 | **Bước** | `Tìm → { Dùng | Tạo mới | Sửa | Vô hiệu }` |
 | CT-002 | **Tầng** | `Field => { MOIT | MOUT } => MOT => MOW` · T3→T7 chỉ bối cảnh, thu gọn |
