@@ -684,7 +684,7 @@ def kiem_ke():
         for goc, _, ts in os.walk(d):
             if any(x in goc for x in ('/ct000-audit-v5', '/audit-ct000')): continue   # thuộc python:ct000-audit (manifest / phiên v5)
             for t in ts:
-                if t.endswith(('.py', '.js', '.sh', '.mjs')) and t not in h and t != os.path.basename(BO_CONG_CU['python:kiem-ct000-4']):
+                if t.endswith(('.py', '.js', '.sh', '.mjs')) and not re.search(r'"(?:path|source)": "[^"]*%s"' % re.escape(t), h):
                     ngoai.append(os.path.join(goc, t))
     print('KIỂM KÊ ĐĂNG KÝ · Master Tool ML-DEF-023 (%s)' % MASTER_TOOL)
     for r in R: print('  ✓ %-22s %-48s sha256 %s · manifest %s' % r)
