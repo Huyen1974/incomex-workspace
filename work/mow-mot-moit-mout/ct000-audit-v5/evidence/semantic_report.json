@@ -1,0 +1,667 @@
+{
+  "input": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/snapshots/ban-duyet.html",
+  "sha256": "b1fb2d7694ccd3493a4da7f1b72598285982556bfcbbb5414657bc30bd33fad3",
+  "method": "Independent HTML parser + exact named-edge traces + narrowly stated data predicates; no author-checker imports, PG calls, remote writes, or invented implementation effects.",
+  "table_counts": {
+    "states": 32,
+    "transitions": 92
+  },
+  "positive_controls": {
+    "success": [
+      {
+        "id": "T01",
+        "from": "Mới",
+        "event": "khai xong",
+        "value": "ok",
+        "action": "ghi CAT-228*",
+        "to": "Chấm G1"
+      },
+      {
+        "id": "T05",
+        "from": "Chấm G1",
+        "event": "chấm",
+        "value": "đủ",
+        "action": "ghim phiên bản (G2.10)",
+        "to": "Chấm G2"
+      },
+      {
+        "id": "T09",
+        "from": "Chấm G2",
+        "event": "chấm",
+        "value": "đủ",
+        "action": "ghi giờ chạy",
+        "to": "Chờ"
+      },
+      {
+        "id": "T13",
+        "from": "Chờ",
+        "event": "xin nhận",
+        "value": "được",
+        "action": "khoá phạm vi; lần nhận +1; thế hệ +1; giữ chỗ; biên nhận «nhận»",
+        "to": "Đang chạy"
+      },
+      {
+        "id": "T21",
+        "from": "Đang chạy",
+        "event": "kết quả",
+        "value": "Đạt",
+        "action": "nhả chỗ",
+        "to": "Chấm G4"
+      },
+      {
+        "id": "T37",
+        "from": "Chấm G4",
+        "event": "chấm",
+        "value": "đủ",
+        "action": "—",
+        "to": "Chấm G5"
+      },
+      {
+        "id": "T41",
+        "from": "Chấm G5",
+        "event": "chấm",
+        "value": "đủ",
+        "action": "ĐÓNG: ghi Kết thúc·Đạt, giữ bằng chứng, bỏ người giữ + lịch kiểm, nhả chỗ",
+        "to": "Kết thúc·Đạt"
+      }
+    ],
+    "ordinary_cancel_after_reconciliation": [
+      {
+        "id": "T01",
+        "from": "Mới",
+        "event": "khai xong",
+        "value": "ok",
+        "action": "ghi CAT-228*",
+        "to": "Chấm G1"
+      },
+      {
+        "id": "T05",
+        "from": "Chấm G1",
+        "event": "chấm",
+        "value": "đủ",
+        "action": "ghim phiên bản (G2.10)",
+        "to": "Chấm G2"
+      },
+      {
+        "id": "T09",
+        "from": "Chấm G2",
+        "event": "chấm",
+        "value": "đủ",
+        "action": "ghi giờ chạy",
+        "to": "Chờ"
+      },
+      {
+        "id": "T13",
+        "from": "Chờ",
+        "event": "xin nhận",
+        "value": "được",
+        "action": "khoá phạm vi; lần nhận +1; thế hệ +1; giữ chỗ; biên nhận «nhận»",
+        "to": "Đang chạy"
+      },
+      {
+        "id": "T90",
+        "from": "Đang chạy",
+        "event": "yêu cầu huỷ",
+        "value": "ok",
+        "action": "ghi yêu cầu huỷ; nếu Đang chạy: thu hồi lượt (thế hệ +1, nhả chỗ)",
+        "to": "Xét huỷ"
+      },
+      {
+        "id": "T76",
+        "from": "Xét huỷ",
+        "event": "xét",
+        "value": "có dở",
+        "action": "chặn tác động mới; tính hạn phục hồi",
+        "to": "Đối soát·Huỷ"
+      },
+      {
+        "id": "T66",
+        "from": "Đối soát·Huỷ",
+        "event": "đối soát",
+        "value": "đủ",
+        "action": "ghi tác động đã có",
+        "to": "Bù"
+      },
+      {
+        "id": "T79",
+        "from": "Bù",
+        "event": "bù",
+        "value": "xong",
+        "action": "ĐÓNG: ghi Kết thúc·Huỷ, bỏ người giữ + lịch kiểm",
+        "to": "Kết thúc·Huỷ"
+      }
+    ]
+  },
+  "verdict": "FINDINGS_REMAIN",
+  "exit_code": 1,
+  "finding_ids": [
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5"
+  ],
+  "unknown_ids": [],
+  "probes": [
+    {
+      "id": "S1",
+      "status": "MISSING_INITIALIZATION_IN_SPEC",
+      "title": "Normal reconciliation enters a state requiring PH without a PH initialization site",
+      "valuation": {
+        "root_deadline": 100,
+        "now": 10,
+        "recovery_deadline": null,
+        "operation_intent_exists": true,
+        "result_known": false
+      },
+      "trace": [
+        {
+          "id": "T01",
+          "from": "Mới",
+          "event": "khai xong",
+          "value": "ok",
+          "action": "ghi CAT-228*",
+          "to": "Chấm G1"
+        },
+        {
+          "id": "T05",
+          "from": "Chấm G1",
+          "event": "chấm",
+          "value": "đủ",
+          "action": "ghim phiên bản (G2.10)",
+          "to": "Chấm G2"
+        },
+        {
+          "id": "T09",
+          "from": "Chấm G2",
+          "event": "chấm",
+          "value": "đủ",
+          "action": "ghi giờ chạy",
+          "to": "Chờ"
+        },
+        {
+          "id": "T13",
+          "from": "Chờ",
+          "event": "xin nhận",
+          "value": "được",
+          "action": "khoá phạm vi; lần nhận +1; thế hệ +1; giữ chỗ; biên nhận «nhận»",
+          "to": "Đang chạy"
+        },
+        {
+          "id": "T27",
+          "from": "Đang chạy",
+          "event": "kết quả",
+          "value": "Chưa biết",
+          "action": "không gửi lại",
+          "to": "Đối soát·TT"
+        },
+        {
+          "id": "T65",
+          "from": "Đối soát·TT",
+          "event": "đối soát",
+          "value": "không kết luận",
+          "action": "ghi chờ ai, trả lời gì",
+          "to": "Chờ người·ĐS·TT"
+        }
+      ],
+      "deadline_definition": "hạn gốc (G1.7): giới hạn việc nghiệp vụ · hạn phục hồi: tính 1 lần khi vào Quá hạn hoặc Xét huỷ, không đặt lại, không theo hạn gốc, dùng cho Đối soát và Bù · lịch nhắc: cho Chờ Owner",
+      "observed": {
+        "final_state": "Chờ người·ĐS·TT",
+        "recovery_deadline_initialized": false,
+        "required_check": "hạn chờ, không quá hạn phục hồi"
+      },
+      "fix": "Initialize the relevant recovery deadline once on first entry to any reconciliation mode, including TT; never reset it on the wait loop.",
+      "applicability_guards": [
+        {
+          "definition": "S1.deadlines",
+          "expected_sha256": "d300487af5a139008cb6a08a00814cfa7b9edf9c88fd574197918684827e29f9",
+          "actual_sha256": "d300487af5a139008cb6a08a00814cfa7b9edf9c88fd574197918684827e29f9",
+          "matches": true
+        },
+        {
+          "definition": "S1.TT_wait",
+          "expected_sha256": "6da0e1b929188a789deed9215bea7718c61734e912c4df2f09ac870f8b7a368a",
+          "actual_sha256": "6da0e1b929188a789deed9215bea7718c61734e912c4df2f09ac870f8b7a368a",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "status": "MISSING_EXECUTABLE_RECOVERY_BRANCH",
+      "title": "Compensation is temporary/atomic but its external unknown/crash path is absent",
+      "valuation": {
+        "cancel_requested": true,
+        "original_effect_completed": true,
+        "compensation_sent": true,
+        "compensation_result_receipt": false,
+        "compensating_receiver_deduplicates": false
+      },
+      "trace": [
+        {
+          "id": "T01",
+          "from": "Mới",
+          "event": "khai xong",
+          "value": "ok",
+          "action": "ghi CAT-228*",
+          "to": "Chấm G1"
+        },
+        {
+          "id": "T05",
+          "from": "Chấm G1",
+          "event": "chấm",
+          "value": "đủ",
+          "action": "ghim phiên bản (G2.10)",
+          "to": "Chấm G2"
+        },
+        {
+          "id": "T09",
+          "from": "Chấm G2",
+          "event": "chấm",
+          "value": "đủ",
+          "action": "ghi giờ chạy",
+          "to": "Chờ"
+        },
+        {
+          "id": "T13",
+          "from": "Chờ",
+          "event": "xin nhận",
+          "value": "được",
+          "action": "khoá phạm vi; lần nhận +1; thế hệ +1; giữ chỗ; biên nhận «nhận»",
+          "to": "Đang chạy"
+        },
+        {
+          "id": "T90",
+          "from": "Đang chạy",
+          "event": "yêu cầu huỷ",
+          "value": "ok",
+          "action": "ghi yêu cầu huỷ; nếu Đang chạy: thu hồi lượt (thế hệ +1, nhả chỗ)",
+          "to": "Xét huỷ"
+        },
+        {
+          "id": "T77",
+          "from": "Xét huỷ",
+          "event": "xét",
+          "value": "có tác động",
+          "action": "tính hạn phục hồi",
+          "to": "Bù"
+        }
+      ],
+      "compensation_state": {
+        "kind": "tạm",
+        "holder": "máy bù (G3.11)",
+        "check": "ngay",
+        "events": {
+          "bù": [
+            "xong",
+            "lỗi",
+            "không bù được"
+          ],
+          "yêu cầu huỷ": [
+            "ok"
+          ]
+        }
+      },
+      "missing_event_value_pairs": [
+        [
+          "bù",
+          "Chưa biết"
+        ],
+        [
+          "hết hạn giữ",
+          "có dở"
+        ],
+        [
+          "đến lúc kiểm",
+          "quá hạn PH"
+        ]
+      ],
+      "observed": "The table can encode xong/lỗi/không bù được, but cannot reconcile an uncertain compensation or revoke a dead compensator. Mapping uncertain to lỗi routes T80→T82 back to Bù without an explicit safe-retry/reconciliation decision.",
+      "fix": "Specify how a compensation is claimed/executed outside a transaction and how an unknown or crashed compensation reaches reconciliation for that same compensation operation, preserving cancellation mode; apply PH expiry.",
+      "applicability_guards": [
+        {
+          "definition": "S2.compensation_state",
+          "expected_sha256": "2f8ea26f9fe5d1fb972b1865df79d80041a607db67a1e1ca36e3478cd0169452",
+          "actual_sha256": "2f8ea26f9fe5d1fb972b1865df79d80041a607db67a1e1ca36e3478cd0169452",
+          "matches": true
+        },
+        {
+          "definition": "S2.transaction_rule",
+          "expected_sha256": "896d77d875b3c8b80f656939e56c7fbe2e4e11c9e2799ccbdec4755645924d2b",
+          "actual_sha256": "896d77d875b3c8b80f656939e56c7fbe2e4e11c9e2799ccbdec4755645924d2b",
+          "matches": true
+        },
+        {
+          "definition": "S2.compensation_outgoing",
+          "expected_sha256": "f6b65f04a96a13dcec7803b4a16480a730c65cd6660d47a6155e8e8595cd6df7",
+          "actual_sha256": "f6b65f04a96a13dcec7803b4a16480a730c65cd6660d47a6155e8e8595cd6df7",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "status": "MODE_LOSS_PROVEN_GUARD_DISAGREEMENT",
+      "title": "Owner reassigning a failed compensation returns to normal G2",
+      "valuation": {
+        "cancel_requested": true,
+        "original_effect_completed": true,
+        "compensation_failed_or_unavailable": true,
+        "owner_decision": "giao lại",
+        "all_G2_ready_after_reassignment": true
+      },
+      "trace": [
+        {
+          "id": "T01",
+          "from": "Mới",
+          "event": "khai xong",
+          "value": "ok",
+          "action": "ghi CAT-228*",
+          "to": "Chấm G1"
+        },
+        {
+          "id": "T05",
+          "from": "Chấm G1",
+          "event": "chấm",
+          "value": "đủ",
+          "action": "ghim phiên bản (G2.10)",
+          "to": "Chấm G2"
+        },
+        {
+          "id": "T09",
+          "from": "Chấm G2",
+          "event": "chấm",
+          "value": "đủ",
+          "action": "ghi giờ chạy",
+          "to": "Chờ"
+        },
+        {
+          "id": "T13",
+          "from": "Chờ",
+          "event": "xin nhận",
+          "value": "được",
+          "action": "khoá phạm vi; lần nhận +1; thế hệ +1; giữ chỗ; biên nhận «nhận»",
+          "to": "Đang chạy"
+        },
+        {
+          "id": "T90",
+          "from": "Đang chạy",
+          "event": "yêu cầu huỷ",
+          "value": "ok",
+          "action": "ghi yêu cầu huỷ; nếu Đang chạy: thu hồi lượt (thế hệ +1, nhả chỗ)",
+          "to": "Xét huỷ"
+        },
+        {
+          "id": "T77",
+          "from": "Xét huỷ",
+          "event": "xét",
+          "value": "có tác động",
+          "action": "tính hạn phục hồi",
+          "to": "Bù"
+        },
+        {
+          "id": "T81",
+          "from": "Bù",
+          "event": "bù",
+          "value": "không bù được",
+          "action": "X9",
+          "to": "Chờ Owner"
+        },
+        {
+          "id": "T86",
+          "from": "Chờ Owner",
+          "event": "quyết định",
+          "value": "giao lại",
+          "action": "đổi người, hạn mới",
+          "to": "Chấm G2"
+        },
+        {
+          "id": "T09",
+          "from": "Chấm G2",
+          "event": "chấm",
+          "value": "đủ",
+          "action": "ghi giờ chạy",
+          "to": "Chờ"
+        }
+      ],
+      "observed": {
+        "formal_target": "Chờ",
+        "cancellation_cleared_by_trace": false,
+        "X2_eligible_when_cancel_flag_is_kept": false,
+        "table_claim_value_if_only_M_deadline_capacity_are_checked": "được"
+      },
+      "limitation": "The code proves the destinations and absence of an explicit cancellation clear; whether an implementation would block or run depends on reconciling the X2 prose prefilter with the table-only claim path. No production duplicate execution is claimed.",
+      "fix": "Owner reassignment/continue must retain the return action and recovery purpose; reassignment during Bù returns to the compensation action, not the original business G2. Any withdrawal of cancellation must be a separate explicit recorded decision.",
+      "applicability_guards": [
+        {
+          "definition": "S3.owner_assignment",
+          "expected_sha256": "65f28942b2cdef71e2f1e09ccc255782c763a86e4093c309eacf633c2dade6e0",
+          "actual_sha256": "65f28942b2cdef71e2f1e09ccc255782c763a86e4093c309eacf633c2dade6e0",
+          "matches": true
+        },
+        {
+          "definition": "S3.queue_filter",
+          "expected_sha256": "457ae6aa26863ad34a0ffe2422942188b81eebaea71a155a06bfa16c7da0eaed",
+          "actual_sha256": "457ae6aa26863ad34a0ffe2422942188b81eebaea71a155a06bfa16c7da0eaed",
+          "matches": true
+        },
+        {
+          "definition": "S3.claim_classifier",
+          "expected_sha256": "534521a217c5b38633875f42cc1ae4f00c82981ac9239bf1fb73b5925e23a906",
+          "actual_sha256": "534521a217c5b38633875f42cc1ae4f00c82981ac9239bf1fb73b5925e23a906",
+          "matches": true
+        },
+        {
+          "definition": "S3.cancel_entry",
+          "expected_sha256": "c913edaeea02b9a436f71a6c091c2bd99d617e409411573c8cad125c63417c9c",
+          "actual_sha256": "c913edaeea02b9a436f71a6c091c2bd99d617e409411573c8cad125c63417c9c",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "id": "S4",
+      "status": "LITERAL_GATE_CONTRADICTION",
+      "title": "Valid Owner waiver cannot pass the G1 missing-field predicate",
+      "valuation": {
+        "conditions": {
+          "G1.1": "Đúng",
+          "G1.2": "Đúng",
+          "G1.3": "Đúng",
+          "G1.4": "Đúng",
+          "G1.5": "Được miễn",
+          "G1.6": "Đúng",
+          "G1.7": "Đúng",
+          "G1.8": "Đúng",
+          "G1.9": "Đúng"
+        },
+        "waiver": {
+          "question": "G1.5",
+          "scope_matches": true,
+          "in_force": true
+        }
+      },
+      "trace": [
+        {
+          "id": "T87",
+          "from": "Chờ Owner",
+          "event": "quyết định",
+          "value": "ngoại lệ",
+          "action": "ghi Được miễn đúng câu, phạm vi, hiệu lực; chấm lại cả cổng",
+          "to": "Chấm G1"
+        },
+        {
+          "id": "T02",
+          "from": "Chấm G1",
+          "event": "chấm",
+          "value": "thiếu",
+          "action": "trả người yêu cầu; hạn = G1.7 nếu Đúng, không thì hạn khai (Config chung)",
+          "to": "Chờ người·G1"
+        }
+      ],
+      "predicate": "thiếu: G1.1–G1.8 có câu không Đúng · LV sai: G1.9 Sai · LV chưa biết: G1.9 Chưa biết · đủ",
+      "observed": {
+        "classifier_output": "thiếu",
+        "final_state": "Chờ người·G1"
+      },
+      "fix": "Compute effective pass = Đúng or a valid scoped waiver before every failure/unknown/missing predicate, including G1; failure predicates must ignore effectively passing questions.",
+      "applicability_guards": [
+        {
+          "definition": "S4.G1_classifier",
+          "expected_sha256": "a10ebfa8248a78adc1080d4bf328438591d20660371dbe93da3f04bd0b956413",
+          "actual_sha256": "a10ebfa8248a78adc1080d4bf328438591d20660371dbe93da3f04bd0b956413",
+          "matches": true
+        },
+        {
+          "definition": "S4.exemption_action",
+          "expected_sha256": "df1d76d3f92f0c82455f9e6d669b01e4b9625e65fcc17100ca93d4724aec3639",
+          "actual_sha256": "df1d76d3f92f0c82455f9e6d669b01e4b9625e65fcc17100ca93d4724aec3639",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "id": "S5",
+      "status": "DECLARED_CONSTRAINT_VS_RETRY_RULE_CONTRADICTION",
+      "title": "Same-operation retry cannot newly insert its unique intent",
+      "valuation": {
+        "operation_code_first": "V1:B1:1",
+        "operation_code_retry": "V1:B1:1",
+        "generation_first": 1,
+        "generation_retry": 2,
+        "first_intent_committed": true,
+        "first_result": "UNAVAILABLE",
+        "receiver_deduplication_still_valid": true
+      },
+      "trace": [
+        {
+          "id": "T01",
+          "from": "Mới",
+          "event": "khai xong",
+          "value": "ok",
+          "action": "ghi CAT-228*",
+          "to": "Chấm G1"
+        },
+        {
+          "id": "T05",
+          "from": "Chấm G1",
+          "event": "chấm",
+          "value": "đủ",
+          "action": "ghim phiên bản (G2.10)",
+          "to": "Chấm G2"
+        },
+        {
+          "id": "T09",
+          "from": "Chấm G2",
+          "event": "chấm",
+          "value": "đủ",
+          "action": "ghi giờ chạy",
+          "to": "Chờ"
+        },
+        {
+          "id": "T13",
+          "from": "Chờ",
+          "event": "xin nhận",
+          "value": "được",
+          "action": "khoá phạm vi; lần nhận +1; thế hệ +1; giữ chỗ; biên nhận «nhận»",
+          "to": "Đang chạy"
+        },
+        {
+          "id": "T23",
+          "from": "Đang chạy",
+          "event": "kết quả",
+          "value": "Lỗi tạm an toàn",
+          "action": "hẹn giờ giãn cách mũ + ngẫu nhiên; thử lại đúng thao tác, cùng mã",
+          "to": "Chờ"
+        },
+        {
+          "id": "T13",
+          "from": "Chờ",
+          "event": "xin nhận",
+          "value": "được",
+          "action": "khoá phạm vi; lần nhận +1; thế hệ +1; giữ chỗ; biên nhận «nhận»",
+          "to": "Đang chạy"
+        }
+      ],
+      "observed": {
+        "first_intent_insert_rows": 1,
+        "retry_intent_insert_rows_under_DO_NOTHING": 0,
+        "G3_ghi_duoc_moi_lam_allows_retry_effect": false
+      },
+      "limitation": "A small reference model of the declared UNIQUE/ON CONFLICT rule, not a PG integration test. The source does not specify a successful validated reuse/attempt-record branch.",
+      "fix": "Define a separate explicit success path for an existing matching intent: verify same operation/payload, current generation and retry safety, then append the new attempt/claim receipt; preserve the stable operation code and original unique intent.",
+      "applicability_guards": [
+        {
+          "definition": "S5.effect_precondition",
+          "expected_sha256": "281282012731302d4a8465fa52326f214aa9ee40f9f4e3246bbf94174ea65336",
+          "actual_sha256": "281282012731302d4a8465fa52326f214aa9ee40f9f4e3246bbf94174ea65336",
+          "matches": true
+        },
+        {
+          "definition": "S5.unique_intent_rule",
+          "expected_sha256": "2c00fe656eb1cb6934b0869c1b94c913b393f82faa82dcdb0ea109220e55a93e",
+          "actual_sha256": "2c00fe656eb1cb6934b0869c1b94c913b393f82faa82dcdb0ea109220e55a93e",
+          "matches": true
+        },
+        {
+          "definition": "S5.operation_receipts",
+          "expected_sha256": "766317814ec5fe37d4d4cb1d82babcb213abaf05c52110c5694ef91c670d578d",
+          "actual_sha256": "766317814ec5fe37d4d4cb1d82babcb213abaf05c52110c5694ef91c670d578d",
+          "matches": true
+        },
+        {
+          "definition": "S5.safe_retry",
+          "expected_sha256": "027c46d68d177884c5ede0d6abeb0ce3e959b9e35fd3db7c17ef5c49b29ea315",
+          "actual_sha256": "027c46d68d177884c5ede0d6abeb0ce3e959b9e35fd3db7c17ef5c49b29ea315",
+          "matches": true
+        }
+      ]
+    },
+    {
+      "id": "S6",
+      "status": "FOLLOWUP_NOT_EXECUTABLE",
+      "title": "No transition explicitly invokes X6 to recheck blocked roots after a repair",
+      "valuation": {
+        "repair_job": "R",
+        "incident": "I",
+        "root_links": {
+          "A": "Còn chặn",
+          "B": "Còn chặn"
+        },
+        "repair_G4_and_G5_pass": true
+      },
+      "trace": [
+        {
+          "id": "T21",
+          "from": "Đang chạy",
+          "event": "kết quả",
+          "value": "Đạt",
+          "action": "nhả chỗ",
+          "to": "Chấm G4"
+        },
+        {
+          "id": "T37",
+          "from": "Chấm G4",
+          "event": "chấm",
+          "value": "đủ",
+          "action": "—",
+          "to": "Chấm G5"
+        },
+        {
+          "id": "T41",
+          "from": "Chấm G5",
+          "event": "chấm",
+          "value": "đủ",
+          "action": "ĐÓNG: ghi Kết thúc·Đạt, giữ bằng chứng, bỏ người giữ + lịch kiểm, nhả chỗ",
+          "to": "Kết thúc·Đạt"
+        }
+      ],
+      "observed": {
+        "formal_final_state": "Kết thúc·Đạt",
+        "transition_action_cells_calling_X6": []
+      },
+      "limitation": "X6 is documented in the prose. The absent piece is its explicit trigger/action linkage from the advertised sole execution table; a hidden MOW or periodic predicate could implement it, but that is not specified by these 92 rows.",
+      "fix": "Attach X6 to a specified repair-result transition, including per-root evidence/counter updates and wakeups; make that invocation part of the same formal contract and test a repair shared by two roots."
+    }
+  ]
+}

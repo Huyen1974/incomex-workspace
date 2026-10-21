@@ -1,0 +1,7 @@
+--- original/ban-duyet.html
++++ M10_terminal_without_cleanup/ban-duyet.html
+@@ -270,3 +270,3 @@
+   <tr><td>T40</td><td>Chấm G5</td><td>chấm</td><td>chờ nhận</td><td>gửi người nhận; ghi mốc đã gửi</td><td>Chờ người·G5</td></tr>
+-  <tr><td>T41</td><td>Chấm G5</td><td>chấm</td><td>đủ</td><td>ĐÓNG: ghi Kết thúc·Đạt, giữ bằng chứng, bỏ người giữ + lịch kiểm, nhả chỗ</td><td>Kết thúc·Đạt</td></tr>
++  <tr><td>T41</td><td>Chấm G5</td><td>chấm</td><td>đủ</td><td>không ghi trạng thái đóng; bỏ bằng chứng; giữ chỗ mãi</td><td>Kết thúc·Đạt</td></tr>
+   <tr><td>T42</td><td>Chờ người·G1</td><td>trả lời</td><td>có</td><td>ghi trả lời</td><td>Chấm G1</td></tr>

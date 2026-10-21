@@ -293891,6 +293891,55 @@ main{max-width:1240px} [hidden]{display:none!important}
         "coverage": "Chưa có mẫu số các công đoạn và bằng chứng sử dụng đủ để tính tỷ lệ tự động hóa."
       },
       "provider_tools": [
+{
+  "id": "python:kiem-ct000-4",
+  "provider": "Python · công cụ kiểm nội bộ",
+  "purpose": "Chạy mô hình CT-000.4: kiểm tĩnh, ca dữ kiện, duyệt trạng thái và đột biến",
+  "full_purpose": "Máy kiểm CT-000.4 do Claude quản lý; đọc 6 bảng từ trang Công thức và kiểm mô hình hữu hạn. Không phải hàm PG hoặc bộ điều phối việc thật.",
+  "path": "work/mow-mot-moit-mout/kiem-ct000-4.py",
+  "source": "workspace:work/mow-mot-moit-mout/kiem-ct000-4.py",
+  "sha256": "9e9436cdc058cb480e08ed6dc7062e0d74b18aae43ccbd1e632342939e4ecbd2",
+  "version_policy": "Ghim SHA256 cả script và ban-duyet.html cho từng lượt; không dùng kết quả phiên cũ cho bảng mới.",
+  "verify": "python3 work/mow-mot-moit-mout/kiem-ct000-4.py --dot-bien",
+  "argv": [
+    "python3",
+    "work/mow-mot-moit-mout/kiem-ct000-4.py",
+    "--dot-bien"
+  ],
+  "preconditions": "Python 3; bản nguồn đã ghim; chạy trong bản sao cách ly có giới hạn thời gian và bộ nhớ. Không truy cập PG/Flow trong phép kiểm này.",
+  "input": "6 bảng CT-000.4 trong ban-duyet.html; các kịch bản hữu hạn và bộ đột biến khai trong script.",
+  "output": "Kết quả kiểm tĩnh, ca thử, số trạng thái, vết chạy lỗi, kết quả đột biến và mã thoát; chưa duyệt hết phải giữ chưa kết luận. Báo cáo rà máy kiểm: work/mow-mot-moit-mout/audit-ct000/REPORT.md; bằng chứng: work/mow-mot-moit-mout/audit-ct000/evidence/summary.json.",
+  "limitations": "Rà v6 phát hiện ba đường sai trên bản gốc, kiểm đồng thời chưa chạy công thức thật, và lỗi phân loại đột biến. Chưa duyệt đủ 17 kịch bản. Không dùng riêng exit 0 làm nghiệm thu; chưa thử PG/Flow.",
+  "evidence_state": "REGISTERED_FOR_REUSE_FINDINGS_REMAIN",
+  "evidence_ref": "work/mow-mot-moit-mout/audit-ct000/REPORT.md",
+  "url": "https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=formula-ct-000-4"
+},
+{
+  "id": "python:ct000-audit",
+  "provider": "Python · công cụ kiểm nội bộ",
+  "purpose": "Phản biện độc lập CT-000 và thử khả năng phát hiện lỗi của máy kiểm",
+  "full_purpose": "Bộ phản biện GPT dùng lại để tái hiện phản ví dụ, thử dữ liệu thiếu/sai và khả năng phát hiện lỗi của máy kiểm. V6 dùng bộ mô phỏng Claude làm đối tượng cần kiểm và kiểm nghĩa vụ riêng; không phải máy chứng minh độc lập hoàn chỉnh. V5 tái hiện bản 92 dòng; v6 rà bản 107 dòng.",
+  "path": "work/mow-mot-moit-mout/audit-ct000/run.py",
+  "source": "workspace:work/mow-mot-moit-mout/audit-ct000/",
+  "version_policy": "Một mã công cụ, nhiều phiên có phạm vi riêng. V5 giữ nguyên tại work/mow-mot-moit-mout/ct000-audit-v5/ (92 dòng). V6 tại audit-ct000/ (107 dòng), ghim hash HTML và máy kiểm trong README/manifest. Nguồn đổi ngoài phiên hỗ trợ trả exit 2; phải rà ý nghĩa rồi cập nhật ca, không chỉ sửa hash.",
+  "verify": "python3 work/mow-mot-moit-mout/audit-ct000/run.py --out /tmp/ct000-audit-v6-results; thêm --snapshot để tái hiện đúng bản đã rà. Bản ghim hiện trả exit 1 FINDINGS_REMAIN.",
+  "preconditions": "Python 3; đọc hướng dẫn đúng phiên, kiểm hash nguồn và giới hạn; chỉ chạy H7/kiểm của tác giả sau khi đọc mã. Chạy offline/cách ly.",
+  "input": "HTML và kiem-ct000-4.py hiện tại, hoặc snapshots đúng phiên với --snapshot; dữ kiện ca phản ví dụ và đột biến trên bản sao.",
+  "output": "JSON/report và vết chạy. Exit 0: probe đạt trong phạm vi; 1: còn phát hiện cần sửa; 2: chưa kiểm được/máy kiểm lỗi. Không đồng nhất 0 với chứng nhận khép kín. Đọc work/mow-mot-moit-mout/audit-ct000/REPORT.md và work/mow-mot-moit-mout/audit-ct000/evidence/summary.json.",
+  "limitations": "v5 không chứng nhận bản 107 dòng. Công cụ chưa kiểm PG/Directus thật và không tự cấp phép triển khai. Kết quả audit có lỗi đầu vào không đồng nghĩa bản thân công cụ lỗi.",
+  "evidence_state": "REGISTERED_FOR_REUSE_VERSION_SCOPED",
+  "evidence_ref": "work/mow-mot-moit-mout/audit-ct000/REPORT.md; work/mow-mot-moit-mout/audit-ct000/evidence/summary.json",
+  "sha256": "ff1703366d65d0ad840316f513cdb9e416b2995b566b116823289c10315a9b4d",
+  "manifest": "work/mow-mot-moit-mout/audit-ct000/manifest.json",
+  "manifest_sha256": "e45d5e98597429e39268be45a77d032b5ed8e27d420f338beb23a270ebf9d339",
+  "argv": [
+    "python3",
+    "work/mow-mot-moit-mout/audit-ct000/run.py",
+    "--out",
+    "/tmp/ct000-audit-v6-results"
+  ],
+  "url": "https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=23"
+},
         {
           "id": "agent-data:workspace_read",
           "provider": "Agent Data",
@@ -294107,6 +294156,13 @@ main{max-width:1240px} [hidden]{display:none!important}
         }
       ],
       "reuse_needs": [
+{
+  "need": "Rà CT-000.4: chạy mô hình và kiểm chéo bằng ca phản ví dụ/đột biến trước khi sửa quy trình",
+  "tool_ids": [
+    "python:kiem-ct000-4",
+    "python:ct000-audit"
+  ]
+},
         {
           "need": "Rà mô hình, mã và quan hệ quy trình",
           "tool_ids": [
@@ -299442,6 +299498,22 @@ main{max-width:1240px} [hidden]{display:none!important}
         }
       },
       "memory": [
+{
+  "tool_id": "python:kiem-ct000-4",
+  "contract_revision": "CT000-20261021-1",
+  "owner": "Claude Host · mbm-qtth-07-ve-ui-mow",
+  "acceptance_scope": "Rà mô hình CT-000.4 hữu hạn; chưa nghiệm thu PG/Flow và chưa chứng minh mọi kịch bản/đột biến.",
+  "blocker": "P73: ba phản ví dụ bản gốc + lỗ đồng thời/đột biến/dữ liệu; chưa đạt H4.4a.",
+  "next_action": "Sửa các phản ví dụ theo báo cáo GPT; duyệt đủ kịch bản, kiểm đột biến và tách kết quả chưa duyệt hết."
+},
+{
+  "tool_id": "python:ct000-audit",
+  "contract_revision": "CT000-20261021-1",
+  "owner": "GPT Reviewer · mbm-qtth-07-ve-ui-mow; Claude Host điều phối",
+  "acceptance_scope": "V6 đã tái hiện probe có bằng chứng, exit 1 FINDINGS_REMAIN; v5 lịch sử 92 dòng. Chưa duyệt hết đồ thị và chưa PG/Flow.",
+  "next_action": "Tra và dùng đúng phiên trước khi viết bộ kiểm mới; khi nguồn đổi phải cập nhật ca theo nghĩa thực và kiểm lại, không chỉ sửa hash.",
+  "blocker": "Nguồn thay đổi ngoài hash đã ghim phải rà lại nghĩa vụ; không dùng v5 ký v6."
+},
         {
           "tool_id": "TQT-CHECK-001",
           "contract_revision": "P34.1",

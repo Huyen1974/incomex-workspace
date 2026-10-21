@@ -1,0 +1,7 @@
+--- original/ban-duyet.html
++++ M04_resend_unsafe/ban-duyet.html
+@@ -253,3 +253,3 @@
+   <tr><td>T23</td><td>Đang chạy + Chờ người·G3</td><td>kết quả</td><td>Lỗi tạm an toàn</td><td>hẹn giờ giãn cách mũ + ngẫu nhiên; thử lại đúng thao tác, cùng mã</td><td>Chờ</td></tr>
+-  <tr><td>T24</td><td>Đang chạy + Chờ người·G3</td><td>kết quả</td><td>Lỗi tạm không an toàn</td><td>không gửi lại</td><td>Đối soát·TT</td></tr>
++  <tr><td>T24</td><td>Đang chạy + Chờ người·G3</td><td>kết quả</td><td>Lỗi tạm không an toàn</td><td>gửi lại ngay, đổi mã thao tác, không cần đối soát trước</td><td>Đối soát·TT</td></tr>
+   <tr><td>T25</td><td>Đang chạy + Chờ người·G3</td><td>kết quả</td><td>Xung đột</td><td>đọc lại G2.5; thao tác mới, mã mới</td><td>Chấm G2</td></tr>

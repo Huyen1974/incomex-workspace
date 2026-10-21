@@ -1,0 +1,7 @@
+--- original/ban-duyet.html
++++ C03_unbounded_without_word_tran/ban-duyet.html
+@@ -246,3 +246,3 @@
+   <tr><td>T16</td><td>Chờ</td><td>đến lúc kiểm</td><td>chưa</td><td>ghi lúc kiểm kế (trần: hạn gốc)</td><td>Chờ</td></tr>
+-  <tr><td>T17</td><td>Đang chạy</td><td>gia hạn</td><td>được</td><td>hạn giữ mới (trần: thời gian chạy tối đa)</td><td>Đang chạy</td></tr>
++  <tr><td>T17</td><td>Đang chạy</td><td>gia hạn</td><td>được</td><td>gia hạn vô hạn</td><td>Đang chạy</td></tr>
+   <tr><td>T18</td><td>Đang chạy</td><td>gia hạn</td><td>từ chối</td><td>lượt cũ không làm tác động mới (trần: hạn giữ)</td><td>Đang chạy</td></tr>

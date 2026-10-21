@@ -1,0 +1,1 @@
+{"verdict": "CHECKER_FINDINGS_REMAIN", "exit_code": 1, "findings": ["E03", "E01", "E02"], "report": "/workspace/scratch/a6ca59e05764/ct000-shared-v6/work/mow-mot-moit-mout/audit-ct000/evidence/checker_results.json"}

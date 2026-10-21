@@ -1,0 +1,82 @@
+{
+  "counts": {
+    "states": 32,
+    "transitions": 92
+  },
+  "positive_controls": {
+    "success": "Kết thúc·Đạt",
+    "ordinary_cancel_after_reconciliation": "Kết thúc·Huỷ"
+  },
+  "probes": [
+    {
+      "id": "S1",
+      "status": "MISSING_INITIALIZATION_IN_SPEC",
+      "trace": [
+        "T01",
+        "T05",
+        "T09",
+        "T13",
+        "T27",
+        "T65"
+      ]
+    },
+    {
+      "id": "S2",
+      "status": "MISSING_EXECUTABLE_RECOVERY_BRANCH",
+      "trace": [
+        "T01",
+        "T05",
+        "T09",
+        "T13",
+        "T90",
+        "T77"
+      ]
+    },
+    {
+      "id": "S3",
+      "status": "MODE_LOSS_PROVEN_GUARD_DISAGREEMENT",
+      "trace": [
+        "T01",
+        "T05",
+        "T09",
+        "T13",
+        "T90",
+        "T77",
+        "T81",
+        "T86",
+        "T09"
+      ]
+    },
+    {
+      "id": "S4",
+      "status": "LITERAL_GATE_CONTRADICTION",
+      "trace": [
+        "T87",
+        "T02"
+      ]
+    },
+    {
+      "id": "S5",
+      "status": "DECLARED_CONSTRAINT_VS_RETRY_RULE_CONTRADICTION",
+      "trace": [
+        "T01",
+        "T05",
+        "T09",
+        "T13",
+        "T23",
+        "T13"
+      ]
+    },
+    {
+      "id": "S6",
+      "status": "FOLLOWUP_NOT_EXECUTABLE",
+      "trace": [
+        "T21",
+        "T37",
+        "T41"
+      ]
+    }
+  ],
+  "out": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/semantic_report.json",
+  "exit_code": 1
+}

@@ -1,0 +1,7 @@
+--- original/ban-duyet.html
++++ M06_discard_late_evidence/ban-duyet.html
+@@ -299,3 +299,3 @@
+   <tr><td>T69</td><td>Đối soát·QH</td><td>đối soát</td><td>không kết luận</td><td>ghi chờ ai, trả lời gì</td><td>Chờ người·ĐS·QH</td></tr>
+-  <tr><td>T70</td><td>Chờ người·ĐS·{m} [m: TT, Huỷ, QH]</td><td>trả lời</td><td>có</td><td>ghi bằng chứng vào CAT-238*</td><td>Đối soát·{m}</td></tr>
++  <tr><td>T70</td><td>Chờ người·ĐS·{m} [m: TT, Huỷ, QH]</td><td>trả lời</td><td>có</td><td>bỏ bằng chứng; không ghi CAT-238*</td><td>Đối soát·{m}</td></tr>
+   <tr><td>T71</td><td>Chờ người·ĐS·{m} [m: TT, Huỷ, QH]</td><td>đến lúc kiểm</td><td>quá hạn PH</td><td>X1</td><td>Chờ ĐK·ĐS·{m}</td></tr>

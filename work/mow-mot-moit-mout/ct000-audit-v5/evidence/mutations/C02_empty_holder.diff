@@ -1,0 +1,7 @@
+--- original/ban-duyet.html
++++ C02_empty_holder/ban-duyet.html
+@@ -186,3 +186,3 @@
+   <tr><td>Chờ</td><td>máy</td><td>hàng đợi</td><td>giờ chạy; mỗi chu kỳ</td><td>xin nhận: hết M / quá hạn / hết chỗ / được ; đến lúc kiểm: quá hạn gốc / chờ quá T / chưa</td></tr>
+-  <tr><td>Đang chạy</td><td>máy</td><td>người hoặc máy giữ lượt</td><td>hạn giữ</td><td>gia hạn: được / từ chối ; hết hạn giữ: có dở / không dở ; kết quả: Đạt / Một phần / Lỗi tạm an toàn / Lỗi tạm không an toàn / Xung đột / Lỗi điều kiện / Chưa biết / Cần người</td></tr>
++  <tr><td>Đang chạy</td><td>máy</td><td></td><td>hạn giữ</td><td>gia hạn: được / từ chối ; hết hạn giữ: có dở / không dở ; kết quả: Đạt / Một phần / Lỗi tạm an toàn / Lỗi tạm không an toàn / Xung đột / Lỗi điều kiện / Chưa biết / Cần người</td></tr>
+   <tr><td>Chờ người·G3</td><td>chờ</td><td>người làm (G2.1)</td><td>hạn chờ</td><td>kết quả: Đạt / Một phần / Lỗi tạm an toàn / Lỗi tạm không an toàn / Xung đột / Lỗi điều kiện / Chưa biết / Cần người ; đến lúc kiểm: quá hạn gốc / quá lần 2 / quá lần 1 / chưa quá</td></tr>

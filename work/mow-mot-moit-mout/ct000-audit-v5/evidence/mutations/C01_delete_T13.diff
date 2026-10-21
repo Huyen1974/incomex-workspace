@@ -1,0 +1,7 @@
+--- original/ban-duyet.html
++++ C01_delete_T13/ban-duyet.html
+@@ -242,3 +242,3 @@
+   <tr><td>T12</td><td>Chờ</td><td>xin nhận</td><td>hết chỗ</td><td>không nhận; hẹn thử lại (trần: hạn gốc)</td><td>Chờ</td></tr>
+-  <tr><td>T13</td><td>Chờ</td><td>xin nhận</td><td>được</td><td>khoá phạm vi; lần nhận +1; thế hệ +1; giữ chỗ; biên nhận «nhận»</td><td>Đang chạy</td></tr>
++  
+   <tr><td>T14</td><td>Chờ</td><td>đến lúc kiểm</td><td>quá hạn gốc</td><td>—</td><td>Quá hạn</td></tr>

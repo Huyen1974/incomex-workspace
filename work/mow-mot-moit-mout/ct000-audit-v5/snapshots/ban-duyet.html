@@ -1,0 +1,671 @@
+-group-sum">Công thức gốc <small>đo mọi công thức · thu / mở</small></summary>
+<section class="cf-formula-piece cf-tier-formula" id="formula-ct-000-1" aria-label="CT-000.1 · Bộ câu hỏi chuẩn">
+<div class="cf-formula-titlebar"><div class="cf-formula-nick">Bộ câu hỏi chuẩn</div><div class="cf-formula-full">CT-000.1 · Info contract law</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-ICT* · mã master list: CAT-206* (khuôn) · trả lời thật: CAT-228*</div><div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a></div></div>
+<div class="cf-formula-expression"><code>Khai báo =&gt; Chuẩn bị =&gt; Thực hiện =&gt; Nghiệm thu =&gt; Bàn giao · chưa qua cổng =&gt; dừng tại cổng</code></div>
+<div class="cf-flow" role="group" aria-label="Bộ câu hỏi chuẩn: 5 giai đoạn"><div class="cf-chain"><span class="s" title="câu G1.1–G1.9 · cổng Hợp lệ (Definition of Ready): chưa đủ ⇒ trả về người yêu cầu"><b class="cf-root-no">G1</b> Khai báo</span><span class="a" aria-hidden="true">→</span><span class="s" title="câu G2.1–G2.11 · cổng Sẵn sàng"><b class="cf-root-no">G2</b> Chuẩn bị</span><span class="a" aria-hidden="true">→</span><span class="s" title="câu G3.1–G3.11"><b class="cf-root-no">G3</b> Thực hiện</span><span class="a" aria-hidden="true">→</span><span class="s" title="câu G4.1–G4.7 · cổng Xong (Definition of Done)"><b class="cf-root-no">G4</b> Nghiệm thu</span><span class="a" aria-hidden="true">→</span><span class="s" title="câu G5.1–G5.5 · người nhận xác nhận đã nhận"><b class="cf-root-no">G5</b> Bàn giao</span></div></div>
+<details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <p class="cf-derived-note"><b>Công thức:</b> Việc = Muốn gì + Đang thế nào · máy lặp Quan sát → So sánh → Làm → Ghi tới khi khớp. <b>Luật cổng (1 cách):</b> mỗi câu có 2 lớp — <b>Trả lời</b> (đúng dạng, có nguồn) và <b>Điều kiện</b> = Đúng · Sai · Chưa biết + lý do thuộc 1 trong 2 nhóm: «chờ» (tự thoả khi nguồn đổi: việc trước đang chạy, người đang duyệt, chưa tới giờ) hoặc «lỗi» (phải sửa). Cổng mở ⇔ mọi câu bắt buộc của giai đoạn là Đúng, hoặc Được miễn (quyết định Owner ở X9 còn hiệu lực, đúng câu, đúng phạm vi); Sai hoặc Chưa biết đều chặn; ô trống không bao giờ là Đúng. <b>Không nhánh lửng:</b> đường đi của 1 việc viết đúng 1 chỗ — Bảng Chuyển trạng thái (CT-000.4); máy kiểm mỗi trạng thái × giá trị có đúng 1 dòng. Bảng dưới chỉ tóm tắt và trỏ mã dòng T. Không áp dụng chỉ khi Loại việc đánh dấu câu đó không dùng cho loại này, kèm lý do. Câu của giai đoạn chưa tới thì chưa chấm. <b>Loại việc cho quy tắc, lượt làm ghi giá trị thật:</b> Loại việc ghi «người duyệt thuộc vai X» ⇒ lượt làm phải ghi mã người cụ thể. Việc thuộc Loại việc có sẵn: người yêu cầu chỉ khai G1.1–G1.8.</p>
+  <div class="kn">
+  <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Giai đoạn và cổng</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Giai đoạn và cổng">?</span><span class="t1-mapping-table__tip" role="tooltip">5 giai đoạn G1–G5: cổng mở khi nào (chỉ Đúng mới qua) và đường duy nhất khi không mở.</span></span></caption>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Giai đoạn</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Giai đoạn">?</span><span class="t1-mapping-table__tip" role="tooltip">5 giai đoạn G1–G5 của mọi việc. Trước = G1–G2 · Trong = G3 · Sau = G4–G5.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Cổng mở khi</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Cổng mở khi">?</span><span class="t1-mapping-table__tip" role="tooltip">Mọi điều kiện ghi ở đây phải Đúng. Sai hoặc Chưa biết đều không mở.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Không mở ⇒</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Không mở">?</span><span class="t1-mapping-table__tip" role="tooltip">Các dòng không chồng nhau (DMN Unique: tối đa 1 dòng khớp) + dòng «Còn lại» để luôn có đúng 1 đường. Không nhánh nào là «dừng, báo».</span></span></th></tr></thead>
+  <tbody>
+  <tr><td><b class="cf-root-no">G1</b>Khai báo</td><td>G1.1–G1.9 Đúng (Definition of Ready)</td><td>T02–T05: thiếu khai ⇒ trả người yêu cầu (hạn G1.7, hoặc hạn khai ở Config chung) · chưa có Loại việc ⇒ X1 · Loại việc chưa xác nhận ⇒ hỏi người yêu cầu</td></tr>
+  <tr><td><b class="cf-root-no">G2</b>Chuẩn bị</td><td>G2.1–G2.11 · câu G3 do Loại việc trả lời · G4.7 đều Đúng (trước tác động đầu tiên)</td><td>T06–T09: có lỗi ⇒ X1 · Chưa biết không lý do ⇒ X1 · chỉ còn chờ ⇒ Chờ điều kiện · đủ ⇒ Chờ (hàng đợi)</td></tr>
+  <tr><td><b class="cf-root-no">G3</b>Thực hiện</td><td>không có cổng; trước mỗi thao tác có tác động: ghi ý định vào CAT-238* (mã thao tác, đúng thế hệ); ghi được mới làm, ghi không được thì không làm; kiểm lại G2.9 (quyền) + G3.6 (phiên bản)</td><td>kiểm Sai ⇒ không làm thao tác; kết quả theo T21–T28</td></tr>
+  <tr><td><b class="cf-root-no">G4</b>Nghiệm thu</td><td>G4.1–G4.5 Đúng và G4.6 = Đạt (Definition of Done)</td><td>T33–T37: sai ⇒ sửa (vòng +1) hoặc X9 · chờ người duyệt ⇒ Chờ người·G4, có kết luận thì chấm lại G4</td></tr>
+  <tr><td><b class="cf-root-no">G5</b>Bàn giao</td><td>G5.1–G5.5 Đúng</td><td>T38–T41: quá hạn mà còn tác động ⇒ X9 · có lỗi G5.2–G5.5 ⇒ X1 trước · hết lỗi, G5.1 chưa xác nhận ⇒ Chờ người nhận · đủ ⇒ ĐÓNG: ghi Kết thúc·Đạt, giữ bằng chứng, bỏ người giữ và lịch kiểm</td></tr>
+  <tr><td>Còn lại</td><td>tình huống không khớp dòng nào ở trên</td><td>X1, loại «thiếu nhánh»</td></tr>
+  </tbody></table>
+  </div>
+  <div class="kn">
+  <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Nhóm công cụ</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Nhóm công cụ">?</span><span class="t1-mapping-table__tip" role="tooltip">7 nhóm công cụ CC1–CC7 cần để trả lời Bộ câu hỏi chuẩn. Số công cụ cụ thể bàn khi làm.</span></span></caption>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Nhóm công cụ</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Nhóm công cụ">?</span><span class="t1-mapping-table__tip" role="tooltip">7 nhóm công cụ CC1–CC7 cần để trả lời bộ câu hỏi. Số lượng cụ thể bàn khi làm.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Làm gì</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Làm gì">?</span><span class="t1-mapping-table__tip" role="tooltip">Vai của nhóm trong vòng điều hoà.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Dùng ở giai đoạn</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Dùng ở giai đoạn">?</span><span class="t1-mapping-table__tip" role="tooltip">Giai đoạn cần tới nhóm này.</span></span></th></tr></thead>
+  <tbody>
+  <tr><td><b class="cf-root-no">CC1</b>Khai báo</td><td>sổ + mẫu theo Loại việc: ghi «muốn gì»</td><td>G1 · G2</td></tr>
+  <tr><td><b class="cf-root-no">CC2</b>Kiểm cổng</td><td>kiểm dạng · Điều luật · AI chấm · người duyệt</td><td>G1 · G2 · G4</td></tr>
+  <tr><td><b class="cf-root-no">CC3</b>Điều phối</td><td>hàng đợi · lịch · phụ thuộc · giữ việc có hạn</td><td>G2 · G3 · G5</td></tr>
+  <tr><td><b class="cf-root-no">CC4</b>Thực hiện</td><td>DOT · agent AI · UI cho người · hộp thư đi</td><td>G3</td></tr>
+  <tr><td><b class="cf-root-no">CC5</b>Quan sát</td><td>hồ sơ · biên nhận · chỉ số · nhịp tim máy: ghi «đang thế nào»</td><td>G3 · G4 · G5</td></tr>
+  <tr><td><b class="cf-root-no">CC6</b>Xử lý lệch</td><td>so sánh · sự cố · thử lại · đối soát · bù trừ (CT-000.4)</td><td>mọi giai đoạn</td></tr>
+  <tr><td><b class="cf-root-no">CC7</b>Quản trị</td><td>luật · quyền · phiên bản · khái niệm · duyệt</td><td>mọi giai đoạn</td></tr>
+  </tbody></table>
+  </div>
+  <div class="kn">
+  <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Bộ câu hỏi chuẩn (43 câu)</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Bộ câu hỏi chuẩn">?</span><span class="t1-mapping-table__tip" role="tooltip">Câu hỏi giống nhau cho mọi việc. CAT-206* giữ khuôn theo Loại việc (quy tắc, giá trị mặc định); câu trả lời thật của từng lượt ghi ở CAT-228* (1 dòng = 1 lượt).</span></span></caption>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Mã câu</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột STT">?</span><span class="t1-mapping-table__tip" role="tooltip">Mã câu = giai đoạn + thứ tự, vd G2.4. Mã ổn định, không đổi khi thêm câu.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Câu hỏi</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Câu hỏi">?</span><span class="t1-mapping-table__tip" role="tooltip">Câu bắt buộc trả lời, giống nhau cho mọi việc ở mọi vị trí.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Trả lời phải là</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Trả lời phải là">?</span><span class="t1-mapping-table__tip" role="tooltip">Dạng trả lời máy kiểm được (mã, số, lựa chọn). Lý do viết thêm được, nhưng không thay các ô bắt buộc.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Đạt khi</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Đạt khi">?</span><span class="t1-mapping-table__tip" role="tooltip">Điều kiện để câu là Đúng. Kiểm ra khác = Sai; không kiểm được = Chưa biết. Chỉ Đúng mới qua cổng.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Ai trả lời</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Ai trả lời">?</span><span class="t1-mapping-table__tip" role="tooltip">Người yêu cầu · Loại việc (khai 1 lần, mọi việc cùng loại kế thừa) · Máy (tự điền khi chạy) · Người làm · Người duyệt.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Nhóm</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Nhóm">?</span><span class="t1-mapping-table__tip" role="tooltip">Nhóm công cụ CC1–CC7 giúp trả lời câu này.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Master List</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Master List">?</span><span class="t1-mapping-table__tip" role="tooltip">Sổ đọc hoặc lưu câu trả lời. Mã = có sổ (dấu * = sổ mới là thiết kế) · 🟡 có sổ, thiếu ô · 🔴 chưa có sổ · ⚪ không cần. Đã rà mức sổ cho cả 43 câu; mức ô rà tiếp ở bước ghép công cụ với Master List.</span></span></th></tr></thead>
+  <tbody>
+  <tr><th colspan="7"><b class="cf-root-no">G1</b>Khai báo · cổng Hợp lệ (Definition of Ready)</th></tr>
+  <tr><td>G1.1</td><td>Ai yêu cầu?</td><td>mã người + mã vai · mã Việc do máy cấp</td><td>người, vai có trong sổ, còn hiệu lực · mã Việc đã cấp</td><td>Người yêu cầu · Máy</td><td>CC1</td><td>CAT-213* · CAT-214* · CAT-227</td></tr>
+  <tr><td>G1.2</td><td>Muốn gì?</td><td>1 động từ + 1 đối tượng (mã loài)</td><td>đủ 2 phần · loài có trong CAT-000.5</td><td>Người yêu cầu</td><td>CC1</td><td>CAT-227</td></tr>
+  <tr><td>G1.3</td><td>Vì sao cần?</td><td>lý do 1 câu</td><td>có 1 câu</td><td>Người yêu cầu</td><td>CC1</td><td>CAT-227</td></tr>
+  <tr><td>G1.4</td><td>Xong khi nào?</td><td>danh sách tiêu chí; mỗi tiêu chí: điều kiện · cách kiểm · bắt buộc / không</td><td>≥ 1 tiêu chí bắt buộc · mọi tiêu chí có cách kiểm</td><td>Người yêu cầu</td><td>CC1</td><td>CAT-220*</td></tr>
+  <tr><td>G1.5</td><td>Không được làm hỏng gì?</td><td>danh sách thứ phải giữ + cách kiểm, hoặc «không có»</td><td>có danh sách (mỗi mục có cách kiểm) hoặc ghi rõ «không có»</td><td>Người yêu cầu</td><td>CC1</td><td class="kn-tk">🟡 CAT-227 · thiếu ô «Phải giữ nguyên»</td></tr>
+  <tr><td>G1.6</td><td>Áp lên những đối tượng nào?</td><td>Sửa: danh sách mã hoặc điều kiện chọn (Miền CV) · Tạo: loài + nơi tạo + số lượng tối đa</td><td>Sửa: mọi mã tồn tại · Tạo: loài có sổ, nơi tạo có sẵn</td><td>Người yêu cầu</td><td>CC1</td><td class="kn-bad">🔴 chưa có sổ · cần lập CAT-250* Miền CV</td></tr>
+  <tr><td>G1.7</td><td>Hạn chót?</td><td>thời điểm có múi giờ, vd 2026-10-25 17:00 +07; khai «mốc + thời lượng» thì máy quy ra ngay</td><td>là thời điểm, sau lúc khai</td><td>Người yêu cầu · Máy quy đổi</td><td>CC1</td><td>CAT-227</td></tr>
+  <tr><td>G1.8</td><td>Ưu tiên?</td><td>cao · thường · thấp</td><td>1 trong 3</td><td>Người yêu cầu</td><td>CC1</td><td>CAT-227 · CAT-201*</td></tr>
+  <tr><td>G1.9</td><td>Thuộc Loại việc nào?</td><td>mã Loại việc (MOW)</td><td>MOW đã ban hành, còn dùng · chưa có ⇒ Sai</td><td>Máy gợi · người xác nhận</td><td>CC1 · CC2</td><td>ML-DEF-004</td></tr>
+  <tr><th colspan="7"><b class="cf-root-no">G2</b>Chuẩn bị · cổng Sẵn sàng · chấm cả câu G3 do Loại việc trả lời</th></tr>
+  <tr><td>G2.1</td><td>Ai làm lượt này?</td><td>mã người hoặc agent cụ thể (không phải mã vai) + vai</td><td>có thật · thuộc vai · đang hoạt động</td><td>Máy (theo Config)</td><td>CC3</td><td>CAT-248* · CAT-213* · CAT-010</td></tr>
+  <tr><td>G2.2</td><td>Ai duyệt kết quả?</td><td>mã người cụ thể + người thay khi quá hạn</td><td>có người cụ thể · khác người làm</td><td>Máy giải từ vai của Loại việc</td><td>CC7</td><td>CAT-248* · CAT-214*</td></tr>
+  <tr><td>G2.3</td><td>Ai được báo?</td><td>danh sách mã người cụ thể, hoặc «không có»</td><td>có danh sách hoặc ghi rõ «không có»</td><td>Máy giải từ vai của Loại việc</td><td>CC7</td><td>CAT-248* · CAT-214*</td></tr>
+  <tr><td>G2.4</td><td>Cần đầu vào gì?</td><td>danh sách mã Field</td><td>mọi Field có trong Master Field</td><td>Loại việc</td><td>CC1</td><td>CAT-206* · ML-DEF-008</td></tr>
+  <tr><td>G2.5</td><td>Đọc ở đâu, bản ghi nào?</td><td>mã Master list + điều kiện chọn đã gắn giá trị thật + số bản ghi mong đợi: đúng 1 · 0–1 · ≥ 1 · 0–n</td><td>số bản ghi đọc được khớp số mong đợi; lệch ⇒ Sai, không chọn đại</td><td>Loại việc · Máy gắn giá trị</td><td>CC1</td><td>CAT-206* · CAT-000</td></tr>
+  <tr><td>G2.6</td><td>Đã đọc bản dữ liệu nào?</td><td>mã từng bản ghi + phiên bản (số hoặc mã băm)</td><td>ghi đủ cho mọi bản ghi đã đọc</td><td>Máy</td><td>CC5</td><td class="kn-tk">🟡 CAT-228* · thiếu ô «Bản dữ liệu đã đọc»</td></tr>
+  <tr><td>G2.7</td><td>Đầu vào hợp lệ khi nào?</td><td>mã Điều luật</td><td>mọi Điều luật trả Đúng</td><td>Loại việc</td><td>CC2</td><td>CAT-140</td></tr>
+  <tr><td>G2.8</td><td>Cần việc nào xong trước?</td><td>mã việc + kiểu chờ: tất cả / một trong</td><td>mọi mã tồn tại · không vòng (kể cả tự chờ mình) · việc trước đã thoả kiểu chờ; việc trước Lỗi / Huỷ làm kiểu chờ không thể thoả ⇒ Sai</td><td>Loại việc</td><td>CC3</td><td>CAT-228*</td></tr>
+  <tr><td>G2.9</td><td>Có quyền làm đúng phạm vi này?</td><td>mã quyền + phạm vi</td><td>còn hiệu lực lúc kiểm; kiểm lại ngay trước mỗi thao tác ghi</td><td>Máy kiểm</td><td>CC2 · CC7</td><td>CAT-240* · CAT-215*</td></tr>
+  <tr><td>G2.10</td><td>Dùng phiên bản quy trình nào?</td><td>số phiên bản, ghim từ G2</td><td>đã ban hành · có bản mới thì việc đang chạy giữ bản cũ; chuyển chỉ khi có quyết định chuyển + chấm lại G2</td><td>Máy</td><td>CC7</td><td>CAT-225*</td></tr>
+  <tr><td>G2.11</td><td>Dùng công cụ, quy trình nào?</td><td>mã MOW / DOT / Tool có thật + thao tác + tham số + quyền dùng</td><td>có trong sổ, đang dùng được, đủ tham số; mã nhóm CC không phải câu trả lời</td><td>Loại việc</td><td>CC4</td><td>ML-DEF-004 · CAT-006 · ML-DEF-023</td></tr>
+  <tr><th colspan="7"><b class="cf-root-no">G3</b>Thực hiện · không cổng; mỗi thao tác ghi kiểm lại G2.9 + G3.6</th></tr>
+  <tr><td>G3.1</td><td>Làm theo bước nào?</td><td>mã MOW + mã bước</td><td>bước có trong phiên bản đã ghim (G2.10)</td><td>Loại việc</td><td>CC4</td><td>ML-DEF-004</td></tr>
+  <tr><td>G3.2</td><td>Người hay máy làm bước này?</td><td>😊 / 🤖</td><td>1 trong 2</td><td>Loại việc</td><td>CC4</td><td>CAT-248*</td></tr>
+  <tr><td>G3.3</td><td>Chạy song song tối đa?</td><td>số N + phạm vi đếm: hệ thống · Loại việc · đối tượng</td><td>có N ≥ 1 và phạm vi</td><td>Loại việc</td><td>CC3</td><td>CAT-248*</td></tr>
+  <tr><td>G3.4</td><td>Giữ việc thế nào?</td><td>thời hạn giữ + nhịp gia hạn + trần thời gian chạy; số lần nhận (tính M) và thế hệ (tăng khi nhận hoặc thu hồi) là 2 ô riêng</td><td>đủ giá trị · gia hạn chỉ được khi còn hạn lúc PG kiểm · ghi phải đúng việc + đúng thế hệ + trạng thái cho phép</td><td>Loại việc · Máy</td><td>CC3</td><td>CAT-248* · CAT-228*</td></tr>
+  <tr><td>G3.5</td><td>Chạy lại có tạo trùng?</td><td>công thức mã thao tác = mã Việc + mã bước + số thứ tự thao tác trong bước (không theo lần nhận)</td><td>có công thức · thử lại đúng thao tác giữ mã cũ; nội dung đổi (sửa sau Từ chối, làm lại sau Xung đột) ⇒ thao tác mới, mã mới</td><td>Loại việc</td><td>CC4</td><td>CAT-238*</td></tr>
+  <tr><td>G3.6</td><td>Tạo, sửa đúng đối tượng nào?</td><td>Sửa: mã + phiên bản đã đọc · Tạo: mã thật ghi ngay sau khi tạo</td><td>Sửa: phiên bản hiện tại = phiên bản đã đọc · Tạo: đúng loài, nơi, số lượng ở G1.6</td><td>Máy</td><td>CC4</td><td>CAT-228*</td></tr>
+  <tr><td>G3.7</td><td>Ghi đầu ra ở đâu?</td><td>mỗi dòng: tạo / sửa / xoá · Master list · bản ghi · Field · giá trị lấy từ đâu</td><td>mọi Field có trong Master Field · nơi ghi có quyền (G2.9)</td><td>Loại việc</td><td>CC1</td><td>CAT-206*</td></tr>
+  <tr><td>G3.8</td><td>Gửi ra ngoài gì, đi đâu?</td><td>nội dung + đích + mã thao tác + cách đối soát (tra ở đâu, bằng mã nào) + bên nhận có chống trùng theo mã không + tra cứu có khẳng định được «chưa có» không; hoặc «không gửi»</td><td>đủ các ô; chống trùng chỉ ghi «có» khi bên nhận cam kết bằng tài liệu (email SMTP mặc định «không»); thiếu cách đối soát thì Loại việc ghi «mất phản hồi ⇒ chờ người»</td><td>Loại việc</td><td>CC4 · CC6</td><td>CAT-238* · CAT-241*</td></tr>
+  <tr><td>G3.9</td><td>Đang thế nào?</td><td>bước · trạng thái (Bảng Trạng thái) + lý do · ai giữ · lần nhận / M · điểm chặn · lúc kiểm kế</td><td>việc chưa kết thúc thì có đủ: trạng thái hợp lệ · người giữ · lúc kiểm kế ≤ hạn; thiếu ⇒ Flow quét mồ côi đưa vào X1</td><td>Máy</td><td>CC5</td><td>CAT-228*</td></tr>
+  <tr><td>G3.10</td><td>Chờ người thì sao?</td><td>mã người + hạn (thời điểm) + người thay khi quá hạn; trạng thái Chờ người, không giữ lượt</td><td>đủ 3</td><td>Loại việc · Máy giải</td><td>CC3</td><td>CAT-231*</td></tr>
+  <tr><td>G3.11</td><td>Bị huỷ giữa chừng thì sao?</td><td>điểm dừng an toàn + bước bù cho mỗi tác động</td><td>mỗi bước có tác động có bước bù, hoặc ghi «không bù được ⇒ chờ người»</td><td>Loại việc</td><td>CC6</td><td class="kn-tk">🟡 ML-DEF-004 · thiếu ô «Bước bù»</td></tr>
+  <tr><th colspan="7"><b class="cf-root-no">G4</b>Nghiệm thu · cổng Xong (Definition of Done)</th></tr>
+  <tr><td>G4.1</td><td>Mọi tiêu chí bắt buộc ở G1.4 đều Đúng?</td><td>mỗi tiêu chí: Đúng / Sai / Chưa biết + bằng chứng</td><td>mọi tiêu chí bắt buộc = Đúng (Chưa biết = chưa đạt)</td><td>Máy + người duyệt</td><td>CC2</td><td>CAT-229* · CAT-012</td></tr>
+  <tr><td>G4.2</td><td>Thứ phải giữ ở G1.5 còn đáp ứng không?</td><td>mỗi mục: Đúng / Sai / Chưa biết</td><td>mọi mục = Đúng</td><td>Máy</td><td>CC2</td><td>CAT-229*</td></tr>
+  <tr><td>G4.3</td><td>Số lượng có khớp?</td><td>số mong đợi · số thực tế · chênh</td><td>chênh = 0</td><td>Máy</td><td>CC5</td><td>CAT-142</td></tr>
+  <tr><td>G4.4</td><td>Ai kiểm?</td><td>🤖 mã DOT / 😊 mã người</td><td>khác người làm</td><td>Loại việc</td><td>CC2</td><td>CAT-012 · CAT-006</td></tr>
+  <tr><td>G4.5</td><td>Bằng chứng ở đâu?</td><td>mã bản ghi hoặc tệp + phiên bản + lượt + người + lúc</td><td>mở được bằng chứng từ mã</td><td>Máy</td><td>CC5</td><td>ML-DEF-026 · CAT-239*</td></tr>
+  <tr><td>G4.6</td><td>Kết quả lượt này?</td><td>đúng 1 trong 8: Đạt / Một phần / Lỗi tạm an toàn / Lỗi tạm không an toàn / Xung đột / Lỗi điều kiện / Chưa biết / Cần người (Bảng Giá trị, CT-000.4); huỷ đi đường «yêu cầu huỷ», người duyệt từ chối là G4 «sai»</td><td>= Đạt</td><td>Máy</td><td>CC5</td><td>CAT-228*</td></tr>
+  <tr><td>G4.7</td><td>Chưa đạt thì sao?</td><td>máy đi theo Bảng Chuyển trạng thái (CT-000.4); lấy ở Config: M (số lần nhận) · giãn cách (đầu · hệ số · trần) · N (số vòng) · D (độ sâu chuỗi sự cố) · hạn đối soát · hạn bù · hạn khai mặc định · chu kỳ nhắc</td><td>Config có đủ các giá trị trên; chấm ở cổng G2; chưa có Loại việc thì dùng Config chung</td><td>Máy · Loại việc</td><td>CC6</td><td>CAT-017 · CAT-248*</td></tr>
+  <tr><th colspan="7"><b class="cf-root-no">G5</b>Bàn giao · cổng Đã nhận</th></tr>
+  <tr><td>G5.1</td><td>Việc tiếp theo, ai nhận?</td><td>mã Việc + mã người; ghi riêng 2 mốc: đã gửi · đã xác nhận nhận</td><td>người nhận đã xác nhận</td><td>Loại việc · Máy giải</td><td>CC3</td><td>CAT-227 · CAT-231*</td></tr>
+  <tr><td>G5.2</td><td>Tổng xem ở đâu, tính bằng gì?</td><td>mã báo cáo / view + trường nguồn + phép tính</td><td>tính lại từ nguồn = số đang hiện</td><td>Loại việc</td><td>CC5</td><td>CAT-142</td></tr>
+  <tr><td>G5.3</td><td>Ai được báo kết quả?</td><td>mã người cụ thể (máy giải từ vai)</td><td>đã gửi, có biên nhận</td><td>Loại việc · Máy giải</td><td>CC7</td><td>CAT-223* · CAT-214*</td></tr>
+  <tr><td>G5.4</td><td>Có luật mới cần đề xuất?</td><td>mã đề xuất, hoặc «không có»</td><td>có giá trị; luật chỉ hiệu lực khi được duyệt + phiên bản</td><td>Người làm</td><td>CC7</td><td>CAT-140</td></tr>
+  <tr><td>G5.5</td><td>Có Vấn đề cần ghi?</td><td>mã Vấn đề, hoặc «không có»</td><td>có giá trị</td><td>Người làm</td><td>CC6</td><td>CAT-069</td></tr>
+  </tbody></table>
+  </div>
+  <div class="kn">
+  <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Chuẩn ngành (CT-000.1)</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Chuẩn ngành CT-000.1">?</span><span class="t1-mapping-table__tip" role="tooltip">Chuẩn IT có sẵn mà công thức này dùng lại; không tự sáng tạo. Bấm tên chuẩn để mở nguồn. Chỉ mượn cách làm, không cài sản phẩm của hãng. Ưu tiên chạy bằng PG + Directus + công cụ hiện có; khả năng dùng lại xác minh ở bước ghép công cụ (Điều luật 7–8, CT-000.2).</span></span></caption>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Chuẩn</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Chuẩn">?</span><span class="t1-mapping-table__tip" role="tooltip">Tên chuẩn + mục, có liên kết tới nguồn gốc.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Lấy gì</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Lấy gì">?</span><span class="t1-mapping-table__tip" role="tooltip">Điều chuẩn quy định, tóm 1 câu.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Áp vào</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Áp vào">?</span><span class="t1-mapping-table__tip" role="tooltip">Câu, cột hoặc luật trong công thức dùng chuẩn này.</span></span></th></tr></thead>
+  <tbody>
+  <tr><td><a href="https://www.iso.org/standard/72089.html" target="_blank" rel="noopener">ISO/IEC/IEEE 29148:2018</a> §5.2.5</td><td>mỗi yêu cầu chỉ hiểu được 1 cách · 1 ý · kiểm chứng được</td><td>cột «Đạt khi» của 43 câu</td></tr>
+  <tr><td><a href="https://www.rfc-editor.org/rfc/rfc8174" target="_blank" rel="noopener">RFC 2119 + RFC 8174</a></td><td>RFC 2119 định nghĩa PHẢI, NÊN, CÓ THỂ; hệ thống chọn chặt hơn: luật chỉ dùng PHẢI / KHÔNG ĐƯỢC</td><td>mọi luật, mọi ô «Đạt khi» (lựa chọn của hệ thống)</td></tr>
+  <tr><td><a href="https://alistairmavin.com/ears/" target="_blank" rel="noopener">EARS</a> (Rolls-Royce, 2009)</td><td>khuôn «Khi … thì … PHẢI …»; nhánh lỗi «Nếu … thì …»</td><td>CT-000.2: Khi nào + Làm gì</td></tr>
+  <tr><td><a href="https://docs.camunda.org/manual/latest/reference/dmn/decision-table/hit-policy/" target="_blank" rel="noopener">OMG DMN</a> · hit policy Unique</td><td>Unique: tối đa 1 dòng khớp (các dòng không chồng nhau); muốn luôn có 1 dòng phải thêm dòng «Còn lại» và kiểm đủ</td><td>Bảng Giai đoạn và cổng · Bảng Chuyển trạng thái</td></tr>
+  <tr><td><a href="https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md" target="_blank" rel="noopener">Kubernetes API conventions</a> · Conditions</td><td>trạng thái True / False / Unknown + lý do; chỉ True là đạt</td><td>Điều kiện Đúng · Sai · Chưa biết; Luật cổng</td></tr>
+  <tr><td><a href="https://scrumguides.org/scrum-guide.html" target="_blank" rel="noopener">Scrum Guide 2020</a> · Definition of Done</td><td>mô tả hình thức trạng thái đạt chuẩn; chưa đạt thì chưa xong</td><td>cổng G4 (Definition of Ready ở G1 là thực hành, không có trong Scrum Guide)</td></tr>
+  <tr><td>ISO 9001:2015 §4.3</td><td>điều không áp dụng phải có lý do ghi thành văn bản</td><td>Không áp dụng: chỉ theo Loại việc + lý do</td></tr>
+  <tr><td><a href="https://docs.jboss.org/jbpm/v5.3/userguide/ch.human-tasks.html" target="_blank" rel="noopener">OASIS WS-HumanTask 1.1</a></td><td>người có thể nhận (vai) khác người nhận thật; nhận bằng claim; hạn bắt đầu, hạn xong + chuyển người khi quá hạn</td><td>G2.1–G2.3 · G3.10 · G5.1</td></tr>
+  <tr><td><a href="https://www.postgresql.org/docs/18/plpgsql-statements.html" target="_blank" rel="noopener">PostgreSQL 18</a> · SELECT INTO STRICT</td><td>phải ra đúng 1 dòng, không thì lỗi NO_DATA_FOUND / TOO_MANY_ROWS</td><td>G2.5 số bản ghi mong đợi</td></tr>
+  <tr><td><a href="https://www.rfc-editor.org/rfc/rfc9110#section-13.1.1" target="_blank" rel="noopener">RFC 9110</a> · ETag, If-Match</td><td>ghi kèm phiên bản đã đọc; phiên bản đã khác ⇒ từ chối</td><td>G2.6 · G3.6</td></tr>
+  <tr><td><a href="https://cwe.mitre.org/data/definitions/367.html" target="_blank" rel="noopener">MITRE CWE-367</a> TOCTOU</td><td>trạng thái đổi được giữa lúc kiểm và lúc dùng ⇒ kiểm sát lúc dùng</td><td>G2.9</td></tr>
+  <tr><td><a href="https://docs.camunda.org/manual/latest/user-guide/process-engine/process-versioning" target="_blank" rel="noopener">Camunda</a> · process versioning</td><td>việc đang chạy giữ phiên bản cũ; chuyển phải có kế hoạch di chuyển</td><td>G2.10</td></tr>
+  <tr><td><a href="https://www.astronomer.io/docs/learn/airflow-trigger-rules" target="_blank" rel="noopener">Apache Airflow</a> · trigger rules</td><td>chờ tất cả / một trong; việc trước hỏng ⇒ việc sau upstream_failed, không chờ mãi</td><td>G2.8</td></tr>
+  <tr><td><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpapi-idempotency-key-header" target="_blank" rel="noopener">IETF Idempotency-Key</a></td><td>mỗi thao tác 1 mã duy nhất do bên gửi tạo; thử lại dùng lại mã</td><td>G3.5</td></tr>
+  <tr><td><a href="https://microservices.io/patterns/data/transactional-outbox.html" target="_blank" rel="noopener">Transactional outbox</a> · <a href="https://learn.microsoft.com/azure/architecture/patterns/saga" target="_blank" rel="noopener">Saga</a></td><td>ghi «cần gửi» cùng giao dịch, bên nhận chống trùng; bước bù thay cho lùi</td><td>G3.8 · G3.11</td></tr>
+  <tr><td><a href="https://www.rfc-editor.org/rfc/rfc3339" target="_blank" rel="noopener">RFC 3339</a></td><td>thời điểm ghi kèm múi giờ</td><td>G1.7</td></tr>
+  </tbody></table>
+  </div>
+</details>
+</section>
+<section class="cf-formula-piece cf-tier-formula" id="formula-ct-000-2" aria-label="CT-000.2 · Điều luật">
+<div class="cf-formula-titlebar"><div class="cf-formula-nick">Điều luật</div><div class="cf-formula-full">CT-000.2 · Luật chung</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-LAW · mã master list: CAT-140</div><div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a></div></div>
+<div class="cf-formula-expression"><code>Khi nào + Làm gì + Kiểm bằng + Xử lý bằng =&gt; Điều luật</code></div>
+<div class="cf-flow" role="group" aria-label="Điều luật: Khi nào, Làm gì, Kiểm bằng"><div class="cf-chain"><span class="s" title="tình huống áp dụng (vế NẾU)"><b class="cf-root-no">1</b> Khi nào</span><span class="a" aria-hidden="true">→</span><span class="s" title="việc phải làm (vế THÌ)"><b class="cf-root-no">2</b> Làm gì</span><span class="a" aria-hidden="true">→</span><span class="s" title="🤖 máy (DOT) hoặc 😊 người"><b class="cf-root-no">3</b> Kiểm bằng</span><span class="a" aria-hidden="true">→</span><span class="s" title="MOW nào xử lý khi vi phạm; không có thì vào Xử lý lỗi"><b class="cf-root-no">4</b> Xử lý bằng</span></div></div>
+<details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <p class="cf-derived-note">Sổ: CAT-140 (bảng PG normative_registry, đã có 2 Hiến pháp + 45 luật, 272 liên kết Điều ↔ DOT kiểm). Nhóm = luật cha. Lên collection chỉ thêm 2 trường: Khi nào · Làm gì. Luật đưa vào dần khi va chạm. Bảng dưới là mẫu. <b>Khuôn viết (EARS):</b> «Khi [tình huống] thì [ai] PHẢI / KHÔNG ĐƯỢC [làm gì]»; hệ thống chọn không dùng «nên, có thể, tuỳ» (RFC 2119 có các mức này, mình bỏ để luật chỉ có yes/no); mỗi luật 1 ý, có Kiểm bằng (ISO/IEC/IEEE 29148).</p>
+  <div class="kn">
+  <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Điều luật (mẫu)</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Điều luật">?</span><span class="t1-mapping-table__tip" role="tooltip">Mẫu cách ghi Điều luật vào sổ luật CAT-140. Luật thật đưa vào dần khi va chạm.</span></span></caption>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">STT</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột STT">?</span><span class="t1-mapping-table__tip" role="tooltip">Số thứ tự để đọc và gọi tên nhanh.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Mã</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Mã">?</span><span class="t1-mapping-table__tip" role="tooltip">Mã máy cấp theo sổ luật: NRM-LAW-số luật.khoản. Chưa vào sổ thì ghi «máy cấp».</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Tên</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Tên">?</span><span class="t1-mapping-table__tip" role="tooltip">Gọi ngắn 1–2 chữ, nói đúng bản chất.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Khi nào</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Khi nào">?</span><span class="t1-mapping-table__tip" role="tooltip">Tình huống làm luật này có hiệu lực (vế NẾU).</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Làm gì</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Làm gì">?</span><span class="t1-mapping-table__tip" role="tooltip">Việc bắt buộc phải làm khi gặp tình huống đó (vế THÌ).</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Kiểm bằng</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Kiểm bằng">?</span><span class="t1-mapping-table__tip" role="tooltip">🤖 máy tự kiểm (DOT) hoặc 😊 người kiểm. Vi phạm thì sang ô Xử lý bằng.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Xử lý bằng</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Xử lý bằng">?</span><span class="t1-mapping-table__tip" role="tooltip">Quy trình (MOW) được gọi khi vi phạm. Chưa có MOW ⇒ vào Xử lý lỗi (CT-000.4).</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Hiệu lực</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Hiệu lực">?</span><span class="t1-mapping-table__tip" role="tooltip">✅ đang áp · 🟡 nháp · ⚪ đã bỏ.</span></span></th></tr></thead>
+  <tbody>
+  <tr><th colspan="8">Luật Registry · NRM-LAW-02 (có sẵn)</th></tr>
+  <tr><td>1</td><td>NRM-LAW-02.1</td><td>Sổ</td><td>loài có ≥ 2 cá thể</td><td>lập 1 Master list</td><td>🤖 máy quét loài thiếu sổ</td><td>MOW Tạo mới Master list</td><td>✅</td></tr>
+  <tr><td>2</td><td>NRM-LAW-02.2</td><td>Mã</td><td>tạo 1 cá thể mới</td><td>mã = tiền tố loài + số</td><td>🤖 sổ khai sinh mã</td><td>MOW Cấp mã</td><td>✅</td></tr>
+  <tr><th colspan="8">Luật Tận dụng · NRM-LAW-07 (có sẵn)</th></tr>
+  <tr><td>3</td><td>NRM-LAW-07.1</td><td>Dùng lại</td><td>thiết kế hoặc trình bày cái mới</td><td>dùng kiểu, khái niệm đã có; không tạo mới</td><td>😊 người duyệt</td><td>MOW Sửa: gộp về cái đã có</td><td>✅</td></tr>
+  <tr><th colspan="8">Chạy (mới)</th></tr>
+  <tr><td>4</td><td>máy cấp</td><td>1 giao dịch</td><td>lượt chạy ghi dữ liệu</td><td>ghi đủ, hoặc không ghi gì</td><td>🤖 PG tự lùi</td><td>xếp lại hàng đợi</td><td>🟡</td></tr>
+  <tr><th colspan="8">Trình bày (mới)</th></tr>
+  <tr><td>5</td><td>máy cấp</td><td>Dấu «?»</td><td>tạo bảng mới</td><td>tiêu đề và mỗi cột có «?»</td><td>😊 người duyệt</td><td>MOW Sửa bảng: thêm «?»</td><td>✅</td></tr>
+  <tr><th colspan="8">Làm việc (mới)</th></tr>
+  <tr><td>6</td><td>máy cấp</td><td>Từng bước</td><td>bắt đầu 1 việc</td><td>xong bước này mới mở bước sau</td><td>😊 Owner</td><td>trả về bước đang làm</td><td>✅</td></tr>
+  <tr><th colspan="8">Kiến trúc (mới · Owner 21/10)</th></tr>
+  <tr><td>7</td><td>máy cấp</td><td>PG gốc</td><td>chọn nơi giữ dữ liệu, hàng đợi, trạng thái, khoá</td><td>PG giữ: trạng thái việc, quyết định, quyền, lịch sử xử lý, thông tin để phục hồi; tệp UI, mã, tài liệu ở nơi lưu đã chỉ định, PG giữ liên kết + phiên bản; dùng tính năng có sẵn của PG trước</td><td>😊 người duyệt thiết kế</td><td>MOW Sửa thiết kế: đưa về PG</td><td>✅</td></tr>
+  <tr><td>8</td><td>máy cấp</td><td>Lớp trên</td><td>định dùng dịch vụ ngoài PG (vd Kubernetes, Temporal, hàng đợi riêng)</td><td>chỉ khi PG không làm được; ưu tiên mã nguồn mở miễn phí; tắt dịch vụ đó thì việc có thể tạm dừng nhưng không mất trạng thái; bật lại thì đọc trạng thái trong PG, đối soát phần chưa rõ, chạy tiếp đúng bước</td><td>😊 Owner duyệt</td><td>MOW Sửa thiết kế: đưa về PG</td><td>✅</td></tr>
+  <tr><th colspan="8">Khép kín (mới · Owner 21/10)</th></tr>
+  <tr><td>9</td><td>máy cấp</td><td>Không mồ côi</td><td>mọi việc, lượt, sự cố, Vấn đề chưa kết thúc</td><td>PHẢI ở 1 trạng thái của Bảng Trạng thái + có người giữ + lúc kiểm kế theo mốc của trạng thái đó; đến lúc kiểm ⇒ chạy dòng «đến lúc kiểm» của trạng thái; thiếu người giữ hoặc trạng thái lạ ⇒ X1</td><td>🤖 Flow quét theo lịch; giám sát ngoài PG kiểm lần quét hoàn tất</td><td>CT-000.4 (X1)</td><td>✅</td></tr>
+  <tr><td>10</td><td>máy cấp</td><td>Đủ dòng</td><td>lập bảng quyết định hoặc bảng chuyển trạng thái</td><td>mỗi sự kiện trả 1 giá trị trong danh sách đóng; mỗi trạng thái × giá trị có đúng 1 dòng</td><td>🤖 máy kiểm 6 điều + 😊 người duyệt</td><td>MOW Sửa bảng: thêm dòng</td><td>✅</td></tr>
+  </tbody></table>
+  </div>
+</details>
+</section>
+<section class="cf-formula-piece cf-tier-formula" id="formula-ct-000-3" aria-label="CT-000.3 · Cấp ghép">
+<div class="cf-formula-titlebar"><div class="cf-formula-nick">Cấp ghép</div><div class="cf-formula-full">CT-000.3 · Đo độ ghép</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-CGH* · mã master list: CAT-201*</div><div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a></div></div>
+<div class="cf-formula-expression"><code>Cấp ghép 1 =&gt; Cấp ghép 2 =&gt; Cấp ghép 3 =&gt; Cấp ghép 4</code></div>
+<div class="cf-flow" role="group" aria-label="Cấp ghép 1 đến 4"><div class="cf-chain"><span class="s" title="~ nguyên tử · chưa ghép"><b class="cf-root-no">1</b> Cấp ghép 1</span><span class="a" aria-hidden="true">→</span><span class="s" title="vd Nhóm cha"><b class="cf-root-no">2</b> Cấp ghép 2</span><span class="a" aria-hidden="true">→</span><span class="s" title="vd MOW"><b class="cf-root-no">3</b> Cấp ghép 3</span><span class="a" aria-hidden="true">→</span><span class="s" title="vd Info contract"><b class="cf-root-no">4</b> Cấp ghép 4</span></div></div>
+<details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <p class="cf-derived-note"><b>Cấp ghép = cấp ghép lớn nhất của thành tố + 1.</b> Công thức gốc: không làm ra thứ gì, mà đo mọi công thức chuyên môn. Thành tố chưa ghép = Cấp ghép 1. Vd Nhóm cha = Chuỗi + Bước + Tầng (đều 1) ⇒ 2 · MOW có Nhóm cha (2) ⇒ 3 · Info contract có UI con (3) ⇒ 4.</p>
+</details>
+</section>
+<section class="cf-formula-piece cf-tier-formula" id="formula-ct-000-4" aria-label="CT-000.4 · Xử lý lỗi">
+<div class="cf-formula-titlebar"><div class="cf-formula-nick">Xử lý lỗi</div><div class="cf-formula-full">CT-000.4 · Vòng khép kín</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-ISS · mã master list: CAT-017 (Sự cố) · Vấn đề: CAT-069 · Hàng đợi: dòng chờ ở CAT-228*</div><div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a></div></div>
+<div class="cf-formula-expression"><code>Ghi sự cố =&gt; Xếp hàng =&gt; Tra quy trình =&gt; Chạy =&gt; Kết quả =&gt; Kiểm lại · Không có quy trình =&gt; Vấn đề =&gt; MMOW =&gt; Owner</code></div>
+<div class="cf-flow" role="group" aria-label="Xử lý lỗi: bước 1 đến 6"><div class="cf-chain"><span class="s" title="mã sự kiện trùng ⇒ bỏ qua · vân tay mới ⇒ X2 · đang mở ⇒ gắn thêm việc gốc · đã đóng ⇒ mở lại «Tái phát» ⇒ X2 + X7"><b class="cf-root-no">X1</b> Ghi sự cố</span><span class="a" aria-hidden="true">→</span><span class="s" title="lấy dòng đủ 5 điều kiện · ưu tiên ⇒ vào trước · chờ lâu nâng bậc ⇒ X3"><b class="cf-root-no">X2</b> Xếp hàng</span><span class="a" aria-hidden="true">→</span><span class="s" title="MOW ở ô Xử lý bằng: đã ban hành, còn dùng, đủ tham số + công cụ ⇒ X4 · thiếu ⇒ X7"><b class="cf-root-no">X3</b> Tra quy trình</span><span class="a" aria-hidden="true">→</span><span class="s" title="kiểm lần nhận &lt; M và chưa quá hạn ⇒ nhận bằng 1 lệnh ⇒ chạy ⇒ X5 · 0 dòng ⇒ X2"><b class="cf-root-no">X4</b> Chạy</span><span class="a" aria-hidden="true">→</span><span class="s" title="theo Bảng Chuyển trạng thái: mỗi kết quả đúng 1 dòng"><b class="cf-root-no">X5</b> Kết quả</span><span class="a" aria-hidden="true">→</span><span class="s" title="chấm riêng từng việc gốc · Đúng ⇒ gỡ chặn · Sai ⇒ X3 (vòng = N ⇒ X7) · Chưa biết ⇒ Đối soát"><b class="cf-root-no">X6</b> Kiểm lại</span></div></div>
+<div class="cf-flow" role="group" aria-label="Xử lý lỗi: bước 7 đến 9"><div class="cf-chain"><span class="s" title="gom theo nguyên nhân (ITIL Problem) ⇒ việc MMOW có người nhận + hạn ⇒ X8 · không có MMOW ⇒ X9"><b class="cf-root-no">X7</b> Vấn đề</span><span class="a" aria-hidden="true">→</span><span class="s" title="sửa quy trình qua thử + duyệt (CT-001) ⇒ xếp lại sự cố còn mở về X3 · quá hạn ⇒ X9"><b class="cf-root-no">X8</b> MMOW</span><span class="a" aria-hidden="true">→</span><span class="s" title="1 trong 4: Làm tiếp · Giao lại · Huỷ · Chấp nhận ngoại lệ (ISO 9001 §8.7)"><b class="cf-root-no">X9</b> 😊 Owner</span></div></div>
+<details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <p class="cf-derived-note"><b>Cơ chế, không phải nguyên tắc:</b> đường đi của 1 việc viết đúng 1 chỗ — Bảng Chuyển trạng thái; mỗi sự kiện trả đúng 1 giá trị trong danh sách đóng (Bảng Giá trị); mỗi trạng thái × giá trị có đúng 1 dòng; máy đọc chính bảng này để kiểm 6 điều và chạy các ca thử; lên PG thì hàm chuyển trạng thái đọc chính bảng này, cặp nào không có dòng thì từ chối. <b>Khép kín bằng 3 lưới:</b> ① mỗi giá trị có 1 dòng · ② mọi trạng thái chưa kết thúc có người giữ + lúc kiểm kế · ③ Flow quét theo lịch: đến lúc kiểm ⇒ phát sự kiện kiểm (việc bình thường, không phải lỗi); thiếu người giữ, trạng thái lạ ⇒ X1 «mồ côi»; giám sát ngoài PG kiểm nhịp của Flow quét. Tệ nhất là vào hàng đợi; đáy cuối là 😊 Owner (Chờ Owner, nhắc theo chu kỳ). <b>Mọi vòng dừng theo 4 giới hạn, không đặt lại:</b> số lần nhận M (đếm lúc nhận, không chờ máy báo) · số vòng N (theo từng việc gốc) · độ sâu chuỗi sự cố D · hạn việc gốc (G1.7; việc con không có hạn dài hơn việc cha). Định tuyến = ô Xử lý bằng của Điều luật (CT-000.2).</p>
+  <div class="kn">
+  <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Bước xử lý lỗi (X1–X9)</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Bước xử lý lỗi">?</span><span class="t1-mapping-table__tip" role="tooltip">9 bước mọi sự cố đi qua. Mỗi bước 1 hàng thao tác: Đọc · Làm · Ghi · Kết quả → đi đâu. Cột Kết quả xét ①②③ theo thứ tự (DMN First): dòng sau chỉ xét khi dòng trước không khớp; dòng cuối bắt mọi phần còn lại.</span></span></caption>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Bước</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Bước">?</span><span class="t1-mapping-table__tip" role="tooltip">Bước X1–X9 của vòng xử lý (X = Xử lý). Mọi sự cố đều đi đúng các bước này.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Đọc</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Đọc">?</span><span class="t1-mapping-table__tip" role="tooltip">Đọc cái gì, ở đâu.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Làm (1 cách)</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Làm">?</span><span class="t1-mapping-table__tip" role="tooltip">Thao tác duy nhất của bước; ai làm cũng giống nhau.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Ghi</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Ghi">?</span><span class="t1-mapping-table__tip" role="tooltip">Ghi vào sổ nào. 🔴 = sổ hoặc bảng nối chưa có.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Kết quả → đi đâu</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Kết quả">?</span><span class="t1-mapping-table__tip" role="tooltip">Mọi kết quả có thể xảy ra và bước tiếp theo; mỗi kết quả khớp đúng 1 đường. Không nhánh nào kết thúc bằng «dừng, báo».</span></span></th></tr></thead>
+  <tbody>
+  <tr><td><b class="cf-root-no">X1</b></td><td>lần phát sinh: câu · loại lỗi · đối tượng · việc gốc · mã sự kiện · sự cố cha (nếu có)</td><td>dấu vân tay = câu + loại lỗi + đối tượng; độ sâu = độ sâu lượt phát sinh cha + 1 (theo đường xử lý, không gán cho sự cố); ghi bằng 1 hàm PG</td><td>Sự cố CAT-017 + 🔴 bảng nối (sự cố × việc gốc) + dòng chờ CAT-228* + lần phát sinh vào CAT-238*, cùng 1 giao dịch; commit xong mới xoá cờ «chưa chuyển sự cố» ở việc nguồn (Yêu cầu PG 15)</td><td>① mã sự kiện đã có ⇒ bỏ qua · ② vân tay trùng sự cố cha hoặc tổ tiên trên đường xử lý này ⇒ không nối vòng; X7 (chính MMOW lỗi ⇒ X9) · ③ độ sâu &gt; D ⇒ X7 · ④ vân tay mới ⇒ tạo ⇒ X2 · ⑤ sự cố đang mở ⇒ thêm nối cho việc gốc mới (hạn, bộ đếm của chính việc đó), không xếp thêm · ⑥ sự cố đã đóng ⇒ mở lại «Tái phát»; chỉ nối việc gốc chưa kết thúc; việc đã kết thúc không tự mở lại; không còn gốc chưa kết thúc ⇒ X9 · ⑦ còn lại ⇒ X7</td></tr>
+  <tr><td><b class="cf-root-no">X2</b></td><td>dòng chờ CAT-228*</td><td>lấy dòng đủ 5: đến giờ · đủ điều kiện · chưa huỷ, chưa kết thúc · không lượt nào giữ hợp lệ · có người hoặc công cụ hợp; thứ tự: ưu tiên ⇒ vào trước; chờ quá T (Config) ⇒ nâng 1 bậc</td><td>—</td><td>① có dòng ⇒ X3 · ② không có ⇒ chờ đánh thức + quét theo lịch (Yêu cầu PG 7, 8)</td></tr>
+  <tr><td><b class="cf-root-no">X3</b></td><td>ô Xử lý bằng của Điều luật (CAT-140)</td><td>kiểm MOW: đã ban hành · còn dùng · đủ tham số · đủ công cụ (G2.11)</td><td>—</td><td>① đủ 4 ⇒ X4 · ② thiếu bất kỳ ⇒ X7</td></tr>
+  <tr><td><b class="cf-root-no">X4</b></td><td>dòng chờ đã chọn</td><td>1 giao dịch: khoá phạm vi song song (G3.3) → kiểm số lần nhận &lt; M (giá trị TRƯỚC khi tăng), chưa quá hạn của liên kết đang xử lý, còn chỗ → nhận bằng UPDATE … RETURNING (chọn bằng FOR UPDATE SKIP LOCKED): lần nhận +1, thế hệ +1; biên nhận «nhận» vào CAT-238*; chạy MOW ngoài giao dịch</td><td>người giữ · thế hệ · lần nhận · hạn giữ · lúc kiểm kế (CAT-228*)</td><td>T10–T13: hết M ⇒ X7 · quá hạn ⇒ Quá hạn · hết chỗ ⇒ vẫn Chờ · được ⇒ chạy lượt vừa nhận, kể cả lượt thứ M ⇒ X5 · 0 dòng (máy khác nhận trước) ⇒ X2</td></tr>
+  <tr><td><b class="cf-root-no">X5</b></td><td>kết quả lượt (G4.6) · số lần thử · hạn việc gốc</td><td>tra Bảng Chuyển trạng thái</td><td>kết quả + lý do (CAT-228*); chỉ ghi được khi đúng việc + đúng thế hệ + trạng thái hiện tại cho phép</td><td>① ghi được 0 dòng ⇒ lượt cũ không sửa trạng thái, không làm tác động mới; biên nhận về muộn vẫn thêm vào CAT-238* (thế hệ cũ) cho đối soát dùng · ② còn lại ⇒ T17–T28</td></tr>
+  <tr><td><b class="cf-root-no">X6</b></td><td>câu gốc + bảng nối: mọi việc gốc còn chặn</td><td>chấm lại câu gốc riêng cho từng việc gốc, theo tiêu chí + phiên bản của chính việc đó</td><td>trạng thái từng nối + bằng chứng (CAT-017, bảng nối)</td><td>mỗi việc gốc: ① Đúng ⇒ gỡ nối; việc gốc nhận sự kiện «kiểm lại» (T55–T58: kiểm lại hạn, huỷ, Owner rồi mới chạy tiếp) · ② Sai ⇒ vòng +1 của việc đó; vòng &lt; N ⇒ X3, vòng = N ⇒ X7 · ③ Chưa biết ⇒ lấy thêm bằng chứng rồi chấm lại; quá hạn của liên kết ⇒ X7. Sự cố đóng khi mọi nối đã gỡ hoặc việc gốc đã kết thúc</td></tr>
+  <tr><td><b class="cf-root-no">X7</b></td><td>nguyên nhân = loại lỗi + Loại việc</td><td>có Vấn đề đang mở cùng nguyên nhân ⇒ gắn vào; chưa có ⇒ tạo Vấn đề + 1 việc MMOW (người nhận, hạn)</td><td>Vấn đề CAT-069 + dòng chờ CAT-228*</td><td>① có MMOW nhận loại này ⇒ X8 · ② không có, hoặc chính MMOW đang lỗi ⇒ X9</td></tr>
+  <tr><td><b class="cf-root-no">X8</b></td><td>việc MMOW</td><td>sửa hoặc dựng quy trình theo CT-001 (thử + duyệt)</td><td>Xử lý bằng + phiên bản mới</td><td>① xong ⇒ xếp lại chỉ sự cố còn mở có việc gốc chưa kết thúc ⇒ X3, bộ đếm từng việc gốc giữ; việc gốc đã hết M ⇒ X9 cấp trần mới · ② quá hạn việc MMOW ⇒ X9</td></tr>
+  <tr><td><b class="cf-root-no">X9</b></td><td>Vấn đề + lịch sử + bằng chứng</td><td>😊 Owner chọn 1 trong 4: Làm tiếp (về bước nào; đã hết hạn hoặc hết M, N thì ghi hạn mới, trần mới cộng thêm) · Giao lại (người, hạn) · Huỷ (việc gốc + việc liên quan) · Chấp nhận ngoại lệ (câu được miễn, phạm vi, hiệu lực, bước trở lại)</td><td>quyết định + người quyết (CAT-069); lịch sử và số đã dùng giữ nguyên</td><td>T84–T89: Làm tiếp ⇒ X3 kiểm lại rồi về đúng bước trở lại · Giao lại ⇒ chấm lại G2 · Huỷ ⇒ Xét huỷ (đối soát → bù → đóng) · Ngoại lệ ⇒ Được miễn đúng câu, chấm lại cả cổng; câu khác chưa đạt vẫn chặn · thiếu ô ⇒ trả Owner · chưa trả lời ⇒ nhắc</td></tr>
+  </tbody></table>
+  </div>
+  <div class="kn">
+  <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Trạng thái</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Trạng thái">?</span><span class="t1-mapping-table__tip" role="tooltip">Mỗi việc (1 dòng CAT-228*) luôn ở đúng 1 trạng thái dưới đây. {G}, {m}: 1 dòng dùng cho nhiều bước, giá trị trong ngoặc vuông; m = mục đích đối soát: TT tiếp tục · Huỷ · QH quá hạn, giữ suốt đường phục hồi. ĐK = điều kiện, ĐS = đối soát, PH = phục hồi, LV = Loại việc.</span></span></caption>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Trạng thái</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Trạng thái">?</span><span class="t1-mapping-table__tip" role="tooltip">Tên trạng thái; Chờ = đang nằm trong hàng đợi.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Loại</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Loại">?</span><span class="t1-mapping-table__tip" role="tooltip">tạm = máy chấm ngay trong cùng giao dịch · máy = máy đang giữ · chờ = chờ người, nguồn hoặc giờ · kết thúc.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Người giữ</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Người giữ">?</span><span class="t1-mapping-table__tip" role="tooltip">Ai chịu trách nhiệm đưa việc ra khỏi trạng thái này.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Kiểm lại lúc</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Kiểm lại lúc">?</span><span class="t1-mapping-table__tip" role="tooltip">Mốc Flow quét phát sự kiện kiểm. Đến mốc là việc bình thường, không phải lỗi.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Sự kiện: giá trị</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Sự kiện">?</span><span class="t1-mapping-table__tip" role="tooltip">Sự kiện trạng thái nhận; mỗi sự kiện trả đúng 1 giá trị trong danh sách, xét theo thứ tự ghi. Mọi trạng thái chưa kết thúc còn nhận «yêu cầu huỷ».</span></span></th></tr></thead>
+  <tbody>
+  <tr><td>Mới</td><td>tạm</td><td>máy</td><td>ngay</td><td>khai xong: ok</td></tr>
+  <tr><td>Chấm G1</td><td>tạm</td><td>máy</td><td>ngay</td><td>chấm: thiếu / LV sai / LV chưa biết / đủ</td></tr>
+  <tr><td>Chấm G2</td><td>tạm</td><td>máy</td><td>ngay</td><td>chấm: lỗi / chưa biết / chờ / đủ</td></tr>
+  <tr><td>Chờ</td><td>máy</td><td>hàng đợi</td><td>giờ chạy; mỗi chu kỳ</td><td>xin nhận: hết M / quá hạn / hết chỗ / được ; đến lúc kiểm: quá hạn gốc / chờ quá T / chưa</td></tr>
+  <tr><td>Đang chạy</td><td>máy</td><td>người hoặc máy giữ lượt</td><td>hạn giữ</td><td>gia hạn: được / từ chối ; hết hạn giữ: có dở / không dở ; kết quả: Đạt / Một phần / Lỗi tạm an toàn / Lỗi tạm không an toàn / Xung đột / Lỗi điều kiện / Chưa biết / Cần người</td></tr>
+  <tr><td>Chờ người·G3</td><td>chờ</td><td>người làm (G2.1)</td><td>hạn chờ</td><td>kết quả: Đạt / Một phần / Lỗi tạm an toàn / Lỗi tạm không an toàn / Xung đột / Lỗi điều kiện / Chưa biết / Cần người ; đến lúc kiểm: quá hạn gốc / quá lần 2 / quá lần 1 / chưa quá</td></tr>
+  <tr><td>Chấm G4</td><td>tạm</td><td>máy</td><td>ngay</td><td>chấm: sai, hết vòng / sai, còn vòng / chưa biết / chờ người / đủ</td></tr>
+  <tr><td>Chấm G5</td><td>tạm</td><td>máy</td><td>ngay</td><td>chấm: dừng hạn / lỗi / chờ nhận / đủ</td></tr>
+  <tr><td>Chờ người·G1</td><td>chờ</td><td>người yêu cầu</td><td>hạn khai</td><td>trả lời: có ; đến lúc kiểm: quá hạn khai / chưa quá</td></tr>
+  <tr><td>Chờ người·{G} [G: G4, G5]</td><td>chờ</td><td>người duyệt (G4) · người nhận (G5)</td><td>hạn chờ</td><td>trả lời: có ; đến lúc kiểm: quá hạn gốc / quá lần 2 / quá lần 1 / chưa quá</td></tr>
+  <tr><td>Chờ ĐK·G1</td><td>chờ</td><td>nguồn chờ (sự cố)</td><td>khi nguồn đổi; mỗi chu kỳ</td><td>kiểm lại: đóng / quá hạn gốc / không thể thoả / thoả / còn chờ</td></tr>
+  <tr><td>Chờ ĐK·{G} [G: G2, G4, G5]</td><td>chờ</td><td>nguồn chờ (việc trước · sự cố · người duyệt · giờ)</td><td>khi nguồn đổi; mỗi chu kỳ</td><td>kiểm lại: quá hạn gốc / không thể thoả / thoả / còn chờ</td></tr>
+  <tr><td>Quá hạn</td><td>tạm</td><td>máy</td><td>ngay</td><td>quá hạn: có dở / không dở</td></tr>
+  <tr><td>Đối soát·{m} [m: TT, Huỷ, QH]</td><td>tạm</td><td>máy đối soát (G3.8)</td><td>ngay</td><td>đối soát: đủ / một phần / sai / chắc chưa làm / chưa thấy, có chống trùng / không kết luận</td></tr>
+  <tr><td>Chờ người·ĐS·{m} [m: TT, Huỷ, QH]</td><td>chờ</td><td>người đối soát</td><td>hạn chờ, không quá hạn phục hồi</td><td>trả lời: có ; đến lúc kiểm: quá hạn PH / quá lần 1 / chưa quá</td></tr>
+  <tr><td>Chờ ĐK·ĐS·{m} [m: TT, Huỷ, QH]</td><td>chờ</td><td>nguồn chờ (sự cố)</td><td>khi nguồn đổi; mỗi chu kỳ</td><td>kiểm lại: thoả / còn chờ</td></tr>
+  <tr><td>Xét huỷ</td><td>tạm</td><td>máy</td><td>ngay</td><td>xét: có dở / có tác động / không gì</td></tr>
+  <tr><td>Bù</td><td>tạm</td><td>máy bù (G3.11)</td><td>ngay</td><td>bù: xong / lỗi / không bù được</td></tr>
+  <tr><td>Chờ ĐK·Bù</td><td>chờ</td><td>nguồn chờ (sự cố)</td><td>khi nguồn đổi; mỗi chu kỳ</td><td>kiểm lại: thoả / còn chờ</td></tr>
+  <tr><td>Chờ Owner</td><td>chờ</td><td>😊 Owner</td><td>lịch nhắc</td><td>quyết định: thiếu ô / làm tiếp / giao lại / ngoại lệ / huỷ / chưa trả lời</td></tr>
+  <tr><td>Kết thúc·Đạt</td><td>kết thúc</td><td>—</td><td>—</td><td>—</td></tr>
+  <tr><td>Kết thúc·Huỷ</td><td>kết thúc</td><td>—</td><td>—</td><td>—</td></tr>
+  <tr><td>Kết thúc·Không hợp lệ</td><td>kết thúc</td><td>—</td><td>—</td><td>—</td></tr>
+  </tbody></table>
+  </div>
+  <div class="kn">
+  <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Giá trị</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Giá trị">?</span><span class="t1-mapping-table__tip" role="tooltip">Máy tính mỗi giá trị bằng phép yes/no nào, xét theo thứ tự ghi; một sự kiện luôn trả đúng 1 giá trị.</span></span></caption>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Sự kiện</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Sự kiện (Giá trị)">?</span><span class="t1-mapping-table__tip" role="tooltip">Sự kiện hoặc giá trị dễ nhầm.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Máy tính thế nào</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Máy tính thế nào">?</span><span class="t1-mapping-table__tip" role="tooltip">Phép yes/no, xét theo thứ tự; dòng đầu đúng thì dừng.</span></span></th></tr></thead>
+  <tbody>
+  <tr><td>chấm G1</td><td>thiếu: G1.1–G1.8 có câu không Đúng · LV sai: G1.9 Sai · LV chưa biết: G1.9 Chưa biết · đủ</td></tr>
+  <tr><td>chấm G2</td><td>lỗi: có câu không Đúng, lý do nhóm «lỗi» · chưa biết: có câu Chưa biết không lý do · chờ: có câu lý do nhóm «chờ» · đủ: mọi câu G2, câu G3 của Loại việc và G4.7 Đúng hoặc Được miễn</td></tr>
+  <tr><td>xin nhận</td><td>hết M: số lần nhận TRƯỚC khi tăng ≥ M · quá hạn: quá hạn của liên kết đang xử lý · hết chỗ: số đang chạy trong phạm vi G3.3 ≥ trần, đếm dưới khoá phạm vi · được</td></tr>
+  <tr><td>có dở · có tác động</td><td>có dở: CAT-238* có biên nhận «ý định» chưa có biên nhận kết luận cùng mã thao tác · có tác động: có biên nhận «đã tác động» chưa có biên nhận «đã bù»</td></tr>
+  <tr><td>kết quả</td><td>Lỗi tạm an toàn: UNAVAILABLE hoặc RESOURCE_EXHAUSTED và (thao tác chỉ ghi PG, giao dịch đã lùi; hoặc bên nhận chống trùng theo mã, còn hiệu lực) · Lỗi tạm không an toàn: còn lại · Xung đột: ABORTED · Lỗi điều kiện: FAILED_PRECONDITION, PERMISSION_DENIED, INVALID_ARGUMENT · Chưa biết: UNKNOWN, DEADLINE_EXCEEDED · Cần người: bước tiếp là 😊</td></tr>
+  <tr><td>chấm G4</td><td>sai: có câu G4.1–G4.5 Sai hoặc người duyệt từ chối; hết vòng khi vòng +1 = N · chưa biết: có câu Chưa biết không phải chờ người · chờ người: đang chờ người duyệt kết luận · đủ: G4.1–G4.5 Đúng hoặc Được miễn, G4.6 = Đạt</td></tr>
+  <tr><td>chấm G5</td><td>dừng hạn: quá hạn gốc và còn tác động G5 chưa làm · lỗi: G5.2–G5.5 có Sai hoặc Chưa biết · chờ nhận: G5.1 chưa xác nhận · đủ</td></tr>
+  <tr><td>đối soát</td><td>đủ · một phần · sai: thấy kết quả, chấm theo điều kiện của lượt · chắc chưa làm: có bằng chứng lệnh cũ đã kết thúc, không tác động, không còn đang xử lý · chưa thấy, có chống trùng: tra chưa thấy và bên nhận chống trùng theo mã còn hiệu lực · không kết luận: còn lại («chưa thấy» không phải «chưa làm»)</td></tr>
+  <tr><td>kiểm lại</td><td>đóng: sự cố nguồn kết luận đóng việc · quá hạn gốc · không thể thoả: kiểu «tất cả» có 1 nguồn Lỗi hoặc Huỷ; kiểu «một trong» mọi nguồn Lỗi hoặc Huỷ · thoả · còn chờ</td></tr>
+  <tr><td>đến lúc kiểm</td><td>quá hạn gốc · quá hạn khai · quá hạn PH · quá lần 2 / quá lần 1: lần quá hạn chờ thứ 2 / thứ 1 của cùng lần chờ · chờ quá T · chưa quá</td></tr>
+  <tr><td>3 loại hạn</td><td>hạn gốc (G1.7): giới hạn việc nghiệp vụ · hạn phục hồi: tính 1 lần khi vào Quá hạn hoặc Xét huỷ, không đặt lại, không theo hạn gốc, dùng cho Đối soát và Bù · lịch nhắc: cho Chờ Owner</td></tr>
+  </tbody></table>
+  </div>
+  <div class="kn">
+  <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Chuyển trạng thái</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Chuyển trạng thái">?</span><span class="t1-mapping-table__tip" role="tooltip">Đường đi duy nhất của 1 việc. 1 dòng = trạng thái × sự kiện × giá trị ⇒ làm, ghi ⇒ sang. Máy kiểm 6 điều: ① mỗi trạng thái × giá trị có đúng 1 dòng ② đích có trong Bảng Trạng thái ③ mọi trạng thái tới được từ Mới ④ mọi trạng thái chưa kết thúc tới được Kết thúc ⑤ vòng do máy tự phát (không tính sự kiện từ người: yêu cầu huỷ, trả lời, quyết định) phải có «lần nhận +1», «vòng +1» hoặc «trần» ⑥ các ca thử chạy ra đúng trạng thái. * = mọi trạng thái chưa kết thúc.</span></span></caption>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Mã</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Mã dòng">?</span><span class="t1-mapping-table__tip" role="tooltip">Mã dòng chuyển; các bảng khác trỏ vào mã này.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Từ</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Từ">?</span><span class="t1-mapping-table__tip" role="tooltip">Trạng thái hiện tại; nhiều trạng thái nối bằng +.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Sự kiện</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Sự kiện (Chuyển)">?</span><span class="t1-mapping-table__tip" role="tooltip">Điều vừa xảy ra.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Giá trị</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Giá trị">?</span><span class="t1-mapping-table__tip" role="tooltip">Giá trị máy tính ra (Bảng Giá trị); nhiều giá trị chung 1 đường nối bằng /.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Làm và ghi</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Làm và ghi">?</span><span class="t1-mapping-table__tip" role="tooltip">Thao tác và chỗ ghi, cùng giao dịch với việc đổi trạng thái.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Sang</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Sang">?</span><span class="t1-mapping-table__tip" role="tooltip">Trạng thái sau; người giữ và lúc kiểm lấy theo Bảng Trạng thái.</span></span></th></tr></thead>
+  <tbody>
+  <tr><td>T01</td><td>Mới</td><td>khai xong</td><td>ok</td><td>ghi CAT-228*</td><td>Chấm G1</td></tr>
+  <tr><td>T02</td><td>Chấm G1</td><td>chấm</td><td>thiếu</td><td>trả người yêu cầu; hạn = G1.7 nếu Đúng, không thì hạn khai (Config chung)</td><td>Chờ người·G1</td></tr>
+  <tr><td>T03</td><td>Chấm G1</td><td>chấm</td><td>LV sai</td><td>X1, người nhận MMOW</td><td>Chờ ĐK·G1</td></tr>
+  <tr><td>T04</td><td>Chấm G1</td><td>chấm</td><td>LV chưa biết</td><td>hỏi người yêu cầu xác nhận Loại việc</td><td>Chờ người·G1</td></tr>
+  <tr><td>T05</td><td>Chấm G1</td><td>chấm</td><td>đủ</td><td>ghim phiên bản (G2.10)</td><td>Chấm G2</td></tr>
+  <tr><td>T06</td><td>Chấm G2</td><td>chấm</td><td>lỗi</td><td>X1, mỗi câu lỗi 1 sự cố</td><td>Chờ ĐK·G2</td></tr>
+  <tr><td>T07</td><td>Chấm G2</td><td>chấm</td><td>chưa biết</td><td>X1</td><td>Chờ ĐK·G2</td></tr>
+  <tr><td>T08</td><td>Chấm G2</td><td>chấm</td><td>chờ</td><td>ghi nguồn chờ + kiểu «tất cả» / «một trong»</td><td>Chờ ĐK·G2</td></tr>
+  <tr><td>T09</td><td>Chấm G2</td><td>chấm</td><td>đủ</td><td>ghi giờ chạy</td><td>Chờ</td></tr>
+  <tr><td>T10</td><td>Chờ</td><td>xin nhận</td><td>hết M</td><td>X7 (Vấn đề «hết lượt»); nguồn chờ = Vấn đề</td><td>Chờ ĐK·G2</td></tr>
+  <tr><td>T11</td><td>Chờ</td><td>xin nhận</td><td>quá hạn</td><td>—</td><td>Quá hạn</td></tr>
+  <tr><td>T12</td><td>Chờ</td><td>xin nhận</td><td>hết chỗ</td><td>không nhận; hẹn thử lại (trần: hạn gốc)</td><td>Chờ</td></tr>
+  <tr><td>T13</td><td>Chờ</td><td>xin nhận</td><td>được</td><td>khoá phạm vi; lần nhận +1; thế hệ +1; giữ chỗ; biên nhận «nhận»</td><td>Đang chạy</td></tr>
+  <tr><td>T14</td><td>Chờ</td><td>đến lúc kiểm</td><td>quá hạn gốc</td><td>—</td><td>Quá hạn</td></tr>
+  <tr><td>T15</td><td>Chờ</td><td>đến lúc kiểm</td><td>chờ quá T</td><td>nâng 1 bậc ưu tiên (trần: hạn gốc)</td><td>Chờ</td></tr>
+  <tr><td>T16</td><td>Chờ</td><td>đến lúc kiểm</td><td>chưa</td><td>ghi lúc kiểm kế (trần: hạn gốc)</td><td>Chờ</td></tr>
+  <tr><td>T17</td><td>Đang chạy</td><td>gia hạn</td><td>được</td><td>hạn giữ mới (trần: thời gian chạy tối đa)</td><td>Đang chạy</td></tr>
+  <tr><td>T18</td><td>Đang chạy</td><td>gia hạn</td><td>từ chối</td><td>lượt cũ không làm tác động mới (trần: hạn giữ)</td><td>Đang chạy</td></tr>
+  <tr><td>T19</td><td>Đang chạy</td><td>hết hạn giữ</td><td>có dở</td><td>1 lệnh kiểm thế hệ + hạn đã qua; thế hệ +1; nhả chỗ</td><td>Đối soát·TT</td></tr>
+  <tr><td>T20</td><td>Đang chạy</td><td>hết hạn giữ</td><td>không dở</td><td>1 lệnh kiểm thế hệ + hạn đã qua; thế hệ +1; nhả chỗ</td><td>Chờ</td></tr>
+  <tr><td>T21</td><td>Đang chạy + Chờ người·G3</td><td>kết quả</td><td>Đạt</td><td>nhả chỗ</td><td>Chấm G4</td></tr>
+  <tr><td>T22</td><td>Đang chạy + Chờ người·G3</td><td>kết quả</td><td>Một phần</td><td>ghi phần xong; thao tác chưa làm giữ mã</td><td>Chờ</td></tr>
+  <tr><td>T23</td><td>Đang chạy + Chờ người·G3</td><td>kết quả</td><td>Lỗi tạm an toàn</td><td>hẹn giờ giãn cách mũ + ngẫu nhiên; thử lại đúng thao tác, cùng mã</td><td>Chờ</td></tr>
+  <tr><td>T24</td><td>Đang chạy + Chờ người·G3</td><td>kết quả</td><td>Lỗi tạm không an toàn</td><td>không gửi lại</td><td>Đối soát·TT</td></tr>
+  <tr><td>T25</td><td>Đang chạy + Chờ người·G3</td><td>kết quả</td><td>Xung đột</td><td>đọc lại G2.5; thao tác mới, mã mới</td><td>Chấm G2</td></tr>
+  <tr><td>T26</td><td>Đang chạy + Chờ người·G3</td><td>kết quả</td><td>Lỗi điều kiện</td><td>X1 (sự cố cha nếu có)</td><td>Chờ ĐK·G2</td></tr>
+  <tr><td>T27</td><td>Đang chạy + Chờ người·G3</td><td>kết quả</td><td>Chưa biết</td><td>không gửi lại</td><td>Đối soát·TT</td></tr>
+  <tr><td>T28</td><td>Đang chạy + Chờ người·G3</td><td>kết quả</td><td>Cần người</td><td>nhả lượt; ghi chờ ai, trả lời gì</td><td>Chờ người·G3</td></tr>
+  <tr><td>T29</td><td>Chờ người·G3</td><td>đến lúc kiểm</td><td>quá hạn gốc</td><td>—</td><td>Quá hạn</td></tr>
+  <tr><td>T30</td><td>Chờ người·G3</td><td>đến lúc kiểm</td><td>quá lần 2</td><td>X1</td><td>Chờ ĐK·G2</td></tr>
+  <tr><td>T31</td><td>Chờ người·G3</td><td>đến lúc kiểm</td><td>quá lần 1</td><td>người thay, hạn mới</td><td>Chờ người·G3</td></tr>
+  <tr><td>T32</td><td>Chờ người·G3</td><td>đến lúc kiểm</td><td>chưa quá</td><td>nhắc; ghi lúc kiểm kế</td><td>Chờ người·G3</td></tr>
+  <tr><td>T33</td><td>Chấm G4</td><td>chấm</td><td>sai, hết vòng</td><td>X9</td><td>Chờ Owner</td></tr>
+  <tr><td>T34</td><td>Chấm G4</td><td>chấm</td><td>sai, còn vòng</td><td>vòng +1; ghi lý do; sửa = thao tác mới, mã mới; giữ phần đã đạt</td><td>Chờ</td></tr>
+  <tr><td>T35</td><td>Chấm G4</td><td>chấm</td><td>chưa biết</td><td>X1</td><td>Chờ ĐK·G4</td></tr>
+  <tr><td>T36</td><td>Chấm G4</td><td>chấm</td><td>chờ người</td><td>gửi người duyệt; ghi chờ ai, trả lời gì</td><td>Chờ người·G4</td></tr>
+  <tr><td>T37</td><td>Chấm G4</td><td>chấm</td><td>đủ</td><td>—</td><td>Chấm G5</td></tr>
+  <tr><td>T38</td><td>Chấm G5</td><td>chấm</td><td>dừng hạn</td><td>X9</td><td>Chờ Owner</td></tr>
+  <tr><td>T39</td><td>Chấm G5</td><td>chấm</td><td>lỗi</td><td>X1</td><td>Chờ ĐK·G5</td></tr>
+  <tr><td>T40</td><td>Chấm G5</td><td>chấm</td><td>chờ nhận</td><td>gửi người nhận; ghi mốc đã gửi</td><td>Chờ người·G5</td></tr>
+  <tr><td>T41</td><td>Chấm G5</td><td>chấm</td><td>đủ</td><td>ĐÓNG: ghi Kết thúc·Đạt, giữ bằng chứng, bỏ người giữ + lịch kiểm, nhả chỗ</td><td>Kết thúc·Đạt</td></tr>
+  <tr><td>T42</td><td>Chờ người·G1</td><td>trả lời</td><td>có</td><td>ghi trả lời</td><td>Chấm G1</td></tr>
+  <tr><td>T43</td><td>Chờ người·G1</td><td>đến lúc kiểm</td><td>quá hạn khai</td><td>X1</td><td>Chờ ĐK·G1</td></tr>
+  <tr><td>T44</td><td>Chờ người·G1</td><td>đến lúc kiểm</td><td>chưa quá</td><td>nhắc; ghi lúc kiểm kế</td><td>Chờ người·G1</td></tr>
+  <tr><td>T45</td><td>Chờ người·{G} [G: G4, G5]</td><td>trả lời</td><td>có</td><td>ghi trả lời</td><td>Chấm {G}</td></tr>
+  <tr><td>T46</td><td>Chờ người·{G} [G: G4, G5]</td><td>đến lúc kiểm</td><td>quá hạn gốc</td><td>—</td><td>Quá hạn</td></tr>
+  <tr><td>T47</td><td>Chờ người·{G} [G: G4, G5]</td><td>đến lúc kiểm</td><td>quá lần 2</td><td>X1</td><td>Chờ ĐK·{G}</td></tr>
+  <tr><td>T48</td><td>Chờ người·{G} [G: G4, G5]</td><td>đến lúc kiểm</td><td>quá lần 1</td><td>người thay, hạn mới</td><td>Chờ người·{G}</td></tr>
+  <tr><td>T49</td><td>Chờ người·{G} [G: G4, G5]</td><td>đến lúc kiểm</td><td>chưa quá</td><td>nhắc; ghi lúc kiểm kế</td><td>Chờ người·{G}</td></tr>
+  <tr><td>T50</td><td>Chờ ĐK·G1</td><td>kiểm lại</td><td>đóng</td><td>ĐÓNG: ghi Kết thúc·Không hợp lệ, báo người yêu cầu</td><td>Kết thúc·Không hợp lệ</td></tr>
+  <tr><td>T51</td><td>Chờ ĐK·G1</td><td>kiểm lại</td><td>quá hạn gốc</td><td>—</td><td>Quá hạn</td></tr>
+  <tr><td>T52</td><td>Chờ ĐK·G1</td><td>kiểm lại</td><td>không thể thoả</td><td>X1</td><td>Chờ ĐK·G1</td></tr>
+  <tr><td>T53</td><td>Chờ ĐK·G1</td><td>kiểm lại</td><td>thoả</td><td>—</td><td>Chấm G1</td></tr>
+  <tr><td>T54</td><td>Chờ ĐK·G1</td><td>kiểm lại</td><td>còn chờ</td><td>ghi lần kiểm, lúc kiểm kế</td><td>Chờ ĐK·G1</td></tr>
+  <tr><td>T55</td><td>Chờ ĐK·{G} [G: G2, G4, G5]</td><td>kiểm lại</td><td>quá hạn gốc</td><td>—</td><td>Quá hạn</td></tr>
+  <tr><td>T56</td><td>Chờ ĐK·{G} [G: G2, G4, G5]</td><td>kiểm lại</td><td>không thể thoả</td><td>X1</td><td>Chờ ĐK·{G}</td></tr>
+  <tr><td>T57</td><td>Chờ ĐK·{G} [G: G2, G4, G5]</td><td>kiểm lại</td><td>thoả</td><td>—</td><td>Chấm {G}</td></tr>
+  <tr><td>T58</td><td>Chờ ĐK·{G} [G: G2, G4, G5]</td><td>kiểm lại</td><td>còn chờ</td><td>ghi lần kiểm, lúc kiểm kế</td><td>Chờ ĐK·{G}</td></tr>
+  <tr><td>T59</td><td>Quá hạn</td><td>quá hạn</td><td>có dở</td><td>chặn tác động mới; tính hạn phục hồi</td><td>Đối soát·QH</td></tr>
+  <tr><td>T60</td><td>Quá hạn</td><td>quá hạn</td><td>không dở</td><td>X9</td><td>Chờ Owner</td></tr>
+  <tr><td>T61</td><td>Đối soát·TT</td><td>đối soát</td><td>đủ</td><td>—</td><td>Chấm G4</td></tr>
+  <tr><td>T62</td><td>Đối soát·TT</td><td>đối soát</td><td>một phần</td><td>ghi phần xong</td><td>Chờ</td></tr>
+  <tr><td>T63</td><td>Đối soát·TT</td><td>đối soát</td><td>sai</td><td>X1</td><td>Chờ ĐK·G2</td></tr>
+  <tr><td>T64</td><td>Đối soát·TT</td><td>đối soát</td><td>chắc chưa làm / chưa thấy, có chống trùng</td><td>thử lại đúng thao tác, cùng mã</td><td>Chờ</td></tr>
+  <tr><td>T65</td><td>Đối soát·TT</td><td>đối soát</td><td>không kết luận</td><td>ghi chờ ai, trả lời gì</td><td>Chờ người·ĐS·TT</td></tr>
+  <tr><td>T66</td><td>Đối soát·Huỷ</td><td>đối soát</td><td>đủ / một phần / sai / chắc chưa làm</td><td>ghi tác động đã có</td><td>Bù</td></tr>
+  <tr><td>T67</td><td>Đối soát·Huỷ</td><td>đối soát</td><td>chưa thấy, có chống trùng / không kết luận</td><td>ghi chờ ai, trả lời gì</td><td>Chờ người·ĐS·Huỷ</td></tr>
+  <tr><td>T68</td><td>Đối soát·QH</td><td>đối soát</td><td>đủ / một phần / sai / chắc chưa làm / chưa thấy, có chống trùng</td><td>X9 kèm kết luận đối soát</td><td>Chờ Owner</td></tr>
+  <tr><td>T69</td><td>Đối soát·QH</td><td>đối soát</td><td>không kết luận</td><td>ghi chờ ai, trả lời gì</td><td>Chờ người·ĐS·QH</td></tr>
+  <tr><td>T70</td><td>Chờ người·ĐS·{m} [m: TT, Huỷ, QH]</td><td>trả lời</td><td>có</td><td>ghi bằng chứng vào CAT-238*</td><td>Đối soát·{m}</td></tr>
+  <tr><td>T71</td><td>Chờ người·ĐS·{m} [m: TT, Huỷ, QH]</td><td>đến lúc kiểm</td><td>quá hạn PH</td><td>X1</td><td>Chờ ĐK·ĐS·{m}</td></tr>
+  <tr><td>T72</td><td>Chờ người·ĐS·{m} [m: TT, Huỷ, QH]</td><td>đến lúc kiểm</td><td>quá lần 1</td><td>người thay, hạn mới không quá hạn PH</td><td>Chờ người·ĐS·{m}</td></tr>
+  <tr><td>T73</td><td>Chờ người·ĐS·{m} [m: TT, Huỷ, QH]</td><td>đến lúc kiểm</td><td>chưa quá</td><td>nhắc; ghi lúc kiểm kế</td><td>Chờ người·ĐS·{m}</td></tr>
+  <tr><td>T74</td><td>Chờ ĐK·ĐS·{m} [m: TT, Huỷ, QH]</td><td>kiểm lại</td><td>thoả</td><td>—</td><td>Đối soát·{m}</td></tr>
+  <tr><td>T75</td><td>Chờ ĐK·ĐS·{m} [m: TT, Huỷ, QH]</td><td>kiểm lại</td><td>còn chờ</td><td>ghi lần kiểm, lúc kiểm kế</td><td>Chờ ĐK·ĐS·{m}</td></tr>
+  <tr><td>T76</td><td>Xét huỷ</td><td>xét</td><td>có dở</td><td>chặn tác động mới; tính hạn phục hồi</td><td>Đối soát·Huỷ</td></tr>
+  <tr><td>T77</td><td>Xét huỷ</td><td>xét</td><td>có tác động</td><td>tính hạn phục hồi</td><td>Bù</td></tr>
+  <tr><td>T78</td><td>Xét huỷ</td><td>xét</td><td>không gì</td><td>ĐÓNG: ghi Kết thúc·Huỷ, bỏ người giữ + lịch kiểm</td><td>Kết thúc·Huỷ</td></tr>
+  <tr><td>T79</td><td>Bù</td><td>bù</td><td>xong</td><td>ĐÓNG: ghi Kết thúc·Huỷ, bỏ người giữ + lịch kiểm</td><td>Kết thúc·Huỷ</td></tr>
+  <tr><td>T80</td><td>Bù</td><td>bù</td><td>lỗi</td><td>X1</td><td>Chờ ĐK·Bù</td></tr>
+  <tr><td>T81</td><td>Bù</td><td>bù</td><td>không bù được</td><td>X9</td><td>Chờ Owner</td></tr>
+  <tr><td>T82</td><td>Chờ ĐK·Bù</td><td>kiểm lại</td><td>thoả</td><td>—</td><td>Bù</td></tr>
+  <tr><td>T83</td><td>Chờ ĐK·Bù</td><td>kiểm lại</td><td>còn chờ</td><td>ghi lần kiểm, lúc kiểm kế</td><td>Chờ ĐK·Bù</td></tr>
+  <tr><td>T84</td><td>Chờ Owner</td><td>quyết định</td><td>thiếu ô</td><td>trả Owner ghi đủ</td><td>Chờ Owner</td></tr>
+  <tr><td>T85</td><td>Chờ Owner</td><td>quyết định</td><td>làm tiếp</td><td>ghi bước trở lại; đã hết hạn, M hoặc N thì ghi hạn mới, trần mới; X3 kiểm lại</td><td>Chấm [bước trở lại]</td></tr>
+  <tr><td>T86</td><td>Chờ Owner</td><td>quyết định</td><td>giao lại</td><td>đổi người, hạn mới</td><td>Chấm G2</td></tr>
+  <tr><td>T87</td><td>Chờ Owner</td><td>quyết định</td><td>ngoại lệ</td><td>ghi Được miễn đúng câu, phạm vi, hiệu lực; chấm lại cả cổng</td><td>Chấm [bước trở lại]</td></tr>
+  <tr><td>T88</td><td>Chờ Owner</td><td>quyết định</td><td>huỷ</td><td>ghi yêu cầu huỷ</td><td>Xét huỷ</td></tr>
+  <tr><td>T89</td><td>Chờ Owner</td><td>quyết định</td><td>chưa trả lời</td><td>nhắc; ghi lịch nhắc kế</td><td>Chờ Owner</td></tr>
+  <tr><td>T90</td><td>* trừ Chờ Owner, Xét huỷ, Đối soát·Huỷ, Chờ người·ĐS·Huỷ, Chờ ĐK·ĐS·Huỷ, Bù, Chờ ĐK·Bù</td><td>yêu cầu huỷ</td><td>ok</td><td>ghi yêu cầu huỷ; nếu Đang chạy: thu hồi lượt (thế hệ +1, nhả chỗ)</td><td>Xét huỷ</td></tr>
+  <tr><td>T91</td><td>Xét huỷ + Đối soát·Huỷ + Chờ người·ĐS·Huỷ + Chờ ĐK·ĐS·Huỷ + Bù + Chờ ĐK·Bù</td><td>yêu cầu huỷ</td><td>ok</td><td>đã đang huỷ; ghi lần yêu cầu</td><td>(giữ nguyên)</td></tr>
+  <tr><td>T92</td><td>Chờ Owner</td><td>yêu cầu huỷ</td><td>ok</td><td>ghi yêu cầu; Owner quyết ở T88</td><td>(giữ nguyên)</td></tr>
+  </tbody></table>
+  </div>
+  <div class="kn">
+  <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Sổ của vòng xử lý</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Sổ của vòng xử lý">?</span><span class="t1-mapping-table__tip" role="tooltip">Sổ nào giữ gì, 1 dòng là gì. Theo chuẩn hàng đợi trên PG (River, Oban): 1 bảng việc + cột trạng thái; không lập bảng hàng đợi riêng (khớp CT-007).</span></span></caption>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Sổ</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Sổ">?</span><span class="t1-mapping-table__tip" role="tooltip">Mã + tên sổ. 🔴 = chưa có.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">1 dòng =</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột 1 dòng">?</span><span class="t1-mapping-table__tip" role="tooltip">Một dòng của sổ là cái gì; khoá duy nhất nếu có.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Dùng ở</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Dùng ở">?</span><span class="t1-mapping-table__tip" role="tooltip">Câu G hoặc bước X đọc, ghi sổ này.</span></span></th></tr></thead>
+  <tbody>
+  <tr><td>CAT-206* Info contract</td><td>1 câu × 1 Loại việc: quy tắc, giá trị mặc định (khuôn, có phiên bản); không chứa câu trả lời</td><td>G1.9 tra khuôn</td></tr>
+  <tr><td>CAT-228* Sổ việc thật</td><td>1 việc × 1 bước, giữ nguyên qua các lần thử: câu trả lời thật · trạng thái (Bảng Trạng thái) · người giữ · số lần nhận (tính M) · thế hệ (tăng khi nhận hoặc thu hồi) · hạn giữ · lúc kiểm kế · chờ ai, trả lời gì, bước trở lại · cờ huỷ · cờ «chưa chuyển sự cố». Dòng trạng thái Chờ = hàng đợi</td><td>G1–G5 · X1–X8</td></tr>
+  <tr><td>CAT-230* Danh mục hàng đợi</td><td>1 hàng: tên · giới hạn song song · thứ tự lấy (định nghĩa, không chứa việc)</td><td>Config (CT-007)</td></tr>
+  <tr><td>CAT-248* Config</td><td>1 Loại việc: M · N · D · giãn cách · hạn phục hồi · hạn khai · lịch nhắc · trần chạy · trần song song; 1 dòng «Config chung» dùng khi chưa có Loại việc</td><td>G2 · G4.7 · T02 · T13</td></tr>
+  <tr><td>CAT-238* Sổ lệnh · lần gửi</td><td>1 biên nhận của 1 thao tác: mã biên nhận (khoá duy nhất) · mã thao tác (ổn định, nhiều biên nhận cùng trỏ) · loại: ý định / kết quả / bằng chứng đối soát / bù / nhận / thu hồi / phát sinh · thế hệ. Mỗi mã thao tác chỉ 1 biên nhận «ý định». Thao tác dở = có ý định, chưa có biên nhận kết luận. Chỉ thêm, không sửa; biên nhận về muộn vẫn thêm</td><td>G3 · G3.5 · G3.8 · X1 · X4 · X5 · Thu hồi</td></tr>
+  <tr><td>CAT-017 Sự cố</td><td>1 dấu vân tay (câu + loại lỗi + đối tượng); khoá duy nhất</td><td>X1 · X6</td></tr>
+  <tr><td class="kn-bad">🔴 Bảng nối Sự cố ↔ Việc gốc</td><td>1 sự cố × 1 việc gốc (khoá duy nhất): Còn chặn / Đã gỡ · số vòng của việc đó · hạn theo việc đó. Lượt sửa sự cố dùng hạn muộn nhất trong các gốc còn hiệu lực; gốc hết hạn đi Quá hạn riêng</td><td>X1 · X6</td></tr>
+  <tr><td>CAT-069 Vấn đề</td><td>1 nguyên nhân (loại lỗi + Loại việc)</td><td>X7 · X8 · X9</td></tr>
+  </tbody></table>
+  </div>
+  <div class="kn">
+  <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Yêu cầu cho PG</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Yêu cầu cho PG">?</span><span class="t1-mapping-table__tip" role="tooltip">Điều PG phải đảm bảo khi lắp vòng xử lý lỗi. Lắp đặt bàn sau, làm 1 lượt.</span></span></caption>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">STT</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột STT">?</span><span class="t1-mapping-table__tip" role="tooltip">Số yêu cầu.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Yêu cầu cho PG</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Yêu cầu cho PG">?</span><span class="t1-mapping-table__tip" role="tooltip">Điều PG phải đảm bảo khi lắp vòng này. Lắp đặt bàn sau, làm 1 lượt.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Đạt khi</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Đạt khi (PG)">?</span><span class="t1-mapping-table__tip" role="tooltip">Phép thử yes/no chứng minh PG làm đúng yêu cầu.</span></span></th></tr></thead>
+  <tbody>
+  <tr><td>1</td><td>X1 ghi Sự cố + bảng nối + dòng chờ CAT-228* + lần phát sinh (CAT-238*) bằng 1 hàm PG = 1 giao dịch</td><td>chèn lỗi giữa các lần ghi trong hàm: không dòng nào được ghi; gọi lại: ghi đủ cả 4</td></tr>
+  <tr><td>2</td><td>khoá duy nhất: dấu vân tay (CAT-017) · sự cố × việc gốc (bảng nối) · mã biên nhận (CAT-238*) · mã thao tác + loại «ý định» (CAT-238*) · mã sự kiện ngoài (biên nhận «phát sinh»); trùng ⇒ ON CONFLICT DO NOTHING</td><td>gửi lại cùng sự kiện, cùng ý định: số dòng không đổi; kết quả của cùng thao tác vẫn thêm được</td></tr>
+  <tr><td>3</td><td>nhận việc: 1 giao dịch — pg_advisory_xact_lock(phạm vi G3.3) → đếm đang chạy &lt; trần → số lần nhận &lt; M (giá trị TRƯỚC khi tăng) → UPDATE … RETURNING, chọn dòng bằng FOR UPDATE SKIP LOCKED</td><td>① 2 máy cùng nhận 1 dòng: đúng 1 máy có dòng · ② 2 việc khác nhau, cùng phạm vi, trần 1: đúng 1 việc chạy · ③ M = 1: chạy đúng 1 lượt, lần xin sau bị chặn</td></tr>
+  <tr><td>4</td><td>giao dịch chỉ bao lúc nhận và lúc ghi; việc chạy ngoài giao dịch; chờ người = trạng thái, không giữ giao dịch (PG 18 §13.3.4: giữ giao dịch mở lâu, vd chờ người nhập, là cách làm không tốt)</td><td>không có giao dịch mở quá ngưỡng (đo pg_stat_activity)</td></tr>
+  <tr><td>5</td><td>gia hạn: WHERE đúng việc + đúng thế hệ + Đang chạy + hạn giữ &gt; now() · thu hồi: WHERE đúng thế hệ + hạn giữ ≤ now(), cùng 1 lệnh · ghi kết quả: đúng việc + thế hệ + trạng thái cho phép; 0 dòng ⇒ lượt cũ không sửa trạng thái (UPDATE 0 dòng không báo lỗi)</td><td>① lượt cũ quay lại, hoặc ghi vào việc đã Huỷ: 0 dòng · ② gia hạn và thu hồi chạy sát nhau: đúng 1 lệnh thành công</td></tr>
+  <tr><td>6</td><td>ưu tiên theo mức; cùng mức ⇒ vào trước làm trước; chờ quá T ⇒ nâng 1 bậc (aging)</td><td>đến mốc T: ưu tiên hiệu lực tăng đúng 1 bậc; cùng bậc thì việc vào trước được lấy trước</td></tr>
+  <tr><td>7</td><td>đánh thức: NOTIFY khi có dòng chờ; bên lấy việc khi khởi động hoặc nối lại PHẢI LISTEN → đọc dòng chờ + lượt hết hạn → rồi mới chờ thông báo</td><td>① mất kết nối rồi nối lại: không sót dòng chờ · ② hẹn 1 việc tương lai, không có ghi hay NOTIFY: đến giờ vẫn được xét (Flow quét theo lúc kiểm kế)</td></tr>
+  <tr><td>8</td><td>thu hồi lượt hết hạn bằng 1 Directus Flow lịch (Flow này phải dựng; Directus chỉ có sẵn kiểu kích hoạt theo lịch): CAT-238* có thao tác dở ⇒ Đối soát, không trả về chờ; không có ⇒ về Chờ, thế hệ +1</td><td>3 ca: ① bên thực hiện chết, PG + Directus chạy ⇒ thu hồi trong 1 chu kỳ · ② đã gửi email rồi chết ⇒ vào Đối soát, không gửi lần 2 · ③ Directus khởi động lại ⇒ chu kỳ kế chạy tiếp, không mất lượt · ④ biên nhận về sau khi mất quyền giữ: vẫn thêm vào CAT-238*, CAT-228* không đổi</td></tr>
+  <tr><td>9</td><td>chuyển trạng thái chỉ qua 1 hàm có bảng chuyển hợp lệ; thu quyền ghi thẳng cột trạng thái; cột bắt buộc NOT NULL (CHECK cho qua NULL, không kiểm chéo dòng)</td><td>ghi thẳng trạng thái: bị từ chối</td></tr>
+  <tr><td>10</td><td>Directus: kiểm bằng Flow Filter (chặn, trước khi ghi); báo, đánh thức bằng Flow Action (sau khi ghi); bước phải cùng giao dịch không đặt ở Action</td><td>mỗi Flow đúng loại theo dòng này</td></tr>
+  <tr><td>11</td><td>rollback chỉ lùi dữ liệu PG; gửi ra ngoài qua CAT-238* (hộp thư đi), lỗi thì bù, không «lùi»</td><td>mọi lệnh gửi có mã thao tác + kết quả đối soát</td></tr>
+  <tr><td>12</td><td>giám sát ngoài PG (Uptime Kuma có sẵn) kiểm 3 tín hiệu: PG trả lời · lần quét HOÀN TẤT thành công gần nhất (không phải lần bắt đầu) · số việc có cờ «chưa chuyển sự cố» = 0</td><td>tắt PG thử · cho Flow quét lỗi giữa chừng · cho hàm X1 lỗi: cả 3 đều có cảnh báo</td></tr>
+  <tr><td>13</td><td>thêm loại lỗi = thêm 1 dòng Điều luật; chia bảng theo thời gian khi lớn; mỗi bước có biên nhận (ai · lúc · lượt · thế hệ)</td><td>mở được biên nhận từ mã lượt</td></tr>
+  <tr><td>14</td><td>Flow quét theo lịch, 3 đường: ① đến lúc kiểm ⇒ phát sự kiện «đến lúc kiểm» hoặc «kiểm lại» theo Bảng Chuyển trạng thái (không phải lỗi) · ② trạng thái không có trong Bảng Trạng thái, thiếu người giữ hoặc thiếu lúc kiểm ⇒ X1 «mồ côi» · ③ còn lại: không làm gì</td><td>① việc chờ hợp lệ đến giờ: không sinh sự cố · ② tạo thử 1 dòng thiếu người giữ: chu kỳ kế có sự cố «mồ côi»</td></tr>
+  <tr><td>15</td><td>X1 ghi không được: giao dịch lùi hết; việc nguồn giữ cờ «chưa chuyển sự cố» (ghi bằng lệnh riêng) để Flow quét gọi lại cùng mã sự kiện; chỉ xoá cờ sau khi X1 commit · sự kiện từ ngoài: chưa commit thì trả «chưa tiếp nhận» để bên gửi gửi lại cùng mã</td><td>thu quyền ghi 1 bảng của hàm X1: việc nguồn có cờ, Uptime Kuma báo; trả quyền: chu kỳ kế ghi được, cờ xoá</td></tr>
+  <tr><td>16</td><td>Bảng Chuyển trạng thái lên PG thành 1 bảng (trạng thái · sự kiện · giá trị · sang); hàm chuyển trạng thái (yêu cầu 9) chỉ chuyển theo dòng có trong bảng; trước khi duyệt chạy 6 phép kiểm của bảng</td><td>gửi 1 cặp không có trong bảng: bị từ chối · 6 phép kiểm: 0 lỗi</td></tr>
+  </tbody></table>
+  </div>
+  <div class="kn">
+  <table>
+  <caption><span class="t1-mapping-table__head kn-lead"><span class="t1-mapping-table__head-label">Bảng Chuẩn ngành (CT-000.4)</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Bảng Chuẩn ngành CT-000.4">?</span><span class="t1-mapping-table__tip" role="tooltip">Chuẩn IT có sẵn mà vòng xử lý lỗi dùng lại; không tự sáng tạo. Bấm tên chuẩn để mở nguồn. Chỉ mượn cách làm, không cài sản phẩm của hãng. Ưu tiên chạy bằng PG + Directus + công cụ hiện có; khả năng dùng lại xác minh ở bước ghép công cụ (Điều luật 7–8, CT-000.2).</span></span></caption>
+  <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Chuẩn</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Chuẩn (CT-000.4)">?</span><span class="t1-mapping-table__tip" role="tooltip">Tên chuẩn + mục, có liên kết tới nguồn gốc.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Lấy gì</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Lấy gì (CT-000.4)">?</span><span class="t1-mapping-table__tip" role="tooltip">Điều chuẩn quy định, tóm 1 câu.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Áp vào</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Áp vào (CT-000.4)">?</span><span class="t1-mapping-table__tip" role="tooltip">Bước X, bảng hoặc yêu cầu PG dùng chuẩn này.</span></span></th></tr></thead>
+  <tbody>
+  <tr><td><a href="https://docs.sentry.io/product/issues/" target="_blank" rel="noopener">Sentry</a> · Issues</td><td>gom lỗi theo dấu vân tay; lỗi đã giải quyết mà gặp lại ⇒ mở lại «regressed»</td><td>X1</td></tr>
+  <tr><td>ITIL 4 · Incident, Problem management</td><td>sự cố lặp lại ⇒ tìm nguyên nhân gốc (Vấn đề)</td><td>X1 tái phát · X7</td></tr>
+  <tr><td><a href="https://pkg.go.dev/github.com/riverqueue/river/rivertype" target="_blank" rel="noopener">River</a>, Oban (hàng đợi trên PG)</td><td>1 bảng việc + cột tên hàng + cột trạng thái (available · running · retryable · completed · cancelled · discarded)</td><td>Bảng Sổ: hàng đợi = dòng chờ CAT-228*</td></tr>
+  <tr><td><a href="https://www.postgresql.org/docs/18/sql-select.html" target="_blank" rel="noopener">PostgreSQL 18</a> · FOR UPDATE SKIP LOCKED</td><td>nhiều bên lấy việc từ bảng kiểu hàng đợi không tranh nhau</td><td>X4 · Yêu cầu PG 3</td></tr>
+  <tr><td><a href="https://www.postgresql.org/docs/18/sql-update.html" target="_blank" rel="noopener">PostgreSQL 18</a> · UPDATE count</td><td>cập nhật 0 dòng không bị coi là lỗi ⇒ phải tự kiểm số dòng</td><td>X4 · X5 · Yêu cầu PG 5</td></tr>
+  <tr><td><a href="https://www.postgresql.org/docs/18/explicit-locking.html" target="_blank" rel="noopener">PostgreSQL 18</a> §13.3.4 Deadlocks</td><td>giữ giao dịch mở lâu (vd chờ người nhập) là cách làm không tốt</td><td>Yêu cầu PG 4 · trạng thái Chờ người</td></tr>
+  <tr><td><a href="https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html" target="_blank" rel="noopener">Fencing token</a> (Kleppmann, 2016)</td><td>số thế hệ tăng dần; nơi ghi từ chối thế hệ cũ</td><td>X4 · G3.4</td></tr>
+  <tr><td><a href="https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html" target="_blank" rel="noopener">Amazon SQS</a> · visibility timeout, maxReceiveCount</td><td>giữ việc có hạn; quá số lần nhận ⇒ chuyển hàng riêng</td><td>X4 · X5 ⇒ X7</td></tr>
+  <tr><td><a href="https://grpc.io/docs/guides/status-codes/" target="_blank" rel="noopener">gRPC status codes</a></td><td>UNAVAILABLE: lỗi tạm, nhưng thử lại thao tác không chống trùng không phải lúc nào cũng an toàn · ABORTED: làm lại cả chuỗi đọc–sửa–ghi · FAILED_PRECONDITION: không thử lại tới khi sửa · DEADLINE_EXCEEDED: thao tác có thể đã xong</td><td>Bảng Chuyển trạng thái T23–T27</td></tr>
+  <tr><td><a href="https://docs.temporal.io/encyclopedia/retry-policies" target="_blank" rel="noopener">Temporal</a> · Retry Policy</td><td>khoảng đầu · hệ số · trần · số lần tối đa · loại lỗi không thử lại</td><td>M, giãn cách ở Config CAT-248*</td></tr>
+  <tr><td><a href="https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/" target="_blank" rel="noopener">AWS Builders' Library</a> · backoff + jitter</td><td>giãn cách tăng mũ có trần + ngẫu nhiên</td><td>Lỗi tạm</td></tr>
+  <tr><td><a href="https://grpc.io/docs/guides/deadlines/" target="_blank" rel="noopener">gRPC</a> · deadline propagation</td><td>hạn của việc con không vượt hạn việc cha</td><td>mọi vòng X dừng theo hạn việc gốc (G1.7)</td></tr>
+  <tr><td><a href="https://www.cl.cam.ac.uk/teaching/2223/OpSystems/materials/05-SchedulingAlgorithms.pdf" target="_blank" rel="noopener">Aging</a> (lập lịch ưu tiên)</td><td>chờ lâu ⇒ nâng ưu tiên dần, chống đói việc</td><td>X2 · Yêu cầu PG 6</td></tr>
+  <tr><td>ISO 9001:2015 §8.7</td><td>đầu ra không đạt: sửa · cách ly, tạm dừng · báo khách · chấp nhận có điều kiện, ghi người cho phép</td><td>X9</td></tr>
+  <tr><td><a href="https://www.postgresql.org/docs/18/sql-listen.html" target="_blank" rel="noopener">PostgreSQL 18</a> · LISTEN</td><td>LISTEN xong ⇒ đọc trạng thái ⇒ rồi mới dựa vào thông báo</td><td>Yêu cầu PG 7</td></tr>
+  <tr><td><a href="https://www.postgresql.org/docs/18/ddl-constraints.html" target="_blank" rel="noopener">PostgreSQL 18</a> · CHECK</td><td>CHECK cho qua NULL, không kiểm chéo dòng</td><td>Yêu cầu PG 9</td></tr>
+  <tr><td><a href="https://directus.io/docs/guides/automate/triggers" target="_blank" rel="noopener">Directus Flows</a> · Filter, Action</td><td>Filter dừng giao dịch để kiểm; Action chạy sau khi đã ghi</td><td>Yêu cầu PG 10</td></tr>
+  <tr><td><a href="https://microservices.io/patterns/data/transactional-outbox.html" target="_blank" rel="noopener">Transactional outbox</a></td><td>ghi lệnh vào sổ trong giao dịch trước, gửi sau ⇒ sau sự cố biết thao tác nào có thể đang dở</td><td>G3 · Thu hồi · Yêu cầu PG 8</td></tr>
+  <tr><td><a href="https://learn.microsoft.com/azure/architecture/patterns/saga" target="_blank" rel="noopener">Saga</a> (Microsoft)</td><td>bước bù cũng có thể thất bại ⇒ phải có đường xử lý riêng</td><td>T79–T81</td></tr>
+  <tr><td><a href="https://www.w3.org/TR/scxml/" target="_blank" rel="noopener">W3C SCXML</a></td><td>máy trạng thái viết thành dữ liệu: trạng thái · sự kiện · điều kiện · đích; máy đọc để chạy và kiểm</td><td>Bảng Trạng thái · Bảng Chuyển trạng thái</td></tr>
+  <tr><td><a href="https://www.postgresql.org/docs/18/explicit-locking.html" target="_blank" rel="noopener">PostgreSQL 18</a> §13.3.5 Advisory Locks</td><td>khoá do ứng dụng đặt nghĩa; mức giao dịch tự nhả khi giao dịch kết thúc</td><td>Yêu cầu PG 3: trần song song theo phạm vi</td></tr>
+  </tbody></table>
+  </div>
+</details>
+</section>
+</details>
+<details class="cf-group" open><summary class="cf-group-sum">Công thức chuyên môn <small>CT-001 → CT-008 · thu / mở</small></summary>
+<section class="cf-formula-piece" id="formula-ct-001" aria-label="CT-001 · Vòng đời tổng">
+<div class="cf-formula-titlebar" id="cf-b05-seven"><div class="cf-formula-nick">Bước</div><div class="cf-formula-full">CT-001 · Vòng đời tổng</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-BUO* · mã master list: chưa có</div><div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-001" target="_self">Chi tiết →</a></div></div>
+<div class="cf-formula-expression"><code>Tìm → { Dùng | Tạo mới | Sửa | Vô hiệu }</code></div>
+<div class="cf-map-label">Bản đồ vòng đời tổng · gốc 1–9</div>
+<div class="cf-flow" role="group" aria-label="CT-001 Vòng đời tổng: các gốc 1 đến 9">
+<a class="cf-flow-start cf-root-link" href="#formula-root-1"><b class="cf-root-no">1</b> Tìm</a>
+<div class="cf-branches">
+<div class="cf-route"><span class="cf-condition">Nếu đã có + dùng được</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><a class="s cf-root-link" href="#formula-root-2"><b class="cf-root-no">2</b> Dùng</a></div></div>
+<div class="cf-route"><span class="cf-condition">Nếu chưa có / không dùng được · TẠO MỚI</span><div class="cf-chain cf-create-chain" role="group" aria-label="Tạo mới: bước 3 đến 7; cuộn ngang khi thiếu chỗ" tabindex="0"><span class="a" aria-hidden="true">→</span><a class="s cf-create cf-main-step cf-root-link" href="#formula-root-3"><b class="cf-root-no">3</b><span class="cf-step-label">Đề xuất tạo<br>mới</span></a><span class="a" aria-hidden="true">→</span><a class="s cf-main-step cf-root-link" href="#formula-root-4"><b class="cf-root-no">4</b><span class="cf-step-label">Duyệt đề xuất<br>tạo</span></a><span class="a" aria-hidden="true">→</span><a class="s cf-main-step cf-root-link" href="#formula-root-5"><b class="cf-root-no">5</b> Khai báo</a><span class="a" aria-hidden="true">→</span><a class="s bot cf-main-step cf-root-link" href="#formula-root-6"><b class="cf-root-no">6</b> Test</a><span class="a" aria-hidden="true">→</span><a class="s cf-main-step cf-root-link" href="#formula-root-7"><b class="cf-root-no">7</b> Duyệt cho dùng</a><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Dùng</span></div></div>
+<div class="cf-route"><span class="cf-condition">Nếu đã có + cần thay đổi</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><a class="s cf-edit cf-root-link" href="#formula-root-8"><b class="cf-root-no">8</b> Sửa</a><span class="a" aria-hidden="true">→</span><span class="cf-return">↩ Dùng</span></div></div>
+<div class="cf-route"><span class="cf-condition">Nếu không còn dùng</span><div class="cf-chain"><span class="a" aria-hidden="true">→</span><a class="s cf-retire cf-root-link" href="#formula-root-9"><b class="cf-root-no">9</b> Vô hiệu / Nghỉ hưu</a></div></div>
+</div></div>
+<section class="cf-subformulas" id="formula-children" aria-label="Bóc nhỏ công thức theo gốc 1 đến 9">
+  <div class="cf-child-titlebar"><div class="cf-child-nick">Bước con</div><div class="cf-child-full">CT-001 · bóc nhỏ bên trong Bước</div><span class="cf-child-hint" id="cf-subhint">Bấm gốc 1–9 để mở chi tiết.</span></div>
+  <div class="cf-subgrid">
+    <article class="cf-subgroup" id="formula-root-1" data-root="1">
+      <div class="cf-subroot"><span class="cf-rootbadge">1</span><div><b>Tìm</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.1</span><b>Tìm thường</b></div><div class="cf-subexpr">Gõ yêu cầu → Kết quả gần đúng giảm dần → khớp 100% = <span class="cf-pill ok">xanh</span></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.2</span><b>Tìm nâng cao</b></div><div class="cf-subexpr">Tìm thường chưa đủ → Advanced Search → thu hẹp kết quả</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">1.3</span><b>Xác nhận phù hợp</b></div><div class="cf-subexpr">Kết quả → Máy kiểm → <span class="cf-pill ok">Xanh</span> / <span class="cf-pill warn">Vàng</span> / <span class="cf-pill bad">Đỏ</span></div></div>
+    </article>
+    <article class="cf-subgroup" id="formula-root-2" data-root="2">
+      <div class="cf-subroot"><span class="cf-rootbadge">2</span><div><b>Dùng</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">2.1</span><b>Người chọn Dùng</b></div><div class="cf-subexpr">Báo cáo đủ điều kiện → Người xác nhận Dùng</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">2.2</span><b>Máy áp dụng &amp; xác nhận</b></div><div class="cf-subexpr">Người bấm Dùng → Máy áp dụng → Ghi kết quả → Xác nhận đã dùng được</div></div>
+    </article>
+    <article class="cf-subgroup" id="formula-root-3" data-root="3">
+      <div class="cf-subroot"><span class="cf-rootbadge">3</span><div><b>Đề xuất tạo mới</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">3.1</span><b>Ghi nhận ý tưởng</b></div><div class="cf-subexpr">Ý tưởng ngắn → <span class="cf-pill master">Master · Mới ghi nhận</span></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">3.2</span><b>Chuẩn hóa đề xuất</b></div><div class="cf-subexpr">Master · Mới ghi nhận → Chuẩn hóa</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">3.3</span><b>Cập nhật Master</b></div><div class="cf-subexpr">Chuẩn hóa xong → <span class="cf-pill master">Master · Đã chuẩn hóa</span></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">3.4</span><b>Giao phụ trách</b></div><div class="cf-subexpr">Master · Đã chuẩn hóa → Giao người phụ trách</div></div>
+    </article>
+    <article class="cf-subgroup" id="formula-root-4" data-root="4">
+      <div class="cf-subroot"><span class="cf-rootbadge">4</span><div><b>Duyệt đề xuất</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">4.1</span><b>Ra quyết định</b></div><div class="cf-subexpr">Đề xuất → <span class="cf-pill ok">Duyệt</span> / <span class="cf-pill warn">Làm rõ</span> / <span class="cf-pill bad">Từ chối</span></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">4.2</span><b>Cập nhật Master</b></div><div class="cf-subexpr">Quyết định → cập nhật chính bản ghi Master</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">4.3</span><b>Báo người đề xuất</b></div><div class="cf-subexpr">Kết quả → MOT người đề xuất</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">4.4</span><b>Chuyển bước</b></div><div class="cf-subexpr">Duyệt → Khai báo · Làm rõ → nhánh làm rõ · Từ chối → dừng</div></div>
+    </article>
+    <article class="cf-subgroup" id="formula-root-5" data-root="5">
+      <div class="cf-subroot"><span class="cf-rootbadge">5</span><div><b>Khai báo</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">5.1</span><b>Khai báo chung</b></div><div class="cf-subexpr">Chuẩn chung → Form khai báo chung</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">5.2</span><b>Khai báo riêng</b></div><div class="cf-subexpr">Chuyên môn → Nhóm con → Form khai báo riêng</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">5.3</span><b>Rà phần còn thiếu</b></div><div class="cf-subexpr"><code>TỔNG − CHUNG − RIÊNG = CÒN THIẾU</code></div></div>
+    </article>
+    <article class="cf-subgroup" id="formula-root-6" data-root="6">
+      <div class="cf-subroot"><span class="cf-rootbadge">6</span><div><b>Test</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">6.1</span><b>Test theo khai báo</b></div><div class="cf-subexpr">Khai báo → Chạy test → Thu bằng chứng</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">6.2</span><b>PASS</b></div><div class="cf-subexpr"><span class="cf-pill ok">PASS</span> → 7 Duyệt cho dùng</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">6.3</span><b>FAIL</b></div><div class="cf-subexpr"><span class="cf-pill bad">FAIL</span> → 5.3; nếu cần → 5.1 / 5.2 → Test lại</div></div>
+    </article>
+    <article class="cf-subgroup" id="formula-root-7" data-root="7">
+      <div class="cf-subroot"><span class="cf-rootbadge">7</span><div><b>Duyệt cho dùng</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">7.1</span><b>Đóng gói báo cáo</b></div><div class="cf-subexpr">PASS + Bằng chứng → Báo cáo duyệt</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">7.2</span><b>Giao người duyệt</b></div><div class="cf-subexpr">Báo cáo → MOT người có thẩm quyền</div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">7.3</span><b>Người phê duyệt</b></div><div class="cf-subexpr">Người duyệt → <span class="cf-pill ok">Cho dùng</span> / <span class="cf-pill bad">Không duyệt</span></div></div>
+      <div class="cf-subrow"><div class="cf-subtitle"><span class="cf-subno">7.4</span><b>Cập nhật Master &amp; hiệu lực</b></div><div class="cf-subexpr">Cho dùng → Cập nhật Master → Có hiệu lực → Dùng</div></div>
+    </article>
+    <article class="cf-subgroup cf-subgroup-compact" id="formula-root-8" data-root="8">
+      <div class="cf-subroot"><span class="cf-rootbadge warn">8</span><div><b>Sửa</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
+      <div class="cf-subnote">Chưa bóc nhỏ · khi cần sẽ dùng 8.1, 8.2…</div>
+    </article>
+    <article class="cf-subgroup cf-subgroup-compact" id="formula-root-9" data-root="9">
+      <div class="cf-subroot"><span class="cf-rootbadge bad">9</span><div><b>Vô hiệu / Nghỉ hưu</b><small>Đời ông / gốc</small></div><a class="cf-subclose" href="#formula-children">Thu gọn ↑</a></div>
+      <div class="cf-subnote">Chưa bóc nhỏ · khi cần sẽ dùng 9.1, 9.2…</div>
+    </article>
+  </div>
+  <details class="cf-notation-rule">
+    <summary>Quy tắc ký hiệu · dùng lại</summary>
+    <div class="cf-notation-items">
+      <span><i class="cf-demo-root">1</i><b>Đời ông / gốc:</b> 1–9 · hình tròn lớn.</span>
+      <span><i class="cf-demo-child">1.1</i><b>Đời con:</b> 1.1, 1.2… · hình vuông nhỏ hơn.</span>
+      <span><i class="cf-demo-grand">1.1.1</i><b>Đời cháu:</b> 1.1.1… · hình chữ nhật nhỏ hơn nữa.</span>
+    </div>
+    <p>Số hiển thị phải trùng trong đồ họa và Master Công thức. Mã <code>CT-xxx</code> là ID máy, không thay cho số phân cấp của con người.</p>
+  </details>
+</section>
+</section>
+
+<section class="cf-formula-piece cf-tier-formula" id="formula-ct-002" aria-label="CT-002 · Ghép tầng">
+<div class="cf-formula-titlebar"><div class="cf-formula-nick">Tầng</div><div class="cf-formula-full">CT-002 · Ghép tầng</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-TNG* · mã master list: chưa có</div><div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=21" target="_self">Master Công thức →</a><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-002" target="_self">Chi tiết →</a></div></div>
+<div class="cf-formula-expression"><code>Field =&gt; { MOIT | MOUT } =&gt; MOT =&gt; MOW</code></div>
+<details class="cf-tier-context">
+  <summary><span><b>Nửa bối cảnh · T3 =&gt; T4 =&gt; T5 =&gt; T6 =&gt; T7</b> · cùng chiều lắp ráp</span><small>Mở khi cần ↓</small></summary>
+  <div class="cf-tier-chain cf-tier-chain-muted" aria-label="Bối cảnh lắp ráp từ T3 lên T7">
+    <div class="cf-tier-node"><b>T3</b><span>Chuyên môn</span></div><span class="cf-tier-assemble">=&gt;</span>
+    <div class="cf-tier-node"><b>T4</b><span>Phòng ban</span></div><span class="cf-tier-assemble">=&gt;</span>
+    <div class="cf-tier-node"><b>T5</b><span>Khối</span></div><span class="cf-tier-assemble">=&gt;</span>
+    <div class="cf-tier-node"><b>T6</b><span>Công ty</span></div><span class="cf-tier-assemble">=&gt;</span>
+    <div class="cf-tier-node"><b>T7</b><span>Lĩnh vực</span></div>
+  </div>
+</details>
+<div class="cf-tier-main">
+  <div class="cf-tier-main-head"><b>Bản đồ lắp ráp · tầng thấp → tầng cao</b><span>Luôn hiển thị</span></div>
+  <div class="cf-tier-chain" aria-label="Lắp ráp từ Field lên MOW">
+    <div class="cf-tier-node active"><b>T0</b><span><strong>Field</strong></span></div><span class="cf-tier-assemble">=&gt;</span>
+    <div class="cf-tier-dual" aria-label="T0.5 có hai đối tượng độc lập MOIT và MOUT">
+      <span class="cf-tier-dual-label">T0.5</span>
+      <div class="cf-tier-dual-row"><strong>MOIT</strong><small>cơ chế riêng</small></div>
+      <div class="cf-tier-dual-row"><strong>MOUT</strong><small>cơ chế riêng</small></div>
+    </div><span class="cf-tier-assemble">=&gt;</span>
+    <div class="cf-tier-node active"><b>T1</b><span><strong>MOT</strong></span></div><span class="cf-tier-assemble">=&gt;</span>
+    <div class="cf-tier-node active"><b>T2</b><span><strong>MOW</strong></span></div>
+  </div>
+  <p class="cf-tier-note"><b>Quy ước:</b> <code>A =&gt; B</code> nghĩa là A là phần nhỏ hơn/tầng thấp hơn được lắp vào B. Vì vậy Field (T0) luôn ở ngoài cùng bên trái; đọc từ trái sang phải để đi từ tầng thấp lên tầng cao.</p>
+</div>
+<details class="cf-notation-rule">
+  <summary>Quy tắc CT-002 · dùng lại</summary>
+  <p><b>Nửa bối cảnh</b> = mờ + thu gọn mặc định. <b>Nửa ghép</b> = rõ + luôn hiện. <code>A =&gt; B</code> = A lắp vào B; chiều đọc luôn từ tầng thấp bên trái lên tầng cao bên phải. Các node đời ông dùng cùng hình tròn lớn như CT-001.</p>
+</details>
+</section>
+
+<script src="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/chuoi-data-v1.js?v=20261006-generic"></script>
+<link rel="stylesheet" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/chuoi-ui-v1.css?v=20261006-generic">
+<section class="cf-formula-piece" id="formula-ct-002-1" aria-label="CT-002.1 · Chuỗi">
+ <div class="cf-formula-titlebar"><div class="cf-formula-nick">Chuỗi</div><div class="cf-formula-full">CT-002.1</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-CHN* · mã master list: ML-DEF-028</div><div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/definition-master-v1.html?stt=28">Master Chuỗi →</a><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-002.1">Chi tiết →</a></div></div>
+ <div class="cf-chain-trio" aria-label="Ba Chuỗi: Chế tạo cỗ máy; Vận hành cỗ máy; Cỗ máy sản xuất quy trình"><i class="cf-chain-icon cf-chain-large" role="img" tabindex="0" aria-label="Chế tạo cỗ máy" data-chain="CH-001" data-tip="Chế tạo cỗ máy"><img src="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/machine-building.svg" alt="" aria-hidden="true"></i><i class="cf-chain-icon cf-chain-large" role="img" tabindex="0" aria-label="Vận hành cỗ máy" data-chain="CH-002" data-tip="Vận hành cỗ máy"><img src="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/machine-operation.svg" alt="" aria-hidden="true"></i><i class="cf-chain-icon cf-chain-large" role="img" tabindex="0" aria-label="Cỗ máy sản xuất quy trình" data-chain="CH-003" data-tip="Cỗ máy sản xuất quy trình"><img src="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/automated-process.svg" alt="" aria-hidden="true"></i></div>
+ <details class="cf-notation-rule"><summary>Chi tiết</summary><p>Bước/Bước con và Tầng là nguyên liệu dùng chung. Chuỗi xác định tiến trình: mỗi công thức lắp ráp từ Nhóm cha phải có Chuỗi ở đầu. Hiện đang thiết kế CH-001 Chế tạo cỗ máy; mọi nhóm tham chiếu phải khớp Chuỗi. Một SSOT tại chuoi-data-v1.js; Gộp/Tách theo Nhóm con cùng Chuỗi.</p></details>
+</section>
+
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-003" data-visual-depth="0" aria-label="CT-003 · Nhóm cha">
+  <div class="cf-formula-titlebar">
+    <div class="cf-formula-nick">Nhóm cha</div>
+    <div class="cf-formula-full">CT-003</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-NHC* · mã master list: ML-DEF-001</div>
+    <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-003" target="_self">Chi tiết →</a></div>
+  </div>
+  <div class="cf-derived-formula cf-derived-formula-root" aria-label="Chuỗi cộng Bước cộng Tầng tạo Nhóm cha">
+    <span>Chuỗi</span><b>+</b><span>Bước</span><b>+</b><span>Tầng</span><b>⇒</b><strong>Nhóm cha</strong>
+  </div>
+  <details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <p class="cf-derived-note">Chuẩn dùng rộng · chi tiết để AI xử lý.</p>
+  </details>
+</article>
+
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-004" data-visual-depth="1" aria-label="CT-004 · Nhóm con">
+  <div class="cf-formula-titlebar">
+    <div class="cf-formula-nick">Nhóm con</div>
+    <div class="cf-formula-full">CT-004</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-NCN* · mã master list: ML-DEF-002</div>
+    <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-004" target="_self">Chi tiết →</a></div>
+  </div>
+  <div class="cf-derived-formula cf-derived-formula-root" aria-label="Chuỗi cộng Bước con cộng Tầng tạo Nhóm con">
+    <span>Chuỗi</span><b>+</b><span>Bước con</span><b>+</b><span>Tầng</span><b>⇒</b><strong>Nhóm con</strong>
+  </div>
+  <details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <p class="cf-derived-note">Chuẩn trong chuyên môn · chi tiết để AI xử lý.</p>
+  </details>
+</article>
+
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-005" data-visual-depth="0" aria-label="CT-005 · MOW">
+  <div class="cf-formula-titlebar">
+    <div class="cf-formula-nick">MOW</div>
+    <div class="cf-formula-full">CT-005</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-WKF · mã master list: ML-DEF-004</div>
+    <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-005" target="_self">Chi tiết →</a></div>
+  </div>
+  <div class="cf-derived-formula cf-derived-formula-root" aria-label="Chuỗi cộng Bước cộng Tầng cộng Nhóm cha tạo MOW">
+    <span>Chuỗi</span><b>+</b><span>Bước</span><b>+</b><span>Tầng</span><b>+</b><span>Nhóm cha</span><b>⇒</b><strong>MOW</strong>
+  </div>
+  <details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <p class="cf-derived-note">MOW dùng đúng Bước, Tầng và Nhóm cha.</p>
+  </details>
+</article>
+
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-005-1" data-visual-depth="1" aria-label="CT-005.1 · MOT">
+  <div class="cf-formula-titlebar">
+    <div class="cf-formula-nick">MOT</div>
+    <div class="cf-formula-full">CT-005.1</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-TSK · mã master list: ML-DEF-005</div>
+    <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-005.1" target="_self">Chi tiết →</a></div>
+  </div>
+  <div class="cf-derived-formula cf-derived-formula-root" aria-label="Chuỗi cộng Nhóm con tạo MOT">
+    <span>Chuỗi</span><b>+</b><span>Nhóm con</span><b>⇒</b><strong>MOT</strong>
+  </div>
+  <details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <p class="cf-derived-note">Nhóm con là SSOT gốc. MOT, MOIT, MOUT và UI con cùng tham chiếu Nhóm con; Gộp/Tách ghi một lần tại gốc, các phần phụ thuộc kế thừa.</p>
+  <p class="cf-derived-note"><b>Đang thiết kế: Chế tạo máy.</b> Phân biệt ba tiến trình (diễn giải đề xuất): <b>Chế tạo máy</b> = tạo/nâng cấp năng lực máy; <b>Vận hành máy</b> = điều khiển, theo dõi và duy trì máy hoạt động đúng; <b>Sản xuất quy trình</b> = dùng máy tạo quy trình nghiệp vụ cụ thể. Cùng khuôn công thức, khác mục đích và đầu ra; không suy phạm vi chỉ từ tên Field/Form/MOT/MOW.</p>
+  </details>
+</article>
+
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-005-2" data-visual-depth="1" aria-label="CT-005.2 · MOIT">
+  <div class="cf-formula-titlebar">
+    <div class="cf-formula-nick">MOIT</div>
+    <div class="cf-formula-full">CT-005.2</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-MIT* · mã master list: ML-DEF-006</div>
+    <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-005.2" target="_self">Chi tiết →</a></div>
+  </div>
+  <div class="cf-derived-formula cf-derived-formula-root" aria-label="Chuỗi cộng Nhóm con tạo MOIT">
+    <span>Chuỗi</span><b>+</b><span>Nhóm con</span><b>⇒</b><strong>MOIT</strong>
+  </div>
+  <details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <p class="cf-derived-note">Cùng gốc Nhóm con với MOT; kế thừa hồ sơ Gộp/Tách tại gốc. ⇒ là dẫn xuất/tương ứng, không đồng nhất loại đối tượng.</p>
+  </details>
+  
+</article>
+
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-005-3" data-visual-depth="1" aria-label="CT-005.3 · MOUT">
+  <div class="cf-formula-titlebar">
+    <div class="cf-formula-nick">MOUT</div>
+    <div class="cf-formula-full">CT-005.3</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-MUT* · mã master list: ML-DEF-007</div>
+    <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-005.3" target="_self">Chi tiết →</a></div>
+  </div>
+  <div class="cf-derived-formula cf-derived-formula-root" aria-label="Chuỗi cộng Nhóm con tạo MOUT">
+    <span>Chuỗi</span><b>+</b><span>Nhóm con</span><b>⇒</b><strong>MOUT</strong>
+  </div>
+  <details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <p class="cf-derived-note">Cùng gốc Nhóm con với MOT; kế thừa hồ sơ Gộp/Tách tại gốc. ⇒ là dẫn xuất/tương ứng, không đồng nhất loại đối tượng.</p>
+  </details>
+  
+</article>
+
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-006" data-visual-depth="1" aria-label="CT-006 · UI Con">
+  <div class="cf-formula-titlebar">
+    <div class="cf-formula-nick">UI Con</div>
+    <div class="cf-formula-full">CT-006</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-UIC* · mã master list: ML-DEF-018</div>
+    <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-006" target="_self">Chi tiết →</a></div>
+  </div>
+  <div class="cf-derived-formula cf-derived-formula-root" aria-label="Chuỗi cộng Bước cộng Tầng cộng Nhóm con cộng UI cha tạo UI Con">
+    <span>Chuỗi</span><b>+</b><span>Bước</span><b>+</b><span>Tầng</span><b>+</b><span>Nhóm con</span><b>+</b><span>UI cha</span><b>⇒</b><strong>UI Con</strong>
+  </div>
+  <details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <p class="cf-derived-note">Tạo UI Con từ đúng Bước, Tầng, Nhóm con và khuôn UI cha. Mỗi nhóm con 1 UI con (cùng số lượng, cùng thứ tự).</p>
+  <p class="cf-derived-note"><b>Khi chạy — chung cho con của UI con (Info contract, Config).</b> <b>Hồ sơ</b> = 1 lần chạy 1 MOW cho 1 đối tượng, có 1 mã hồ sơ; mọi lượt chạy và bản ghi sinh ra mang mã này. Hồ sơ xong khi bước cuối cho kết quả «đạt»; tình trạng hồ sơ = tình trạng của lượt mới nhất (đang chờ người, trả về, lỗi đều hiện rõ); còn lượt chờ, đang làm hoặc lỗi thì hồ sơ chưa xong. <b>Lưu ở đâu:</b> lượt chạy = 1 dòng ở CAT-228* Sổ việc thật MOT (mã hồ sơ · MOT · UI con · mã việc CAT-227 · bản ghi · người · phiên bản Info contract + Config · trạng thái) · hàng đợi = các dòng CAT-228* «chờ», không lập bảng riêng · thông tin vào = sổ gốc theo dòng «đọc», nhập qua MOIT · thông tin ra = sổ gốc theo dòng «ghi», hiện qua MOUT · biên nhận trong dòng lượt chạy · lệch, lỗi → CAT-069 kèm mã lượt.</p>
+  <p class="cf-derived-note"><b>Luật chạy LC — luật cứng, máy tự áp cho mọi lượt, không phải lựa chọn:</b> LC-1 mỗi lượt 1 mã, ghim phiên bản Info contract + Config · LC-2 vào hàng khi đủ điều kiện trước (Info contract) và trigger bật; chờ → đang làm → đang chờ người → xong / trả về / lỗi · LC-3 (chuẩn Saga) mỗi bước: ghi dữ liệu nội bộ trong 1 giao dịch, lỗi thì lùi phần đó; gửi ra ngoài qua hộp thư đi, gửi đúng 1 lần; chờ người thì lưu «đang chờ người», không giữ giao dịch; bước đã xong cần đổi thì làm bước bù, không lùi · LC-4 chạy lại cùng mã lượt không tạo bản ghi trùng, không gửi trùng · LC-5 lấy việc thì khoá dòng, lượt khác bỏ qua dòng đang khoá · LC-6 xong lượt đếm bản ghi ghi ra đúng «Số lượng», lệch là 🔴 · LC-7 mỗi lượt 1 biên nhận: ai, lúc nào, đọc gì, ghi gì · LC-8 dữ liệu của hồ sơ chỉ đọc / ghi bản ghi cùng mã hồ sơ, đúng tình trạng cần; sổ dùng chung (Master, danh mục) đọc toàn bộ.</p>
+  </details>
+</article>
+
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-006-2" data-visual-depth="2" aria-label="CT-006.2 · Info contract">
+  <div class="cf-formula-titlebar">
+    <div class="cf-formula-nick">Info contract</div>
+    <div class="cf-formula-full">CT-006.2</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-ICT* · mã master list: CAT-206*</div>
+    <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-006.2" target="_self">Chi tiết →</a></div>
+  </div>
+  <div class="cf-derived-formula cf-derived-formula-root cf-derived-formula-long" aria-label="UI con cộng Đầu vào cộng Điều kiện trước cộng Đầu ra cộng Điều kiện sau cộng Kết quả có thể cộng Kiểm hợp lệ cộng Phiên bản tạo Info contract">
+    <span>UI con</span><b>+</b><span>Đầu vào</span><b>+</b><span>Điều kiện trước</span><b>+</b><span>Đầu ra</span><b>+</b><span>Điều kiện sau</span><b>+</b><span>Kết quả có thể</span><b>+</b><span>Kiểm hợp lệ</span><b>+</b><span>Phiên bản</span><b>⇒</b><strong>Info contract</strong>
+  </div>
+  <details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <p class="cf-derived-note">Con của UI con (CT-006), cùng tầng với Config (CT-007). Theo chuẩn ngành (Design by Contract · API contract · Data contract): hợp đồng nói vào gì, ra gì, xong khi nào, lỗi trả kết quả gì; ai làm, khi nào, chuyển cho ai là việc của Config.</p>
+  <p class="cf-derived-note"><b>Đầu vào</b> đọc gì: sổ · Field · bản ghi («cùng hồ sơ» hoặc «dùng chung», LC-8) · số lượng · <b>Điều kiện trước</b> đầu vào phải đủ và ở tình trạng nào mới được làm · <b>Đầu ra</b> ghi gì: sổ · Field · tạo mới / sửa · số lượng · <b>Điều kiện sau</b> thế nào là xong: đầu ra đã ghi, tình trạng chuyển sang đâu · <b>Kết quả có thể</b> đạt · trả về (kèm lý do) · lỗi — Config quyết mỗi kết quả đi đâu · <b>Kiểm hợp lệ</b> kiểu, định dạng, giá trị cho phép (mặc định theo Master Field) · <b>Phiên bản</b> đổi hợp đồng thì lên phiên bản; lượt đang chạy giữ bản cũ. UI con không đọc / ghi gì thì ➖.</p>
+  <p class="cf-derived-note"><b>Vào</b> UI con (ML-DEF-018) + thông tin ở sổ gốc (ML-DEF-008 Master Field hoặc loại bản ghi) · <b>Lưu</b> CAT-206* (khuôn, có phiên bản) · <b>Ra</b> Config và lượt chạy đọc để biết lấy gì, ghi gì.</p>
+  <p class="cf-derived-note">Khi chạy: theo LC-1…LC-8 và nơi lưu khi chạy (ghi ở UI con).</p>
+  <p class="cf-derived-note">Nháp — thử trên nhiều trường hợp thật trước khi chốt. CT-006.1 để trống có chủ đích.</p>
+  </details>
+</article>
+
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-007" data-visual-depth="2" aria-label="CT-007 · Config">
+  <div class="cf-formula-titlebar">
+    <div class="cf-formula-nick">Config</div>
+    <div class="cf-formula-full">CT-007</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-CFG* · mã master list: CAT-248*</div>
+    <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-007" target="_self">Chi tiết →</a></div>
+  </div>
+  <div class="cf-derived-formula cf-derived-formula-root cf-derived-formula-long" aria-label="Chuỗi cộng Bước cộng Tầng cộng Nhóm con cộng UI cha cộng Bản ghi cộng Người làm NTGV cộng Trigger cộng Hàng đợi cộng Song song cộng Chạy lại cộng Hết giờ tạo Config">
+    <span>Chuỗi</span><b>+</b><span>Bước</span><b>+</b><span>Tầng</span><b>+</b><span>Nhóm con</span><b>+</b><span>UI cha</span><b>+</b><span>Bản ghi</span><b>+</b><span>Người làm (NTGV)</span><b>+</b><span>Trigger</span><b>+</b><span>Hàng đợi</span><b>+</b><span>Song song</span><b>+</b><span>Chạy lại</span><b>+</b><span>Hết giờ</span><b>⇒</b><strong>Config</strong>
+  </div>
+  <details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <p class="cf-derived-note">Config dùng nguyên tắc nếu/thì: khai báo một lần, hệ thống tự nhận diện theo ngữ cảnh. <a href="https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/ghep-detail-v1.html?id=CT-007">7 câu hỏi cần trả lời và nguyên tắc bản ghi →</a></p>
+  <p class="cf-derived-note"><b>Vào</b> UI con + Info contract (CT-006.2) + nguyên tắc giao việc, điều kiện, trigger, hàng đợi, song song, chạy lại, hết giờ · <b>Lưu</b> CAT-248* Master Config (khuôn, có phiên bản) · <b>Ra</b> lượt chạy đọc để biết ai làm, khi nào, báo cho ai, chuyển cho ai.</p>
+  <p class="cf-derived-note"><b>Bản ghi</b> — bản ghi cùng mã hồ sơ của việc đang làm; máy tự lọc (LC-8).</p>
+  <p class="cf-derived-note"><b>Kết quả → đi đâu</b> — mỗi kết quả của Info contract (đạt · trả về · lỗi) chuyển cho ai, ai xác nhận: theo câu 6–7 (báo cáo, chuyển tiếp).</p>
+  <p class="cf-derived-note"><b>Hàng đợi</b> — nhiều việc cùng chờ thì làm cái nào trước? Chọn 1: theo thời gian vào · theo ưu tiên · theo hạn chót.</p>
+  <p class="cf-derived-note"><b>Song song</b> — tối đa mấy lượt chạy cùng lúc? Ghi số N.</p>
+  <p class="cf-derived-note"><b>Chạy lại</b> — lỗi thì chạy lại tối đa mấy lần, cách nhau bao lâu? Không chạy lại thì ghi 0.</p>
+  <p class="cf-derived-note"><b>Hết giờ</b> — chờ quá bao lâu thì báo ai? Vd người duyệt chưa phản hồi sau 1 ngày → báo trưởng phòng.</p>
+  <p class="cf-derived-note">Khi chạy: theo LC-1…LC-8 và nơi lưu khi chạy (ghi ở UI con).</p>
+  </details>
+</article>
+
+<article class="cf-formula-piece cf-derived-root" id="formula-ct-008" data-visual-depth="0" aria-label="CT-008 · MBM">
+  <div class="cf-formula-titlebar">
+    <div class="cf-formula-nick">MBM</div>
+    <div class="cf-formula-full">CT-008</div><div class="cf-formula-meta" title="Trái: loài + sổ của chính công thức · Phải: loài + sổ của thứ công thức làm ra">mã loài: SPE-FRM* · mã master list: ML-DEF-021 → làm ra · mã loài: SPE-MMW* · mã master list: ML-MOW-TH-001</div>
+    <div class="cf-formula-actions"><a class="cf-master-inline" href="https://vps.incomexsaigoncorp.vn/knowledge/modules?task=tools-quy-trinh" target="_self">Việc TQT →</a></div>
+  </div>
+  <div class="cf-derived-formula cf-derived-formula-root cf-derived-formula-long" aria-label="Yêu cầu User cộng Mục tiêu cộng Mốc, Mục con, Bước cộng Bộ câu hỏi cộng Check Master list tạo MMOW">
+    <span><i class="cf-num">1</i>Yêu cầu User</span><b>+</b><span><i class="cf-num">2</i>Mục tiêu</span><b>+</b><span><i class="cf-num">3</i>Mốc / Mục con / Bước</span><b>+</b><span><i class="cf-num">4</i>Bộ câu hỏi</span><b>+</b><span><i class="cf-num">5</i>Check Master list</span><b>⇒</b><strong>MMOW</strong>
+  </div>
+  <p class="cf-derived-note" style="font-size:15px;color:#1f4d3a;margin-top:6px"><b>MBM ⇒ MMOW ⇒ MOW</b> · MBM làm ra MMOW (Mother of MOW); MMOW sinh ra hoặc hoàn thiện nhiều MOW. Xem 4 tầng ở đầu trang.</p>
+  <details class="cf-notation-rule"><summary>Chi tiết</summary>
+  <div class="cf-mbm">
+  <p><span class="cf-mbm-badge">r5.35 · Owner 19/10 17:46: QTTH đổi tên MMOW (Mother of MOW) · MBM ⇒ MMOW ⇒ MOW · r5.34 · 18/10 21:25: ví dụ QTTH 07 theo 3 mục tiêu User chốt · r5.33 · 21:18: Mốc 4 Kiểm tra = tích 🟢/🔴 từng bước · r5.32 · 21:01: câu đặc thù thêm vào bảng câu hỏi của riêng QTTH (Đ1, Đ2…) · r5.31 · 20:51: «?» cho bảng 4.2 · r5.30 · 20:46: H2 rõ nghĩa, sổ ghi mã + tên · r5.29 · 20:39: «Câu hỏi đặc thù (nếu có)» · r5.28 · 20:37: sửa «?» và ví dụ bảng 3.3.3 · r5.27 · 20:17: Bộ câu hỏi lên mục 4, Check Master list xuống mục 5 · «?» cho bảng 3.3.3 · r5.26 · 18:25: 3.3 Bước theo khuôn mục tiêu chuyên môn · r5.25 · 18:07: bộ câu hỏi chuẩn H1–H7 · r5.24 · 09:00: định nghĩa Bước · r5.23 · 07:06: mọi vấn đề + nợ ở CAT-069 · r5.22 · 17/10 21:26: Mốc 5 gồm đóng việc · bảng 8 = dữ liệu đầu CAT-249 · r5.21 · 19:43: đánh mã nhất quán mục 1–9 · r5.19 · 17:14: mã mục con 3A, bước 3A.1 · r5.18 · 17:07: bảng mục 4 dùng chung + cột Lúc ghi · r5.17 · 14:29: Mốc 2 liệt kê từng dòng · r5.16 · 

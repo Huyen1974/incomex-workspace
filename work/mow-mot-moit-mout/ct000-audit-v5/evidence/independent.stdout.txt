@@ -1,0 +1,56 @@
+{
+  "output": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/independent_results.json",
+  "counts": {
+    "state_table_rows": 23,
+    "states": 32,
+    "terminal_states": 3,
+    "transition_table_rows": 92,
+    "expanded_event_value_pairs": 160,
+    "declared_event_value_pairs": 160,
+    "edges_with_dynamic_returns": 166,
+    "value_table_rows": 11
+  },
+  "declared_alphabet": "PASS",
+  "graph_unreachable": [],
+  "automatic_scc_count": 6,
+  "boundary_rejections": 303,
+  "producer_consumer_mismatch_count": 46,
+  "findings": [
+    {
+      "id": "IA-01",
+      "status": "FAIL",
+      "severity": "validated_literal",
+      "kind": "literal_first_rule_shadowing"
+    },
+    {
+      "id": "IA-02",
+      "status": "FAIL",
+      "severity": "validated_literal",
+      "kind": "producer_consumer_exact_label_mismatch"
+    },
+    {
+      "id": "IA-03",
+      "status": "NOT_PROVEN",
+      "severity": "requires_implementation",
+      "kind": "classifier_context_scope_not_formalized"
+    },
+    {
+      "id": "IA-04",
+      "status": "COUNTEREXAMPLE_IN_TABLE_ABSTRACTION",
+      "severity": "validated_literal",
+      "kind": "automatic_wait_cycles_not_bounded_in_table"
+    },
+    {
+      "id": "IA-05",
+      "status": "NOT_PROVEN",
+      "severity": "requires_implementation",
+      "kind": "raw_input_guard_totality"
+    },
+    {
+      "id": "IA-06",
+      "status": "NOT_PROVEN",
+      "severity": "requires_implementation",
+      "kind": "action_outcome_coverage"
+    }
+  ]
+}

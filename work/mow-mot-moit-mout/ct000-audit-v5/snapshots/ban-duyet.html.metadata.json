@@ -1,0 +1,21 @@
+{
+  "ref": "4c93ecce01d8889dcc4e7558fc604a526fe2b010",
+  "path": "work/mow-mot-moit-mout/ban-duyet.html",
+  "start_char": 541200,
+  "end_char": 666200,
+  "total_chars": 759252,
+  "total_bytes": 847100,
+  "sha256": "364bf520706249cca3830202f3275d7c0fbf6caed6d6b2a93a35e7b533bbf91d",
+  "read_only": true,
+  "next_cursor": {
+    "start_char": 666200
+  },
+  "restore_hint": "workspace_transaction(operations=[{'op':'restore','version':'4c93ecce01d8889dcc4e7558fc604a526fe2b010'}]) reverses that commit on top of HEAD; it never copies an old snapshot over newer work.",
+  "freshness": "fresh",
+  "recheck_required": false,
+  "source_head": "4c93ecce01d8889dcc4e7558fc604a526fe2b010",
+  "refreshed_at": "2026-10-21T10:01:30Z",
+  "worktree_dirty": false,
+  "remote_head": "4c93ecce01d8889dcc4e7558fc604a526fe2b010",
+  "previous_source_head": "e14ad530cdc7d77a51adcb390e50ba88f38afd4d"
+}

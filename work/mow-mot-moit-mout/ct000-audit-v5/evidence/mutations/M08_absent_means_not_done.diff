@@ -1,0 +1,7 @@
+--- original/ban-duyet.html
++++ M08_absent_means_not_done/ban-duyet.html
+@@ -219,3 +219,3 @@
+   <tr><td>chấm G5</td><td>dừng hạn: quá hạn gốc và còn tác động G5 chưa làm · lỗi: G5.2–G5.5 có Sai hoặc Chưa biết · chờ nhận: G5.1 chưa xác nhận · đủ</td></tr>
+-  <tr><td>đối soát</td><td>đủ · một phần · sai: thấy kết quả, chấm theo điều kiện của lượt · chắc chưa làm: có bằng chứng lệnh cũ đã kết thúc, không tác động, không còn đang xử lý · chưa thấy, có chống trùng: tra chưa thấy và bên nhận chống trùng theo mã còn hiệu lực · không kết luận: còn lại («chưa thấy» không phải «chưa làm»)</td></tr>
++  <tr><td>đối soát</td><td>chắc chưa làm: chỉ cần tra chưa thấy, kể cả lệnh cũ đang xử lý; chưa thấy, có chống trùng: không cần bên nhận chống trùng; đủ / một phần / sai / không kết luận giữ nguyên</td></tr>
+   <tr><td>kiểm lại</td><td>đóng: sự cố nguồn kết luận đóng việc · quá hạn gốc · không thể thoả: kiểu «tất cả» có 1 nguồn Lỗi hoặc Huỷ; kiểu «một trong» mọi nguồn Lỗi hoặc Huỷ · thoả · còn chờ</td></tr>

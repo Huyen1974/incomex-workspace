@@ -1,0 +1,37 @@
+{
+  "scope": "Small adversarial probes of the executable model and checker; no full 17-scenario sweep or live PG/Flow run.",
+  "integration_status": "NOT_EXECUTED",
+  "results": [
+    {
+      "name": "flow",
+      "exit_code": 1,
+      "report": "flow_results.json",
+      "verdict": "MODEL_WORKFLOW_FINDINGS_REMAIN"
+    },
+    {
+      "name": "checker",
+      "exit_code": 1,
+      "report": "checker_results.json",
+      "verdict": "CHECKER_FINDINGS_REMAIN"
+    },
+    {
+      "name": "data",
+      "exit_code": 1,
+      "report": "data_results.json",
+      "verdict": "INPUT_VALIDATION_GAP"
+    }
+  ],
+  "inputs": {
+    "html": {
+      "path": "/workspace/scratch/a6ca59e05764/ct000-shared-v6/work/mow-mot-moit-mout/audit-ct000/snapshots/ban-duyet.html",
+      "sha256": "4d2a73a183c2ded90de6164a0e33eaf2ce47efef740edeb5157e67648fd69e83"
+    },
+    "checker": {
+      "path": "/workspace/scratch/a6ca59e05764/ct000-shared-v6/work/mow-mot-moit-mout/audit-ct000/snapshots/kiem-ct000-4.py",
+      "sha256": "9e9436cdc058cb480e08ed6dc7062e0d74b18aae43ccbd1e632342939e4ecbd2"
+    }
+  },
+  "inputs_unchanged": true,
+  "verdict": "FINDINGS_REMAIN",
+  "exit_code": 1
+}

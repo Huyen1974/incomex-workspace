@@ -1,0 +1,19 @@
+--- original/ban-duyet.html
++++ M11_remove_all_value_definitions/ban-duyet.html
+@@ -211,15 +211,3 @@
+   <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Sự kiện</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Sự kiện (Giá trị)">?</span><span class="t1-mapping-table__tip" role="tooltip">Sự kiện hoặc giá trị dễ nhầm.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Máy tính thế nào</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Máy tính thế nào">?</span><span class="t1-mapping-table__tip" role="tooltip">Phép yes/no, xét theo thứ tự; dòng đầu đúng thì dừng.</span></span></th></tr></thead>
+-  <tbody>
+-  <tr><td>chấm G1</td><td>thiếu: G1.1–G1.8 có câu không Đúng · LV sai: G1.9 Sai · LV chưa biết: G1.9 Chưa biết · đủ</td></tr>
+-  <tr><td>chấm G2</td><td>lỗi: có câu không Đúng, lý do nhóm «lỗi» · chưa biết: có câu Chưa biết không lý do · chờ: có câu lý do nhóm «chờ» · đủ: mọi câu G2, câu G3 của Loại việc và G4.7 Đúng hoặc Được miễn</td></tr>
+-  <tr><td>xin nhận</td><td>hết M: số lần nhận TRƯỚC khi tăng ≥ M · quá hạn: quá hạn của liên kết đang xử lý · hết chỗ: số đang chạy trong phạm vi G3.3 ≥ trần, đếm dưới khoá phạm vi · được</td></tr>
+-  <tr><td>có dở · có tác động</td><td>có dở: CAT-238* có biên nhận «ý định» chưa có biên nhận kết luận cùng mã thao tác · có tác động: có biên nhận «đã tác động» chưa có biên nhận «đã bù»</td></tr>
+-  <tr><td>kết quả</td><td>Lỗi tạm an toàn: UNAVAILABLE hoặc RESOURCE_EXHAUSTED và (thao tác chỉ ghi PG, giao dịch đã lùi; hoặc bên nhận chống trùng theo mã, còn hiệu lực) · Lỗi tạm không an toàn: còn lại · Xung đột: ABORTED · Lỗi điều kiện: FAILED_PRECONDITION, PERMISSION_DENIED, INVALID_ARGUMENT · Chưa biết: UNKNOWN, DEADLINE_EXCEEDED · Cần người: bước tiếp là 😊</td></tr>
+-  <tr><td>chấm G4</td><td>sai: có câu G4.1–G4.5 Sai hoặc người duyệt từ chối; hết vòng khi vòng +1 = N · chưa biết: có câu Chưa biết không phải chờ người · chờ người: đang chờ người duyệt kết luận · đủ: G4.1–G4.5 Đúng hoặc Được miễn, G4.6 = Đạt</td></tr>
+-  <tr><td>chấm G5</td><td>dừng hạn: quá hạn gốc và còn tác động G5 chưa làm · lỗi: G5.2–G5.5 có Sai hoặc Chưa biết · chờ nhận: G5.1 chưa xác nhận · đủ</td></tr>
+-  <tr><td>đối soát</td><td>đủ · một phần · sai: thấy kết quả, chấm theo điều kiện của lượt · chắc chưa làm: có bằng chứng lệnh cũ đã kết thúc, không tác động, không còn đang xử lý · chưa thấy, có chống trùng: tra chưa thấy và bên nhận chống trùng theo mã còn hiệu lực · không kết luận: còn lại («chưa thấy» không phải «chưa làm»)</td></tr>
+-  <tr><td>kiểm lại</td><td>đóng: sự cố nguồn kết luận đóng việc · quá hạn gốc · không thể thoả: kiểu «tất cả» có 1 nguồn Lỗi hoặc Huỷ; kiểu «một trong» mọi nguồn Lỗi hoặc Huỷ · thoả · còn chờ</td></tr>
+-  <tr><td>đến lúc kiểm</td><td>quá hạn gốc · quá hạn khai · quá hạn PH · quá lần 2 / quá lần 1: lần quá hạn chờ thứ 2 / thứ 1 của cùng lần chờ · chờ quá T · chưa quá</td></tr>
+-  <tr><td>3 loại hạn</td><td>hạn gốc (G1.7): giới hạn việc nghiệp vụ · hạn phục hồi: tính 1 lần khi vào Quá hạn hoặc Xét huỷ, không đặt lại, không theo hạn gốc, dùng cho Đối soát và Bù · lịch nhắc: cho Chờ Owner</td></tr>
+-  </tbody></table>
++  <tbody></tbody></table>
+   </div>

@@ -1,0 +1,21 @@
+{
+  "ref": "4c93ecce01d8889dcc4e7558fc604a526fe2b010",
+  "path": "work/mbm-qtth-07-ve-ui-mow/COLLAB.md",
+  "start_char": 0,
+  "end_char": 27000,
+  "total_chars": 67189,
+  "total_bytes": 84077,
+  "sha256": "14b0922a9697dd4078c867b4d40dcf41e944390b0cc5b08f27fb5624ab2ecb3e",
+  "read_only": true,
+  "next_cursor": {
+    "start_char": 27000
+  },
+  "restore_hint": "workspace_transaction(operations=[{'op':'restore','version':'4c93ecce01d8889dcc4e7558fc604a526fe2b010'}]) reverses that commit on top of HEAD; it never copies an old snapshot over newer work.",
+  "freshness": "fresh",
+  "recheck_required": false,
+  "source_head": "4c93ecce01d8889dcc4e7558fc604a526fe2b010",
+  "refreshed_at": "2026-10-21T10:01:30Z",
+  "worktree_dirty": false,
+  "remote_head": "4c93ecce01d8889dcc4e7558fc604a526fe2b010",
+  "previous_source_head": "e14ad530cdc7d77a51adcb390e50ba88f38afd4d"
+}

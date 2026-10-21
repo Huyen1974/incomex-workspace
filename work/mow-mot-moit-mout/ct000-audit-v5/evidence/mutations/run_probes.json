@@ -1,0 +1,342 @@
+{
+  "probes": [
+    {
+      "id": "P01_explicit_duoc_even_at_M",
+      "start": "Chờ",
+      "event": "xin nhận",
+      "supplied_value": "được",
+      "context_before": {
+        "lan": 1,
+        "M": 1
+      },
+      "end": "Đang chạy",
+      "context_after": {
+        "lan": 2,
+        "M": 1
+      },
+      "path": [
+        "Chờ",
+        "T13→Đang chạy"
+      ]
+    },
+    {
+      "id": "P02_explicit_duoc_after_deadline",
+      "start": "Chờ",
+      "event": "xin nhận",
+      "supplied_value": "được",
+      "context_before": {
+        "lan": 0,
+        "M": 3,
+        "now": 101,
+        "deadline": 100
+      },
+      "end": "Đang chạy",
+      "context_after": {
+        "lan": 1,
+        "M": 3,
+        "now": 101,
+        "deadline": 100
+      },
+      "path": [
+        "Chờ",
+        "T13→Đang chạy"
+      ]
+    },
+    {
+      "id": "P03_explicit_duoc_scope_full",
+      "start": "Chờ",
+      "event": "xin nhận",
+      "supplied_value": "được",
+      "context_before": {
+        "lan": 0,
+        "M": 3,
+        "scope_running": 1,
+        "scope_limit": 1
+      },
+      "end": "Đang chạy",
+      "context_after": {
+        "lan": 1,
+        "M": 3,
+        "scope_running": 1,
+        "scope_limit": 1
+      },
+      "path": [
+        "Chờ",
+        "T13→Đang chạy"
+      ]
+    }
+  ],
+  "note": "These are simulator probes with supplied labels; unused context fields demonstrate missing raw-condition evaluation, not an exploit in live PostgreSQL.",
+  "coverage": {
+    "distinct_transition_ids": 35,
+    "total_transition_ids": 92,
+    "covered_transition_ids": [
+      "T01",
+      "T05",
+      "T09",
+      "T10",
+      "T13",
+      "T14",
+      "T19",
+      "T20",
+      "T21",
+      "T23",
+      "T24",
+      "T26",
+      "T33",
+      "T36",
+      "T37",
+      "T39",
+      "T41",
+      "T45",
+      "T49",
+      "T57",
+      "T58",
+      "T59",
+      "T60",
+      "T61",
+      "T65",
+      "T66",
+      "T69",
+      "T70",
+      "T71",
+      "T76",
+      "T77",
+      "T79",
+      "T87",
+      "T88",
+      "T90"
+    ],
+    "uncovered_transition_ids": [
+      "T02",
+      "T03",
+      "T04",
+      "T06",
+      "T07",
+      "T08",
+      "T11",
+      "T12",
+      "T15",
+      "T16",
+      "T17",
+      "T18",
+      "T22",
+      "T25",
+      "T27",
+      "T28",
+      "T29",
+      "T30",
+      "T31",
+      "T32",
+      "T34",
+      "T35",
+      "T38",
+      "T40",
+      "T42",
+      "T43",
+      "T44",
+      "T46",
+      "T47",
+      "T48",
+      "T50",
+      "T51",
+      "T52",
+      "T53",
+      "T54",
+      "T55",
+      "T56",
+      "T62",
+      "T63",
+      "T64",
+      "T67",
+      "T68",
+      "T72",
+      "T73",
+      "T74",
+      "T75",
+      "T78",
+      "T80",
+      "T81",
+      "T82",
+      "T83",
+      "T84",
+      "T85",
+      "T86",
+      "T89",
+      "T91",
+      "T92"
+    ],
+    "distinct_expanded_state_event_value_pairs": 36,
+    "total_expanded_state_event_value_pairs": 160,
+    "expanded_rows": 160,
+    "tests_starting_at_Moi": 1,
+    "tests_starting_elsewhere": 13
+  },
+  "per_test": [
+    {
+      "name": "1 bình thường",
+      "start": "Mới",
+      "end": "Kết thúc·Đạt",
+      "expected": "Kết thúc·Đạt",
+      "transition_ids": [
+        "T01",
+        "T05",
+        "T09",
+        "T13",
+        "T21",
+        "T37",
+        "T41"
+      ]
+    },
+    {
+      "name": "2 M=1",
+      "start": "Chờ",
+      "end": "Chờ ĐK·G2",
+      "expected": "Chờ ĐK·G2",
+      "transition_ids": [
+        "T13",
+        "T23",
+        "T10"
+      ]
+    },
+    {
+      "name": "3 B hoặc C",
+      "start": "Chờ ĐK·G2",
+      "end": "Chờ",
+      "expected": "Chờ",
+      "transition_ids": [
+        "T58",
+        "T57",
+        "T09"
+      ]
+    },
+    {
+      "name": "4 chờ nghiệm thu",
+      "start": "Chấm G4",
+      "end": "Chấm G5",
+      "expected": "Chấm G5",
+      "transition_ids": [
+        "T36",
+        "T49",
+        "T45",
+        "T37"
+      ]
+    },
+    {
+      "name": "5 G5 lỗi trước",
+      "start": "Chấm G5",
+      "end": "Chờ ĐK·G5",
+      "expected": "Chờ ĐK·G5",
+      "transition_ids": [
+        "T39"
+      ]
+    },
+    {
+      "name": "6 gửi rồi chết",
+      "start": "Đang chạy",
+      "end": "Chấm G4",
+      "expected": "Chấm G4",
+      "transition_ids": [
+        "T19",
+        "T65",
+        "T70",
+        "T61"
+      ]
+    },
+    {
+      "name": "7 chưa thấy",
+      "start": "Đang chạy",
+      "end": "Chờ ĐK·ĐS·TT",
+      "expected": "Chờ ĐK·ĐS·TT",
+      "transition_ids": [
+        "T24",
+        "T65",
+        "T71"
+      ]
+    },
+    {
+      "name": "8 huỷ khi lệnh chưa rõ",
+      "start": "Đang chạy",
+      "end": "Kết thúc·Huỷ",
+      "expected": "Kết thúc·Huỷ",
+      "transition_ids": [
+        "T90",
+        "T76",
+        "T66",
+        "T79"
+      ]
+    },
+    {
+      "name": "9 huỷ sau hạn",
+      "start": "Chờ",
+      "end": "Kết thúc·Huỷ",
+      "expected": "Kết thúc·Huỷ",
+      "transition_ids": [
+        "T14",
+        "T60",
+        "T88",
+        "T77",
+        "T79"
+      ]
+    },
+    {
+      "name": "10 đến giờ không mồ côi",
+      "start": "Chờ ĐK·G2",
+      "end": "Chờ ĐK·G2",
+      "expected": "Chờ ĐK·G2",
+      "transition_ids": [
+        "T58",
+        "T58"
+      ]
+    },
+    {
+      "name": "11 miễn 1 câu",
+      "start": "Chấm G4",
+      "end": "Chờ Owner",
+      "expected": "Chờ Owner",
+      "transition_ids": [
+        "T33",
+        "T87",
+        "T33"
+      ]
+    },
+    {
+      "name": "12 lỗi điều kiện",
+      "start": "Đang chạy",
+      "end": "Chờ",
+      "expected": "Chờ",
+      "transition_ids": [
+        "T26",
+        "T57",
+        "T09"
+      ]
+    },
+    {
+      "name": "13 quá hạn rồi huỷ",
+      "start": "Quá hạn",
+      "end": "Kết thúc·Huỷ",
+      "expected": "Kết thúc·Huỷ",
+      "transition_ids": [
+        "T59",
+        "T69",
+        "T90",
+        "T76",
+        "T66",
+        "T79"
+      ]
+    },
+    {
+      "name": "14 chết 2 lần, M=2",
+      "start": "Chờ",
+      "end": "Chờ ĐK·G2",
+      "expected": "Chờ ĐK·G2",
+      "transition_ids": [
+        "T13",
+        "T20",
+        "T13",
+        "T20",
+        "T10"
+      ]
+    }
+  ]
+}

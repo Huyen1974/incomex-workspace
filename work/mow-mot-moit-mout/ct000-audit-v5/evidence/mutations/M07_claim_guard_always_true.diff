@@ -1,0 +1,7 @@
+--- original/ban-duyet.html
++++ M07_claim_guard_always_true/ban-duyet.html
+@@ -214,3 +214,3 @@
+   <tr><td>chấm G2</td><td>lỗi: có câu không Đúng, lý do nhóm «lỗi» · chưa biết: có câu Chưa biết không lý do · chờ: có câu lý do nhóm «chờ» · đủ: mọi câu G2, câu G3 của Loại việc và G4.7 Đúng hoặc Được miễn</td></tr>
+-  <tr><td>xin nhận</td><td>hết M: số lần nhận TRƯỚC khi tăng ≥ M · quá hạn: quá hạn của liên kết đang xử lý · hết chỗ: số đang chạy trong phạm vi G3.3 ≥ trần, đếm dưới khoá phạm vi · được</td></tr>
++  <tr><td>xin nhận</td><td>được: luôn luôn, kể cả đã hết M, quá hạn hoặc hết chỗ; các giá trị hết M, quá hạn, hết chỗ không bao giờ được chọn</td></tr>
+   <tr><td>có dở · có tác động</td><td>có dở: CAT-238* có biên nhận «ý định» chưa có biên nhận kết luận cùng mã thao tác · có tác động: có biên nhận «đã tác động» chưa có biên nhận «đã bù»</td></tr>

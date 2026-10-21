@@ -1,0 +1,7 @@
+--- original/ban-duyet.html
++++ M05_cancel_without_revoke/ban-duyet.html
+@@ -319,3 +319,3 @@
+   <tr><td>T89</td><td>Chờ Owner</td><td>quyết định</td><td>chưa trả lời</td><td>nhắc; ghi lịch nhắc kế</td><td>Chờ Owner</td></tr>
+-  <tr><td>T90</td><td>* trừ Chờ Owner, Xét huỷ, Đối soát·Huỷ, Chờ người·ĐS·Huỷ, Chờ ĐK·ĐS·Huỷ, Bù, Chờ ĐK·Bù</td><td>yêu cầu huỷ</td><td>ok</td><td>ghi yêu cầu huỷ; nếu Đang chạy: thu hồi lượt (thế hệ +1, nhả chỗ)</td><td>Xét huỷ</td></tr>
++  <tr><td>T90</td><td>* trừ Chờ Owner, Xét huỷ, Đối soát·Huỷ, Chờ người·ĐS·Huỷ, Chờ ĐK·ĐS·Huỷ, Bù, Chờ ĐK·Bù</td><td>yêu cầu huỷ</td><td>ok</td><td>ghi yêu cầu huỷ; không thu hồi lượt; không tăng thế hệ; cho lượt cũ tiếp tục tác động</td><td>Xét huỷ</td></tr>
+   <tr><td>T91</td><td>Xét huỷ + Đối soát·Huỷ + Chờ người·ĐS·Huỷ + Chờ ĐK·ĐS·Huỷ + Bù + Chờ ĐK·Bù</td><td>yêu cầu huỷ</td><td>ok</td><td>đã đang huỷ; ghi lần yêu cầu</td><td>(giữ nguyên)</td></tr>

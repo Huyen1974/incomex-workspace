@@ -1,0 +1,1 @@
+{"verdict": "INPUT_VALIDATION_GAP", "exit_code": 1, "probes": [{"id": "control_valid", "status": "PASS"}, {"id": "g2_missing_null", "status": "UNVALIDATED_INPUT_ACCEPTED"}, {"id": "g2_invalid_spelling", "status": "UNVALIDATED_INPUT_ACCEPTED"}, {"id": "g5_missing_null", "status": "UNVALIDATED_INPUT_ACCEPTED"}, {"id": "g5_unknown", "status": "UNVALIDATED_INPUT_ACCEPTED"}]}

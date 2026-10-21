@@ -1,0 +1,111 @@
+{
+  "tool_id": "python:ct000-audit",
+  "version": "v6",
+  "review_date": "2026-10-21",
+  "source_head": "250792dce8380e94aa5fe85ce22477925150e6b8",
+  "review_verdict": "FINDINGS_REMAIN",
+  "expected_replay_exit_code": 1,
+  "scope": "Small executable-model and checker probes; not exhaustive verification; PG/Flow NOT_EXECUTED.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3444,
+      "sha256": "d7907428ba0a6d38c7e59dd0b38fbfa7ea08b3c7b0f84442217a90b6eb3dc6ef"
+    },
+    {
+      "path": "REPORT.md",
+      "bytes": 7181,
+      "sha256": "2f3aea783ccad28184ed473db2857f91e3372d7028d7e825f8a1edd6913b1129"
+    },
+    {
+      "path": "checker_audit.py",
+      "bytes": 10625,
+      "sha256": "076793ba2b6abf574774c8ee0c25c2a7cd6cc172d71dbf98ba8f1d287bc77408"
+    },
+    {
+      "path": "data_audit.py",
+      "bytes": 5429,
+      "sha256": "59359e387d3fb3e25ad0ed6d8f57ab33342ea0b1b49bed1a7ca0cdb93b216c71"
+    },
+    {
+      "path": "evidence/checker.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/checker.stdout.txt",
+      "bytes": 216,
+      "sha256": "f69523fcf2e2ad5ec165c4a4a5027255eba2e7a80a6ad272805eba1fa2941478"
+    },
+    {
+      "path": "evidence/checker_results.json",
+      "bytes": 9102,
+      "sha256": "dbfa05179dbb025e571e377f1dcbd8697a7a71e49752e37822f0158a954f1367"
+    },
+    {
+      "path": "evidence/data.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/data.stdout.txt",
+      "bytes": 374,
+      "sha256": "53903c532e1d36c87a8658dcced27c0a9b4996cc3e55f7b626bb1779838db67b"
+    },
+    {
+      "path": "evidence/data_results.json",
+      "bytes": 10515,
+      "sha256": "790f84779392b83af6ed83a876f18d38cea2431481256f6be0f2f1e9f1f557f8"
+    },
+    {
+      "path": "evidence/flow.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/flow.stdout.txt",
+      "bytes": 811,
+      "sha256": "06616a3d9e1de8a34189716876861ce8d8e1970304ed58b8d189c1df5d765fe9"
+    },
+    {
+      "path": "evidence/flow_results.json",
+      "bytes": 101883,
+      "sha256": "84ccc2c1e7248f4c03032888ff5922ebd9aa5978cf3cdf54b9d7e98965de803c"
+    },
+    {
+      "path": "evidence/summary.json",
+      "bytes": 1164,
+      "sha256": "46555886bc67e468ddde0548ec71db75ebcc355f20713dabda65beef511d0353"
+    },
+    {
+      "path": "flow_audit.py",
+      "bytes": 11456,
+      "sha256": "8dd1760c20478a981d80aade80a9f40f2dc230c66bbe095e03efd23963ec38e3"
+    },
+    {
+      "path": "run.py",
+      "bytes": 3075,
+      "sha256": "ff1703366d65d0ad840316f513cdb9e416b2995b566b116823289c10315a9b4d"
+    },
+    {
+      "path": "snapshots/ban-duyet.html",
+      "bytes": 190872,
+      "sha256": "4d2a73a183c2ded90de6164a0e33eaf2ce47efef740edeb5157e67648fd69e83"
+    },
+    {
+      "path": "snapshots/ban-duyet.html.metadata.json",
+      "bytes": 652,
+      "sha256": "fcd59ca1fee65a0c2a9b38539497c38d04e9892493f8a768a9ef8b4b9405d864"
+    },
+    {
+      "path": "snapshots/kiem-ct000-4.py",
+      "bytes": 35232,
+      "sha256": "9e9436cdc058cb480e08ed6dc7062e0d74b18aae43ccbd1e632342939e4ecbd2"
+    },
+    {
+      "path": "snapshots/kiem-ct000-4.py.metadata.json",
+      "bytes": 617,
+      "sha256": "76847485c112bf160aab36b2022bb915141258e47af22fb5fd9932c28557dc7f"
+    }
+  ]
+}

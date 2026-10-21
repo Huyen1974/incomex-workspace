@@ -1,0 +1,1550 @@
+{
+  "audit": "independent-ct0004-v5",
+  "checker_version": 2,
+  "source": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/snapshots/ban-duyet.html",
+  "sha256": "b1fb2d7694ccd3493a4da7f1b72598285982556bfcbbb5414657bc30bd33fad3",
+  "applicability": {
+    "scope": "exact reviewed HTML snapshot",
+    "supported_sha256": "b1fb2d7694ccd3493a4da7f1b72598285982556bfcbbb5414657bc30bd33fad3",
+    "actual_sha256": "b1fb2d7694ccd3493a4da7f1b72598285982556bfcbbb5414657bc30bd33fad3",
+    "supported": true
+  },
+  "scope": {
+    "independent_of_author_code": true,
+    "stdlib_only": true,
+    "not_executed": [
+      "PostgreSQL functions",
+      "Directus Flow",
+      "external side effects",
+      "host H7 checker"
+    ],
+    "limitations": [
+      "Prose action effects are not machine-executable in the source.",
+      "Dynamic Owner return targets are structurally over-approximated to the declared gate states.",
+      "Candidate event races are not assumed jointly feasible without guards.",
+      "Structural reachability is existential, not eventual completion under all schedules."
+    ]
+  },
+  "counts": {
+    "state_table_rows": 23,
+    "states": 32,
+    "terminal_states": 3,
+    "transition_table_rows": 92,
+    "expanded_event_value_pairs": 160,
+    "declared_event_value_pairs": 160,
+    "edges_with_dynamic_returns": 166,
+    "value_table_rows": 11
+  },
+  "declared_alphabet": {
+    "status": "PASS",
+    "missing": [],
+    "excess": [],
+    "duplicate": [],
+    "invalid_targets": [],
+    "duplicate_state_names": []
+  },
+  "graph": {
+    "unreachable_from_new": [],
+    "no_existential_path_to_terminal": [],
+    "automatic_sccs_including_wait_states": [
+      {
+        "states": [
+          "Chờ người·ĐS·Huỷ",
+          "Chờ ĐK·ĐS·Huỷ",
+          "Đối soát·Huỷ"
+        ],
+        "transitions": [
+          "T67",
+          "T71",
+          "T72",
+          "T73",
+          "T74",
+          "T75"
+        ]
+      },
+      {
+        "states": [
+          "Chấm G1",
+          "Chờ người·G1",
+          "Chờ ĐK·G1"
+        ],
+        "transitions": [
+          "T02",
+          "T03",
+          "T04",
+          "T43",
+          "T44",
+          "T52",
+          "T53",
+          "T54"
+        ]
+      },
+      {
+        "states": [
+          "Chấm G2",
+          "Chấm G4",
+          "Chờ",
+          "Chờ người·G3",
+          "Chờ người·G4",
+          "Chờ người·ĐS·TT",
+          "Chờ ĐK·G2",
+          "Chờ ĐK·G4",
+          "Chờ ĐK·ĐS·TT",
+          "Đang chạy",
+          "Đối soát·TT"
+        ],
+        "transitions": [
+          "T06",
+          "T07",
+          "T08",
+          "T09",
+          "T10",
+          "T12",
+          "T13",
+          "T15",
+          "T16",
+          "T17",
+          "T18",
+          "T19",
+          "T20",
+          "T21",
+          "T22",
+          "T23",
+          "T24",
+          "T25",
+          "T26",
+          "T27",
+          "T28",
+          "T30",
+          "T31",
+          "T32",
+          "T34",
+          "T35",
+          "T36",
+          "T47",
+          "T48",
+          "T49",
+          "T56",
+          "T57",
+          "T58",
+          "T61",
+          "T62",
+          "T63",
+          "T64",
+          "T65",
+          "T71",
+          "T72",
+          "T73",
+          "T74",
+          "T75"
+        ]
+      },
+      {
+        "states": [
+          "Chấm G5",
+          "Chờ người·G5",
+          "Chờ ĐK·G5"
+        ],
+        "transitions": [
+          "T39",
+          "T40",
+          "T47",
+          "T48",
+          "T49",
+          "T56",
+          "T57",
+          "T58"
+        ]
+      },
+      {
+        "states": [
+          "Chờ người·ĐS·QH",
+          "Chờ ĐK·ĐS·QH",
+          "Đối soát·QH"
+        ],
+        "transitions": [
+          "T69",
+          "T71",
+          "T72",
+          "T73",
+          "T74",
+          "T75"
+        ]
+      },
+      {
+        "states": [
+          "Bù",
+          "Chờ ĐK·Bù"
+        ],
+        "transitions": [
+          "T80",
+          "T82",
+          "T83"
+        ]
+      }
+    ],
+    "wait_self_loops": [
+      {
+        "source": "Chờ người·G3",
+        "target": "Chờ người·G3",
+        "id": "T28",
+        "event": "kết quả",
+        "value": "Cần người",
+        "action": "nhả lượt; ghi chờ ai, trả lời gì"
+      },
+      {
+        "source": "Chờ người·G3",
+        "target": "Chờ người·G3",
+        "id": "T31",
+        "event": "đến lúc kiểm",
+        "value": "quá lần 1",
+        "action": "người thay, hạn mới"
+      },
+      {
+        "source": "Chờ người·G3",
+        "target": "Chờ người·G3",
+        "id": "T32",
+        "event": "đến lúc kiểm",
+        "value": "chưa quá",
+        "action": "nhắc; ghi lúc kiểm kế"
+      },
+      {
+        "source": "Chờ người·G1",
+        "target": "Chờ người·G1",
+        "id": "T44",
+        "event": "đến lúc kiểm",
+        "value": "chưa quá",
+        "action": "nhắc; ghi lúc kiểm kế"
+      },
+      {
+        "source": "Chờ người·G4",
+        "target": "Chờ người·G4",
+        "id": "T48",
+        "event": "đến lúc kiểm",
+        "value": "quá lần 1",
+        "action": "người thay, hạn mới"
+      },
+      {
+        "source": "Chờ người·G5",
+        "target": "Chờ người·G5",
+        "id": "T48",
+        "event": "đến lúc kiểm",
+        "value": "quá lần 1",
+        "action": "người thay, hạn mới"
+      },
+      {
+        "source": "Chờ người·G4",
+        "target": "Chờ người·G4",
+        "id": "T49",
+        "event": "đến lúc kiểm",
+        "value": "chưa quá",
+        "action": "nhắc; ghi lúc kiểm kế"
+      },
+      {
+        "source": "Chờ người·G5",
+        "target": "Chờ người·G5",
+        "id": "T49",
+        "event": "đến lúc kiểm",
+        "value": "chưa quá",
+        "action": "nhắc; ghi lúc kiểm kế"
+      },
+      {
+        "source": "Chờ ĐK·G1",
+        "target": "Chờ ĐK·G1",
+        "id": "T52",
+        "event": "kiểm lại",
+        "value": "không thể thoả",
+        "action": "X1"
+      },
+      {
+        "source": "Chờ ĐK·G1",
+        "target": "Chờ ĐK·G1",
+        "id": "T54",
+        "event": "kiểm lại",
+        "value": "còn chờ",
+        "action": "ghi lần kiểm, lúc kiểm kế"
+      },
+      {
+        "source": "Chờ ĐK·G2",
+        "target": "Chờ ĐK·G2",
+        "id": "T56",
+        "event": "kiểm lại",
+        "value": "không thể thoả",
+        "action": "X1"
+      },
+      {
+        "source": "Chờ ĐK·G4",
+        "target": "Chờ ĐK·G4",
+        "id": "T56",
+        "event": "kiểm lại",
+        "value": "không thể thoả",
+        "action": "X1"
+      },
+      {
+        "source": "Chờ ĐK·G5",
+        "target": "Chờ ĐK·G5",
+        "id": "T56",
+        "event": "kiểm lại",
+        "value": "không thể thoả",
+        "action": "X1"
+      },
+      {
+        "source": "Chờ ĐK·G2",
+        "target": "Chờ ĐK·G2",
+        "id": "T58",
+        "event": "kiểm lại",
+        "value": "còn chờ",
+        "action": "ghi lần kiểm, lúc kiểm kế"
+      },
+      {
+        "source": "Chờ ĐK·G4",
+        "target": "Chờ ĐK·G4",
+        "id": "T58",
+        "event": "kiểm lại",
+        "value": "còn chờ",
+        "action": "ghi lần kiểm, lúc kiểm kế"
+      },
+      {
+        "source": "Chờ ĐK·G5",
+        "target": "Chờ ĐK·G5",
+        "id": "T58",
+        "event": "kiểm lại",
+        "value": "còn chờ",
+        "action": "ghi lần kiểm, lúc kiểm kế"
+      },
+      {
+        "source": "Chờ người·ĐS·TT",
+        "target": "Chờ người·ĐS·TT",
+        "id": "T72",
+        "event": "đến lúc kiểm",
+        "value": "quá lần 1",
+        "action": "người thay, hạn mới không quá hạn PH"
+      },
+      {
+        "source": "Chờ người·ĐS·Huỷ",
+        "target": "Chờ người·ĐS·Huỷ",
+        "id": "T72",
+        "event": "đến lúc kiểm",
+        "value": "quá lần 1",
+        "action": "người thay, hạn mới không quá hạn PH"
+      },
+      {
+        "source": "Chờ người·ĐS·QH",
+        "target": "Chờ người·ĐS·QH",
+        "id": "T72",
+        "event": "đến lúc kiểm",
+        "value": "quá lần 1",
+        "action": "người thay, hạn mới không quá hạn PH"
+      },
+      {
+        "source": "Chờ người·ĐS·TT",
+        "target": "Chờ người·ĐS·TT",
+        "id": "T73",
+        "event": "đến lúc kiểm",
+        "value": "chưa quá",
+        "action": "nhắc; ghi lúc kiểm kế"
+      },
+      {
+        "source": "Chờ người·ĐS·Huỷ",
+        "target": "Chờ người·ĐS·Huỷ",
+        "id": "T73",
+        "event": "đến lúc kiểm",
+        "value": "chưa quá",
+        "action": "nhắc; ghi lúc kiểm kế"
+      },
+      {
+        "source": "Chờ người·ĐS·QH",
+        "target": "Chờ người·ĐS·QH",
+        "id": "T73",
+        "event": "đến lúc kiểm",
+        "value": "chưa quá",
+        "action": "nhắc; ghi lúc kiểm kế"
+      },
+      {
+        "source": "Chờ ĐK·ĐS·TT",
+        "target": "Chờ ĐK·ĐS·TT",
+        "id": "T75",
+        "event": "kiểm lại",
+        "value": "còn chờ",
+        "action": "ghi lần kiểm, lúc kiểm kế"
+      },
+      {
+        "source": "Chờ ĐK·ĐS·Huỷ",
+        "target": "Chờ ĐK·ĐS·Huỷ",
+        "id": "T75",
+        "event": "kiểm lại",
+        "value": "còn chờ",
+        "action": "ghi lần kiểm, lúc kiểm kế"
+      },
+      {
+        "source": "Chờ ĐK·ĐS·QH",
+        "target": "Chờ ĐK·ĐS·QH",
+        "id": "T75",
+        "event": "kiểm lại",
+        "value": "còn chờ",
+        "action": "ghi lần kiểm, lúc kiểm kế"
+      },
+      {
+        "source": "Chờ ĐK·Bù",
+        "target": "Chờ ĐK·Bù",
+        "id": "T83",
+        "event": "kiểm lại",
+        "value": "còn chờ",
+        "action": "ghi lần kiểm, lúc kiểm kế"
+      }
+    ]
+  },
+  "boundary": {
+    "policy": "PG requirement 16 intentionally rejects missing tuples; these are outside the 160-pair claim.",
+    "probes": 303,
+    "matched": 0,
+    "examples": [
+      {
+        "state": "Mới",
+        "event": "khai xong",
+        "value": null,
+        "matches": 0
+      },
+      {
+        "state": "Mới",
+        "event": "khai xong",
+        "value": "",
+        "matches": 0
+      },
+      {
+        "state": "Mới",
+        "event": "khai xong",
+        "value": "<unknown>",
+        "matches": 0
+      },
+      {
+        "state": "Mới",
+        "event": "yêu cầu huỷ",
+        "value": null,
+        "matches": 0
+      },
+      {
+        "state": "Mới",
+        "event": "yêu cầu huỷ",
+        "value": "",
+        "matches": 0
+      },
+      {
+        "state": "Mới",
+        "event": "yêu cầu huỷ",
+        "value": "<unknown>",
+        "matches": 0
+      },
+      {
+        "state": "Chấm G1",
+        "event": "chấm",
+        "value": null,
+        "matches": 0
+      },
+      {
+        "state": "Chấm G1",
+        "event": "chấm",
+        "value": "",
+        "matches": 0
+      },
+      {
+        "state": "Chấm G1",
+        "event": "chấm",
+        "value": "<unknown>",
+        "matches": 0
+      }
+    ],
+    "durable_rejection_recovery": "Not specified by the transition table itself; orphan scan covers some bad-record cases."
+  },
+  "producer_consumer": {
+    "common_classifier_mismatches": [
+      {
+        "state": "Chờ",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn khai",
+        "matches": 0
+      },
+      {
+        "state": "Chờ",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn PH",
+        "matches": 0
+      },
+      {
+        "state": "Chờ",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá lần 2",
+        "matches": 0
+      },
+      {
+        "state": "Chờ",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá lần 1",
+        "matches": 0
+      },
+      {
+        "state": "Chờ",
+        "event": "đến lúc kiểm",
+        "produced_value": "chưa quá",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·G3",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn khai",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·G3",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn PH",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·G3",
+        "event": "đến lúc kiểm",
+        "produced_value": "chờ quá T",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·G1",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn gốc",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·G1",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn PH",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·G1",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá lần 2",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·G1",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá lần 1",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·G1",
+        "event": "đến lúc kiểm",
+        "produced_value": "chờ quá T",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·G4",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn khai",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·G4",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn PH",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·G4",
+        "event": "đến lúc kiểm",
+        "produced_value": "chờ quá T",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·G5",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn khai",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·G5",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn PH",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·G5",
+        "event": "đến lúc kiểm",
+        "produced_value": "chờ quá T",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·G2",
+        "event": "kiểm lại",
+        "produced_value": "đóng",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·G4",
+        "event": "kiểm lại",
+        "produced_value": "đóng",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·G5",
+        "event": "kiểm lại",
+        "produced_value": "đóng",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·ĐS·TT",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn gốc",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·ĐS·TT",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn khai",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·ĐS·TT",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá lần 2",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·ĐS·TT",
+        "event": "đến lúc kiểm",
+        "produced_value": "chờ quá T",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·ĐS·Huỷ",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn gốc",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·ĐS·Huỷ",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn khai",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·ĐS·Huỷ",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá lần 2",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·ĐS·Huỷ",
+        "event": "đến lúc kiểm",
+        "produced_value": "chờ quá T",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·ĐS·QH",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn gốc",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·ĐS·QH",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá hạn khai",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·ĐS·QH",
+        "event": "đến lúc kiểm",
+        "produced_value": "quá lần 2",
+        "matches": 0
+      },
+      {
+        "state": "Chờ người·ĐS·QH",
+        "event": "đến lúc kiểm",
+        "produced_value": "chờ quá T",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·ĐS·TT",
+        "event": "kiểm lại",
+        "produced_value": "đóng",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·ĐS·TT",
+        "event": "kiểm lại",
+        "produced_value": "quá hạn gốc",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·ĐS·TT",
+        "event": "kiểm lại",
+        "produced_value": "không thể thoả",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·ĐS·Huỷ",
+        "event": "kiểm lại",
+        "produced_value": "đóng",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·ĐS·Huỷ",
+        "event": "kiểm lại",
+        "produced_value": "quá hạn gốc",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·ĐS·Huỷ",
+        "event": "kiểm lại",
+        "produced_value": "không thể thoả",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·ĐS·QH",
+        "event": "kiểm lại",
+        "produced_value": "đóng",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·ĐS·QH",
+        "event": "kiểm lại",
+        "produced_value": "quá hạn gốc",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·ĐS·QH",
+        "event": "kiểm lại",
+        "produced_value": "không thể thoả",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·Bù",
+        "event": "kiểm lại",
+        "produced_value": "đóng",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·Bù",
+        "event": "kiểm lại",
+        "produced_value": "quá hạn gốc",
+        "matches": 0
+      },
+      {
+        "state": "Chờ ĐK·Bù",
+        "event": "kiểm lại",
+        "produced_value": "không thể thoả",
+        "matches": 0
+      }
+    ],
+    "lexical_mismatches": [
+      {
+        "transition": "T16",
+        "state": "Chờ",
+        "event": "đến lúc kiểm",
+        "transition_value": "chưa",
+        "producer_values": [
+          "quá hạn gốc",
+          "quá hạn khai",
+          "quá hạn PH",
+          "quá lần 2",
+          "quá lần 1",
+          "chờ quá T",
+          "chưa quá"
+        ]
+      }
+    ],
+    "events_without_a_dedicated_value_table_definition": [
+      "bù",
+      "gia hạn",
+      "khai xong",
+      "quyết định",
+      "quá hạn",
+      "trả lời",
+      "yêu cầu huỷ"
+    ]
+  },
+  "raw_guard_enumeration": {
+    "g2_combinations": 30,
+    "missing_rule_cases": 3,
+    "waiver_preempted_cases": 10
+  },
+  "event_races": [
+    {
+      "name": "result_vs_cancel",
+      "start": "Đang chạy",
+      "a_then_b": {
+        "final": "Xét huỷ",
+        "outcome": "ROUTED",
+        "steps": [
+          {
+            "state": "Đang chạy",
+            "event": "kết quả",
+            "value": "Đạt",
+            "transition": "T21",
+            "target": "Chấm G4"
+          },
+          {
+            "state": "Chấm G4",
+            "event": "yêu cầu huỷ",
+            "value": "ok",
+            "transition": "T90",
+            "target": "Xét huỷ"
+          }
+        ]
+      },
+      "b_then_a": {
+        "final": "Xét huỷ",
+        "outcome": "NO_TABLE_ROW",
+        "steps": [
+          {
+            "state": "Đang chạy",
+            "event": "yêu cầu huỷ",
+            "value": "ok",
+            "transition": "T90",
+            "target": "Xét huỷ"
+          },
+          {
+            "state": "Xét huỷ",
+            "event": "kết quả",
+            "value": "Đạt",
+            "outcome": "NO_TABLE_ROW"
+          }
+        ]
+      }
+    },
+    {
+      "name": "result_vs_reclaim",
+      "start": "Đang chạy",
+      "a_then_b": {
+        "final": "Chấm G4",
+        "outcome": "NO_TABLE_ROW",
+        "steps": [
+          {
+            "state": "Đang chạy",
+            "event": "kết quả",
+            "value": "Đạt",
+            "transition": "T21",
+            "target": "Chấm G4"
+          },
+          {
+            "state": "Chấm G4",
+            "event": "hết hạn giữ",
+            "value": "có dở",
+            "outcome": "NO_TABLE_ROW"
+          }
+        ]
+      },
+      "b_then_a": {
+        "final": "Đối soát·TT",
+        "outcome": "NO_TABLE_ROW",
+        "steps": [
+          {
+            "state": "Đang chạy",
+            "event": "hết hạn giữ",
+            "value": "có dở",
+            "transition": "T19",
+            "target": "Đối soát·TT"
+          },
+          {
+            "state": "Đối soát·TT",
+            "event": "kết quả",
+            "value": "Đạt",
+            "outcome": "NO_TABLE_ROW"
+          }
+        ]
+      }
+    },
+    {
+      "name": "answer_vs_timeout",
+      "start": "Chờ người·G4",
+      "a_then_b": {
+        "final": "Chấm G4",
+        "outcome": "NO_TABLE_ROW",
+        "steps": [
+          {
+            "state": "Chờ người·G4",
+            "event": "trả lời",
+            "value": "có",
+            "transition": "T45",
+            "target": "Chấm G4"
+          },
+          {
+            "state": "Chấm G4",
+            "event": "đến lúc kiểm",
+            "value": "quá lần 2",
+            "outcome": "NO_TABLE_ROW"
+          }
+        ]
+      },
+      "b_then_a": {
+        "final": "Chờ ĐK·G4",
+        "outcome": "NO_TABLE_ROW",
+        "steps": [
+          {
+            "state": "Chờ người·G4",
+            "event": "đến lúc kiểm",
+            "value": "quá lần 2",
+            "transition": "T47",
+            "target": "Chờ ĐK·G4"
+          },
+          {
+            "state": "Chờ ĐK·G4",
+            "event": "trả lời",
+            "value": "có",
+            "outcome": "NO_TABLE_ROW"
+          }
+        ]
+      }
+    }
+  ],
+  "action_references": [
+    {
+      "transition": "T03",
+      "referenced_steps": [
+        "X1"
+      ],
+      "unconditional_target": "Chờ ĐK·G1",
+      "action": "X1, người nhận MMOW"
+    },
+    {
+      "transition": "T06",
+      "referenced_steps": [
+        "X1"
+      ],
+      "unconditional_target": "Chờ ĐK·G2",
+      "action": "X1, mỗi câu lỗi 1 sự cố"
+    },
+    {
+      "transition": "T07",
+      "referenced_steps": [
+        "X1"
+      ],
+      "unconditional_target": "Chờ ĐK·G2",
+      "action": "X1"
+    },
+    {
+      "transition": "T10",
+      "referenced_steps": [
+        "X7"
+      ],
+      "unconditional_target": "Chờ ĐK·G2",
+      "action": "X7 (Vấn đề «hết lượt»); nguồn chờ = Vấn đề"
+    },
+    {
+      "transition": "T26",
+      "referenced_steps": [
+        "X1"
+      ],
+      "unconditional_target": "Chờ ĐK·G2",
+      "action": "X1 (sự cố cha nếu có)"
+    },
+    {
+      "transition": "T30",
+      "referenced_steps": [
+        "X1"
+      ],
+      "unconditional_target": "Chờ ĐK·G2",
+      "action": "X1"
+    },
+    {
+      "transition": "T33",
+      "referenced_steps": [
+        "X9"
+      ],
+      "unconditional_target": "Chờ Owner",
+      "action": "X9"
+    },
+    {
+      "transition": "T35",
+      "referenced_steps": [
+        "X1"
+      ],
+      "unconditional_target": "Chờ ĐK·G4",
+      "action": "X1"
+    },
+    {
+      "transition": "T38",
+      "referenced_steps": [
+        "X9"
+      ],
+      "unconditional_target": "Chờ Owner",
+      "action": "X9"
+    },
+    {
+      "transition": "T39",
+      "referenced_steps": [
+        "X1"
+      ],
+      "unconditional_target": "Chờ ĐK·G5",
+      "action": "X1"
+    },
+    {
+      "transition": "T43",
+      "referenced_steps": [
+        "X1"
+      ],
+      "unconditional_target": "Chờ ĐK·G1",
+      "action": "X1"
+    },
+    {
+      "transition": "T47",
+      "referenced_steps": [
+        "X1"
+      ],
+      "unconditional_target": "Chờ ĐK·{G}",
+      "action": "X1"
+    },
+    {
+      "transition": "T52",
+      "referenced_steps": [
+        "X1"
+      ],
+      "unconditional_target": "Chờ ĐK·G1",
+      "action": "X1"
+    },
+    {
+      "transition": "T56",
+      "referenced_steps": [
+        "X1"
+      ],
+      "unconditional_target": "Chờ ĐK·{G}",
+      "action": "X1"
+    },
+    {
+      "transition": "T60",
+      "referenced_steps": [
+        "X9"
+      ],
+      "unconditional_target": "Chờ Owner",
+      "action": "X9"
+    },
+    {
+      "transition": "T63",
+      "referenced_steps": [
+        "X1"
+      ],
+      "unconditional_target": "Chờ ĐK·G2",
+      "action": "X1"
+    },
+    {
+      "transition": "T68",
+      "referenced_steps": [
+        "X9"
+      ],
+      "unconditional_target": "Chờ Owner",
+      "action": "X9 kèm kết luận đối soát"
+    },
+    {
+      "transition": "T71",
+      "referenced_steps": [
+        "X1"
+      ],
+      "unconditional_target": "Chờ ĐK·ĐS·{m}",
+      "action": "X1"
+    },
+    {
+      "transition": "T80",
+      "referenced_steps": [
+        "X1"
+      ],
+      "unconditional_target": "Chờ ĐK·Bù",
+      "action": "X1"
+    },
+    {
+      "transition": "T81",
+      "referenced_steps": [
+        "X9"
+      ],
+      "unconditional_target": "Chờ Owner",
+      "action": "X9"
+    },
+    {
+      "transition": "T85",
+      "referenced_steps": [
+        "X3"
+      ],
+      "unconditional_target": "Chấm [bước trở lại]",
+      "action": "ghi bước trở lại; đã hết hạn, M hoặc N thì ghi hạn mới, trần mới; X3 kiểm lại"
+    }
+  ],
+  "findings": [
+    {
+      "id": "IA-01",
+      "status": "FAIL",
+      "severity": "validated_literal",
+      "kind": "literal_first_rule_shadowing",
+      "locations": [
+        "Bảng Giá trị/kết quả",
+        "T24",
+        "T25",
+        "T26",
+        "T27"
+      ],
+      "claim": "The second classifier clause 'còn lại' shadows later result clauses under the stated First semantics.",
+      "witnesses": [
+        {
+          "input": {
+            "code": "ABORTED",
+            "retry_safe": false
+          },
+          "actual": "Lỗi tạm không an toàn",
+          "stated_later_rule": "Xung đột",
+          "actual_transition": "T24",
+          "intended_transition": "T25",
+          "actual_target": "Đối soát·TT",
+          "intended_target": "Chấm G2"
+        },
+        {
+          "input": {
+            "code": "FAILED_PRECONDITION",
+            "retry_safe": false
+          },
+          "actual": "Lỗi tạm không an toàn",
+          "stated_later_rule": "Lỗi điều kiện",
+          "actual_transition": "T24",
+          "intended_transition": "T26",
+          "actual_target": "Đối soát·TT",
+          "intended_target": "Chờ ĐK·G2"
+        },
+        {
+          "input": {
+            "code": "PERMISSION_DENIED",
+            "retry_safe": false
+          },
+          "actual": "Lỗi tạm không an toàn",
+          "stated_later_rule": "Lỗi điều kiện",
+          "actual_transition": "T24",
+          "intended_transition": "T26",
+          "actual_target": "Đối soát·TT",
+          "intended_target": "Chờ ĐK·G2"
+        },
+        {
+          "input": {
+            "code": "INVALID_ARGUMENT",
+            "retry_safe": false
+          },
+          "actual": "Lỗi tạm không an toàn",
+          "stated_later_rule": "Lỗi điều kiện",
+          "actual_transition": "T24",
+          "intended_transition": "T26",
+          "actual_target": "Đối soát·TT",
+          "intended_target": "Chờ ĐK·G2"
+        },
+        {
+          "input": {
+            "code": "UNKNOWN",
+            "retry_safe": false
+          },
+          "actual": "Lỗi tạm không an toàn",
+          "stated_later_rule": "Chưa biết",
+          "actual_transition": "T24",
+          "intended_transition": "T27",
+          "actual_target": "Đối soát·TT",
+          "intended_target": "Đối soát·TT"
+        },
+        {
+          "input": {
+            "code": "DEADLINE_EXCEEDED",
+            "retry_safe": false
+          },
+          "actual": "Lỗi tạm không an toàn",
+          "stated_later_rule": "Chưa biết",
+          "actual_transition": "T24",
+          "intended_transition": "T27",
+          "actual_target": "Đối soát·TT",
+          "intended_target": "Đối soát·TT"
+        }
+      ],
+      "fix": "Move the unsafe-transient default inside the transient-error group; explicitly define Đạt and Một phần; put a final unknown/invalid-input fallback last."
+    },
+    {
+      "id": "IA-02",
+      "status": "FAIL",
+      "severity": "validated_literal",
+      "kind": "producer_consumer_exact_label_mismatch",
+      "locations": [
+        "Bảng Giá trị/đến lúc kiểm",
+        "T16"
+      ],
+      "claim": "The value table ends the timer classifier with 'chưa quá', but state Chờ and T16 require 'chưa'.",
+      "witness": {
+        "final": "Chờ",
+        "outcome": "NO_TABLE_ROW",
+        "steps": [
+          {
+            "state": "Chờ",
+            "event": "đến lúc kiểm",
+            "value": "chưa quá",
+            "outcome": "NO_TABLE_ROW"
+          }
+        ]
+      },
+      "fix": "Use one canonical value in producer, state domain, and transition row."
+    },
+    {
+      "id": "IA-03",
+      "status": "NOT_PROVEN",
+      "severity": "requires_implementation",
+      "kind": "classifier_context_scope_not_formalized",
+      "locations": [
+        "Bảng Giá trị/kiểm lại",
+        "Bảng Giá trị/đến lúc kiểm"
+      ],
+      "mismatch_count": 46,
+      "claim": "The single prose classifier row can name values absent from particular state domains; context-specific predicates are not encoded.",
+      "witness": {
+        "state": "Chờ người·ĐS·Huỷ",
+        "context": "root deadline expired and recovery deadline still future",
+        "literal_first_output": "quá hạn gốc",
+        "accepted": [
+          "quá hạn PH",
+          "quá lần 1",
+          "chưa quá"
+        ]
+      },
+      "fix": "Key each classifier by state/event, or specify state applicability in every predicate before asserting totality."
+    },
+    {
+      "id": "IA-04",
+      "status": "COUNTEREXAMPLE_IN_TABLE_ABSTRACTION",
+      "severity": "validated_literal",
+      "kind": "automatic_wait_cycles_not_bounded_in_table",
+      "locations": [
+        "T75",
+        "T83"
+      ],
+      "claim": "Four recovery wait states admit arbitrary repeated automatic checks; their table domains contain neither recovery-expiry nor impossible-source outcomes. H7 excludes all wait states from its cycle check.",
+      "witnesses": [
+        {
+          "state": "Chờ ĐK·ĐS·TT",
+          "loop_transition": "T75",
+          "accepted_values": [
+            "thoả",
+            "còn chờ"
+          ],
+          "action": "ghi lần kiểm, lúc kiểm kế",
+          "expiry_transition_present": false,
+          "source_failure_transition_present": false,
+          "trace": {
+            "final": "Chờ ĐK·ĐS·TT",
+            "outcome": "ROUTED",
+            "steps": [
+              {
+                "state": "Chờ ĐK·ĐS·TT",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T75",
+                "target": "Chờ ĐK·ĐS·TT"
+              },
+              {
+                "state": "Chờ ĐK·ĐS·TT",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T75",
+                "target": "Chờ ĐK·ĐS·TT"
+              },
+              {
+                "state": "Chờ ĐK·ĐS·TT",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T75",
+                "target": "Chờ ĐK·ĐS·TT"
+              },
+              {
+                "state": "Chờ ĐK·ĐS·TT",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T75",
+                "target": "Chờ ĐK·ĐS·TT"
+              }
+            ]
+          }
+        },
+        {
+          "state": "Chờ ĐK·ĐS·Huỷ",
+          "loop_transition": "T75",
+          "accepted_values": [
+            "thoả",
+            "còn chờ"
+          ],
+          "action": "ghi lần kiểm, lúc kiểm kế",
+          "expiry_transition_present": false,
+          "source_failure_transition_present": false,
+          "trace": {
+            "final": "Chờ ĐK·ĐS·Huỷ",
+            "outcome": "ROUTED",
+            "steps": [
+              {
+                "state": "Chờ ĐK·ĐS·Huỷ",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T75",
+                "target": "Chờ ĐK·ĐS·Huỷ"
+              },
+              {
+                "state": "Chờ ĐK·ĐS·Huỷ",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T75",
+                "target": "Chờ ĐK·ĐS·Huỷ"
+              },
+              {
+                "state": "Chờ ĐK·ĐS·Huỷ",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T75",
+                "target": "Chờ ĐK·ĐS·Huỷ"
+              },
+              {
+                "state": "Chờ ĐK·ĐS·Huỷ",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T75",
+                "target": "Chờ ĐK·ĐS·Huỷ"
+              }
+            ]
+          }
+        },
+        {
+          "state": "Chờ ĐK·ĐS·QH",
+          "loop_transition": "T75",
+          "accepted_values": [
+            "thoả",
+            "còn chờ"
+          ],
+          "action": "ghi lần kiểm, lúc kiểm kế",
+          "expiry_transition_present": false,
+          "source_failure_transition_present": false,
+          "trace": {
+            "final": "Chờ ĐK·ĐS·QH",
+            "outcome": "ROUTED",
+            "steps": [
+              {
+                "state": "Chờ ĐK·ĐS·QH",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T75",
+                "target": "Chờ ĐK·ĐS·QH"
+              },
+              {
+                "state": "Chờ ĐK·ĐS·QH",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T75",
+                "target": "Chờ ĐK·ĐS·QH"
+              },
+              {
+                "state": "Chờ ĐK·ĐS·QH",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T75",
+                "target": "Chờ ĐK·ĐS·QH"
+              },
+              {
+                "state": "Chờ ĐK·ĐS·QH",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T75",
+                "target": "Chờ ĐK·ĐS·QH"
+              }
+            ]
+          }
+        },
+        {
+          "state": "Chờ ĐK·Bù",
+          "loop_transition": "T83",
+          "accepted_values": [
+            "thoả",
+            "còn chờ"
+          ],
+          "action": "ghi lần kiểm, lúc kiểm kế",
+          "expiry_transition_present": false,
+          "source_failure_transition_present": false,
+          "trace": {
+            "final": "Chờ ĐK·Bù",
+            "outcome": "ROUTED",
+            "steps": [
+              {
+                "state": "Chờ ĐK·Bù",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T83",
+                "target": "Chờ ĐK·Bù"
+              },
+              {
+                "state": "Chờ ĐK·Bù",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T83",
+                "target": "Chờ ĐK·Bù"
+              },
+              {
+                "state": "Chờ ĐK·Bù",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T83",
+                "target": "Chờ ĐK·Bù"
+              },
+              {
+                "state": "Chờ ĐK·Bù",
+                "event": "kiểm lại",
+                "value": "còn chờ",
+                "transition": "T83",
+                "target": "Chờ ĐK·Bù"
+              }
+            ]
+          }
+        }
+      ],
+      "fix": "Define expiry/source-failure handling for these waiting states, or formally model the linked incident process and prove its escalation discharges the wait."
+    },
+    {
+      "id": "IA-05",
+      "status": "NOT_PROVEN",
+      "severity": "requires_implementation",
+      "kind": "raw_input_guard_totality",
+      "locations": [
+        "Bảng Giá trị/chấm G2",
+        "T06–T09"
+      ],
+      "claim": "Enumerating declared labels does not validate the raw answers that produce them. Some missing/invalid raw values have no classifier result; valid waivers can be preempted by earlier error/wait clauses unless effective conditions are normalized first.",
+      "witnesses": [
+        {
+          "status": "Đúng",
+          "reason": "chờ",
+          "owner_waiver_valid": true,
+          "classified": "chờ",
+          "missing_value_rule": false,
+          "waiver_preempted": true
+        },
+        {
+          "status": "Sai",
+          "reason": null,
+          "owner_waiver_valid": false,
+          "classified": null,
+          "missing_value_rule": true,
+          "waiver_preempted": false
+        },
+        {
+          "status": "Sai",
+          "reason": "lỗi",
+          "owner_waiver_valid": true,
+          "classified": "lỗi",
+          "missing_value_rule": false,
+          "waiver_preempted": true
+        },
+        {
+          "status": "Sai",
+          "reason": "chờ",
+          "owner_waiver_valid": true,
+          "classified": "chờ",
+          "missing_value_rule": false,
+          "waiver_preempted": true
+        },
+        {
+          "status": "Chưa biết",
+          "reason": null,
+          "owner_waiver_valid": true,
+          "classified": "chưa biết",
+          "missing_value_rule": false,
+          "waiver_preempted": true
+        },
+        {
+          "status": "Chưa biết",
+          "reason": "lỗi",
+          "owner_waiver_valid": true,
+          "classified": "lỗi",
+          "missing_value_rule": false,
+          "waiver_preempted": true
+        },
+        {
+          "status": "Chưa biết",
+          "reason": "chờ",
+          "owner_waiver_valid": true,
+          "classified": "chờ",
+          "missing_value_rule": false,
+          "waiver_preempted": true
+        },
+        {
+          "status": null,
+          "reason": null,
+          "owner_waiver_valid": false,
+          "classified": null,
+          "missing_value_rule": true,
+          "waiver_preempted": false
+        },
+        {
+          "status": null,
+          "reason": "lỗi",
+          "owner_waiver_valid": true,
+          "classified": "lỗi",
+          "missing_value_rule": false,
+          "waiver_preempted": true
+        },
+        {
+          "status": null,
+          "reason": "chờ",
+          "owner_waiver_valid": true,
+          "classified": "chờ",
+          "missing_value_rule": false,
+          "waiver_preempted": true
+        },
+        {
+          "status": "",
+          "reason": null,
+          "owner_waiver_valid": false,
+          "classified": null,
+          "missing_value_rule": true,
+          "waiver_preempted": false
+        },
+        {
+          "status": "",
+          "reason": "lỗi",
+          "owner_waiver_valid": true,
+          "classified": "lỗi",
+          "missing_value_rule": false,
+          "waiver_preempted": true
+        },
+        {
+          "status": "",
+          "reason": "chờ",
+          "owner_waiver_valid": true,
+          "classified": "chờ",
+          "missing_value_rule": false,
+          "waiver_preempted": true
+        }
+      ],
+      "fix": "Validate raw enum/reason/waiver fields before classification; specify effective waived condition and an explicit failure path for malformed input."
+    },
+    {
+      "id": "IA-06",
+      "status": "NOT_PROVEN",
+      "severity": "requires_implementation",
+      "kind": "action_outcome_coverage",
+      "locations": [
+        "X4",
+        "T10–T13",
+        "X3",
+        "T85"
+      ],
+      "claim": "The table indexes event labels and destination names; X4 UPDATE-zero and X3 failure after T85 are written in prose but have no separate corresponding outcome in these transition rows.",
+      "witnesses": [
+        {
+          "action": "X4 UPDATE returns 0 rows",
+          "declared": [
+            "hết M",
+            "quá hạn",
+            "hết chỗ",
+            "được"
+          ],
+          "prose": "X2"
+        },
+        {
+          "action": "T85 invokes X3; no valid MOW",
+          "prose": "X3 failure ⇒ X7",
+          "table_target": "Chấm [bước trở lại]"
+        }
+      ],
+      "fix": "Specify whether these are explicit no-op/reclassification API outcomes or table transitions; execute and assert both branches."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "verdict": "MODEL_WORKFLOW_FINDINGS_REMAIN",
+  "exit_code": 1,
+  "report": "/workspace/scratch/a6ca59e05764/ct000-shared-v6/work/mow-mot-moit-mout/audit-ct000/evidence/flow_results.json",
+  "positive_controls": [
+    {
+      "id": "PC-NORMAL",
+      "status": "PASS"
+    },
+    {
+      "id": "PC-BEFORE-DEADLINE",
+      "status": "PASS"
+    },
+    {
+      "id": "PC-CANCEL-FENCE",
+      "status": "PASS"
+    },
+    {
+      "id": "PC-COMPENSATION-BUDGET-AVAILABLE",
+      "status": "PASS"
+    }
+  ],
+  "findings": [
+    {
+      "id": "F-DEADLINE",
+      "status": "REPRODUCED_MODEL_COUNTEREXAMPLE"
+    },
+    {
+      "id": "F-COMPENSATION-BUDGET",
+      "status": "REPRODUCED_MODEL_COUNTEREXAMPLE"
+    },
+    {
+      "id": "F-RECOVERY-DEADLINE",
+      "status": "REPRODUCED_MODEL_COUNTEREXAMPLE"
+    }
+  ]
+}

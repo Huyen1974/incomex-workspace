@@ -1,0 +1,17 @@
+{
+  "version": "9e9436cdc058cb480e08ed6dc7062e0d74b18aae43ccbd1e632342939e4ecbd2",
+  "total_bytes": 35232,
+  "total_lines": 615,
+  "total_chars": 32579,
+  "start_char": 0,
+  "end_char": 32579,
+  "next_cursor": null,
+  "freshness": "fresh",
+  "recheck_required": false,
+  "source_head": "250792dce8380e94aa5fe85ce22477925150e6b8",
+  "refreshed_at": "2026-10-21T13:06:59Z",
+  "worktree_dirty": false,
+  "remote_head": "250792dce8380e94aa5fe85ce22477925150e6b8",
+  "previous_source_head": "51848a326af6e1b995a76458cd790763dcdc7322",
+  "local_sha256": "9e9436cdc058cb480e08ed6dc7062e0d74b18aae43ccbd1e632342939e4ecbd2"
+}

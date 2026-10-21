@@ -1,0 +1,412 @@
+{
+  "scope": "Model input validation only; no PG/Flow test.",
+  "probes": [
+    {
+      "id": "control_valid",
+      "raw_override": {},
+      "expected_rejection": false,
+      "final_state": "Kết thúc·Đạt",
+      "invariant_errors": [],
+      "accepted": true,
+      "trace": [
+        {
+          "from": "Mới",
+          "event": "khai xong",
+          "transition": "T01",
+          "to": "Chấm G1"
+        },
+        {
+          "from": "Chấm G1",
+          "event": "chấm",
+          "transition": "T05",
+          "to": "Chấm G2"
+        },
+        {
+          "from": "Chấm G2",
+          "event": "chấm",
+          "transition": "T08",
+          "to": "Chờ"
+        },
+        {
+          "from": "Chờ",
+          "event": "xin nhận",
+          "transition": "T12",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "làm thao tác",
+          "transition": "T15",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "bên nhận làm",
+          "transition": "bên nhận làm",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "kết quả",
+          "transition": "T21",
+          "to": "Chấm G4"
+        },
+        {
+          "from": "Chấm G4",
+          "event": "chấm",
+          "transition": "T37",
+          "to": "Chấm G5"
+        },
+        {
+          "from": "Chấm G5",
+          "event": "chấm",
+          "transition": "T41",
+          "to": "Kết thúc·Đạt"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "g2_missing_null",
+      "raw_override": {
+        "g2": null
+      },
+      "expected_rejection": true,
+      "final_state": "Kết thúc·Đạt",
+      "invariant_errors": [],
+      "accepted": true,
+      "trace": [
+        {
+          "from": "Mới",
+          "event": "khai xong",
+          "transition": "T01",
+          "to": "Chấm G1"
+        },
+        {
+          "from": "Chấm G1",
+          "event": "chấm",
+          "transition": "T05",
+          "to": "Chấm G2"
+        },
+        {
+          "from": "Chấm G2",
+          "event": "chấm",
+          "transition": "T08",
+          "to": "Chờ"
+        },
+        {
+          "from": "Chờ",
+          "event": "xin nhận",
+          "transition": "T12",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "làm thao tác",
+          "transition": "T15",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "bên nhận làm",
+          "transition": "bên nhận làm",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "kết quả",
+          "transition": "T21",
+          "to": "Chấm G4"
+        },
+        {
+          "from": "Chấm G4",
+          "event": "chấm",
+          "transition": "T37",
+          "to": "Chấm G5"
+        },
+        {
+          "from": "Chấm G5",
+          "event": "chấm",
+          "transition": "T41",
+          "to": "Kết thúc·Đạt"
+        }
+      ],
+      "status": "UNVALIDATED_INPUT_ACCEPTED"
+    },
+    {
+      "id": "g2_invalid_spelling",
+      "raw_override": {
+        "g2": "DU"
+      },
+      "expected_rejection": true,
+      "final_state": "Kết thúc·Đạt",
+      "invariant_errors": [],
+      "accepted": true,
+      "trace": [
+        {
+          "from": "Mới",
+          "event": "khai xong",
+          "transition": "T01",
+          "to": "Chấm G1"
+        },
+        {
+          "from": "Chấm G1",
+          "event": "chấm",
+          "transition": "T05",
+          "to": "Chấm G2"
+        },
+        {
+          "from": "Chấm G2",
+          "event": "chấm",
+          "transition": "T08",
+          "to": "Chờ"
+        },
+        {
+          "from": "Chờ",
+          "event": "xin nhận",
+          "transition": "T12",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "làm thao tác",
+          "transition": "T15",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "bên nhận làm",
+          "transition": "bên nhận làm",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "kết quả",
+          "transition": "T21",
+          "to": "Chấm G4"
+        },
+        {
+          "from": "Chấm G4",
+          "event": "chấm",
+          "transition": "T37",
+          "to": "Chấm G5"
+        },
+        {
+          "from": "Chấm G5",
+          "event": "chấm",
+          "transition": "T41",
+          "to": "Kết thúc·Đạt"
+        }
+      ],
+      "status": "UNVALIDATED_INPUT_ACCEPTED"
+    },
+    {
+      "id": "g5_missing_null",
+      "raw_override": {
+        "g5": null
+      },
+      "expected_rejection": true,
+      "final_state": "Kết thúc·Đạt",
+      "invariant_errors": [],
+      "accepted": true,
+      "trace": [
+        {
+          "from": "Mới",
+          "event": "khai xong",
+          "transition": "T01",
+          "to": "Chấm G1"
+        },
+        {
+          "from": "Chấm G1",
+          "event": "chấm",
+          "transition": "T05",
+          "to": "Chấm G2"
+        },
+        {
+          "from": "Chấm G2",
+          "event": "chấm",
+          "transition": "T08",
+          "to": "Chờ"
+        },
+        {
+          "from": "Chờ",
+          "event": "xin nhận",
+          "transition": "T12",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "làm thao tác",
+          "transition": "T15",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "bên nhận làm",
+          "transition": "bên nhận làm",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "kết quả",
+          "transition": "T21",
+          "to": "Chấm G4"
+        },
+        {
+          "from": "Chấm G4",
+          "event": "chấm",
+          "transition": "T37",
+          "to": "Chấm G5"
+        },
+        {
+          "from": "Chấm G5",
+          "event": "chấm",
+          "transition": "T41",
+          "to": "Kết thúc·Đạt"
+        }
+      ],
+      "status": "UNVALIDATED_INPUT_ACCEPTED"
+    },
+    {
+      "id": "g5_unknown",
+      "raw_override": {
+        "g5": "chưa biết"
+      },
+      "expected_rejection": true,
+      "final_state": "Kết thúc·Đạt",
+      "invariant_errors": [],
+      "accepted": true,
+      "trace": [
+        {
+          "from": "Mới",
+          "event": "khai xong",
+          "transition": "T01",
+          "to": "Chấm G1"
+        },
+        {
+          "from": "Chấm G1",
+          "event": "chấm",
+          "transition": "T05",
+          "to": "Chấm G2"
+        },
+        {
+          "from": "Chấm G2",
+          "event": "chấm",
+          "transition": "T08",
+          "to": "Chờ"
+        },
+        {
+          "from": "Chờ",
+          "event": "xin nhận",
+          "transition": "T12",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "làm thao tác",
+          "transition": "T15",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "bên nhận làm",
+          "transition": "bên nhận làm",
+          "to": "Đang chạy"
+        },
+        {
+          "from": "Đang chạy",
+          "event": "kết quả",
+          "transition": "T21",
+          "to": "Chấm G4"
+        },
+        {
+          "from": "Chấm G4",
+          "event": "chấm",
+          "transition": "T37",
+          "to": "Chấm G5"
+        },
+        {
+          "from": "Chấm G5",
+          "event": "chấm",
+          "transition": "T41",
+          "to": "Kết thúc·Đạt"
+        }
+      ],
+      "status": "UNVALIDATED_INPUT_ACCEPTED"
+    }
+  ],
+  "inputs": {
+    "checker_sha256": "9e9436cdc058cb480e08ed6dc7062e0d74b18aae43ccbd1e632342939e4ecbd2",
+    "html_sha256": "4d2a73a183c2ded90de6164a0e33eaf2ce47efef740edeb5157e67648fd69e83"
+  },
+  "static_errors": [],
+  "author_cases": [
+    {
+      "name": "1 việc bình thường tới đóng hồ sơ",
+      "result": null
+    },
+    {
+      "name": "2 M=1: lượt duy nhất vẫn chạy, lần xin sau bị chặn",
+      "result": null
+    },
+    {
+      "name": "3 gửi rồi máy chết, người xác nhận đã gửi",
+      "result": null
+    },
+    {
+      "name": "4 lượt cũ cố gửi sau khi bị thu hồi",
+      "result": null
+    },
+    {
+      "name": "5 không chống trùng, tra «chưa thấy»: không gửi lại",
+      "result": null
+    },
+    {
+      "name": "6 huỷ khi lệnh ngoài chưa rõ, lệnh cũ thành công sau",
+      "result": null
+    },
+    {
+      "name": "7 huỷ sau hạn chót",
+      "result": null
+    },
+    {
+      "name": "8 chờ hợp lệ đến giờ kiểm: không thành mồ côi",
+      "result": null
+    },
+    {
+      "name": "9 miễn G4.1 nhưng G4.2 vẫn sai: cổng không mở",
+      "result": null
+    },
+    {
+      "name": "10 miễn G4.1, câu khác đạt: cổng mở",
+      "result": null
+    },
+    {
+      "name": "11 miễn G1 hợp lệ: chấm lại không bắt câu đã miễn",
+      "result": null
+    },
+    {
+      "name": "12 lỗi điều kiện: sửa xong chấm lại G2 rồi mới chạy",
+      "result": null
+    },
+    {
+      "name": "13 bù mất phản hồi: đối soát lần bù, không bù 2 lần",
+      "result": null
+    },
+    {
+      "name": "14 giao lại lúc bù: về đúng bước bù",
+      "result": null
+    },
+    {
+      "name": "15 Owner chấp nhận phần không bù được: đóng huỷ",
+      "result": null
+    },
+    {
+      "name": "16 thử lại cùng mã khi có chống trùng: bên nhận làm 1 lần",
+      "result": null
+    }
+  ],
+  "verdict": "INPUT_VALIDATION_GAP",
+  "limitation": "These inputs demonstrate missing rejection in the executable model. A real PG schema may reject them, but no such binding or PG execution is tested here. g5=chưa biết is separately included because the general answer contract uses Unknown; the aggregate g5 domain has not been supplied as a validated input contract.",
+  "exit_code": 1
+}

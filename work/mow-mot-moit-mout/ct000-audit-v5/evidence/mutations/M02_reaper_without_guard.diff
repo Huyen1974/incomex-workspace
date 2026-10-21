@@ -1,0 +1,9 @@
+--- original/ban-duyet.html
++++ M02_reaper_without_guard/ban-duyet.html
+@@ -248,4 +248,4 @@
+   <tr><td>T18</td><td>Đang chạy</td><td>gia hạn</td><td>từ chối</td><td>lượt cũ không làm tác động mới (trần: hạn giữ)</td><td>Đang chạy</td></tr>
+-  <tr><td>T19</td><td>Đang chạy</td><td>hết hạn giữ</td><td>có dở</td><td>1 lệnh kiểm thế hệ + hạn đã qua; thế hệ +1; nhả chỗ</td><td>Đối soát·TT</td></tr>
+-  <tr><td>T20</td><td>Đang chạy</td><td>hết hạn giữ</td><td>không dở</td><td>1 lệnh kiểm thế hệ + hạn đã qua; thế hệ +1; nhả chỗ</td><td>Chờ</td></tr>
++  <tr><td>T19</td><td>Đang chạy</td><td>hết hạn giữ</td><td>có dở</td><td>thế hệ +1; nhả chỗ</td><td>Đối soát·TT</td></tr>
++  <tr><td>T20</td><td>Đang chạy</td><td>hết hạn giữ</td><td>không dở</td><td>thế hệ +1; nhả chỗ</td><td>Chờ</td></tr>
+   <tr><td>T21</td><td>Đang chạy + Chờ người·G3</td><td>kết quả</td><td>Đạt</td><td>nhả chỗ</td><td>Chấm G4</td></tr>

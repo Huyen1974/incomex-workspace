@@ -1,0 +1,638 @@
+{
+  "provenance": {
+    "source_path": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/snapshots/ban-duyet.html",
+    "source_slice_sha256": "b1fb2d7694ccd3493a4da7f1b72598285982556bfcbbb5414657bc30bd33fad3",
+    "collab_path": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/snapshots/COLLAB.md",
+    "collab_slice_sha256": "6cef1ba0212e996d5480bdd9f8befdc9179dd71a679a289332588233958079f2",
+    "author_checker_sha256": "0fdea208548331f1b6687972845a3c4981b33a1cc8bc293d316d0720ff824dd2",
+    "checker_verified_against_COLLAB": true,
+    "adaptation": "Original H7 Python unchanged; expected relative HTML path provided in isolated temporary cwd per case."
+  },
+  "baseline": {
+    "exit_code": 0,
+    "states": 32,
+    "transition_rows": 92,
+    "invariant_errors": 0,
+    "tests_passed": 14,
+    "tests_total": 14,
+    "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/baseline.stdout.txt",
+    "author_accepts": true
+  },
+  "results": [
+    {
+      "id": "M01_no_capacity_lock",
+      "targets": [
+        "T13"
+      ],
+      "category": "unsafe_action",
+      "explanation": "Nhận việc nhưng không khóa phạm vi, không giữ chỗ; có thể vượt trần.",
+      "diff_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M01_no_capacity_lock.diff",
+      "mutated_html_sha256": "892e88160902b28946e7834850f547c1d9e523dd2be40991b71277b21b369e03",
+      "exit_code": 0,
+      "states": 32,
+      "transition_rows": 92,
+      "invariant_errors": 0,
+      "tests_passed": 14,
+      "tests_total": 14,
+      "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M01_no_capacity_lock.stdout.txt",
+      "author_accepts": true
+    },
+    {
+      "id": "M02_reaper_without_guard",
+      "targets": [
+        "T19",
+        "T20"
+      ],
+      "category": "unsafe_action",
+      "explanation": "Thu hồi không kiểm thế hệ hoặc hạn hiện tại; có thể thu hồi lượt đã được gia hạn.",
+      "diff_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M02_reaper_without_guard.diff",
+      "mutated_html_sha256": "c18fcdc080dc55c3b764984799f9ee9668ef8901e4de6b5784b951e1fc542b4e",
+      "exit_code": 0,
+      "states": 32,
+      "transition_rows": 92,
+      "invariant_errors": 0,
+      "tests_passed": 14,
+      "tests_total": 14,
+      "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M02_reaper_without_guard.stdout.txt",
+      "author_accepts": true
+    },
+    {
+      "id": "M03_unbounded_but_word_tran",
+      "targets": [
+        "T17"
+      ],
+      "category": "unsafe_action",
+      "explanation": "Gia hạn vô hạn nhưng có từ trần trong câu phủ định; thử khả năng kiểm vòng.",
+      "diff_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M03_unbounded_but_word_tran.diff",
+      "mutated_html_sha256": "9d1bdbe0e3fbffc54b35879a2a92d3885f839479adc06b1da857c9cf91567dcd",
+      "exit_code": 0,
+      "states": 32,
+      "transition_rows": 92,
+      "invariant_errors": 0,
+      "tests_passed": 14,
+      "tests_total": 14,
+      "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M03_unbounded_but_word_tran.stdout.txt",
+      "author_accepts": true
+    },
+    {
+      "id": "M04_resend_unsafe",
+      "targets": [
+        "T24"
+      ],
+      "category": "unsafe_action",
+      "explanation": "Lỗi tạm không an toàn vẫn gửi lại ngay với mã mới trước khi đối soát.",
+      "diff_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M04_resend_unsafe.diff",
+      "mutated_html_sha256": "1fc6f96f9405f20463b29360f5cb91bd4007e79491fe0c0b5edd77153e14d405",
+      "exit_code": 0,
+      "states": 32,
+      "transition_rows": 92,
+      "invariant_errors": 0,
+      "tests_passed": 14,
+      "tests_total": 14,
+      "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M04_resend_unsafe.stdout.txt",
+      "author_accepts": true
+    },
+    {
+      "id": "M05_cancel_without_revoke",
+      "targets": [
+        "T90"
+      ],
+      "category": "unsafe_action",
+      "explanation": "Nhận yêu cầu huỷ nhưng không thu hồi lượt; cho người cũ tiếp tục tác động.",
+      "diff_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M05_cancel_without_revoke.diff",
+      "mutated_html_sha256": "35a4db312832fd3131c71a1a09afbaaeb4cbc594d3c478d1bb7190c69ba9d749",
+      "exit_code": 0,
+      "states": 32,
+      "transition_rows": 92,
+      "invariant_errors": 0,
+      "tests_passed": 14,
+      "tests_total": 14,
+      "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M05_cancel_without_revoke.stdout.txt",
+      "author_accepts": true
+    },
+    {
+      "id": "M06_discard_late_evidence",
+      "targets": [
+        "T70"
+      ],
+      "category": "unsafe_action",
+      "explanation": "Nhận câu trả lời đối soát nhưng bỏ bằng chứng thay vì ghi CAT-238.",
+      "diff_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M06_discard_late_evidence.diff",
+      "mutated_html_sha256": "6e9d569f6d2f8f74cd5532c2222b6e3d9b00f02362217b22f5e004b195c87e2b",
+      "exit_code": 0,
+      "states": 32,
+      "transition_rows": 92,
+      "invariant_errors": 0,
+      "tests_passed": 14,
+      "tests_total": 14,
+      "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M06_discard_late_evidence.stdout.txt",
+      "author_accepts": true
+    },
+    {
+      "id": "M07_claim_guard_always_true",
+      "targets": [
+        "T10",
+        "T11",
+        "T12",
+        "T13"
+      ],
+      "category": "unsafe_guard_definition",
+      "explanation": "Định nghĩa được nhận luôn đúng kể cả hết M, quá hạn hoặc hết chỗ.",
+      "diff_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M07_claim_guard_always_true.diff",
+      "mutated_html_sha256": "19bd430cab389034d2605018f905520793e3aac5dbe0a17fd8f0c650e16d43f0",
+      "exit_code": 0,
+      "states": 32,
+      "transition_rows": 92,
+      "invariant_errors": 0,
+      "tests_passed": 14,
+      "tests_total": 14,
+      "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M07_claim_guard_always_true.stdout.txt",
+      "author_accepts": true
+    },
+    {
+      "id": "M08_absent_means_not_done",
+      "targets": [
+        "T64"
+      ],
+      "category": "unsafe_guard_definition",
+      "explanation": "Cho phép coi tra chưa thấy là chắc chưa làm, dù lệnh cũ còn đang bay và không có chống trùng.",
+      "diff_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M08_absent_means_not_done.diff",
+      "mutated_html_sha256": "69d74c518c5575e9eedda5c087dc8a78eacac0f4a030b2242808531c25edcdc8",
+      "exit_code": 0,
+      "states": 32,
+      "transition_rows": 92,
+      "invariant_errors": 0,
+      "tests_passed": 14,
+      "tests_total": 14,
+      "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M08_absent_means_not_done.stdout.txt",
+      "author_accepts": true
+    },
+    {
+      "id": "M09_invalid_holder_and_timer",
+      "targets": [
+        "state:Đang chạy"
+      ],
+      "category": "unsafe_state_metadata",
+      "explanation": "Trạng thái đang chạy tuyên bố không có người giữ và không có lịch kiểm.",
+      "diff_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M09_invalid_holder_and_timer.diff",
+      "mutated_html_sha256": "371bfc808687717d95d5619369a4e26705be2bc0a2e82b0178cb0ca86fb5d149",
+      "exit_code": 0,
+      "states": 32,
+      "transition_rows": 92,
+      "invariant_errors": 0,
+      "tests_passed": 14,
+      "tests_total": 14,
+      "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M09_invalid_holder_and_timer.stdout.txt",
+      "author_accepts": true
+    },
+    {
+      "id": "M10_terminal_without_cleanup",
+      "targets": [
+        "T41"
+      ],
+      "category": "unsafe_action",
+      "explanation": "Đi tới Đạt nhưng không ghi trạng thái đóng, bỏ bằng chứng và giữ chỗ mãi.",
+      "diff_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M10_terminal_without_cleanup.diff",
+      "mutated_html_sha256": "e98646b5e2069fe1a3ef01e6d025ab2532fc816e6a3061bfd9282c8bc95295db",
+      "exit_code": 0,
+      "states": 32,
+      "transition_rows": 92,
+      "invariant_errors": 0,
+      "tests_passed": 14,
+      "tests_total": 14,
+      "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M10_terminal_without_cleanup.stdout.txt",
+      "author_accepts": true
+    },
+    {
+      "id": "M11_remove_all_value_definitions",
+      "targets": [
+        "Bảng Giá trị:all rows"
+      ],
+      "category": "missing_guard_definitions",
+      "explanation": "Xóa tất cả hàng định nghĩa điều kiện; chỉ giữ tên miền giá trị và tuyến trong hai bảng còn lại.",
+      "diff_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M11_remove_all_value_definitions.diff",
+      "mutated_html_sha256": "f3ac9ef9c935f543507a8e22ff63d97259733e164112a3fa8638f70400d98baf",
+      "exit_code": 0,
+      "states": 32,
+      "transition_rows": 92,
+      "invariant_errors": 0,
+      "tests_passed": 14,
+      "tests_total": 14,
+      "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/M11_remove_all_value_definitions.stdout.txt",
+      "author_accepts": true
+    },
+    {
+      "id": "C01_delete_T13",
+      "targets": [
+        "T13"
+      ],
+      "category": "positive_control",
+      "explanation": "Xóa tuyến nhận thành công: checker phải báo thiếu tuyến và ca thử trượt.",
+      "diff_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/C01_delete_T13.diff",
+      "mutated_html_sha256": "e6d562422d9ad16e1bbf24387e255b9d8982c82a7cdbf2f10a4a6106a1e071d7",
+      "exit_code": 0,
+      "states": 32,
+      "transition_rows": 91,
+      "invariant_errors": 6,
+      "tests_passed": 11,
+      "tests_total": 14,
+      "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/C01_delete_T13.stdout.txt",
+      "author_accepts": false
+    },
+    {
+      "id": "C02_empty_holder",
+      "targets": [
+        "state:Đang chạy"
+      ],
+      "category": "positive_control",
+      "explanation": "Để trống người giữ: checker phải báo invariant 6.",
+      "diff_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/C02_empty_holder.diff",
+      "mutated_html_sha256": "94c41c95f27d5d7ba9db1b3725b70a6df07871ac462d2075e00bb1b934d016bb",
+      "exit_code": 0,
+      "states": 32,
+      "transition_rows": 92,
+      "invariant_errors": 1,
+      "tests_passed": 14,
+      "tests_total": 14,
+      "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/C02_empty_holder.stdout.txt",
+      "author_accepts": false
+    },
+    {
+      "id": "C03_unbounded_without_word_tran",
+      "targets": [
+        "T17"
+      ],
+      "category": "positive_control",
+      "explanation": "Cùng nghĩa gia hạn vô hạn nhưng không có từ trần: checker phải báo vòng.",
+      "diff_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/C03_unbounded_without_word_tran.diff",
+      "mutated_html_sha256": "b17420ddbda0a43a2ee686b8d7e173e1da2b7df5873182c6094a8726586a8f1f",
+      "exit_code": 0,
+      "states": 32,
+      "transition_rows": 92,
+      "invariant_errors": 1,
+      "tests_passed": 14,
+      "tests_total": 14,
+      "stdout_file": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/C03_unbounded_without_word_tran.stdout.txt",
+      "author_accepts": false
+    }
+  ],
+  "direct_probes": {
+    "probes": [
+      {
+        "id": "P01_explicit_duoc_even_at_M",
+        "start": "Chờ",
+        "event": "xin nhận",
+        "supplied_value": "được",
+        "context_before": {
+          "lan": 1,
+          "M": 1
+        },
+        "end": "Đang chạy",
+        "context_after": {
+          "lan": 2,
+          "M": 1
+        },
+        "path": [
+          "Chờ",
+          "T13→Đang chạy"
+        ]
+      },
+      {
+        "id": "P02_explicit_duoc_after_deadline",
+        "start": "Chờ",
+        "event": "xin nhận",
+        "supplied_value": "được",
+        "context_before": {
+          "lan": 0,
+          "M": 3,
+          "now": 101,
+          "deadline": 100
+        },
+        "end": "Đang chạy",
+        "context_after": {
+          "lan": 1,
+          "M": 3,
+          "now": 101,
+          "deadline": 100
+        },
+        "path": [
+          "Chờ",
+          "T13→Đang chạy"
+        ]
+      },
+      {
+        "id": "P03_explicit_duoc_scope_full",
+        "start": "Chờ",
+        "event": "xin nhận",
+        "supplied_value": "được",
+        "context_before": {
+          "lan": 0,
+          "M": 3,
+          "scope_running": 1,
+          "scope_limit": 1
+        },
+        "end": "Đang chạy",
+        "context_after": {
+          "lan": 1,
+          "M": 3,
+          "scope_running": 1,
+          "scope_limit": 1
+        },
+        "path": [
+          "Chờ",
+          "T13→Đang chạy"
+        ]
+      }
+    ],
+    "note": "These are simulator probes with supplied labels; unused context fields demonstrate missing raw-condition evaluation, not an exploit in live PostgreSQL.",
+    "coverage": {
+      "distinct_transition_ids": 35,
+      "total_transition_ids": 92,
+      "covered_transition_ids": [
+        "T01",
+        "T05",
+        "T09",
+        "T10",
+        "T13",
+        "T14",
+        "T19",
+        "T20",
+        "T21",
+        "T23",
+        "T24",
+        "T26",
+        "T33",
+        "T36",
+        "T37",
+        "T39",
+        "T41",
+        "T45",
+        "T49",
+        "T57",
+        "T58",
+        "T59",
+        "T60",
+        "T61",
+        "T65",
+        "T66",
+        "T69",
+        "T70",
+        "T71",
+        "T76",
+        "T77",
+        "T79",
+        "T87",
+        "T88",
+        "T90"
+      ],
+      "uncovered_transition_ids": [
+        "T02",
+        "T03",
+        "T04",
+        "T06",
+        "T07",
+        "T08",
+        "T11",
+        "T12",
+        "T15",
+        "T16",
+        "T17",
+        "T18",
+        "T22",
+        "T25",
+        "T27",
+        "T28",
+        "T29",
+        "T30",
+        "T31",
+        "T32",
+        "T34",
+        "T35",
+        "T38",
+        "T40",
+        "T42",
+        "T43",
+        "T44",
+        "T46",
+        "T47",
+        "T48",
+        "T50",
+        "T51",
+        "T52",
+        "T53",
+        "T54",
+        "T55",
+        "T56",
+        "T62",
+        "T63",
+        "T64",
+        "T67",
+        "T68",
+        "T72",
+        "T73",
+        "T74",
+        "T75",
+        "T78",
+        "T80",
+        "T81",
+        "T82",
+        "T83",
+        "T84",
+        "T85",
+        "T86",
+        "T89",
+        "T91",
+        "T92"
+      ],
+      "distinct_expanded_state_event_value_pairs": 36,
+      "total_expanded_state_event_value_pairs": 160,
+      "expanded_rows": 160,
+      "tests_starting_at_Moi": 1,
+      "tests_starting_elsewhere": 13
+    },
+    "per_test": [
+      {
+        "name": "1 bình thường",
+        "start": "Mới",
+        "end": "Kết thúc·Đạt",
+        "expected": "Kết thúc·Đạt",
+        "transition_ids": [
+          "T01",
+          "T05",
+          "T09",
+          "T13",
+          "T21",
+          "T37",
+          "T41"
+        ]
+      },
+      {
+        "name": "2 M=1",
+        "start": "Chờ",
+        "end": "Chờ ĐK·G2",
+        "expected": "Chờ ĐK·G2",
+        "transition_ids": [
+          "T13",
+          "T23",
+          "T10"
+        ]
+      },
+      {
+        "name": "3 B hoặc C",
+        "start": "Chờ ĐK·G2",
+        "end": "Chờ",
+        "expected": "Chờ",
+        "transition_ids": [
+          "T58",
+          "T57",
+          "T09"
+        ]
+      },
+      {
+        "name": "4 chờ nghiệm thu",
+        "start": "Chấm G4",
+        "end": "Chấm G5",
+        "expected": "Chấm G5",
+        "transition_ids": [
+          "T36",
+          "T49",
+          "T45",
+          "T37"
+        ]
+      },
+      {
+        "name": "5 G5 lỗi trước",
+        "start": "Chấm G5",
+        "end": "Chờ ĐK·G5",
+        "expected": "Chờ ĐK·G5",
+        "transition_ids": [
+          "T39"
+        ]
+      },
+      {
+        "name": "6 gửi rồi chết",
+        "start": "Đang chạy",
+        "end": "Chấm G4",
+        "expected": "Chấm G4",
+        "transition_ids": [
+          "T19",
+          "T65",
+          "T70",
+          "T61"
+        ]
+      },
+      {
+        "name": "7 chưa thấy",
+        "start": "Đang chạy",
+        "end": "Chờ ĐK·ĐS·TT",
+        "expected": "Chờ ĐK·ĐS·TT",
+        "transition_ids": [
+          "T24",
+          "T65",
+          "T71"
+        ]
+      },
+      {
+        "name": "8 huỷ khi lệnh chưa rõ",
+        "start": "Đang chạy",
+        "end": "Kết thúc·Huỷ",
+        "expected": "Kết thúc·Huỷ",
+        "transition_ids": [
+          "T90",
+          "T76",
+          "T66",
+          "T79"
+        ]
+      },
+      {
+        "name": "9 huỷ sau hạn",
+        "start": "Chờ",
+        "end": "Kết thúc·Huỷ",
+        "expected": "Kết thúc·Huỷ",
+        "transition_ids": [
+          "T14",
+          "T60",
+          "T88",
+          "T77",
+          "T79"
+        ]
+      },
+      {
+        "name": "10 đến giờ không mồ côi",
+        "start": "Chờ ĐK·G2",
+        "end": "Chờ ĐK·G2",
+        "expected": "Chờ ĐK·G2",
+        "transition_ids": [
+          "T58",
+          "T58"
+        ]
+      },
+      {
+        "name": "11 miễn 1 câu",
+        "start": "Chấm G4",
+        "end": "Chờ Owner",
+        "expected": "Chờ Owner",
+        "transition_ids": [
+          "T33",
+          "T87",
+          "T33"
+        ]
+      },
+      {
+        "name": "12 lỗi điều kiện",
+        "start": "Đang chạy",
+        "end": "Chờ",
+        "expected": "Chờ",
+        "transition_ids": [
+          "T26",
+          "T57",
+          "T09"
+        ]
+      },
+      {
+        "name": "13 quá hạn rồi huỷ",
+        "start": "Quá hạn",
+        "end": "Kết thúc·Huỷ",
+        "expected": "Kết thúc·Huỷ",
+        "transition_ids": [
+          "T59",
+          "T69",
+          "T90",
+          "T76",
+          "T66",
+          "T79"
+        ]
+      },
+      {
+        "name": "14 chết 2 lần, M=2",
+        "start": "Chờ",
+        "end": "Chờ ĐK·G2",
+        "expected": "Chờ ĐK·G2",
+        "transition_ids": [
+          "T13",
+          "T20",
+          "T13",
+          "T20",
+          "T10"
+        ]
+      }
+    ]
+  },
+  "audit_verdict": {
+    "exit_code": 1,
+    "failure_reasons": [
+      "unsafe_mutation_accepted",
+      "H7_reported_failure_but_exited_zero"
+    ],
+    "scope": "Static checker audit only; a clean baseline is not deployment or live PostgreSQL PASS."
+  },
+  "totals": {
+    "unsafe_mutations": 11,
+    "unsafe_accepted": 11,
+    "controls": 3,
+    "controls_rejected": 3,
+    "all_process_exit_codes_zero": true
+  },
+  "source_snapshots_unchanged": true,
+  "author_checker_unchanged": true
+}

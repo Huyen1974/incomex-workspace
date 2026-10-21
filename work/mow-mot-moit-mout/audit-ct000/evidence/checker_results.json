@@ -1,0 +1,288 @@
+{
+  "audit": "CT000-v6-checker-engine",
+  "findings": [
+    {
+      "id": "E03",
+      "status": "REPRODUCED_CHECKER_COVERAGE_GAP",
+      "title": "The two-work capacity checker ignores the actual claim predicate.",
+      "mutation": {
+        "table": "Bảng Giá trị",
+        "event": "xin nhận",
+        "before": "hết M ← lần_nhận >= M ; quá hạn ← quá_hạn_gốc ; hết chỗ ← not còn_chỗ ; được ← True",
+        "after": "hết M ← lần_nhận >= M ; quá hạn ← quá_hạn_gốc ; hết chỗ ← False ; được ← True"
+      },
+      "mutant_static_errors": [],
+      "mutant_concurrency_error": null,
+      "mutant_cases_passed": 16,
+      "actual_capacity_full_probe": {
+        "input": {
+          "state": "Chờ",
+          "còn_chỗ": false,
+          "lần_nhận": 0,
+          "M": 2,
+          "quá_hạn_gốc": false
+        },
+        "baseline": {
+          "transition": "T11",
+          "target": "Chờ"
+        },
+        "mutant": {
+          "transition": "T12",
+          "target": "Đang chạy",
+          "lần_nhận": 1
+        }
+      },
+      "why_existing_17_graphs_cannot_activate_this_fault": {
+        "initial_capacity": [
+          [
+            "thường",
+            true
+          ],
+          [
+            "chống trùng",
+            true
+          ],
+          [
+            "M=1",
+            true
+          ],
+          [
+            "không tra được",
+            true
+          ],
+          [
+            "xác nhận vắng",
+            true
+          ],
+          [
+            "G1 thiếu",
+            true
+          ],
+          [
+            "G1 chưa có Loại việc",
+            true
+          ],
+          [
+            "G2 chờ",
+            true
+          ],
+          [
+            "G2 lỗi",
+            true
+          ],
+          [
+            "G4 câu miễn được sai",
+            true
+          ],
+          [
+            "G4 câu khác sai",
+            true
+          ],
+          [
+            "G4 chờ duyệt",
+            true
+          ],
+          [
+            "G4 chưa biết",
+            true
+          ],
+          [
+            "G5 lỗi, chờ nhận",
+            true
+          ],
+          [
+            "không có cách bù",
+            true
+          ],
+          [
+            "làm một phần",
+            true
+          ],
+          [
+            "làm sai",
+            true
+          ]
+        ],
+        "operation_assigns_capacity": false,
+        "environment_or_choice_generator_mentions_capacity": false
+      },
+      "limitation": "All 17 graphs were NOT rerun. The unchanged True field makes this predicate mutation inert within their generated inputs. The direct false-capacity probe demonstrates the missing case.",
+      "fix": "Run both jobs through the real claim classifier/actions over one shared capacity value; test stale capacity reads, full capacity, atomic claim and release."
+    },
+    {
+      "id": "E01",
+      "status": "REPRODUCED_MUTATION_REPORTING_ERROR",
+      "title": "An incomplete search is counted as a killed mutant.",
+      "actual_cutoff_result": [
+        [
+          "quá lớn",
+          4
+        ]
+      ],
+      "main_control": {
+        "test_kind": "CONTROLLED_MAIN_REPORTING_PROBE",
+        "baseline_bfs": "NOT_RUN; accepted baseline injected solely to isolate mutation reporting",
+        "mutant_outcome": "cutoff",
+        "process_exit": 0,
+        "calls": [
+          {
+            "mutant": false,
+            "baseline_report": true
+          },
+          {
+            "mutant": true,
+            "baseline_report": false
+          }
+        ],
+        "stdout": "BẢNG: 35 trạng thái · 107 dòng chuyển · 226 cặp trạng thái×giá trị · 49 thao tác · 11 bất biến · 16 ca · 17 kịch bản\nLỖI: 0 · 0 giây\nĐỘT BIẾN: 1 bản hỏng · bắt được 1 · sống sót 0 · 0 giây\n",
+        "incorrectly_reported_killed": true
+      },
+      "fix": "Classify state limit, timeout and OOM as INCONCLUSIVE. Require a concrete violated property/trace to count a kill; incomplete campaigns must not exit0."
+    },
+    {
+      "id": "E02",
+      "status": "REPRODUCED_MUTATION_REPORTING_ERROR",
+      "title": "An exception in the checker is counted as a killed mutant.",
+      "main_control": {
+        "test_kind": "CONTROLLED_MAIN_REPORTING_PROBE",
+        "baseline_bfs": "NOT_RUN; accepted baseline injected solely to isolate mutation reporting",
+        "mutant_outcome": "exception",
+        "process_exit": 0,
+        "calls": [
+          {
+            "mutant": false,
+            "baseline_report": true
+          },
+          {
+            "mutant": true,
+            "baseline_report": false
+          }
+        ],
+        "stdout": "BẢNG: 35 trạng thái · 107 dòng chuyển · 226 cặp trạng thái×giá trị · 49 thao tác · 11 bất biến · 16 ca · 17 kịch bản\nLỖI: 0 · 0 giây\nĐỘT BIẾN: 1 bản hỏng · bắt được 1 · sống sót 0 · 0 giây\n",
+        "incorrectly_reported_killed": true
+      },
+      "fix": "Separate expected invalid-spec rejection from an internal checker exception. Unexpected exceptions are ERROR/INCONCLUSIVE, never evidence that a safety defect was detected."
+    }
+  ],
+  "scope": "Local source/unit probes only; no PG, Flow, remote writes, or exhaustive 17-scenario run.",
+  "inputs": {
+    "checker": "/workspace/scratch/a6ca59e05764/ct000-shared-v6/work/mow-mot-moit-mout/audit-ct000/snapshots/kiem-ct000-4.py",
+    "checker_sha256": "9e9436cdc058cb480e08ed6dc7062e0d74b18aae43ccbd1e632342939e4ecbd2",
+    "html": "/workspace/scratch/a6ca59e05764/ct000-shared-v6/work/mow-mot-moit-mout/audit-ct000/snapshots/ban-duyet.html",
+    "html_sha256": "4d2a73a183c2ded90de6164a0e33eaf2ce47efef740edeb5157e67648fd69e83"
+  },
+  "baseline": {
+    "static_errors": [],
+    "concurrency_error": null,
+    "case_results": [
+      {
+        "name": "1 việc bình thường tới đóng hồ sơ",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "2 M=1: lượt duy nhất vẫn chạy, lần xin sau bị chặn",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "3 gửi rồi máy chết, người xác nhận đã gửi",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "4 lượt cũ cố gửi sau khi bị thu hồi",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "5 không chống trùng, tra «chưa thấy»: không gửi lại",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "6 huỷ khi lệnh ngoài chưa rõ, lệnh cũ thành công sau",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "7 huỷ sau hạn chót",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "8 chờ hợp lệ đến giờ kiểm: không thành mồ côi",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "9 miễn G4.1 nhưng G4.2 vẫn sai: cổng không mở",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "10 miễn G4.1, câu khác đạt: cổng mở",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "11 miễn G1 hợp lệ: chấm lại không bắt câu đã miễn",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "12 lỗi điều kiện: sửa xong chấm lại G2 rồi mới chạy",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "13 bù mất phản hồi: đối soát lần bù, không bù 2 lần",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "14 giao lại lúc bù: về đúng bước bù",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "15 Owner chấp nhận phần không bù được: đóng huỷ",
+        "passed": true,
+        "failure": null
+      },
+      {
+        "name": "16 thử lại cùng mã khi có chống trùng: bên nhận làm 1 lần",
+        "passed": true,
+        "failure": null
+      }
+    ],
+    "cases_passed": 16,
+    "states": 35,
+    "transitions": 107,
+    "scenarios": 17,
+    "built_in_mutations": 242
+  },
+  "actual_bounded_search": {
+    "limit": 1,
+    "errors": [
+      [
+        "quá lớn",
+        4
+      ]
+    ],
+    "complete_graph": false
+  },
+  "concurrency_name_only_control": {
+    "mutation": {
+      "operation": "giữ chỗ",
+      "before": "giữ_chỗ = True",
+      "after": "giữ_chỗ = False"
+    },
+    "concurrency_error": null,
+    "first_case_failure": "bước 4 («xin nhận»): vi phạm ('B5 đang chạy thì giữ chỗ', 'Đang chạy')",
+    "interpretation": "The concurrency subcheck passes despite the changed body; the ordinary case DOES detect B5. This is not presented as a mutant surviving the entire checker."
+  },
+  "inputs_unchanged": true,
+  "exit_code": 1,
+  "verdict": "CHECKER_FINDINGS_REMAIN"
+}

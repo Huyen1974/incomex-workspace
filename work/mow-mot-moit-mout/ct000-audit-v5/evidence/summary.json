@@ -1,0 +1,48 @@
+{
+  "scope": "Version-scoped source and checker audit; no PostgreSQL, Directus, or external side effects executed.",
+  "release_verdict": "BLOCKED_PG_AND_FLOW_NOT_EXECUTED",
+  "inputs": {
+    "html": {
+      "path": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/snapshots/ban-duyet.html",
+      "sha256": "b1fb2d7694ccd3493a4da7f1b72598285982556bfcbbb5414657bc30bd33fad3"
+    },
+    "collab": {
+      "path": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/snapshots/COLLAB.md",
+      "sha256": "6cef1ba0212e996d5480bdd9f8befdc9179dd71a679a289332588233958079f2"
+    },
+    "checker": {
+      "path": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/scripts/author_checker.py",
+      "sha256": "0fdea208548331f1b6687972845a3c4981b33a1cc8bc293d316d0720ff824dd2"
+    }
+  },
+  "checks": [
+    {
+      "name": "independent",
+      "report": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/independent_results.json",
+      "exit_code": 1,
+      "reported_verdict": null
+    },
+    {
+      "name": "semantic",
+      "report": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/semantic_report.json",
+      "exit_code": 1,
+      "reported_verdict": "FINDINGS_REMAIN"
+    },
+    {
+      "name": "mutation",
+      "report": "/workspace/scratch/a6ca59e05764/ct000-audit-v5/evidence/mutations/results.json",
+      "exit_code": 1,
+      "reported_verdict": {
+        "exit_code": 1,
+        "failure_reasons": [
+          "unsafe_mutation_accepted",
+          "H7_reported_failure_but_exited_zero"
+        ],
+        "scope": "Static checker audit only; a clean baseline is not deployment or live PostgreSQL PASS."
+      }
+    }
+  ],
+  "exit_code": 1,
+  "inputs_unchanged": true,
+  "verdict": "REJECT_CURRENT_SPEC_AND_CHECKER"
+}

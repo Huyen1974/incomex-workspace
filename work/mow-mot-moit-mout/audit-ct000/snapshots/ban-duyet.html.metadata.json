@@ -1,0 +1,19 @@
+{
+  "version": "b94a70383f2e44ffadd9fa6c3e60868152eb0027c53cbb82e9ea8e1184625999",
+  "total_bytes": 871186,
+  "total_lines": 2465,
+  "total_chars": 780027,
+  "start_char": 541135,
+  "end_char": 706135,
+  "next_cursor": {
+    "start_char": 706135
+  },
+  "freshness": "fresh",
+  "recheck_required": false,
+  "source_head": "250792dce8380e94aa5fe85ce22477925150e6b8",
+  "refreshed_at": "2026-10-21T13:08:03Z",
+  "worktree_dirty": false,
+  "remote_head": "250792dce8380e94aa5fe85ce22477925150e6b8",
+  "previous_source_head": "51848a326af6e1b995a76458cd790763dcdc7322",
+  "local_sha256": "4d2a73a183c2ded90de6164a0e33eaf2ce47efef740edeb5157e67648fd69e83"
+}

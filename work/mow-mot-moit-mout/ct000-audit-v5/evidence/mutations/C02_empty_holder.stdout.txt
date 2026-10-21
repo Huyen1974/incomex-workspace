@@ -1,0 +1,17 @@
+TRẠNG THÁI 32 · DÒNG 92 · LỖI 1
+   ('6', 'Đang chạy')
+ĐẠT 1 bình thường :: Mới · T01→Chấm G1 · T05→Chấm G2 · T09→Chờ · T13→Đang chạy · T21→Chấm G4 · T37→Chấm G5 · T41→Kết thúc·Đạt
+ĐẠT 2 M=1 :: Chờ · T13→Đang chạy · T23→Chờ · T10→Chờ ĐK·G2
+ĐẠT 3 B hoặc C :: Chờ ĐK·G2 · T58→Chờ ĐK·G2 · T57→Chấm G2 · T09→Chờ
+ĐẠT 4 chờ nghiệm thu :: Chấm G4 · T36→Chờ người·G4 · T49→Chờ người·G4 · T45→Chấm G4 · T37→Chấm G5
+ĐẠT 5 G5 lỗi trước :: Chấm G5 · T39→Chờ ĐK·G5
+ĐẠT 6 gửi rồi chết :: Đang chạy · T19→Đối soát·TT · T65→Chờ người·ĐS·TT · T70→Đối soát·TT · T61→Chấm G4
+ĐẠT 7 chưa thấy :: Đang chạy · T24→Đối soát·TT · T65→Chờ người·ĐS·TT · T71→Chờ ĐK·ĐS·TT
+ĐẠT 8 huỷ khi lệnh chưa rõ :: Đang chạy · T90→Xét huỷ · T76→Đối soát·Huỷ · T66→Bù · T79→Kết thúc·Huỷ
+ĐẠT 9 huỷ sau hạn :: Chờ · T14→Quá hạn · T60→Chờ Owner · T88→Xét huỷ · T77→Bù · T79→Kết thúc·Huỷ
+ĐẠT 10 đến giờ không mồ côi :: Chờ ĐK·G2 · T58→Chờ ĐK·G2 · T58→Chờ ĐK·G2
+ĐẠT 11 miễn 1 câu :: Chấm G4 · T33→Chờ Owner · T87→Chấm G4 · T33→Chờ Owner
+ĐẠT 12 lỗi điều kiện :: Đang chạy · T26→Chờ ĐK·G2 · T57→Chấm G2 · T09→Chờ
+ĐẠT 13 quá hạn rồi huỷ :: Quá hạn · T59→Đối soát·QH · T69→Chờ người·ĐS·QH · T90→Xét huỷ · T76→Đối soát·Huỷ · T66→Bù · T79→Kết thúc·Huỷ
+ĐẠT 14 chết 2 lần, M=2 :: Chờ · T13→Đang chạy · T20→Chờ · T13→Đang chạy · T20→Chờ · T10→Chờ ĐK·G2
+CA THỬ ĐẠT 14 / 14
