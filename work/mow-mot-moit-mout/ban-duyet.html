@@ -1232,61 +1232,54 @@ Mỗi lần sửa UI phải có phiếu trong báo cáo kiểm với:
   <table>
   <thead><tr><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">④ Mã</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột STT">?</span><span class="t1-mapping-table__tip" role="tooltip">Số câu = giai đoạn . thứ tự, gọi tắt «câu 2.4». Mã ổn định, không đổi khi thêm câu.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Câu hỏi</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Câu hỏi">?</span><span class="t1-mapping-table__tip" role="tooltip">Câu bắt buộc trả lời, giống nhau cho mọi việc ở mọi vị trí.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Trả lời phải là</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Trả lời phải là">?</span><span class="t1-mapping-table__tip" role="tooltip">Dạng trả lời máy kiểm được (mã, số, lựa chọn). Lý do viết thêm được, nhưng không thay các ô bắt buộc.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Ai trả lời</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Ai trả lời">?</span><span class="t1-mapping-table__tip" role="tooltip">Người yêu cầu · Loại việc (khai 1 lần, mọi việc cùng loại kế thừa) · Máy (tự điền khi chạy) · Người làm · Người duyệt.</span></span></th><th><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Nhóm</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Nhóm">?</span><span class="t1-mapping-table__tip" role="tooltip">Nhóm công cụ (③) giúp trả lời câu này.</span></span></th></tr></thead>
   <tbody>
-  <tr><th colspan="4">Trước · Mục tiêu</th></tr>
-  <tr><td>1</td><td>Để làm gì?</td><td>mục tiêu có số</td><td>Mục tiêu</td></tr>
-  <tr><td>2</td><td>Ai yêu cầu, vì sao?</td><td>mã Việc + lý do 1 câu</td><td>Việc</td></tr>
-  <tr><td>3</td><td>Xong đo bằng số nào?</td><td>điều kiện đếm được</td><td>Điều kiện</td></tr>
-  <tr><th colspan="4">Trước · Người</th></tr>
-  <tr><td>4</td><td>Ai làm?</td><td>😊 / 🤖 + mã vai</td><td>Vai</td></tr>
-  <tr><td>5</td><td>Ai duyệt kết quả?</td><td>mã vai</td><td>Vai</td></tr>
-  <tr><td>6</td><td>Ai được báo?</td><td>mã vai</td><td>Vai</td></tr>
-  <tr><th colspan="4">Trước · Thời điểm</th></tr>
-  <tr><td>7</td><td>Khi nào bắt đầu?</td><td>sự kiện</td><td>Trigger</td></tr>
-  <tr><td>8</td><td>Điều kiện trước?</td><td>điều kiện kiểm được</td><td>Điều kiện</td></tr>
-  <tr><td>9</td><td>Hạn chót?</td><td>thời lượng</td><td>Config</td></tr>
-  <tr><td>10</td><td>Xếp hàng theo gì?</td><td>thời gian · ưu tiên · hạn chót</td><td>Config</td></tr>
-  <tr><th colspan="4">Trước · Đầu vào</th></tr>
-  <tr><td>11</td><td>Cần Field nào?</td><td>danh sách mã Field</td><td>Field</td></tr>
-  <tr><td>12</td><td>Đọc ở sổ nào?</td><td>mã Master list</td><td>Master list</td></tr>
-  <tr><td>13</td><td>Đọc bản ghi nào?</td><td>cùng hồ sơ / dùng chung</td><td>Bản ghi</td></tr>
-  <tr><td>14</td><td>Đầu vào hợp lệ khi nào?</td><td>mã Điều luật</td><td>Điều luật</td></tr>
-  <tr><th colspan="4">Trước · Phụ thuộc và quyền</th></tr>
-  <tr><td>15</td><td>Cần việc nào xong trước?</td><td>mã Hồ sơ</td><td>Hồ sơ</td></tr>
-  <tr><td>16</td><td>Cần công cụ, quy trình nào?</td><td>mã MOW / DOT / Tool</td><td>MOW</td></tr>
-  <tr><td>17</td><td>Có quyền đọc, ghi?</td><td>mã quyền</td><td>Quyền</td></tr>
-  <tr><td>18</td><td>Dùng phiên bản nào?</td><td>số phiên bản, ghim lại</td><td>Phiên bản</td></tr>
-  <tr><th colspan="4">Trong · Cách làm</th></tr>
-  <tr><td>19</td><td>Làm đúng 1 việc gì?</td><td>1 động từ + 1 đối tượng</td><td>Bước con</td></tr>
-  <tr><td>20</td><td>Theo quy trình, bước nào?</td><td>mã MOW + bước</td><td>MOW</td></tr>
-  <tr><td>21</td><td>Người hay máy làm?</td><td>😊 / 🤖</td><td>Config</td></tr>
-  <tr><td>22</td><td>Chạy song song tối đa?</td><td>số</td><td>Config</td></tr>
-  <tr><td>23</td><td>Chạy lại có trùng không?</td><td>khoá chống trùng</td><td>Luật chạy</td></tr>
-  <tr><td>24</td><td>Khoá gì để không đụng?</td><td>khoá dòng</td><td>Luật chạy</td></tr>
-  <tr><th colspan="4">Trong · Đầu ra</th></tr>
-  <tr><td>25</td><td>Tạo, sửa ra cái gì?</td><td>mã loài</td><td>Loài</td></tr>
-  <tr><td>26</td><td>Ghi vào sổ, Field nào?</td><td>mã Master list + mã Field</td><td>Master list</td></tr>
-  <tr><td>27</td><td>Đầu ra hợp lệ khi nào?</td><td>mã Điều luật</td><td>Điều luật</td></tr>
-  <tr><td>28</td><td>Gửi ra ngoài gì?</td><td>đúng 1 lần, qua hộp thư đi</td><td>Hộp thư đi</td></tr>
-  <tr><th colspan="4">Trong · Theo dõi</th></tr>
-  <tr><td>29</td><td>Trạng thái ghi ở đâu?</td><td>mã Hồ sơ · lượt</td><td>Hồ sơ</td></tr>
-  <tr><td>30</td><td>Chờ người thì sao?</td><td>lưu trạng thái + hạn chờ</td><td>Config</td></tr>
-  <tr><th colspan="4">Sau · Kiểm</th></tr>
-  <tr><td>31</td><td>Đạt điều kiện xong chưa?</td><td>số đạt / số cần</td><td>Điều kiện</td></tr>
-  <tr><td>32</td><td>Số lượng có khớp?</td><td>lệch = 0</td><td>Test</td></tr>
-  <tr><td>33</td><td>Ai, máy nào kiểm?</td><td>😊 / 🤖 + mã</td><td>Test</td></tr>
-  <tr><th colspan="4">Sau · Bằng chứng</th></tr>
-  <tr><td>34</td><td>Biên nhận?</td><td>ai · lúc nào · đọc gì · ghi gì</td><td>Bằng chứng</td></tr>
-  <tr><td>35</td><td>Bằng chứng lưu ở đâu?</td><td>mã Master list</td><td>Master list</td></tr>
-  <tr><th colspan="4">Sau · Chưa xong</th></tr>
-  <tr><td>36</td><td>Kết quả?</td><td>đạt / trả về / lỗi</td><td>Info contract</td></tr>
-  <tr><td>37</td><td>Thử lại mấy lần, cách bao lâu?</td><td>M lần · cách T</td><td>Config</td></tr>
-  <tr><td>38</td><td>Quá giờ báo ai?</td><td>thời lượng + mã vai</td><td>Config</td></tr>
-  <tr><td>39</td><td>Đã xong mà phải đổi?</td><td>mã bước bù</td><td>MOW</td></tr>
-  <tr><td>40</td><td>Không tự xử lý được?</td><td>chuyển Xử lý lỗi (CT-000.4)</td><td>Sự cố</td></tr>
-  <tr><th colspan="4">Sau · Bàn giao</th></tr>
-  <tr><td>41</td><td>Việc tiếp theo, ai nhận?</td><td>mã Việc + mã vai</td><td>Việc</td></tr>
-  <tr><td>42</td><td>Cập nhật tổng ở đâu?</td><td>mã Master list + cột</td><td>Master list</td></tr>
-  <tr><td>43</td><td>Có luật mới cần ghi?</td><td>mã Điều luật mới / không</td><td>Điều luật</td></tr>
+  <tr><th colspan="5">1 Khai báo · cổng Hợp lệ (Definition of Ready)</th></tr>
+  <tr><td>1.1</td><td>Ai yêu cầu?</td><td>mã người + mã vai + mã Việc</td><td>Người yêu cầu</td><td>1</td></tr>
+  <tr><td>1.2</td><td>Muốn gì?</td><td>1 động từ + 1 đối tượng</td><td>Người yêu cầu</td><td>1</td></tr>
+  <tr><td>1.3</td><td>Vì sao cần?</td><td>lý do 1 câu</td><td>Người yêu cầu</td><td>1</td></tr>
+  <tr><td>1.4</td><td>Xong khi nào?</td><td>danh sách tiêu chí kiểm chứng được, mỗi tiêu chí có cách kiểm</td><td>Người yêu cầu</td><td>1</td></tr>
+  <tr><td>1.5</td><td>Không được làm hỏng gì?</td><td>danh sách thứ phải giữ nguyên</td><td>Người yêu cầu</td><td>1</td></tr>
+  <tr><td>1.6</td><td>Áp lên những đối tượng nào?</td><td>danh sách mã, hoặc điều kiện chọn (Miền CV)</td><td>Người yêu cầu</td><td>1</td></tr>
+  <tr><td>1.7</td><td>Hạn chót?</td><td>mốc tính + thời lượng</td><td>Người yêu cầu</td><td>1</td></tr>
+  <tr><td>1.8</td><td>Ưu tiên?</td><td>cao · thường · thấp</td><td>Người yêu cầu</td><td>1</td></tr>
+  <tr><td>1.9</td><td>Thuộc Loại việc nào?</td><td>mã Loại việc (MOW) / chưa có</td><td>Máy gợi · người xác nhận</td><td>1 · 2</td></tr>
+  <tr><th colspan="5">2 Chuẩn bị · cổng Sẵn sàng</th></tr>
+  <tr><td>2.1</td><td>Ai làm lượt này?</td><td>mã người hoặc agent cụ thể + vai</td><td>Máy (theo Config)</td><td>3</td></tr>
+  <tr><td>2.2</td><td>Ai duyệt kết quả?</td><td>mã người + vai, khác người làm</td><td>Loại việc</td><td>7</td></tr>
+  <tr><td>2.3</td><td>Ai được báo?</td><td>mã vai</td><td>Loại việc</td><td>7</td></tr>
+  <tr><td>2.4</td><td>Cần đầu vào gì?</td><td>danh sách mã Field</td><td>Loại việc</td><td>1</td></tr>
+  <tr><td>2.5</td><td>Đọc ở đâu, bản ghi nào?</td><td>mã Master list + điều kiện chọn bản ghi</td><td>Loại việc</td><td>1</td></tr>
+  <tr><td>2.6</td><td>Dữ liệu lấy ở bản nào, lúc nào?</td><td>phiên bản hoặc thời điểm chụp</td><td>Máy</td><td>5</td></tr>
+  <tr><td>2.7</td><td>Đầu vào hợp lệ khi nào?</td><td>mã Điều luật</td><td>Loại việc</td><td>2</td></tr>
+  <tr><td>2.8</td><td>Cần việc nào xong trước?</td><td>mã Hồ sơ + chờ tất cả / một trong + việc trước hỏng thì sao</td><td>Loại việc</td><td>3</td></tr>
+  <tr><td>2.9</td><td>Có quyền làm đúng phạm vi này?</td><td>mã quyền + phạm vi + quyết định còn hiệu lực</td><td>Máy kiểm</td><td>2 · 7</td></tr>
+  <tr><td>2.10</td><td>Dùng phiên bản quy trình nào?</td><td>số phiên bản, ghim lại</td><td>Máy</td><td>7</td></tr>
+  <tr><td>2.11</td><td>Dùng công cụ, quy trình nào?</td><td>mã MOW / DOT / Tool</td><td>Loại việc</td><td>4</td></tr>
+  <tr><th colspan="5">3 Thực hiện</th></tr>
+  <tr><td>3.1</td><td>Làm theo bước nào?</td><td>mã MOW + bước</td><td>Loại việc</td><td>4</td></tr>
+  <tr><td>3.2</td><td>Người hay máy làm bước này?</td><td>😊 / 🤖</td><td>Loại việc</td><td>4</td></tr>
+  <tr><td>3.3</td><td>Chạy song song tối đa?</td><td>số</td><td>Loại việc</td><td>3</td></tr>
+  <tr><td>3.4</td><td>Giữ việc thế nào?</td><td>thời hạn giữ + số thế hệ; lượt cũ không được ghi đè</td><td>Máy</td><td>3</td></tr>
+  <tr><td>3.5</td><td>Chạy lại có tạo trùng?</td><td>mã thao tác chống trùng</td><td>Loại việc</td><td>4</td></tr>
+  <tr><td>3.6</td><td>Tạo, sửa đúng đối tượng nào?</td><td>mã đối tượng cụ thể + phạm vi</td><td>Máy</td><td>4</td></tr>
+  <tr><td>3.7</td><td>Ghi đầu ra ở đâu?</td><td>mã Master list + mã Field</td><td>Loại việc</td><td>1</td></tr>
+  <tr><td>3.8</td><td>Gửi ra ngoài gì, đi đâu?</td><td>nội dung + đích + mã thao tác; mất phản hồi ⇒ Chưa biết, đối soát</td><td>Loại việc</td><td>4 · 6</td></tr>
+  <tr><td>3.9</td><td>Đang thế nào?</td><td>Hợp lệ · Sẵn sàng · Xong: Đúng / Sai / Chưa biết + lý do</td><td>Máy</td><td>5</td></tr>
+  <tr><td>3.10</td><td>Chờ người thì sao?</td><td>lưu trạng thái + người giữ việc + hạn chờ</td><td>Loại việc</td><td>3</td></tr>
+  <tr><td>3.11</td><td>Bị huỷ giữa chừng thì sao?</td><td>điểm dừng an toàn + bước bù</td><td>Loại việc</td><td>6</td></tr>
+  <tr><th colspan="5">4 Nghiệm thu · cổng Xong (Definition of Done)</th></tr>
+  <tr><td>4.1</td><td>Từng tiêu chí ở câu 1.4 đạt chưa?</td><td>mỗi tiêu chí Đúng / Sai / Chưa biết; 1 tiêu chí bắt buộc Sai ⇒ không Xong</td><td>Máy + người duyệt</td><td>2</td></tr>
+  <tr><td>4.2</td><td>Có làm hỏng thứ phải giữ (câu 1.5)?</td><td>Đúng / Sai</td><td>Máy</td><td>2</td></tr>
+  <tr><td>4.3</td><td>Số lượng có khớp?</td><td>lệch = 0</td><td>Máy</td><td>5</td></tr>
+  <tr><td>4.4</td><td>Ai kiểm?</td><td>🤖 mã DOT / 😊 mã người, khác người làm</td><td>Loại việc</td><td>2</td></tr>
+  <tr><td>4.5</td><td>Bằng chứng ở đâu?</td><td>mã bản ghi hoặc tệp cụ thể + phiên bản + lượt + người + lúc nào</td><td>Máy</td><td>5</td></tr>
+  <tr><td>4.6</td><td>Kết quả lượt này?</td><td>đạt · đạt một phần · lỗi · chưa biết · huỷ · từ chối</td><td>Máy</td><td>5</td></tr>
+  <tr><td>4.7</td><td>Chưa đạt thì sao?</td><td>vào Xử lý lỗi: thử lại nếu an toàn · đối soát nếu chưa biết · bù nếu đã tác động</td><td>Máy</td><td>6</td></tr>
+  <tr><th colspan="5">5 Bàn giao · cổng Đã nhận</th></tr>
+  <tr><td>5.1</td><td>Việc tiếp theo, ai nhận?</td><td>mã Việc + mã người; người nhận xác nhận đã nhận</td><td>Loại việc</td><td>3</td></tr>
+  <tr><td>5.2</td><td>Cập nhật tổng ở đâu?</td><td>tính từ nguồn, không ghi tay 2 nơi</td><td>Loại việc</td><td>5</td></tr>
+  <tr><td>5.3</td><td>Ai được báo kết quả?</td><td>mã vai</td><td>Loại việc</td><td>7</td></tr>
+  <tr><td>5.4</td><td>Có luật mới cần đề xuất?</td><td>mã đề xuất; có hiệu lực khi được duyệt + phiên bản</td><td>Người làm</td><td>7</td></tr>
+  <tr><td>5.5</td><td>Có Vấn đề cần ghi?</td><td>mã Vấn đề / không</td><td>Người làm</td><td>6</td></tr>
   </tbody></table>
   </div>
 </details>
