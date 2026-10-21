@@ -21,7 +21,7 @@ CODES = ['OK', 'PARTIAL', 'UNAVAILABLE', 'RESOURCE_EXHAUSTED', 'ABORTED', 'FAILE
 QUYET = ['thiếu ô', 'làm tiếp', 'giao lại', 'ngoại lệ', 'huỷ', 'rút huỷ']
 CAP = ('làm tiếp', 'giao lại', 'rút huỷ')
 NGUOI_MAX = 1
-TRO_LAI = {'G1': 'Chấm G1', 'G2': 'Chấm G2', 'G4': 'Chấm G4', 'G5': 'Chấm G5', 'Bù': 'Bù',
+TRO_LAI = {'G1': 'Chấm G1', 'G2': 'Chấm G2', 'G3': 'Chấm G2', 'G4': 'Chấm G4', 'G5': 'Chấm G5', 'Bù': 'Bù',
            'ĐS·TT': 'Đối soát·TT', 'ĐS·Huỷ': 'Đối soát·Huỷ', 'ĐS·QH': 'Đối soát·QH', 'ĐS·Bù': 'Đối soát·Bù'}
 TRAN = {'lần_nhận': 8, 'lần_gia_hạn': 6, 'vòng': 6, 'lần_bù': 8, 'đang_bay': 3, 'đã_làm': 3,
         'tổng_làm': 4, 'đã_bù': 4, 'bù_bay': 3, 'M': 8, 'N': 8, 'MB': 8, 'lần_thay': 4}
@@ -250,6 +250,7 @@ def ap_dung(S, s, ev, chon):
         if to is None: return None, ('L1 bước trở lại không hợp lệ', r['id'], new['trở_lại'])
     new['st'] = to
     if to.startswith('Chấm G'): new['bước'] = to[-2:]
+    elif to in ('Chờ', 'Đang chạy', 'Chờ người·G3'): new['bước'] = 'G3'
     # thế giới: lượt bị thu hồi khi chưa gửi thì có thể vẫn còn sống và cố gửi
     if st == 'Đang chạy' and to != 'Đang chạy' and ev in ('hết hạn giữ', 'yêu cầu huỷ') and not s['_gửi_lượt']:
         new['_ma'], new['_ma_thử'] = s['gen_giữ'], False
@@ -343,8 +344,10 @@ def vet(nodes, cha, u, them=None):
     if them: out.append(them)
     return 'Mới · ' + ' · '.join(out)
 
-def kham(S, init, gioi=200000, nhanh=False):
-    E = []; ids = {}; nodes = []; ed = []; cha = {}; da_bao = set()
+def kham(S, init, gioi=400000, nhanh=False):
+    import array
+    E = []; ids = {}; nodes = []; cha = {}; da_bao = set()
+    ed = (array.array('i'), array.array('i'), array.array('b'))
     k0 = dong(init); ids[k0] = 0; nodes.append(k0)
     E += vi_pham(S, init)
     q = collections.deque([0])
@@ -363,7 +366,7 @@ def kham(S, init, gioi=200000, nhanh=False):
                     if e[0] not in da_bao:
                         da_bao.add(e[0]); E.append(e + ('VẾT: ' + vet(nodes, cha, ids[k]),))
                     if nhanh: return E, None
-            ed.append((u, ids[k], lop))
+            ed[0].append(u); ed[1].append(ids[k]); ed[2].append(0 if lop in ('máy', 'giờ') else 1)
         if len(nodes) > gioi:
             E.append(('quá lớn', len(nodes))); return E, None
     return E, (nodes, ed)
@@ -405,9 +408,9 @@ def song(nodes, ed):
     E = []; n = len(nodes)
     ist = KEYS.index('st'); st = [x[ist] for x in nodes]
     adj = [[] for _ in range(n)]; radj = [[] for _ in range(n)]; rall = [[] for _ in range(n)]
-    for u, v, lop in ed:
+    for u, v, lop in zip(*ed):
         rall[v].append(u)
-        if lop in ('máy', 'giờ') and u != v:
+        if lop == 0 and u != v:
             adj[u].append(v); radj[v].append(u)
     comp = scc(n, adj); size = collections.Counter(comp)
     bad = sorted({st[i] for i in range(n) if size[comp[i]] > 1})
@@ -532,7 +535,7 @@ def kiem_het(T, nhanh=False, in_ra=False):
         E += [('K ' + ten,) + tuple(x) for x in e]
         if g and not e:
             E += [('K ' + ten,) + tuple(x) for x in song(*g)]
-            if in_ra: print('  ✓ kịch bản %-24s %6d trạng thái · %6d bước' % (ten, len(g[0]), len(g[1])))
+            if in_ra: print('  ✓ kịch bản %-24s %6d trạng thái · %7d bước' % (ten, len(g[0]), len(g[1][0])))
         if E and nhanh: return E, S
     return E, S
 
