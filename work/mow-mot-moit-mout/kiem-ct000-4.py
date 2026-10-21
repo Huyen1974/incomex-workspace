@@ -329,8 +329,16 @@ def vi_pham(S, s):
     return E
 
 # ---------- duyệt hết ----------
+def vet(nodes, cha, u, them=None):
+    ist = KEYS.index('st'); out = []
+    while u is not None and u in cha:
+        p, ev = cha[u]; out.append('%s→%s' % (ev, nodes[u][ist])); u = p
+    out.reverse()
+    if them: out.append(them)
+    return 'Mới · ' + ' · '.join(out)
+
 def kham(S, init, gioi=200000, nhanh=False):
-    E = []; ids = {}; nodes = []; ed = []
+    E = []; ids = {}; nodes = []; ed = []; cha = {}; da_bao = set()
     k0 = dong(init); ids[k0] = 0; nodes.append(k0)
     E += vi_pham(S, init)
     q = collections.deque([0])
@@ -338,14 +346,16 @@ def kham(S, init, gioi=200000, nhanh=False):
         u = q.popleft(); s = mo(nodes[u])
         for name, lop, nx in buoc(S, s):
             if isinstance(nx, tuple):
-                E.append(nx + ('@', s['st']))
+                if nx[0] not in da_bao:
+                    da_bao.add(nx[0]); E.append(nx + ('VẾT: ' + vet(nodes, cha, u, name),))
                 if nhanh: return E, None
                 continue
             k = dong(nx)
             if k not in ids:
-                ids[k] = len(nodes); nodes.append(k); q.append(ids[k])
+                ids[k] = len(nodes); nodes.append(k); q.append(ids[k]); cha[ids[k]] = (u, name)
                 for e in vi_pham(S, nx):
-                    E.append(e + ('sau «%s» từ %s' % (name, s['st']),))
+                    if e[0] not in da_bao:
+                        da_bao.add(e[0]); E.append(e + ('VẾT: ' + vet(nodes, cha, ids[k]),))
                     if nhanh: return E, None
             ed.append((u, ids[k], lop))
         if len(nodes) > gioi:
