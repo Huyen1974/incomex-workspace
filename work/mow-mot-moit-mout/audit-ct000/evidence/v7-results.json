@@ -1,0 +1,762 @@
+{
+  "revision": "CT000-AUDIT-V7-20261022",
+  "scope": "bounded adversarial probes",
+  "full_graph_sweep": "NOT_EXECUTED",
+  "pg_flow": "NOT_EXECUTED",
+  "source_pins": {
+    "html": "5948c52fc293b666c550148b648fb3fc10a52d4e2ac303d19329d20bd3107a93",
+    "checker": "dbcf08b725c679fa1c8b4205cd3f2a3cd30bff0038c8392578bb25640702bf6a"
+  },
+  "results": [
+    {
+      "id": "V7-01",
+      "title": "Late result from revoked generation changes the current attempt",
+      "kind": "MODEL_COUNTEREXAMPLE",
+      "status": "FINDING",
+      "evidence": {
+        "trace": [
+          {
+            "event": "khai xong",
+            "payload": {},
+            "transition": "T01",
+            "before": "Mới",
+            "after": "Chấm G1"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T05",
+            "before": "Chấm G1",
+            "after": "Chấm G2"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T08",
+            "before": "Chấm G2",
+            "after": "Chờ"
+          },
+          {
+            "event": "xin nhận",
+            "payload": {},
+            "transition": "T12",
+            "before": "Chờ",
+            "after": "Đang chạy"
+          },
+          {
+            "event": "qua hạn giữ",
+            "payload": {},
+            "transition": "environment",
+            "before": "Đang chạy",
+            "after": "Đang chạy"
+          },
+          {
+            "event": "hết hạn giữ",
+            "payload": {},
+            "transition": "T20",
+            "before": "Đang chạy",
+            "after": "Chờ"
+          },
+          {
+            "event": "xin nhận",
+            "payload": {},
+            "transition": "T12",
+            "before": "Chờ",
+            "after": "Đang chạy"
+          },
+          {
+            "event": "làm thao tác",
+            "payload": {
+              "_ai": "chính",
+              "tác_nhân": 3
+            },
+            "transition": "T15",
+            "before": "Đang chạy",
+            "after": "Đang chạy"
+          },
+          {
+            "event": "bên nhận làm",
+            "payload": {},
+            "transition": "environment",
+            "before": "Đang chạy",
+            "after": "Đang chạy"
+          },
+          {
+            "event": "kết quả",
+            "payload": {
+              "mã": "FAILED_PRECONDITION",
+              "tác_nhân": 1
+            },
+            "transition": "T26",
+            "before": "Đang chạy",
+            "after": "Chờ ĐK·G2"
+          }
+        ],
+        "final": {
+          "st": "Chờ ĐK·G2",
+          "thế_hệ": 3,
+          "gen_giữ": 3,
+          "giữ_chỗ": false,
+          "lần_gia_hạn": 0,
+          "g1": "đủ",
+          "chờ_duyệt": false,
+          "chờ_nhận": false,
+          "ý_định": true,
+          "kết_luận": true,
+          "đang_bay": 0,
+          "đã_làm": 1
+        },
+        "subject_invariants": [],
+        "stale_generation": 1,
+        "current_generation": 3
+      }
+    },
+    {
+      "id": "V7-02",
+      "title": "Heartbeat from revoked generation renews the new attempt",
+      "kind": "MODEL_COUNTEREXAMPLE",
+      "status": "FINDING",
+      "evidence": {
+        "trace": [
+          {
+            "event": "khai xong",
+            "payload": {},
+            "transition": "T01",
+            "before": "Mới",
+            "after": "Chấm G1"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T05",
+            "before": "Chấm G1",
+            "after": "Chấm G2"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T08",
+            "before": "Chấm G2",
+            "after": "Chờ"
+          },
+          {
+            "event": "xin nhận",
+            "payload": {},
+            "transition": "T12",
+            "before": "Chờ",
+            "after": "Đang chạy"
+          },
+          {
+            "event": "qua hạn giữ",
+            "payload": {},
+            "transition": "environment",
+            "before": "Đang chạy",
+            "after": "Đang chạy"
+          },
+          {
+            "event": "hết hạn giữ",
+            "payload": {},
+            "transition": "T20",
+            "before": "Đang chạy",
+            "after": "Chờ"
+          },
+          {
+            "event": "xin nhận",
+            "payload": {},
+            "transition": "T12",
+            "before": "Chờ",
+            "after": "Đang chạy"
+          },
+          {
+            "event": "gia hạn",
+            "payload": {
+              "tác_nhân": 1
+            },
+            "transition": "T17",
+            "before": "Đang chạy",
+            "after": "Đang chạy"
+          }
+        ],
+        "final": {
+          "st": "Đang chạy",
+          "thế_hệ": 3,
+          "gen_giữ": 3,
+          "giữ_chỗ": true,
+          "lần_gia_hạn": 1,
+          "g1": "đủ",
+          "chờ_duyệt": false,
+          "chờ_nhận": false,
+          "ý_định": false,
+          "kết_luận": false,
+          "đang_bay": 0,
+          "đã_làm": 0
+        },
+        "subject_invariants": [],
+        "stale_generation": 1
+      }
+    },
+    {
+      "id": "V7-03",
+      "title": "Empty human response changes missing G1 input to sufficient",
+      "kind": "INPUT_CONTRACT_GAP",
+      "status": "FINDING",
+      "evidence": {
+        "trace": [
+          {
+            "event": "khai xong",
+            "payload": {},
+            "transition": "T01",
+            "before": "Mới",
+            "after": "Chấm G1"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T02",
+            "before": "Chấm G1",
+            "after": "Chờ người·G1"
+          },
+          {
+            "event": "trả lời",
+            "payload": {},
+            "transition": "T42",
+            "before": "Chờ người·G1",
+            "after": "Chấm G1"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T05",
+            "before": "Chấm G1",
+            "after": "Chấm G2"
+          }
+        ],
+        "final": {
+          "st": "Chấm G2",
+          "thế_hệ": 0,
+          "gen_giữ": -1,
+          "giữ_chỗ": false,
+          "lần_gia_hạn": 0,
+          "g1": "đủ",
+          "chờ_duyệt": false,
+          "chờ_nhận": false,
+          "ý_định": false,
+          "kết_luận": false,
+          "đang_bay": 0,
+          "đã_làm": 0
+        },
+        "subject_invariants": []
+      }
+    },
+    {
+      "id": "V7-04",
+      "title": "Empty approval event can finish G4 and close the task",
+      "kind": "INPUT_CONTRACT_GAP",
+      "status": "FINDING",
+      "evidence": {
+        "trace": [
+          {
+            "event": "khai xong",
+            "payload": {},
+            "transition": "T01",
+            "before": "Mới",
+            "after": "Chấm G1"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T05",
+            "before": "Chấm G1",
+            "after": "Chấm G2"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T08",
+            "before": "Chấm G2",
+            "after": "Chờ"
+          },
+          {
+            "event": "xin nhận",
+            "payload": {},
+            "transition": "T12",
+            "before": "Chờ",
+            "after": "Đang chạy"
+          },
+          {
+            "event": "làm thao tác",
+            "payload": {
+              "_ai": "chính",
+              "tác_nhân": 1
+            },
+            "transition": "T15",
+            "before": "Đang chạy",
+            "after": "Đang chạy"
+          },
+          {
+            "event": "bên nhận làm",
+            "payload": {},
+            "transition": "environment",
+            "before": "Đang chạy",
+            "after": "Đang chạy"
+          },
+          {
+            "event": "kết quả",
+            "payload": {
+              "mã": "OK"
+            },
+            "transition": "T21",
+            "before": "Đang chạy",
+            "after": "Chấm G4"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T36",
+            "before": "Chấm G4",
+            "after": "Chờ người·G4"
+          },
+          {
+            "event": "trả lời",
+            "payload": {},
+            "transition": "T45",
+            "before": "Chờ người·G4",
+            "after": "Chấm G4"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T37",
+            "before": "Chấm G4",
+            "after": "Chấm G5"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T41",
+            "before": "Chấm G5",
+            "after": "Kết thúc·Đạt"
+          }
+        ],
+        "final": {
+          "st": "Kết thúc·Đạt",
+          "thế_hệ": 1,
+          "gen_giữ": 1,
+          "giữ_chỗ": false,
+          "lần_gia_hạn": 0,
+          "g1": "đủ",
+          "chờ_duyệt": false,
+          "chờ_nhận": false,
+          "ý_định": true,
+          "kết_luận": true,
+          "đang_bay": 0,
+          "đã_làm": 1
+        },
+        "subject_invariants": []
+      }
+    },
+    {
+      "id": "V7-05",
+      "title": "Empty handover event becomes recipient acknowledgement",
+      "kind": "INPUT_CONTRACT_GAP",
+      "status": "FINDING",
+      "evidence": {
+        "trace": [
+          {
+            "event": "khai xong",
+            "payload": {},
+            "transition": "T01",
+            "before": "Mới",
+            "after": "Chấm G1"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T05",
+            "before": "Chấm G1",
+            "after": "Chấm G2"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T08",
+            "before": "Chấm G2",
+            "after": "Chờ"
+          },
+          {
+            "event": "xin nhận",
+            "payload": {},
+            "transition": "T12",
+            "before": "Chờ",
+            "after": "Đang chạy"
+          },
+          {
+            "event": "làm thao tác",
+            "payload": {
+              "_ai": "chính",
+              "tác_nhân": 1
+            },
+            "transition": "T15",
+            "before": "Đang chạy",
+            "after": "Đang chạy"
+          },
+          {
+            "event": "bên nhận làm",
+            "payload": {},
+            "transition": "environment",
+            "before": "Đang chạy",
+            "after": "Đang chạy"
+          },
+          {
+            "event": "kết quả",
+            "payload": {
+              "mã": "OK"
+            },
+            "transition": "T21",
+            "before": "Đang chạy",
+            "after": "Chấm G4"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T37",
+            "before": "Chấm G4",
+            "after": "Chấm G5"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T40",
+            "before": "Chấm G5",
+            "after": "Chờ người·G5"
+          },
+          {
+            "event": "trả lời",
+            "payload": {},
+            "transition": "T45",
+            "before": "Chờ người·G5",
+            "after": "Chấm G5"
+          },
+          {
+            "event": "chấm",
+            "payload": {},
+            "transition": "T41",
+            "before": "Chấm G5",
+            "after": "Kết thúc·Đạt"
+          }
+        ],
+        "final": {
+          "st": "Kết thúc·Đạt",
+          "thế_hệ": 1,
+          "gen_giữ": 1,
+          "giữ_chỗ": false,
+          "lần_gia_hạn": 0,
+          "g1": "đủ",
+          "chờ_duyệt": false,
+          "chờ_nhận": false,
+          "ý_định": true,
+          "kết_luận": true,
+          "đang_bay": 0,
+          "đã_làm": 1
+        },
+        "subject_invariants": []
+      }
+    },
+    {
+      "id": "V7-06",
+      "title": "Eight standard gRPC codes lack a formula result/fallback",
+      "kind": "INPUT_CONTRACT_GAP",
+      "status": "FINDING",
+      "evidence": {
+        "unhandled": [
+          {
+            "code": "CANCELLED",
+            "error": [
+              "L1 công thức không ra giá trị",
+              "Đang chạy",
+              "kết quả"
+            ]
+          },
+          {
+            "code": "NOT_FOUND",
+            "error": [
+              "L1 công thức không ra giá trị",
+              "Đang chạy",
+              "kết quả"
+            ]
+          },
+          {
+            "code": "ALREADY_EXISTS",
+            "error": [
+              "L1 công thức không ra giá trị",
+              "Đang chạy",
+              "kết quả"
+            ]
+          },
+          {
+            "code": "OUT_OF_RANGE",
+            "error": [
+              "L1 công thức không ra giá trị",
+              "Đang chạy",
+              "kết quả"
+            ]
+          },
+          {
+            "code": "UNIMPLEMENTED",
+            "error": [
+              "L1 công thức không ra giá trị",
+              "Đang chạy",
+              "kết quả"
+            ]
+          },
+          {
+            "code": "INTERNAL",
+            "error": [
+              "L1 công thức không ra giá trị",
+              "Đang chạy",
+              "kết quả"
+            ]
+          },
+          {
+            "code": "DATA_LOSS",
+            "error": [
+              "L1 công thức không ra giá trị",
+              "Đang chạy",
+              "kết quả"
+            ]
+          },
+          {
+            "code": "UNAUTHENTICATED",
+            "error": [
+              "L1 công thức không ra giá trị",
+              "Đang chạy",
+              "kết quả"
+            ]
+          }
+        ],
+        "note": "A separately verified normalizer could close this gap; none is executed here."
+      }
+    },
+    {
+      "id": "V7-07",
+      "title": "Checker exception is counted as KILLED on unchanged model",
+      "kind": "CHECKER_FAULT_INJECTION",
+      "status": "FINDING",
+      "evidence": {
+        "original_main_exit": 2,
+        "mutations": {
+          "KILLED": [
+            [
+              "unchanged model; injected checker failure",
+              "('C 1 việc bình thường tới đóng hồ sơ', \"bước 1 («khai xong»): vi phạm ('B1 lỗi tính: V7_INJECTED_CHECKER_FAILURE', 'Chấm G1')\")"
+            ]
+          ],
+          "SURVIVED": [],
+          "INCONCLUSIVE": [],
+          "CHECKER_ERROR": []
+        },
+        "note": "Overall exit 2 remains partial; the defect is the KILLED classification."
+      }
+    },
+    {
+      "id": "V7-08",
+      "title": "Liveness helper ignores an immediate-state machine self-loop",
+      "kind": "CHECKER_PROPERTY_SELF_TEST",
+      "status": "FINDING",
+      "evidence": {
+        "nodes": [
+          "Chấm G2",
+          "Kết thúc·Đạt"
+        ],
+        "machine_edges": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "reported_errors": [],
+        "note": "This checks a property limitation. Fairness/stuttering assumptions must be explicit."
+      }
+    },
+    {
+      "id": "V7-09",
+      "title": "Inventory accepts archival strings when live registry is empty",
+      "kind": "REGISTRY_NEGATIVE_FIXTURE",
+      "status": "FINDING",
+      "evidence": {
+        "live_provider_tools": 0,
+        "live_memory": 0,
+        "reported_errors": [],
+        "stdout": "KIỂM KÊ ĐĂNG KÝ · Master Tool ML-DEF-023 (/tmp/ct000-v7-registry-13rzuzlk/master.html)\n  ✓ python:kiem-ct000-4    /tmp/ct000-v7-registry-13rzuzlk/fake_0.py        sha256 085f9b9958ff · manifest —\n  ✓ python:ct000-audit     /tmp/ct000-v7-registry-13rzuzlk/fake_1.py        sha256 085f9b9958ff · manifest —\nKIỂM KÊ: 2 công cụ đủ · 0 lệch · 0 script ngoài Master\n"
+      }
+    }
+  ],
+  "inputs": {
+    "html": "5948c52fc293b666c550148b648fb3fc10a52d4e2ac303d19329d20bd3107a93",
+    "checker": "dbcf08b725c679fa1c8b4205cd3f2a3cd30bff0038c8392578bb25640702bf6a"
+  },
+  "baseline": {
+    "static_errors": [],
+    "structure_errors": [],
+    "table_count": 15,
+    "concurrency_error": null,
+    "cases": [
+      {
+        "name": "1 việc bình thường tới đóng hồ sơ",
+        "error": null
+      },
+      {
+        "name": "2 M=1: lượt duy nhất vẫn chạy, lần xin sau bị chặn",
+        "error": null
+      },
+      {
+        "name": "3 gửi rồi máy chết, người xác nhận đã gửi",
+        "error": null
+      },
+      {
+        "name": "4 lượt cũ cố gửi sau khi bị thu hồi",
+        "error": null
+      },
+      {
+        "name": "5 không chống trùng, tra «chưa thấy»: không gửi lại",
+        "error": null
+      },
+      {
+        "name": "6 huỷ khi lệnh ngoài chưa rõ, lệnh cũ thành công sau",
+        "error": null
+      },
+      {
+        "name": "7 huỷ sau hạn chót",
+        "error": null
+      },
+      {
+        "name": "8 chờ hợp lệ đến giờ kiểm: không thành mồ côi",
+        "error": null
+      },
+      {
+        "name": "9 miễn G4.1 nhưng G4.2 vẫn sai: cổng không mở",
+        "error": null
+      },
+      {
+        "name": "10 miễn G4.1, câu khác đạt: cổng mở",
+        "error": null
+      },
+      {
+        "name": "11 miễn G1 hợp lệ: chấm lại không bắt câu đã miễn",
+        "error": null
+      },
+      {
+        "name": "12 lỗi điều kiện: sửa xong chấm lại G2 rồi mới chạy",
+        "error": null
+      },
+      {
+        "name": "13 bù mất phản hồi: đối soát lần bù, không bù 2 lần",
+        "error": null
+      },
+      {
+        "name": "14 giao lại lúc bù: về đúng bước bù",
+        "error": null
+      },
+      {
+        "name": "15 Owner chấp nhận phần không bù được: đóng huỷ",
+        "error": null
+      },
+      {
+        "name": "16 thử lại cùng mã khi có chống trùng: bên nhận làm 1 lần",
+        "error": null
+      },
+      {
+        "name": "17 quá hạn gốc khi còn quyền giữ: không gửi mới",
+        "error": null
+      },
+      {
+        "name": "18 lệnh gửi trước hạn vẫn nhận kết quả sau hạn",
+        "error": null
+      },
+      {
+        "name": "19 MB=1: bù mất rồi hết hạn giữ → không bù lần 2",
+        "error": null
+      },
+      {
+        "name": "20 MB=2: lần bù thứ hai vẫn được",
+        "error": null
+      },
+      {
+        "name": "21 hết hạn phục hồi: không bắt đầu bù mới",
+        "error": null
+      },
+      {
+        "name": "22 hết hạn PH nhưng lệnh bù cũ vẫn được nhận kết quả",
+        "error": null
+      },
+      {
+        "name": "23 G2 thiếu dữ liệu",
+        "error": null
+      },
+      {
+        "name": "24 G2 giá trị lạ",
+        "error": null
+      },
+      {
+        "name": "25 G5 thiếu dữ liệu",
+        "error": null
+      },
+      {
+        "name": "26 G5 chưa biết",
+        "error": null
+      },
+      {
+        "name": "27 G1 thiếu dữ liệu",
+        "error": null
+      },
+      {
+        "name": "28 G4 thiếu dữ liệu câu 2 ở vòng cuối",
+        "error": null
+      },
+      {
+        "name": "29 hết chỗ: không vào chạy",
+        "error": null
+      }
+    ],
+    "cases_passed": 29
+  },
+  "inventory": {
+    "status": "INSPECTED",
+    "script_tag": "id=\"tqt-composite-processes\" type=\"application/json\"",
+    "provider_tools": 28,
+    "duplicate_ids": [],
+    "ct000_tools": [
+      {
+        "id": "python:kiem-ct000-4",
+        "count": 1,
+        "path": "work/mow-mot-moit-mout/kiem-ct000-4.py",
+        "sha256_matches": true
+      },
+      {
+        "id": "python:ct000-audit",
+        "count": 1,
+        "path": "work/mow-mot-moit-mout/audit-ct000/run.py",
+        "sha256_matches": true,
+        "manifest_hash_matches": true,
+        "manifest_entries": 20,
+        "manifest_mismatches": []
+      }
+    ],
+    "unregistered_scope_scripts": [
+      "work/mow-mot-moit-mout/cong-cu/dot-page-shot.py",
+      "work/mow-mot-moit-mout/cong-cu/dot-push-verify.py",
+      "work/mow-mot-moit-mout/cong-cu/dot-walk-check.py",
+      "work/mow-mot-moit-mout/cong-cu/dot-process-gate.py",
+      "work/mow-mot-moit-mout/cong-cu/dot-edit-simulate.py",
+      "work/mow-mot-moit-mout/check-ui-review.py"
+    ],
+    "master_sha256": "38674e5c076f9e89af94cb7cf4465e15cc9935db6b0eca357c53a4883e4240d9"
+  },
+  "inputs_unchanged": true,
+  "verdict": "FINDINGS_REMAIN",
+  "exit_code": 1
+}
