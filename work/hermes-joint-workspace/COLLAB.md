@@ -502,7 +502,8 @@
 - ⛔ **Cấm:** không gọi API thuê bao GPT/Claude; không thêm Routine/Anthropic/OpenAI keys; không bấm/update Hermes Desktop fan-out hoặc hermes update không kiểm soát; không sửa Hermes VPS khi Graph/VPSC còn shared mutation/#11 đỏ/Guard FAIL; không bật update một máy rồi báo đồng bộ; không phá snapshot/data/rollback; không đổi N4–N6/T1–T9; không phát RUN từ READY cũ. Không đổi gì trong Settings của Hermes Desktop khi đang ở kết nối VPS; không ghi "VPS không đổi" khi đèn #21/#22 còn đỏ. **Ngoại lệ Owner 17/10 07:15:** luật «không sửa Hermes VPS khi #11 đỏ/Guard FAIL» không chặn lượt sửa làm xanh chính #11/#21/#22-phần-HJW (vẫn VPS-GHI, Điều 30/31, đường lùi, không rebaseline che lỗi, không đụng GJW).
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
-ASSIGN_V1 {"id":"HJW-HERMES-CAP-CANARY-20261022-02","to":"Hermes","role":"Reviewer","generation":1,"state":"claimed","task":"N3 RUN02 S2 canary: SAU KHI S1 identity+guard+thu write_scope PASS và Owner duyệt, chỉ ghi một P dữ liệu không điều hành vào chính HJW COLLAB, không phải agents-self-improving","output":"P của Hermes thật + receipt từ identity model, negative tests, RESULT_V1 do dispatcher trusted ghi","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-CAP-CANARY-20261022-02"}
+ASSIGN_V1 {"id":"HJW-HERMES-CAP-CANARY-20261022-02","to":"Hermes","role":"Reviewer","generation":1,"state":"blocked","task":"N3 RUN02 S2 canary: SAU KHI S1 identity+guard+thu write_scope PASS và Owner duyệt, chỉ ghi một P dữ liệu không điều hành vào chính HJW COLLAB, không phải agents-self-improving","output":"P của Hermes thật + receipt từ identity model, negative tests, RESULT_V1 do dispatcher trusted ghi","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-HERMES-CAP-CANARY-20261022-02"}
+RESULT_V1 {"body_sha256":"6933335bdd2a6652fd65842e0b554cce797c017541c408a0fc416ead0840605d","generation":1,"id":"HJW-HERMES-CAP-CANARY-20261022-02","latency":{"claimed_model_s":49,"click_claimed_s":144,"click_start_notice_s":145,"model_end_write_s":61},"next":"Host GPT Chat/Work nghiệm thu P351 (Owner mở Host, gõ tiếp)","report_ref":"P351","session":"cron_01d6738e8317_20261022_131440","status":"blocked","summary":"Cổng trước duyệt chưa đạt: chưa có S1 PASS của Claude Code, chưa có chứng minh máy chặn duyệt sớm; lượt này chỉ-đọc nên không được append P."}
 ASSIGN_V1 {"id":"HJW-HERMES-CAP-WRITE-CANARY-20261022-01","to":"Hermes","role":"Reviewer","generation":1,"state":"blocked","task":"HJW pha 5 canary: sau pha 4 PASS, chính Hermes thêm đúng một mục P dữ liệu thử vào work/hpml-view-for-user/COLLAB.md, task đích không RUN active, không mở lại task đích","output":"P canary Hermes thật và sáu negative DENIED; RESULT do Host/server ghi, không tự KQ","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md","work/hpml-view-for-user/COLLAB.md"],"write":["work/hpml-view-for-user/COLLAB.md"],"spec_ref":"HJW-HERMES-CAP-WRITE-CANARY-20261022-01"}
 ASSIGN_V1 {"id":"HJW-N3-LATE-APPROVAL-20261011-05","to":"Hermes","role":"Reviewer","generation":1,"state":"blocked","task":"N3 TEST-ONLY: kiểm duyệt Telegram sau nhiều giờ, báo cáo một câu khi Owner bấm muộn","output":"Một RESULT_V1 done + 1 P ngắn + 1 NEXT + ba latency, không có cảnh báo trước khi bấm","read":["AGENTS.md","work/hermes-joint-workspace/COLLAB.md"],"write":["work/hermes-joint-workspace/COLLAB.md"],"spec_ref":"HJW-N3-LATE-APPROVAL-20261011-05"}
 RESULT_V1 {"id":"HJW-N3-LATE-APPROVAL-20261011-05","generation":1,"status":"blocked","failure_class":"WRITE_CONFLICT","summary":"Host đồng bộ từ sổ máy P281: vé DONE/blocked WRITE_CONFLICT; sáu lần ghi lỗi VERSION_CONFLICT, tin #189 đã gửi, không chạy lại model.","next":"Host sửa gate ghi của N3-2a và kiểm bấm muộn; không phát lại vé -05.","report_ref":"P294","evidence_ref":"P281: sổ vé DONE 05:07:27Z 11/10; Telegram KẾT QUẢ #189; 6 xung đột ghi","model_calls":6,"tokens":128429,"session":"cron_f885726d3d4a_20261011_070500"}
@@ -7033,6 +7034,35 @@ Ghế: Claude Code CLI (executor) · Based_on `fe0d344` · kiểm tươi DROOT30
 - **Chốt READY:** Claude Chat REVIEWED@76fec347cc60a8c1dd62077e7ffecebcec288812 ACCEPT P349; `PROMPT.md` last-touch=76fec347cc60a8c1dd62077e7ffecebcec288812 giữ nguyên, DROOT55 một vòng đủ; Host phát `READY@76fec347cc60a8c1dd62077e7ffecebcec288812` cho RUN `HJW-HERMES-CAPABILITY-20261022-02`, chưa STARTED. Executor bắt buộc S0 kiểm live STOP, VPS-GHI, Guard, token/identity và khả năng chặn early approval; nếu đỏ => KQ DỪNG, nhả lock/lease. Không phát lại READY cũ RUN01. Không nâng Hermes v0.22.4 hay mở N4–N6.
 - **KQ:** XONG chỉ khi đo thật; DỪNG sau thu scope+guard vế 1 nhưng chưa split vẫn là một kết quả bảo vệ hữu ích, rõ residual; lùi wildcard phải ghi mức hở còn lại. PG pending Owner approval không được giả PASS.
 - **NEXT_TRIGGER=OWNER_PASTE_CLAUDE_CODE_HJW_N3_RUN02**.
+
+### P351 · Hermes · 2026-10-22 18:16 +07 · HJW-HERMES-CAP-CANARY-20261022-02 · BLOCKED
+Ghế: hermes-vps · Bước/vòng: — (SPEC không ghi) · máy chép nguyên văn câu trả lời cuối của Hermes (lượt chỉ đọc) · phiên cron_01d6738e8317_20261022_131440 · sha256 thân 6933335bdd2a · HJW-HERMES-CAP-CANARY-20261022-02 lượt 1 · vé d8748e164fa5
+**1 · Tôi đã làm gì**
+Chỉ đọc đúng hai đường dẫn trong phần ĐỌC — AGENTS.md và work/hermes-joint-workspace/COLLAB.md — bằng công cụ đọc của workspace với root=workspace, đọc theo cửa sổ nhỏ. Không gọi bất kỳ công cụ ghi nào; không mở, không dò root nào khác. Tài liệu lúc đọc: 7043 dòng, 1.756.492 byte, sha256 3826364a…, head Git 209d074d…, cây làm việc sạch, không dirty.
+
+**2 · Việc được giao (tóm đúng khoá)**
+Canary append-only của Hermes trong N3 RUN02: chính phiên model Hermes chỉ nối thêm một mục dữ liệu ngắn, không điều hành, mang dấu hiệu HJW-N3-CANARY-REAL-HJW-HERMES-CAP-CANARY-20261022-02, vào chính COLLAB.md của HJW; không sửa byte cũ, không chạm vùng giao việc / kết quả / đặc tả / ghế chủ / duyệt / kết luận / Owner. Máy giữ danh tính riêng để ghi trạng thái vé và dòng kết quả. Kèm một cổng: S1 phải PASS trước.
+
+**3 · Cổng trước duyệt: CHƯA ĐẠT — bằng chứng cụ thể**
+- Dòng ~500-501 tài liệu: phần điều hành N3 ghi rõ Owner mới giao Claude Code và RUN02 "chưa STARTED/KQ"; dòng kế tiếp ghi chờ Owner dán lệnh Claude Code cho RUN02, kèm cấm "bấm thẻ canary cho đến khi S1 PASS và máy chứng minh fail-closed nếu duyệt sớm". Nghĩa là S1 chưa chạy xong, chưa có thông báo S1 PASS.
+- Tôi tìm cụm "S1 PASS" trên toàn tài liệu: chỉ có 3 chỗ, tất cả đều là câu điều kiện hoặc lời nhắc ("S1 phải PASS…", "cho đến khi S1 PASS…"). Không chỗ nào là thông báo S1 đã PASS kèm bằng chứng, cũng không có kết quả S1 do Claude Code ghi.
+- Chứng minh máy chặn duyệt sớm: dòng ~7033 vẫn xếp "khả năng chặn early approval" là việc executor phải tự kiểm ở bước S0 — tức chưa ai chứng minh. Đặc tả còn ghi thẳng: nếu máy không chứng minh được chặn kích hoạt sớm thì executor DỪNG trước thử, không mở quyền.
+- Dấu hiệu canary chưa từng được ghi: chuỗi dấu hiệu HJW-N3-CANARY-REAL-… chỉ xuất hiện đúng một lần, ở dòng ~536, và nằm bên trong chính khối đặc tả của vé; không có lần nào ở thân tài liệu. Vậy vế "positive" của canary chưa hề xảy ra.
+
+**4 · Trạng thái vé và dòng kết quả**
+Khối giao việc của máy (dòng ~505-506) chứa vé canary 02 này với state=claimed do máy tự đặt, và một vé cùng tên gốc trước đó ở trạng thái blocked (bị đóng vì sai vùng máy, chưa phát thẻ, 0 lượt gọi model). Chưa có dòng kết quả nào gắn với vé canary 02. Việc máy đặt trạng thái claimed rồi đưa việc cho tôi KHÔNG phải bằng chứng "Owner đã duyệt sau S1 PASS"; theo đúng câu trong đặc tả, thẻ có thể hiện sớm nhưng chỉ được bấm sau thông báo S1 PASS từ Claude Code, và bấm trước thì fail-closed.
+
+**5 · Vì sao tôi không ghi mục P**
+Hai lý do độc lập, mỗi lý do đã đủ để dừng:
+(a) Cổng trước duyệt chưa đạt như mục 3 — chính đặc tả yêu cầu DỪNG trước thử, không mở quyền.
+(b) Lượt chạy này là chỉ-đọc: tôi bị cấm gọi công cụ ghi, kể cả khi đặc tả có chữ "ghi". Máy sẽ tự ghi báo cáo, trạng thái vé và dòng kết quả từ câu trả lời này.
+Hệ quả: 0 thay đổi lên tài liệu, 0 lượt gọi model khác, tài liệu giữ nguyên sha256 3826364a….
+
+**6 · A4 nhiều task — kết luận PARTIAL**
+Hai commit của model ở work/agents-self-improving (36e5497 và e3c2adf) chỉ chứng minh có traffic ghi thật trước khi guard bật, không chứng minh guard sau khi bật. Chưa có lần ghi đúng quyền ở task khác, sau guard, do chính ghế chủ của task đó cho phép — nên A4 phải là PARTIAL, không PASS. Task agents-self-improving đang DISCUSSION_ONLY nên càng không được tạo vé hay phép thử ở đó.
+
+**7 · Đề nghị bước tiếp**
+Giữ nguyên NEXT_TRIGGER hiện có: Owner dán lệnh Claude Code cho RUN02. Chỉ sau khi Claude Code báo S1 PASS (cắt wildcard về đúng ba tệp, guard hậu ảnh vế 1, tách danh tính máy, guard vùng máy vế 2, test âm và Guard PRE) VÀ có chứng minh fail-closed cho bấm sớm, mới phát lại vé canary này. Không được coi lần chạy này là kết quả dương của A3, và không dùng nó để mở quyền ghi rộng hơn.
 
 
 
