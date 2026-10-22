@@ -35,7 +35,7 @@ small{color:#666}
 <div class="wrap"><table>
 <thead><tr><th>#</th><th>Phép thử</th><th>Đạt ở bước</th><th>Tình trạng</th></tr></thead>
 <tbody>
-<tr><td>T1</td><td>Việc khó đi hết các mức duyệt, anh không phải dán chuyển tin lần nào</td><td>N5</td><td class="n">chưa</td></tr>
+<tr><td>T1</td><td>Việc khó có Host/Reviewer và bằng chứng; Owner được chuyển prompt cho Codex thủ công, không cần Hermes courier</td><td>N4/N5 nếu Owner duyệt</td><td class="n">chưa</td></tr>
 <tr><td>T2</td><td>Việc dễ: một AI điều hành lo trọn, anh không thao tác, có AI hãng khác giám sát</td><td>N5</td><td class="n">chưa</td></tr>
 <tr><td>T3</td><td>Cài lỗi thử: AI giám sát bắt được, phanh lại, anh nhận báo trong 15 phút</td><td>N5</td><td class="n">chưa</td></tr>
 <tr><td>T4</td><td>Đổi agent bằng một dòng trong bảng</td><td>N5</td><td class="n">chưa</td></tr>
@@ -43,10 +43,10 @@ small{color:#666}
 <tr><td>T6</td><td>Thêm hoặc bớt một mức duyệt bằng bảng</td><td>N5</td><td class="n">chưa</td></tr>
 <tr><td>T7</td><td>Mỗi việc có một trang truy vết tự sinh: ai đề nghị, ai phản biện, ai chốt, ai làm, ai nghiệm thu</td><td>N5</td><td class="n">chưa</td></tr>
 <tr><td>T8</td><td>An toàn giữ nguyên: đúng quyền, đúng phạm vi, nút dừng chạy, im lặng có báo, đèn xanh</td><td>N6</td><td class="y">nền đã có</td></tr>
-<tr><td>T9</td><td>Bấm chuông: Host chốt sớm hoặc liên lạc viên sửa nội dung thì người kế tiếp không làm theo, chuông tới anh trong 5 phút</td><td>N3, N4</td><td class="n">chưa</td></tr>
+<tr><td>T9</td><td>Host chốt sớm hoặc người không có quyền sửa lệnh/KQ thì bị chặn và báo Owner; không cần Hermes Mac</td><td>N3 guard + N4</td><td class="n">chưa</td></tr>
 </tbody>
 </table></div>
-<p><small>Bộ phép thử này chờ anh gật. AI không được nới; chỉ anh được đổi. Tài liệu và bản thử trong hộp không tính.</small></p>
+<p><small>Owner 22/10 đã bỏ Hermes Mac/courier/0 dán tin. AI điều hành cao hơn là đề xuất, chờ Owner duyệt lại sau khi kiểm năng lực thực tế. N3 hiện chỉ Hermes VPS A–F.</small></p>
 
 <h2 id="LO-TRINH">3. Lộ trình sáu bước — xanh xong · vàng đang làm · xám chưa làm</h2>
 <div class="wrap"><table>
@@ -54,13 +54,13 @@ small{color:#666}
 <tbody>
 <tr><td><strong>N1</strong> Đầu nối lên mây</td><td>Mây có đủ đầu nối như Mac. Giữ nguyên Mac. Cải tiến từ Mac đồng bộ lên mây.</td><td>Mac ngủ, GPT và Claude vẫn làm việc được; lệch thì máy tự báo</td><td class="g">xong 06/10</td></tr>
 <tr><td><strong>N2</strong> Đo OpenAI Dots</td><td>Đã đo identity và wake thật; Chat/Work/Dot dùng chung identity, wake riêng của Dot còn hạn chế.</td><td>Owner chấp nhận residual; OpenAI-main dùng một ghế; phần wake chuyển N3</td><td class="g">xong 07/10 · PASS_WITH_RESIDUAL</td></tr>
-<tr><td><strong>N3</strong> Hermes Mac hai chế độ + cập nhật, sau đó người đưa thư</td><td>Giữ Hermes VPS đang chạy; Hermes Desktop Mac Remote→VPS + Local độc lập OpenRouter; Mac Local đã MAC_LOCAL_PASS tại P309 (GSM key riêng, khác VPS); Courier spike P313 DỪNG/cờ bỏ quên đã đóng. P321/P340 đã khép lỗi HJW và nghiệm thu 22/22 đèn xanh ngày 19/10; Hermes VPS v0.22.2 hoạt động độc lập. Owner 22/10 yêu cầu khai thác Hermes 24/7 cho việc trung bình: giữ cấm sudo/GSM nhưng không chặn MCP workspace, Graph chỉ đọc, log có lọc và PG readonly khi cần; các mật khẩu chỉ ở công cụ phía server. Kiểm root logic đã có trước khi mở thêm, sau đó tiếp tục Courier cron/GPT web và T9; không đổi roadmap N4–N6. Sau MAC_PASS, Hermes Mac nhắc GPT/Claude bằng đường đã được nghiệm thu; AI đích tự đọc việc trong repo và tiếp tục đúng quyền/chính sách hãng.</td><td>Remote+Local chạy thật; update có preview nguồn thật, đồng bộ SHA và rollback khi được áp; N3 toàn bộ chỉ PASS sau courier/T9</td><td class="y">P342 · INPUT chuẩn · 1 lượt khép quyền + updater · DRAFT review</td></tr>
+<tr><td><strong>N3</strong> Hermes VPS thực dụng</td><td>RUN A–F: Workspace ghi đúng quyền, Graph/PG đọc qua server giữ secret, log đã lọc, named action/Guard, lỗi updater. Owner 22/10 bỏ Hermes MacBook Local/Courier, không điều khiển GPT/Claude/apps; P309/P330 chỉ giữ lịch sử, không xóa thành quả.</td><td>KQ A–F thật, guard/negative/rollback; không phụ thuộc Mac/Courier</td><td class="y">P343 ACCEPT, P344 READY, Owner đã giao CLI · chờ KQ</td></tr>
 <tr><td><strong>N4</strong> Lõi hội đồng</td><td>Ý kiến → Host chốt → giao → làm → báo → nghiệm thu, có chuông.</td><td>Một vòng thật chạy trọn đầu cuối</td><td class="n">chưa</td></tr>
 <tr><td><strong>N5</strong> Hai cấp, đổi bằng bảng</td><td>Cùng một lõi chạy việc dễ (một AI) và việc khó (hội đồng).</td><td>Một việc dễ và một việc khó chạy thật; đổi agent, cấp, mức không sửa mã</td><td class="n">chưa</td></tr>
-<tr><td><strong>N6</strong> Nghiệm thu, đóng</td><td>Chạy lại cả chín phép thử cùng lúc.</td><td>Chín phép thử đạt, mọi đèn xanh</td><td class="n">chưa</td></tr>
+<tr><td><strong>N6</strong> Nghiệm thu, đóng</td><td>Rerun bộ tiêu chí Owner duyệt sau khi đánh giá năng lực AI; không dùng Mac/Courier.</td><td>Acceptance hiện hành, Guard và đèn đạt</td><td class="n">chưa</td></tr>
 </tbody>
 </table></div>
-<p><small>Mỗi bước một đề bài và một lượt chạy. Chưa xong thì ở lại bước đó. Điều kiện xong của mỗi bước chỉ anh được nới.</small></p>
+<p><small>N3 A–F đã READY/Owner giao. N4–N6 chờ Owner đánh giá AI để xác nhận mục tiêu; không mở Mac/Courier. PROMPT/READY không đổi.</small></p>
 
 <h2 id="N1">4. Bước N1 — xong 06/10</h2>
 <div class="wrap"><table>

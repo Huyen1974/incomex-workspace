@@ -1,6 +1,6 @@
 # COLLAB — Hermes Joint Workspace
 
-> **SSOT mục tiêu hiện hành · Owner 05/10/2026:** nền giao việc Hermes đã PASS; từ đây HJW chuyển sang xây **khung điều hành AI nhiều mức** theo kiểu bottom-up. Lịch sử quyết định cũ giữ ở các mục P phía dưới để đối chiếu, không dùng làm mục tiêu hiện hành.
+> **SSOT hiện hành (Owner 22/10/2026, HUMAN_DIRECTIVE@HJW-OWNER-20261022-02):** DỪNG hẳn kế hoạch cài Hermes độc lập trên MacBook và dùng Hermes điều khiển GPT/Claude/ứng dụng khác; phương án Hermes-Mac Courier/Session Controller quá phức tạp, không khả thi. Nếu cần computer-use/điều khiển chương trình thì dùng **Codex** theo việc Owner giao riêng. Trọng tâm thực tế N3 là **Hermes VPS** làm việc trung bình nhờ Workspace/Graph/PG/log/Guard; giữ RUN A–F đang giao. Điểm nghẽn chính là AI chưa đủ thông minh để điều hành hiệu quả: GPT Host/Claude Reviewer và Owner giao Claude Code/Codex thủ công, không mặc định AUTO. Lịch sử Mac cũ giữ để đối chiếu, không xóa thành quả hoặc tự gỡ cài đặt.
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 > **Tiêu đề này là khoá máy đọc — không đổi chữ.** Ngày 05/10 nó bị đổi thành “MỤC TIÊU HIỆN HÀNH — SSOT…” nên trang VPS của Owner báo “Chưa có mục tiêu”; khôi phục 06/10 (P164).
@@ -29,7 +29,7 @@
 - Hai vai trò là **độc lập về quyền**, dù trong một cấu hình cụ thể cùng một AI có thể kiêm cả hai.
 - Sau khi Host chốt `ĐI TIẾP`:
   - worker có API ⇒ hệ thống có thể giao/chạy qua API; hiện còn cổng MANUAL của Owner, sau này chỉ Owner mới bật AUTO cho từng loại việc đã nghiệm thu;
-  - worker chỉ có gói thuê bao/UI ⇒ dùng **liên lạc viên** tương lai (ví dụ Hermes-Mac hoặc một agent điều hành như OpenAI DOT) để đưa yêu cầu vào đúng phiên và mang kết quả về. Transport không thay Host.
+  - worker chỉ có gói thuê bao/UI ⇒ **Owner chuyển prompt cho Claude Code/Codex thủ công**. Không giao Hermes Mac điều khiển GPT/Claude hoặc các ứng dụng; computer-use nếu có là việc Codex riêng. Transport không thay quyền Host.
 
 ### 0.5 · Hai cấp độ điều hành trong CÙNG một hệ thống
 **Cấp 1 · Việc đơn giản / một AI điều hành**
@@ -63,35 +63,32 @@
 - ✅ D31 UptimeEye bên ngoài VPS hoạt động; F01 chạy, Telegram DOWN/UP đã thử.
 - ✅ A9 đã làm rõ cơ bản `BÀN ≠ GIAO ≠ ĐƯỢC CHẠY`; Hermes P121 và Claude P123 đã review vòng thật.
 
-### 0.9 · ROADMAP THỰC THI — 6 NODE LỚN, MỖI NODE 1 PROMPT/1 RUN
-1. **N1 = K1 · CLOUD CONNECTOR TWIN + SYNC FOUNDATION** — kiểm kê + tạo/hoàn thiện **cloud twin** cho toàn bộ custom Incomex connector đủ điều kiện, **không tháo/bỏ bản Mac**; chiều cải tiến chính là **Mac → nguồn approved → cloud**, máy tự phát hiện `MAC_AHEAD` nhưng không tự ghi đè Mac/không tự đẩy cloud khi chưa duyệt; connector cloudable vướng luật gốc dùng `POLICY_HOLD` để Owner quyết tại R4; nghiệm thu Mac-off + sync/drift + protection trong **một RUN**.
-2. **N2 = K2 · OPENAI DOTS INTEGRATION** — thử/triển khai đường chính thức tốt nhất cho repo identity/scope và external wake; residual thật sự do giới hạn hãng được hội đồng chuyển N3.
-3. **N3 = K3 · HERMES-MAC COURIER CUTOVER** — xử lý toàn bộ residual transport/session còn cần Mac sau N1/N2; chạy một vòng GPT↔Claude (và Dot nếu cần) mà Owner không copy-paste.
-4. **N4 = M1 · COUNCIL CORE V1** — triển khai V0 thật trên mức `rà kết quả agent + duyệt prompt kế tiếp`, có opinion/decision/bell + nối sang đường GIAO hiện hữu và chạy trọn một vòng thật.
-5. **N5 = M2 · FLEX POLICY + DUAL MODE** — cùng lõi chạy được nhiều mức cấu hình và cả Cấp 1 một AI / Cấp 2 hội đồng; đổi agent/cấp/mức bằng policy, không sửa code lõi.
-6. **N6 = F1 · FINAL ACCEPTANCE + HARDEN + CLOSE** — chạy T1–T9, đưa mọi phần mới vào Điều 30/31, rollback/watchdog/trace tối thiểu, 22/22 xanh, 0 blocker rồi CLOSE.
+### 0.9 · ROADMAP N1–N6 HIỆN HÀNH — OWNER 22/10/2026
+1. **N1 CLOUD CONNECTOR** — đã nghiệm thu; giữ connector cloud và khả năng Mac-off của hội đồng. Không động vào kết quả N1.
+2. **N2 OPENAI DOT FEASIBILITY** — đã có PASS_WITH_RESIDUAL; không tự mở lại phần hãng chưa hỗ trợ.
+3. **N3 HERMES VPS CAPABILITY + RELIABILITY** — RUN `HJW-HERMES-CAPABILITY-20261022-01` (P343 Claude ACCEPT, P344 GPT READY) đang được Owner giao Claude Code chạy. Mục tiêu: A Workspace có quyền ghi theo task/Host; B Graph đọc qua server; C log/status có lọc thật; D PG readonly; E named action/Guard; F lỗi updater; secrets luôn phía server. Bảo vệ PRE/POST, negative/rollback. **BỎ Hermes cài MacBook, Hermes-Mac Courier và Hermes điều khiển GPT/Claude; không cần 0 copy-paste.**
+4. **N4 COUNCIL CORE** — đề nghị cải thiện chất lượng ra quyết định/kiểm tra của AI. Chỉ lập RUN sau khi Owner xem KQ N3 và chốt lại mục tiêu/acceptance theo năng lực AI thực tế; Host/Reviewer/Owner chuyển tay Codex vẫn hợp lệ.
+5. **N5 FLEX POLICY + DUAL MODE** — đề nghị lâu dài; không giả định AI đủ thông minh để tự điều hành mức cao hoặc tự bật AUTO; chỉ mở khi Owner chốt.
+6. **N6 ACCEPTANCE/HARDEN/CLOSE** — nghiệm thu các tiêu chí Owner phê chuẩn lại; không hồi sinh điều kiện Hermes-Mac/Courier/0 lần chuyển tin.
 
-**Nguyên tắc node:** PRE/checkpoint/negative test là **pha nội bộ**, không phải node/prompt riêng. Việc chưa xong phải `CONTINUE_SAME_NODE`; chỉ được `MOVE_TO:Nx` khi Host + Reviewer cùng ghi rõ residual đó thuộc tự nhiên node sau và không làm sai acceptance của node hiện tại. Không có TODO vô chủ giữa hai node.
+**Ranh giới:** giữ lộ trình 6 node để tránh đảo hồ sơ; các pha trong RUN N3 đã READY không đổi. N4–N6 không tự phát RUN theo acceptance cũ. Lịch sử K1/K2/K3 và các mốc Mac 05–12/10 chỉ dùng audit.
 
-### 0.10 · ĐÍCH CUỐI T1–T9 — BỘ ACCEPTANCE HIỆN HÀNH · **AI KHÔNG ĐƯỢC NỚI**
-> T1–T9 là working acceptance của roadmap. Chỉ Owner được phê/nới/bỏ một phép thử. N1–N5 vẫn triển khai theo PASS riêng; N6 không được FINAL CLOSE nếu Owner chưa ratify bộ T1–T9 hoặc một bản thay thế do chính Owner chốt.
-**Mục tiêu viết lại một câu:** xây một **hệ thống giao việc tự động, đáng tin cậy** cho Incomex, lớn dần từ những gì đã chạy thật; hệ thống tự nắm luật, sổ ghi, quyền chốt, phạm vi và giám sát — còn mọi AI/agent, kể cả agent điều hành thương mại (OpenAI Dots, Grok…), chỉ là bộ phận thay được, cắm vào qua cùng một chuẩn.
+### 0.10 · T1–T9 — KHUNG KIỂM THỬ CŨ, CHỈ DÙNG SAU KHI OWNER XÁC NHẬN LẠI
+> Owner 22/10 loại bỏ các hạng mục Hermes-Mac và điều khiển AI khác. Do đó **T1 '0 lần dán chuyển tin' và T9 courier-sửa-payload không còn là điều kiện đạt**; T2–T6 về AI tự điều hành vẫn là đề xuất dài hạn, chưa được bật. N3 chỉ nghiệm thu A–F của RUN hiện tại. Các phép thử mới cho N4–N6 phải do Owner xác nhận, không tự nới/áp kết luận cũ.
 
-**Hoàn thành = chín phép thử dưới đây đều chạy thật và đạt** (tài liệu và bản thử trong hộp không tính):
-
-| # | Phép thử | Đạt khi |
+| # | Phép thử đề nghị | Tiêu chí dự kiến để Owner xem xét |
 |---|---|---|
-| T1 | Việc khó, Owner không phải chuyển tin | một việc thật đi qua đủ các mức duyệt; Owner chỉ nêu mục tiêu, duyệt tiêu chí hoàn thành và trả lời khi bị hỏi; **0 lần dán chuyển tin** |
-| T2 | Việc dễ, một AI điều hành | một loại việc chạy trọn từ giao tới báo, **0 thao tác Owner**, có AI khác hãng giám sát |
-| T3 | Cài lỗi thử | cố ý cài một lỗi vào T2 ⇒ AI giám sát phát hiện, kéo phanh, Owner nhận báo trong 15 phút |
-| T4 | Đổi agent | thay AI điều hành hoặc người thi hành của một loại việc bằng agent khác **chỉ bằng một dòng trong bảng chính sách**; chạy lại đạt |
-| T5 | Đổi cấp | Owner gật một lần ⇒ một loại việc chuyển từ hội đồng sang một AI điều hành (và ngược lại); máy áp từ việc kế tiếp |
-| T6 | Thêm/bớt mức duyệt | thêm hoặc bỏ một mức duyệt cho một loại việc chỉ bằng bảng; chạy lại đạt |
-| T7 | Truy được | mỗi việc có một trang tự sinh: ai đề nghị · ai phản biện · Host xử từng phản biện ra sao · chốt trên bản nào · ai chạy · kết quả · ai nghiệm thu |
-| T8 | An toàn giữ nguyên | chỉ người có quyền mới chốt được · liên lạc viên không sửa được nội dung · ghi ngoài phạm vi bị chặn · nút dừng chạy · im lặng/quá hạn có báo · tất cả trong bảo vệ Điều 30/31 · đèn xanh |
-| T9 | Bấm chuông (Owner 05/10 11:47) | cố ý cho Host chốt sớm, hoặc cho liên lạc viên sửa nội dung ⇒ người kế tiếp (hoặc máy) không làm theo, chuông tới Telegram của Owner trong 5 phút, việc dừng, người bị bấm không tự gỡ được |
+| T1 | Việc khó/Host điều hành | GPT Host và Claude Reviewer bàn/chốt, có bằng chứng, **Owner được chuyển tay prompt cho Codex/Claude Code**, không cần courier |
+| T2 | Việc dễ/một AI | Chỉ khi chứng minh AI đủ tin cậy và Owner bật cho đúng loại việc |
+| T3 | Giám sát lỗi | Phát hiện sai, phanh và báo Owner có bằng chứng |
+| T4 | Đổi agent | Không làm lệch quyền, công việc và bằng chứng |
+| T5 | Đổi cấp | Chỉ khi Owner cho phép sau đo chất lượng |
+| T6 | Đổi mức duyệt | Có policy và kiểm quyền rõ |
+| T7 | Truy vết | Có ai đề nghị/phản biện/chốt/chạy/nghiệm thu |
+| T8 | An toàn | Đúng quyền, đúng phạm vi, Guard, rollback, đèn |
+| T9 | Bấm chuông sai thẩm quyền | Giả Host/READY/KQ, sửa ngoài scope hoặc chốt sớm bị chặn và báo Owner; **không cần Hermes-Mac** |
 
-**Không tính vào hoàn thành:** giao diện đẹp · số loại việc nhiều · tự động cho việc rủi ro cao (loại này luôn có hội đồng và Owner).
+**Không lấy việc tự động hoá nhiều hay GUI đẹp thay cho năng lực điều hành đúng.** Các phép thử chưa được Owner phê chuẩn không dùng làm gate cho RUN đang mở.
 
 ### 0.11 · NỘI DUNG CẦN ĐẠT — *ĐỀ NGHỊ của Claude · ĐANG BÀN* (🟢 có rồi · 🟡 có một phần · ⚪ chưa có)
 
@@ -120,8 +117,8 @@
 - Vì vậy không hard-code toàn hệ `3 vòng + còn CHẶN ⇒ Owner`. Đó có thể là default cho một lớp task; task khác có thể 1 vòng, 2 vòng, yêu cầu unanimity, hoặc cho Host disposition và đi tiếp — miễn policy đã được chốt trước và máy kiểm được.
 - Unit ban đầu vẫn là **một task**. Các mức thảo luận/state nằm bên trong task; sau này mới tổng quát thành bảng policy để thêm/bớt mức dễ.
 
-### 0.13 · THÀNH VIÊN/TRANSPORT TƯƠNG LAI — HERMES-MAC LÀ CANDIDATE, CHƯA CHỐT GIẢI PHÁP
-> **Đã có lời Owner thay phần này (11/10 19:47, 12/10 15:35, mục 3):** Hermes Mac là courier, nhắc GPT/Claude qua web một câu, nội dung ở repo. Bậc ưu tiên 1–4 và câu nhận lệnh "qua API/kênh máy" dưới đây chỉ còn là lịch sử, không dùng để thêm đường mới (P303).
+### 0.13 · LỊCH SỬ HERMES-MAC / COURIER — ĐÃ HỦY THEO OWNER 22/10
+> **Chỉ là lịch sử phương án 05–12/10, KHÔNG CÒN HIỆU LỰC.** Owner 22/10 đã loại Hermes MacBook/Courier điều khiển GPT/Claude và ứng dụng khác; không tạo PROMPT/RUN từ các đề xuất dưới đây. Nếu về sau cần computer-use, Owner giao Codex.
 - **Hermes-VPS hiện tại:** agent/backend always-on trên VPS; nhận assignment máy, chạy tool/API trong scope, ghi repo và Telegram theo Contract V1.
 - **Hermes-Mac tương lai (candidate):** instance/thành phần khác hẳn Hermes-VPS, chạy trên MacBook; vai chính là `Courier / Session Controller` cho các AI thuê bao/web/desktop không có đường gọi ngoài phù hợp. Dự kiến nhận envelope/lệnh từ control plane qua API/kênh máy, đưa đúng nội dung tới đúng phiên GPT/Claude và mang trạng thái/kết quả về. **Đây mới là ý kiến Owner để nghiên cứu, chưa phải quyết định kiến trúc.**
 - **Không mặc định copy-paste UI là phương án cuối.** Khi tới mốc transport phải spike và so theo thứ tự ưu tiên:
@@ -193,7 +190,7 @@
 **E. Những thứ P126/P128 đúng về mục tiêu nhưng HOÃN kỹ thuật để giảm tải**
 - `khác hãng giám sát mọi task`: giữ là policy/đích, chưa dựng scheduler/service riêng ở M1.
 - `sổ điểm tin cậy`, `trang trace tự sinh`, `bảng policy UI`, `đổi cấp một click`, `T1–T9 toàn hệ`: giữ làm acceptance dài hạn; **không phải điều kiện để M1 chạy**.
-- Hermes-Mac/courier không nằm trong kernel M1, nhưng theo quyết định Owner **K1→K2→K3 được làm trước M1** để chuẩn bị đường nối; K3 chỉ xử lý phần còn thiếu sau K1/K2.
+- **Owner 22/10 đã bỏ K3 Hermes-Mac/courier**. N3 thay bằng Hermes VPS A–F, N4/N5 chỉ triển khai khi Owner đánh giá AI đã đủ năng lực điều hành, không vì phải nối tự động GPT/Claude.
 - Không archive/di chuyển lịch sử P lúc này chỉ để đẹp file; nếu chi phí đọc trở thành blocker thật mới xử lý theo Owner gật.
 
 **F. M1/N4 · ghi chú thiết kế — THỨ TỰ/PASS THỰC THI THEO 0.17**
@@ -201,8 +198,8 @@
 - **0.17 thay thế thứ tự cũ:** N4 phải chạy trọn trong cùng node `bàn → chốt → giao → worker chạy → báo → nghiệm thu`; không còn tách “chưa nối worker ở lần đầu”.
 - Courier/transport đã được xử lý ở N1–N3 trước N4. Mọi acceptance/negative/protection của N4 lấy theo 0.17/R1–R7.
 
-### 0.16 · NGUỒN ĐẦU VÀO K1/K2/K3 — **LỊCH SỬ THIẾT KẾ; THỰC THI THEO 0.17**
-Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề nghị: **K1 → K2 → K3 → rồi mới M1** (lõi một mức ở 0.15). Việc trước làm việc sau nhỏ đi. Ba việc này là đường nối, không làm lõi phức tạp thêm.
+### 0.16 · LỊCH SỬ K1/K2/K3 — K3 HERMES MAC ĐÃ BỎ (22/10)
+Đây là hồ sơ phương án cũ để tra cứu; **KHÔNG triển khai K3 Hermes-Mac/Courier** kể từ chỉ đạo Owner 22/10. N3 dùng Hermes VPS A–F đã READY, computer-use nếu có giao Codex riêng.
 
 | | Việc | Cách gọn nhất, dùng thứ đang có | Xong khi |
 |---|---|---|---|
@@ -252,7 +249,7 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 | Phép thử/năng lực | N1 | N2 | N3 | N4 | N5 | N6 |
 |---|---|---|---|---|---|---|
 | Mac-off: hội đồng vẫn làm việc | ● | | | | | ↻ |
-| T1 việc khó, 0 lần chuyển tin | | | ○ | ○ một mức | ● | ↻ |
+| T1 việc khó, MANUAL + bằng chứng | | | | ○ một mức | ● sau khi Owner duyệt | ↻ |
 | T2 việc dễ, một AI điều hành | | ○ nếu Dot dùng được | | | ● | ↻ |
 | T3 cài lỗi thử | | | | | ● | ↻ |
 | T4 đổi agent | | | | | ● | ↻ |
@@ -260,7 +257,7 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 | T6 thêm/bớt mức | | | | | ● | ↻ |
 | T7 truy vết từ event log | | | | ○ nền | ● | ↻ |
 | T8 an toàn tổng thể | ○ | ○ | ○ | ○ | ○ | ● |
-| T9 courier sửa thư / vượt quyền | | | ● | | | ↻ |
+| T9 giả lệnh/KQ, sửa ngoài quyền | | | ○ A3 | ● Host/decision | | ↻ |
 | T9 Host chốt/giao sai trình tự | | | | ● | | ↻ |
 
 **R3 · Node nào tạo/sửa mã hoặc cấu hình thì bảo vệ ngay trong chính RUN đó.** D30/31, Config/Protection Guard, mutant/negative proof, rollback/receipt tương ứng phải PASS trước KQ node. N6 chỉ rerun/đối chiếu tổng, không để N4/N5 trần tới cuối.
@@ -269,7 +266,7 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 
 **R5 · Node phụ thuộc hãng có lối ra chính thức nhưng không được tự nới PASS.** Khi N2 hoặc pha đầu N3 đã đo đủ đường chính thức mà tính năng/gói/vùng của hãng không cho, ghi `VENDOR_LIMIT` + bằng chứng + đề nghị một phương án và hỏi Owner đúng một câu. Chỉ khi Owner chấp nhận `DEFERRED_BY_VENDOR` mới được PASS node với residual đã định danh; Owner không chấp nhận thì ở lại node. Không code lách UI để giả PASS.
 
-**R6 · Một dạng thư/envelope duy nhất giữa N3–N4.** Reuse dạng GIAO–KẾT QUẢ hiện có làm canonical envelope; không đẻ transport schema thứ hai. N3 bắt buộc negative: courier sửa payload ⇒ thư vô hiệu + Telegram; courier thử chốt/ra lệnh vượt quyền ⇒ bị chặn. N4 bắt buộc negative: GIAO khi chưa có decision hợp lệ ⇒ không phát thẻ/không chạy.
+**R6 · Tái dùng ASSIGN_V1/RESULT_V1, không dựng Hermes-Mac courier.** N3 negative: Hermes giả Host/READY/KQ/sửa trạng thái hay ngoài scope bị chặn; N4 negative: không có decision hợp lệ thì không GIAO. Computer-use nếu có giao Codex riêng.
 
 **R7 · N5 là node nặng nhất nhưng vẫn một PROMPT/RUN, chia 2 pha và ghi checkpoint nội bộ.** Pha 1: policy + nhiều mức ở Cấp 2, đạt T1/T6/T7. Pha 2: Cấp 1 một AI + AI khác hãng giám sát + cài lỗi + đổi agent/cấp, đạt T2–T5. Agent Cấp 1 không bắt buộc là Dot. AUTO chỉ Owner bật cho đúng một loại việc sau đủ bằng chứng thật; bell trên loại AUTO ⇒ tự rơi về MANUAL. Mã/config mới của cả hai pha phải qua R3 trước PASS.
 
@@ -289,34 +286,33 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Nếu đường chính thức cho access nhưng không cho wake phù hợp, ghi `COURIER_REQUIRED`; nếu gói/vùng/tính năng chưa cho cả access cần thiết, ghi `VENDOR_LIMIT`. Cả hai phải có bằng chứng và **một câu hỏi Owner theo R5**; chỉ sau Owner chấp nhận defer mới được MOVE_TO N3/đi tiếp.
 - **Không được PASS mơ hồ:** phải biết chính xác Dot dùng identity/transport nào, negative scope đã PASS, phần residual là gì; không code lách UI trong N2. Mã/config mới phải qua R3 trước KQ.
 
-#### N3 · K3 · HERMES-MAC HAI CHẾ ĐỘ TRƯỚC, COURIER SAU — CÙNG NODE
-- **Ưu tiên Owner chốt 11/10 19:24:** Hệ thống đã gọi được Hermes-VPS. Làm trước đúng việc nhỏ trên MacBook: (1) Hermes Desktop vẫn là màn hình điều khiển backend VPS hiện hữu (Remote); (2) Hermes Local là agent/backend độc lập trên MacBook, dùng API model qua OpenRouter. Không nhầm hai kết nối với hai ghế hội đồng hay hai bản cài bắt buộc.
-- **Một lượt thực hiện gọn:** kiểm kê bản Hermes Desktop/CLI đang cài, gateway/profiles/runtime; tận dụng kết nối Remote và Local có sẵn; nếu thiếu thì cài/khôi phục Local tối thiểu theo đúng version và khoá đồng bộ hiện hữu; thiết lập credential/model OpenRouter riêng qua secret an toàn; kiểm thử hai chế độ, tách session/state/config, đo rollback. MacBook không cần IP cố định, không mở cổng mới, không sửa Hermes-VPS đang hoạt động.
-- **PASS phần MAC:** Remote UI điều khiển VPS như trước; Local agent gọi OpenRouter thành công và trả lời; chuyển hai chế độ vẫn làm việc, dữ liệu/khóa/identity không lẫn, VPS không phụ thuộc Mac bật/tắt; kiểm tra được đường lùi. Nếu cần Owner tạo key mới chỉ hỏi đúng một lần, không đọc/in khóa.
-- **Courier (lời Owner 11/10 19:47 và 12/10 15:35, nguyên văn ở mục 3):** Hermes Mac điều khiển GPT/Claude gói thuê bao qua trình duyệt, chỉ gõ một câu nhắc ngắn bảo vào repo đọc và làm tiếp; việc phải làm đã ghi sẵn trong repo. Hermes biết có việc mới bằng cron có cổng script của chính Hermes (`wakeAgent:false` khi không có gì mới ⇒ 0 token), không cron/launchd hệ điều hành riêng. **Làm chỗ khó trước (Owner 12/10 15:35):** ngay sau lượt khoá Mac là một lượt thử chỉ trên Mac, 0 ghi VPS: hỏi repo 0 token + Hermes nhắc GPT qua web và GPT tự ghi repo không cần người bấm; đạt thì làm tiếp courier + T9, hỏng thì dừng và hỏi Owner đổi hướng; khôi phục cấu hình Hermes VPS đi ngay sau lượt thử. Ghế Claude: điều khoản Anthropic cấm vào claude.ai bằng bot/script (P285, P303) nên không thử qua web; cách thay chờ Owner gật ở P303 mục 4, chưa gật thì không vào lộ trình. Theo quy định từng vai. KHÔNG tạo đường tự động gọi API vào tài khoản GPT/Claude thuê bao; KHÔNG yêu cầu khóa Anthropic/OpenAI cho mục đích đó; KHÔNG tự dựng cầu nối/transport/DB mới. Đường chưa chứng minh được thì ghi UNKNOWN, không giả PASS.
-- **Phần đã có:** N3-2a Hermes VPS giao việc và ghi nhận kết quả giữ nguyên. Vé -05 WRITE_CONFLICT và thử bấm muộn là tồn đọng thật cần xử lý gọn sau, nhưng **không phải điều kiện để cấu hình Hermes Local trên Mac**; không tự sửa sổ máy. Lượt N3-2b official Claude/OpenAI API và phiếu S3 cũ **DỪNG theo thay đổi scope Owner**, không tiếp tục; PROMPT phải viết lại, Reviewer rà một lần trước READY.
-- **PASS N3 toàn node:** MAC PASS + đường courier/chuyển việc thật phù hợp quyền và T9 negative theo 0.17/R6; các thử nghiệm T1–T9 và N4–N6 không tự được nới. Không gộp bài toán toàn bộ hội đồng vào lượt cài Hermes Mac.
+#### N3 · K3 · HERMES VPS CAPABILITY + RELIABILITY — PHẠM VI MỚI OWNER 22/10
+- **BỎ:** cài/đồng bộ Hermes độc lập trên MacBook, Hermes Remote/Local như tiêu chí đạt N3, Hermes Mac điều khiển GPT/Claude/ứng dụng khác, courier và 0 lần chuyển tin. KQ Mac P309/P313/P330 giữ lịch sử, KHÔNG gỡ/đụng runtime.
+- **Giữ nguyên RUN Owner đang cho chạy:** `HJW-HERMES-CAPABILITY-20261022-01`, Claude Reviewer P343 ACCEPT, GPT Host P344 READY@7038d93b3f8a8d48cc25740b54e974fe5e92bacf. PROMPT A–F không sửa; không phát RUN mới.
+- **Đích N3:** A Workspace read/write theo ASSIGN/guard; B Graph server-held secret read-only; C log/status lọc và kiểm thật; D PG readonly bounded; E named action qua Guard; F updater; negative/rollback/biên nhận. Hermes không sudo/root tùy ý, không GSM trực tiếp, không lộ secret.
+- **Sau KQ:** đánh giá chất lượng suy luận, phát hiện sai và độ tin cậy AI trong điều hành công việc. Phần khó/GUI/computer-use nếu cần Owner giao Claude Code/Codex thủ công.
+- **N4–N6:** chưa tự triển khai; đợi Owner duyệt lại acceptance dựa trên năng lực AI thực tế.
 
 #### N4 · M1 · COUNCIL CORE V1 — 1 PROMPT
 - **Trong cùng RUN:** thêm `TASK_POLICY_V1(required_members)` + `FLOW_EVENT_V1`; scanner suy state; chạy **một mức thật** `rà kết quả agent + duyệt prompt kế tiếp` với GPT/Claude; Host chốt; canonical envelope R6 gọi đường GIAO hiện hữu (`ASSIGN_V1/READY`) để worker chạy; reviewer nghiệm thu.
 - **Negative bắt buộc:** Host chốt sớm → decision vô hiệu + Telegram; GIAO khi chưa có decision hợp lệ → không phát thẻ/không chạy; AI bấm bell semantic → HOLD → Owner resolve; `content_ref` đổi → opinion cũ mất hiệu lực.
 - **Protection R3 trong cùng RUN:** parser/evaluator/config mới vào D30/31 + Config/Protection Guard + mutants/rollback/receipt trước KQ.
-- **PASS N4:** một vòng thật `bàn → chốt → giao → chạy → báo → nghiệm thu` chạy trọn, Owner không chuyển tin thủ công; negative + protection PASS; chỉ approval MANUAL hiện hành nếu policy còn yêu cầu.
+- **PASS N4 (đề nghị, Owner duyệt lại sau N3):** một vòng bàn/chốt/giao/chạy/báo/nghiệm thu có bằng chứng, Owner được chuyển prompt cho Claude Code/Codex thủ công; negative và protection PASS, không dùng Hermes-Mac courier.
 
 #### N5 · M2 · FLEX POLICY + DUAL MODE — 1 PROMPT, 2 PHA
 - **Mục tiêu:** biến N4 từ một mức hard-code thành cùng một lõi cấu hình được, đồng thời đạt lần đầu T1–T7 theo R2.
-- **Pha 1 · Cấp 2:** policy nhiều mức, thêm/bớt/đổi thứ tự mức; chạy một việc khó đầu-cuối không Owner chuyển tin; trace T7 sinh trực tiếp từ event log (không bắt UI riêng). PASS pha 1 = T1 + T6 + T7.
+- **Pha 1 · Cấp 2 (đề nghị):** policy nhiều mức, việc khó đầu-cuối với Host/Reviewer và Owner được chuyển prompt thủ công; T7 trace từ event log. Chỉ xét PASS sau khi Owner phê chuẩn lại T1/T6/T7.
 - **Pha 2 · Cấp 1:** một AI điều hành loại việc an toàn + AI khác hãng giám sát/bell; cài lỗi thử; đổi agent; đổi Cấp 1↔Cấp 2 bằng policy. Agent điều hành không bắt buộc là Dot. PASS pha 2 = T2–T5.
 - **AUTO:** chỉ Owner bật cho đúng một loại việc sau bằng chứng/lượt thật theo policy; bell trên loại đang AUTO ⇒ tự rơi về MANUAL. Không có AUTO ngầm.
 - **Protection R3:** toàn bộ policy/evaluator/config của cả hai pha được guard/mutant/rollback ngay trong N5.
 - **PASS N5:** pha 1 + pha 2 đều PASS; T1–T7 đã có live proof ở node chủ; đổi agent/cấp/mức không sửa code lõi.
 
 #### N6 · F1 · FINAL ACCEPTANCE + HARDEN + CLOSE — 1 PROMPT
-- **Chỉ nghiệm thu lại + harden + close:** rerun trọn T1–T9 trên case an toàn/đã chọn; không dùng mock thay live proof nơi T yêu cầu thật.
+- **Chỉ nghiệm thu lại + harden + close:** rerun bộ phép thử Owner xác nhận lại theo năng lực AI thực tế, không có Hermes-Mac/courier/0 copy-paste; không dùng mock thay live proof.
 - **CẤM xây bù năng lực lần đầu:** nếu T1–T7 chưa từng PASS ở node chủ theo R2 thì N6 FAIL và `RETURN_TO:<node chủ>`; không implement feature đó trong N6. N6 chỉ được sửa lỗi final hardening/regression không làm thay đổi năng lực/scope sản phẩm.
 - Kiểm lại protection của N1–N5: Config/Protection Guard + mutants/negative proof + rollback/watchdog/receipts; không rebaseline để làm xanh. **Mọi đèn phải xanh và không có nguồn ngoài sổ/ngoài phép đếm**; AUTO chỉ đúng loại Owner đã duyệt.
 - **T8 đạt lần đầu tại N6** bằng bằng chứng tổng thể; T7 chỉ rerun vì đã thuộc N5.
-- **PASS N6:** Owner đã ratify bộ acceptance cuối 0.10; T1–T9 rerun PASS; không residual blocker; Host + Reviewer FINAL ACCEPT → CLOSE HJW.
+- **PASS N6:** Owner phê chuẩn acceptance mới và các phép thử còn hiệu lực PASS, không còn blocker; Host + Reviewer FINAL ACCEPT → CLOSE HJW.
 
 ### P133 · Host GPT · 2026-10-05 14:20 +07 · **CHỐT ROADMAP 6 NODE LỚN · K1-PRE GỘP VÀO N1**
 - **ACCEPT P132 S1–S3.** Bản K1-PRE đã rà trở thành Pha A của N1, không chạy như một prompt/node độc lập.
@@ -485,7 +481,7 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-22 12:07 +07 · GPT Chat P342 · **INPUT HERMES CHỐT MỘT LẦN · WORKSPACE READ PASS · GRAPH/LOG/PG + UPDATER MỘT RUN · DRAFT REVIEW · 0 RUN**
+### BẢNG ĐIỀU KHIỂN · 22/10/2026 · GPT Host P345 · **OWNER HỦY HERMES-MAC COURIER · N3 HERMES VPS A–F ĐANG ĐƯỢC GIAO CHẠY**
 - 📥 **Đã xử lý hết, gom lại (P332):** PROOT05 16/10 và Owner 17/10 07:15 (sửa xanh #11/#21/#22, cờ bỏ quên P313, stop-hook) → xong ở P314 + P321, Host nghiệm thu P322; Owner 17/10 21:23 (nâng Hermes) → xong ở P325–P330, Host nghiệm thu P332. Chi tiết gốc còn trong các mục P đó.
 - ✅ *(đã xong P321 — giữ để tra cứu)* 📥 **Owner 17/10/2026 07:15 qua Claude Chat (root) — GIẢI QUYẾT NỐT VƯỚNG MẮC HJW** (Owner: «phên Gemini JW và HJW đang vướng gì chưa giải quyết … soạn prompt yêu cầu 2 phiên đó giải quyết nốt các vướng mắc»). Bảng đèn 17/10 00:10Z: 19 xanh · 3 đỏ, cả 3 có phần của HJW:
   1. **Cờ bỏ quên:** P313 `HJW-N3-COURIER-HARD-PART-SPIKE-20261012-01` STARTED 13/10 02:22Z, 4 ngày không bước/KQ, Bảng đứng từ 13/10 ⇒ Host kiểm tiến trình rồi ghi `KQ@… DỪNG · CỜ_BỎ_QUÊN` (DROOT54 b), cập nhật Bảng. — ✅ **P314 đã đóng.**
@@ -497,12 +493,12 @@ Owner quyết: ba việc dưới đây triển khai trước. Thứ tự đề n
   - **Thứ tự (Owner):** (1) → một lượt sửa gộp (2)(3)(4) theo chu kỳ một vòng (DROOT55) → (5) → rồi mới quay lại Courier. Đích: #11, #21 xanh; #22 chỉ còn phần GJW nếu GJW chưa xong. Báo cáo trên repo, chat chỉ tóm tắt.
 - ✅ *(đã xong P330)* 📥 **Owner 17/10/2026 21:23 qua Claude Chat — NÚT NÂNG CẤP HERMES (P316):** sau KQ GREEN-FIX, Owner dán Claude Code một câu để chạy đề bài P316 `HJW-UPGRADE-BUTTON-20261017-01`: máy tự diễn tập, Owner bấm một nút Telegram, Mac tự theo; đích bản chính thức **v0.22.2 (`d923a5eb`) theo P322** — v0.22.1 hãng build nhầm, cấm cài; không chạy hai lệnh Codex (đích `main` `7e9eb8d`).
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
-- 🏁 **Xong khi:** chỉ khi T1–T9 + các mối nối chạy thật đạt; `UNKNOWN/CHƯA ĐO` = chưa đạt.
-- 📍 **Tiến độ:** `[✓ Hermes VPS] → [✓ N1] → [✓ N2] → [✓ N3: khoá Mac MAC_LOCAL_PASS (P309)] → [✓ N3: sửa xanh đèn HJW #11/#21/#22 + stop-hook (P321, nghiệm thu P322)] → [✓ Nâng Hermes VPS + app Mac v0.22.2 (P325–P330, nghiệm thu P332)] → [■ N3: khép quyền Hermes VPS toàn diện + lỗi updater (P342)] → [□ N3: thử Courier, làm lại phần thiếu P313] → [□ N3: Courier + T9] → [□ N4] → [□ N5] → [□ N6]`. Nâng Hermes từ nay: Owner nói «nâng Hermes» với Claude Code (P325.7); phương án Claude Code CLI courier đợi Owner GẬT/LẮC rõ, không thử claude.ai web.
+- 🏁 **Xong khi:** KQ N3 A–F đo thật, bảo vệ Guard/rollback/bí mật, không PASS giả; N4–N6 chờ Owner duyệt lại tiêu chí, không đòi Hermes Mac/courier/0 dán tin.
+- 📍 **Tiến độ hiệu lực:** ✓ Hermes VPS nền → ✓ N1 cloud connector → ✓ N2 Dot feasibility → ■ N3 Hermes VPS A–F Owner đã giao Claude Code → □ Host nghiệm thu và đánh giá độ tin cậy điều hành AI → □ N4–N6 Owner xét lại yêu cầu. Các việc Hermes-Mac P309/P313/P330 chỉ giữ lịch sử, không mở lại.
 - ✅ **Đã xong:** Hermes VPS nền giao việc + N1 PASS + N2 PASS_WITH_RESIDUAL; N3-2a ba success/SAFEFAIL và vé -05 reconcile (CAS/late-click còn). **P309** đã chứng minh GSM secret openrouter_for_hermes_macbook v1 khớp Local, OpenRouter key Mac ≠ VPS bằng verifier kín, Local backend/CLI/Desktop PONG usage PASS = MAC_LOCAL_PASS; SSH tunnel/backend VPS health PASS; RUN KQ DỪNG vì Remote GUI chưa đo và VPS drift vẫn mở; không phá phần đã đạt. P310 Host ACCEPT checkpoint và draft tiếp đúng roadmap. **P311 Claude ACCEPT e59783f sau 6 sửa; Host P312 READY đúng SHA.** P313 (13/10) dừng giữa chừng, đã đóng `CỜ_BỎ_QUÊN` ở P314; có số đo lịch Hermes Mac tự bắn 4 lượt rỗng.
-- ■ **Đang làm:** — · 0 RUN active. Hermes 22/10 đã đọc workspace MCP đúng root/path, không cần cấp lại READ ACL. GPT P342 thay PROMPT DRAFT của cùng RUN HJW-HERMES-CAPABILITY-20261022-01: mở đủ quyền ghi task/Graph/log/PG/named action trong một lượt, chẩn đoán lỗi hermes-safe-update exit2 thật; hai cửa sudo/GSM cấm. Chưa REVIEW/READY/RUN, chưa có mutation trên VPS.
-- ⬜ **Còn lại:** (0) một RUN Hermes capability A–F: workspace read PASS/ghi HJW + đa task theo A9 Host ASSIGN, Graph MCP chỉ đọc & server-held Neo4j password, service logs redacted, PG read-only via API/view, thao tác operational qua Guard/named action, xử lỗi updater failed exit2 nếu có bằng chứng; 0 root/GSM/secret exposed/privilege bypass; (1) N3 Courier Mac còn thiếu P313 (cron→GPT web/T9) sau khi quyền được nghiệm thu; (2) N3-2a CAS residual và N4–N6. Nâng Hermes P330 đã đạt. Kuma 22/22 của P340 19/10 là lịch sử, đo live trước mutation.
-- ➡ **Kế tiếp:** NEXT_TRIGGER=CLAUDE_ONE_REVIEW_P342_FINAL_CONTRACT_EXACT_SHA_THEN_GPT_HOST_READY · Claude Chat rà đúng MỘT vòng PROMPT DRAFT cùng RUN_ID: root/path + trial guard đúng, task write Host ASSIGN, server-held Neo4j/PG credentials, logs filtered, updater exit2 root-only diagnosis, không tạo 5 đợt mở quyền. Nếu đạt, ký exact last-touch SHA; GPT Host READY, Owner dán một Claude Code CLI RUN. Không hỏi Owner chọn lại 5 mức.
+- ■ **Đang làm:** Owner thông báo đã giao Claude Code chạy `HJW-HERMES-CAPABILITY-20261022-01`, Claude P343 ACCEPT/GPT P344 READY exact SHA 7038d93b; chưa trực tiếp xác nhận STARTED/KQ executor. Không thay PROMPT/READY, không tự phát RUN khác.
+- ⬜ **Còn lại:** (0) nhận và nghiệm thu KQ A–F; (1) khép residual CAS thực sự ảnh hưởng đường ghi của Hermes VPS nếu còn; (2) đánh giá khả năng AI điều hành trước khi Owner quyết N4–N6. **BỎ N3 Hermes Mac/Courier/T9 courier**, không cần Owner gật/lắc chuyện Hermes điều khiển chương trình.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=CLAUDE_CODE_KQ_HJW_HERMES_CAPABILITY_20261022_01 · Host nghiệm thu Hermes VPS, báo Owner về độ tin cậy AI; không chuyển sang Mac/Courier.
 - ⛔ **Cấm:** không gọi API thuê bao GPT/Claude; không thêm Routine/Anthropic/OpenAI keys; không bấm/update Hermes Desktop fan-out hoặc hermes update không kiểm soát; không sửa Hermes VPS khi Graph/VPSC còn shared mutation/#11 đỏ/Guard FAIL; không bật update một máy rồi báo đồng bộ; không phá snapshot/data/rollback; không đổi N4–N6/T1–T9; không phát RUN từ READY cũ. Không đổi gì trong Settings của Hermes Desktop khi đang ở kết nối VPS; không ghi "VPS không đổi" khi đèn #21/#22 còn đỏ. **Ngoại lệ Owner 17/10 07:15:** luật «không sửa Hermes VPS khi #11 đỏ/Guard FAIL» không chặn lượt sửa làm xanh chính #11/#21/#22-phần-HJW (vẫn VPS-GHI, Điều 30/31, đường lùi, không rebaseline che lỗi, không đụng GJW).
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -673,28 +669,18 @@ CẤM: model gọi AI khác, lập lịch, tạo assignment, sửa repo/Guard, t
 <!-- END_PREPARED_FOR_P258 -->
 
 ### 1. Mục tiêu
-- Owner nâng cấp ngày 05/10/2026. Dưới đây là bản tóm; nguyên văn ở mục 3, thiết kế và lộ trình chi tiết ở mục 0.
-- Xây một hệ thống giao việc tự động, đáng tin cậy, lớn lên từ những gì đang chạy thật.
-- Không phụ thuộc năng lực của agent điều hành thương mại như OpenAI Dots hay Grok, nhưng vẫn giao tự động có kiểm soát cho các việc yêu cầu không cao.
-- Một hệ, hai cấp: việc dễ do một AI điều hành lo; việc khó do hội đồng AI bàn rồi Host quyết. Owner quyết loại việc nào thuộc cấp nào.
-- Luôn có AI tốt nhất của hãng khác giám sát và cảnh báo để giảm sai lầm khi AI ra quyết định.
-- Vai nào quyền nấy: ai làm sai quyền, kể cả Host, thì người kế tiếp không làm theo và bấm chuông tới Owner.
-- Điều hành đơn giản, dùng tối đa thứ đang có, dễ điều chỉnh khi agent của các hãng tiến bộ.
+- **HUMAN_DIRECTIVE@HJW-OWNER-20261022-02:** bỏ Hermes cài MacBook và Hermes điều khiển GPT/Claude/các chương trình khác vì phức tạp và không khả thi. Nếu cần computer-use, ưu tiên Codex theo nhiệm vụ Owner giao.
+- **N3 hiện hành = Hermes VPS thực dụng:** xử lý việc trung bình 24/7 với Workspace, Graph, PG, log, Guard; báo cáo đúng task/role và có nguồn chứng minh, secret chỉ server giữ.
+- **Bài toán quan trọng sau N3:** AI chưa đủ thông minh/tin cậy để điều hành công việc hiệu quả. Ưu tiên chất lượng quyết định, phản biện, chống sai và tiết kiệm thao tác; không tự động hóa cao khi chưa đo được. Hiện GPT Host, Claude Reviewer, Owner chuyển Claude Code/Codex thủ công.
+- Giữ thành quả cũ, lịch sử Mac để audit, không tự gỡ/sửa, không tạo nhiệm vụ Hermes Mac mới.
 
 ### 2. Thế nào là hoàn thành
-- Chín phép thử dưới đây chạy thật và đều đạt. Bộ này do hội đồng đề nghị, đang chờ Owner gật; AI không được nới. Chi tiết ở mục 0.10.
-- T1: một việc khó đi hết các mức duyệt, Owner không phải dán chuyển tin lần nào.
-- T2: một loại việc dễ do một AI điều hành lo trọn, Owner không thao tác, có AI hãng khác giám sát.
-- T3: cài một lỗi thử, AI giám sát bắt được, phanh lại, Owner nhận báo trong 15 phút.
-- T4: đổi agent bằng một dòng trong bảng chính sách.
-- T5: Owner gật một lần, loại việc đổi cấp giữa hội đồng và một AI điều hành.
-- T6: thêm hoặc bớt một mức duyệt chỉ bằng bảng.
-- T7: mỗi việc có một trang truy vết tự sinh.
-- T8: an toàn giữ nguyên: đúng quyền, đúng phạm vi, nút dừng chạy, im lặng có báo, đèn xanh.
-- T9: Host chốt sớm hoặc liên lạc viên sửa nội dung thì người kế tiếp không làm theo, chuông tới Owner trong 5 phút.
-- Lộ trình sáu bước: N1 đồng bộ Mac–Cloud đã đạt; N2 Dots đã đạt với residual đã ghi; **N3: Hermes Mac Remote VPS + Local OpenRouter trước, MAC_PASS rồi Hermes Mac nhắc GPT/Claude vào repo, T9**, 2a residual có chủ không chặn Mac; N4 lõi hội đồng, N5 hai cấp, N6 nghiệm thu. Bước đang làm theo Bảng.
+- **N3:** RUN `HJW-HERMES-CAPABILITY-20261022-01` báo một KQ có bằng chứng A–F, PRE/POST/negative/rollback/Guard; nhánh chưa đạt phải ghi PARTIAL/BLOCKED đúng thực. Sudo/root tuỳ ý và GSM trực tiếp vẫn cấm.
+- Hermes VPS thực sự nhận một việc hợp lệ, đọc đúng dữ liệu, phân tích có căn cứ và ghi báo cáo theo quyền; **không đòi Mac/courier/điều khiển AI khác hoặc Owner 0 copy-paste**.
+- **N4–N6:** chỉ tiếp tục khi Owner đánh giá lại năng lực AI và chốt tiêu chí. T1–T9 ở mục 0.10 chưa tự là gate RUN; ưu tiên điều hành hiệu quả, an toàn và bằng chứng hơn tự động hóa nhiều.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- **HUMAN_DIRECTIVE@HJW-OWNER-20261022-02 EFFECTIVE · 22/10/2026:** bỏ Hermes-Mac Local/Remote/Courier như mục tiêu và Hermes điều khiển GPT/Claude/ứng dụng khác khỏi N3–N6. Computer-use nếu cần giao Codex riêng. Vấn đề chính là năng lực AI chưa đủ điều hành tốt. PROMPT.md/READY P344/RUN A–F hiện tại giữ nguyên; các câu cũ trái quyết định này là lịch sử theo DROOT45.
 - **OWNER 22/10/2026 10:22 +07 · QUYỀN HERMES VPS THỰC DỤNG:** Hermes VPS chạy 24/7 cho việc trung bình; code phức tạp do Claude Code/Codex qua gói thuê bao. Owner muốn giữ hai cổng cấm tuyệt đối là không sudo/root trực tiếp, không cho Hermes truy cập Google Secret Manager do dùng nhiều model OpenRouter; không dùng hai cổng đó để chặn quá đà MCP workspace, Graph, PG, logs và thao tác đúng nhiệm vụ. Cân bằng quyền/rủi ro: mọi password Neo4j/PG/GSM vẫn nằm phía công cụ server (kể cả đường /run), Hermes chỉ nhận kết quả có giới hạn và gửi việc theo ASSIGN/Guard; không làm Hermes thành root trá hình. P341/PROMPT DRAFT 22/10.
 - **HERMES_INPUT_V1 · OWNER 22/10/2026 12:07 +07 · QUYỀN VÀ ĐẦU VÀO CHUẨN DUY NHẤT:** Hermes ngày 22/10 đã gọi đúng workspace_list(root="workspace",path="work/hermes-joint-workspace") và đọc được ⇒ đọc workspace đã PASS, KHÔNG cấp lại vì lỗi gõ sai. Root là tên cấu hình chứ không phải đường /opt/incomex hay /var/lib/hermes/work; path tương đối, có thật. ROOT_NOT_ALLOWED khác PATH_UNAVAILABLE; TRIAL_READ_FORBIDDEN là kho thử áp ACL (thiếu path có thể khiến lời gọi chạm thử toàn root), không coi cả 3 là lỗi thiếu quyền.
 - **Phạm vi làm việc đã chốt một lần:** Hermes VPS trực 24/7 đọc workspace/Graph/PG/log phục vụ task mức trung bình, code phức tạp để Claude Code/Codex thuê bao. Hai cửa TUYỆT ĐỐI đóng: không sudo/root trực tiếp, không Hermes trực tiếp GSM. Mật khẩu của Neo4j/PG/GitHub giữ ở tool server, không ở env/argv/log/tệp /run đọc được bởi uid Hermes hoặc tool output tới model OpenRouter; chỉ dữ liệu trong task/không bí mật mới được trả ra.
@@ -6963,6 +6949,12 @@ Ghế: claude-main · Host. Owner 19/10 18:21: «kiểm báo cáo Claude Code tr
 - S0 tái kiểm 0 STARTED/STOP_REQUESTED, VPS-GHI, chính xác last-touch của PROMPT, điều 30/31, 22 đèn. Mẫu VPS lúc Host rà: Agent Data/PG/Directus healthy; failed units: hermes-safe-update (đích F), systemd-networkd-wait-online (ngoài lượt), không yêu cầu tổng 0 failed. Không gọi API/sudo/GSM từ Hermes; rollback trước khi bật; không sửa Hermes Mac, Graph C0/C1, PG schema.
 - READY này là cấp phép Owner giao Claude Code CLI thủ công, KHÔNG phải STARTED. Nếu S0 đỏ hoặc chưa đủ preflight => KQ DỪNG sạch/nhả lease, không tự chờ.
 - NEXT_TRIGGER=OWNER_PASTE_CLAUDE_CODE_CLI_HJW_HERMES_CAPABILITY_20261022_01.
+
+### P345 · GPT Chat Host · 2026-10-22 · HUMAN_DIRECTIVE@HJW-OWNER-20261022-02 · BỎ HERMES MAC/COURIER
+- **Owner trực tiếp:** “Tôi sẽ cho chạy... Bạn bỏ phần hermes cài trên macbook và điều khiển các chương trình khác đi. Cái đó không khả thi và phức tạp. Nếu cần làm việc đó, codex làm tốt hơn. Vấn đề chính là Ai chưa đủ thông minh để điều hành công việc hiệu quả.”
+- **Áp:** cập nhật SSOT mục 0.9/0.10/0.13/0.16/0.17, mục 1–3, Bảng và root/View. Bỏ Hermes Mac Courier/Session Controller cùng acceptance 0 copy-paste; giữ lịch sử và mọi kết quả đã có, KHÔNG uninstall/sửa Mac.
+- **Giữ RUN hiện hành:** `HJW-HERMES-CAPABILITY-20261022-01`, PROMPT P343/P344 READY@7038d93b3f8a8d48cc25740b54e974fe5e92bacf nguyên bản; không can thiệp executor, không phát RUN mới. N4–N6 cần Owner xét tiêu chí sau KQ N3.
+- **NEXT_TRIGGER=CLAUDE_CODE_KQ_HJW_HERMES_CAPABILITY_20261022_01**.
 
 
 
