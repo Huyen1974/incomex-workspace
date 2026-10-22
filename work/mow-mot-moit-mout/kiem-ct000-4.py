@@ -11,7 +11,9 @@ Mã thoát: 0 đạt · 1 có lỗi xác định (có vết chạy), ca trượt
           · 2 sai khuôn, chưa duyệt xong (INCONCLUSIVE), máy kiểm lỗi (CHECKER_ERROR) hoặc chỉ xét một phần kịch bản.
           Mã 2 KHÔNG được coi là đạt.
 Kết quả đột biến: KILLED (bắt được, có bằng chứng) · SURVIVED · INCONCLUSIVE · CHECKER_ERROR; chỉ KILLED được tính là bắt.
-Chạy: python3 work/mow-mot-moit-mout/kiem-ct000-4.py [--dot-bien] [--kb TÊN,TÊN | --kb -] [--gioi N] [--json ĐƯỜNG_DẪN] [--trang ĐƯỜNG_DẪN]
+Chạy: python3 work/mow-mot-moit-mout/kiem-ct000-4.py [--dot-bien] [--kb TÊN,TÊN | --kb "TÊN;TÊN" | --kb -] [--gioi N] [--json ĐƯỜNG_DẪN] [--trang ĐƯỜNG_DẪN]
+      --kb: đúng nguyên tên 1 kịch bản (kể cả tên có dấu phẩy) · nhiều tên tách «;» (hoặc «,» khi không tên nào có phẩy) · «-» = không xét kịch bản nào.
+      Tên không tồn tại ⇒ SAI KHUÔN, mã 2.
 Kiểm kê đăng ký: python3 work/mow-mot-moit-mout/kiem-ct000-4.py --kiem-ke  (Master Tool có đủ mục, đường dẫn, sha256,
           manifest từng tệp, mục ghi nhớ; liệt kê script trong thư mục việc chưa có trong Master). Mã 0 đủ · 1 lệch.
 Master Công cụ ML-DEF-023 · mã python:kiem-ct000-4 (work/tools-quy-trinh/view.html). Phản biện độc lập: python:ct000-audit.
@@ -814,7 +816,12 @@ def main():
     if '--kiem-ke' in a: sys.exit(1 if kiem_ke() else 0)
     if '--gioi' in a: GIOI = int(a[a.index('--gioi') + 1])
     path = a[a.index('--trang') + 1] if '--trang' in a else TRANG
-    if '--kb' in a: KB_CHON = set(a[a.index('--kb') + 1].split(','))
+    if '--kb' in a:
+        v = a[a.index('--kb') + 1]; ten_kb = [k for k, _ in KICH_BAN]
+        KB_CHON = {v} if v in ten_kb else set(x.strip() for x in v.split(';' if ';' in v else ','))
+        la = sorted(KB_CHON - set(ten_kb) - {'-'})
+        if la:
+            print('SAI KHUÔN: --kb có tên không tồn tại:', ' ; '.join(la), '· tên hợp lệ:', ' ; '.join(ten_kb)); sys.exit(2)
     t0 = time.time()
     try:
         h = open(path, encoding='utf-8').read()
