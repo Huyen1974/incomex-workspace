@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agents Self-Improving · Chỉ thảo luận</title>
+<style>
+:root{font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#17242b;background:#f4f6f7}*{box-sizing:border-box}body{margin:0}.wrap{max-width:1150px;margin:auto;padding:30px 22px 70px}.hero{background:#fff;border:1px solid #dce3e7;border-radius:14px;padding:28px 30px}h1{margin:4px 0 10px;font-size:29px;letter-spacing:-.6px}h2{font-size:20px;margin:28px 0 12px}h3{font-size:16px;margin:18px 0 8px}.muted{color:#4b6069}.tag{display:inline-block;padding:5px 12px;border-radius:20px;background:#eef1f3;color:#384b55;font-weight:750;font-size:12px;letter-spacing:.02em}.warn{font-weight:700;border-left:3px solid #637c87;padding:12px 15px;background:#eef2f4;margin-top:16px}.card{background:#fff;border:1px solid #dce3e7;border-radius:13px;padding:18px 20px;margin-top:16px}p{line-height:1.6;margin:8px 0}table{width:100%;border-collapse:collapse;background:#fff;font-size:14px}th,td{border-bottom:1px solid #e2e8ec;text-align:left;vertical-align:top;padding:13px 10px;line-height:1.5}th{background:#edf2f4;font-weight:700}.table-scroll{overflow-x:auto;border:1px solid #dce3e7;border-radius:13px}.table-scroll table{min-width:760px}ol li{padding:5px 0;line-height:1.6}a{color:#145b78}a:hover{text-decoration-thickness:2px}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:15px}@media(max-width:700px){.twocol{grid-template-columns:1fr}.wrap{padding:15px}.hero{padding:18px}h1{font-size:24px}}
+</style></head><body><main class="wrap">
+<section class="hero"><span class="tag">CHỈ THẢO LUẬN · KHÔNG TRIỂN KHAI · 0 RUN</span>
+<h1>Agents Self-Improving — Nghiên cứu học từ lỗi khai báo</h1>
+<p class="muted">Đề bài cho hội đồng GPT · Gemini · Claude. Chưa chọn công nghệ, chưa quyết có làm hay không, chưa cấp quyền thử nghiệm.</p>
+<div class="warn">Cấm triển khai POC, viết mã, tạo workflow/service/database, cài công nghệ mới, tự sửa Config hoặc can thiệp các tác vụ đang chạy. Có làm hay không chỉ được quyết sau hội đồng và Owner duyệt riêng.</div>
+</section>
+<div class="twocol">
+<section class="card"><h3>Luồng hiện hành — vẫn làm tiếp</h3><p>Con người và AI xây Công thức/Master, MBM, MMOW, MOW, UI, Field, Info Contract, Config. Đây là gốc nghiệp vụ để hiểu và kiểm tra đúng/sai.</p></section>
+<section class="card"><h3>Luồng nghiên cứu — độc lập</h3><p>Tận dụng Search Vector + Graph + Agent Data để đọc lại sai lầm, xác định công đoạn gây lỗi và đề xuất <strong>một cải thiện rất nhỏ</strong> có thể kiểm chứng.</p></section>
+</div>
+<h2 id="lua-chon">Những phương án cần phản biện — chưa chốt</h2>
+<div class="table-scroll"><table><thead><tr><th>Mã</th><th>Phương án</th><th>Giá trị tiềm năng</th><th>Rủi ro/câu hỏi phải trả lời</th></tr></thead><tbody>
+<tr><td>PA0</td><td><strong>Chỉ dùng nền hiện tại</strong> và kiểm thử/Công thức tốt hơn</td><td>Đơn giản nhất, baseline để đối chiếu.</td><td>Có giảm đủ thời gian phát hiện lỗi lặp lại?</td></tr>
+<tr><td>PA1</td><td><strong>Hướng Gemini ban đầu</strong>: LangGraph/LangChain + Graphiti + PG/Directus, logic Harness² Propose → Branch/Probe → Diff</td><td>Học từ biến thể và lỗi từng lần chạy.</td><td>Trùng chức năng Graph/Cognee không? Chạy nhiều nhánh chi phí bao nhiêu? Không cho tự ghi đè live Config.</td></tr>
+<tr><td>PA2</td><td><strong>Tái dùng module Harness² Google</strong> qua adapter, không fork làm lõi</td><td>Có thể tránh phải tự viết lại thuật toán nghiên cứu.</td><td>Dự án mới/benchmark-centric, sức sống và production adoption chưa kiểm chứng.</td></tr>
+<tr><td>PA3</td><td><strong>Reuse-first:</strong> Agent Data + Vector/keyword + Neo4j/Cognee/Graph Server + bộ kiểm sẵn có</td><td>Đầu tiên thử tự tìm lỗi tương tự và câu hỏi khai báo thiếu.</td><td>Phải xác minh đường vector/graph hoạt động thật; chất lượng hồ sơ lỗi.</td></tr>
+<tr><td>PA4</td><td><strong>PA3 + memory/observability nếu thiếu:</strong> LangMem, OpenTelemetry, Langfuse/Phoenix; DSPy khi đã có tập eval</td><td>Trí nhớ tình huống, truy vết lỗi theo bước, có công cụ tối ưu.</td><td>Thêm phụ thuộc/resource; chỉ thêm thứ chứng minh thật sự thiếu.</td></tr>
+<tr><td>PA5</td><td><strong>Chuẩn mở:</strong> BPMN/DMN/JSON Schema bổ trợ cấu trúc khai báo</td><td>Giữ tri thức độc lập với AI/framework.</td><td>Không được thay Công thức gốc hoặc tạo ontology/mô hình song song.</td></tr>
+</tbody></table></div>
+<h2>Đầu ra của thảo luận</h2><div class="card"><p>Mỗi ghế cần đưa <strong>ý kiến độc lập và bằng chứng</strong>; không tán thành chỉ vì ghế khác đã tán thành. Các câu hỏi trọng tâm:</p><ol>
+<li>Harness² hiện có người dùng production độc lập và tương lai bảo trì rõ ràng không? Stars/forks không thay bằng chứng sử dụng.</li>
+<li>Trong Agent Data, Cognee/Neo4j, pgvector/Qdrant, JEV/Directus và bộ kiểm, cái gì <em>đã tồn tại thật</em>? Graphiti đã triển khai hay chỉ là lựa chọn đang cân nhắc?</li>
+<li>Cộng đồng IT sử dụng phương án trưởng thành nào cho hybrid search + graph + episodic memory + tracing/evaluation mà không tự làm engine?</li>
+<li>Đoạn nhỏ nhất đáng học là gì? Ví dụ phát hiện <strong>một câu hỏi Field bắt buộc bị thiếu</strong> trong khai báo UI, không làm trọn quy trình.</li>
+<li>Làm thế nào để xác định AI sai ở truy xuất, quan hệ graph, hiểu luật, khai báo hay bộ kiểm?</li>
+<li>Đánh giá công bằng: lỗi tìm đúng/bỏ sót/false positive/hồi quy, can thiệp người, thời gian và chi phí tiền thực; ai kiểm độc lập?</li>
+<li>Có thể tháo bỏ phương án nếu không hiệu quả mà không ảnh hưởng hệ thống đang hoạt động không? Chi phí bảo trì bao nhiêu?</li>
+<li>Đề xuất tối đa hai hướng ưu tiên và một hướng nên loại, với bằng chứng khiến mình thay đổi quan điểm.</li>
+</ol></div>
+<h2>Đề bài thử nhỏ — chỉ để cân nhắc, không được chạy</h2><div class="card">
+<p><strong>Giả thuyết đối chứng:</strong> lấy các ca sai cũ đã có kết luận; A = cùng model và bộ kiểm hiện tại, B = cùng model thêm truy xuất lỗi bằng vector/graph. Chấm độc lập xem B có tìm thêm đúng câu hỏi còn thiếu mà không gây lỗi mới và tăng chi phí quá mức không. Đây chỉ là cách đo tiềm năng nếu sau này Owner đồng ý mở thử nghiệm mới.</p></div>
+<h2>Tham khảo & hồ sơ liên quan</h2>
+<div class="card"><p><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/mbm-qtth-07-ve-ui-mow/COLLAB.md">MMOW 07</a> ·
+<a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/mow-mot-moit-mout/FORMULA-AI-README.md">Công thức</a> ·
+<a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/tools-quy-trinh/README.md">Tools–Quy trình</a> ·
+<a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/graph-server/view.html">Graph lựa chọn</a> ·
+<a href="https://github.com/google-research/harness2">Google Harness² repo</a> ·
+<a href="https://github.com/Huyen1974/incomex-workspace/issues/1">Issue thảo luận cũ (lịch sử)</a></p>
+<p class="muted">Trạng thái điều hành, roster được Owner duyệt, ý kiến hội đồng và quyết định sau này chỉ đọc ở COLLAB.md cùng task. Chưa có vòng hội đồng chính thức.</p></div>
+</main></body></html>
