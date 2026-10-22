@@ -9,6 +9,9 @@ import sys
 
 
 def main():
+    if '--v7' in sys.argv:
+        from review_v7 import main as review_v7_main
+        return review_v7_main([a for a in sys.argv[1:] if a != '--v7'])
     base = Path(__file__).resolve().parent
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--html', type=Path)
