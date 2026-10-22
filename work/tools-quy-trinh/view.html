@@ -293964,8 +293964,8 @@ main{max-width:1240px} [hidden]{display:none!important}
   "full_purpose": "Máy kiểm CT-000.4 do Claude quản lý; đọc 6 bảng từ trang Công thức và kiểm mô hình hữu hạn. Không phải hàm PG hoặc bộ điều phối việc thật. P74 gộp phép kiểm cấu trúc bảng từng làm tay (S8) và luật cổng không mở bằng nhánh mặc định (S9) vào cùng tệp để không phải viết lại.",
   "path": "work/mow-mot-moit-mout/kiem-ct000-4.py",
   "source": "workspace:work/mow-mot-moit-mout/kiem-ct000-4.py",
-  "sha256": "dbcf08b725c679fa1c8b4205cd3f2a3cd30bff0038c8392578bb25640702bf6a",
-  "source_html_sha256": "5948c52fc293b666c550148b648fb3fc10a52d4e2ac303d19329d20bd3107a93",
+  "sha256": "0afdb1b05a267d2ce5d246514ca4c3878fa803677b3146903cb6addbcbca939f",
+  "source_html_sha256": "b6d0b578b96a657afd032f35a1d049e0d1a4835e9acf7d011965ee8c069feb2f",
   "version_policy": "Ghim SHA256 cả script và ban-duyet.html cho từng lượt; không dùng kết quả phiên cũ cho bảng mới. Mỗi lần sửa tệp phải cập nhật sha256 ở đây trong cùng phiên (COLLAB H7 · Luật lưu công cụ).",
   "verify": "python3 work/mow-mot-moit-mout/kiem-ct000-4.py --dot-bien --gioi 2000000 (nhanh, không duyệt kịch bản: --kb -; từng kịch bản: --kb TÊN; kiểm kê đăng ký: --kiem-ke phải thoát 0)",
   "argv": [
@@ -293976,7 +293976,7 @@ main{max-width:1240px} [hidden]{display:none!important}
   "preconditions": "Python 3; bản nguồn đã ghim; chạy trong bản sao cách ly có giới hạn thời gian và bộ nhớ. Không truy cập PG/Flow trong phép kiểm này.",
   "input": "6 bảng CT-000.4 trong ban-duyet.html; các kịch bản hữu hạn và bộ đột biến khai trong script.",
   "output": "Kết quả kiểm tĩnh, cấu trúc, tranh chỗ, ca thử, số trạng thái, vết chạy lỗi, kết quả đột biến và mã thoát (--json ghi bằng chứng). Mã: 0 đạt trong phạm vi đã khai · 1 còn lỗi xác định (có vết) · 2 chưa kết luận (quá trần, máy kiểm lỗi, chỉ xét một phần) — 2 không phải đạt. Đột biến: KILLED/SURVIVED/INCONCLUSIVE/CHECKER_ERROR, chỉ KILLED tính là bắt; chỉ chạy khi bản gốc sạch. Phản biện: work/mow-mot-moit-mout/audit-ct000/REPORT.md.",
-  "limitations": "P74 đã sửa 3 đường sai + 3 lỗ máy kiểm GPT v6 nêu (có ca 17–29 và đột biến tương ứng). 29/29 ca đạt; 13/21 kịch bản duyệt hết 0 lỗi (lớn nhất G1 thiếu 533.039 trạng thái); lượt chạy chung 21 kịch bản bị máy chủ dừng vì hết bộ nhớ (mã 137) ở kịch bản 14 ⇒ chạy từng kịch bản một. Còn 8: G4 ×4, G5 lỗi chờ nhận, làm một phần, làm sai, G5 chưa biết; đột biến chưa chạy. g1/g2/g5 là kết quả gộp, chưa kiểm việc tính từ 43 câu. Chưa thử PG/Flow.",
+  "limitations": "P74 đã sửa 3 đường sai + 3 lỗ máy kiểm GPT v6 nêu (có ca 17–29 và đột biến tương ứng). P77 sửa 6 nhóm GPT v7 (lượt cũ + B14, trả lời có nội dung, 17 mã gRPC + mã lạ, CHECKER_ERROR + --tu-kiem, tự lặp trạng thái tạm, --kiem-ke đọc JSON): 46/46 ca đạt, tự kiểm đạt. Trước P77: 29/29 ca đạt; 13/21 kịch bản duyệt hết 0 lỗi (lớn nhất G1 thiếu 533.039 trạng thái); lượt chạy chung 21 kịch bản bị máy chủ dừng vì hết bộ nhớ (mã 137) ở kịch bản 14 ⇒ chạy từng kịch bản một. Còn 8: G4 ×4, G5 lỗi chờ nhận, làm một phần, làm sai, G5 chưa biết; đột biến chưa chạy. g1/g2/g5 là kết quả gộp, chưa kiểm việc tính từ 43 câu. Chưa thử PG/Flow.",
   "evidence_state": "REGISTERED_FOR_REUSE_FIXES_APPLIED_SWEEP_INCOMPLETE",
   "evidence_ref": "work/mbm-qtth-07-ve-ui-mow/COLLAB.md#H4.4a (P74); work/mow-mot-moit-mout/audit-ct000/REPORT.md",
   "url": "https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=formula-ct-000-4"
@@ -299568,10 +299568,10 @@ main{max-width:1240px} [hidden]{display:none!important}
       "memory": [
 {
   "tool_id": "python:kiem-ct000-4",
-  "contract_revision": "CT000-20261021-3",
+  "contract_revision": "CT000-20261022-4",
   "owner": "Claude Host · mbm-qtth-07-ve-ui-mow",
   "acceptance_scope": "Rà mô hình CT-000.4 hữu hạn; chưa nghiệm thu PG/Flow và chưa chứng minh mọi kịch bản/đột biến.",
-  "blocker": "P75: 29/29 ca đạt; 13/21 kịch bản duyệt hết 0 lỗi; 8 kịch bản còn lại và đột biến chưa chạy (lượt chung hết bộ nhớ) ⇒ chưa đạt H4.4a. Kiểm kê đăng ký --kiem-ke: đủ.",
+  "blocker": "P77: đã sửa 6 nhóm GPT v7, 46/46 ca đạt, tự kiểm đạt; bảng đổi nên phải duyệt lại đủ 21 kịch bản từng cái một. (P75: 29/29 ca đạt; 13/21 kịch bản duyệt hết 0 lỗi; 8 kịch bản còn lại và đột biến chưa chạy (lượt chung hết bộ nhớ) ⇒ chưa đạt H4.4a. Kiểm kê đăng ký --kiem-ke: đủ.",
   "next_action": "Chạy riêng từng kịch bản còn lại (--kb TÊN --gioi 2000000) → --dot-bien thoát 0 → GPT rà lại bằng python:ct000-audit trên nguồn mới → H4.4b thử PG/Flow. Mỗi lần sửa tệp: cập nhật sha256 ở đây rồi chạy --kiem-ke."
 },
 {
