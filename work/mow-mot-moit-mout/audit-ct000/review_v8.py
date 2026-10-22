@@ -18,7 +18,8 @@ import sys
 import tempfile
 
 HTML_SHA = 'b6d0b578b96a657afd032f35a1d049e0d1a4835e9acf7d011965ee8c069feb2f'
-CHECKER_SHA = '0afdb1b05a267d2ce5d246514ca4c3878fa803677b3146903cb6addbcbca939f'
+# Reviewed delta 5b8992a6 -> 42e10dbe: --kb exact-name/semicolon parsing only.
+CHECKER_SHA = 'ca803b26740565ac5f625979b1535566a97306b306f895006c2bee57528c2c3f'
 V7_SHA = '2d1459f4c67433845e8b4fd81deeeff4321fee1eca16aab10e5094c415175655'
 START = [('khai xong', {}), ('chấm', {}), ('chấm', {}), ('xin nhận', {})]
 VISIBLE = ['st', 'thế_hệ', 'gen_giữ', 'giữ_chỗ', 'lần_nhận', 'M', 'N', 'MB',
