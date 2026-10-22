@@ -4,6 +4,16 @@
 
 **Bậc 3: code kiểm thử mỏng**, dùng lại bộ mô phỏng Claude làm đối tượng cần kiểm; không xây bộ vận hành/điều phối mới. Các điều kiện mong đợi của ca phản ví dụ được kiểm riêng với B1–B11. Bộ này không phải một máy chứng minh độc lập hoàn chỉnh.
 
+## Phiên hiện tại v7 — 22/10/2026
+
+```bash
+python3 work/mow-mot-moit-mout/audit-ct000/run.py --v7 --out /tmp/ct000-audit-v7-results
+```
+
+V7 dùng lại máy kiểm đã đăng ký, ghim HTML `5948c52f…` và checker `dbcf08b7…`; không chỉ thay hash của v6. Kiểm lại 29 ca cũ và thêm 9 phép phản biện, gồm vết mô hình, kiểm hợp đồng đầu vào, gây lỗi máy kiểm và fixture đăng ký giả. Chi tiết: `REPORT-V7.md`; bằng chứng: `evidence/v7-results.json`. Kết quả nguồn ghim: exit 1 / FINDINGS_REMAIN, 6 nhóm cần đóng. Không duyệt đồ thị lớn, không PG/Flow, không cấp phép RUN. Công cụ mới nằm trong cùng mã Master, không tạo mã mới.
+
+Phần v6/v5 bên dưới là hướng dẫn lịch sử theo nguồn ghim riêng; không dùng kết quả v6/v5 để ký nguồn v7. Không có `--v7` thì launcher giữ hành vi v6.
+
 ## Chạy v6 trên nguồn hiện tại trong repo
 
 Từ thư mục gốc repo, Python 3, không cần gói ngoài:
