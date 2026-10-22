@@ -303,7 +303,9 @@ print('CA THỬ ĐẠT',np,'/',len(TR))
 - (P75 → P76) ĐÃ GHI DANH 6 script hiện hữu của mow-mot-moit-mout vào Master Tool ML-DEF-023: `python:dot-walk-check`, `python:dot-edit-simulate`, `python:dot-push-verify`, `python:dot-page-shot`, `python:dot-process-gate`, `python:check-ui-review`; path + sha256 + memory. Kiểm JSON thật sau cập nhật: không còn script nào trong danh sách 6 nằm ngoài Master. Chỉ ghi danh artifact để dùng lại; chức năng/hợp đồng thực thi chưa nghiệm thu trong lượt này, thuộc Host mow-mot-moit-mout. Không sửa 6 tệp, không đưa vào runner DOT.
 - (P68) Các «1 hàm PG», «Directus Flow lịch» trong 13 yêu cầu PG là yêu cầu thiết kế, chưa có công cụ thật — dựng khi lên PG (thiết kế từ yêu cầu, H6.12).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-22 15:30 · Claude Host · P82
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-22 16:15 · Claude Host · P87
+
+> **P87: MBM r6.4 — định nghĩa 3 thành phần Bước làm** (Bảng 3.2, `8b21c5d6`): Mục tiêu = mục 2 của MMOW, không ghi phạm vi · Miền CV = 1 đợt triển khai, danh sách dòng từ đúng 1 master list (sổ CAT-250*, chưa lập) · Công thức = đúng 1 CT có «làm ra» = thứ Bước làm làm ra ⇒ MMOW 07 = CT-006. Chờ GPT rà P83 trên bản r6.4.
 
 > **P82: MBM r6.0.** Bước = Việc + Miền CV + Công thức; bộ câu = 43 câu, mỗi MMOW chốt phần cố định + hướng dẫn bổ sung; MMOW 07 cố định 39 câu + Đ1, Đ2 (mục 3.1). Chờ GPT rà P83.
 
@@ -317,9 +319,9 @@ print('CA THỬ ĐẠT',np,'/',len(TR))
 - 🏁 Xong khi: ô 2.
 - 📍 Tiến độ (MBM 6.x): [✓ 6.1 Nhận yêu cầu] → [✓ 6.2 Tạo task] → [✓ 6.3 Chốt mục tiêu] → [◐ 6.4 Liệt kê bước — bản thử] → [◐ 6.5 Bộ câu hỏi] → [■ 6.6 Check Master list] → [□ 6.7 Ký] → [□ 6.8 Chạy]
 - ✅ Đã xong: ô 1–2 (18/10 21:25) · rà tới hết mục 4 theo MBM r5.34: 8 bước (5 cố định + 3 chuyên môn) · bảng câu hỏi H1–H7 + Đ1, Đ2 · K1, K2 đã gỡ — xem tab «Nội dung công việc» (`view.html`) · 19/10: Info contract chuẩn ngành, Config + Saga, ý kiến Astra ngoài MBM · M1: QTTH đổi tên MMOW, 4 tầng MBM → MMOW → MOW → Hồ sơ (MBM r5.35) · tên hiển thị «Master MMOW», «MMOW 05/06» trên các trang (mã khoá ML-MOW-TH-001 / MOW-TH-xxx giữ tới khi lên collection — nợ 🔴 VD-027) · Master MMOW có dòng MMOW-007 (việc này), trang hiện mã MMOW-xxx · 18:28: MMOW 07 chỉ Vẽ UI; Master MMOW thêm MMOW-008 (Info contract), MMOW-009 (Config) · 22:26: Master MOW có 3 cột tích Vẽ UI · Info contract · Config (35/35 ☐; tích trên giao diện = nợ VD-028) · 20/10: trang Công thức có khối KHÁI NIỆM · CAT-000.5 (54 loài, 5 định luật ĐL1–ĐL5, ký hiệu tạm chờ vector); MMOW mã OBJ-MMOW · 14:18: CAT-000.5 hợp nhất 107 loài mã SPE (gộp entity_species + khái niệm nháp + CAT-237*; quét máy Q1–Q6: 4 bảng vô chủ, mã mồ côi audit_log, 6 loài lệch tiền tố, 10 sổ 2 mã) · Master Duyệt thiết kế có CAT-000.5 + cột Duyệt TK (xanh = User đã duyệt; CAT-000.5 tạm duyệt 20/10) · nợ VD-029 (ghi PG) · 15:08: chuẩn «?» cho mọi bảng mới (ĐL6), CAT-000.5 đã có «?» ở tiêu đề, ma trận, 8 cột · 17:32: trang Công thức có 2 thanh thu/mở «Công thức gốc» (CT-000.2 Cấp ghép 1–4) + «Công thức chuyên môn» (CT-001→008); 14 thẻ có dòng mờ loài + sổ · 20–21/10: Công thức gốc (21/10 09:51): CT-000.1 Bộ câu hỏi chuẩn (43 câu Trước · Trong · Sau + 1 luật rẽ nhánh; gộp Info contract law) · CT-000.2 Điều luật (+ Xử lý bằng) · CT-000.3 Cấp ghép · CT-000.4 Xử lý lỗi = quy trình 9 bước (Ghi sự cố → Xếp hàng → Tra quy trình → Chạy → Kết quả → Kiểm lại · Vấn đề → MMOW → Owner). 10:02: CT-000.1 không đạt ⇒ chỉ vào hàng đợi (bỏ «Thiếu ⇒ Tạo mới»: khái niệm, không phải bước làm). Kế tiếp: skill tự kiểm 43 câu cho agent (chờ Owner). · 21/10 P68: CT-000.1 + CT-000.4 thành luật yes/no theo chuẩn ngành (commit 9275bd59, d4d38d27; Master Công thức ui 9bd5a22). · 15:30 P69: luật Kiến trúc — PG gốc + Lớp trên (CT-000.2 dòng 7–8); 2 Bảng Chuẩn ngành ghi rõ «chỉ mượn cách làm, không cài, không trả phí» (commit b6bc677d). · 16:15 P70: sửa theo vòng 3 GPT Pro + luật Không mồ côi (commit 8d1479e2, a4648ef4; ui 19d9d4a). · 16:25 P71: Bảng Chuyển trạng thái + máy kiểm 0 lỗi, 14/14 ca (commit da9609f9, 7cc4ecec, e14ad530). · 18:35 P72: bảng máy chạy được + kiem-ct000-4.py, 8 lỗi thật đã sửa (commit 32f1c61f … 8bac5f76). · P73: GPT rà v6 bằng công cụ; lưu v5/v6 và bằng chứng vào kho chung; đăng ký 2 mã Master Công cụ (ghi danh để dùng lại, chưa nghiệm thu quy trình).
-- ■ Đang làm: H4.4c1 — MBM r6.3 (mục 3 chỉ còn Mốc + Bước làm; bỏ Mục con) + bộ câu cố định MMOW 07 đã ghi, chờ GPT rà P83 · 0 RUN active
+- ■ Đang làm: H4.4c1 — MBM r6.4 (mục 3 = Mốc + Bước làm; Bảng 3.2 định nghĩa Mục tiêu · Miền CV · Công thức) + bộ câu cố định MMOW 07, chờ GPT rà P83 · 0 RUN active
 - ⬜ Còn lại: chốt 6.4 → đạt 6.5 → 6.6 → 6.7 → 6.8.
-- ➡ Kế tiếp: GPT rà MBM r6.0 + bộ câu MMOW 07 (P83, 1 vòng) → trả lời 22 câu 📋 mẫu MMOW 07 một lần → MMOW 07 chạy trên MOW 001 (UI + hồ sơ đầu tiên) tới nghiệm thu → Owner xác nhận UI. Mỗi lượt ≤ 15 phút. (P78 dừng H4.4a, giữ thành quả; H4.4b PG + Flow chỉ khi cần.)
+- ➡ Kế tiếp: GPT rà MBM r6.4 + bộ câu MMOW 07 (P83, 1 vòng) → lập sổ CAT-250* Master Miền CV + dòng MCV-001 (35 MOW) và thêm cột «Công thức» vào Master MMOW (chờ Owner gật) → trả lời 22 câu 📋 mẫu MMOW 07 một lần → MMOW 07 chạy trên MOW 001 (UI + hồ sơ đầu tiên) tới nghiệm thu → Owner xác nhận UI. Mỗi lượt ≤ 15 phút. (P78 dừng H4.4a, giữ thành quả; H4.4b PG + Flow chỉ khi cần.)
 - ⛔ Không làm: G2/PG production · dựng collection trước khi ma trận được ký · gõ tay vào Directus.
 
 ### 1. Mục tiêu
@@ -327,6 +329,7 @@ Tình trạng: User chốt (Owner 19/10 18:28).
 Owner 19/10/2026 18:28 (thay bản 18/10 21:25): mỗi MMOW chỉ giải quyết 1 việc.
 1. Vẽ UI (gồm tất cả bước con) cho các MOW trong Master MOW — sẽ vẽ hàng ngàn UI. Trước mắt gắn theo list MOW; sau này gắn thêm list Task, MOIT, MOUT.
 Đã tách: Chốt Info contract → MMOW 08 · Config → MMOW 09 (Master MMOW).
+Theo MBM r6.4 (P87): phạm vi tách sang Miền CV — đợt 1 MCV-001 = 35 MOW (Master MOW); list Task, MOIT, MOUT = các đợt sau. Mục tiêu MMOW 07 chỉ còn: Vẽ UI (gồm tất cả bước con).
 Owner 16/10 16:29: đây là bài test MBM — vừa làm vừa sửa MBM để lần 2 không có Owner, AI vẫn chạy được.
 
 ### 2. Thế nào là hoàn thành
@@ -352,18 +355,23 @@ D1, D2 (MBM 2.5, không chặn): đã rà — xem tab Nội dung công việc, m
 7. **Chuẩn ngành mượn cách làm:** câu hỏi có điều kiện (skip logic) · bảng quyết định DMN · ITIL 4 «standard change» (việc có mẫu sẵn thì theo mẫu, không đánh giá lại từ đầu).
 8. **Danh sách câu chốt ở MMOW (Owner 22/10 15:11).** Mỗi MMOW chốt cố định câu phải trả lời (MBM r6.0 mục 4.2), không để mỗi AI tự lọc ⇒ kết quả đồng nhất; câu ngoài danh sách ghi ở mục «Câu hỏi bổ sung (nếu có)» của hồ sơ (4.3). Bảng quyết định (2.2) chỉ dùng khi soạn danh sách cho MMOW mới.
 
-#### 3.1 Bộ câu cố định MMOW 07 · Vẽ UI (P82–P84 · bản thử, kiểm bằng hồ sơ MOW 001 · theo MBM r6.1 mục 4)
+#### 3.1 Bộ câu cố định MMOW 07 · Vẽ UI (P82–P87 · bản thử, kiểm bằng hồ sơ MOW 001 · theo MBM r6.4 mục 3.2 + 4)
 3 tầng (Owner 15:35): MBM (công thức gốc) ⇒ MMOW 07 (Vẽ UI) ⇒ MOW 001, MOW 002… trong Master MOW. Mỗi lần MMOW 07 chạy trên 1 MOW để lại **1 hồ sơ = danh sách câu dưới đây + câu trả lời**, gắn mã MOW, đi cùng MOW đó mãi mãi.
-Bước: Vẽ UI + 35 MOW trong Master MOW + CT-006 ⇒ 1 hồ sơ mỗi MOW · Xong khi: bước con thiếu UI = 0 · Thao tác: đọc yêu cầu → dựng giao diện → chụp ảnh kiểm → gửi duyệt.
+Bước làm (MBM r6.4 Bảng 3.2): Mục tiêu (ô 1–2) + Miền CV MCV-001 (35 MOW · Master MOW) + CT-006 ⇒ 1 hồ sơ mỗi MOW, ghi mã MMOW-007 + MCV-001 · Xong khi: bước con thiếu UI = 0 · Thao tác: đọc yêu cầu → dựng giao diện → chụp ảnh kiểm → gửi duyệt.
 
 | Nguồn trả lời | Số | Câu |
 |---|---|---|
 | 📋 Mẫu MMOW — trả lời 1 lần, khi chạy chép vào từng hồ sơ kèm phiên bản | 22 | G1.2 · G1.3 · G1.4 · G1.8 · G1.9 · G2.2 · G2.4 · G2.5 · G2.7 · G2.11 · G3.1 · G3.2 · G3.3 · G3.4 · G3.5 · G3.7 · G3.10 · G4.4 · G4.7 · G5.1 · G5.2 · G5.3 |
-| 🤖 Máy điền khi chạy | 11 | G1.1 · G1.7 · G2.1 · G2.6 · G2.9 · G2.10 · G3.6 · G3.9 · G4.3 · G4.5 · G4.6 |
-| 😊 Riêng từng hồ sơ | 6 + 2 | G1.5 · G1.6 · G4.1 · G4.2 · G5.4 · G5.5 · Đ1 Dùng lại UI nào, vẽ mới UI nào? · Đ2 Bước con nào cần tách hoặc gộp? |
+| 🤖 Máy điền khi chạy | 12 | G1.1 · G1.6 (lấy dòng từ Miền CV — P87) · G1.7 · G2.1 · G2.6 · G2.9 · G2.10 · G3.6 · G3.9 · G4.3 · G4.5 · G4.6 |
+| 😊 Riêng từng hồ sơ | 5 + 2 | G1.5 · G4.1 · G4.2 · G5.4 · G5.5 · Đ1 Dùng lại UI nào, vẽ mới UI nào? · Đ2 Bước con nào cần tách hoặc gộp? |
 | ➕ Chỉ thêm khi gặp (mục «Câu hỏi bổ sung» của hồ sơ) | 4 | G2.3 · G2.8 · G3.8 · G3.11 |
 
 Luật kèm (GPT P80): G1.7, G1.8 máy chỉ điền khi có mặc định đã duyệt · vai ở G2.2, G4.4, G5.1 phải ra người cụ thể khi chạy · G1.5, G4.2 không mặc định «không áp dụng»: vẽ mới ghi «không có», sửa UI cũ ghi thứ phải giữ · G3.3–G3.5 dùng mặc định đơn giản (1 việc / MOW).
+
+#### 3.2 Định nghĩa Bước làm (Owner 22/10 16:04 · MBM r6.4 Bảng 3.2)
+1. Yêu cầu: mọi người đọc hiểu **đúng và nhất quán, không thể hiểu sai** — Mục tiêu của tầng nào (MBM · MMOW · MOW), Miền CV, Công thức nào đều phải định nghĩa rõ.
+2. Miền CV cần 1 master list mới: mỗi đợt triển khai có mã, tên, master list nào, số lượng… để truy vấn dễ, quản lý vòng đời tốt. 1 master list (MOW, Task, MOIT, MOUT, Field…) có nhiều đợt. Định nghĩa ngắn nhưng rõ để AI sau đọc hiểu.
+3. Đã chốt (r6.4): Mục tiêu = mục 2 của MMOW, không ghi phạm vi · Miền CV = 1 đợt = 1 MMOW + 1 master list, danh sách chốt khi bắt đầu chạy (JEV: A 0,58 · chốt danh sách 0,83) · Công thức = đúng 1 CT có «làm ra» = thứ Bước làm làm ra; không chọn CT-000.x, CT-008.
 
 Kết quả bước 3, bước 4 và vấn đề lộ ra: tab «Nội dung công việc» trên trang Task (tệp `view.html` của việc này) — 1 nơi, không chép lại ở đây. Vấn đề và nợ kỹ thuật (mẫu CAT-069, mã VD-…): cũng ở đó — không dựng hệ phức tạp, xong MMOW 07 thì lên collection + DOT.
 
@@ -434,6 +442,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: luật quyết = 
 - 15/10 (Owner, G1): vẽ UI, liệt kê trường còn thiếu để chốt hợp đồng thông tin, đủ trường để Config · 17:40: cái gì phát sinh cũng ghi vào Master list và kiểm đã ghi đủ.
 
 ## Nhật ký (nguyên văn Owner, giữ lỗi gõ)
+- P87 · 22/10 16:04 · «Giờ bàn về công thức này: 3.2 Bước làm Mục tiêu+Miền CV+Công thức⇒Bước làm. 1. Mục tiêu là gì? Mục tiêu ở đây có trùng với phần mục tiêu 2 không? Mục tiêu của MBM hay của MMOW, hay của MOW chúng ta không làm rõ thì làm sao mà đảm bảo tất cả mọi người đọc hiểu đúng được (đúng và nhất quán, không thể hiểu sai => đấy mới là yêu cầu) 2. Miền công việc: đúng là chỗ này cần phải 1 bảng master list mới nữa thật… Miền công việc, bản chất là 1 phần (1 danh sách ngắn) trong đó… (hiểu nôm na là 1 đợt triển khai)… mỗi bảng này lại có thể có nhiều miền công việc khác nhau… có mã của miền công việc, có tên miền công việc và các thông tin kèm theo như master list nào? Số lượng… => đừng định nghĩa dài nhưng phải định nghĩa rõ ràng để các AI sau đọc còn hiểu. 3. Công thức: là công thức nào phải định nghĩa rõ? Giải quyết 3 việc này trước.» → MBM r6.4 (`8b21c5d6`): Bảng 3.2 (Thành phần · Là gì · Ghi ở · Luật · Ví dụ MMOW 07) + 3.2.1 sổ Miền CV 8 cột; Master Khái niệm SPE-MCV*, SPE-BLM* sửa cho khớp; COLLAB 3.2; G1.6 chuyển 🤖.
 - P85–P86 · 22/10 15:40–15:46 · «1. Việc là việc gì? lấy từ đâu? 2. Công thức là công thức gì? Lấy từ đâu?» — «Bạn đang làm rối tinh lên… giờ chúng ta đã có bộ câu hỏi chuẩn => MBM nên đơn giản nhất có thể… rút được thành phần phức tạp nhất là: bộ câu hỏi chuẩn ra làm "thửa số chung" phần còn lại đơn giản nhất có thể để ghép. Nếu bạn thấy hợp lý thì bỏ mục này đi đã: 3.2 Mục con» → MBM r6.2 («Việc» trùng SPE-VIC* → Mục tiêu) · r6.3 bỏ Mục con, mục 3 = Mốc + Bước làm (3 dòng + bảng ví dụ).
 - P84 · 22/10 15:35 · «MBM là công thức gốc => MBM để ra MMOW (trước kia đặt là quy trình tổng hợp) MMOW (VD MMOW 007 vẽ UI => sinh ra MOW 001 (trong master mow list. Mỗi lần MMOW 007 chạy ra quy trình vẽ UI MOW 001, MOW 002... (Có hàng chục ngàn MOW kiểu này) thì sẽ để lại 1 hồ sơ. Chính là danh sách câu hỏi và kết quả trả lời cho các câu hỏi đó. Hồ sơ này đi cùng MOW mãi mãi. Rà soát lại xem bạn có đang hiểu đúng chưa?» → MBM r6.1 3.3.3 + 4.2; COLLAB 3.1.
 - P82 · 22/10 14:37–15:11 · «Chúng ta quay trở lại hoàn thành MBM… Việc trước đây đang bị tắc là phần Bước trong MBM… Thay vì phải liệt kê nhiêu câu hỏi trong MBM => MMOW chúng ta chỉ áp đầu việc vào bộ câu hỏi chuẩn được không?… Các phần khác của MBM giờ có nên đơn giản hơn không?… Bàn trước đã» — «…phức tạp không phải là để giải quyết MMOW 007 mà khó khăn là tôi muốn tìm ra 1 công thức tổng quát => để ghép… trả lời câu nào nếu không chỉ định rõ => các AI khác nhau => có thể đưa ra các quyết định khác nhau… Chốt cố định câu hỏi vào MMOW… làm thử với MMOW 007 thử trước… Các câu hỏi cố đinh trong 43 câu mà MMOW… phải trả lời… Có 1 hướng dẫn bên dưới là có thể có những câu hỏi bổ sung… trong phần hồ sơ sẽ có 1 mục là câu hỏi bổ sung (nếu có)… Bạn nghiên cứu và tổng hợp lại cùng với ý kiến của GPT để sửa nhé.» + [GPT: giữ 5 Mốc/mục con/5/7/8, bỏ H1–H7, 1 MMOW 1 nhiệm vụ nhiều thao tác, mặc định an toàn ≠ không áp dụng] → MBM r6.0 (`0c224182`); mục 3.1; H4.4c1.
