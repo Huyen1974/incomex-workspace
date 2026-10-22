@@ -1,0 +1,34 @@
+--- graph-refresh@652bffd0
++++ graph-refresh@5c5014c1
+@@ -53,6 +53,7 @@
+ LOG = "/var/log/incomex/graph-refresh.jsonl"
+ LOCK = "/run/lock/incomex-graph-refresh.lock"
+ STOPF = STATE + "/STOP"
++PGL1_CROSS = LOADED + "/pgl1/cross-edges.json"   # C1-B: cạnh L1 lớp pgl1 chạm nút lane pgdot (bộ đang nạp) — gắn lại sau MỖI lần dựng lane pgdot
+ GW_CLONE = "/opt/incomex/data/workspace-tools/github-workspace"
+ GUARD_LOG = "/var/log/incomex/mcpw-guard.log"
+ CG = "/var/lib/incomex-config-guard-v0"
+@@ -396,7 +397,22 @@
+     text = open(LANE_LOADER[lane]).read()
+     for k, v in snaps.items():
+         text = text.replace("@%s@" % k, v)
+-    return [("MATCH (n:GS) WHERE n.gs_layer IN $ls DETACH DELETE n", {"ls": LANE_LAYERS[lane]})] + [(x, {}) for x in g.split_cypher(text)]
++    return [("MATCH (n:GS) WHERE n.gs_layer IN $ls DETACH DELETE n", {"ls": LANE_LAYERS[lane]})] + [(x, {}) for x in g.split_cypher(text)] + \
++        (pgl1_reattach() if lane == "pgdot" else [])
++
++
++def pgl1_reattach():
++    """GS-C1B-LAYERED-IMPACT-20261022-08: DETACH DELETE lane pgdot cắt cả cạnh L1 (lớp pgl1: HAS_FK/REFERENCES/DEPENDS_ON/MAPS_TO_TABLE) nối vào
++    nút PgTable của lane ⇒ gắn lại ĐÚNG bộ cạnh đang nạp (cùng thuộc tính) trong cùng giao dịch F/I. Điểm cuối không còn (bảng bị xoá ở nguồn)
++    ⇒ cạnh không được tạo ⇒ giấy ô l1:* tụt MỘT PHẦN ⇒ đèn #24 (không giấu)."""
++    d = jload(PGL1_CROSS)
++    if not d:
++        return []
++    by = collections.defaultdict(list)
++    for r in d["edges"]:
++        by[r["t"]].append({"s": r["s"], "d": r["d"], "p": r["p"]})
++    return [("UNWIND $rows AS r MATCH (a:GS {gs_key: r.s}) MATCH (b:GS {gs_key: r.d}) CREATE (a)-[x:`%s`]->(b) SET x = r.p" % t.replace("`", ""),
++             {"rows": rs}) for t, rs in sorted(by.items())]
+ 
+ 
+ def stage_import(dst, lane, src_dir):
