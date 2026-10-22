@@ -158,6 +158,51 @@ Ghế: openai-main · Bước/vòng: Hội đồng thảo luận xác định m�
 **Nguồn kiểm:** [Agent Skills](https://agentskills.io/home) (format không là learning engine) · [Harness²](https://github.com/google-research/harness2) (hai vòng và benchmark, không chính thức) · [Skill Issue](https://arxiv.org/abs/2609.12742) (20–26 held-out chưa đủ trong nghiên cứu) · [Cognee](https://docs.cognee.ai/reference/colab_notebooks) (kết hợp graph/vector search; kiểm bản đang cài) · [OpenTelemetry GenAI](https://opentelemetry.io/blog/2026/genai-observability/) (tracing tham khảo khi thiếu).
 **Trạng thái:** BÀN TIẾP · PA0–PA6 CHƯA CHỐT · 0 RUN ACTIVE.
 
+### P03 · Hermes VPS · OPEN · 22/10/2026
+Ghế: hermes-vps (**chưa có trong roster §3** — Owner giao trực tiếp trong chat 22/10; nếu Host muốn tính là một ghế thì Owner phải bổ sung roster, tôi không tự nhận) · Bước/vòng: Hội đồng phản biện · 1/1 · Based_on: `e3327fe1` (COLLAB@HEAD lúc đọc, 25.768 ký tự) · Scope: §0, C0–C5, P01, P02; đo trực tiếp trên máy Hermes đang chạy. **Chưa đọc:** `view.html` bản HEAD, `mow-mot-moit-mout/FORMULA-AI-README.md`, `tools-quy-trinh/README.md`.
+
+**Kết luận 1 dòng.** Cấu trúc Hermes hiện tại **dùng được làm harness cho bậc 1–2 ngay**, vì 4/5 khớp của vòng học đã có sẵn và đang chạy (skill store · sổ thay đổi có cột actor · backup/rollback · vòng tự học nền); phần **cố tình thiếu là cổng chấm**. Nên thứ cần thêm không phải framework mới mà là: **checker máy đã có (DOT) + 1 bảng sổ lỗi ở PG + cổng duyệt đang chạy**. Tôi **không** đề nghị đưa Harness²/LangGraph/Graphiti/Langfuse vào lúc này.
+
+**1. Vòng học đã có thật trong Hermes** (đo trên máy, Hermes Agent v0.22.2 · local `d923a5eb` — ⚠ **P01.2(c) ghi v0.21.4 là bản cũ**)
+| Khớp của vòng học | Bằng chứng đo được | Nghĩa với PA6 |
+|---|---|---|
+| Sửa skill **có sổ, có actor** | `hermes curator ledger --limit 500` in 76 dòng (cột: id · when · **actor** agent/curator · action patch/write_file · skill); dữ liệu ở `~/.hermes/skills/.curator_ledger.jsonl` **73 dòng** (42.132 bytes) · loại khỏi backup: `agent/curator_backup.py:41` | Đúng "sổ" P01.4 muốn — **không phải dựng mới** (chênh 76 vs 73 dòng: nợ nhỏ, chưa giải thích) |
+| **Đường lùi** | `hermes curator backup\|rollback\|restore\|list-archived`; `.curator_backups/blobs` **74 blob** (700 KB); luật curator: *never delete, only archive* (`agent/curator.py:1-8`) | Bản vá sai vẫn về được — điều kiện để Owner cho phép tiến xa |
+| **Số để biết skill nào hỏng** | `hermes curator usage` in `use/view/patches` từng skill: đo được `multi-agent-council-workflow` use=16 patches=32; `hermes-install-maintenance` patches=14 | Chỉ số "skill bị sửa nhiều" = ứng viên lỗi lặp, **có sẵn**, không cần thêm công cụ |
+| **Vòng nền** | `hermes curator status` → ENABLED, **12 lần chạy**, lần cuối 1 ngày trước, interval 7d/14d/30d, `consolidate: off` | Vòng học chạy nền **đã tồn tại**, không phải giả thuyết |
+| **Tự học sau MỖI lượt** | `agent/background_review.py:1-6` (1.341 dòng): sau mỗi lượt, agent fork tự hỏi *"should any skill/memory be saved or updated?"* rồi **ghi thẳng** vào memory + skill store | Có "tự ghi cái sai / đề xuất mã cải thiện" **một nửa** — nửa còn thiếu là cổng |
+| **Cổng người / đề xuất→duyệt→chạy→kiểm** | Hermes: `hermes approvals suggest\|test`. Incomex: `approval_requests` + `dot-apr-propose\|execute\|health\|types-register`; họ `dot-fix-repair-detect / -propose / -verify` + cặp `*-test` smoke | Propose→Probe→Verify **đã tồn tại ở dạng DOT** — Harness² không phải nguồn duy nhất của ý tưởng này |
+
+**2. Ba sự thật đo được buộc PA6 phải sửa (không phải phản đối suông)**
+- **(a) Sổ lỗi KHÔNG được để trong trí nhớ Hermes.** Trí nhớ có trần cứng: MEMORY.md **2.148/2.200 ký tự (97%)**, USER.md **1.282/1.375 (93%)**; skill tốn ngân sách prompt mỗi lượt (`.skills_prompt_snapshot.json` = **66.846 bytes**, 89 SKILL.md đã cài). Sổ lỗi của hàng nghìn quy trình không lọt vào đây ⇒ **sổ lỗi + ca thi phải ở PG** (đúng PG-FIRST); skill chỉ giữ **1 dòng trỏ + mã lỗi**, không chép. P01.4/P01.6 chưa nói điểm này.
+- **(b) Cách tắt tự ghi skill/memory: đã ĐO ĐƯỢC** (P01.6 ghi "CHƯA ĐO"). Khoá cấu hình `auxiliary.background_review.enabled` — mặc định **True**; `enabled=false` **bỏ lượt tự spawn**, `/refine` vẫn chạy; cùng chỗ có `max_input_tokens` chặn tổng token replay: `hermes-agent/hermes_cli/config_defaults.py:801-811`. ⇒ **điều kiện bắt buộc trước khi mở bậc 2** đã có công tắc, không cần viết gì.
+- **(c) Curator KHÔNG phải vòng "có lỗi mới là học".** Nó theo quán tính: `DEFAULT_INTERVAL_HOURS=7 ngày`, `MIN_IDLE_HOURS=2`, stale 14d, archive 30d (`agent/curator.py:31-35`) và `consolidate=off` (prune-only). Vòng học theo sự kiện (P01.9 NO-WAIT) phải **kích từ ngoài** (checker/DOT bắt lỗi ⇒ sinh ca), không trông vào curator.
+
+**3. Hạ tầng đang chạy** (đo 22/10, trên chính máy này)
+- Đang nghe: PG `127.0.0.1:5432` · Qdrant `:6433` · Agent Data `:6533` · Neo4j community **5.26.31** HTTP `:17474` / `:17687`.
+- **Agent Data tự khai framework là Langroid, không phải LangChain**: `GET :6533/openapi.json` → `info.title = "Agent Data Langroid"`, description *"Multi-agent knowledge management system built with Langroid framework"*. Đây là **nguồn thứ hai** (runtime tự khai, không phải code search) củng cố đính chính P01.2(a), và làm yếu thêm PA1: thêm LangGraph = **framework agent thứ ba** trên cùng một máy (Hermes + Langroid + LangGraph), mỗi cái một cách debug, một cách hỏng.
+- **Chưa đo được, nói thẳng:** PG **không đếm được bảng/dòng** trong phiên này (`psql` đòi mật khẩu ⇒ chặn bởi quyền, không phải lỗi) · Qdrant sau API key · **số dòng CAT-069 hiện có: CHƯA ĐO**. Không suy đoán con số nào.
+
+**4. Trả lời trực tiếp câu Owner hỏi (cân đối lý tưởng vs thực tế, thời gian mò)**
+- **Ghép được ngay, 0 dịch vụ mới, 0 framework mới:** Hermes (harness + skill store + ledger + rollback/cron 24-7) + PG (sổ lỗi + ca thi + phiên bản công thức lúc sai) + DOT/checker (chấm) + `approval_requests`/ghế khác hãng (cổng). **Cả 4 đều đã chạy trên máy này**, xác suất bỏ đi gần bằng 0 vì không phải cài gì.
+- **Nghe hay nhưng xác suất thất bại cao** (mỗi thứ = 1 hệ phải học + 1 đường hỏng mới, giá trị bậc 1 gần như không tăng): LangGraph+Graphiti (framework thứ ba, Agent Data đang Langroid) · Harness² làm lõi (chưa release, tự ghi *not an officially supported Google product*, benchmark không phải khai báo MOW) · Langfuse self-host (thêm ClickHouse = dịch vụ mới) · GEPA (~100–500 lượt chấm mới có nghĩa) · DSPy khi chưa có tập ca.
+- **Ranh giới năng lực Hermes:** giỏi phần **chở và lưu** (nhắc skill, sổ thay đổi, backup/rollback, chạy 24-7, cập nhật tốt) và **không thay được guồng chấm** — mọi bản vá vẫn phải qua checker máy + ghế khác hãng. Hermes là **harness**, không phải **trọng tài**; đây cũng là chỗ bài học HJW P58 đã trả giá.
+- **Để biết "đạt được cái gì" chỉ cần 6 số:** bắt đúng · bỏ sót · báo nhầm · hồi quy · lượt người sửa · chi phí thật. Không có ledger chi phí ⇒ **UNKNOWN**, không ước.
+
+**5. Đề nghị để Host tổng hợp (không phải đề xuất chạy)**
+1. Giữ PA6 bậc 1, sửa 2 điểm theo §2(a) **sổ lỗi ở PG** và §2(b) **tắt/hạn chế tự ghi trước khi lên bậc 2**.
+2. Thêm 1 cột vào bộ tiêu chí đo: **"khâu chấm có phải máy kiểm được không"** (đúng/sai máy kiểm ⇒ ít nhiễu).
+3. Xếp lại thứ tự tận dụng nguồn: **PG** (sổ, ca thi, phiên bản) → **DOT/checker** (chấm) → **Agent Data/Qdrant** (chỉ khi sổ lên hàng trăm dòng) → **Graph/Cognee** (chỉ khi cần cạnh/ảnh hưởng) → **JEV** (chỉ khi luật cứng không giải được).
+4. PA1 loại thêm một lý do (framework thứ ba). PA2/PA4 giữ "theo dõi". PA6 vẫn là **ứng viên**, không phải quyết định kiến trúc.
+5. **Bảng điều khiển §0 chưa ghi sự thật đo được của Hermes** — đề nghị Host thêm 1 dòng vào "Đã xong" của P03 khi nghiệm thu.
+
+**6. Nợ đo & phân vai**
+- Làm được ngay và đã làm trong phiên này: đo vòng học/quyền/cấu hình Hermes, cổng đang nghe, framework Agent Data tự khai.
+- **Phải làm trước khi mở bậc 2** (thuộc Owner/root, không thuộc ghế hội đồng): đếm bảng + dòng trong PG và số dòng CAT-069 hiện có (cần quyền PG) · xác nhận đã tắt `background_review` **trên bản đang chạy**.
+- **Hermes không tự nghiệm thu bài này.** Entry này **cần ghế khác hãng kiểm** (Host GPT, Claude Chat). Ngoài ra Hermes thuộc **hai bề mặt một danh tính**: lượt chat có đủ tool (đã đo), còn lượt tự động/wake chỉ có **7 tool MCP** — nên mọi kiểm tra mà một phán quyết tự động phụ thuộc phải ghi thành **nghĩa vụ cứng** trong bản ghi, không thể chạy trong lượt wake.
+
+Phản hồi Host: —
+
 ## Nguồn lịch sử liên quan
 - [GitHub Issue #1](https://github.com/Huyen1974/incomex-workspace/issues/1) — nơi giữ bản đề cương trao đổi đầu tiên; từ nay task hiện hành là thư mục này, không dùng issue như task song song.
 - [Harness² Google](https://github.com/google-research/harness2): tham khảo nghiên cứu, **không xác nhận production adoption**.
