@@ -6,13 +6,16 @@
 </style></head><body><main class="wrap">
 <section class="hero"><span class="tag">CHỈ THẢO LUẬN · KHÔNG TRIỂN KHAI · 0 RUN</span>
 <h1>Agents Self-Improving — Nghiên cứu học từ lỗi khai báo</h1>
-<p class="muted">Đề bài cho hội đồng GPT · Gemini · Claude. Chưa chọn công nghệ, chưa quyết có làm hay không, chưa cấp quyền thử nghiệm.</p>
+<p class="muted">Owner chỉ định GPT Chat làm Host 22/10/2026. Claude đã có ý kiến P01; Gemini chưa phản biện. Đây là thảo luận để <strong>bổ sung mục tiêu và câu hỏi còn thiếu trước khi chọn công nghệ</strong>. Chưa quyết định có làm hay không; không cấp quyền thử nghiệm.</p>
 <div class="warn">Cấm triển khai POC, viết mã, tạo workflow/service/database, cài công nghệ mới, tự sửa Config hoặc can thiệp các tác vụ đang chạy. Có làm hay không chỉ được quyết sau hội đồng và Owner duyệt riêng.</div>
 </section>
 <div class="twocol">
 <section class="card"><h3>Luồng hiện hành — vẫn làm tiếp</h3><p>Con người và AI xây Công thức/Master, MBM, MMOW, MOW, UI, Field, Info Contract, Config. Đây là gốc nghiệp vụ để hiểu và kiểm tra đúng/sai.</p></section>
 <section class="card"><h3>Luồng nghiên cứu — độc lập</h3><p>Tận dụng Search Vector + Graph + Agent Data để đọc lại sai lầm, xác định công đoạn gây lỗi và đề xuất <strong>một cải thiện rất nhỏ</strong> có thể kiểm chứng.</p></section>
 </div>
+<div class="card"><h3>Trọng số Owner bổ sung 22/10 — dùng tối đa năng lực hữu ích có sẵn trên VPS</h3>
+<p>Không bắt đầu bằng việc chọn Harness², Skill hay framework. Trước hết chỉ rõ <strong>JEV, Vector, Graph/Cognee/Neo4j, PG, Directus, Agent Data, bộ kiểm</strong> đã làm được gì, đâu là khoảng trống, và có thể phối hợp để giảm lỗi/tiết kiệm công ở khâu nào. Không ép mỗi ca đều gọi đủ mọi công nghệ; không dùng PG schema cũ làm khuôn thiết kế cuối.</p>
+<p><strong>Mục tiêu dài hạn để hội đồng tìm hiểu:</strong> agent từng bước có khả năng khai báo quy trình và hỗ trợ cỗ máy sản xuất quy trình. <strong>Một khâu nhỏ</strong> như phát hiện câu hỏi/Field thiếu chỉ là ví dụ để đánh giá khả thi, chưa khóa mục tiêu.</p></div>
 <h2 id="lua-chon">Những phương án cần phản biện — chưa chốt</h2>
 <div class="table-scroll"><table><thead><tr><th>Mã</th><th>Phương án</th><th>Giá trị tiềm năng</th><th>Rủi ro/câu hỏi phải trả lời</th></tr></thead><tbody>
 <tr><td>PA0</td><td><strong>Chỉ dùng nền hiện tại</strong> và kiểm thử/Công thức tốt hơn</td><td>Đơn giản nhất, baseline để đối chiếu.</td><td>Có giảm đủ thời gian phát hiện lỗi lặp lại?</td></tr>
@@ -20,8 +23,21 @@
 <tr><td>PA2</td><td><strong>Tái dùng module Harness² Google</strong> qua adapter, không fork làm lõi</td><td>Có thể tránh phải tự viết lại thuật toán nghiên cứu.</td><td>Dự án mới/benchmark-centric, sức sống và production adoption chưa kiểm chứng.</td></tr>
 <tr><td>PA3</td><td><strong>Reuse-first:</strong> Agent Data + Vector/keyword + Neo4j/Cognee/Graph Server + bộ kiểm sẵn có</td><td>Đầu tiên thử tự tìm lỗi tương tự và câu hỏi khai báo thiếu.</td><td>Phải xác minh đường vector/graph hoạt động thật; chất lượng hồ sơ lỗi.</td></tr>
 <tr><td>PA4</td><td><strong>PA3 + memory/observability nếu thiếu:</strong> LangMem, OpenTelemetry, Langfuse/Phoenix; DSPy khi đã có tập eval</td><td>Trí nhớ tình huống, truy vết lỗi theo bước, có công cụ tối ưu.</td><td>Thêm phụ thuộc/resource; chỉ thêm thứ chứng minh thật sự thiếu.</td></tr>
-<tr><td>PA5</td><td><strong>Chuẩn mở:</strong> BPMN/DMN/JSON Schema bổ trợ cấu trúc khai báo</td><td>Giữ tri thức độc lập với AI/framework.</td><td>Không được thay Công thức gốc hoặc tạo ontology/mô hình song song.</td></tr>
+<tr><td>PA5</td><td><strong>Chuẩn mở:</strong> BPMN/DMN/JSON Schema bổ trợ cấu trúc khai báo</td><td>Giữ tri thức độc lập với AI/framework.</td><td>Không được thay Công thức gốc hoặc tạo ontology/mô hình song song; chưa có căn cứ loại hẳn.</td></tr>
+<tr><td>PA6</td><td><strong>Claude P01 — Skill + Sổ lỗi + Ca thi:</strong> dùng Agent Skills, sự cố/vấn đề đã có Master, biến lỗi xác nhận thành bài kiểm hồi quy</td><td>Ít service mới, lưu bài học dễ kiểm và dùng giữa nhiều agent.</td><td>Skill là chỉ dẫn, <strong>không phải máy tự học</strong>. Cần Vector/Graph để tìm lỗi và quan hệ liên quan? Mốc 50 ca chưa được chứng minh là đủ. Có thể bổ trợ PA3, chưa chọn thay PA3.</td></tr>
 </tbody></table></div>
+<h2>Những câu hỏi MỤC TIÊU MỚI phải làm rõ trước khi chọn hướng</h2>
+<div class="table-scroll"><table><thead><tr><th>Nhóm</th><th>Câu hỏi hội đồng phải giải quyết</th></tr></thead><tbody>
+<tr><td>M1 · Đích</td><td>Agent cuối cùng cần tự làm được mức nào: chỉ tìm thiếu, lập nháp, tự kiểm/sửa, hay khai báo cả MOW? Điều gì Owner phải thấy và duyệt được từng bước?</td></tr>
+<tr><td>M2 · Dùng lại</td><td>Từng năng lực JEV, Vector/Qdrant, Graph/Cognee/Neo4j, PG, Directus, Agent Data, DOT đang chạy thực được tới đâu? Nguồn, quyền, giới hạn và bằng chứng từng tool?</td></tr>
+<tr><td>M3 · Phân vai</td><td>Vector tìm trường hợp tương tự, Graph chỉ ra quan hệ phụ thuộc, JEV phán đoán hữu hạn, PG/Directus cấp nguồn chuẩn, bộ kiểm bắt lỗi: phần nào cần thiết, phần nào thừa?</td></tr>
+<tr><td>M4 · Dữ liệu học</td><td>Lỗi đã xác nhận ở CAT-017/CAT-069, thay đổi, quyết định, ca kiểm, Field/Config được kết nối và truy nguồn ra sao? Có trường hợp sai rồi được sửa thật để học không?</td></tr>
+<tr><td>M5 · Biết sai ở đâu</td><td>Lỗi truy xuất, graph thiếu cạnh, luật lỗi thời, khai báo thiếu, AI suy luận sai hay máy kiểm lọt lỗi? Nếu chưa có tracing đầy đủ, phải ghi UNKNOWN ở đâu?</td></tr>
+<tr><td>M6 · Bài học</td><td>Tìm lại một lỗi ≠ tự học. Khi nào bài học được kiểm chứng, đưa vào Skill, quy tắc/ca thi, và cập nhật theo thay đổi của Công thức?</td></tr>
+<tr><td>M7 · Hiệu quả</td><td>Đúng/bỏ sót/báo nhầm/hồi quy, số lượt người sửa, thời gian và chi phí thật, tiêu chí dừng? Mốc «50 ca» chưa phải chuẩn thống kê chung.</td></tr>
+<tr><td>M8 · Quyết định</td><td>Khi chưa đủ dữ kiện, có dám kết luận cần khảo sát thêm hoặc không nên làm? Công nghệ bổ sung có thực sự hơn phương án dùng lại không?</td></tr>
+</tbody></table></div>
+<div class="card"><p><strong>Trạng thái P01 / P02:</strong> Claude đề xuất PA6; GPT Host chấp nhận giá trị Skill + Sổ lỗi + Ca thi nhưng giữ mở PA3 (Graph/Vector) và PA5. Đây là <strong>các lựa chọn có thể kết hợp</strong>, chưa có lựa chọn thắng. Câu hỏi chi tiết M1–M12 được quản lý tại COLLAB.md.</p></div>
 <h2>Đầu ra của thảo luận</h2><div class="card"><p>Mỗi ghế cần đưa <strong>ý kiến độc lập và bằng chứng</strong>; không tán thành chỉ vì ghế khác đã tán thành. Các câu hỏi trọng tâm:</p><ol>
 <li>Harness² hiện có người dùng production độc lập và tương lai bảo trì rõ ràng không? Stars/forks không thay bằng chứng sử dụng.</li>
 <li>Trong Agent Data, Cognee/Neo4j, pgvector/Qdrant, JEV/Directus và bộ kiểm, cái gì <em>đã tồn tại thật</em>? Graphiti đã triển khai hay chỉ là lựa chọn đang cân nhắc?</li>
@@ -41,5 +57,5 @@
 <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/graph-server/view.html">Graph lựa chọn</a> ·
 <a href="https://github.com/google-research/harness2">Google Harness² repo</a> ·
 <a href="https://github.com/Huyen1974/incomex-workspace/issues/1">Issue thảo luận cũ (lịch sử)</a></p>
-<p class="muted">Trạng thái điều hành, roster được Owner duyệt, ý kiến hội đồng và quyết định sau này chỉ đọc ở COLLAB.md cùng task. Chưa có vòng hội đồng chính thức.</p></div>
+<p class="muted">Host: GPT Chat (Owner chỉ định). P01 Claude đã ghi; P02 Host đã phản biện; Gemini chưa ghi ý kiến. Thông tin trạng thái/phiếu hội đồng và quyết định chỉ đọc ở COLLAB.md. CHỈ THẢO LUẬN, KHÔNG READY/RUN.</p></div>
 </main></body></html>
