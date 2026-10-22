@@ -1,4 +1,53 @@
-# PROMPT — SUPERSEDED BY D19 (P187) · NO RUN
+# PROMPT — GS-C0-COVERAGE-INVENTORY-20261022-05 (ACTIVE)
+
+RUN_ID: GS-C0-COVERAGE-INVENTORY-20261022-05
+TASK: work/graph-server · Graph COLLAB §0.0 N1–N3 / K1–K4 / M1–M3 (Owner 22/10) · stage C0 = independent inventory + three-way reconciliation, READ-ONLY SURVEY.
+STATUS: DRAFT authored by Claude Chat (acting Host per Owner 22/10 09:39). Claude's conditional READY in P188 binds the last-touch commit of this file and becomes valid only when GPT Chat writes `ACCEPT@<that 40hex>` in Graph COLLAB. Owner pastes one RUN block manually to Claude Code CLI.
+MODE: SURVEY — ZERO MUTATION. No VPS-GHI (nothing is written on the VPS). #22 red (HJW) does not block this survey. Allowed writes ONLY: (1) repo via workspace_* : Graph COLLAB STARTED/KQ and read-only survey scripts under `work/graph-server/tools/c0/` (Owner rule: keep every script for reuse; list them in the KQ, no extra README document); (2) Owner Mac private folder `~/Incomex-Graph-View/c0/` for detailed lists. FORBIDDEN: any write/restart/install/chmod/enable/timer/Guard/config change on VPS; any write to Neo4j/PG/Directus/Qdrant/KB/Lark; any external LLM/JEV call carrying system data; GitHub→VPS (DROOT56); touching HJW or #22.
+
+## 0. READ FIRST
+AGENTS.md A6/A9 + DROOT30/31/44/50/54/55/56; root COLLAB (state only); Graph COLLAB §0.0, §0.A.0 D18/D19, P186–P188; R7/R9/R11 KQ for the existing readers (graph-v1, R7 PG/DOT loader, Enola/TS code loader, lark-client). Record STARTED@RUN_ID in Graph COLLAB after the read gate.
+
+## 1. RESOURCE AND PRIVACY RULES
+Every command under `timeout`; read-only roles/APIs only: PG role `context_pack_readonly` REPEATABLE READ READ ONLY (Directus metadata read from directus_* tables through that role); Qdrant GET only; Agent Data KB existing list API; docker/systemctl/crontab/nginx -T/ss read commands only; graph-v1 read Cypher with LIMIT. Counts of large tables from catalog statistics (pg_class.reltuples), never row contents, never full scans. Output only object names, IDs, counts, hashes — no PII, no secret values, no record contents.
+
+## 2. INVENTORY (N1) — each platform's own tool (K2), one row per family
+For every family record: universe_count (native tool), registry_count (the organisation's own PG registry, if one exists), graph_count (graph-v1), matched / missing_in_graph / extra_in_graph by stable ID, reader_exists (name of existing loader or NONE), access (OK / NO_ACCESS / EXCLUDED_BY_POLICY), snapshot time.
+- F1 PG schema: schemas, base tables, views, matviews, columns (count), constraints incl. FK pairs, indexes (count), triggers, functions, sequences — pg_catalog/information_schema; view→table via pg_depend/pg_rewrite.
+- F2 Directus: collections, fields, relations, flows, operations, roles/policies/permissions (counts + IDs).
+- F3 Qdrant + Agent Data KB: collections, point counts, payload keys; KB document count — metadata only.
+- F4 Organisation registries in PG (declared world): collection_registry, meta_catalog, table_registry, trigger_registry, dot_tools, dot_iu_command_catalog, entity_species, species_collection_map, law_catalog, normative_registry, measurement_registry, event_type_registry, workflow_scanner_registry, workflow_discovery_source_registry, iu_qdrant_collection_registry, governance_registry; diff each against its native counterpart (e.g. collection_registry vs base tables). birth_registry: per-collection estimate only.
+- F5 Code: every code tree actually running on the VPS (the 5 known + any other container/service whose code is on disk); files per language; reader per language.
+- F6 Runtime/infra: docker containers, images, volumes, networks, published ports; systemd services + timers; cron entries; nginx server/location/upstream; listening ports.
+- F7 Protection/monitoring: Config Guard targets, Guard invariant list, Kuma monitors (bang-den.json), storage-registry groups, graph-refresh state.
+- F8 Documents/decisions/rules: repo incomex-workspace AGENTS rules (DROOT/Điều), work/*/COLLAB P-entries, PROMPT files; git log commit count and commits citing a P-number/DROOT/task path; counts of explicit citations (`Điều \d+`, `DROOT\d+`, `P\d{2,3}`).
+- F9 Lark: apps/tables/fields/link fields metadata via lark-client read-only; which tables are in Graph.
+- F10 DOT: 00-SO-DOT tsv vs bin headers (CHAM / AI GOI declared targets) vs PG dot_tools rows — three-way diff.
+
+## 3. RELATION CLASSES (N2) — availability only, no ingest
+For each class list the deterministic sources and counts, and mark CERTAIN_STRUCTURAL / CERTAIN_EXPLICIT_CITATION / PROPOSED_ONLY / NO_SOURCE:
+- technical: FK, Directus relations, view deps, trigger→function, function→table (static SQL in body), code→table (SDK/REST/SQL literal), code→DOT, DOT→PG (declared), container→image/volume/port, nginx route→upstream, systemd timer→service→script, Config Guard/Guard→target, Kuma→endpoint;
+- business: Base88 link fields, FK between business collections, species_collection_map;
+- legal/normative: law_catalog, normative_registry, explicit Điều/DROOT citations;
+- organisational: Directus roles/permissions, task seats recorded in COLLAB;
+- causal/decision: commit messages citing P-entries/DROOT/task → files changed.
+
+## 4. BLIND-SPOT CHECK (N3) — by reading, no fault injection
+Read graph-refresh code/config read-only and answer YES/NO with file:line whether it would detect: (a) new table without trigger, (b) new container/service, (c) new cron/timer, (d) dead reader, (e) permission loss, (f) skipped/stale tick. Also read the journal of the 2026-10-21 22:40 UTC tick and report EXECUTED / SKIPPED_GUARD / FAILED / EVIDENCE_NOT_DIRECTLY_VERIFIED. Fault injection belongs to C1.
+
+## 5. OUTPUT
+- Coverage matrix F1–F10 × {universe, registry, graph, missing, extra, reader, access, status COMPLETE / PARTIAL / ADAPTER_MISSING / NO_ACCESS / STALE} with colours.
+- GAP list: id, family, object, why, impact, proposed existing reader/tool, proposed owner task.
+- K4 check: per family, how many objects already have a PG/Directus/Qdrant record (measures how far «everything ends in PG» already holds).
+- C1 recommendation: the smallest ingest + reconciliation + alert set that reaches M1–M3 with existing tools only; effort estimate; exactly which items need Owner consent (any PG/Directus write such as a GAP collection via DOT; any new canonical relation type).
+- Repo: KQ@GS-C0-COVERAGE-INVENTORY-20261022-05 in Graph COLLAB (summary ≤ one screen + matrix) and the script list; Mac: detailed lists.
+- Owner report ≤ 5 lines. NEXT_TRIGGER=GPT_HOST_B1_C0_THEN_C1_PROMPT.
+
+## 6. BOUNDS
+≤ 90 min wall clock; a family whose command exceeds its timeout is recorded PARTIAL and the run continues; no background job, agent, schedule or retry loop; remove own temp files; a read needing a privilege not already held becomes a NO_ACCESS row — never escalate.
+
+---
+# PREVIOUS ACTIVE TEXT (history, NOT active) — SUPERSEDED BY D19 (P187) · NO RUN
 
 D19_SUPERSESSION_NOTICE 2026-10-22 / GPT Host P187: OWNER ĐÃ LÀM RÕ MỤC TIÊU GRAPH-WIDE COVERAGE. PROMPT NÀY LÀ R11-X PHẠM VI HẸP THEO P185, KHÔNG ĐỦ D19 VÀ KHÔNG CÒN ĐƯỢC DÙNG ĐỂ RUN. READY@43e453409a4ee7bb0a180fe02cbc00f5b04e0769 KHÔNG CÒN HIỆU LỰC THEO A6 VÌ TỆP PROMPT ĐÃ THAY ĐỔI. R0–R11 A–E GIỮ NGUYÊN; LỆNH KẾ TIẾP CẦN C0 INVENTORY/RECONCILIATION + C1 GUARDED COVERAGE/ALERT CONTRACT VÀ READY MỚI. NO RUN, NO VPS MUTATION. Phần dưới đây giữ làm history hợp đồng kỹ thuật R11-X hẹp.
 
