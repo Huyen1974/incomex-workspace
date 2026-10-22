@@ -14,6 +14,8 @@ Kết quả đột biến: KILLED (bắt được, có bằng chứng) · SURVIV
 Chạy: python3 work/mow-mot-moit-mout/kiem-ct000-4.py [--dot-bien] [--kb TÊN,TÊN | --kb "TÊN;TÊN" | --kb -] [--gioi N] [--json ĐƯỜNG_DẪN] [--trang ĐƯỜNG_DẪN]
       --kb: đúng nguyên tên 1 kịch bản (kể cả tên có dấu phẩy) · nhiều tên tách «;» (hoặc «,» khi không tên nào có phẩy) · «-» = không xét kịch bản nào.
       Tên không tồn tại ⇒ SAI KHUÔN, mã 2.
+Bộ nhớ (P78): mỗi kịch bản chạy trong 1 tiến trình con, trạng thái lưu gọn ⇒ kịch bản lớn nhất (~1,1 triệu trạng thái) ≈ 0,8 GB,
+      vừa giới hạn 1 GiB của workspace_exec; chạy cả 21 kịch bản trong 1 lệnh không cộng dồn. Con chết ⇒ CHECKER_ERROR, mã 2.
 Kiểm kê đăng ký: python3 work/mow-mot-moit-mout/kiem-ct000-4.py --kiem-ke  (Master Tool có đủ mục, đường dẫn, sha256,
           manifest từng tệp, mục ghi nhớ; liệt kê script trong thư mục việc chưa có trong Master). Mã 0 đủ · 1 lệch.
 Master Công cụ ML-DEF-023 · mã python:kiem-ct000-4 (work/tools-quy-trinh/view.html). Phản biện độc lập: python:ct000-audit.
@@ -375,10 +377,19 @@ def vi_pham(S, s):
     return E
 
 # ---------- duyệt hết ----------
-def vet(nodes, cha, u, them=None):
-    ist = KEYS.index('st'); out = []
-    while u is not None and u in cha:
-        p, ev = cha[u]; out.append('%s→%s' % (ev, nodes[u][ist])); u = p
+# P78 — tiết kiệm bộ nhớ để duyệt hết trong giới hạn 1 GiB của bộ chạy chung (workspace_exec):
+#   trạng thái lưu = marshal bản 0 (chuỗi byte ~200 B thay vì bộ 60 phần tử ~520 B; bản 0 không có tham chiếu/đánh dấu
+#   intern nên 2 trạng thái bằng nhau luôn ra cùng chuỗi byte) · cha mẹ = mảng số · đồ thị sống = mảng nén (CSR).
+#   Không đổi nghĩa phép kiểm: cùng số trạng thái, cùng số bước, cùng kết luận với bản trước (đối chiếu P78).
+import marshal, array
+def nen(t): return marshal.dumps(t, 0)
+def giai(x): return x if isinstance(x, tuple) else marshal.loads(x)
+
+def vet(sti, ten, cha, u, them=None):
+    """cha = (mẹ, mã sự kiện, tên sự kiện, tra tên); gốc = nút 0; ten[sti[u]] = trạng thái của nút u"""
+    out = []
+    while u is not None and u > 0:
+        p = cha[0][u]; ev = cha[2][cha[1][u]]; out.append('%s→%s' % (ev, ten[sti[u]])); u = p
     out.reverse()
     if them: out.append(them)
     return 'Mới · ' + ' · '.join(out)
@@ -386,87 +397,117 @@ def vet(nodes, cha, u, them=None):
 GIOI = 400000   # --gioi N: trần trạng thái mỗi kịch bản; vượt trần = INCONCLUSIVE (không phải đạt)
 
 def kham(S, init, gioi=None, nhanh=False):
-    import array
+    """duyệt hết theo bề rộng; trả (sti, ten, ed): trạng thái của từng nút + các bước (từ, tới, lớp 0 máy/giờ · 1 người/ngoài)"""
     gioi = gioi or GIOI
-    E = []; ids = {}; nodes = []; cha = {}; da_bao = set()
+    E = []; ids = {}; da_bao = set(); sti = array.array('i'); ten = []; ma = {}
+    cha = (array.array('i', [-1]), array.array('i', [-1]), [], {})
     ed = (array.array('i'), array.array('i'), array.array('b'))
-    k0 = dong(init); ids[k0] = 0; nodes.append(k0)
+    def them_nut(s):
+        v = s['st']; j = ma.get(v)
+        if j is None: j = ma[v] = len(ten); ten.append(v)
+        sti.append(j)
+    k0 = nen(dong(init)); ids[k0] = 0; them_nut(init)
     E += vi_pham(S, init)
-    q = collections.deque([0])
+    q = collections.deque([k0])
     while q:
-        u = q.popleft(); s = mo(nodes[u])
+        kq = q.popleft(); u = ids[kq]; s = mo(giai(kq))
         for name, lop, nx in buoc(S, s):
             if isinstance(nx, tuple):
                 if nx[0] not in da_bao:
-                    da_bao.add(nx[0]); E.append(nx + ('VẾT: ' + vet(nodes, cha, u, name),))
+                    da_bao.add(nx[0]); E.append(nx + ('VẾT: ' + vet(sti, ten, cha, u, name),))
                 if nhanh: return E, None
                 continue
-            k = dong(nx)
-            if k not in ids:
-                ids[k] = len(nodes); nodes.append(k); q.append(ids[k]); cha[ids[k]] = (u, name)
+            k = nen(dong(nx)); i = ids.get(k)
+            if i is None:
+                i = ids[k] = len(sti); them_nut(nx); q.append(k)
+                t = cha[3].get(name)
+                if t is None: t = cha[3][name] = len(cha[2]); cha[2].append(name)
+                cha[0].append(u); cha[1].append(t)
                 for e in vi_pham(S, nx):
                     if e[0] not in da_bao:
-                        da_bao.add(e[0]); E.append(e + ('VẾT: ' + vet(nodes, cha, ids[k]),))
+                        da_bao.add(e[0]); E.append(e + ('VẾT: ' + vet(sti, ten, cha, i),))
                     if nhanh: return E, None
-            ed[0].append(u); ed[1].append(ids[k]); ed[2].append(0 if lop in ('máy', 'giờ') else 1)
-        if len(nodes) > gioi:
-            E.append(('INCONCLUSIVE quá trần trạng thái', len(nodes))); return E, None
-    return E, (nodes, ed)
+            ed[0].append(u); ed[1].append(i); ed[2].append(0 if lop in ('máy', 'giờ') else 1)
+        if len(sti) > gioi:
+            E.append(('INCONCLUSIVE quá trần trạng thái', len(sti))); return E, None
+    return E, (sti, ten, ed)   # bảng tra trạng thái (ids) được nhả tại đây, trước khi kiểm sống
 
-def scc(n, adj):
-    index = [None] * n; low = [0] * n; on = [False] * n; st = []; comp = [None] * n; c = 0; idx = 0
+def csr(n, dau, cuoi, chon=None):
+    """đồ thị nén: kề của v = ke[bd[v]:bd[v+1]]; chon = bytearray đánh dấu cạnh được lấy (None = mọi cạnh)"""
+    m = len(dau); bd = array.array('i', bytes(4 * (n + 1)))
+    for e in range(m):
+        if chon is None or chon[e]: bd[dau[e] + 1] += 1
+    for i in range(n): bd[i + 1] += bd[i]
+    ke = array.array('i', bytes(4 * bd[n])); pos = array.array('i', bd); pos.pop()
+    for e in range(m):
+        if chon is None or chon[e]:
+            a = dau[e]; ke[pos[a]] = cuoi[e]; pos[a] += 1
+    return bd, ke
+
+def scc(n, bd, ke):
+    index = array.array('i', [-1]) * n; low = array.array('i', bytes(4 * n)); on = bytearray(n)
+    comp = array.array('i', [-1]) * n; st = array.array('i'); sv = array.array('i'); si = array.array('i'); c = 0; idx = 0
     for v0 in range(n):
-        if index[v0] is not None: continue
-        index[v0] = low[v0] = idx; idx += 1; st.append(v0); on[v0] = True
-        stack = [(v0, 0)]
-        while stack:
-            v, i = stack[-1]
-            if i < len(adj[v]):
-                stack[-1] = (v, i + 1); w = adj[v][i]
-                if index[w] is None:
-                    index[w] = low[w] = idx; idx += 1; st.append(w); on[w] = True; stack.append((w, 0))
-                elif on[w]:
-                    low[v] = min(low[v], index[w])
+        if index[v0] != -1: continue
+        index[v0] = low[v0] = idx; idx += 1; st.append(v0); on[v0] = 1
+        sv.append(v0); si.append(bd[v0])
+        while sv:
+            v = sv[-1]; i = si[-1]
+            if i < bd[v + 1]:
+                si[-1] = i + 1; w = ke[i]
+                if index[w] == -1:
+                    index[w] = low[w] = idx; idx += 1; st.append(w); on[w] = 1; sv.append(w); si.append(bd[w])
+                elif on[w] and index[w] < low[v]:
+                    low[v] = index[w]
             else:
-                stack.pop()
-                if stack:
-                    p = stack[-1][0]; low[p] = min(low[p], low[v])
+                sv.pop(); si.pop()
+                if sv:
+                    p = sv[-1]
+                    if low[v] < low[p]: low[p] = low[v]
                 if low[v] == index[v]:
                     while True:
-                        w = st.pop(); on[w] = False; comp[w] = c
+                        w = st.pop(); on[w] = 0; comp[w] = c
                         if w == v: break
                     c += 1
-    return comp
+    return comp, c
 
-def bfs_rev(tgt, radj):
-    seen = set(tgt); q = collections.deque(tgt)
-    while q:
-        v = q.popleft()
-        for u in radj[v]:
-            if u not in seen: seen.add(u); q.append(u)
+def bfs_rev(n, tgt, bd, ke):
+    seen = bytearray(n); q = array.array('i')
+    for v in tgt:
+        if not seen[v]: seen[v] = 1; q.append(v)
+    h = 0
+    while h < len(q):
+        v = q[h]; h += 1
+        for j in range(bd[v], bd[v + 1]):
+            u = ke[j]
+            if not seen[u]: seen[u] = 1; q.append(u)
     return seen
 
-def song(nodes, ed, S=None):
-    E = []; n = len(nodes)
-    ist = KEYS.index('st'); st = [x[ist] for x in nodes]
-    adj = [[] for _ in range(n)]; radj = [[] for _ in range(n)]; rall = [[] for _ in range(n)]
-    for u, v, lop in zip(*ed):
-        rall[v].append(u)
-        if lop == 0 and u != v:
-            adj[u].append(v); radj[v].append(u)
-    comp = scc(n, adj); size = collections.Counter(comp)
-    bad = sorted({st[i] for i in range(n) if size[comp[i]] > 1})
+def song(sti, ten, ed, S=None):
+    E = []; n = len(sti); src, dst, lp = ed; m = len(src)
+    may = bytearray(m)
+    for e in range(m):
+        if lp[e] == 0 and src[e] != dst[e]: may[e] = 1
+    bd, ke = csr(n, src, dst, may)
+    comp, c = scc(n, bd, ke); bd = ke = None
+    sz = array.array('i', bytes(4 * c))
+    for x in comp: sz[x] += 1
+    bad = sorted({ten[sti[i]] for i in range(n) if sz[comp[i]] > 1}); comp = sz = None
     if bad: E.append(('L2 vòng chỉ gồm máy và giờ', bad[:8]))
     # V7-08: vòng tự lặp máy/giờ chỉ hợp lệ ở trạng thái chờ/máy (đang chờ); ở trạng thái tạm = xử lý tức thời không tiến triển
     tam = {k for k, v in (S['ST'].items() if S else []) if v['kind'] == 'tạm'}
-    tu_lap = sorted({st[u] for u, v, lop in zip(*ed) if lop == 0 and u == v and st[u] in tam})
+    tu_lap = sorted({ten[sti[src[e]]] for e in range(m) if lp[e] == 0 and src[e] == dst[e] and ten[sti[src[e]]] in tam})
     if tu_lap: E.append(('L2 vòng tự lặp máy tại trạng thái tạm', tu_lap[:8]))
-    tgt = [i for i in range(n) if st[i].startswith('Kết thúc') or st[i] == 'Chờ Owner']
-    reach = bfs_rev(tgt, radj)
-    orphan = sorted({st[i] for i in range(n) if i not in reach})
+    ket = bytearray(len(ten)); owner = bytearray(len(ten))
+    for j, v in enumerate(ten):
+        ket[j] = v.startswith('Kết thúc'); owner[j] = v == 'Chờ Owner'
+    rb, rk = csr(n, dst, src, may); may = None
+    reach = bfs_rev(n, [i for i in range(n) if ket[sti[i]] or owner[sti[i]]], rb, rk); rb = rk = None
+    orphan = sorted({ten[sti[i]] for i in range(n) if not reach[i]}); reach = None
     if orphan: E.append(('L3 mồ côi: máy và giờ không đưa tới Kết thúc hoặc Chờ Owner', orphan[:8]))
-    reach2 = bfs_rev([i for i in range(n) if st[i].startswith('Kết thúc')], rall)
-    stuck = [i for i in range(n) if st[i] == 'Chờ Owner' and i not in reach2]
+    ab, ak = csr(n, dst, src)
+    reach2 = bfs_rev(n, [i for i in range(n) if ket[sti[i]]], ab, ak); ab = ak = None
+    stuck = [i for i in range(n) if owner[sti[i]] and not reach2[i]]
     if stuck: E.append(('L4 Chờ Owner không có đường tới Kết thúc', len(stuck)))
     return E
 
@@ -624,6 +665,36 @@ KICH_BAN = [
 ]
 KB_CHON = None   # --kb: chỉ xét một phần; khi đó mã thoát tối đa là 2 (chưa kết luận toàn phạm vi)
 
+def _kb(S, s0, nhanh):
+    e, g = kham(S, s0, nhanh=nhanh)
+    if not g: return e, None, []
+    so = (len(g[0]), len(g[2][0]))
+    return e, so, ([] if e else song(*g, S))
+
+def chay_kb(S, s0, nhanh=False):
+    """P78: mỗi kịch bản chạy trong 1 tiến trình con (fork) — kịch bản xong thì bộ nhớ trả lại ngay, nên duyệt cả 21 kịch bản
+    hoặc đột biến trong 1 lệnh không cộng dồn bộ nhớ. Con chết (vd hết bộ nhớ) ⇒ lỗi máy kiểm (CHECKER_ERROR), không bao giờ là đạt."""
+    import os, pickle
+    if not hasattr(os, 'fork'): return _kb(S, s0, nhanh)
+    sys.stdout.flush(); r, w = os.pipe(); pid = os.fork()
+    if pid == 0:
+        os.close(r)
+        try:
+            data = pickle.dumps(('ok',) + _kb(S, s0, nhanh))
+        except BaseException as x:
+            data = pickle.dumps(('lỗi', type(x).__name__, str(x)))
+        with os.fdopen(w, 'wb') as f: f.write(data)
+        os._exit(0)
+    os.close(w)
+    with os.fdopen(r, 'rb') as f: data = f.read()
+    _, tt = os.waitpid(pid, 0)
+    if not data: raise RuntimeError('tiến trình con duyệt kịch bản chết (trạng thái %d, có thể hết bộ nhớ)' % tt)
+    kq = pickle.loads(data)
+    if kq[0] == 'lỗi':
+        lop = {'LoiMayKiem': LoiMayKiem, 'SaiKhuon': SaiKhuon}.get(kq[1])
+        raise lop(kq[2]) if lop else RuntimeError('%s trong tiến trình con duyệt kịch bản %s' % (kq[1], kq[2]))
+    return kq[1], kq[2], kq[3]
+
 def kiem_het(T, nhanh=False, in_ra=False):
     S = nap(T)
     E = [('S',) + tuple(e) if not str(e[0]).startswith('S') else e for e in kiem_tinh(S)]
@@ -641,11 +712,11 @@ def kiem_het(T, nhanh=False, in_ra=False):
     for ten, them in KICH_BAN:
         if KB_CHON and ten not in KB_CHON: continue
         s0 = dict(MAC_DINH); s0.update(AN); s0.update(them); s0['st'] = 'Mới'
-        e, g = kham(S, s0, nhanh=nhanh)
+        e, so, e2 = chay_kb(S, s0, nhanh)
         E += [('K ' + ten,) + tuple(x) for x in e]
-        if g and not e:
-            E += [('K ' + ten,) + tuple(x) for x in song(*g, S)]
-            if in_ra: print('  ✓ kịch bản %-24s %6d trạng thái · %7d bước' % (ten, len(g[0]), len(g[1][0])))
+        if so and not e:
+            E += [('K ' + ten,) + tuple(x) for x in e2]
+            if in_ra: print('  ✓ kịch bản %-24s %6d trạng thái · %7d bước' % (ten, so[0], so[1]), flush=True)
         if E and nhanh: return E, S
     return E, S
 
@@ -737,7 +808,7 @@ def tu_kiem(T):
     S = nap(T)
     a = dict(MAC_DINH); a.update(AN); a['st'] = 'Chấm G2'; b = dict(a, st='Kết thúc·Đạt')
     ed = (array.array('i', [0, 0]), array.array('i', [0, 1]), array.array('b', [0, 0]))
-    if not any('tự lặp' in str(x[0]) for x in song([dong(a), dong(b)], ed, S)): E.append(('TK3 tự lặp máy ở trạng thái tạm phải bị bắt',))
+    if not any('tự lặp' in str(x[0]) for x in song(array.array('i', [0, 1]), [a['st'], b['st']], ed, S)): E.append(('TK3 tự lặp máy ở trạng thái tạm phải bị bắt',))
     return E
 
 # ---------- kiểm kê đăng ký công cụ (Owner 21/10 20:37 + 21:33) ----------
