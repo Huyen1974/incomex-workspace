@@ -1,0 +1,1365 @@
+{
+ "canon": "CANON-V1: hàng JSON gọn sort_keys UTF-8, sắp theo byte, tiền tố độ dài 8 byte big-endian, SHA256; đối tượng và cạnh băm riêng",
+ "catalog_version": "c1a-1",
+ "cells": [
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db directus, vai context_pack_readonly",
+   "gap": "GAP-C0-01/02",
+   "gate": "G1",
+   "graph": {
+    "nodes": [
+     {
+      "label": "PgTable",
+      "prefix": "pg:table:"
+     }
+    ]
+   },
+   "key": "pg:directus:table",
+   "parent": "pg:directus",
+   "scope": "directus · bảng thường/phân vùng/ngoại (relkind r,p,f) ngoài schema hệ thống",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "table"
+    ],
+    "db": "directus"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db directus, vai context_pack_readonly",
+   "gap": "GAP-C0-03",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:directus:view",
+   "parent": "pg:directus",
+   "scope": "directus · view + matview (relkind v,m)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "view"
+    ],
+    "db": "directus"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db directus, vai context_pack_readonly",
+   "gap": "C0 F1 trigger ngoài directus (ADAPTER_MISSING)",
+   "gate": "G1",
+   "graph": {
+    "edges": [
+     {
+      "from": "PgTrigger",
+      "prov": [
+       "trust",
+       "snapshot_utc",
+       "source_file",
+       "source_row"
+      ],
+      "to": "PgTable",
+      "type": "ON_TABLE"
+     },
+     {
+      "from": "PgTrigger",
+      "prov": [
+       "trust",
+       "snapshot_utc",
+       "source_file",
+       "source_row"
+      ],
+      "to": "PgFunction",
+      "type": "EXECUTES"
+     }
+    ],
+    "nodes": [
+     {
+      "attrs": [
+       "enabled_code"
+      ],
+      "label": "PgTrigger",
+      "prefix": "pg:trigger:"
+     }
+    ]
+   },
+   "key": "pg:directus:trigger",
+   "parent": "pg:directus",
+   "scope": "directus · trigger không nội bộ + cạnh ON_TABLE (trigger→bảng) + EXECUTES (trigger→hàm) + enabled_code",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "trigger"
+    ],
+    "db": "directus"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db directus, vai context_pack_readonly",
+   "gap": "GAP-C0-05",
+   "gate": "G1",
+   "graph": {
+    "nodes": [
+     {
+      "label": "PgFunction",
+      "prefix": "pg:function:"
+     }
+    ]
+   },
+   "key": "pg:directus:function",
+   "parent": "pg:directus",
+   "scope": "directus · hàm người dùng (không thuộc extension)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "function"
+    ],
+    "db": "directus"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db directus, vai context_pack_readonly",
+   "gap": "GAP-C0-04",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:directus:fk",
+   "parent": "pg:directus",
+   "scope": "directus · khoá ngoại (đối tượng ràng buộc + cạnh bảng→bảng)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "fk"
+    ],
+    "db": "directus"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db directus, vai context_pack_readonly",
+   "gap": "GAP-C0-03",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:directus:view_dep",
+   "parent": "pg:directus",
+   "scope": "directus · cạnh view→bảng (pg_depend/pg_rewrite)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "view_dep"
+    ],
+    "db": "directus"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db incomex_metadata, vai context_pack_readonly",
+   "gap": "GAP-C0-01/02",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:incomex_metadata:table",
+   "parent": "pg:incomex_metadata",
+   "scope": "incomex_metadata · bảng thường/phân vùng/ngoại (relkind r,p,f) ngoài schema hệ thống",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "table"
+    ],
+    "db": "incomex_metadata"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db incomex_metadata, vai context_pack_readonly",
+   "gap": "GAP-C0-03",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:incomex_metadata:view",
+   "parent": "pg:incomex_metadata",
+   "scope": "incomex_metadata · view + matview (relkind v,m)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "view"
+    ],
+    "db": "incomex_metadata"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db incomex_metadata, vai context_pack_readonly",
+   "gap": "C0 F1 trigger ngoài directus (ADAPTER_MISSING)",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:incomex_metadata:trigger",
+   "parent": "pg:incomex_metadata",
+   "scope": "incomex_metadata · trigger không nội bộ + cạnh ON_TABLE (trigger→bảng) + EXECUTES (trigger→hàm) + enabled_code",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "trigger"
+    ],
+    "db": "incomex_metadata"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db incomex_metadata, vai context_pack_readonly",
+   "gap": "GAP-C0-05",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:incomex_metadata:function",
+   "parent": "pg:incomex_metadata",
+   "scope": "incomex_metadata · hàm người dùng (không thuộc extension)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "function"
+    ],
+    "db": "incomex_metadata"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db incomex_metadata, vai context_pack_readonly",
+   "gap": "GAP-C0-04",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:incomex_metadata:fk",
+   "parent": "pg:incomex_metadata",
+   "scope": "incomex_metadata · khoá ngoại (đối tượng ràng buộc + cạnh bảng→bảng)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "fk"
+    ],
+    "db": "incomex_metadata"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db incomex_metadata, vai context_pack_readonly",
+   "gap": "GAP-C0-03",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:incomex_metadata:view_dep",
+   "parent": "pg:incomex_metadata",
+   "scope": "incomex_metadata · cạnh view→bảng (pg_depend/pg_rewrite)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "view_dep"
+    ],
+    "db": "incomex_metadata"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db postgres, vai context_pack_readonly",
+   "gap": "GAP-C0-01/02",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:postgres:table",
+   "parent": "pg:postgres",
+   "scope": "postgres · bảng thường/phân vùng/ngoại (relkind r,p,f) ngoài schema hệ thống",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "table"
+    ],
+    "db": "postgres"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db postgres, vai context_pack_readonly",
+   "gap": "GAP-C0-03",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:postgres:view",
+   "parent": "pg:postgres",
+   "scope": "postgres · view + matview (relkind v,m)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "view"
+    ],
+    "db": "postgres"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db postgres, vai context_pack_readonly",
+   "gap": "C0 F1 trigger ngoài directus (ADAPTER_MISSING)",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:postgres:trigger",
+   "parent": "pg:postgres",
+   "scope": "postgres · trigger không nội bộ + cạnh ON_TABLE (trigger→bảng) + EXECUTES (trigger→hàm) + enabled_code",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "trigger"
+    ],
+    "db": "postgres"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db postgres, vai context_pack_readonly",
+   "gap": "GAP-C0-05",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:postgres:function",
+   "parent": "pg:postgres",
+   "scope": "postgres · hàm người dùng (không thuộc extension)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "function"
+    ],
+    "db": "postgres"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db postgres, vai context_pack_readonly",
+   "gap": "GAP-C0-04",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:postgres:fk",
+   "parent": "pg:postgres",
+   "scope": "postgres · khoá ngoại (đối tượng ràng buộc + cạnh bảng→bảng)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "fk"
+    ],
+    "db": "postgres"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db postgres, vai context_pack_readonly",
+   "gap": "GAP-C0-03",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:postgres:view_dep",
+   "parent": "pg:postgres",
+   "scope": "postgres · cạnh view→bảng (pg_depend/pg_rewrite)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "view_dep"
+    ],
+    "db": "postgres"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db workflow, vai context_pack_readonly",
+   "gap": "GAP-C0-01/02",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:workflow:table",
+   "parent": "pg:workflow",
+   "scope": "workflow · bảng thường/phân vùng/ngoại (relkind r,p,f) ngoài schema hệ thống",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "table"
+    ],
+    "db": "workflow"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db workflow, vai context_pack_readonly",
+   "gap": "GAP-C0-03",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:workflow:view",
+   "parent": "pg:workflow",
+   "scope": "workflow · view + matview (relkind v,m)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "view"
+    ],
+    "db": "workflow"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db workflow, vai context_pack_readonly",
+   "gap": "C0 F1 trigger ngoài directus (ADAPTER_MISSING)",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:workflow:trigger",
+   "parent": "pg:workflow",
+   "scope": "workflow · trigger không nội bộ + cạnh ON_TABLE (trigger→bảng) + EXECUTES (trigger→hàm) + enabled_code",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "trigger"
+    ],
+    "db": "workflow"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db workflow, vai context_pack_readonly",
+   "gap": "GAP-C0-05",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:workflow:function",
+   "parent": "pg:workflow",
+   "scope": "workflow · hàm người dùng (không thuộc extension)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "function"
+    ],
+    "db": "workflow"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db workflow, vai context_pack_readonly",
+   "gap": "GAP-C0-04",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:workflow:fk",
+   "parent": "pg:workflow",
+   "scope": "workflow · khoá ngoại (đối tượng ràng buộc + cạnh bảng→bảng)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "fk"
+    ],
+    "db": "workflow"
+   }
+  },
+  {
+   "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db workflow, vai context_pack_readonly",
+   "gap": "GAP-C0-03",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:workflow:view_dep",
+   "parent": "pg:workflow",
+   "scope": "workflow · cạnh view→bảng (pg_depend/pg_rewrite)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "view_dep"
+    ],
+    "db": "workflow"
+   }
+  },
+  {
+   "authority": "Directus metadata directus_* (PG directus, vai chỉ-đọc)",
+   "gap": "GAP-C0-06",
+   "gate": "G1",
+   "graph": null,
+   "key": "directus:collection",
+   "parent": "pg:directus",
+   "scope": "Directus collection",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "directus_collection"
+    ],
+    "db": "directus"
+   }
+  },
+  {
+   "authority": "Directus metadata directus_* (PG directus, vai chỉ-đọc)",
+   "gap": "GAP-C0-06",
+   "gate": "G1",
+   "graph": null,
+   "key": "directus:relation",
+   "parent": "pg:directus",
+   "scope": "Directus relation (cạnh many→one)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "directus_relation"
+    ],
+    "db": "directus"
+   }
+  },
+  {
+   "authority": "Directus metadata directus_* (PG directus, vai chỉ-đọc)",
+   "gap": "GAP-C0-06",
+   "gate": "G1",
+   "graph": null,
+   "key": "directus:flow",
+   "parent": "pg:directus",
+   "scope": "Directus flow + operation (cạnh operation→flow)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "directus_flow",
+     "directus_operation"
+    ],
+    "db": "directus"
+   }
+  },
+  {
+   "authority": "PG dot_tools + /opt/incomex/dot/bin",
+   "gap": "F10 (C0 chỉ đếm — C1-A đối chiếu theo mã)",
+   "gate": "G1",
+   "graph": {
+    "edges": [
+     {
+      "from": "DotRegistryEntry",
+      "prov": [
+       "trust",
+       "snapshot_utc",
+       "source_file",
+       "source_row"
+      ],
+      "to": "DotCommand",
+      "type": "REGISTERS"
+     },
+     {
+      "from": "DotRegistryEntry",
+      "prov": [
+       "trust",
+       "snapshot_utc",
+       "source_file",
+       "source_row"
+      ],
+      "to": "DotRegistryEntry",
+      "type": "PAIRED_WITH"
+     }
+    ],
+    "nodes": [
+     {
+      "label": "DotRegistryEntry",
+      "prefix": "dot:registry:"
+     }
+    ]
+   },
+   "key": "dot:registry",
+   "parent": "pg:directus",
+   "scope": "PG dot_tools (mọi dòng) + cạnh REGISTERS (dòng→lệnh dot/bin) + PAIRED_WITH (cặp dot)",
+   "source": {
+    "adapter": "pg",
+    "classes": [
+     "dot_tools"
+    ],
+    "db": "directus"
+   }
+  },
+  {
+   "authority": "DOT script khai báo",
+   "gap": "C0 F10 CHAM (OPEN)",
+   "gate": "G1",
+   "graph": null,
+   "key": "dot:cham",
+   "open_classes": [
+    "DOT→PG CHAM"
+   ],
+   "parent": "pg:directus",
+   "scope": "DOT chạm bảng PG (khai CHAM 239 tệp) — chưa có cạnh máy đọc",
+   "source": {
+    "adapter": "none"
+   }
+  },
+  {
+   "authority": "PG pg_proc.prosrc",
+   "gap": "GAP-C0-05 (OPEN, v0.5 UNKNOWN)",
+   "gate": "G1",
+   "graph": null,
+   "key": "pg:directus:function_body",
+   "open_classes": [
+    "hàm→bảng",
+    "SQL động"
+   ],
+   "parent": "pg:directus",
+   "scope": "thân hàm đọc/ghi bảng nào (48 hàm EXECUTE động)",
+   "source": {
+    "adapter": "none"
+   }
+  },
+  {
+   "authority": "/opt/incomex/dot/bin + 00-SO-DOT.tsv",
+   "gap": "F10",
+   "gate": "G6",
+   "graph": {
+    "nodes": [
+     {
+      "label": "DotCommand",
+      "prefix": "dot:command:"
+     }
+    ]
+   },
+   "key": "dot:command",
+   "parent": "opt:/opt/incomex",
+   "scope": "lệnh DOT trong /opt/incomex/dot/bin theo luật nhãn LBL-2",
+   "source": {
+    "adapter": "dot_bin"
+   }
+  },
+  {
+   "authority": "docker ps -a + docker inspect",
+   "gap": "GAP-C0-10",
+   "gate": "G2",
+   "graph": null,
+   "key": "docker:container",
+   "parent": "docker",
+   "scope": "container (mọi trạng thái) + cạnh USES_IMAGE/MOUNTS/PUBLISHES",
+   "source": {
+    "adapter": "docker"
+   }
+  },
+  {
+   "authority": "docker images",
+   "gap": "GAP-C0-10",
+   "gate": "G2",
+   "graph": null,
+   "key": "docker:image",
+   "parent": "docker",
+   "scope": "image (ID)",
+   "source": {
+    "adapter": "docker",
+    "part": "image"
+   }
+  },
+  {
+   "authority": "/etc/systemd/system",
+   "gap": "GAP-C0-10",
+   "gate": "G3",
+   "graph": null,
+   "key": "systemd:unit",
+   "parent": "systemd",
+   "scope": "unit .service/.timer tệp thường trong /etc/systemd/system + cạnh TRIGGERS/EXECS (unit của gói trong /lib = UNSCOPED)",
+   "source": {
+    "adapter": "systemd"
+   }
+  },
+  {
+   "authority": "cron spool/cron.d",
+   "gap": "GAP-C0-10",
+   "gate": "G4",
+   "graph": null,
+   "key": "cron:entry",
+   "parent": "cron",
+   "scope": "dòng lịch crontab spool + /etc/cron.d + /etc/crontab + cron.{hourly,daily,weekly,monthly} + cạnh RUNS",
+   "source": {
+    "adapter": "cron"
+   }
+  },
+  {
+   "authority": "docker exec incomex-nginx nginx -T",
+   "gap": "GAP-C0-10",
+   "gate": "G5",
+   "graph": null,
+   "key": "nginx:route",
+   "parent": "nginx",
+   "scope": "server (server_name|listen) + cạnh PROXIES (location băm, đích host:port)",
+   "source": {
+    "adapter": "nginx"
+   }
+  },
+  {
+   "authority": "listdir",
+   "gap": "GAP-C0-09",
+   "gate": "G6",
+   "graph": null,
+   "key": "opt:entries",
+   "parent": "opt",
+   "scope": "mục cấp 1 trong /opt và /opt/incomex",
+   "source": {
+    "adapter": "opt"
+   }
+  },
+  {
+   "authority": "/opt/incomex/scripts/code-ledger.tsv",
+   "gap": "GAP-C0-09/12",
+   "gate": "G6",
+   "graph": null,
+   "key": "opt:code-ledger",
+   "parent": "opt",
+   "scope": "đường + trạng thái trong sổ mã code-ledger.tsv",
+   "source": {
+    "adapter": "opt",
+    "part": "ledger"
+   }
+  },
+  {
+   "authority": "Qdrant GET /collections, /aliases",
+   "gap": "GAP-C0-07",
+   "gate": "G7",
+   "graph": null,
+   "key": "qdrant:production_documents:meta",
+   "parent": "qdrant:production_documents",
+   "scope": "collection production_documents: cấu hình vector + chỉ mục payload + alias",
+   "source": {
+    "adapter": "qdrant_meta",
+    "collection": "production_documents"
+   }
+  },
+  {
+   "authority": "Qdrant GET /collections, /aliases",
+   "gap": "GAP-C0-07",
+   "gate": "G7",
+   "graph": null,
+   "key": "qdrant:iu_core_iu_chunks:meta",
+   "parent": "qdrant:iu_core_iu_chunks",
+   "scope": "collection iu_core_iu_chunks: cấu hình vector + chỉ mục payload + alias",
+   "source": {
+    "adapter": "qdrant_meta",
+    "collection": "iu_core_iu_chunks"
+   }
+  },
+  {
+   "authority": "PG kb_documents + Qdrant scroll payload document_id",
+   "gap": "GAP-C0-07 / P191 M-b",
+   "gate": "G7",
+   "graph": null,
+   "key": "kb:production_documents",
+   "parent": "qdrant:production_documents",
+   "private_ids": true,
+   "scope": "M-b: ID tài liệu PG incomex_metadata.kb_documents ↔ ID payload document_id Qdrant production_documents (không vector/văn bản)",
+   "source": {
+    "adapter": "mb"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:55-yeu-cau-thanh-toan-hs:schema",
+   "parent": "lark:55-yeu-cau-thanh-toan-hs",
+   "scope": "base 55-yeu-cau-thanh-toan-hs: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "55-yeu-cau-thanh-toan-hs"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:55-yeu-cau-thanh-toan-hs-copy:schema",
+   "parent": "lark:55-yeu-cau-thanh-toan-hs-copy",
+   "scope": "base 55-yeu-cau-thanh-toan-hs-copy: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "55-yeu-cau-thanh-toan-hs-copy"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:65-yeu-cau-thanh-toan:schema",
+   "parent": "lark:65-yeu-cau-thanh-toan",
+   "scope": "base 65-yeu-cau-thanh-toan: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "65-yeu-cau-thanh-toan"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:65-yeu-cau-thanh-toan-kt:schema",
+   "parent": "lark:65-yeu-cau-thanh-toan-kt",
+   "scope": "base 65-yeu-cau-thanh-toan-kt: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "65-yeu-cau-thanh-toan-kt"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:66-phe-duyet-yeu-cau-thanh-toan:schema",
+   "parent": "lark:66-phe-duyet-yeu-cau-thanh-toan",
+   "scope": "base 66-phe-duyet-yeu-cau-thanh-toan: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "66-phe-duyet-yeu-cau-thanh-toan"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:07-quan-ly-cong-viec:schema",
+   "parent": "lark:07-quan-ly-cong-viec",
+   "scope": "base 07-quan-ly-cong-viec: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "07-quan-ly-cong-viec"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:88-phai-cu:schema",
+   "parent": "lark:88-phai-cu",
+   "scope": "base 88-phai-cu: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "88-phai-cu"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:88-phai-cu-base-dem:schema",
+   "parent": "lark:88-phai-cu-base-dem",
+   "scope": "base 88-phai-cu-base-dem: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "88-phai-cu-base-dem"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:base-giao-viec-khong-tieu-chuan:schema",
+   "parent": "lark:base-giao-viec-khong-tieu-chuan",
+   "scope": "base base-giao-viec-khong-tieu-chuan: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "base-giao-viec-khong-tieu-chuan"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:du-lieu-phai-cu-1:schema",
+   "parent": "lark:du-lieu-phai-cu-1",
+   "scope": "base du-lieu-phai-cu-1: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "du-lieu-phai-cu-1"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:dn-mien-nam:schema",
+   "parent": "lark:dn-mien-nam",
+   "scope": "base dn-mien-nam: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "dn-mien-nam"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:doi-ngoai-nl:schema",
+   "parent": "lark:doi-ngoai-nl",
+   "scope": "base doi-ngoai-nl: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "doi-ngoai-nl"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:ho-so:schema",
+   "parent": "lark:ho-so",
+   "scope": "base ho-so: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "ho-so"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:ho-so-cong-ty-thanh-tra:schema",
+   "parent": "lark:ho-so-cong-ty-thanh-tra",
+   "scope": "base ho-so-cong-ty-thanh-tra: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "ho-so-cong-ty-thanh-tra"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:ke-toan-nl:schema",
+   "parent": "lark:ke-toan-nl",
+   "scope": "base ke-toan-nl: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "ke-toan-nl"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:kiem-soat-nl:schema",
+   "parent": "lark:kiem-soat-nl",
+   "scope": "base kiem-soat-nl: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "kiem-soat-nl"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:thanh-tra:schema",
+   "parent": "lark:thanh-tra",
+   "scope": "base thanh-tra: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "thanh-tra"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:tt-nguon-nl:schema",
+   "parent": "lark:tt-nguon-nl",
+   "scope": "base tt-nguon-nl: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "tt-nguon-nl"
+   }
+  },
+  {
+   "authority": "LarkReader list_tables/list_fields (bases.yaml)",
+   "gap": "GAP-C0-14",
+   "gate": "G8",
+   "graph": null,
+   "key": "lark:data-dao-tao-incomex:schema",
+   "parent": "lark:data-dao-tao-incomex",
+   "scope": "base data-dao-tao-incomex: bảng + trường liên kết (type 18/21)",
+   "source": {
+    "adapter": "lark_schema",
+    "base": "data-dao-tao-incomex"
+   }
+  },
+  {
+   "authority": "Lark 88-phai-cu (r7_b6.py, 11 field id)",
+   "gap": "F9 (lane b88 R7)",
+   "gate": "G8",
+   "graph": {
+    "edges": [
+     {
+      "from": "B88Trainee",
+      "prov": [
+       "catalog",
+       "trust",
+       "snapshot_utc",
+       "source_file",
+       "source_fields"
+      ],
+      "to": "B88Order",
+      "type": "CANDIDATE_FOR_ORDER"
+     },
+     {
+      "from": "B88Trainee",
+      "prov": [
+       "catalog",
+       "trust",
+       "snapshot_utc",
+       "source_file",
+       "source_fields"
+      ],
+      "to": "B88Order",
+      "type": "SELECTED_FOR_ORDER"
+     },
+     {
+      "from": "B88Order",
+      "prov": [
+       "catalog",
+       "trust",
+       "snapshot_utc",
+       "source_file",
+       "source_fields"
+      ],
+      "to": "B88Union",
+      "type": "ORDER_MANAGED_BY_UNION"
+     },
+     {
+      "from": "B88Order",
+      "prov": [
+       "catalog",
+       "trust",
+       "snapshot_utc",
+       "source_file",
+       "source_fields"
+      ],
+      "to": "B88Company",
+      "type": "ORDER_FOR_COMPANY"
+     }
+    ],
+    "nodes": [
+     {
+      "attrs": [
+       "order_code"
+      ],
+      "label": "B88Order",
+      "prefix": "b88:order:"
+     },
+     {
+      "label": "B88Trainee",
+      "prefix": "b88:trainee:"
+     },
+     {
+      "attrs": [
+       "union_code"
+      ],
+      "label": "B88Union",
+      "prefix": "b88:union:"
+     },
+     {
+      "attrs": [
+       "company_code"
+      ],
+      "label": "B88Company",
+      "prefix": "b88:company:"
+     }
+    ]
+   },
+   "key": "lark:88-phai-cu:b88",
+   "parent": "lark:88-phai-cu",
+   "private_ids": true,
+   "scope": "base 88-phai-cu: bản ghi 4 bảng (11 field id) + 4 loại cạnh CANDIDATE/SELECTED_FOR_ORDER, ORDER_MANAGED_BY_UNION, ORDER_FOR_COMPANY",
+   "source": {
+    "adapter": "b88"
+   }
+  },
+  {
+   "authority": "git ls-tree (clone cổng workspace)",
+   "gap": "GAP-C0-13",
+   "gate": "G9",
+   "graph": null,
+   "key": "git:workspace:work",
+   "parent": "git",
+   "scope": "thư mục việc work/* + work/done-tasks/* tại HEAD bản clone cổng",
+   "source": {
+    "adapter": "git"
+   }
+  },
+  {
+   "authority": "refresh-sources code identity",
+   "gap": "GAP-C0-09 (code↔Graph không so ID ở C1-A)",
+   "gate": "G9",
+   "graph": null,
+   "key": "code:agent-data-repo:files",
+   "parent": "code:agent-data-repo",
+   "scope": "cây mã agent-data-repo đang chạy: tệp ↔ nút mã Graph (Enola/Cognee ngữ nghĩa, chưa có phép so ID tất định)",
+   "source": {
+    "adapter": "code_identity",
+    "repo": "agent-data-repo"
+   }
+  },
+  {
+   "authority": "refresh-sources code identity",
+   "gap": "GAP-C0-09 (code↔Graph không so ID ở C1-A)",
+   "gate": "G9",
+   "graph": null,
+   "key": "code:claude-kb:files",
+   "parent": "code:claude-kb",
+   "scope": "cây mã claude-kb đang chạy: tệp ↔ nút mã Graph (Enola/Cognee ngữ nghĩa, chưa có phép so ID tất định)",
+   "source": {
+    "adapter": "code_identity",
+    "repo": "claude-kb"
+   }
+  },
+  {
+   "authority": "refresh-sources code identity",
+   "gap": "GAP-C0-09 (code↔Graph không so ID ở C1-A)",
+   "gate": "G9",
+   "graph": null,
+   "key": "code:claude-mcp:files",
+   "parent": "code:claude-mcp",
+   "scope": "cây mã claude-mcp đang chạy: tệp ↔ nút mã Graph (Enola/Cognee ngữ nghĩa, chưa có phép so ID tất định)",
+   "source": {
+    "adapter": "code_identity",
+    "repo": "claude-mcp"
+   }
+  },
+  {
+   "authority": "refresh-sources code identity",
+   "gap": "GAP-C0-09 (code↔Graph không so ID ở C1-A)",
+   "gate": "G9",
+   "graph": null,
+   "key": "code:lark-client:files",
+   "parent": "code:lark-client",
+   "scope": "cây mã lark-client đang chạy: tệp ↔ nút mã Graph (Enola/Cognee ngữ nghĩa, chưa có phép so ID tất định)",
+   "source": {
+    "adapter": "code_identity",
+    "repo": "lark-client"
+   }
+  },
+  {
+   "authority": "refresh-sources code identity",
+   "gap": "GAP-C0-09 (code↔Graph không so ID ở C1-A)",
+   "gate": "G9",
+   "graph": null,
+   "key": "code:nuxt-web:files",
+   "parent": "code:nuxt-web",
+   "scope": "cây mã nuxt-web đang chạy: tệp ↔ nút mã Graph (Enola/Cognee ngữ nghĩa, chưa có phép so ID tất định)",
+   "source": {
+    "adapter": "code_identity",
+    "repo": "nuxt-web"
+   }
+  }
+ ],
+ "certified_props": {
+  "B88Company": [
+   "id",
+   "gs_key",
+   "company_code"
+  ],
+  "B88Order": [
+   "id",
+   "gs_key",
+   "order_code"
+  ],
+  "B88Trainee": [
+   "id",
+   "gs_key"
+  ],
+  "B88Union": [
+   "id",
+   "gs_key",
+   "union_code"
+  ],
+  "DotCommand": [
+   "id",
+   "gs_key"
+  ],
+  "DotRegistryEntry": [
+   "id",
+   "gs_key"
+  ],
+  "PgFunction": [
+   "id",
+   "gs_key"
+  ],
+  "PgTable": [
+   "id",
+   "gs_key"
+  ],
+  "PgTrigger": [
+   "id",
+   "gs_key",
+   "enabled_code"
+  ]
+ },
+ "endpoint_cover": {
+  "DotCommand": [
+   "REGISTERS"
+  ],
+  "PgFunction": [
+   "EXECUTES"
+  ],
+  "PgTable": [
+   "ON_TABLE"
+  ]
+ },
+ "format": "graph-cert-cells-v1",
+ "graph_label_map": {
+  "ApiEndpoint": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "B88Company": [
+   "lark:88-phai-cu:b88"
+  ],
+  "B88Order": [
+   "lark:88-phai-cu:b88"
+  ],
+  "B88Trainee": [
+   "lark:88-phai-cu:b88"
+  ],
+  "B88Union": [
+   "lark:88-phai-cu:b88"
+  ],
+  "CodeFileReference": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "CodeInsight": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "CodeModule": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "CodeRepository": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "CodeSymbol": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "CodeTestReference": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "DotCommand": [
+   "dot:command"
+  ],
+  "DotRegistryEntry": [
+   "dot:registry"
+  ],
+  "ExternalDependency": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "GS": [],
+  "GraphMetadata": [
+   "directory:g1-g9"
+  ],
+  "PgFunction": [
+   "pg:directus:function"
+  ],
+  "PgTable": [
+   "pg:directus:table"
+  ],
+  "PgTrigger": [
+   "pg:directus:trigger"
+  ],
+  "__Node__": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ]
+ },
+ "graph_rel_map": {
+  "CANDIDATE_FOR_ORDER": [
+   "lark:88-phai-cu:b88"
+  ],
+  "EXECUTES": [
+   "pg:directus:trigger"
+  ],
+  "ON_TABLE": [
+   "pg:directus:trigger"
+  ],
+  "ORDER_FOR_COMPANY": [
+   "lark:88-phai-cu:b88"
+  ],
+  "ORDER_MANAGED_BY_UNION": [
+   "lark:88-phai-cu:b88"
+  ],
+  "PAIRED_WITH": [
+   "dot:registry"
+  ],
+  "REGISTERS": [
+   "dot:registry"
+  ],
+  "SELECTED_FOR_ORDER": [
+   "lark:88-phai-cu:b88"
+  ],
+  "calls": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "declares": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "evidences": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "has_method": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "implements": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "imports": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "instantiates": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ],
+  "part_of": [
+   "code:agent-data-repo:files",
+   "code:claude-kb:files",
+   "code:claude-mcp:files",
+   "code:lark-client:files",
+   "code:nuxt-web:files"
+  ]
+ },
+ "query_classes": {
+  "CELL_SCOPED_LOOKUP": "mọi nhãn/cạnh trong danh mục, không đường *, không thủ tục, chỉ thuộc tính đã băm ⇒ nhãn = ô kém nhất",
+  "GRAPH_SCHEMA": "get-schema ⇒ MỘT PHẦN (lược đồ Graph không phải khẳng định đủ)",
+  "IMPACT_OR_PATH": "đường độ dài thay đổi ⇒ cần mọi ô (luôn MỘT PHẦN tới khi mọi ô ĐỦ)",
+  "UNCERTIFIED_PROPERTY": "lọc/đọc thuộc tính ngoài phần băm ⇒ MỘT PHẦN",
+  "UNSUPPORTED": "nút không nhãn, nhãn/cạnh lạ, CALL/APOC/subquery ⇒ MỘT PHẦN, cần mọi ô"
+ },
+ "ttl_hours": 26,
+ "written_by": "GS-C1A-CERT-QUALITYGATE-20261022-07"
+}
