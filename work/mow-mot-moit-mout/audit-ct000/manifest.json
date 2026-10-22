@@ -1,16 +1,16 @@
 {
   "tool_id": "python:ct000-audit",
-  "version": "v6",
-  "review_date": "2026-10-21",
-  "source_head": "250792dce8380e94aa5fe85ce22477925150e6b8",
+  "version": "v7+v6",
+  "review_date": "2026-10-22",
+  "source_head": "f34d15136e6cbe6630b0730d94a807f1453d904a",
   "review_verdict": "FINDINGS_REMAIN",
   "expected_replay_exit_code": 1,
-  "scope": "Small executable-model and checker probes; not exhaustive verification; PG/Flow NOT_EXECUTED.",
+  "scope": "V7 bounded adversarial probes on pinned P74/P75 sources, plus preserved v6 evidence. Not exhaustive; PG/Flow NOT_EXECUTED.",
   "files": [
     {
       "path": "README.md",
-      "bytes": 3444,
-      "sha256": "d7907428ba0a6d38c7e59dd0b38fbfa7ea08b3c7b0f84442217a90b6eb3dc6ef"
+      "bytes": 4362,
+      "sha256": "220862a0c5107219fed4436202688cf0a064b5ca619b665a820178e616055711"
     },
     {
       "path": "REPORT.md",
@@ -84,8 +84,8 @@
     },
     {
       "path": "run.py",
-      "bytes": 3075,
-      "sha256": "ff1703366d65d0ad840316f513cdb9e416b2995b566b116823289c10315a9b4d"
+      "bytes": 3227,
+      "sha256": "2348d16cf75635e7ad3aa78a9ee9feadf275fcb9d8ebb510f8e85ee686de79ec"
     },
     {
       "path": "snapshots/ban-duyet.html",
@@ -106,6 +106,21 @@
       "path": "snapshots/kiem-ct000-4.py.metadata.json",
       "bytes": 617,
       "sha256": "76847485c112bf160aab36b2022bb915141258e47af22fb5fd9932c28557dc7f"
+    },
+    {
+      "path": "review_v7.py",
+      "bytes": 16953,
+      "sha256": "2d1459f4c67433845e8b4fd81deeeff4321fee1eca16aab10e5094c415175655"
+    },
+    {
+      "path": "REPORT-V7.md",
+      "bytes": 12455,
+      "sha256": "8625b31fed82752a45630a0955c333e7b56d9898c063655c848ab82d1af819c6"
+    },
+    {
+      "path": "evidence/v7-results.json",
+      "bytes": 21319,
+      "sha256": "65ca792fa93a9de5253973542812f7ea294d159058deef487c412dd94dc364ea"
     }
   ]
 }
