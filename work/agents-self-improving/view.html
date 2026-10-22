@@ -25,6 +25,7 @@
 <tr><td>PA4</td><td><strong>PA3 + memory/observability nếu thiếu:</strong> LangMem, OpenTelemetry, Langfuse/Phoenix; DSPy khi đã có tập eval</td><td>Trí nhớ tình huống, truy vết lỗi theo bước, có công cụ tối ưu.</td><td>Thêm phụ thuộc/resource; chỉ thêm thứ chứng minh thật sự thiếu.</td></tr>
 <tr><td>PA5</td><td><strong>Chuẩn mở:</strong> BPMN/DMN/JSON Schema bổ trợ cấu trúc khai báo</td><td>Giữ tri thức độc lập với AI/framework.</td><td>Không được thay Công thức gốc hoặc tạo ontology/mô hình song song; chưa có căn cứ loại hẳn.</td></tr>
 <tr><td>PA6</td><td><strong>Claude P01 — Skill + Sổ lỗi + Ca thi:</strong> dùng Agent Skills, sự cố/vấn đề đã có Master, biến lỗi xác nhận thành bài kiểm hồi quy</td><td>Ít service mới, lưu bài học dễ kiểm và dùng giữa nhiều agent.</td><td>Skill là chỉ dẫn, <strong>không phải máy tự học</strong>. Cần Vector/Graph để tìm lỗi và quan hệ liên quan? Mốc 50 ca chưa được chứng minh là đủ. Có thể bổ trợ PA3, chưa chọn thay PA3.</td></tr>
+<tr><td>PA7</td><td><strong>Hermes chuyên biệt (P03/P04):</strong> Profile/Project/tool-scope + Skill, sổ lỗi và ca thi PA6; tùy bài toán dùng Graph/Vector/JEV PA3</td><td>Tận dụng harness có ledger, rollback, approvals và bộ công cụ hiện hữu, không xây framework mới.</td><td>Mới thấy profile default, write-approval runtime chưa đo, Kanban có nguy cơ trùng HJW/CAT-228; một nguồn lỗi chuẩn không có nghĩa tạo bảng PG mới. <strong>CHƯA CHỌN.</strong></td></tr>
 </tbody></table></div>
 <h2>Những câu hỏi MỤC TIÊU MỚI phải làm rõ trước khi chọn hướng</h2>
 <div class="table-scroll"><table><thead><tr><th>Nhóm</th><th>Câu hỏi hội đồng phải giải quyết</th></tr></thead><tbody>
@@ -37,7 +38,8 @@
 <tr><td>M7 · Hiệu quả</td><td>Đúng/bỏ sót/báo nhầm/hồi quy, số lượt người sửa, thời gian và chi phí thật, tiêu chí dừng? Mốc «50 ca» chưa phải chuẩn thống kê chung.</td></tr>
 <tr><td>M8 · Quyết định</td><td>Khi chưa đủ dữ kiện, có dám kết luận cần khảo sát thêm hoặc không nên làm? Công nghệ bổ sung có thực sự hơn phương án dùng lại không?</td></tr>
 </tbody></table></div>
-<div class="card"><p><strong>Trạng thái P01 / P02:</strong> Claude đề xuất PA6; GPT Host chấp nhận giá trị Skill + Sổ lỗi + Ca thi nhưng giữ mở PA3 (Graph/Vector) và PA5. Đây là <strong>các lựa chọn có thể kết hợp</strong>, chưa có lựa chọn thắng. Câu hỏi chi tiết M1–M12 được quản lý tại COLLAB.md.</p></div>
+<div class="card"><p><strong>P01–P05 · Chỉ thảo luận:</strong> Claude đề xuất PA6; Hermes P03/P04 cung cấp thông tin đo về Hermes/Agent Data và cách tách agent; Host P05 tiếp nhận có điều kiện, bổ sung PA7 để so sánh. <strong>Chưa chọn PA3/PA6/PA7, chưa quyết tạo Profile/Kanban/bảng PG mới, chưa có POC.</strong> Chi tiết và câu hỏi M13–M17 ở <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/agents-self-improving/COLLAB.md">COLLAB.md</a>.</p></div>
+<div class="card"><h3>Năm điều cần làm rõ trước khi chọn hướng</h3><p>1. Hermes ghi được Skill, nhưng cổng duyệt + kiểm học đúng đang có tới đâu? 2. Sổ lỗi logic có thể dùng Master hiện có không? 3. Profile/Kanban có trùng điều phối HJW/CAT-228 hay gây tự RUN không? 4. Graph/MCP thiếu dữ liệu/quyền có báo UNKNOWN và truy nguồn không? 5. Một cải tiến có chứng minh ít lỗi hơn trên ca chưa thấy, hồi quy và chi phí thực hay chỉ tăng số lượt sửa Skill?</p></div>
 <h2>Đầu ra của thảo luận</h2><div class="card"><p>Mỗi ghế cần đưa <strong>ý kiến độc lập và bằng chứng</strong>; không tán thành chỉ vì ghế khác đã tán thành. Các câu hỏi trọng tâm:</p><ol>
 <li>Harness² hiện có người dùng production độc lập và tương lai bảo trì rõ ràng không? Stars/forks không thay bằng chứng sử dụng.</li>
 <li>Trong Agent Data, Cognee/Neo4j, pgvector/Qdrant, JEV/Directus và bộ kiểm, cái gì <em>đã tồn tại thật</em>? Graphiti đã triển khai hay chỉ là lựa chọn đang cân nhắc?</li>
@@ -57,5 +59,5 @@
 <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/graph-server/view.html">Graph lựa chọn</a> ·
 <a href="https://github.com/google-research/harness2">Google Harness² repo</a> ·
 <a href="https://github.com/Huyen1974/incomex-workspace/issues/1">Issue thảo luận cũ (lịch sử)</a></p>
-<p class="muted">Host: GPT Chat (Owner chỉ định). P01 Claude đã ghi; P02 Host đã phản biện; Gemini chưa ghi ý kiến. Thông tin trạng thái/phiếu hội đồng và quyết định chỉ đọc ở COLLAB.md. CHỈ THẢO LUẬN, KHÔNG READY/RUN.</p></div>
+<p class="muted">Host: GPT Chat (Owner chỉ định). P01 Claude, P02/P05 GPT Host, P03/P04 Hermes (ngoài roster); Gemini chưa góp ý. Thông tin trạng thái/phiếu hội đồng và quyết định chỉ đọc ở COLLAB.md. CHỈ THẢO LUẬN, KHÔNG READY/RUN.</p></div>
 </main></body></html>
