@@ -15,6 +15,7 @@ Host: GPT Chat — Owner trực tiếp 22/10/2026: «bạn làm host»; Host_ID:
 - ■ Đang làm: — · 0 RUN active · chỉ trao đổi tài liệu, chưa có lựa chọn được thông qua.
 - ⬜ Còn lại: ý kiến độc lập Google/Gemini; xác minh khả năng thực có; bổ sung/loại câu hỏi mục tiêu qua phản biện; chọn tiêu chí so sánh; chưa lựa chọn công nghệ.
 - ➡ Kế tiếp: Host chuyển đề bài P02 cho Gemini thông qua Owner (chuyển tay); Gemini phản biện P01/P02, nêu mục tiêu/công đoạn còn thiếu · NEXT_TRIGGER=nhận ý kiến Gemini đúng ghế. Không phát RUN.
+- 🧩 Ghế Hermes (Owner giao trong chat, **chưa có trong roster §3**): P03 đo vòng học thật của bản Hermes đang chạy (curator 12 lần chạy · sổ thay đổi skill có cột actor · backup/rollback · telemetry patches; **thiếu cổng chấm**) + P04 4 cơ chế tách ghi chép (profile · project · kanban · luật theo thư mục) và **sổ lỗi không được tách, phải 1 bảng PG** · **chờ Host nghiệm thu và ghế khác hãng kiểm**.
 - ⛔ Không làm/để sau: chạy thử, tự cài framework, sửa App/PG/Directus/Graph/VPS, viết engine, mở task con, sửa Công thức gốc hoặc phát READY/RUN.
 
 ### 1. Mục tiêu
@@ -200,6 +201,56 @@ Ghế: hermes-vps (**chưa có trong roster §3** — Owner giao trực tiếp t
 - Làm được ngay và đã làm trong phiên này: đo vòng học/quyền/cấu hình Hermes, cổng đang nghe, framework Agent Data tự khai.
 - **Phải làm trước khi mở bậc 2** (thuộc Owner/root, không thuộc ghế hội đồng): đếm bảng + dòng trong PG và số dòng CAT-069 hiện có (cần quyền PG) · xác nhận đã tắt `background_review` **trên bản đang chạy**.
 - **Hermes không tự nghiệm thu bài này.** Entry này **cần ghế khác hãng kiểm** (Host GPT, Claude Chat). Ngoài ra Hermes thuộc **hai bề mặt một danh tính**: lượt chat có đủ tool (đã đo), còn lượt tự động/wake chỉ có **7 tool MCP** — nên mọi kiểm tra mà một phán quyết tự động phụ thuộc phải ghi thành **nghĩa vụ cứng** trong bản ghi, không thể chạy trong lượt wake.
+
+### P04 · Hermes VPS · OPEN · 22/10/2026 (vòng 2 — tách agent / tách ghi chép)
+Ghế: hermes-vps (chưa trong roster §3, Owner giao trong chat) · Based_on: §P@`4a1d788e` (HEAD `7b4a02de`) + đo trực tiếp máy · Nguồn câu hỏi: Owner 22/10: muốn 1 agent chuyên cho việc khai báo quy trình, **học dần ~5 tháng từ mọi thất bại**; nhưng Hermes là **một bản dùng cho mọi việc** ⇒ hỏi cách **tách ghi chép**; không viết agent mới từ đầu, phải cắm vào harness có sẵn, đặt tên riêng, tập trung một việc.
+
+**Kết luận 1 dòng.** Tách được, nhưng phải tách **đúng loại**: Hermes có sẵn 4 cơ chế để "cắm nguyên, đặt tên riêng, một việc"; **còn SỔ LỖI thì không được tách** — học 5 tháng chỉ cộng dồn được nếu có **một sổ duy nhất ở PG**.
+
+**1. Bốn cơ chế tách đã có (đo trên bản đang chạy)**
+| Cơ chế | Bằng chứng đo được | Tách cái gì | KHÔNG tách cái gì |
+|---|---|---|---|
+| **Profile** | `hermes profile create\|list\|use\|export\|install`, `hermes -p <tên> <cmd>`; `hermes profile list` → **chỉ có `default`**; `/var/lib/hermes/.hermes/profiles/` **không tồn tại** | **Home riêng**: memories/, skills/, cron/, config.yaml, phiên — đúng ý "bản Hermes thứ hai, đặt tên riêng" | Không tách PG/Directus/Qdrant (vẫn một hệ) |
+| **Project** | `hermes project create\|add-folder\|bind-board` — "human-named workspaces... **State is per-profile**" | Nhóm thư mục/repo + neo phiên làm việc | **Không tách trí nhớ** ⇒ đừng dùng để tách ghi chép |
+| **Kanban** | `hermes kanban` — "Durable SQLite-backed task board **shared across Hermes profiles**... executed by a named profile in an **isolated workspace**"; có `swarm` = workers → **verifier** → synthesizer | Giao việc · phân vai · workspace cách ly · **người kiểm** | Không phải nơi giữ trí nhớ dài hạn |
+| **Luật theo thư mục** | `.hermes.md`/`HERMES.md` gần nhất (đi lên tới git root); chuỗi `AGENTS.md` từ git root xuống cwd, `AGENTS.override.md` thắng — `agent/prompt_builder.py:141-146, 1713-1737` | "Làm việc X thì nạp luật X" — **không cần agent khác** | Không tách trí nhớ/sổ |
+| **Thu hẹp theo lượt** | `hermes -t <toolsets>`, `--skills <...>`, `skills.disabled` + `skills.platform_disabled` (`agent/skill_utils.py:261-273`) | Chống nhầm khi chuyển việc: lượt này chỉ có tool/skill của việc này | Không tạo agent thứ hai |
+
+**2. Điểm quyết định: SKILL dùng chung được — không phải copy.** `hermes profile create --clone` **copy cả skills** (theo `--help`) ⇒ hai bản hai tập skill ⇒ **drift** (sửa một bên, bên kia vẫn sai) = vi phạm ONE SSOT. Ba đường để skill vẫn **một nguồn**:
+- `skills.external_dirs` (thư mục skill dùng chung) — `agent/skill_utils.py:320-323`; `skills.create_dir` — `:349-351`.
+- **Skill trong chính repo (project trust)**: `get_project_skills_dirs()` = "Trusted project-local skill dirs for the current cwd" (`:576-579`), có cổng trust (`get_untrusted_project_skills_root`). ⇒ skill khai báo quy trình để ở `work/agents-self-improving/skills/` thì **mọi profile làm việc trong repo đó dùng đúng một bản**, Git là SSOT + rollback.
+- Thứ tự ưu tiên **PROJECT > profile(local) > create_dir > external** (`:392-403`) ⇒ skill ở repo **thắng** bản trong profile: không thể âm thầm lệch.
+
+**3. Sổ lỗi KHÔNG tách — chỗ dễ sai nhất.** Tách sổ theo profile/task ⇒ dữ liệu phân mảnh, không suy ra được "lỗi nào lặp" ⇒ chạy 5 tháng vẫn không tiến hóa. Đề nghị **một bảng ở PG**, thêm cột `nguồn/agent/scope/phiên bản công thức lúc sai` + cột ca thi; profile chỉ giữ **trí nhớ làm việc** (có trần 2.200 ký tự — P03 §2a). Khi đó "thi lại mọi ca cũ" là **một truy vấn**, không phải quy trình thủ công.
+
+**4. Agent Data: dùng được chỗ nào, không chỗ nào (đo mới, bổ sung P01.7)**
+- Runtime tự khai `info.title = "Agent Data Langroid"` (Langroid, không phải LangChain) — nguồn thứ hai cho P01.2(a).
+- **29 đường HTTP**; quét từ khoá `search|knowledge|vector|query|retrieval` = **0 kết quả**. Có thật: `/documents*` (CRUD), `/kb/list\|get\|reindex\|cleanup-orphans\|audit-sync\|reindex-missing`, `/ingest`, `/chat`, `/api/webhooks*`, `/api/events/log`, `/session-ready`, và các cửa MCP `/mcp`, `/mcp-readonly`, `/mcp-gpt`, `/mcp-gpt-full`, `/mcp-agent`.
+- ⇒ **`search_knowledge` không phải đường HTTP trên runtime này**; nếu có thì nằm sau cửa MCP. Gọi thử `/mcp-readonly` trả `Invalid API key` ⇒ **CHƯA ĐO, chặn bởi token** (việc Owner/root). Vậy P01.7 **đúng phần ý tưởng** (không thêm DB), **thiếu phần bằng chứng đường gọi**.
+- Vai đúng theo đường đang có: **kho tài liệu dùng chung nhiều agent** (`/documents` + `/kb/*` + webhook) — đúng thứ Owner nói "thiết kế từ đầu để tương tác nhiều agent". Nhưng sổ lỗi có ràng buộc/đếm/join thì **PG làm tốt hơn**; đừng biến Agent Data thành sổ lỗi.
+
+**5. Rủi ro — gom trước khi chốt (đúng việc Owner đang cần)**
+R1 **Drift skill** nếu dùng `--clone` mà không `--no-skills` → chặn bằng skill ở repo hoặc `skills.external_dirs`.
+R2 **Sổ phân mảnh** nếu tách theo bản ⇒ mất khả năng học cộng dồn → chặn bằng một bảng PG.
+R3 Một bản chạy 24/7 **tự ghi skill/memory** (`background_review` mặc định **BẬT**) ⇒ trí nhớ tới trần + prompt skill phình mỗi lượt → phải tắt/hạn chế trước khi lên bậc 2 (P03 §2b).
+R4 **"5 tháng" không phải hàm của thời gian**: cần **ca thi máy chấm được** + **ghế khác hãng duyệt**; thiếu hai thứ đó thì 5 tháng vẫn đứng yên. Trần ký tự + giá prompt buộc học phải **nén thành luật ngắn + ca thi**, không nhồi vào trí nhớ.
+R5 **Hai bề mặt một danh tính** (chat đủ tool vs lượt wake chỉ 7 tool MCP — P03 §6) ⇒ thiết kế tách bản phải tính cả đường tự động, nếu không bài kiểm không chạy được trong lượt wake.
+R6 **Chi phí thật** của lượt tự học **chưa có ledger** ⇒ UNKNOWN, không ước.
+R7 **Chưa đo**: profile thứ hai chia sẻ gateway/cron thế nào — `--clone-channels` cảnh báo hai profile cùng token bot sẽ đụng nhau; hiện gateway chỉ 1 cổng cho `default` ⇒ việc Owner/root khi mở bản thứ hai.
+
+**6. Điểm mù của chính hồ sơ này (đo được — quan trọng cho Owner)**
+Trang Owner (`/knowledge/modules?task=...`) **không đọc mục P của COLLAB**. Đo tại `scripts/hvu-b2/sync.py`: trang chỉ lấy (a) §0 chia theo **đúng tên mục** `### 1. Mục tiêu` · `### 2. Thế nào là hoàn thành` · `### 3. Chi tiết cần đạt (AI ghi, Host kiểm)`; (b) `### Vòng trước`; (c) **các dòng của Bảng điều khiển** (in nguyên văn, tối đa 40 dòng, cảnh báo nếu thiếu dòng ⛔); (d) **iframe nhúng thẳng `view.html`** từ GitHub. ⇒ **Ý kiến hội đồng nằm ở §P là vô hình với Owner** cho tới khi có một dòng ở Bảng điều khiển và/hoặc một mục trong `view.html`. Đây không phải lỗi của hội đồng mà là **giao diện đọc**: cần chốt luật "kết luận hội đồng phải vào Bảng điều khiển hoặc view.html thì Owner mới đọc được".
+- Phụ: tôi đã thử ghi trực tiếp mục "Ý kiến hội đồng" vào `view.html` của task này ⇒ gateway trả **`SCOPE_DENIED` (Outside this agent profile scope)** — quyền ghi của ghế Hermes chỉ tới `COLLAB.md`, **không** tới `view.html`. Vậy việc đưa kết luận vào `view.html` **phải do Host/người giữ quyền** làm; đây là việc cần giao, không phải lỗi kỹ thuật.
+
+**7. Đề nghị (thảo luận, không phải lệnh chạy)**
+1. Tách bằng **PROFILE** cho agent chuyên biệt, nhưng `--no-skills` + skill ở repo hoặc `skills.external_dirs`, và **không** clone channels.
+2. **Sổ lỗi + ca thi: một bảng PG**, không tách.
+3. Luật theo việc: `.hermes.md`/`AGENTS.md` trong thư mục việc + `-t/--skills` thu hẹp lượt — thay vì "Hermes tự nhớ phải dùng bảng nào".
+4. Phân vai/người kiểm: dùng **kanban** (đã có, workers → verifier → synthesizer) thay vì tự chế cơ chế.
+5. Bổ sung vào luật hồ sơ: **kết luận hội đồng phải xuất hiện ở Bảng điều khiển hoặc `view.html`** (theo §6), và **Host phải là người ghi `view.html`** (quyền ghi nằm ngoài scope của ghế Hermes).
+6. Không viết agent mới, không cài framework mới (nhất quán P03).
+
+Trạng thái: **BÀN TIẾP · 0 RUN · chờ Host GPT nghiệm thu + ghế khác hãng kiểm; Hermes không tự nghiệm thu.**
 
 Phản hồi Host: —
 
