@@ -2,10 +2,12 @@
 Tên việc: Sổ + trang chủ cho cỗ máy sản xuất quy trình — làm trên vùng nháp Directus, phần đã chốt lên PG thật y như nháp
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: CHƯA XÁC NHẬN — ô 1 = lời Owner 23/10/2026 14:37 + 15:02 (chỉ sửa chính tả); chờ Owner gật ô 2 và 3.0. Owner 15:37 đã chốt riêng phần trang chủ (địa chỉ, khung cột) và cho vẽ trước.
+Xác nhận User: ĐÃ GIAO rà/bổ sung task và bắt đầu thiết kế lại trang chủ/khu vực nháp, Codex làm Host (23/10/2026, P06). Các đề xuất triển khai production trong ô 2 và 3.0 chưa tự động được duyệt.
 Host: Codex · Owner chỉ định trực tiếp 23/10/2026: «bạn làm host việc này nhé». Claude Chat là Host vòng trước.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-23 16:15 · Claude Host · P05
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-23 · Codex Host · P06
+- Hiện hành P06: đã ghi chỉ đạo vào repo commit 6276be1c; đã sửa giao diện tại nhap-directus/home.html, version f2560091 và mở kiểm bố cục trên trình duyệt. Đây vẫn là bản vẽ có dữ liệu mẫu/link bảng cũ, chưa là ứng dụng diễn tập. Chưa kiểm kê DOT đầy đủ, chưa đọc/rà hết nội dung công thức, chưa dựng collection, chưa move SSOT. Kế tiếp: đọc đủ công thức + kiểm kê DOT, lập bản đồ nguồn/đích và dựng chuỗi mẫu qua DOT.
+- Các dòng P05 dưới đây giữ để truy vết vòng trước; không dùng làm trạng thái hiện hành.
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ■ · ⬜ · ➡.
 - 🎯 Mục tiêu: ô 1. Vì sao: mọi thứ có sổ, mỗi thông tin 1 nhà ⇒ người và máy nhìn cùng một thứ; chỉnh trên nháp cho nhanh, chốt phần nào lên thật phần đó.
 - 🏁 Xong khi: ô 2 (đề xuất — chờ Owner gật).
@@ -146,7 +148,8 @@ Dùng lại thiết kế Owner đã gật ở việc TQT (R41–R46, 15/10 16:21
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
 |---|---|---|---|---|
-| Claude | Anthropic | Claude Chat (`[auth:claude-chat]`) | Host | Owner làm việc trực tiếp |
+| Codex | OpenAI | Codex desktop, chat hiện tại | Host | Owner giao trực tiếp P06 |
+| Claude | Anthropic | Claude Chat (`[auth:claude-chat]`) | Host vòng trước; chưa giao vai vòng P06 | Chưa phát lời mời |
 | GPT Chat | OpenAI | GPT Chat (`openai-mcp`) | Reviewer | Owner chuyển tay |
 | Claude Code | Anthropic | Claude Code CLI | Worker · chạy DOT | Owner dán 1 lệnh |
 Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
