@@ -51,11 +51,9 @@ Owner giao Codex rà và bổ sung task, bắt đầu thiết kế lại trang c
 
 ### 1. Mục tiêu
 **Đích (Owner 23/10 17:26 — chốt):** dùng lại hết bản cũ. Trước đây làm bằng HTML ⇒ bảng nào đã duyệt thì chuyển hết sang collection Directus để quản lý. Thứ chưa duyệt, chưa có ⇒ sáng tạo mới và lập giao diện. Lập bảng master để biết cái gì đã vào collection, cái gì chưa.
-| Dòng | Đầu vào | Làm gì | Ra |
-|---|---|---|---|
-| A · Chuyển | bảng đã duyệt, đang ở HTML / JS tĩnh | đưa nguyên nội dung vào collection bằng DOT — không thiết kế lại | collection thật; bản HTML cũ chỉ còn đọc |
-| B · Sáng tạo | thứ chưa duyệt / chưa có | thiết kế mới trên vùng nháp `nhap_` (3.4) + giao diện → Owner duyệt | lên thật y như nháp |
-| Sổ theo dõi | mọi bảng của A và B | Sổ của các sổ (3.02): mỗi bảng 1 dòng — đang ở đâu · đã duyệt · dòng A/B · collection đích · tình trạng chuyển | nhìn là biết đã vào bao nhiêu, còn bao nhiêu |
+A · Chuyển: bảng đã duyệt (đang ở HTML / JS tĩnh) ⇒ đưa nguyên nội dung vào collection bằng DOT, không thiết kế lại ⇒ bản HTML cũ chỉ còn đọc.
+B · Sáng tạo: thứ chưa duyệt, chưa có ⇒ thiết kế mới trên vùng nháp `nhap_` (3.4) + giao diện ⇒ Owner duyệt ⇒ lên thật y như nháp.
+Sổ theo dõi: Sổ của các sổ (3.02), mỗi bảng 1 dòng — đang ở đâu · đã duyệt · dòng A/B · collection đích · tình trạng chuyển ⇒ nhìn là biết đã vào bao nhiêu, còn bao nhiêu.
 Thước đo: sửa/thêm 1 dòng tính bằng phút (mục 8). Luật giữ nguyên: DOT 100% (mục 4) · mọi thứ có sổ (mục 5) · SSOT (mục 6). Codex và Claude cùng làm theo phân vai 3.03.
 
 Tình trạng: Đích = Owner 17:26. Mục 1–8 = nguyên tắc Owner viết 14:37 (1–4, Lưu ý), 15:02 (5–7), 16:49 (8). Chỉ sửa chính tả, giữ ý.
