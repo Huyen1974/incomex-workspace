@@ -558,3 +558,243 @@
 +        return {"error": "LIVE_EPOCH_FAIL %s" % type(e).__name__}
 +
 +
++def refresh_lock_held(lock=REFRESH_LOCK, locks="/proc/locks"):
++    """True khi có khoá FLOCK trên inode tệp khoá graph-refresh (lượt làm mới/cấp giấy đang chạy). Không tự lấy khoá (tránh làm lượt timer
++    SKIP). Không đọc được /proc/locks ⇒ None (không chứng minh được)."""
++    try:
++        st = os.stat(lock)
++    except OSError:
++        return False
++    tag = "%02x:%02x:%d" % (os.major(st.st_dev), os.minor(st.st_dev), st.st_ino)
++    try:
++        with open(locks) as f:
++            for ln in f:
++                p = ln.split()
++                if "FLOCK" in p and tag in p:
++                    return True
++    except OSError:
++        return None
++    return False
++
++
++def graph_fence(doc, live=None, lock_state="auto"):
++    """K1 lúc đọc: so mốc phiên bản Graph trong giấy với Graph sống ⇒ {status: MATCH | GRAPH_CHANGED_SINCE_CERT | GRAPH_REVISION_UNVERIFIED |
++    GRAPH_MUTATION_IN_PROGRESS, ...}. Không dựa tệp ghim (pins/invariants); giấy không mốc hoặc mốc không ổn định ⇒ UNVERIFIED."""
++    ce = (doc or {}).get("graph_epoch") if isinstance(doc, dict) else None
++    f = {"fence": "neo4j-http-bookmark+container-start", "checked_at": now_iso(),
++         "cert_epoch": {k: (ce or {}).get(k) for k in ("container", "started_at", "restart_count")} if ce else None,
++         "cert_bookmark_sha16": ((ce or {}).get("bookmark_sha256") or "")[:16] or None}
++    if not epoch_key(ce) or (ce or {}).get("stable_during_run") is not True:
++        return dict(f, status="GRAPH_REVISION_UNVERIFIED", why="giấy không có mốc phiên bản Graph ổn định (cấp trước C1-C hoặc đổi giữa lượt)")
++    lk = refresh_lock_held() if lock_state == "auto" else lock_state
++    if lk is None:
++        return dict(f, status="GRAPH_REVISION_UNVERIFIED", why="không đọc được /proc/locks")
++    if lk:
++        return dict(f, status="GRAPH_MUTATION_IN_PROGRESS", why="khoá graph-refresh đang giữ (lượt làm mới/cấp giấy đang chạy)")
++    le = (live or live_graph_epoch)()
++    f["live_bookmark_sha16"] = ((le or {}).get("bookmark_sha256") or "")[:16] or None
++    f["live_epoch"] = {k: (le or {}).get(k) for k in ("container", "started_at", "restart_count")}
++    if not epoch_key(le):
++        return dict(f, status="GRAPH_REVISION_UNVERIFIED", why="không đọc được phiên bản Graph sống: %s" % (le or {}).get("error"))
++    if epoch_key(le) != epoch_key(ce):
++        diff = [n for n, a, b in zip(("bookmark", "container", "started_at", "restart_count"), epoch_key(le), epoch_key(ce)) if a != b]
++        return dict(f, status="GRAPH_CHANGED_SINCE_CERT", why="Graph đổi so với lúc cấp giấy: " + ",".join(diff))
++    return dict(f, status="MATCH", why=None)
+ 
+ 
+ # =========================================================================== lượt cấp giấy
+@@ -1273,6 +1761,7 @@
+     if g is None:
+         g, pw = load_graph()
+     S = Sources(cat["cells"], b88_input=b88_input, injected=injected)
++    ep0 = graph_epoch(g, pw)                                  # C1-C K1: mốc phiên bản Graph ĐẦU lượt (trước mọi đọc Graph)
+     try:
+         ginv = g.invariants(pw)
+         gsnap = {"gs_keys_sha256": ginv.get("gs_keys_sha256"), "edges_sha256": ginv.get("edges_sha256"), "gs_keys_count": ginv.get("gs_keys_count"),
+@@ -1311,7 +1800,8 @@
+         r["graph_snapshot"] = gsnap
+         r["seconds"] = round(time.time() - ct, 1)
+         res[c["key"]] = r
+-    dr = directory(cat["cells"], S) if not only else None
++    base = jload(BASELINE) or {}
++    dr = directory(cat["cells"], S, base) if not only else None
+     canary = None
+     if any(k.startswith("l1:") for k in res) and cat.get("l1_pilot"):
+         try:
+@@ -1323,28 +1813,71 @@
+                     res[k].update(status=MP, reasons=["CANARY_ERROR"])
+                     res[k].pop("issued_at", None)
+                     res[k].pop("expires_at", None)
++    ep1 = graph_epoch(g, pw)                                  # C1-C K1: mốc CUỐI lượt — khác đầu ⇒ Graph đổi trong lúc cấp giấy
++    stable = bool(epoch_key(ep0)) and epoch_key(ep0) == epoch_key(ep1)
++    if not stable:
++        why = "GRAPH_REVISION_UNVERIFIED " + str(ep0.get("error") or ep1.get("error")) if not (epoch_key(ep0) and epoch_key(ep1)) else "GRAPH_CHANGED_DURING_CERT"
++        for k, r in res.items():
++            if r.get("status") == DU:
++                r.update(status=MP, reasons=(r.get("reasons") or []) + [why])
++                r.pop("issued_at", None)
++                r.pop("expires_at", None)
+     prev = jload(CURRENT)
+     if only and prev and verify_manifest(prev, now)[0]:
+         merged = dict(prev["cells"])
++        if epoch_key(prev.get("graph_epoch")) != epoch_key(ep0) or not (prev.get("graph_epoch") or {}).get("stable_during_run"):
++            for k in list(merged):            # ô cũ cấp dưới phiên bản Graph khác ⇒ không còn chứng minh được
++                if k not in res and merged[k].get("status") == DU:
++                    merged[k] = dict(merged[k], status=MP, reasons=["GRAPH_CHANGED_SINCE_CERT (ô không cấp lại ở lượt --cells)"])
++                    merged[k].pop("issued_at", None)
++                    merged[k].pop("expires_at", None)
+         merged.update(res)
+         res, dr = merged, prev.get("directory")
++    inv, matrix, prev_inv = None, None, None
++    if not only:                                             # C1-C G1–G9: kho kiểm kê độc lập + ma trận bao phủ
++        prev_inv = jload(INVENTORY) or {}
++        inv = inventory_now(S, dr)
++        matrix = coverage_matrix(cat, res, dr, inv, prev_inv, now)
++    elif prev:
++        matrix = prev.get("coverage_matrix")
+     readers = {k: (v.get("_error") or v.get("error")) for k, v in S.cache.items() if isinstance(v, dict) and (v.get("_error") or v.get("error"))}
+     doc = {"format": FORMAT, "catalog_version": cat.get("catalog_version"), "catalog_sha256": hashlib.sha256(open(CELLS, "rb").read()).hexdigest(),
+            "run": {"label": run_label, "only": sorted(only) if only else None, "seconds": round(time.time() - t0, 1)},
+            "generated_at": now_iso(now), "graph_snapshot": gsnap, "cells": res, "directory": dr, "reader_errors": readers, "canary": canary,
++           "graph_epoch": dict(ep0, stable_during_run=stable, end_read_at=ep1.get("read_at"), end_error=ep1.get("error")),
++           "engine_version": ENGINE_VERSION, "engine_sha256": _SELF_SHA, "coverage_matrix": matrix,
+            "contract": "verification evidence/quality contract, NOT a cryptographic certificate, NOT proof of semantic truth of the source"}
+     doc["summary"] = summarize(doc)
+     doc["self_sha256"] = self_sha(doc)
+     if write:
+         write_manifest(doc)
++        if inv is not None:
++            write_inventory(prev_inv, inv, now)
+     return doc
+ 
+ 
++def write_inventory(prev, inv, now):
++    """last-good từng họ: họ đọc trọn + nhất quán ⇒ thay ảnh; họ lỗi ⇒ giữ ảnh tốt cũ (không ghi đè bằng ảnh rỗng)."""
++    fams = dict((prev or {}).get("families") or {})
++    for g, f in inv.items():
++        if f.get("ok") and f.get("consistency") != "DRIFT":
++            fams[g] = f
++    doc = {"format": "graph-cert-inventory-v1", "written_at": now_iso(now), "engine_version": ENGINE_VERSION, "families": fams}
++    os.makedirs(CERT_DIR, mode=0o750, exist_ok=True)
++    tmp = INVENTORY + ".tmp"
++    with open(tmp, "w", encoding="utf-8") as f:
++        json.dump(doc, f, ensure_ascii=False, indent=1, sort_keys=True)
++    os.chmod(tmp, 0o640)
++    os.replace(tmp, INVENTORY)
++
++
+ def summarize(doc):
+     cs = doc["cells"].values()
+     du = sorted(c["key"] for c in cs if c["status"] == DU)
+     return {"cells": len(doc["cells"]), "du": len(du), "mot_phan": len(doc["cells"]) - len(du), "du_cells": du,
+-            "directory": (doc.get("directory") or {}).get("status"), "reader_fail": sorted(c["key"] for c in cs if not c.get("reader_pass"))}
++            "directory": (doc.get("directory") or {}).get("status"), "reader_fail": sorted(c["key"] for c in cs if not c.get("reader_pass")),
++            "graph_epoch_stable": (doc.get("graph_epoch") or {}).get("stable_during_run"),
++            "families": {g: m.get("status") for g, m in sorted((doc.get("coverage_matrix") or {}).items())}}
+ 
+ 
+ def write_manifest(doc):
+@@ -1615,43 +2148,127 @@
+     return ("l1:" + a) if a and ok else None
+ 
+ 
+-def layers_for(qc, need, eff, anchor, now=None):
+-    """Khối nhãn theo lớp (BL1): L1 catalog khai báo · L2 đọc văn bản (luôn MỘT PHẦN) · L3 chạy thật (MỞ)."""
++def layers_for(qc, need, eff, anchor, now=None, page=None, with_lists=False):
++    """Khối nhãn theo lớp (BL1): L1 catalog khai báo · L2 đọc văn bản (luôn MỘT PHẦN) · L3 chạy thật (MỞ).
++    C1-C K2: danh sách L2 phân trang (page = con trỏ n4p1 từ params n4_page), mỗi danh sách có total/shown/truncated/next_cursor."""
+     l1c = ["l1:" + anchor] if anchor else []          # lớp L1 chỉ áp cho câu hỏi neo vào MỘT bảng mẫu
+     st = [eff.get(k, (MP, "NOT_CERTIFIED", None, None)) for k in l1c]
+     ok = bool(st) and all(s[0] == DU for s in st)
+     L1 = {"kind": "CATALOG_DECLARED_EXACT_AT_SNAPSHOT", "cells": l1c, "label": (DU if ok else MP) if l1c else "KHÔNG_ÁP_DỤNG",
+           "proof_issued_at": min(s[2] for s in st) if ok else None, "expires_at": min(s[3] for s in st) if ok else None,
+-          "reasons": [s[1] for s in st if s[0] != DU][:4],
++          "reasons": [s[1] for s in st if s[0] != DU],
+           "scope": "khoá ngoại vào/ra · view phụ thuộc trực tiếp · trigger→hàm xử lý · Directus collection/relation/permission khai báo",
+           "not_proven": "bảng nào được hàm đọc/ghi · quyền Directus lúc chạy (chính sách admin bỏ qua dòng quyền) · DROP an toàn · tác động động"}
+     L2 = {"kind": "SOURCE_TEXT_DERIVED_PARTIAL", "label": MP,
+           "reason": "thân hàm PL/pgSQL/EXECUTE động, flow/operation Directus, DOT, mã: ứng viên đọc văn bản — tham chiếu tĩnh không chứng minh thực thi"}
+     l2 = jload(L2_FILE)
++    lists = {}
+     if isinstance(l2, dict):
+         L2["snapshot"] = {"file": L2_FILE, "generated_at": l2.get("generated_at"), "self_sha256": l2.get("self_sha256")}
++        gen = parse_iso(l2.get("generated_at"))
++        age = None if gen is None else round(((time.time() if now is None else now) - gen) / 3600.0, 1)
++        l1_iss = parse_iso(L1.get("proof_issued_at")) if L1.get("proof_issued_at") else None
++        L2["freshness"] = {"generated_at": l2.get("generated_at"), "age_hours": age, "max_age_hours": L2_MAX_AGE_H,
++                           "stale": age is None or age > L2_MAX_AGE_H, "nightly_refresh": False,
++                           "catalog_newer_than_l2": bool(l1_iss and gen and l1_iss > gen),
++                           "source_reference": {"file": L2_FILE, "self_sha256": l2.get("self_sha256"), "pg_snapshot": l2.get("pg_snapshot")},
++                           "note": "ảnh L2 tĩnh (không làm mới hằng đêm): cũ > 26h ⇒ STALE, KHÔNG được coi là đủ mã hiện hành"}
++        if L2["freshness"]["stale"]:
++            L2["reason"] += " · L2_STALE: ảnh %sh > %dh" % (age, L2_MAX_AGE_H)
+         t = (l2.get("tables") or {}).get(anchor) if anchor else None
++        l2sha = (l2.get("self_sha256") or "")[:12]
++        cur, denied = None, None
++        if page:
++            m = re.fullmatch(r"n4p1:([\w.\-]+):(candidates|potential_collisions|unknown_dynamic):(\d+):([0-9a-f]{12})", str(page))
++            if not m:
++                denied = "CURSOR_INVALID"
++            elif m.group(1) != (anchor or ""):
++                denied = "CURSOR_SCOPE_MISMATCH (con trỏ thuộc bảng khác truy vấn)"
++            elif m.group(4) != l2sha:
++                denied = "CURSOR_STALE (ảnh L2 đã đổi — đọc lại từ trang đầu)"
++            else:
++                cur = (m.group(2), int(m.group(3)))
+         if t:
+             L2["candidates_count"] = len(t.get("candidates") or [])
+-            L2["candidates"] = [{k: c.get(k) for k in ("kind", "via", "target", "op", "trust", "source", "line")} for c in (t.get("candidates") or [])[:12]]
+-            L2["potential_collisions"] = (t.get("potential_collisions") or [])[:8]
+-            L2["unknown_dynamic"] = (t.get("unknown_dynamic") or [])[:6]
++            for name, size in L2_PAGE.items():
++                full = t.get(name) or []
++                off = cur[1] if cur and cur[0] == name else 0
++                if off >= len(full) and off:
++                    off, denied = 0, denied or "CURSOR_OUT_OF_RANGE"
++                items = full[off:off + size]
++                if name == "candidates":
++                    items = [{k: c.get(k) for k in ("kind", "via", "target", "op", "trust", "source", "line")} for c in items]
++                L2[name] = items
++                nxt = off + size if off + size < len(full) else None
++                lists["layers.L2." + name] = {"total": len(full), "shown": len(items), "offset": off, "truncated": len(items) < len(full),
++                                              "next_cursor": ("n4p1:%s:%s:%d:%s" % (anchor, name, nxt, l2sha)) if nxt is not None else None,
++                                              "remainder_access": ("read-cypher graph-v1: CÙNG truy vấn + params {\"n4_page\": next_cursor}"
++                                                                   if nxt is not None else ("đã hết" if not off else "trang cuối"))}
++        elif anchor:
++            for name in L2_PAGE:
++                lists["layers.L2." + name] = {"total": 0, "shown": 0, "offset": 0, "truncated": False, "next_cursor": None,
++                                              "remainder_access": "bảng neo không có trong ảnh L2"}
++        if page:
++            L2["paging"] = {"requested": str(page)[:120], "accepted": cur is not None and not denied, "denied": denied}
+     else:
+         L2["snapshot"] = None
++        L2["freshness"] = {"stale": True, "why": "L2_MISSING"}
++    L1["reasons_total"] = len([s for s in st if s[0] != DU])
+     L3 = {"kind": "RUNTIME_OPEN", "label": "MỞ",
+           "reason": "lịch sử chạy, đồng thời, khoá, thứ tự thực thi không có trong catalog/văn bản; C1-B không dựng bộ theo dõi mới. "
+                     "Hai đường cùng ghi một đích = POTENTIAL_COLLISION, không phải RUNTIME_CONFIRMED."}
+-    return {"L1": L1, "L2": L2, "L3": L3}
++    out = {"L1": L1, "L2": L2, "L3": L3}
++    if with_lists:
++        return out, lists
++    return out
++
+ 
++_FRESH = {}
+ 
+-def label_for(tool, arguments=None, result_rows=None, now=None, doc=None, cat=None):
+-    """Nhãn máy đọc được cho MỘT câu trả lời graph-v1. Không bao giờ ném lỗi: lỗi ⇒ MỘT PHẦN."""
++
++def label_for(tool, arguments=None, result_rows=None, now=None, doc=None, cat=None, live=None, lock_state="auto"):
++    """Nhãn máy đọc được cho MỘT câu trả lời graph-v1. Không bao giờ ném lỗi: lỗi ⇒ MỘT PHẦN.
++    C1-C: tiến trình MCP sống lâu giữ bản mã đã nạp — tệp đổi (cài bản mới) ⇒ nạp bản trên đĩa và giao cho nó; không nạp được ⇒
++    MỘT PHẦN LABEL_ENGINE_STALE (không bao giờ dùng bộ nhãn cũ để nói ĐỦ)."""
++    cur = _file_sha(_SELF_FILE)
++    if cur != _SELF_SHA:
++        try:
++            m = _FRESH.get(cur)
++            if m is None:
++                import importlib.machinery, importlib.util
++                name = "graph_cert_live_%s" % (cur or "x")[:12]
++                ldr = importlib.machinery.SourceFileLoader(name, _SELF_FILE)
++                m = importlib.util.module_from_spec(importlib.util.spec_from_loader(name, ldr))
