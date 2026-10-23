@@ -894,8 +894,8 @@
          lab["reason"] = "LABEL_ENGINE_ERROR %s" % type(e).__name__
          lab["missing_or_unknown_cell_ids"] = ["*"]
          return lab
- 
- 
+
+
  # =========================================================================== CT5 — đèn + biên nhận sự cố
 -def alarm(doc, op_failure=None, now=None, baseline=None):
 -    """⇒ (status 'up'|'down', msg ≤ 200, incidents[]). CT5 (Owner): đèn xuống khi máy không chạy được hoặc ô TỤT KHỞİ ĐỦ so với mốc.
@@ -1036,13 +1036,13 @@
 +        if str(parent).startswith(pre):
 +            return g
 +    return "G?"
- 
- 
+
+
  def _gate_prefix(g):
 -    return {"G1": "pg:", "G2": "docker:", "G3": "systemd:", "G4": "cron:", "G5": "nginx:", "G6": "opt:", "G7": "qdrant:", "G8": "lark:", "G9": "git:"}[g]
 +    return GATE_PREFIX[g]
- 
- 
+
+
  def record_incidents(inc, now=None):
 -    """Biên nhận sự cố máy đọc được (sổ tin báo của ô): mỗi mã mới ⇒ một dòng OPEN; mã biến mất ⇒ RESOLVED. ⇒ (mới, đã hồi)."""
 +    """Biên nhận sự cố máy đọc được (sổ tin báo của ô): mỗi mã mới ⇒ một dòng OPEN; mã biến mất ⇒ RESOLVED; lượt gọi trang của sự cố VÀNG
