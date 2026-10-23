@@ -46,7 +46,7 @@ small{color:#666}
 <tr><td>T9</td><td>Host chốt sớm hoặc người không có quyền sửa lệnh/KQ thì bị chặn và báo Owner; không cần Hermes Mac</td><td>N3 guard + N4</td><td class="n">chưa</td></tr>
 </tbody>
 </table></div>
-<p><small>Owner 22/10 đã bỏ Hermes Mac/courier/0 dán tin. AI điều hành cao hơn là đề xuất, chờ Owner duyệt lại sau khi kiểm năng lực thực tế. N3 hiện chuẩn bị phạm vi hai cổng theo P368; chưa READY, chưa sửa production.</small></p>
+<p><small>Owner 22/10 đã bỏ Hermes Mac/courier/0 dán tin. AI điều hành cao hơn là đề xuất, chờ Owner duyệt lại sau khi kiểm năng lực thực tế. N3 hai cổng theo P368 đã được Host P370 READY; chưa STARTED, chưa sửa production.</small></p>
 
 <h2 id="LO-TRINH">3. Lộ trình sáu bước — xanh xong · vàng đang làm · xám chưa làm</h2>
 <div class="wrap"><table>
@@ -54,7 +54,7 @@ small{color:#666}
 <tbody>
 <tr><td><strong>N1</strong> Đầu nối lên mây</td><td>Mây có đủ đầu nối như Mac. Giữ nguyên Mac. Cải tiến từ Mac đồng bộ lên mây.</td><td>Mac ngủ, GPT và Claude vẫn làm việc được; lệch thì máy tự báo</td><td class="g">xong 06/10</td></tr>
 <tr><td><strong>N2</strong> Đo OpenAI Dots</td><td>Đã đo identity và wake thật; Chat/Work/Dot dùng chung identity, wake riêng của Dot còn hạn chế.</td><td>Owner chấp nhận residual; OpenAI-main dùng một ghế; phần wake chuyển N3</td><td class="g">xong 07/10 · PASS_WITH_RESIDUAL</td></tr>
-<tr><td><strong>N3</strong> Hermes VPS thực dụng</td><td>Đợt cũ P363 CLOSED_WITH_LIMITS. P368 chuẩn bị “một thẻ, hai cổng”: kiểm sudo/updater rồi thu đúng grant khi an toàn, xác minh IAM và bốn nhóm canh; sau đó trả quyền work/*/COLLAB.md, giữ Guard/đúng vai và cron chỉ đọc. Không thêm hạ tầng; lỗi pha 2 chỉ lùi pha 2, giữ pha 1 đã đạt.</td><td>Không sudo grant/đường đọc GSM; công cụ và updater bình thường; bốn nhóm canh, 33 ca âm/cross-task, ghi COLLAB thật, Điều 30/31 và đường lùi có bằng chứng</td><td class="y">P368 PROMPT DRAFT_NOT_READY · 0 RUN · N4–N6 chưa mở</td></tr>
+<tr><td><strong>N3</strong> Hermes VPS thực dụng</td><td>Đợt cũ P363 CLOSED_WITH_LIMITS. P368 chuẩn bị “một thẻ, hai cổng”: kiểm sudo/updater rồi thu đúng grant khi an toàn, xác minh IAM và bốn nhóm canh; sau đó trả quyền work/*/COLLAB.md, giữ Guard/đúng vai và cron chỉ đọc. Không thêm hạ tầng; lỗi pha 2 chỉ lùi pha 2, giữ pha 1 đã đạt.</td><td>Không sudo grant/đường đọc GSM; công cụ và updater bình thường; bốn nhóm canh, 33 ca âm/cross-task, ghi COLLAB thật, Điều 30/31 và đường lùi có bằng chứng</td><td class="y">P370 READY@45f43d66 · chưa STARTED · N4–N6 chưa mở</td></tr>
 <tr><td><strong>N4</strong> Lõi hội đồng</td><td>Ý kiến → Host chốt → giao → làm → báo → nghiệm thu, có chuông.</td><td>Một vòng thật chạy trọn đầu cuối</td><td class="n">chưa</td></tr>
 <tr><td><strong>N5</strong> Hai cấp, đổi bằng bảng</td><td>Cùng một lõi chạy việc dễ (một AI) và việc khó (hội đồng).</td><td>Một việc dễ và một việc khó chạy thật; đổi agent, cấp, mức không sửa mã</td><td class="n">chưa</td></tr>
 <tr><td><strong>N6</strong> Nghiệm thu, đóng</td><td>Rerun bộ tiêu chí Owner duyệt sau khi đánh giá năng lực AI; không dùng Mac/Courier.</td><td>Acceptance hiện hành, Guard và đèn đạt</td><td class="n">chưa</td></tr>
