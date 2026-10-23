@@ -1,20 +1,19 @@
 # COLLAB — nhap-directus-for-workflow
-Tên việc: Bảng đã duyệt → collection Directus; cái chưa có → sáng tạo trên nháp; có sổ theo dõi, sửa 1 dòng tính bằng phút
+Tên việc: Chuyển thiết kế hiện có sang collection để làm việc và tự động hóa thực tế; dùng lại cho PG production
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 23/10/2026: lập việc + ô 1 (14:37, 15:02, 16:49); giao Codex làm Host (P06); 17:03 chốt hướng: «bây giờ bạn hiểu vấn đề rồi thì bạn sửa lại cái yêu cầu trên task để làm đúng vấn đề đi» (3.00); 17:26 chốt Đích (ô 1). Ô 2 và mọi việc ghi production vẫn chờ Owner gật từng việc.
 Host: Codex · Owner chỉ định trực tiếp 23/10/2026: «bạn làm host việc này nhé». Claude Chat là Host vòng trước.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-23 17:35 +07 · Claude (Owner giao 17:03, 17:26; Host vẫn là Codex) · P11
-- 🎯 Mục tiêu: ô 1 Đích (Owner 17:26) — bảng đã duyệt (đang là HTML) ⇒ chuyển sang collection; cái chưa duyệt, chưa có ⇒ sáng tạo trên nháp; Sổ của các sổ theo dõi cái gì đã vào collection, cái gì chưa. Vì sao: HTML làm 1 việc mất cả tiếng; Directus nhẹ, dùng lại được, không làm 2 lần.
-- 🏁 Xong khi: ô 2 (9 dòng, đề xuất P11 — chờ Owner gật).
-- 📍 Tiến độ: [✅ B0 Chốt đích] → [■ B1 Bảng DOT] → [□ B2 DOT áp chung] → [□ B3 Sổ của các sổ] → [□ B4 Chuyển bảng đã duyệt] → [□ B5 Sáng tạo cái chưa có] → [□ B6 Giao diện đọc collection] → [□ B7 Chạy thử 1 vòng] → [□ B8 Lên thật từng sổ]
-- ✅ Đã xong: B0 — Owner 16:49 · 17:03 · 17:26 chốt Đích (ô 1, 3.00) · Owner gật 3.01: Bảng DOT = `dot_tools` đang có (dùng lại) · B1-a kiểm kê phía tệp (3.01): sổ đĩa 251 DOT, `dot_tools` lệch đĩa · Trước đó (P01–P09): khung việc, quy chuẩn vùng nháp 3.4, Một nhà 3.5, bản vẽ HTML (đã dừng).
-- ■ Đang làm: Bước B1 Bảng DOT · — · 0 RUN active · song song: Codex chỉnh khuôn trang chủ theo UI cha (thuộc B6, mục «Hiện hành» dưới).
-- ⬜ Còn lại: B1-b khảo sát chỉ đọc → B1-c Owner duyệt lệnh ghi → B1-d DOT đồng bộ + «?» + Điều 30/31 → B2 → B3 → B4 · B5 · B6 song song → B7 → B8.
-- ➡ Kế tiếp: Host Codex đọc ô 1 Đích + 3.02 + 3.03 (P11), đồng thuận hoặc ghi P12 → Codex soạn 1 lệnh khảo sát chỉ đọc B1-b → GPT ACCEPT → 😊 Owner dán → 🤖 Claude Code. NEXT_TRIGGER=CODEX_DONG_THUAN_P11
-- ⛔ Không làm: AI chạm thẳng Directus/PG (kể cả đọc) · vẽ/chép/move dữ liệu vào HTML · gõ tay vào Directus (kể cả Owner) · xoá dòng `dot_tools` · ghi production khi Owner chưa duyệt · trang viết riêng cho từng bảng · sửa MBM khi chưa xin phép · tạo tệp ngoài COLLAB khi Owner chưa gật.
-- ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ■ · ⬜ · ➡.
+### BẢNG ĐIỀU KHIỂN · cập nhật 23/10/2026 · Codex Host · P12
+- 🎯 Mục tiêu: ô 1 — collection là nơi quản lý, hoàn thiện và chạy thiết kế thực tế; “nháp” chỉ là giai đoạn chưa chuyển sang PG production.
+- 🏁 Xong khi: ô 2 — chuyển đủ, làm được việc, kiểm SSOT và có đường đưa từng phần đã duyệt sang production.
+- 📍 Tiến độ: B0 đã làm rõ lại mục tiêu → B1 Bảng DOT → B2 DOT áp chung → B3 Sổ của các sổ → B4 chuyển thiết kế hiện có / B5 hoàn thiện phần thiếu / B6 UI đọc collection → B7 chạy kiểm chứng → B8 đưa từng phần sang PG.
+- ✅ Đã xong lượt này: rà P11, viết lại ô 1–2 và chỉnh lộ trình cho thống nhất; giữ chuẩn UI cha đã sửa. Chưa coi khảo sát tệp hoặc bản HTML là đã dựng collection.
+- ■ Đang làm: chuẩn bị B1; 0 RUN active. Lượt P12 chỉ cập nhật tài liệu theo yêu cầu Owner.
+- ⬜ Còn lại: khảo sát hiện trạng qua DOT, đối chiếu Bảng DOT và nguồn dữ liệu, chuyển collection, chạy kiểm chứng và chuyển PG theo từng phần.
+- ➡ Kế tiếp: Host chuẩn bị khảo sát chỉ đọc B1-b theo 3.01; chưa phát lệnh ghi production.
+- ⛔ Không làm: AI chạm thẳng Directus/PG · tiếp tục thử nghiệm bằng HTML chứa dữ liệu viết tay · thiết kế lại phần đã có chỉ vì chưa duyệt · tạo hai nơi ghi chuẩn · ghi production chưa được duyệt.
 
 ### Hiện hành · Owner yêu cầu chỉ chỉnh giao diện trang chủ theo UI cha
 Owner: «Kiểm tra lại danh sách UI cha. Thiết kế đúng theo cái đó, đừng tự sáng tạo ra concept mới… tạm thời cho giao diện trang chủ đã!»
@@ -50,33 +49,30 @@ Owner giao Codex rà và bổ sung task, bắt đầu thiết kế lại trang c
 **Trạng thái P06:** đang rà nguồn và sửa bản vẽ hiện hữu; chưa dựng collection, chưa chuyển nguồn, chưa chạy diễn tập. Kế tiếp: kiểm kê DOT/nguồn chuẩn, hoàn thiện bản vẽ rồi triển khai một chuỗi mẫu qua DOT. JEV tham khảo chuyển nguồn: gen-dec-1792747951-vNbtJ4mEH3OdcuIx7j71; không thay kiểm chứng.
 
 ### 1. Mục tiêu
-**Đích (Owner 23/10 17:26 — chốt):** dùng lại hết bản cũ. Trước đây làm bằng HTML ⇒ bảng nào đã duyệt thì chuyển hết sang collection Directus để quản lý. Thứ chưa duyệt, chưa có ⇒ sáng tạo mới và lập giao diện. Lập bảng master để biết cái gì đã vào collection, cái gì chưa.
-A · Chuyển: bảng đã duyệt (đang ở HTML / JS tĩnh) ⇒ đưa nguyên nội dung vào collection bằng DOT, không thiết kế lại ⇒ bản HTML cũ chỉ còn đọc.
-B · Sáng tạo: thứ chưa duyệt, chưa có ⇒ thiết kế mới trên vùng nháp `nhap_` (3.4) + giao diện ⇒ Owner duyệt ⇒ lên thật y như nháp.
-Sổ theo dõi: Sổ của các sổ (3.02), mỗi bảng 1 dòng — đang ở đâu · đã duyệt · dòng A/B · collection đích · tình trạng chuyển ⇒ nhìn là biết đã vào bao nhiêu, còn bao nhiêu.
-Thước đo: sửa/thêm 1 dòng tính bằng phút (mục 8). Luật giữ nguyên: DOT 100% (mục 4) · mọi thứ có sổ (mục 5) · SSOT (mục 6). Codex và Claude cùng làm theo phân vai 3.03.
-Tình trạng: Đích = Owner 17:26. Mục 1–8 = nguyên tắc Owner viết 14:37 (1–4, Lưu ý), 15:02 (5–7), 16:49 (8). Chỉ sửa chính tả, giữ ý.
-1. Tạo task mới work/nhap-directus-for-workflow, dùng để thiết lập các quy trình: 1. Chế tạo cỗ máy sản xuất quy trình 2. Vận hành cỗ máy sản xuất quy trình 3. Các quy trình do cỗ máy sản xuất quy trình tạo ra.
-2. Mục tiêu hoàn thiện quy trình, thiết kế và thiết lập chuẩn các khuôn UI, collection chuẩn để sau này thiết lập chuẩn trên PG => Collections.
-3. Những gì làm bây giờ là nháp => cần xoá đi dễ dàng, nhưng thiết lập để dùng lại những thứ nháp này tối đa và nhanh nhất (nháp sau khi ok => đưa ra làm thật đúng như vậy).
-4. Dùng DOT 100% với Directus (DOT đã tương đối đầy đủ), thiếu DOT viết thêm. AI tuyệt đối không thao tác trên Directus và PG. Thiết kế để đảm bảo các DOT cũ dùng lại được (hoặc sửa thêm) cho cả nháp và production mà không cần sửa lại DOT.
-5. Trọng tâm: mọi thứ có sổ => sẽ đảm bảo được thành công.
-6. Nguyên tắc đối tượng là SSOT: mỗi việc kiểm soát 1 nơi ghi gốc, chỉ cho phép ghi ở đó; những nơi khác chỉ được thiết kế đọc lại SSOT (nếu được thì khoá quyền ghi, chỉ cho phép đọc) để 1 thông tin không có 2 nguồn sự thật.
-7. Người và máy có cùng tư duy: collection thiết kế thế nào => hiển thị ra đúng như vậy. Kiểm soát độ phức tạp để không trở thành đống rác tiếp theo.
-8. Giới hạn hiện nay là thời gian: bảng lớn dần, làm 1 việc mất cả tiếng là không chấp nhận được. Chuyển sang Directus vì hệ thống nhẹ, nhanh, và quan trọng nhất là sau này dùng lại được — đỡ phải làm 2 lần. Không đi làm lại đống cũ.
-Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều chỉnh cho nhanh, vừa triển khai những phần đã chốt lên PG để làm thật (2 quá trình song song).
+**Mục tiêu hiện hành — Owner giao Codex viết lại ngày 23/10/2026:** chuyển các thiết kế hiện có sang collection Directus để quản lý, hoàn thiện và chạy thực tế nhẹ hơn, nhanh hơn, tự động hóa được; làm ngay theo hướng dùng cho production, phần nào đủ điều kiện thì chuyển dần sang PG production và dùng lại kết quả đã làm.
+
+1. **Dùng lại những gì đã có.** Kiểm kê các thiết kế đang nằm ở HTML, JS và các nơi hiện hữu; đưa nội dung, ghi chú, trường, quan hệ, cấu hình và trạng thái duyệt vào collection phù hợp. Giữ thiết kế và chuẩn UI cha đã chốt; chỉ thiết kế bổ sung phần thực sự thiếu. Chưa duyệt không đồng nghĩa chưa có hoặc phải làm lại.
+2. **Collection là nơi làm việc thực tế.** Tạo, sửa, quản lý và hoàn thiện thiết kế theo từng bản ghi, trường và quan hệ; cấu hình các xử lý tự động trên dữ liệu này qua DOT. Không tiếp tục dùng HTML chứa dữ liệu viết tay làm môi trường thử nghiệm hay nguồn dữ liệu chính. HTML/UI còn vai trò hiển thị và tương tác theo khuôn đã có.
+3. **“Nháp” là giai đoạn trước PG production.** Các collection được xây để dùng thật, có đủ logic, hợp đồng thông tin, cấu hình trường và kiểm tra cần thiết. Thiết kế và diễn tập ngay trên các collection này. Không hiểu nháp là bản minh họa dùng xong bỏ, hoặc một hệ thống phải xây lại khi lên production.
+4. **Chuyển dần sang PG production.** Phần đã hoàn thiện, kiểm chứng và được Owner duyệt được chuyển sang các bảng PG tương ứng; collection production đọc lại từ các bảng đó. Dùng lại UI, định nghĩa trường, quan hệ, cấu hình, dữ liệu thiết kế và DOT đã kiểm. Thay đổi cần thiết khi chuyển phải được đối chiếu rõ, không thiết kế lại từ đầu. Có thể tiếp tục hoàn thiện phần khác trên collection song song.
+5. **Mỗi thông tin chỉ có một nguồn được ghi.** Ghi rõ nơi chuẩn theo đối tượng/thuộc tính. Khi chuyển: đối chiếu đủ bản ghi, mã, quan hệ, ghi chú, cấu hình và quyền → xác nhận đích → chuyển quyền ghi duy nhất → gỡ nội dung chuẩn cũ theo kế hoạch chuyển. Trang cũ chỉ đọc nguồn mới hoặc chuyển hướng; bản sao phục hồi không được dùng để chỉnh sửa. Copy HTML hoặc thêm liên kết không tính là đã chuyển sang collection.
+6. **Mọi thứ có sổ, dùng lại sổ hiện hữu.** Masterlist theo dõi thiết kế đang ở đâu, collection đích, trạng thái chuyển, trạng thái duyệt và trạng thái triển khai PG riêng biệt. Dùng lại Bảng DOT hiện có; kiểm đủ DOT cho từng thao tác, thiếu mới bổ sung. Tất cả thao tác Directus/PG, kể cả đọc, đi qua DOT.
+7. **Giao diện thống nhất, tiếp cận nhanh.** Giữ hướng trang chủ vừa chỉnh theo UI cha; cây trái, nội dung phải, ít tầng/click. Giao diện đọc collection và tái sử dụng khuôn; không tạo thêm bộ giao diện hoặc bộ dữ liệu HTML riêng cho từng bảng.
+8. **Tiết kiệm thời gian và làm được việc.** Thêm/sửa một bản ghi không phải đọc và sửa lại tệp HTML lớn. Đo thời gian thao tác, kiểm được tự động hóa, kiểm đủ thông tin và chạy trọn chuỗi MBM → MMOW → MOW → hồ sơ. Trang đẹp hoặc danh sách đã liệt kê chưa phải kết quả hoàn thành.
+
+**Phạm vi của chữ PG:** ở đây là bảng nghiệp vụ PG production đích. Directus vẫn cần cơ sở dữ liệu nền; kiến trúc nền và ranh giới ghi phải được khảo sát qua DOT, không suy từ chữ “chưa đưa PG vào” rằng Directus chạy không cần cơ sở dữ liệu. Việc sửa mục tiêu không tự cấp quyền ghi production.
 
 ### 2. Thế nào là hoàn thành
-Đề xuất P11 (Claude, theo Đích 17:26) — chờ Owner gật. Bản P10: commit `a68288a3` · bản P02: `181af945`.
-1. Sổ của các sổ là 1 collection: mỗi bảng của cỗ máy 1 dòng — đang ở đâu · đã duyệt · dòng A/B · collection đích · tình trạng chuyển; bảng và từng cột có «?».
-2. Dòng A: 100% bảng đã duyệt đã vào collection, đếm khớp nguồn; bản HTML cũ chỉ còn đọc, không sửa ở đó nữa.
-3. Dòng B: thứ mới thiết kế trên vùng nháp `nhap_` (3.4), có giao diện; Owner duyệt từng sổ rồi lên thật bằng cùng tệp khai báo + cùng DOT + Điều 30/31.
-4. Bảng DOT khớp đĩa 100%: 0 lệnh sống vắng · 0 sha lệch · dòng mất file có cờ, không xoá; mỗi bước quy trình ghi «DOT nào áp» bằng mã trong bảng này.
-5. Thêm/sửa 1 dòng của bất kỳ sổ nào ≤ 5 phút, từ lúc Owner nói tới lúc thấy trong Directus; bảng to hay nhỏ như nhau.
-6. Mỗi thông tin chỉ ghi được ở 1 nhà; ghi chỗ khác bị chặn; chỗ khác chỉ hiện lại.
-7. Giao diện cây trái – bảng phải đọc thẳng collection; thêm 1 sổ = 0 dòng mã giao diện.
-8. Chạy thử trọn 1 vòng: MBM sinh MMOW 007 → chạy trên 1 MOW → 1 hồ sơ đủ ký.
-9. AI thao tác trực tiếp Directus/PG: 0 lần · dữ liệu chép mới vào HTML: 0.
+Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành; các chỉ tiêu kỹ thuật chưa được Owner chốt vẫn là đề xuất, không coi đã nghiệm thu.
+1. Sổ của các sổ quản lý đủ phạm vi thiết kế đã kiểm kê; tách rõ đã/chưa vào collection, đã/chưa duyệt và đã/chưa lên PG production. Mỗi bảng/cột có hướng dẫn «?».
+2. Các thiết kế trong phạm vi được chuyển vào collection và đối chiếu đủ nội dung, ghi chú, mã, quan hệ, trường, cấu hình; phần đã có được giữ lại, phần thiếu ghi rõ. Trạng thái duyệt được bảo toàn, không tự đổi “chưa duyệt” thành “đã duyệt”.
+3. Có quy trình chuyển từng phần sang PG production: kiểm phần chênh, Owner duyệt, DOT áp, đọc lại và bảo vệ Điều 30/31. Giữ UI và cấu hình đã kiểm; có bằng chứng phần nào đã chuyển và phần nào còn trên vùng trước production.
+4. Bảng DOT được đối chiếu với công cụ hiện hành: lệnh thiếu/lệch phiên/mất nguồn được ghi rõ; mỗi thao tác có DOT và bằng chứng thực thi. Dùng lại dot_tools; không tự xóa dòng.
+5. Đo thời gian thêm/sửa một bản ghi trên collection và hiển thị lại, với bảng nhỏ và lớn. Mốc ≤ 5 phút của P11 là đề xuất để đo, chưa là cam kết áp cho mọi thao tác hay lý do bỏ kiểm tra.
+6. Kiểm chứng chỉ một nơi được ghi cho mỗi thông tin; ghi sai nhà bị từ chối. Sau chuyển không còn hai bản chuẩn có thể sửa độc lập.
+7. Trang chủ/khuôn UI cha đọc collection; thêm bảng cùng khuôn không phải chép dữ liệu hoặc viết lại giao diện. Giữ nội dung và hành vi đã duyệt, bao gồm ghi chú và xổ/thu.
+8. Chạy thực tế trên collection trọn chuỗi MBM → MMOW 007 → một MOW → hồ sơ; kiểm cả logic, hợp đồng thông tin, cấu hình trường, xử lý tự động và các ca sai/thiếu. Có kết quả đọc lại, không dùng dữ liệu giả/trạng thái tự gán làm bằng chứng.
+9. Mọi thao tác Directus/PG qua DOT; dữ liệu thiết kế mới không nhúng vào HTML. Đếm riêng tiến độ chuyển collection và triển khai PG; không gọi copy HTML là hoàn thành.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
@@ -94,11 +90,11 @@ Lộ trình (thay 3.1; P11 theo Đích 17:26):
 | B1 ■ Bảng DOT | a kiểm kê tệp ✅ (3.01) · b khảo sát Directus/PG chỉ đọc · c Owner duyệt lệnh ghi · d DOT đồng bộ đĩa → `dot_tools` + «?» + Điều 30/31 | 🤖 Claude Code 2 lệnh (b, d) · 😊 c | ô 2 dòng 4 |
 | B2 DOT áp chung | `dot-master-apply` (3.4 V7): tệp khai báo trên GitHub → collection + dòng | 🤖 | 1 lệnh tạo/sửa được collection và dòng |
 | B3 Sổ của các sổ | dựng bảng theo dõi chuyển (3.02) bằng B2: nạp Master of Master 86 + ánh xạ Danh sách Master 49 + `meta_catalog` | 🤖 | ô 2 dòng 1 |
-| B4 Dòng A · Chuyển | từng bảng đã duyệt: rút 1 lần từ HTML → tệp khai báo → B2; đếm khớp; tích ở Sổ của các sổ; HTML cũ chỉ còn đọc. Thứ tự đề xuất: Công thức → 43 câu → Master MMOW → Master MOW → các Master còn lại | 🤖 | ô 2 dòng 2 |
-| B5 Dòng B · Sáng tạo | thứ chưa duyệt / chưa có: thiết kế trên `nhap_` → Owner duyệt | Host + 🤖 · 😊 duyệt | ô 2 dòng 3 |
+| B4 Chuyển thiết kế hiện có | kiểm kê nguồn, dùng lại collection đã có; chuyển thiết kế/dữ liệu từ HTML/JS vào collection bằng DOT, giữ trạng thái duyệt; kiểm đủ và chuyển SSOT theo ô 1 mục 5. Thứ tự ưu tiên xác nhận từ kiểm kê | 🤖 | ô 2 dòng 2, 6 |
+| B5 Hoàn thiện trên collection | dùng lại thiết kế đang có, bổ sung logic/hợp đồng thông tin/cấu hình trường và xử lý tự động còn thiếu ngay trên collection; chưa duyệt không phải lý do làm lại | Host + 🤖 · 😊 duyệt | ô 2 dòng 7–8 |
 | B6 Giao diện | khuôn UI cha (Codex) đọc collection, không dữ liệu chép | Codex + 🤖 | ô 2 dòng 7 |
 | B7 Chạy thử | MBM → MMOW 007 → 1 MOW → hồ sơ | 🤖 AI mới + GPT | ô 2 dòng 8 |
-| B8 Lên thật | Owner duyệt từng sổ nháp → DOT → Điều 30/31 | 😊 + 🤖 | ô 2 dòng 3 |
+| B8 Đưa từng phần sang PG production | phần đã kiểm chứng → Owner duyệt → DOT chuyển/ánh xạ bảng PG → collection production đọc bảng → đọc lại + Điều 30/31; dùng lại UI/cấu hình | 😊 + 🤖 | ô 2 dòng 3 |
 B4 · B5 · B6 chạy song song khi B2 + B3 xong (ô 1, Lưu ý).
 
 #### 3.01 Bảng DOT — kiểm kê lần 1 (Claude 17:15 · chỉ đọc tệp DOT, sổ DOT, bản đồ hệ thống; chưa đọc Directus/PG — phần đó qua DOT ở B1-b)
@@ -125,6 +121,7 @@ Thiếu gì:
 B1-b — 1 lệnh khảo sát chỉ đọc (🤖 Claude Code): `dot-dot-catalog --check` · `dot-dot-health --dry-run` · `dot-dot-register --dry-run` · `dot-fill-tool-descriptions --dry-run` · đọc cột + ghi chú + số dòng của `dot_tools` qua DOT ⇒ ra bảng chênh đĩa ↔ `dot_tools` · gộp luôn (cùng lượt, chỉ đọc, cho B3): danh sách collection đang có + `meta_catalog` (mã, tên, số dòng), tiền tố `nhap_` chưa ai dùng. DOT nào không chứng minh được là không ghi thì không chạy, báo lại. Lệnh khảo sát không chứa lệnh ghi. Host Codex soạn.
 
 #### 3.02 Sổ của các sổ = bảng master theo dõi chuyển (Owner 17:26) — đề xuất, Owner gật
+P12: các nhãn A/B dưới đây chỉ là cách tổ chức cũ, không phải điều kiện để được đưa vào collection. Theo dõi riêng ba trạng thái: chuyển collection, duyệt thiết kế, triển khai PG. Thiết kế chưa duyệt vẫn được chuyển và hoàn thiện trên collection; không tự sinh việc sáng tạo lại.
 - Dùng lại Master of Master (86 dòng, đang là HTML `master-of-master-v1.html`) làm khung: đã có mã CAT, tên, nhóm, mục đích, bảng dữ liệu (vd `dot_tools 314`; «—» = chưa có bảng), UI, tình trạng thiết kế/config/UI. Không dựng bảng theo dõi mới song song. JEV `gen-dec-1792751250-JTRWOVLw6OfjLxBsxvLs` (0,99).
 - Thêm 6 cột: Đang ở đâu (HTML · JS tĩnh · PG · collection) · Đã duyệt (có/chưa) · Dòng (A chuyển / B sáng tạo) · Collection đích · Tình trạng chuyển (⬜ chưa · 🟡 đang · 🟢 đã vào, đếm khớp · 🔒 nguồn cũ đã khoá ghi) · DOT áp (mã trong Bảng DOT).
 - Ánh xạ theo mã, chưa gộp/xoá: Danh sách Master 49 (ML-DEF, JS tĩnh) · `meta_catalog` (~169, PG thật) · các sổ trên trang Công thức. Trùng thì 1 dòng, ghi bí danh.
@@ -240,6 +237,24 @@ Dùng lại thiết kế Owner đã gật ở việc TQT (R41–R46, 15/10 16:21
 Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 
 ### Vòng trước
+#### P11 — nguyên văn mục tiêu trước P12, chỉ để truy vết; đã thay bằng ô 1 hiện hành
+**Đích (Owner 23/10 17:26 — chốt):** dùng lại hết bản cũ. Trước đây làm bằng HTML ⇒ bảng nào đã duyệt thì chuyển hết sang collection Directus để quản lý. Thứ chưa duyệt, chưa có ⇒ sáng tạo mới và lập giao diện. Lập bảng master để biết cái gì đã vào collection, cái gì chưa.
+A · Chuyển: bảng đã duyệt (đang ở HTML / JS tĩnh) ⇒ đưa nguyên nội dung vào collection bằng DOT, không thiết kế lại ⇒ bản HTML cũ chỉ còn đọc.
+B · Sáng tạo: thứ chưa duyệt, chưa có ⇒ thiết kế mới trên vùng nháp `nhap_` (3.4) + giao diện ⇒ Owner duyệt ⇒ lên thật y như nháp.
+Sổ theo dõi: Sổ của các sổ (3.02), mỗi bảng 1 dòng — đang ở đâu · đã duyệt · dòng A/B · collection đích · tình trạng chuyển ⇒ nhìn là biết đã vào bao nhiêu, còn bao nhiêu.
+Thước đo: sửa/thêm 1 dòng tính bằng phút (mục 8). Luật giữ nguyên: DOT 100% (mục 4) · mọi thứ có sổ (mục 5) · SSOT (mục 6). Codex và Claude cùng làm theo phân vai 3.03.
+Tình trạng: Đích = Owner 17:26. Mục 1–8 = nguyên tắc Owner viết 14:37 (1–4, Lưu ý), 15:02 (5–7), 16:49 (8). Chỉ sửa chính tả, giữ ý.
+1. Tạo task mới work/nhap-directus-for-workflow, dùng để thiết lập các quy trình: 1. Chế tạo cỗ máy sản xuất quy trình 2. Vận hành cỗ máy sản xuất quy trình 3. Các quy trình do cỗ máy sản xuất quy trình tạo ra.
+2. Mục tiêu hoàn thiện quy trình, thiết kế và thiết lập chuẩn các khuôn UI, collection chuẩn để sau này thiết lập chuẩn trên PG => Collections.
+3. Những gì làm bây giờ là nháp => cần xoá đi dễ dàng, nhưng thiết lập để dùng lại những thứ nháp này tối đa và nhanh nhất (nháp sau khi ok => đưa ra làm thật đúng như vậy).
+4. Dùng DOT 100% với Directus (DOT đã tương đối đầy đủ), thiếu DOT viết thêm. AI tuyệt đối không thao tác trên Directus và PG. Thiết kế để đảm bảo các DOT cũ dùng lại được (hoặc sửa thêm) cho cả nháp và production mà không cần sửa lại DOT.
+5. Trọng tâm: mọi thứ có sổ => sẽ đảm bảo được thành công.
+6. Nguyên tắc đối tượng là SSOT: mỗi việc kiểm soát 1 nơi ghi gốc, chỉ cho phép ghi ở đó; những nơi khác chỉ được thiết kế đọc lại SSOT (nếu được thì khoá quyền ghi, chỉ cho phép đọc) để 1 thông tin không có 2 nguồn sự thật.
+7. Người và máy có cùng tư duy: collection thiết kế thế nào => hiển thị ra đúng như vậy. Kiểm soát độ phức tạp để không trở thành đống rác tiếp theo.
+8. Giới hạn hiện nay là thời gian: bảng lớn dần, làm 1 việc mất cả tiếng là không chấp nhận được. Chuyển sang Directus vì hệ thống nhẹ, nhanh, và quan trọng nhất là sau này dùng lại được — đỡ phải làm 2 lần. Không đi làm lại đống cũ.
+Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều chỉnh cho nhanh, vừa triển khai những phần đã chốt lên PG để làm thật (2 quá trình song song).
+
+
 - P10 (23/10 17:15): ô 2 bản 7 dòng P02 và lộ trình L0–L6 thay bằng ô 2 8 dòng + B0–B7 (theo Owner 16:49 + 17:03); bản cũ ở commit `181af945`. Tên việc cũ: «Sổ + trang chủ cho cỗ máy sản xuất quy trình — làm trên vùng nháp Directus, phần đã chốt lên PG thật y như nháp».
 - P01 (23/10 14:50): ô 2 bản 5 dòng (chưa gật) — thay bằng 7 dòng ở P02. Đề xuất P01 «nháp = Directus + PG riêng, lên thật bằng schema snapshot → diff → apply» — thay bằng 3.0 câu 2 + 3.4 (lý do ở 3.0 câu 2).
 
