@@ -1,0 +1,306 @@
+--- graph-refresh.r11-c1b
++++ graph-refresh.c1d
+@@ -28,6 +28,12 @@
+   G1–G9 + đối chiếu từng ô nguồn↔Graph (số + SHA256 đối tượng/cạnh, đọc trọn, phân trang) → state/refresh/cert/current.json (hạn ≤26h)
+   → đẩy MỘT nhịp đèn Kuma #24 «Graph Certificate» (up | down kèm lý do OPERATIONAL/COVERAGE/NEW_SOURCE) + biên nhận sự cố
+   state/refresh/cert/incidents.jsonl. Lượt bỏ qua không bao giờ báo xanh; đèn im > 25h thì Kuma tự đỏ (không phụ thuộc lượt này).
++LANE C1-D (GS-C1D-NATIVE-AUTOCOVER-20261023-10, refresh/graph_autocover.py): `c1d:infra` (G5 cổng nghe→chủ · G3 unit cũ→đích khai báo ·
++  G2 container · G9 kho git) và `c1d:pgl1` (lớp L1 catalog các bảng mẫu, trước là tĩnh C1-B) — so khác nguồn gốc ↔ Graph mỗi lượt, CHỈ
++  cộng nút/cạnh + SET thuộc tính đổi của lane, 0 xoá, nguồn mất đối tượng ⇒ giữ + ô MỘT PHẦN; trần toàn pilot cert-cells c1d.caps
++  (cộng dồn refresh-sources c1d); cùng khuôn bảo vệ (bản tạm → máy cấp giấy chấm ô lane → F/I/F → khô → MỘT giao dịch → apply-v0 + D23).
++  Một mục DELTA/lượt (b88 → pgdot → code → c1d:infra → c1d:pgl1). `run --only c1d:infra` = chỉ lane đó (thủ công có bảo vệ, không ép lane khác).
++  L2 (c1b_l2.py) làm mới MỖI lượt run (chỉ đọc, ghi state/refresh/cert/l2-candidates.json); hỏng ⇒ giữ ảnh cũ (tự STALE sau 26h) + ĐỎ.
+ Exit: 0 PASS/NO_CHANGE/SKIP an toàn · 1 FAIL đã lùi · 2 tham số · 3 tiền điều kiện (thủ công) · 30 lùi chưa sạch
+ """
+ import argparse, collections, fcntl, glob, hashlib, json, os, re, shutil, signal, subprocess, sys, time, urllib.parse, urllib.request
+@@ -39,6 +45,7 @@
+ import graph_recovery as GR                 # noqa: E402
+ import r7_g1lib                             # noqa: E402
+ import graph_cert as GC                     # noqa: E402  (C1-A: máy cấp giấy + nhãn N4 + đèn)
++import graph_autocover as GA                # noqa: E402  (C1-D: lane cộng-thêm có giới hạn c1d:infra / c1d:pgl1)
+
+ G1 = BIN + "/graph-v1"
+ MAN = ROOT + "/manifest"
+@@ -62,7 +69,7 @@
+ DOT = "/opt/incomex/dot"
+ MAX_REMOVE = 0.02
+ RUN_LABEL = "GRAPH-REFRESH"
+-LANE_LAYERS = {"b88": ["b88"], "pgdot": ["pg", "dot"]}
++LANE_LAYERS = {"b88": ["b88"], "pgdot": ["pg", "dot"], "c1d:infra": ["infra"], "c1d:pgl1": ["pgl1"]}
+ LANE_LOADER = {"b88": ROOT + "/cypher/40-b88.cypher", "pgdot": ROOT + "/cypher/30-pgdot.cypher"}
+ LANE_FILES = {"b88": ["b88_company.csv", "b88_order.csv", "b88_rel_candidate_for_order.csv", "b88_rel_order_for_company.csv",
+                       "b88_rel_order_managed_by_union.csv", "b88_rel_selected_for_order.csv", "b88_tts.csv", "b88_union.csv"],
+@@ -76,6 +83,9 @@
+ CERT_PUSH = "http://127.0.0.1:3001/api/push/"            # đèn Kuma #24 «Graph Certificate» — sổ TIN_BAO A24 (mcpw-protection-guard)
+ CERT_TOKEN = "/etc/incomex/kuma-push/graph-cert.token"   # token push 0600 (lấy từ kuma.db chỉ-đọc lúc cài, không in)
+ CERT_RUN_ON_SKIP = {"vps_ghi", "guard", "config_guard_clean"}   # lượt bỏ làm mới vì các cổng ghi này vẫn cấp giấy (chỉ đọc)
++C1D_LANES = ("c1d:infra", "c1d:pgl1")
++L2_TOOL = RB + "/c1b_l2.py"
++C1D_GATE_ALLOWED = ("AMBIGUOUS_OWNER", "GIT_UNREADABLE")   # lý do ô lane được phép còn lại khi nạp phần đã chứng minh (ô vẫn MỘT PHẦN)
+ now = lambda: time.strftime("%FT%TZ", time.gmtime())
+
+
+@@ -383,9 +393,121 @@
+     ds = [v["decision"] for v in cd.values()]
+     out["code"] = {"decision": "BLOCKED" if "BLOCKED" in ds else ("DELTA" if "DELTA" in ds else ("SKIP_NEEDS_IDENTITY" if "SKIP_NEEDS_IDENTITY" in ds else "NO_CHANGE")),
+                    "repos": cd}
++    for lane in C1D_LANES:                        # C1-D: quyết theo SO KHÁC nguồn gốc ↔ Graph sống (không theo dấu giờ)
++        c = (caps.get("c1d") or {}).get(lane)
++        if c is None:
++            continue
++        if c.get("error") or c.get("problems"):
++            out[lane] = {"decision": "BLOCKED", "why": c.get("error") or c["problems"][:3]}
++        else:
++            out[lane] = {"decision": "NO_CHANGE" if c["empty"] else "DELTA", "counts": c["counts"], "cap_bound_partial": c["cap_bound_partial"],
++                         "stale": {"nodes": c["counts"]["stale_nodes"], "edges": c["counts"]["stale_edges"]}}
++    return out
++
++
++def cap_c1d(g, pw, sources, code_caps, lanes=C1D_LANES):
++    """C1-D: nguồn gốc ⇒ tập mong muốn ⇒ kế hoạch cộng-thêm so Graph sống (chỉ đọc). Lỗi đọc ⇒ {error} (BLOCKED, đèn đỏ)."""
++    out = {}
++    cat = GC.catalog_read()[1] or {}
++    caps = (cat.get("c1d") or {}).get("caps") or {}
++    for lane in lanes:
++        try:
++            used = ((sources.get("c1d") or {}).get("_pilot_total") or {"nodes": 0, "edges": 0})
++            if lane == "c1d:infra":
++                nodes, edges, rep_ = GA.desired_infra(cat, code_caps, sources, run="graph-refresh " + lane)
++            else:
++                nodes, edges, rep_ = GA.desired_pgl1(cat, run="graph-refresh " + lane)
++            pl = GA.plan(g, pw, lane, nodes, edges, caps, used)
++            pl["native_report"] = rep_
++            out[lane] = pl
++        except Exception as e:  # noqa: BLE001
++            out[lane] = {"error": "%s %s" % (type(e).__name__, str(e)[:200])}
+     return out
+
+
++def c1d_cells(lane):
++    cat = GC.catalog_read()[1] or {}
++    want = (lambda c: (c.get("source") or {}).get("adapter") == "c1d") if lane == "c1d:infra" else \
++        (lambda c: (c.get("source") or {}).get("adapter") in ("pg_l1", "pg_l1_scope"))
++    return cat.get("cells") or [], {c["key"] for c in cat.get("cells") or [] if want(c)}
++
++
++def build_c1d_lane(lane, pl, work, report, expect=None):
++    """C1-D: bản tạm từ điểm khôi phục ⇒ F (cộng-thêm) ⇒ cổng: 0 nút mất · chỉ nhãn/loại của lane · lớp khác không đổi · MÁY CẤP GIẤY chấm
++    ô lane trên bản tạm (bộ đọc ô độc lập) ⇒ I = PRE ⇒ F = NEW. Không ghi production."""
++    F, I = pl["F"], pl["I"]
++    t, gt, pre_hash = temp_from_recovery("rf-" + lane.replace(":", "-"), expect=expect)
++    try:
++        layers = LANE_LAYERS[lane]
++        pre_keys = {json.loads(x)["k"] for x in GR.read_state(gt, "")[0]}
++        out0 = split_state(gt, "", lambda n: n["p"].get("gs_layer") in layers)["out_sha"]
++        tx_ok(t.tx, F, "F tạm")
++        post_keys = {json.loads(x)["k"] for x in GR.read_state(gt, "")[0]}
++        inv_new = gt.invariants("")
++        man = jload(INV)
++        cells, keys = c1d_cells(lane)
++        sc = GA.score(GC, gt, "", cells, keys)
++        bad = {k: [r for r in (v[1] or []) if not str(r).startswith(C1D_GATE_ALLOWED)] for k, v in sc.items() if v[0] != GC.DU}
++        bad = {k: v for k, v in bad.items() if v}
++        gate = {"nodes_removed": len(pre_keys - post_keys), "nodes_added": len(post_keys - pre_keys),
++                "catalog_only": set(inv_new["labels"]) <= set(man["labels"]) | GA.LABELS[lane] and set(inv_new["rels"]) <= set(man["rels"]) | GA.TYPES[lane],
++                "other_layers_unchanged": split_state(gt, "", lambda n: n["p"].get("gs_layer") in layers)["out_sha"] == out0,
++                "cert_cells": {k: v[0] for k, v in sc.items()}, "cert_bad": {k: v[:3] for k, v in bad.items()}}
++        report["gate"] = gate
++        if gate["nodes_removed"] or not gate["catalog_only"] or not gate["other_layers_unchanged"] or bad:
++            raise Skip("cổng lane %s không đạt %s" % (lane, {k: gate[k] for k in ("nodes_removed", "catalog_only", "other_layers_unchanged", "cert_bad")}))
++        new_hash = full_hash(gt, "")
++        tx_ok(t.tx, I, "I tạm")
++        report["rehearse_I_eq_pre"] = full_hash(gt, "") == pre_hash
++        tx_ok(t.tx, F, "F tạm lần 2")
++        report["rehearse_F_eq_new"] = full_hash(gt, "") == new_hash
++        if not (report["rehearse_I_eq_pre"] and report["rehearse_F_eq_new"]):
++            raise Fail("diễn tập F/I lane %s không chính xác" % lane)
++    finally:
++        report["temp_cleanup"] = t.cleanup()
++    return {"lane": lane, "F": F, "I": I, "pre_hash": pre_hash, "new_hash": new_hash, "new_inv": inv_new, "stage_new": None, "stage_old": None,
++            "plan_sha256": pl["sha256"], "counts": pl["counts"]}
++
++
++def pgl1_cross_from(g, pw):
++    """Bộ cạnh L1 chạm nút lane pgdot (đang nạp trong Graph) ⇒ nội dung cross-edges.json (gắn lại sau mỗi lần dựng lane pgdot)."""
++    rows = g.rows(g.http_cypher([("MATCH (a:GS)-[x]->(b:GS) WHERE (a.gs_layer = 'pgl1' AND b.gs_layer IN ['pg','dot']) OR "
++                                  "(b.gs_layer = 'pgl1' AND a.gs_layer IN ['pg','dot']) RETURN a.gs_key AS s, type(x) AS t, b.gs_key AS d, properties(x) AS p "
++                                  "ORDER BY s, t, d", {})], pw, timeout=600))
++    return {"format": "graph-pgl1-cross-edges-v1", "written_at": now(), "by": RUN_LABEL + " c1d:pgl1", "edges": [dict(r) for r in rows]}
++
++
++def l2_tick(rec):
++    """L2 làm mới MỖI lượt run (C1-D, chỉ đọc nguồn, ghi tệp trạng thái): c1b_l2.py ⇒ tệp tạm ⇒ thêm cờ nightly_refresh ⇒ băm lại ⇒ thay.
++    Hỏng ⇒ GIỮ ảnh cũ (nhãn tự STALE sau 26h), trả lý do để đèn ĐỎ — không bao giờ làm mới giả."""
++    tmp = GC.L2_FILE + ".c1d.tmp"
++    try:
++        rc, o, e = sh(["python3", "-I", "-B", L2_TOOL, GC.CELLS, tmp], timeout=1200)
++        d = jload(tmp)
++        if rc != 0 or not isinstance(d, dict) or d.get("format") != "graph-l2-candidates-v1":
++            raise RuntimeError("c1b_l2 rc=%s %s" % (rc, (e or o)[-160:]))
++        cat = GC.catalog_read()[1] or {}
++        want = set((cat.get("l1_pilot") or {}).get("tables") or [])
++        if set(d.get("tables") or {}) != want:
++            raise RuntimeError("ảnh L2 không phủ đúng tập bảng L1 (%d/%d)" % (len(set(d.get("tables") or {}) & want), len(want)))
++        d.pop("self_sha256", None)
++        d.update(nightly_refresh=True, refreshed_by="graph-refresh %s %s" % (rec.get("cmd"), rec.get("trigger")))
++        d["self_sha256"] = hashlib.sha256(json.dumps(d, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
++        with open(tmp, "w", encoding="utf-8") as f:
++            json.dump(d, f, ensure_ascii=False, indent=1, sort_keys=True)
++        os.chmod(tmp, 0o640)
++        os.replace(tmp, GC.L2_FILE)
++        rec["l2"] = {"ok": True, "generated_at": d.get("generated_at"), "self_sha256": d["self_sha256"][:16], "tables": len(want)}
++        return None
++    except Exception as e:  # noqa: BLE001
++        try:
++            os.remove(tmp)
++        except OSError:
++            pass
++        rec["l2"] = {"ok": False, "why": "%s %s" % (type(e).__name__, str(e)[:200])}
++        return "L2 làm mới hỏng (giữ ảnh cũ, sẽ STALE): " + str(e)[:80]
++
++
+ # =========================================================================== áp DELTA: dựng trên MỘT bản tạm → đích (production|tạm)
+ def lane_state(g, pw, layers):
+     return {r["k"]: (sorted(r["l"]), r["p"]) for r in g.rows(g.http_cypher([(
+@@ -973,7 +1095,9 @@
+     if bad:
+         rec["result"] = "SKIP_PRECONDITION"
+         rec["failed"] = bad
+-        cert_tick(rec, g, pw, op_failure="lượt làm mới bỏ qua: tiền điều kiện %s" % ",".join(bad), issue=set(bad) <= CERT_RUN_ON_SKIP)
++        l2f = l2_tick(rec)                          # C1-D: L2 chỉ đọc — vẫn làm mới khi lượt ghi bị bỏ
++        cert_tick(rec, g, pw, op_failure="; ".join(x for x in ("lượt làm mới bỏ qua: tiền điều kiện %s" % ",".join(bad), l2f) if x),
++                  issue=set(bad) <= CERT_RUN_ON_SKIP)
+         logline(rec); print("RUN SKIP_PRECONDITION %s" % bad); return 0 if a.trigger == "timer" else 3
+     sources = jload(SOURCES)
+     ts = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+@@ -981,16 +1105,22 @@
+     os.makedirs(work, mode=0o700)
+     report, rc, applied, pre = {}, 0, None, {"inv": jload(INV), "pins": jload(PINS), "sources": sources, "recman": jload(RECMAN)}
+     pre_bytes = {p_: open(p_, "rb").read() for p_ in (INV, PINS, SOURCES, RECMAN)}
++    pre_cross = open(PGL1_CROSS, "rb").read() if os.path.exists(PGL1_CROSS) else None
+     term_to_fail()
+     try:
+         caps = {"b88": cap_b88(work), "pgdot": cap_pgdot(work), "code": cap_code(work, sources)}
++        caps["c1d"] = cap_c1d(g, pw, sources, caps["code"])
+         dec = decide(caps, sources)
+         rec["decision"] = dec
+         todo = [l for l in ("b88", "pgdot") if dec[l]["decision"] == "DELTA"] + \
+-               ["code:" + r for r, v in dec["code"]["repos"].items() if v["decision"] == "DELTA"]
++               ["code:" + r for r, v in dec["code"]["repos"].items() if v["decision"] == "DELTA"] + \
++               [l for l in C1D_LANES if (dec.get(l) or {}).get("decision") == "DELTA"]
++        if getattr(a, "only", None):                 # C1-D: lượt thủ công chỉ một lane (không ép b88/pgdot/code đổi theo)
++            todo = [x for x in todo if x == a.only]
+         rec["delta_items"] = todo
+         if not todo:
+-            rec["result"] = "NO_CHANGE" if all(dec[l]["decision"] == "NO_CHANGE" for l in ("b88", "pgdot", "code")) else "NO_MUTATION_WITH_SKIPS"
++            rec["result"] = "NO_CHANGE" if all(dec[l]["decision"] == "NO_CHANGE" for l in ("b88", "pgdot", "code") + tuple(x for x in C1D_LANES if x in dec)) \
++                else "NO_MUTATION_WITH_SKIPS"
+             return 0
+         if not a.execute:
+             rec["result"] = "DELTA_DETECTED_DRY"
+@@ -1005,6 +1135,10 @@
+             if item in ("b88", "pgdot"):
+                 snaps = caps[item]["snapshot_utc"] if item == "pgdot" else {"B88_SNAP": caps["b88"]["snapshot_utc"]}
+                 plan = build_csv_lane(item, caps[item]["input_dir"], snaps, LOADED + "/" + item, sources[item]["snapshot_utc"], work, report[item], expect=live)
++            elif item in C1D_LANES:
++                report[item]["plan"] = {"sha256": caps["c1d"][item]["sha256"], "counts": caps["c1d"][item]["counts"],
++                                        "cap_bound_partial": caps["c1d"][item]["cap_bound_partial"]}
++                plan = build_c1d_lane(item, caps["c1d"][item], work, report[item], expect=live)
+             else:
+                 repo = item.split(":", 1)[1]
+                 spec = sources["code"]["repos"][repo]
+@@ -1013,7 +1147,11 @@
+                 code_identity(repo, spec, stage=st)
+                 plan = build_code_repo(repo, "py", st, work, report[item], expect=live)
+             again = {"b88": cap_b88, "pgdot": cap_pgdot}.get(item)          # nguồn đổi giữa lượt ⇒ dừng trước ghi
+-            if again:
++            if item in C1D_LANES:
++                c2 = cap_c1d(g, pw, sources, caps["code"], lanes=(item,))[item]
++                if c2.get("error") or c2.get("ident_sha256") != caps["c1d"][item]["ident_sha256"]:      # so DANH TÍNH (dấu giờ chụp luôn khác)
++                    raise Skip("nguồn %s đổi giữa lượt" % item)
++            elif again:
+                 c2 = again(work + "/recheck")
+                 key = "csv_sha256" if item == "b88" else "expected_sha256"
+                 if c2.get(key) != caps[item].get(key):
+@@ -1043,7 +1181,16 @@
+             raise Fail("apply-v0 pins %s" % out)
+         rp = new_recovery_point(g, pw, "refresh-" + ts + "-" + item, True, report.setdefault("recovery", {}))
+         ns = json.loads(json.dumps(sources))
+-        if item == "b88":
++        if item in C1D_LANES:                       # C1-D: sổ lane + trần cộng dồn toàn pilot
++            cc = caps["c1d"][item]["counts"]
++            c1 = ns.setdefault("c1d", {})
++            tot = c1.setdefault("_pilot_total", {"nodes": 0, "edges": 0})
++            tot["nodes"] += cc["nodes_add"]
++            tot["edges"] += cc["edges_add"]
++            c1[item] = {"plan_sha256": plan["plan_sha256"], "applied_at": now(), "counts": cc, "run": RUN_LABEL + "-" + ts,
++                        "created_nodes": (c1.get(item) or {}).get("created_nodes", 0) + cc["nodes_add"],
++                        "created_edges": (c1.get(item) or {}).get("created_edges", 0) + cc["edges_add"]}
++        elif item == "b88":                          # C1-D fix2: lane c1d KHÔNG rơi xuống nhánh code (UnboundLocalError repo, lượt 11:18Z đã tự lùi)
+             ns["b88"].update(csv_sha256=caps["b88"]["csv_sha256"], snapshot_utc={"B88_SNAP": caps["b88"]["snapshot_utc"]}, loaded_at=now())
+         elif item == "pgdot":
+             ns["pgdot"].update(expected_sha256=caps["pgdot"]["expected_sha256"], snapshot_utc=caps["pgdot"]["snapshot_utc"], loaded_at=now())
+@@ -1060,6 +1207,13 @@
+         ok, out = apply_v0("graph-recovery-manifest", RECMAN, rm, mid)
+         if not ok:
+             raise Fail("apply-v0 recovery-manifest %s" % out)
++        if item == "c1d:pgl1":                      # cạnh L1 chạm lane pgdot phải được gắn lại sau mỗi lần dựng pgdot
++            cx = pgl1_cross_from(g, pw)
++            os.makedirs(os.path.dirname(PGL1_CROSS), mode=0o700, exist_ok=True)
++            with open(PGL1_CROSS + ".tmp", "w", encoding="utf-8") as f:
++                json.dump(cx, f, ensure_ascii=False, indent=1, sort_keys=True)
++            os.replace(PGL1_CROSS + ".tmp", PGL1_CROSS)
++            rec["pgl1_cross_edges"] = len(cx["edges"])
+         if item in ("b88", "pgdot"):
+             shutil.rmtree(LOADED + "/" + item + ".old", ignore_errors=True)
+             os.rename(LOADED + "/" + item, LOADED + "/" + item + ".old")
+@@ -1078,6 +1232,9 @@
+             for t, live_ in (("graph-refresh-sources", SOURCES), ("graph-recovery-manifest", RECMAN), ("graph-v1-pins", PINS), ("graph-v1-invariants", INV)):
+                 if open(live_, "rb").read() != pre_bytes[live_]:
+                     rb[t] = apply_v0(t, live_, None, "GRAPH-REFRESH-RB-" + ts, raw_bytes=pre_bytes[live_])[1]
++            if pre_cross is not None and os.path.exists(PGL1_CROSS) and open(PGL1_CROSS, "rb").read() != pre_cross:
++                open(PGL1_CROSS, "wb").write(pre_cross)
++                rb["pgl1_cross_restored"] = True
+             rb["inv_eq_manifest"] = not g.inv_equal(g.invariants(pw), jload(INV))
+             rec["rollback"] = rb
+             rc = 1 if rb.get("undo_eq_pre") and rb["inv_eq_manifest"] else 30
+@@ -1085,8 +1242,12 @@
+         rec["report"] = report
+         dec_ = rec.get("decision") or {}
+         opf = [l + " " + dec_[l]["decision"] for l in ("b88", "pgdot", "code") if (dec_.get(l) or {}).get("decision") in ("BLOCKED", "SKIP_NEEDS_IDENTITY")]
++        opf += [l + " BLOCKED" for l in C1D_LANES if (dec_.get(l) or {}).get("decision") == "BLOCKED"]
+         if rec.get("result") in ("FAIL", None):
+             opf.append("làm mới %s %s" % (rec.get("result") or "dừng giữa chừng", rec.get("why") or ""))
++        l2f = l2_tick(rec)                          # C1-D: L2 làm mới mỗi lượt (chỉ đọc nguồn)
++        if l2f:
++            opf.append(l2f)
+         b88_in = ((locals().get("caps") or {}).get("b88") or {}).get("input_dir")
+         cert_tick(rec, g, pw, b88_input=b88_in if b88_in and os.path.isdir(b88_in) else None, op_failure="; ".join(opf) or None)
+         rec["finished_at"] = now()
+@@ -1161,7 +1322,17 @@
+     expect = GR.verify_files(REC_CUR)[0]["state"]
+     rep, rc, tgt = {}, 1, None
+     try:
+-        if a.lane in ("b88", "pgdot"):
++        if a.lane in C1D_LANES:                    # C1-D: nguồn THẬT (chỉ đọc), đích tạm; --size >0 ⇒ thêm nguồn giả lập để bắt nhánh DELTA
++            g0 = r7_g1lib.load(G1)
++            pw0 = g0.password()
++            pl = cap_c1d(g0, pw0, sources, cap_code(work, sources) if a.lane == "c1d:infra" else None, lanes=(a.lane,))[a.lane]
++            if pl.get("error") or pl.get("problems"):
++                raise Skip("kế hoạch %s: %s" % (a.lane, pl.get("error") or pl["problems"][:3]))
++            rep["synthetic"] = {"counts": pl["counts"], "cap_bound_partial": pl["cap_bound_partial"], "sha256": pl["sha256"][:16]}
++            if pl["empty"]:
++                raise Skip("không có thay đổi để diễn tập (NO_CHANGE)")
++            plan = build_c1d_lane(a.lane, pl, work, rep.setdefault("build", {}), expect=expect)
++        elif a.lane in ("b88", "pgdot"):
+             nd = work + "/new-" + a.lane
+             rep["synthetic"] = synth_b88(LOADED + "/b88", nd, a.size) if a.lane == "b88" else synth_pgdot(LOADED + "/pgdot", nd, a.size)
+             old_snaps = sources[a.lane]["snapshot_utc"]
+@@ -1298,6 +1469,7 @@
+     sub = ap.add_subparsers(dest="cmd", required=True)
+     s = sub.add_parser("check"); s.add_argument("--out")
+     s = sub.add_parser("run"); s.add_argument("--execute", action="store_true"); s.add_argument("--trigger", default="manual", choices=("manual", "timer"))
++    s.add_argument("--only", choices=C1D_LANES)
+     s = sub.add_parser("recovery-point"); s.add_argument("--drive", action="store_true"); s.add_argument("--label", default="manual"); s.add_argument("--out")
+     sub.add_parser("status")
+     sub.add_parser("selftest")
