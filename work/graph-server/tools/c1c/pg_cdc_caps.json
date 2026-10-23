@@ -1,0 +1,1 @@
+{"max_replication_slots": "10", "max_wal_senders": "10", "track_commit_timestamp": "off", "wal_level": "replica", "replication_slots": "0", "logical_slots": "0", "publications": "0", "event_triggers": "0"}
