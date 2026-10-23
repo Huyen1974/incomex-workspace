@@ -18,6 +18,13 @@ Host: Codex · Owner chỉ định trực tiếp 23/10/2026: «bạn làm host v
 - ➡ Kế tiếp: 😊 Owner xem bản vẽ v2, góp ý + gật 3.0 → Host soạn 1 lệnh Claude Code cho L1 (chỉ đọc, qua DOT) → GPT ACCEPT → Owner dán. NEXT_TRIGGER=OWNER_XEM_BAN_VE_GAT_3_0
 - ⛔ Không làm: AI chạm thẳng Directus/PG (kể cả đọc) · gõ tay vào Directus (kể cả Owner) · ghi vào production khi sổ chưa chốt hoặc phần chênh chưa duyệt · trang viết riêng cho từng bảng · sửa MBM khi chưa xin phép · tạo tệp ngoài COLLAB khi Owner chưa gật.
 
+### Hiện hành · Owner yêu cầu chỉ chỉnh giao diện trang chủ theo UI cha
+Owner: «Kiểm tra lại danh sách UI cha. Thiết kế đúng theo cái đó, đừng tự sáng tạo ra concept mới… tạm thời cho giao diện trang chủ đã!»
+- Đã kiểm ML-DEF-017 trong definition-master-data-v1.js: UI.CANVAS dùng mow-unified-canvas-v2.html; UI.MASTER dùng mot-master-v1.html / master-list.js. Mẫu Owner chỉ định: mow-unified-canvas-v2.html?tang=T2&che-do=thuong, nguồn 64c21429.
+- Home đã dùng lại font Be Vietnam Pro, nền #f5f5f7, chữ #1d1d1f / #515154, brand #639922 / #3b6d11, nét phân cách rgba(0,0,0,.07), thẻ radius 12px/bóng nhẹ, chấm CSS 7–8px theo mẫu; bỏ emoji và hệ hình khối trang trí cũ. Giữ cột trái 30%, dòng 28px và khe 8px theo Owner.
+- Chỉ sửa home.html (fc56f594); không sửa nội dung Công thức, collection, PG hay chuyển SSOT. Đã mở kiểm trang chủ ở 1280px. Đây là áp phong cách mẫu đã có, chưa tuyên bố đã tích hợp renderer cha dùng chung.
+- Phạm vi tiếp theo theo chỉ đạo Owner; không tự mở rộng từ giao diện trang chủ sang thiết kế khác.
+
 ### P07 · Owner: tập hợp nguyên bản, tiếp cận nhanh
 Chỉ đạo mới: cột trái rộng hơn, dòng dày hơn, khe giữa hai cột hẹp hơn; ít tầng/click; phần đã làm phải giữ nguyên, không thiết kế lại. Bắt đầu từ Công thức, copy 100% cả ghi chú, xổ/thu và tương tác. Collection phục vụ thiết kế những phần mới nhanh hơn.
 - Đã sửa home hiện hữu: trái 30% (tối thiểu 320px trên màn rộng), khe 8px, dòng tối thiểu 28px thay 40px; giảm thụt tầng; bỏ tự mở tab MBM.
