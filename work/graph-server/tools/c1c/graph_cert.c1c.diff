@@ -798,3 +798,300 @@
 +                name = "graph_cert_live_%s" % (cur or "x")[:12]
 +                ldr = importlib.machinery.SourceFileLoader(name, _SELF_FILE)
 +                m = importlib.util.module_from_spec(importlib.util.spec_from_loader(name, ldr))
++                ldr.exec_module(m)
++                _FRESH.clear()
++                _FRESH[cur] = m
++            if m._SELF_SHA == cur:
++                return m.label_for(tool, arguments, result_rows, now, doc, cat, live, lock_state)
++        except Exception as e:  # noqa: BLE001
++            stale = "LABEL_ENGINE_STALE %s" % type(e).__name__
++        else:
++            stale = "LABEL_ENGINE_STALE tệp đổi giữa lúc nạp"
++        lab = _label_impl(tool, arguments, result_rows, now, doc={}, cat=cat, live=live, lock_state=lock_state)
++        lab.update(completeness_label=MP, query_actionability=ACT_NO, reason=stale, missing_or_unknown_cell_ids=["*"])
++        return lab
++    return _label_impl(tool, arguments, result_rows, now, doc, cat, live, lock_state)
++
++
++def _meta(lst):
++    return {"total": len(lst), "shown": len(lst), "offset": 0, "truncated": False, "next_cursor": None, "remainder_access": "trọn danh sách"}
++
++
++def _label_impl(tool, arguments=None, result_rows=None, now=None, doc=None, cat=None, live=None, lock_state="auto"):
+     now = time.time() if now is None else now
+     lab = {"format": LABEL_FORMAT, "completeness_label": MP, "proof_issued_at": None, "expires_at": None, "relevant_cell_ids": [],
+            "missing_or_unknown_cell_ids": [], "source_scope": None, "trust": None, "query_actionability": ACT_NO,
+            "evidence": {"manifest": CURRENT}, "query_class": None, "query_catalog_version": QUERY_CATALOG_VERSION,
+            "reason": None, "computed_at": now_iso(now), "answer_scope": None, "impact_question_actionability": ACT_NO,
+-           "layers": {"L1": {"label": MP}, "L2": {"label": MP}, "L3": {"label": "MỞ"}},
++           "layers": {"L1": {"label": MP}, "L2": {"label": MP}, "L3": {"label": "MỞ"}}, "engine_version": ENGINE_VERSION,
++           "graph_revision": None, "list_meta": {},
++           "source_freshness": {"mode": "NIGHTLY_SNAPSHOT_AT_T", "source_change_watermark_at_read": "UNAVAILABLE",
++                                "note": "nguồn chỉ được đối chiếu lúc cấp giấy (T); thay đổi nguồn sau T chưa quan sát tới lượt cấp giấy kế — "
++                                        "ĐỦ nghĩa là đúng tại T trong phạm vi ô, không khẳng định nguồn không đổi sau T"},
+            "note": "Nhãn = ô kém nhất câu hỏi cần (CT4). Vắng cạnh ≠ không có quan hệ trừ khi mọi ô cần ĐỦ. Giấy là bằng chứng kiểm định, "
+                    "không phải chứng thư mật mã."}
+     try:
+@@ -1659,23 +2276,30 @@
+         doc = doc if doc is not None else jload(CURRENT)
+         if not cat:
+             lab["reason"] = "CATALOG_MISSING"
++            lab["missing_or_unknown_cell_ids"] = ["*"]
+             return lab
+         eff, why = effective(doc, now)
+         if doc and isinstance(doc, dict):
+             lab["evidence"].update(manifest_self_sha256=doc.get("self_sha256"), generated_at=doc.get("generated_at"),
+-                                   graph_snapshot=(doc.get("graph_snapshot") or {}).get("gs_keys_sha256"))
++                                   graph_snapshot=(doc.get("graph_snapshot") or {}).get("gs_keys_sha256"), engine_sha256=doc.get("engine_sha256"))
+         if why:
+             lab["reason"] = why
+             lab["missing_or_unknown_cell_ids"] = ["*"]
+             return lab
++        fence = graph_fence(doc, live, lock_state)               # K1: phiên bản Graph sống phải trùng mốc trong giấy
++        lab["graph_revision"] = fence
++        if fence["status"] != "MATCH":
++            eff = {k: (MP, fence["status"], None, None) for k in eff}
+         if tool == "get-schema":
+             lab.update(query_class="GRAPH_SCHEMA", reason="lược đồ Graph không phải khẳng định đủ về nguồn", relevant_cell_ids=["directory:g1-g9"],
+                        missing_or_unknown_cell_ids=sorted(k for k, v in eff.items() if v[0] != DU))
++            lab["list_meta"] = {"relevant_cell_ids": _meta(lab["relevant_cell_ids"]), "missing_or_unknown_cell_ids": _meta(lab["missing_or_unknown_cell_ids"])}
+             return lab
+         q = (arguments or {}).get("query") or (arguments or {}).get("cypher") or ""
+         qc, need, reason = classify_query(q, cat)
+         params = (arguments or {}).get("params") if isinstance((arguments or {}).get("params"), dict) else {}
+-        anchor, shape_ok = _l1_parse(q, params, cat)
++        page = params.get("n4_page")
++        anchor, shape_ok = _l1_parse(q, {k: v for k, v in params.items() if k != "n4_page"}, cat)
+         if qc == "CELL_SCOPED_LOOKUP" and anchor and shape_ok:
+             qc, need = "L1_SCOPED_LOOKUP", ["l1:" + anchor]
+         lab["query_class"] = qc
+@@ -1685,9 +2309,14 @@
+         miss = sorted(k for k in need if eff.get(k, (MP,))[0] != DU)
+         lab["relevant_cell_ids"] = need
+         lab["missing_or_unknown_cell_ids"] = miss
+-        lab["source_scope"] = sorted({(c.get("scope") or c["key"]) for c in cat["cells"] if c["key"] in need})[:12]
++        lab["source_scope"] = sorted({(c.get("scope") or c["key"]) for c in cat["cells"] if c["key"] in need})
+         lab["trust"] = sorted({c.get("trust", "EXACT_AT_SNAPSHOT") for c in cat["cells"] if c["key"] in need})
+-        lab["layers"] = layers_for(qc, need, eff, anchor, now)
++        lab["layers"], lists = layers_for(qc, need, eff, anchor, now, page=page, with_lists=True)
++        lab["list_meta"] = dict({"relevant_cell_ids": _meta(need), "missing_or_unknown_cell_ids": _meta(miss), "source_scope": _meta(lab["source_scope"]),
++                                 "trust": _meta(lab["trust"]), "layers.L1.reasons": _meta(lab["layers"]["L1"].get("reasons") or [])}, **lists)
++        if page and not anchor:
++            lab["layers"]["L2"]["paging"] = {"requested": str(page)[:120], "accepted": False,
++                                             "denied": "CURSOR_SCOPE_MISMATCH (truy vấn không neo vào bảng mẫu L1)"}
+         if qc in ("CELL_SCOPED_LOOKUP", "L1_SCOPED_LOOKUP") and not miss:
+             iss = [eff[k][2] for k in need]
+             exp = [eff[k][3] for k in need]
+@@ -1698,35 +2327,44 @@
+             lab["reason"] = reason or ("ô chưa ĐỦ: " + ", ".join(miss[:8]) + ("…" if len(miss) > 8 else ""))
+             if result_rows == 0:
+                 lab["reason"] += "; kết quả rỗng KHÔNG chứng minh vắng quan hệ"
++        if fence["status"] != "MATCH":
++            lab["reason"] = "%s · %s · %s" % (fence["status"], fence.get("why"), lab.get("reason") or "")
+         return lab
+     except Exception as e:  # noqa: BLE001
++        lab.update(completeness_label=MP, query_actionability=ACT_NO, proof_issued_at=None, expires_at=None)
+         lab["reason"] = "LABEL_ENGINE_ERROR %s" % type(e).__name__
+         lab["missing_or_unknown_cell_ids"] = ["*"]
+         return lab
+ 
+ 
+ # =========================================================================== CT5 — đèn + biên nhận sự cố
+-def alarm(doc, op_failure=None, now=None, baseline=None):
+-    """⇒ (status 'up'|'down', msg ≤ 200, incidents[]). CT5 (Owner): đèn xuống khi máy không chạy được hoặc ô TỤT KHỞİ ĐỦ so với mốc.
+-    Gọi trang (DOWN): OPERATIONAL (lượt bỏ qua, máy/giấy lỗi, bộ đọc từng đọc được nay hỏng, cửa không đọc được) · COVERAGE_REGRESSION
+-    (ô thuộc sàn certified_floor không còn ĐỦ — gồm hết hạn) · NEW_SOURCE_UNHANDLED / SOURCE_VANISHED ở cửa G1–G9.
+-    Không gọi trang, chỉ biên nhận + nêu tên trong tin: ô MỘT PHẦN chưa được Host nhận mốc (PENDING_HOST_ACK). Mốc chỉ dập tin trùng —
+-    không bao giờ làm ô xanh."""
++SEVERITY = {"OPERATIONAL": "critical", "COVERAGE_REGRESSION": "critical", "NEW_SOURCE_UNHANDLED": "warning", "SOURCE_VANISHED": "warning",
++            "PENDING_HOST_ACK": "warning", "SOURCE_CHANGE": "info"}
++
++
++def alarm(doc, op_failure=None, now=None, baseline=None, prev_open=None):
++    """⇒ (status 'up'|'down', msg ≤ 200, incidents[]). CT5 + C1-C (kiểu Alertmanager: mức · dập trùng · nhắc lại):
++    ĐỎ critical — gọi trang (DOWN) MỌI lượt tới khi hết: OPERATIONAL (lượt bỏ qua, máy/giấy lỗi, bộ đọc ô/kiểm kê hỏng, cửa không đọc được)
++       · COVERAGE_REGRESSION (ô sàn certified_floor không còn ĐỦ — gồm hết hạn, Graph đổi giữa lượt).
++    VÀNG warning — máy kiểm chạy tốt nhưng bao phủ chưa bảo đảm: NEW_SOURCE_UNHANDLED / SOURCE_VANISHED (cả 9 cửa) · PENDING_HOST_ACK (ô MỘT
++       PHẦN chưa nhận mốc). Gọi trang ĐÚNG MỘT lượt khi mã sự cố xuất hiện (Telegram), sau đó UP kèm danh sách vàng mở; nhắc lại khi quá
++       yellow_repeat_hours (mốc, mặc định 168h). Nhãn N4 vẫn MỘT PHẦN suốt thời gian vàng mở.
++    GHI SỔ info — SOURCE_CHANGE: thay đổi con trong họ đã nhận MỘT PHẦN (thêm/sửa/xoá) — biên nhận + nêu trong tin, không gọi trang.
++    Mốc chỉ dập tin trùng — không bao giờ làm ô xanh."""
+     now = time.time() if now is None else now
+     baseline = baseline if baseline is not None else (jload(BASELINE) or {})
++    prev_open = prev_open if prev_open is not None else ((jload(ALARM_STATE, {}) or {}).get("open") or {})
++    repeat_s = float(baseline.get("yellow_repeat_hours") or YELLOW_REPEAT_H) * 3600
+     acc = {k: v for k, v in (baseline.get("accepted_partial") or {}).items()
+            if not v.get("accepted_until") or (parse_iso(v["accepted_until"]) or 0) > now}   # ACK có hạn: hết hạn ⇒ lại chờ Host
+     floor = set(baseline.get("certified_floor") or [])
+-    acc_parents = set(baseline.get("accepted_directory_parents") or [])
+-    record_only = set(baseline.get("record_only_gates") or [])
+-    ephemeral = [re.compile(x) for x in baseline.get("ephemeral_parent_patterns") or []]
+     inc = []
+     if op_failure:
+-        inc.append({"kind": "OPERATIONAL", "cell": "graph-refresh", "reason": op_failure, "page": True})
++        inc.append({"kind": "OPERATIONAL", "cell": "graph-refresh", "reason": op_failure})
+     if doc is not None:
+         ok, why = verify_manifest(doc, now)
+         if not ok:
+-            inc.append({"kind": "OPERATIONAL", "cell": "manifest", "reason": why, "page": True})
++            inc.append({"kind": "OPERATIONAL", "cell": "manifest", "reason": why})
+         else:
+             eff = effective(doc, now)[0]
+             for k, c in doc["cells"].items():
+@@ -1734,48 +2372,84 @@
+                 reasons = "; ".join(c.get("reasons") or [])[:120] or (eff.get(k, (MP, ""))[1] or "")
+                 failed = not c.get("reader_pass") and str((c.get("reasons") or [""])[0]).startswith("READER_FAIL")
+                 if failed and (k in floor or (acc.get(k) or {}).get("reader_pass") or (k not in acc and k not in floor)):
+-                    inc.append({"kind": "OPERATIONAL", "cell": k, "reason": "bộ đọc hỏng: " + reasons, "page": True})
++                    inc.append({"kind": "OPERATIONAL", "cell": k, "reason": "bộ đọc hỏng: " + reasons})
+                 elif k in floor and st_ != DU:
+-                    inc.append({"kind": "COVERAGE_REGRESSION", "cell": k, "reason": reasons or "không còn ĐỦ", "page": True})
++                    inc.append({"kind": "COVERAGE_REGRESSION", "cell": k, "reason": reasons or "không còn ĐỦ"})
+                 elif st_ != DU and k not in acc and k not in floor:
+-                    inc.append({"kind": "PENDING_HOST_ACK", "cell": k, "reason": reasons, "page": False})
++                    inc.append({"kind": "PENDING_HOST_ACK", "cell": k, "reason": reasons})
+             for k in sorted(floor - set(doc["cells"])):
+-                inc.append({"kind": "COVERAGE_REGRESSION", "cell": k, "reason": "ô sàn vắng trong giấy", "page": True})
++                inc.append({"kind": "COVERAGE_REGRESSION", "cell": k, "reason": "ô sàn vắng trong giấy"})
+             d = doc.get("directory") or {}
+             for e in d.get("errors") or []:
+-                inc.append({"kind": "OPERATIONAL", "cell": "directory", "reason": "GATE_READ_FAIL " + e, "page": True})
++                inc.append({"kind": "OPERATIONAL", "cell": "directory", "reason": "GATE_READ_FAIL " + e})
+             for x in d.get("new_source_unhandled") or []:
+-                inc.append({"kind": "NEW_SOURCE_UNHANDLED", "cell": "directory", "reason": x, "page": True})
++                inc.append({"kind": "NEW_SOURCE_UNHANDLED", "cell": "directory:" + _gate_of(x), "reason": x})
+             for x in d.get("vanished") or []:
+-                inc.append({"kind": "SOURCE_VANISHED", "cell": "directory", "reason": x, "page": True})
+-            for g, xs in (d.get("parents") or {}).items():
+-                if g in record_only or not acc_parents:
+-                    continue
+-                for x in xs:
+-                    if x not in acc_parents and not any(e.search(x) for e in ephemeral):
+-                        inc.append({"kind": "NEW_SOURCE_UNHANDLED", "cell": "directory:" + g, "reason": x, "page": True})
+-                for x in sorted({y for y in acc_parents if y.startswith(_gate_prefix(g))} - set(xs)):
+-                    inc.append({"kind": "SOURCE_VANISHED", "cell": "directory:" + g, "reason": x, "page": True})
++                inc.append({"kind": "SOURCE_VANISHED", "cell": "directory:" + _gate_of(x), "reason": x})
++            for g, m in sorted((doc.get("coverage_matrix") or {}).items()):
++                if m.get("status") == "READER_FAILED" and m.get("reader_errors"):
++                    inc.append({"kind": "OPERATIONAL", "cell": "inventory:" + g, "reason": "bộ đọc kiểm kê hỏng: " + "; ".join(m["reader_errors"])[:100]})
++                ch = m.get("change_since_last_good") or {}
++                if ch.get("total_changes"):
++                    parts = ["%s%s%d" % (k, t, n) for t, dd in (("+", ch.get("added")), ("-", ch.get("removed")), ("~", ch.get("modified"))) for k, n in sorted((dd or {}).items())]
++                    inc.append({"kind": "SOURCE_CHANGE", "cell": "inventory:" + g, "reason": "%s %s" % (m.get("family"), " ".join(parts))[:120],
++                                "samples": ch.get("samples") or []})
+     for i in inc:
+         i.setdefault("owner", OWNER)
+-        i["id"] = hashlib.sha256(("%s|%s|%s" % (i["kind"], i["cell"], re.sub(r"\d+", "#", i["reason"]))).encode()).hexdigest()[:10]
+-    pages = [i for i in inc if i["page"]]
+-    pend = [i["cell"] for i in inc if i["kind"] == "PENDING_HOST_ACK"]
+-    tail = (" · chờ Host nhận mốc: " + ", ".join(pend[:4]) + ("…" if len(pend) > 4 else "")) if pend else ""
+-    if not pages:
+-        s = (doc or {}).get("summary") or {}
+-        return "up", ("OK ĐỦ %s/%s ô · sàn %d giữ ĐỦ · MỘT PHẦN đã nhận mốc %d%s" % (s.get("du"), s.get("cells"), len(floor), len(acc), tail))[:200], inc
+-    kinds = sorted({i["kind"] for i in pages})
+-    msg = "%s: %s" % ("+".join(kinds), "; ".join("%s %s" % (i["cell"], i["reason"][:40]) for i in pages[:4]))
+-    return "down", (msg + tail)[:200], inc
++        i["severity"] = SEVERITY.get(i["kind"], "critical")
++        key = i["reason"] if i["kind"] in ("NEW_SOURCE_UNHANDLED", "SOURCE_VANISHED") else re.sub(r"\d+", "#", i["reason"])   # danh tính nguồn: KHÔNG gộp chữ số
++        i["id"] = hashlib.sha256(("%s|%s|%s" % (i["kind"], i["cell"], key)).encode()).hexdigest()[:10]
++        p = prev_open.get(i["id"]) or {}
++        if i["severity"] == "critical":
++            i["page"] = True
++        elif i["severity"] == "warning":
++            last = parse_iso(p.get("last_paged_at") or p.get("first_seen")) if p else None
++            i["page"] = not p or last is None or now - last >= repeat_s
++            i["page_reason"] = "NEW" if not p else ("REPEAT_DUE" if i["page"] else "ALREADY_NOTIFIED")
++        else:
++            i["page"] = False
++    crit = [i for i in inc if i["page"] and i["severity"] == "critical"]
++    warn_new = [i for i in inc if i["page"] and i["severity"] == "warning"]
++    yellow = [i for i in inc if i["severity"] == "warning"]
++    info = [i for i in inc if i["severity"] == "info"]
++    ytail = (" · VÀNG mở %d: %s" % (len(yellow), _group(yellow, 3))) if yellow else ""
++    itail = (" · Δnguồn " + " ".join(i["cell"].split(":", 1)[1] + ":" + i["reason"].split(" ", 1)[-1][:24] for i in info[:3])) if info else ""
++    if crit:
++        kinds = sorted({i["kind"] for i in crit})
++        msg = "ĐỎ %s: %s" % ("+".join(kinds), "; ".join("%s %s" % (i["cell"], i["reason"][:40]) for i in crit[:3]))
++        return "down", (msg + ytail)[:200], inc
++    if warn_new:
++        msg = "VÀNG MỚI %d (máy kiểm chạy tốt, bao phủ chưa bảo đảm): %s" % (len(warn_new), _group(warn_new, 4))
++        return "down", msg[:200], inc
++    s = (doc or {}).get("summary") or {}
++    return "up", ("OK máy kiểm chạy · ĐỦ %s/%s ô · sàn %d giữ ĐỦ%s%s" % (s.get("du"), s.get("cells"), len(floor), ytail, itail))[:200], inc
++
++
++def _group(items, n):
++    """Gom sự cố theo ô/cửa: «directory:G3 ×9 (incomex-hjwcap.service…)» — tin Telegram ≤200 ký tự vẫn đọc được."""
++    gs = {}
++    for i in items:
++        gs.setdefault(i["cell"], []).append(i)
++    one = lambda i: (i["reason"].split(":", 1)[-1] if i["kind"] in ("NEW_SOURCE_UNHANDLED", "SOURCE_VANISHED") else i["reason"])[:34]
++    parts = ["%s ×%d (%s…)" % (c, len(v), one(v[0])) if len(v) > 1 else "%s %s" % (c if v[0]["kind"] != "PENDING_HOST_ACK" else c, one(v[0]))
++             for c, v in sorted(gs.items(), key=lambda kv: (-len(kv[1]), kv[0]))]
++    return "; ".join(parts[:n]) + (" …+%d nhóm" % (len(parts) - n) if len(parts) > n else "")
++
++
++def _gate_of(parent):
++    for g, pre in GATE_PREFIX.items():
++        if str(parent).startswith(pre):
++            return g
++    return "G?"
+ 
+ 
+ def _gate_prefix(g):
+-    return {"G1": "pg:", "G2": "docker:", "G3": "systemd:", "G4": "cron:", "G5": "nginx:", "G6": "opt:", "G7": "qdrant:", "G8": "lark:", "G9": "git:"}[g]
++    return GATE_PREFIX[g]
+ 
+ 
+ def record_incidents(inc, now=None):
+-    """Biên nhận sự cố máy đọc được (sổ tin báo của ô): mỗi mã mới ⇒ một dòng OPEN; mã biến mất ⇒ RESOLVED. ⇒ (mới, đã hồi)."""
++    """Biên nhận sự cố máy đọc được (sổ tin báo của ô): mỗi mã mới ⇒ một dòng OPEN; mã biến mất ⇒ RESOLVED; lượt gọi trang của sự cố VÀNG
++    ⇒ ghi last_paged_at (dập trùng/nhắc lại). ⇒ (mới, đã hồi)."""
+     now = time.time() if now is None else now
+     os.makedirs(CERT_DIR, mode=0o750, exist_ok=True)
+     st = jload(ALARM_STATE, {}) or {}
+@@ -1788,7 +2462,18 @@
+             f.write(json.dumps(dict(i, event="OPEN", at=now_iso(now)), ensure_ascii=False) + "\n")
+         for i in gone:
+             f.write(json.dumps(dict(i, event="RESOLVED", at=now_iso(now)), ensure_ascii=False) + "\n")
+-    st = {"open": {k: dict(v, first_seen=(open_.get(k) or {}).get("first_seen") or now_iso(now)) for k, v in cur.items()}, "updated_at": now_iso(now)}
++        for i in inc:
++            if i.get("page") and i.get("severity") == "warning" and i["id"] in open_:
++                f.write(json.dumps(dict(i, event="REPEAT", at=now_iso(now)), ensure_ascii=False) + "\n")
++    keep = {}
++    for k, v in cur.items():
++        o = open_.get(k) or {}
++        e = dict(v, first_seen=o.get("first_seen") or now_iso(now))
++        lp = now_iso(now) if v.get("page") else o.get("last_paged_at")
++        if lp:
++            e["last_paged_at"] = lp
++        keep[k] = e
++    st = {"open": keep, "updated_at": now_iso(now)}
+     tmp = ALARM_STATE + ".tmp"
+     with open(tmp, "w", encoding="utf-8") as f:
+         json.dump(st, f, ensure_ascii=False, indent=1)
+@@ -1808,6 +2493,8 @@
+     s.add_argument("--out")
+     s.add_argument("--mb-ids-out")
+     sub.add_parser("status")
++    sub.add_parser("fence")
++    sub.add_parser("coverage")
+     s = sub.add_parser("label")
+     s.add_argument("--query", default="")
+     s.add_argument("--rows", type=int)
+@@ -1825,6 +2512,15 @@
+         eff, why = effective(jload(CURRENT))
+         print(json.dumps({"why": why, "cells": {k: v[0] + ((" · " + v[1]) if v[1] else "") for k, v in sorted(eff.items())}}, ensure_ascii=False, indent=1))
+         return 0
++    if a.cmd == "fence":
++        f = graph_fence(jload(CURRENT))
++        print(json.dumps(f, ensure_ascii=False, indent=1))
++        return 0
++    if a.cmd == "coverage":
++        d = jload(CURRENT) or {}
++        print(json.dumps({"generated_at": d.get("generated_at"), "engine_version": d.get("engine_version"), "directory": {k: (d.get("directory") or {}).get(k)
++                          for k in ("status", "new_source_unhandled", "vanished", "errors")}, "coverage_matrix": d.get("coverage_matrix")}, ensure_ascii=False, indent=1))
++        return 0
+     if a.cmd == "label":
+         print(json.dumps(label_for(a.tool, {"query": a.query, "params": json.loads(a.params)}, a.rows), ensure_ascii=False, indent=1))
+         return 0
