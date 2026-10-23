@@ -1,23 +1,20 @@
 # COLLAB — nhap-directus-for-workflow
-Tên việc: Sổ + trang chủ cho cỗ máy sản xuất quy trình — làm trên vùng nháp Directus, phần đã chốt lên PG thật y như nháp
+Tên việc: Mọi sổ của cỗ máy sản xuất quy trình nằm trong Directus — sửa 1 dòng tính bằng phút, dùng lại được cho thật, không làm 2 lần
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: ĐÃ GIAO rà/bổ sung task và bắt đầu thiết kế lại trang chủ/khu vực nháp, Codex làm Host (23/10/2026, P06). Các đề xuất triển khai production trong ô 2 và 3.0 chưa tự động được duyệt.
+Xác nhận User: ĐÃ XÁC NHẬN — Owner 23/10/2026: lập việc + ô 1 (14:37, 15:02, 16:49); giao Codex làm Host (P06); 17:03 chốt hướng: «bây giờ bạn hiểu vấn đề rồi thì bạn sửa lại cái yêu cầu trên task để làm đúng vấn đề đi» (3.00). Ô 2 và mọi việc ghi production vẫn chờ Owner gật từng việc.
 Host: Codex · Owner chỉ định trực tiếp 23/10/2026: «bạn làm host việc này nhé». Claude Chat là Host vòng trước.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-23 · Codex Host · P06
-- 🔴 Mới nhất P09 · 23/10 16:58 · Claude ghi (Host vẫn là Codex): Owner 16:49 bác cách chép HTML — «chuyển đống rác từ chỗ này sang chỗ khác»; thước đo = thời gian cho 1 việc (3.00). Claude đề xuất P09: không chép thêm dữ liệu vào HTML · HTML cũ chỉ là nguyên liệu rút 1 lần · dữ liệu vào collection `nhap_` qua DOT · song song với khuôn trang chủ Codex đang làm theo UI cha · sửa 1 công thức ≤ 5 phút. ➡ 😊 Owner gật/lắc P09 → Host Codex soạn 1 lệnh. NEXT_TRIGGER=OWNER_GAT_P09
-- Hiện hành P06: đã ghi chỉ đạo vào repo commit 6276be1c; đã sửa giao diện tại nhap-directus/home.html, version f2560091 và mở kiểm bố cục trên trình duyệt. Đây vẫn là bản vẽ có dữ liệu mẫu/link bảng cũ, chưa là ứng dụng diễn tập. Chưa kiểm kê DOT đầy đủ, chưa đọc/rà hết nội dung công thức, chưa dựng collection, chưa move SSOT. Kế tiếp: đọc đủ công thức + kiểm kê DOT, lập bản đồ nguồn/đích và dựng chuỗi mẫu qua DOT.
-- Các dòng P05 dưới đây giữ để truy vết vòng trước; không dùng làm trạng thái hiện hành.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-23 17:15 +07 · Claude (Owner giao sửa yêu cầu 17:03; Host vẫn là Codex) · P10
+- 🎯 Mục tiêu: ô 1 — mọi sổ của cỗ máy sản xuất quy trình vào Directus, ghi bằng DOT. Vì sao: bảng lớn dần, 1 việc mất cả tiếng là không chấp nhận; Directus nhẹ, dùng lại được, không làm 2 lần (Owner 16:49).
+- 🏁 Xong khi: ô 2 (8 dòng, đề xuất P10 — chờ Owner gật).
+- 📍 Tiến độ: [✅ B0 Chốt hướng] → [■ B1 Bảng DOT] → [□ B2 DOT áp chung] → [□ B3 Sổ của các sổ] → [□ B4 Công thức · 43 câu · MMOW] → [□ B5 Trang chủ đọc collection] → [□ B6 Chạy thử 1 vòng] → [□ B7 Lên thật từng sổ]
+- ✅ Đã xong: B0 — Owner 16:49 + 17:03 chốt hướng (3.00): dữ liệu vào Directus bằng DOT, HTML chỉ là nguyên liệu, bảng đầu tiên = Bảng DOT · B1-a kiểm kê phía tệp (3.01): đã có sổ đĩa 251 DOT và bảng `dot_tools` trong Directus, nhưng bảng lệch đĩa · Trước đó (P01–P09): khung việc, quy chuẩn vùng nháp 3.4, Một nhà 3.5, bản vẽ HTML (đã dừng).
+- ■ Đang làm: Bước B1 Bảng DOT · — · 0 RUN active · song song: Codex chỉnh khuôn trang chủ theo UI cha (Owner giao Codex, mục «Hiện hành» dưới).
+- ⬜ Còn lại: B1-b khảo sát Directus/PG chỉ đọc → B1-c Owner gật cách đưa vào → B1-d DOT đồng bộ + «?» + Điều 30/31 → B2 → B3 → B4 → B5 → B6 → B7.
+- ➡ Kế tiếp: 😊 Owner gật 3.01 (Bảng DOT = `dot_tools` đang có; nguồn = file DOT trên đĩa; không xoá dòng) → Claude soạn 1 lệnh khảo sát chỉ đọc B1-b → Host Codex READY + GPT ACCEPT → 😊 Owner dán → 🤖 Claude Code. NEXT_TRIGGER=OWNER_GAT_3_01
+- ⛔ Không làm: AI chạm thẳng Directus/PG (kể cả đọc) · vẽ/chép/move dữ liệu vào HTML · gõ tay vào Directus (kể cả Owner) · xoá dòng `dot_tools` · ghi production khi Owner chưa duyệt · trang viết riêng cho từng bảng · sửa MBM khi chưa xin phép · tạo tệp ngoài COLLAB khi Owner chưa gật.
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ■ · ⬜ · ➡.
-- 🎯 Mục tiêu: ô 1. Vì sao: mọi thứ có sổ, mỗi thông tin 1 nhà ⇒ người và máy nhìn cùng một thứ; chỉnh trên nháp cho nhanh, chốt phần nào lên thật phần đó.
-- 🏁 Xong khi: ô 2 (đề xuất — chờ Owner gật).
-- 📍 Tiến độ: [■ L0 Chốt khung + bản vẽ] → [□ L1 Kiểm kê] → [□ L2 Vòng mẫu: 1 sổ + trang thật] → [□ L3 Mở rộng sổ] → [□ L4 Đưa phần đã chốt lên sổ] → [□ L5 Chạy thử 3 nhóm] → [□ L6 Lên thật từng sổ]
-- ✅ Đã xong: P01 tạo task · P02 ô 1 thêm mục 5–7, lộ trình, trang chủ, sổ, quy chuẩn vùng nháp, Một nhà · P03 GPT rà: đồng thuận + 5 điểm · P04 Host nhận đủ 5 điểm + bản vẽ trang chủ https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/nhap-directus/home.html (đã mở kiểm: cây, bảng toàn link, «?», ⌂, 0 lỗi console) · P05 bản vẽ v2 theo Owner 16:02: 2 cột có viền, cây mẹ ngoài con trong, bấm là ra ngay bảng, trang chủ = cây tổng.
-- ■ Đang làm: L0 · chờ Owner xem bản vẽ v2 + gật 3.0 · 0 RUN active
-- ⬜ Còn lại: L1 → L2 → L3 → L4 → L5 → L6 (L3–L6 lặp theo từng sổ).
-- ➡ Kế tiếp: 😊 Owner xem bản vẽ v2, góp ý + gật 3.0 → Host soạn 1 lệnh Claude Code cho L1 (chỉ đọc, qua DOT) → GPT ACCEPT → Owner dán. NEXT_TRIGGER=OWNER_XEM_BAN_VE_GAT_3_0
-- ⛔ Không làm: AI chạm thẳng Directus/PG (kể cả đọc) · gõ tay vào Directus (kể cả Owner) · ghi vào production khi sổ chưa chốt hoặc phần chênh chưa duyệt · trang viết riêng cho từng bảng · sửa MBM khi chưa xin phép · tạo tệp ngoài COLLAB khi Owner chưa gật.
 
 ### Hiện hành · Owner yêu cầu chỉ chỉnh giao diện trang chủ theo UI cha
 Owner: «Kiểm tra lại danh sách UI cha. Thiết kế đúng theo cái đó, đừng tự sáng tạo ra concept mới… tạm thời cho giao diện trang chủ đã!»
@@ -27,6 +24,7 @@ Owner: «Kiểm tra lại danh sách UI cha. Thiết kế đúng theo cái đó,
 - Phạm vi tiếp theo theo chỉ đạo Owner; không tự mở rộng từ giao diện trang chủ sang thiết kế khác.
 
 ### P07 · Owner: tập hợp nguyên bản, tiếp cận nhanh
+⚠ Owner 16:49 + 17:03 (3.00): copy/move tệp HTML Công thức không tính là tiến độ; Công thức vào collection ở B4. Tệp đã copy giữ nguyên, không xoá.
 Chỉ đạo mới: cột trái rộng hơn, dòng dày hơn, khe giữa hai cột hẹp hơn; ít tầng/click; phần đã làm phải giữ nguyên, không thiết kế lại. Bắt đầu từ Công thức, copy 100% cả ghi chú, xổ/thu và tương tác. Collection phục vụ thiết kế những phần mới nhanh hơn.
 - Đã sửa home hiện hữu: trái 30% (tối thiểu 320px trên màn rộng), khe 8px, dòng tối thiểu 28px thay 40px; giảm thụt tầng; bỏ tự mở tab MBM.
 - Đã copy nguyên tệp ban-duyet.html sang `ui/nhap-directus/cong-thuc.html`, SHA-256 cả nguồn và đích = `9c0e161e2a6fc8bf71deabe86e8ca711ef9b24aa6b58e3baffaf9bb29361e28f`. Giữ nguyên toàn bộ tệp để không mất CSS/script/ghi chú/hành vi; home mở thẳng phần Công thức trong tệp này, không lồng trang Task. Các tài nguyên dùng chung vẫn đọc đường gốc như nguyên bản.
@@ -34,6 +32,7 @@ Chỉ đạo mới: cột trái rộng hơn, dòng dày hơn, khe giữa hai c�
 - Bản trung gian trong task này đã bỏ nội dung trùng, chỉ giữ đường dẫn tới ứng viên trong xưởng. Danh mục tệp: COLLAB quản lý yêu cầu/trạng thái; ban-duyet.html chỉ dẫn bản đối chiếu; xưởng nhap-directus/home.html là cửa vào, cong-thuc.html là bản copy nguyên vẹn. Còn mở: kiểm đủ tương tác, nguồn chuẩn và DOT/collection.
 
 ### Chỉ đạo hiện hành P06 · Owner 23/10/2026 · ưu tiên hơn các đề xuất P01–P05
+⚠ Owner 16:49 + 17:03 (3.00) đổi cách làm: không vẽ/chép/move HTML; dữ liệu vào Directus bằng DOT; bước đầu = Bảng DOT (3.01). Các ý P06 còn giữ: thiết kế như thật, diễn tập như thật · Masterlist và DOT quản lý bằng collection · mỗi bước ánh xạ DOT · quy trình chuyển SSOT.
 Owner giao Codex rà và bổ sung task, bắt đầu thiết kế lại trang chủ và khu vực nháp. Phạm vi này đã được giao trực tiếp; không coi các dòng chờ gật cũ là yêu cầu hỏi lại để bắt đầu thiết kế. Chưa đồng nghĩa duyệt triển khai PG production.
 - Mục tiêu Owner: «Mục tiêu của khu vực nhá không phải là liệt kê. Mục tiêu là thiết kế như thật và diễn tập như thật, chỉ là chưa kết nối vào với PG thôi.»
 - Nguồn chuẩn Owner: «phải dùng từ move (tức là xóa bản gốc sau khi bản mới tại chỗ này đã ok)».
@@ -51,7 +50,7 @@ Owner giao Codex rà và bổ sung task, bắt đầu thiết kế lại trang c
 **Trạng thái P06:** đang rà nguồn và sửa bản vẽ hiện hữu; chưa dựng collection, chưa chuyển nguồn, chưa chạy diễn tập. Kế tiếp: kiểm kê DOT/nguồn chuẩn, hoàn thiện bản vẽ rồi triển khai một chuỗi mẫu qua DOT. JEV tham khảo chuyển nguồn: gen-dec-1792747951-vNbtJ4mEH3OdcuIx7j71; không thay kiểm chứng.
 
 ### 1. Mục tiêu
-Tình trạng: Owner viết 23/10/2026 14:37 (mục 1–4, Lưu ý) và 15:02 (mục 5–7). Chỉ sửa chính tả, giữ ý. Chờ Owner xác nhận.
+Tình trạng: Owner viết 23/10/2026 14:37 (mục 1–4, Lưu ý), 15:02 (mục 5–7), 16:49 (mục 8). Chỉ sửa chính tả, giữ ý. Owner xác nhận hướng 17:03 (3.00).
 1. Tạo task mới work/nhap-directus-for-workflow, dùng để thiết lập các quy trình: 1. Chế tạo cỗ máy sản xuất quy trình 2. Vận hành cỗ máy sản xuất quy trình 3. Các quy trình do cỗ máy sản xuất quy trình tạo ra.
 2. Mục tiêu hoàn thiện quy trình, thiết kế và thiết lập chuẩn các khuôn UI, collection chuẩn để sau này thiết lập chuẩn trên PG => Collections.
 3. Những gì làm bây giờ là nháp => cần xoá đi dễ dàng, nhưng thiết lập để dùng lại những thứ nháp này tối đa và nhanh nhất (nháp sau khi ok => đưa ra làm thật đúng như vậy).
@@ -59,26 +58,65 @@ Tình trạng: Owner viết 23/10/2026 14:37 (mục 1–4, Lưu ý) và 15:02 (m
 5. Trọng tâm: mọi thứ có sổ => sẽ đảm bảo được thành công.
 6. Nguyên tắc đối tượng là SSOT: mỗi việc kiểm soát 1 nơi ghi gốc, chỉ cho phép ghi ở đó; những nơi khác chỉ được thiết kế đọc lại SSOT (nếu được thì khoá quyền ghi, chỉ cho phép đọc) để 1 thông tin không có 2 nguồn sự thật.
 7. Người và máy có cùng tư duy: collection thiết kế thế nào => hiển thị ra đúng như vậy. Kiểm soát độ phức tạp để không trở thành đống rác tiếp theo.
+8. Giới hạn hiện nay là thời gian: bảng lớn dần, làm 1 việc mất cả tiếng là không chấp nhận được. Chuyển sang Directus vì hệ thống nhẹ, nhanh, và quan trọng nhất là sau này dùng lại được — đỡ phải làm 2 lần. Không đi làm lại đống cũ.
 Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều chỉnh cho nhanh, vừa triển khai những phần đã chốt lên PG để làm thật (2 quá trình song song).
 
 ### 2. Thế nào là hoàn thành
-Đề xuất của Host — chờ Owner gật.
-1. Mọi sổ của cỗ máy có đúng 1 dòng trong Sổ của các sổ; mỗi sổ là 1 collection có «?» ở bảng và ở từng cột.
-2. Vùng nháp theo đúng quy chuẩn 3.4: lọc 1 lần ra hết; xoá cả vùng bằng 1 lệnh DOT rồi dựng lại ra y hệt; production không đổi gì.
-3. Trang chủ chạy trên VPS: cây bên trái, bảng bên phải, nút về trang chủ ở mọi trang, mã nào cũng bấm được; thêm 1 sổ mới không phải viết thêm dòng mã giao diện nào.
-4. Mỗi thông tin chỉ ghi được ở 1 nhà; ghi vào chỗ khác bị chặn; chỗ khác chỉ hiện lại.
-5. Chạy thử trọn 1 vòng trên nháp: MBM sinh MMOW 007, MMOW 007 chạy trên 1 MOW, ra 1 hồ sơ đủ ký.
-6. Ít nhất 1 sổ đã chốt được đưa lên production y như nháp: cùng tệp khai báo, cùng DOT, chỉ khác vùng; đã vào lớp bảo vệ Điều 30/31.
-7. Mọi thao tác Directus và PG đi qua DOT. AI thao tác trực tiếp: 0 lần.
+Đề xuất P10 (Claude, theo 3.00) — chờ Owner gật. Bản 7 dòng P02: commit `181af945`.
+1. Mọi sổ của cỗ máy là 1 collection Directus, có đúng 1 dòng trong Sổ của các sổ; bảng và từng cột có «?».
+2. Thêm/sửa 1 dòng của bất kỳ sổ nào ≤ 5 phút, từ lúc Owner nói tới lúc thấy trong Directus; bảng to hay nhỏ như nhau.
+3. Bảng DOT khớp đĩa 100%: 0 lệnh sống vắng mặt · 0 sha lệch · dòng không còn file có cờ, không xoá; cập nhật bằng 1 lệnh DOT. Mỗi bước quy trình ghi «DOT nào áp» bằng mã trong bảng này.
+4. Mỗi thông tin chỉ ghi được ở 1 nhà; ghi chỗ khác bị chặn; chỗ khác chỉ hiện lại.
+5. Collection mới chưa chốt mang tiền tố `nhap_` (3.4): lọc 1 lần ra hết; lên thật = cùng tệp khai báo, cùng DOT, Owner duyệt từng sổ + Điều 30/31.
+6. Trang chủ cây trái – bảng phải đọc thẳng collection; thêm 1 sổ = 0 dòng mã giao diện.
+7. Chạy thử trọn 1 vòng: MBM sinh MMOW 007 → chạy trên 1 MOW → 1 hồ sơ đủ ký.
+8. AI thao tác trực tiếp Directus/PG: 0 lần · dữ liệu chép mới vào HTML: 0.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
-#### 3.00 Chỉ đạo Owner 16:49 — thời gian, Directus, không làm lại đống cũ
-- Lời Owner: «Thế thì các bạn đang chuyển đống rác từ chỗ này sang chỗ khác. Tại sao lại đặt vấn đề ở đó là Nháp? Giới hạn hiện nay là thời gian: khi các bảng bắt đầu lớn, thực hiện được 1 việc các bạn mất cả tiếng đồng hồ. Chuyện này là không chấp nhận được. Đó là tại sao tôi quyết định chuyển sang Directus: ít nhất thì hệ thống nó nhẹ, chưa nói đến thời gian, và quan trọng nhất là sau này dùng lại được. Đỡ phải làm 2 lần. Các bạn đi làm làm lại cái đống cũ thì giải quyết cái gì?»
-- Cần đạt: (1) thước đo chính = thời gian cho 1 việc; 1 tiếng/việc là không chấp nhận · (2) làm trong Directus để nhẹ và dùng lại về sau, không làm 2 lần · (3) không làm lại đống cũ: chép/move tệp HTML sang chỗ khác không tính là tiến độ.
-- Cách hiểu + đề xuất của Claude: P09 (chờ Owner gật).
+#### 3.00 Chỉ đạo Owner 16:49 + 17:03 — đúng vấn đề: thời gian, Directus, Bảng DOT trước
+- 17:03: «Bây giờ bạn hiểu vấn đề rồi thì bạn sửa lại cái yêu cầu trên task để làm đúng vấn đề đi. Trước tiên là chúng ta cần liệt kê bảng đầu tiên: Bảng DOT. Xem có gì để Directus quản lý luôn. Thiếu gì thì còn viết.»
+- 16:49: «Thế thì các bạn đang chuyển đống rác từ chỗ này sang chỗ khác. Tại sao lại đặt vấn đề ở đó là Nháp? Giới hạn hiện nay là thời gian: khi các bảng bắt đầu lớn, thực hiện được 1 việc các bạn mất cả tiếng đồng hồ. Chuyện này là không chấp nhận được. Đó là tại sao tôi quyết định chuyển sang Directus: ít nhất thì hệ thống nó nhẹ, chưa nói đến thời gian, và quan trọng nhất là sau này dùng lại được. Đỡ phải làm 2 lần. Các bạn đi làm làm lại cái đống cũ thì giải quyết cái gì?»
+- Cần đạt: (1) thước đo chính = thời gian cho 1 việc; 1 tiếng/việc là không chấp nhận · (2) làm trong Directus để nhẹ và dùng lại về sau, không làm 2 lần · (3) không làm lại đống cũ: chép/move tệp HTML không tính là tiến độ · (4) bảng đầu tiên = Bảng DOT: cái gì Directus đã có thì dùng luôn, thiếu DOT thì viết.
+- Hết hiệu lực từ 3.00: vẽ/chép/move dữ liệu HTML (P04–P07; tệp đã có giữ nguyên, không xoá) · lộ trình L0–L6 (3.1) · P09 mục 3 (dựng 4 collection 1 lượt) lùi sau Bảng DOT.
+
+Lộ trình (thay 3.1):
+| Bước | Làm gì | Ai | Xong khi |
+|---|---|---|---|
+| B0 ✅ Chốt hướng | Owner 16:49 + 17:03 | 😊 | — |
+| B1 ■ Bảng DOT | a kiểm kê tệp ✅ (3.01) · b khảo sát Directus/PG chỉ đọc · c Owner gật cách đưa vào · d DOT đồng bộ đĩa → bảng + «?» + Điều 30/31 | 🤖 Claude Code 2 lệnh (b, d) · 😊 gật c | ô 2 dòng 3 |
+| B2 DOT áp chung | `dot-master-apply` (3.4 V7): tệp khai báo trên GitHub → collection + dòng; thử trên 1 sổ | 🤖 | 1 lệnh tạo/sửa được collection và dòng |
+| B3 Sổ của các sổ | mọi sổ của cỗ máy có 1 dòng (`meta_catalog` thật · `nhap_so` nháp) | 🤖 | ô 2 dòng 1 |
+| B4 Công thức · 43 câu · MMOW | rút 1 lần từ HTML (đếm khớp nguồn) → tệp khai báo → B2 | 🤖 | ô 2 dòng 2 |
+| B5 Trang chủ | khuôn UI cha (Codex) đọc collection thay dữ liệu chép | Codex + 🤖 | ô 2 dòng 6 |
+| B6 Chạy thử | MBM → MMOW 007 → 1 MOW → hồ sơ | 🤖 AI mới + GPT | ô 2 dòng 7 |
+| B7 Lên thật từng sổ | Owner duyệt từng sổ → DOT → Điều 30/31 | 😊 + 🤖 | ô 2 dòng 5 |
+
+#### 3.01 Bảng DOT — kiểm kê lần 1 (Claude 17:15 · chỉ đọc tệp DOT, sổ DOT, bản đồ hệ thống; chưa đọc Directus/PG — phần đó qua DOT ở B1-b)
+Có gì:
+| Mã | Đã có | Ở đâu | Tình trạng |
+|---|---|---|---|
+| D1 | Lệnh DOT sống — nguồn gốc thật | đĩa `/opt/incomex/dot/bin` (git cục bộ) | 251 lệnh (sổ 08/10); thư mục lẫn ~80 bản sao lưu ⇒ đếm thẳng là sai (`00-NHAN-THU-MUC.md`) |
+| D2 | Sổ DOT sinh từ đĩa | `dot-dot-catalog` → `/opt/incomex/dot/00-SO-DOT.tsv` (máy) + `.md` (người) | 13 cột: tên · nhóm (25, theo tiền tố) · phiên bản · Tier · ghi/đọc · --help · biển R3 · nhãn · NoDup · sha · ngày sửa · byte · mục đích. Bản 08/10, thư mục đổi 14/10 ⇒ phải `--check` lại. 64/251 lệnh chưa tự ghi mục đích. Chưa vào Directus |
+| D3 | Bảng DOT trong Directus | `dot_tools` · sổ CAT-006 «Danh mục DOT» · trang Registries | Lệch đĩa (đo 30/07–01/08): 314 dòng · 81 dòng không ghi đường dẫn file · ~20 lệnh sống vắng · 6 con trỏ chết; `last_executed`, `usage_count` là rác. Bảng chịu lực: `fn_validate_dot_origin` đọc nó cho 19 đường ghi; có cổng khai sinh `fn_birth_gate` và đếm `trg_count_dot_tools` |
+| D4 | DOT đang chạm `dot_tools` | `dot-dot-register` (thêm file chưa có) · `dot-dot-health` (đếm dòng mất file / file chưa vào bảng) · `dot-fill-tool-descriptions` (điền mô tả rỗng) — cả 3 có `--dry-run` | dùng lại |
+| D5 | Master Tool | ML-DEF-023 trong `definition-master-data-v1.js` (xưởng, tĩnh) | là công cụ (TOOL-…), không phải DOT; nguyên liệu, xét ở B3 |
+
+Thiếu gì:
+| Mã | Thiếu | Cách bù |
+|---|---|---|
+| T1 | Đường đưa sổ đĩa (D2) vào `dot_tools` | 1 DOT đồng bộ: khớp theo tên; thêm dòng qua `dot-dot-register`; cập nhật cột quét; dòng không còn file ⇒ gắn cờ, không xoá. Viết mới hay mở rộng: Claude Code kiểm trùng (NoDup) ở B1-b |
+| T2 | Cột quét (Tier, ghi/đọc, sha, phiên bản, nhóm…) trong `dot_tools` | chưa biết cột hiện có ⇒ B1-b đọc rồi quyết |
+| T3 | «?» cho bảng và từng cột `dot_tools` | DOT ghi ghi chú trường — B1-b chọn DOT có sẵn |
+| T4 | DOT chỉ đọc mô tả 1 collection (cột, kiểu, ghi chú, số dòng) | chưa thấy; B1-b xác nhận; thiếu ⇒ viết 1 DOT Tier A dùng cho mọi bảng sau |
+| T5 | Sổ ghi lượt chạy DOT — chưa từng có | ghi nợ, ngoài B1 |
+| T6 | 64 lệnh chưa tự ghi mục đích | sửa ở đầu file DOT (nguồn), không sửa trong Directus; làm dần |
+
+Đề xuất (Owner gật/lắc): Bảng DOT = `dot_tools` đang có, không dựng `nhap_dot`. Lý do: đã nằm trong Directus, đã có trong Sổ của các sổ (CAT-006), 19 đường ghi đang dựa vào; dựng bảng mới = 2 nguồn + làm 2 lần. Nhà của thông tin = file DOT trên đĩa; `dot_tools` chỉ DOT ghi, đọc từ đĩa; muốn sửa mô tả ⇒ sửa đầu file DOT. JEV `gen-dec-1792749996-4t68gOAjnCTcngeSWuti` (0,78).
+B1-b — 1 lệnh khảo sát chỉ đọc (🤖 Claude Code): `dot-dot-catalog --check` · `dot-dot-health --dry-run` · `dot-dot-register --dry-run` · `dot-fill-tool-descriptions --dry-run` · đọc cột + ghi chú + số dòng của `dot_tools` qua DOT ⇒ ra bảng chênh đĩa ↔ `dot_tools`. DOT nào không chứng minh được là không ghi thì không chạy, báo lại. Lệnh khảo sát không chứa lệnh ghi.
 
 #### 3.0 Owner cần quyết — đề xuất sẵn, gật hoặc lắc (P02, thay 3.6 của P01)
+⚠ P10: câu 1 thay bằng ô 2 mới · câu 8 thay bằng P06 (Host Codex) · câu 9 theo P06 (move) · câu còn lại xét khi tới bước: 2, 6, 10 ở B2 · 4 ở B3 · 7 ở B4 · 5 ở B5.
 1. Ô 2 Hoàn thành 7 dòng. Đề xuất: gật.
 2. Vùng nháp nằm ngay trong Directus/PG thật, khoanh bằng quy chuẩn 3.4 — **thay đề xuất P01 «Directus + PG riêng»**. GPT P03 đồng thuận; tiền tố chỉ để nhận diện, cách ly bằng quyền (3.4 V8). Lý do: nháp riêng phải chép bảng thật sang ⇒ 2 nguồn, trái ô 1 mục 6; trong cùng hệ thì nháp trỏ thẳng sang bảng thật bằng mã, không chép. Cách này đã chạy thật ở web công ty (`web_incomex`) và khớp thiết kế Owner gật ở việc TQT 15/10. JEV `gen-dec-1792742987-VzYh7NFAOzmzv3GMs04u`: 1,00. Đề xuất: gật.
 3. ✅ ĐÃ CHỐT (Owner 15:37): trang chủ ở `/knowledge/nhap-directus/home` (`/knowledge/home` đang là nháp của KB); cột lấy như trang Task hiện tại, không lấy khung KB; vẽ trước rồi tính.
@@ -91,6 +129,7 @@ Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều ch
 10. Trung tâm UI / trang chủ cây (việc TQT, bước 3, Owner 16/10) và DOT `dot-master-apply` (thiết kế TQT R41–R46, chưa viết) chuyển về việc này; việc TQT ghi 1 dòng trỏ sang đây. Đề xuất: gật.
 
 #### 3.1 Lộ trình — trọng tâm «mọi thứ có sổ» (Owner 15:02: «Roadmap thì bạn lập ra để GPT có ý kiến»)
+⚠ Đã thay bằng lộ trình B0–B7 ở 3.00 (P10); giữ để truy vết.
 | Bước | Làm gì | Ai | Xong khi |
 |---|---|---|---|
 | L0 Chốt khung + bản vẽ | ô 1–2 · 3.0–3.6 · bản vẽ trang chủ (Owner 15:37: «vẽ ra trước rồi tính») | Host vẽ · GPT đã rà (P03) → 😊 xem + gật 3.0 | Owner gật 3.0, ưng bản vẽ |
@@ -104,6 +143,7 @@ Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều ch
 Vòng nhỏ (GPT P03): kiểm kê → trang chủ + 1 sổ mẫu → dùng thử → mở rộng sổ → duyệt lên thật. L3–L6 lặp theo từng sổ: sổ nào chốt thì lên thật, sổ khác vẫn chỉnh trên nháp (ô 1, Lưu ý).
 
 #### 3.2 Trang chủ (Owner 15:02, điểm 1–3) — đề xuất thiết kế, làm cho production luôn
+⚠ 3.00: bản vẽ HTML (T0) dừng, không chép thêm dữ liệu; trang chủ thật = khuôn UI cha (Codex) đọc collection ở B5. Các điểm Owner 15:02 và 16:02 vẫn giữ.
 Owner 15:02: (1) chọn 1 nơi làm trang chủ, thiết kế cho Nháp, sau dùng lại hoặc nhân bản thành trang chủ Production · (2) thiết kế lại phần đã chốt (công thức, MBM, các danh sách) để hyperlink tối đa, luôn có nút home ở mọi chỗ; truy cập chéo phải tiện cho con người để còn chỉ đạo · (3) treeview: xem xét lấy luôn màn `knowledge/modules?task=mow-mot-moit-mout&view=content&section=detail-formula-chi-tiet-3`, cùng độ rộng cột; cột trái treeview, cột phải bảng; bảng kiểu master of master là bảng toàn link.
 
 Đã xem 4 nơi đang có (P02):
@@ -169,12 +209,13 @@ Dùng lại thiết kế Owner đã gật ở việc TQT (R41–R46, 15/10 16:21
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
 |---|---|---|---|---|
 | Codex | OpenAI | Codex desktop, chat hiện tại | Host | Owner giao trực tiếp P06 |
-| Claude | Anthropic | Claude Chat (`[auth:claude-chat]`) | Host vòng trước; chưa giao vai vòng P06 | Chưa phát lời mời |
+| Claude | Anthropic | Claude Chat (`[auth:claude-chat]`) | Host vòng trước; P10 Owner giao trực tiếp: sửa yêu cầu + Bảng DOT | Owner gọi trực tiếp |
 | GPT Chat | OpenAI | GPT Chat (`openai-mcp`) | Reviewer | Owner chuyển tay |
 | Claude Code | Anthropic | Claude Code CLI | Worker · chạy DOT | Owner dán 1 lệnh |
 Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 
 ### Vòng trước
+- P10 (23/10 17:15): ô 2 bản 7 dòng P02 và lộ trình L0–L6 thay bằng ô 2 8 dòng + B0–B7 (theo Owner 16:49 + 17:03); bản cũ ở commit `181af945`. Tên việc cũ: «Sổ + trang chủ cho cỗ máy sản xuất quy trình — làm trên vùng nháp Directus, phần đã chốt lên PG thật y như nháp».
 - P01 (23/10 14:50): ô 2 bản 5 dòng (chưa gật) — thay bằng 7 dòng ở P02. Đề xuất P01 «nháp = Directus + PG riêng, lên thật bằng schema snapshot → diff → apply» — thay bằng 3.0 câu 2 + 3.4 (lý do ở 3.0 câu 2).
 
 ### P03 · 23/10/2026 · GPT Chat Reviewer · L0 · vòng 1/1 · Based_on P02 / commit `1b1920bd`
@@ -214,7 +255,13 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
   6. Vùng nháp ở ngay trong Directus đang chạy, tiền tố `nhap_`, không khoá ngoại sang bảng production (= 3.0 mục 2).
 - Owner gật ⇒ Host Codex soạn lệnh mục 3 → GPT ACCEPT → Owner dán. Không sửa dòng của Host. Không chạm Directus/PG. JEV `gen-dec-1792749005-1z0Dy4DH0t5BRNyavAnC` (hướng này 1,00) · `gen-dec-1792749234-LQiAC1RTgq4suKU9RkvV`.
 
+### P10 · 23/10/2026 17:15 · Claude Chat · Owner giao trực tiếp 17:03 sửa yêu cầu task (Host vẫn là Codex)
+- Đã sửa: Tên việc (nói đích) · Xác nhận User (đúng dấu A0, trang Task hết báo thiếu) · Bảng điều khiển 8 dòng + lộ trình B0–B7 · ô 1 thêm mục 8 (lời Owner 16:49) · ô 2 8 dòng (đề xuất) · 3.00 thêm lời 17:03 + lộ trình · 3.01 Bảng DOT kiểm kê lần 1 · biển ⚠ ở P06, P07, 3.0, 3.1, 3.2.
+- Owner giao trực tiếp nên Claude viết lại Bảng; Host Codex rà P10 ở lượt kế tiếp, khác ý ghi P11. Việc khuôn trang chủ Codex đang làm không đổi.
+- Kiểm kê 3.01 chỉ đọc tệp (`code`, `docs`: thư mục DOT, `00-SO-DOT.*`, `00-NHAN-THU-MUC.md`, `BAN-DO-HE-THONG-20260729.md` mục 13.6, đầu file `dot-dot-catalog`, `dot-dot-health`, `dot-dot-register`, `dot-fill-tool-descriptions`). Chưa đọc Directus/PG. Số liệu `dot_tools` là số đo cũ (30/07–01/08) — B1-b đo lại.
+
 ## Nhật ký (lời Owner — chỉ sửa chính tả)
+- P10 · 23/10 17:03 · «Bây giờ bạn hiểu vấn đề rồi thì bạn sửa lại cái yêu cầu trên task để làm đúng vấn đề đi. Trước tiên là chúng ta cần liệt kê bảng đầu tiên: Bảng DOT. Xem có gì để Directus quản lý luôn. Thiếu gì thì còn viết.» → Claude: P10 (sửa yêu cầu + 3.01 kiểm kê Bảng DOT).
 - P09 · 23/10 16:49 · «Thế thì các bạn đang chuyển đống rác từ chỗ này sang chỗ khác. Tại sao lại đặt vấn đề ở đó là Nháp? … Các bạn đi làm làm lại cái đống cũ thì giải quyết cái gì?» (nguyên văn ở 3.00) → Claude: ghi 3.00 + đề xuất P09 (chờ gật); thêm 1 dòng đầu bảng điều khiển; sửa giờ P08 (ghi nhầm 17:00 → 16:46).
 - P08 · 23/10 16:42 · (hỏi Claude Chat) «Tôi đang giao Codex thiết kế lại (bạn thiết kế xấu quá). Một câu hỏi là phần DOT 100% đang được áp dụng thế nào nhỉ? Tôi có cảm giác cả bạn và Codex đang thiết kế trực tiếp, chưa có dùng DOT đâu nhỉ? Giải thích kỹ cho tôi chỗ này.» → Claude: P08.
 - P05 · 23/10 16:02 · «1. Cột trái nên có biên giới rõ ràng với cột phải. Chúng ta để cấu trúc 2 cột. 2. Bản thân treeview nên áp dụng ngay trong cột trái: cái nào mẹ ở ngoài, cái nào con ở trong. 3. Hạn chế tối đa các lớp trung gian. Tôi hiểu là chúng ta có 1 nơi là SSOT, nhưng bấm vào 1 bảng thì nó cần hiển thị ngay ra bảng đó. Cần tiết kiệm thời gian thao tác và chuyển đổi giữa các bảng cho con người. 4. Trang home phải là 1 danh sách treeview tổng. Cái giá trị nhất của treeview là nó giúp nhìn ra cấu trúc bằng hình hoạ. Chứ còn liệt kê theo kiểu ma trận như thế này thì không có nghĩa. Hiệu chỉnh lại vấn đề giúp tôi.» → Claude Host: bản vẽ v2 (`ui` nhap-directus/home.html, commit cục bộ 18fe7cf); sửa T0, T3, T4, thêm T9; cây có thêm cấp Cụm/Dòng lấy từ Master Công thức (18), Master MMOW (9), 43 câu (G1–G5). Mở kiểm 1440px: trang chủ = cây tổng 4 cột; bấm «Công thức» ⇒ hiện ngay bảng Master Công thức; bấm «2 Vận hành» ⇒ cây riêng của nhóm; 0 lỗi console của trang (lỗi font CSP là của trang Master cũ nhúng vào). Thấy lỗ SSOT: CT-008 MBM không có trong Master Công thức. Không chạm Directus/PG.
