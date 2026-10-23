@@ -15,7 +15,9 @@ Host: Codex · Owner chỉ định trực tiếp 23/10/2026: «bạn làm host v
 - ➡ Kế tiếp: Host chuẩn bị khảo sát chỉ đọc B1-b theo 3.01; chưa phát lệnh ghi production.
 - ⛔ Không làm: AI chạm thẳng Directus/PG · tiếp tục thử nghiệm bằng HTML chứa dữ liệu viết tay · thiết kế lại phần đã có chỉ vì chưa duyệt · tạo hai nơi ghi chuẩn · ghi production chưa được duyệt.
 
-### Hiện hành · Owner yêu cầu chỉ chỉnh giao diện trang chủ theo UI cha
+### Chuẩn giao diện đã giữ · lượt chỉnh trang chủ trước P12
+P12 cập nhật mục tiêu toàn task ở ô 1; yêu cầu «tạm thời cho giao diện trang chủ» dưới đây mô tả phạm vi lượt chỉnh UI trước, không giới hạn mục tiêu chuyển collection hiện hành.
+### Owner yêu cầu chỉnh giao diện trang chủ theo UI cha
 Owner: «Kiểm tra lại danh sách UI cha. Thiết kế đúng theo cái đó, đừng tự sáng tạo ra concept mới… tạm thời cho giao diện trang chủ đã!»
 - Đã kiểm ML-DEF-017 trong definition-master-data-v1.js: UI.CANVAS dùng mow-unified-canvas-v2.html; UI.MASTER dùng mot-master-v1.html / master-list.js. Mẫu Owner chỉ định: mow-unified-canvas-v2.html?tang=T2&che-do=thuong, nguồn 64c21429.
 - Home đã dùng lại font Be Vietnam Pro, nền #f5f5f7, chữ #1d1d1f / #515154, brand #639922 / #3b6d11, nét phân cách rgba(0,0,0,.07), thẻ radius 12px/bóng nhẹ, chấm CSS 7–8px theo mẫu; bỏ emoji và hệ hình khối trang trí cũ. Giữ cột trái 30%, dòng 28px và khe 8px theo Owner.
@@ -306,6 +308,7 @@ Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều ch
 - Gửi Codex: đọc ô 1 Đích → 3.00 → 3.01 → 3.02 → 3.03; đồng ý thì soạn lệnh khảo sát chỉ đọc B1-b; khác ý ghi P12.
 
 ## Nhật ký (lời Owner — chỉ sửa chính tả)
+- P12 · 23/10/2026 · Owner giao Codex rà và viết lại mục tiêu: «Câu chuyện chính là: tất cả những phần thiết kế bây giờ chúng ta đưa vào collection để cho nhẹ, và để giải quyết được các vấn đề tự động. Nếu những thiết kế nhìn ngon lành rồi chúng ta có thể chuyển dần sang PG tóm lại là chúng ta làm thật. Cái gọi là Nháp là vì chúng ta chưa đưa PG vào thôi. Trên thực tế chúng ta làm là để sau này cho production.» → Codex sửa trực tiếp tên việc, ô 1–2, Bảng điều khiển, B4/B5/B8 và cách theo dõi ở 3.02; mục tiêu P11 giữ trong Vòng trước. Không ghi collection/PG trong lượt chỉnh tài liệu.
 - P11 · 23/10 17:26 · «Đúng rồi, chúng ta dùng lại hết tất cả các bản cũ. … Sửa lại để bản thân Codex cũng hiểu vấn đề và cùng phối hợp để thực hiện.» (nguyên văn ở 3.00) → Claude: P11 (ô 1 Đích, ô 2, lộ trình B0–B8, 3.02, 3.03).
 - P10 · 23/10 17:03 · «Bây giờ bạn hiểu vấn đề rồi thì bạn sửa lại cái yêu cầu trên task để làm đúng vấn đề đi. Trước tiên là chúng ta cần liệt kê bảng đầu tiên: Bảng DOT. Xem có gì để Directus quản lý luôn. Thiếu gì thì còn viết.» → Claude: P10 (sửa yêu cầu + 3.01 kiểm kê Bảng DOT).
 - P09 · 23/10 16:49 · «Thế thì các bạn đang chuyển đống rác từ chỗ này sang chỗ khác. Tại sao lại đặt vấn đề ở đó là Nháp? … Các bạn đi làm làm lại cái đống cũ thì giải quyết cái gì?» (nguyên văn ở 3.00) → Claude: ghi 3.00 + đề xuất P09 (chờ gật); thêm 1 dòng đầu bảng điều khiển; sửa giờ P08 (ghi nhầm 17:00 → 16:46).
