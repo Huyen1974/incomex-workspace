@@ -1,0 +1,149 @@
+{
+ "seed": "GS-C1D-L1-BATCH-1:",
+ "rule": "bảng directus có ≥1 FK vào/ra, ngoài 11 mẫu; thứ tự sha256(SEED+khoá); nhận nếu thêm ≤40 nút/≤80 cạnh và lô ≤300/≤600",
+ "fk_tables": 149,
+ "candidates": 143,
+ "chosen": [
+  "directus.public.law_catalog",
+  "directus.public.process_run_observation",
+  "directus.public.iu_lifecycle_log",
+  "directus.public.law_dot_enforcement",
+  "directus.public.directus_sessions",
+  "directus.public.dot_coverage_required",
+  "directus.public.sua_re_khai_niem_nhap",
+  "directus.public.context_trigger_sources",
+  "directus.public.directus_flows",
+  "directus.public.tac_uv_lifecycle_vocab",
+  "directus.public.birth_backfill_ledger_v2",
+  "directus.public.iu_metadata_tag_registry",
+  "directus.public.wf_candidate_action_log",
+  "directus.cutter_governance.decision_backlog_entry",
+  "directus.public.admin_fallback_log",
+  "directus.public.apr_request_types"
+ ],
+ "batch_nodes_add": 127,
+ "batch_edges_add": 122,
+ "pilot_nodes": 136,
+ "pilot_edges": 131,
+ "log": [
+  {
+   "table": "directus.public.law_catalog",
+   "rank_sha": "05178cc4fb17",
+   "add_nodes": 14,
+   "add_edges": 13,
+   "accepted": true
+  },
+  {
+   "table": "directus.public.process_run_observation",
+   "rank_sha": "0a38d699df25",
+   "add_nodes": 18,
+   "add_edges": 17,
+   "accepted": true
+  },
+  {
+   "table": "directus.public.iu_lifecycle_log",
+   "rank_sha": "0a5d2b146918",
+   "add_nodes": 0,
+   "add_edges": 0,
+   "accepted": true
+  },
+  {
+   "table": "directus.public.law_dot_enforcement",
+   "rank_sha": "0b9f66b7d36e",
+   "add_nodes": 13,
+   "add_edges": 12,
+   "accepted": true
+  },
+  {
+   "table": "directus.public.directus_sessions",
+   "rank_sha": "0f68037bcebc",
+   "add_nodes": 3,
+   "add_edges": 2,
+   "accepted": true
+  },
+  {
+   "table": "directus.public.dot_coverage_required",
+   "rank_sha": "0f7562e65cb8",
+   "add_nodes": 5,
+   "add_edges": 4,
+   "accepted": true
+  },
+  {
+   "table": "directus.public.dot_tools",
+   "rank_sha": "1172d6d6db24",
+   "add_nodes": 41,
+   "add_edges": 44,
+   "accepted": false
+  },
+  {
+   "table": "directus.public.sua_re_khai_niem_nhap",
+   "rank_sha": "1288f45e4f5a",
+   "add_nodes": 4,
+   "add_edges": 4,
+   "accepted": true
+  },
+  {
+   "table": "directus.public.context_trigger_sources",
+   "rank_sha": "14b159e2b4ed",
+   "add_nodes": 5,
+   "add_edges": 4,
+   "accepted": true
+  },
+  {
+   "table": "directus.public.directus_flows",
+   "rank_sha": "188aac26ba85",
+   "add_nodes": 0,
+   "add_edges": 0,
+   "accepted": true
+  },
+  {
+   "table": "directus.public.tac_uv_lifecycle_vocab",
+   "rank_sha": "19e6ced3543d",
+   "add_nodes": 8,
+   "add_edges": 8,
+   "accepted": true
+  },
+  {
+   "table": "directus.public.birth_backfill_ledger_v2",
+   "rank_sha": "1aeb04d7598b",
+   "add_nodes": 16,
+   "add_edges": 15,
+   "accepted": true
+  },
+  {
+   "table": "directus.public.iu_metadata_tag_registry",
+   "rank_sha": "1cbae3867a8c",
+   "add_nodes": 2,
+   "add_edges": 4,
+   "accepted": true
+  },
+  {
+   "table": "directus.public.wf_candidate_action_log",
+   "rank_sha": "1d10c18a8b41",
+   "add_nodes": 5,
+   "add_edges": 4,
+   "accepted": true
+  },
+  {
+   "table": "directus.cutter_governance.decision_backlog_entry",
+   "rank_sha": "241ef0d66a97",
+   "add_nodes": 11,
+   "add_edges": 11,
+   "accepted": true
+  },
+  {
+   "table": "directus.public.admin_fallback_log",
+   "rank_sha": "2484b443d1d3",
+   "add_nodes": 7,
+   "add_edges": 6,
+   "accepted": true
+  },
+  {
+   "table": "directus.public.apr_request_types",
+   "rank_sha": "259fa476081d",
+   "add_nodes": 16,
+   "add_edges": 18,
+   "accepted": true
+  }
+ ]
+}
