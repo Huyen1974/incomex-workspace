@@ -1,40 +1,39 @@
-# PROMPT — VPSC2-R3-LOAD-ATTRIBUTION-20261021-01
+# PROMPT — VPSC2-RAG-A-TRUST-GATE-20261023-01
 
-TRẠNG THÁI: DRAFT — CẤM RUN. Chỉ chạy khi Claude Chat (khác hãng Codex/GPT) đã ACCEPT exact last-touch SHA PROMPT.md, GPT Host ghi READY cùng SHA ở COLLAB và Owner giao thủ công cho CODEX DESKTOP, không phải Claude Code CLI.
-RUN_ID: VPSC2-R3-LOAD-ATTRIBUTION-20261021-01.
-Executor_Surface: Codex Desktop trên Mac Owner.
-Write_Path: Incomex workspace_* root=workspace, CHỈ nhật ký STARTED/KQ/Bảng trong work/vps-clean-20-10-26/COLLAB.md. VPS_Read_Path: SSH/approved read-only nhẹ, nice -n19 ionice -c3 khi phù hợp; không workspace_exec/container tạm.
-SSOT: AGENTS.md → root COLLAB.md current → task COLLAB §0/Bảng/P08–P12 → PROMPT.md → BAO-CAO VPSC tháng9 §PROOT11-R1; Graph P161/P163 + D18 mới chỉ làm ranh giới, KHÔNG khảo sát/xóa Graph.
+DRAFT — KHÔNG RUN. Claude Chat Reviewer kiểm và ACCEPT đúng full SHA last-touch của PROMPT.md, GPT Host ký READY cùng SHA, Owner dán cho Claude Code CLI mới thực thi.
+RUN_ID: VPSC2-RAG-A-TRUST-GATE-20261023-01
+Executor_Surface: Claude Code CLI trên Mac Owner.
+Write_Path: Incomex workspace_* root=workspace cho STARTED/KQ/COLLAB; VPS1 mã nguồn SSOT qua đường mutation đã duyệt, incomex-config-apply-v0/Config Guard, DOT wrapper hợp lệ; không bypass gateway/Guard.
+Đọc AGENTS.md → root COLLAB → work/vps-clean-20-10-26/COLLAB.md §0/Bảng/P13/P14 → PROMPT.md → BAO-CAO-Agent-Data-RAG-2026-10-23.md commit 3ff49530. R3 load audit trước là DRAFT SUPERSEDED_UNRUN, không chạy.
 
-OWNER MỤC TIÊU: giải phóng tối đa CPU/RAM/I/O VPS cho PG, Agent Data, Graph (R10B–R11), MCP/Hermes/backup và việc thật sự dùng. Không bật thêm lớp quan sát để "đo quan sát".
+MỤC TIÊU NODE RAG-A: sửa sự thật/độ tin của báo cáo audit và trạng thái integrity, đồng thời làm rõ lỗi đồng bộ qua logs có định danh; chuẩn bị manifest để RAG-B làm retry/reconcile. KHÔNG sửa, xóa, tự reindex, tự heal dữ liệu/vector/PG/Qdrant production trong node này. Không tuyên bố RAG_DATA_CLEAN hoặc GO_PRODUCTION.
 
-DỮ LIỆU CỬA VÀO 21/10 14:38+07 (chỉ snapshot, không làm số hiện hành): host 6 vCPU, load1/5/15 5,34/4,49/4,52; SwapFree=512 KiB/SwapTotal 2.097.148 KiB, MemAvailable=6.504.772 KiB (~6,20 GiB), disk_free 45.987.004.416B (~46GB), HTTP AgentData và UI 200, 0 failed unit. R2 đã OFF đúng 3 cron + drop_caches/fstrim hourly no-op, drift-check20′/no-run45′, presence-import10′/age1500s. Graph GS-CLEAN 9/9 đã xong. Không dùng snapshot 20/10 Graph "chưa chạy". Không coi swap USED gần max = đang thrashing, hoặc load>=6 = CPU luôn bão hòa.
+S0 READ GATE (≤10 phút): đúng roster/quorum, Claude ACCEPT+GPT READY cùng SHA, không STOP/STARTED trùng, root VPS-GHI CAS nếu có mutation; có owner/target chưa rõ hoặc cờ bận ⇒ KQ DỪNG, không chờ. Đọc PRE container release/image digest, source 31-file hash, Guard fleet IDs/count thực tế, ConfigGuard target baseline, backup/rollback known-good. Ghi STARTED/Bảng ở task khi gate PASS; giữ lease chỉ trong mutation. Không làm hỏng dịch vụ đang dùng.
 
-CHỐT: 1 lượt đọc <=15 phút tính từ STARTED, không VPS-GHI, KHÔNG mutation/runtime writes, stop/restart/disable/install/buildx/swapoff/drop_caches, không chạm timer/config/Kuma/Guard/Graph/PG production, không gửi Telegram, quét toàn ổ/bảng lớn, không in key/argv/cmdline có token, không tạo tệp/log/process nền trên VPS; chỉ dùng sar/journal/cgroup/sysstat đã có. Nếu Graph/TQT/HJW có RUN ghi nặng đang diễn ra, phân tải cho đúng chủ, không cản và không giả đo tĩnh. Không đợi lịch/24h, không tạo monitor mới.
+S1 REPRO STAGING ISOLATED (≤25 phút, không sửa production data): xác nhận trực tiếp mã đang chạy của dot-vector-audit, server.py data integrity, vector_store.py và pg_vector_listener.py; không dùng Git mirror thay runtime. Test âm ở bản sao và công cụ hiện hữu:
+(a) Qdrant/PG sai auth/timeout => audit ERROR/PARTIAL + exit nonzero, không "Orphans=0,Ghosts=0" giả.
+(b) Duyệt cả production_documents và iu_core_iu_chunks; blank document_id hiển thị điểm còn thiếu; IU không đọc được nguồn => UNKNOWN, không PASS.
+(c) 2 orphan IDs + 1 source thiếu vector + comment2430 phải được liệt kê/classifier rõ, không auto-embed theo extension.
+(d) Qdrant delete timeout và vector_store.search backend failure phải log action/document/error_class/time/release an toàn, phân biệt NO_RESULTS với BACKEND_ERROR.
+(e) /health process liveness giữ nguyên contract với Docker/Kuma; integrity warning và retrieval degradation hiển thị riêng, không tự 503 toàn bộ health làm restart/đèn đỏ giả.
+Nếu staging negative FAIL hoặc không có capability/backup rollback => DỪNG trước mutation, không tự nới cổng.
 
-S0 (≤2 phút) — Read-gate A6: AGENTS/§0+Bảng/P08–P12/PROMPT, ACCEPT+READY full SHA last-touch, STOP/STARTED mới, bootstrap/quorum. Gate FAIL → KQ DỪNG sạch. PASS → ghi STARTED và cập nhật Bảng (repo ONLY, SAME_COMMIT); xác nhận root VPS-GHI và Graph 0/active theo nguồn mới, không chiếm cờ.
+S2 PATCH HẸP, INDEPENDENT (≤35 phút):
+A. Audit/DOT: fail-closed khi auth/upstream lỗi; báo số ID rỗng, orphan/ghost đúng các nguồn hợp lệ; IU source chưa đọc được phải PARTIAL; classifier không suy path thiếu extension là directory; auto_heal=false giữ nguyên. Không đổi PG/Qdrant vector, chỉ đọc để kiểm. Sửa code theo đường DOT approved/ConfigGuard; không có đường an toàn => SKIP A.
+B. Agent Data diagnostics/health: giữ process liveness, công bố integrity warning và lỗi vector sync đúng trạng thái; structured log action, doc identifier an toàn, exception type, mã phiên; không coi backend failure là empty normal. Backward-compatible client contract và negative tests. Không thêm queue/schema/cron/monitor, không sửa sync/delete/upsert semantics trong node A; phần retry/outbox/chunk tail để RAG-B sau review riêng. Nếu code path cần build/deploy, chỉ source đã xác nhận, image known-good, stage smoke, single service replace/restore theo official path, full Guard/rollback; nếu cần phá hợp đồng, SKIP B không cố triển khai.
+Áp dụng từng nhóm đúng target protected với beforeimage, hash, rollback và bằng chứng; 4 ô Điều 30/31; tuyệt đối không biến patch kiểm toán thành bulk RAG mutation.
 
-S1 (≤5 phút) — QUY NGUỒN SWAP + CPU/IO, ưu tiên:
-- Hai mẫu cách 60–120s khi có tải: CPU user/system/idle/iowait/steal, load1/5/15, MemAvailable, SwapUsed, vmstat si/so, CPU/memory/io PSI, disk await/util, cgroup cpu.stat/throttling, memory.events max/oom/oom_kill delta, io.stat delta.
-- Top 5 container/service/cgroup theo memory.swap.current và memory.current/max, file/anon cache nếu có; tiến trình host theo VmSwap (chỉ PID+service/owner, không in argv/secret), so sức ép memory.limit/psi. Phân biệt swap LƯU TRỮ CŨ so với swap-in/out ACTIVE; không suy swap gần hết => restart. Top5 theo CPU-giây delta / I/O read/write. Nếu có Graph workload/AI client, xác định nó thuộc RUN hữu ích, không quy thành rác.
-- Chỉ báo đỏ khi thấy áp lực thực (PSI stall/si-so/oom/throttle/disk queue/latency cùng mẫu); thiếu số ghi CHƯA ĐO.
+S3 POST (≤15 phút): kiểm thật audit read-only auto_heal=false trên hai collections, EXPECTED_FINDINGS vẫn còn (2 orphan IDs, 9 blank points, source thiếu vector/comment) và phải DRIFT/PARTIAL chứ không ép clean; IU cần source match thực hoặc UNKNOWN. Audit lỗi auth ở bản sao phải exit nonzero. Health liveness OK nhưng integrity phải báo cảnh báo, sync errors có trace. Source/runtime/image hash khớp, Guard PRE/POST và ConfigGuard CLEAN, Kuma theo monitor ID, backup cũ nguyên; COUNT/CHECKSUM Qdrant/PG không thay do RUN. Lỗi mới do RUN => rollback đúng nhóm, ghi PARTIAL/DỪNG. Không giả chứng minh live-negative khi chỉ test staging.
 
-S2 (≤4 phút) — HIỆU QUẢ R2 & ỨNG VIÊN NỀN:
-- Đọc systemd journal đã có từ KQ R2 20/10 13:40Z: mcpw-presence-import.timer và incomex-config-drift-check.timer; lượt thật, CPU-s/lượt, CPU-s/giờ, độ rộng mẫu, so PRE. Nếu <24h POST, ghi thiếu. Kiểm bất thường drift-check/lượt ~25s so ~12s trước có phải làm nhiều vì kỳ dài hơn hay tải nền, KHÔNG profiler/chạy tay job.
-- Chỉ khi log/timer sẵn đủ, ước lượng nhóm 13 Docker HEALTHCHECK 10–60s, dot-directus-license-watch */5 (~288 lượt/ngày, có container tạm R1), storage-watch walk 1.213.822 entries/153s và hvu-presence15s. Mỗi mục: lần chạy, consumer, CPU/I/O attributable có nguồn; không có cost rõ ⇒ CHƯA ĐO, không đề xuất TẮT do "nhịp dày".
-- Xác nhận ba Runner cũ OFF và hourly drop_caches/fstrim no-op qua config/journal hiện hữu, không chạy thử. R2-6 Count Refresh flow còn active: lỗi 4 lần/ngày có chủ DOT/TQT, KHÔNG thêm công cụ status/disable ở R3. Directus retention/purge và dọn đĩa rộng nằm ngoài (disk còn đủ, mất audit có rủi ro).
+S4 KQ (≤10 phút): ghi COLLAB/Bảng duy nhất trong task với A/B APPLIED/SKIP, sha/rollback, guard, integrity/health evidence, no_data_mutation. Ghi RAG-B next với kế hoạch retry/outbox durable (cấm thêm schema khi chưa duyệt), idempotent delete+upsert+shortening, manifest chính xác 2 orphan, 9 blank, 1 ghost, comment2430, IU141, sample diff; RAG-C phục hồi backup PG/Qdrant 2 collections/config ACL và client retrieval eval. Từng thay đổi dữ liệu phải được Owner duyệt đúng đích sau review. Trả VPS-GHI, không để container/temp/process nền. Các lỗi CountRefresh, context-pack-verify, 503, snapshot thuộc chủ khác, không sửa chéo.
 
-S3 (≤2 phút) — CẢNH BÁO/CHỦ: xem các sự kiện sẵn có của Kuma/Guard #6/#22; Graph POST 22/22 PASS nhưng #6/INV18 từng tái diễn, chỉ coi còn lỗi nếu mốc hiện hành; giao đúng CWEB/TQT, đừng sửa web/Guard. Không probe dày hoặc gửi tin thử, không tự nhân vào ngân sách CPU của rác.
-
-S4 (≤2 phút) — KQ/Bảng DUY NHẤT tại task: (1) PRESSURE YES/NO/UNKNOWN (cpu/PSI/swap si-so), (2) Top5 CPU/swap/I/O theo chủ cùng cửa sổ, (3) chi phí POST R2 thật & độ tin, (4) nợ nhỏ chính xác, (5) tối đa TOP3 hạng mục có tài nguyên thu hồi được đo/consumer/risk/rollback và phân chủ; nếu không có cơ hội an toàn đáng làm ghi NO_ACTION, không phát R4. Không gán savings bằng toàn CPU của unit. Không tạo báo cáo mới/sửa root/Graph. Dọn mọi đồ phía Codex, 0 SSH/background, KQ XONG/DỪNG ngay, không giữ phiên đợi ngày mai.
-
-STEP_WALK_V1 (DROOT48):
+STEP_WALK_V1:
 | Bước | Ai | Trigger | SLA | Evidence | Fail/Next |
 |---|---|---|---|---|---|
-| S0 | Codex | Owner dán sau READY | ≤2′ | gate full SHA + STARTED repo | KQ DỪNG hoặc S1 |
-| S1 | Codex | S0 PASS | ≤5′ | CPU/PSI/si-so + per-cgroup swap/memory/cpu/io 2 mốc | UNKNOWN hay S2 |
-| S2 | Codex | S1 xong | ≤4′ | timer R2 delta + 2–3 job còn hoạt động từ logs sẵn | S3 |
-| S3 | Codex | S2 xong | ≤2′ | Guard/Kuma #6/#22 latest và chủ | S4 |
-| S4 | Codex | S3 xong | ≤2′ | KQ/Bảng/cleanup TOP3 hay NO_ACTION | GPT Host tiếp |
+| S0 | Claude Code | Owner RUN sau READY | ≤10′ | accept/ready SHA, VPS-GHI, PRE & rollback | Gate fail => KQ DỪNG |
+| S1 | Claude Code | S0 PASS | ≤25′ | negative staging 5 ca, 0 prod data change | Fail => DỪNG trước mutation |
+| S2 A/B | Claude Code | S1 PASS | ≤35′ | protected patch/tests, rollback per group | SKIP/rollback từng nhóm |
+| S3 | Claude Code | sau S2 | ≤15′ | audit DRIFT đúng, health, Guard/Kuma, data unchanged | red mới => rollback |
+| S4 | Claude Code | sau S3 | ≤10′ | KQ/Bảng, clean process/tmp, release VPS-GHI | Host nhận KQ |
 
-Báo Owner 1 dòng: XONG|DỪNG · VPSC2-R3 · pressure=... · swap culprit=... · TOP3/NO_ACTION · #6/#22 · commit KQ.
+Một dòng Owner: XONG|DỪNG · VPSC2-RAG-A · Audit=A/SKIP · Health=B/SKIP · prod_data_changes=0 · Guard/Kuma · VPS-GHI release · commit.
