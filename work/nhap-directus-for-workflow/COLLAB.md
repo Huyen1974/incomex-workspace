@@ -3,7 +3,7 @@ Tên việc: Sổ + trang chủ cho cỗ máy sản xuất quy trình — làm t
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: CHƯA XÁC NHẬN — ô 1 = lời Owner 23/10/2026 14:37 + 15:02 (chỉ sửa chính tả); chờ Owner gật ô 2 và 3.0. Owner 15:37 đã chốt riêng phần trang chủ (địa chỉ, khung cột) và cho vẽ trước.
-Host: Claude Chat · Owner chỉ định 23/10/2026 14:37 («bạn tiếp tục làm host»).
+Host: Codex · Owner chỉ định trực tiếp 23/10/2026: «bạn làm host việc này nhé». Claude Chat là Host vòng trước.
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-23 16:15 · Claude Host · P05
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ■ · ⬜ · ➡.
@@ -15,6 +15,23 @@ Host: Claude Chat · Owner chỉ định 23/10/2026 14:37 («bạn tiếp tục 
 - ⬜ Còn lại: L1 → L2 → L3 → L4 → L5 → L6 (L3–L6 lặp theo từng sổ).
 - ➡ Kế tiếp: 😊 Owner xem bản vẽ v2, góp ý + gật 3.0 → Host soạn 1 lệnh Claude Code cho L1 (chỉ đọc, qua DOT) → GPT ACCEPT → Owner dán. NEXT_TRIGGER=OWNER_XEM_BAN_VE_GAT_3_0
 - ⛔ Không làm: AI chạm thẳng Directus/PG (kể cả đọc) · gõ tay vào Directus (kể cả Owner) · ghi vào production khi sổ chưa chốt hoặc phần chênh chưa duyệt · trang viết riêng cho từng bảng · sửa MBM khi chưa xin phép · tạo tệp ngoài COLLAB khi Owner chưa gật.
+
+### Chỉ đạo hiện hành P06 · Owner 23/10/2026 · ưu tiên hơn các đề xuất P01–P05
+Owner giao Codex rà và bổ sung task, bắt đầu thiết kế lại trang chủ và khu vực nháp. Phạm vi này đã được giao trực tiếp; không coi các dòng chờ gật cũ là yêu cầu hỏi lại để bắt đầu thiết kế. Chưa đồng nghĩa duyệt triển khai PG production.
+- Mục tiêu Owner: «Mục tiêu của khu vực nhá không phải là liệt kê. Mục tiêu là thiết kế như thật và diễn tập như thật, chỉ là chưa kết nối vào với PG thôi.»
+- Nguồn chuẩn Owner: «phải dùng từ move (tức là xóa bản gốc sau khi bản mới tại chỗ này đã ok)».
+- Công thức: dùng bộ đã chốt trên trang Công thức; «tách nhỏ thành các "thừa số chung" để lắp từ các thành phần càng nhỏ, càng ít càng tốt».
+- Kết quả phải tái sử dụng UI, trường, cấu hình, quan hệ, hợp đồng thông tin và collection đã duyệt khi chuyển sang bảng production; collection production đọc từ bảng tương ứng.
+- Masterlist và DOT phải được quản lý bằng collection. Mỗi bản thiết kế có mã ổn định, nguồn hiện tại, đích, phiên duyệt, quyền ghi, quan hệ và bằng chứng chuyển; số lượng phải kiểm kê, không dùng số trong bản vẽ làm kết quả đo.
+- Mỗi bước thiết kế/diễn tập phải ánh xạ DOT hiện hữu, đầu vào, đầu ra và bằng chứng. Thiếu DOT ghi rõ khoảng trống trước khi bổ sung; không thao tác Directus/PG trực tiếp.
+
+**Điều chỉnh yêu cầu hoàn thành:** trang đẹp và danh mục chỉ là bước đầu. Phải diễn tập được chuỗi Công cụ/công thức → tạo MMOW → áp dụng MMOW cho quy trình → hợp đồng thông tin → cấu hình trường → kiểm tra → duyệt. Kiểm cả đường lỗi, thiếu trường, quan hệ gãy, phiên cũ và ghi sai nhà; không dùng nút giả hoặc trạng thái tự gán làm bằng chứng thành công.
+
+**Chuyển SSOT:** kiểm kê đúng nguồn/đích và phụ thuộc → khóa ghi nguồn cũ trong lúc chuyển → chuyển đủ nội dung, mã, quan hệ, cấu hình, quyền và lịch sử cần thiết → đọc lại/đối chiếu tại đích → mở duy nhất quyền ghi đích → gỡ nội dung chuẩn ở nguồn cũ. URL cũ có thể chuyển hướng; bản sao phục hồi phải bất biến, không là nơi chỉnh sửa. Khi chưa kiểm xong, đích là ứng viên và nguồn cũ vẫn là nguồn chuẩn. Không tuyên bố đã move khi chỉ nhúng iframe/link. Điều này thay phương án giữ bản chuẩn cũ của 3.0 mục 9 và L4; chưa xóa bản nào trong P06.
+
+**Ranh giới PG:** đề xuất 3.0 mục 2 về nháp chung PG vẫn chưa được chốt. Trước khi dựng collection phải xác minh backend/cách ly bằng DOT và phân biệt cơ sở dữ liệu nền của Directus với bảng nghiệp vụ PG production. Không tự hiểu “nháp Directus” là được sửa bảng production.
+
+**Trạng thái P06:** đang rà nguồn và sửa bản vẽ hiện hữu; chưa dựng collection, chưa chuyển nguồn, chưa chạy diễn tập. Kế tiếp: kiểm kê DOT/nguồn chuẩn, hoàn thiện bản vẽ rồi triển khai một chuỗi mẫu qua DOT. JEV tham khảo chuyển nguồn: gen-dec-1792747951-vNbtJ4mEH3OdcuIx7j71; không thay kiểm chứng.
 
 ### 1. Mục tiêu
 Tình trạng: Owner viết 23/10/2026 14:37 (mục 1–4, Lưu ý) và 15:02 (mục 5–7). Chỉ sửa chính tả, giữ ý. Chờ Owner xác nhận.
