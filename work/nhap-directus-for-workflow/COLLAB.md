@@ -55,7 +55,6 @@ A · Chuyển: bảng đã duyệt (đang ở HTML / JS tĩnh) ⇒ đưa nguyên
 B · Sáng tạo: thứ chưa duyệt, chưa có ⇒ thiết kế mới trên vùng nháp `nhap_` (3.4) + giao diện ⇒ Owner duyệt ⇒ lên thật y như nháp.
 Sổ theo dõi: Sổ của các sổ (3.02), mỗi bảng 1 dòng — đang ở đâu · đã duyệt · dòng A/B · collection đích · tình trạng chuyển ⇒ nhìn là biết đã vào bao nhiêu, còn bao nhiêu.
 Thước đo: sửa/thêm 1 dòng tính bằng phút (mục 8). Luật giữ nguyên: DOT 100% (mục 4) · mọi thứ có sổ (mục 5) · SSOT (mục 6). Codex và Claude cùng làm theo phân vai 3.03.
-
 Tình trạng: Đích = Owner 17:26. Mục 1–8 = nguyên tắc Owner viết 14:37 (1–4, Lưu ý), 15:02 (5–7), 16:49 (8). Chỉ sửa chính tả, giữ ý.
 1. Tạo task mới work/nhap-directus-for-workflow, dùng để thiết lập các quy trình: 1. Chế tạo cỗ máy sản xuất quy trình 2. Vận hành cỗ máy sản xuất quy trình 3. Các quy trình do cỗ máy sản xuất quy trình tạo ra.
 2. Mục tiêu hoàn thiện quy trình, thiết kế và thiết lập chuẩn các khuôn UI, collection chuẩn để sau này thiết lập chuẩn trên PG => Collections.
