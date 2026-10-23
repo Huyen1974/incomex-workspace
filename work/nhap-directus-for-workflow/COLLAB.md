@@ -5,15 +5,14 @@ Tên việc: Chuyển thiết kế hiện có sang collection để làm việc 
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 23/10/2026: lập việc + ô 1 (14:37, 15:02, 16:49); giao Codex làm Host (P06); 17:03 chốt hướng: «bây giờ bạn hiểu vấn đề rồi thì bạn sửa lại cái yêu cầu trên task để làm đúng vấn đề đi» (3.00); 17:26 chốt Đích (ô 1). Ô 2 và mọi việc ghi production vẫn chờ Owner gật từng việc.
 Host: Codex · Owner chỉ định trực tiếp 23/10/2026: «bạn làm host việc này nhé». Claude Chat là Host vòng trước.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 23/10/2026 · Codex Host · P12
-- 🎯 Mục tiêu: ô 1 — collection là nơi quản lý, hoàn thiện và chạy thiết kế thực tế; “nháp” chỉ là giai đoạn chưa chuyển sang PG production.
-- 🏁 Xong khi: ô 2 — chuyển đủ, làm được việc, kiểm SSOT và có đường đưa từng phần đã duyệt sang production.
-- 📍 Tiến độ: B0 đã làm rõ lại mục tiêu → B1 Bảng DOT → B2 DOT áp chung → B3 Sổ của các sổ → B4 chuyển thiết kế hiện có / B5 hoàn thiện phần thiếu / B6 UI đọc collection → B7 chạy kiểm chứng → B8 đưa từng phần sang PG.
-- ✅ Đã xong lượt này: rà P11, viết lại ô 1–2 và chỉnh lộ trình cho thống nhất; giữ chuẩn UI cha đã sửa. Chưa coi khảo sát tệp hoặc bản HTML là đã dựng collection.
-- ■ Đang làm: chuẩn bị B1; 0 RUN active. Lượt P12 chỉ cập nhật tài liệu theo yêu cầu Owner.
-- ⬜ Còn lại: khảo sát hiện trạng qua DOT, đối chiếu Bảng DOT và nguồn dữ liệu, chuyển collection, chạy kiểm chứng và chuyển PG theo từng phần.
-- ➡ Kế tiếp: Host chuẩn bị khảo sát chỉ đọc B1-b theo 3.01; chưa phát lệnh ghi production.
-- ⛔ Không làm: AI chạm thẳng Directus/PG · tiếp tục thử nghiệm bằng HTML chứa dữ liệu viết tay · thiết kế lại phần đã có chỉ vì chưa duyệt · tạo hai nơi ghi chuẩn · ghi production chưa được duyệt.
+### BẢNG ĐIỀU KHIỂN · 23/10/2026 · Codex Host · P13 trình hội đồng
+- 🎯 Mục tiêu: ô 1 — Directus là nơi xây và vận hành cỗ máy từ đầu; đầu ra là collection dùng được.
+- 🏁 Phép thử đầu: một danh mục + quan hệ thật, nhập/sửa/đọc lại có kiểm soát, mở trong Studio, không HTML riêng.
+- ✅ Đã làm: sửa mục tiêu, roadmap và giả định kỹ thuật theo ý kiến GPT do Owner chuyển; giữ giao diện trang chủ theo UI cha.
+- ■ Trạng thái: bản tài liệu để hội đồng rà đúng commit; chưa có đồng thuận/nhận xét mới từ các ghế, chưa nghiệm thu, 0 RUN active.
+- ⬜ Còn mở: khảo sát CSDL/phiên/quyền; chọn sổ mẫu; thống nhất đường ghi Studio với DOT 100%; chọn cách đưa sổ vào chính thức trước khi tạo tên kỹ thuật.
+- ➡ Kế tiếp: hội đồng rà P13, phản hồi tại task; khảo sát tối thiểu để làm một sổ thật, không chờ DOT tổng quát/trang chủ.
+- ⛔ Không tự ghi Directus/PG, mở quyền, đổi tên/xóa collection trong lượt chỉnh tài liệu này.
 
 ### Chuẩn giao diện đã giữ · lượt chỉnh trang chủ trước P12
 P12 cập nhật mục tiêu toàn task ở ô 1; yêu cầu «tạm thời cho giao diện trang chủ» dưới đây mô tả phạm vi lượt chỉnh UI trước, không giới hạn mục tiêu chuyển collection hiện hành.
@@ -51,20 +50,22 @@ Owner giao Codex rà và bổ sung task, bắt đầu thiết kế lại trang c
 **Trạng thái P06:** đang rà nguồn và sửa bản vẽ hiện hữu; chưa dựng collection, chưa chuyển nguồn, chưa chạy diễn tập. Kế tiếp: kiểm kê DOT/nguồn chuẩn, hoàn thiện bản vẽ rồi triển khai một chuỗi mẫu qua DOT. JEV tham khảo chuyển nguồn: gen-dec-1792747951-vNbtJ4mEH3OdcuIx7j71; không thay kiểm chứng.
 
 ### 1. Mục tiêu
-**Mục tiêu hiện hành — Owner giao Codex viết lại ngày 23/10/2026:** chuyển các thiết kế hiện có sang collection Directus để quản lý, hoàn thiện và chạy thực tế nhẹ hơn, nhanh hơn, tự động hóa được; làm ngay theo hướng dùng cho production, phần nào đủ điều kiện thì chuyển dần sang PG production và dùng lại kết quả đã làm.
+**Chuẩn trình hội đồng P13 — theo chỉ đạo Owner và ý kiến GPT do Owner chuyển ngày 23/10/2026:**
+Biến toàn bộ thiết kế quy trình đã chốt từ các bảng HTML thành những collection thực sự trong Directus, có trường dữ liệu, quan hệ, SSOT và giao diện quản lý trực tiếp. Vùng NHÁP là nơi thiết kế và hoàn thiện các collection này; sổ nào đạt thì đưa vào vận hành chính thức. GitHub giữ mã nguồn và lịch sử kỹ thuật, không còn là nơi phải dựng thủ công mọi bảng nghiệp vụ.
 
-1. **Dùng lại những gì đã có.** Kiểm kê các thiết kế đang nằm ở HTML, JS và các nơi hiện hữu; đưa nội dung, ghi chú, trường, quan hệ, cấu hình và trạng thái duyệt vào collection phù hợp. Giữ thiết kế và chuẩn UI cha đã chốt; chỉ thiết kế bổ sung phần thực sự thiếu. Chưa duyệt không đồng nghĩa chưa có hoặc phải làm lại.
-2. **Collection là nơi làm việc thực tế.** Tạo, sửa, quản lý và hoàn thiện thiết kế theo từng bản ghi, trường và quan hệ; cấu hình các xử lý tự động trên dữ liệu này qua DOT. Không tiếp tục dùng HTML chứa dữ liệu viết tay làm môi trường thử nghiệm hay nguồn dữ liệu chính. HTML/UI còn vai trò hiển thị và tương tác theo khuôn đã có.
-3. **“Nháp” là giai đoạn trước PG production.** Các collection được xây để dùng thật, có đủ logic, hợp đồng thông tin, cấu hình trường và kiểm tra cần thiết. Thiết kế và diễn tập ngay trên các collection này. Không hiểu nháp là bản minh họa dùng xong bỏ, hoặc một hệ thống phải xây lại khi lên production.
-4. **Chuyển dần sang PG production.** Phần đã hoàn thiện, kiểm chứng và được Owner duyệt được chuyển sang các bảng PG tương ứng; collection production đọc lại từ các bảng đó. Dùng lại UI, định nghĩa trường, quan hệ, cấu hình, dữ liệu thiết kế và DOT đã kiểm. Thay đổi cần thiết khi chuyển phải được đối chiếu rõ, không thiết kế lại từ đầu. Có thể tiếp tục hoàn thiện phần khác trên collection song song.
-5. **Mỗi thông tin chỉ có một nguồn được ghi.** Ghi rõ nơi chuẩn theo đối tượng/thuộc tính. Khi chuyển: đối chiếu đủ bản ghi, mã, quan hệ, ghi chú, cấu hình và quyền → xác nhận đích → chuyển quyền ghi duy nhất → gỡ nội dung chuẩn cũ theo kế hoạch chuyển. Trang cũ chỉ đọc nguồn mới hoặc chuyển hướng; bản sao phục hồi không được dùng để chỉnh sửa. Copy HTML hoặc thêm liên kết không tính là đã chuyển sang collection.
-6. **Mọi thứ có sổ, dùng lại sổ hiện hữu.** Masterlist theo dõi thiết kế đang ở đâu, collection đích, trạng thái chuyển, trạng thái duyệt và trạng thái triển khai PG riêng biệt. Dùng lại Bảng DOT hiện có; kiểm đủ DOT cho từng thao tác, thiếu mới bổ sung. Tất cả thao tác Directus/PG, kể cả đọc, đi qua DOT.
-7. **Giao diện thống nhất, tiếp cận nhanh.** Giữ hướng trang chủ vừa chỉnh theo UI cha; cây trái, nội dung phải, ít tầng/click. Giao diện đọc collection và tái sử dụng khuôn; không tạo thêm bộ giao diện hoặc bộ dữ liệu HTML riêng cho từng bảng.
-8. **Tiết kiệm thời gian và làm được việc.** Thêm/sửa một bản ghi không phải đọc và sửa lại tệp HTML lớn. Đo thời gian thao tác, kiểm được tự động hóa, kiểm đủ thông tin và chạy trọn chuỗi MBM → MMOW → MOW → hồ sơ. Trang đẹp hoặc danh sách đã liệt kê chưa phải kết quả hoàn thành.
+1. **Sản phẩm chính là collection dùng được ngay trong Directus.** Mở sổ, xem trường, tạo/sửa bản ghi, chỉnh cấu trúc và nối quan hệ phải tác động lên dữ liệu thật của vùng NHÁP theo quyền và đường thao tác được duyệt. Tệp khai báo, HTML mới hay màn hình mô phỏng không phải sản phẩm chính.
+2. **Ưu tiên chuyển thiết kế đã chốt.** Công thức, MBM, MMOW, MOW, bộ 43 câu, Field, DOT, danh mục sổ và các quan hệ được kiểm kê, dùng lại và chuyển từng phần. Giữ nội dung, ghi chú, trạng thái duyệt, khuôn UI và hành vi đã chốt. Phần chưa chốt tiếp tục hoàn thiện ngay trên collection NHÁP; không dựng bản nội dung HTML song song, không làm lại chỉ vì chưa duyệt.
+3. **Directus là công cụ làm việc từ đầu.** Dùng Data Studio trước; công cụ hiện có thực hiện tạo/sửa có kiểm soát. Không bắt buộc phải viết dot-master-apply, hoàn thiện toàn bộ Bảng DOT, một bộ khai báo GitHub hay trang chủ riêng rồi mới có collection đầu tiên. Chỉ bổ sung công cụ tối thiểu khi thiếu khả năng cần cho thao tác cụ thể.
+4. **NHÁP là vùng xây dựng dữ liệu thật có cách ly.** Collection, trường và quan hệ đã có cấu trúc dữ liệu nền, không đợi “lên PG” mới thiết kế cơ sở dữ liệu. NHÁP chưa được nghiệm thu/kích hoạt cho sử dụng chính thức; quyền riêng phải ngăn ghi nhầm production. Cơ sở dữ liệu và quyền đang chạy phải khảo sát, không suy đoán.
+5. **SSOT phải thực thi được.** Mỗi thông tin có đúng một nơi ghi; nơi khác liên kết hoặc đọc. Khi chuyển nguồn: đối chiếu đủ → xác nhận đích → chuyển quyền ghi duy nhất → gỡ nội dung chuẩn cũ theo kế hoạch. GitHub giữ mã, migration/snapshot và lịch sử kỹ thuật cần tái lập, không thành bản nghiệp vụ có thể sửa song song với collection.
+6. **Đưa vào vận hành chính thức theo từng sổ.** Hoàn thiện schema, quan hệ, quyền, đường sử dụng, kiểm dữ liệu và phục hồi; Owner duyệt rồi kích hoạt/chuyển đổi có kiểm soát. Có thể dùng chính bảng đã xây nếu phù hợp kiến trúc, hoặc migration khi cần; không mặc định tạo thêm bản sao hay bỏ tiền tố tên. Không đợi toàn bộ vùng NHÁP hoàn thành.
+7. **Trang chủ phục vụ các collection này.** Giữ phong cách UI cha đã thống nhất; trang chủ/cây liên kết khai thác cùng dữ liệu, ít bước truy cập. Trang chủ không là điều kiện tiên quyết và không có hệ dữ liệu riêng.
+8. **Phép thử đầu tiên:** chọn một danh mục đã có và một danh mục liên quan; dùng công cụ hiện có dựng/dùng lại collection thật trong vùng NHÁP, nhập dữ liệu, tạo quan hệ, mở ngay trong Studio, sửa một bản ghi qua đường ghi được duyệt và đọc lại. Kiểm từ chối ghi ngoài vùng, đối chiếu nguồn và ghi thời gian. Không viết HTML riêng cho danh mục.
 
-**Phạm vi của chữ PG:** ở đây là bảng nghiệp vụ PG production đích. Directus vẫn cần cơ sở dữ liệu nền; kiến trúc nền và ranh giới ghi phải được khảo sát qua DOT, không suy từ chữ “chưa đưa PG vào” rằng Directus chạy không cần cơ sở dữ liệu. Việc sửa mục tiêu không tự cấp quyền ghi production.
+**Đường thao tác và luật DOT:** giữ DOT 100% cho thao tác máy/AI theo luật hiện hành. Đề nghị “xem/sửa trực tiếp trong Studio” chưa tự chứng minh tương thích với lệnh cũ “kể cả Owner không gõ tay”. Hội đồng cần làm rõ ranh giới Studio (xem, nhập, schema) và DOT; nếu muốn cho người ghi trực tiếp ngoài DOT, cần Owner chốt thay đổi luật. Không tự cấp quyền/bỏ kiểm soát hoặc dựng một lớp nhập liệu mới để né điểm này. Phép thử có thể dùng DOT hiện hữu ghi rồi kiểm trực tiếp trên Studio; khả năng/sự cho phép ghi bằng Studio phải báo riêng, không coi hai việc là một.
 
 ### 2. Thế nào là hoàn thành
+**P13 — phép thử đầu bắt buộc:** đạt ô 1 mục 8 bằng một collection thật mở được trong Data Studio, có dữ liệu và quan hệ đọc lại được. Phân biệt sửa qua DOT và sửa trực tiếp bằng Studio; không báo đã kiểm đường chưa được phép/chưa chạy. Tiêu chí trang chủ dưới đây không chặn phép thử. “Lên PG production” trong các dòng sau được hiểu là nghiệm thu/kích hoạt hoặc migration theo kiến trúc thực tế, không phải lần đầu tạo SQL.
 Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành; các chỉ tiêu kỹ thuật chưa được Owner chốt vẫn là đề xuất, không coi đã nghiệm thu.
 1. Sổ của các sổ quản lý đủ phạm vi thiết kế đã kiểm kê; tách rõ đã/chưa vào collection, đã/chưa duyệt và đã/chưa lên PG production. Mỗi bảng/cột có hướng dẫn «?».
 2. Các thiết kế trong phạm vi được chuyển vào collection và đối chiếu đủ nội dung, ghi chú, mã, quan hệ, trường, cấu hình; phần đã có được giữ lại, phần thiếu ghi rõ. Trạng thái duyệt được bảo toàn, không tự đổi “chưa duyệt” thành “đã duyệt”.
@@ -85,19 +86,16 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 - Cần đạt: (1) thước đo chính = thời gian cho 1 việc; 1 tiếng/việc là không chấp nhận · (2) làm trong Directus để nhẹ và dùng lại về sau, không làm 2 lần · (3) không làm lại đống cũ: chép/move tệp HTML không tính là tiến độ · (4) bảng đầu tiên = Bảng DOT: cái gì Directus đã có thì dùng luôn, thiếu DOT thì viết.
 - Hết hiệu lực từ 3.00: vẽ/chép/move dữ liệu HTML (P04–P07; tệp đã có giữ nguyên, không xoá) · lộ trình L0–L6 (3.1) · P09 mục 3 (dựng 4 collection 1 lượt) lùi sau Bảng DOT.
 
-Lộ trình (thay 3.1; P11 theo Đích 17:26):
-| Bước | Làm gì | Ai | Xong khi |
-|---|---|---|---|
-| B0 ✅ Chốt đích | Owner 16:49 · 17:03 · 17:26 | 😊 | ô 1 Đích |
-| B1 ■ Bảng DOT | a kiểm kê tệp ✅ (3.01) · b khảo sát Directus/PG chỉ đọc · c Owner duyệt lệnh ghi · d DOT đồng bộ đĩa → `dot_tools` + «?» + Điều 30/31 | 🤖 Claude Code 2 lệnh (b, d) · 😊 c | ô 2 dòng 4 |
-| B2 DOT áp chung | `dot-master-apply` (3.4 V7): tệp khai báo trên GitHub → collection + dòng | 🤖 | 1 lệnh tạo/sửa được collection và dòng |
-| B3 Sổ của các sổ | dựng bảng theo dõi chuyển (3.02) bằng B2: nạp Master of Master 86 + ánh xạ Danh sách Master 49 + `meta_catalog` | 🤖 | ô 2 dòng 1 |
-| B4 Chuyển thiết kế hiện có | kiểm kê nguồn, dùng lại collection đã có; chuyển thiết kế/dữ liệu từ HTML/JS vào collection bằng DOT, giữ trạng thái duyệt; kiểm đủ và chuyển SSOT theo ô 1 mục 5. Thứ tự ưu tiên xác nhận từ kiểm kê | 🤖 | ô 2 dòng 2, 6 |
-| B5 Hoàn thiện trên collection | dùng lại thiết kế đang có, bổ sung logic/hợp đồng thông tin/cấu hình trường và xử lý tự động còn thiếu ngay trên collection; chưa duyệt không phải lý do làm lại | Host + 🤖 · 😊 duyệt | ô 2 dòng 7–8 |
-| B6 Giao diện | khuôn UI cha (Codex) đọc collection, không dữ liệu chép | Codex + 🤖 | ô 2 dòng 7 |
-| B7 Chạy thử | MBM → MMOW 007 → 1 MOW → hồ sơ | 🤖 AI mới + GPT | ô 2 dòng 8 |
-| B8 Đưa từng phần sang PG production | phần đã kiểm chứng → Owner duyệt → DOT chuyển/ánh xạ bảng PG → collection production đọc bảng → đọc lại + Điều 30/31; dùng lại UI/cấu hình | 😊 + 🤖 | ô 2 dòng 3 |
-B4 · B5 · B6 chạy song song khi B2 + B3 xong (ô 1, Lưu ý).
+Lộ trình hiện hành P13 — thay chuỗi bắt buộc B1 → DOT mới → khai báo → trang riêng:
+| Bước | Làm gì | Bằng chứng xong |
+|---|---|---|
+| B0 Khảo sát tối thiểu | qua DOT hiện hữu: phiên Directus/CSDL, collection và quyền NHÁP, danh mục mẫu + quan hệ liên quan, khả năng tạo/sửa hiện có | biết đúng nguồn, phạm vi ghi, đường thao tác và cách đưa sổ mẫu vào chính thức |
+| B1 Một sổ dùng thật | dùng lại hoặc tạo collection NHÁP; chuyển dữ liệu đã chốt; cấu hình trường/quan hệ/ghi chú; mở bằng Studio; sửa và đọc lại theo đường được duyệt | collection thật + bản ghi thật + quan hệ thật + kiểm quyền; không HTML mới |
+| B2 Chuyển dần và theo dõi | chuyển các thiết kế đã chốt theo ô 1; dùng sổ hiện có theo dõi từng nguồn/đích/duyệt; hoàn thiện phần chưa chốt trên NHÁP | khớp dữ liệu và một nhà ghi, cập nhật được từng bản ghi nhanh |
+| B3 Hoàn thiện và kiểm | logic, hợp đồng thông tin, cấu hình, tự động hóa; MBM → MMOW → MOW → hồ sơ | bằng chứng hoạt động và ca sai/thiếu trên collection |
+| B4 Vận hành chính thức từng sổ | chốt schema/quan hệ/quyền/đường dùng, phương án giữ nguyên hoặc migration, kiểm phục hồi; Owner duyệt, áp qua DOT và Điều 30/31 | sổ được nghiệm thu/kích hoạt, nguồn cũ không còn ghi song song |
+| B5 Trang chủ khai thác dữ liệu | khuôn UI cha đọc chính collection đang dùng | cùng dữ liệu, không tạo bản nghiệp vụ khác; không chặn B1–B4 |
+B2–B4 lặp theo từng sổ. Kiểm Bảng DOT/dot_tools tiếp tục theo phạm vi cần thiết; thiếu capability mới bổ sung tối thiểu. Không yêu cầu chuẩn hóa toàn bộ catalog hay viết công cụ tổng quát trước phép thử đầu tiên. Các tham chiếu B1-b/L* cũ dưới đây là lịch sử kế hoạch, không phải phụ thuộc bắt buộc mới.
 
 #### 3.01 Bảng DOT — kiểm kê lần 1 (Claude 17:15 · chỉ đọc tệp DOT, sổ DOT, bản đồ hệ thống; chưa đọc Directus/PG — phần đó qua DOT ở B1-b)
 Có gì:
@@ -203,18 +201,25 @@ Thiết kế:
 
 \* = chưa có sổ. Cột và quan hệ chi tiết làm ở L1. Lỗ SSOT thấy khi vẽ (P05): CT-008 MBM không có trong Master Công thức ML-DEF-021 (18 dòng) — chỉ nằm trên trang Công thức ⇒ ghi vào bảng ánh xạ L1. Bảng đã có ở production (CAT-227, CAT-015, CAT-025, CAT-140): nháp trỏ sang bằng mã, chỉ đọc, không chép (3.4 V6).
 
+#### P13 · Ghi chú kỹ thuật và phần hội đồng cần rà
+Nguồn chính thức kiểm 23/10/2026: [Directus Collections](https://directus.com/docs/guides/data-model/collections). Collection dữ liệu tương ứng bảng DB kèm metadata; tên collection kỹ thuật bất biến sau tạo, tên hiển thị có thể dịch/đổi nhãn. Nếu instance dùng PostgreSQL thì tạo collection dữ liệu đã tạo cấu trúc trong PostgreSQL đó. Backend/phiên thực tế CHƯA ĐO; tài liệu không thay kiểm runtime.
+- Codex tiếp thu hướng GPT do Owner chuyển; P03/P11/P12 mâu thuẫn với ô 1/roadmap P13 không còn là hướng hiện hành.
+- Hội đồng rà: (a) một collection dùng thật có phải đầu ra đầu tiên; (b) không chặn bằng DOT mới/GitHub/trang chủ; (c) cách ly và SSOT; (d) đường ghi Studio–DOT; (e) giữ bảng hay migration và tên kỹ thuật trước tạo.
+- Ý kiến GPT trong lời Owner là đầu vào phản biện, không phải nghiệm thu commit P13. Chưa có phản hồi mới của Claude/GPT trên commit cuối. JEV gen-dec-1792753492-xhsTEzyzH5binyrYyp6i không rõ (0,49) về tương thích Studio/DOT; không dùng làm đồng thuận hay cho phép.
+- Lượt này chỉ sửa task; không tạo collection, không chạy DOT, không đổi quyền/PG.
+
 #### 3.4 Quy chuẩn vùng nháp (Owner 15:02: «tất cả collection trong vùng này bắt buộc theo 1 quy chuẩn ⇒ lọc 1 cái là ra hết, không lẫn lộn»)
 Dùng lại thiết kế Owner đã gật ở việc TQT (R41–R46, 15/10 16:21 + 21:39: «vùng nháp chỉ là cấu hình»), đổi tiền tố thành tiền tố chung.
 - V1 Tiền tố: mọi collection vùng nháp có tên bắt đầu `nhap_`. Lọc `nhap_*` = ra hết. L1 kiểm: chưa collection nào đang dùng tiền tố này.
-- V2 Phần sau tiền tố = tên thật khi lên production: `nhap_cong_thuc` ⇒ `cong_thuc`. Chữ thường, không dấu, nối `_` (khớp cách TQT đặt `ma`, `ten`).
+- V2 P13 thay giả định đổi tên: tên kỹ thuật collection không đổi được trong Studio sau tạo; tên hiển thị là việc khác. Trước tạo sổ mẫu phải chọn tên ổn định + cách ly/quyền phù hợp hoặc phương án migration có kiểm chứng. Không coi `nhap_cong_thuc` ⇒ `cong_thuc` là đổi tên đơn giản. Tiền tố/tên trong 3.3 và V1 là phương án cũ cần đối chiếu trước áp, không được tự đổi bảng hiện hữu.
 - V3 Nhóm Directus: thư mục «NHÁP» → «0 Sổ» · «1 Chế tạo cỗ máy» · «2 Vận hành cỗ máy» · «3 Quy trình tạo ra». Cây trang chủ đọc đúng các nhóm này.
 - V4 Ghi chú bảng bắt đầu `[NHAP]`, tiếp theo là «?» của bảng. Mỗi cột có ghi chú = «?» của cột.
 - V5 Mỗi bảng có cột `ma` (mã nghiệp vụ, duy nhất, ổn định — không buộc là khoá chính vật lý, GPT P03) và `ten`. Quan hệ nối bằng `ma`.
 - V6 Nối sang bảng thật: chỉ bằng mã, chỉ đọc, không khoá ngoại; bảng thật không bao giờ trỏ vào nháp ⇒ xoá vùng không làm gãy bảng thật.
-- V7 Người ghi duy nhất: 1 DOT `dot-master-apply` đọc tệp khai báo trên GitHub đúng 1 commit. Vùng khai trong `vung.json` (tiền tố · nhóm · nhãn · xoá được). Nháp ⇒ thật: cùng DOT, cùng tệp, đổi `--vung`; nhưng mỗi lần lên thật là 1 thao tác riêng Owner duyệt + Điều 30/31 (GPT P03). Mẫu đã có: DOT nhận `--mode prod --conf …` (`dot-stack-cutover`).
+- V7 P13: dùng DOT hiện hữu phù hợp, ghi đúng nhà với quyền theo phạm vi; không bắt buộc viết `dot-master-apply` trước. GitHub giữ mã/lịch sử kỹ thuật và migration/snapshot cần thiết, không yêu cầu dựng tay mọi bảng nghiệp vụ trong tệp trung gian. Vận hành chính thức cần kế hoạch từng sổ; không mặc định chỉ đổi `--vung` là đủ.
 - V8 Tiền tố chỉ để nhận diện; cách ly thật bằng quyền: thẻ ghi của vùng nháp chỉ ghi được collection `nhap_*` trong sổ sở hữu, với production chỉ đọc, không sửa schema/Flow/trigger production; L2 kiểm bằng quyền thật, không chỉ so tiền tố (GPT P03). DOT chỉ xoá được thứ có trong sổ sở hữu của vùng và mang tiền tố nằm trong danh sách viết cứng trong mã (`nhap_`); sửa tệp khai báo không mở được quyền xoá bảng thật.
 - V9 `kiem` báo đỏ khi: sai tiền tố / nhóm / nhãn · khoá ngoại ra ngoài vùng · Flow hoặc trigger trên bảng nháp · quyền public · thẻ ghi khác DOT.
-- V10 Tệp khai báo đặt ở `work/nhap-directus-for-workflow/khai-bao/` — chỉ tạo ở L2 sau khi Owner gật.
+- V10 P13: chỉ tạo tệp khai báo/migration khi công cụ hoặc tái lập thực sự cần; không là đầu ra chính, không là điều kiện mặc định cho collection đầu tiên, không giữ bản nghiệp vụ thứ hai.
 
 #### 3.5 Cơ chế Một nhà (ô 1 mục 6)
 - N1 Nhà: mỗi thông tin (cột) có đúng 1 collection nhà, ghi ở Sổ của các sổ / Master Field, cột «Quản lý tại» (luật CT-000.2 dòng 11, CAT-000.5).
