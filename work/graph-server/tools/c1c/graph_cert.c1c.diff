@@ -1,0 +1,279 @@
+--- graph_cert.py (v3 39e4630e = tools/c1b/patch_graph_cert.py áp lên tools/c1a/graph_cert.py)
++++ graph_cert.py (v4 c1c-1 f9c571f1, GS-C1C-PRODUCTION-TRUST-GATE-20261023-09)
+@@ -31,10 +31,33 @@
+   Kiểm mẫu (canary) mỗi lượt: information_unit cố định + 3 bảng xoay vòng (đủ 10 sau 4 lượt) — hỏi Graph bằng mẫu truy vấn chính
+   thức so với catalog; lệch ⇒ thu hồi giấy ô đó (MỘT PHẦN) ⇒ đèn #24 (ô thuộc sàn) + biên nhận sự cố có người chịu trách nhiệm.
+
++C1-C (GS-C1C-PRODUCTION-TRUST-GATE-20261023-09) — CỔNG TIN CẬY production (Owner 23/10 TRUST-FIRST):
++  K1 HÀNG RÀO PHIÊN BẢN GRAPH lúc đọc: giấy ghi `graph_epoch` = sha256(bookmark HTTP Neo4j sau một lần đọc) + Id/StartedAt container,
++     đọc ĐẦU và CUỐI lượt cấp giấy (khác ⇒ mọi ô MỘT PHẦN GRAPH_CHANGED_DURING_CERT). Mỗi nhãn graph-v1 đọc lại phiên bản SỐNG: khác ⇒
++     GRAPH_CHANGED_SINCE_CERT · không đọc được/giấy không có mốc ⇒ GRAPH_REVISION_UNVERIFIED · khoá graph-refresh đang giữ (đọc
++     /proc/locks, không tự lấy khoá) ⇒ GRAPH_MUTATION_IN_PROGRESS — cả ba ⇒ mọi ô MỘT PHẦN, NOT_ACTION_SAFE. Bookmark đổi ở MỌI commit
++     (kể cả chỉ đổi thuộc tính), đứng yên khi chỉ đọc, không đổi khi giao dịch hỏng (đã thử trên Neo4j tạm cùng image); KHÔNG dựa tệp
++     ghim. Bộ nhãn tự so băm tệp mình với bản đã nạp: lệch ⇒ nạp bản mới từ tệp, hỏng ⇒ LABEL_ENGINE_STALE (MỘT PHẦN).
++     Nguồn: không có bộ đếm thay đổi nguồn lúc đọc ⇒ nhãn ghi `source_freshness` (chỉ chụp đêm, thay đổi sau T chưa thấy tới lượt kế).
++  K2 KHÔNG CẮT IM: mọi danh sách trong nhãn có `list_meta` {total, shown, offset, truncated, next_cursor}; phần còn lại của danh sách L2
++     đọc tiếp qua CHÍNH read-cypher graph-v1 (cùng truy vấn + params {"n4_page": next_cursor}; con trỏ gắn bảng neo + băm tệp L2 —
++     sai phạm vi/cũ/hỏng ⇒ từ chối, trả trang đầu). L2 có `freshness` {generated_at, age_hours, max_age_hours 26, stale, catalog_newer}.
++  G1–G9 KHO KIỂM KÊ ĐỘC LẬP theo họ (state/refresh/cert/inventory.json, last-good): mỗi họ chụp cha + con (đối tượng + quan hệ + vân tay)
++     bằng công cụ gốc, so với lần chụp tốt trước ⇒ THÊM/SỬA/XOÁ bên trong cha đã biết (đổi chỗ cùng số vẫn bắt); cửa thư mục so CẢ 9 cửa
++     với tập cha đã nhận (ô + accepted_directory_parents) ⇒ NEW_SOURCE_UNHANDLED/SOURCE_VANISHED cho mọi cửa (sửa lỗ per_parent
++     G1/G7/G8 của C1-A); G3 đọc mọi loại unit (.service/.timer/.path/.socket/.mount…) + drop-in. Ma trận bao phủ `coverage_matrix`
++     từng họ: số gốc, khớp Graph, thêm/sửa/xoá, có nạp không, có thu thay đổi bền (CDC/audit) không, trạng thái, người nhận, việc kế.
++     Chụp mỗi đêm KHÔNG thấy thứ sinh rồi mất giữa hai lượt ⇒ EPHEMERAL_CHANGE_NOT_OBSERVABLE (không hứa ≤24h).
++  BÁO (kiểu Alertmanager): ĐỎ = máy kiểm/bộ đọc hỏng, lượt bỏ, ô sàn tụt ⇒ DOWN mọi lượt tới khi hết · VÀNG (máy kiểm chạy tốt) = nguồn
++     mới/biến mất, ô MỘT PHẦN chưa nhận mốc ⇒ DOWN đúng MỘT lượt khi mã sự cố xuất hiện (Telegram), sau đó UP kèm danh sách vàng mở,
++     nhắc lại sau yellow_repeat_hours (mốc) · thay đổi con trong họ đã nhận MỘT PHẦN = sự kiện ghi sổ, nêu trong tin, không gọi trang.
++
+ CLI (chỉ đọc nguồn + Graph; ghi duy nhất tệp trạng thái state/refresh/cert/*):
+   graph_cert.py run [--cells k1,k2] [--b88-input DIR] [--no-write] [--out F] [--mb-ids-out F]
+   graph_cert.py status                       nhãn hiệu lực từng ô tại giờ hiện tại
+   graph_cert.py label --query CYPHER [--rows N] [--tool read-cypher|get-schema] [--params JSON]
++  graph_cert.py fence                        hàng rào K1: phiên bản Graph sống so với mốc trong giấy
++  graph_cert.py coverage                     ma trận bao phủ G1–G9 của giấy hiện hành
+ Exit: 0 ok · 1 lỗi chạy · 2 tham số
+ """
+ import calendar, hashlib, json, os, re, struct, subprocess, sys, time
+@@ -68,9 +91,31 @@
+ LEDGER = "/opt/incomex/scripts/code-ledger.tsv"
+ BASES = "/opt/incomex/lark-client/config/bases.yaml"
+ BAK = r"\.(bak|pre)[-.]|\.stage0-frozen|\.[0-9]{8}T[0-9]{6}Z$"   # luật nhãn dot/bin LBL-2 (cùng đặc tả R6D/R7, viết lại độc lập)
++ENGINE_VERSION = "c1c-1"
++INVENTORY = CERT_DIR + "/inventory.json"              # C1-C: kho kiểm kê G1–G9 lần chụp tốt cuối (dữ liệu, không phải giấy)
++GRAPH_CTR = "incomex-graph-neo4j"                     # container Neo4j production (Id/StartedAt thuộc hàng rào K1)
++REFRESH_LOCK = "/run/lock/incomex-graph-refresh.lock"  # khoá của graph-refresh (chỉ ĐỌC trạng thái qua /proc/locks)
++L2_MAX_AGE_H = 26
++L2_PAGE = {"candidates": 12, "potential_collisions": 8, "unknown_dynamic": 6}
++YELLOW_REPEAT_H = 168
++SYSTEMD_DIR = "/etc/systemd/system"
++UNIT_SUFFIX = (".service", ".timer", ".path", ".socket", ".mount", ".automount", ".target", ".slice", ".swap")
++GATE_PREFIX = {"G1": "pg:", "G2": "docker:", "G3": "systemd:", "G4": "cron:", "G5": "nginx:", "G6": "opt:", "G7": "qdrant:", "G8": "lark:", "G9": "git:"}
+ now_iso = lambda t=None: time.strftime("%FT%TZ", time.gmtime(t if t is not None else time.time()))
+
+
++def _file_sha(p):
++    try:
++        with open(p, "rb") as f:
++            return hashlib.sha256(f.read()).hexdigest()
++    except OSError:
++        return None
++
++
++_SELF_FILE = os.path.abspath(__file__)
++_SELF_SHA = _file_sha(_SELF_FILE)
++
++
+ def parse_iso(s):
+     try:
+         return calendar.timegm(time.strptime(str(s)[:19], "%Y-%m-%dT%H:%M:%S"))
+@@ -157,6 +202,15 @@
+  "dot_tools": "SELECT code, name, file_path, paired_dot FROM dot_tools",
+  "kb": "SELECT key, data->>'document_id', data->>'deleted_at' IS NOT NULL, data->>'vector_status' FROM kb_documents",
+  "databases": "SELECT datname FROM pg_database WHERE NOT datistemplate",
++ "function_src": "SELECT n.nspname||'.'||p.proname||'('||pg_get_function_identity_arguments(p.oid)||')', md5(coalesce(p.prosrc,'')) FROM pg_proc p "
++                 "JOIN pg_namespace n ON n.oid=p.pronamespace WHERE " + NS + " AND NOT EXISTS (SELECT 1 FROM pg_depend d WHERE d.classid='pg_proc'::regclass "
++                 "AND d.objid=p.oid AND d.deptype='e')",
++ "cdc_caps": "SELECT name, setting FROM pg_settings WHERE name IN ('wal_level','max_replication_slots','max_wal_senders','track_commit_timestamp') "
++             "UNION ALL SELECT 'replication_slots', count(*)::text FROM pg_replication_slots "
++             "UNION ALL SELECT 'logical_slots', count(*)::text FROM pg_replication_slots WHERE slot_type='logical' "
++             "UNION ALL SELECT 'publications', count(*)::text FROM pg_publication "
++             "UNION ALL SELECT 'event_triggers', count(*)::text FROM pg_event_trigger",
++ "wal_lsn": "SELECT pg_current_wal_lsn()::text",
+ }
+ out = {}
+ for db, classes in SPEC.items():
+@@ -234,6 +288,7 @@
+             vec = {"": vec}
+         out["collections"][c] = {"vectors": {k: [v.get("size"), v.get("distance")] for k, v in vec.items()},
+                                  "payload_index": sorted((r.get("payload_schema") or {}).keys())}
++        out.setdefault("counts", {})[c] = r.get("points_count")
+     out["aliases"] = sorted([a["alias_name"], a["collection_name"]] for a in call("/aliases")["aliases"])
+     if mode == "ids":
+         c = os.environ["CERT_QD_COLLECTION"]
+@@ -441,7 +496,7 @@
+             if depth <= 0:
+                 cur, loc = None, None
+     objs = sorted({",".join(sorted(s["names"])) + "|" + ",".join(sorted(s["listen"])) for s in servers})
+-    return {"servers": [[x] for x in objs], "edges": edges}
++    return {"servers": [[x] for x in objs], "edges": edges, "conf_sha256": hashlib.sha256(o.encode()).hexdigest()}
+
+
+ def opt_read():
+@@ -488,6 +543,96 @@
+     return {"dirs": sorted({l.strip() for l in o.splitlines() if l.strip() and l.strip() not in ("work/done-tasks",)}), "head": h.strip()}
+
+
++# --------------------------------------------------------------------------- C1-C: bộ đọc kiểm kê (chỉ đọc, chặn trên, không quét toàn đĩa)
++def systemd_inv_read():
++    """G3 mọi loại unit trong /etc/systemd/system (tệp thường, không symlink) + drop-in *.d/*.conf, vân tay = sha256 nội dung."""
++    def scan():
++        units, drop = {}, {}
++        for f in sorted(os.listdir(SYSTEMD_DIR)):
++            p = os.path.join(SYSTEMD_DIR, f)
++            if f.endswith(UNIT_SUFFIX) and os.path.isfile(p) and not os.path.islink(p):
++                units[f] = (_file_sha(p) or "?")[:16]
++            elif f.endswith(".d") and os.path.isdir(p) and not os.path.islink(p):
++                for x in sorted(os.listdir(p)):
++                    q = os.path.join(p, x)
++                    if x.endswith(".conf") and os.path.isfile(q):
++                        drop[f + "/" + x] = (_file_sha(q) or "?")[:16]
++        return units, drop
++    try:
++        u1, d1 = scan()
++        u2, d2 = scan()
++    except OSError as e:
++        return {"error": type(e).__name__}
++    return {"units": u1, "dropins": d1, "stable": (u1, d1) == (u2, d2)}
++
++
++def cron_files_read():
++    """G4 vân tay nội dung từng tệp cron (spool, cron.d, crontab, run-parts) — sửa một dòng trong tệp cũ ⇒ SỬA."""
++    files = []
++    for b in ("/var/spool/cron/crontabs", "/etc/cron.d", "/etc/cron.hourly", "/etc/cron.daily", "/etc/cron.weekly", "/etc/cron.monthly"):
++        if os.path.isdir(b):
++            files += [os.path.join(b, x) for x in sorted(os.listdir(b)) if not x.startswith(".")]
++    files.append("/etc/crontab")
++    out, err = {}, []
++    for p in files:
++        h = _file_sha(p)
++        if h is None:
++            err.append(p)
++        else:
++            out[p] = h[:16]
++    return {"files": out, "errors": err}
++
++
++def listeners_read():
++    """G5 cổng nghe TCP trên host (ss -ltn, không tên tiến trình)."""
++    rc, o, _ = sh(["ss", "-H", "-ltn"], timeout=30)
++    if rc != 0:
++        return {"error": "ss rc=%s" % rc}
++    return {"listen": sorted({l.split()[3] for l in o.splitlines() if len(l.split()) >= 4})}
++
++
++def code_files_read(max_bytes=20 * 1024 * 1024):
++    """G6 vân tay tệp mã trong sổ mã (code-ledger, chặn trên 20 MiB/tệp) — mã mới triển khai dưới thư mục/mount cũ ⇒ SỬA."""
++    try:
++        rows = [l.rstrip("\n").split("\t") for l in open(LEDGER, encoding="utf-8") if l.strip() and not l.startswith("#")]
++    except OSError as e:
++        return {"error": type(e).__name__}
++    out, absent, big = {}, 0, 0
++    for r in rows:
++        p = r[0]
++        if not p.startswith("/") or not os.path.isfile(p):
++            absent += 1
++            continue
++        try:
++            st = os.stat(p)
++        except OSError:
++            absent += 1
++            continue
++        if st.st_size > max_bytes:
++            out[p] = "SIZE:%d:%d" % (st.st_size, int(st.st_mtime))
++            big += 1
++            continue
++        out[p] = (_file_sha(p) or "?")[:16]
++    return {"files": out, "not_hashable": absent, "size_capped": big, "ledger_rows": len(rows)}
++
++
++def git_repos_read():
++    """G9 kho git dưới /opt/incomex (sâu ≤3) + HEAD/cây HEAD (không fetch, không khoá)."""
++    import glob
++    roots = sorted({os.path.dirname(p) for pat in ("/opt/incomex/.git", "/opt/incomex/*/.git", "/opt/incomex/*/*/.git", "/opt/incomex/*/*/*/.git")
++                    for p in glob.glob(pat)})
++    out, err = {}, []
++    for r in roots:
++        rc, o, _ = sh(["git", "-c", "safe.directory=*", "--no-optional-locks", "-C", r, "rev-parse", "HEAD", "HEAD^{tree}"], timeout=30)
++        if rc != 0:
++            err.append(r)
++            out[r] = "NO_HEAD"
++        else:
++            hh = o.split()
++            out[r] = (hh[1] if len(hh) > 1 else hh[0])[:16]
++    return {"repos": out, "errors": err}
++
++
+ # =========================================================================== Graph (Cypher phân trang theo gs_key + tổng đếm riêng)
+ def g_rows(g, pw, q, p=None, timeout=600):
+     d = g.http_cypher([(q, p or {})], pw, timeout=timeout)
+@@ -585,7 +730,9 @@
+             s = c.get("source") or {}
+             if s.get("adapter") in ("pg", "pg_l1", "pg_l1_scope"):
+                 spec.setdefault(s["db"], set()).update(s["classes"])
+-        spec.setdefault("postgres", set()).add("databases")
++        spec.setdefault("postgres", set()).update(("databases", "cdc_caps", "wal_lsn"))
++        for db in list(spec):                                  # C1-C: kiểm kê G1 đọc đủ lớp catalog + vân tay thân hàm mọi db đã nhận
++            spec[db].update(("table", "view", "trigger", "function", "fk", "view_dep", "function_src"))
+         return pg_read({k: sorted(v) for k, v in spec.items()})
+
+     def _pg_kb(self):
+@@ -612,6 +759,25 @@
+     def _git(self):
+         return git_read()
+
++    def _systemd_inv(self):
++        return systemd_inv_read()
++
++    def _cron_files(self):
++        return cron_files_read()
++
++    def _listeners(self):
++        return listeners_read()
++
++    def _code_files(self):
++        return code_files_read()
++
++    def _git_repos(self):
++        return git_repos_read()
++
++    def _lark_bases(self):
++        lb = lark_bases()
++        return {"error": "bases.yaml"} if lb is None else {"bases": lb}
++
+     def _qdrant(self):
+         return qd_read("meta")
+
+@@ -1192,7 +1358,7 @@
+
+
+ # =========================================================================== thư mục G1–G9
+-def directory(cells, S):
++def directory(cells, S, baseline=None):
+     parents, errors = {}, []
+     p = S.get("pg")
+     dbs = None if p.get("_error") else (((p.get("postgres") or {}).get("classes") or {}).get("databases") or {})
+@@ -1230,27 +1396,349 @@
+         errors.append("G7 qdrant")
+     else:
+         parents["G7"] = sorted("qdrant:" + x for x in q.get("collections") or {})
+-    lb = lark_bases()
+-    if lb is None:
++    lb = S.get("lark_bases")
++    if lb.get("error") or lb.get("_error"):
+         errors.append("G8 bases.yaml")
+     else:
+-        parents["G8"] = sorted("lark:" + x for x in lb)
++        parents["G8"] = sorted("lark:" + x for x in lb["bases"])
+     gi = S.get("git")
+     if gi.get("error") or gi.get("_error"):
+         errors.append("G9 git")
+     else:
+         parents["G9"] = sorted("git:" + x for x in gi["dirs"])
+-    have = {c.get("parent") for c in cells}
+-    per_parent = {"G1", "G7", "G8"}
+-    unhandled = sorted(x for g, xs in parents.items() if g in per_parent for x in xs if x not in have)
+-    vanished = sorted(x for x in have if x and x.split(":", 1)[0] in ("pg", "qdrant", "lark") and
+-                      x not in {y for g in per_parent for y in parents.get(g, [])})
++    # C1-C: G3 mọi loại unit (không chỉ .service/.timer) · G5 thêm cổng nghe host · G9 thêm kho git dưới /opt/incomex
++    si = S.get("systemd_inv")
++    if si.get("error") or si.get("_error"):
++        errors.append("G3 systemd-inv")
++        parents.pop("G3", None)
++    else:
++        parents["G3"] = sorted("systemd:" + u for u in si["units"])
++    li = S.get("listeners")
++    if li.get("error") or li.get("_error"):
++        errors.append("G5 listeners")
++    elif "G5" in parents:
++        parents["G5"] = sorted(set(parents["G5"]) | {"nginx:listen:" + x for x in li["listen"]})
++    gr = S.get("git_repos")
