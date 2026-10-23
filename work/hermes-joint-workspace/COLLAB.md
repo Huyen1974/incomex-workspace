@@ -65,7 +65,7 @@
 
 ### 0.9 · ROADMAP N1–N6 HIỆN HÀNH — OWNER 22/10/2026
 1. **N1 CLOUD CONNECTOR** — đã nghiệm thu; giữ connector cloud và khả năng Mac-off của hội đồng. Không động vào kết quả N1.
-2. **N2 OPENAI DOT FEASIBILITY** — đã có PASS_WITH_RESIDUAL; không tự mở lại phần hãng chưa hỗ trợ.
+2. **N2 OPENAI DOT** — PASS_WITH_RESIDUAL 07/10; **MỞ LẠI theo Owner 23/10 (HUMAN_DIRECTIVE@HJW-OWNER-20261023-05):** OpenAI Dot định danh riêng + đủ quyền như Codex + ghế đầy đủ (có thể làm Host). Claude đề nghị P365: khoá riêng khuôn B1 qua plugin riêng; GPT Host chốt lệnh Codex. Không mở phần Dot điều khiển Claude hay tự động hoá.
 3. **N3 HERMES VPS CAPABILITY + RELIABILITY** — **CHỐT ĐỢT N3 CLOSED_WITH_LIMITS (Owner 23/10, GPT P363)**. P347 F/A1 PASS; P353 ACL 5 file + postimage Guard PASS; P359 cron/V1 chỉ đọc PASS; Owner-chat Hermes hiện có giữ nguyên. RUN04 P362 KQ DỪNG ở read-gate, 0 mutation/VPS-GHI. B/C/E server-only chưa deploy/cấp Hermes, D10 PostgreSQL chưa duyệt, identity/A9 PARTIAL, Guard POST #21 rollback ô FAIL. Giữ B/C/E dormant, không chạy RUN05/rollback production mới, chỉ mở lại theo ca thiếu khả năng cụ thể do Owner giao. Không FULL_PASS giả; N4–N6 chưa mở.
 4. **N4 COUNCIL CORE** — đề nghị cải thiện chất lượng ra quyết định/kiểm tra của AI. Chỉ lập RUN sau khi Owner xem KQ N3 và chốt lại mục tiêu/acceptance theo năng lực AI thực tế; Host/Reviewer/Owner chuyển tay Codex vẫn hợp lệ.
 5. **N5 FLEX POLICY + DUAL MODE** — đề nghị lâu dài; không giả định AI đủ thông minh để tự điều hành mức cao hoặc tự bật AUTO; chỉ mở khi Owner chốt.
@@ -481,7 +481,7 @@
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-23 · GPT Host P363 · **N3 CLOSED_WITH_LIMITS, 0 RUN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-23 14:30 · Claude P365 (Host GPT xác nhận khi chốt) · **N2 MỞ LẠI: định danh + ghế OpenAI Dot · N3 CLOSED_WITH_LIMITS, 0 RUN**
 - 📥 **Đã xử lý hết, gom lại (P332):** PROOT05 16/10 và Owner 17/10 07:15 (sửa xanh #11/#21/#22, cờ bỏ quên P313, stop-hook) → xong ở P314 + P321, Host nghiệm thu P322; Owner 17/10 21:23 (nâng Hermes) → xong ở P325–P330, Host nghiệm thu P332. Chi tiết gốc còn trong các mục P đó.
 - ✅ *(đã xong P321 — giữ để tra cứu)* 📥 **Owner 17/10/2026 07:15 qua Claude Chat (root) — GIẢI QUYẾT NỐT VƯỚNG MẮC HJW** (Owner: «phên Gemini JW và HJW đang vướng gì chưa giải quyết … soạn prompt yêu cầu 2 phiên đó giải quyết nốt các vướng mắc»). Bảng đèn 17/10 00:10Z: 19 xanh · 3 đỏ, cả 3 có phần của HJW:
   1. **Cờ bỏ quên:** P313 `HJW-N3-COURIER-HARD-PART-SPIKE-20261012-01` STARTED 13/10 02:22Z, 4 ngày không bước/KQ, Bảng đứng từ 13/10 ⇒ Host kiểm tiến trình rồi ghi `KQ@… DỪNG · CỜ_BỎ_QUÊN` (DROOT54 b), cập nhật Bảng. — ✅ **P314 đã đóng.**
@@ -494,11 +494,11 @@
 - ✅ *(đã xong P330)* 📥 **Owner 17/10/2026 21:23 qua Claude Chat — NÚT NÂNG CẤP HERMES (P316):** sau KQ GREEN-FIX, Owner dán Claude Code một câu để chạy đề bài P316 `HJW-UPGRADE-BUTTON-20261017-01`: máy tự diễn tập, Owner bấm một nút Telegram, Mac tự theo; đích bản chính thức **v0.22.2 (`d923a5eb`) theo P322** — v0.22.1 hãng build nhầm, cấm cài; không chạy hai lệnh Codex (đích `main` `7e9eb8d`).
 - 🎯 **Mục tiêu:** ô `### 1. Mục tiêu` (Owner 05/10; nguyên văn mục 3) — không chép lại ở đây.
 - 🏁 **Xong khi:** Đợt triển khai N3 chốt theo Owner với báo cáo đúng: Hermes VPS chat/Workspace hiện có, F/A1+ACL5+cron read-only PASS; các mục B/C/E/PG/identity/A9 còn giới hạn và Guard POST #21 rollback chưa đạt. Không coi A–F FULL_PASS hoặc hội đồng AUTO đã có.
-- 📍 **Tiến độ hiệu lực:** ✓ N1 cloud · ✓ N2 Dot PASS_WITH_RESIDUAL · ✓ nền Hermes Owner-chat/F/A1/ACL5/postimage Guard/cron RO · **N3 CLOSED_WITH_LIMITS P363** (B/C/E không triển khai, 0 RUN) · □ N4–N6 chỉ Owner xác nhận sau; không Hermes Mac/Courier.
+- 📍 **Tiến độ hiệu lực:** ✓ N1 cloud · **■ N2 OpenAI Dot MỞ LẠI 23/10 (định danh + đủ quyền + ghế · P365)** · ✓ nền Hermes Owner-chat/F/A1/ACL5/postimage Guard/cron RO · **N3 CLOSED_WITH_LIMITS P363** (B/C/E không triển khai, 0 RUN) · □ N4–N6 chỉ Owner xác nhận sau; không Hermes Mac/Courier.
 - ✅ **Đã xong:** Hermes VPS Owner-chat + Workspace hoạt động; N1 PASS/N2 PASS_WITH_RESIDUAL. P347 F updater/A1 read PASS; P353 ACL 5 file/postimage Guard PASS; P359 cron/V1 read-only PASS; P362 dừng đúng cổng, 0 mutation, VPS-GHI trống. Lịch sử Mac và các KQ giữ nguyên để audit.
-- ■ **Đang làm:** — · 0 RUN active. N3 đợt triển khai CLOSED_WITH_LIMITS P363. RUN04 P362 KQ DỪNG read-gate đã đóng; không còn lệnh READY để Owner dán lại, không mở RUN05.
+- ■ **Đang làm:** N2 mở lại (Owner 23/10): Claude đã rà P365 → GPT Host chốt lệnh Codex trong một vòng. 0 RUN active. N3 đợt triển khai CLOSED_WITH_LIMITS P363. RUN04 P362 KQ DỪNG read-gate đã đóng; không còn lệnh READY để Owner dán lại, không mở RUN05.
 - ⬜ **Còn lại:** **Số dư có chủ, KHÔNG phải RUN chờ:** B/C/E server helper+image agent-data chưa deploy → KEEP_DORMANT, không expose/rollback mới; D10 PG và 38 SECURITY DEFINER theo chủ PG/Owner; identity/A9 PARTIAL; canary Owner-direct UNTESTED; Guard POST #21 rollback FAIL (bản reconstructed SHA khớp PRE nhưng không là original backup); ACC15 baseline flake, TQT placeholders. Kiểm kê dọn phần unused trong bảo trì đã được duyệt nếu cần.
-- ➡ **Kế tiếp:** NEXT_TRIGGER=OWNER_NEW_CONCRETE_HERMES_USE_CASE_ONLY · Owner dùng Hermes trực tiếp qua công cụ đã có, Host nhận ý kiến và điều hành tay; chỉ khi có nhu cầu thật chưa làm được mới xem connector/MCP có sẵn. Không phát RUN tiếp để sửa giấy #21 hoặc B/C/E, không tự mở N4–N6.
+- ➡ **Kế tiếp:** **GPT Host** đọc P365, nhận S1–S7, ghi lệnh Codex N2 (định danh `openai-dot` khuôn B1 + ma trận quyền + nghiệm thu 3 cổng) · Owner trả lời 1 câu ở `## Owner cần quyết`. Hermes: NEXT_TRIGGER=OWNER_NEW_CONCRETE_HERMES_USE_CASE_ONLY · Owner dùng Hermes trực tiếp qua công cụ đã có, Host nhận ý kiến và điều hành tay; chỉ khi có nhu cầu thật chưa làm được mới xem connector/MCP có sẵn. Không phát RUN tiếp để sửa giấy #21 hoặc B/C/E, không tự mở N4–N6.
 - ⛔ **Cấm:** không gọi API thuê bao GPT/Claude; không thêm Routine/Anthropic/OpenAI keys; không bấm/update Hermes Desktop fan-out hoặc hermes update không kiểm soát; không sửa Hermes VPS khi Graph/VPSC còn shared mutation/#11 đỏ/Guard FAIL; không bật update một máy rồi báo đồng bộ; không phá snapshot/data/rollback; không đổi N4–N6/T1–T9; không phát RUN từ READY cũ. Không đổi gì trong Settings của Hermes Desktop khi đang ở kết nối VPS; không ghi "VPS không đổi" khi đèn #21/#22 còn đỏ. **Ngoại lệ Owner 17/10 07:15:** luật «không sửa Hermes VPS khi #11 đỏ/Guard FAIL» không chặn lượt sửa làm xanh chính #11/#21/#22-phần-HJW (vẫn VPS-GHI, Điều 30/31, đường lùi, không rebaseline che lỗi, không đụng GJW).
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -690,6 +690,7 @@ CẤM: model gọi AI khác, lập lịch, tạo assignment, sửa repo/Guard, t
 - **N4–N6:** chỉ tiếp tục khi Owner đánh giá lại năng lực AI và chốt tiêu chí. T1–T9 ở mục 0.10 chưa tự là gate RUN; ưu tiên điều hành hiệu quả, an toàn và bằng chứng hơn tự động hóa nhiều.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+- **Owner 23/10/2026 14:22 · HUMAN_DIRECTIVE@HJW-OWNER-20261023-05 · ĐỊNH DANH RIÊNG + ĐỦ QUYỀN + GHẾ ĐẦY ĐỦ CHO OPENAI DOT (mở lại N2):** (lời Owner, Claude ghi lại đúng chính tả) «Trong hội đồng AI cần định danh riêng cho Dot (đủ quyền như Codex), Duet của Anthropic khi được quyền dùng (đủ quyền như Claude Code CLI) và có thể cả Grok bot sau này. Cần định danh, cần cấp đủ quyền, và Dot cần có ghế đầy đủ trong hội đồng AI.» · «Các ghế phải có danh tính, ghi được, truy xuất được ai ghi; không hạn chế Dot truy cập tài nguyên.» · «Nếu thông, Dot có thể ngồi ghế điều hành.» · «Điều khiển Claude qua API trực tiếp hoặc qua Codex: bàn sau.» ⇒ Claude rà P365; GPT Host chốt lệnh Codex.
 - **Owner 23/10 · HUMAN_DIRECTIVE@HJW-OWNER-20261023-04:** yêu cầu đơn giản hóa, đóng đợt HJW để chuyển việc, ưu tiên kết nối Hermes tự nhiên hơn nhiều vòng sửa Guard/bridge. GPT Host giữ cấm Sudo/GSM trực tiếp và các bảo vệ bí mật/quyền Host/dữ liệu cần thiết hiện có; dừng việc dựng thêm công cụ khi chưa có ca thực tế. Xem P363.
 
 - **HUMAN_DIRECTIVE@HJW-OWNER-20261022-02 EFFECTIVE · 22/10/2026:** bỏ Hermes-Mac Local/Remote/Courier như mục tiêu và Hermes điều khiển GPT/Claude/ứng dụng khác khỏi N3–N6. Computer-use nếu cần giao Codex riêng. Vấn đề chính là năng lực AI chưa đủ điều hành tốt. PROMPT.md/READY P344/RUN A–F hiện tại giữ nguyên; các câu cũ trái quyết định này là lịch sử theo DROOT45.
@@ -1761,7 +1762,7 @@ Loại bằng chứng: **chạy thật** (production/Git) · **đo live lượt 
 - Không coi đây là KQ DỪNG toàn RUN; là **PARTIAL checkpoint** do phát hiện topology không khớp assumption. Không rollback phần đã PASS.
 
 ## Owner cần quyết
-- —
+- 23/10 · P365 §6 · OpenAI Dot **không cầm khoá SSH/root VPS**; mọi việc của Dot đi qua cổng có ghi tên + Guard Điều 30/31; việc cần shell VPS vẫn giao Claude Code/Codex · Dot vẫn đủ ghế và làm Host được · đề xuất 👍 **gật**.
 
 ## NEXT
 - Executor tiếp tục từ checkpoint hiện tại theo P24; **không chạy option 1**, không tự tạo bridge/service/listener.
@@ -7233,3 +7234,68 @@ Ghế: Claude Code CLI (executor, Owner dán tay) · Based_on `335438dc`.
 - Kết luận điều tra: user Linux10301 và thẻ MCP riêng đã có; hai service NNP/capEff0; còn đúng1grant/6lệnh sudo cần thu nếu zero-sudo; chưa thấy binding Google riêng của Hermes cần gỡ. Root Google credential và các mount credential đã kiểm Hermes không đọc/ghi được. IAM không phân biệt người mượn cùng credential; khóa runtime đã cấp UID Hermes vẫn đọc được, không hứa hai cửa giấu mọi giá trị từng ở GSM hoặc chống full-root compromise.
 - Đề xuất theo chỉ đạo mới chỉ tập trung hai cửa; giới hạn5file/cronRO là policy riêng, không mặc định cần thiết cho sudo/GSM. Không dùng việc dispatcher cùng UID làm cửa thứ ba. Các vị trí cấu hình giản lược đã chỉ rõ trong báo cáo, chưa áp bất kỳ delta nào.
 - Đã đọc roadmap0.9/0.17 và P347/P353/P359/P362/P363. Giữ nguyên N1/N2/N3 CLOSED_WITH_LIMITS, B/C/E dormant, N4–N6 chưa mở, Điều30/31 và POST#21 hiện hữu. Không sửa nội dung đã chốt, PROMPT/view/Guard/proof/secret/quyền vận hành. Chỉ thêm báo cáo và nối mụcP này; không có VPS mutation/restart/GSMpayloadread/privilege-exploit/newmonitor. Ba nhánh Codex cùng một ghế, không thay review khác hãng.
+
+### P365 · Claude Chat · Reviewer · 2026-10-23 14:30 +07 · **RÀ EMAIL TỰ KIỂM CỦA OPENAI DOT + BẢN ĐIỀU HÀNH GPT (N2 MỞ LẠI) · ĐỒNG Ý HƯỚNG · SỬA S1–S7 · CHỌN ĐỊNH DANH KHUÔN B1**
+- Based_on: HEAD `ec2fd561` · HUMAN_DIRECTIVE@HJW-OWNER-20261023-05 (§3) · email tự kiểm của OpenAI Dot 23/10 10:39–10:43 · bản điều hành GPT Host (Owner dán vào phiên Claude, chưa có trên repo) · đọc mã `agent_data/workspace_tools.py` + `dot/bin/dot-connector-sync` (root code, chỉ đọc) · tài liệu OpenAI về dots (help.openai.com bài 20001529).
+
+**0 · Kết luận**
+- 🟢 Đồng ý GPT: dùng lại hạ tầng, tách 3 cổng, ghi repo chỉ qua gateway, không cấp root, lượt này không bàn Dot điều khiển Claude.
+- 🔴 GPT chỉ đường `agent-gw/openai-dot` (cổng hẹp khuôn Hermes). Mã cấm cổng này giữ `workspace_exec/task/upload` ⇒ Dot **không bao giờ** đủ quyền như Codex. Đường đúng: **khuôn B1 `master_profiles`**, đang chạy cho gpt-web, claude-chat-web, claude-code, codex.
+- 🔴 Bỏ tiêu chí "cách ly danh tính hai chiều" của N2 (chính Claude đặt ở P170 C2). Hãng không cho làm ⇒ giữ tiêu chí này thì Dot không bao giờ có danh tính; N2 đã dừng đúng chỗ này ngày 06/10.
+
+**1 · Vì sao Dot thiếu quyền dù "dùng chung kết nối OpenAI"**
+- Dot chỉ thừa hưởng tab Plugins của ChatGPT. Kết nối Incomex của Codex nằm trong cấu hình riêng trên Mac (`~/.codex/config.toml`, khoá `codex`) cộng SSH ⇒ Dot không thấy.
+
+| Họ công cụ | Claude Chat (công cụ hôm nay) | OpenAI Dot (email Dot + P177) |
+|---|---|---|
+| Workspace · KB · chạy thử · xem UI (agent-data, 37 công cụ) | 🟢 tên `claude-chat-web` | 🟡 có, nhưng mang tên GPT `gpt-web` |
+| Directus · PG đọc/schema · VPS fs · đọc mã · thao tác UI | 🟢 | 🔴 không có |
+| Lark | 🟢 | 🔴 không có |
+| Shell/SSH VPS | ✖ không có (thiết kế) | ✖ không có |
+
+- Cột Codex chưa điền vì nằm trên Mac: đo bằng `dot-connector-sync fingerprint/status` (S3).
+
+**2 · Định danh — một phương án: "mỗi agent một chìa", khuôn B1**
+1. Hồ sơ `master_profiles.openai-dot` + khoá riêng trong GSM ⇒ đủ toàn bộ công cụ như GPT/Codex; máy chủ tự gán nhãn `openai-dot [auth:openai-dot]` làm tác giả Git.
+2. Route bí mật riêng, nginx chèn khoá: sao khuôn "Claude web twin" của `dot-connector-sync` (N1), không viết route mới.
+3. Plugin ChatGPT riêng **Incomex · Dot** trỏ route đó, quyền Allow all. Họ công cụ khác (Directus/PG/Lark/VPS) làm twin cùng khuôn theo ma trận S3.
+4. Custom Rules của Dot (OpenAI hỗ trợ): chỉ dùng plugin Incomex · Dot cho việc Incomex; Custom Rules không có lựa chọn này thì ghi vào hướng dẫn thường trực của Dot.
+5. Một kiểm nhẹ trong Guard sẵn có: commit vào `work/<id>/` mang tên OpenAI không có trong bảng ghế của việc ⇒ đèn vàng.
+- **Giới hạn hãng (ghi rõ, không chặn PASS):** Dot vẫn có thể gọi plugin `gpt-web`; mục 4 + 5 bù lại.
+- **Ví dụ đời thường:** công ty cấp thẻ từ riêng cho từng người. Không chặn được hai người đứng chung cửa, nhưng sổ ra vào ghi đúng tên từng thẻ, và camera (mục 5) báo khi có người vào phòng không phải của mình.
+- **JEV:** chọn B1 = 1,00 (lưu ý: Claude mô tả phương án này kỹ hơn các phương án khác) · "bắt buộc cách ly hai chiều" = 0,30.
+
+**3 · Bảy sửa vào lệnh Codex của GPT**
+- **S1 · Đường:** thay "dùng lại `agent-gw/openai-dot`" bằng khuôn B1 ở mục 2. Căn cứ: `workspace_tools.py` dòng 131 `AGENT_DENY` + dòng 342 chỉ nhận công cụ đọc/ghi workspace.
+- **S2 · Đạt định danh khi:** (a) commit qua plugin Dot mang nhãn `openai-dot` do máy chủ gán · (b) khoá chỉ ở GSM + route, không ở bề mặt nào khác · (c) route `gpt-web` vẫn ra `openai-mcp` · (d) kiểm nhẹ mục 2.5 chạy và bắt được ca giả. Không đòi cách ly hai chiều.
+- **S3 · Ma trận quyền:** lấy từ `dot-connector-sync fingerprint/status` (đã đọc `~/.codex/config.toml`) + danh sách plugin ChatGPT + đầu nối Claude; không lập bảng tay. Có cột Claude Code vì Owner muốn Duet ngang Claude Code.
+- **S4 · Bù quyền:** Dot = Codex ở từng họ công cụ. Họ nào ghi mà máy chưa gắn được tên Dot ⇒ mở đọc trước, ghi rõ trong ma trận; không cho ghi không tên (đúng luật Owner "truy xuất được ai ghi").
+- **S5 · Ghế:** định danh PASS ⇒ Dot là **ghế riêng `openai-dot`** theo A2 ("một identity một ghế"), không còn chia ghế OpenAI-main. Không sợ đa số một hãng: `Cross_Vendor_Review=REQUIRED` + ai cũng bấm chuông được. Cùng lượt sửa AGENTS: dòng bảng phiên dịch `agent-gw/openai-dot` → `openai-dot`; câu A2 "(hiện OpenAI-main: GPT Chat/Work/Dot)".
+- **S6 · Không chờ Mac, không treo:** vân tay Codex đã lên VPS qua hook; thiếu thì ghi CHƯA ĐO (DROOT50). Khoá mới vào env ⇒ tạo lại container agent-data: Owner duyệt một lần trong READY (DROOT10). Xong mục nào đưa vào bảo vệ Điều 30/31 ngay mục đó (route, hồ sơ, plugin, kiểm nhẹ).
+- **S7 · Bảng ghế HJW chưa có Codex/Dot:** Host thêm `codex | OpenAI | Codex | Worker` và `openai-dot | OpenAI | OpenAI Dot | Council (thử)` trước READY; thiếu thì DROOT44 chặn.
+
+**4 · Ba cổng (giữ của GPT, làm rõ thế nào là đạt)**
+
+| Cổng | Đạt khi |
+|---|---|
+| ĐỊNH DANH | S2 (a)–(d) |
+| GHẾ | Dot đọc việc thử + ghi 1 ý kiến hội đồng bằng tên mình + có biên nhận; trang Task hiện "OpenAI Dot" |
+| HOST | Dot ghi dấu Host + READY ở việc thử; máy (DROOT41) nhận khi bảng ghế ghi Dot là Host, từ chối khi không |
+
+- Chỉ lượt Dot gọi thật mới tính PASS (giữ ý GPT). Phần Owner: nhắn Dot đúng 1 câu "chạy nghiệm thu theo mục P… trên repo".
+
+**5 · Một khuôn cho mọi agent sau**
+- Thêm agent = 1 hồ sơ B1 + 1 khoá GSM + 1 route twin + 1 dòng bảng phiên dịch AGENTS + 1 dòng ghế. `dot-connector-sync` đang gắn cứng "claude-web" ⇒ Codex đổi thành tham số tên bề mặt để dùng lại; lưu công cụ vào repo + sổ công cụ.
+- **Claude Duet:** bản xem trước chỉ mở ở Mỹ ⇒ chưa làm; khi mở cho Việt Nam chạy đúng khuôn này, mức quyền ngang Claude Code.
+- **Grok bot:** hãng có đầu nối MCP thì cùng khuôn; không có thì xét khi Owner đưa vào.
+
+**6 · Owner cần quyết — 1 câu (gật/lắc)**
+- **OpenAI Dot không cầm khoá SSH/root VPS**; mọi việc của Dot đi qua cổng có ghi tên + Guard Điều 30/31. Việc cần shell VPS vẫn giao Claude Code/Codex.
+- Vì sao: SSH là chìa vạn năng, đi thẳng không qua sổ ghi tên. Dot chạy 24/7, tự đọc email/web ⇒ có thể bị chữ cài trong thư "dụ" làm việc khác (prompt injection). Codex cầm SSH vì chạy trên Mac, từng lượt anh mở.
+- Ảnh hưởng: Dot vẫn đủ ghế và làm Host được; chỉ không tự sửa VPS bằng shell.
+- Đề xuất: 👍 **gật**.
+
+**7 · Ranh giới lượt này**
+- Không làm: Dot điều khiển Claude (API/Codex) · tự động giao việc · xoá plugin TEST20 · đổi quyền plugin toàn tài khoản.
+- Tên gọi: agent viết **OpenAI Dot** / `openai-dot`; tránh viết trơn "DOT" vì trùng bộ công cụ nội bộ DOT (luật R3).
+- **Chữ ký Reviewer:** ACCEPT_WITH_CHANGES S1–S7. Host nhận nguyên S1–S7 thì chốt và soạn lệnh Codex luôn, không cần Claude rà lại (HĐ28).
