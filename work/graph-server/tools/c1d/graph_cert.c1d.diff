@@ -1,0 +1,836 @@
+--- graph_cert.py.c1c-v4
++++ graph_cert.py.c1d-v5
+@@ -52,6 +52,22 @@
+      mới/biến mất, ô MỘT PHẦN chưa nhận mốc ⇒ DOWN đúng MỘT lượt khi mã sự cố xuất hiện (Telegram), sau đó UP kèm danh sách vàng mở,
+      nhắc lại sau yellow_repeat_hours (mốc) · thay đổi con trong họ đã nhận MỘT PHẦN = sự kiện ghi sổ, nêu trong tin, không gọi trang.
+
++C1-D (GS-C1D-NATIVE-AUTOCOVER-20261023-10) — K3 + tín hiệu thay đổi sẵn có + lane tự bao phủ có giới hạn:
++  K3 HÀNG RÀO PHIÊN BẢN DANH MỤC: lượt cấp giấy đọc cert-cells.json MỘT lần (byte) ⇒ catalog_sha256 = băm đúng byte đã dùng; mỗi ô ghi
++     cell_def_sha256 (định nghĩa ô: phạm vi + nguồn + loại cạnh + cha); đọc lại cuối lượt — khác ⇒ mọi ô MỘT PHẦN CATALOG_CHANGED_DURING_CERT.
++     MỌI nhãn/đèn (effective) đọc danh mục SỐNG một lần: vắng/hỏng/không đọc được ⇒ CATALOG_VERSION_UNVERIFIED · băm giấy ≠ băm sống ⇒
++     CATALOG_CHANGED_SINCE_CERT · ô không có cell_def_sha256 (giấy trước K3) ⇒ CATALOG_VERSION_UNVERIFIED · định nghĩa ô đổi dưới cùng khoá
++     ⇒ CATALOG_CHANGED_SINCE_CERT · bộ máy cấp giấy ≠ bộ máy đang nhãn (engine_sha256) ⇒ CATALOG_VERSION_UNVERIFIED ENGINE_CHANGED_SINCE_CERT;
++     nhãn đọc lại băm danh mục SAU khi tính — đổi giữa chừng ⇒ MỘT PHẦN CATALOG_CHANGED_DURING_LABEL. Đều NOT_ACTION_SAFE, không ĐỦ cũ.
++  TÍN HIỆU THAY ĐỔI (không phải CDC): PG pg_stat_user_tables/pg_stat_sys_tables (SIGNAL_COUNTER_ONLY) · Directus directus_activity/
++     revisions (PATH_LIMITED_AUDIT) · wf-universal-scanner (INDEPENDENT_SNAPSHOT_ONLY, so ID với bộ đọc gốc ⇒ SCANNER_STALE/INCOMPLETE) ·
++     git HEAD/cây (SOURCE_COMMIT_LOG, chỉ mã đã commit) · Docker Id/Created/StartedAt/RestartCount (INDEPENDENT_SNAPSHOT_ONLY) · Lark
++     modified_time (SOURCE_WATERMARK — bộ đọc hiện hành KHÔNG đọc ⇒ UNKNOWN). Mức + số đo + chênh lệch so lượt trước ở coverage_matrix
++     từng họ (`change_signals`), hợp đồng phạm vi từng họ ở `contract` (cert-cells families). Bộ đếm giảm/đặt lại ⇒ UNKNOWN.
++  Ô lane C1-D (gs_layer infra, nạp bởi graph-refresh lane c1d:infra): infra:listener (G5 cổng nghe → đơn vị/container/socket sở hữu,
++     ss -ltnp + /proc cgroup + docker-proxy) · infra:unit (G3 unit cũ → đích khai báo systemctl show) · infra:container (G2) ·
++     infra:git (G9 kho git + worktree/toplevel). Bộ đọc ở đây viết ĐỘC LẬP với bộ nạp graph_autocover.
++
+ CLI (chỉ đọc nguồn + Graph; ghi duy nhất tệp trạng thái state/refresh/cert/*):
+   graph_cert.py run [--cells k1,k2] [--b88-input DIR] [--no-write] [--out F] [--mb-ids-out F]
+   graph_cert.py status                       nhãn hiệu lực từng ô tại giờ hiện tại
+@@ -91,7 +107,7 @@
+ LEDGER = "/opt/incomex/scripts/code-ledger.tsv"
+ BASES = "/opt/incomex/lark-client/config/bases.yaml"
+ BAK = r"\.(bak|pre)[-.]|\.stage0-frozen|\.[0-9]{8}T[0-9]{6}Z$"   # luật nhãn dot/bin LBL-2 (cùng đặc tả R6D/R7, viết lại độc lập)
+-ENGINE_VERSION = "c1c-1"
++ENGINE_VERSION = "c1d-1"
+ INVENTORY = CERT_DIR + "/inventory.json"              # C1-C: kho kiểm kê G1–G9 lần chụp tốt cuối (dữ liệu, không phải giấy)
+ GRAPH_CTR = "incomex-graph-neo4j"                     # container Neo4j production (Id/StartedAt thuộc hàng rào K1)
+ REFRESH_LOCK = "/run/lock/incomex-graph-refresh.lock"  # khoá của graph-refresh (chỉ ĐỌC trạng thái qua /proc/locks)
+@@ -160,6 +176,56 @@
+     return hashlib.sha256(json.dumps(d, ensure_ascii=False, separators=(",", ":"), sort_keys=True, default=str).encode()).hexdigest()
+
+
++# =========================================================================== C1-D · K3 hàng rào phiên bản danh mục ô
++RE_SHA = re.compile(r"[0-9a-f]{64}")
++
++
++def catalog_read(path=None):
++    """Đọc danh mục ô MỘT lần ⇒ (sha256 đúng byte đã đọc, đối tượng | None, lỗi | None). Không bao giờ ném lỗi."""
++    try:
++        with open(path or CELLS, "rb") as f:
++            b = f.read()
++    except OSError as e:
++        return None, None, "CATALOG_UNREADABLE %s" % type(e).__name__
++    h = hashlib.sha256(b).hexdigest()
++    try:
++        obj = json.loads(b.decode("utf-8"))
++    except (ValueError, UnicodeDecodeError):
++        return h, None, "CATALOG_MALFORMED"
++    if not isinstance(obj, dict) or obj.get("format") != "graph-cert-cells-v1" or not isinstance(obj.get("cells"), list):
++        return h, None, "CATALOG_MALFORMED"
++    return h, obj, None
++
++
++def cell_def_sha(c):
++    """Băm định nghĩa MỘT ô (khoá + phạm vi + nguồn + đặc tả Graph/loại cạnh + cha + lớp mở) — đổi bất kỳ phần nào dưới cùng khoá ⇒ khác."""
++    return hashlib.sha256(jkey(c).encode()).hexdigest()
++
++
++def catalog_fence(doc, cat_sha, cat_obj, cat_err):
++    """So danh mục SỐNG với danh mục giấy đã dùng ⇒ (status, why, {khoá ô: lý do}). status MATCH | CATALOG_CHANGED_SINCE_CERT |
++    CATALOG_VERSION_UNVERIFIED. Lý do từng ô áp cho ô đổi định nghĩa / thiếu băm định nghĩa (giấy trước K3)."""
++    want = (doc or {}).get("catalog_sha256")
++    if cat_err or not cat_obj or not cat_sha:
++        return "CATALOG_VERSION_UNVERIFIED", "danh mục sống không đọc được: %s" % (cat_err or "vắng"), {}
++    if not isinstance(want, str) or not RE_SHA.fullmatch(want):
++        return "CATALOG_VERSION_UNVERIFIED", "giấy không có catalog_sha256 hợp lệ", {}
++    if (doc or {}).get("engine_sha256") != _SELF_SHA or (doc or {}).get("engine_version") != ENGINE_VERSION:
++        return "CATALOG_VERSION_UNVERIFIED", "ENGINE_CHANGED_SINCE_CERT bộ máy cấp giấy %s/%s ≠ bộ máy đang nhãn %s/%s" % (
++            (doc or {}).get("engine_version"), str((doc or {}).get("engine_sha256"))[:12], ENGINE_VERSION, str(_SELF_SHA)[:12]), {}
++    if want != cat_sha:
++        return "CATALOG_CHANGED_SINCE_CERT", "danh mục ô đổi sau khi cấp giấy (giấy %s ≠ sống %s)" % (want[:12], cat_sha[:12]), {}
++    live = {c.get("key"): cell_def_sha(c) for c in cat_obj["cells"]}
++    per = {}
++    for k, c in ((doc or {}).get("cells") or {}).items():
++        d = c.get("cell_def_sha256")
++        if not d:
++            per[k] = "CATALOG_VERSION_UNVERIFIED ô cấp trước K3 (không có cell_def_sha256)"
++        elif live.get(k) != d:
++            per[k] = "CATALOG_CHANGED_SINCE_CERT định nghĩa ô đổi dưới cùng khoá" if k in live else "CATALOG_CHANGED_SINCE_CERT ô không còn trong danh mục"
++    return "MATCH", None, per
++
++
+ # =========================================================================== nguồn: PG (một giao dịch REPEATABLE READ / database)
+ PG_SCRIPT = r'''
+ import json, os, sys
+@@ -211,6 +277,21 @@
+              "UNION ALL SELECT 'publications', count(*)::text FROM pg_publication "
+              "UNION ALL SELECT 'event_triggers', count(*)::text FROM pg_event_trigger",
+  "wal_lsn": "SELECT pg_current_wal_lsn()::text",
++ # C1-D tín hiệu thay đổi SẴN CÓ (chỉ đọc, không cài gì): bộ đếm cộng dồn — SIGNAL_COUNTER_ONLY, không phải CDC, không có ID dòng
++ "stat_tables": "SELECT schemaname||'.'||relname, n_tup_ins::text, n_tup_upd::text, n_tup_del::text FROM pg_stat_user_tables",
++ "stat_sys": "SELECT relname, n_tup_ins::text, n_tup_upd::text, n_tup_del::text FROM pg_stat_sys_tables WHERE schemaname='pg_catalog' AND relname IN "
++             "('pg_class','pg_constraint','pg_trigger','pg_depend','pg_rewrite','pg_proc','pg_attribute','pg_namespace')",
++ "stat_db": "SELECT coalesce(stats_reset::text,''), xact_commit::text FROM pg_stat_database WHERE datname=current_database()",
++ # Directus nhật ký (PATH_LIMITED_AUDIT: chỉ thao tác ĐI QUA Directus) — chỉ đếm/mốc id, KHÔNG đọc user/ip/payload
++ "directus_audit": "SELECT 'activity', count(*)::text, min(id)::text, max(id)::text, coalesce(min(timestamp)::text,''), coalesce(max(timestamp)::text,'') "
++                   "FROM directus_activity UNION ALL SELECT 'revisions', count(*)::text, min(id)::text, max(id)::text, '', '' FROM directus_revisions",
++ "directus_audit_window": "SELECT collection, action, count(*)::text, max(id)::text FROM directus_activity WHERE timestamp > now() - interval '26 hours' "
++                          "GROUP BY 1,2 ORDER BY 1,2 LIMIT 500",
++ # wf-universal-scanner (bảng chụp có sẵn 02:10Z) — lần đọc THỨ HAI, không phải sự thật khi cũ/thiếu
++ "scanner_log": "SELECT source_key, max(finished_at)::text, (array_agg(row_count ORDER BY id DESC))[1]::text FROM wf_adapter_run_log GROUP BY source_key",
++ "scanner_docker": "SELECT object_key, path_or_ref FROM wf_docker_container_snapshot",
++ "scanner_cron": "SELECT path_or_ref, schedule FROM wf_host_crontab_snapshot",
++ "scanner_timer": "SELECT object_key, path_or_ref FROM wf_systemd_timer_snapshot",
+ }
+ out = {}
+ for db, classes in SPEC.items():
+@@ -633,6 +714,166 @@
+     return {"repos": out, "errors": err}
+
+
++# --------------------------------------------------------------------------- C1-D: bộ đọc ô lane infra (viết độc lập với bộ nạp graph_autocover)
++INFRA_UNIT_ATTRS = ["kind", "fragment_dir", "listen", "mount_what", "mount_where"]
++
++
++def _sd_show(units, props):
++    """systemctl show nhiều unit một lần ⇒ {Id: {prop: [giá trị…]}} (thuộc tính lặp như Listen= gom thành danh sách)."""
++    if not units:
++        return {}
++    rc, o, _ = sh(["systemctl", "show", "--no-pager", "-p", ",".join(["Id"] + props)] + sorted(units), timeout=60)
++    if rc != 0:
++        raise RuntimeError("systemctl show rc=%s" % rc)
++    out, cur = {}, {}
++    for ln in o.splitlines() + [""]:
++        if not ln.strip():
++            if cur.get("Id"):
++                out[cur["Id"][0]] = cur
++            cur = {}
++            continue
++        k, _, v = ln.partition("=")
++        cur.setdefault(k, []).append(v)
++    return out
++
++
++def net_owner_read():
++    """G5 cổng nghe TCP ⇒ chủ: ss -ltnp (pid) + /proc/<pid>/cgroup (unit) · docker-proxy -host-ip/-host-port/-container-ip ⇒ container theo IP
++    mạng · pid 1 giữ fd ⇒ unit .socket có Listen= trùng. Cổng không có chủ chắc chắn ⇒ ambiguous (không đoán)."""
++    rc, o, _ = sh(["ss", "-H", "-ltnp"], timeout=30)
++    if rc != 0:
++        return {"error": "ss rc=%s" % rc}
++    lst = {}
++    for ln in o.splitlines():
++        p = ln.split()
++        if len(p) < 4:
++            continue
++        lst.setdefault(p[3], set()).update(int(x) for x in re.findall(r"pid=(\d+)", ln))
++    rc, o2, _ = sh(["docker", "ps", "-q", "--no-trunc"], timeout=60)
++    ipmap = {}
++    if rc == 0 and o2.split():
++        rc, o3, _ = sh(["docker", "inspect", "-f", "{{.Name}}|{{range .NetworkSettings.Networks}}{{.IPAddress}} {{end}}"] + o2.split(), timeout=60)
++        for ln in o3.splitlines():
++            n, _, ips = ln.partition("|")
++            for ip in ips.split():
++                ipmap[ip] = n.lstrip("/")
++    rc, o4, _ = sh(["systemctl", "list-units", "--type=socket", "--all", "--plain", "--no-legend", "--no-pager"], timeout=60)
++    socks = [ln.split()[0] for ln in o4.splitlines() if ln.split() and ln.split()[0].endswith(".socket")]
++    listen_of = {}
++    for u, d in _sd_show(socks, ["Listen"]).items():
++        for v in d.get("Listen") or []:
++            listen_of.setdefault(v.split(" (")[0], []).append(u)
++    edges, amb, units, ctrs = [], [], set(), set()
++    for addr, pids in sorted(lst.items()):
++        got = 0
++        for pid in sorted(pids):
++            if pid == 1:
++                for u in listen_of.get(addr, []):
++                    edges.append([u, "LISTENS_ON", addr])
++                    units.add(u)
++                    got += 1
++                continue
++            try:
++                comm = open("/proc/%d/comm" % pid).read().strip()
++                cg = open("/proc/%d/cgroup" % pid).read().strip().splitlines()[0].split(":", 2)[-1]
++                cmd = open("/proc/%d/cmdline" % pid, "rb").read().split(b"\0")
++            except OSError:
++                continue
++            if comm == "docker-proxy":
++                a = [x.decode(errors="replace") for x in cmd]
++                v = {a[i]: a[i + 1] for i in range(len(a) - 1) if a[i].startswith("-")}
++                c = ipmap.get(v.get("-container-ip"))
++                hip = v.get("-host-ip")
++                want = ("[%s]:%s" % (hip, v.get("-host-port"))) if hip and ":" in hip else "%s:%s" % (hip, v.get("-host-port"))
++                if c and want == addr:
++                    edges.append([addr, "PUBLISHED_BY", c])
++                    ctrs.add(c)
++                    got += 1
++                continue
++            u = cg.rstrip("/").split("/")[-1]
++            if cg.startswith("/system.slice/") and u.endswith(".service"):
++                edges.append([addr, "BOUND_BY_PROCESS_OF", u])
++                units.add(u)
++                got += 1
++        if not got:
++            amb.append(addr)
++    uniq = {jkey(e): e for e in edges}
++    return {"listen": sorted(lst), "edges": list(uniq.values()), "ambiguous": amb, "units": sorted(units), "containers": sorted(ctrs)}
++
++
++def units_declared_read(declared, extra):
++    """G3 unit khai báo (systemctl show — ánh xạ systemd TỰ khai, không suy từ lúc chạy): .socket/.path ⇒ TRIGGERS · .mount ⇒ dịch vụ khai
++    RequiredBy ⇒ REQUIRES_MOUNT. Nút = unit khai báo ∪ đích ∪ unit sở hữu cổng nghe (extra)."""
++    d = _sd_show(declared, ["Triggers", "Listen", "What", "Where", "RequiredBy", "FragmentPath", "LoadState"])
++    edges, names = [], set(declared) | set(extra)
++    for u in declared:
++        x = d.get(u)
++        if not x or (x.get("LoadState") or [""])[0] != "loaded":
++            return {"error": "unit khai báo không nạp: %s" % u}
++        for t in " ".join(x.get("Triggers") or []).split():
++            edges.append([u, "TRIGGERS", t])
++            names.add(t)
++        if u.endswith(".mount"):
++            for s in " ".join(x.get("RequiredBy") or []).split():
++                edges.append([s, "REQUIRES_MOUNT", u])
++                names.add(s)
++    info = _sd_show(sorted(names), ["FragmentPath", "Listen", "What", "Where", "LoadState"])
++    objs = []
++    for n in sorted(names):
++        x = info.get(n) or {}
++        fp = (x.get("FragmentPath") or [""])[0]
++        objs.append(["SystemdUnit", n, n.rsplit(".", 1)[-1], os.path.dirname(fp) or None,
++                     ",".join(sorted(v.split(" (")[0] for v in x.get("Listen") or [] if v)) or None,
++                     ((x.get("What") or [""])[0] or None) if n.endswith(".mount") else None,
++                     ((x.get("Where") or [""])[0] or None) if n.endswith(".mount") else None])
++    return {"objects": objs, "edges": edges}
++
++
++def containers_meta_read(ephemeral):
++    rc, o, _ = sh(["docker", "ps", "-a", "-q", "--no-trunc"], timeout=60)
++    if rc != 0:
++        return {"error": "docker ps rc=%s" % rc}
++    ids = o.split()
++    rc, o2, _ = sh(["docker", "inspect", "-f", "{{.Name}}|{{.Id}}|{{.Config.Image}}|{{.Created}}|{{.State.StartedAt}}|{{.RestartCount}}"] + ids, timeout=60) if ids else (0, "", "")
++    rows, meta = [], {}
++    for ln in o2.splitlines():
++        n, cid, img, cr, st, rcnt = (ln.split("|") + [""] * 6)[:6]
++        n = n.lstrip("/")
++        if any(re.search(e, "docker:" + n) for e in ephemeral):
++            continue
++        rows.append(["DockerContainer", n, cid[:12], img])
++        meta[n] = {"id12": cid[:12], "created": cr, "started_at": st, "restart_count": rcnt}
++    rc, o3, _ = sh(["docker", "ps", "-a", "-q", "--no-trunc"], timeout=60)
++    return {"objects": rows, "meta": meta, "stable": sorted(o3.split()) == sorted(ids)}
++
++
++def git_meta_read():
++    """G9 kho git dưới /opt/incomex (sâu ≤3, cùng luật kiểm kê) ⇒ nút kho + toplevel + cạnh WORKTREE_OF (git-common-dir là kho khác) ·
++    RESOLVES_TO_TOPLEVEL (đường kho phân giải về toplevel khác). Không fetch, không khoá."""
++    import glob
++    roots = sorted({os.path.dirname(p) for pat in ("/opt/incomex/.git", "/opt/incomex/*/.git", "/opt/incomex/*/*/.git", "/opt/incomex/*/*/*/.git")
++                    for p in glob.glob(pat)})
++    objs, edges, err = [], [], []
++    info = {}
++    for r in roots:
++        rc, o, _ = sh(["git", "-c", "safe.directory=*", "--no-optional-locks", "-C", r, "rev-parse", "--path-format=absolute", "--show-toplevel",
++                       "--git-common-dir", "--git-dir"], timeout=30)
++        p = o.split("\n")
++        if rc != 0 or len(p) < 3:
++            err.append(r)
++            continue
++        info[r] = {"top": p[0].strip(), "common": p[1].strip().rstrip("/"), "gitdir": p[2].strip().rstrip("/")}
++    for r, x in sorted(info.items()):
++        objs.append(["GitRepository", r, x["top"]])
++        if x["top"] != r and x["top"] in info:
++            edges.append([r, "RESOLVES_TO_TOPLEVEL", x["top"]])
++        if x["gitdir"] != x["common"]:
++            owner = os.path.dirname(x["common"]) if os.path.basename(x["common"]) == ".git" else None
++            if owner in info and owner != r:
++                edges.append([r, "WORKTREE_OF", owner])
++    return {"objects": objs, "edges": edges, "errors": err, "roots": roots}
++
++
+ # =========================================================================== Graph (Cypher phân trang theo gs_key + tổng đếm riêng)
+ def g_rows(g, pw, q, p=None, timeout=600):
+     d = g.http_cypher([(q, p or {})], pw, timeout=timeout)
+@@ -733,6 +974,9 @@
+         spec.setdefault("postgres", set()).update(("databases", "cdc_caps", "wal_lsn"))
+         for db in list(spec):                                  # C1-C: kiểm kê G1 đọc đủ lớp catalog + vân tay thân hàm mọi db đã nhận
+             spec[db].update(("table", "view", "trigger", "function", "fk", "view_dep", "function_src"))
++            spec[db].update(("stat_tables", "stat_sys", "stat_db"))          # C1-D: bộ đếm (tín hiệu, không vào kho kiểm kê)
++        if "directus" in spec:
++            spec["directus"].update(("directus_audit", "directus_audit_window", "scanner_log", "scanner_docker", "scanner_cron", "scanner_timer"))
+         return pg_read({k: sorted(v) for k, v in spec.items()})
+
+     def _pg_kb(self):
+@@ -778,6 +1022,31 @@
+         lb = lark_bases()
+         return {"error": "bases.yaml"} if lb is None else {"bases": lb}
+
++    def _net_owner(self):                                     # C1-D ô infra (đọc hai lần ⇒ trước = sau)
++        a = net_owner_read()
++        b = net_owner_read() if not a.get("error") else a
++        return dict(a, stable=(a.get("listen"), sorted(map(jkey, a.get("edges") or []))) == (b.get("listen"), sorted(map(jkey, b.get("edges") or []))))
++
++    def _units_declared(self):
++        c = next((x for x in self.cells if (x.get("source") or {}).get("adapter") == "c1d" and x["source"].get("part") == "unit"), None)
++        no = self.get("net_owner")
++        if no.get("error") or no.get("_error"):
++            return {"error": "net_owner " + str(no.get("error") or no.get("_error"))}
++        dec = list((c or {}).get("source", {}).get("units") or [])
++        a = units_declared_read(dec, no["units"])
++        b = units_declared_read(dec, no["units"]) if not a.get("error") else a
++        return dict(a, stable=a == b)
++
++    def _containers_meta(self):
++        base = jload(BASELINE) or {}
++        c = next((x for x in self.cells if (x.get("source") or {}).get("adapter") == "c1d" and x["source"].get("part") == "container"), None)
++        return containers_meta_read(list(base.get("ephemeral_parent_patterns") or []) + list(((c or {}).get("source") or {}).get("exclude_patterns") or []))
++
++    def _git_meta(self):
++        a = git_meta_read()
++        b = git_meta_read()
++        return dict(a, stable=(a.get("objects"), a.get("edges")) == (b.get("objects"), b.get("edges")))
++
+     def _qdrant(self):
+         return qd_read("meta")
+
+@@ -1017,6 +1286,27 @@
+     if a == "code_identity":
+         res["why"] = "READER_NOT_ID_COMPARABLE_C1A"
+         return res
++    if a == "c1d":                                     # C1-D ô lane infra: bộ đọc gốc độc lập ⇒ đối tượng + cạnh; đọc hai lần ⇒ nhất quán
++        part = s.get("part")
++        d = S.get({"listener": "net_owner", "unit": "units_declared", "container": "containers_meta", "git": "git_meta"}.get(part, "?"))
++        if not isinstance(d, dict) or d.get("error") or d.get("_error"):
++            res["why"] = "READER_FAIL " + str((d or {}).get("error") or (d or {}).get("_error") or "NO_READER")
++            return res
++        res.update(ok=True, reader="c1d:" + part, consistency="BEFORE_AFTER_EQUAL" if d.get("stable") else "DRIFT")
++        if part == "listener":
++            res["objects"] = [["NetListener", x] for x in d["listen"]]
++            res["edges"] = d["edges"]
++            if d.get("ambiguous"):
++                res["unresolved"] = ["AMBIGUOUS_OWNER " + x for x in d["ambiguous"]]
++        elif part == "unit":
++            res["objects"], res["edges"] = d["objects"], d["edges"]
++        elif part == "container":
++            res["objects"] = d["objects"]
++        elif part == "git":
++            res["objects"], res["edges"] = d["objects"], d["edges"]
++            if d.get("errors"):
++                res["unresolved"] = ["GIT_UNREADABLE " + x for x in d["errors"]]
++        return res
+     res["why"] = "NO_READER"
+     return res
+
+@@ -1311,6 +1601,8 @@
+         out["reasons"].append("NO_CONSISTENCY_PROOF " + str(sc["consistency"]))
+     if sc["duplicates"]:
+         out["reasons"].append("SOURCE_DUPLICATE_ROWS %d" % sc["duplicates"])
++    for u in src.get("unresolved") or []:          # C1-D: bộ đọc thấy đối tượng nhưng không chứng minh được quan hệ ⇒ không thể ĐỦ
++        out["reasons"].append(u)
+     spec = cell.get("graph")
+     if not spec:
+         if sc["objects_count"] == 0 and sc["edges_count"] == 0 and not out["reasons"]:
+@@ -1425,7 +1717,13 @@
+         parents["G9"] = sorted(set(parents["G9"]) | {"git:repo:" + r for r in gr["repos"]})
+     base = baseline if baseline is not None else (jload(BASELINE) or {})
+     ephemeral = [re.compile(x) for x in base.get("ephemeral_parent_patterns") or []]
+-    admitted = {c.get("parent") for c in cells if c.get("parent")} | set(base.get("accepted_directory_parents") or [])
++    admitted = {c.get("parent") for c in cells if c.get("parent")} | set(base.get("accepted_directory_parents") or []) | \
++        {p for c in cells for p in (c.get("parents") or [])}         # C1-D: ô lane nhận đúng tập cha nó đối chiếu nguồn↔Graph (không phải ACK)
++    cellpar = {p for c in cells for p in (c.get("parents") or [])}
++    prefixes = tuple(p for c in cells for p in (c.get("parent_prefixes") or []))
++    if prefixes:                                     # C1-D: ô lane nhận mọi cha theo tiền tố — chính ô đối chiếu từng cha nguồn↔Graph
++        for g_, xs in parents.items():
++            admitted |= {x for x in xs if x.startswith(prefixes)}
+     unhandled, vanished, per_gate = [], [], {}
+     for g, pre in GATE_PREFIX.items():
+         if g not in parents:
+@@ -1434,7 +1732,7 @@
+         cur = set(parents[g])
+         un = sorted(x for x in cur if x not in admitted and not any(e.search(x) for e in ephemeral))
+         va = sorted(x for x in admitted if x.startswith(pre) and x not in cur and not any(e.search(x) for e in ephemeral)
+-                    and (x in set(base.get("accepted_directory_parents") or []) or g in ("G1", "G7", "G8")))
++                    and (x in set(base.get("accepted_directory_parents") or []) or x in cellpar or g in ("G1", "G7", "G8")))
+         unhandled += un
+         vanished += va
+         per_gate[g] = {"read": True, "parents": len(cur), "unadmitted": un, "vanished": va}
+@@ -1461,6 +1759,175 @@
+ }
+
+
++SIGNAL_CLASSES = ("stat_tables", "stat_sys", "stat_db", "directus_audit", "directus_audit_window", "scanner_log", "scanner_docker", "scanner_cron",
++                  "scanner_timer")
++GRADES = ("SIGNAL_COUNTER_ONLY", "PATH_LIMITED_AUDIT", "SOURCE_WATERMARK", "SOURCE_COMMIT_LOG", "INDEPENDENT_SNAPSHOT_ONLY",
++          "DURABLE_EVENT_CURSOR_VERIFIED", "NO_ACCESS/UNKNOWN")
++DIRECTUS_SCHEMA_COLLECTIONS = ("directus_collections", "directus_fields", "directus_relations", "directus_permissions", "directus_policies",
++                               "directus_flows", "directus_operations", "directus_roles", "directus_access")
++SCANNER_MAX_AGE_H = 26
++
++
++def _pgc(p, db, cls):
++    c = (((p or {}).get(db) or {}).get("classes") or {}).get(cls) or {}
++    return c.get("rows") if c.get("ok") else None
++
++
++def signals_now(S, prev, now=None):
++    """C1-D: tín hiệu thay đổi SẴN CÓ theo đúng hạng (không bao giờ gọi là CDC) ⇒ (theo họ {G: [tín hiệu]}, trạng thái lưu cho lượt sau).
++    Mỗi tín hiệu: kind · grade · measured · delta (so lượt tốt trước) · status OK | CHANGED | UNKNOWN_* | SCANNER_* | READER_FAIL · limits."""
++    now = time.time() if now is None else now
++    prev = prev or {}
++    fam, st = {g: [] for g in GATE_PREFIX}, {}
++    p = S.get("pg")
++    # --- G1 · PG bộ đếm cộng dồn (pg_stat_user_tables + catalog hệ thống) — SIGNAL_COUNTER_ONLY
++    pc_prev = prev.get("pg_counters") or {}
++    pc = {}
++    for db in sorted(k for k, v in (p or {}).items() if isinstance(v, dict) and "classes" in v):
++        ut, sy, sd = _pgc(p, db, "stat_tables"), _pgc(p, db, "stat_sys"), _pgc(p, db, "stat_db")
++        sig = {"kind": "pg_stat_counters:" + db, "grade": "SIGNAL_COUNTER_ONLY", "family_scope": "row-activity counters per table + catalog (DDL) counters",
++               "limits": "biết bảng NÀO có ghi và bao nhiêu (kể cả sinh-rồi-xoá giữa hai lượt nếu bộ đếm còn), KHÔNG biết dòng/ID/quan hệ nào; "
++                         "đặt lại thống kê/khởi động bẩn làm mất lịch sử; bằng số KHÔNG chứng minh không đổi"}
++        if ut is None or sy is None or sd is None:
++            sig.update(status="READER_FAIL", measured=None)
++            fam["G1"].append(sig)
++            continue
++        cur = {"tables": {r[0]: [int(r[1] or 0), int(r[2] or 0), int(r[3] or 0)] for r in ut},
++               "catalog": {r[0]: [int(r[1] or 0), int(r[2] or 0), int(r[3] or 0)] for r in sy},
++               "stats_reset": (sd[0][0] if sd else "") or None}
++        pc[db] = cur
++        old = pc_prev.get(db)
++        sig["measured"] = {"tables": len(cur["tables"]), "ops_total": sum(sum(v) for v in cur["tables"].values()),
++                           "catalog_ops_total": sum(sum(v) for v in cur["catalog"].values()), "stats_reset": cur["stats_reset"]}
++        if not old:
++            sig.update(status="BASELINE_FIRST_READ", delta=None)
++        else:
++            dec = sorted(k for k, v in cur["tables"].items() if k in old["tables"] and any(a < b for a, b in zip(v, old["tables"][k])))
++            dec += sorted("catalog:" + k for k, v in cur["catalog"].items() if k in old["catalog"] and any(a < b for a, b in zip(v, old["catalog"][k])))
++            chg = sorted(k for k, v in cur["tables"].items() if old["tables"].get(k) not in (None, v))
++            cat_chg = sorted(k for k, v in cur["catalog"].items() if old["catalog"].get(k) not in (None, v))
++            sig["delta"] = {"tables_with_activity": len(chg), "sample": chg[:8], "new_tables": len(set(cur["tables"]) - set(old["tables"])),
++                            "gone_tables": len(set(old["tables"]) - set(cur["tables"])), "catalog_activity": cat_chg,
++                            "ops_delta": sig["measured"]["ops_total"] - sum(sum(v) for v in old["tables"].values())}
++            if dec or cur["stats_reset"] != old.get("stats_reset"):
++                sig.update(status="UNKNOWN_COUNTER_RESET", why="bộ đếm giảm/stats_reset đổi: %s" % (dec[:5] or cur["stats_reset"]))
++            else:
++                sig["status"] = "CHANGED" if chg or cat_chg else "NO_COUNTER_CHANGE"
++        fam["G1"].append(sig)
++    st["pg_counters"] = dict(pc_prev, **pc)                  # db đọc hỏng lượt này giữ mốc cũ (không coi là đặt lại)
++    # --- G1 · Directus nhật ký — PATH_LIMITED_AUDIT
++    au, win = _pgc(p, "directus", "directus_audit"), _pgc(p, "directus", "directus_audit_window")
++    sig = {"kind": "directus_activity+revisions", "grade": "PATH_LIMITED_AUDIT",
++           "limits": "chỉ thao tác ĐI QUA Directus (API/app/flow có ghi nhật ký); ghi thẳng SQL/trigger/DOT KHÔNG có; không đọc user/ip/payload"}
++    if au is None or win is None:
++        sig.update(status="READER_FAIL")
++    else:
++        a = {r[0]: r for r in au}
++        act, rev = a.get("activity"), a.get("revisions")
++        m = {"activity_count": int(act[1]), "activity_min_id": int(act[2] or 0), "activity_max_id": int(act[3] or 0), "activity_max_ts": act[5] or None,
++             "activity_min_ts": act[4] or None, "revisions_count": int(rev[1]), "revisions_max_id": int(rev[3] or 0)}
++        m["activity_id_gaps"] = (m["activity_max_id"] - m["activity_min_id"] + 1 - m["activity_count"]) if m["activity_count"] else 0
++        wsum = {}
++        for coll, action, n, mx in win:
++            wsum["%s:%s" % (coll, action)] = int(n)
++        m["window_26h"] = {"events": sum(wsum.values()), "groups": len(wsum), "by_collection_action": dict(sorted(wsum.items(), key=lambda kv: -kv[1])[:12]),
++                           "schema_events": {k: v for k, v in wsum.items() if k.split(":")[0] in DIRECTUS_SCHEMA_COLLECTIONS and not k.endswith(":run")}}
++        sig["measured"] = m
++        o = prev.get("directus_audit")
++        if not o:
++            sig.update(status="BASELINE_FIRST_READ")
++        elif m["activity_max_id"] < o["activity_max_id"] or m["revisions_max_id"] < o["revisions_max_id"]:
++            sig.update(status="UNKNOWN_CURSOR_REGRESSION", why="mốc id lùi so lượt trước (bảng bị xoá/khôi phục?)")
++        elif m["activity_min_id"] > o["activity_min_id"] and o["activity_max_id"] < m["activity_min_id"]:
++            sig.update(status="UNKNOWN_RETENTION_GAP", why="nhật ký bị cắt vượt quá mốc đã đọc lần trước ⇒ có khoảng mất")
++        else:
++            sig["delta"] = {"new_activity_ids": m["activity_max_id"] - o["activity_max_id"], "new_revision_ids": m["revisions_max_id"] - o["revisions_max_id"],
++                            "pruned_below": m["activity_min_id"] if m["activity_min_id"] > o["activity_min_id"] else None}
++            sig["status"] = "CHANGED" if sig["delta"]["new_activity_ids"] else "NO_NEW_EVENTS"
++            if m["window_26h"]["schema_events"]:
++                sig["status"] = "SCHEMA_EVENTS_IN_WINDOW"
++        st["directus_audit"] = {k: m[k] for k in ("activity_min_id", "activity_max_id", "revisions_max_id")}
++    if "directus_audit" not in st and prev.get("directus_audit"):
++        st["directus_audit"] = prev["directus_audit"]
++    fam["G1"].append(sig)
++    # --- scanner wf-universal-scanner — lần đọc thứ hai (INDEPENDENT_SNAPSHOT_ONLY), so ID với bộ đọc gốc
++    lg = {r[0]: r for r in (_pgc(p, "directus", "scanner_log") or [])}
++
++    def scanner(g, src, rows, native, label):
++        s = {"kind": "wf-universal-scanner:" + label, "grade": "INDEPENDENT_SNAPSHOT_ONLY",
++             "limits": "bảng chụp hằng ngày 02:10Z ghi PG; chỉ là lần đọc thứ hai, cũ/thiếu ⇒ không phải sự thật"}
++        if rows is None or native is None:
++            s.update(status="READER_FAIL")
++        else:
++            fin = parse_iso(((lg.get(src) or [None, None])[1] or "").replace(" ", "T"))
++            age = None if fin is None else round((now - fin) / 3600.0, 1)
++            sc_, na = set(rows), set(native)
++            s["measured"] = {"scanner": len(sc_), "native": len(na), "scanner_age_h": age, "missing_in_scanner": sorted(na - sc_)[:8],
++                             "extra_in_scanner": sorted(sc_ - na)[:8], "missing_count": len(na - sc_), "extra_count": len(sc_ - na)}
++            s["status"] = "SCANNER_STALE" if age is None or age > SCANNER_MAX_AGE_H else (
++                "SCANNER_INCOMPLETE" if na - sc_ else ("SCANNER_EXTRA" if sc_ - na else "SCANNER_MATCHES_NATIVE"))
++        fam[g].append(s)
++    d = S.get("docker")
++    scanner("G2", "docker_containers", [r[0] for r in (_pgc(p, "directus", "scanner_docker") or [])] if _pgc(p, "directus", "scanner_docker") is not None else None,
++            None if d.get("error") or d.get("_error") else d["names_after"], "docker")
++    def occ(xs):                                 # đa tập ⇒ tập (lịch trùng nhau đếm từng dòng)
++        n, out = {}, []
++        for x in sorted(xs):
++            n[x] = n.get(x, 0) + 1
++            out.append("%s#%d" % (x, n[x]))
++        return out
++    c = S.get("cron")
++    nat_cron = None if c.get("_error") or c.get("errors") else occ(e[0].split("|")[1] for e in c["entries"] if "|run-parts|" not in e[0])
++    scr = _pgc(p, "directus", "scanner_cron")
++    scanner("G4", "host_crontab", occ(r[1] or "?" for r in scr) if scr is not None else None, nat_cron, "cron(lịch từng dòng)")
++    rc, o, _ = sh(["systemctl", "list-units", "--type=timer", "--all", "--plain", "--no-legend", "--no-pager"], timeout=60)
++    nat_t = sorted(l.split()[0] for l in o.splitlines() if l.split() and l.split()[0].endswith(".timer")) if rc == 0 else None
++    stt = _pgc(p, "directus", "scanner_timer")
++    scanner("G3", "systemd_timers", [r[0] for r in stt] if stt is not None else None, nat_t, "systemd timer")
++    # --- G2 · Docker Id/Created/StartedAt/RestartCount — INDEPENDENT_SNAPSHOT_ONLY
++    cm = S.get("containers_meta")
++    sig = {"kind": "docker_container_start_meta", "grade": "INDEPENDENT_SNAPSHOT_ONLY",
++           "limits": "bắt tái tạo/khởi động lại của container CÒN SỐNG giữa hai lượt; container sinh-rồi-xoá giữa hai lượt KHÔNG thấy (không có docker events bền)"}
++    if cm.get("error") or cm.get("_error"):
++        sig["status"] = "READER_FAIL"
++    else:
++        o_ = prev.get("docker_meta") or {}
++        cur = cm["meta"]
++        rec = sorted(n for n in cur if n in o_ and cur[n]["id12"] != o_[n]["id12"])
++        rst = sorted(n for n in cur if n in o_ and cur[n]["id12"] == o_[n]["id12"] and (cur[n]["started_at"], cur[n]["restart_count"]) != (o_[n]["started_at"], o_[n]["restart_count"]))
++        sig["measured"] = {"containers": len(cur)}
++        sig["delta"] = None if not o_ else {"recreated": rec, "restarted": rst, "new": sorted(set(cur) - set(o_)), "gone": sorted(set(o_) - set(cur))}
++        sig["status"] = "BASELINE_FIRST_READ" if not o_ else ("CHANGED" if any(sig["delta"].values()) else "NO_CHANGE_OBSERVED")
++        st["docker_meta"] = cur
++    if "docker_meta" not in st and prev.get("docker_meta"):
++        st["docker_meta"] = prev["docker_meta"]
++    fam["G2"].append(sig)
++    # --- G9 · git HEAD/cây — SOURCE_COMMIT_LOG (chỉ mã đã commit)
++    gr = S.get("git_repos")
++    sig = {"kind": "git_head_tree", "grade": "SOURCE_COMMIT_LOG",
++           "limits": "bền cho mã ĐÃ commit; tệp chưa commit / bản triển khai khác HEAD KHÔNG được chứng minh bởi git"}
++    if gr.get("error") or gr.get("_error"):
++        sig["status"] = "READER_FAIL"
++    else:
++        o_ = prev.get("git_trees") or {}
++        sig["measured"] = {"repos": len(gr["repos"])}
++        sig["delta"] = None if not o_ else {"tree_changed": sorted(r for r in gr["repos"] if r in o_ and o_[r] != gr["repos"][r])}
++        sig["status"] = "BASELINE_FIRST_READ" if not o_ else ("CHANGED" if sig["delta"]["tree_changed"] else "NO_COMMIT_CHANGE")
++        st["git_trees"] = dict(gr["repos"])
++    fam["G9"].append(sig)
++    # --- họ chỉ có ảnh chụp đêm (nêu đúng hạng, không tô màu)
++    for g, kind, grade, lim in (
++            ("G3", "systemd_unit_files", "INDEPENDENT_SNAPSHOT_ONLY", "sha256 tệp unit mỗi đêm; unit sinh-rồi-xoá giữa hai lượt KHÔNG thấy (journal không phải sổ thay đổi tệp)"),
++            ("G4", "cron_files", "INDEPENDENT_SNAPSHOT_ONLY", "sha256 tệp cron mỗi đêm; không có audit cron"),
++            ("G5", "nginx_conf+ss_listen", "INDEPENDENT_SNAPSHOT_ONLY", "nginx -T + ss -ltnp lúc chụp; cổng mở-rồi-đóng giữa hai lượt KHÔNG thấy"),
++            ("G6", "opt_entries+code_ledger_sha", "INDEPENDENT_SNAPSHOT_ONLY", "listdir + sha256 tệp mã trong sổ mỗi đêm"),
++            ("G7", "qdrant_meta+points_count", "INDEPENDENT_SNAPSHOT_ONLY", "cấu hình + số điểm lúc chụp; không có nhật ký thay đổi điểm"),
++            ("G8", "lark_modified_time", "NO_ACCESS/UNKNOWN", "API Lark có modified_time từng bản ghi (SOURCE_WATERMARK của bản ghi CÒN SỐNG, không thấy bản ghi đã xoá) — "
++                                                         "bộ đọc hiện hành KHÔNG đọc trường này ⇒ chưa dùng được; b88 = ảnh FREEZE_SHA256 (INDEPENDENT_SNAPSHOT_ONLY)")):
++        fam[g].append({"kind": kind, "grade": grade, "limits": lim, "status": "EPHEMERAL_CHANGE_NOT_OBSERVABLE" if grade != "NO_ACCESS/UNKNOWN" else "UNKNOWN"})
++    return fam, st
++
++
+ def _h(x):
+     return hashlib.sha256(jkey(x).encode()).hexdigest()[:16]
+
+@@ -1498,7 +1965,7 @@
+                 continue
+             ver[db] = {"pg_snapshot": (d.get("reader") or {}).get("pg_snapshot"), "snapshot_utc": (d.get("reader") or {}).get("snapshot_utc")}
+             for cls, c in sorted((d.get("classes") or {}).items()):
+-                if cls in ("databases", "cdc_caps", "wal_lsn", "kb", "l1_fk", "view_dep_kind", "dot_tools"):
++                if cls in ("databases", "cdc_caps", "wal_lsn", "kb", "l1_fk", "view_dep_kind", "dot_tools") + SIGNAL_CLASSES:
+                     continue
+                 if not c.get("ok"):
+                     errs.append("pg:%s.%s %s" % (db, cls, c.get("error")))
+@@ -1609,7 +2076,7 @@
+     return {"first": False, "added": add, "removed": rem, "modified": mod, "total_changes": tot, "samples": smp[:12]}
+
+
+-def coverage_matrix(cat, res, dr, inv, prev_inv, now):
++def coverage_matrix(cat, res, dr, inv, prev_inv, now, signals=None):
+     """Ma trận bao phủ từng họ G1–G9 (máy đọc được, DataHub/OpenLineage-kiểu: nguồn·phiên bản·khớp·thay đổi·khả năng thu thay đổi·chủ)."""
+     fams = dict(FAMILY_DEFAULT)
+     for g, v in (cat.get("families") or {}).items():
+@@ -1644,7 +2111,10 @@
+                             "graph_objects": sum(((c.get("graph") or {}).get("objects_count") or 0) for c in cells),
+                             "graph_edges": sum(((c.get("graph") or {}).get("edges_count") or 0) for c in cells)},
+                   "change_since_last_good": diff, "supported_ingestion": bool(f.get("supported_ingestion", any((c.get("graph") is not None) for c in cells))),
+-                  "durable_change_capture": f.get("durable_change_capture") or {"available": False, "why": "chỉ chụp mỗi đêm (NIGHTLY_SNAPSHOT_DIFF)"},
++                  "durable_change_capture": dict(f.get("durable_change_capture") or {"available": False, "why": "chỉ chụp mỗi đêm (NIGHTLY_SNAPSHOT_DIFF)"},
++                                                 grades=sorted({x.get("grade") for x in (signals or {}).get(g) or [] if x.get("grade")}),
++                                                 durable_event_cursor_verified=False),
++                  "change_signals": (signals or {}).get(g) or [], "contract": f.get("contract"),
+                   "ephemeral_change_observable": False, "blind_spot": "EPHEMERAL_CHANGE_NOT_OBSERVABLE: đối tượng sinh rồi mất giữa hai lượt chụp, "
+                                                                      "thay đổi dữ liệu dòng/bản ghi không có CDC/audit bền",
+                   "out_of_scope_unknown": f.get("out_of_scope_unknown") or [], "status": st,
+@@ -1752,9 +2222,10 @@
+ def run(g=None, pw=None, only=None, b88_input=None, injected=None, write=True, now=None, ids_out=None, run_label="manual"):
+     t0 = time.time()
+     now = time.time() if now is None else now
+-    cat = jload(CELLS)
+-    if not cat or cat.get("format") != "graph-cert-cells-v1":
+-        raise RuntimeError("cert-cells.json thiếu/sai định dạng")
++    cat_sha0, cat, cat_err = catalog_read()                   # C1-D K3: đọc byte danh mục MỘT lần; băm = đúng byte đã dùng
++    if cat_err or not cat:
++        raise RuntimeError("cert-cells.json thiếu/sai định dạng (%s)" % cat_err)
++    defs = {c["key"]: cell_def_sha(c) for c in cat["cells"]}
+     cells = cat["cells"]
+     if only:
+         cells = [c for c in cells if c["key"] in only]
+@@ -1813,6 +2284,8 @@
+                     res[k].update(status=MP, reasons=["CANARY_ERROR"])
+                     res[k].pop("issued_at", None)
+                     res[k].pop("expires_at", None)
++    for k, r in res.items():                                  # C1-D K3: mỗi ô mang băm định nghĩa đã dùng để cấp
++        r["cell_def_sha256"] = defs.get(k)
+     ep1 = graph_epoch(g, pw)                                  # C1-C K1: mốc CUỐI lượt — khác đầu ⇒ Graph đổi trong lúc cấp giấy
+     stable = bool(epoch_key(ep0)) and epoch_key(ep0) == epoch_key(ep1)
+     if not stable:
+@@ -1822,6 +2295,14 @@
+                 r.update(status=MP, reasons=(r.get("reasons") or []) + [why])
+                 r.pop("issued_at", None)
+                 r.pop("expires_at", None)
++    cat_sha1 = catalog_read()[0]                              # C1-D K3: danh mục đổi trong lúc cấp giấy ⇒ không ô nào ĐỦ
++    cat_stable = cat_sha1 == cat_sha0
++    if not cat_stable:
++        for k, r in res.items():
++            if r.get("status") == DU:
++                r.update(status=MP, reasons=(r.get("reasons") or []) + ["CATALOG_CHANGED_DURING_CERT"])
++                r.pop("issued_at", None)
++                r.pop("expires_at", None)
+     prev = jload(CURRENT)
+     if only and prev and verify_manifest(prev, now)[0]:
+         merged = dict(prev["cells"])
+@@ -1831,17 +2312,32 @@
+                     merged[k] = dict(merged[k], status=MP, reasons=["GRAPH_CHANGED_SINCE_CERT (ô không cấp lại ở lượt --cells)"])
+                     merged[k].pop("issued_at", None)
+                     merged[k].pop("expires_at", None)
++        for k in list(merged):                # K3: ô cũ cấp dưới định nghĩa khác/không có băm định nghĩa ⇒ không còn chứng minh được
++            if k not in res and merged[k].get("status") == DU and (merged[k].get("cell_def_sha256") != defs.get(k)
++                                                                    or prev.get("engine_sha256") != _SELF_SHA):
++                merged[k] = dict(merged[k], status=MP, reasons=["CATALOG_CHANGED_SINCE_CERT (ô không cấp lại ở lượt --cells, định nghĩa/bộ máy khác)"])
++                merged[k].pop("issued_at", None)
++                merged[k].pop("expires_at", None)
++        for k in list(merged):                # ô đã rút khỏi danh mục không được mang sang giấy mới
++            if k not in defs:
++                merged.pop(k)
+         merged.update(res)
+         res, dr = merged, prev.get("directory")
+-    inv, matrix, prev_inv = None, None, None
++    inv, matrix, prev_inv, sig_state = None, None, None, None
+     if not only:                                             # C1-C G1–G9: kho kiểm kê độc lập + ma trận bao phủ
+         prev_inv = jload(INVENTORY) or {}
+         inv = inventory_now(S, dr)
+-        matrix = coverage_matrix(cat, res, dr, inv, prev_inv, now)
++        try:                                                 # C1-D: tín hiệu thay đổi sẵn có (hạng đúng, không phải CDC)
++            sig_fam, sig_state = signals_now(S, (prev_inv or {}).get("signals"), now)
++        except Exception as e:  # noqa: BLE001
++            sig_fam, sig_state = {g: [{"kind": "signals", "status": "READER_FAIL", "why": "%s %s" % (type(e).__name__, str(e)[:120])}] for g in GATE_PREFIX}, None
++        matrix = coverage_matrix(cat, res, dr, inv, prev_inv, now, signals=sig_fam)
+     elif prev:
+         matrix = prev.get("coverage_matrix")
+     readers = {k: (v.get("_error") or v.get("error")) for k, v in S.cache.items() if isinstance(v, dict) and (v.get("_error") or v.get("error"))}
+-    doc = {"format": FORMAT, "catalog_version": cat.get("catalog_version"), "catalog_sha256": hashlib.sha256(open(CELLS, "rb").read()).hexdigest(),
++    doc = {"format": FORMAT, "catalog_version": cat.get("catalog_version"), "catalog_sha256": cat_sha0,
++           "catalog_contract": {"fence": "cert-cells.json sha256 (byte đọc đầu lượt) + cell_def_sha256 từng ô + engine_sha256",
++                                "stable_during_run": cat_stable, "end_sha256": cat_sha1, "cells": len(defs)},
+            "run": {"label": run_label, "only": sorted(only) if only else None, "seconds": round(time.time() - t0, 1)},
+            "generated_at": now_iso(now), "graph_snapshot": gsnap, "cells": res, "directory": dr, "reader_errors": readers, "canary": canary,
+            "graph_epoch": dict(ep0, stable_during_run=stable, end_read_at=ep1.get("read_at"), end_error=ep1.get("error")),
+@@ -1852,17 +2348,19 @@
+     if write:
+         write_manifest(doc)
+         if inv is not None:
+-            write_inventory(prev_inv, inv, now)
++            write_inventory(prev_inv, inv, now, signals=sig_state)
+     return doc
+
+
+-def write_inventory(prev, inv, now):
+-    """last-good từng họ: họ đọc trọn + nhất quán ⇒ thay ảnh; họ lỗi ⇒ giữ ảnh tốt cũ (không ghi đè bằng ảnh rỗng)."""
++def write_inventory(prev, inv, now, signals=None):
++    """last-good từng họ: họ đọc trọn + nhất quán ⇒ thay ảnh; họ lỗi ⇒ giữ ảnh tốt cũ (không ghi đè bằng ảnh rỗng).
++    C1-D: `signals` = mốc tín hiệu (bộ đếm PG, mốc id Directus, Docker start meta, cây git) cho phép tính chênh lệch lượt sau."""
+     fams = dict((prev or {}).get("families") or {})
+     for g, f in inv.items():
+         if f.get("ok") and f.get("consistency") != "DRIFT":
+             fams[g] = f
+-    doc = {"format": "graph-cert-inventory-v1", "written_at": now_iso(now), "engine_version": ENGINE_VERSION, "families": fams}
++    doc = {"format": "graph-cert-inventory-v1", "written_at": now_iso(now), "engine_version": ENGINE_VERSION, "families": fams,
++           "signals": signals if signals is not None else (prev or {}).get("signals")}
+     os.makedirs(CERT_DIR, mode=0o750, exist_ok=True)
+     tmp = INVENTORY + ".tmp"
+     with open(tmp, "w", encoding="utf-8") as f:
+@@ -1910,17 +2408,24 @@
+     return True, None
+
+
+-def effective(doc, now=None):
+-    """{cell: (status, reason, issued_at, expires_at)} tại giờ now; giấy hỏng/vắng ⇒ mọi ô MỘT PHẦN."""
++def effective(doc, now=None, catalog=None):
++    """{cell: (status, reason, issued_at, expires_at)} tại giờ now; giấy hỏng/vắng ⇒ mọi ô MỘT PHẦN.
++    C1-D K3: catalog = (sha, obj, err) danh mục SỐNG đọc một lần bởi người gọi (None ⇒ đọc ngay); lệch giấy ⇒ mọi ô/ô đổi định nghĩa MỘT PHẦN."""
+     now = time.time() if now is None else now
+     ok, why = verify_manifest(doc, now)
+     if not ok:
+         return {}, why
++    cat_sha, cat_obj, cat_err = catalog if catalog is not None else catalog_read()
++    fst, fwhy, per = catalog_fence(doc, cat_sha, cat_obj, cat_err)
+     out = {}
+     for k, c in doc["cells"].items():
+         exp = parse_iso(c.get("expires_at"))
+         if c.get("status") != DU:
+             out[k] = (MP, "; ".join(c.get("reasons") or [])[:200] or "NOT_CERTIFIED", None, None)
++        elif fst != "MATCH":
++            out[k] = (MP, "%s: %s" % (fst, fwhy), None, None)
++        elif k in per:
++            out[k] = (MP, per[k], None, None)
+         elif exp is None or now >= exp:
+             out[k] = (MP, "EXPIRED", c.get("issued_at"), c.get("expires_at"))
+         elif exp - parse_iso(c.get("issued_at") or "1970-01-01T00:00:00") > MAX_TTL_H * 3600 + 60:
+@@ -1928,9 +2433,10 @@
+         else:
+             out[k] = (DU, None, c.get("issued_at"), c.get("expires_at"))
+     d = doc.get("directory")
+-    out["directory:g1-g9"] = (DU if d and d.get("status") == DU and now - parse_iso(doc["generated_at"]) < MAX_TTL_H * 3600 else MP,
+-                              None if d and d.get("status") == DU else "; ".join((d or {}).get("reasons") or ["NO_DIRECTORY"])[:200],
+-                              doc.get("generated_at"), None)
++    dir_ok = d and d.get("status") == DU and now - parse_iso(doc["generated_at"]) < MAX_TTL_H * 3600 and fst == "MATCH"
++    dwhy = None if dir_ok else ("%s: %s" % (fst, fwhy) if fst != "MATCH" else
++                                ("; ".join(d.get("reasons") or [])[:200] or "EXPIRED") if d else "NO_DIRECTORY")
++    out["directory:g1-g9"] = (DU if dir_ok else MP, dwhy, doc.get("generated_at"), None)
+     return out, None
+
+
+@@ -2169,10 +2675,11 @@
+         age = None if gen is None else round(((time.time() if now is None else now) - gen) / 3600.0, 1)
+         l1_iss = parse_iso(L1.get("proof_issued_at")) if L1.get("proof_issued_at") else None
+         L2["freshness"] = {"generated_at": l2.get("generated_at"), "age_hours": age, "max_age_hours": L2_MAX_AGE_H,
+-                           "stale": age is None or age > L2_MAX_AGE_H, "nightly_refresh": False,
++                           "stale": age is None or age > L2_MAX_AGE_H, "nightly_refresh": bool(l2.get("nightly_refresh")),
+                            "catalog_newer_than_l2": bool(l1_iss and gen and l1_iss > gen),
+                            "source_reference": {"file": L2_FILE, "self_sha256": l2.get("self_sha256"), "pg_snapshot": l2.get("pg_snapshot")},
+-                           "note": "ảnh L2 tĩnh (không làm mới hằng đêm): cũ > 26h ⇒ STALE, KHÔNG được coi là đủ mã hiện hành"}
++                           "note": ("ảnh L2 làm mới mỗi lượt graph-refresh (C1-D, lượt hỏng giữ ảnh cũ): cũ > 26h ⇒ STALE, KHÔNG được coi là đủ mã hiện hành"
++                                    if l2.get("nightly_refresh") else "ảnh L2 tĩnh (không làm mới hằng đêm): cũ > 26h ⇒ STALE, KHÔNG được coi là đủ mã hiện hành")}
+         if L2["freshness"]["stale"]:
+             L2["reason"] += " · L2_STALE: ảnh %sh > %dh" % (age, L2_MAX_AGE_H)
+         t = (l2.get("tables") or {}).get(anchor) if anchor else None
+@@ -2254,6 +2761,20 @@
+     return _label_impl(tool, arguments, result_rows, now, doc, cat, live, lock_state)
+
+
++def _label_catalog_recheck(lab, sha_used):
++    """K3 chống chạy đua: đọc lại băm danh mục SAU khi tính nhãn — đổi giữa chừng ⇒ MỘT PHẦN (không trả ĐỦ tính trên danh mục cũ)."""
++    now_sha = catalog_read()[0]
++    if now_sha != sha_used:
++        lab.update(completeness_label=MP, query_actionability=ACT_NO, proof_issued_at=None, expires_at=None,
++                   impact_question_actionability=ACT_NO, missing_or_unknown_cell_ids=["*"])
++        lab["reason"] = "CATALOG_CHANGED_DURING_LABEL · " + str(lab.get("reason") or "")
++        (lab.get("catalog_revision") or {}).update(status="CATALOG_CHANGED_DURING_LABEL")
++        l1 = (lab.get("layers") or {}).get("L1") or {}
++        if l1.get("label") == DU:
++            l1.update(label=MP, proof_issued_at=None, expires_at=None, reasons=(l1.get("reasons") or []) + ["CATALOG_CHANGED_DURING_LABEL"])
++    return lab
++
++
+ def _meta(lst):
+     return {"total": len(lst), "shown": len(lst), "offset": 0, "truncated": False, "next_cursor": None, "remainder_access": "trọn danh sách"}
+
+@@ -2272,13 +2793,21 @@
+            "note": "Nhãn = ô kém nhất câu hỏi cần (CT4). Vắng cạnh ≠ không có quan hệ trừ khi mọi ô cần ĐỦ. Giấy là bằng chứng kiểm định, "
+                    "không phải chứng thư mật mã."}
+     try:
+-        cat = cat if cat is not None else jload(CELLS)
++        if cat is None:                                          # C1-D K3: danh mục sống đọc MỘT lần cho cả nhãn (phân loại + hàng rào)
++            live_cat = catalog_read()
++            cat = live_cat[1]
++        else:                                                    # người gọi (fixture) đưa danh mục ⇒ băm theo tệp danh mục hiện hành
++            live_cat = (catalog_read()[0], cat, None)
+         doc = doc if doc is not None else jload(CURRENT)
+         if not cat:
+-            lab["reason"] = "CATALOG_MISSING"
++            lab["reason"] = "CATALOG_MISSING" + (" · CATALOG_VERSION_UNVERIFIED %s" % live_cat[2] if live_cat[2] else "")
+             lab["missing_or_unknown_cell_ids"] = ["*"]
+             return lab
+-        eff, why = effective(doc, now)
++        eff, why = effective(doc, now, catalog=live_cat)
++        fst, fwhy, _ = catalog_fence(doc, *live_cat) if not why else ("CATALOG_VERSION_UNVERIFIED", why, {})
++        lab["catalog_revision"] = {"fence": "cert-cells.json sha256 + cell_def_sha256 + engine_sha256", "status": fst, "why": fwhy,
++                                   "cert_catalog_sha16": str((doc or {}).get("catalog_sha256") or "")[:16] or None,
++                                   "live_catalog_sha16": (live_cat[0] or "")[:16] or None, "catalog_version": cat.get("catalog_version")}
+         if doc and isinstance(doc, dict):
+             lab["evidence"].update(manifest_self_sha256=doc.get("self_sha256"), generated_at=doc.get("generated_at"),
+                                    graph_snapshot=(doc.get("graph_snapshot") or {}).get("gs_keys_sha256"), engine_sha256=doc.get("engine_sha256"))
+@@ -2294,7 +2823,7 @@
+             lab.update(query_class="GRAPH_SCHEMA", reason="lược đồ Graph không phải khẳng định đủ về nguồn", relevant_cell_ids=["directory:g1-g9"],
+                        missing_or_unknown_cell_ids=sorted(k for k, v in eff.items() if v[0] != DU))
+             lab["list_meta"] = {"relevant_cell_ids": _meta(lab["relevant_cell_ids"]), "missing_or_unknown_cell_ids": _meta(lab["missing_or_unknown_cell_ids"])}
+-            return lab
++            return _label_catalog_recheck(lab, live_cat[0])
+         q = (arguments or {}).get("query") or (arguments or {}).get("cypher") or ""
+         qc, need, reason = classify_query(q, cat)
+         params = (arguments or {}).get("params") if isinstance((arguments or {}).get("params"), dict) else {}
+@@ -2324,12 +2853,16 @@
+                        reason="mọi ô cần có giấy còn hạn" + ("; kết quả rỗng được chứng nhận trong phạm vi ô" if result_rows == 0 else ""))
+             lab["evidence"]["cells"] = {k: doc["cells"][k].get("proof") for k in need if k in doc["cells"]}
+         else:
+-            lab["reason"] = reason or ("ô chưa ĐỦ: " + ", ".join(miss[:8]) + ("…" if len(miss) > 8 else ""))
++            lab["missing_reasons"] = {k: (eff.get(k) or (MP, "NOT_CERTIFIED"))[1] for k in miss[:8]}      # C1-D: lý do từng ô (K3/K1/hạn…)
++            lab["reason"] = reason or ("ô chưa ĐỦ: " + ", ".join("%s [%s]" % (k, str(lab["missing_reasons"].get(k) or "")[:70]) if i < 3 else k
++                                                                 for i, k in enumerate(miss[:8])) + ("…" if len(miss) > 8 else ""))
+             if result_rows == 0:
+                 lab["reason"] += "; kết quả rỗng KHÔNG chứng minh vắng quan hệ"
+         if fence["status"] != "MATCH":
+             lab["reason"] = "%s · %s · %s" % (fence["status"], fence.get("why"), lab.get("reason") or "")
+-        return lab
++        if fst != "MATCH":
++            lab["reason"] = "%s · %s · %s" % (fst, fwhy, lab.get("reason") or "")
++        return _label_catalog_recheck(lab, live_cat[0])
+     except Exception as e:  # noqa: BLE001
+         lab.update(completeness_label=MP, query_actionability=ACT_NO, proof_issued_at=None, expires_at=None)
+         lab["reason"] = "LABEL_ENGINE_ERROR %s" % type(e).__name__
+@@ -2339,7 +2872,7 @@
+
+ # =========================================================================== CT5 — đèn + biên nhận sự cố
+ SEVERITY = {"OPERATIONAL": "critical", "COVERAGE_REGRESSION": "critical", "NEW_SOURCE_UNHANDLED": "warning", "SOURCE_VANISHED": "warning",
+-            "PENDING_HOST_ACK": "warning", "SOURCE_CHANGE": "info"}
++            "PENDING_HOST_ACK": "warning", "SOURCE_CHANGE": "info", "SIGNAL_DEGRADED": "warning"}
+
+
+ def alarm(doc, op_failure=None, now=None, baseline=None, prev_open=None):
+@@ -2389,6 +2922,10 @@
+             for g, m in sorted((doc.get("coverage_matrix") or {}).items()):
+                 if m.get("status") == "READER_FAILED" and m.get("reader_errors"):
+                     inc.append({"kind": "OPERATIONAL", "cell": "inventory:" + g, "reason": "bộ đọc kiểm kê hỏng: " + "; ".join(m["reader_errors"])[:100]})
++                for sg in m.get("change_signals") or []:        # C1-D: tín hiệu thay đổi mất/đặt lại/cũ ⇒ VÀNG (khả năng thấy thay đổi giảm)
++                    if str(sg.get("status")).startswith(("UNKNOWN_", "READER_FAIL", "SCANNER_STALE", "SCANNER_INCOMPLETE")):
++                        inc.append({"kind": "SIGNAL_DEGRADED", "cell": "signal:" + g, "reason": "%s %s" % (sg.get("kind"), sg.get("status")),
++                                    "detail": str(sg.get("why") or sg.get("measured") or "")[:160]})
+                 ch = m.get("change_since_last_good") or {}
+                 if ch.get("total_changes"):
+                     parts = ["%s%s%d" % (k, t, n) for t, dd in (("+", ch.get("added")), ("-", ch.get("removed")), ("~", ch.get("modified"))) for k, n in sorted((dd or {}).items())]
