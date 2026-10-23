@@ -2,18 +2,18 @@
 Tên việc: Sổ + trang chủ cho cỗ máy sản xuất quy trình — làm trên vùng nháp Directus, phần đã chốt lên PG thật y như nháp
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: CHƯA XÁC NHẬN — ô 1 = lời Owner 23/10/2026 14:37 + 15:02 (chỉ sửa chính tả); chờ Owner gật ô 2 và 3.0.
+Xác nhận User: CHƯA XÁC NHẬN — ô 1 = lời Owner 23/10/2026 14:37 + 15:02 (chỉ sửa chính tả); chờ Owner gật ô 2 và 3.0. Owner 15:37 đã chốt riêng phần trang chủ (địa chỉ, khung cột) và cho vẽ trước.
 Host: Claude Chat · Owner chỉ định 23/10/2026 14:37 («bạn tiếp tục làm host»).
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-23 15:25 · Claude Host · P02
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-23 16:00 · Claude Host · P04
 - ⚠ Mỗi lượt sửa task: sửa luôn các dòng tổng — giờ cập nhật · ✅ · ■ · ⬜ · ➡.
 - 🎯 Mục tiêu: ô 1. Vì sao: mọi thứ có sổ, mỗi thông tin 1 nhà ⇒ người và máy nhìn cùng một thứ; chỉnh trên nháp cho nhanh, chốt phần nào lên thật phần đó.
 - 🏁 Xong khi: ô 2 (đề xuất — chờ Owner gật).
-- 📍 Tiến độ: [■ L0 Chốt khung] → [□ L1 Kiểm kê sổ + DOT] → [□ L2 Máy dựng vùng] → [□ L3 Nạp sổ nháp] → [□ L4 Trang chủ] → [□ L5 Đưa phần đã chốt lên sổ] → [□ L6 Chạy thử 3 nhóm] → [□ L7 Lên thật từng sổ]
-- ✅ Đã xong: P01 tạo task · P02 ô 1 thêm mục 5–7 · lộ trình (3.1) · trang chủ (3.2) · sổ (3.3) · quy chuẩn vùng nháp (3.4) · cơ chế Một nhà (3.5).
-- ■ Đang làm: L0 · chờ GPT rà P02 (1 vòng) + Owner gật 3.0 · 0 RUN active
-- ⬜ Còn lại: L1 → L2 → L3 → L4 → L5 → L6 → L7 (L5–L7 lặp theo từng sổ).
-- ➡ Kế tiếp: 🤖 GPT rà 3.0–3.6, ghi P03 → Host chốt → 😊 Owner gật 3.0 → 1 lệnh Claude Code cho L1 (chỉ đọc, qua DOT). NEXT_TRIGGER=GPT_RA_P02
+- 📍 Tiến độ: [■ L0 Chốt khung + bản vẽ] → [□ L1 Kiểm kê] → [□ L2 Vòng mẫu: 1 sổ + trang thật] → [□ L3 Mở rộng sổ] → [□ L4 Đưa phần đã chốt lên sổ] → [□ L5 Chạy thử 3 nhóm] → [□ L6 Lên thật từng sổ]
+- ✅ Đã xong: P01 tạo task · P02 ô 1 thêm mục 5–7, lộ trình, trang chủ, sổ, quy chuẩn vùng nháp, Một nhà · P03 GPT rà: đồng thuận + 5 điểm · P04 Host nhận đủ 5 điểm + bản vẽ trang chủ https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/nhap-directus/home.html (đã mở kiểm: cây, bảng toàn link, «?», ⌂, 0 lỗi console).
+- ■ Đang làm: L0 · chờ Owner xem bản vẽ + gật 3.0 · 0 RUN active
+- ⬜ Còn lại: L1 → L2 → L3 → L4 → L5 → L6 (L3–L6 lặp theo từng sổ).
+- ➡ Kế tiếp: 😊 Owner xem bản vẽ, góp ý + gật 3.0 → Host soạn 1 lệnh Claude Code cho L1 (chỉ đọc, qua DOT) → GPT ACCEPT → Owner dán. NEXT_TRIGGER=OWNER_XEM_BAN_VE_GAT_3_0
 - ⛔ Không làm: AI chạm thẳng Directus/PG (kể cả đọc) · gõ tay vào Directus (kể cả Owner) · ghi vào production khi sổ chưa chốt hoặc phần chênh chưa duyệt · trang viết riêng cho từng bảng · sửa MBM khi chưa xin phép · tạo tệp ngoài COLLAB khi Owner chưa gật.
 
 ### 1. Mục tiêu
@@ -41,29 +41,28 @@ Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều ch
 
 #### 3.0 Owner cần quyết — đề xuất sẵn, gật hoặc lắc (P02, thay 3.6 của P01)
 1. Ô 2 Hoàn thành 7 dòng. Đề xuất: gật.
-2. Vùng nháp nằm ngay trong Directus/PG thật, khoanh bằng quy chuẩn 3.4 — **thay đề xuất P01 «Directus + PG riêng»**. Lý do: nháp riêng phải chép bảng thật sang ⇒ 2 nguồn, trái ô 1 mục 6; trong cùng hệ thì nháp trỏ thẳng sang bảng thật bằng mã, không chép. Cách này đã chạy thật ở web công ty (`web_incomex`) và khớp thiết kế Owner gật ở việc TQT 15/10. JEV `gen-dec-1792742987-VzYh7NFAOzmzv3GMs04u`: 1,00. Đề xuất: gật.
-3. Trang chủ = 1 trang mới trong cổng Knowledge, `/knowledge/home`, khung giống Task html view (3.2). JEV 0,93. Đề xuất: gật.
-4. Sổ của các sổ phía thật = `meta_catalog` đang có (trang Registries); vùng nháp có sổ riêng `nhap_so`; lên thật thì dòng chuyển sang `meta_catalog`. JEV 0,87: phải kiểm trigger, đếm, cột của `meta_catalog` trước ⇒ kiểm ở L1. Đề xuất: gật, có điều kiện L1.
+2. Vùng nháp nằm ngay trong Directus/PG thật, khoanh bằng quy chuẩn 3.4 — **thay đề xuất P01 «Directus + PG riêng»**. GPT P03 đồng thuận; tiền tố chỉ để nhận diện, cách ly bằng quyền (3.4 V8). Lý do: nháp riêng phải chép bảng thật sang ⇒ 2 nguồn, trái ô 1 mục 6; trong cùng hệ thì nháp trỏ thẳng sang bảng thật bằng mã, không chép. Cách này đã chạy thật ở web công ty (`web_incomex`) và khớp thiết kế Owner gật ở việc TQT 15/10. JEV `gen-dec-1792742987-VzYh7NFAOzmzv3GMs04u`: 1,00. Đề xuất: gật.
+3. ✅ ĐÃ CHỐT (Owner 15:37): trang chủ ở `/knowledge/nhap-directus/home` (`/knowledge/home` đang là nháp của KB); cột lấy như trang Task hiện tại, không lấy khung KB; vẽ trước rồi tính.
+4. Sổ của các sổ phía thật = `meta_catalog` đang có (trang Registries); vùng nháp có sổ riêng `nhap_so`; lên thật thì dòng chuyển sang `meta_catalog`. L1 chỉ ánh xạ ba danh mục (`meta_catalog` · Master of Master 86 · Danh sách Master 49 / registry 28), chưa gộp, chưa xoá (GPT P03). JEV 0,87: phải kiểm trigger, đếm, cột của `meta_catalog` trước ⇒ kiểm ở L1. Đề xuất: gật, có điều kiện L1.
 5. Trang chủ công khai trên VPS, chỉ đọc, đọc bằng 1 thẻ máy chỉ-đọc; không mở quyền public của Directus. Đề xuất: gật.
-6. Xoá trong vùng nháp: chạy theo kế hoạch đã duyệt, không hỏi từng lần; xoá ở production: luôn hỏi Owner từng lần. Đề xuất: gật.
+6. Xoá trong vùng nháp: chỉ thứ có trong sổ sở hữu, theo kế hoạch Owner đã duyệt; mặc định không xoá (GPT P03). Xoá ở production: luôn hỏi Owner từng lần. Đề xuất: gật.
 7. Nguồn nạp MOW = Master MOW 35 dòng (ML-DEF-004), không lấy bảng PG `workflows` 3 dòng. Đề xuất: gật.
 8. Hội đồng: Claude Chat Host · GPT Chat rà · Claude Code chạy DOT. Đề xuất: gật.
-9. Trang «⌂ Master» cũ (`ui-preview/mcp-writes/master-home-v1.html`) và «Master of Master 86 mục» tĩnh: khi trang mới chạy thì trỏ sang trang mới, giữ làm lịch sử, không xoá. Đề xuất: gật.
+9. Các «trang chủ» cũ — «⌂ Master» (`master-home-v1.html`), «⌂ Trang chủ thiết kế» (các trang `definition-master-*`) — và «Master of Master 86 mục» tĩnh: khi trang mới chạy thì trỏ sang trang mới, giữ làm lịch sử, không xoá. Đề xuất: gật.
 10. Trung tâm UI / trang chủ cây (việc TQT, bước 3, Owner 16/10) và DOT `dot-master-apply` (thiết kế TQT R41–R46, chưa viết) chuyển về việc này; việc TQT ghi 1 dòng trỏ sang đây. Đề xuất: gật.
 
 #### 3.1 Lộ trình — trọng tâm «mọi thứ có sổ» (Owner 15:02: «Roadmap thì bạn lập ra để GPT có ý kiến»)
 | Bước | Làm gì | Ai | Xong khi |
 |---|---|---|---|
-| L0 Chốt khung | ô 1–2 · 3.0–3.6 | Host → GPT rà 1 vòng → 😊 gật 3.0 | 3.0 có câu trả lời |
-| L1 Kiểm kê (chỉ đọc, qua DOT) | Kê mọi sổ đang có (`meta_catalog` · 86 mục tĩnh · 28 ML-DEF · sổ trên trang Công thức: CT, 43 câu, MMOW, Miền CV…) → bảng ánh xạ mã ↔ bí danh ↔ nơi đang ở ↔ nhà đích. Kê DOT Directus có sẵn (có / thiếu). Kiểm `meta_catalog` (trigger, đếm, cột) và tiền tố `nhap_` chưa ai dùng. Đo độ rộng cột Task html view. | 🤖 Claude Code (1 lệnh) | 2 bảng (sổ, DOT); Host + GPT rà |
-| L2 Máy dựng vùng | Viết `dot-master-apply` (ap · kiem · xoa-vung) + 1 thẻ ghi (DOT) + 1 thẻ đọc (trang chủ) + bảo vệ Điều 30/31 | 🤖 Claude Code | áp → xoá vùng → áp lại = y hệt; ghi tay bị chặn; lệnh xoá bảng thật bị từ chối |
-| L3 Nạp sổ nháp | Tệp khai báo 8 sổ (3.3) + dữ liệu từ GitHub → DOT áp | Host soạn tệp → 🤖 DOT | 8 sổ có dữ liệu; 0 bảng / cột thiếu «?» |
-| L4 Trang chủ | Trang `/knowledge/home` theo 3.2 + nút ⌂ ở mọi trang | 🤖 Claude Code (deploy qua DOT) | mở được trên VPS, có ảnh chụp; thêm 1 sổ thử không phải sửa mã |
-| L5 Đưa phần đã chốt lên sổ | Công thức (CT-000.x, CT-001…008), MBM, 43 câu, Master MMOW, Master MOW: mỗi thứ 1 nhà, mã thành link; HTML cũ chỉ hiện lại hoặc trỏ | Host + 🤖 DOT | DOT `kiem`: 0 thông tin có 2 nơi ghi |
-| L6 Chạy thử 3 nhóm | 1 AI mới: MBM → MMOW 007 → MOW 001 → hồ sơ đủ ký; thử ghi sai nhà | 🤖 AI mới + GPT kiểm | ô 2 dòng 4–5 đạt |
-| L7 Lên thật từng sổ | `ap <SHA> --vung that`; Owner duyệt phần chênh; POST-PROTECT; dòng sổ chuyển `nhap_so` → `meta_catalog` | 🤖 DOT + 😊 duyệt | ô 2 dòng 6 đạt |
+| L0 Chốt khung + bản vẽ | ô 1–2 · 3.0–3.6 · bản vẽ trang chủ (Owner 15:37: «vẽ ra trước rồi tính») | Host vẽ · GPT đã rà (P03) → 😊 xem + gật 3.0 | Owner gật 3.0, ưng bản vẽ |
+| L1 Kiểm kê (chỉ đọc, qua DOT) | Ánh xạ mọi sổ đang có (`meta_catalog` · Master of Master 86 · Danh sách Master 49 / registry 28 · sổ trên trang Công thức) → mã ↔ bí danh ↔ nơi đang ở ↔ nhà đích; **chỉ ánh xạ, chưa gộp/xoá**. Kê DOT Directus có sẵn; kiểm `meta_catalog` (trigger, đếm, cột); tiền tố `nhap_` chưa ai dùng; quyền thật của các thẻ hiện có; đường đọc Directus của Nuxt; đường dựng + triển khai trang Nuxt hiện có. | 🤖 Claude Code (1 lệnh) | bảng sổ + bảng DOT + bản đồ quyền; Host + GPT rà |
+| L2 Vòng mẫu | DOT tối thiểu áp **1 sổ mẫu `nhap_so`** (dòng = các sổ trong bản vẽ) + thẻ ghi chỉ vùng nháp + thẻ đọc phía server · trang thật `/knowledge/nhap-directus/home` (bộ hiển thị chung, khung bản vẽ) đọc `nhap_so` + `meta_catalog` · bảo vệ Điều 30/31 | 🤖 Claude Code (lệnh riêng sau L1) | khai báo → trang hiện đúng cột/«?»/link → ghi đúng nhà → thẻ nháp ghi production bị từ chối |
+| L3 Mở rộng sổ | 7 sổ còn lại (3.3) + dữ liệu từ GitHub, cùng DOT | Host soạn tệp → 🤖 DOT | 8 sổ có dữ liệu; 0 bảng / cột thiếu «?» |
+| L4 Đưa phần đã chốt lên sổ | Công thức (CT-000.x, CT-001…008), MBM, 43 câu, Master MMOW, Master MOW: mỗi thứ 1 nhà, mã thành link; HTML cũ chỉ hiện lại hoặc trỏ | Host + 🤖 DOT | 0 thuộc tính (đối tượng + thuộc tính) có 2 nơi ghi |
+| L5 Chạy thử 3 nhóm | 1 AI mới: MBM → MMOW 007 → MOW 001 → hồ sơ đủ ký; thử ghi sai nhà | 🤖 AI mới + GPT kiểm | ô 2 dòng 4–5 đạt |
+| L6 Lên thật từng sổ | Mỗi sổ là 1 thao tác riêng: Owner duyệt phần chênh → DOT áp vùng thật (cùng tệp khai báo) → POST-PROTECT Điều 30/31; dòng sổ chuyển `nhap_so` → `meta_catalog` | 🤖 DOT + 😊 duyệt từng sổ | ô 2 dòng 6 đạt |
 
-L5–L7 lặp theo từng sổ: sổ nào chốt thì lên thật, sổ khác vẫn chỉnh trên nháp (ô 1, Lưu ý). L4 đọc được ngay sổ thật đang có, không phải chờ L3 xong hết.
+Vòng nhỏ (GPT P03): kiểm kê → trang chủ + 1 sổ mẫu → dùng thử → mở rộng sổ → duyệt lên thật. L3–L6 lặp theo từng sổ: sổ nào chốt thì lên thật, sổ khác vẫn chỉnh trên nháp (ô 1, Lưu ý).
 
 #### 3.2 Trang chủ (Owner 15:02, điểm 1–3) — đề xuất thiết kế, làm cho production luôn
 Owner 15:02: (1) chọn 1 nơi làm trang chủ, thiết kế cho Nháp, sau dùng lại hoặc nhân bản thành trang chủ Production · (2) thiết kế lại phần đã chốt (công thức, MBM, các danh sách) để hyperlink tối đa, luôn có nút home ở mọi chỗ; truy cập chéo phải tiện cho con người để còn chỉ đạo · (3) treeview: xem xét lấy luôn màn `knowledge/modules?task=mow-mot-moit-mout&view=content&section=detail-formula-chi-tiet-3`, cùng độ rộng cột; cột trái treeview, cột phải bảng; bảng kiểu master of master là bảng toàn link.
@@ -77,12 +76,13 @@ Owner 15:02: (1) chọn 1 nơi làm trang chủ, thiết kế cho Nháp, sau dù
 | Directus Studio | Đúng khai báo, nhưng phải đăng nhập, đầu cột không có «?» | Để máy dùng |
 
 Thiết kế:
-- T1 Địa chỉ `/knowledge/home`. Nút ⌂ đặt ở 2 chỗ chung: thanh menu Nuxt (mọi trang Nuxt) và `eco-nav.js` (thanh 4 Mẹ của các trang tĩnh) ⇒ trang nào cũng về được trang chủ.
-- T2 Khung: giữ thanh menu trên; cột trái rộng bằng cột danh sách việc của Task html view (ảnh 1440px: khoảng 320px, đo đúng ở L1); cột phải là phần còn lại. Nền trắng, chữ tối, chữ to.
+- T0 Bản vẽ (P04): https://vps.incomexsaigoncorp.vn/ui-preview/mcp-writes/nhap-directus/home.html — đúng khung, cây, bảng toàn link, «?», ⌂, lọc vùng, địa chỉ giữ chỗ đang xem. Dữ liệu trong bản vẽ chép từ 3.3 để vẽ, **không phải nguồn**; bản thật (L2) đọc thẳng Directus, bản vẽ chuyển lưu trữ khi bản thật chạy.
+- T1 Địa chỉ `/knowledge/nhap-directus/home` (Owner 15:37). Nút ⌂ đặt ở 2 chỗ chung: thanh menu Nuxt (mọi trang Nuxt) và `eco-nav.js` (thanh 4 Mẹ của các trang tĩnh) ⇒ trang nào cũng về được trang chủ.
+- T2 Khung = trang Task hiện tại, không lấy khung KB (Owner 15:37). Đo thật P04: lưới 2 cột, khoảng cách 24px, lề 24px, rộng tối đa 1552px; cột trái 217px ở màn 1024 · 317px ở 1440 · 355px ở 1920 (≈ 23%); cột phải phần còn lại. Bản thật chép đúng CSS của trang Task. Nền trắng, chữ tối, chữ 16px.
 - T3 Cột trái — cây: ⌂ Sổ của các sổ → nhóm (3.4 V3 + nhóm của `meta_catalog`) → từng sổ (số dòng, nhãn 🟡 Nháp / 🟢 Thật) → dòng con nếu sổ có quan hệ cha–con.
 - T4 Cột phải — bảng: cột lấy đúng khai báo collection (thứ tự · tên hiện · «?» = ghi chú cột); ô mã, ô quan hệ là link; bấm 1 dòng ⇒ chi tiết dòng + «nơi đang dùng». Chọn gốc ⇒ bảng Sổ của các sổ, ô nào cũng là link.
 - T5 Địa chỉ giữ chỗ đang xem: `?so=<mã>&dong=<mã>&vung=nhap|that` ⇒ gửi link là mở đúng chỗ. Nháp và thật là cùng 1 trang, khác tham số vùng: không cần nhân bản.
-- T6 Chỉ đọc. Sửa = sửa tệp GitHub ⇒ DOT áp. Đọc bằng 1 thẻ máy chỉ-đọc (một thẻ · hai cổng).
+- T6 Chỉ đọc. Sửa = sửa tệp GitHub ⇒ DOT áp. Đọc bằng 1 thẻ máy chỉ-đọc giữ phía server, không đưa vào trình duyệt, không mở quyền public Directus; trang chỉ xuất dữ liệu đã cho công khai (GPT P03; một thẻ · hai cổng).
 - T7 Luật «khai báo = hiển thị» (ô 1 mục 7): 1 bộ hiển thị chung cho mọi sổ, không trang riêng · chữ trên màn chỉ lấy từ khai báo · thiếu gì ⇒ bổ sung khai báo, không viết cứng · trình bày đặc biệt (ma trận màu, thẻ công thức) ⇒ khai thành 1 sổ dạng «khung nhìn», cũng có «?». Màn nào không làm được theo T7 ⇒ ghi nợ, không viết trang riêng.
 - T8 Dùng lại cái đã có: đường đọc `$directus` + `/api/discovery/relations` + `AutoLinkedValue` · `SectionFields` · `SectionRelation` (Nuxt Registries). Không thêm gói, không đổi phiên bản.
 
@@ -91,7 +91,7 @@ Thiết kế:
 #### 3.3 Các sổ của 3 nhóm quy trình (ô 1 mục 1, mục 5)
 | Nhóm | Nghĩa | Sổ nháp (tên máy) | Nhà / nơi đang ở |
 |---|---|---|---|
-| 0 Sổ | Sổ của các sổ (vùng nháp) | `nhap_so` | thật: `meta_catalog` (CAT-xxx) · tĩnh: master-of-master 86 mục, ML-DEF 28 mục |
+| 0 Sổ | Sổ của các sổ (vùng nháp) | `nhap_so` | thật: `meta_catalog` (CAT-xxx) · tĩnh: Master of Master 86 mục, Danh sách Master 49 mục (`definition-master-index-v1.html`; tệp registry JS ghi 28 — lệch, ánh xạ ở L1) |
 | 1 Chế tạo cỗ máy | Dựng MBM: công thức + thừa số chung | `nhap_cong_thuc` · `nhap_cau_hoi` | ML-DEF-021 Master Công thức · CT-000.1 trên `ban-duyet.html` (chưa có sổ) |
 | 2 Vận hành cỗ máy | Dùng MBM sinh ra MMOW: Mục tiêu → Miền CV → Bộ câu của MMOW → câu đặc thù → hồ sơ mẫu | `nhap_mmow` · `nhap_khuon` (MMOW × câu) · `nhap_mien_cv` | ML-MOW-TH-001 Master MMOW · CAT-206* · CAT-250* |
 | 3 Quy trình do cỗ máy tạo ra | MMOW chạy trên từng dòng Miền CV (MOW / Task / MOIT / MOUT / Field) ⇒ mỗi dòng 1 hồ sơ | `nhap_ho_so` · `nhap_tra_loi` (hồ sơ × câu, Check 1 · Check 2) | việc con CAT-227 · CAT-228* · ký CAT-015 |
@@ -104,10 +104,10 @@ Dùng lại thiết kế Owner đã gật ở việc TQT (R41–R46, 15/10 16:21
 - V2 Phần sau tiền tố = tên thật khi lên production: `nhap_cong_thuc` ⇒ `cong_thuc`. Chữ thường, không dấu, nối `_` (khớp cách TQT đặt `ma`, `ten`).
 - V3 Nhóm Directus: thư mục «NHÁP» → «0 Sổ» · «1 Chế tạo cỗ máy» · «2 Vận hành cỗ máy» · «3 Quy trình tạo ra». Cây trang chủ đọc đúng các nhóm này.
 - V4 Ghi chú bảng bắt đầu `[NHAP]`, tiếp theo là «?» của bảng. Mỗi cột có ghi chú = «?» của cột.
-- V5 Mỗi bảng có cột `ma` (khoá chính, chuỗi, ổn định) và `ten`. Quan hệ nối bằng `ma`.
+- V5 Mỗi bảng có cột `ma` (mã nghiệp vụ, duy nhất, ổn định — không buộc là khoá chính vật lý, GPT P03) và `ten`. Quan hệ nối bằng `ma`.
 - V6 Nối sang bảng thật: chỉ bằng mã, chỉ đọc, không khoá ngoại; bảng thật không bao giờ trỏ vào nháp ⇒ xoá vùng không làm gãy bảng thật.
-- V7 Người ghi duy nhất: 1 DOT `dot-master-apply` đọc tệp khai báo trên GitHub đúng 1 commit. Vùng khai trong `vung.json` (tiền tố · nhóm · nhãn · xoá được). Nháp ⇒ thật = đổi `--vung`, mã DOT không đổi. Mẫu đã có: DOT nhận `--mode prod --conf …` (`dot-stack-cutover`).
-- V8 DOT chỉ xoá được thứ có trong sổ sở hữu của vùng và mang tiền tố nằm trong danh sách viết cứng trong mã (`nhap_`); sửa tệp khai báo không mở được quyền xoá bảng thật.
+- V7 Người ghi duy nhất: 1 DOT `dot-master-apply` đọc tệp khai báo trên GitHub đúng 1 commit. Vùng khai trong `vung.json` (tiền tố · nhóm · nhãn · xoá được). Nháp ⇒ thật: cùng DOT, cùng tệp, đổi `--vung`; nhưng mỗi lần lên thật là 1 thao tác riêng Owner duyệt + Điều 30/31 (GPT P03). Mẫu đã có: DOT nhận `--mode prod --conf …` (`dot-stack-cutover`).
+- V8 Tiền tố chỉ để nhận diện; cách ly thật bằng quyền: thẻ ghi của vùng nháp chỉ ghi được collection `nhap_*` trong sổ sở hữu, với production chỉ đọc, không sửa schema/Flow/trigger production; L2 kiểm bằng quyền thật, không chỉ so tiền tố (GPT P03). DOT chỉ xoá được thứ có trong sổ sở hữu của vùng và mang tiền tố nằm trong danh sách viết cứng trong mã (`nhap_`); sửa tệp khai báo không mở được quyền xoá bảng thật.
 - V9 `kiem` báo đỏ khi: sai tiền tố / nhóm / nhãn · khoá ngoại ra ngoài vùng · Flow hoặc trigger trên bảng nháp · quyền public · thẻ ghi khác DOT.
 - V10 Tệp khai báo đặt ở `work/nhap-directus-for-workflow/khai-bao/` — chỉ tạo ở L2 sau khi Owner gật.
 
@@ -115,7 +115,7 @@ Dùng lại thiết kế Owner đã gật ở việc TQT (R41–R46, 15/10 16:21
 - N1 Nhà: mỗi thông tin (cột) có đúng 1 collection nhà, ghi ở Sổ của các sổ / Master Field, cột «Quản lý tại» (luật CT-000.2 dòng 11, CAT-000.5).
 - N2 Cổng ghi: quyền Directus — chỉ thẻ chủ nhà được ghi collection đó; mọi thẻ khác chỉ đọc. Vùng nháp: chỉ thẻ DOT ghi. Mô hình «một thẻ · hai cổng»: mỗi tác nhân 1 thẻ, cổng đặt đúng ở chỗ ghi; không dựng thêm lớp chặn khác.
 - N3 Nơi khác chỉ hiện lại qua quan hệ (link, hiển thị liên kết), không có cột chép.
-- N4 Bắt lỗi: DOT `kiem` đếm cột cùng nghĩa ở 2 bảng mà không qua quan hệ ⇒ đỏ; L5 xong khi số này = 0.
+- N4 Bắt lỗi: DOT `kiem` đếm thuộc tính của cùng 1 đối tượng được ghi ở 2 nơi (theo Master Field: đối tượng + thuộc tính), không xét trùng tên cột — nhiều sổ cùng có `ma`, `ten` là hợp lệ (GPT P03); L4 xong khi số này = 0. Nháp là đề xuất chưa ban hành, không phải nguồn thật thứ hai.
 
 #### 3.6 Luật đã có — chỉ trỏ, không chép
 - Root `COLLAB.md`: DROOT26 (Directus/PG chỉ qua DOT, cả lab lẫn production, kể cả đọc) · DROOT35 (DOT 100%) · DROOT27 (DOT tự mô tả: `--help`, dry-run, rollback, exit code) · DROOT29 (mã/DOT lên production phải vào bảo vệ Điều 30/31 + POST-PROTECT) · DROOT39 (chỉ danh tính máy giữ quyền quản trị).
@@ -144,6 +144,13 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 5. **Quy chuẩn:** `nhap_` giữ làm bộ lọc, nhưng `ma` nên là mã nghiệp vụ ổn định/unique, **không buộc là khóa chính vật lý** nếu collection hiện hữu có `id`/UUID. Trước khi nhân hàng loạt, thử một thao tác thiết kế collection → trang chủ hiển thị đúng cột/ghi chú/link → ghi dữ liệu nháp đúng nhà → kiểm từ chối ghi production bằng quyền nháp.
 **Chốt 5.1–5.4:** gật có điều kiện như trên; ưu tiên `/knowledge/home`, giữ URL cũ và sử dụng `meta_catalog` sau L1. Bám L0–L7 nhưng thực hiện theo vòng nhỏ: **kiểm kê → trang chủ + một sổ mẫu → dùng thử → mở rộng sổ → duyệt lên thật**. Không thay mục tiêu Owner, không trực tiếp chạm Directus/PG, không tạo file/schema/DOT ở lượt phản biện này.
 
+### P04 · 23/10/2026 16:00 · Claude Chat Host · L0 · trả lời P03 + Owner 15:37
+- Nhận cả 5 điểm GPT (ACCEPTED): điểm 1 → N4, 3.0 câu 4 · điểm 2 → V7, V8, 3.0 câu 2 · điểm 3 → lộ trình 3.1 thành vòng nhỏ, L2 = 1 sổ mẫu + trang thật, xoá mặc định không làm (3.0 câu 6) · điểm 4 → T6 · điểm 5 → V5.
+- Địa chỉ: GPT đề nghị `/knowledge/home`; Owner 15:37 đã chốt `/knowledge/nhap-directus/home` (`/knowledge/home` đang là nháp của KB) ⇒ theo Owner.
+- Owner 15:37 cho vẽ trước: bản vẽ ở T0 (xưởng UI, không đụng production, không cần Claude Code). Sổ mẫu L2 chọn `nhap_so` — chính các dòng của bản vẽ, để trang thật thay bản vẽ 1-1.
+- Chưa READY/RUN: chờ Owner gật 3.0 + ưng bản vẽ; sau đó Host soạn 1 lệnh L1 (chỉ đọc) → GPT ACCEPT → Owner dán.
+
 ## Nhật ký (lời Owner — chỉ sửa chính tả)
+- P04 · 23/10 15:37 · «/knowledge/home hiện là nháp của KB. Chúng ta có thể dùng: /knowledge/nhap-directus/home. Lấy cột như phần task hiện tại chứ không lấy của KB đã thiết kế nhé. Giờ cần giao Claude triển khai đúng không? Cứ cho vẽ ra trước rồi tính.» → Claude Host: chốt 3.0 câu 3, sửa T1–T2; đo cột trang Task ở 3 cỡ màn; vẽ bản vẽ ở xưởng UI (`ui` nhap-directus/home.html, commit cục bộ a032a3c + 4192526) — không cần Claude Code để vẽ; mở kiểm 1440px: cây 4 nhóm · 11 sổ, bảng Sổ của các sổ toàn link, bấm sổ ra chi tiết + đường dẫn, «?» hiện khi rê chuột, 0 lỗi console; kiểm link nhà: ML-DEF-021 (18 công thức), ML-DEF-004 (35 MOW), Danh sách Master (49 mục), neo formula-ct-000-1 + formula-ct-008 có thật. Nhận 5 điểm GPT P03. Không chạm Directus/PG.
 - P02 · 23/10 15:02 · «Rồi, cần 1 roadmap cho kế hoạch này. Lưu ý là trọng tâm là mọi thứ có "sổ" => sẽ đảm bảo được thành công. Đưa ra ngoài mục tiêu: Nguyên tắc đối tượng là SSOT. Mỗi việc cần kiểm soát 1 nơi ghi gốc, chỉ cho phép ghi ở đó, những nơi khác chỉ được thiết kế đọc thông tin lại SSOT (nếu được thì khoá quyền ghi lại, chỉ cho phép đọc SSOT) để đảm bảo 1 thông tin không có 2 nguồn sự thật. Để con người và máy móc có cùng tư duy, các collection thiết kế thế nào => hiển thị ra đúng như vậy (bạn có ý kiến thêm xem có khả thi không, nhưng đó là cách nhanh nhất để đồng bộ hoá suy nghĩ giữa người và máy); tôi cần kiểm soát sự phức tạp của các bạn để tránh lại trở thành đống rác tiếp theo. Roadmap thì bạn lập ra để GPT có ý kiến. Tôi đề nghị mấy điểm: 1. Cần chọn 1 nơi làm trang chủ. Thiết kế trang chủ cho Nháp (sau này có thể dùng lại hoặc chỉ cần nhân bản là thành trang chủ Production). 2. Thiết kế lại các phần chúng ta đã chốt: các công thức, MBM, các danh sách để làm sao hyperlink tối đa với nhau và luôn có nút home ở bất kỳ chỗ nào. Việc truy cập chéo đầu tiên cần trở nên tiện lợi với con người để còn chỉ đạo. 3. Thiết kế hệ thống treeview => có thể xem xét lấy luôn màn hình https://vps.incomexsaigoncorp.vn/knowledge/modules?task=mow-mot-moit-mout&view=content&section=detail-formula-chi-tiet-3 với cùng độ rộng của cột. Cột trái làm treeview và cột phải là bảng. Các bảng kiểu master of master nên là một bảng toàn link. Giờ chọn trang chủ và chúng ta bắt đầu thiết kế nhé. Thiết kế để cho production luôn. Một điều quan trọng: bạn chưa quy chuẩn vùng Nháp trong task để cho nhất quán. Tất cả mọi collection trong vùng này bắt buộc phải theo 1 quy chuẩn => để lọc 1 cái là ra hết và không bị lẫn lộn.» → Claude Host: ô 1 thêm mục 5–7; 3.0–3.6 mới (lộ trình L0–L7, trang chủ T1–T8, sổ, quy chuẩn V1–V10, Một nhà N1–N4); đổi đề xuất nháp riêng ⇒ nháp trong hệ thật (JEV `gen-dec-1792742987-VzYh7NFAOzmzv3GMs04u`: nháp trong hệ 1,00 · trang Nuxt chung 0,93 · rủi ro `meta_catalog` 0,87). Đã xem thật: `/knowledge/registries`, `/knowledge/modules`, `master-home-v1.html`, mã Nuxt Registries. Không chạm Directus/PG.
 - P01 · 23/10 14:37 · «Bạn ghi những thứ cần thiết và bạn tiếp tục làm host: 1. Tạo task mới: work/nhap-directus-for-workflow. Dùng để thiết lập các quy trình: 1. Chế tạo cỗ máy sản xuất quy trình 2. Vận hành cỗ máy sản xuất quy trình 3. Các quy trình do cỗ máy sản xuất quy trình tạo ra. 2. Mục tiêu hoàn thiện quy trình, thiết kế và thiết lập chuẩn các khuôn UI, collection chuẩn để sau này thiết lập chuẩn trên PG=> Collections. 3. Những gì làm bây giờ là nháp => Cần xoá đi dễ dàng, nhưng thiết lập để dùng lại những thứ nháp này tối đa và nhanh nhất (nháp sau khi ok => đưa ra làm thật đúng như vậy) 4. Dùng DOT 100% với Directus (DOT đã tương đối đầy đủ), thiếu DOT viết thêm. AI tuyệt đối không thao tác trên Directus và PG. Thiết kế để đảm bảo các DOT cũ dùng lại được (hoặc sửa thêm) dùng được cho cả nháp và production mà không cần sửa lại DOT. Lưu ý: 1. Trong tiến trình chúng ta có thể vừa tiếp tục nháp để điều chỉnh cho nhanh và triển khai những phần đã chốt lên PG để làm thật (2 quá trình song song). Làm trước task và mục tiêu => bạn viết các phần liên quan rồi tôi chỉ đạo tiếp.» → Claude Host: tạo task; ô 1; ô 2 + đề xuất. JEV `gen-dec-1792741473-45t55tJ0vzYRd4AsGRg0`. Không chạm Directus/PG.
