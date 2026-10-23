@@ -1,39 +1,47 @@
 # PROMPT — VPSC2-RAG-A-TRUST-GATE-20261023-01
 
-DRAFT — KHÔNG RUN. Claude Chat Reviewer kiểm và ACCEPT đúng full SHA last-touch của PROMPT.md, GPT Host ký READY cùng SHA, Owner dán cho Claude Code CLI mới thực thi.
+DRAFT — KHÔNG RUN. Chỉ chạy khi trong task COLLAB có Claude Chat `ACCEPT@<full SHA last-touch PROMPT.md>` + GPT Host `READY@<cùng SHA>`; Owner dán cho Claude Code CLI.
 RUN_ID: VPSC2-RAG-A-TRUST-GATE-20261023-01
 Executor_Surface: Claude Code CLI trên Mac Owner.
-Write_Path: Incomex workspace_* root=workspace cho STARTED/KQ/COLLAB; VPS1 mã nguồn SSOT qua đường mutation đã duyệt, incomex-config-apply-v0/Config Guard, DOT wrapper hợp lệ; không bypass gateway/Guard.
-Đọc AGENTS.md → root COLLAB → work/vps-clean-20-10-26/COLLAB.md §0/Bảng/P13/P14 → PROMPT.md → BAO-CAO-Agent-Data-RAG-2026-10-23.md commit 3ff49530. R3 load audit trước là DRAFT SUPERSEDED_UNRUN, không chạy.
+Write_Path: Incomex workspace_* root=workspace cho STARTED/KQ/COLLAB; VPS1 qua đường mutation đã duyệt (`incomex-config-apply-v0`/Config Guard, DOT hợp lệ); không bypass gateway/Guard.
+Đọc: AGENTS.md → root COLLAB → `work/vps-clean-20-10-26/COLLAB.md` §0/Bảng/P13–P15 → PROMPT.md → `BAO-CAO-Agent-Data-RAG-2026-10-23.md` (commit 3ff49530). R3 cũ SUPERSEDED_UNRUN, không chạy.
 
-MỤC TIÊU NODE RAG-A: sửa sự thật/độ tin của báo cáo audit và trạng thái integrity, đồng thời làm rõ lỗi đồng bộ qua logs có định danh; chuẩn bị manifest để RAG-B làm retry/reconcile. KHÔNG sửa, xóa, tự reindex, tự heal dữ liệu/vector/PG/Qdrant production trong node này. Không tuyên bố RAG_DATA_CLEAN hoặc GO_PRODUCTION.
+MỤC TIÊU RAG-A (sửa bởi Claude P15): làm cho phép đo RAG nói thật và lập danh sách sai lệch đầy đủ làm đầu vào RAG-B — CHỈ PHÍA HOST. KHÔNG build/restart/thay container Agent Data; KHÔNG sửa/xoá/reindex vector, KB PG, Qdrant. Mọi sửa mã Agent Data (health, log, classifier gốc, sync bền, payload revision) dồn vào MỘT bản phát hành RAG-B để chỉ thay container một lần. Không tuyên bố RAG_DATA_CLEAN hay GO_PRODUCTION.
 
-S0 READ GATE (≤10 phút): đúng roster/quorum, Claude ACCEPT+GPT READY cùng SHA, không STOP/STARTED trùng, root VPS-GHI CAS nếu có mutation; có owner/target chưa rõ hoặc cờ bận ⇒ KQ DỪNG, không chờ. Đọc PRE container release/image digest, source 31-file hash, Guard fleet IDs/count thực tế, ConfigGuard target baseline, backup/rollback known-good. Ghi STARTED/Bảng ở task khi gate PASS; giữ lease chỉ trong mutation. Không làm hỏng dịch vụ đang dùng.
+S0 READ GATE (≤10′): đúng ACCEPT + READY cùng SHA; không STOP/STARTED trùng; root VPS-GHI CAS (bận ⇒ KQ DỪNG sạch, không ngồi chờ). PRE: container/image/RestartCount Agent Data, số điểm 2 collection Qdrant, COUNT KB active, Guard 22 đèn theo ID, Config Guard baseline các đích sẽ chạm, đường lùi. Ghi STARTED + Bảng cùng commit.
 
-S1 REPRO STAGING ISOLATED (≤25 phút, không sửa production data): xác nhận trực tiếp mã đang chạy của dot-vector-audit, server.py data integrity, vector_store.py và pg_vector_listener.py; không dùng Git mirror thay runtime. Test âm ở bản sao và công cụ hiện hữu:
-(a) Qdrant/PG sai auth/timeout => audit ERROR/PARTIAL + exit nonzero, không "Orphans=0,Ghosts=0" giả.
-(b) Duyệt cả production_documents và iu_core_iu_chunks; blank document_id hiển thị điểm còn thiếu; IU không đọc được nguồn => UNKNOWN, không PASS.
-(c) 2 orphan IDs + 1 source thiếu vector + comment2430 phải được liệt kê/classifier rõ, không auto-embed theo extension.
-(d) Qdrant delete timeout và vector_store.search backend failure phải log action/document/error_class/time/release an toàn, phân biệt NO_RESULTS với BACKEND_ERROR.
-(e) /health process liveness giữ nguyên contract với Docker/Kuma; integrity warning và retrieval degradation hiển thị riêng, không tự 503 toàn bộ health làm restart/đèn đỏ giả.
-Nếu staging negative FAIL hoặc không có capability/backup rollback => DỪNG trước mutation, không tự nới cổng.
+A1 · DOT audit nói thật (≤25′) — `dot-vector-audit` và wrapper đang chạy (đọc bản runtime, không dùng bản Git thay):
+1.1 Ba trạng thái: exit 0 = đo được, in rõ `STATUS=CLEAN` hoặc `STATUS=DRIFT` kèm số từng loại · exit 2 = `STATUS=ERROR` (sai xác thực, timeout, HTTP ≠ 200, JSON thiếu trường). Không còn «Orphans=0, Ghosts=0» khi gọi lỗi; bỏ đường fallback credential cũ. DRIFT đã biết (nằm trong manifest A2) không làm đỏ đèn; ERROR mới đỏ. Trước khi đổi, liệt kê mọi consumer của mã thoát/đầu ra (cron 04:30, Guard, bản tin); consumer nào đổi nghĩa thì ghi rõ hoặc SKIP A1.
+1.2 Đếm điểm `document_id` rỗng ở CẢ HAI collection bằng scroll Qdrant chỉ đọc (`with_vectors=false`), in vào kết quả audit.
+1.3 Mục bị classifier loại (`directory_like_path`…): wrapper đọc lại từng mục qua đường đọc hiện có; có body ⇒ báo GHOST thật. Sửa gốc classifier trong Agent Data để RAG-B.
+1.4 Phép thử âm trên BẢN SAO: sai khoá ⇒ exit 2; URL Qdrant/Agent Data hỏng ⇒ exit 2; chạy thật `auto_heal=false` ⇒ exit 0 + `STATUS=DRIFT` có đủ 2 orphan, 9 blank-ID, 1 missing, comment-2430. Thiếu một ca ⇒ không áp A1.
+1.5 Áp qua apply-v0/Config Guard; cập nhật sổ DOT (`dot_tools`) nếu đổi phiên bản; đủ 4 ô Điều 30/31.
 
-S2 PATCH HẸP, INDEPENDENT (≤35 phút):
-A. Audit/DOT: fail-closed khi auth/upstream lỗi; báo số ID rỗng, orphan/ghost đúng các nguồn hợp lệ; IU source chưa đọc được phải PARTIAL; classifier không suy path thiếu extension là directory; auto_heal=false giữ nguyên. Không đổi PG/Qdrant vector, chỉ đọc để kiểm. Sửa code theo đường DOT approved/ConfigGuard; không có đường an toàn => SKIP A.
-B. Agent Data diagnostics/health: giữ process liveness, công bố integrity warning và lỗi vector sync đúng trạng thái; structured log action, doc identifier an toàn, exception type, mã phiên; không coi backend failure là empty normal. Backward-compatible client contract và negative tests. Không thêm queue/schema/cron/monitor, không sửa sync/delete/upsert semantics trong node A; phần retry/outbox/chunk tail để RAG-B sau review riêng. Nếu code path cần build/deploy, chỉ source đã xác nhận, image known-good, stage smoke, single service replace/restore theo official path, full Guard/rollback; nếu cần phá hợp đồng, SKIP B không cố triển khai.
-Áp dụng từng nhóm đúng target protected với beforeimage, hash, rollback và bằng chứng; 4 ô Điều 30/31; tuyệt đối không biến patch kiểm toán thành bulk RAG mutation.
+A2 · Manifest đầy đủ, CHỈ ĐỌC (≤20′) — ghi thành mục «Phụ lục M · manifest 23/10» cuối `BAO-CAO-Agent-Data-RAG-2026-10-23.md` (không tạo tệp mới; chỉ ID/đường dẫn/hash/số đếm, không chép nội dung tài liệu):
+2.1 Mỗi sai lệch một dòng: loại (orphan · blank-ID · missing · misclassified · noise · stale) · collection · ID/điểm · trạng thái nguồn PG (active/soft-deleted/không có) · luật áp dự kiến (L1–L4, P15) · rủi ro.
+2.2 IU: đối chiếu 2 chiều 141 mã nguồn với bảng nguồn IU qua đọc PG chỉ đọc; không đọc được ⇒ UNKNOWN kèm lý do, không PASS.
+2.3 Nhiễu: đếm tài liệu thử/sức khoẻ trong kho — đã biết `task_comments` 2393–2471 (79 bình luận «Health check: OPS write OK at undefined», flow «OPS Write Health Check» 6h tạo từ 03/10); liệt kê thêm mẫu thử khác nếu thấy.
+2.4 Độ cũ: payload hiện không có revision/hash ⇒ chỉ so được tài liệu 1 chunk; ghi số tài liệu so được/không so được (căn cứ cho RAG-B thêm revision vào payload).
 
-S3 POST (≤15 phút): kiểm thật audit read-only auto_heal=false trên hai collections, EXPECTED_FINDINGS vẫn còn (2 orphan IDs, 9 blank points, source thiếu vector/comment) và phải DRIFT/PARTIAL chứ không ép clean; IU cần source match thực hoặc UNKNOWN. Audit lỗi auth ở bản sao phải exit nonzero. Health liveness OK nhưng integrity phải báo cảnh báo, sync errors có trace. Source/runtime/image hash khớp, Guard PRE/POST và ConfigGuard CLEAN, Kuma theo monitor ID, backup cũ nguyên; COUNT/CHECKSUM Qdrant/PG không thay do RUN. Lỗi mới do RUN => rollback đúng nhóm, ghi PARTIAL/DỪNG. Không giả chứng minh live-negative khi chỉ test staging.
+A3 · Sao lưu cấu hình hiện hành (≤15′): đưa `/opt/incomex/config` (và thư mục baseline Config Guard nếu dung lượng nhỏ) vào job sao lưu offsite mã hoá đang chạy phù hợp nhất — KHÔNG tạo job/cron mới. Qua apply-v0; `bash -n`; dry-run liệt kê thấy đường dẫn mới. Nếu một lượt thật < 10′ và không trùng lịch thì chạy 1 lần và kiểm Drive có tệp + hash; không thì ghi lượt lịch kế tiếp để S0 của RAG-B kiểm (không ngồi chờ).
 
-S4 KQ (≤10 phút): ghi COLLAB/Bảng duy nhất trong task với A/B APPLIED/SKIP, sha/rollback, guard, integrity/health evidence, no_data_mutation. Ghi RAG-B next với kế hoạch retry/outbox durable (cấm thêm schema khi chưa duyệt), idempotent delete+upsert+shortening, manifest chính xác 2 orphan, 9 blank, 1 ghost, comment2430, IU141, sample diff; RAG-C phục hồi backup PG/Qdrant 2 collections/config ACL và client retrieval eval. Từng thay đổi dữ liệu phải được Owner duyệt đúng đích sau review. Trả VPS-GHI, không để container/temp/process nền. Các lỗi CountRefresh, context-pack-verify, 503, snapshot thuộc chủ khác, không sửa chéo.
+A4 · Tắt 2 flow sinh lỗi/rác — CHỈ khi task COLLAB có dòng `OWNER_GAT_A4` (thiếu ⇒ SKIP cả A4):
+4.1 Thêm lệnh `set-status <flow-id> active|inactive` cho DOT `dot-directus-flow` (hiện chỉ list/show/trigger — lý do R2-6 phải SKIP): có kiểm trước/sau, nhật ký, đăng ký sổ DOT; thử trên flow giả trước khi dùng thật.
+4.2 Đổi INACTIVE đúng 2 flow: «OPS Write Health Check» (6h; mỗi lượt tạo một bình luận thử lọt vào RAG) và «[DOT-REG] Count Refresh (6h)» (16 PATCH/ngày bị S129-A chặn). Không xoá flow; không xoá bình luận đã có (RAG-B xử theo luật L3). Cổng: không flow/route/monitor nào dùng kết quả của chúng — có ⇒ SKIP đúng flow đó.
+4.3 Ghi mốc lượt 6h kế tiếp để S0 RAG-B kiểm «không còn bình luận mới/PATCH lỗi» (không chờ).
+
+S3 POST (≤10′): Guard 22 đèn theo ID so PRE; Config Guard MATCH; Agent Data container/image/RestartCount KHÔNG đổi; số điểm 2 collection và COUNT KB không đổi do RUN; audit thật exit 0 + DRIFT đúng danh sách; lỗi mới ⇒ lùi đúng mục, ghi PARTIAL.
+
+S4 KQ (≤10′): ghi KQ + Bảng duy nhất trong task: A1–A4 APPLIED/SKIP + lý do + sha/đường lùi; manifest ở Phụ lục M; trả VPS-GHI; 0 tiến trình nền/tệp tạm. Lỗi thuộc chủ khác (503, snapshot lock, fsck exit 0, wait-online, OOM mapping, context-pack-verify) không sửa chéo.
 
 STEP_WALK_V1:
-| Bước | Ai | Trigger | SLA | Evidence | Fail/Next |
-|---|---|---|---|---|---|
-| S0 | Claude Code | Owner RUN sau READY | ≤10′ | accept/ready SHA, VPS-GHI, PRE & rollback | Gate fail => KQ DỪNG |
-| S1 | Claude Code | S0 PASS | ≤25′ | negative staging 5 ca, 0 prod data change | Fail => DỪNG trước mutation |
-| S2 A/B | Claude Code | S1 PASS | ≤35′ | protected patch/tests, rollback per group | SKIP/rollback từng nhóm |
-| S3 | Claude Code | sau S2 | ≤15′ | audit DRIFT đúng, health, Guard/Kuma, data unchanged | red mới => rollback |
-| S4 | Claude Code | sau S3 | ≤10′ | KQ/Bảng, clean process/tmp, release VPS-GHI | Host nhận KQ |
+| Bước | Ai | Trigger | SLA | Evidence | Hỏng thì ai biết, bao lâu | Bước kế |
+|---|---|---|---|---|---|---|
+| S0 | Claude Code | Owner dán sau READY | ≤10′ | ACCEPT/READY SHA, VPS-GHI, PRE | KQ DỪNG ngay trên task | A1 |
+| A1 | Claude Code | S0 PASS | ≤25′ | 4 ca thử âm, apply-v0, 4 ô Đ30/31 | Guard 5′ → Kuma → Telegram ≤10′ | A2 |
+| A2 | Claude Code | A1 xong/SKIP | ≤20′ | Phụ lục M đủ loại, IU 2 chiều/UNKNOWN | GPT + Claude đọc KQ | A3 |
+| A3 | Claude Code | A2 xong | ≤15′ | dry-run có đường dẫn mới, sha | Kuma backup sẵn có | A4 |
+| A4 | Claude Code | `OWNER_GAT_A4` có | ≤15′ | DOT set-status thử giả + 2 flow INACTIVE | RAG-B S0 kiểm lượt 6h kế | S3 |
+| S3→S4 | Claude Code | mục cuối xong | ≤20′ | POST 22 đèn, số dữ liệu không đổi, KQ, trả VPS-GHI | Host nhận KQ | GPT soạn RAG-B |
 
-Một dòng Owner: XONG|DỪNG · VPSC2-RAG-A · Audit=A/SKIP · Health=B/SKIP · prod_data_changes=0 · Guard/Kuma · VPS-GHI release · commit.
+Tổng ≤ 115′. Một dòng Owner: XONG|DỪNG · VPSC2-RAG-A · A1/A2/A3/A4=APPLIED|SKIP · prod_data_changes=0 · AgentData restart=0 · Guard/Kuma · VPS-GHI trả · commit.
