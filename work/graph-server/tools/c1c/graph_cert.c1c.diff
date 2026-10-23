@@ -600,8 +600,8 @@
 +        diff = [n for n, a, b in zip(("bookmark", "container", "started_at", "restart_count"), epoch_key(le), epoch_key(ce)) if a != b]
 +        return dict(f, status="GRAPH_CHANGED_SINCE_CERT", why="Graph đổi so với lúc cấp giấy: " + ",".join(diff))
 +    return dict(f, status="MATCH", why=None)
- 
- 
+
+
  # =========================================================================== lượt cấp giấy
 @@ -1273,6 +1761,7 @@
      if g is None:
@@ -666,8 +666,8 @@
 +        if inv is not None:
 +            write_inventory(prev_inv, inv, now)
      return doc
- 
- 
+
+
 +def write_inventory(prev, inv, now):
 +    """last-good từng họ: họ đọc trọn + nhất quán ⇒ thay ảnh; họ lỗi ⇒ giữ ảnh tốt cũ (không ghi đè bằng ảnh rỗng)."""
 +    fams = dict((prev or {}).get("families") or {})
@@ -691,8 +691,8 @@
 +            "directory": (doc.get("directory") or {}).get("status"), "reader_fail": sorted(c["key"] for c in cs if not c.get("reader_pass")),
 +            "graph_epoch_stable": (doc.get("graph_epoch") or {}).get("stable_during_run"),
 +            "families": {g: m.get("status") for g, m in sorted((doc.get("coverage_matrix") or {}).items())}}
- 
- 
+
+
  def write_manifest(doc):
 @@ -1615,43 +2148,127 @@
      return ("l1:" + a) if a and ok else None
@@ -779,9 +779,9 @@
 +        return out, lists
 +    return out
 +
- 
+
 +_FRESH = {}
- 
+
 -def label_for(tool, arguments=None, result_rows=None, now=None, doc=None, cat=None):
 -    """Nhãn máy đọc được cho MỘT câu trả lời graph-v1. Không bao giờ ném lỗi: lỗi ⇒ MỘT PHẦN."""
 +
