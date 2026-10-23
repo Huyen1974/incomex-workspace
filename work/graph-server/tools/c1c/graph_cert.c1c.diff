@@ -696,8 +696,8 @@
  def write_manifest(doc):
 @@ -1615,43 +2148,127 @@
      return ("l1:" + a) if a and ok else None
- 
- 
+
+
 -def layers_for(qc, need, eff, anchor, now=None):
 -    """Khối nhãn theo lớp (BL1): L1 catalog khai báo · L2 đọc văn bản (luôn MỘT PHẦN) · L3 chạy thật (MỞ)."""
 +def layers_for(qc, need, eff, anchor, now=None, page=None, with_lists=False):
@@ -898,7 +898,7 @@
 
  # =========================================================================== CT5 — đèn + biên nhận sự cố
 -def alarm(doc, op_failure=None, now=None, baseline=None):
--    """⇒ (status 'up'|'down', msg ≤ 200, incidents[]). CT5 (Owner): đèn xuống khi máy không chạy được hoặc ô TỤT KHỞİ ĐỦ so với mốc.
+-    """⇒ (status 'up'|'down', msg ≤ 200, incidents[]). CT5 (Owner): đèn xuống khi máy không chạy được hoặc ô TỤT KHỎI ĐỦ so với mốc.
 -    Gọi trang (DOWN): OPERATIONAL (lượt bỏ qua, máy/giấy lỗi, bộ đọc từng đọc được nay hỏng, cửa không đọc được) · COVERAGE_REGRESSION
 -    (ô thuộc sàn certified_floor không còn ĐỦ — gồm hết hạn) · NEW_SOURCE_UNHANDLED / SOURCE_VANISHED ở cửa G1–G9.
 -    Không gọi trang, chỉ biên nhận + nêu tên trong tin: ô MỘT PHẦN chưa được Host nhận mốc (PENDING_HOST_ACK). Mốc chỉ dập tin trùng —
