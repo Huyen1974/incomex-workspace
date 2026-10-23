@@ -18,6 +18,13 @@ Host: Codex · Owner chỉ định trực tiếp 23/10/2026: «bạn làm host v
 - ➡ Kế tiếp: 😊 Owner xem bản vẽ v2, góp ý + gật 3.0 → Host soạn 1 lệnh Claude Code cho L1 (chỉ đọc, qua DOT) → GPT ACCEPT → Owner dán. NEXT_TRIGGER=OWNER_XEM_BAN_VE_GAT_3_0
 - ⛔ Không làm: AI chạm thẳng Directus/PG (kể cả đọc) · gõ tay vào Directus (kể cả Owner) · ghi vào production khi sổ chưa chốt hoặc phần chênh chưa duyệt · trang viết riêng cho từng bảng · sửa MBM khi chưa xin phép · tạo tệp ngoài COLLAB khi Owner chưa gật.
 
+### P07 · Owner: tập hợp nguyên bản, tiếp cận nhanh
+Chỉ đạo mới: cột trái rộng hơn, dòng dày hơn, khe giữa hai cột hẹp hơn; ít tầng/click; phần đã làm phải giữ nguyên, không thiết kế lại. Bắt đầu từ Công thức, copy 100% cả ghi chú, xổ/thu và tương tác. Collection phục vụ thiết kế những phần mới nhanh hơn.
+- Đã sửa home hiện hữu: trái 30% (tối thiểu 320px trên màn rộng), khe 8px, dòng tối thiểu 28px thay 40px; giảm thụt tầng; bỏ tự mở tab MBM.
+- Đã copy nguyên tệp ban-duyet.html sang `ui/nhap-directus/cong-thuc.html`, SHA-256 cả nguồn và đích = `9c0e161e2a6fc8bf71deabe86e8ca711ef9b24aa6b58e3baffaf9bb29361e28f`. Giữ nguyên toàn bộ tệp để không mất CSS/script/ghi chú/hành vi; home mở thẳng phần Công thức trong tệp này, không lồng trang Task. Các tài nguyên dùng chung vẫn đọc đường gốc như nguyên bản.
+- Bản copy là ứng viên đối chiếu, không cho phép sửa nội dung độc lập. Nguồn chuẩn vẫn ở task mow-mot-moit-mout cho đến khi kiểm đủ hành vi/phụ thuộc và hoàn thành chuyển quyền ghi/gỡ nguồn cũ theo P06. Chưa tuyên bố move hoàn tất.
+- Bản trung gian trong task này đã bỏ nội dung trùng, chỉ giữ đường dẫn tới ứng viên trong xưởng. Danh mục tệp: COLLAB quản lý yêu cầu/trạng thái; ban-duyet.html chỉ dẫn bản đối chiếu; xưởng nhap-directus/home.html là cửa vào, cong-thuc.html là bản copy nguyên vẹn. Còn mở: kiểm đủ tương tác, nguồn chuẩn và DOT/collection.
+
 ### Chỉ đạo hiện hành P06 · Owner 23/10/2026 · ưu tiên hơn các đề xuất P01–P05
 Owner giao Codex rà và bổ sung task, bắt đầu thiết kế lại trang chủ và khu vực nháp. Phạm vi này đã được giao trực tiếp; không coi các dòng chờ gật cũ là yêu cầu hỏi lại để bắt đầu thiết kế. Chưa đồng nghĩa duyệt triển khai PG production.
 - Mục tiêu Owner: «Mục tiêu của khu vực nhá không phải là liệt kê. Mục tiêu là thiết kế như thật và diễn tập như thật, chỉ là chưa kết nối vào với PG thôi.»
