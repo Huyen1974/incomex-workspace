@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp 23/10 yêu cầu THỬ P1 ngay theo phạm vi sandbox P2; chưa có RUN, chưa cho đổi production/công khai mã VPS/trả phí.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-23 18:05 +07 · GPT Chat · P2
-- 🎯 Mục tiêu: Nhân không gian làm việc để 3–5 agent viết mã song song, giao việc buổi tối và sáng có PR để kỹ sư trưởng duyệt.
-- 🏁 Xong khi: 3 agent thật cùng viết 3 PR, ít nhất 2 PR được duyệt/merge sau kiểm main mới nhất; 0 Actions; kiểm quyền main có biên nhận; tiếp đó mới thử không người trực.
-- 📍 Tiến độ: ✓ Mở task → ✓ Claude P1 → ■ GPT Host chốt P2 + PROMPT → □ Codex dựng repo thử → □ 3 agent làm đồng thời → □ Chief merge → □ thử ca đêm.
-- ✅ Đã xong: Owner yêu cầu ưu tiên chạy thật, chấp thuận thử public có kiểm soát; đã xác minh ruleset GitHub hiện hữu, Host chốt phạm vi pilot.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 10:45 +07 · GPT Chat · P3
+- 🎯 Mục tiêu: 3–5 agent code song song trên 2 repo thật, Chief merge an toàn và tiến tới giao batch ca đêm.
+- 🏁 Xong khi: 2 main được đối soát VPS, Actions 0, hard-lock thử thật, 3 agent/PR và CI/CD/rollback nghiệm thu trước chuyển nguồn.
+- 📍 Tiến độ: ✓ mở task → ✓ P1/P2 → ■ ROADMAP V0.1 chờ Owner → □ R0 Git → □ R1 Actions → □ R2 luật/vai → □ R3 baseline → □ R4 CI/CD → □ R5 cutover.
+- ✅ Đã xong: đọc Git VPS và trạng thái GitHub 24/10; soạn ROADMAP V0.1 để thống nhất, không RUN.
 - ■ Đang làm: — · 0 RUN active.
-- ⬜ Còn lại: Reviewer rà đúng delta P2/PROMPT → Host ký READY SHA → Owner giao Codex P1-A → 3 PR → Chief review và chấm.
-- ➡ Kế tiếp: Claude Reviewer kiểm đúng delta P2 và ký ACCEPT last-touch PROMPT SHA; GPT Host READY; Owner chuyển RUN cho Codex. NEXT_TRIGGER=REVIEWER_ACCEPT_PROMPT_SHA.
-- ⛔ Không làm/để sau: chưa mua Pro, chưa đổi main hai repo cũ, không đụng VPS production, không công khai mã production, chưa bật tự động DOT/đêm và deploy.
+- ⬜ Còn lại: Owner/Claude xem roadmap → Host soạn READY R0/R1 → Codex làm theo RUN, Chief đối chứng mỗi gate.
+- ➡ Kế tiếp: Owner chốt ROADMAP.md; không phát RUN tới lúc đó. NEXT_TRIGGER=OWNER_APPROVES_ROADMAP.
+- ⛔ Không làm/để sau: chưa tắt Actions, chưa động mã/secret/runtime VPS, chưa mua Pro/mở public hai repo, không chạy PROMPT public sandbox cũ.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -26,7 +26,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp 23/10 yêu cầu TH�
 “Tối đến có 1 loạt nhiệm vụ, sáng ra xong. Ông DOT nhắc ông codex đi đốc công các agent làm việc. Đơn giản chỉ có vậy thôi.”
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-- Phạm vi theo chỉ đạo Owner 23/10 trực tiếp GPT: ưu tiên lập tức thử 3–5 agent viết mã song song. Đã chốt thử trong repo public mới CHỈ chứa mã công cụ sạch theo P2; production, Pro, hai repo mã cũ, deploy và tự động qua đêm chưa được cấp RUN.
+- Chủ trương Owner 24/10: chốt ROADMAP trước và dùng hai repo mã hiện hữu. R0 chỉ đọc; R1 tắt Actions; R2 vai trò/quy định; R3 phạm vi + mã nền từ VPS; R4 CI/CD; R5 mới chuyển mã. Pilot repo mới public P2 đã bị thay thế, không được phép RUN.
 - Ưu tiên cao nhất: NHÂN KHÔNG GIAN LÀM VIỆC cho nhiều agent cùng lúc, kể cả nhiều việc trên cùng một repo; không phân kho tùy tiện để né Git merge.
 - Thiết kế tối thiểu cần xét: mẫu việc + DoD; vai trò/định danh và quyền; cách đọc luật bắt buộc; nhân bản nơi viết/test; cấp/nhận việc và điều hành ban đêm; PR/review/merge từng trường hợp; cổng kiểm main mới nhất; kiểm thử/rollback; chi phí Actions=0; quan trắc/kết quả sáng.
 - Owner đồng ý CHI khoảng 4 USD/tháng khi đã đủ điều kiện, không có lệnh thanh toán ngay. Chưa chốt GitHub Pro thực sự cưỡng chế được mô hình “chỉ chìa kỹ sư trưởng”.
@@ -120,3 +120,11 @@ Trạng thái: ACCEPTED_WITH_TWO_CORRECTIONS; không mở vòng thảo luận th
 8. Do delta nguồn public và cách chọn ruleset khác P1 của Claude: Claude chỉ cần review đúng hai delta và PROMPT một lượt theo A5/A6; nếu ACCEPT đúng SHA, GPT ký READY; Owner giao RUN cho Codex. Cấm tự chạy trước READY.
 
 Owner 23/10 phiên GPT trực tiếp chỉ đạo: “ưu tiên thời gian”, “ít nhất là trong lúc tôi ngồi thế này là các agent có thể code song song”, “thử nghiệm trước rồi nhìn tất cả các thứ”. Đây là chỉ đạo rút gọn quy trình, không phải lệnh công khai bí mật production.
+
+## P3 · GPT Host 24/10/2026 — ROADMAP HAI REPO (DRAFT, CHƯA GO)
+Ghế: openai-main · Bước/vòng: Owner yêu cầu roadmap trước khi triển khai · 1/1 · Scope: chỉ hồ sơ github-management.
+- Owner giao 5 việc theo thứ tự: tắt Actions; setup vai trò/quy định; chốt phạm vi/mã VPS mới nhất; thử CI/CD; cuối cùng mới chuyển sang viết mã trên GitHub. ROADMAP.md V0.1 ghi R0–R5 cùng tiêu chí và người nhận việc.
+- Sửa an toàn: R0 chỉ đọc trước R1; không xóa main/force-push; backup main cũ, ứng viên mã nền, thử CI/CD trước chuyển vào main. Giữ hai repo private hiện có, không tự tạo repo mới.
+- **P2 và PROMPT GHM-P1A-GITHUB-SANDBOX-20261023-01 = SUPERSEDED_UNRUN.** Chưa READY/RUN/triển khai. Không tự kích hoạt từ hồ sơ cũ.
+- Codex executor đề xuất; Claude Code CLI Chief review độc lập; GPT Host; Owner chốt GO và mutation runtime. NEXT_TRIGGER=OWNER_APPROVES_ROADMAP; 0 RUN active.
+

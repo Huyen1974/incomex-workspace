@@ -1,6 +1,6 @@
 # PROMPT — GHM P1-A · Khởi tạo môi trường mã song song
 RUN_ID: GHM-P1A-GITHUB-SANDBOX-20261023-01
-STATUS: DRAFT_NOT_READY. Chỉ chạy khi Claude Reviewer ACCEPT SHA cuối chạm PROMPT, GPT Host READY@SHA đúng trong COLLAB, và Owner giao RUN.
+STATUS: SUPERSEDED_UNRUN — KHÔNG CHO READY/RUN. Owner 24/10 yêu cầu ROADMAP.md dùng 2 repo hiện hữu; PROMPT này chỉ lưu lịch sử.
 Executor_Surface: Codex CLI/Desktop Mac. Write_Path: GitHub qua gh CLI/GitHub API được phép, Incomex workspace_* root=workspace ghi STARTED/KQ. Không shell/deploy/sửa secret trên VPS production.
 
 ĐỌC AGENTS.md root → work/github-management/COLLAB.md §0/Bảng/P1/P2 → README.md → PROMPT.md. Kiểm READY/Owner RUN, quyền/credential thật, ghi STARTED trước mutation theo A6/DROOT30/31. Nếu thiếu chặn thì KQ DỪNG sạch.
