@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROADMAP trước; Claude phản biện, GPT đồng thuận và Owner duyệt rồi mới RUN. Chưa cho thay hai repo mã/Actions/VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 13:56 +07 · Claude Chat · P7
-- 🎯 Mục tiêu: 3–5 agent code song song trên 2 repo; KST merge an toàn; tiến tới batch đêm không cần Owner trực.
-- 🏁 Xong khi: R0–R4 chứng minh Actions OFF, quyền main, mã nền đúng, 3 PR/agent thật; R5 deploy đúng SHA/rollback; R6 có receipt và bảng sáng.
-- 📍 Tiến độ: ✓ Kế hoạch → ✓ Claude P5 → ✓ GPT P6 chốt kỹ thuật V0.3 → ■ RUN R0+R1 DRAFT chờ review+Owner GO → □ R0+R1 → □ R2 → □ R3 → □ R4 → □ R5∥R6.
-- ✅ Đã xong: Host đọc P5 C1–C10, đồng thuận có cổng; xác minh daily branch Agent Data bằng HEAD VPS, rõ khác biệt với container; chuẩn bị PROMPT R0+R1, chưa chạy. Claude P7: đề xuất khoá VPS chống sửa mã nhầm sau khi chuyển (đã ghi vào R5.2).
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 14:12 +07 · GPT Chat · P8
+- 🎯 Mục tiêu: 3–5 agent code song song trên 2 repo; KST kiểm/merge; hướng đến giao việc đêm không người trực.
+- 🏁 Xong khi: R0–R4 chứng minh Actions OFF/main khóa/mã nguồn chuẩn/3 agent có PR; R5 SHA deploy có rollback; R6 có receipt và báo cáo sáng.
+- 📍 Tiến độ: ✓ Roadmap V0.3 đồng thuận → ✓ Codex PROMPT R0+R1 đã hoàn thiện → ■ Claude ký PROMPT SHA → □ Host READY/Owner RUN khi môi trường sạch → □ R0+R1 → □ R2–R6.
+- ✅ Đã xong: Host P6 chốt C1–C10; P8 đưa kiểm writer từ Claude P7 vào S1, làm rõ cửa VPS-GHI và NO-WAIT; PROMPT đã có đầy đủ nội dung để Claude ký, chưa RUN.
 - ■ Đang làm: — · 0 RUN active.
-- ⬜ Còn lại: Reviewer duyệt đúng PROMPT R0+R1/last-touch SHA → Host READY → Owner GO → Codex R0+R1 → quyết nâng Pro sau Actions OFF.
-- ➡ Kế tiếp: 😊 Owner duyệt V0.3 + gật/lắc Q-P7 · Host thêm 1 dòng đo P7 §4 vào S1 PROMPT R0+R1 · Reviewer ký PROMPT · 🤖 Codex chạy; NEXT_TRIGGER=OWNER_GO_AND_PROMPT_ACCEPT.
-- ⛔ Không làm/để sau: chưa tắt Actions, chưa mua Pro, chưa sửa mã/keys/rulesets/main/deploy/VPS production, không dùng PROMPT public pilot cũ.
+- ⬜ Còn lại: Claude Reviewer ACCEPT@last-touch PROMPT SHA → Host ký READY khi thực sự có thể RUN → Owner giao Codex → R0+R1 xác minh/tắt Actions có hard-stop.
+- ➡ Kế tiếp: Claude đọc đúng PROMPT R0+R1 và P8, ký ACCEPT@SHA; Owner phát RUN khi không còn xung đột VPS-GHI. NEXT_TRIGGER=CLAUDE_ACCEPT_PROMPT_SHA_AND_SCOPE_CLEAR.
+- ⛔ Không làm/để sau: chưa chạy Codex, chưa tắt Actions, chưa mua Pro, chưa sửa code/main/secret/VPS, chưa triển khai R2–R6.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -200,6 +200,15 @@ Ghế: openai-main · Based_on: P5 Claude (đã sửa ROADMAP V0.3/KE-HOACH V0.2
 **5. Owner gật/lắc — Q-P7:** khoá VPS bằng 3 cổng trên ở bước R5.2 (sau khi đường deploy từ GitHub chạy được). Claude khuyến nghị **GẬT**.
 
 **Hai vòng rà:** V1 — chỉ sửa 3 tệp của task, không đụng VPS/GitHub/PROMPT. V2 — gốc: mọi đường sửa mã trên VPS đi qua đúng 3 chỗ (cổng MCP, shell root, git origin); chặn đúng 3 chỗ đó + Guard bắt phần còn lại là đủ, khớp mô hình «một thẻ · hai cổng», không dựng thêm lớp hạn chế.
+
+## P8 · GPT Host 24/10/2026 — PROMPT R0+R1 HOÀN THIỆN ĐỂ KÝ, CHỜ CỜ VPS-GHI
+Ghế: openai-main · Based_on: Owner trực tiếp: “Bây giờ bạn phải soạn prompt để cho sẵn sàng khi nào VPS hết bận là chúng ta làm ngay chứ?” + Claude P7 §4. Scope: riêng PROMPT R0+R1 và hồ sơ task; 0 RUN active.
+- **Đã làm ngay:** chỉnh PROMPT R0+R1 trong lượt này. Bổ sung đọc danh sách tác nhân GHI hai thư mục mã theo Claude P7 để phục vụ R5; S0 kiểm cờ VPS-GHI và phạm vi Claude Code đang chạy; R0 vẫn chỉ đọc, R1 chỉ đổi GitHub Actions sau điểm HARD STOP. Không thêm hạng mục/cron/máy chủ mới.
+- **Chốt ý kiến P7:** ACCEPT việc ĐO đường ghi tại R0; phần khóa ghi mã VPS (read-only mount, MCP, Guard) thuộc R5.2, chưa được thi hành hoặc giả là PASS ở R0+R1. Không để câu Q-P7 trì hoãn R0/R1.
+- **Chính sách khởi hành:** KHÔNG giữ Codex/VPS chờ cờ trống; không phát STARTED khi VPS hoặc khu liên quan còn bận. Claude có thể ký ngay SHA prompt khi đang làm dự án khác. Khi Owner xác nhận môi trường phù hợp, GPT Host ghi READY đúng SHA được ký, Owner chuyển RUN ngay; Codex kiểm gate lại tại S0. Nếu S0 phát hiện xung đột thì KQ DỪNG sạch, không tự loop.
+- **Cổng còn lại:** Claude phải ký ACCEPT đúng 40 ký tự SHA commit cuối chạm PROMPT, sau đó Host mới READY; Owner gửi RUN. Không coi việc ghi PROMPT hoặc cờ VPS-GHI đổi thành lệnh triển khai. Các lệnh P1A public sandbox cũ đã SUPERSEDED_UNRUN.
+- **Không thay đổi thực tế:** trong lượt này không tắt Actions, không tạo token/keys, không thay code/main, Git remote/cron/deploy/runtime VPS. NEXT_TRIGGER=CLAUDE_ACCEPT_PROMPT_SHA.
+
 
 
 

@@ -1,6 +1,6 @@
 # PROMPT — GHM-R0R1 · ĐO HIỆN TRẠNG + TẮT GITHUB ACTIONS (CHỈ 2 REPO)
 RUN_ID: GHM-R0R1-20261024-01
-STATUS: DRAFT_NOT_READY — KHÔNG TỰ RUN. Chỉ bắt đầu khi Claude Reviewer ACCEPT đúng full last-touch SHA PROMPT, GPT Host READY@cùng SHA trong COLLAB, Owner giao RUN trực tiếp cho Codex. Hiện mới duyệt kỹ thuật roadmap, chưa cấp RUN.
+STATUS: DRAFT_REVIEW_READY — ĐÃ SOẠN ĐỦ ĐỂ KÝ, CHƯA READY/RUN. Claude Reviewer kiểm một lượt, ghi ACCEPT@full SHA last-touch PROMPT; GPT Host chỉ ghi READY@SHA khi Owner chuẩn bị RUN và cổng VPS-GHI/đích đang rảnh phù hợp. Owner chuyển RUN cho Codex. Không tự chạy khi cờ chuyển trống.
 
 Executor_Surface: Codex CLI/Desktop; Write_Path: Incomex workspace_* root=workspace cho hồ sơ STARTED/KQ; GitHub Settings/API chỉ để Disable Actions và Dependabot auto-PR sau S1 gate. SSH/MCP VPS read-only chỉ quan sát, không mutation VPS.
 
@@ -8,13 +8,15 @@ ENTRY: root AGENTS.md → root COLLAB phần cờ VPS-GHI → work/github-manage
 
 ## S0 — KIỂM QUYỀN & TRẠNG THÁI (READ-ONLY)
 - Kiểm đúng hai repo Huyen1974/agent-data-test và Huyen1974/web-test, private, actions status hiện thời, run gần nhất, required checks, webhook, dependabot, workflow theo lịch và triggers.
-- Kiểm cờ VPS-GHI/Claude Code RUN và khu đang dùng. Codex được đọc độc lập, không dùng root production shell để sửa, không git fetch/reset/pull vào working tree Claude đang làm. Nếu lấy mẫu khi worktree đang chuyển đổi, ghi snapshot bất định; không tự kết luận sạch.
+- Trước Owner RUN: kiểm VPS-GHI + phạm vi phiên Claude Code đang làm; nếu đang ghi cùng nguồn/đích thì **KHÔNG khởi RUN**, không mở phiên chờ; chỉ giữ PROMPT đã ký để giao lại khi cờ trống. Lúc Codex chạy S0 phải kiểm lại VPS-GHI và hoạt động Claude Code thực; nếu trùng khu đang ghi hoặc không xác định được trạng thái ⇒ ghi KQ DỪNG, NEXT_TRIGGER=VPS_GHI_FREE_AND_SCOPE_CLEAR, trả mọi tài nguyên. Cờ VPS-GHI trống không tự chứng minh phiên Claude Mac đã dừng.
+- Codex chỉ READ-ONLY GitHub/VPS ở S0–S1, không giữ VPS-GHI cho phép đọc, không dùng root production shell để sửa, không git fetch/reset/pull vào working tree Claude đang làm. Nếu snapshot đang chuyển đổi, ghi UNKNOWN; không tự kết luận sạch.
 
 ## S1 — R0: PHẢI CÓ KQ READ-ONLY TRƯỚC KHI TẮT
 1. Kiểm từ VPS root thực tế của mã Agent Data / Web (dự kiến docker/agent-data-repo, docker/nuxt-repo): git branch, HEAD, status tracked/untracked, upstream/remotes đã che, nhánh backup vps-daily, GitHub refs. Kiểm mã thực đang chạy theo image/build labels, hashes/evidence: **HEAD không tự coi là image đang chạy**. Mã ui-preview không phải nguồn web-test.
 2. Liệt kê từng GitHub Actions workflow, lịch, run, chức năng thật và phụ thuộc production; phân loại MIGRATE (đã có đường Guard/Kuma/backup vận hành) hay BỎ. Chỉ dẫn nguồn bằng chứng, đừng giữ Action «chạy vì có sẵn». Kiểm cron/reverse backup VPS→GH có thể gây merge/pull nhầm mà không đụng đến job đó.
+2a. **P7 — inventory WRITE PATHS CHỈ ĐỌC:** xác định tất cả tác nhân/script/process **đang ghi hoặc có khả năng ghi** tại hai thư mục mã `docker/agent-data-repo` và `docker/nuxt-repo` (bao gồm build Nuxt, backup `.git`, dịch vụ systemd, MCP workspace root, shell/SSH, hooks/cron); ghi tên chức năng + write scope + thời điểm chạy + quyền, không đọc credential, không sửa/khóa quyền. Đây là đầu vào cho R5.2, **không thực hiện khóa read-only R5 tại RUN này**.
 3. Lập ma trận định danh/quyền có thể push/main/admin của 2 repo bằng tên actor + permission (KHÔNG lấy hoặc in token, SSH private key); Dependabot hiện có. R6 đọc thử đường gọi Dot→Codex, Codex cloud/Claude cloud; không có API/receipt thật ghi UNKNOWN (không chặn R1).
-4. **HARD STOP S1→S2:** nếu một workflow hiện làm việc sản xuất/canh/backup mà chưa có đường thay đang hoạt động, hoặc Codex không đủ quyền chỉnh GH, hoặc có Claude Code RUN hiện hành đang phụ thuộc Actions, thì ghi DỪNG ở mốc này và KHÔNG tắt. Không chạy gì trên VPS để «tạo đường thay» trong RUN này.
+4. **HARD STOP S1→S2:** trước khi ghi GitHub phải kiểm lại sự kiện/đích mà Claude Code đang thao tác; nếu một workflow phục vụ production/canh/backup hoặc RUN Claude đang phụ thuộc Actions mà chưa có đường thay hoạt động, hoặc Codex không đủ quyền chỉnh GH, thì ghi DỪNG mốc này và KHÔNG tắt. Không dùng cờ trống từ snapshot cũ để cấp phép, không chạy gì trên VPS để «tạo đường thay» trong RUN này. Nếu S1 PASS, S2 chỉ chạm GitHub settings và không cần VPS-GHI; không chờ/cướp cờ VPS.
 
 ## S2 — R1: CHỈ THAO TÁC GITHUB (SAU S1 PASS)
 1. Disable GitHub Actions ở cấp hai repo (không xóa YAML; không bật lại secret, không tạo runner, không re-enable deploy). Tắt Dependabot tự mở PR nếu quyền GitHub cho phép theo đúng phạm vi đã duyệt; cảnh báo nếu thao tác này khác cảnh báo bảo mật readonly.
@@ -33,4 +35,4 @@ STEP_WALK_V1:
 | S2 | Codex/S1 GATE PASS | ≤20 phút | Settings Actions OFF, Dependabot, run status | FAIL⇒DỪNG, không lách, Host | S3 |
 | S3 | Codex/S2 XONG hoặc S1 DỪNG | ≤15 phút | KQ + Bảng + report | GPT Host đọc, Owner quyết | END |
 
-KHÔNG ĐƯỢC: sửa runtime VPS/Git remote/cron/Guard/nginx/compose/DB/Graph; đổi quyền SSH/token, cấp root, mua Pro, làm R2–R6, mở public repo, tự merge hoặc deploy. Không giữ terminal/VPS-GHI chờ người; nếu gate FAIL thì kết thúc sạch với NEXT_TRIGGER.
+KHÔNG ĐƯỢC: sửa runtime VPS/Git remote/cron/Guard/nginx/compose/DB/Graph; đổi quyền SSH/token, cấp root, mua Pro, làm R2–R6, mở public repo, tự merge hoặc deploy. Không giữ terminal/VPS-GHI chờ người; nếu gate FAIL thì kết thúc sạch với NEXT_TRIGGER. **RUN chỉ do Owner giao cho Codex khi điều kiện đã sạch; sự kiện VPS-GHI nhả cờ tự nó không phải RUN hoặc lệnh nền.**
