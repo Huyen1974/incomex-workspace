@@ -4,6 +4,17 @@ TASK: work/graph-server · C1-D-FIX đúng một lỗi D23, KHÔNG chạy lại 
 STATUS: DRAFT_NOT_READY; chỉ READY khi GPT Host ký đúng full SHA commit cuối chạm PROMPT.md và SHA256, Owner tự dán một RUN cho Claude Code CLI. KHÔNG tự RUN/C1-E.
 READ: AGENTS.md A0/A4/A5/A6; COLLAB.md §0.0, §1–3, D19/D20/D25, P231–P234; tools/c1d/graph-refresh.c1d.diff, c1d_apply.py; runtime VPS là nguồn kiểm cuối. Claude P233 commit 822672c827b9b692e5469fe9dbf499e76729f805.
 
+Executor_Surface: Claude Code CLI trên Mac; Owner chuyển tay đúng một RUN, không tự gọi phiên/API thuê bao.
+Write_Path: nguồn mã/runtime hiện hành trên VPS (SSOT) qua VPS-GHI được cấp quyền và apply-v0/Config Guard với backup/rollback; báo cáo/biên nhận cập nhật qua workspace Git root bằng version/HEAD CAS. TUYỆT ĐỐI không đồng bộ mã GitHub→VPS (DROOT56). S0 trước mọi protected mutation phải lấy quyền/đường ghi thực tế từ công cụ hiện hữu; không xác định được thì KQ DỪNG.
+STEP_WALK_V1 — một RUN hữu hạn, không chờ timer/Owner:
+| Bước | Ai | Trigger | Deadline/SLA | Evidence phải đo | Lỗi ai biết / bao lâu | Tiếp |
+|---|---|---|---|---|---|---|
+| S0 đọc/gate | Claude Code CLI | Owner RUN sau READY | Trong RUN, lỗi DỪNG ngay | Journal 22:40Z, point/manifest, Guard/lease, đầu vào | Claude báo Owner/Host trong KQ cùng RUN | A khi đủ |
+| A staged-fix | Claude Code CLI | S0 PASS | Một cửa sổ ghi; clone <=5 phút | PRE snapshot, diff tối thiểu, apply-v0 và rollback | Guard + Claude phát hiện tại bước và báo KQ | Fixture |
+| F1/F2/F3 | Claude Code CLI | Mã staged ứng viên | Trước mọi kết luận PASS | Byte PRE 7 nhóm, mismatch RED, retry clean | Fixture FAIL => Claude DỪNG, Host đọc KQ | B nếu PASS |
+| B floor có điều kiện | Claude Code CLI | Fix PASS + natural journal/native oracle | Trong RUN, không chờ lượt đêm kế | 16 ô L1, floor 29/45, 4 infra giữ lại | Thiếu proof => giữ 29 và báo PARTIAL trong KQ | POST |
+| POST/nhả cờ | Claude Code CLI | Kết thúc/sự cố | Trước đóng RUN | Guard 22/22, config, timer ON, checkpoint, nhả VPS-GHI, 0 đồ thử | Guard/Kuma + KQ báo Owner/Host ngay khi RUN kết thúc | Host nghiệm thu |
+
 GOAL D25 OWNER 24/10: Graph phải không âm thầm bỏ sót những biến đổi liên quan đối tượng/cạnh để chương trình khác dùng quyết định. C1-D-FIX chỉ khép lỗ recovery gây kẹt cập nhật đêm sau; KHÔNG chứng nhận all-change coverage. 49/100 ô ĐỦ là scoped; 0/9 source families FULL. Nguồn không có lịch sử biến động liên tục vẫn MỘT PHẦN/UNKNOWN, query NOT_ACTION_SAFE khi cần ô đó. Không lấy nâng ngưỡng cảnh báo làm cấp giấy xanh.
 
 SCOPE: Chỉ sửa atomicity/rollback local recovery point D23; gia cố c1d_apply; đọc báo cáo lượt 2026-10-23T22:40Z; Guard, thử lỗi; conditional floor 29→45. Không lane/timer/service/monitor mới, không Neo4j tạm, không xóa Graph; không sửa PG/Directus/Lark/Qdrant hay WAL/CDC/Kafka/Debezium, không triển khai code Git→VPS ngoài apply-v0 có thẩm quyền, không dừng timer, không C1-E. D20 giữ nguyên, không làm hộ VPSC/HJW/JEV.
