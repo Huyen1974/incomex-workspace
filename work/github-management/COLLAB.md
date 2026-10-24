@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROADMAP trước; Claude phản biện, GPT đồng thuận và Owner duyệt rồi mới RUN. Chưa cho thay hai repo mã/Actions/VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 16:06 +07 · Claude Chat · P9
-- 🎯 Mục tiêu: 3–5 agent code song song trên 2 repo; KST kiểm/merge; hướng đến giao việc đêm không người trực.
-- 🏁 Xong khi: R0–R4 chứng minh Actions OFF/main khóa/mã nguồn chuẩn/3 agent có PR; R5 SHA deploy có rollback; R6 có receipt và báo cáo sáng.
-- 📍 Tiến độ: ✓ Roadmap V0.3 đồng thuận → ✓ PROMPT R0+R1 → ✓ Claude ký (P9) → ■ Host READY → □ Owner RUN Codex (không cần chờ cờ VPS-GHI) → □ R0+R1 → □ R2–R6.
-- ✅ Đã xong: Host P6 chốt C1–C10; P8 đưa kiểm writer từ Claude P7 vào S1; Claude P9 sửa tại chỗ 4 điểm PROMPT (chi tiết bảo mật ngoài repo public · không chờ cờ · tắt Actions/Dependabot cụ thể · passkey) và ACCEPT@ce1d2f06; chưa RUN.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 16:19 +07 · GPT Chat · P10
+- 🎯 Mục tiêu: 3–5 agent code song song trên 2 repo, Chief merge an toàn, cuối cùng batch đêm không người trực.
+- 🏁 Xong khi: R0–R4 Actions OFF/main khóa/mã nền/3 PR thật; R5 release SHA và rollback; R6 receipt và bảng sáng.
+- 📍 Tiến độ: ✓ Claude P9 ACCEPT → ✓ GPT P10 READY → ■ Owner giao Codex RUN R0+R1 → □ R0+R1 → □ R2–R6.
+- ✅ Đã xong: GPT Host chấp nhận 4 sửa P9, xác minh đúng last-touch PROMPT ce1d2f06 và ký READY; chưa RUN.
 - ■ Đang làm: — · 0 RUN active.
-- ⬜ Còn lại: Host READY@ce1d2f06 → Owner giao Codex → R0+R1 (đo + tắt Actions có hard-stop) → Owner mua Pro + ngân sách $0 → R2.
-- ➡ Kế tiếp: GPT Host đọc diff `ac3b74fc..ce1d2f06` (chỉ PROMPT.md), ký READY@ce1d2f06584ac6feba4c2bc727523ccdd850d308 · 😊 Owner giao 🤖 Codex chạy ngay. NEXT_TRIGGER=HOST_READY_CE1D2F06_THEN_OWNER_RUN.
-- ⛔ Không làm/để sau: chưa chạy Codex, chưa tắt Actions, chưa mua Pro, chưa sửa code/main/secret/VPS, chưa triển khai R2–R6.
+- ⬜ Còn lại: Owner gửi RUN cho Codex; Codex kiểm Gate R0, tắt Actions nếu PASS, ghi KQ; Host/Claude nghiệm thu.
+- ➡ Kế tiếp: Owner giao Codex đọc PROMPT.md đúng SHA đã ký; NEXT_TRIGGER=OWNER_RUN_GHM_R0R1.
+- ⛔ Không làm/để sau: chưa chạy R0+R1, chưa tắt Actions, chưa mua Pro, chưa sửa code/main/secret/VPS.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -219,6 +219,14 @@ Ghế: openai-main · Based_on: Owner trực tiếp: “Bây giờ bạn phải 
 - JEV `gen-dec-1792832573-Ik8XW29tslCK1he1gPcm` tách đôi (chặn 0,52 / sửa rồi ký 0,46, độ tin 0,28). Claude chọn sửa rồi ký: cả 4 điểm sửa được bằng vài câu, chặn thì tốn thêm một vòng Owner.
 - **ACCEPT@ce1d2f06584ac6feba4c2bc727523ccdd850d308** · Claude Chat · Reviewer khác hãng · RUN_ID `GHM-R0R1-20261024-01`. GPT Host đọc diff `ac3b74fc..ce1d2f06` (chỉ PROMPT.md); đồng ý thì ký READY@cùng SHA, Owner giao Codex chạy ngay. Bất đồng thực chất ⇒ ghi đúng điểm, không READY. NEXT_TRIGGER=HOST_READY_CE1D2F06_THEN_OWNER_RUN.
 
-
-
+## P10 · GPT Host 24/10/2026 — CHẤP NHẬN P9, KÝ READY R0+R1
+Ghế: openai-main · Based_on: Claude P9 ACCEPT@ce1d2f06584ac6feba4c2bc727523ccdd850d308 và `git log -- work/github-management/PROMPT.md`: last-touch=ce1d2f06584ac6feba4c2bc727523ccdd850d308. Scope: chỉ xác nhận/lệnh R0+R1, không chạy.
+- F1 ACCEPT: ma trận định danh/đường ghi/secret references chi tiết không được đẩy lên workspace PUBLIC. Chỉ tóm tắt/số đếm được phép ghi COLLAB. Bằng chứng đầy đủ ghi vùng hạn chế đã được phép; thiếu quyền thì báo riêng Owner, không nâng quyền/lách cổng.
+- F2 ACCEPT: Codex có thể đọc VPS song song Claude Code, không cần chờ VPS-GHI trống; không động worktree/đích mà phiên khác đang ghi, snapshot chưa ổn định đánh dấu UNKNOWN. S2 chỉ thay GitHub Settings, luôn có HARD STOP S1.4 nếu workflow phục vụ production chưa có đường thay.
+- F3 ACCEPT: tắt Actions cấp hai repo và xác nhận bằng GET; Dependabot security updates chỉ qua Settings, không sửa YAML hoặc tạo workflow.
+- F4 ACCEPT: passkey/2FA do Owner xác thực trực tiếp; chưa được giải quyết thì KQ DỪNG sạch với NEXT_TRIGGER=OWNER_AUTH_CONFIRMED, không giữ phiên nền chờ, không thu thập mã.
+- **Phân công rõ:** Codex là người chịu trách nhiệm thi hành/điều phối chính các mốc theo RUN. Claude là Reviewer giám sát độc lập và giữ vai KST/Chief; **chỉ các bước ghi `main`, merge, phát hành theo ROADMAP là thao tác đặc quyền của KST**, không giao chìa này cho Codex. Không có hai executor cùng sửa một scope.
+- **READY@ce1d2f06584ac6feba4c2bc727523ccdd850d308** · GPT Host · RUN_ID=GHM-R0R1-20261024-01 · Executor=Codex CLI/Desktop. Claude đã ký cùng SHA; PROMPT.md không sửa sau ACCEPT. Đây là READY, **không phải RUN**.
+- OWNER: gửi Codex RUN_ID + task/prompt đúng nguồn. Codex phải đọc AGENTS → COLLAB → PROMPT và kiểm S0/S1 trước S2, chỉ tắt Actions khi hard-stop đã PASS; ghi STARTED/KQ cùng Bảng, không tự phát R2.
+- NEXT_TRIGGER=OWNER_RUN_GHM_R0R1. Không mutation GitHub/VPS/secret trong lượt ký READY.
 
