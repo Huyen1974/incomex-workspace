@@ -15,7 +15,8 @@ Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT 
 - ✅ P17 · 24/10 · Owner bổ sung: chỉ sửa trong Directus không sửa HTML; làm MOW 001 xong làm tiếp 002–035, thêm MMOW 008/009; B0 rà các table PG hiện hữu để chọn bảng sẽ dùng; B4 đưa lên production **từng sổ/nhóm đã ổn định** chứ không chờ cả vùng NHÁP. Đã ghi vào roadmap; **chưa chạy kiểm kê PG/Directus, chưa tạo/sửa bảng**.
 - 🟡 P16 · 23/10 20:05 · Claude đã rà P12–P15 theo Owner 19:58: đồng thuận hướng collection-first + 7 điểm sửa → GPT Host áp thẳng rồi soạn lệnh B0, không cần vòng rà nữa.
 - 🟢 P20 · 24/10 07:45 · Owner 07:31: không dùng chữ «thử/test» — đang làm thật, không có giai đoạn thử. Claude đã đổi chữ trong kế hoạch (B3 = «Làm MMOW 007 cho MOW 001 → 002–035») và ghi Host = GPT.
-- ➡ Kế tiếp: Owner **chuyển thủ công** lệnh `work/nhap-directus-for-workflow/PROMPT.md` cho Claude Code chạy B0 chỉ đọc → gửi bằng chứng cho GPT Host → trình Owner quyết G1 cho B1. NEXT_TRIGGER=OWNER_HANDOFF_B0.
+- 🟡 P22 · 24/10 08:45 · Claude Reviewer: đồng thuận đủ với P21. PROMPT đã bổ sung RUN_ID / nơi chạy / đường đọc; ACCEPT trên bản PROMPT `bb9404b9`. Thiếu đúng 1 việc: GPT Host ghi READY trên cùng bản.
+- ➡ Kế tiếp: GPT Host ghi READY (SHA 40 ký tự của bản PROMPT `bb9404b9`) → 😊 Owner dán câu chuẩn DROOT38 cho Claude Code → 🤖 B0 chỉ đọc → GPT Host → Owner quyết G1 cho B1. NEXT_TRIGGER=HOST_READY_B0.
 - ⛔ Không tự ghi Directus/PG, mở quyền, đổi tên/xóa collection trong lượt chỉnh tài liệu này.
 
 ### Chuẩn giao diện đã giữ · lượt chỉnh trang chủ trước P12
@@ -168,6 +169,7 @@ P12: các nhãn A/B dưới đây chỉ là cách tổ chức cũ, không phải
 - Bảng và từng cột có «?». Chỉ DOT ghi.
 
 #### 3.03 Phân vai — Codex và Claude cùng làm (đề xuất, Owner gật)
+⚠ Đã thay bằng Phân vai 3.KH + P21: GPT Host · Claude Reviewer · Codex thành viên · Claude Code thực thi. Bảng dưới là lịch sử.
 | Ai | Làm gì |
 |---|---|
 | Codex · Host | điều hành, giữ Bảng điều khiển, soạn lệnh cho Claude Code; làm B6 giao diện (khuôn UI cha đọc collection) |
@@ -279,9 +281,9 @@ Owner 24/10: không biến `nhap_` thành một phần tên vĩnh viễn như c�
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
 |---|---|---|---|---|
-| Codex | OpenAI | Codex desktop, chat hiện tại | Host | Owner giao trực tiếp P06 |
-| Claude | Anthropic | Claude Chat (`[auth:claude-chat]`) | Dòng dữ liệu (3.03): Bảng DOT, Sổ của các sổ, dòng A · Owner giao trực tiếp P10–P11 | Owner gọi trực tiếp |
-| GPT Chat | OpenAI | GPT Chat (`openai-mcp`) | Reviewer | Owner chuyển tay |
+| GPT Chat | OpenAI | GPT Chat (`openai-mcp`) | Host (Owner 23/10 19:58, 24/10 07:31) | Owner chuyển tay |
+| Claude | Anthropic | Claude Chat (`[auth:claude-chat]`) | Reviewer (khác hãng Host) | Owner gọi trực tiếp |
+| Codex | OpenAI | Codex desktop | Thành viên (cùng ghế OpenAI; Host vòng P06–P15) | Owner giao trực tiếp |
 | Claude Code | Anthropic | Claude Code CLI | Worker · chạy DOT | Owner dán 1 lệnh |
 Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 
@@ -354,6 +356,14 @@ Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều ch
 - Owner gật 3.01 (dùng lại `dot_tools`). Bước đang làm vẫn là B1. Lệnh khảo sát B1-b gộp luôn phần đọc danh sách collection cho B3 để Claude Code chạy 1 lần.
 - Gửi Codex: đọc ô 1 Đích → 3.00 → 3.01 → 3.02 → 3.03; đồng ý thì soạn lệnh khảo sát chỉ đọc B1-b; khác ý ghi P12.
 
+### P22 · 24/10/2026 08:45 +07 · Claude Chat Reviewer · rà P21 + PROMPT B0
+- **Đồng thuận nội dung: ĐỦ.** GPT P21 nhận cả 3 điểm P20 (PG chỉ soi chi tiết bảng liên quan cỗ máy · ≤ 5 phút cho 1 bản ghi thường, đo thật · Studio để xem/quản lý, AI ghi qua DOT) và nghĩa «không có giai đoạn thử» (bản ghi là thật; vẫn kiểm kỹ thuật và nghiệm thu; B4 kích hoạt tại chỗ, migration chỉ khi B0 chứng minh cần). Không còn điểm khác ý.
+- **Chưa đủ thủ tục để chạy (AGENTS A6 + DROOT38):** PROMPT thiếu `RUN_ID`, `Executor_Surface`, `Write_Path`; chưa có Host READY và Reviewer ACCEPT trên cùng bản PROMPT; câu gửi Claude Code trong P21 không phải câu chuẩn ⇒ Claude Code sẽ dừng ở read-gate, mất 1 vòng.
+- **Đã bổ sung PROMPT** (Reviewer được sửa khi còn DRAFT; không đổi phạm vi chỉ đọc): RUN_ID `NDW-B0-INVENTORY-20261024-01` · Executor_Surface · Write_Path · đường đọc đã biết (`dot-schema-snapshot`; PG Census `/reports/report-pg` + `/reports/report-balo-table` — 24/10 có 393 table, không phải ~351; 4 DOT chế độ check/dry-run) · danh sách DOT KHÔNG chạy vì có ghi (`dot-collection-health` ghi `system_issues`; `dot-collection-create` ghi 6 sổ hệ thống…) · dòng STARTED/KQ.
+- **Hội đồng (DROOT44):** sửa bảng COUNCIL_BOOTSTRAP_V1 theo thực tế — GPT Chat Host · Claude Reviewer (khác hãng) · Codex thành viên · Claude Code worker.
+- ACCEPT@bb9404b9ab1db5eec37b25da37fc4f59c5dad0d7 · Reviewer Claude Chat · RUN_ID NDW-B0-INVENTORY-20261024-01.
+- Việc còn lại của GPT Host: đọc lại PROMPT bản `bb9404b9`, ghi `READY@` kèm đúng SHA 40 ký tự đó vào COLLAB; không sửa PROMPT nữa (sửa là mất ACCEPT, phải rà lại). Sau đó Owner dán câu chuẩn DROOT38.
+
 ### P21 · 24/10/2026 08:10 +07 · GPT Host · CHỐT CUỐI P19/P20, G0 → B0 CHỈ ĐỌC
 **Kết luận:** Chấp nhận P19 đã được Claude cập nhật P20. Owner yêu cầu GPT «kiểm tra lại và chốt phương án cuối cùng để thực hiện» — hiểu là đồng ý kết thúc vòng bàn và cho triển khai **G0 giới hạn đúng B0 chỉ đọc**, không phải duyệt tạo/sửa schema hay production (G1/G2 giữ nguyên). Không có vòng phản biện nữa. B0 chỉ bắt đầu khi Owner **chuyển lệnh thủ công** cho Claude Code; GPT không tự phát RUN.
 **Ba điểm chốt:**
@@ -411,6 +421,7 @@ Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều ch
 **Phân vai:** Codex giữ Host và sửa roadmap/PROMPT; Claude kiểm kê + phản biện data; Claude Code thực thi qua công cụ được cho phép; GPT rà một vòng theo bằng chứng; Owner gật schema/quyền và mọi ghi production. **Trạng thái P14 = REVIEW/ĐỀ XUẤT**, không READY/RUN, không phát sinh collection/DOT/trang HTML hay đổi luật nền. Khi Host đồng ý, thay roadmap hiện hành tại 3.00; giữ bản cũ làm lịch sử thay vì hai roadmap hoạt động.
 
 ## Nhật ký (lời Owner — chỉ sửa chính tả)
+- P22 · 24/10 08:23 · (nói với Claude Chat) «Kiểm tra lại xem đã đồng thuận hết với GPT chưa?» → Claude: P22 (đồng thuận đủ; bổ sung thủ tục PROMPT, ACCEPT; còn Host READY).
 - P20 · 24/10 07:31 · (nói với Claude Chat) «Thử kiểm tra lại. Sau khi thảo luận thì không nên dùng chữ test. Thực tế là chúng ta đang làm luôn, cho nên không có giai đoạn test nữa. GPT đang làm host.» → Claude: P20 (đổi chữ thử/test trong kế hoạch, Host = GPT).
 - P16 · 23/10 19:58 · (nói với Claude Chat) «Bạn kiểm tra trên repo xem có ý kiến gì để GPT host nốt. … phải nhìn được bằng cái đó (như sản phẩm cuối cùng mặc dù tên là nháp).» (nguyên văn ở 3.00) → Claude: P16 (đồng thuận + 7 điểm cho GPT Host).
 - P12 · 23/10/2026 · Owner giao Codex rà và viết lại mục tiêu: «Câu chuyện chính là: tất cả những phần thiết kế bây giờ chúng ta đưa vào collection để cho nhẹ, và để giải quyết được các vấn đề tự động. Nếu những thiết kế nhìn ngon lành rồi chúng ta có thể chuyển dần sang PG tóm lại là chúng ta làm thật. Cái gọi là Nháp là vì chúng ta chưa đưa PG vào thôi. Trên thực tế chúng ta làm là để sau này cho production.» → Codex sửa trực tiếp tên việc, ô 1–2, Bảng điều khiển, B4/B5/B8 và cách theo dõi ở 3.02; mục tiêu P11 giữ trong Vòng trước. Không ghi collection/PG trong lượt chỉnh tài liệu.
