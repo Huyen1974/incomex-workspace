@@ -5,17 +5,17 @@ Tên việc: Xây dựng hệ sổ Directus dùng lâu dài — chuyển thiết
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 23/10/2026: lập việc + ô 1 (14:37, 15:02, 16:49); giao Codex làm Host (P06); 17:03 chốt hướng: «bây giờ bạn hiểu vấn đề rồi thì bạn sửa lại cái yêu cầu trên task để làm đúng vấn đề đi» (3.00); 17:26 chốt Đích (ô 1). **Chỉ đạo bổ sung hiện tại:** GPT cùng Codex làm co-host để sửa nhanh; vùng NHÁP phải làm, nhìn và hiệu chỉnh trực tiếp bằng collection thật trong Directus Studio, không phải HTML khác; đầu tiên kiểm kê collection hiện có; ưu tiên Công thức đã tương đối khả thi. Ô 2 và mọi việc ghi production vẫn chờ Owner gật từng việc.
 Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT đang làm host». Codex: thành viên (Host vòng P06–P15). Claude Chat: rà. Các lệnh RUN/production theo quyền Host và Owner.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 07:45 +07 · GPT Host (Claude áp lời Owner 07:31) · P20 · kế hoạch P19 trình Owner
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 08:10 +07 · GPT Host · P21 · G0 CHỐT / B0 CHỜ CHUYỂN LỆNH
 - 🎯 Mục tiêu: **collection Directus có thật và xem/sửa ngay trong Studio**, tận dụng sổ đang có; HTML cũ chỉ là nguồn đối chiếu chuyển dữ liệu, không làm phiên nháp HTML mới.
-- 🏁 Xong khi: **Owner duyệt một kế hoạch duy nhất §3.KH** có thứ tự B0–B5, nhiệm vụ, bằng chứng, SSOT, quyền, cổng Owner; riêng B1 phải nhìn/sửa được Công thức trong Studio, không HTML.
+- 🏁 Xong khi: kế hoạch P19/P20 được chốt G0, B0 trả về kiểm kê Directus + PG/DOT liên quan và phương án B1 Công thức; B1 phải nhìn/sửa được bản ghi thật trong Studio sau khi Owner duyệt G1.
 - ✅ Đã làm: P13 chốt mục tiêu collection; P14 rà SSOT và DOT; P15 tiếp nhận chỉ đạo mới, chuyển GPT thành co-host và đưa kiểm kê collection lên đầu. Giữ mọi HTML cũ làm lịch sử, không tiếp tục chế tác giao diện nháp.
-- 📍 Tiến độ: [■ P19 **TRÌNH DUYỆT KẾ HOẠCH**] → [□ B0 Kiểm kê] → [□ B1 Công thức] → [□ B2 Sổ khác] → [□ B3 MMOW/MOW] → [□ B4 Lên thật] → [□ B5 Home đọc dữ liệu].
-- ■ Đang làm: soạn và ghi **kế hoạch §3.KH** · chưa RUN · 0 RUN active; đợi Owner quyết G0.
-- ⬜ Còn mở: kiểm kê collections/schema/quan hệ/SSOT/quyền thực tế; chọn nguồn Công thức phù hợp; chốt cách sử dụng Studio với DOT 100% trong NHÁP; chốt kỹ thuật tên sổ và cách lên production trước khi tạo.
+- 📍 Tiến độ: [✅ G0 **CHỐT KẾ HOẠCH**] → [■ B0 **CHỜ OWNER DÁN LỆNH**] → [□ B1 Công thức] → [□ B2 Sổ khác] → [□ B3 MMOW/MOW] → [□ B4 Lên thật] → [□ B5 Home đọc dữ liệu].
+- ■ Đang làm: chuẩn bị lệnh **B0 chỉ đọc** tại PROMPT.md · 0 RUN active · NEXT_TRIGGER=OWNER_HANDOFF_B0.
+- ⬜ Còn mở: B0 đo collections Directus và PG tables liên quan/SSOT/DOT; B1 Công thức phải có tên chuẩn và quyền được duyệt G1; B2–B5 theo §3.KH. Studio xem/quản lý, AI ghi qua DOT; G2 cho production.
 - ✅ P17 · 24/10 · Owner bổ sung: chỉ sửa trong Directus không sửa HTML; làm MOW 001 xong làm tiếp 002–035, thêm MMOW 008/009; B0 rà các table PG hiện hữu để chọn bảng sẽ dùng; B4 đưa lên production **từng sổ/nhóm đã ổn định** chứ không chờ cả vùng NHÁP. Đã ghi vào roadmap; **chưa chạy kiểm kê PG/Directus, chưa tạo/sửa bảng**.
 - 🟡 P16 · 23/10 20:05 · Claude đã rà P12–P15 theo Owner 19:58: đồng thuận hướng collection-first + 7 điểm sửa → GPT Host áp thẳng rồi soạn lệnh B0, không cần vòng rà nữa.
 - 🟢 P20 · 24/10 07:45 · Owner 07:31: không dùng chữ «thử/test» — đang làm thật, không có giai đoạn thử. Claude đã đổi chữ trong kế hoạch (B3 = «Làm MMOW 007 cho MOW 001 → 002–035») và ghi Host = GPT.
-- ➡ Kế tiếp: Owner xem và **duyệt/chỉnh kế hoạch §3.KH (G0)** → GPT Host soạn lệnh B0 chỉ đọc Directus/PG/DOT → Claude Code chạy khi Owner cho phép → báo kết quả rồi mới duyệt phạm vi/schema/rights B1 (G1). NEXT_TRIGGER=OWNER_APPROVES_PLAN_P19.
+- ➡ Kế tiếp: Owner **chuyển thủ công** lệnh `work/nhap-directus-for-workflow/PROMPT.md` cho Claude Code chạy B0 chỉ đọc → gửi bằng chứng cho GPT Host → trình Owner quyết G1 cho B1. NEXT_TRIGGER=OWNER_HANDOFF_B0.
 - ⛔ Không tự ghi Directus/PG, mở quyền, đổi tên/xóa collection trong lượt chỉnh tài liệu này.
 
 ### Chuẩn giao diện đã giữ · lượt chỉnh trang chủ trước P12
@@ -69,7 +69,7 @@ Biến toàn bộ thiết kế quy trình đã chốt từ các bảng HTML thà
 7. **Trang chủ phục vụ các collection này.** Giữ phong cách UI cha đã thống nhất; trang chủ/cây liên kết khai thác cùng dữ liệu, ít bước truy cập. Trang chủ không là điều kiện tiên quyết và không có hệ dữ liệu riêng.
 8. **Việc đầu tiên làm thật:** chọn một danh mục đã có và một danh mục liên quan; dùng công cụ hiện có dựng/dùng lại collection thật trong vùng NHÁP, nhập dữ liệu, tạo quan hệ, mở ngay trong Studio, sửa một bản ghi qua đường ghi được duyệt và đọc lại. Kiểm từ chối ghi ngoài vùng, đối chiếu nguồn và ghi thời gian. Không viết HTML riêng cho danh mục.
 
-**Đường thao tác và luật DOT:** giữ DOT 100% cho thao tác máy/AI theo luật hiện hành. Đề nghị “xem/sửa trực tiếp trong Studio” chưa tự chứng minh tương thích với lệnh cũ “kể cả Owner không gõ tay”. Hội đồng cần làm rõ ranh giới Studio (xem, nhập, schema) và DOT; nếu muốn cho người ghi trực tiếp ngoài DOT, cần Owner chốt thay đổi luật. Không tự cấp quyền/bỏ kiểm soát hoặc dựng một lớp nhập liệu mới để né điểm này. Việc đầu tiên có thể dùng DOT hiện hữu ghi rồi xem trực tiếp trên Studio; khả năng/sự cho phép ghi bằng Studio phải báo riêng, không coi hai việc là một.
+**Đường thao tác và luật DOT — P21 CHỐT:** Directus Studio là nơi **nhìn và quản lý collection thật**; AI/máy **chỉ ghi qua DOT** theo DROOT26/DROOT35, không ghi REST/SQL/CLI hay GUI vượt quyền. Nếu Owner muốn trực tiếp sửa bằng Studio, phải duyệt quyền giới hạn cho sổ đang thiết kế riêng, không tự cấp. B0 chỉ đọc; B1 thay guard phụ thuộc tiền tố `nhap_` bằng quyền/danh sách collection cho phép và phải qua G1. Không dựng trang HTML hoặc lớp nhập liệu mới.
 
 ### 2. Thế nào là hoàn thành
 **P13 — việc đầu tiên bắt buộc:** đạt ô 1 mục 8 bằng một collection thật mở được trong Data Studio, có dữ liệu và quan hệ đọc lại được. Phân biệt sửa qua DOT và sửa trực tiếp bằng Studio; không báo đã kiểm đường chưa được phép/chưa chạy. Tiêu chí trang chủ dưới đây không chặn việc đầu tiên. “Lên PG production” trong các dòng sau được hiểu là nghiệm thu/kích hoạt hoặc migration theo kiến trúc thực tế, không phải lần đầu tạo SQL.
@@ -78,7 +78,7 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 2. Các thiết kế trong phạm vi được chuyển vào collection và đối chiếu đủ nội dung, ghi chú, mã, quan hệ, trường, cấu hình; phần đã có được giữ lại, phần thiếu ghi rõ. Trạng thái duyệt được bảo toàn, không tự đổi “chưa duyệt” thành “đã duyệt”.
 3. Có quy trình chuyển từng phần sang PG production: kiểm phần chênh, Owner duyệt, DOT áp, đọc lại và bảo vệ Điều 30/31. Giữ UI và cấu hình đã kiểm; có bằng chứng phần nào đã chuyển và phần nào còn trên vùng trước production.
 4. Bảng DOT được đối chiếu với công cụ hiện hành: lệnh thiếu/lệch phiên/mất nguồn được ghi rõ; mỗi thao tác có DOT và bằng chứng thực thi. Dùng lại dot_tools; không tự xóa dòng.
-5. Đo thời gian thêm/sửa một bản ghi trên collection và hiển thị lại, với bảng nhỏ và lớn. Mốc ≤ 5 phút của P11 là đề xuất để đo, chưa là cam kết áp cho mọi thao tác hay lý do bỏ kiểm tra.
+5. **Mục tiêu hiệu suất:** thêm/sửa một bản ghi nghiệp vụ thông thường qua đường ghi được phép rồi đọc lại trong Studio **≤ 5 phút** kể từ lúc nhận yêu cầu. Đo thời gian thực trên bảng nhỏ và lớn; nếu vượt phải ghi nguyên nhân và tối ưu thao tác. Không dùng mốc này cho tạo schema/viết DOT/duyệt production; chưa đo không tự báo ĐẠT.
 6. Kiểm chứng chỉ một nơi được ghi cho mỗi thông tin; ghi sai nhà bị từ chối. Sau chuyển không còn hai bản chuẩn có thể sửa độc lập.
 7. Trang chủ/khuôn UI cha đọc collection; thêm bảng cùng khuôn không phải chép dữ liệu hoặc viết lại giao diện. Giữ nội dung và hành vi đã duyệt, bao gồm ghi chú và xổ/thu.
 8. Chạy thực tế trên collection trọn chuỗi MBM → MMOW 007 → một MOW → hồ sơ; kiểm cả logic, hợp đồng thông tin, cấu hình trường, xử lý tự động và các ca sai/thiếu. Có kết quả đọc lại, không dùng dữ liệu giả/trạng thái tự gán làm bằng chứng.
@@ -115,7 +115,7 @@ B2–B4 lặp theo từng sổ **hoặc nhóm sổ có quan hệ phụ thuộc**
 | Mã | Đầu việc phải làm | Xong khi / bằng chứng |
 |---|---|---|
 | B0.1 | Kiểm kê **tất cả collection Directus hiện có** qua DOT chỉ đọc; đọc tên máy, mô tả, Field, quan hệ, số bản ghi, quyền và trạng thái | Có danh sách đầy đủ, phân **dùng lại / cần mở rộng / cần tạo / không đụng tới**; chưa đo không suy đoán |
-| B0.2 | Kiểm kê **các table PostgreSQL thực có** và ánh xạ sang Directus; gồm schema, PK/FK, quyền, owner, phụ thuộc, số bản ghi; kiểm cấu hình DB thực tế | Có **danh sách table PG sẽ dùng** kèm lý do và mức tác động; phân biệt bảng nghiệp vụ, bảng hệ thống, chưa có |
+| B0.2 | Dùng DOT chỉ đọc lấy **danh mục tên/schema PostgreSQL** ở mức metadata nhẹ để tìm bảng liên quan/tránh trùng; chỉ xem **chi tiết** PK/FK, quyền, quan hệ, phụ thuộc và số dòng an toàn ở các bảng phục vụ cỗ máy (ưu tiên `meta_catalog`, `dot_tools`, `workflows`, Công thức, Field, MMOW/MOW). **Không quét dữ liệu hay đếm thật toàn bộ ~351 bảng**; kiểm tên DB/schema thực tế | Có **danh sách table PG dự kiến dùng** kèm lý do/tình trạng/quan hệ/độ tin cậy; phần chưa xác minh ghi CHƯA KIỂM, không mở việc vét cạn |
 | B0.3 | Đối chiếu **Bảng DOT hiện có** (`dot_tools`, CAT-006) với danh mục DOT trên VPS; kiểm công cụ đọc/tạo collection/sửa Field/relationship | Biết DOT nào dùng được, thiếu gì cho B1; không tạo `nhap_dot`, không bắt dọn toàn bộ DOT trước |
 | B0.4 | Tổng hợp **Sổ của các sổ** từ `meta_catalog` và nguồn HTML/JS/PG; mã sổ, nguồn gốc, tình trạng duyệt, nơi SSOT, đích và thứ tự chuyển | Một danh mục theo dõi có thể dùng, không nhân bản Master of Master/ML-DEF; các sai khác ghi rõ |
 | B0.5 | Từ B0.1–B0.4 chốt **tên collection kỹ thuật dùng lâu dài**, schema dự kiến, danh sách được phép ghi, quyền, cách lên chính thức cho nhóm Công thức | Host trình Owner duyệt **tên/đích/quyền/phạm vi B1** trước bất kỳ lệnh tạo hoặc sửa schema |
@@ -131,7 +131,7 @@ B2–B4 lặp theo từng sổ **hoặc nhóm sổ có quan hệ phụ thuộc**
 | B4.2 | Sau khi triển khai từng nhóm, đọc kiểm dữ liệu/quan hệ, chuyển quyền ghi SSOT một lần, khóa ghi nghiệp vụ ở nguồn HTML/JS cũ; giữ lịch sử | Một nhà ghi hoạt động, nguồn cũ chỉ đọc; biên nhận kết quả và bảo vệ Điều 30/31 |
 | B5 | Trang chủ/treeview dùng lại **UI cha và dữ liệu Directus** khi cần; không phải điều kiện trước để làm collection | Cùng một SSOT, link về đúng bản ghi; không tạo kho HTML mới |
 
-**Điểm dừng/duyệt:** **G0** Owner duyệt kế hoạch P19 này trước khi phát RUN B0; **G1** sau kiểm kê B0, Owner chốt danh sách bảng/tên kỹ thuật/quyền và phạm vi B1; **G2** mọi thay đổi/ghi production cần Owner duyệt theo từng sổ/nhóm. Việc chưa được duyệt để trạng thái **CHƯA DUYỆT**, không tự chuyển sang ĐẠT hoặc production.
+**Điểm dừng/duyệt:** **G0** Owner yêu cầu GPT chốt phương án cuối để thực hiện, P21 đã chốt **chỉ phạm vi B0 chỉ đọc**; lệnh B0 vẫn do Owner chuyển thủ công, không tự RUN. **G1** sau kiểm kê B0, Owner duyệt danh sách bảng/tên kỹ thuật/quyền và phạm vi ghi B1. **G2** mọi thay đổi/ghi production cần Owner duyệt riêng theo từng sổ/nhóm. Việc chưa được duyệt để trạng thái **CHƯA DUYỆT**, không tự chuyển sang ĐẠT hoặc production.
 
 **Phân vai:** GPT Host điều phối và giữ một roadmap (Owner 07:31); Claude rà mục tiêu/SSOT/tiêu chí ngắn gọn; Codex thành viên; Claude/Claude Code kiểm kê và thực hiện bằng công cụ/DOT đã được duyệt; Owner phê duyệt các cổng. Các lượt làm nhỏ, mỗi lượt cố gắng ≤ 15 phút và phải lưu kết quả/điểm tiếp tục; không mở vòng kiểm vét cạn.
 
@@ -353,6 +353,15 @@ Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều ch
 - Đã sửa: ô 1 thêm khối Đích (A Chuyển · B Sáng tạo · Sổ theo dõi) · Tên việc · ô 2 9 dòng · lộ trình B0–B8 · 3.02 Sổ của các sổ = Master of Master + 6 cột theo dõi · 3.03 phân vai · Bảng điều khiển.
 - Owner gật 3.01 (dùng lại `dot_tools`). Bước đang làm vẫn là B1. Lệnh khảo sát B1-b gộp luôn phần đọc danh sách collection cho B3 để Claude Code chạy 1 lần.
 - Gửi Codex: đọc ô 1 Đích → 3.00 → 3.01 → 3.02 → 3.03; đồng ý thì soạn lệnh khảo sát chỉ đọc B1-b; khác ý ghi P12.
+
+### P21 · 24/10/2026 08:10 +07 · GPT Host · CHỐT CUỐI P19/P20, G0 → B0 CHỈ ĐỌC
+**Kết luận:** Chấp nhận P19 đã được Claude cập nhật P20. Owner yêu cầu GPT «kiểm tra lại và chốt phương án cuối cùng để thực hiện» — hiểu là đồng ý kết thúc vòng bàn và cho triển khai **G0 giới hạn đúng B0 chỉ đọc**, không phải duyệt tạo/sửa schema hay production (G1/G2 giữ nguyên). Không có vòng phản biện nữa. B0 chỉ bắt đầu khi Owner **chuyển lệnh thủ công** cho Claude Code; GPT không tự phát RUN.
+**Ba điểm chốt:**
+- **(a) PG:** nhận diện **danh sách tên/schema table** bằng metadata nhẹ để không bỏ sót tên, nhưng **chỉ kiểm chi tiết bảng liên quan cỗ máy**; không đọc/vét dữ liệu toàn bộ ~351 bảng, không count toàn bảng lớn. Directus cũng lấy danh sách collection, chỉ soi chi tiết nhóm liên quan Công thức/MMOW/MOW/SSOT. Mỗi lượt cố gắng ≤15 phút, dở ghi checkpoint.
+- **(b) Hiệu suất:** tiêu chí thực hiện **thêm/sửa một bản ghi thông thường và đọc lại trên Studio ≤5 phút**, đo thật từ lúc nhận lệnh; thời gian vượt phải ghi nguyên nhân để đơn giản hóa thao tác. Không đánh đồng với thời gian tạo schema, phát triển DOT, phê duyệt production; **không báo ĐẠT khi chưa đo**.
+- **(c) Quyền:** Studio để **nhìn và quản lý collection**; AI **ghi qua DOT** theo DROOT26/DROOT35, không mở đường SQL/REST/GUI vượt quyền. Nếu Owner muốn tự sửa trực tiếp dữ liệu ở Studio, cần một quyết định riêng về quyền hẹp; không chặn B0. Trước B1 phải thay cơ chế guard phụ thuộc tiền tố `nhap_` bằng danh sách collection/quyền được phép rồi xin Owner duyệt.
+**Không có giai đoạn «test» tách biệt:** tất cả collection/bản ghi nghiệp vụ tạo mới là thật, giữ nguồn và phiên bản; trạng thái ĐANG THIẾT KẾ là dữ liệu đang hoàn thiện. **Vẫn kiểm kỹ thuật, đối chiếu, nghiệm thu với dữ liệu thật.** B4 ưu tiên chuyển trạng thái/quyền/kết nối và khóa nguồn cũ tại chỗ; chỉ migration khi kiểm kê cho thấy cần, sau phép Owner, không tự sao chép hay đổi tên.
+**Điều hành:** GPT Host duy nhất (theo Owner 07:31), Codex thành viên, Claude phản biện, Claude Code executor do Owner dán. Đã chuẩn bị lệnh B0 tại `work/nhap-directus-for-workflow/PROMPT.md`. **B0 chưa chạy**, G1/B1 và G2/production chưa được duyệt. Hướng tiếp: Owner dán lệnh B0 → nhận báo cáo → chốt B1 Công thức bằng collection tên chuẩn.
 
 ### P20 · 24/10/2026 07:45 · Claude Chat · Owner 07:31: không dùng chữ «test/thử» — đang làm thật; GPT là Host
 - **Đã áp thẳng** (chỉ chữ + Host; không đổi phạm vi, cổng G0/G1/G2, thứ tự): «Phép thử đầu tiên» → «Việc đầu tiên làm thật» (ô 1 mục 8, ô 2) · B3 «Thử MMOW 007 → MOW 001–035» → «Làm MMOW 007 cho MOW 001 → 002–035»; «thử lại» → «sửa rồi làm tiếp»; «ca thử» → «MOW làm thật» · Host = GPT ở §0, Bảng, ➡, Phân vai · biển ⚠ ở khối P06 («diễn tập» là lịch sử). Giữ quy tắc cấm tiền tố `test_` (3.4). Các mục P cũ giữ nguyên làm lịch sử.
