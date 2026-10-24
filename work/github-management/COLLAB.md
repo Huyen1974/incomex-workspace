@@ -4,14 +4,14 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROADMAP trước; Claude phản biện, GPT đồng thuận và Owner duyệt rồi mới RUN. Chưa cho thay hai repo mã/Actions/VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 13:50 +07 · GPT Chat · P6
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 13:56 +07 · Claude Chat · P7
 - 🎯 Mục tiêu: 3–5 agent code song song trên 2 repo; KST merge an toàn; tiến tới batch đêm không cần Owner trực.
 - 🏁 Xong khi: R0–R4 chứng minh Actions OFF, quyền main, mã nền đúng, 3 PR/agent thật; R5 deploy đúng SHA/rollback; R6 có receipt và bảng sáng.
 - 📍 Tiến độ: ✓ Kế hoạch → ✓ Claude P5 → ✓ GPT P6 chốt kỹ thuật V0.3 → ■ RUN R0+R1 DRAFT chờ review+Owner GO → □ R0+R1 → □ R2 → □ R3 → □ R4 → □ R5∥R6.
-- ✅ Đã xong: Host đọc P5 C1–C10, đồng thuận có cổng; xác minh daily branch Agent Data bằng HEAD VPS, rõ khác biệt với container; chuẩn bị PROMPT R0+R1, chưa chạy.
+- ✅ Đã xong: Host đọc P5 C1–C10, đồng thuận có cổng; xác minh daily branch Agent Data bằng HEAD VPS, rõ khác biệt với container; chuẩn bị PROMPT R0+R1, chưa chạy. Claude P7: đề xuất khoá VPS chống sửa mã nhầm sau khi chuyển (đã ghi vào R5.2).
 - ■ Đang làm: — · 0 RUN active.
 - ⬜ Còn lại: Reviewer duyệt đúng PROMPT R0+R1/last-touch SHA → Host READY → Owner GO → Codex R0+R1 → quyết nâng Pro sau Actions OFF.
-- ➡ Kế tiếp: Owner duyệt V0.3 + chuyển PROMPT R0+R1 cho Claude Code Reviewer xác nhận ngắn rồi Codex chạy; NEXT_TRIGGER=OWNER_GO_AND_PROMPT_ACCEPT.
+- ➡ Kế tiếp: 😊 Owner duyệt V0.3 + gật/lắc Q-P7 · Host thêm 1 dòng đo P7 §4 vào S1 PROMPT R0+R1 · Reviewer ký PROMPT · 🤖 Codex chạy; NEXT_TRIGGER=OWNER_GO_AND_PROMPT_ACCEPT.
 - ⛔ Không làm/để sau: chưa tắt Actions, chưa mua Pro, chưa sửa mã/keys/rulesets/main/deploy/VPS production, không dùng PROMPT public pilot cũ.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -38,6 +38,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROA
 - Owner 23/10/2026 17:01 (phiên Claude, đã sửa lỗi gõ): «Có nhiều kỹ sư phát triển và chỉ 1 kỹ sư trưởng có quyền merge (tạm chốt Claude Code CLI). Cài cứng được thì tốt — muốn làm nhầm cũng không thể — nhưng đừng phức tạp quá. Phải giải được điểm nghẽn nhiều agent, nhiều nhiệm vụ song song: buổi tối giao Hermes, Claude Code CLI, DeepSeek harness… làm hàng loạt việc; kỹ sư trưởng xem lại, ok thì merge, không thì kiểm tra viết thêm hoặc bỏ. Cần luật rõ ràng. Cần mua 4 USD/tháng thì mua, nhưng dứt khoát không dùng Actions của GitHub, hoặc chỉ khi kiểm soát được mức chạy và việc chạy/kiểm tự động có giá trị — từng mất 50 USD trong 1 tuần vì Actions, phải kiểm chứng.»
 - Owner 23/10/2026 17:51 (phiên Claude, đã sửa lỗi gõ): «Mục tiêu cuối: giao được nhiều việc, các AI làm đúng vai, chỉ kỹ sư trưởng được merge. Ban đầu có thể mở repo công khai — chưa có gì bí mật lắm, toàn thứ phổ thông; ổn định rồi tính tiếp. Làm nhanh, đừng phức tạp hoá. Quan trọng là code loạt có xử lý được không; AI hoạt động hỗn loạn, vẫn phải có người kè kè thì không giải quyết được gì. Chọn cách đơn giản để thử nghiệm trước.»
 - Owner 24/10/2026 10:45 (phiên Claude, đã sửa lỗi gõ): «Kiểm tra kế hoạch GPT đã soạn và thứ tự ưu tiên có hợp lý không. Điều quan trọng là chốt được roadmap, kế hoạch để triển khai. Dự kiến giao Codex phụ trách việc này.»
+- Owner 24/10/2026 13:51 (phiên Claude, đã sửa lỗi gõ): «Hiện nay coi VPS là SSOT nên đã ngắt GitHub để không làm nhầm (muốn làm nhầm cũng không được). Sau khi chuyển lên GitHub rồi, có cách nào để các agent muốn code nhầm trên VPS cũng không được không? Nếu có thì chọn cách đơn giản, tận dụng hệ thống sẵn có, không phải xây mới nhiều hoặc không xây gì mới.»
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -179,6 +180,26 @@ Ghế: openai-main · Based_on: P5 Claude (đã sửa ROADMAP V0.3/KE-HOACH V0.2
 - **Song song Claude Code + Codex:** Codex R0 READ-ONLY VPS/GitHub được làm khi Claude Code đang chạy nếu không cùng đích ghi, không giữ VPS-GHI, không fetch/reset trong working tree đang được Claude sử dụng. R1 chỉ chạm GitHub Actions settings sau R0 xác minh không làm gãy workflow phục vụ RUN Claude đang dùng. Không giả định cờ VPS-GHI vẫn trống: kiểm lại tại thời điểm RUN.
 - Đã soạn lại PROMPT R0+R1 trong chính task, trạng thái DRAFT_NOT_READY; PROMPT cũ đã superseded. Theo A6 cần Claude Reviewer ký đúng last-touch PROMPT SHA, GPT READY; Owner phê duyệt RUN. **Chưa thay đổi hai repo mã, Actions, VPS, credential hoặc mua Pro.**
 - NEXT_TRIGGER=OWNER_GO_AND_PROMPT_ACCEPT.
+
+## P7 · 24/10/2026 13:56 +07 — Claude Chat (Reviewer) · khoá VPS chống sửa mã nhầm sau khi GitHub là SSOT
+Đọc tại `c271e0e386c6c32587ddb268527b3762c0a7e975`. Trả lời Owner 13:51 (§0.3). Chỉ đề xuất, đã ghi vào R5.2 ROADMAP + KE-HOACH; không READY/RUN; không đụng PROMPT R0+R1 của Host. Bảng: khớp → cập nhật · Ô 1–2: khớp.
+
+**1. Kết luận:** làm được, mức «muốn nhầm cũng không được» — đúng chiều ngược của PROOT09 (hôm nay khoá GitHub→VPS; sau R5 khoá «sửa tay trên VPS»). Gần như không xây mới: đổi 1 cờ cấu hình, 2 dòng gắn thư mục chỉ đọc, 1 điều kiện thêm vào Guard đang chạy. JEV `gen-dec-1792824865-x95eoALi0Ld2jrOqb4Mx`: phương án này 0,87.
+
+**2. Ai đang sửa được mã trên VPS → cổng tương ứng**
+- 2.1 GPT/Claude Chat qua cổng workspace (root `agent-data` đang `writable`) → đặt `writable=false` trong cấu hình cổng. Mã cổng đã có sẵn nhánh này (`write()` ⇒ `READ_ONLY_ROOT`, root `docs` đang chạy như vậy). Connector Claude VPS: root `code` đã chỉ đọc.
+- 2.2 Hermes → đã chỉ ghi được 5 tệp (HJW), không cần gì thêm.
+- 2.3 Claude Code/Codex đăng nhập root qua SSH → gắn 2 thư mục mã ở chế độ chỉ đọc (read-only bind mount, tính năng sẵn của Linux). Sửa nhầm ⇒ «Read-only file system». Chỉ bước deploy của KST mở ra, cập nhật SHA + build, rồi khoá lại.
+- 2.4 `git pull/push origin` → giữ nguyên URL chết DROOT56 (PROOT09, Config Guard đang canh `.git/config`). Deploy lấy mã bằng URL riêng + thẻ chỉ đọc — đúng cách job sao lưu đang làm (URL riêng, không dùng `origin`).
+- 2.5 Lọt lưới (cố ý mở khoá rồi quên) → Guard 5 phút có sẵn (đã đọc HEAD/status 2 repo) thêm 1 điều kiện: thư mục sạch + HEAD = SHA đã deploy + đang chỉ đọc; lệch ⇒ #22 đỏ Telegram. Biển `00-NHAN-THU-MUC.md` (khuôn nhãn thư mục đang dùng) ghi: «Mã ở đây chỉ để chạy · sửa ⇒ GitHub PR».
+
+**3. Giới hạn nói thật:** root cố tình gỡ chỉ đọc vẫn sửa được (JEV 0,95) ⇒ đây là chống nhầm, không chống phá; cổng 2.5 bắt trong ≤ 5 phút. Mã ngoài 2 kho (DOT, scripts, systemd, Graph, nginx) vẫn SSOT VPS, giữ Config Guard + apply-v0 như hiện nay tới khi có «kho ops». Sự cố khẩn vẫn đi GitHub (PR → KST → deploy); không có lối tắt sửa tay.
+
+**4. Cần đo trước (đề nghị Host thêm 1 dòng vào S1 PROMPT R0+R1, chỉ đọc):** ai/cái gì đang GHI vào 2 thư mục mã. Đã biết từ mã nguồn: build Nuxt ghi trong `nuxt-repo` (làm trong cửa sổ deploy) · job sao lưu ghi `.git` (dừng ở R5) · script HVU chạy từ `nuxt-repo` dưới `ProtectSystem=strict` (đã chỉ đọc sẵn) · `workspace-exec-worker` chỉ import từ `agent-data-repo` (chỉ đọc). Thứ khác phát hiện ở R0 ⇒ ghi vào bảng, xử ở R5.2.
+
+**5. Owner gật/lắc — Q-P7:** khoá VPS bằng 3 cổng trên ở bước R5.2 (sau khi đường deploy từ GitHub chạy được). Claude khuyến nghị **GẬT**.
+
+**Hai vòng rà:** V1 — chỉ sửa 3 tệp của task, không đụng VPS/GitHub/PROMPT. V2 — gốc: mọi đường sửa mã trên VPS đi qua đúng 3 chỗ (cổng MCP, shell root, git origin); chặn đúng 3 chỗ đó + Guard bắt phần còn lại là đủ, khớp mô hình «một thẻ · hai cổng», không dựng thêm lớp hạn chế.
 
 
 
