@@ -1,0 +1,194 @@
+--- graph-refresh@8a2995ca
++++ graph-refresh@cb356108
+@@ -10,8 +10,10 @@
+   Neo4j tạm từ ĐIỂM KHÔI PHỤC hiện hành (bản xuất logic = Graph sống) → dựng lane mới bằng ĐÚNG loader R7 (40-b88 / 30-pgdot /
+   Cognee+Enola + 20-code-gskey) → cổng: chấm tập (r7_score_sets / oracle code), xoá ≤2% lane theo khoá ổn định, chỉ nhãn/loại đã có,
+   lane khác không đổi → diễn tập forward+inverse trên bản tạm thứ hai → production: tập khô RETURN 1/0 → MỘT giao dịch/lane → so
+-  trạng thái = bản tạm → apply-v0 invariants → pins → refresh-sources → điểm khôi phục mới (nạp lại PASS + Drive D23) → recovery-manifest.
+-  Hỏng sau ghi ⇒ inverse + apply-v0 bản trước. nuxt-web đổi bản build ⇒ SKIP_NEEDS_IDENTITY (không tự đoán nguồn bản build mới).
++  trạng thái = bản tạm → apply-v0 invariants → pins → điểm khôi phục mới VÀO TÊN TẠM (nạp lại PASS + Drive D23) → refresh-sources →
++  recovery-manifest (→ cross-edges → bộ nạp b88/pgdot) → CHỐT điểm khôi phục (tráo nguyên tử với `current`) — C1-D-FIX D23.
++  Hỏng sau ghi ⇒ bỏ bản tạm + trả bộ nạp + inverse + apply-v0 bản trước (điểm khôi phục, sổ, Graph đều về PRE).
++  nuxt-web đổi bản build ⇒ SKIP_NEEDS_IDENTITY (không tự đoán nguồn bản build mới).
+ Tiền điều kiện (thiếu một ⇒ SKIP, không ghi): khoá riêng, VPS-GHI trống (bản clone cổng workspace, tươi ≤24h), Guard periodic
+   «UP OK» ≤15′, Config Guard CLEAN, graph-v1 status sạch + invariants = manifest, điểm khôi phục khớp manifest, RAM ≥3GiB, đĩa ≥20GiB,
+   không tiến trình ghi khác, không có tệp STOP.
+@@ -36,7 +38,7 @@
+   L2 (c1b_l2.py) làm mới MỖI lượt run (chỉ đọc, ghi state/refresh/cert/l2-candidates.json); hỏng ⇒ giữ ảnh cũ (tự STALE sau 26h) + ĐỎ.
+ Exit: 0 PASS/NO_CHANGE/SKIP an toàn · 1 FAIL đã lùi · 2 tham số · 3 tiền điều kiện (thủ công) · 30 lùi chưa sạch
+ """
+-import argparse, collections, fcntl, glob, hashlib, json, os, re, shutil, signal, subprocess, sys, time, urllib.parse, urllib.request
++import argparse, collections, ctypes, fcntl, glob, hashlib, json, os, re, shutil, signal, subprocess, sys, time, urllib.parse, urllib.request
+ 
+ ROOT = "/opt/incomex/graph-server/prod-v1"
+ BIN = ROOT + "/bin"
+@@ -931,29 +933,51 @@
+ 
+ 
+ def new_recovery_point(g, pw, label, drive, report):
+-    """Xuất logic → nạp lại vào Neo4j tạm (băm/invariants/schema trùng) → (Drive D23) → thay thế thế hệ cục bộ duy nhất."""
++    """Xuất logic VÀO TÊN TẠM backups/recovery/<name> → nạp lại vào Neo4j tạm (băm/invariants/schema trùng) → (Drive D23). C1-D-FIX D23
++    «ghi tạm rồi chốt»: KHÔNG đụng `current`; trả (điểm, đường tạm) — người gọi áp các sổ rồi commit_recovery_point(); lỗi ở đây ⇒ bỏ bản tạm."""
+     os.makedirs(REC_ROOT, mode=0o700, exist_ok=True)
+     name = "graph-recovery-" + time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
+     stg = REC_ROOT + "/" + name
+-    meta = GR.export(stg, label, g, pw)
+-    rr = GR.restore_check(stg, RUN_LABEL)
+-    report["restore_check"] = {k: rr.get(k) for k in ("ok", "state_equal", "invariants_diff", "schema", "cleanup", "why")}
+-    if not rr["ok"]:
++    if os.path.lexists(stg):
++        raise Fail("tên tạm điểm khôi phục đã có %s" % name)
++    try:
++        meta = GR.export(stg, label, g, pw)
++        rr = GR.restore_check(stg, RUN_LABEL)
++        report["restore_check"] = {k: rr.get(k) for k in ("ok", "state_equal", "invariants_diff", "schema", "cleanup", "why")}
++        if not rr["ok"]:
++            raise Fail("LOGICAL_RESTORE FAIL")
++        d23 = {}
++        if drive:
++            drive_roundtrip(stg, name, d23)
++        report["d23"] = d23
++    except BaseException:
+         shutil.rmtree(stg, ignore_errors=True)
+-        raise Fail("LOGICAL_RESTORE FAIL")
+-    d23 = {}
+-    if drive:
+-        drive_roundtrip(stg, name, d23)
+-    report["d23"] = d23
+-    old = REC_CUR
+-    if os.path.isdir(old):
+-        shutil.rmtree(old + ".old", ignore_errors=True)
+-        os.rename(old, old + ".old")
+-    os.rename(stg, REC_CUR)
+-    shutil.rmtree(old + ".old", ignore_errors=True)
+-    return {"name": name, "meta_sha256": sha_file(REC_CUR + "/meta.json"), "state": meta["state"], "created_at": meta["created_at"],
++        raise
++    return {"name": name, "meta_sha256": sha_file(stg + "/meta.json"), "state": meta["state"], "created_at": meta["created_at"],
+             "invariants_sha256": sha_bytes(json.dumps(meta["invariants"], sort_keys=True).encode()), "drive": d23.get("drive"),
+-            "ct_sha256": d23.get("ct_sha256"), "decrypt_verify": d23.get("decrypt_verify"), "kind": "LOGICAL_RESTORE_PASS"}
++            "ct_sha256": d23.get("ct_sha256"), "decrypt_verify": d23.get("decrypt_verify"), "kind": "LOGICAL_RESTORE_PASS"}, stg
++
++
++def rec_exchange(a, b):
++    """Tráo NGUYÊN TỬ hai thư mục cùng hệ tệp (renameat2 RENAME_EXCHANGE): không lúc nào thiếu `current`."""
++    libc = ctypes.CDLL(None, use_errno=True)
++    if libc.renameat2(-100, os.fsencode(a), -100, os.fsencode(b), 2) != 0:       # AT_FDCWD=-100 · RENAME_EXCHANGE=2
++        e = ctypes.get_errno()
++        raise OSError(e, "renameat2 RENAME_EXCHANGE " + os.strerror(e))
++
++
++def commit_recovery_point(stg, rp):
++    """Chốt D23 — bước CUỐI của lượt: bản tạm còn nguyên (verify_files) + recovery-manifest đang trỏ đúng meta của nó ⇒ tráo nguyên tử với
++    `current`. Trả đường đang giữ bản cũ (xoá được ngay) hoặc None khi trước đó chưa có `current`."""
++    meta, bad = GR.verify_files(stg)
++    cur = (jload(RECMAN) or {}).get("current") or {}
++    if bad or sha_file(stg + "/meta.json") != rp["meta_sha256"] or cur.get("meta_sha256") != rp["meta_sha256"] or meta["state"] != rp["state"]:
++        raise Fail("điểm khôi phục tạm không cùng thế hệ recovery-manifest %s" % bad)
++    if not os.path.isdir(REC_CUR):
++        os.rename(stg, REC_CUR)
++        return None
++    rec_exchange(stg, REC_CUR)
++    return stg
+ 
+ 
+ def apply_v0(target, live, cand_obj, mid, raw_bytes=None):
+@@ -1104,6 +1128,7 @@
+     work = STATE + "/runs/" + ts
+     os.makedirs(work, mode=0o700)
+     report, rc, applied, pre = {}, 0, None, {"inv": jload(INV), "pins": jload(PINS), "sources": sources, "recman": jload(RECMAN)}
++    rp_stg, loaded_swap = None, None            # C1-D-FIX D23: điểm khôi phục tạm (lỗi ⇒ bỏ) · bộ nạp đã đổi (lỗi ⇒ trả .old)
+     pre_bytes = {p_: open(p_, "rb").read() for p_ in (INV, PINS, SOURCES, RECMAN)}
+     pre_cross = open(PGL1_CROSS, "rb").read() if os.path.exists(PGL1_CROSS) else None
+     term_to_fail()
+@@ -1179,7 +1204,7 @@
+         ok, out = apply_v0("graph-v1-pins", PINS, pins, mid)
+         if not ok:
+             raise Fail("apply-v0 pins %s" % out)
+-        rp = new_recovery_point(g, pw, "refresh-" + ts + "-" + item, True, report.setdefault("recovery", {}))
++        rp, rp_stg = new_recovery_point(g, pw, "refresh-" + ts + "-" + item, True, report.setdefault("recovery", {}))
+         ns = json.loads(json.dumps(sources))
+         if item in C1D_LANES:                       # C1-D: sổ lane + trần cộng dồn toàn pilot
+             cc = caps["c1d"][item]["counts"]
+@@ -1214,11 +1239,20 @@
+                 json.dump(cx, f, ensure_ascii=False, indent=1, sort_keys=True)
+             os.replace(PGL1_CROSS + ".tmp", PGL1_CROSS)
+             rec["pgl1_cross_edges"] = len(cx["edges"])
+-        if item in ("b88", "pgdot"):
++        if item in ("b88", "pgdot"):                 # C1-D-FIX: giữ bộ nạp cũ .old tới SAU bước chốt (lỗi ⇒ trả lại)
+             shutil.rmtree(LOADED + "/" + item + ".old", ignore_errors=True)
+             os.rename(LOADED + "/" + item, LOADED + "/" + item + ".old")
++            loaded_swap = LOADED + "/" + item
+             shutil.copytree(caps[item]["input_dir"], LOADED + "/" + item)
+-            shutil.rmtree(LOADED + "/" + item + ".old", ignore_errors=True)
++        if g.inv_equal(g.invariants(pw), jload(INV)) or (jload(PINS) or {}).get("files", {}).get(INV) != sha_file(INV):
++            raise Fail("Graph/invariants/pins không cùng thế hệ trước khi chốt điểm khôi phục")
++        held = commit_recovery_point(rp_stg, rp)          # C1-D-FIX D23: chốt SAU CÙNG — mọi sổ/cạnh chéo/bộ nạp đã áp
++        rp_stg = None
++        if held:
++            shutil.rmtree(held, ignore_errors=True)
++        if loaded_swap:
++            shutil.rmtree(loaded_swap + ".old", ignore_errors=True)
++            loaded_swap = None
+         rec["result"] = "DELTA_APPLIED"
+         rec["applied"] = item
+         rec["pending_next_run"] = todo[1:]
+@@ -1226,6 +1260,19 @@
+         rec["result"] = "FAIL"
+         rec["why"] = "%s %s" % (type(e).__name__, str(e)[:300])
+         rc = 1
++        rbp = {}
++        try:
++            if rp_stg:                                 # chưa chốt ⇒ `current` vẫn là bản PRE, bỏ bản tạm
++                shutil.rmtree(rp_stg, ignore_errors=True)
++                rbp["staged_removed"] = not os.path.lexists(rp_stg)
++            if loaded_swap and os.path.isdir(loaded_swap + ".old"):
++                shutil.rmtree(loaded_swap, ignore_errors=True)
++                os.rename(loaded_swap + ".old", loaded_swap)
++                rbp["loaded_restored"] = True
++        except Exception as e2:  # noqa: BLE001
++            rbp["error"] = "%s %s" % (type(e2).__name__, str(e2)[:160])
++        if rbp:
++            rec["recovery_rollback"] = rbp
+         if applied and full_hash(g, pw) != applied["pre_hash"]:
+             rb = {}
+             undo({"g": g, "pw": pw, "import": ROOT + "/import"}, applied, rb)
+@@ -1236,8 +1283,9 @@
+                 open(PGL1_CROSS, "wb").write(pre_cross)
+                 rb["pgl1_cross_restored"] = True
+             rb["inv_eq_manifest"] = not g.inv_equal(g.invariants(pw), jload(INV))
++            rb["recovery_eq_manifest"] = recovery_ok()["ok"]
+             rec["rollback"] = rb
+-            rc = 1 if rb.get("undo_eq_pre") and rb["inv_eq_manifest"] else 30
++            rc = 1 if rb.get("undo_eq_pre") and rb["inv_eq_manifest"] and rb["recovery_eq_manifest"] else 30
+     finally:
+         rec["report"] = report
+         dec_ = rec.get("decision") or {}
+@@ -1395,9 +1443,11 @@
+     if ow:
+         print("RECOVERY SKIP tiến trình ghi khác %s" % ow); return 3
+     rep, pre_rm = {}, jload(RECMAN)
++    pre_rm_bytes = open(RECMAN, "rb").read() if os.path.exists(RECMAN) else None
+     ts = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
++    stg = None
+     try:
+-        rp = new_recovery_point(g, pw, a.label, a.drive, rep)
++        rp, stg = new_recovery_point(g, pw, a.label, a.drive, rep)
+         rm = json.loads(json.dumps(pre_rm or {}))
+         rm["previous"] = rm.get("current")
+         rm["current"] = rp
+@@ -1405,7 +1455,15 @@
+         ok, out = apply_v0("graph-recovery-manifest", RECMAN, rm, "GRAPH-RECOVERY-" + ts)
+         if not ok:
+             raise Fail("apply-v0 recovery-manifest %s" % out)
++        held = commit_recovery_point(stg, rp)         # C1-D-FIX D23: chốt sau khi manifest đã trỏ đúng
++        stg = None
++        if held:
++            shutil.rmtree(held, ignore_errors=True)
+     except Exception as e:  # noqa: BLE001
++        if stg:
++            shutil.rmtree(stg, ignore_errors=True)
++        if pre_rm_bytes is not None and open(RECMAN, "rb").read() != pre_rm_bytes:
++            rep["recman_restored"] = apply_v0("graph-recovery-manifest", RECMAN, None, "GRAPH-RECOVERY-RB-" + ts, raw_bytes=pre_rm_bytes)[1]
+         print("RECOVERY FAIL %s %s" % (type(e).__name__, str(e)[:300]))
+         logline({"at": now(), "cmd": "recovery-point", "result": "FAIL", "report": rep})
+         return 1
