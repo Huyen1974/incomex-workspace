@@ -5,18 +5,18 @@ Tên việc: Xây dựng hệ sổ Directus dùng lâu dài — chuyển thiết
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 23/10/2026: lập việc + ô 1 (14:37, 15:02, 16:49); giao Codex làm Host (P06); 17:03 chốt hướng: «bây giờ bạn hiểu vấn đề rồi thì bạn sửa lại cái yêu cầu trên task để làm đúng vấn đề đi» (3.00); 17:26 chốt Đích (ô 1). **Chỉ đạo bổ sung hiện tại:** GPT cùng Codex làm co-host để sửa nhanh; vùng NHÁP phải làm, nhìn và hiệu chỉnh trực tiếp bằng collection thật trong Directus Studio, không phải HTML khác; đầu tiên kiểm kê collection hiện có; ưu tiên Công thức đã tương đối khả thi. Ô 2 và mọi việc ghi production vẫn chờ Owner gật từng việc.
 Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT đang làm host». Codex: thành viên (Host vòng P06–P15). Claude Chat: rà. Các lệnh RUN/production theo quyền Host và Owner.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 · GPT Host · P23 · B0 READY / CHỜ OWNER DÁN LỆNH
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 13:44 +07 · Claude Code · P24 · B0 STARTED
 - 🎯 Mục tiêu: **collection Directus có thật và xem/sửa ngay trong Studio**, tận dụng sổ đang có; HTML cũ chỉ là nguồn đối chiếu chuyển dữ liệu, không làm phiên nháp HTML mới.
 - 🏁 Xong khi: kế hoạch P19/P20 được chốt G0, B0 trả về kiểm kê Directus + PG/DOT liên quan và phương án B1 Công thức; B1 phải nhìn/sửa được bản ghi thật trong Studio sau khi Owner duyệt G1.
 - ✅ Đã làm: P13 chốt mục tiêu collection; P14 rà SSOT và DOT; P15 tiếp nhận chỉ đạo mới, chuyển GPT thành co-host và đưa kiểm kê collection lên đầu. Giữ mọi HTML cũ làm lịch sử, không tiếp tục chế tác giao diện nháp.
 - 📍 Tiến độ: [✅ G0 **CHỐT KẾ HOẠCH**] → [■ B0 **CHỜ OWNER DÁN LỆNH**] → [□ B1 Công thức] → [□ B2 Sổ khác] → [□ B3 MMOW/MOW] → [□ B4 Lên thật] → [□ B5 Home đọc dữ liệu].
-- ■ Đang làm: **B0 đã có Reviewer ACCEPT và GPT Host READY cùng bản PROMPT**; chưa STARTED, 0 RUN active. NEXT_TRIGGER=OWNER_HANDOFF_B0.
+- ■ Đang làm: Bước B0 kiểm kê chỉ đọc · vòng 1/1 · executor Claude Code CLI · RUN `NDW-B0-INVENTORY-20261024-01` STARTED 06:44Z (P24).
 - ⬜ Còn mở: B0 đo collections Directus và PG tables liên quan/SSOT/DOT; B1 Công thức phải có tên chuẩn và quyền được duyệt G1; B2–B5 theo §3.KH. Studio xem/quản lý, AI ghi qua DOT; G2 cho production.
 - ✅ P17 · 24/10 · Owner bổ sung: chỉ sửa trong Directus không sửa HTML; làm MOW 001 xong làm tiếp 002–035, thêm MMOW 008/009; B0 rà các table PG hiện hữu để chọn bảng sẽ dùng; B4 đưa lên production **từng sổ/nhóm đã ổn định** chứ không chờ cả vùng NHÁP. Đã ghi vào roadmap; **chưa chạy kiểm kê PG/Directus, chưa tạo/sửa bảng**.
 - 🟡 P16 · 23/10 20:05 · Claude đã rà P12–P15 theo Owner 19:58: đồng thuận hướng collection-first + 7 điểm sửa → GPT Host áp thẳng rồi soạn lệnh B0, không cần vòng rà nữa.
 - 🟢 P20 · 24/10 07:45 · Owner 07:31: không dùng chữ «thử/test» — đang làm thật, không có giai đoạn thử. Claude đã đổi chữ trong kế hoạch (B3 = «Làm MMOW 007 cho MOW 001 → 002–035») và ghi Host = GPT.
 - ✅ P22–P23 · 24/10 · Claude Reviewer ACCEPT trên last-touch PROMPT `bb9404b9`, GPT Host đã kiểm tra không có STOP_REQUESTED/HOLD/busy và ký READY đúng bản; B0 chỉ đọc đủ điều kiện chuyển lệnh.
-- ➡ Kế tiếp: 😊 Owner dán **đúng một câu DROOT38** gửi Claude Code cho task này → 🤖 Claude Code đọc gate, chạy B0 chỉ đọc, ghi STARTED/KQ và báo cáo → GPT Host kiểm báo cáo, trình Owner G1 cho B1. NEXT_TRIGGER=OWNER_HANDOFF_B0.
+- ➡ Kế tiếp: 🤖 Claude Code chạy B0 chỉ đọc, ghi KQ + báo cáo P24 → GPT Host kiểm báo cáo, trình Owner G1 cho B1. NEXT_TRIGGER=KQ_B0.
 - ⛔ Không tự ghi Directus/PG, mở quyền, đổi tên/xóa collection trong lượt chỉnh tài liệu này.
 
 ### Chuẩn giao diện đã giữ · lượt chỉnh trang chủ trước P12
@@ -355,6 +355,9 @@ Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều ch
 - Đã sửa: ô 1 thêm khối Đích (A Chuyển · B Sáng tạo · Sổ theo dõi) · Tên việc · ô 2 9 dòng · lộ trình B0–B8 · 3.02 Sổ của các sổ = Master of Master + 6 cột theo dõi · 3.03 phân vai · Bảng điều khiển.
 - Owner gật 3.01 (dùng lại `dot_tools`). Bước đang làm vẫn là B1. Lệnh khảo sát B1-b gộp luôn phần đọc danh sách collection cho B3 để Claude Code chạy 1 lần.
 - Gửi Codex: đọc ô 1 Đích → 3.00 → 3.01 → 3.02 → 3.03; đồng ý thì soạn lệnh khảo sát chỉ đọc B1-b; khác ý ghi P12.
+
+### P24 · 24/10/2026 13:44 +07 · Claude Code · B0 kiểm kê chỉ đọc
+- STARTED@NDW-B0-INVENTORY-20261024-01 2026-10-24T06:44Z · executor=Claude Code · đọc tới `2d04faa6` · ACCEPT (P22) + READY (P23) @bb9404b9 = commit cuối chạm PROMPT (gateway `workspace_log`) · câu Owner đúng DROOT38 · không STOP_REQUESTED/HOLD, không STARTED chưa KQ, VPS-GHI trống (B0 không chiếm) · Write_Path: gateway `workspace_edit` (chỉ COLLAB này) + SSH VPS1 chỉ DOT đọc/`--check`/`--dry-run`; tệp tạm duy nhất = 1 snapshot `dot-schema-snapshot`.
 
 ### P23 · 24/10/2026 · GPT Chat Host · ký READY đúng PROMPT Reviewer đã ACCEPT
 READY@bb9404b9ab1db5eec37b25da37fc4f59c5dad0d7
