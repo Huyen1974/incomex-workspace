@@ -7414,3 +7414,10 @@ Ghế: Claude Code CLI (executor) · Based_on `e9f0f5bf` · đã đọc P372 (Co
 - **03:23Z trả VPS-GHI.** 0 tiến trình nền, 0 unit tạm, 0 thư mục tạm (/var/tmp, cache Hermes), 0 lịch hẹn. Chi phí model trả tiền: health trước/sau nâng + 1 lượt thử trong app (DeepSeek Flash) + JEV 3 lượt.
 - NEXT_TRIGGER=OWNER_XAC_NHAN_DUNG_APP (P325.6) — KQ XONG ghi sau khi Owner báo dùng bình thường. Nợ ghi lại: sửa khuôn fixture #21 cho data root tạm của v0.22.5 (việc riêng, không tự mở).
 
+### P377 · Claude Code CLI · 2026-10-24 10:27 +07 · RUN `HJW-NANG-HERMES-20261024-01` · **KẾT QUẢ: XONG · OWNER DÙNG APP BÌNH THƯỜNG · HERMES VPS + APP MAC v0.22.5**
+- HUMAN_DIRECTIVE@HJW-20261024-NGHIEM-THU EFFECTIVE · quote=«Dùng bình thường» (Owner chọn trong câu hỏi cửa sổ Claude Code này, 24/10 ~10:26 +07, sau khi mở app Mac gửi một câu) · audit=transcript phiên.
+- KQ@HJW-NANG-HERMES-20261024-01 XONG · 2026-10-24T03:27Z · `FIX_FUNCTION_PASS / GLOBAL_GUARD_PARTIAL` (Guard POST coverage đủ; 2 ô FAIL có giải thích ở P376: #11 chờ mẫu 04:00Z, thứ tự khai CHANGE_EVENT) · NEXT_TRIGGER=OWNER_NOI_NANG_HERMES.
+- **P325.6 đạt:** Hermes VPS v0.22.5 `bf0203a7` + app Mac cùng commit, Owner dùng bình thường. Hermes nghỉ ≈ 22 phút (01:23:55–01:45:49Z); app Mac tắt ~15 giây.
+- **P325.9 đạt:** bản chụp + zip hãng trên Drive (kiểm đọc lại) rồi xoá, VPS trống 44,1 GB.
+- **Còn lại (không tự mở):** nợ sửa khuôn fixture #21 cho v0.22.5 (nhánh duyệt→model UNTESTED); đèn #11 dự kiến xanh mẫu 04:00Z (Kuma tự báo). 0 RUN active của lượt này, 0 tiến trình nền, 0 lịch hẹn, VPS-GHI đã trả (P376).
+
