@@ -16,7 +16,8 @@ Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT 
 - 🟡 P16 · 23/10 20:05 · Claude đã rà P12–P15 theo Owner 19:58: đồng thuận hướng collection-first + 7 điểm sửa → GPT Host áp thẳng rồi soạn lệnh B0, không cần vòng rà nữa.
 - 🟢 P20 · 24/10 07:45 · Owner 07:31: không dùng chữ «thử/test» — đang làm thật, không có giai đoạn thử. Claude đã đổi chữ trong kế hoạch (B3 = «Làm MMOW 007 cho MOW 001 → 002–035») và ghi Host = GPT.
 - ✅ P22–P23 · 24/10 · Claude Reviewer ACCEPT trên last-touch PROMPT `bb9404b9`, GPT Host đã kiểm tra không có STOP_REQUESTED/HOLD/busy và ký READY đúng bản; B0 chỉ đọc đủ điều kiện chuyển lệnh.
-- ➡ Kế tiếp: Claude Chat **Reviewer đọc P25 + PROMPT B0b mới, ký ACCEPT hoặc ghi đúng một bất đồng** → GPT Host ký READY@last-touch → Owner dán lệnh DROOT38 → Claude Code làm B0b → GPT nghiệm thu, trình Owner G1. NEXT_TRIGGER=CLAUDE_REVIEW_B0B.
+- 🟡 P26 · 24/10 14:40 · Claude Reviewer: B0b đúng hướng; đã thu hẹp (chỉ sửa 2 DOT, không đụng `dot-auth` của ≈33 DOT), thêm tìm đường nạp dữ liệu cho B1; ACCEPT bản PROMPT `13a936e4`. Còn đúng 1 việc: GPT Host ký READY.
+- ➡ Kế tiếp: GPT Host ký READY (SHA 40 ký tự bản PROMPT `13a936e4`) + thêm dòng B0b vào §3.KH → 😊 Owner dán câu chuẩn DROOT38 → 🤖 Claude Code làm B0b → GPT nghiệm thu, trình Owner G1. NEXT_TRIGGER=HOST_READY_B0B.
 - ⛔ Không tự ghi Directus/PG, mở quyền, đổi tên/xóa collection trong lượt chỉnh tài liệu này.
 
 ### Chuẩn giao diện đã giữ · lượt chỉnh trang chủ trước P12
@@ -87,7 +88,8 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
-#### 3.00 Chỉ đạo Owner 16:49 · 17:03 · 17:26 · 19:58 · 24/10 07:31 — dùng lại bản cũ, chuyển sang collection, nhìn bằng Directus Studio, làm thật không có giai đoạn thử
+#### 3.00 Chỉ đạo Owner 16:49 · 17:03 · 17:26 · 19:58 · 24/10 07:31 · 14:10 — dùng lại bản cũ, chuyển sang collection, nhìn bằng Directus Studio, làm thật không có giai đoạn thử
+- 24/10 14:10: «Tạm thời vẫn điều hành bằng tay: Claude phản biện, GPT làm Host chốt prompt, User chuyển cho agent chạy. Ưu tiên kết thúc trong 1 vòng để Host GPT chốt prompt cho Claude Code.» → Claude P26.
 - 24/10 07:31 (nói với Claude): «Thử kiểm tra lại. Sau khi thảo luận thì không nên dùng chữ test. Thực tế là chúng ta đang làm luôn, cho nên không có giai đoạn test nữa. GPT đang làm host.» → Claude P20.
 - 19:58: «Bạn kiểm tra trên repo xem có ý kiến gì để GPT host nốt. Chúng ta cần bắt tay vào triển khai. Mục tiêu phải rõ ràng, không hiểu nhầm, không mơ hồ. Ngắn gọn là phải tự hiểu là bây giờ triển khai bằng collection trên Directus, và phải nhìn được bằng cái đó (như sản phẩm cuối cùng mặc dù tên là nháp).» → Claude P16.
 - 17:26: «Đúng rồi, chúng ta dùng lại hết tất cả các bản cũ. Chỉ có điều trước đây nó là HTML ⇒ tất cả những bảng đã được duyệt rồi thì chuyển sang collection hết. Cho nên lập ra các bảng master để quản lý cái gì đã đưa vào collection, cái gì chưa. Tóm lại bạn hình dung là những cái gì có bây giờ chúng ta chuyển sang collection để quản lý. Và chúng ta sáng tạo và lập giao diện những thứ mà chưa được duyệt, chưa có. Mục tiêu phải rõ ràng như vậy. Sửa lại để bản thân Codex cũng hiểu vấn đề và cùng phối hợp để thực hiện.»
@@ -356,6 +358,18 @@ Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều ch
 - Owner gật 3.01 (dùng lại `dot_tools`). Bước đang làm vẫn là B1. Lệnh khảo sát B1-b gộp luôn phần đọc danh sách collection cho B3 để Claude Code chạy 1 lần.
 - Gửi Codex: đọc ô 1 Đích → 3.00 → 3.01 → 3.02 → 3.03; đồng ý thì soạn lệnh khảo sát chỉ đọc B1-b; khác ý ghi P12.
 
+### P26 · 24/10/2026 14:40 +07 · Claude Chat Reviewer · rà P24–P25 + PROMPT B0b (Owner mẫu B2: giám sát mục tiêu → roadmap)
+- **Mục tiêu/roadmap:** B0b đúng hướng và cần — đường ghi B1 chưa an toàn. Đã đọc mã: `dot-schema-apply` lấy khoá theo thứ tự biến môi trường → Secret Manager (chỉ khi `--cloud`) → **rơi về `dot-auth`** (tài khoản admin mặc định viết cứng) — hỏng-mở. Không mở rộng: không đồng bộ `dot_tools`, không làm T-C, không kiểm kê lại.
+- **3 điểm thực chất — Reviewer đã sửa thẳng bản DRAFT (GPT cho phép):**
+  1. **T-A chỉ 2 DOT của việc này** (`dot-schema-snapshot`, `dot-schema-apply`): lấy khoá máy từ đường Secret Manager có sẵn, bỏ nhánh dự phòng `dot-auth`, fail-closed. **Không sửa `dot-auth`:** đã đếm ≈33 DOT đang `source` nó — sửa là đụng cả hệ, ngoài việc này (DROOT37). Rủi ro mật khẩu admin viết cứng trong `config/environment.sh` → 1 dòng sang việc hạ tầng/bảo mật, Owner quyết ở đó.
+  2. **T-B:** danh sách cho phép là tham số của `dot-schema-apply`, đi theo PROMPT B1 Owner duyệt (G1), so với phần chênh `--dry-run`; bỏ yêu cầu «allowlist do root/Host quản» (không ai vận hành được, thêm lớp không cần — một thẻ · hai cổng). Người dùng khác của `dot-schema-apply` giữ nguyên hành vi.
+  3. **Thêm:** B0b chỉ ra đường ghi dòng dữ liệu cho B1 — `dot-schema-apply` chỉ ghi cấu trúc; thiếu đường nạp công thức thì B1 chỉ ra bảng rỗng. Chỉ chỉ ra, không viết, không chạy.
+  Kèm: giới hạn đọc (tên mọi collection; chi tiết chỉ 4 sổ B1 phải ghi thêm; các chênh 168/385/393/153/169 chỉ ghi số, không điều tra) · báo cáo executor ghi P27.
+- **Nhận lỗi Reviewer (P22):** tôi đã ghi `dot-dot-health --dry-run`, `dot-dot-register --dry-run`, `dot-fill-tool-descriptions --dry-run` là đường đọc an toàn và `dot-collection-create` «ghi 6 sổ». P24 chứng minh 3 lệnh kia đi qua `dot-auth`/quyền ghi, và 3 trong 6 sổ không tồn tại. Claude Code dừng đúng.
+- **Cho Owner biết:** B0b **có sửa mã 2 DOT trên VPS** (không sửa dữ liệu, không tạo bảng). Owner dán lệnh = duyệt việc sửa này; bảo vệ Điều 30/31 ngay trong lượt.
+- **Nhắc GPT Host cập nhật roadmap:** §3.KH chưa có dòng B0b; khi ký READY ghi luôn trạng thái B0.1–B0.5 (đạt/một phần) + dòng B0b để kế hoạch trên repo khớp thực tế.
+- ACCEPT@13a936e42b68f93df875aa3e26c612bad2b5022b · Reviewer Claude Chat · RUN_ID NDW-B0B-DIRECTUS-AUTH-SCHEMA-20261024-01. GPT Host: không sửa PROMPT nữa, ký READY trên đúng SHA này. JEV `gen-dec-1792826022-5QvHMiCvQyCwzoyUEazb` (0,99).
+
 ### P25 · 24/10/2026 · GPT Chat Host · nghiệm thu B0 P24, chốt B0b thay vì G1
 **KQ P24:** CHẤP NHẬN B0 **MỘT PHẦN**, giữ KQ@NDW-B0-INVENTORY-20261024-01 DỪNG vì phần Directus metadata/permission chưa đo và blocker xác thực chính đáng; Claude Code đã dừng đúng, không ghi Directus/PG/VPS, không còn RUN active. Không bắt lặp phần Census/DOT đã làm.
 **Đúng mức bằng chứng:** Census sống 393 table, Balo đọc 385 tên **thiếu 8**; `meta_catalog` trang 153/169; `collection_registry` khai 168 nhưng danh sách runtime/field/quan hệ/quyền CHƯA KIỂM. Việc P24 ghi «0 bảng Công thức/MMOW/MOW trong 385 tên» chỉ là trong phần tên đã đọc, **không phải chứng minh tuyệt đối chưa tồn tại**. `dot_tools` hiện hữu nhưng số lệch 314/251 có dữ liệu ảnh cũ 07/10, chưa là audit sống; tạm không đồng bộ.
@@ -472,6 +486,7 @@ READY@bb9404b9ab1db5eec37b25da37fc4f59c5dad0d7
 **Phân vai:** Codex giữ Host và sửa roadmap/PROMPT; Claude kiểm kê + phản biện data; Claude Code thực thi qua công cụ được cho phép; GPT rà một vòng theo bằng chứng; Owner gật schema/quyền và mọi ghi production. **Trạng thái P14 = REVIEW/ĐỀ XUẤT**, không READY/RUN, không phát sinh collection/DOT/trang HTML hay đổi luật nền. Khi Host đồng ý, thay roadmap hiện hành tại 3.00; giữ bản cũ làm lịch sử thay vì hai roadmap hoạt động.
 
 ## Nhật ký (lời Owner — chỉ sửa chính tả)
+- P26 · 24/10 14:10 · (nói với Claude Chat, mẫu B2) «Đây là báo cáo thực hiện và phần điều hành tiếp theo của GPT. Giám sát từ mục tiêu đến roadmap, đảm bảo tập trung vào mục tiêu, không mở rộng lan man không cần thiết. Kiểm tra, nhắc GPT cập nhật roadmap trên repo mới nhất nếu cần để đảm bảo kế hoạch luôn chính xác. (Tạm thời vẫn điều hành bằng tay: Claude phản biện, GPT làm Host chốt prompt, User chuyển cho agent chạy.) Ưu tiên kết thúc trong 1 vòng để tiếp theo Host GPT có thể chốt prompt cho Claude Code.» → Claude: P26 (thu hẹp B0b, ACCEPT, nhắc cập nhật §3.KH).
 - P22 · 24/10 08:23 · (nói với Claude Chat) «Kiểm tra lại xem đã đồng thuận hết với GPT chưa?» → Claude: P22 (đồng thuận đủ; bổ sung thủ tục PROMPT, ACCEPT; còn Host READY).
 - P20 · 24/10 07:31 · (nói với Claude Chat) «Thử kiểm tra lại. Sau khi thảo luận thì không nên dùng chữ test. Thực tế là chúng ta đang làm luôn, cho nên không có giai đoạn test nữa. GPT đang làm host.» → Claude: P20 (đổi chữ thử/test trong kế hoạch, Host = GPT).
 - P16 · 23/10 19:58 · (nói với Claude Chat) «Bạn kiểm tra trên repo xem có ý kiến gì để GPT host nốt. … phải nhìn được bằng cái đó (như sản phẩm cuối cùng mặc dù tên là nháp).» (nguyên văn ở 3.00) → Claude: P16 (đồng thuận + 7 điểm cho GPT Host).
