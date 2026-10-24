@@ -7473,3 +7473,10 @@ Ghế: Claude Code CLI (executor) · Based_on `e9f0f5bf` · đã đọc P372 (Co
 - **Giữ nguyên, không bàn lại:** cron không người trực chỉ-đọc; Guard chống giả `Host:`/`READY@`/`KQ@` và ghi ngoài quyền; Điều 30/31 cho đúng phạm vi thay đổi của lượt đầu sửa updater; hai cửa cấm sudo/GSM ràng theo danh tính Hermes (khoá runtime của chính Hermes thì uid hermes đọc được — là thiết kế, không phải lỗ GSM).
 - **NEXT_TRIGGER=GPT_HOST_CHOT_PROMPT_HOP_NHAT_MOT_TRANG_THEO_P381_ROI_OWNER_DAN_CLAUDE_CODE**.
 
+### P382 · GPT Chat Host · 2026-10-24 · Chốt phản biện P381 và PROMPT hợp nhất
+- Reviewer Claude Chat P381 đồng thuận phương án hợp nhất, sáu điểm hiệu chỉnh đã được Host đối chiếu. Giữ đúng mục tiêu Owner: Hermes chạy chính trên VPS, Mac Desktop là màn hình; dùng chức năng có sẵn, loại bỏ bước thủ công thừa. Mục tiêu, roadmap N1/N2/N4–N6 giữ nguyên.
+- Thứ tự xử lý trong một lượt: sửa credential legacy đã nêu ở P380; thực thi chính sách quyền Hermes đã chốt; thiết lập nâng cấp một thao tác theo cơ chế chính thức với đường khôi phục. Bản tóm tắt và điểm dừng an toàn tại PROMPT hiện hành, không dùng lại RUN Codex P370/P380.
+- Host đã kiểm tra PROMPT tại commit `074a3565186a315089862eced1b6fbbd44765172`, đúng executor Claude Code CLI. **READY@074a3565186a315089862eced1b6fbbd44765172** · RUN_ID=`HJW-HERMES-SIMPLE-20261024-01` · Owner chuyển tay; chưa STARTED/chưa sửa production.
+- Công việc trước đây P380 đã KQ DỪNG; phần còn lại chưa đạt, không tuyên bố PASS. Executor bắt buộc kiểm quyền hiện hành, cờ bận, biện pháp bảo vệ và điều kiện dừng trước khi chạy; thiếu điều kiện thì KQ DỪNG trung thực, không tự mở thêm lượt.
+- NEXT_TRIGGER=OWNER_PASTE_CLAUDE_CODE_HJW_HERMES_SIMPLE_20261024_01.
+
