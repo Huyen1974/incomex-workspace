@@ -1,43 +1,45 @@
-# ROADMAP — github-management V0.2 · 24/10/2026
-**Trạng thái: REVIEW_REQUESTED / CHƯA ĐỒNG THUẬN / KHÔNG RUN.**  
-Kế hoạch thực hiện chi tiết và đề bài Claude: [KE-HOACH.md](KE-HOACH.md). Phải có Claude phản biện, GPT đồng thuận, Owner duyệt trước khi chạy.
-Ưu tiên 1: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu, Claude Code CLI làm kỹ sư trưởng review/merge; sau đó mới tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
+# ROADMAP — github-management V0.3 · 24/10/2026
+**Trạng thái: Claude P5 ACCEPT_WITH_CORRECTIONS (đã áp) · chờ GPT Host đồng thuận → Owner GO · KHÔNG RUN.**  
+Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
+Ưu tiên 1: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 
-## 0. Giới hạn trước khi triển khai
-- Hai kho: Huyen1974/agent-data-test và Huyen1974/web-test, hiện PRIVATE. Không tự chuyển public khi chưa rà toàn bộ lịch sử/secret. Mua Pro sau khi có bằng chứng cần hard-lock private, không phải bước đầu.
-- Chỉ có Codex là executor đề xuất xuyên suốt roadmap sau khi Owner cấp RUN. Claude Code CLI là Chief/reviewer khác ghế, GPT Host chốt prompt và điều hành, Owner duyệt các mutation production.
-- Không thay đổi VPS runtime, remote Git, deploy, secrets, cron, Guard, mã main hoặc GitHub Actions khi roadmap chưa được Owner thống nhất.
-- GitHub Actions sẽ OFF hoàn toàn. Kiểm thử unit ở máy riêng agent/Mac/sandbox; kiểm tích hợp/staging có giới hạn tài nguyên, không dồn toàn bộ lên VPS1.
+## 0. Giới hạn
+- Hai kho `Huyen1974/agent-data-test`, `Huyen1974/web-test` giữ PRIVATE (lịch sử chưa quét bí mật). Khoá `main` trên kho private cần GitHub Pro (§V) ⇒ Owner mua Pro ngay sau R1, kèm ngân sách Actions $0 «dừng khi chạm mức».
+- Codex phụ trách R0–R2 và điều phối R4/R6. **Ghi `main` chỉ KST** bằng chìa riêng (R3 trở đi); Codex không cầm chìa KST. GPT Host chốt PROMPT; Owner duyệt mutation production.
+- Không đổi VPS runtime, remote Git, deploy, secrets, cron, Guard ngoài RUN hợp lệ. GitHub Actions OFF vĩnh viễn (Owner 23/10: «dứt khoát không dùng»).
+- Kiểm thử unit trong sandbox riêng của từng ghế; pilot R4 chọn việc có unit test nên chưa cần staging; không dồn build/test lên VPS1 (swap đầy).
 
-## I. Bảng công việc (R0 chỉ đọc; R1 là thay đổi đầu tiên)
-| Mốc | Việc Codex thực hiện sau RUN riêng | Đạt khi / Bằng chứng | Giới hạn |
+## I. Bảng mốc
+| Mốc | Ai | Việc | Đạt khi / điểm DỪNG |
 |---|---|---|---|
-| **R0 — Khảo sát Git VPS** | Chỉ đọc 3 worktree, remotes, upstream, HEAD, tracked/untracked, cron/hook/job backup ngược; đối chiếu mã Git với image/runtime đang phục vụ, và các workflow GH còn gánh chức năng quan trọng. | Manifest: từng nguồn VPS → chức năng → path GitHub/ngoài Git → độ mới → hash/commit, danh sách Actions được phép tắt ngay. | Không gọi deploy/pull/reset/restart/script ghi; không in credential. |
-| **R1 — Tắt Actions hai repo** | Sau R0, tắt Actions ở cấp repo (tất cả push/PR/schedule/dispatch), xử lý run đang dở và required checks, bảo đảm đường canh/backup thiết yếu có thay thế nếu cần; không xóa YAML hay phục hồi SSH root key. | Settings hai kho = Disabled, push/PR không khởi chạy workflow mới; 0 phút Actions phát sinh mới; không gián đoạn production. | Nếu workflow thiết yếu chưa có đường thay, NO-GO phần tương ứng; không tắt bừa. |
-| **R2 — Vai trò và chuẩn giao việc** | Codex tạo bản đề xuất trong branch riêng ở 2 repo: AGENTS.md, README scope, CONTRIBUTING, mẫu Issue/PR, CODEOWNERS nếu phù hợp; chuẩn 6 ô (TASK_ID · mục tiêu+DoD/test · scope · dependency · worker/Chief · budget/điều cấm), nhánh dev/<seat>/<task-id>, quyền actor. Thử đăng nhập độc lập. | 3 agent đọc và biết nhận việc/test/nộp PR, Claude biết 4 kết luận NHẬN/SỬA/TRẢ/BỎ; luật khóa main có kết quả thử thực; chưa ghi main cũ. | CODEOWNERS/đọc luật không thay quyền cưỡng chế. Nếu private Free chưa khóa main thì giữ NO-GO merge chính thức; không tự public. |
-| **R3 — Phân phạm vi + mã nền mới nhất** | Chốt module/path cho 2 kho; nhận diện DOT/Graph/systemd/nginx/Guard/config khác chưa có nhà. Đóng dấu HEAD main cũ bằng nhánh/tag archive. Lấy snapshot tracked code từ VPS thực đang chạy, loại secret/.env/data/dump/backup/build sinh, tạo branch baseline-candidate và manifest so từng file/hash. | Mọi path có chủ hoặc OUT-OF-SCOPE; bản nguồn được xác minh là đang phục vụ; candidate sạch, có điểm quay lại main cũ; GitHub không đưa mã cũ xuống VPS. | **Không xóa main, không force-push, không reset --hard hay tự động kéo xuống VPS.** Chỉ chuẩn bị ứng viên, chưa đổi SSOT. |
-| **R4 — Thử CI/CD không Actions** | Từ candidate cho 3 worker độc lập clone/worktree, nhận 3 việc khác vùng, đẩy 3 branch/PR thật; Chief lấy HEAD mới nhất, dựng merge-candidate, test DoD+regression, xử lý conflict, quyết định; chạy CD dry-run/staging, kiểm rollback. | 3 agent/3 workspace/3 PR, ≥2 PR được Chief nhận, giữ đủ mã cũ/mới, Actions 0; kiểm thử thật và staging/dry-run PASS. | Dry-run không tương đương deploy production. Môi trường test phải cô lập; VPS1 swap hiện gần cạn. |
-| **R5 — Chuyển mã/nguồn deploy** | Chỉ sau Owner GO: đưa baseline đã kiểm vào main theo **forward commit** có rollback, không phá lịch sử. Bật/test hard-lock main bằng actor thực; VPS fetch đúng release SHA bằng quyền read-only qua deploy gate, smoke/rollback thật; chỉ tắt backup ngược VPS→GH khi xác minh mã đã khớp. Sau đó mới chuyển viết mã hàng loạt qua GitHub và thử ca đêm DOT→Codex. | 2 main chứa đúng mã được chốt, bảo vệ branch có phép thử âm, VPS không thể pull nhầm mã cũ, một bản release có thể quay lại; 3–5 agent code song song, sáng có bảng kết quả. | Không auto-deploy mỗi push, không đổi production ngoài RUN và Guard, không xóa nhánh/lịch sử cũ. |
-| **R6 — Thử vận hành ban đêm sau R5** | Kết nối DOT→Codex→worker bằng hội đồng hiện có, giao batch 3–5 việc, có biên nhận, thời hạn và báo cáo PR/test sáng. | Ca đêm không cần Owner canh, có trạng thái và receipt từng việc, không tự deploy. | Thiếu đường gọi/receipt ⇒ NO-GO R6, không chạy nền giả. |
+| **R0+R1 — Đo + tắt Actions** (một RUN) | 🤖 Codex · 😊 Owner cuối mốc | Chỉ đọc: 2 thư mục mã VPS `docker/agent-data-repo`, `docker/nuxt-repo` (nhánh, HEAD, sạch/bẩn, HEAD có trên `vps-daily-*` chưa); dịch vụ → commit đang chạy; workflow + Dependabot; mọi thẻ/app/khoá ghi được 2 kho (tên + quyền, không in giá trị); có gì đang kéo `main` không; đường gọi cho R6 (Dot→Codex, Codex cloud, Claude Code web). Rồi tắt Actions cấp repo, tắt Dependabot tự mở PR, huỷ run dở. 😊 Sau đó Owner mua Pro + ngân sách $0. | Actions Disabled, push thử không sinh run, usage mới 0; bảng nguồn / đang chạy / thẻ; R6 khả thi có/không. **DỪNG trước khi tắt** nếu một workflow đang làm việc sản xuất mà chưa có đường thay. |
+| **R2 — Khoá + vai** | 🤖 Codex (GitHub) · Claude Code CLI trên VPS (chìa KST, PAT backup; cờ VPS-GHI + Đ30/31) | Ruleset chỉ `main` 2 kho: update · deletion · non_fast_forward, bypass duy nhất DeployKey. Chìa KST sinh trong bản clone riêng của KST trên VPS (remote riêng, không phải khoá mặc định của máy); 1 deploy key ghi/kho. Mỗi ghế dev 1 thẻ fine-grained (Contents + Pull requests, không Administration); hạ quyền mọi thẻ admin trong bảng R0. Codex soạn AGENTS.md ≤ 1 trang + mẫu PR 6 ô (chưa commit). | T-a, T-b, T-d, T-e PASS bằng danh tính thật (COLLAB P1 §4); 0 thẻ admin ngoài Owner trên web (passkey). |
+| **R3 — Mã nền = VPS** | KST | Tag `archive/main-<ngày>` cho main cũ. Bản clone KST lấy HEAD thẳng từ thư mục mã VPS (cùng máy), merge main cũ với chiến lược giữ nguyên cây VPS ⇒ `main` tiến thẳng, không force-push (T-c). Commit luật R2 lên trên. **Cầu nối tới R5:** mỗi sáng KST merge commit VPS mới vào main. | `git diff <HEAD VPS> main` chỉ khác các tệp luật; main cũ là tổ tiên; tag khôi phục được. |
+| **R4 — Thử 3 ghế** | Codex (cloud) · Claude Code (cloud) · Hermes (VPS) · KST | 3 việc thật, khác khu tệp, có unit test, ≤ 2 giờ; mỗi ghế sandbox riêng, nhánh `dev/<ghế>/<mã việc>`, phiếu 6 ô. KST duyệt trên main mới nhất: NHẬN / SỬA / TRẢ LẠI / BỎ. | 3 PR thật; ≥ 2 NHẬN; 0 lần dev ghi được main; Actions 0; ghi giờ chờ từng PR. |
+| **R5 — Triển khai từ main** (∥ R6) | KST · 😊 Owner GO (nối lại GitHub→VPS — luật DROOT56) | Theo cờ từng khu: VPS lấy đúng SHA main bằng thẻ chỉ đọc → build/khởi động lại theo cách đang dùng → health; lùi = SHA trước. Rồi Guard: thư mục mã VPS phải sạch, HEAD = một SHA của main; dừng backup ngược khi đã khớp. | SHA đang chạy = SHA main; diễn tập lùi PASS; thử sửa tay trên VPS ⇒ Guard đỏ. |
+| **R6 — Ca đêm** (∥ R5) | 🤖 bộ giao việc đã chứng minh ở R0 · KST | Giao 3–5 việc buổi tối; mỗi việc biên nhận, hạn, dừng sạch; lỗi một việc không chặn việc khác; sáng KST duyệt, bảng 1 dòng/việc; không deploy. | ≥ 2/3 NHẬN, không ai canh đêm. Không có đường gọi thật ⇒ NO-GO, không chạy nền giả. |
 
-## II. Ba điều chỉnh quan trọng
-1. “Tắt Actions đầu tiên”: R0 read-only là bước kiểm an toàn, **R1 là thay đổi thật đầu tiên** sau khi Owner ký kế hoạch; không làm mất monitoring/backup đang phụ thuộc Actions.
-2. “Xóa mã main hiện tại”: không xóa lịch sử hoặc force-push. Tạo archive HEAD cũ + candidate bản VPS, kiểm hash, thử CI/CD, rồi thay cây mã trên main bằng một commit tiến lên khi Owner GO. Backup cũ và đường VPS vẫn giữ nguyên đến mốc cuối.
-3. “Repo mở”: hiện hai repo đang private. Nếu muốn public thì phải rà cả lịch sử và tệp cũ, không chỉ snapshot hiện tại. Chưa cần quyết ở roadmap V0.1.
+**Thứ tự:** R0+R1 → R2 → R3 → R4 → (R5 ∥ R6). Mỗi mốc một RUN; gate ở KE-HOACH §5.
 
-## III. Ranh giới repo cần Codex kiểm chứng tại R3
+## II. Ba điều chỉnh với lời Owner
+1. «Tắt Actions đầu tiên»: đo và tắt trong cùng một RUN có điểm dừng; tắt xong mới gắn thẻ thanh toán (mua Pro).
+2. «Xoá mã main hiện tại»: không xoá. Main cũ thành tag + cha của commit merge; cây main mới đúng bằng cây VPS. Đổi main không chạm production vì GitHub→VPS đang cắt (R0 xác nhận).
+3. «Repo mở»: giữ private vì lịch sử chưa quét bí mật; khoá bằng Pro thay vì public.
+
+## III. Ranh giới repo (Codex đo ở R0, KST ghi ở R3)
 | Repo / vùng | Dự kiến sở hữu | Ngoài phạm vi |
 |---|---|---|
 | agent-data-test | Ứng dụng Agent Data/RAG, code truy vấn/ingest, adapter vector/PG, MCP/backend thuộc Agent Data, test liên quan | Dữ liệu PG/Qdrant, env, secret, backup, cấu hình hệ điều hành |
 | web-test | UI/Nuxt, frontend, web integration/Directus interface, frontend tests | Data Directus/PG, secrets, RAG core, cấu hình runtime chưa phân nhà |
-| OUT-OF-SCOPE | DOT runtime, Graph, nginx, systemd, Guard, scripts/compose chung chưa rõ chủ | Không tự ép vào 2 kho, không tự mở repo ops mới |
+| OUT-OF-SCOPE | DOT runtime, Graph, nginx, systemd, Guard, scripts/compose chung chưa rõ chủ | Không tự ép vào 2 kho, không tự mở repo ops mới (ghi nợ «kho ops») |
 
-## IV. Quy trình nhận việc / review / chạy đêm (dùng lại hội đồng hiện có)
-- Host chuẩn bị sẵn batch nhiệm vụ có 6 ô; Owner duyệt batch và quyền. Agent đọc AGENTS.md, Issue/PR contract và COLLAB liên quan; mỗi agent có branch và môi trường độc lập, không cần lấy cờ VPS-GHI khi viết mã.
-- Chief lần lượt xử lý PR: kiểm đúng scope, phiên bản main mới nhất, test trên ứng viên merge, phát NHẬN/SỬA/TRẢ LẠI/BỎ; xung đột phải trả cụ thể, không auto ours/theirs; nếu main thay đổi sau khi kiểm thì kiểm lại. Tác giả không được tự review độc lập.
-- Chỉ sau khi đường gọi có receipt mới cho DOT nhắc Codex điều phối ban đêm; trước đó giao/nhận thử trực tiếp, không nhận vơ “tự chạy”. Sáng báo TASK_ID, worker, PR/SHA, test, Chief, blocker, release/deploy status.
+## IV. Nhận việc / review / ca đêm (dùng lại hội đồng hiện có)
+- Host chuẩn bị batch phiếu 6 ô; Owner duyệt batch. Ghế đọc AGENTS.md của kho + phiếu; mỗi ghế sandbox + nhánh riêng; viết mã không cần cờ VPS-GHI.
+- KST xử lý PR theo hàng đợi trên main mới nhất: NHẬN / SỬA / TRẢ LẠI / BỎ; xung đột trả cụ thể, không tự chọn ours/theirs; main đổi sau khi test thì test lại; tác giả không tự duyệt; PR do KST tự viết cần ghế khác hãng duyệt.
+- Giao việc đêm chỉ qua đường đã chứng minh có biên nhận (R0); chưa có thì Owner giao tay. Sáng: bảng mỗi việc một dòng (KE-HOACH §4); mặc định không deploy.
 
-## V. Bằng chứng đọc trực tiếp 24/10/2026 (không mutation)
-- VPS: agent-data branch claude/gpt-operation-id-20260918 HEAD 75ed0e80; UI master HEAD af8d1404; workspace main HEAD a329c68f; cả 3 worktree sạch. Chưa đo git remote/upstream hay mã đang chạy theo image.
-- GitHub: agent-data-test main 0a26280b, web-test main 07caed3b; cả 2 private và main chưa protected. 17 + 11 tệp workflow hiện hữu, Actions web còn chạy 24/10. Ruleset trên private repo chưa khả dụng với plan đang có (API yêu cầu Pro/public).
-- Trước mỗi RUN phải lấy lại HEAD/manifest tại thời điểm đó. Trạng thái DRAFT không cấp quyền thay đổi bất cứ thứ gì.
+## V. Bằng chứng (chỉ đọc, không mutation)
+- GPT 24/10: agent-data VPS nhánh `claude/gpt-operation-id-20260918` HEAD 75ed0e80; GitHub main 0a26280b (agent-data-test), 07caed3b (web-test), cả hai private, chưa protected; 17 + 11 workflow, Actions web còn chạy 24/10; ruleset kho private không khả dụng trên plan hiện tại (API yêu cầu Pro/public).
+- Claude 24/10: `vps-daily-20261023` của agent-data-test = 75ed0e80 = HEAD VPS ⇒ lịch sử VPS đã nằm trong Git. agent-data đang chạy image dựng từ b6ebaf94, HEAD 75ed0e80 đã build chưa tạo lại (đo 23/10, HJW P359) ⇒ «đang chạy» ≠ HEAD. «UI master af8d1404» là kho ui-preview, không phải web-test; nguồn web-test trên VPS là `docker/nuxt-repo`, chưa đo.
+- Ruleset `gateway-only-writes` của `incomex-workspace` (kho tài khoản cá nhân, 25/09): bypass chỉ DeployKey đã chặn cả tài khoản Owner (HTTP 409) ⇒ mô hình một chìa chạy được trên tài khoản cá nhân.
+- Trước mỗi RUN lấy lại HEAD tại thời điểm đó. DRAFT không cấp quyền thay đổi gì.
