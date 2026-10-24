@@ -5,18 +5,18 @@ Tên việc: Xây dựng hệ sổ Directus dùng lâu dài — chuyển thiết
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 23/10/2026: lập việc + ô 1 (14:37, 15:02, 16:49); giao Codex làm Host (P06); 17:03 chốt hướng: «bây giờ bạn hiểu vấn đề rồi thì bạn sửa lại cái yêu cầu trên task để làm đúng vấn đề đi» (3.00); 17:26 chốt Đích (ô 1). **Chỉ đạo bổ sung hiện tại:** GPT cùng Codex làm co-host để sửa nhanh; vùng NHÁP phải làm, nhìn và hiệu chỉnh trực tiếp bằng collection thật trong Directus Studio, không phải HTML khác; đầu tiên kiểm kê collection hiện có; ưu tiên Công thức đã tương đối khả thi. Ô 2 và mọi việc ghi production vẫn chờ Owner gật từng việc.
 Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT đang làm host». Codex: thành viên (Host vòng P06–P15). Claude Chat: rà. Các lệnh RUN/production theo quyền Host và Owner.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 13:44 +07 · Claude Code · P24 · B0 STARTED
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 13:56 +07 · Claude Code · P24 · B0 KQ DỪNG (MỘT PHẦN)
 - 🎯 Mục tiêu: **collection Directus có thật và xem/sửa ngay trong Studio**, tận dụng sổ đang có; HTML cũ chỉ là nguồn đối chiếu chuyển dữ liệu, không làm phiên nháp HTML mới.
 - 🏁 Xong khi: kế hoạch P19/P20 được chốt G0, B0 trả về kiểm kê Directus + PG/DOT liên quan và phương án B1 Công thức; B1 phải nhìn/sửa được bản ghi thật trong Studio sau khi Owner duyệt G1.
 - ✅ Đã làm: P13 chốt mục tiêu collection; P14 rà SSOT và DOT; P15 tiếp nhận chỉ đạo mới, chuyển GPT thành co-host và đưa kiểm kê collection lên đầu. Giữ mọi HTML cũ làm lịch sử, không tiếp tục chế tác giao diện nháp.
 - 📍 Tiến độ: [✅ G0 **CHỐT KẾ HOẠCH**] → [■ B0 **CHỜ OWNER DÁN LỆNH**] → [□ B1 Công thức] → [□ B2 Sổ khác] → [□ B3 MMOW/MOW] → [□ B4 Lên thật] → [□ B5 Home đọc dữ liệu].
-- ■ Đang làm: Bước B0 kiểm kê chỉ đọc · vòng 1/1 · executor Claude Code CLI · RUN `NDW-B0-INVENTORY-20261024-01` STARTED 06:44Z (P24).
+- ■ Đang làm: — · 0 RUN active · B0 `NDW-B0-INVENTORY-20261024-01` KQ DỪNG 06:56Z, B0 MỘT PHẦN (P24): đo được backend, 385 tên bảng, `meta_catalog`, `dot_tools`↔đĩa; chưa đọc được field/quan hệ/ghi chú collection vì đọc schema Directus qua DOT chưa có khoá hợp lệ.
 - ⬜ Còn mở: B0 đo collections Directus và PG tables liên quan/SSOT/DOT; B1 Công thức phải có tên chuẩn và quyền được duyệt G1; B2–B5 theo §3.KH. Studio xem/quản lý, AI ghi qua DOT; G2 cho production.
 - ✅ P17 · 24/10 · Owner bổ sung: chỉ sửa trong Directus không sửa HTML; làm MOW 001 xong làm tiếp 002–035, thêm MMOW 008/009; B0 rà các table PG hiện hữu để chọn bảng sẽ dùng; B4 đưa lên production **từng sổ/nhóm đã ổn định** chứ không chờ cả vùng NHÁP. Đã ghi vào roadmap; **chưa chạy kiểm kê PG/Directus, chưa tạo/sửa bảng**.
 - 🟡 P16 · 23/10 20:05 · Claude đã rà P12–P15 theo Owner 19:58: đồng thuận hướng collection-first + 7 điểm sửa → GPT Host áp thẳng rồi soạn lệnh B0, không cần vòng rà nữa.
 - 🟢 P20 · 24/10 07:45 · Owner 07:31: không dùng chữ «thử/test» — đang làm thật, không có giai đoạn thử. Claude đã đổi chữ trong kế hoạch (B3 = «Làm MMOW 007 cho MOW 001 → 002–035») và ghi Host = GPT.
 - ✅ P22–P23 · 24/10 · Claude Reviewer ACCEPT trên last-touch PROMPT `bb9404b9`, GPT Host đã kiểm tra không có STOP_REQUESTED/HOLD/busy và ký READY đúng bản; B0 chỉ đọc đủ điều kiện chuyển lệnh.
-- ➡ Kế tiếp: 🤖 Claude Code chạy B0 chỉ đọc, ghi KQ + báo cáo P24 → GPT Host kiểm báo cáo, trình Owner G1 cho B1. NEXT_TRIGGER=KQ_B0.
+- ➡ Kế tiếp: GPT Host nghiệm thu P24 → Reviewer khác hãng Worker rà → Host quyết lượt B0b (sửa `dot-auth` nạp danh tính máy + chạy lại phần A) hoặc trình thẳng G1 theo P24 (D). NEXT_TRIGGER=HOST_NGHIEM_THU_B0.
 - ⛔ Không tự ghi Directus/PG, mở quyền, đổi tên/xóa collection trong lượt chỉnh tài liệu này.
 
 ### Chuẩn giao diện đã giữ · lượt chỉnh trang chủ trước P12
@@ -356,7 +356,41 @@ Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều ch
 - Owner gật 3.01 (dùng lại `dot_tools`). Bước đang làm vẫn là B1. Lệnh khảo sát B1-b gộp luôn phần đọc danh sách collection cho B3 để Claude Code chạy 1 lần.
 - Gửi Codex: đọc ô 1 Đích → 3.00 → 3.01 → 3.02 → 3.03; đồng ý thì soạn lệnh khảo sát chỉ đọc B1-b; khác ý ghi P12.
 
-### P24 · 24/10/2026 13:44 +07 · Claude Code · B0 kiểm kê chỉ đọc
+### P24 · 24/10/2026 13:44–13:56 +07 · Claude Code · B0 kiểm kê chỉ đọc · KQ DỪNG · B0 MỘT PHẦN
+Ghế: Claude Code (Worker) · Bước/vòng: B0 · 1/1 · Based_on `2d04faa6` (PROMPT `bb9404b9`) · Scope: Directus/PG/DOT chỉ đọc · Chưa đọc: field/quan hệ/ghi chú `?`/quyền của từng collection (lý do dưới).
+- KQ@NDW-B0-INVENTORY-20261024-01 DỪNG · 2026-10-24T06:56Z · executor=Claude Code · B0 MỘT PHẦN · 0 ghi Directus/PG/VPS (không tạo snapshot, không tệp tạm trên VPS) · blocker: đọc schema Directus bằng DOT chưa có khoá máy hợp lệ · NEXT_TRIGGER=HOST_NGHIEM_THU_B0 · JEV `gen-dec-1792824811-UPSg1nzKzmjDzKPrX4VX` (DỪNG 0,87 · MỘT PHẦN 0,92). Thời gian 12′ (06:44–06:56Z).
+- **Đường đọc đã dùng:** ① `docker inspect` container Directus (chỉ tên biến + host/DB, giá trị bí mật che) · ② `dot-dot-catalog --check` (chỉ đọc tệp) · ③ trang công bố `/reports/report-pg` (Census sống 06:48Z), `/reports/report-balo-table?page=1..8`, `/knowledge/registries` · ④ Graph v1 chỉ đọc (ảnh 23/10 22:47Z, nhãn MỘT PHẦN; phần `dot_tools`/DOT là ảnh 07/10) · ⑤ đọc mã nguồn DOT trên đĩa. Không dùng `query_pg`/`directus_read`/REST/psql.
+- **Không chạy, lý do:** `dot-schema-snapshot`, `dot-dot-register --dry-run`, `dot-fill-tool-descriptions --dry-run` đều `source dot-auth`; không loader nào đặt `DOT_STATIC_TOKEN`; `config/environment.sh` tự dò `local` sẽ đăng nhập Directus production bằng tài khoản + mật khẩu mặc định **viết cứng trong tệp** (không chép giá trị) ⇒ trái DROOT39, không chạy. Thêm: thư mục `/opt/incomex/dot/snapshots/` không tồn tại. `dot-dot-health --dry-run` vẫn chạy check kiểu function `SELECT <hàm>(cfg)` bằng vai **RW** ⇒ chưa chứng minh không ghi.
+
+**(A) Directus.** Backend đo được: Directus 12.4.1 · `DB_CLIENT=pg` · host `postgres` · DB `directus` ⇒ collection = bảng PG trong DB `directus`, **cùng DB với các sổ nghiệp vụ**. Số collection sống: CHƯA KIỂM (`collection_registry` khai 168 — CAT-008; trang danh sách của nó trả 403). Field/quan hệ/ghi chú `?`/quyền: CHƯA KIỂM, trừ 20 collection mẫu trong Graph (77 dòng quyền, 6 quan hệ).
+| Collection | Có thật | Số dòng (meta_catalog) | Nhà SSOT | Dùng lại / thiếu |
+|---|---|---|---|---|
+| `meta_catalog` | có | 169 (CAT-000; trang hiện 153) | Sổ của các sổ | DÙNG LẠI; cột trạng thái ĐANG THIẾT KẾ: CHƯA KIỂM |
+| `dot_tools` | có | 314 (CAT-006) | Bảng DOT (nhà thông tin = tệp DOT) | DÙNG LẠI, cần đồng bộ (C) |
+| `collection_registry` · `directus_fields` | có | 168 · 1.521 | danh mục collection / field | dùng lại, chỉ DOT ghi |
+| `table_registry` · `species_collection_map` · `entity_species` · `collection_groups` · `collection_field_standards` | có | 28 · 164 · 42 · 9 · 11 | phân loại sổ | dùng lại khi khai sinh collection mới |
+| `workflows` · `workflow_steps` · `workflow_step_relations` · `workflow_categories` | có | 3 · 105 · 80 · 5 | quy trình PG thật | KHÔNG làm nguồn MOW (Master MOW = 35, `workflows` = 3) |
+| `tasks` · `task_checkpoints` · `checkpoint_*` | có | 10 · 9 · 31/2/7/6 | việc/kiểm | ứng viên B2.3 (hồ sơ/kiểm), field CHƯA KIỂM |
+| Công thức/CT-000.1/CT-008 · 43 câu · Field master · MBM · MMOW · MOW · khuôn · Miền CV · hồ sơ | **không** | — | HTML/JS (ML-DEF-021, ban-duyet.html) | CẦN TẠO; 0 tên khớp trong 385 bảng, 0 dòng `meta_catalog` |
+| tiền tố `nhap_` | **không** | — | — | 0 bảng, 0 collection |
+
+**(B) PG.** Census sống: 4 schema · 393 table · 699 view · 10.099 cột. Balo: 385 tên (public 351 · cutter_governance 24 · sandbox_tac 8 · iu_core 2) — thiếu 8 so với Census. Tất cả bảng dưới ở DB `directus`, schema `public`; mức xác minh = tên (Balo) + số dòng khai (`meta_catalog`); PK/FK chỉ có cho bảng thuộc mẫu Graph.
+| Bảng | Chức năng | Hành động B1 | Liên hệ Directus |
+|---|---|---|---|
+| `meta_catalog` | Sổ của các sổ | dùng lại, thêm 1 dòng CAT cho Công thức | CAT-000 |
+| `collection_registry`, `species_collection_map`, `entity_dependencies` | khai sinh/phân loại collection | dùng lại qua DOT | CAT-008/021/013 |
+| `directus_collections`/`_fields`/`_relations`/`_permissions`/`_policies` | hệ thống Directus | không đụng tay; chỉ qua DOT schema | hệ thống |
+| `dot_tools` | Bảng DOT | không đụng ở B1 (đồng bộ là việc riêng) | CAT-006 |
+| `workflows` + 3 bảng bước | quy trình thật | không đụng ở B1 | CAT-003/004/138/139 |
+| `cong_thuc` (+ `cong_thuc_thanh_phan`) | Công thức | **tạo mới** (D) | chưa có |
+
+**(C) DOT.** Đĩa 251 = sổ `00-SO-DOT.tsv` 251, lệch sha 1 (`dot-connector-sync`, sửa 15/10). `dot_tools` ↔ đĩa (ảnh Graph 07/10): 314 dòng · 67 dòng không trỏ tới tệp · 205/251 lệnh có dòng · 46 lệnh chưa vào sổ (gồm `dot-dot-catalog`, `dot-dot-health`, `dot-dot-register`, `dot-collection-track-readonly`, `dot-directus-flow`) · nhiều lệnh 2 dòng (đường `bin/dot/*.ts` cũ + đường thật). Rào tiền tố `nhap_`: **không tồn tại** — 0 DOT/lib sống, 0 hàm PG trong ảnh L2 nhắc `nhap_` (rào V8 mới chỉ là quy định trên giấy).
+- Dùng được cho B1: `dot-schema-apply` (spec JSON, `--dry-run`, tự nạp khoá Secret Manager) — đường ghi chính · `dot-collection-track-readonly` (`--dry-run`, chỉ nhận bảng PG có sẵn, không ghi `meta_catalog`) · `dot-metadata-fill` (ghi chú `?`) + `dot-permission-ensure` (`--dry-run`) — hai lệnh này cần T-A.
+- **Không dùng** `dot-collection-create`: không có `--dry-run`, ghi 6 sổ hệ thống, trong đó `schema_birth_registry`, `collection_labels`, `collection_species` không có trong 385 tên bảng ⇒ dễ tạo bảng rồi hỏng giữa chừng (suy từ mã, chưa chạy).
+- Thiếu 3: **T-A** `dot-auth` nạp danh tính máy từ Secret Manager (theo mẫu `dot-schema-apply`/`dot-directus-permission-revoke`) và bỏ nhánh mật khẩu mặc định viết cứng — mở khoá cho `dot-schema-snapshot` và ~10 DOT Directus · **T-B** allowlist collection trong DOT ghi schema (rào mới thay `nhap_`) · **T-C** chế độ chỉ-liệt-kê cho `dot-dot-health` (hoặc chạy hàm bằng vai RO).
+
+**(D) Đề xuất B1 Công thức (đề xuất — Host trình G1, Owner gật).** Tên kỹ thuật: `cong_thuc` (mỗi dòng một công thức CT-000.x, CT-001…CT-008 kể cả CT-008 MBM) + `cong_thuc_thanh_phan` (thừa số chung, nối `cong_thuc` ↔ `cong_thuc`). Field tối thiểu: `ma` (duy nhất, CT-…) · `ten` · `phien_ban` · `trang_thai_duyet` (giữ nguyên từ bản cũ) · `noi_dung` · `ghi_chu` · `nguon` (đường + neo HTML cũ) · `thu_tu`; mỗi field có ghi chú `?`. Quyền: chỉ danh tính máy DOT ghi qua `dot-schema-apply` + allowlist [`cong_thuc`, `cong_thuc_thanh_phan`]; Owner xem trong Studio; không public, không cấp role mới. Nguồn → đích: Công thức r7.1 trên `work/mow-mot-moit-mout/ban-duyet.html` + ML-DEF-021 (18 dòng) → `cong_thuc`; nguồn cũ giữ chuẩn tới khi đối chiếu đủ. Sổ của các sổ: thêm dòng CAT mới, trạng thái ĐANG THIẾT KẾ. **Owner cần duyệt:** (1) hai tên collection · (2) làm T-A + T-B trước mọi lệnh ghi · (3) đường ghi = `dot-schema-apply` · (4) thêm cột trạng thái vào `meta_catalog` nếu B0b thấy thiếu.
+- Phát hiện phụ cho Host: trang `/knowledge/registries/collection` báo 403 khi đọc `collection_registry` · Balo 385 ≠ Census 393 · trang `meta_catalog` 153 ≠ khai 169 · `environment.sh` chứa tài khoản admin mặc định viết cứng (rủi ro bảo mật, không chép giá trị).
 - STARTED@NDW-B0-INVENTORY-20261024-01 2026-10-24T06:44Z · executor=Claude Code · đọc tới `2d04faa6` · ACCEPT (P22) + READY (P23) @bb9404b9 = commit cuối chạm PROMPT (gateway `workspace_log`) · câu Owner đúng DROOT38 · không STOP_REQUESTED/HOLD, không STARTED chưa KQ, VPS-GHI trống (B0 không chiếm) · Write_Path: gateway `workspace_edit` (chỉ COLLAB này) + SSH VPS1 chỉ DOT đọc/`--check`/`--dry-run`; tệp tạm duy nhất = 1 snapshot `dot-schema-snapshot`.
 
 ### P23 · 24/10/2026 · GPT Chat Host · ký READY đúng PROMPT Reviewer đã ACCEPT
