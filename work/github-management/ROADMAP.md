@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.3 · 24/10/2026
-**Trạng thái: Claude P5 ACCEPT_WITH_CORRECTIONS (đã áp) · chờ GPT Host đồng thuận → Owner GO · KHÔNG RUN.**  
+**Trạng thái: Claude P5 + GPT Host P6 ĐỒNG THUẬN KỸ THUẬT CÓ CỔNG · CHỜ OWNER GO · KHÔNG RUN.**  
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
 Ưu tiên 1: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 
@@ -19,7 +19,7 @@
 | **R5 — Triển khai từ main** (∥ R6) | KST · 😊 Owner GO (nối lại GitHub→VPS — luật DROOT56) | Theo cờ từng khu: VPS lấy đúng SHA main bằng thẻ chỉ đọc → build/khởi động lại theo cách đang dùng → health; lùi = SHA trước. Rồi Guard: thư mục mã VPS phải sạch, HEAD = một SHA của main; dừng backup ngược khi đã khớp. | SHA đang chạy = SHA main; diễn tập lùi PASS; thử sửa tay trên VPS ⇒ Guard đỏ. |
 | **R6 — Ca đêm** (∥ R5) | 🤖 bộ giao việc đã chứng minh ở R0 · KST | Giao 3–5 việc buổi tối; mỗi việc biên nhận, hạn, dừng sạch; lỗi một việc không chặn việc khác; sáng KST duyệt, bảng 1 dòng/việc; không deploy. | ≥ 2/3 NHẬN, không ai canh đêm. Không có đường gọi thật ⇒ NO-GO, không chạy nền giả. |
 
-**Thứ tự:** R0+R1 → R2 → R3 → R4 → (R5 ∥ R6). Mỗi mốc một RUN; gate ở KE-HOACH §5.
+**Thứ tự:** R0+R1 → R2 → R3 → R4 → (R5 ∥ R6). R6 được viết code/PR song song, nhưng **cấm merge vào main khi R5 đang chốt release/deploy/rollback**. Đọc cổng P6 COLLAB và KE-HOACH §5. Mỗi mốc một RUN.
 
 ## II. Ba điều chỉnh với lời Owner
 1. «Tắt Actions đầu tiên»: đo và tắt trong cùng một RUN có điểm dừng; tắt xong mới gắn thẻ thanh toán (mua Pro).

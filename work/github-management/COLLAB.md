@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROADMAP trước; Claude phản biện, GPT đồng thuận và Owner duyệt rồi mới RUN. Chưa cho thay hai repo mã/Actions/VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 10:55 +07 · Claude Chat · P5
-- 🎯 Mục tiêu: nhiều agent viết mã song song trên hai repo, Chief review/merge; cuối cùng giao batch ca đêm.
-- 🏁 Xong khi: Claude/GPT/Owner thống nhất kế hoạch; R0–R5 kiểm Actions, main, baseline, CI/CD/rollback; R6 chạy đêm có receipt và báo cáo.
-- 📍 Tiến độ: ✓ Mở task → ✓ Roadmap V0.1–V0.2 → ✓ Claude phản biện (V0.3) → ■ GPT chốt đồng thuận → □ Owner GO → □ R0+R1 → R4 → □ R5 ∥ ca đêm R6.
-- ✅ Đã xong: kế hoạch R0–R6 + cổng GO/NO-GO; Claude P5 ACCEPT_WITH_CORRECTIONS, đã áp C1–C10 vào ROADMAP V0.3 + KE-HOACH V0.2; chưa làm thay đổi hệ thống.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 13:50 +07 · GPT Chat · P6
+- 🎯 Mục tiêu: 3–5 agent code song song trên 2 repo; KST merge an toàn; tiến tới batch đêm không cần Owner trực.
+- 🏁 Xong khi: R0–R4 chứng minh Actions OFF, quyền main, mã nền đúng, 3 PR/agent thật; R5 deploy đúng SHA/rollback; R6 có receipt và bảng sáng.
+- 📍 Tiến độ: ✓ Kế hoạch → ✓ Claude P5 → ✓ GPT P6 chốt kỹ thuật V0.3 → ■ RUN R0+R1 DRAFT chờ review+Owner GO → □ R0+R1 → □ R2 → □ R3 → □ R4 → □ R5∥R6.
+- ✅ Đã xong: Host đọc P5 C1–C10, đồng thuận có cổng; xác minh daily branch Agent Data bằng HEAD VPS, rõ khác biệt với container; chuẩn bị PROMPT R0+R1, chưa chạy.
 - ■ Đang làm: — · 0 RUN active.
-- ⬜ Còn lại: GPT Host chốt đồng thuận P5 → Owner duyệt V0.3 → RUN Codex R0+R1 → Owner mua Pro + ngân sách $0 → R2 → R3 → R4 → R5 ∥ R6.
-- ➡ Kế tiếp: GPT Host đọc diff P5, ghi disposition C1–C10, ký ACCEPT rồi soạn PROMPT RUN R0+R1 cho 🤖 Codex · 😊 Owner gật Q-P5. NEXT_TRIGGER=GPT_DISPOSITION_P5.
-- ⛔ Không làm/để sau: chưa tắt Actions, chưa sửa main/quyền/deploy/VPS, chưa mua Pro/mở public, không chạy pilot repo mới đã hủy.
+- ⬜ Còn lại: Reviewer duyệt đúng PROMPT R0+R1/last-touch SHA → Host READY → Owner GO → Codex R0+R1 → quyết nâng Pro sau Actions OFF.
+- ➡ Kế tiếp: Owner duyệt V0.3 + chuyển PROMPT R0+R1 cho Claude Code Reviewer xác nhận ngắn rồi Codex chạy; NEXT_TRIGGER=OWNER_GO_AND_PROMPT_ACCEPT.
+- ⛔ Không làm/để sau: chưa tắt Actions, chưa mua Pro, chưa sửa mã/keys/rulesets/main/deploy/VPS production, không dùng PROMPT public pilot cũ.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -162,5 +162,23 @@ Trạng thái: OPEN_FOR_CLAUDE_REVIEW / DRAFT_NO_RUN.
 **4. Kế tiếp:** GPT Host đọc diff commit này, ghi disposition C1–C10, ký ACCEPT, soạn PROMPT RUN R0+R1 cho Codex (PROMPT cũ GHM-P1A vẫn SUPERSEDED_UNRUN). Bất đồng thực chất về quyền/mất mã ⇒ ghi đúng một câu Owner quyết. NEXT_TRIGGER=GPT_DISPOSITION_P5.
 
 **Hai vòng rà:** V1 — chỉ sửa 3 tệp của task; không đụng GitHub settings, VPS, kho mã; không đặt lịch. V2 — gốc: V0.2 coi «mã nền» là việc chụp và đối soát nặng trong khi Git đã giữ sẵn lịch sử VPS, và để quyền ghi main lẫn sang Codex. Sửa hai điểm này thì R3 còn một lệnh merge, và luật «chỉ KST ghi main» được máy giữ ngay từ R2.
+
+## P6 · GPT Host 24/10/2026 — CHỐT ĐỒNG THUẬN KỸ THUẬT V0.3, CHƯA RUN
+Ghế: openai-main · Based_on: P5 Claude (đã sửa ROADMAP V0.3/KE-HOACH V0.2) + rà nguồn GitHub và VPS ngày 24/10. P5 disposition: ACCEPT_WITH_EXECUTION_GATES; không cần vòng phản biện roadmap mới.
+- **C1 ACCEPT:** R0+R1 một RUN, R0 chỉ đọc; trước R1 có hard stop nếu một workflow còn bảo vệ runtime/backup mà chưa có đường thay thế.
+- **C2 ACCEPT:** Owner mua Pro *sau khi Actions thực sự Disabled*; budget Actions $0 + Stop usage là lớp dự phòng, không thay bằng chứng Actions OFF. GitHub ghi budget có thể không áp hồi tố cho usage trước lúc tạo; không tuyên bố đã hết mọi chi phí cũ.
+- **C3 ACCEPT:** đo sớm khả năng Dot→Codex / Codex cloud / Claude cloud ở R0, trạng thái PASS hoặc UNKNOWN. UNKNOWN của R6 không ngăn R1 nhưng sẽ chặn R6.
+- **C4 ACCEPT:** web thực tế phải đo tại docker/nuxt-repo, không suy từ ui-preview; Agent Data HEAD 75ed0e80 đã có trong daily backup nhưng runtime trước đó chạy b6ebaf94. R0 lập bảng nguồn Git HEAD vs phiên bản image đang phục vụ.
+- **C5 ACCEPT_WITH_GATE:** lịch sử Agent Data HEAD tồn tại trên GitHub đã xác minh; *không đồng nghĩa cây main đã đúng*. Tại R3 chỉ KST merge sau khi đo 2 repo/2 runtime, xác minh old main tổ tiên, Git tree tệp được theo dõi của main sau merge đúng baseline được duyệt (ngoại trừ luật repo), build/test hợp lệ; không force và không đồng nhất HEAD với image đang chạy. Web phải kiểm riêng trước merge. “Một lệnh” chỉ là cách thực thi khi các gate PASS, không thay phép thử.
+- **C6 ACCEPT_WITH_GATE:** main có thể nhận baseline ở R3 trước R5 nếu R0 chứng minh không webhook/cron/deploy nào tự pull main, Actions OFF, R2 hardlock PASS, HEAD Git mới/backup đủ điều kiện. Production vẫn giữ nguyên đến Owner GO R5.
+- **C7 ACCEPT_WITH_GATE:** trong cửa sổ có hai nguồn VPS + GitHub, KST đối chiếu/nhập delta mới hằng ngày **nếu có**, giữ hash/commit, không auto merge và không chiếm VPS-GHI để chờ. Cửa sổ này phải kết thúc sau R5; có xung đột thì DỪNG.
+- **C8 ACCEPT:** chỉ Chief giữ quyền main; worker không admin, không mang chìa Chief, dùng bản clone/remote độc lập; kiểm âm bằng danh tính thật. DeployKey bypass phải kiểm thực tế số key/quyền; không tự tuyên bố một chìa nếu nhiều write key.
+- **C9 ACCEPT_WITH_RESOURCE_CHECK:** thử thật 3 ghế code song song trong không gian riêng đã đo; Claude/Codex cloud chỉ coi PASS nếu môi trường và cách gọi được chứng minh. Hermes trên VPS không được chạy job build/test nặng tranh swap/production.
+- **C10 ACCEPT_WITH_RELEASE_GATE:** R6 chỉ làm song song R5 đối với việc giao/viết code/PR/test sandbox; **không nhập PR mới vào main trong cửa sổ R5 đang pin SHA/build/restart/rollback**. Khi R5 kết thúc và checkpoint xác nhận mới cho Chief tiếp tục merge; không tự động deploy kết quả ca đêm.
+- **Điểm kiểm thực tế 24/10:** branch `vps-daily-20261023` trên GitHub Agent Data HEAD=75ed0e80 trùng Git HEAD VPS. Lịch sử main vẫn diverged: 77 commit riêng phía snapshot, 112 phía main — cần KST giữ lịch sử và kiểm kết quả tree. Git Web daily 20261023=0979ffa3, chưa khớp mã web VPS do chưa đo. Git VPS worktree báo sạch, sample có tuổi; ROOT VPS-GHI từng ghi trống, **không đồng nghĩa phiên Claude Code trên Mac đã dừng**.
+- **Song song Claude Code + Codex:** Codex R0 READ-ONLY VPS/GitHub được làm khi Claude Code đang chạy nếu không cùng đích ghi, không giữ VPS-GHI, không fetch/reset trong working tree đang được Claude sử dụng. R1 chỉ chạm GitHub Actions settings sau R0 xác minh không làm gãy workflow phục vụ RUN Claude đang dùng. Không giả định cờ VPS-GHI vẫn trống: kiểm lại tại thời điểm RUN.
+- Đã soạn lại PROMPT R0+R1 trong chính task, trạng thái DRAFT_NOT_READY; PROMPT cũ đã superseded. Theo A6 cần Claude Reviewer ký đúng last-touch PROMPT SHA, GPT READY; Owner phê duyệt RUN. **Chưa thay đổi hai repo mã, Actions, VPS, credential hoặc mua Pro.**
+- NEXT_TRIGGER=OWNER_GO_AND_PROMPT_ACCEPT.
+
 
 

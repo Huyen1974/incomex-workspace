@@ -1,41 +1,36 @@
-# PROMPT — GHM P1-A · Khởi tạo môi trường mã song song
-RUN_ID: GHM-P1A-GITHUB-SANDBOX-20261023-01
-STATUS: SUPERSEDED_UNRUN — KHÔNG CHO READY/RUN. Owner 24/10 yêu cầu ROADMAP.md dùng 2 repo hiện hữu; PROMPT này chỉ lưu lịch sử.
-Executor_Surface: Codex CLI/Desktop Mac. Write_Path: GitHub qua gh CLI/GitHub API được phép, Incomex workspace_* root=workspace ghi STARTED/KQ. Không shell/deploy/sửa secret trên VPS production.
+# PROMPT — GHM-R0R1 · ĐO HIỆN TRẠNG + TẮT GITHUB ACTIONS (CHỈ 2 REPO)
+RUN_ID: GHM-R0R1-20261024-01
+STATUS: DRAFT_NOT_READY — KHÔNG TỰ RUN. Chỉ bắt đầu khi Claude Reviewer ACCEPT đúng full last-touch SHA PROMPT, GPT Host READY@cùng SHA trong COLLAB, Owner giao RUN trực tiếp cho Codex. Hiện mới duyệt kỹ thuật roadmap, chưa cấp RUN.
 
-ĐỌC AGENTS.md root → work/github-management/COLLAB.md §0/Bảng/P1/P2 → README.md → PROMPT.md. Kiểm READY/Owner RUN, quyền/credential thật, ghi STARTED trước mutation theo A6/DROOT30/31. Nếu thiếu chặn thì KQ DỪNG sạch.
+Executor_Surface: Codex CLI/Desktop; Write_Path: Incomex workspace_* root=workspace cho hồ sơ STARTED/KQ; GitHub Settings/API chỉ để Disable Actions và Dependabot auto-PR sau S1 gate. SSH/MCP VPS read-only chỉ quan sát, không mutation VPS.
 
-S0 — KIỂM ĐẦU VÀO READ-ONLY:
-- Kiểm repo Huyen1974/agent-parallel-pilot chưa tồn tại; gh CLI có quyền tạo repo, quản lý Actions/ruleset; không hiển thị secret; ba agent dự kiến Codex, Hermes, Claude có bề mặt riêng hay chưa. Nếu không có quyền thì DỪNG, không tạo đường vòng.
-- Không đọc, xuất, sao chép bất kỳ phần production Agent Data/VPS nào vào public.
+ENTRY: root AGENTS.md → root COLLAB phần cờ VPS-GHI → work/github-management/COLLAB.md §0/Bảng/P5/P6 → README → ROADMAP V0.3 → KE-HOACH V0.2 → PROMPT này. Xác minh A6 & DROOT30/31 trước bất kỳ thao tác ghi. PROMPT cũ P1A đã superseded. Không làm R2/R3.
 
-S1 — DỰNG REPO MỚI CÓ GIÁ TRỊ:
-- Tạo duy nhất một repo mới PUBLIC Huyen1974/agent-parallel-pilot, lịch sử Git mới; chưa chạm repo cũ. Tắt GitHub Actions ở settings TRƯỚC khi push; không tạo workflow.
-- Commit scaffold Python stdlib unittest, README vai trò/DoD, .gitignore; ba thư mục riêng task_contract/, pr_scope/, pr_report/ và tests tương ứng. Chỉ dữ liệu giả, không có host/IP/địa chỉ/đường production, secret hoặc cấu hình nội bộ. Ghi commit SHA, URL repo.
+## S0 — KIỂM QUYỀN & TRẠNG THÁI (READ-ONLY)
+- Kiểm đúng hai repo Huyen1974/agent-data-test và Huyen1974/web-test, private, actions status hiện thời, run gần nhất, required checks, webhook, dependabot, workflow theo lịch và triggers.
+- Kiểm cờ VPS-GHI/Claude Code RUN và khu đang dùng. Codex được đọc độc lập, không dùng root production shell để sửa, không git fetch/reset/pull vào working tree Claude đang làm. Nếu lấy mẫu khi worktree đang chuyển đổi, ghi snapshot bất định; không tự kết luận sạch.
 
-S2 — CỔNG CƯỠNG CHẾ:
-- Ruleset áp dụng CHỈ default branch/main (~DEFAULT_BRANCH hoặc match main chính xác), chống dev update/delete/force push; tuyệt đối không ~ALL. Chỉ actor Chief đủ quyền vào main; không phát key cho worker. Nếu bypass loại DeployKey thì đếm các write deploy key và chứng minh worker không thể đọc key KST.
-- Thử trên sandbox và ghi bằng chứng: dev push main bị chặn, dev tạo/push branch rồi mở PR được, dev sửa ruleset bị chặn, dev xóa/force-push main bị chặn, Chief dùng đường ký duyệt thật push main được, Actions không chạy.
-- Chưa có identity độc lập để đo một test: ghi UNKNOWN, KHÔNG giả PASS; hardlock FAIL không được quảng cáo đủ an toàn production nhưng không cấm báo chứng cứ về coding song song.
+## S1 — R0: PHẢI CÓ KQ READ-ONLY TRƯỚC KHI TẮT
+1. Kiểm từ VPS root thực tế của mã Agent Data / Web (dự kiến docker/agent-data-repo, docker/nuxt-repo): git branch, HEAD, status tracked/untracked, upstream/remotes đã che, nhánh backup vps-daily, GitHub refs. Kiểm mã thực đang chạy theo image/build labels, hashes/evidence: **HEAD không tự coi là image đang chạy**. Mã ui-preview không phải nguồn web-test.
+2. Liệt kê từng GitHub Actions workflow, lịch, run, chức năng thật và phụ thuộc production; phân loại MIGRATE (đã có đường Guard/Kuma/backup vận hành) hay BỎ. Chỉ dẫn nguồn bằng chứng, đừng giữ Action «chạy vì có sẵn». Kiểm cron/reverse backup VPS→GH có thể gây merge/pull nhầm mà không đụng đến job đó.
+3. Lập ma trận định danh/quyền có thể push/main/admin của 2 repo bằng tên actor + permission (KHÔNG lấy hoặc in token, SSH private key); Dependabot hiện có. R6 đọc thử đường gọi Dot→Codex, Codex cloud/Claude cloud; không có API/receipt thật ghi UNKNOWN (không chặn R1).
+4. **HARD STOP S1→S2:** nếu một workflow hiện làm việc sản xuất/canh/backup mà chưa có đường thay đang hoạt động, hoặc Codex không đủ quyền chỉnh GH, hoặc có Claude Code RUN hiện hành đang phụ thuộc Actions, thì ghi DỪNG ở mốc này và KHÔNG tắt. Không chạy gì trên VPS để «tạo đường thay» trong RUN này.
 
-S3 — BA VIỆC THẬT, CÓ TEST:
-- GHMP-01 | task_contract/ + tests/task_contract/: hàm kiểm phiếu JSON có task_id, goal, done_when, worker, allowed_paths, deadline; báo lỗi rõ. Test python3 -m unittest discover -s tests/task_contract -v. Worker: Codex.
-- GHMP-02 | pr_scope/ + tests/pr_scope/: nhận changed_paths + allowlist, từ chối path vượt phạm vi và dạng ../; test python3 -m unittest discover -s tests/pr_scope -v. Worker: Hermes.
-- GHMP-03 | pr_report/ + tests/pr_report/: đọc danh sách kết quả PR từ JSON giả và xuất bảng Markdown buổi sáng, mỗi PR một dòng; test python3 -m unittest discover -s tests/pr_report -v. Worker: Claude cloud.
-- Mỗi việc thành một GitHub Issue với sáu ô Mã; mục tiêu/DoD+test; khu tệp được sửa; phụ thuộc; ghế; giới hạn/điều cấm. Mỗi ghế clone/worktree riêng, nhánh dev/<seat>/<task-id>, PR liên kết Issue; không ai được sửa cùng root config. Nếu Claude đồng thời giữ vai Chief, phải có reviewer khác hãng độc lập cho PR Claude.
-- Nếu Codex có đường gọi thật thì giao và thu receipt. Nếu không, báo Owner BA lệnh ngắn có link Issue để Owner chuyển cho các ghế; không giả lập việc đã giao. Không giữ RUN chờ họ hoàn thành.
+## S2 — R1: CHỈ THAO TÁC GITHUB (SAU S1 PASS)
+1. Disable GitHub Actions ở cấp hai repo (không xóa YAML; không bật lại secret, không tạo runner, không re-enable deploy). Tắt Dependabot tự mở PR nếu quyền GitHub cho phép theo đúng phạm vi đã duyệt; cảnh báo nếu thao tác này khác cảnh báo bảo mật readonly.
+2. Kiểm run đang thực thi: chỉ hủy run khi R0 chứng minh không phục vụ job production/giám sát thiết yếu; không giả định tắt Actions là tự hủy run cũ. Không sửa branch/code/webhook trên GitHub.
+3. POST bằng GitHub API/settings: Actions disabled tại cả 2 repo; không có run mới sau mốc disable. Không cần push code thử ngay ở R1; push/PR smoke để R4 kiểm (tránh thêm commit cũ). Billing hiện hành có thể có phút trước lúc disable; KHÔNG báo tổng lịch sử 0. Chi phí Pro/budget chỉ là bước Owner sau KQ R1, không tự tạo payment.
 
-S4 — KẾT QUẢ:
-- Kiểm repo, SHA, Actions OFF, ba Issue, quyền main theo từng test, 1 nhánh dev tạo được; biên nhận URL và test. Ghi vào work/github-management/COLLAB.md P3 + Bảng + KQ@GHM-P1A-GITHUB-SANDBOX-20261023-01 XONG|DỪNG. XONG chỉ là bootstrap, KHÔNG nhận vơ P1-B và không tự merge/deploy.
-- Bất kỳ blocker: DỪNG rõ chỗ nào, NEXT_TRIGGER, nhả busy, không đổi mục tiêu, không mở project con.
+## S3 — KQ & HANDOFF
+- Ghi KQ@GHM-R0R1-20261024-01 XONG|DỪNG trong COLLAB, cập nhật Bảng cùng commit, nhả các tài nguyên; evidence ngắn: GH Actions status từng repo, mốc last run, danh sách job cần thay, HEAD Agent Data & đúng Web, code running vs HEAD, permission matrix, R6 khả thi có/không và các blocker.
+- Không tuyên bố R2/R3/R4 xong. Không tự phát RUN tiếp. Chỉ trình Owner mua Pro sau khi Action OFF thật, kiểm billing: ngân sách $0 + Stop usage là dự phòng không áp hồi tố cho usage trước đó.
 
-STEP_WALK_V1 (giới hạn ngân sách từng bước, không giữ task chờ):
-| Bước | Ai/trigger | SLA | Evidence | Lỗi ai biết | Tiếp |
+STEP_WALK_V1:
+| Bước | Ai/trigger | Deadline dự kiến | Evidence | Fail & owner | Kế |
 |---|---|---|---|---|---|
-| S0 | Codex sau Owner RUN | 15 phút | repo, quyền/identity | KQ DỪNG báo Host | S1 |
-| S1 | Codex/S0 PASS | 35 phút | GitHub repo, SHA, Actions OFF | DỪNG/Host | S2 |
-| S2 | Codex/S1 PASS | 30 phút | ruleset chỉ main + tests quyền | Hardlock FAIL riêng, Host nhận | S3 nếu nhánh dev hoạt động |
-| S3 | Codex/S2 branch PASS | 25 phút | 3 Issues và tin giao/receipts | DỪNG/Host | S4 |
-| S4 | Codex/S3 xong | 15 phút | KQ, Bảng, URL/SHA | Host/Owner | END |
+| S0 | Codex/Owner RUN hợp lệ | ≤15 phút | rights + VPS-GHI + 2 repo | DỪNG ngay nếu mất quyền, Host/Owner | S1 |
+| S1 | Codex/S0 PASS | ≤45 phút | Git VPS/code chạy, 2 repo workflows, identity, R6 path | thiếu critical backup⇒DỪNG, Host | S2 |
+| S2 | Codex/S1 GATE PASS | ≤20 phút | Settings Actions OFF, Dependabot, run status | FAIL⇒DỪNG, không lách, Host | S3 |
+| S3 | Codex/S2 XONG hoặc S1 DỪNG | ≤15 phút | KQ + Bảng + report | GPT Host đọc, Owner quyết | END |
 
-CẤM công khai code thực từ VPS, đụng prod, chạy Actions, mua Pro, tạo lịch/daemon, tự mở RUN mới; không giả danh agent khác và không báo hoàn thành đêm khi chưa thử.
+KHÔNG ĐƯỢC: sửa runtime VPS/Git remote/cron/Guard/nginx/compose/DB/Graph; đổi quyền SSH/token, cấp root, mua Pro, làm R2–R6, mở public repo, tự merge hoặc deploy. Không giữ terminal/VPS-GHI chờ người; nếu gate FAIL thì kết thúc sạch với NEXT_TRIGGER.

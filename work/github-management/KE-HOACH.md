@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**TRẠNG THÁI: DRAFT · Claude P5 ACCEPT_WITH_CORRECTIONS · chờ GPT Host đồng thuận · KHÔNG ĐƯỢC RUN.**
+**TRẠNG THÁI: KẾ HOẠCH ĐÃ ĐƯỢC CLAUDE P5 + GPT HOST P6 CHỐT KỸ THUẬT CÓ CỔNG; CHƯA OWNER GO, KHÔNG ĐƯỢC RUN.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
@@ -44,7 +44,7 @@ Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code
 | R6.1 | Giao việc đêm | Theo đường đã chứng minh ở R0.3; mỗi việc biên nhận / hạn / dừng sạch; lỗi một việc không chặn việc khác | Batch chạy khi Owner vắng |
 | R6.2 | Nghiệm thu đêm | 3–5 việc, KST duyệt từng PR, bảng sáng §4 | ≥ 2/3 NHẬN; không ai canh |
 
-**Thứ tự phụ thuộc:** R0+R1 (một RUN) → R2 → R3 → R4 → (R5 ∥ R6). Các mục đọc/chuẩn bị độc lập trong cùng một mốc có thể làm song song nếu không đụng cờ VPS-GHI; không tự chuyển mốc khi gate chưa PASS.
+**Thứ tự phụ thuộc:** R0+R1 (một RUN) → R2 → R3 → R4 → (R5 ∥ R6). R5/R6 chỉ song song ở phần **giao việc, code, mở PR, test riêng**; Chief phải ngừng merge mới vào main khi R5 đang pin release/build/restart/rollback. Các mục đọc độc lập không cần VPS-GHI; thao tác ghi thuộc khu đang chạy phải tuân thủ cờ. Không tự chuyển mốc khi gate chưa PASS.
 
 ## 3. Phân loại mã dự kiến tại R3 — phải đo rồi mới chốt
 - **agent-data-test:** backend Agent Data, RAG/ingest/search, công cụ MCP thuộc Agent Data và các test liên quan. Không đưa dữ liệu PG/Qdrant, secret, backup hay OS runtime.
