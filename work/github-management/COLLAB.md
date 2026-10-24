@@ -2,17 +2,17 @@
 Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an toàn
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp 23/10 yêu cầu THỬ P1 ngay theo phạm vi sandbox P2; chưa có RUN, chưa cho đổi production/công khai mã VPS/trả phí.
+Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROADMAP trước; Claude phản biện, GPT đồng thuận và Owner duyệt rồi mới RUN. Chưa cho thay hai repo mã/Actions/VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 10:45 +07 · GPT Chat · P3
-- 🎯 Mục tiêu: 3–5 agent code song song trên 2 repo thật, Chief merge an toàn và tiến tới giao batch ca đêm.
-- 🏁 Xong khi: 2 main được đối soát VPS, Actions 0, hard-lock thử thật, 3 agent/PR và CI/CD/rollback nghiệm thu trước chuyển nguồn.
-- 📍 Tiến độ: ✓ mở task → ✓ P1/P2 → ■ ROADMAP V0.1 chờ Owner → □ R0 Git → □ R1 Actions → □ R2 luật/vai → □ R3 baseline → □ R4 CI/CD → □ R5 cutover.
-- ✅ Đã xong: đọc Git VPS và trạng thái GitHub 24/10; soạn ROADMAP V0.1 để thống nhất, không RUN.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 10:39 +07 · GPT Chat · P4
+- 🎯 Mục tiêu: nhiều agent viết mã song song trên hai repo, Chief review/merge; cuối cùng giao batch ca đêm.
+- 🏁 Xong khi: Claude/GPT/Owner thống nhất kế hoạch; R0–R5 kiểm Actions, main, baseline, CI/CD/rollback; R6 chạy đêm có receipt và báo cáo.
+- 📍 Tiến độ: ✓ Mở task → ✓ Roadmap V0.1 → ■ KE-HOACH + Roadmap V0.2 trình Claude → □ Owner GO → □ Codex R0–R5 → □ Ca đêm R6.
+- ✅ Đã xong: kế hoạch chi tiết R0.1–R6.2 và cổng GO/NO-GO, đề bài phản biện Claude; chưa làm thay đổi hệ thống.
 - ■ Đang làm: — · 0 RUN active.
-- ⬜ Còn lại: Owner/Claude xem roadmap → Host soạn READY R0/R1 → Codex làm theo RUN, Chief đối chứng mỗi gate.
-- ➡ Kế tiếp: Owner chốt ROADMAP.md; không phát RUN tới lúc đó. NEXT_TRIGGER=OWNER_APPROVES_ROADMAP.
-- ⛔ Không làm/để sau: chưa tắt Actions, chưa động mã/secret/runtime VPS, chưa mua Pro/mở public hai repo, không chạy PROMPT public sandbox cũ.
+- ⬜ Còn lại: Claude phản biện → GPT Host tiếp thu/chốt đồng thuận → Owner duyệt → phát RUN Codex R0 và từng mốc tiếp.
+- ➡ Kế tiếp: Claude đọc COLLAB/ROADMAP/KE-HOACH và ghi ACCEPT hoặc BLOCKED kèm SHA. NEXT_TRIGGER=CLAUDE_PLAN_REVIEW_RECEIVED.
+- ⛔ Không làm/để sau: chưa tắt Actions, chưa sửa main/quyền/deploy/VPS, chưa mua Pro/mở public, không chạy pilot repo mới đã hủy.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -21,12 +21,13 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp 23/10 yêu cầu TH�
 5. “Chúng ta cũng đưa ra cả quy trình merge nữa: kỹ sư trưởng cần phải xem xét => đạt mục tiêu thì cho vào, nếu thấy ít thì sửa => nếu chưa được thì có thể yêu cầu viết lại và chỉ rõ?”
 6. “Ngoài ra những quy định đó phải dễ đọc, ai cũng đọc được và phải bắt buộc đọc trước khi làm.”
 7. “Hãy tập trung vào làm việc đó đã. Chuyện này không nhanh được đâu. Các bạn bàn kỹ với nhau.”
+8. “Bạn viết thành kế hoạch và roadmap trên task, sau đó tôi cần cloud tham gia phản biện, đồng thuận rồi mới triển khai.” — 24/10/2026.
 
 ### 2. Thế nào là hoàn thành
 “Tối đến có 1 loạt nhiệm vụ, sáng ra xong. Ông DOT nhắc ông codex đi đốc công các agent làm việc. Đơn giản chỉ có vậy thôi.”
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-- Chủ trương Owner 24/10: chốt ROADMAP trước và dùng hai repo mã hiện hữu. R0 chỉ đọc; R1 tắt Actions; R2 vai trò/quy định; R3 phạm vi + mã nền từ VPS; R4 CI/CD; R5 mới chuyển mã. Pilot repo mới public P2 đã bị thay thế, không được phép RUN.
+- Chủ trương Owner 24/10: viết KE-HOACH.md + ROADMAP.md trên task, Claude phản biện và GPT Host đồng thuận rồi Owner duyệt mới triển khai. R0 Git chỉ đọc; R1 Actions; R2 quy trình; R3 baseline VPS; R4 CI/CD; R5 chuyển nguồn; R6 ca đêm. Pilot public P2 bị thay thế, không RUN.
 - Ưu tiên cao nhất: NHÂN KHÔNG GIAN LÀM VIỆC cho nhiều agent cùng lúc, kể cả nhiều việc trên cùng một repo; không phân kho tùy tiện để né Git merge.
 - Thiết kế tối thiểu cần xét: mẫu việc + DoD; vai trò/định danh và quyền; cách đọc luật bắt buộc; nhân bản nơi viết/test; cấp/nhận việc và điều hành ban đêm; PR/review/merge từng trường hợp; cổng kiểm main mới nhất; kiểm thử/rollback; chi phí Actions=0; quan trắc/kết quả sáng.
 - Owner đồng ý CHI khoảng 4 USD/tháng khi đã đủ điều kiện, không có lệnh thanh toán ngay. Chưa chốt GitHub Pro thực sự cưỡng chế được mô hình “chỉ chìa kỹ sư trưởng”.
@@ -127,4 +128,15 @@ Ghế: openai-main · Bước/vòng: Owner yêu cầu roadmap trước khi tri�
 - Sửa an toàn: R0 chỉ đọc trước R1; không xóa main/force-push; backup main cũ, ứng viên mã nền, thử CI/CD trước chuyển vào main. Giữ hai repo private hiện có, không tự tạo repo mới.
 - **P2 và PROMPT GHM-P1A-GITHUB-SANDBOX-20261023-01 = SUPERSEDED_UNRUN.** Chưa READY/RUN/triển khai. Không tự kích hoạt từ hồ sơ cũ.
 - Codex executor đề xuất; Claude Code CLI Chief review độc lập; GPT Host; Owner chốt GO và mutation runtime. NEXT_TRIGGER=OWNER_APPROVES_ROADMAP; 0 RUN active.
+
+## P4 · GPT Host 24/10/2026 — KẾ HOẠCH VÀ CLAUDE REVIEW
+Ghế: openai-main · Bước/vòng: kế hoạch R0–R6 · review 1/1 · Based_on: Owner 24/10 và P3 · Scope: chỉ hồ sơ github-management.
+Trạng thái: OPEN_FOR_CLAUDE_REVIEW / DRAFT_NO_RUN.
+- Đã lập KE-HOACH.md (mỗi mốc các đầu việc, phạm vi, chủ trách nhiệm, DoD, gate, rollback) và ROADMAP V0.2 (thêm R6 thử vận hành ban đêm). Chưa có quyền thực thi.
+- **Claude Reviewer phản biện một vòng:** đọc root AGENTS.md → COLLAB §0/Bảng/P3/P4 → README → ROADMAP.md → KE-HOACH.md. Trả lời đúng 6 câu hỏi trong KE-HOACH §6, kiểm an toàn Actions, quyền GitHub private, nguồn mã VPS, merge stale, deploy theo SHA và đường gọi DOT/Codex.
+- Ghi một P-entry: ACCEPT / ACCEPT_WITH_CORRECTIONS / BLOCKED, kèm SHA, evidence, thay đổi tối thiểu nếu có. Claude được sửa nháp theo luật A5 nhưng **không phát READY/RUN**.
+- GPT Host đọc diff, ghi disposition từng ý. Chỉ khi GPT và Claude đồng thuận mới trình Owner GO và chuẩn bị RUN đầu tiên cho Codex R0. Không đồng thuận về quyền/mất mã/production thì nêu đúng điểm Owner phải quyết.
+- PROMPT pilot repo public cũ vẫn SUPERSEDED_UNRUN. Không thay GitHub code, Actions, secret, VPS, production trong lượt này.
+- NEXT_TRIGGER=CLAUDE_PLAN_REVIEW_RECEIVED.
+
 

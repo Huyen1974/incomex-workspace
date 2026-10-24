@@ -1,5 +1,6 @@
-# ROADMAP — github-management V0.1 · 24/10/2026
-**Trạng thái: DRAFT_CHƯA_DUYỆT. Tài liệu kế hoạch, KHÔNG PHẢI LỆNH RUN.**
+# ROADMAP — github-management V0.2 · 24/10/2026
+**Trạng thái: REVIEW_REQUESTED / CHƯA ĐỒNG THUẬN / KHÔNG RUN.**  
+Kế hoạch thực hiện chi tiết và đề bài Claude: [KE-HOACH.md](KE-HOACH.md). Phải có Claude phản biện, GPT đồng thuận, Owner duyệt trước khi chạy.
 Ưu tiên 1: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu, Claude Code CLI làm kỹ sư trưởng review/merge; sau đó mới tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 
 ## 0. Giới hạn trước khi triển khai
@@ -17,6 +18,7 @@
 | **R3 — Phân phạm vi + mã nền mới nhất** | Chốt module/path cho 2 kho; nhận diện DOT/Graph/systemd/nginx/Guard/config khác chưa có nhà. Đóng dấu HEAD main cũ bằng nhánh/tag archive. Lấy snapshot tracked code từ VPS thực đang chạy, loại secret/.env/data/dump/backup/build sinh, tạo branch baseline-candidate và manifest so từng file/hash. | Mọi path có chủ hoặc OUT-OF-SCOPE; bản nguồn được xác minh là đang phục vụ; candidate sạch, có điểm quay lại main cũ; GitHub không đưa mã cũ xuống VPS. | **Không xóa main, không force-push, không reset --hard hay tự động kéo xuống VPS.** Chỉ chuẩn bị ứng viên, chưa đổi SSOT. |
 | **R4 — Thử CI/CD không Actions** | Từ candidate cho 3 worker độc lập clone/worktree, nhận 3 việc khác vùng, đẩy 3 branch/PR thật; Chief lấy HEAD mới nhất, dựng merge-candidate, test DoD+regression, xử lý conflict, quyết định; chạy CD dry-run/staging, kiểm rollback. | 3 agent/3 workspace/3 PR, ≥2 PR được Chief nhận, giữ đủ mã cũ/mới, Actions 0; kiểm thử thật và staging/dry-run PASS. | Dry-run không tương đương deploy production. Môi trường test phải cô lập; VPS1 swap hiện gần cạn. |
 | **R5 — Chuyển mã/nguồn deploy** | Chỉ sau Owner GO: đưa baseline đã kiểm vào main theo **forward commit** có rollback, không phá lịch sử. Bật/test hard-lock main bằng actor thực; VPS fetch đúng release SHA bằng quyền read-only qua deploy gate, smoke/rollback thật; chỉ tắt backup ngược VPS→GH khi xác minh mã đã khớp. Sau đó mới chuyển viết mã hàng loạt qua GitHub và thử ca đêm DOT→Codex. | 2 main chứa đúng mã được chốt, bảo vệ branch có phép thử âm, VPS không thể pull nhầm mã cũ, một bản release có thể quay lại; 3–5 agent code song song, sáng có bảng kết quả. | Không auto-deploy mỗi push, không đổi production ngoài RUN và Guard, không xóa nhánh/lịch sử cũ. |
+| **R6 — Thử vận hành ban đêm sau R5** | Kết nối DOT→Codex→worker bằng hội đồng hiện có, giao batch 3–5 việc, có biên nhận, thời hạn và báo cáo PR/test sáng. | Ca đêm không cần Owner canh, có trạng thái và receipt từng việc, không tự deploy. | Thiếu đường gọi/receipt ⇒ NO-GO R6, không chạy nền giả. |
 
 ## II. Ba điều chỉnh quan trọng
 1. “Tắt Actions đầu tiên”: R0 read-only là bước kiểm an toàn, **R1 là thay đổi thật đầu tiên** sau khi Owner ký kế hoạch; không làm mất monitoring/backup đang phụ thuộc Actions.
