@@ -5,18 +5,18 @@ Tên việc: Xây dựng hệ sổ Directus dùng lâu dài — chuyển thiết
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 23/10/2026: lập việc + ô 1 (14:37, 15:02, 16:49); giao Codex làm Host (P06); 17:03 chốt hướng: «bây giờ bạn hiểu vấn đề rồi thì bạn sửa lại cái yêu cầu trên task để làm đúng vấn đề đi» (3.00); 17:26 chốt Đích (ô 1). **Chỉ đạo bổ sung hiện tại:** GPT cùng Codex làm co-host để sửa nhanh; vùng NHÁP phải làm, nhìn và hiệu chỉnh trực tiếp bằng collection thật trong Directus Studio, không phải HTML khác; đầu tiên kiểm kê collection hiện có; ưu tiên Công thức đã tương đối khả thi. Ô 2 và mọi việc ghi production vẫn chờ Owner gật từng việc.
 Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT đang làm host». Codex: thành viên (Host vòng P06–P15). Claude Chat: rà. Các lệnh RUN/production theo quyền Host và Owner.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 08:10 +07 · GPT Host · P21 · G0 CHỐT / B0 CHỜ CHUYỂN LỆNH
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 · GPT Host · P23 · B0 READY / CHỜ OWNER DÁN LỆNH
 - 🎯 Mục tiêu: **collection Directus có thật và xem/sửa ngay trong Studio**, tận dụng sổ đang có; HTML cũ chỉ là nguồn đối chiếu chuyển dữ liệu, không làm phiên nháp HTML mới.
 - 🏁 Xong khi: kế hoạch P19/P20 được chốt G0, B0 trả về kiểm kê Directus + PG/DOT liên quan và phương án B1 Công thức; B1 phải nhìn/sửa được bản ghi thật trong Studio sau khi Owner duyệt G1.
 - ✅ Đã làm: P13 chốt mục tiêu collection; P14 rà SSOT và DOT; P15 tiếp nhận chỉ đạo mới, chuyển GPT thành co-host và đưa kiểm kê collection lên đầu. Giữ mọi HTML cũ làm lịch sử, không tiếp tục chế tác giao diện nháp.
 - 📍 Tiến độ: [✅ G0 **CHỐT KẾ HOẠCH**] → [■ B0 **CHỜ OWNER DÁN LỆNH**] → [□ B1 Công thức] → [□ B2 Sổ khác] → [□ B3 MMOW/MOW] → [□ B4 Lên thật] → [□ B5 Home đọc dữ liệu].
-- ■ Đang làm: chuẩn bị lệnh **B0 chỉ đọc** tại PROMPT.md · 0 RUN active · NEXT_TRIGGER=OWNER_HANDOFF_B0.
+- ■ Đang làm: **B0 đã có Reviewer ACCEPT và GPT Host READY cùng bản PROMPT**; chưa STARTED, 0 RUN active. NEXT_TRIGGER=OWNER_HANDOFF_B0.
 - ⬜ Còn mở: B0 đo collections Directus và PG tables liên quan/SSOT/DOT; B1 Công thức phải có tên chuẩn và quyền được duyệt G1; B2–B5 theo §3.KH. Studio xem/quản lý, AI ghi qua DOT; G2 cho production.
 - ✅ P17 · 24/10 · Owner bổ sung: chỉ sửa trong Directus không sửa HTML; làm MOW 001 xong làm tiếp 002–035, thêm MMOW 008/009; B0 rà các table PG hiện hữu để chọn bảng sẽ dùng; B4 đưa lên production **từng sổ/nhóm đã ổn định** chứ không chờ cả vùng NHÁP. Đã ghi vào roadmap; **chưa chạy kiểm kê PG/Directus, chưa tạo/sửa bảng**.
 - 🟡 P16 · 23/10 20:05 · Claude đã rà P12–P15 theo Owner 19:58: đồng thuận hướng collection-first + 7 điểm sửa → GPT Host áp thẳng rồi soạn lệnh B0, không cần vòng rà nữa.
 - 🟢 P20 · 24/10 07:45 · Owner 07:31: không dùng chữ «thử/test» — đang làm thật, không có giai đoạn thử. Claude đã đổi chữ trong kế hoạch (B3 = «Làm MMOW 007 cho MOW 001 → 002–035») và ghi Host = GPT.
-- 🟡 P22 · 24/10 08:45 · Claude Reviewer: đồng thuận đủ với P21. PROMPT đã bổ sung RUN_ID / nơi chạy / đường đọc; ACCEPT trên bản PROMPT `bb9404b9`. Thiếu đúng 1 việc: GPT Host ghi READY trên cùng bản.
-- ➡ Kế tiếp: GPT Host ghi READY (SHA 40 ký tự của bản PROMPT `bb9404b9`) → 😊 Owner dán câu chuẩn DROOT38 cho Claude Code → 🤖 B0 chỉ đọc → GPT Host → Owner quyết G1 cho B1. NEXT_TRIGGER=HOST_READY_B0.
+- ✅ P22–P23 · 24/10 · Claude Reviewer ACCEPT trên last-touch PROMPT `bb9404b9`, GPT Host đã kiểm tra không có STOP_REQUESTED/HOLD/busy và ký READY đúng bản; B0 chỉ đọc đủ điều kiện chuyển lệnh.
+- ➡ Kế tiếp: 😊 Owner dán **đúng một câu DROOT38** gửi Claude Code cho task này → 🤖 Claude Code đọc gate, chạy B0 chỉ đọc, ghi STARTED/KQ và báo cáo → GPT Host kiểm báo cáo, trình Owner G1 cho B1. NEXT_TRIGGER=OWNER_HANDOFF_B0.
 - ⛔ Không tự ghi Directus/PG, mở quyền, đổi tên/xóa collection trong lượt chỉnh tài liệu này.
 
 ### Chuẩn giao diện đã giữ · lượt chỉnh trang chủ trước P12
@@ -356,13 +356,20 @@ Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều ch
 - Owner gật 3.01 (dùng lại `dot_tools`). Bước đang làm vẫn là B1. Lệnh khảo sát B1-b gộp luôn phần đọc danh sách collection cho B3 để Claude Code chạy 1 lần.
 - Gửi Codex: đọc ô 1 Đích → 3.00 → 3.01 → 3.02 → 3.03; đồng ý thì soạn lệnh khảo sát chỉ đọc B1-b; khác ý ghi P12.
 
+### P23 · 24/10/2026 · GPT Chat Host · ký READY đúng PROMPT Reviewer đã ACCEPT
+READY@bb9404b9ab1db5eec37b25da37fc4f59c5dad0d7
+- RUN_ID: `NDW-B0-INVENTORY-20261024-01` · PROMPT last-touch commit `bb9404b9ab1db5eec37b25da37fc4f59c5dad0d7` đã đối chiếu `workspace_log`; HEAD repo có thể đi tiếp do COLLAB, nhưng PROMPT **không bị sửa sau commit được Reviewer ACCEPT**.
+- Verified: PROMPT có `RUN_ID`, `Executor_Surface`, `Write_Path`; công việc B0 chỉ đọc metadata và báo cáo, `dot-schema-snapshot` chỉ được ghi một tệp snapshot JSON tại thư mục đã ghi; không chạy các DOT có thể ghi Directus/PG; có STARTED và KQ; council roster GPT Host / Claude Reviewer / Codex thành viên / Claude Code worker đủ.
+- Không phát hiện `STOP_REQUESTED`, `HOLD` hoặc `STARTED` hiện hành trong COLLAB; không có RUN active được ghi nhận. **Đã đủ ACCEPT + READY cùng PROMPT**, chỉ còn Owner chuyển câu DROOT38 đúng việc. Không tự chạy, không mở G1 hoặc G2.
+- Câu lệnh Host giao Owner phải đúng DROOT38 trong root `COLLAB.md`, không chép RUN_ID/SHA vào câu lệnh cho executor. Kể từ P23 **không sửa PROMPT**; nếu có thay đổi PROMPT thì READY/ACCEPT hiện tại tự mất hiệu lực.
+
 ### P22 · 24/10/2026 08:45 +07 · Claude Chat Reviewer · rà P21 + PROMPT B0
 - **Đồng thuận nội dung: ĐỦ.** GPT P21 nhận cả 3 điểm P20 (PG chỉ soi chi tiết bảng liên quan cỗ máy · ≤ 5 phút cho 1 bản ghi thường, đo thật · Studio để xem/quản lý, AI ghi qua DOT) và nghĩa «không có giai đoạn thử» (bản ghi là thật; vẫn kiểm kỹ thuật và nghiệm thu; B4 kích hoạt tại chỗ, migration chỉ khi B0 chứng minh cần). Không còn điểm khác ý.
 - **Chưa đủ thủ tục để chạy (AGENTS A6 + DROOT38):** PROMPT thiếu `RUN_ID`, `Executor_Surface`, `Write_Path`; chưa có Host READY và Reviewer ACCEPT trên cùng bản PROMPT; câu gửi Claude Code trong P21 không phải câu chuẩn ⇒ Claude Code sẽ dừng ở read-gate, mất 1 vòng.
 - **Đã bổ sung PROMPT** (Reviewer được sửa khi còn DRAFT; không đổi phạm vi chỉ đọc): RUN_ID `NDW-B0-INVENTORY-20261024-01` · Executor_Surface · Write_Path · đường đọc đã biết (`dot-schema-snapshot`; PG Census `/reports/report-pg` + `/reports/report-balo-table` — 24/10 có 393 table, không phải ~351; 4 DOT chế độ check/dry-run) · danh sách DOT KHÔNG chạy vì có ghi (`dot-collection-health` ghi `system_issues`; `dot-collection-create` ghi 6 sổ hệ thống…) · dòng STARTED/KQ.
 - **Hội đồng (DROOT44):** sửa bảng COUNCIL_BOOTSTRAP_V1 theo thực tế — GPT Chat Host · Claude Reviewer (khác hãng) · Codex thành viên · Claude Code worker.
 - ACCEPT@bb9404b9ab1db5eec37b25da37fc4f59c5dad0d7 · Reviewer Claude Chat · RUN_ID NDW-B0-INVENTORY-20261024-01.
-- Việc còn lại của GPT Host: đọc lại PROMPT bản `bb9404b9`, ghi `READY@` kèm đúng SHA 40 ký tự đó vào COLLAB; không sửa PROMPT nữa (sửa là mất ACCEPT, phải rà lại). Sau đó Owner dán câu chuẩn DROOT38.
+- GPT Host đã kiểm tra và ký READY tại mục P23 trên đúng bản PROMPT này, không sửa PROMPT; bước kế là Owner dán lệnh chuẩn DROOT38.
 
 ### P21 · 24/10/2026 08:10 +07 · GPT Host · CHỐT CUỐI P19/P20, G0 → B0 CHỈ ĐỌC
 **Kết luận:** Chấp nhận P19 đã được Claude cập nhật P20. Owner yêu cầu GPT «kiểm tra lại và chốt phương án cuối cùng để thực hiện» — hiểu là đồng ý kết thúc vòng bàn và cho triển khai **G0 giới hạn đúng B0 chỉ đọc**, không phải duyệt tạo/sửa schema hay production (G1/G2 giữ nguyên). Không có vòng phản biện nữa. B0 chỉ bắt đầu khi Owner **chuyển lệnh thủ công** cho Claude Code; GPT không tự phát RUN.
