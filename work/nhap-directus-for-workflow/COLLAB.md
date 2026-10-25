@@ -137,42 +137,24 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 - Cần đạt: (1) thước đo chính = thời gian cho 1 việc; 1 tiếng/việc là không chấp nhận · (2) làm trong Directus để nhẹ và dùng lại về sau, không làm 2 lần · (3) không làm lại đống cũ: chép/move tệp HTML không tính là tiến độ · (4) bảng đầu tiên = Bảng DOT ⚠ **đã thay** bằng PG Tự quản (Owner 24/10 16:55; Bảng DOT nay là một khung nhìn, §3.TQ mục 2); nguyên tắc còn giữ: cái gì Directus đã có thì dùng luôn, thiếu DOT thì viết.
 - Hết hiệu lực từ 3.00: vẽ/chép/move dữ liệu HTML (P04–P07; tệp đã có giữ nguyên, không xoá) · lộ trình L0–L6 (3.1) · P09 mục 3 (dựng 4 collection 1 lượt) lùi sau Bảng DOT · **từ 24/10 16:55:** «bảng đầu tiên = Bảng DOT» · **P38:** lệnh khảo sát 3.01 B1-b (KHÔNG CHẠY).
 
-#### 3.TQ THẺ KIẾN TRÚC «PG TỰ QUẢN» — NGUỒN DUY NHẤT (P38–P39: ĐỊNH NGHĨA + SƠ ĐỒ + HỢP ĐỒNG, chờ TS1 kiểm chứng)
+#### 3.TQ CẤU TRÚC «SỔ KIỂM ĐẾM TÀI SẢN» — PG quản PG · BẢN CHỐT DUY NHẤT (P40 · vẽ lại theo Owner 25/10 15:25; bản P38–P39 xem git `0e018723`)
 **0. Đọc trong 1 phút**
-- **Là gì:** «PG Tự quản» (Owner gọi «PG quản PG», «master of master», 24/10) là **một màn hình Directus**: mỗi vật trong PG và mỗi DOT đã vào `dot_tools` là **một dòng**, trả lời **là gì · thuộc hệ nào · có dùng cho Workflow không · giữ hay bỏ**. «Sổ PG Tự quản» là tên gọi của chính màn hình này — **không phải sổ đăng ký thứ hai để chép tay**: phần «có gì» do máy lấy từ PG (Cách A đọc thẳng; Cách B máy chép vào bảng đệm, không ai sửa tay). Bảng mới duy nhất người quyết ghi vào là Lớp-3.
-- **Phạm vi bản đầu:** database chính của Incomex (TS1 xác nhận còn database nào khác) · mọi schema trừ `pg_catalog`, `information_schema`, `pg_toast` · loại = bảng · view · view vật chất · index · sequence · hàm/thủ tục · trigger · extension (kể cả bảng `directus_*`, vì cũng là bảng PG) + collection/flow Directus + DOT. Cột, ràng buộc không làm dòng (đếm theo bảng). Danh sách loại chốt ở G1·TS2 sau khi TS1 đếm.
-- **Để làm gì:** Owner nhìn là biết **có gì · vướng gì**; trước khi tạo vật mới, agent tra **đã có chưa**; là nền để về sau dùng trigger/hàng đợi của PG cho Workflow mà không loạn.
-- **Thứ tự:** PG Tự quản dùng được (TS1 → TS5) → Công thức (B1) → Workflow (B2–B5).
-- **Một câu:** PG tự biết → Graph/bot làm giàu → người chỉ quyết phần máy không tự biết, ở đúng một nơi.
-**1. Tinh thần (Owner 24/10 16:55 · 25/10 09:40 · 10:28 · 13:18)**
-- TT1 Tự động **tối đa**, không phải 100%; **không ép PG** làm việc nó không làm được. Câu hỏi thường trực: «phần tự động này đã dùng hết tính năng PG chưa?»
-- TT2 Chỉ dùng cái **có sẵn** (PG · Directus · DOT · Graph); không tạo mới khi đã có; phức tạp = thất bại.
-- TT3 Vật **ngoài PG** (DOT, script…): khai vào PG **1 lần**; bot đếm so đĩa ↔ PG; lệch thì báo **ở lần đếm kế tiếp**.
-- TT4 PG giữ **phụ thuộc nội bộ** và **quan hệ có sẵn trong schema** (FK…). Quan hệ ngoài PG (bot gọi DOT, mã gọi bảng) lấy từ nhãn đầu tệp/Graph — PG **không tự đoán**.
-- TT5 Người **nhìn là hiểu**: có gì · vướng gì. Bài AI chưa biết giải → **mang lên Owner** bàn ý tưởng.
-- TT6 Ghi **ngắn, đúng bản chất**: ai đọc cũng làm được ngay, sai thì biết ngay, không ai phải nhớ.
-- TT7 **Khai tối thiểu**: chỉ khai **ý nghĩa máy không tự lấy được**, **1 lần, tại nơi sinh ra vật** (mục 5). Không khai tay: tên, kiểu, cột, quan hệ PG, thời điểm hay số lần dùng.
-- TT8 **Thang nguồn**: ① PG có sẵn → ② Graph / bot → ③ AI rà bổ sung khi có việc (cách cuối; không đặt lịch AI tự gọi).
-**2. Kiến trúc — 3 lớp, mỗi lớp một nhà**
-- Lớp-1 **PG tự biết** (các loại ở «Phạm vi»): PG tự ghi, không ai khai; màn hình đọc thẳng sổ nội bộ PG (Cách A) hoặc máy chép vào bảng đệm (Cách B).
-- Lớp-2 **Khai 1 lần + bot đếm** (vật ngoài PG; bản đầu chỉ DOT). Nhà của DOT = **tệp DOT trên đĩa** (tên + mô tả đầu tệp; 3.01 — Owner gật 23/10 17:26); tác giả DOT viết mô tả (Khai-1). `dot_tools` (trong PG) và `00-SO-DOT.tsv` là **bản máy đọc lại**, không sửa tay — hiện `dot_tools` đang lệch đĩa (3.01 D3), chưa tin được cho tới khi TS1 đo. Công cụ có sẵn: `dot-dot-register` (đưa DOT vào `dot_tools`), `dot-dot-health` (bot đếm).
-- Lớp-3 **Quyết định người**: đúng **1 bảng mới** (Cách B: là các cột người trong chính bảng đệm) — hệ · Workflow · vùng · quyết định · ai/ngày/căn cứ, và **công dụng chỉ cho vật chưa có mô tả ở nguồn** (vật cũ, K16). Chỉ ghi khi Owner quyết; AI ghi qua DOT (N5).
-- **Mô tả/công dụng — một nhà:** vật có mô tả **tại nguồn** (Khai-1..3) thì nguồn ấy là nhà; Lớp-3 **không chép**. Vật cũ chưa có mô tả nguồn mới dùng Lớp-3 làm nhà dự phòng; nếu về sau nguồn bổ sung mô tả, **báo xung đột và xác nhận một nhà**, không lặng lẽ cho hai nơi sửa. Màn hình chỉ hiện một cột «Công dụng» với nhãn nguồn/độ tin cậy; **quyết định quản lý vẫn luôn ở Lớp-3**, không nhập thành mô tả mã nguồn.
-- **Màn hình** = Lớp-1 + Lớp-2 + Lớp-3 nối theo khoá. Chọn sau TS1:
-  - **Cách A** (ưu tiên): 1 view đọc thẳng PG + bảng Lớp-3 ⇒ 2 vật PG mới; luôn đúng hiện tại, không cần đồng bộ. Chỉ chọn khi TS1 **Thử-View** đạt. AI ghi Lớp-3 bằng DOT ghi bản ghi có sẵn (B0b đang tìm); không có ⇒ trình Owner, vì thêm DOT là vượt Trần của Cách A.
-  - **Cách B** (dự phòng): 1 bảng đệm gồm cột máy + cột Lớp-3, làm mới bằng 1 lệnh đối soát — hoặc hàm PG (= 2 vật PG mới, 0 DOT mới), hoặc DOT (= 1 vật PG mới + 1 DOT mới); chỉ tươi tới lần đối soát gần nhất.
-- **Khoá dòng:** database + loại + schema + tên (hàm thêm danh sách tham số); DOT: tên tệp. Cột bảng (10.099) không làm dòng riêng, chỉ đếm theo bảng. Vật bị xoá/đổi tên: dòng Lớp-3 **giữ nguyên**, màn hình gắn cờ ⚠ «mất vật» — không tự xoá quyết định (cả hai cách).
-- **Giá trị cố định:** Quyết định = Giữ · Sửa · Gộp · Tắt · Bỏ · Chưa quyết. Vùng = 🟢 đang dùng · 🟡 nuôi việc khác (bỏ là hỏng thứ khác) · 🔴 bỏ được · ⚪ chưa rõ (Bản đồ 29/07 §5). Workflow = Có · Không · Dùng chung · Chưa rõ. Hệ = danh sách cố định 23 hệ (Bản đồ §13.9.0, §13.10.0). **Cờ ⚠** = lệch / thiếu mô tả / mất vật (khác Vùng 🔴). Tắt = ngừng chạy, giữ để bật lại; Bỏ = xoá hẳn (làm ở việc dọn).
-- **Workflow 4 giá trị không được hiểu rộng:** `Có` = đã có bằng chứng tham gia Workflow (chưa xác nhận dùng hệ khác); `Dùng chung` = có bằng chứng phục vụ Workflow và hệ khác; `Không` = đã rà đủ phạm vi và có chứng cứ **chỉ phục vụ hệ khác**; `Chưa rõ` = thiếu bằng chứng, **mặc định**. Không dùng `Không` làm chứng cứ an toàn tắt/xóa; `pg_depend` trống không chứng minh `Không`.
-- **Kênh 2:** PG Census + Ba Lô giữ nguyên. PG Tự quản **không lấy dữ liệu** từ kênh 2, chỉ **đặt cạnh để so** tên/loại/số; lệch = cờ ⚠ có tên. Kênh 2 cũng không lấy dữ liệu từ PG Tự quản.
-- **Nhãn cũ** COMMENT ON (VUNG/HE, đo 07/2026): chỉ đọc, là bằng chứng lịch sử; quyết định mới chỉ ghi ở Lớp-3.
-- **Sổ cũ** `table_registry` · `collection_registry` · `meta_catalog` · `dot_tools`: **giữ nguyên** (còn chương trình dùng), không thay, không gộp, không ghi quyết định mới vào đó; hiện trên màn hình như mọi bảng khác. Bộ lọc «Bảng DOT», «Sổ của các sổ» trên màn hình chỉ là **khung nhìn**, nhà dữ liệu không đổi.
-- **Trigger về sau:** «0 trigger mới» áp cho PG Tự quản. Dùng trigger/hàng đợi của PG cho Workflow là việc của B2–B5, Owner duyệt riêng, có PG Tự quản làm nền.
-
-
-**2A. BẢN VẼ CẤU TRÚC (đây là mô hình đích, CHƯA có quyền tạo mới)**
-```text
-  [PG: pg_catalog / pg_stat_* / pg_depend / COMMENT] ── đọc ─┐
+- **Là gì:** «PG quản PG» (Owner 24/10, «master of master») = biết **chắc chắn PG có gì**, mỗi thứ **làm gì · thuộc hệ nào · dùng cho Workflow không · giữ hay bỏ**, nhìn được trên web.
+- **Làm thế nào:** **không dựng hệ mới.** PG đã có **3 sổ máy tự ghi** (đếm · danh sách vật PG · danh sách DOT). Chỉ thêm **1 sổ người quyết** (mục 2).
+- **Bắt đầu nhỏ:** bước đầu **chỉ đếm** bằng lệnh có sẵn, không tạo gì (mục 4). Đếm đủ, khớp rồi mới dựng sổ quyết định.
+- **Thứ tự:** TS1 → TS5 (§3.KH) → Công thức (B1) → Workflow (B2–B5).
+- **Một câu:** máy đếm và liệt kê → AI đề xuất → Owner quyết → ghi đúng 1 nơi.
+**1. Tinh thần (Owner 24/10 16:55 · 25/10 09:40 · 10:28 · 13:18 · 15:25)**
+- TT1 Tự động **tối đa**, không phải 100%; **không ép PG**. Luôn hỏi: «đã dùng hết tính năng PG chưa?»
+- TT2 Chỉ dùng cái **có sẵn**; phức tạp = thất bại.
+- TT3 Vật **ngoài PG** (DOT, script…): khai **1 lần**; bot đếm so đĩa ↔ PG, lệch thì báo.
+- TT4 Quan hệ trong PG do PG giữ; quan hệ ngoài PG lấy từ nhãn đầu tệp/Graph — **không đoán**.
+- TT5 Người **nhìn là hiểu** có gì · vướng gì; bài AI chưa giải được → mang lên Owner.
+- TT6 Ghi **ngắn, đúng bản chất**; không ai phải nhớ.
+- TT7 **Khai tối thiểu**: chỉ khai cái máy không tự biết, **1 lần, tại nơi sinh ra vật** (mục 5).
+- TT8 **Thang nguồn**: ① PG → ② Graph/bot → ③ AI rà bổ sung (cách cuối, không đặt lịch AI tự gọi).
+- TT9 **Đi từng bước nhỏ**: chưa biết đủ mình có gì thì chưa dựng gì khác.
+@@C5@@  [PG: pg_catalog / pg_stat_* / pg_depend / COMMENT] ── đọc ─┐
                       (Lớp-1, không khai tay)                │
   [Tệp DOT/script có mô tả tại nguồn]                        │
         └─ đường đăng ký ĐÃ KIỂM ─> [dot_tools có sẵn] ─ đọc ┤ (Lớp-2)
