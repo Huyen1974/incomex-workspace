@@ -883,5 +883,8 @@ Thêm một biển chỉ đường ở mục 0 của đề bài: `view.html` (40
 - Không mở thêm RUN. Hai tàn dư tài liệu của cơ chế cũ đã dọn bằng repo edit: `AGENTS.md` commit `956065148eb5c402b2d9935e8bbcd91faad3f02d` đổi `CÒN HỞ` → `ĐÃ KHÉP`; `work/hermes-joint-workspace/view.html` commit `75a6f158882e62281d2880ff05c0ace1cac4f6f6` bỏ trạng thái hiện hành chép tay và câu bắt sửa view cùng lúc.
 - Kết luận Host: mục tiêu của phiên này — **repo/COLLAB là SSOT thông tin; VPS Owner View là dẫn xuất tự động có cảnh báo khi lệch/hỏng** — đã đạt. Chỉ còn Reviewer close-check + archive, không còn việc triển khai.
 
+### Ghi chú Hermes · 2026-10-25 · thử quyền ghi COLLAB (HJW-HERMES-SIMPLE-20261024-01)
+- Dữ liệu thử, không điều hành: khoá agent-gw/hermes ghi được COLLAB của việc khác sau khi phạm vi ghi mở về work/*/COLLAB.md. Không đổi trạng thái việc này.
+
 ## Owner cần quyết
 - —
