@@ -13,12 +13,10 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 23/10/2026: lập việc + ô 1 (14
 Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT đang làm host». Codex: thành viên (Host vòng P06–P15). Claude Chat: rà. Các lệnh RUN/production theo quyền Host và Owner.
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 16:05 · Claude Reviewer · P40 · VẼ LẠI: 4 SỔ, CHỈ 1 SỔ MỚI · BẮT ĐẦU BẰNG ĐẾM / B0b READY
-#### KẾ HOẠCH NGẮN (P40 · Owner 25/10 15:25: vẽ lại cấu trúc, bắt đầu từ việc nhỏ) — chi tiết §3.TQ (cấu trúc) · §3.KH (bước)
-1. **Mấy sổ?** **4 sổ, chỉ 1 sổ mới.** S1 Sổ đếm = PG Census (có) · S2 Ba Lô — mỗi vật PG 1 dòng (có) · S3 `dot_tools` — DOT (có) · **S4 Sổ quyết định (mới)**: hệ · Workflow · vùng · giữ/bỏ. AI chỉ ghi S4; S1–S3 do máy sinh nên là kênh đối chứng.
-2. **Đếm thế nào?** TS1 chạy 6 phép đếm bằng lệnh có sẵn, chỉ đọc, không tạo gì → «Bảng kiểm đếm lần 1»: mỗi loại bao nhiêu · đủ chưa · thiếu tên nào.
-3. **Khai gì · bot nào?** Chỉ khai 4 thứ cho vật mới (1 câu mục đích DOT · «?» bảng mới · COMMENT hàm/view · quyết định Owner). 4 bot có sẵn so: PG ↔ Ba Lô · Census ↔ Ba Lô · đĩa ↔ `dot_tools` · vật chưa quyết.
-**Roadmap:** B0b → **TS1 ĐẾM** → **TS2 ĐỦ** → **TS3 SỔ QUYẾT ĐỊNH** → **TS4 PHÂN LOẠI** → **TS5 CANH** → B1 Công thức → B2–B5 Workflow.
-
+- 🗂 **Mấy sổ? 4 sổ, chỉ 1 sổ mới** (P40 · Owner 15:25): S1 Sổ đếm = PG Census (có) · S2 Ba Lô — mỗi vật PG 1 dòng (có) · S3 `dot_tools` — DOT (có) · **S4 Sổ quyết định (mới)**: hệ · Workflow · vùng · giữ/bỏ. AI chỉ ghi S4; S1–S3 do máy sinh nên là kênh đối chứng. → §3.TQ mục 2.
+- 🔢 **Đếm thế nào?** TS1 chạy 6 phép đếm bằng lệnh có sẵn, chỉ đọc, không tạo gì → «Bảng kiểm đếm lần 1»: mỗi loại bao nhiêu · đủ chưa · thiếu tên nào. → §3.TQ mục 4.
+- ✍️ **Khai gì · bot nào?** Chỉ khai 4 thứ cho vật mới (1 câu mục đích DOT · «?» bảng mới · COMMENT hàm/view · quyết định Owner). 4 bot có sẵn so: PG ↔ Ba Lô · Census ↔ Ba Lô · đĩa ↔ `dot_tools` · vật chưa quyết. → §3.TQ mục 5–6.
+- 🛣 **Roadmap:** B0b → **TS1 ĐẾM** → **TS2 ĐỦ** → **TS3 SỔ QUYẾT ĐỊNH** → **TS4 PHÂN LOẠI** → **TS5 CANH** → B1 Công thức → B2–B5 Workflow. → §3.KH.
 - 🎯 Mục tiêu: **«PG Tự quản» (PG quản PG)** — mỗi vật trong PG một dòng có địa chỉ: làm gì · thuộc hệ nào · dùng cho Workflow không · giữ hay bỏ. **PG tự khai «có gì», tự cập nhật**; người/AI chỉ ghi phần quyết định, mỗi thông tin một nơi. **Chỉ khai thác tính năng có sẵn của PG/Directus, tránh phức tạp** (Owner 25/10). Xem/lọc trên Directus Studio. Xong mới tới Công thức → Workflow; **không HTML nghiệp vụ mới**.
 - 🏁 Xong khi: Owner mở **một màn hình** thấy mọi vật PG (4 loại) + mọi DOT, mỗi vật 1 dòng có cột Quyết định; số khớp Census, thiếu/thừa có tên; AI chỉ ghi S4 sau khi Owner gật; bot báo lệch tới người; trong Trần (§3.TQ mục 7); **0 tắt/xoá**.
 - ✅ Đã làm: B0 MỘT PHẦN (P24); B0b ACCEPT/READY P26/P28; P29 kiểm PG Census 393 bảng và Ba Lô 385 tên (lệch 8 CHƯA ĐỐI SOÁT). P30 Claude đề xuất Sổ PG Tự quản và dữ liệu 29/07–01/08; **P31 GPT đồng ý hướng PG Tự quản nhưng chỉnh ba cơ chế**: chưa thay/xóa registry sống, không chép máy thành SSOT mới, không event trigger mặc định. P32–P37 chốt nguyên tắc; **P38 viết lại §3.TQ thành thẻ chốt duy nhất**, dọn chỗ mâu thuẫn, gắn ⛔ lệnh `--dry-run` cũ. P39 GPT thêm sơ đồ/nghiệm thu. **P40 vẽ lại theo Owner 15:25: 4 sổ, chỉ 1 sổ mới, bắt đầu bằng đếm.** Chưa tạo/sửa PG/Directus.
