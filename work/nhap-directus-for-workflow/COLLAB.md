@@ -228,11 +228,7 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 - **Kuma** = Uptime Kuma đang chạy trên VPS; **`system_issues`** = bảng hàng đợi sự cố có sẵn, UI đã đọc.
 - **Luật Nhà** = luật Owner 15/10: mọi sổ nghiệp vụ phải có nhà, ghi «sẽ làm» trước khi tạo.
 - Chữ cũ không dùng: «vùng NHÁP» (đã bỏ — làm thật), «kênh A/B» (gọi là kênh Census / kênh Ba Lô), «T1–T8/L1–L3» cũ của thẻ này (nay là TT1–TT8 / Lớp-1–3).
-@@OLDTABLE_P38@@
-| K4 | Phụ thuộc **nội bộ PG** | `pg_depend` + `pg_rewrite` + FK khi được khai | PG giữ quan hệ cấu trúc đã khai, **không bao phủ dynamic SQL, bot/app ngoài PG hoặc quan hệ nghiệp vụ chưa khai** |
-| K5 | Nhãn cũ VUNG/HE (đo 07/2026) | `obj_description()` — chỉ đọc | quá hạn 29/01/2027 ⇒ vàng |
-| K6 | Dung lượng | `pg_total_relation_size()` | — |
-| K7 | **Lần quét cuối**, không phải «lần sử dụng cuối» | PG **≥16**: `pg_stat_user_tables.last_seq_scan`/`last_idx_scan` + các đếm ghi/quét, `stats_reset`; TS1 xác nhận `server_version_num`/tên cột trên VPS | chỉ mô tả **scan** kể từ reset; **không xác định thời điểm ghi cuối hay truy cập mọi loại**, backup/vacuum/counters/reset có thể nhiễu; `NULL` hoặc scan cũ **không chứng minh bảng ngừng dùng**, cấm làm chứng cứ OFF duy nhất |
+@@OLDTABLE2_P38@@ PG **≥16**: `pg_stat_user_tables.last_seq_scan`/`last_idx_scan` + các đếm ghi/quét, `stats_reset`; TS1 xác nhận `server_version_num`/tên cột trên VPS | chỉ mô tả **scan** kể từ reset; **không xác định thời điểm ghi cuối hay truy cập mọi loại**, backup/vacuum/counters/reset có thể nhiễu; `NULL` hoặc scan cũ **không chứng minh bảng ngừng dùng**, cấm làm chứng cứ OFF duy nhất |
 | K8 | Hàm còn được gọi không | `pg_stat_user_functions` — cần bật `track_functions` (**Owner gật riêng**) | chưa bật ⇒ ghi «không đo được» |
 | K9 | Collection / Flow / quyền Directus | `directus_collections` · `directus_fields` · `directus_flows` · `directus_permissions` (nằm trong PG) | collection trỏ tới bảng không có ở K1 |
 | K10 | DOT trên đĩa ↔ đã khai trong PG | `dot_tools` + `dot-dot-register` + `dot-dot-health` (TS1 kiểm quyền/RO/lịch/log/đường báo) | đếm **tập tên**, phát hiện lệch và chứng minh tin tới người; lỗi từ tháng 7 chưa phải tình trạng hiện tại |
