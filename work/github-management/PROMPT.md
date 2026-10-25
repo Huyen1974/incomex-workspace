@@ -1,6 +1,6 @@
 # PROMPT — GHM C1A · CODEX CÀI GITHUB SELF-HOSTED RUNNER VÀ CHẠY CI THẬT TRÊN VPS
 RUN_ID: GHM-C1A-VPS-RUNNER-20261025-01
-STATUS: DRAFT_NOT_READY. Claude Reviewer rà P23 và PROMPT này, ACCEPT đúng last-touch SHA; GPT Host READY cùng SHA; Owner giao Codex mới RUN. Bản P22 `GHM-C1-CICD-VPS-20261025-01` đã có chữ ký nhưng SUPERSEDED_UNRUN (khác executor và cổng an toàn), KHÔNG DÁN CHẠY.
+STATUS: DRAFT_NOT_READY. Claude P24 đã rà, sửa tại chỗ 3 điểm (nguồn nhánh thử · tiêu chí XONG · Điều 30/31 cùng lượt) và ACCEPT last-touch SHA; GPT Host READY cùng SHA; Owner giao Codex mới RUN. Bản P22 `GHM-C1-CICD-VPS-20261025-01` đã có chữ ký nhưng SUPERSEDED_UNRUN (khác executor và cổng an toàn), KHÔNG DÁN CHẠY.
 
 **EXECUTOR: CODEX CLI/DESKTOP**, chạy từ Mac qua quyền GitHub + đường SSH/VPS đã được Owner cấp. Codex tự triển khai toàn bộ C1A, Claude chỉ Reviewer/KST cho các thao tác ghi main ở C1B/C2. Nếu Codex thiếu quyền ghi VPS hợp lệ ⇒ KQ DỪNG đúng blocker; không tự chuyển nhiệm vụ sang Claude.
 
@@ -23,14 +23,15 @@ ENTRY: root AGENTS.md/Đ30–31/DROOT56 → root COLLAB PROOT08/09 & VPS-GHI →
 5. Có biên nhận 2 runner online từ GitHub UI/API; runner persistent + dọn workspace sau job chỉ được báo PILOT có giới hạn, **không** báo ephemeral/isolated tuyệt đối.
 
 ## S2 — CI THẬT TRÊN 2 NHÁNH THỬ, KHÔNG GHI MAIN
-1. Với mỗi repo, tạo `dev/codex/ghm-c1a-probe` từ mã nguồn VPS/daily snapshot được xác minh, chỉ trong GitHub/clone riêng; không reset/pull/checkout cây phục vụ. Nếu snapshot chưa an toàn hoặc có secret/data ngoài Git thì DỪNG repo đó.
+1. Với mỗi repo, tạo `dev/codex/ghm-c1a-probe` từ nhánh `vps-daily-*` mới nhất đã có trên GitHub (job sao lưu đẩy = HEAD VPS) — làm hoàn toàn trên GitHub/clone riêng, không cần đọc hay ghi cây phục vụ; không reset/pull/checkout cây phục vụ. Nếu snapshot chưa an toàn hoặc có secret/data ngoài Git thì DỪNG repo đó.
 2. Tạo `.github/workflows/ghm-ci-vps-probe.yml` trên nhánh thử, `on: push` CHỈ nhánh này, `runs-on` đúng CI runner label; không dùng `workflow_dispatch` (đòi file trên default branch), không có bước deploy, không đụng các YAML cũ trên main.
 3. Chạy thật: Agent Data pytest nhóm test unit không cần DB thật; Web dùng pnpm/node theo `package.json`, install lockfile và một lệnh lint/typecheck/test có thật. Không bịa test; phải có test thực hữu ích trên cả hai repo chứ không chỉ echo version. Nếu phụ thuộc DB/secret hoặc tài nguyên không đủ thì ghi FAILED/UNKNOWN, không “sửa” bằng cách gắn DB/secret thật.
 4. Ghi URL GitHub run, SHA nguồn, runner label/ID, kết quả các bước, peak RAM/CPU, phút GitHub-hosted cho **probe**. Không tuyên bố tổng tài khoản 0 hosted-minutes vì ba audit cũ vẫn có thể chạy.
 
 ## S3 — POST, DỌN VÀ BÀN GIAO
 - Kiểm 2 repo: runner online, probe workflow đã chạy từ GitHub trên VPS và test có kết quả, GitHub Actions budget $0+Stop còn, ba audit nguyên vẹn, 15 workflows thừa vẫn disabled; Git top-level VPS/Guard và container ứng dụng không bị thay. Tránh đẩy đường dẫn/actor/secret nhạy cảm lên task PUBLIC; bằng chứng chi tiết cất vùng root-only của việc.
-- **KQ XONG chỉ khi 2/2 repo có test thực PASS trên VPS và không gây thay đổi runtime mã/dịch vụ cũ**. Nếu còn một repo lỗi thì KQ DỪNG/PARTIAL đúng repo, nêu blocker và đường rollback riêng runner mới. Trả cờ/không giữ phiên chờ.
+- **Điều 30/31 cùng lượt (Owner):** runner tự chạy lại khi VPS khởi động lại; đăng ký container/dịch vụ runner + cấu hình vào bảo vệ hiện có (code-ledger/Config Guard), Kuma theo dõi runner online; lưu script cài/gỡ runner vào repo + bảng công cụ để lần sau dùng lại.
+- **KQ XONG khi 2/2 repo có run GitHub chạy THẬT trên runner VPS, cài phụ thuộc xong và ít nhất 1 lệnh test/lint/typecheck có thật chạy GREEN; không thay đổi runtime mã/dịch vụ cũ.** Lỗi nằm ở MÃ đang thử (test cũ đỏ) mà runner/môi trường chạy đúng ⇒ chọn nhóm test đang xanh để làm GREEN, ghi test đỏ thành nợ mã — KHÔNG báo DỪNG vì mã cũ. Nếu runner/môi trường của một repo còn lỗi thì KQ DỪNG/PARTIAL đúng repo, nêu blocker và đường rollback riêng runner mới. Trả cờ/không giữ phiên chờ.
 - Khi XONG: giữ hai CI runner cô lập, ghi bước kế `GHM_C1B_BASELINE_DEV_CD`. **C1B** Codex chuẩn bị code baseline và dev CD thử local trên vùng riêng, Chief quyết nhập main, diễn tập rollback; **C2** Owner mua Pro nếu private + khóa main/Chief-only rồi mới cho auto-deploy khi main đổi. C1A KHÔNG tự RUN C1B/C2.
 
 CẤM: sử dụng runner nhận job PR có quyền root/docker.sock, đăng ký deploy runner đặc quyền trên VPS, phục hồi secret SSH GitHub→VPS cũ, bật workflow deploy cũ, force-push/merge main, sửa/đổi `origin`, ghép mã cũ vào mã sống, `rsync --delete`, SQL migration, copy compose/nginx, restart container ứng dụng/DB, mua Pro. Mọi đổi khác ngoài runner + nhánh/probe/STARTED/KQ ⇒ DỪNG và báo Host.
