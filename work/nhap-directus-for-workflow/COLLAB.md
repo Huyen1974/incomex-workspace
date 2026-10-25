@@ -199,34 +199,29 @@ Bot so: S1↔S2 · đĩa↔S3 · S2/S3↔S4  ⇒ lệch thì cờ ⚠ có tên
 - Đọc-2 Giờ sửa tệp log ≠ lần DOT chạy. Chỉ nhận dòng log ghi **đúng DOT + đúng lượt chạy**; không có ⇒ «CHƯA ĐO ĐƯỢC», không điền đè.
 - Đọc-3 Nhãn/mô tả khai báo (DOT «dự kiến ghi vào đâu») ≠ đã chạy, đã ghi thật.
 - Đọc-4 Có công cụ ≠ công cụ đang chạy đúng. Lịch chạy, quyền chỉ đọc, người nhận tin phải **đo ở TS1** rồi mới tính là có.
-**4. Bảng tra — cần biết gì · dùng cái có sẵn nào · sai thì biết bằng gì**
-| Mã | Cần biết | Dùng (có sẵn) | Sai thì biết bằng · lưu ý |
+**4. Đếm thế nào — lệnh nào (TS1: chỉ đọc, không tạo gì)**
+| Mã | Đếm gì | Lệnh có sẵn | Ra kết quả |
 |---|---|---|---|
-| K1 | Có bảng / view / index / sequence nào | `pg_class` + `pg_namespace` | số theo loại khác Census ⇒ cờ ⚠ có tên |
-| K2 | Có hàm nào; hàm nào do extension sinh | `pg_proc` + `pg_depend` (deptype `e`) + `pg_extension` | tổng hàm khác Census ⇒ cờ ⚠ |
-| K3 | Trigger nào gắn bảng nào, bật/tắt | `pg_trigger` (`tgenabled`), `pg_get_triggerdef()` | số trigger khác Census ⇒ cờ ⚠ |
-| K4 | Phụ thuộc trong PG | `pg_depend` + `pg_rewrite` + FK | không thấy SQL động, bot/app ngoài PG (TT4) |
-| K5 | Nhãn cũ VUNG/HE | `obj_description()` — chỉ đọc | sau 29/01/2027 ghi «nhãn hết hạn», không dùng làm căn cứ |
-| K6 | Dung lượng | `pg_total_relation_size()` | — |
-| K7 | Lần **quét** cuối · số ghi/quét | `pg_stat_user_tables`: `last_seq_scan`, `last_idx_scan` (PG ≥ 16), số ghi/quét; mốc reset `stats_reset` nằm ở `pg_stat_database` | Đọc-1; TS1 xác nhận phiên bản PG + tên cột |
-| K8 | Hàm còn được gọi không | `pg_stat_user_functions` — cần bật `track_functions` (Owner gật riêng) | chưa bật ⇒ «không đo được» |
-| K9 | Collection / Flow / quyền Directus | `directus_collections` · `directus_fields` · `directus_flows` · `directus_permissions` (nằm trong PG) | collection trỏ tới bảng không có ở K1 ⇒ cờ ⚠ |
-| K10 | DOT trên đĩa ↔ đã có trong `dot_tools` | `dot-dot-health` so tệp ↔ `dot_tools` | so **tập tên**, không chỉ số lượng; Đọc-4 |
-| K11 | DOT **dự kiến** làm gì, ghi vào đâu | nhãn đầu tệp theo luật DOT hiện hành (đọc qua `dot-dot-catalog`) + Graph đọc mã — **không phải khai thêm** | Đọc-3; thiếu ⇒ ⚪ CHƯA RÕ |
-| K12 | Quyết định · công dụng · hệ · vùng | bảng Lớp-3; giá trị khoá bằng `CHECK`; cột ai/ngày/căn cứ | ghi sai giá trị bị PG từ chối; Activity Directus không ghi lệnh SQL trực tiếp ⇒ căn cứ nằm ngay trong dòng |
-| K13 | Nhìn, lọc, bảng tổng | Directus: collection + ghi chú «?» + bộ lọc lưu sẵn + Insights (Loại × Vùng) | — |
-| K14 | Ai được ghi | vai trò/GRANT PG + Policies Directus + thẻ danh tính máy | thử ghi ngoài phạm vi phải bị từ chối (đo, không suy) |
-| K15 | Lần DOT chạy **đã xác minh** | log ghi đúng DOT + lượt chạy (TS1 tìm); cột có sẵn `dot_tools.last_executed` đang sai | Đọc-2; sửa cột = N4 |
-| K16 | Công dụng · hệ của vật cũ | ① nhãn K5 → ② Graph → ③ AI đề xuất, Owner duyệt theo nhóm | chưa nguồn nào ⇒ ⚪ CHƯA RÕ |
+| Đếm-1 | Mỗi loại có bao nhiêu (12 loại) | PG Census: bấm «Làm mới» `/reports/report-pg` (công thức ghi trong `dot/specs/report_pg.spec.json`) | 12 dòng: loại · số · giờ đếm |
+| Đếm-2 | Ba Lô đủ từng vật chưa (4 loại) | `dot-balo-reconcile --dry-run` (chế độ đọc) — in số và **tên** cần thêm / đã mất / lệch | 4 dòng: loại · S1 · S2 · thiếu (tên) · mất (tên) |
+| Đếm-3 | DOT trên đĩa ↔ `dot_tools` | đọc thư mục `dot/bin` (bỏ bản sao lưu theo `00-NHAN-THU-MUC.md`) + đọc `dot_tools`; so **tập tên** | số đĩa · số sổ · thiếu (tên) · thừa (tên) |
+| Đếm-4 | Lệnh đồng bộ Ba Lô còn chạy không, có lịch không | `dot-balo-one-click-guard` (chỉ đọc) + lịch systemd `incomex-balo-reconcile` | PASS/HOLD · lần chạy cuối có log |
+| Đếm-5 | Màn hình ghép hiện được ở đâu | đọc `directus_collections` tìm view đã đăng ký và mở qua đường đọc của DOT; xem khuôn report sống `/reports` có phân trang/lọc ~2.400 dòng không | Directus: CÓ/KHÔNG · report sống: CÓ/KHÔNG |
+| Đếm-6 | Bot DOT `dot-dot-health` an toàn để chạy theo lịch không | **đọc mã + cron, không chạy** | CÓ / KHÔNG + lý do |
+- Lệnh nào **chưa chứng minh chỉ đọc** (đọc mã thấy giao dịch chỉ đọc) thì **không chạy**, báo lại (P24).
+- Kết quả = **«Bảng kiểm đếm lần 1»** ghi vào repo, không ghi PG. Nhìn 30 giây biết: có bao nhiêu · đủ chưa · thiếu tên nào.
+- Số cũ (Census 393 / Ba Lô 385 ngày 24/10; Bản đồ 29/07) chỉ để đối chiếu, không thay việc đếm lại.
+- Thông tin thêm trên màn hình (đọc thẳng PG khi cần): mô tả `obj_description()` · dung lượng `pg_total_relation_size()` · lần quét cuối `pg_stat_user_tables` (Đọc-1) · bật/tắt trigger `pg_trigger` · phụ thuộc `pg_depend`.
 
 **5. Khai — danh sách ĐỦ: chỉ 4 thứ, mỗi thứ 1 lần, tại nơi sinh ra vật** (chỉ vật tạo **từ 25/10/2026**, bởi bất kỳ người hay agent nào; vật cũ, vật của extension/hệ thống không khai)
 | Mã | Vật | Khai gì | Ở đâu · lúc nào | Thiếu thì |
 |---|---|---|---|---|
-| Khai-1 | DOT / script mới | 1 câu mục đích (tên/đường/sha máy tự lấy) | đầu tệp, lúc tạo; `dot-dot-register` đưa vào `dot_tools` (TS1 kiểm đã tự gọi chưa — Đọc-4) | bot đếm báo lệch; thiếu mô tả ⇒ cờ ⚠ |
+| Khai-1 | DOT / script mới | 1 câu mục đích (tên/đường/sha máy tự lấy) | đầu tệp, lúc tạo; `dot-dot-register` đưa vào `dot_tools` (TS1 kiểm đã tự gọi chưa — Đọc-4) | Bot-3 báo lệch; thiếu mô tả ⇒ cờ ⚠ |
 | Khai-2 | Bảng / collection nghiệp vụ mới | 1 câu mục đích bảng + «?» **từng cột** (luật Owner 20/10: mọi bảng mới có «?» ở tiêu đề và từng cột); lấy sẵn từ Field/spec đã duyệt khi có | ghi chú collection/field của Directus (`directus_collections.note`, `directus_fields.note`), lúc tạo bằng DOT | «THIẾU MÔ TẢ» ⇒ cờ ⚠; không chặn tạo bảng |
 | Khai-3 | Hàm / view nghiệp vụ mới | 1 câu mục đích | `COMMENT ON` lúc tạo. Trigger: thông tin đọc từ K3; không mở khoá `COMMENT ON TRIGGER` đang bị chặn | «THIẾU MÔ TẢ» ⇒ cờ ⚠ |
-| Khai-4 | Quyết định Giữ/Sửa/Gộp/Tắt/Bỏ | chỉ khi Owner quyết, kèm ai/ngày/căn cứ; đổi được, giữ lịch sử | bảng Lớp-3, AI ghi qua DOT | «Chưa quyết» (≠ Bỏ) |
+| Khai-4 | Quyết định Giữ/Sửa/Gộp/Tắt/Bỏ | chỉ khi Owner quyết, kèm ai/ngày/căn cứ; đổi được, giữ lịch sử | S4, AI ghi qua DOT | không có dòng = «Chưa quyết» (≠ Bỏ) |
 - **Không có «Sẽ làm» cho vật PG.** «Sẽ làm» (Luật Nhà) chỉ áp cho **sổ nghiệp vụ** (Công thức, MMOW…) và ghi ở Sổ của các sổ (3.02) — thuộc bước B, không thuộc PG Tự quản.
+- **Không khai:** vật PG (Ba Lô tự thêm khi đồng bộ) · tên · kiểu · cột · quan hệ · số lần dùng · nơi DOT dự kiến ghi (đọc từ nhãn đầu tệp theo luật DOT hiện hành + Graph; thiếu ⇒ ⚪ Chưa rõ).
 
 **6. Canh — máy canh máy, không cần người canh**
 | Mã | Canh gì | Dùng có sẵn | Báo tới |
