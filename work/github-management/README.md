@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: C1A phục hồi — Claude P30 ACCEPT@2e33e0a7 (token Web cũ đã chết, 2 repo chạy cùng lượt); chờ Host READY + Owner RUN Codex.**
+**Trạng thái: C1A GHM-C1A-RESUME-20261025-02 — CI thật 2/2 GREEN (6/6 và 16/16 test); KQ DỪNG S3 P35 do nghiệm thu bảo vệ chưa đạt. Giữ kết quả; VPS-GHI đã trả. Host/Reviewer đọc hồ sơ riêng. C1B/C2 chưa chạy.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,10 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — `GHM-C1A-RESUME-20261025-02` cho Codex; Claude P30 ACCEPT@2e33e0a7, chờ Host READY cùng SHA + Owner RUN. KQ C1A cũ giữ nguyên lịch sử.
+6. work/github-management/PROMPT.md — `GHM-C1A-RESUME-20261025-02` cho Codex; Claude P30 ACCEPT + GPT P31 READY cùng SHA, Owner RUN đã thực hiện, KQ P35. PROMPT giữ nguyên.
+
+7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
+8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
 
 Mục tiêu duy nhất của việc này: nhiều AI nhận nhiều việc, **viết mã song song trên branch/workspace riêng**, Chief duyệt PR trên nền mới nhất, Owner xem bảng kết quả sáng. R1 dùng Actions trong hạn mức miễn phí với hard budget $0; Owner 25/10 15:18: mọi run đặt trên VPS bằng runner tự host; ưu tiên 1 là CI/CD chạy được.
 

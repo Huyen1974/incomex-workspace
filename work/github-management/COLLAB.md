@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 20:49 +07 · Codex · P32
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 21:36 +07 · Codex · P35
 - 🎯 Mục tiêu: Codex cài GitHub self-hosted runner trên VPS, cho 2 repo PRIVATE chạy CI/test thật 2/2 GREEN, sau đó C1B CD thử, C2 khóa main, C3 nhiều agent.
 - 🏁 Xong C1A khi: 2/2 repo có CI run thật trên VPS, log/URL/SHA/test GREEN, runner giới hạn 2 CPU/3GB, Guard/Điều 30/31/Kuma đạt và ứng dụng cũ không đổi.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ Codex P27 KQ DỪNG nguồn Web → ✓ P28 recovery → ✓ Claude P30 ACCEPT@2e33e0a7 → ✓ GPT P31 READY@2e33e0a7 → ■ Owner giao Codex RUN mới → □ C1A 2/2 CI → □ C1B → C2 → C3.
-- ✅ Đã xong: Host đọc toàn bộ PROMPT P30, xác minh last-touch SHA và chữ ký ACCEPT trùng khớp; READY đã ghi cùng SHA, PROMPT không sửa. Theo P30, bản Directus hiện có 0 session và không yêu cầu dùng/thử lại token cũ.
-- ■ Đang làm: Codex GHM-C1A-RESUME-20261025-02 · 1 RUN active · VPS-GHI đã giữ; PRE PASS, Agent Data CI GREEN 6/6; đang cài/chạy Web rồi bảo vệ/POST.
-- ⬜ Còn lại: Cài runner, chạy CI thật Agent Data trước/Web sau, Config Guard/Kuma/Đ30–31 và POST; lưu URL/SHA/log 2/2 GREEN hoặc blocker đúng repo.
-- ➡ Kế tiếp: Codex thực thi S1 Agent Data sau PRE mới; PROMPT last-touch 2e33e0a7c932d91d594c3ad8732550e64a2dfd41. NEXT_TRIGGER=CODEX_S1_AD_AFTER_PRE.
-- ⛔ Không giao Claude chạy thay, không viết lại PROMPT, không dùng token, không sửa main/production/bật deploy cũ/mua Pro, không tự mở C1B/C2.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A 2/2 CI GREEN → ⛔ C1A S3 DỪNG → □ C1B → C2 → C3.
+- ✅ Đã xong: Agent Data 6/6 và Web 16/16 test có sẵn GREEN trên runner VPS; giữ kết quả. [Báo cáo công khai đã lược thông tin](C1A-RESUME-REPORT.md).
+- ■ Đang làm: Không có RUN active của Codex; GHM-C1A-RESUME-20261025-02 KQ DỪNG S3; đã đóng kiểm tra tạm và trả VPS-GHI.
+- ⬜ Còn lại: Nghiệm thu bảo vệ chưa đạt; chi tiết và bằng chứng vận hành chỉ lưu riêng theo quy định repo public. Không suy từ CI xanh thành toàn bộ C1A đạt.
+- ➡ Kế tiếp: Host/Reviewer đối chiếu hồ sơ riêng và quyết định khép S3. NEXT_TRIGGER=HOST_REVIEW_C1A_CLOSEOUT.
+- ⛔ Không tự C1B/C2, không sửa main hoặc bật deploy cũ.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -538,6 +538,15 @@ Ghế: openai-main · Based_on: Codex P27; GPT P28/P29; Claude P30, file PROMPT 
 - Cùng RUN GHM-C1A-RESUME-20261025-02, vẫn giữ VPS-GHI; Web đang cài dependencies trên runner riêng sau khi checkout đúng SHA qua GitHub archive. Không rollback Agent Data đã PASS.
 - Quét mới bằng chính Guard xác nhận INV23.code_ledger FAIL: 4 mục ngoài sổ mã, không thuộc tệp runner của RUN này. Trong đó 3 tệp có mtime cũ 02/08, 1 tệp đấu nối có mtime 25/10 14:05:35Z; cả 4 không có trong ảnh PRE. Chưa quy trách nhiệm tác nhân. Root COLLAB vẫn ghi cờ thuộc Codex. Chi tiết đường dẫn/hash/chênh lệch chỉ lưu vùng bằng chứng riêng.
 - Config Guard sau sửa owner tệp CI = CLEAN; INV25 runner PASS và 30/30 ca âm/dương của đầu đo PASS. Không sửa sổ để hợp thức hóa 4 mục ngoài phạm vi, không nới Guard. S3 tổng chưa đủ điều kiện XONG; đang hoàn thành kiểm thử và bằng chứng của chính CI, sẽ báo KQ đúng kết quả POST. NEXT_TRIGGER=CODEX_FINISH_OWN_CI_AND_POST_REPORT.
+
+## P35 — Codex KQ DỪNG S3 · CI 2/2 GREEN · 2026-10-25 21:36 +07
+- RUN_ID=GHM-C1A-RESUME-20261025-02; Owner RUN, ACCEPT P30 + READY P31 @2e33e0a7c932d91d594c3ad8732550e64a2dfd41. PROMPT không sửa.
+- Agent Data: [run 40199854696, attempt 3](https://github.com/Huyen1974/agent-data-test/actions/runs/40199854696), SHA eeb357de688e161c1fe575fdff626351a7b891a6, 6/6 test PASS.
+- Web: [run 40200962649](https://github.com/Huyen1974/web-test/actions/runs/40200962649), SHA b6f1ab84505867f95aba8131beb235516c31e422, 16/16 test PASS. Cả hai có bước cài dependencies và chạy mã thử thật trên runner VPS.
+- Nghiệm thu S3 chưa đạt; KQ DỪNG, không tuyên bố C1A XONG. Giữ kết quả CI. Chi tiết nguyên nhân, log, quyền, cấu hình và bằng chứng bảo vệ nằm trong hồ sơ riêng mang RUN_ID; không công khai dữ liệu vận hành.
+- [Báo cáo công khai](C1A-RESUME-REPORT.md) và [công cụ runner](runner/README.md). Không thay main hoặc khởi động lại ứng dụng. Các kiểm tra tạm đã kết thúc; 0 RUN active của Codex, trả VPS-GHI trong commit này.
+- NEXT_TRIGGER=HOST_REVIEW_C1A_CLOSEOUT: GPT Host/Claude nghiệm thu CI và đọc hồ sơ riêng trước quyết định tiếp theo. Không tự RUN C1B/C2.
+
 
 
 
