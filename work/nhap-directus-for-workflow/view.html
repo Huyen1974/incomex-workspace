@@ -22,26 +22,29 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 .arch-figure{margin:0 0 16px;padding:16px;background:#f8fafc;border:1px solid #d6e0e9;border-radius:12px}
 .arch-legend{display:flex;gap:15px;flex-wrap:wrap;margin-bottom:15px;color:#405167;font-size:15px}
 .arch-legend span{display:inline-flex;align-items:center;gap:7px}.arch-legend i{display:inline-block;width:13px;height:13px;border-radius:3px;border:2px solid #becbd8;background:white}
-.arch-legend .legend-proposed{border-color:#5586ae;border-style:dashed;background:#ebf4fd}
-.arch-legend .legend-unknown{border-color:#9d8a6b;border-style:dotted;background:#f7f4ec}
+.arch-legend .legend-existing{border-color:#22c55e;background:#f0fdf4}
+.arch-legend .legend-proposed{border-color:#94a3b8;border-style:dashed;background:#f8fafc}
+.arch-legend .legend-unknown{border-color:#eab308;border-style:dotted;background:#fefce8}
+.arch-node code{font-size:14px;color:#64748b;background:none;padding:0}
+.owner-actions.ok{border-color:#86efac;background:#f0fdf4}
 .arch-columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .arch-lane{min-width:0;border:1px solid #e1e8ef;border-radius:10px;padding:12px;background:white}
 .arch-lane-title{font-size:15px;font-weight:750;color:#33475c;margin-bottom:10px;letter-spacing:.01em}
 .arch-node{border-radius:9px;padding:12px;border:1px solid #d0dae4;background:white;font-size:15px;line-height:1.5}
 .arch-node strong{display:block;font-size:16px;margin-bottom:5px;color:#1d344b}
 .arch-node span{display:block;color:#394a5d;font-size:15px;overflow-wrap:anywhere}
-.arch-existing{border:1px solid #c5d4df;background:#f8fafc}
-.arch-proposed{border:2px dashed #5d91bc;background:#ebf4fd}
+.arch-existing{border:1px solid #86efac;background:#f0fdf4}
+.arch-proposed{border:2px dashed #94a3b8;background:#f8fafc}
 .arch-down{text-align:center;padding:8px 1px;color:#4e6681;font-size:23px;line-height:1.1}
 .arch-down small{display:block;font-size:15px;margin-top:2px;color:#5c6c7e}
 .arch-aside{border-radius:8px;padding:10px 11px;margin-top:11px;border:1px solid #dedede;background:#f5f6f7;font-size:15px;line-height:1.45}
 .arch-aside strong,.arch-aside span{display:block;font-size:15px}.arch-aside strong{margin-bottom:5px}
-.arch-review{border-style:dotted;border-color:#b39772}
+.arch-review{border-style:dotted;border-color:#eab308;background:#fefce8}
 .arch-funnel{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;color:#4b6887;font-size:29px;line-height:1.2;padding:7px 0 2px}
-.arch-sink{max-width:760px;margin:0 auto}.arch-final{text-align:center;background:#dbeaf7;border-style:solid}
+.arch-sink{max-width:760px;margin:0 auto}.arch-final{text-align:center}
 .arch-alert{font-size:15px;line-height:1.55;padding:12px;margin-top:15px;border:1px solid #d9e2ea;border-radius:8px;background:white}
 .arch-figure figcaption{font-size:15px;line-height:1.5;color:#596a7d;margin-top:12px}
-.arch-risk{border-left:3px solid #a38450;background:#fbfaf7;font-size:15px;padding:12px 14px;line-height:1.55}
+.arch-risk{border-left:3px solid #eab308;background:#fefce8;font-size:15px;padding:12px 14px;line-height:1.55}
 .arch-views{display:grid;grid-template-columns:minmax(0,1fr) 36px minmax(0,1.2fr);gap:12px;align-items:stretch}
 .arch-view-part{border:1px solid #d8e2ec;border-radius:10px;padding:14px;min-width:0;font-size:15px;line-height:1.5}
 .arch-view-part>strong{display:block;font-size:16px;margin-bottom:10px}
@@ -55,7 +58,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 
 /* Sơ đồ thứ tự: đường nối, không phải roadmap thứ hai */
 .milestone-path{display:flex;align-items:stretch;gap:7px;overflow-x:auto;padding:9px 2px 15px;margin:0 0 6px}
-.milestone-node{min-width:145px;max-width:178px;flex:1;padding:10px 11px;border:1px solid #c8d5e1;border-radius:9px;background:#fff;font-size:15px;line-height:1.35}
+.milestone-node{min-width:130px;max-width:178px;flex:1;padding:10px 11px;border:1px solid #c8d5e1;border-radius:9px;background:#fff;font-size:15px;line-height:1.35}
 .milestone-node strong,.milestone-node span{display:block}.milestone-node span{margin-top:4px;color:#56697d}
 .milestone-node.is-current{border:2px solid #4b7ea7;background:#ebf4fc}
 .milestone-arr{flex:none;font-size:22px;color:#647f96;align-self:center}
@@ -65,13 +68,13 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions"><h2>😊 Anh cần làm bây giờ — chỉ 2 việc</h2>
-<p><strong>1.</strong> Chuyển lệnh <strong>B0b</strong> đã sẵn sàng cho Claude Code theo quy trình hiện hành. <strong>Đề xuất: dán</strong>. Nếu đã chuyển nhưng chưa có kết quả, không dán lặp.</p>
-<p><strong>2.</strong> Chấp thuận <strong>hướng 4 sổ</strong>: 1 báo cáo đếm sống + 2 bảng cũ + 1 bảng quyết định dự kiến, thêm 1 khung nhìn ghép. <strong>Đề xuất: đồng ý hướng</strong>.</p>
-<p class="muted">Chưa cần duyệt N1–N6 hoặc từng cột S4. Chỉ trình sau khi TS1 Đếm có số thực tế.</p></section>
-<p class="lead">Mục tiêu trước mắt: biết PG đang có những gì, danh mục đã đủ chưa và phần nào cần quyết định. Dùng tối đa PG, Directus và DOT hiện có; không xây thêm một hệ thống danh mục song song.</p>
-<span class="flag">Sơ đồ phản ánh P44 — chưa triển khai S4/SQL View/Directus</span>
-<span class="flag">B0b đã READY, chưa có KQ</span>
+<section class="owner-actions ok"><h2>😊 Anh không cần làm gì lúc này</h2>
+<p>🟢 Lệnh B0b đã giao Claude Code (21:07) — 🤖 đang chờ máy rảnh để chạy.</p>
+<p>🟢 Đã chốt: anh xem mọi bảng trên <strong>trang báo cáo Nuxt</strong>, không vào Directus (chỉ máy dùng).</p>
+<p class="muted">Việc kế tiếp của anh: duyệt cột Sổ quyết định — sau khi có số đếm (TS1), kèm đề xuất.</p></section>
+<p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
+<span class="flag">Sơ đồ = thiết kế, chưa tạo gì trong PG</span>
+<span class="flag">B0b đã giao, chờ chạy</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <h2>1. Sơ đồ tổng thể — toàn bộ bức tranh PG Tự quản</h2>
@@ -103,54 +106,45 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
   <div class="arch-funnel" aria-hidden="true"><span>↘</span><span>↓</span><span>↙</span></div>
   <div class="arch-sink">
     <div class="arch-node arch-proposed">
-      <strong>01 SQL View tổng hợp — dự kiến, CHƯA TẠO</strong>
-      <span>Ghép danh sách S2 + S3 thành các dòng tài sản, nối S4 theo mã. S1 chỉ dùng để so số và phát hiện lệch, <b>không</b> trở thành nguồn nhập liệu.</span>
+      <strong>Câu ghép S2 + S3 + S4 — chưa tạo</strong>
+      <span>Ghép vật PG + DOT, nối quyết định theo mã. Không tạo VIEW trong PG: câu ghép lưu ở sổ báo cáo có sẵn. S1 chỉ để so số.</span>
     </div>
-    <div class="arch-down">↓ <small>Phải xác minh khả năng hiển thị / lọc tại TS1</small></div>
-    <div class="arch-node arch-proposed arch-final"><strong>Directus Studio — Sổ tài sản chung</strong><span>ĐÍCH CHƯA TRIỂN KHAI: Owner và AI xem cùng một bảng, lọc theo loại, hệ, tình trạng, Workflow, quyết định</span></div>
+    <div class="arch-down">↓ <small>🤖 1 lệnh DOT có sẵn công bố lên Nuxt · TS1 đo tốc độ</small></div>
+    <div class="arch-node arch-proposed arch-final"><strong>😊 Trang báo cáo Nuxt — Sổ tài sản</strong><span>Anh xem và lọc trên web; 🤖 máy đọc cùng nguồn. Không ai vào Directus (chỉ DOT).</span></div>
   </div>
   <div class="arch-alert"><strong>Máy kiểm chênh lệch:</strong> PG ↔ Ba Lô · Census ↔ Ba Lô · Tệp DOT ↔ S3 · S2/S3 ↔ S4. Bot thực sự hoạt động, mốc đo và nơi nhận cảnh báo cần xác minh ở TS1/TS5.</div>
   <figcaption id="arch-caption">Mũi tên liền = đường đọc hoặc đăng ký đã thiết kế; hộp nét đứt = chưa được tạo. S1 và S2 cùng dựa trên PG: đối chiếu kết quả và phạm vi nhưng <strong>không mặc nhiên là hai nguồn đo độc lập</strong>. Đây là sơ đồ kiến trúc dự kiến theo §3.TQ, không phải bằng chứng hệ thống đã chạy.</figcaption>
 </figure>
-<div class="arch-risk"><strong>Hai điểm còn mở:</strong> (1) Ba Lô mới có tên từng vật cho 4 loại PG; 8 loại khác chỉ mới có số theo đề xuất N6, chưa đạt mục tiêu quản lý toàn bộ PG. (2) Directus có đọc/lọc SQL View ghép với mã dòng ổn định hay không: TS1 phải chứng minh. Không tự coi “1 view chắc chắn đủ”.</div>
+<div class="arch-risk"><strong>🟡 Hai điểm còn mở:</strong> (1) Ba Lô mới có tên từng vật cho 4 loại; 8 loại khác mới chỉ có số. (2) Trang báo cáo Nuxt với ~2.500 dòng: TS1 đo tốc độ mở và lọc.</div>
 
-<h2>2. Sổ tài sản sẽ được xem ở đâu?</h2>
+<h2>2. Anh xem Sổ tài sản ở đâu?</h2>
 <div class="arch-views">
-  <div class="arch-view-part"><strong>Hiện có — các nơi đang tách rời</strong>
+  <div class="arch-view-part"><strong>Hôm nay — mỗi sổ một trang</strong>
     <div class="arch-link-list">
       <a href="https://vps.incomexsaigoncorp.vn/reports/report-pg" target="_blank" rel="noopener">S1 · Báo cáo đếm PG</a>
       <a href="https://vps.incomexsaigoncorp.vn/reports/report-balo-table" target="_blank" rel="noopener">S2 · Danh sách bảng trong Ba Lô</a>
-      <span>S3 · <code>dot_tools</code> trong Directus (quyền/mức đủ cần đo)</span>
+      <span>S3 · Sổ DOT — gộp vào trang mới ở TS3</span>
     </div>
   </div>
-  <div class="arch-views-down">↓ <small>TS3: hợp nhất để quản lý</small></div>
-  <div class="arch-view-part arch-proposed"><strong>Đích — một điểm vào Directus Studio</strong>
-    <p>Nhìn cùng một danh mục tài sản; dự kiến có các <b>bộ lọc lưu sẵn</b>, không đồng nghĩa phải tạo thêm SQL View:</p>
-    <div class="arch-filters"><span>Tất cả</span><span>Vật PG</span><span>DOT / Script</span><span>Phục vụ Workflow</span><span>Chưa quyết định</span><span>Thiếu / lệch</span></div>
-    <p class="muted">Các bộ lọc là đề xuất giao diện, chưa xác minh chạy trên Directus. S1 và Ba Lô vẫn được giữ để đối chứng, không bị xoá hoặc thay nhà dữ liệu.</p>
+  <div class="arch-views-down">↓ <small>TS3: gộp thành 1 trang</small></div>
+  <div class="arch-view-part arch-proposed"><strong>Đích — 1 trang báo cáo Nuxt</strong>
+    <p>Cùng khuôn với các báo cáo đang chạy ở mục <a href="https://vps.incomexsaigoncorp.vn/reports" target="_blank" rel="noopener">Reports</a>: ô tìm, lọc theo cột, «?» ở đầu cột.</p>
+    <p>Mỗi bộ lọc là 1 đường link — bấm là ra:</p>
+    <div class="arch-filters"><span>Tất cả</span><span>Vật PG</span><span>DOT</span><span>Phục vụ Workflow</span><span>⚪ Chưa quyết</span><span>⚠ Thiếu / lệch</span></div>
+    <p class="muted">Màu hiện bằng biểu tượng trong ô: 🟢 Giữ · 🟡 Sửa · 🔴 Bỏ · ⚪ Chưa quyết.</p>
   </div>
 </div>
 
-<h2>3. Sơ đồ lộ trình — từng bước, không triển khai nhảy cóc</h2>
+<h2>3. Lộ trình — từng bước, không nhảy cóc</h2>
 <div class="milestone-path" aria-label="Thứ tự các mốc, kéo ngang để xem hết">
- <div class="milestone-node is-current"><strong>■ B0b</strong><span>Đã READY<br>Chưa có kết quả</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node"><strong>TS1 · ĐẾM</strong><span>Chỉ đọc, kiểm kê</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node"><strong>TS2 · ĐỦ</strong><span>Chỉ sau duyệt G2</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node"><strong>TS3 · SỔ</strong><span>Chỉ sau duyệt G1/G2</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node"><strong>TS4–TS5</strong><span>Phân loại, đối soát</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node"><strong>B1–B5</strong><span>Công thức, quy trình</span></div>
+ <div class="milestone-node is-current"><strong>■ B0b</strong><span>🤖 Đã giao, chờ chạy<br>Sửa 2 công cụ, không ghi dữ liệu</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>TS1 · ĐẾM</strong><span>🤖 Chỉ đọc: đếm, liệt kê thiếu/thừa</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>TS2 · ĐỦ</strong><span>😊 Duyệt → 🤖 bổ sung sổ</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>TS3 · SỔ</strong><span>😊 Duyệt cột → 🤖 tạo sổ quyết định + trang Nuxt</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>TS4–TS5</strong><span>🤖 Đề xuất → 😊 duyệt · 🤖 máy canh lệch</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>B1–B5</strong><span>Công thức → Workflow</span></div>
 </div>
-<div class="steps">
- <div class="step current"><b>■ ĐANG Ở ĐÂY · B0b</b><span>🤖 Claude Code: đã sẵn sàng, chưa có kết quả.<br>Chỉ sửa 2 DOT, không ghi dữ liệu.</span></div>
- <div class="step"><b>TS1 · ĐẾM</b><span>🤖 Máy chỉ đọc: 6 phép đếm, liệt kê tên thiếu/thừa.</span></div>
- <div class="step"><b>TS2 · ĐỦ</b><span>😊 Duyệt riêng → 🤖 đồng bộ Ba Lô và đăng ký DOT thiếu.</span></div>
- <div class="step"><b>TS3 · SỔ</b><span>😊 Duyệt từng cột → 🤖 tạo S4 + khung nhìn, đọc lại.</span></div>
- <div class="step"><b>TS4 · PHÂN LOẠI</b><span>🤖 Đề xuất có căn cứ → 😊 duyệt theo nhóm.</span></div>
- <div class="step"><b>TS5 · CANH</b><span>🤖 Máy canh, so và báo lệch → 😊 duyệt thay đổi.</span></div>
- <div class="step"><b>B1 · CÔNG THỨC</b><span>🤖 Làm Công thức sau kiểm kê → 😊 duyệt riêng.</span></div>
- <div class="step"><b>B2–B5 · WORKFLOW</b><span>🤖 Chuyển từng sổ/nhóm → 😊 nghiệm thu.</span></div>
-</div>
-<p class="muted">TS1–TS5 chưa chạy. Chỉ đánh dấu XONG khi có kết quả thực. Giới hạn: <strong>1 bảng mới + 1 khung nhìn SQL</strong>, <strong>0 DOT mới, 0 lịch mới, không tắt/xoá</strong>. TS1 không ghi PG/Directus.</p>
+<p class="muted">Giới hạn: chỉ 1 bảng mới · 0 lệnh DOT mới · 0 lịch mới · không tắt/xoá. TS1 không ghi gì.</p>
 
 <h2>4. Cách đếm · khai tối thiểu · bot kiểm soát</h2>
 <details>
@@ -162,7 +156,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
  <tr><td>Đếm-2</td><td>Tên thiếu/thừa trong Ba Lô</td><td><code>dot-balo-reconcile --verify</code>; Claude P40 đã rà mã; người chạy phải kiểm lại điều kiện an toàn</td></tr>
  <tr><td>Đếm-3</td><td>DOT trên đĩa ↔ đăng ký</td><td>Danh sách tệp DOT so với <code>dot_tools</code>, theo tập tên</td></tr>
  <tr><td>Đếm-4</td><td>Đường đồng bộ, lịch, log</td><td>Đọc mã <code>dot-balo-one-click-guard</code>, <code>dot-verify-loai-report</code>, systemd; chưa an toàn thì không chạy</td></tr>
- <tr><td>Đếm-5</td><td>Directus có xem/lọc view không?</td><td>Đọc thông tin cấu trúc và khung nhìn có sẵn, không tạo mới</td></tr>
+ <tr><td>Đếm-5</td><td>Trang báo cáo Nuxt chịu được ~2.500 dòng không?</td><td>Đo trang lớn nhất đang có + chạy thử chỉ đọc câu ghép; không ghi gì</td></tr>
  <tr><td>Đếm-6</td><td>Bot DOT có thực sự an toàn/sống không?</td><td>Đọc mã, cron, quyền, tuyến cảnh báo của <code>dot-dot-health</code>; KHÔNG chạy</td></tr>
  </tbody></table></div>
  <p>KQ cần có: số và tên theo loại, mốc đo, thiếu/thừa cụ thể, mức độ độc lập của các kênh, chưa đo được thì ghi CHƯA RÕ. Mốc cũ Census 393 và Ba Lô 385 là chênh chưa giải thích, không coi là kết quả mới.</p>
@@ -188,12 +182,13 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
  <p>Chỉ nói «có cảnh báo» khi đã chứng minh lịch chạy, kết quả và người nhận. Chưa tạo lịch mới, DOT mới, trigger hoặc app mới.</p>
 </details>
 
-<h2>5. Phạm vi bản đầu và điểm Owner cần chốt</h2>
+<h2>5. Điểm sẽ trình anh sau khi đếm</h2>
 <div class="note">
-<strong>N6 là đề xuất phân kỳ, chưa được duyệt.</strong> Bản đầu liệt kê tên 4 loại vật PG (bảng, view, hàm, trigger) và DOT; 8 loại còn lại chỉ kiểm số lượng. <strong>Điều này chưa phải hoàn thành mục tiêu quản lý từng vật của toàn PG.</strong> TS1 phải cho thấy rõ tám loại chưa được liệt kê tên và đề xuất mở rộng khi cần; không được âm thầm tính là đã đủ.<br>
-<strong>Sau TS1 mới trình duyệt:</strong> N1–N6, từng cột S4 và quyền ghi; hiện chưa xin phép tạo bảng. B0b giữ nguyên lệnh đã sẵn sàng; chỉ soạn TS1 sau khi B0b có kết quả.
+<p>⚪ Độ phủ bản đầu: tên 4 loại vật PG + DOT; 8 loại khác chỉ có số — chưa phải đủ toàn PG.</p>
+<p>⚪ Từng cột của Sổ quyết định và quyền ghi.</p>
+<p class="muted">Trình cùng lúc, kèm đề xuất — anh chỉ gật hoặc lắc.</p>
 </div>
-<footer><strong>Trang này chỉ là bản trình bày cho tab “Nội dung công việc”, không tạo hệ thống mới hoặc nguồn thông tin chuẩn thứ hai.</strong> Nội dung có hiệu lực và chứng cứ thuộc <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/nhap-directus-for-workflow/COLLAB.md" target="_blank" rel="noopener">COLLAB.md — §3.TQ và §3.KH</a>. Nếu có khác biệt, phải sửa nguồn và cập nhật trang trình bày cùng lượt.</footer>
+<footer>Trang trình bày — nguồn chuẩn: <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/nhap-directus-for-workflow/COLLAB.md" target="_blank" rel="noopener">COLLAB §3.TQ · §3.KH</a>. Sửa nguồn thì sửa trang cùng lượt.</footer>
 </main>
 </body>
 </html>
