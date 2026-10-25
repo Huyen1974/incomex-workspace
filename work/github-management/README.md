@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: GPT P23 C1A giao Codex cài runner/test thật 2 repo VPS; Claude P24 ACCEPT@0ec01e30, chờ Host READY + Owner RUN Codex.**
+**Trạng thái: Codex P27 KQ DỪNG C1A tại cổng an toàn snapshot Web; 0/2 CI GREEN, chưa cài runner, VPS-GHI trống. Đã có Owner RUN, ACCEPT P24 + READY P25 cùng 0ec01e30. Đọc P27 trong COLLAB để xử lý đúng blocker; chưa C1B/C2.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — `GHM-C1A-VPS-RUNNER-20261025-01` cho CODEX; Claude P24 ACCEPT@0ec01e30, chờ GPT Host READY cùng SHA + Owner RUN. C1 P22 đã ký nhưng SUPERSEDED_UNRUN.
+6. work/github-management/PROMPT.md — `GHM-C1A-VPS-RUNNER-20261025-01` cho CODEX; ACCEPT P24 = READY P25 = 0ec01e30, đã Owner RUN. P26 STARTED/P27 KQ nằm tại COLLAB; không tự chạy lại khi cổng nguồn còn mở. C1 P22 đã ký nhưng SUPERSEDED_UNRUN.
 
 Mục tiêu duy nhất của việc này: nhiều AI nhận nhiều việc, **viết mã song song trên branch/workspace riêng**, Chief duyệt PR trên nền mới nhất, Owner xem bảng kết quả sáng. R1 dùng Actions trong hạn mức miễn phí với hard budget $0; Owner 25/10 15:18: mọi run đặt trên VPS bằng runner tự host; ưu tiên 1 là CI/CD chạy được.
 

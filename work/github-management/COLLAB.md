@@ -4,14 +4,14 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 16:30 +07 · Codex · P26 STARTED C1A
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 19:38 +07 · Codex · P27 KQ DỪNG C1A
 - 🎯 Mục tiêu: cài GitHub self-hosted runner trên VPS cho hai repo thật, chạy CI có test thật, rồi hoàn thiện CD và cho các agent lập trình song song.
 - 🏁 Xong khi: C1A 2/2 CI run trên VPS PASS, nguồn SHA/log kiểm chứng, Guard/health sạch; C1B CD dev + rollback; C2 khóa main; C3 agent song song.
 - 📍 Tiến độ: ✓ R0/R1 → ✓ GPT P23 C1A Codex → ✓ Claude P24 ACCEPT → ✓ GPT P25 READY → ■ Owner giao CODEX RUN C1A → □ KQ C1A → □ C1B → C2 → C3.
 - ✅ Đã xong: PROMPT Codex C1A chốt, Claude P24 sửa 3 điểm tại commit 0ec01e30 và ký ACCEPT đúng last-touch; GPT Host đã đọc toàn bộ và ký READY cùng SHA. KHÔNG sửa lại PROMPT.
-- ■ Đang làm: Codex STARTED GHM-C1A-VPS-RUNNER-20261025-01; S0 kiểm quyền/tài nguyên/cờ và bảo vệ, chưa mutation runner.
-- ⬜ Còn lại: Owner chuyển đúng RUN_ID+PROMPT cho Codex; Codex tuân S0 cờ VPS-GHI/quyền, cài 2 runner, chạy CI thật 2 repo, KQ XONG/DỪNG; Host/Claude nghiệm thu kết quả.
-- ➡ Kế tiếp: Codex qua S0, CAS VPS-GHI rồi cài runner và kiểm CI thật 2 repo; NEXT_TRIGGER=CODEX_C1A_KQ.
+- ■ Đang làm: 0 RUN active. Codex P27 KQ DỪNG tại cổng an toàn snapshot Web; 0/2 CI GREEN, chưa cài runner. Kết nối GitHub/VPS tốt, Guard PRE PASS; VPS-GHI trống.
+- ⬜ Còn lại: khép cổng an toàn nguồn Web theo bằng chứng private P27, rồi Codex cài runner/chạy CI 2 repo và bảo vệ Điều 30/31; Host/Claude nghiệm thu. Owner đã giao RUN, không yêu cầu chuyển lại vì nhầm chưa giao.
+- ➡ Kế tiếp: GPT Host xem P27 và xử lý đúng nguồn credential chưa xác minh; chưa C1B/C2. NEXT_TRIGGER=HOST_RESOLVE_C1A_SOURCE_GATE.
 - ⛔ Không làm: không giao Claude chạy thay; không RUN PROMPT P22 cũ; không đụng main/deploy workflow cũ/restart app; chưa tự mở C1B/C2.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -451,6 +451,31 @@ STARTED@GHM-C1A-VPS-RUNNER-20261025-01 2026-10-25T09:30:00Z · executor=Codex CL
 - Owner trực tiếp giao Codex; read-gate workspace đạt, đã đọc AGENTS/README/Bảng/P12/P17/P22–P25 và toàn bộ PROMPT. ACCEPT Claude P24 = READY GPT P25 = last-touch PROMPT `0ec01e30bdaa69b88d36c339497c7bd851f3e683`; không STOP/STARTED mở khác trong task. Codex tự thực hiện, không giao Claude.
 - S0 kiểm quyền GitHub/SSH, budget $0+Stop, 15 workflow disabled/3 audit còn nguyên, backup/ref/runtime, tài nguyên/cgroup và cơ chế Đ30/31. Root COLLAB đang ghi VPS-GHI trống; sẽ CAS cờ ngay trước ghi hệ thống sau S0, không dùng snapshot cũ để cấp quyền.
 - Chỉ runner CI + nhánh `dev/codex/ghm-c1a-probe`/workflow probe trên 2 repo và tích hợp bảo vệ/giám sát theo PROMPT. Tổng trần CI 2 CPU/3 GiB, không root/docker.sock/secret/host mount; không sửa main/cây phục vụ hay restart app. Bằng chứng chi tiết root-only. Dự kiến S0 ≤09:45Z, KQ ≤12:30Z; gặp cổng dừng ghi KQ, trả cờ, không giữ phiên chờ. Áp: SAME_COMMIT.
+
+## P27 · Codex · 25/10/2026 19:38 +07 · KQ DỪNG C1A tại cổng an toàn nguồn
+KQ@GHM-C1A-VPS-RUNNER-20261025-01 **DỪNG** · executor=Codex · 0 RUN active sau KQ · không chuyển việc sang Claude.
+- **Đích chưa đạt: 0/2 CI GREEN, 0 runner đã cài/đăng ký.** Không có URL run/SHA probe vì chưa tạo nhánh/workflow. Agent Data chưa triển khai, không phải test Agent Data thất bại.
+- Owner yêu cầu tiếp tục sau nghi mất mạng: 12:36Z kiểm lại SSH và GitHub đều thành công; PRE đã kết thúc PASS, không còn tiến trình PRE của RUN. PROMPT vẫn đúng SHA ACCEPT P24 = READY P25 `0ec01e30bdaa69b88d36c339497c7bd851f3e683`; không sửa PROMPT, không tạo RUN mới. Mốc KQ 12:30Z ở P26 là dự kiến, thực tế chậm; ghi rõ thời điểm này, không hồi tố.
+- **Blocker cụ thể:** bản chụp Web được duyệt có trường `refresh_token` 64 ký tự, không che, trong báo cáo đăng nhập cũ. Có ngữ cảnh phản hồi đăng nhập HTTP 200; **chưa xác minh giá trị giả, đã thu hồi hay hết hiệu lực; không khẳng định token hiện còn dùng được**. Không dùng token để đăng nhập. Tên tệp/dòng/hash và ngữ cảnh đã che nằm trong bằng chứng private; không chép giá trị lên repo public.
+- **Cổng áp dụng:** PROMPT S2.1: “Nếu snapshot chưa an toàn hoặc có secret/data ngoài Git thì DỪNG repo đó.” Đã kiểm nguồn sớm trước S1 để tránh đưa bản chụp chưa đủ căn cứ an toàn vào runner. Dừng Web theo cổng; Codex kết thúc lượt trước cài hạ tầng vì tiêu chí chung 2/2 chưa thể hoàn tất. Không tự xoá/sửa báo cáo cũ, xoay secret, đổi snapshot hay dùng checkout chọn lọc để vượt cổng. Đây là lỗi an toàn nguồn còn phải xác minh, không phải lỗi test mã cũ.
+- **Kết quả đã đo:**
+
+| Hạng mục | Kết quả / giới hạn |
+|---|---|
+| Quyền | GitHub admin cả 2 repo PRIVATE; SSH hợp lệ; chưa lấy registration token |
+| Nguồn | Daily 25/10 = HEAD top-level VPS cả 2; main và trạng thái Git trước/sau không đổi. Web có submodule bẩn từ trước; ánh xạ đầy đủ runtime Web vẫn UNKNOWN |
+| Chi phí/Actions | UI budget Account Actions $0 + Stop ON; 1.281/2.000 phút tháng tại mẫu, net $0; probe 0 phút. 15 disabled + 3 audit còn nguyên, toàn bộ ID/state workflow trước/sau khớp R1 |
+| Tài nguyên | RAM khả dụng ~5.077 MiB lúc mẫu; swap 2.047/2.047 MiB; cgroup v2 hỗ trợ. Áp lực RAM mẫu ngắn gần 0. Chưa dựng/đo trần runner thực; không tuyên bố S1 PASS |
+| Guard PRE | PASS 12:33Z, PRE_RED_SET rỗng; 824 tệp/23 đèn. Giữ giới hạn có sẵn: code-ledger 3 vùng UNKNOWN; điểm danh tín hiệu 2 chưa xác định |
+| S1/S2 | NOT RUN: 0 runner, 0 workflow mới, 0 kiểm thử GitHub; chưa kiểm autostart/monitor/giới hạn runner |
+| Đối chiếu cuối | HEAD/status/remotes VPS và container ID/start time/mounts/image tag Agent Data + Nuxt không đổi; 0 restart ứng dụng; main 2 repo không đổi |
+| VPS-GHI/đường lùi | Chưa từng chiếm cờ; root COLLAB vẫn trống lúc 12:36Z. Không có delta runner/cấu hình cần rollback; chỉ hồ sơ riêng tư và bookkeeping của Guard PRE |
+| Điều 30/31 | Bảo vệ runner mới CHƯA TRIỂN KHAI. PRE xanh không thay nghiệm thu POST của runner |
+
+- **Bằng chứng:** hồ sơ private của RUN trên VPS, `C1A-report.json` SHA256 `bb38848772e85acf84ee98e797bdf07cb834847096d7eac0517dd60aaef34c14`; thư mục 0700, 11 tệp bằng chứng 0600. Có PRE Guard, GitHub/VPS trước–sau, ngân sách, đối chiếu và vị trí nguồn. Quét có giới hạn, không tuyên bố lịch sử Git sạch toàn bộ.
+- **Lỗi thao tác của Codex:** một lần xem ngữ cảnh đã che access_token nhưng bỏ sót refresh_token liền kề trong tool output. Không chép lại giá trị vào báo cáo/repo, không sử dụng, không tự xoay. Chi tiết sự cố đã ghi private.
+- **Bàn giao Host:** xác minh bằng chứng giá trị là giả/không còn hiệu lực, hoặc phê duyệt xử lý tối thiểu nguồn có credential rồi cấp nguồn đủ an toàn. Sau khi khép cổng, kiểm lại quyền/READY/VPS-GHI/tài nguyên và tiếp C1A; chưa chuyển C1B/C2. Không giao Claude thực thi thay Codex. `NEXT_TRIGGER=HOST_RESOLVE_C1A_SOURCE_GATE`. Áp: SAME_COMMIT.
+
 
 
 
