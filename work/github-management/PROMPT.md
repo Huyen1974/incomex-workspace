@@ -19,7 +19,7 @@ ENTRY: AGENTS.md root → root COLLAB (cờ VPS-GHI, DROOT56, PROOT08/09) → wo
 - B1 Tải `actions/runner` bản mới nhất từ GitHub releases, kiểm SHA256 chính hãng. Token đăng ký lấy bằng thẻ sẵn có trên VPS (thẻ của job sao lưu nếu đủ quyền) — không in, không lưu. Không thẻ nào đủ quyền ⇒ DỪNG, NEXT_TRIGGER=OWNER_RUNNER_TOKEN (Host soạn sẵn các bước bấm cho Owner).
 - B2 Mỗi repo 2 máy chạy:
   - `vps-deploy`: dịch vụ systemd, user `ghrunner` (nhóm docker), thư mục `/opt/incomex/runners/<repo>-deploy`. Cổng: hook trước việc `ACTIONS_RUNNER_HOOK_JOB_STARTED=/opt/incomex/runners/hooks/only-main.sh` (root:root 0755, `ghrunner` không sửa được) — exit 1 trừ khi `GITHUB_REF=refs/heads/main` VÀ `GITHUB_EVENT_NAME` ∈ {push, workflow_dispatch} VÀ `GITHUB_WORKFLOW_REF` = `<owner>/<repo>/.github/workflows/deploy-vps-local.yml@refs/heads/main`. Hook thoát ≠ 0 ⇒ việc không chạy (GitHub Docs).
-  - `vps-ci`: chạy trong container (ảnh runner chính hãng), `--ephemeral`, không gắn docker.sock, không gắn thư mục máy chủ, mạng riêng (không vào mạng compose), `--cpus 2 --memory 3g`, mỗi lúc 1 việc.
+  - `vps-ci`: chạy trong container (ảnh runner chính hãng), đăng ký 1 lần lưu ở volume riêng (KHÔNG `--ephemeral`: mỗi lần cần token mới ⇒ phải để thẻ admin thường trực trên VPS); hook sau việc `ACTIONS_RUNNER_HOOK_JOB_COMPLETED` dọn thư mục làm việc; không gắn docker.sock, không gắn thư mục máy chủ, mạng riêng (không vào mạng compose), `--cpus 2 --memory 3g`, mỗi lúc 1 việc.
 - B3 Điều 30/31 + giám sát: đăng ký hook, cấu hình runner, `.git/config` bản clone KST vào `code-ledger.tsv` (LOCKED) / Config Guard; Kuma theo dõi các dịch vụ runner; đăng ký các script mới vào bảng công cụ.
 
 ## C — WORKFLOW MỚI (≤45′, KST đẩy lên main)
