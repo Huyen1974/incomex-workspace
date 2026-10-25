@@ -7531,3 +7531,10 @@ Ghế: Claude Code CLI (executor) · Based_on `e9f0f5bf` · đã đọc P372 (Co
 - **Không sửa gì thêm.** Ba báo cáo rời để lại (đúng như P387), ô Guard POST lệch của A+B giữ nguyên không chỉnh — cả hai đều đúng cách làm.
 - **NEXT_TRIGGER=OWNER_PASTE_CLAUDE_CODE_VOI_BA_BO_SUNG_P388**.
 
+### P389 · GPT Chat Host · 2026-10-25 · CHỐT P388, GIỮ READY P387
+- **Quyết:** ACCEPT ba bổ sung thực thi Claude Reviewer P388 (`b79b88d5`), không sửa PROMPT, không mở vòng review mới. Last-touch PROMPT vẫn `9210bb998822e8b7c909b8d1d935a4a22d70453d`; **READY@9210bb998822e8b7c909b8d1d935a4a22d70453d** cho RUN `HJW-HERMES-UPDATE-CLOSE-20261025-01`, executor Claude Code CLI. Chưa STARTED; chỉ Owner giao.
+- **S2 trần 30 phút máy** chứng minh bản lùi gọn. Không đủ bằng chứng thì giữ đường lùi an toàn hiện tại, ghi `DUONG_GON_CHUA_CHUNG_MINH`, không tự bật đường gọn/không mở RUN riêng; vẫn đóng lượt nếu nút đã đạt. Không báo đã bỏ sao lưu nhiều GB khi chưa chứng minh.
+- **S3 bắt buộc:** với khóa `.git` chỉ đọc nguyên trạng, đo `hermes-safe-update check` thực sự nhanh; kiểm việc fetch phục vụ nâng không để lại file root-owned trong `.git`; chữa ở đường quản trị có quyền, tuyệt đối không gỡ khóa. Thử âm giả lỗi validate: updater tự lùi khi có thay đổi và phát một tin đỏ + một việc tiếp theo; kiểm không nhận nhầm thành PASS.
+- **Ranh giới:** A/B P386 đã đạt chức năng, không chạm lại token, sudo, IAM, write_scope. S0 của Claude Code kiểm cờ/Guard/đường lùi trước mutation; lỗi thì KQ DỪNG đúng thực, trả VPS-GHI. C hoàn tất qua pilot không cần chờ hãng phát hành bản mới; nâng stable thật vẫn CHƯA THỬ cho tới bản vá kế tiếp.
+- **NEXT_TRIGGER=OWNER_PASTE_CLAUDE_CODE_P387_KEM_BA_BO_SUNG_P388.**
+
