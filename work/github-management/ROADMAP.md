@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.3 · 24/10/2026
-**Trạng thái: Codex P27 C1A DỪNG vì Web source nghi token; GPT P28 DRAFT lệnh phục hồi tách cổng: runner+AgentData trước, Web HOLD riêng nếu chưa chứng minh nguồn. Chưa READY/RUN; C1B/C2 chưa chạy.**
+**Trạng thái: C1A lượt phục hồi `GHM-C1A-RESUME-20261025-02`: token Web đã xác minh chết (P30) ⇒ Agent Data rồi Web cùng lượt. Claude P30 ACCEPT@2e33e0a7, chờ Host READY + Owner RUN Codex. C1B/C2 chưa chạy.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
 Ưu tiên 1 (Owner 25/10 15:18): hệ thống chạy được — mỗi repo đi được nhánh → PR → test → main → deploy VPS, máy chạy (runner) đặt trên VPS. Sau đó: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 

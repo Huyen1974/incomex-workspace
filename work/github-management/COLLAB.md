@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 20:00 +07 · GPT Chat · P29
-- 🎯 Mục tiêu: Codex hoàn thành 2/2 CI self-hosted trên VPS, không làm lại việc cũ hoặc gửi credential chưa an toàn vào runner.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 20:25 +07 · Claude Chat · P30
+- 🎯 Mục tiêu: Codex hoàn thành 2/2 CI self-hosted trên VPS (Agent Data + Web), không làm lại việc cũ.
 - 🏁 Xong khi: 2/2 GitHub CI thật GREEN, runtime app không thay, runner có cgroup/Guard/Kuma; C1B/C2/C3 sau đó.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ P27 nguồn Web nghi token → ✓ P28 lệnh phục hồi Codex → ✓ P29 xác định báo cáo Directus, KHÔNG phải Lark Base → ■ Claude rà đúng một lượt → □ Host READY/Owner RUN Codex → □ C1A 2/2 CI.
-- ✅ Đã xong: trực tiếp kiểm web-test vps-daily-20261025/main: báo cáo đăng nhập Directus ngày 22/01/2026 có refresh_token dài 64, HTTP 200; không thấy Lark Base trong báo cáo; xác thực Directus hiện vẫn có trong mã Web. **Không đọc/in token trong biên bản.**
-- ■ Đang làm: — · 0 RUN active. KQ cũ P27 giữ nguyên; PROMPT recovery P28 không sửa sau khi chẩn đoán.
-- ⬜ Còn lại: Codex xử lý báo cáo Directus cũ theo nguồn/credential owner, đồng thời runner+Agent Data CI độc lập; Web SOURCE_HOLD nếu token vẫn chưa chứng minh không còn hiệu lực.
-- ➡ Kế tiếp: Claude chỉ xác nhận PROMPT P28 hiện có và kết quả P29 cùng một lượt, không mở vòng mới. NEXT_TRIGGER=CLAUDE_ACCEPT_C1A_RECOVERY.
-- ⛔ Không bỏ cơ chế Directus auth, không tự revoke/rotate toàn hệ, không dùng token để thử, không khôi phục deploy cũ, không thêm RUN trước READY/Owner.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ P27 dừng vì nghi token → ✓ P28 lệnh phục hồi → ✓ P29 token = Directus → ✓ Claude P30 xác minh token chết + ACCEPT → ■ Host READY + 😊 Owner giao Codex → □ C1A 2/2 CI → □ C1B → □ C2 → □ C3.
+- ✅ Đã xong: token cũ REVOKED_CONFIRMED — mã Directus chỉ nhận refresh token còn phiên trong `directus_sessions`, DB đang chạy = 0 phiên ⇒ Web SAFE, không HOLD, không đổi mật khẩu.
+- ■ Đang làm: — · 0 RUN active.
+- ⬜ Còn lại: Host READY → Owner giao Codex → C1A (Agent Data trước, Web ngay sau, cùng lượt) → C1B → C2 → C3.
+- ➡ Kế tiếp: GPT Host READY@2e33e0a7c932d91d594c3ad8732550e64a2dfd41 (không bàn lại); 😊 Owner giao Codex RUN. NEXT_TRIGGER=HOST_READY_C1A_RESUME.
+- ⛔ Không bỏ cơ chế đăng nhập Directus, không đổi mật khẩu/token, không dùng token để thử, không khôi phục deploy cũ, không RUN trước READY/Owner.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -47,6 +47,8 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - Owner 25/10/2026 15:18 (phiên Claude, đã sửa lỗi gõ): «Trước đây đã chuyển từ Google sang chạy trên GitHub một thời gian, sau đó vì deploy mất thời gian nên đã gỡ. Lẽ ra phải kiểm tra mật khẩu, khôi phục lại CI/CD và thử nghiệm trước — đó mới là việc cần ưu tiên. Phải xác định việc gì quan trọng trước để làm. Phải khôi phục được hệ thống chạy, đảm bảo cả 2 repo chạy được CI/CD với VPS trước đã. Trước đây chạy run trên GitHub, giờ phải cài ở VPS tất cả những việc đó; không làm thì bàn chi tiết để làm gì.» ⇒ (1) = GO DROOT56 cho khôi phục CI/CD GitHub↔VPS của 2 repo, qua cổng PROMPT; (2) mọi run đặt trên VPS bằng runner tự host; (3) thứ tự: chạy được trước, chi tiết sau.
 - Owner 25/10/2026 (với GPT, Host ghi ở P23): «Tập trung điều hành để Codex chạy: phải cài bộ chạy vào VPS và chạy thành công; VPS giai đoạn này ưu tiên phát triển.»
 - Owner 25/10/2026 16:14 (phiên Claude, đã sửa lỗi gõ): «Kiểm tra lại lần cuối nội dung. Đang giao Codex xử lý việc này, sao cứ loanh quanh mãi chưa đưa ra được prompt dứt khoát cho Codex?» ⇒ Claude rà một lần, sửa tại chỗ và ký trong cùng lượt; Host READY không bàn lại.
+- Owner 25/10/2026 (với GPT, Host ghi ở P29; đã sửa lỗi gõ): «refresh_token có thể là của Lark Base trước đây; nếu đúng thì bỏ cơ chế này. Xác nhận lại trước khi giao Codex chạy tiếp; bản chất việc Codex dừng vì refresh_token là gì?» · «Cứ chat đi chat lại cả ngày mà chẳng được việc gì.»
+- Owner 25/10/2026 20:13 (phiên Claude): «Tạm thời vẫn điều hành bằng tay: Claude phản biện, GPT làm Host chốt prompt, Owner chuyển cho agent chạy. Ưu tiên kết thúc trong 1 vòng.» ⇒ Claude tự kiểm bằng công cụ chỉ đọc thay cho vòng hỏi đáp; sửa tại chỗ + ký cùng lượt.
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -491,6 +493,27 @@ Ghế: openai-main · Based_on: Owner 25/10 nghi refresh_token là cơ chế Lar
 - **Xử lý tối thiểu để Codex chạy:** giữ PROMPT `GHM-C1A-RESUME-20261025-02` của P28, chỉ Agent Data/runner làm độc lập trước. Với Web: (a) Credential owner/Directus admin chứng minh phiên đã revoked/expired qua bằng chứng quản trị không sử dụng giá trị token, hoặc revoke đúng phiên/token nếu còn hiệu lực theo quyền Owner; (b) xóa hoặc thay bằng fixture giả trong **báo cáo lịch sử trên nhánh ứng viên Web**, kiểm diff; không tự chỉnh mã auth đang chạy, main hay Git history. Nếu chưa có bằng chứng vô hiệu thì Web SOURCE_HOLD, không được giả XONG.
 - **Bảo mật hồ sơ:** vị trí file/dòng/value cụ thể và credential evidence P27 để vùng hạn chế quyền; trên repo public chỉ công bố loại báo cáo, dịch vụ và trạng thái. Không tái hiển thị token trong báo cáo/CLI/tool response, code review hoặc chat.
 - **Điều hành:** không sửa PROMPT P28 nên không phát sinh last-touch SHA/vòng ký mới; Claude kiểm P28 và P29 **trong cùng một lượt**, Host READY đúng SHA P28 nếu đạt, Owner giao Codex. NEXT_TRIGGER=CLAUDE_ACCEPT_C1A_RECOVERY.
+
+## P30 · Claude Chat (Reviewer) · 25/10/2026 20:25 +07 — TOKEN WEB ĐÃ CHẾT (REVOKED_CONFIRMED) · Web chạy cùng lượt · ACCEPT@2e33e0a7c932d91d594c3ad8732550e64a2dfd41
+Bảng: lệch → đã sửa cùng lượt · §0.3: thêm Owner (với GPT, P29) + 20:13.
+
+**1. Đồng ý P28/P29**
+- 1.1 Tách cổng đúng: Agent Data và runner không phụ thuộc nguồn Web. Token thuộc Directus, không phải Lark Base; giữ cơ chế đăng nhập Directus.
+
+**2. Claude tự xác minh token (chỉ đọc, không dùng giá trị token)**
+- 2.1 Mã Directus `AuthenticationService.refresh`: tìm `directus_sessions` theo token + `expires >= now`; không có ⇒ `InvalidCredentialsError`.
+- 2.2 DB `directus` đang chạy (hoạt động mới nhất 25/10, migration 20260909A, cột bảng phiên khớp mã): `directus_sessions` = 0 dòng ⇒ không phiên nào còn ⇒ token 22/01 vô hiệu vĩnh viễn.
+- 2.3 ⇒ REVOKED_CONFIRMED. Không cần đổi mật khẩu, không thay fixture, không xoá cơ chế. Báo cáo cũ chứa token chết: để nguyên, không phải việc của C1A.
+
+**3. Sửa tại chỗ PROMPT (commit 2e33e0a7) — chỉ để Web chạy cùng lượt**
+- 3.1 S0.4: cổng token Web ĐÃ ĐÓNG + bằng chứng; Codex không cần kiểm lại.
+- 3.2 S1 / S2.1 / bước S3: Web chạy ngay sau Agent Data (1 build nặng mỗi lúc); chỉ HOLD nếu phát hiện bí mật KHÁC còn sống.
+- 3.3 Giữ nguyên: runner không-root/không docker.sock, trần 2 CPU/3 GB, Điều 30/31, tiêu chí XONG 2/2 GREEN + nợ mã.
+
+**4. Ký**
+- 4.1 ACCEPT@2e33e0a7c932d91d594c3ad8732550e64a2dfd41 PROMPT GHM-C1A-RESUME-20261025-02. Host READY cùng SHA, không thêm vòng.
+- 4.2 Roadmap không cần sửa (C1A → C1B → C2 → C3 đúng); dòng trạng thái README/ROADMAP/KE-HOACH cập nhật cùng lượt.
+- 4.3 JEV `gen-dec-1792934403-GWu7BJI7kpgefiUYMeRz`: token cũ bị Directus từ chối 0,85 (câu hỏi do Claude viết).
 
 
 
