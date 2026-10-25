@@ -4,14 +4,14 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 16:26 +07 · GPT Chat · P25
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 16:30 +07 · Codex · P26 STARTED C1A
 - 🎯 Mục tiêu: cài GitHub self-hosted runner trên VPS cho hai repo thật, chạy CI có test thật, rồi hoàn thiện CD và cho các agent lập trình song song.
 - 🏁 Xong khi: C1A 2/2 CI run trên VPS PASS, nguồn SHA/log kiểm chứng, Guard/health sạch; C1B CD dev + rollback; C2 khóa main; C3 agent song song.
 - 📍 Tiến độ: ✓ R0/R1 → ✓ GPT P23 C1A Codex → ✓ Claude P24 ACCEPT → ✓ GPT P25 READY → ■ Owner giao CODEX RUN C1A → □ KQ C1A → □ C1B → C2 → C3.
 - ✅ Đã xong: PROMPT Codex C1A chốt, Claude P24 sửa 3 điểm tại commit 0ec01e30 và ký ACCEPT đúng last-touch; GPT Host đã đọc toàn bộ và ký READY cùng SHA. KHÔNG sửa lại PROMPT.
-- ■ Đang làm: — · 0 RUN active trong task. Chưa Codex STARTED C1A, chưa cài runner.
+- ■ Đang làm: Codex STARTED GHM-C1A-VPS-RUNNER-20261025-01; S0 kiểm quyền/tài nguyên/cờ và bảo vệ, chưa mutation runner.
 - ⬜ Còn lại: Owner chuyển đúng RUN_ID+PROMPT cho Codex; Codex tuân S0 cờ VPS-GHI/quyền, cài 2 runner, chạy CI thật 2 repo, KQ XONG/DỪNG; Host/Claude nghiệm thu kết quả.
-- ➡ Kế tiếp: Owner gửi CODEX lệnh RUN `GHM-C1A-VPS-RUNNER-20261025-01`; NEXT_TRIGGER=OWNER_RUN_GHM_C1A.
+- ➡ Kế tiếp: Codex qua S0, CAS VPS-GHI rồi cài runner và kiểm CI thật 2 repo; NEXT_TRIGGER=CODEX_C1A_KQ.
 - ⛔ Không làm: không giao Claude chạy thay; không RUN PROMPT P22 cũ; không đụng main/deploy workflow cũ/restart app; chưa tự mở C1B/C2.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -445,6 +445,12 @@ Ghế: openai-main · Based_on: P23 GPT DRAFT, P24 Claude ACCEPT, xác minh tr�
 - **Không mở vòng nữa, không sửa PROMPT sau khi Claude ký.** Claude ACCEPT@`0ec01e30bdaa69b88d36c339497c7bd851f3e683` chính xác bằng last-touch PROMPT; xác nhận phạm vi S0–S3, 2 repo PRIVATE, C1A chỉ runner CI giới hạn tài nguyên, chưa auto-deploy/restart ứng dụng/ghi main. Nếu Codex không có quyền VPS ghi hợp lệ/không lấy cờ ⇒ KQ DỪNG rõ blocker, không tự đổi executor.
 - **READY@0ec01e30bdaa69b88d36c339497c7bd851f3e683** · Host GPT Chat · RUN_ID=`GHM-C1A-VPS-RUNNER-20261025-01` · EXECUTOR=Codex CLI/Desktop · SCOPE=C1A self-hosted runner VPS + 2 CI jobs/test thật. **Không phải STARTED.**
 - NEXT_TRIGGER=OWNER_RUN_GHM_C1A. Không mutation GitHub/VPS trong lượt READY này.
+
+## P26 · Codex · 25/10/2026 16:30 +07 · STARTED C1A
+STARTED@GHM-C1A-VPS-RUNNER-20261025-01 2026-10-25T09:30:00Z · executor=Codex CLI/Desktop
+- Owner trực tiếp giao Codex; read-gate workspace đạt, đã đọc AGENTS/README/Bảng/P12/P17/P22–P25 và toàn bộ PROMPT. ACCEPT Claude P24 = READY GPT P25 = last-touch PROMPT `0ec01e30bdaa69b88d36c339497c7bd851f3e683`; không STOP/STARTED mở khác trong task. Codex tự thực hiện, không giao Claude.
+- S0 kiểm quyền GitHub/SSH, budget $0+Stop, 15 workflow disabled/3 audit còn nguyên, backup/ref/runtime, tài nguyên/cgroup và cơ chế Đ30/31. Root COLLAB đang ghi VPS-GHI trống; sẽ CAS cờ ngay trước ghi hệ thống sau S0, không dùng snapshot cũ để cấp quyền.
+- Chỉ runner CI + nhánh `dev/codex/ghm-c1a-probe`/workflow probe trên 2 repo và tích hợp bảo vệ/giám sát theo PROMPT. Tổng trần CI 2 CPU/3 GiB, không root/docker.sock/secret/host mount; không sửa main/cây phục vụ hay restart app. Bằng chứng chi tiết root-only. Dự kiến S0 ≤09:45Z, KQ ≤12:30Z; gặp cổng dừng ghi KQ, trả cờ, không giữ phiên chờ. Áp: SAME_COMMIT.
 
 
 
