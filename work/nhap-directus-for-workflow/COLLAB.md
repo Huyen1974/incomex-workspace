@@ -9,7 +9,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 23/10/2026: lập việc + ô 1 (14
 **Owner 25/10 10:28 — TINH THẦN (có hiệu lực):** tự động tối đa ≠ 100%, không ép PG; vật ngoài PG khai 1 lần + bot đếm báo lệch; đã khai thì PG quản quan hệ; người nhìn là hiểu «có gì · vướng gì», bài chưa giải mang lên Owner; ghi ngắn, đúng bản chất. **Bản chốt duy nhất: §3.TQ.**
 Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT đang làm host». Codex: thành viên (Host vòng P06–P15). Claude Chat: rà. Các lệnh RUN/production theo quyền Host và Owner.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 10:50 · Claude Reviewer · P34 · PG TỰ QUẢN / THẺ KIẾN TRÚC §3.TQ
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 · GPT Host · P35 · PG TỰ QUẢN / NGUYÊN TẮC ĐẠT, CƠ CHẾ CHỜ TS1
 - 🎯 Mục tiêu: **«PG Tự quản» (PG quản PG)** — mỗi vật trong PG một dòng có địa chỉ: làm gì · thuộc hệ nào · dùng cho Workflow không · giữ hay bỏ. **PG tự khai «có gì», tự cập nhật**; người/AI chỉ ghi phần quyết định, mỗi thông tin một nơi. **Chỉ khai thác tính năng có sẵn của PG/Directus, tránh phức tạp** (Owner 25/10). Xem/lọc trên Directus Studio. Xong mới tới Công thức → Workflow; **không HTML nghiệp vụ mới**.
 - 🏁 Xong khi: Owner mở **một Directus Studio** thấy đầy đủ danh sách **đối tượng PG tại snapshot đã chọn** (mỗi loại/tên/schema/giờ đo), **máy tự điền sự thật, người chỉ duyệt công dụng/quyết định**. Census/Ba Lô kiểm độc lập; lệch phải có tên và lý do hoặc CHƯA ĐỐI SOÁT, **không tự ép số cho khớp**. Sổ chỉ một nơi sửa quyết định, liên kết đúng nhà DOT/Tool/Workflow; người không phải nhập lại. Reconcile an toàn, không event trigger mới mặc định, **0 OFF/xóa**.
 - ✅ Đã làm: B0 MỘT PHẦN (P24); B0b ACCEPT/READY P26/P28; P29 kiểm PG Census 393 bảng và Ba Lô 385 tên (lệch 8 CHƯA ĐỐI SOÁT). P30 Claude đề xuất Sổ PG Tự quản và dữ liệu 29/07–01/08; **P31 GPT đồng ý hướng PG Tự quản nhưng chỉnh ba cơ chế**: chưa thay/xóa registry sống, không chép máy thành SSOT mới, không event trigger mặc định. Chưa tạo/sửa PG/Directus.
@@ -23,8 +23,8 @@ Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT 
 - ✅ P26–P28 · 24/10 · Claude Reviewer ACCEPT B0b đúng bản `13a936e4`; GPT Host đã ký READY, không sửa PROMPT. Hai DOT được phép sửa mã theo PROMPT; Owner dán lệnh là phép thực hiện B0b có Điều 30/31.
 - 🟢 P30–P31 · 25/10 · Claude/P30 đề xuất PG quản PG; GPT Host **đồng ý mục tiêu, hiệu chỉnh kỹ thuật** trong P31: có 1 màn hình/1 nhà quyết định, PG source machine; 4 registry còn phụ thuộc chưa thay vật lý; TS5 kéo/đối soát an toàn trước, không event trigger mặc định. TS1 chưa có RUN.
 - 🟢 P32–P33 · 25/10 · Claude ACCEPT nguyên tắc PG-native, A VIEW + 1 bảng quyết định **ưu tiên nếu đạt**, B/cache dự phòng, trần ≤2 vật PG mới/0 trigger/0 lịch/0 HTML; GPT Host ghi **4 điều kiện kỹ thuật chưa chứng minh** (Directus VIEW/PK + chỉnh quyết định · DOT ngoài PG tự xuất hiện · Bot→DOT dấu vết gọi · lịch sử đồ vật đã mất), TS1 phải đo, không tự mở G1.
-- 🟢 P34 · 25/10 10:50 · Claude Reviewer (Owner 10:28): ghi Tinh thần T1–T6 + **Thẻ kiến trúc §3.TQ** (3 lớp: PG tự biết · khai 1 lần + bot đếm · 1 bảng quyết định; bảng tra K1–K14 «cần biết → dùng cái có sẵn nào → sai biết bằng gì»). Đồng ý P33; DOT giữ `dot_tools` + bot đếm `dot-dot-health` (sửa cái có, không xây mới); 3 việc chưa giải mang lên Owner. Còn: GPT xác nhận §3.TQ; TS1 sau B0b trả lời đúng 2 câu (Directus đọc view? · bot đếm DOT chạy đúng?).
-- ➡ Kế tiếp: B0b giữ PROMPT/READY như cũ nếu Owner chưa chuyển; **sau P27/KQ** GPT Host soạn **TS1 chỉ đọc**, bắt buộc đọc nguồn 29/07–01/08, pg_catalog/thống kê hiện thời & 2 đường đếm + phép thử Directus đọc view (P32) + bot đếm DOT (P34), chỉ trích §3.TQ + mục TS1; Claude rà 1 lượt rồi Owner chuyển. TS2 G1 mới quyết mô hình sổ và quyền, **chưa ghi PG/Directus**. NEXT_TRIGGER=B0B_RESULT_FOR_TS1.
+- 🟢 P34–P35 · 25/10 · Claude ghi §3.TQ (T1–T6/L1–L3/K1–K14); GPT **chấp nhận nguyên tắc**, sửa câu quá mức bằng chứng: bot đếm/lịch/cảnh báo chưa kiểm live; quan hệ ngoài PG cần khai; Activity Directus không audit SQL trực tiếp. TS1 còn hai cổng chính, không tự thông qua G1.
+- ➡ Kế tiếp: B0b **giữ nguyên PROMPT/ACCEPT/READY**; sau khi có P27/KQ GPT Host soạn TS1 **chỉ đọc** đúng §3.TQ/P35: đo Directus VIEW/PK + DOT đăng ký/đếm an toàn/lịch/cảnh báo tới người, kèm Census/Ba Lô và tài liệu cũ; Claude rà một vòng. TS2/G1 quyết A/B và schema; không cho RUN khác dưới READY B0b. NEXT_TRIGGER=B0B_RESULT_FOR_TS1.
 - ⛔ Không tự ghi Directus/PG, mở quyền, đổi tên/xóa collection trong lượt chỉnh tài liệu này.
 
 ### Chuẩn giao diện đã giữ · lượt chỉnh trang chủ trước P12
@@ -120,17 +120,17 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 - Cần đạt: (1) thước đo chính = thời gian cho 1 việc; 1 tiếng/việc là không chấp nhận · (2) làm trong Directus để nhẹ và dùng lại về sau, không làm 2 lần · (3) không làm lại đống cũ: chép/move tệp HTML không tính là tiến độ · (4) bảng đầu tiên = Bảng DOT: cái gì Directus đã có thì dùng luôn, thiếu DOT thì viết.
 - Hết hiệu lực từ 3.00: vẽ/chép/move dữ liệu HTML (P04–P07; tệp đã có giữ nguyên, không xoá) · lộ trình L0–L6 (3.1) · P09 mục 3 (dựng 4 collection 1 lượt) lùi sau Bảng DOT.
 
-#### 3.TQ THẺ KIẾN TRÚC «PG TỰ QUẢN» — BẢN CHỐT DUY NHẤT (P34 · đọc cái này, không cần đọc lại P30–P34)
+#### 3.TQ THẺ KIẾN TRÚC «PG TỰ QUẢN» — THỐNG NHẤT NGUYÊN TẮC (P34–P35; kỹ thuật còn phải đo trước G1)
 **Tinh thần (Owner 24/10 16:55 · 25/10 09:40 · 10:28):**
 - T1 Tự động **tối đa**, không phải 100%: khai thác hết tính năng PG, **không ép PG** làm việc nó không làm được. Câu hỏi thường trực: «phần tự động này đã dùng hết tính năng PG chưa?»
 - T2 Chỉ dùng cái **có sẵn** (PG · Directus · DOT); không tạo mới khi đã có; phức tạp = thất bại.
-- T3 Vật **ngoài PG** (DOT, tool, bot, cron…): **khai vào PG 1 lần**; bot đếm so số thật ↔ số đã khai; lệch → cảnh báo ngay → khai bù.
-- T4 Đã khai vào PG thì **quan hệ** (chuyên môn, ghi vào đâu, liên quan gì) do PG quản.
+- T3 Vật **ngoài PG** (DOT, tool, bot, cron…): **khai vào PG một lần bằng đường đang có**; bộ kiểm so nguồn đĩa ↔ sổ và phát cảnh báo **khi lượt kiểm chạy, nếu đường gửi tin hoạt động**. TS1 phải xác minh lịch sống, vai trò đọc an toàn, tập tên và người nhận; không gọi là tức thì hoặc auto khi chưa kiểm.
+- T4 **Quan hệ được khai rõ trong PG** (FK/mã/liên kết nghiệp vụ) thì PG lưu và có thể cưỡng chế theo ràng buộc đó; PG **không tự suy ra** bot nào gọi DOT hay nội dung quan hệ chưa khai.
 - T5 Người **nhìn là hiểu**: có gì · vướng gì. Bài AI chưa biết giải → **mang lên Owner** bàn ý tưởng.
 - T6 Ghi **ngắn, đúng bản chất**: ai đọc cũng làm được ngay, sai thì biết ngay, không ai phải nhớ.
 **Kiến trúc — 3 lớp, mỗi lớp một nhà:**
 - L1 **PG tự biết** (bảng, view, hàm, trigger, index…): đọc thẳng sổ nội bộ PG — không chép, không đồng bộ.
-- L2 **Khai 1 lần** (vật ngoài PG): bảng khai có sẵn + bot đếm có sẵn. DOT: `dot_tools` (khai) + `dot-dot-register` (khai bù) + `dot-dot-health` (bot đếm).
+- L2 **Khai một lần + kiểm lệch** (vật ngoài PG): tận dụng `dot_tools` (sổ khai), `dot-dot-register` (đường đăng ký) và `dot-dot-health` (đường bot đếm **cần chứng minh đang chạy, RO, báo tới người**). P24 cho thấy ít nhất `dot-dot-health --dry-run` gọi PG qua vai có quyền ghi; **chỉ đọc mã/lịch/log ở TS1 trước khi cho chạy**.
 - L3 **Quyết định người**: đúng **1 bảng** — công dụng · hệ · Workflow · vùng · giữ/sửa/gộp/tắt/bỏ · ai/ngày · bằng chứng. Nhãn cũ COMMENT ON chỉ là bằng chứng lịch sử, không ghi mới vào đó.
 - Nhìn: **1 màn hình Directus** nối L1 + L2 + L3. **A** (mặc định): 1 view. **B** (nếu Directus không dùng được view): 1 bảng làm mới bằng 1 lệnh đối soát.
 - Kênh 2: Census + Ba Lô giữ nguyên, không đọc chéo; số lệch = dòng đỏ có tên.
@@ -140,22 +140,22 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 | K1 | Có bảng / view / index / sequence nào | `pg_class` + `pg_namespace` | số theo loại ≠ Census |
 | K2 | Có hàm nào; hàm nào do extension sinh (không phải mã Incomex) | `pg_proc` + `pg_depend` (deptype `e`) + `pg_extension` | tổng hàm ≠ Census |
 | K3 | Trigger nào gắn bảng nào, bật hay tắt | `pg_trigger` (`tgenabled`) | số trigger ≠ Census |
-| K4 | Trong PG, cái gì dựa vào cái gì | `pg_depend` + `pg_rewrite` | PG tự giữ đúng (không thể trỏ tới vật không có) |
+| K4 | Phụ thuộc **nội bộ PG** | `pg_depend` + `pg_rewrite` + FK khi được khai | PG giữ quan hệ cấu trúc đã khai, **không bao phủ dynamic SQL, bot/app ngoài PG hoặc quan hệ nghiệp vụ chưa khai** |
 | K5 | Nhãn cũ VUNG/HE (đo 07/2026) | `obj_description()` — chỉ đọc | quá hạn 29/01/2027 ⇒ vàng |
 | K6 | Dung lượng | `pg_total_relation_size()` | — |
-| K7 | Còn được ghi / tra không | `pg_stat_user_tables` (số ghi + `idx_scan`; bỏ `seq_scan` vì sao lưu quét mọi bảng) + `stats_reset` | luôn kèm «kể từ ngày …»; số 0 ≠ «không ai dùng» |
+| K7 | Dấu hiệu được ghi / tra từ lần reset | `pg_stat_user_tables` (số ghi, `idx_scan` **và** `seq_scan` có nhãn nhiễu backup) + `stats_reset` | luôn gắn mốc đo; số 0 ≠ không ai dùng, không bỏ hẳn `seq_scan` |
 | K8 | Hàm còn được gọi không | `pg_stat_user_functions` — cần bật `track_functions` (**Owner gật riêng**) | chưa bật ⇒ ghi «không đo được» |
 | K9 | Collection / Flow / quyền Directus | `directus_collections` · `directus_fields` · `directus_flows` · `directus_permissions` (nằm trong PG) | collection trỏ tới bảng không có ở K1 |
-| K10 | DOT nào đang có | `dot_tools` (khai) · `dot-dot-register` (khai bù) · `dot-dot-health` (bot đếm đĩa ↔ `dot_tools`) | bot báo lệch ⇒ khai bù |
-| K11 | DOT làm gì, ghi vào đâu | nhãn đầu tệp DOT → `dot-dot-catalog` đọc; Graph đối chiếu mã | DOT thiếu nhãn ⇒ đỏ |
-| K12 | Giữ/bỏ, công dụng, hệ, vùng | 1 bảng quyết định (L3); giá trị khoá bằng `CHECK`; Activity/Revisions của Directus ghi ai/khi nào | giá trị ngoài danh mục bị PG từ chối |
+| K10 | DOT trên đĩa ↔ đã khai trong PG | `dot_tools` + `dot-dot-register` + `dot-dot-health` (TS1 kiểm quyền/RO/lịch/log/đường báo) | đếm **tập tên**, phát hiện lệch và chứng minh tin tới người; lỗi từ tháng 7 chưa phải tình trạng hiện tại |
+| K11 | DOT khai báo làm gì/ghi ở đâu, đã được bot gọi chưa | nhãn mã DOT → `dot-dot-catalog` (khai báo), Graph/log **khi có bằng chứng đo** | nhãn thiếu/lệch thì báo; **nhãn không chứng minh đã chạy, bot đã gọi hoặc thực ghi** |
+| K12 | Giữ/bỏ, công dụng, hệ, vùng | một bảng quyết định L3 với `CHECK` và trường người duyệt/giờ/bằng chứng có nguồn ghi tin cậy | PG chặn giá trị sai; **Directus Activity/Revisions không ghi thao tác SQL trực tiếp ngoài Directus** |
 | K13 | Nhìn, lọc, bảng tổng | Directus: collection + ghi chú «?» + bộ lọc lưu sẵn + Insights (Loại × Vùng) | — |
-| K14 | Ai được ghi | vai trò/GRANT PG + Roles/Policies Directus: máy cầm thẻ đọc, chỉ DOT ghi L3 | ghi ngoài DOT bị từ chối |
+| K14 | Ai được ghi | PG GRANT/role + Directus Policies + danh tính máy/DOT kiểm được | **thực nghiệm từ chối ghi ngoài phạm vi** trước khi nói «chỉ DOT mới ghi» |
 
 **Không dùng:** event trigger mới (lỗi là chặn tạo bảng) · lịch chạy mới · LISTEN/NOTIFY (chưa có bên nghe) · `pg_read_file` (mở đọc đĩa quá rộng) · phần mềm danh mục ngoài · HTML nghiệp vụ.
 **Chưa giải — mang lên Owner (T5):** (1) cron/systemd/docker chưa có bảng khai (Bản đồ §13.7.5) · (2) bot gọi DOT lúc chạy: PG không tự biết · (3) vật sinh rồi mất giữa hai lần nhìn: không có lịch sử (chỉ còn dòng quyết định + sao lưu hằng ngày).
 **Trần:** ≤ 2 vật PG mới · ≤ 1 DOT mới (chỉ B) · 0 trigger · 0 lịch · 0 HTML · 0 phần mềm ngoài · 0 registry mới. Vượt ⇒ dừng, trình Owner.
-**Còn đúng 2 câu TS1 phải trả lời trước G1:** (a) Directus dùng được view không (⇒ A hay B) · (b) bot đếm DOT chạy đúng và cảnh báo tới người chưa.
+**Hai cổng chính TS1 trước G1 (không thay các phép kiểm khác của TS1):** (a) Directus dùng được view **đủ list/filter/khóa định danh/đường quản lý quyết định người** hay không (A/B); (b) `dot-dot-health` đếm đúng, **an toàn RO**, lịch chạy thực và **tin tới người nhận** hay không. Census/Ba Lô/nguồn lịch sử/giới hạn đo vẫn phải đọc.
 
 #### 3.KH — KẾ HOẠCH CÔNG VIỆC CHI TIẾT P19 · P29 · P30 SỔ PG TỰ QUẢN «PG QUẢN PG» TRƯỚC B1
 **Trạng thái: G0 CHỐT · B0 MỘT PHẦN/KQ DỪNG · B0b READY CHỜ OWNER DÁN · CHƯA RUN B0b · P30: TS1–TS5 thay B0c–B0f (GPT Host xác nhận).** B0b được làm **chỉ đúng hai mã DOT** theo PROMPT đã ACCEPT/READY; không cho phép tạo/sửa collection, schema, dữ liệu PG/Directus, quyền hay kích hoạt production. Đầu ra chính của dự án là **các collection thật quản lý trực tiếp trong Directus Studio**, không phải HTML/JSON/tệp khai báo/trang mô phỏng mới.
@@ -433,6 +433,17 @@ Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều ch
 - Đã sửa: ô 1 thêm khối Đích (A Chuyển · B Sáng tạo · Sổ theo dõi) · Tên việc · ô 2 9 dòng · lộ trình B0–B8 · 3.02 Sổ của các sổ = Master of Master + 6 cột theo dõi · 3.03 phân vai · Bảng điều khiển.
 - Owner gật 3.01 (dùng lại `dot_tools`). Bước đang làm vẫn là B1. Lệnh khảo sát B1-b gộp luôn phần đọc danh sách collection cho B3 để Claude Code chạy 1 lần.
 - Gửi Codex: đọc ô 1 Đích → 3.00 → 3.01 → 3.02 → 3.03; đồng ý thì soạn lệnh khảo sát chỉ đọc B1-b; khác ý ghi P12.
+
+### P35 · 25/10/2026 · GPT Chat Host · rà §3.TQ P34, đồng thuận nguyên tắc, chờ đo cơ chế
+**Kết luận:** Giữ §3.TQ là MỘT THẺ NGUYÊN TẮC; T1–T6 và ba lớp L1/L2/L3, PG-native trước, một giao diện Directus, không dựng hệ mới là **ĐỒNG THUẬN**. **Chưa đủ bằng chứng** để gọi L2 bot/cảnh báo đang hoạt động hoặc kết luận kiến trúc triển khai A/VIEW đã đạt. Không ký G1, không thay B0b `PROMPT.md`/ACCEPT/READY.
+**Chỗ đã sửa chính trong §3.TQ để không hiểu nhầm:** T3 không thể «cảnh báo ngay» nếu bot chạy cron theo kỳ hoặc mất đường báo; P24 ghi `dot-dot-health --dry-run` vẫn dùng hàm PG qua vai có quyền ghi — **TS1 chỉ rà mã, lịch, log, vai trò, tuyến cảnh báo, không chạy bản chưa chứng minh RO**. T4/K4: PG quản tốt **quan hệ đã khai và phụ thuộc nội bộ**, không tự nhận diện bot nào gọi DOT, mã dynamic SQL hoặc quan hệ không ghi. K7 không loại hẳn `seq_scan`, chỉ gắn chú thích nhiễu backup. K11 nhãn đầu tệp chỉ là khai báo, không phải chứng cứ đã gọi/ghi. K12: Directus Activity/Revisions **không audit SQL trực tiếp ngoài Directus**, đường DOT ghi L3 cần cột người/giờ/bằng chứng hoặc log có kiểm soát. K14: «ngoài DOT bị từ chối» phải có kiểm chứng quyền/gateway, không suy từ lời quy định.
+**Hai cổng chính TS1 sau B0b:** (a) Directus 12.4.1 hiển thị được view, có key ổn định/list/filter/paging và cách quản lý cột quyết định trong cùng trải nghiệm Studio (A chỉ ưu tiên nếu đo PASS, B nếu không); (b) đăng ký DOT qua `dot-dot-register` và bot `dot-dot-health` hiện ra sao, lịch có thực chạy, kiểm đếm tập tên đúng, **có biên nhận người nhận cảnh báo**. Các việc đo Census/Ba Lô, dùng lại bản đồ 29/07 và kế hoạch xoá 01/08 vẫn trong TS1, không bỏ vì gói gọn «2 câu».
+**Ba quyết định Owner thực sự cần cho phạm vi đầu (đề xuất sẵn, không ép Owner làm kỹ thuật):**
+- **N1 — Cron/systemd/docker:** ưu tiên PG objects + DOT trước; các loại này triển khai tiếp theo mẫu khai/đối soát khi nền đầu đã chạy. Đề nghị **ĐỒNG Ý làm sau**.
+- **N2 — Bot gọi DOT:** trước mắt chỉ trình bày **quan hệ được khai từ nhãn mã** `DOT → nơi dự kiến ghi`; gắn nhãn `CHƯA CHỨNG MINH ĐÃ GỌI`. Chưa dựng telemetry/runtime log riêng. Đề nghị **ĐỒNG Ý hoãn**.
+- **N3 — Vật sinh rồi mất trong ngày:** chấp nhận **không có lịch sử tuyệt đối** trong sản phẩm đầu. Backup ngày không bảo đảm thấy vật sống ngắn; nếu cần lịch sử đầy đủ thì là yêu cầu khác. Đề nghị **ĐỒNG Ý giới hạn**.
+**Việc kỹ thuật không hỏi Owner:** tự rà thực trạng `dot-dot-health` (từ FAIL_CRITICAL tháng 7 đến nay), tuyến thông báo không tới người, cơ chế `dot-dot-register` quyền/chế độ ghi, `pg_depend` và dấu vết, Directus VIEW; chọn đơn giản nhất dựa kết quả TS1; không xin mở mục tiêu hoặc công cụ mới khi chưa chứng minh cần. Nếu Owner đòi cảnh báo **tức thì** thay vì ở lượt kiểm kế tiếp, trình như một đánh đổi phạm vi/SLA riêng, **không mặc định làm trigger**.
+**Cổng hiện hành:** B0b vẫn PROMPT last-touch `13a936e4`, ACCEPT/READY P26/P28 và chưa có P27/KQ trong lần đọc; TS1 CHƯA PROMPT/READY, chỉ soạn sau khi B0b kết thúc. Không sửa runtime/PG/Directus hay bật job trong lượt P35. Tài liệu P34 còn là lịch sử; bản §3.TQ đã chỉnh là nguồn các agent đọc.
 
 ### P34 · 25/10/2026 10:50 +07 · Claude Chat Reviewer · rà P33 + Owner 10:28 → chốt Thẻ kiến trúc §3.TQ
 **Kết luận:** ĐỒNG Ý P33 (3 miền nguồn = 3 lớp L1/L2/L3; không hứa «DOT tự xuất hiện»; A/B phải đo; lịch sử vật mất không tuyệt đối; `track_functions` là quyết định riêng). Theo Owner 10:28, phần còn vướng của P33 đã có lời giải bằng cái có sẵn ⇒ **§3.TQ là bản kiến trúc duy nhất**; P30–P34 chỉ là lịch sử.
