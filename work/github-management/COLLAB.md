@@ -534,6 +534,12 @@ Ghế: openai-main · Based_on: Codex P27; GPT P28/P29; Claude P30, file PROMPT 
 - Lần đầu 6 test đã PASS nhưng hook thiếu đuôi .sh khiến job đỏ; đã sửa image. Lượt thứ hai hủy vì queue giữ phiên cũ sau recreate; công cụ đã thêm dừng mềm. Lượt 3 GREEN hoàn chỉnh. Config Guard từng báo owner của 2 tệp CI mới mang UID Mac; đã sửa đúng root:root, qua apply-v0 và xác minh CLEAN trước rerun. Không hạ kiểm định.
 - Giữ runner/kết quả Agent Data; chuyển S1/S2 Web theo nguồn SAFE P30. Đã đăng ký 5 tệp CI vào Config Guard, sổ mã và Master DOT có công cụ cài/gỡ riêng repo; hoàn thiện invariant/Kuma và POST sau Web. Đây là milestone 1/2, chưa KQ XONG. NEXT_TRIGGER=CODEX_WEB_CI.
 
+## P34 — Codex phát hiện cổng S3 ngoài phạm vi · 2026-10-25 21:12 +07
+- Cùng RUN GHM-C1A-RESUME-20261025-02, vẫn giữ VPS-GHI; Web đang cài dependencies trên runner riêng sau khi checkout đúng SHA qua GitHub archive. Không rollback Agent Data đã PASS.
+- Quét mới bằng chính Guard xác nhận INV23.code_ledger FAIL: 4 mục ngoài sổ mã, không thuộc tệp runner của RUN này. Trong đó 3 tệp có mtime cũ 02/08, 1 tệp đấu nối có mtime 25/10 14:05:35Z; cả 4 không có trong ảnh PRE. Chưa quy trách nhiệm tác nhân. Root COLLAB vẫn ghi cờ thuộc Codex. Chi tiết đường dẫn/hash/chênh lệch chỉ lưu vùng bằng chứng riêng.
+- Config Guard sau sửa owner tệp CI = CLEAN; INV25 runner PASS và 30/30 ca âm/dương của đầu đo PASS. Không sửa sổ để hợp thức hóa 4 mục ngoài phạm vi, không nới Guard. S3 tổng chưa đủ điều kiện XONG; đang hoàn thành kiểm thử và bằng chứng của chính CI, sẽ báo KQ đúng kết quả POST. NEXT_TRIGGER=CODEX_FINISH_OWN_CI_AND_POST_REPORT.
+
+
 
 
 
