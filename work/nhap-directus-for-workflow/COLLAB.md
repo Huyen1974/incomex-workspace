@@ -218,54 +218,52 @@ Bot so: S1↔S2 · đĩa↔S3 · S2/S3↔S4  ⇒ lệch thì cờ ⚠ có tên
 |---|---|---|---|---|
 | Khai-1 | DOT / script mới | 1 câu mục đích (tên/đường/sha máy tự lấy) | đầu tệp, lúc tạo; `dot-dot-register` đưa vào `dot_tools` (TS1 kiểm đã tự gọi chưa — Đọc-4) | Bot-3 báo lệch; thiếu mô tả ⇒ cờ ⚠ |
 | Khai-2 | Bảng / collection nghiệp vụ mới | 1 câu mục đích bảng + «?» **từng cột** (luật Owner 20/10: mọi bảng mới có «?» ở tiêu đề và từng cột); lấy sẵn từ Field/spec đã duyệt khi có | ghi chú collection/field của Directus (`directus_collections.note`, `directus_fields.note`), lúc tạo bằng DOT | «THIẾU MÔ TẢ» ⇒ cờ ⚠; không chặn tạo bảng |
-| Khai-3 | Hàm / view nghiệp vụ mới | 1 câu mục đích | `COMMENT ON` lúc tạo. Trigger: thông tin đọc từ K3; không mở khoá `COMMENT ON TRIGGER` đang bị chặn | «THIẾU MÔ TẢ» ⇒ cờ ⚠ |
+| Khai-3 | Hàm / view nghiệp vụ mới | 1 câu mục đích | `COMMENT ON` lúc tạo. Trigger: thông tin đọc từ `pg_trigger`; không mở khoá `COMMENT ON TRIGGER` đang bị chặn | «THIẾU MÔ TẢ» ⇒ cờ ⚠ |
 | Khai-4 | Quyết định Giữ/Sửa/Gộp/Tắt/Bỏ | chỉ khi Owner quyết, kèm ai/ngày/căn cứ; đổi được, giữ lịch sử | S4, AI ghi qua DOT | không có dòng = «Chưa quyết» (≠ Bỏ) |
 - **Không có «Sẽ làm» cho vật PG.** «Sẽ làm» (Luật Nhà) chỉ áp cho **sổ nghiệp vụ** (Công thức, MMOW…) và ghi ở Sổ của các sổ (3.02) — thuộc bước B, không thuộc PG Tự quản.
 - **Không khai:** vật PG (Ba Lô tự thêm khi đồng bộ) · tên · kiểu · cột · quan hệ · số lần dùng · nơi DOT dự kiến ghi (đọc từ nhãn đầu tệp theo luật DOT hiện hành + Graph; thiếu ⇒ ⚪ Chưa rõ).
 
-**6. Canh — máy canh máy, không cần người canh**
-| Mã | Canh gì | Dùng có sẵn | Báo tới |
+**6. Canh — bot đếm và so sánh (máy canh máy)**
+| Mã | So cái gì | Lệnh có sẵn | Lệch thì |
 |---|---|---|---|
-| Canh-1 | DOT đĩa ↔ `dot_tools` (tập tên) | `dot-dot-health` — chỉ tính khi TS1 chứng minh chỉ đọc + lịch sống | `system_issues` + Telegram — chỉ tính khi TS1 chứng minh tin tới người |
-| Canh-2 | Vật mới thiếu mô tả | cờ trên màn hình | cờ ⚠ (có từ TS3) |
-| Canh-3 | Tên/số ↔ Census, Ba Lô | màn hình so | cờ ⚠ có tên (có từ TS3) |
-| Canh-4 | Bot đếm còn chạy không | Uptime Kuma kiểu Push (N4, sau TS1 + G2·N4) | Kuma → Telegram; «còn chạy» ≠ «đếm đúng» |
-- «Báo ngay» = ở lần bot chạy kế tiếp, không phải tức thì. Bot chưa có lịch sống ⇒ **chưa có cảnh báo**, ghi rõ như vậy.
+| Bot-1 | vật PG mới đã vào Ba Lô chưa (`pg_catalog` ↔ S2) | `dot-balo-reconcile --verify` | báo tên thiếu → chạy đồng bộ Ba Lô |
+| Bot-2 | Ba Lô khớp số Census chưa (S1 ↔ S2, 4 loại) | đọc 2 số, so | cờ ⚠ trên màn hình |
+| Bot-3 | DOT mới đã vào `dot_tools` chưa (đĩa ↔ S3) | `dot-dot-health` — chỉ khi Đếm-6 = CÓ | báo tên thiếu → `dot-dot-register` |
+| Bot-4 | vật nào chưa có quyết định (S2/S3 ↔ S4) | màn hình đếm, không ghi | hiện «Chưa quyết» + số đếm |
+- Báo tới `system_issues` + Telegram (bot còn chạy không: Uptime Kuma kiểu Push) — **chỉ tính là có khi TS1/TS5 chứng minh tin tới người**; «còn chạy» ≠ «đếm đúng».
+- «Báo ngay» = ở lần bot chạy kế tiếp. **Không đặt lịch mới**: gắn vào lịch có sẵn (TS5 chọn, ghi tên lịch). Chưa có lịch sống ⇒ ghi rõ «chưa có cảnh báo».
 
 **7. Giới hạn · cấm · trần**
-- **Không dùng:** trigger mới (mọi loại) · lịch chạy mới (gắn vào lịch có sẵn thì được, phải nêu tên lịch) · LISTEN/NOTIFY (chưa có bên nghe) · `pg_read_file` (mở đọc đĩa quá rộng) · phần mềm danh mục ngoài · HTML nghiệp vụ.
-- **Không làm ở việc này:** tắt/xoá bất cứ gì (việc dọn làm, Owner duyệt từng đợt; Kế hoạch xoá 01/08 chỉ là **dữ liệu lịch sử**, không phải danh sách được phép tắt) · thay/xoá 4 sổ cũ · sửa PG Census/Ba Lô.
-- **CẤM CHẠY:** `--dry-run`/`--check` của bất kỳ DOT nào khi TS1 chưa chứng minh nó chỉ đọc (P24: `dot-dot-health --dry-run` dùng vai có quyền ghi).
-- **Trần (áp cho PG Tự quản, TS1–TS5):** ≤ 2 vật PG mới · ≤ 1 DOT mới (chỉ Cách B) · 0 trigger mới · 0 lịch mới · 0 HTML · 0 phần mềm ngoài · 0 registry mới (= sổ thứ hai người/AI ghi tay song song với PG; bảng đệm máy của Cách B không tính). «Vật PG mới» = bảng/view/hàm do PG Tự quản tạo; index/sequence tự sinh theo bảng không tính. Vượt ⇒ dừng, trình Owner. Collection của B1–B5 không tính vào trần này.
-- **N1–N5 — giới hạn bản đầu (Claude + GPT đồng thuận; trình Owner gật):** N1 kiểm kê cron/systemd/docker làm sau PG + DOT · N2 chỉ hiện nơi DOT **dự kiến** ghi, chưa kết luận bot nào **đã** gọi · N3 không theo dõi vật sinh rồi mất giữa hai lần nhìn · N4 sửa bot đếm có sẵn (điền K15 từ log đáng tin + nhịp Kuma) chỉ sau TS1 + G2·N4 · N5 Owner đọc và quyết trên Studio, không sửa trực tiếp; AI ghi Lớp-3 qua DOT sau khi Owner gật.
+- **Trần (TS1–TS5):** ≤ 2 vật PG mới (S4 + 1 view/bảng cho màn hình ghép) · 0 DOT mới · 0 trigger mới · 0 lịch mới · 0 HTML · 0 phần mềm ngoài · 0 sổ đăng ký thứ hai. Vượt ⇒ dừng, trình Owner. Collection của B1–B5 không tính.
+- **CẤM CHẠY** `--dry-run`/`--check` của DOT nào chưa chứng minh chỉ đọc (P24: `dot-dot-health --dry-run` dùng vai có quyền ghi).
+- **Không làm ở việc này:** tắt/xoá bất cứ gì (việc dọn làm; Kế hoạch xoá 01/08 chỉ là dữ liệu lịch sử) · sửa cấu trúc Census / Ba Lô / `dot_tools` (chỉ dùng lệnh đồng bộ/đăng ký có sẵn, có G2) · trigger, LISTEN/NOTIFY, `pg_read_file`, phần mềm danh mục ngoài.
+- **N1–N5 — giới hạn bản đầu (Claude + GPT đồng thuận; trình Owner gật):** N1 kiểm kê cron/systemd/docker làm sau · N2 chỉ hiện nơi DOT **dự kiến** ghi, chưa kết luận bot nào **đã** gọi · N3 vật sinh rồi mất giữa 2 lần đồng bộ thì không thấy · N4 sửa bot có sẵn (lần chạy DOT từ log đáng tin, nhịp Kuma) chỉ sau TS1 + G2·N4 · N5 Owner đọc và quyết, không sửa tay; AI ghi S4 qua DOT sau khi Owner gật.
 
 **8. Ví dụ xuyên suốt**
-- Ngày 1 tạo `dot-abc` → viết 1 câu mục đích ở đầu tệp (Khai-1). Không khai gì khác.
-- `dot-dot-register` đưa `dot-abc` vào `dot_tools` → màn hình có dòng `dot-abc`. Chưa vào ⇒ lần đếm sau bot báo lệch (Canh-1).
-- «`dot-abc` ghi vào bảng nào» lấy từ nhãn đầu tệp + Graph (K11) — hiện là **dự kiến**, chưa phải đã ghi (Đọc-3).
-- «Lần chạy cuối» chỉ có khi log ghi đúng lượt chạy của `dot-abc` (K15); không có ⇒ «CHƯA ĐO ĐƯỢC».
-- Owner muốn bỏ `dot-abc` → Owner gật → AI ghi «Bỏ» vào Lớp-3 qua DOT (Khai-4); tắt thật do việc dọn làm.
-- Bảng `cong_thuc` (B1) tạo bằng DOT kèm 1 câu mục đích + «?» từng cột (Khai-2) → màn hình tự có dòng ngay (Lớp-1, Cách A), không ai thêm tay. «Sẽ làm» của Công thức ghi ở Sổ của các sổ.
+- Claude Code tạo bảng `cong_thuc` (B1) bằng DOT, kèm 1 câu mục đích + «?» từng cột (Khai-2). «Sẽ làm» của Công thức ghi ở Sổ của các sổ.
+- S1 thấy ngay: bảng +1. S2 chưa có ⇒ Bot-1 báo «thiếu: `table:public.cong_thuc`».
+- Chạy đồng bộ Ba Lô ⇒ S2 có dòng mới, số STT cố định. Màn hình hiện dòng đó, cột Quyết định = «Chưa quyết».
+- AI đề xuất: hệ = Công thức · Workflow = Có · 🟢 · Giữ · căn cứ «B1 tạo». Owner gật ⇒ DOT ghi 1 dòng S4. Xong — không ai khai tay thêm.
+- DOT mới `dot-abc`: 1 câu ở đầu tệp (Khai-1) → `dot-dot-register` → S3. Quên đăng ký ⇒ Bot-3 báo «thiếu: `dot-abc`». «`dot-abc` ghi vào bảng nào» là **dự kiến** từ nhãn + Graph (Đọc-3); «lần chạy cuối» chỉ có khi log ghi đúng lượt chạy (Đọc-2).
 
 **9. Bước kế tiếp**
-- 😊 Owner: dán lệnh B0b (đã READY) cho Claude Code. B0b sửa đường đọc/ghi Directus của 2 DOT — Thử-View của TS1 cần đường này. TS1 phải đợi B0b vì `PROMPT.md` chỉ giữ 1 lệnh; thay sớm là mất READY của B0b.
-- 🤖 TS1 (chỉ đọc) trả lời trước G1·TS2:
-  - **Thử-View:** TS1 **chỉ đọc view đã tồn tại**: kiểm Directus list/filter/page/ID/quyền và đánh giá đường nối Lớp-3 theo thiết kế; **vì Lớp-3 chưa tạo, TS1 KHÔNG thể báo đã thấy/chỉnh Lớp-3 thành công**. Vòng xem + quyết định qua DOT + đọc lại thật phải nghiệm thu tại **TS3 sau G1/G2**. Không tạo view thử/không ghi ở TS1.
-  - **Thử-Bot:** bot đếm DOT — đếm đúng tập tên, chỉ đọc an toàn, lịch chạy thật, tin tới người nhận.
-  - Đo thêm: có những database nào · phiên bản PG + cột K7 · DOT nào có log ghi lượt chạy (K15) · Kuma có kiểu Push · Census/Ba Lô lấy số từ đâu, 393/385 lệch tên nào.
+- Roadmap 5 bước ở §3.KH: TS1 ĐẾM → TS2 ĐỦ → TS3 SỔ QUYẾT ĐỊNH → TS4 PHÂN LOẠI → TS5 CANH.
+- 😊 Owner: (1) dán lệnh B0b (đã READY) · (2) gật cấu trúc 4 sổ, chỉ 1 sổ mới (mục 2) · (3) gật N1–N5 (mục 7).
+- 🤖 Sau KQ B0b: GPT Host soạn TS1 = đúng Đếm-1..6 (mục 4), chỉ đọc, thêm: có những database nào · phiên bản PG · DOT nào có log ghi lượt chạy. Claude rà 1 vòng; Owner chuyển. TS1 phải đợi B0b vì `PROMPT.md` chỉ giữ 1 lệnh.
 - Mỗi câu trả lời một dòng: CÓ / KHÔNG / CHƯA RÕ + bằng chứng. Không sửa PG/Directus trong TS1.
 
 **10. Từ điển — đọc một lần, không phải nhớ**
-- **TS1–TS5** = các bước dựng PG Tự quản (§3.KH). **B0b** = lệnh sửa 2 DOT đọc/ghi schema Directus (đã READY). **B1–B5** = Công thức → Workflow.
-- **DOT** = lệnh công cụ chuẩn của Incomex trên VPS (`/opt/incomex/dot/bin`); mọi thao tác PG/Directus, kể cả đọc, phải qua DOT (DROOT26/35). **Thử-View / Thử-Bot** = hai phép thử chính của TS1 (mục 9), không liên quan «Cách A/B». **MBM → MMOW → MOW → MOT → MOIT/MOUT, Field, 4 bà mẹ** = các tầng quy trình Workflow (định nghĩa ở việc `mow-mot-moit-mout`).
-- **G0/G1/G2** = cổng Owner duyệt (G0 = Owner duyệt mở việc 24/10, đã xong): G1 trước khi ghi schema, G2 trước mỗi lần ghi/sửa production. Mỗi lần ghi kèm tên việc (G1·TS2, G2·TS3, G2·N4, G1·B1…); **một lần gật chỉ cho đúng việc đó**.
+- **S1–S4** = 4 sổ (mục 2) · **Đếm-1..6** = phép đếm của TS1 (mục 4) · **Khai-1..4** (mục 5) · **Bot-1..4** (mục 6) · **Đọc-1..4** = luật đọc số (mục 3) · **TT1–TT9** = tinh thần (mục 1).
+- **TS1–TS5** = 5 bước của việc này (§3.KH) · **B0b** = lệnh sửa 2 DOT schema Directus (đã READY) · **B1–B5** = Công thức → Workflow.
+- **DOT** = lệnh công cụ chuẩn của Incomex trên VPS (`/opt/incomex/dot/bin`); mọi thao tác PG/Directus, kể cả đọc, phải qua DOT (DROOT26/35). **Ba Lô** = `balo_thuc_the`, mỗi vật PG một dòng, số STT suốt đời (việc `pg-nhan-balo`) · **Census** = `/reports/report-pg`. **MBM → MMOW → MOW → MOT → MOIT/MOUT, Field, 4 bà mẹ** = các tầng quy trình Workflow (định nghĩa ở việc `mow-mot-moit-mout`).
+- **G0/G1/G2** = cổng Owner duyệt (G0 = Owner duyệt mở việc 24/10, đã xong): G1 trước khi ghi schema, G2 trước mỗi lần ghi/sửa production. Mỗi lần ghi kèm tên việc (G2·TS2, G1·TS3, G2·TS3, G2·N4, G1·B1…); **một lần gật chỉ cho đúng việc đó**.
 - **ACCEPT / READY** = Reviewer chấp nhận / Host ký đúng một bản PROMPT; **DROOT38** = câu chuẩn Owner dán để giao lệnh cho Claude Code; **KQ** = biên nhận kết quả của lượt chạy.
 - **Điều 30/31** = cơ chế bảo vệ mã đã triển khai (luật trong KB): sửa xong phải đưa ngay vào bảo vệ để AI khác không làm hỏng.
 - **Bản đồ 29/07** = `docs/BAN-DO-HE-THONG-20260729.md`; **Kế hoạch xoá 01/08** = `docs/KE-HOACH-XOA-20260801.md` (connector VPS, root `docs`).
 - **Graph** = việc `work/graph-server` (quan hệ mã ↔ bảng); chưa sẵn ⇒ cột liên quan ghi ⚪ CHƯA RÕ.
 - **Kuma** = Uptime Kuma đang chạy trên VPS; **`system_issues`** = bảng hàng đợi sự cố có sẵn, UI đã đọc.
 - **Luật Nhà** = luật Owner 15/10: mọi sổ nghiệp vụ phải có nhà, ghi «sẽ làm» trước khi tạo.
-- Chữ cũ không dùng: «vùng NHÁP» (đã bỏ — làm thật), «kênh A/B» (gọi là kênh Census / kênh Ba Lô), «T1–T8/L1–L3» cũ của thẻ này (nay là TT1–TT8 / Lớp-1–3) · «cổng A/B» của TS1 (nay Thử-View / Thử-Bot) · «dòng đỏ» (nay cờ ⚠). T1–T6 ở 3.01 là bảng «Thiếu gì» lịch sử.
+- Chữ cũ không dùng (bản P30–P39): «Lớp-1/2/3» (nay S1–S4) · «Cách A/B» (nay: màn hình ghép là 1 view, chọn nơi hiện theo Đếm-5) · «Thử-View/Thử-Bot» (nay Đếm-5/Đếm-6) · «K1–K16», «Canh-1..4» (nay mục 4, Bot-1..4) · «kênh A/B» · «vùng NHÁP» · «dòng đỏ» (nay cờ ⚠). T1–T6 ở 3.01 là bảng «Thiếu gì» lịch sử.
 
 #### 3.KH — KẾ HOẠCH THỰC HIỆN DUY NHẤT P38–P39 · BẢN ĐỒ NGHIỆM THU BÁM §3.TQ
 **Trạng thái: G0 CHỐT · B0 MỘT PHẦN/KQ DỪNG · B0b READY CHỜ OWNER DÁN · CHƯA RUN B0b · P30: TS1–TS5 thay B0c–B0f (GPT Host xác nhận).** B0b được làm **chỉ đúng hai mã DOT** theo PROMPT đã ACCEPT/READY; không cho phép tạo/sửa collection, schema, dữ liệu PG/Directus, quyền hay kích hoạt production. Đầu ra chính của dự án là **các collection thật quản lý trực tiếp trong Directus Studio**, không phải HTML/JSON/tệp khai báo/trang mô phỏng mới.
