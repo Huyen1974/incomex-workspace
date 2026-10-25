@@ -7,29 +7,33 @@
 <style>
 :root{color-scheme:light;font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#1e293b;background:#f7f8fa}
 *{box-sizing:border-box}body{margin:0;padding:20px}main{max-width:1050px;margin:auto;background:white;border:1px solid #e2e8f0;border-radius:14px;padding:24px}
-h1{font-size:23px;line-height:1.3;margin:0 0 9px}h2{font-size:16px;margin:22px 0 10px}h3{font-size:14px;margin:12px 0 6px}p{margin:6px 0 10px;line-height:1.5}small,.muted{font-size:12px;color:#64748b}
-.lead{font-size:14px;max-width:790px}.flag{font-size:12px;color:#334155;border:1px solid #dce4ec;border-radius:99px;display:inline-block;padding:3px 9px;margin:3px 4px 2px 0}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.tile{border:1px solid #dbe2e9;border-radius:9px;padding:11px;min-height:96px;background:#fff}.tile b{display:block;font-size:14px;margin-bottom:5px}.tile p{font-size:12px;margin:0}.pending{border-style:dashed}
-.arrow{text-align:center;color:#64748b;margin:8px 0;font-size:19px}.focus{border:1px solid #9ba9b9;border-radius:9px;padding:11px;text-align:center;font-size:13px}
-.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12.5px}td,th{border-bottom:1px solid #e2e8f0;padding:8px;text-align:left;vertical-align:top}th{background:#f8fafc;white-space:nowrap}code{font-family:ui-monospace,SFMono-Regular,monospace;font-size:11.5px;background:#f1f5f9;padding:1px 3px;border-radius:3px}
-.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.step{border:1px solid #dbe2e9;border-radius:8px;padding:9px;font-size:12px}.step b{display:block;font-size:13px}.step span{display:block;margin-top:4px;color:#64748b}
-details{border-top:1px solid #e2e8f0;padding:10px 0}summary{cursor:pointer;font-size:13px;font-weight:600}details p,details li{font-size:12.5px;line-height:1.5}ul{padding-left:20px;margin:8px 0}
-.note{padding:11px 13px;background:#f8fafc;border-left:3px solid #94a3b8;font-size:12.5px;line-height:1.5}
-a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margin-top:20px;font-size:12px;color:#64748b;border-top:1px solid #e2e8f0;padding-top:10px}
+h1{font-size:23px;line-height:1.3;margin:0 0 9px}h2{font-size:16px;margin:22px 0 10px}h3{font-size:15px;margin:12px 0 6px}p{margin:6px 0 10px;line-height:1.5}small,.muted{font-size:15px;color:#64748b}
+.lead{font-size:15px;max-width:790px}.flag{font-size:15px;color:#334155;border:1px solid #dce4ec;border-radius:99px;display:inline-block;padding:3px 9px;margin:3px 4px 2px 0}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.tile{border:1px solid #dbe2e9;border-radius:9px;padding:11px;min-height:96px;background:#fff}.tile b{display:block;font-size:15px;margin-bottom:5px}.tile p{font-size:15px;margin:0}.pending{border-style:dashed}
+.arrow{text-align:center;color:#64748b;margin:8px 0;font-size:19px}.focus{border:1px solid #9ba9b9;border-radius:9px;padding:11px;text-align:center;font-size:15px}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:15px}td,th{border-bottom:1px solid #e2e8f0;padding:8px;text-align:left;vertical-align:top}th{background:#f8fafc;white-space:nowrap}code{font-family:ui-monospace,SFMono-Regular,monospace;font-size:15px;background:#f1f5f9;padding:1px 3px;border-radius:3px}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.step{border:1px solid #dbe2e9;border-radius:8px;padding:9px;font-size:15px}.step b{display:block;font-size:15px}.step span{display:block;margin-top:4px;color:#64748b}
+details{border-top:1px solid #e2e8f0;padding:10px 0}summary{cursor:pointer;font-size:15px;font-weight:600}details p,details li{font-size:15px;line-height:1.5}ul{padding-left:20px;margin:8px 0}
+.note{padding:11px 13px;background:#f8fafc;border-left:3px solid #94a3b8;font-size:15px;line-height:1.5}
+a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margin-top:20px;font-size:15px;color:#64748b;border-top:1px solid #e2e8f0;padding-top:10px}
 @media(max-width:650px){body{padding:8px}main{padding:14px}.grid{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
-</style>
+.step.current{border:2px solid #3974aa;background:#f6f9fc}.owner-actions{padding:14px 16px;border:1px solid #d4dce4;border-radius:10px;background:#f8fafc;margin:10px 0 16px}.owner-actions h2{margin:0 0 8px}.owner-actions p{margin:7px 0}@media(min-width:650px) and (max-width:1000px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}</style>
 </head>
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
+<section class="owner-actions"><h2>😊 Anh cần làm bây giờ — chỉ 2 việc</h2>
+<p><strong>1.</strong> Chuyển lệnh <strong>B0b</strong> đã sẵn sàng cho Claude Code theo quy trình hiện hành. <strong>Đề xuất: dán</strong>. Nếu đã chuyển nhưng chưa có kết quả, không dán lặp.</p>
+<p><strong>2.</strong> Chấp thuận <strong>hướng 4 sổ</strong>: 1 báo cáo đếm sống + 2 bảng cũ + 1 bảng quyết định dự kiến, thêm 1 khung nhìn ghép. <strong>Đề xuất: đồng ý hướng</strong>.</p>
+<p class="muted">Chưa cần duyệt N1–N6 hoặc từng cột S4. Chỉ trình sau khi TS1 Đếm có số thực tế.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có những gì, danh mục đã đủ chưa và phần nào cần quyết định. Dùng tối đa PG, Directus và DOT hiện có; không xây thêm một hệ thống danh mục song song.</p>
-<span class="flag">Bản thiết kế P40 — chưa triển khai PG/Directus</span>
+<span class="flag">Bản thiết kế P40–P43 — chưa triển khai PG/Directus</span>
 <span class="flag">B0b đã READY, chưa có KQ</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <h2>1. Cấu trúc — 4 sổ chức năng, chỉ 1 bảng mới dự kiến</h2>
 <div class="grid">
-  <div class="tile"><b>S1 · Census <small>ĐÃ CÓ · VIEW/BÁO CÁO</small></b><p><code>v_report_pg</code><br>Đếm theo loại vật PG (12 loại), số và mốc chụp.</p></div>
+  <div class="tile"><b>S1 · Census <small>ĐÃ CÓ · BÁO CÁO SỐNG</small></b><p><code>/reports/report-pg</code><br>Đếm lại khi mở trang, không lưu số. Vật PG tên <code>v_report_pg</code> sẽ kiểm ở TS1.</p></div>
   <div class="tile"><b>S2 · Ba Lô <small>ĐÃ CÓ · BẢNG</small></b><p><code>balo_thuc_the</code><br>Danh sách từng vật, hiện phủ 4 loại: bảng, view, hàm, trigger.</p></div>
   <div class="tile"><b>S3 · Sổ DOT <small>ĐÃ CÓ · BẢNG</small></b><p><code>dot_tools</code><br>Danh sách DOT đã đăng ký; cần so với tệp thật trên VPS.</p></div>
 </div>
@@ -38,21 +42,21 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <small>Khoá vật · Hệ · Workflow · Vùng · Quyết định · Công dụng chỉ khi nguồn thiếu · Căn cứ · Người/ngày duyệt</small></div>
 <div class="arrow">↓</div>
 <div class="focus"><strong>01 VIEW GHÉP (CHƯA TẠO) → 01 MÀN HÌNH «SỔ TÀI SẢN»</strong><br>
-<small>Ghép S2 + S3 + S4 theo khoá. S1 là kênh đếm đối chiếu, không nhập tay vào S4. Đích là Directus Studio (phải kiểm thật ở Đếm-5); nếu chưa hiển thị/lọc được thì trình Owner chọn cách xử lý, không tự coi trang /reports thay thế là ĐẠT.</small></div>
-<p class="muted">Cách gọi đúng: <strong>4 nguồn/sổ chức năng, không phải 4 bảng PG</strong>. Chỉ dự kiến 1 bảng S4 và 1 view ghép. Giữ nguyên cấu trúc và các consumer của S1–S3.</p>
+<small>Ghép S2 + S3 + S4 theo khoá. S1 là kênh đếm đối chiếu, không nhập tay vào S4. Đích là Directus Studio (phải kiểm thực tế ở Đếm-5). Nếu chưa xem/lọc được thì trình Owner, không tự chuyển sang trang báo cáo khác.</small></div>
+<p class="muted">Cách gọi đúng: <strong>4 nguồn/sổ chức năng, không phải 4 bảng PG</strong>. Chỉ dự kiến 1 bảng S4 và 1 view ghép. Giữ nguyên cấu trúc S2–S3 và các chương trình đang dùng chúng.</p>
 
 <h2>2. Roadmap thực hiện — làm từng bước nhỏ</h2>
 <div class="steps">
- <div class="step"><b>B0b · Đường DOT</b><span>READY, chưa KQ<br>Sửa đúng 2 DOT, không ghi dữ liệu.</span></div>
- <div class="step"><b>TS1 · ĐẾM</b><span>Chỉ đọc; 6 phép đếm; bảng lệch tên.</span></div>
- <div class="step"><b>TS2 · ĐỦ</b><span>G2 riêng: đồng bộ Ba Lô, đăng ký DOT thiếu.</span></div>
- <div class="step"><b>TS3 · SỔ</b><span>G1/G2 riêng: tạo S4 + view, đọc/ghi một quyết định.</span></div>
- <div class="step"><b>TS4 · PHÂN LOẠI</b><span>Đề xuất có căn cứ; Owner duyệt từng nhóm.</span></div>
- <div class="step"><b>TS5 · CANH</b><span>Bot đối chiếu, báo lệch qua đường hiện có.</span></div>
- <div class="step"><b>B1 · CÔNG THỨC</b><span>Chỉ sau nền kiểm kê đủ điều kiện.</span></div>
- <div class="step"><b>B2–B5 · WORKFLOW</b><span>Chuyển và nghiệm thu từng sổ/nhóm.</span></div>
+ <div class="step current"><b>■ ĐANG Ở ĐÂY · B0b</b><span>🤖 Claude Code: đã sẵn sàng, chưa có kết quả.<br>Chỉ sửa 2 DOT, không ghi dữ liệu.</span></div>
+ <div class="step"><b>TS1 · ĐẾM</b><span>🤖 Máy chỉ đọc: 6 phép đếm, liệt kê tên thiếu/thừa.</span></div>
+ <div class="step"><b>TS2 · ĐỦ</b><span>😊 Duyệt riêng → 🤖 đồng bộ Ba Lô và đăng ký DOT thiếu.</span></div>
+ <div class="step"><b>TS3 · SỔ</b><span>😊 Duyệt từng cột → 🤖 tạo S4 + khung nhìn, đọc lại.</span></div>
+ <div class="step"><b>TS4 · PHÂN LOẠI</b><span>🤖 Đề xuất có căn cứ → 😊 duyệt theo nhóm.</span></div>
+ <div class="step"><b>TS5 · CANH</b><span>🤖 Máy canh, so và báo lệch → 😊 duyệt thay đổi.</span></div>
+ <div class="step"><b>B1 · CÔNG THỨC</b><span>🤖 Làm Công thức sau kiểm kê → 😊 duyệt riêng.</span></div>
+ <div class="step"><b>B2–B5 · WORKFLOW</b><span>🤖 Chuyển từng sổ/nhóm → 😊 nghiệm thu.</span></div>
 </div>
-<p class="muted">TS1–TS5 chưa chạy. Chỉ đánh dấu XONG khi có biên nhận thật; TS1 không ghi PG/Directus. Không tắt/xoá trong task này.</p>
+<p class="muted">TS1–TS5 chưa chạy. Chỉ đánh dấu XONG khi có kết quả thực. Giới hạn: <strong>1 bảng mới + 1 khung nhìn SQL</strong>, <strong>0 DOT mới, 0 lịch mới, không tắt/xoá</strong>. TS1 không ghi PG/Directus.</p>
 
 <h2>3. Cách đếm · khai tối thiểu · bot kiểm soát</h2>
 <details>
@@ -60,11 +64,11 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
  <div class="table-wrap"><table>
  <thead><tr><th>Mã</th><th>Kiểm gì</th><th>Nguồn/lệnh</th></tr></thead>
  <tbody>
- <tr><td>Đếm-1</td><td>Số theo 12 loại PG</td><td>Census <code>v_report_pg</code></td></tr>
- <tr><td>Đếm-2</td><td>Tên thiếu/thừa trong Ba Lô</td><td><code>dot-balo-reconcile --verify</code>; Claude P40 báo đã rà mã chỉ đọc, executor kiểm lại gate</td></tr>
+ <tr><td>Đếm-1</td><td>Số theo 12 loại PG</td><td>Báo cáo sống <code>/reports/report-pg</code> (cần kiểm đường chỉ đọc)</td></tr>
+ <tr><td>Đếm-2</td><td>Tên thiếu/thừa trong Ba Lô</td><td><code>dot-balo-reconcile --verify</code>; Claude P40 đã rà mã; người chạy phải kiểm lại điều kiện an toàn</td></tr>
  <tr><td>Đếm-3</td><td>DOT trên đĩa ↔ đăng ký</td><td>Danh sách tệp DOT so với <code>dot_tools</code>, theo tập tên</td></tr>
  <tr><td>Đếm-4</td><td>Đường đồng bộ, lịch, log</td><td>Đọc mã <code>dot-balo-one-click-guard</code>, <code>dot-verify-loai-report</code>, systemd; chưa an toàn thì không chạy</td></tr>
- <tr><td>Đếm-5</td><td>Directus có xem/lọc view không?</td><td>Đọc metadata + view có sẵn; không tạo view thử</td></tr>
+ <tr><td>Đếm-5</td><td>Directus có xem/lọc view không?</td><td>Đọc thông tin cấu trúc và khung nhìn có sẵn, không tạo mới</td></tr>
  <tr><td>Đếm-6</td><td>Bot DOT có thực sự an toàn/sống không?</td><td>Đọc mã, cron, quyền, tuyến cảnh báo của <code>dot-dot-health</code>; KHÔNG chạy</td></tr>
  </tbody></table></div>
  <p>KQ cần có: số và tên theo loại, mốc đo, thiếu/thừa cụ thể, mức độ độc lập của các kênh, chưa đo được thì ghi CHƯA RÕ. Mốc cũ Census 393 và Ba Lô 385 là chênh chưa giải thích, không coi là kết quả mới.</p>
@@ -84,7 +88,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
  <tbody>
  <tr><td>Bot-1</td><td>PG ↔ Ba Lô</td><td><code>dot-balo-reconcile --verify</code>; TS1 xác minh đường chạy</td></tr>
  <tr><td>Bot-2</td><td>Census ↔ Ba Lô</td><td>Rà công cụ hiện có; chưa chứng minh bot riêng</td></tr>
- <tr><td>Bot-3</td><td>Tệp DOT ↔ <code>dot_tools</code></td><td><code>dot-dot-health</code>; TS1 chỉ đọc mã, chưa PASS live</td></tr>
+ <tr><td>Bot-3</td><td>Tệp DOT ↔ <code>dot_tools</code></td><td><code>dot-dot-health</code>; TS1 chỉ đọc mã, chưa kiểm thực tế</td></tr>
  <tr><td>Bot-4</td><td>S2/S3 ↔ S4</td><td>View ghép đếm CHƯA QUYẾT; không phải bot gửi tin</td></tr>
  </tbody></table></div>
  <p>Chỉ nói «có cảnh báo» khi đã chứng minh lịch chạy, kết quả và người nhận. Chưa tạo lịch mới, DOT mới, trigger hoặc app mới.</p>
@@ -92,10 +96,10 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 
 <h2>4. Phạm vi bản đầu và điểm Owner cần chốt</h2>
 <div class="note">
-<strong>N6 là đề xuất phân kỳ, chưa được Owner duyệt.</strong> Bản đầu liệt kê tên 4 loại vật PG (bảng, view, hàm, trigger) và DOT; 8 loại còn lại chỉ kiểm số lượng. <strong>Điều này chưa phải hoàn thành mục tiêu quản lý từng vật của toàn PG.</strong> TS1 phải cho thấy rõ tám loại chưa được liệt kê tên và đề xuất mở rộng khi cần; không được âm thầm tính là đã đủ.<br>
-<strong>Cần duyệt sau khảo sát:</strong> cấu trúc S4 và quyền ghi (G1/G2); phạm vi N6 và các giới hạn N1–N5. B0b giữ nguyên PROMPT đã READY; TS1 chỉ soạn sau khi có KQ B0b.
+<strong>N6 là đề xuất phân kỳ, chưa được duyệt.</strong> Bản đầu liệt kê tên 4 loại vật PG (bảng, view, hàm, trigger) và DOT; 8 loại còn lại chỉ kiểm số lượng. <strong>Điều này chưa phải hoàn thành mục tiêu quản lý từng vật của toàn PG.</strong> TS1 phải cho thấy rõ tám loại chưa được liệt kê tên và đề xuất mở rộng khi cần; không được âm thầm tính là đã đủ.<br>
+<strong>Sau TS1 mới trình duyệt:</strong> N1–N6, từng cột S4 và quyền ghi; hiện chưa xin phép tạo bảng. B0b giữ nguyên lệnh đã sẵn sàng; chỉ soạn TS1 sau khi B0b có kết quả.
 </div>
-<footer><strong>Trang này chỉ là bản trình bày cho tab “Nội dung công việc”, không phải một hệ thống HTML nghiệp vụ mới hoặc SSOT thứ hai.</strong> Nội dung có hiệu lực và chứng cứ thuộc <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/nhap-directus-for-workflow/COLLAB.md" target="_blank" rel="noopener">COLLAB.md — §3.TQ và §3.KH</a>. Nếu có khác biệt, phải sửa nguồn và cập nhật trang trình bày cùng lượt.</footer>
+<footer><strong>Trang này chỉ là bản trình bày cho tab “Nội dung công việc”, không tạo hệ thống mới hoặc nguồn thông tin chuẩn thứ hai.</strong> Nội dung có hiệu lực và chứng cứ thuộc <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/nhap-directus-for-workflow/COLLAB.md" target="_blank" rel="noopener">COLLAB.md — §3.TQ và §3.KH</a>. Nếu có khác biệt, phải sửa nguồn và cập nhật trang trình bày cùng lượt.</footer>
 </main>
 </body>
 </html>
