@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.3 · 24/10/2026
-**Trạng thái: GPT P23 giữ C1→C2→C3; C1A CODEX cài runner + CI thật 2 repo trên VPS, PROMPT DRAFT chờ Claude ký. C1B mới dev CD; chưa RUN.**
+**Trạng thái: GPT P23 giữ C1→C2→C3; C1A CODEX cài runner + CI thật 2 repo trên VPS, PROMPT: Claude P24 ACCEPT@0ec01e30, chờ Host READY + Owner RUN Codex. C1B mới dev CD.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
 Ưu tiên 1 (Owner 25/10 15:18): hệ thống chạy được — mỗi repo đi được nhánh → PR → test → main → deploy VPS, máy chạy (runner) đặt trên VPS. Sau đó: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 

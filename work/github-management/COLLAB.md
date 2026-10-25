@@ -4,14 +4,14 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 15:51 +07 · GPT Chat · P23
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 16:20 +07 · Claude Chat · P24
 - 🎯 Mục tiêu: CI/CD của hai repo thật chạy trên runner VPS trước, sau đó main chỉ Chief merge và 3–5 agent code song song.
 - 🏁 Xong khi: C1A 2/2 workflow CI/test thật PASS trên VPS; C1B dev deploy+rollback PASS; C2 khóa main trước auto-deploy; C3 agent song song/ca đêm.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ Claude P22 chọn C1 trước → ■ GPT P23 giao C1A cho Codex → □ Claude ACCEPT PROMPT mới → □ Host READY/Owner RUN Codex → □ C1A PASS → □ C1B → C2/C3.
-- ✅ Đã xong: Host đọc toàn bộ C1 P22, xác minh Docker group quyền root-level và rủi ro runner PR; viết PROMPT C1A chạy CI thật, giữ nguyên các dịch vụ.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1 trước (P22) → ✓ GPT P23 soạn C1A cho Codex → ✓ Claude P24 ACCEPT → ■ Host READY + 😊 Owner giao Codex → □ C1A PASS → □ C1B → □ C2 → □ C3.
+- ✅ Đã xong: PROMPT C1A (Codex cài runner không-root, CI thật 2 repo trên VPS, không đụng main/app) — Host soạn P23, Claude sửa 3 điểm + ACCEPT P24.
 - ■ Đang làm: — · 0 RUN active; không cài runner hoặc sửa GitHub/VPS trong P23.
-- ⬜ Còn lại: Claude rà đúng delta C1A/Executor một lượt → Host READY → Owner giao Codex → Codex cài runner & chứng minh CI GitHub trên VPS cho 2 repo.
-- ➡ Kế tiếp: Claude Reviewer ký ACCEPT@SHA PROMPT C1A, NEXT_TRIGGER=CLAUDE_ACCEPT_C1A_PROMPT.
+- ⬜ Còn lại: Host READY → Owner giao Codex → C1A (runner + CI xanh 2 repo) → C1B mã nền + deploy thử/lùi → C2 khoá main → C3 nhiều agent.
+- ➡ Kế tiếp: GPT Host READY@0ec01e30bdaa69b88d36c339497c7bd851f3e683 (không bàn lại); 😊 Owner giao Codex RUN C1A. NEXT_TRIGGER=HOST_READY_C1A.
 - ⛔ Không làm: không RUN P22 cũ, không Docker-group/root runner, không push main/revive deploy YAML/secret, không restart app live trong C1A.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -45,6 +45,8 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - Owner 25/10/2026 10:37 (b2, phiên Claude, đã sửa lỗi gõ): «Mục tiêu chỉ là không được để các run mất kiểm soát về chi phí; nếu cứ mở ra mà chi phí không phát sinh thì không sao, không nhất thiết phải đóng lại. Chỉ cần kiểm soát chi phí là ok.»
 - Owner 25/10/2026 13:21 (phiên Claude, đã sửa lỗi gõ): «Tôi tưởng vấn đề này đã chốt rồi? Kiểm tra có gì thì thống nhất để giao Codex làm tiếp. Điều quan trọng là agent phải triển khai tiếp để có kết quả.» ⇒ việc đã chốt không bàn lại; mỗi PROMPT ghi rõ tiêu chí XONG để KQ không báo «DỪNG» khi mục tiêu đã đạt.
 - Owner 25/10/2026 15:18 (phiên Claude, đã sửa lỗi gõ): «Trước đây đã chuyển từ Google sang chạy trên GitHub một thời gian, sau đó vì deploy mất thời gian nên đã gỡ. Lẽ ra phải kiểm tra mật khẩu, khôi phục lại CI/CD và thử nghiệm trước — đó mới là việc cần ưu tiên. Phải xác định việc gì quan trọng trước để làm. Phải khôi phục được hệ thống chạy, đảm bảo cả 2 repo chạy được CI/CD với VPS trước đã. Trước đây chạy run trên GitHub, giờ phải cài ở VPS tất cả những việc đó; không làm thì bàn chi tiết để làm gì.» ⇒ (1) = GO DROOT56 cho khôi phục CI/CD GitHub↔VPS của 2 repo, qua cổng PROMPT; (2) mọi run đặt trên VPS bằng runner tự host; (3) thứ tự: chạy được trước, chi tiết sau.
+- Owner 25/10/2026 (với GPT, Host ghi ở P23): «Tập trung điều hành để Codex chạy: phải cài bộ chạy vào VPS và chạy thành công; VPS giai đoạn này ưu tiên phát triển.»
+- Owner 25/10/2026 16:14 (phiên Claude, đã sửa lỗi gõ): «Kiểm tra lại lần cuối nội dung. Đang giao Codex xử lý việc này, sao cứ loanh quanh mãi chưa đưa ra được prompt dứt khoát cho Codex?» ⇒ Claude rà một lần, sửa tại chỗ và ký trong cùng lượt; Host READY không bàn lại.
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -414,6 +416,27 @@ Ghế: openai-main · Based_on: Owner trực tiếp "Tập trung vào điều h�
 - **Trạng thái:** PROMPT P22 `GHM-C1-CICD-VPS-20261025-01` có ACCEPT SHA cũ nhưng `SUPERSEDED_UNRUN`. PROMPT mới `GHM-C1A-VPS-RUNNER-20261025-01` DRAFT_NOT_READY, yêu cầu đúng **một lượt Claude phản biện riêng delta an toàn+Codex executor**, Host READY đúng SHA rồi Owner dán Codex; chưa RUN nào.
 - Docs: https://docs.github.com/en/actions/reference/security/secure-use ; https://docs.github.com/en/actions/how-tos/manage-runners/self-hosted-runners/run-scripts ; https://docs.docker.com/engine/install/linux-postinstall .
 - NEXT_TRIGGER=CLAUDE_ACCEPT_C1A_PROMPT.
+
+## P24 · Claude Chat (Reviewer) · 25/10/2026 16:20 +07 — ACCEPT C1A (sửa tại chỗ 3 điểm) · ACCEPT@0ec01e30bdaa69b88d36c339497c7bd851f3e683
+Bảng: lệch → đã sửa cùng lượt · §0.3: thêm Owner 25/10 (với GPT) + 16:14.
+
+**1. Đồng ý P23, không bàn lại**
+- 1.1 Đúng 2 điểm Host bắt: runner trong nhóm docker = quyền root (Claude P22 sai); deploy khi bản Web đang chạy chưa gắn được commit là đoán. Tách C1A (CI) / C1B (mã nền + deploy thử) là đúng.
+- 1.2 Gợi ý cho C1B (không thuộc C1A): runner deploy gọi đúng 1 script root cố định qua sudo (một cổng hẹp) thay vì nhóm docker.
+
+**2. 3 sửa tại chỗ (commit 0ec01e30) — chỉ để chạy được, không mở rộng**
+- 2.1 Nhánh thử lấy thẳng từ `vps-daily-*` trên GitHub (= HEAD VPS) ⇒ Codex không cần đọc/ghi cây phục vụ.
+- 2.2 XONG = run thật trên runner VPS + ≥1 lệnh test thật GREEN; test cũ đỏ do mã ⇒ ghi nợ mã, không DỪNG (bài học R1).
+- 2.3 Điều 30/31 cùng lượt: runner tự lên lại sau reboot, vào bảo vệ + Kuma, lưu script cài/gỡ (luật Owner cho mọi thay đổi máy chủ).
+
+**3. Kiểm 3 điểm Host hỏi**
+- 3.1 Codex chạy được: GitHub qua `gh` Owner trên Mac (token đăng ký ngắn hạn) + SSH VPS đã cấp; thiếu quyền ⇒ DỪNG đúng blocker. ĐẠT.
+- 3.2 Runner không root, không docker.sock; trần 2 CPU/3 GB bằng container/cgroup do root dựng. ĐẠT.
+- 3.3 Không sửa main, không restart app: chỉ nhánh `dev/codex/ghm-c1a-probe` + `on: push` nhánh đó. ĐẠT.
+
+**4. Ký**
+- 4.1 ACCEPT@0ec01e30bdaa69b88d36c339497c7bd851f3e683 PROMPT GHM-C1A-VPS-RUNNER-20261025-01. Host READY cùng SHA, không thêm vòng.
+- 4.2 JEV `gen-dec-1792919774-84iiCWKFRNMLzxRJoxYf`: XONG kèm nợ mã 0,85 (phương án do Claude viết).
 
 
 

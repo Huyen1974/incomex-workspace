@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**TRẠNG THÁI: P23 ưu tiên C1A CODEX runner/CI xanh 2 repo trên VPS, DRAFT_NOT_READY; C1B baseline + dev CD sau C1A, C2 lock main.**
+**TRẠNG THÁI: P23 ưu tiên C1A CODEX runner/CI xanh 2 repo trên VPS, Claude P24 ACCEPT@0ec01e30, chờ Host READY + Owner RUN; C1B baseline + dev CD sau C1A, C2 lock main.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
