@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 19:50 +07 · GPT Chat · P28
-- 🎯 Mục tiêu: Codex cài self-hosted runner trên VPS cho hai repo và có 2/2 CI thực GREEN; tiếp theo C1B/C2/C3.
-- 🏁 Xong khi: hai job từ GitHub chạy thật trên VPS, test có giá trị GREEN, cgroup/Guard/Kuma POST và app đang phục vụ không đổi.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ P27 Codex phát hiện source Web nghi token → ■ GPT P28 tách cổng Web để runner/Agent Data làm trước → □ Claude ký delta → □ GPT READY/Owner RUN Codex → □ C1A KQ.
-- ✅ Đã xong: phân tích P27 và PROMPT P24: cổng Web chặn cả S1 dù S2 ghi DỪNG repo đó; đã soạn tiếp tục đúng scope, giữ nguyên bằng chứng và KQ cũ.
-- ■ Đang làm: — · 0 RUN active. Chưa sửa GitHub/VPS hoặc runner trong P28.
-- ⬜ Còn lại: Reviewer kiểm 3 điểm mới: token Web, Agent Data độc lập, Điều 30/31; ký đúng last-touch SHA, GPT READY, Owner giao Codex.
-- ➡ Kế tiếp: Claude Reviewer ký ACCEPT cho PROMPT `GHM-C1A-RESUME-20261025-02`. NEXT_TRIGGER=CLAUDE_ACCEPT_C1A_RECOVERY.
-- ⛔ Không bỏ qua source Web, không xem/chép token, không tự rotate, không làm lại R0/R1, không giao Claude executor hay sửa main/production.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 20:00 +07 · GPT Chat · P29
+- 🎯 Mục tiêu: Codex hoàn thành 2/2 CI self-hosted trên VPS, không làm lại việc cũ hoặc gửi credential chưa an toàn vào runner.
+- 🏁 Xong khi: 2/2 GitHub CI thật GREEN, runtime app không thay, runner có cgroup/Guard/Kuma; C1B/C2/C3 sau đó.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ P27 nguồn Web nghi token → ✓ P28 lệnh phục hồi Codex → ✓ P29 xác định báo cáo Directus, KHÔNG phải Lark Base → ■ Claude rà đúng một lượt → □ Host READY/Owner RUN Codex → □ C1A 2/2 CI.
+- ✅ Đã xong: trực tiếp kiểm web-test vps-daily-20261025/main: báo cáo đăng nhập Directus ngày 22/01/2026 có refresh_token dài 64, HTTP 200; không thấy Lark Base trong báo cáo; xác thực Directus hiện vẫn có trong mã Web. **Không đọc/in token trong biên bản.**
+- ■ Đang làm: — · 0 RUN active. KQ cũ P27 giữ nguyên; PROMPT recovery P28 không sửa sau khi chẩn đoán.
+- ⬜ Còn lại: Codex xử lý báo cáo Directus cũ theo nguồn/credential owner, đồng thời runner+Agent Data CI độc lập; Web SOURCE_HOLD nếu token vẫn chưa chứng minh không còn hiệu lực.
+- ➡ Kế tiếp: Claude chỉ xác nhận PROMPT P28 hiện có và kết quả P29 cùng một lượt, không mở vòng mới. NEXT_TRIGGER=CLAUDE_ACCEPT_C1A_RECOVERY.
+- ⛔ Không bỏ cơ chế Directus auth, không tự revoke/rotate toàn hệ, không dùng token để thử, không khôi phục deploy cũ, không thêm RUN trước READY/Owner.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -482,6 +482,16 @@ Ghế: openai-main · Based_on: Codex P27 KQ DỪNG (0 runner/0 CI) và chỉ đ
 - Với Web chỉ phân loại từ evidence P27 đã che: MOCK_CONFIRMED hoặc REVOKED_CONFIRMED bằng nguồn xác thực; không suy từ HTTP200/tuổi tệp/độ dài rằng token hết hiệu lực. Nếu chưa rõ thì Web SOURCE_HOLD, đúng đầu mối Owner/provider revoke/rotate có phép; không tự dùng token hay chép lên PUBLIC. Theo GitHub Docs, với credential thật bị lộ cần revoke/rotate trước khi sửa Git history. Bộ lọc output phải che cả `access_token`, `refresh_token` và các khóa cùng loại (test bằng JSON giả).
 - Thành quả runner/CI Agent Data nếu PASS sẽ giữ lại. Không tự đổi secrets/rewrite Git history, không bật CD, không push main/động mã VPS. KQ cũ P27 lưu nguyên, RUN_ID mới riêng.
 - Vì có delta safety/nguồn, một lượt Claude Reviewer khác hãng kiểm đúng điều kiện Web + tính độc lập Agent Data + Đ30/31; Host READY đúng SHA, Owner RUN Codex. Không tổ chức một vòng nghiên cứu mới. NEXT_TRIGGER=CLAUDE_ACCEPT_C1A_RECOVERY.
+
+## P29 · GPT Host 25/10/2026 — XÁC MINH NGUỒN refresh_token WEB: DIRECTUS, KHÔNG PHẢI LARK BASE
+Ghế: openai-main · Based_on: Owner 25/10 nghi refresh_token là cơ chế Lark Base; Codex P27; dữ liệu GitHub hai ref `web-test` hiện hành. Phạm vi: **chỉ chẩn đoán**, không chạy/mutation.
+- **Bằng chứng trực tiếp:** báo cáo Web E2 TASK #011 (ngày 22/01/2026) tiêu đề “FIX DIRECTUS SDK & HOMEPAGE” trên nhánh `vps-daily-20261025` và `main` có phản hồi đăng nhập Directus `/auth/login` HTTP 200, trường `refresh_token` chứa giá trị literal dài 64 ký tự chưa che. Blob và nội dung khớp giữa hai ref. **Báo cáo không nhắc Lark Base.** P27 cũng ghi Web login report, HTTP 200, refresh_token 64 ký tự ⇒ rất có khả năng là cùng nguồn. Chưa mở được biên nhận file/hash root-only P27 để đối sánh chính xác nên không nói trùng file 100%.
+- **Phân biệt:** báo cáo lịch sử chứa token ≠ bằng chứng rằng token hiện còn dùng được, cũng không chứng minh đã hết hiệu lực. Mã Web trên daily vẫn có Directus authentication/session plugin và composable; **không xóa cơ chế Directus đăng nhập/refresh chỉ vì báo cáo cũ**. Lark Base nếu không dùng là việc riêng, không phải blocker này.
+- **Bản chất KQ DỪNG P27:** phát hiện nguồn CI Web chứa tài liệu đăng nhập có token literal có thể còn hiệu lực ⇒ không checkout nguyên nguồn trên self-hosted runner; Codex áp cổng Web trước bước S1 nên dừng cả Agent Data/runner, mặc dù phụ thuộc độc lập. Không phải lỗi GitHub↔VPS, Guard hay runner.
+- **Xử lý tối thiểu để Codex chạy:** giữ PROMPT `GHM-C1A-RESUME-20261025-02` của P28, chỉ Agent Data/runner làm độc lập trước. Với Web: (a) Credential owner/Directus admin chứng minh phiên đã revoked/expired qua bằng chứng quản trị không sử dụng giá trị token, hoặc revoke đúng phiên/token nếu còn hiệu lực theo quyền Owner; (b) xóa hoặc thay bằng fixture giả trong **báo cáo lịch sử trên nhánh ứng viên Web**, kiểm diff; không tự chỉnh mã auth đang chạy, main hay Git history. Nếu chưa có bằng chứng vô hiệu thì Web SOURCE_HOLD, không được giả XONG.
+- **Bảo mật hồ sơ:** vị trí file/dòng/value cụ thể và credential evidence P27 để vùng hạn chế quyền; trên repo public chỉ công bố loại báo cáo, dịch vụ và trạng thái. Không tái hiển thị token trong báo cáo/CLI/tool response, code review hoặc chat.
+- **Điều hành:** không sửa PROMPT P28 nên không phát sinh last-touch SHA/vòng ký mới; Claude kiểm P28 và P29 **trong cùng một lượt**, Host READY đúng SHA P28 nếu đạt, Owner giao Codex. NEXT_TRIGGER=CLAUDE_ACCEPT_C1A_RECOVERY.
+
 
 
 
