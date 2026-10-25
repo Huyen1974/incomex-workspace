@@ -124,18 +124,7 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 - Cần đạt: (1) thước đo chính = thời gian cho 1 việc; 1 tiếng/việc là không chấp nhận · (2) làm trong Directus để nhẹ và dùng lại về sau, không làm 2 lần · (3) không làm lại đống cũ: chép/move tệp HTML không tính là tiến độ · (4) bảng đầu tiên = Bảng DOT: cái gì Directus đã có thì dùng luôn, thiếu DOT thì viết.
 - Hết hiệu lực từ 3.00: vẽ/chép/move dữ liệu HTML (P04–P07; tệp đã có giữ nguyên, không xoá) · lộ trình L0–L6 (3.1) · P09 mục 3 (dựng 4 collection 1 lượt) lùi sau Bảng DOT.
 
-#### 3.TQ THẺ KIẾN TRÚC «PG TỰ QUẢN» — ĐỒNG THUẬN NGUYÊN TẮC P34–P37; TS1 CHỨNG MINH TÍNH NĂNG
-**Tinh thần (Owner 24/10 16:55 · 25/10 09:40 · 10:28 · 13:18):**
-- T1 Tự động **tối đa**, không phải 100%: khai thác hết tính năng PG, **không ép PG** làm việc nó không làm được. Câu hỏi thường trực: «phần tự động này đã dùng hết tính năng PG chưa?»
-- T2 Chỉ dùng cái **có sẵn** (PG · Directus · DOT); không tạo mới khi đã có; phức tạp = thất bại.
-- T3 Vật **ngoài PG** (DOT, tool, bot, cron…): **khai vào PG một lần bằng đường đang có**; bộ kiểm so nguồn đĩa ↔ sổ và phát cảnh báo **khi lượt kiểm chạy, nếu đường gửi tin hoạt động**. TS1 phải xác minh lịch sống, vai trò đọc an toàn, tập tên và người nhận; không gọi là tức thì hoặc auto khi chưa kiểm.
-- T4 **Quan hệ được khai rõ trong PG** (FK/mã/liên kết nghiệp vụ) thì PG lưu và có thể cưỡng chế theo ràng buộc đó; PG **không tự suy ra** bot nào gọi DOT hay nội dung quan hệ chưa khai.
-- T5 Người **nhìn là hiểu**: có gì · vướng gì. Bài AI chưa biết giải → **mang lên Owner** bàn ý tưởng.
-- T6 Ghi **ngắn, đúng bản chất**: ai đọc cũng làm được ngay, sai thì biết ngay, không ai phải nhớ.
-- T7 **Khai tối thiểu** (Owner 13:18): chỉ **nhập một lần phần ngữ nghĩa mà PG/mã không tự suy được**, ngay nơi tạo vật; tên/kiểu/schema/quan hệ máy tự đọc, **không nhập lại danh sách hay thời điểm dùng**. Mô tả cột mới tái dùng schema/field-spec đã duyệt và tạo dấu «?» từ nguồn đó khi có; thiếu thì đánh dấu cần mô tả, không bắt nhập tay 10.099 cột cũ. Quyết định Giữ/Bỏ chỉ có khi Owner phê duyệt, có thể sửa theo phiên bản, không phải khai lúc sinh vật.
-- T8 **Thang nguồn**: ① PG có sẵn → ② Graph / bot → ③ AI rà bổ sung **khi có việc** (cách cuối; không đặt lịch AI tự gọi). Giám sát khai báo/cập nhật cũng bằng bot (bảng «Canh»).
-**Kiến trúc — 3 lớp, mỗi lớp một nhà:**
-- L1 **PG tự biết** (bảng, view, hàm, trigger, index…): đọc thẳng sổ nội bộ PG — không chép, không đồng bộ.
+@@NEWCARD_PLACEHOLDER_P38@@
 - L2 **Khai một lần + kiểm lệch** (vật ngoài PG): tận dụng `dot_tools` (sổ khai), `dot-dot-register` (đường đăng ký) và `dot-dot-health` (đường bot đếm **cần chứng minh đang chạy, RO, báo tới người**). P24 cho thấy ít nhất `dot-dot-health --dry-run` gọi PG qua vai có quyền ghi; **chỉ đọc mã/lịch/log ở TS1 trước khi cho chạy**.
 - L3 **Quyết định người**: đúng **1 bảng** — công dụng · hệ · Workflow · vùng · giữ/sửa/gộp/tắt/bỏ · ai/ngày · bằng chứng. Nhãn cũ COMMENT ON (07/2026) chỉ là bằng chứng lịch sử; vật **mới** dùng COMMENT ON cho đúng 1 câu mô tả ban đầu (Khai-3); quyết định không ghi vào COMMENT.
 - Nhìn: **1 màn hình Directus** nối L1 + L2 + L3. **A** (mặc định): 1 view. **B** (nếu Directus không dùng được view): 1 bảng làm mới bằng 1 lệnh đối soát.
