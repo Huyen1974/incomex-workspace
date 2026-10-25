@@ -2,17 +2,17 @@
 Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an toàn
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROADMAP trước; Claude phản biện, GPT đồng thuận và Owner duyệt rồi mới RUN. Chưa cho thay hai repo mã/Actions/VPS.
+Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 muốn thử 3 agent làm song song với GitHub Free trước khi quyết mua Pro; không mở hai repo private cũ hoặc ảnh hưởng VPS trước Owner RUN.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 13:40 +07 · Claude Chat · P19
-- 🎯 Mục tiêu: 3–5 agent code song song trên hai repo; Chief kiểm/merge; sau cùng nhiều nhiệm vụ chạy đêm không cần Owner trực.
-- 🏁 Xong khi: phí Actions vượt mức bị khóa; main hai repo được bảo vệ, mã nền đúng, 3 PR và kiểm thử có bằng chứng; release/deploy có rollback.
-- 📍 Tiến độ: ✓ R0 P12 → ✓ R1 khoá chi phí (P17/P18) → ✓ Claude P19 ACCEPT R2-A → ■ Host READY + 😊 Owner mua Pro → □ Codex R2-A → □ R2-B chìa KST → □ R3–R6.
-- ✅ Đã xong: ngân sách Actions $0 + Stop + cảnh báo; 15 workflow thừa tắt, 3 nhóm kiểm giữ; Dependabot do GitHub quản lý (miễn phí) ghi ngoại lệ. PROMPT R2-A sửa 5 điểm và ACCEPT (P19).
-- ■ Đang làm: — · 0 RUN active.
-- ⬜ Còn lại: Owner mua Pro; Host READY; Codex R2-A (khoá main + luật repo); R2-B (chìa KST, deploy key, thẻ dev); R3–R6.
-- ➡ Kế tiếp: GPT Host đọc TOÀN BỘ PROMPT R2-A, READY@af59bba2b84391fd0d093b1554b04c86c2234cb4; 😊 Owner mua GitHub Pro (song song) rồi giao Codex RUN. NEXT_TRIGGER=HOST_READY_R2A_AND_OWNER_PRO.
-- ⛔ Không làm/để sau: không tắt Dependabot động; không bật lại 15 workflow; không runner; chưa sửa main/secret/VPS/production; không tạo chìa KST/deploy key trong R2-A.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 13:55 +07 · GPT Chat · P20
+- 🎯 Mục tiêu: nhiều agent nhận việc, code song song, tự push nhánh/PR, KST review/merge; sau đó giao batch đêm.
+- 🏁 Xong khi: 3 agent thật/3 PR song song và ≥2 PR được Chief nhận, worker không thể push main, không mất code/secret/VPS, chưa cần Pro.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ Claude P19 cho Pro/private → ■ GPT P20 FREE PILOT theo Owner → □ Claude review → □ Owner RUN Codex bootstrap → □ 3 workers cùng code → □ Chief duyệt → □ quyết Pro/public/private.
+- ✅ Đã xong: GitHub Docs xác nhận Free public có branch protection/rulesets, private Free chỉ có Git/PR nhưng không có hardlock. 2 repo thực vẫn private; incomex-workspace public có rule ~ALL nên không sửa để thử.
+- ■ Đang làm: — · 0 RUN active. Không mua Pro, không tạo public repo pilot, không đổi code/main/VPS.
+- ⬜ Còn lại: Reviewer đọc PROMPT FREE PILOT mới và ký SHA → Host READY → Owner giao Codex → chuẩn bị sandbox → giao 3 agent → Chief nghiệm thu → Owner quyết định có trả Pro cho repo thật.
+- ➡ Kế tiếp: Claude rà P20, ROADMAP và PROMPT GHM-R2P-FREE-20261025-01; NEXT_TRIGGER=CLAUDE_ACCEPT_FREE_PILOT_PROMPT.
+- ⛔ Không làm/để sau: không mua Pro trước pilot; không công khai lịch sử 2 repo private; không đụng ruleset ~ALL của workspace; không chạy R2-A Pro đã ký cũ.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -22,6 +22,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROA
 6. “Ngoài ra những quy định đó phải dễ đọc, ai cũng đọc được và phải bắt buộc đọc trước khi làm.”
 7. “Hãy tập trung vào làm việc đó đã. Chuyện này không nhanh được đâu. Các bạn bàn kỹ với nhau.”
 8. “Bạn viết thành kế hoạch và roadmap trên task, sau đó tôi cần cloud tham gia phản biện, đồng thuận rồi mới triển khai.” — 24/10/2026.
+9. “Tôi muốn xác nhận là việc mua pro là bắt buộc ngay hay chỉ khi chúng ta đóng repo lại? Nếu mở repo thì có cần phải mua ngay không? Tôi muốn thử quy trình trước? Vấn đề là tất cả các Agent cần phải thao tác, cần phải có luật, phải thử nghiệm và chứng minh được là công việc có thể đẩy nhanh song song trước được không? Hay bắt buộc phải mua trước mới làm được?” — Owner 25/10/2026.
 
 ### 2. Thế nào là hoàn thành
 “Tối đến có 1 loạt nhiệm vụ, sáng ra xong. Ông DOT nhắc ông codex đi đốc công các agent làm việc. Đơn giản chỉ có vậy thôi.”
@@ -29,6 +30,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROA
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 - Chủ trương Owner 24/10: viết KE-HOACH.md + ROADMAP.md trên task, Claude phản biện và GPT Host đồng thuận rồi Owner duyệt mới triển khai. R0 Git chỉ đọc; R1 Actions; R2 quy trình; R3 baseline VPS; R4 CI/CD; R5 chuyển nguồn; R6 ca đêm. Pilot public P2 bị thay thế, không RUN.
 - Ưu tiên cao nhất: NHÂN KHÔNG GIAN LÀM VIỆC cho nhiều agent cùng lúc, kể cả nhiều việc trên cùng một repo; không phân kho tùy tiện để né Git merge.
+- **Owner 25/10:** test 3 agent/3 branch/PR thật trên GitHub Free trước khi mua Pro; hai repo thật private chưa đổi. Public Free có rulesets, private Free chỉ branch/PR nhưng không hardlock main như yêu cầu.
 - Thiết kế tối thiểu cần xét: mẫu việc + DoD; vai trò/định danh và quyền; cách đọc luật bắt buộc; nhân bản nơi viết/test; cấp/nhận việc và điều hành ban đêm; PR/review/merge từng trường hợp; cổng kiểm main mới nhất; kiểm thử/rollback; chi phí Actions=0; quan trắc/kết quả sáng.
 - Owner đồng ý CHI khoảng 4 USD/tháng khi đã đủ điều kiện, không có lệnh thanh toán ngay. Chưa chốt GitHub Pro thực sự cưỡng chế được mô hình “chỉ chìa kỹ sư trưởng”.
 - Cần đối chiếu riêng: GitHub Pro private repo protection vs quy tắc chỉ hạn chế push theo actor; tài khoản cá nhân và tổ chức có khác nhau. Phải thử quyền âm trước khi ký GO.
@@ -355,6 +357,19 @@ Bảng: lệch (➡ còn chờ Claude) → đã sửa cùng lượt · §0.3: th
 - 4.1 ACCEPT@af59bba2b84391fd0d093b1554b04c86c2234cb4 PROMPT GHM-R2-ACCESS-20261025-01 (last-touch = commit sửa của Claude).
 - 4.2 Việc người duy nhất: 😊 Owner mua Pro (hướng dẫn trong chat). Host READY làm song song; S0 tự kiểm Pro. Pro còn nâng phút miễn phí 2.000 → 3.000 (3 nhóm kiểm ước ~1.151 phút/tháng).
 - 4.3 JEV `gen-dec-1792909959-xgxrm76gaQcqDQpLknUf`: thử chặn bằng admin 0,77 · XONG kèm PENDING 0,66 · cần đếm deploy key 0,83 (phương án do Claude viết, có thể thiên).
+## P20 · GPT Host 25/10/2026 — ĐỒNG Ý OWNER: THỬ GH FREE TRƯỚC KHI MUA PRO
+Ghế: openai-main · Based_on: Owner 25/10 ưu tiên chứng minh 3 agent thật code/PR/merge trước khi trả phí; Claude P19; GitHub Docs và kiểm trực tiếp trạng thái 3 repo. Mode=DESIGN_DRAFT; 0 RUN active.
+- **Phân biệt:** GitHub Free public hỗ trợ branch protection + branch rulesets; Free private vẫn commit/branch/PR được nhưng không có ruleset cưỡng chế main như yêu cầu. Pro **không bắt buộc vì repo private**; chỉ cần khi muốn hardlock trên private. Nếu sau này 2 repo thật public và lịch sử đã kiểm sạch, Free vẫn hỗ trợ khóa main. Không dùng sự có mặt của Pro làm điều kiện để thử tốc độ.
+- **Đề xuất thực hiện sớm:** chỉ tạo *một repo thử sạch mới* `Huyen1974/agent-parallel-pilot` (hiện chưa tồn tại), PUBLIC, lịch sử hoàn toàn mới, chứa mã test hữu ích nhưng tuyệt đối không mang code VPS/Agent Data/Web, secret, backup hay Git history cũ. Repo là sân thử, không phải SSOT thứ ba; có thể archive khi kết thúc. Hai repo `agent-data-test`/`web-test` giữ PRIVATE và nguyên trạng.
+- **Không thử trong workspace chung:** ruleset `gateway-only-writes` của `incomex-workspace` áp `~ALL`, tức chặn cả nhánh dev. Nới luật repo chung để pilot gây rủi ro đến các task đang vận hành.
+- **P19 được giữ, nhưng PARK:** 5 chỉnh sửa kỹ thuật của Claude P19 là đúng *cho hướng khóa private+Pro sau pilot*. PROMPT `GHM-R2-ACCESS-20261025-01` đã ACCEPT@af59bba2b84391fd0d093b1554b04c86c2234cb4 nhưng **PARKED_UNRUN**, không READY. Chỉ Owner quyết private+Pro sau kết quả pilot thì mới soạn/READY lại đúng phạm vi.
+- **Chỉnh thêm một phép thử:** Không lấy thử Owner/admin bị chặn thay thế hoàn toàn thử bằng actor worker thật. Worker dùng token khác với Owner và không Administration; phải thực tế đẩy được dev branch/PR và bị chặn khi đẩy main. Xác minh runner/agent có workspace và đường gọi thật, không giả 3 ghế đã chạy.
+- **Tiêu chí PILOT:** Codex bootstrap public clean repo, Actions OFF chỉ tại repo pilot, một ruleset MAIN-ONLY. Ba công cụ hữu ích độc lập: validate task contract, PR scope checker, bảng PR sáng; 3 workers thực làm cùng thời điểm trên 3 workspace, 3 PR, Chief review/test/merge lần lượt trên latest main, ≥2/3 NHẬN. Không ảnh hưởng hai repo thật/VPS. Nếu Claude vừa là worker vừa là Chief thì cần phản biện chéo hãng cho PR của Claude.
+- **Chốt sau pilot:** (A) giữ hai repo mã PRIVATE và cần hardlock ⇒ Owner mua GitHub Pro rồi R2-A/B; (B) nếu muốn public ⇒ rà cả Git history, workflow logs và bí mật trước; Free đủ dùng; (C) private Free vẫn có thể thử branch/PR nhưng KHÔNG gọi là khóa cứng main. Không đòi Pro trước pilot.
+- **Tính chất thảo luận:** đã viết PROMPT mới DRAFT_NOT_READY, không tạo repo/khóa/phát RUN. Claude Reviewer đọc delta P20/PROMPT một lượt và ký đúng SHA nếu đạt; Host phát READY sau, Owner chuyển Codex.
+- Docs: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets ; https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches ; https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility .
+- NEXT_TRIGGER=CLAUDE_ACCEPT_FREE_PILOT_PROMPT.
+
 
 
 

@@ -1,40 +1,33 @@
-# PROMPT — GHM R2-A · KHOÁ `main` + LUẬT REPO TRÊN GITHUB (2 REPO)
-RUN_ID: GHM-R2-ACCESS-20261025-01
-STATUS: DRAFT — GPT Host soạn (P18); Claude P19 sửa tại chỗ 5 điểm (đếm deploy key ghi · khoá main trước rồi mới mở nhánh · thử chặn bằng danh tính mạnh nhất · việc tự động đang ghi main · tiêu chí XONG rõ) rồi ACCEPT@last-touch. GPT Host READY đúng SHA; Owner giao Codex. Chưa có RUN.
+# PROMPT — GHM R2-P(A) · PILOT 3 AGENT TRÊN GITHUB FREE, CHƯA MUA PRO
+RUN_ID: GHM-R2P-FREE-20261025-01
+STATUS: DRAFT_NOT_READY. Chỉ khi Claude Reviewer ACCEPT last-touch full SHA, GPT Host READY@cùng SHA, Owner chuyển RUN thì Codex mới thực thi. PROMPT R2-A Pro/private P19 đã PARKED_UNRUN.
 
-Executor_Surface: Codex CLI/Desktop (Mac, `gh` đăng nhập Owner) · Write_Path: GitHub API/gh CLI (rulesets, nhánh, PR nháp) của `Huyen1974/agent-data-test`, `Huyen1974/web-test`; workspace_* root=workspace ghi STARTED/KQ + Bảng. KHÔNG shell/SSH ghi VPS, không sinh/thay chìa KST, không đổi production. Chi tiết actor/token/đường ghi chỉ lưu root-only tại `/opt/incomex/work/github-management/GHM-R2-ACCESS-20261025-01/` (như P17); repo public chỉ tóm tắt số đếm.
+Executor: Codex CLI/Desktop; GitHub/gh API; chỉ ghi 1 repo sandbox mới `Huyen1974/agent-parallel-pilot` và task `work/github-management` cho STARTED/KQ. TUYỆT ĐỐI không mutate `agent-data-test`, `web-test`, `incomex-workspace` rulesets, VPS, production, GitHub Billing/payment.
+ENTRY: AGENTS.md gốc → root COLLAB → github-management COLLAB §0/Bảng/P19/P20 → ROADMAP/KE-HOACH → PROMPT này. Tuân A6/DROOT30/31. Thiếu READY/Owner RUN thì DỪNG.
 
-ENTRY: AGENTS.md root → root COLLAB cờ/luật → work/github-management/COLLAB.md §0/Bảng/P17–P19 → ROADMAP V0.3 → KE-HOACH R2 → PROMPT này. DROOT30/31 freshness/STARTED/KQ trước mutation. Thiếu ACCEPT/READY cùng SHA hoặc Owner RUN ⇒ DỪNG. R1 đã nghiệm thu (P18), không chạy lại.
+## S0: Kiểm điều kiện READ-ONLY
+- Xác nhận tên repo pilot chưa tồn tại; GitHub Free cho ruleset branch ở repo public; người tạo có quyền. Actions account budget $0 + Stop giữ nguyên, không sửa Billing.
+- Có bề mặt thi hành thật cho 3 agent (Codex, Hermes, Claude/cloud hoặc ghế tương đương) với 3 workspace/clone khác nhau, có đường nhận lệnh/commit/push. Chưa chứng minh ghi UNKNOWN, không giả đã giao việc. Không dựa vào khả năng Claude Code Web chưa đo.
+- Mỗi worker dùng credential chỉ repo thử, không Administration và không dùng token Owner. Người thực hiện merge (Chief) phải có identity/đường bypass riêng; Codex không giữ private key Chief.
 
-## S0 — KIỂM TRƯỚC (chỉ đọc, ≤15′)
-- 0.1 Tài khoản đã lên GitHub Pro (Owner tự mua); 2 repo PRIVATE, default branch `main`, dùng được rulesets. Pro chưa active ⇒ KQ DỪNG, NEXT_TRIGGER=OWNER_PRO_ACTIVE. **Không tự mua gói, không thêm/thay phương thức thanh toán.**
-- 0.2 Ngân sách Actions cả tài khoản $0 + **Stop usage** còn nguyên sau khi lên Pro (= T-d); 3 nhóm kiểm cần vẫn active; 15 workflow BỎ vẫn disabled; Dependabot động chỉ là ngoại lệ khi đúng loại GitHub-managed + runner tiêu chuẩn (không larger). Mất hard-stop ⇒ DỪNG trước mọi thay đổi, báo Owner.
-- 0.3 **Lỗ khoá (P19):** bypass loại `DeployKey` = MỌI deploy key có quyền ghi. Đếm deploy key `read_only=false` từng repo (P12 đo 0). >0 ⇒ KHÔNG xoá, ghi root-only, KQ DỪNG cho Host.
-- 0.4 Liệt kê việc tự động đang đẩy thẳng vào `main` (workflow giữ lại, app/bot). Ruleset sẽ chặn cả chúng ⇒ chỉ ghi lại cho Host, không sửa YAML, không dừng.
-- 0.5 Không có RUN khác đang sửa rulesets/quyền/nhánh chính của 2 repo. Không cần VPS-GHI (chỉ GitHub).
+## S1: Mở duy nhất 1 kho thử PUBLIC sạch
+- Tạo `Huyen1974/agent-parallel-pilot` public mới, history mới; tuyệt đối KHÔNG sao chép git history hoặc mã production/secret/env/backup/webhook/IP nội bộ từ 2 kho private/VPS.
+- Tắt GitHub Actions **chỉ tại repo pilot** trước khi commit scaffold. Tạo README giới hạn pilot, AGENTS.md ≤1 trang, .gitignore, mẫu phiếu 6 ô (TASK_ID, Goal/Done_When/test, Allowed_Paths, Dependency/Base_SHA, Worker+Chief, Budget/Stop), 3 thư mục độc lập và tests Python unittest; commit scaffold lên main trước khi khóa.
 
-## S1 — KHOÁ `main` (≤25′)
-- 1.1 Mỗi repo 1 ruleset tên `chief-only-main`: enforcement=active, target CHỈ `~DEFAULT_BRANCH` (main); luật `update` · `deletion` · `non_fast_forward`; bypass DUY NHẤT loại `DeployKey` — y mẫu `gateway-only-writes` của incomex-workspace. KHÔNG dùng `~ALL` (chặn cả nhánh dev); không cho admin/dev bypass; không tạo deploy key nào ở bước này ⇒ sau S1 chưa ai ghi được main cho tới R2-B (đúng ý).
-- 1.2 Đọc lại: ruleset active, đích chỉ main; `GET /repos/{repo}/rules/branches/main` trả đủ 3 luật. Số actor bypass theo loại/số đếm; ID chi tiết chỉ root-only.
-- 1.3 **T-a thử chặn (P19):** dùng chính `gh` hiện tại (Owner admin = quyền mạnh nhất; mạnh nhất bị chặn ⇒ thẻ dev yếu hơn chắc chắn bị chặn) đẩy 1 commit RỖNG vào `main` mỗi repo (git push hoặc API refs) ⇒ phải bị từ chối (GH013 / 409 như incomex-workspace 25/09). Lỡ được nhận ⇒ DỪNG, KHÔNG revert/force, báo Host (commit rỗng vô hại; R3 cất main cũ vào tag). Admin chỉ dùng cho phép thử CHẶN, không dùng để chứng minh quyền dương của worker.
-- 1.4 T-e (force-push/xoá) KHÔNG thử thật: chứng minh bằng 1.2 + T-a cùng ruleset. T-b (thẻ dev không sửa được ruleset) + T-c (chìa KST đi qua) ⇒ R2-B/R3, khi đã có thẻ dev và chìa KST.
-- 1.5 Chìa KST: Claude Code CLI tự sinh và giữ ở R2-B (Đ30/31, VPS-GHI). Codex không cầm/đọc/gửi private key, không tự push main; không lấp chỗ thiếu chìa bằng cách cho admin bypass.
+## S2: Hard-lock main trên GitHub Free, rồi test bằng dev riêng
+- Tạo branch ruleset ACTIVE **CHỈ `main` / `~DEFAULT_BRANCH`**, KHÔNG dùng `~ALL`. Chặn direct update/delete/nonfastforward ngoại trừ đường Chief được Owner chốt; trước/sau kiểm số write DeployKey và quyền actor, không grant bypass admin/dev tùy tiện.
+- Thử bằng danh tính worker thực **không admin**: push thử main phải bị reject; tạo/push dev/<seat>/<task> phải PASS, mở PR phải PASS. Test admin bị chặn chỉ là phụ, không thay test worker. Nếu dev đang dùng Owner admin hoặc ruleset chặn mọi nhánh thì DỪNG, không nới luật cũ.
+- Nếu Chief chưa có private key riêng: giữ main khóa, bước Chief-key/merge thuộc lượt R2-P(B); không báo pilot code/merge đã đạt.
 
-## S2 — LUẬT REPO (≤20′, SAU S1)
-- 2.1 Tận dụng luật AGENTS gốc, không dựng hệ mới: `AGENTS.md` ≤ 1 trang + mẫu Issue/PR 6 ô (TASK_ID · mục tiêu/DoD + lệnh test · khu tệp được/cấm sửa · phụ thuộc/base SHA · ghế dev + KST · giới hạn thời gian/điều cấm); quy tắc nhánh `dev/<ghế>/<mã việc>`; KST 4 kết luận NHẬN/SỬA/TRẢ LẠI/BỎ.
-- 2.2 Đẩy lên nhánh `dev/codex/GHM-R2A-rules` của mỗi repo và mở 1 PR NHÁP vào `main` (không merge — R3.3 KST merge). Đẩy SAU khi ruleset active ⇒ đây chính là phép thử «nhánh dev + PR vẫn mở». Bị chặn ⇒ DỪNG kèm bằng chứng, không gỡ ruleset. Không đưa secret/khoá/địa chỉ nhạy cảm vào tệp.
+## S3: Tạo 3 Issue có giá trị sử dụng
+- GHMP-01 worker Codex: `task_contract/`, `tests/task_contract/`: kiểm JSON 6 ô, DoD/test.
+- GHMP-02 worker Hermes: `pr_scope/`, `tests/pr_scope/`: kiểm đường tệp changed_paths so với allowlist, cấm ../.
+- GHMP-03 worker Claude/ghế thứ ba: `pr_report/`, `tests/pr_report/`: tạo bảng PR sáng từ JSON giả (TASK, Worker, SHA, test, Chief decision).
+- 1 việc = 1 Issue, 1 branch, 1 PR, scope không giao nhau; chỉ stdlib Python, không phụ thuộc GitHub Actions/runners mới.
 
-## S3 — KIỂM + KQ (≤15′)
-- 3.1 Mỗi repo: ruleset active chỉ main · deploy key ghi = 0 · T-a bị chặn · nhánh + PR nháp có · Actions vẫn ON 3 nhóm · ngân sách $0 + Stop còn.
-- 3.2 **XONG khi đủ 3.1 ở cả 2 repo.** T-b, T-c ghi `PENDING_R2B` là ĐÚNG KẾ HOẠCH, không phải lý do DỪNG. DỪNG chỉ khi một mục 3.1 hỏng.
-- 3.3 KQ@GHM-R2-ACCESS-20261025-01 XONG|DỪNG trong COLLAB + Bảng cùng commit: số đếm, URL nhánh/PR, kết quả T-a, mục 0.4. Chi tiết actor/khoá chỉ root-only. NEXT_TRIGGER khi XONG = `KST_R2B_KEY` (Claude Code CLI sinh chìa; Codex gắn deploy key; thẻ dev + hạ quyền admin — R2.2). Không tự làm R2-B/R3.
+## S4: KQ bootstrap và giao ca thử
+- Biên nhận public: repo URL, commit SHA, ruleset nhắm main, test quyền worker push main DENIED/dev branch PASS/PR PASS, 3 Issue URLs, worker surface đã đo. Biên nhận credential/key cụ thể không đưa lên workspace public.
+- Codex tạo 3 câu giao việc ngắn với Issue link để Owner gửi 3 agent đồng thời. Nếu có dispatcher đã chứng minh receipt mới được giao qua máy; không tuyên bố agent đang chạy khi chưa có thực.
+- Ghi STARTED và KQ@GHM-R2P-FREE-20261025-01 XONG|DỪNG cùng Bảng theo luật; XONG chỉ nghĩa bootstrap. Trả mọi phiên/lock, không tự chạy R2-P(B), không tạo Pro, không deploy.
 
-STEP_WALK_V1:
-| Bước | Ai/trigger | Hạn | Bằng chứng | Lỗi → ai | Kế |
-|---|---|---|---|---|---|
-| S0 | Codex / Owner RUN | ≤15′ | Pro · ngân sách · deploy key · ghi main tự động | Pro chưa có / key>0 / mất Stop ⇒ DỪNG, Owner/Host | S1 |
-| S1 | Codex / S0 đạt | ≤25′ | ruleset đọc lại + T-a bị chặn | T-a lọt ⇒ DỪNG, Host | S2 |
-| S2 | Codex / S1 đạt | ≤20′ | nhánh + PR nháp | nhánh bị chặn ⇒ DỪNG, Host | S3 |
-| S3 | Codex / S2 xong | ≤15′ | KQ + Bảng | Host nghiệm thu, Owner giao R2-B | END |
-
-CẤM: mua Pro, đổi thẻ thanh toán/ngân sách; push/merge/delete/reset/force vào main (ngoại lệ DUY NHẤT: 1 commit rỗng thử chặn T-a mỗi repo); merge PR; tạo deploy key/chìa KST hoặc đưa chìa cho Codex; thay token/secret; SSH/ghi VPS; cài runner; sửa YAML/runtime. Gặp blocker ⇒ KQ DỪNG + NEXT_TRIGGER, không giữ phiên chờ Owner.
+**Cửa nghiệm thu sau bootstrap R2-P(B):** 3 agents thật cùng code trên workspace/branch riêng, có 3 PR & test; Chief kiểm latest main và merge từng PR, ít nhất 2/3 NHẬN, 0 dev được push main, không ảnh hưởng VPS/2 repo private, report sáng theo 6 ô. Nếu chưa đủ đường gọi ba agent, báo UNKNOWN và đề xuất cách Owner giao tay; không giả PASS.
