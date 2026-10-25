@@ -1,41 +1,36 @@
-# PROMPT — GHM R1 · KHOÁ CHI PHÍ GITHUB ACTIONS (ACTIONS VẪN BẬT)
-RUN_ID: GHM-R1-COST-20261025-01
-STATUS: DRAFT — Claude soạn theo Owner 25/10 (COLLAB P14) và ký ACCEPT@last-touch; GPT Host đọc TOÀN BỘ PROMPT rồi READY@cùng SHA; Owner giao Codex. Thay bản DRAFT `GHM-R1-SELFHOST-FIT-20261025-01` (SUPERSEDED_UNRUN, lịch sử ở Git). RUN này không cần chờ cờ VPS-GHI (không đụng VPS).
+# PROMPT — GHM R2-A · THIẾT LẬP QUY ĐỊNH VÀ CỔNG NHÁNH GH (2 REPO)
+RUN_ID: GHM-R2-ACCESS-20261025-01
+STATUS: DRAFT_NOT_READY — KHÔNG RUN. Claude Reviewer phải ACCEPT last-touch full SHA sau khi rà. GPT Host READY đúng SHA; Owner giao Codex. Chưa có RUN cho mốc này.
 
-**Mục tiêu duy nhất (Owner 25/10):** run GitHub không bao giờ gây chi phí mất kiểm soát. Actions **vẫn BẬT**; không cài runner; không tắt Actions cấp repo.
+Executor_Surface: Codex CLI/Desktop (Mac) · Write_Path: GitHub API/gh CLI quyền quản lý rulesets/branch, Incomex workspace_* root=workspace ghi STARTED/KQ + Bảng. KHÔNG shell/SSH ghi VPS, không sinh/thay Chief private key, không đổi production. Chi tiết actor/token/đường ghi chỉ lưu trong vùng hạn chế quyền P17, repo public chỉ tóm tắt.
 
-Executor_Surface: Codex CLI/Desktop trên Mac (`gh` đăng nhập Owner) + GitHub web UI · Write_Path: trang billing của tài khoản + cài đặt workflow của 2 repo `Huyen1974/agent-data-test`, `Huyen1974/web-test`; workspace_* root=workspace cho STARTED/KQ/Bảng. Không đụng VPS ngoài tệp bằng chứng root-only như P12. GitHub hỏi mật khẩu/2FA/passkey ⇒ dừng đúng bước nhờ Owner rồi làm tiếp; không lưu mã.
+ENTRY: đọc AGENTS.md root → root COLLAB cờ/luật → work/github-management/COLLAB.md §0/Bảng/P17/P18 → ROADMAP V0.3 → KE-HOACH R2 → PROMPT này. DROOT30/31 freshness/STARTED/KQ trước mutation. R1 đã ACCEPTED_WITH_EXCEPTION nhưng KQ gốc DỪNG không tái chạy.
 
-ENTRY: AGENTS.md → work/github-management/COLLAB.md §0/Bảng/P12–P14 → PROMPT này. Thiếu ACCEPT/READY cùng SHA hoặc Owner RUN ⇒ DỪNG.
+## S0 — PRECHECK HARD-GATE (read-only, ≤15 phút)
+- Xác minh Account GitHub Pro đã được Owner nâng cấp, hai repo `Huyen1974/agent-data-test` và `Huyen1974/web-test` đang PRIVATE, default branch `main`, quyền repo rulesets có thể dùng; nếu Pro chưa active ⇒ `KQ DỪNG` và `NEXT_TRIGGER=OWNER_PRO_ACTIVE`. **Không tự mua gói hoặc thêm/thay phương thức thanh toán.**
+- Đọc lại bằng chứng mới: Actions account budget Product=Actions toàn Account, amount=$0, **Stop usage=true**, Actions workflow ba nhóm nghiệp vụ vẫn active, 15 workflow BỎ vẫn disabled. GitHub-managed Dependabot dynamic chỉ là ngoại lệ nếu đối chiếu được đúng loại + runner standard (không larger). Nếu budget hard-stop không còn ⇒ DỪNG trước cấp quyền/thiết lập chính sách, báo Owner.
+- Xác minh không có RUN khác đang sửa **GitHub rulesets/permissions/branch chính** của 2 repo; không cần VPS-GHI cho đọc và quản trị GitHub nhưng phải tránh đụng cùng scope. Không dùng tài khoản/credential Owner admin để giả làm worker trong phép thử quyền.
 
-## S0 — ĐO CHI PHÍ (chỉ đọc, ≤10′)
-- 0.1 Gói tài khoản; có phương thức thanh toán không (chỉ CÓ/KHÔNG).
-- 0.2 Budgets and alerts: có ngân sách sản phẩm Actions phạm vi cả tài khoản không · số tiền · có «Stop usage when budget limit is reached» không · cảnh báo 75/90/100% bật không.
-- 0.3 Chu kỳ này: phút GitHub-hosted đã dùng / đã gồm, dung lượng Actions; tiền phát sinh tháng này và tháng trước (số tiền).
-- 0.4 Copilot code review có bật ở 2 repo không (từ 06/2026 tính vào phút Actions).
+## S1 — LUẬT NGẮN/PHẠM VI (≤20 phút)
+- Tận dụng luật AGENTS gốc, không nhân một hệ thống mới. Dự thảo `AGENTS.md` ≤1 trang + Issue/PR mẫu 6 ô (TASK_ID, mục tiêu/DoD+test, allowed/forbidden paths, dependency/base SHA, worker+Chief, quota/stop), quy tắc `dev/<seat>/<task-id>`, review 4 kết luận NHẬN/SỬA/TRẢ LẠI/BỎ.
+- Soạn tài liệu ở đúng nhánh chuẩn bị riêng của mỗi repo, KHÔNG push vào `main` cũ; nếu ruleset cản tạo nhánh thì dừng với bằng chứng, không bỏ ruleset. Không đẩy danh sách secret/keys/địa chỉ nhạy cảm vào code.
 
-## S1 — KHOÁ TIỀN (≤10′)
-- 1.1 Chưa có ngân sách Actions $0 + Stop usage phạm vi cả tài khoản ⇒ tạo: github.com/settings/billing → Budgets and alerts → New budget → Product-level budget · Actions · cả tài khoản · số tiền 0 → tích «Stop usage when budget limit is reached» → tích «Receive budget threshold alerts» → Create budget. Đã có nhưng thiếu Stop usage hoặc cảnh báo ⇒ sửa đúng ô đó. Ngân sách chỉ tính từ lúc tạo ⇒ làm ngay trong RUN này.
-- 1.2 Copilot code review đang bật ⇒ ghi lại, không tự tắt (Host quyết).
-- 1.3 Không mua Pro, không thêm/xoá thẻ thanh toán.
+## S2 — KHÓA `main` Ở CẤP GITHUB (≤25 phút)
+- Dùng rulesets của GitHub Pro trên **hai repo private** chỉ áp cho `~DEFAULT_BRANCH` / refs/heads/main; chặn update/deletion/non-fast-forward của dev theo phương án đã có trên `incomex-workspace`. KHÔNG sao y ruleset `~ALL` (sẽ chặn cả các nhánh dev). Bypass chỉ cho loại Chief DeployKey theo mô hình Owner duyệt, tránh actor admin/dev; không tạo bất kỳ *write deploy key* mới nào ở bước Codex này.
+- Đọc lại ruleset `enforcement=active`, target branch chỉ `main`; đọc danh sách runner/actor có quyền bypass theo loại/số đếm, không lộ ID chi tiết lên repo public. Xác minh worker có thể tạo branch/PR riêng và không có Administration trên token dev. Không thực hiện phép thử xóa/force-push **main thật** nếu protection chưa chắc chắn; nếu chưa có credential dev độc lập thì `HARDLOCK_UNTESTED` thay vì báo PASS.
+- KST/Claude Code CLI **giữ riêng** bước tạo và bảo vệ private key (theo Đ30/31, một RUN khác và cờ VPS-GHI nếu ghi VPS). Chỉ Chief được chứng minh bypass/ghi `main` tại R2-B/R3; Codex không cầm/đọc/gửi private key và không tự push main. Không tự giải quyết thiếu public key bằng cách cho admin bypass.
 
-## S2 — GIỮ PHÚT MIỄN PHÍ CHO 3 NHÓM KIỂM CẦN (≤15′)
-- 2.1 Lấy danh sách workflow thuộc 3 nhóm cần giữ và các workflow BỎ từ báo cáo P12 (root-only) — không kiểm kê lại.
-- 2.2 Tắt từng workflow BỎ đang active: `gh workflow disable <id> -R <repo>` (bật lại bằng `gh workflow enable`). Không sửa YAML/branch/code, không tắt Actions cấp repo, không động 3 nhóm cần giữ.
-- 2.3 Ghi danh sách đã tắt + lệnh bật lại vào `/opt/incomex/work/github-management/GHM-R1-COST-20261025-01/` (tệp chỉ root đọc); không ghi được ⇒ trả chat cho Owner.
-- 2.4 S1 không đạt vẫn làm S2 (giảm hao phút là an toàn), KQ ghi rõ S1 chưa đạt.
-
-## S3 — KIỂM + KQ (≤10′)
-- 3.1 POST: ngân sách Actions $0 + Stop usage tồn tại; workflow active mỗi repo chỉ còn các workflow thuộc 3 nhóm cần; Actions vẫn enabled.
-- 3.2 KQ@GHM-R1-COST-20261025-01 XONG|DỪNG trong COLLAB + Bảng cùng commit. Repo PUBLIC ⇒ chỉ ghi: thẻ thanh toán CÓ/KHÔNG, ngân sách $0 + Stop CÓ/KHÔNG, phút đã dùng/đã gồm, tiền tháng này, số workflow active trước/sau, Copilot review CÓ/KHÔNG, blocker. Tên workflow và chi tiết ở tệp root-only.
-- 3.3 Một dòng cho Host: ước phút/tháng của 3 nhóm cần (từ lịch + thời lượng 30 ngày) so với phút đã gồm. Vượt ⇒ đề xuất xét self-hosted runner ở bước sau, không tự làm.
+## S3 — ĐO CỔNG & BÀN GIAO (≤15 phút)
+- Báo từng repo: nhánh dev mở được (kiểm an toàn), ruleset active, worker không có quyền ghi main/admin theo nguồn GitHub; ghi rõ thử âm nào PASS/UNKNOWN, đặc biệt `Chief push main` còn `PENDING_CHIEF_KEY_TEST`. Xác minh Actions vẫn ON ba nhóm audit và budget $0+Stop còn hiệu lực sau nâng Pro.
+- Ghi biên nhận/URL nhánh cấu hình/PR draft + trạng thái từng cổng vào P tiếp trong COLLAB, chỉ số đếm công khai; bằng chứng actors/keys chỉ trong root-only workspace hiện hữu, không đăng nhập root VPS để sửa. Nếu thiếu private KST key là điều kiện chính để chốt R2, KQ `DỪNG` với `NEXT_TRIGGER=KST_R2B_KEY_TEST` và nêu phần Codex đã làm đạt, **không cố làm hộ Chief**.
+- Không tự triển khai R3; kế tiếp Host/Claude xác nhận cổng, Owner giao mốc Key/Chief riêng theo roadmap. Không đổi `main`/deploy/cron/VPS/secret.
 
 STEP_WALK_V1:
-| Bước | Ai/trigger | Hạn | Bằng chứng | Lỗi → ai | Kế |
+| Step | Ai/trigger | Budget tham chiếu | Evidence | Fail/owner | Kế |
 |---|---|---|---|---|---|
-| S0 | Codex / Owner RUN | ≤10′ | 0.1–0.4 | thiếu quyền ⇒ DỪNG, Host | S1 |
-| S1 | Codex / S0 xong | ≤10′ | ngân sách $0 + Stop | passkey ⇒ nhờ Owner | S2 |
-| S2 | Codex / S1 xong | ≤15′ | danh sách đã tắt | lỗi ⇒ DỪNG, Host | S3 |
-| S3 | Codex / S2 xong | ≤10′ | POST + KQ | Host / Owner | END |
+| S0 | Codex / Owner RUN | ≤15 phút | Pro/budget/scopes/identities | DỪNG nếu plan chưa đúng, Host/Owner | S1 |
+| S1 | Codex / S0 PASS | ≤20 phút | nhánh luật/PR templates | DỪNG nếu repo không cho phép nhánh, Host | S2 |
+| S2 | Codex / S1 PASS | ≤25 phút | ruleset active chỉ main, quyền least-privilege | HARDLOCK_UNTESTED→giao Chief, Host | S3 |
+| S3 | Codex / S2 đạt hoặc bị chặn | ≤15 phút | KQ/nhánh/ứng viên/test logs | Host nghiệm thu, Owner quyết R2-B | END |
 
-CẤM: tắt Actions cấp repo; cài runner; sửa YAML/branch/code/main; mua Pro; đổi secret/token/thẻ thanh toán; đụng VPS runtime; tự READY/RUN tiếp. Không giữ phiên chờ người; thiếu quyền/dữ kiện ⇒ UNKNOWN/DỪNG sạch.
+CẤM: mua GitHub Pro, thay thẻ thanh toán/budget, gh push/merge/delete/reset/force vào main, cấp Claude Chief key cho Codex, thay token/secret, gọi root SSH/VPS ghi, cài Actions runner, đổi workflow YAML hoặc runtime. Gặp blocker thì KQ DỪNG + NEXT_TRIGGER, không giữ phiên đợi Owner.

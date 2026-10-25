@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**TRẠNG THÁI: Claude P14 + GPT Host P15 chốt hướng R1 KHOÁ CHI PHÍ; R1 PROMPT đã READY, CHƯA OWNER RUN. R2–R6 vẫn thực hiện theo từng cổng riêng.**
+**TRẠNG THÁI: Host P18 nghiệm thu R1 mục tiêu ngân sách $0+Stop có ngoại lệ Dependabot; R2-A chuẩn bị GitHub rulesets/luật, CHƯA Owner RUN.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
@@ -26,7 +26,7 @@ Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code
 | R0.1 | Nguồn mã VPS | 2 thư mục mã đang chạy `docker/agent-data-repo`, `docker/nuxt-repo`: nhánh, HEAD, sạch/bẩn, remote (ẩn credential); HEAD đã có trên nhánh `vps-daily-*` chưa | Bảng thư mục → nhánh → HEAD → có trên GitHub; điểm UNKNOWN |
 | R0.2 | Mã đang chạy | Mỗi dịch vụ (agent-data, nuxt): image/bản build đang chạy dựng từ commit nào; có gì đang kéo `main` 2 kho không | Bảng dịch vụ → commit đang chạy; lệch HEAD ghi rõ |
 | R0.3 | Actions, thẻ, đường gọi | Workflow 2 kho (lịch, lần chạy cuối, việc làm) + Dependabot; mọi thẻ/app/khoá ghi được 2 kho (tên + quyền, không in giá trị); chỉ đọc đường gọi cho R6: Dot→Codex, Codex cloud / Claude Code web nối được 2 kho | Mỗi workflow: MIGRATE (chức năng cần giữ → Guard/Kuma, ghi nợ) hoặc BỎ — không có GIỮ; ma trận thẻ; R6 khả thi có/không + bằng chứng |
-| R1.1 | Khoá chi phí (P14) | Owner 25/10: Actions vẫn bật. PROMPT GHM-R1-COST: đo billing; ngân sách Actions $0 + «Stop usage» + cảnh báo 75/90/100%; tắt riêng từng workflow thừa bằng `gh workflow disable` (bật lại được), giữ 3 nhóm kiểm cần; không runner, không tắt Actions cấp repo | Ngân sách $0 + Stop có; active chỉ 3 nhóm; tiền phát sinh 0 |
+| R1.1 | Khoá chi phí (P14) | Owner 25/10: Actions vẫn bật. PROMPT GHM-R1-COST: đo billing; ngân sách Actions $0 + «Stop usage» + cảnh báo 75/90/100%; tắt riêng từng workflow thừa bằng `gh workflow disable` (bật lại được), giữ 3 nhóm kiểm cần; không runner, không tắt Actions cấp repo | Ngân sách $0 + Stop có; 3 nhóm nghiệp vụ + Dependabot dynamic managed (runner tiêu chuẩn miễn phí), 15 BỎ đã disable; budget $0 + Stop verified |
 | R1.2 | 😊 Owner mua Pro | Đầu R2 (khoá main cần Pro), chỉ sau R1.1: github.com/settings/billing → nâng GitHub Pro. Ngân sách $0 + Stop của R1.1 giữ nguyên nên gắn thẻ thanh toán không mở đường mất tiền | Trang billing: Pro + budget $0 có dừng |
 | R2.1 | Khoá main | Codex: ruleset chỉ `main` 2 kho (update · deletion · non_fast_forward; bypass duy nhất DeployKey). Claude Code CLI trên VPS (cờ VPS-GHI, Đ30/31): tạo bản clone riêng của KST, sinh 1 chìa/kho trong đó (remote riêng, không phải khoá mặc định của máy); Codex gắn chìa công khai làm deploy key ghi | Ruleset active; đúng 1 deploy key ghi/kho |
 | R2.2 | Thẻ dev + hạ quyền | Mỗi ghế dev 1 thẻ fine-grained chỉ 2 kho (Contents + Pull requests, không Administration). Hạ quyền mọi thẻ admin trong ma trận R0.3: `gh` trên Mac chuyển sang thẻ dev khi cài xong; PAT backup VPS nếu có Administration ⇒ thay thẻ chỉ Contents (Claude Code CLI, Đ30/31) | 0 thẻ admin ngoài Owner trên web (passkey) |

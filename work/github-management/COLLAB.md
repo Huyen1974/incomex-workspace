@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROADMAP trước; Claude phản biện, GPT đồng thuận và Owner duyệt rồi mới RUN. Chưa cho thay hai repo mã/Actions/VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 11:13 +07 · Codex · P17 KQ DỪNG R1-COST
-- 🎯 Mục tiêu: 3–5 agent viết mã song song trên hai repo; Chief kiểm/merge; cuối cùng ca đêm không cần Owner trực.
-- 🏁 Xong khi: GitHub có mã nền đúng và main khóa, 3 PR thực tế, workflow kiểm thiết yếu còn chạy; chi phí Actions metered được chặn bởi ngân sách 0 USD.
-- 📍 Tiến độ: ✓ R0 P12 → ✓ Claude P14 ACCEPT → ✓ GPT P15 READY R1-COST → ■ Owner giao Codex RUN R1 → □ KQ R1 → □ R2–R6.
-- ✅ Đã xong: GPT Host đọc trọn PROMPT R1-COST do Claude soạn, kiểm last-touch và ACCEPT cùng SHA, ký READY. Chưa chạy R1.
-- ■ Đang làm: — · 0 RUN active. P17 KQ DỪNG: ngân sách Actions $0 + Stop đã xác minh; tắt 15 workflow, giữ 3 nhóm thiết yếu; còn 1 workflow động active do GitHub từ chối (422).
-- ⬜ Còn lại: GPT/Claude nghiệm thu ngân sách và 15 workflow đã tắt, xử lý blocker 1 workflow động không disable được; R2 chưa RUN.
-- ➡ Kế tiếp: GPT Host/Claude đọc P17 và báo cáo riêng, quyết mục động HTTP 422 cùng tiêu chí POST; NEXT_TRIGGER=GPT_HOST_CLAUDE_REVIEW_MANAGED_WORKFLOW_422_AND_R1_KQ.
-- ⛔ Không làm/để sau: chưa mua Pro, chưa cài runner, chưa đổi code/branch/main/secret/VPS; không tái chạy R0R1 hoặc self-host PROMPT cũ.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 11:25 +07 · GPT Chat · P18
+- 🎯 Mục tiêu: 3–5 agent code song song trên hai repo; Chief kiểm/merge; sau cùng nhiều nhiệm vụ chạy đêm không cần Owner trực.
+- 🏁 Xong khi: phí Actions vượt mức bị khóa; main hai repo được bảo vệ, mã nền đúng, 3 PR và kiểm thử có bằng chứng; release/deploy có rollback.
+- 📍 Tiến độ: ✓ R0 P12 → ✓ R1-COST P17 được Host nghiệm thu NGOẠI LỆ Dependabot → ■ R2 chuẩn bị PROMPT cho Claude review → □ Owner mua Pro → □ Codex R2 → □ R3–R6.
+- ✅ Đã xong: budget Actions $0 + Stop + alerts (P17); 15 workflow thường đã disable; 3 kiểm thiết yếu được giữ; workflow Dependabot động miễn phút hosted tiêu chuẩn được ghi ngoại lệ (P18).
+- ■ Đang làm: — · 0 RUN active. KQ@GHM-R1-COST vẫn DỪNG theo máy lịch sử; R1 business objective ACCEPTED_WITH_EXCEPTION bởi Host, không sửa KQ.
+- ⬜ Còn lại: Owner nâng Pro khi sẵn sàng; Claude duyệt PROMPT R2; Host READY; Codex cài ruleset/mẫu vai trò theo cổng; KST chỉ quản khóa riêng và main ở lượt được phép.
+- ➡ Kế tiếp: Claude chỉ rà PROMPT R2 mới; Owner mua Pro sau R1 và giữ Actions budget hard-stop; Host ký READY đúng SHA sau review. NEXT_TRIGGER=CLAUDE_ACCEPT_R2_PROMPT_AND_OWNER_PRO_ACTIVE.
+- ⛔ Không làm/để sau: không tắt Dependabot động bằng thủ thuật; không khởi lại 15 workflow, không cài runner; chưa sửa main/secret/VPS/production; không chạy R2 trước Owner RUN.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -319,5 +319,17 @@ KQ@GHM-R1-COST-20261025-01 DỪNG · 2026-10-25T04:13:40Z · executor=Codex CLI/
 - **Phút miễn phí/rủi ro cho Host (ước tính):** lịch hiện hành + thời lượng job thực của **242 lượt/30 ngày** cho ba nhóm ≈ **1.151 phút/tháng**, ~57,6% hạn mức 2.000, dư ~849 phút cho repo khác/retry/thao tác tay. Đây là ước tính trên hiện trạng gồm lượt lỗi/hủy; sửa lỗi hoặc tăng thời lượng có thể làm nhu cầu đổi. Quota dùng chung toàn tài khoản; hết phút/storage miễn phí có thể dừng cả ba nhóm kiểm tra. Chưa có căn cứ từ ước tính này để triển khai runner mới; các lỗi vận hành hiện hữu được ghi trong báo cáo riêng, không sửa trong R1.
 - **Báo cáo riêng đã lưu/đọc lại:** `/opt/incomex/work/github-management/GHM-R1-COST-20261025-01/R1-COST-report.json` · SHA256 `df8bf20fe94fe370c66228c76868f89b73fe3f52b994789c7920c0d6edea11a6`. Báo cáo dẫn hash từng bằng chứng: Billing PRE/POST, ảnh/UI readback, workflow PRE/POST, lịch sử thay đổi, phép đo 30 ngày, `workflow-rollback.txt`. Tệp root:0600, thư mục 0700; không ghi thông tin thanh toán nhạy cảm/credential lên repo public.
 - **Kết thúc sạch:** — · 0 RUN active; 0 tiến trình nền chờ người; VPS-GHI không lấy/đổi; 0 thay đổi mã/cấu hình/dịch vụ VPS, chỉ tệp bằng chứng theo ngoại lệ PROMPT. Không mua Pro/cài runner/R2. GPT Host và Claude nghiệm thu phần ngân sách/15 workflow đã đạt, quyết cách xử lý mục động HTTP 422 và tiêu chí còn 3 active trước bước kế. NEXT_TRIGGER=GPT_HOST_CLAUDE_REVIEW_MANAGED_WORKFLOW_422_AND_R1_KQ. Áp: SAME_COMMIT.
+
+## P18 · GPT Host 25/10/2026 — NGHIỆM THU R1 CÓ NGOẠI LỆ DEPENDABOT, CHUYỂN R2
+Ghế: openai-main · Based_on: P17 Codex (KQ@GHM-R1-COST-20261025-01 DỪNG), GitHub Docs “Dependabot on GitHub Actions runners” + “GitHub Actions billing” + “Setting up budgets”.
+- **ACCEPT R1 BUSINESS GOAL WITH MANAGED EXCEPTION:** P17 chứng minh GitHub Actions Account-level budget $0 + Stop usage + alerts được tạo/readback; phí Actions thực đo tháng 9/10 = $0 ở thời điểm báo cáo; disable 15 workflow BỎ, giữ 3 workflow nghiệp vụ thiết yếu; GitHub Actions cấp repo vẫn ON. **KQ DỪNG của Codex đúng theo PROMPT cũ, giữ nguyên lịch sử, không đổi thành KQ XONG giả.**
+- **Giải quyết mục 422:** P17 xác định workflow thứ tư là `dynamic/dependabot/dependabot-updates` loại GitHub-managed, không có YAML trong repo. GitHub Docs xác nhận dynamic Dependabot bypass workflow disablement và standard GitHub-hosted Dependabot jobs **không bị trừ included Actions minutes**, không tính phí runner. Lỗi 422 khi `gh workflow disable` là giới hạn hợp lý, không phải thiếu RUN để lách. Nếu S0 lượt R2 cho thấy workflow này không phải dynamic Dependabot/đã chuyển sang larger runner thì cảnh báo lại; không tự nâng thành PASS khi khác mô tả P17.
+- **R1 acceptance criteria điều chỉnh theo bản chất:** 3 nhóm kiểm cần active + 1 GitHub-managed Dependabot dynamic không tính phút chuẩn; không còn workflow YAML BỎ active; ngân sách 0 USD hard-stop ở cấp Account. Không cần `active=3` tuyệt đối khi GitHub buộc workflow managed dynamic tồn tại. Chi phí GitHub Pro $4/tháng, phí thuê bao/chi phí khác **không được** ngân sách Actions $0 bảo vệ.
+- **Rủi ro còn lại:** 3 nhóm audit ước 1.151 phút/tháng / Free 2.000; dự báo chứ không phải lịch bảo đảm. Tài khoản có các repo khác dùng chung pool, còn 725 phút ở thời điểm P17. Nếu hết quota, job audit có thể ngừng; khi P17 đã đo $0 mới tạo ngân sách thì tiền trước đó không được xóa hồi tố. Nếu Dependabot PR kích hoạt workflow YAML audit thông thường thì các job audit đó có thể dùng phút riêng; không lẫn với phút chạy Dependabot dynamic. Không mua runner mới.
+- **Cổng Owner:** từ R1 mục tiêu khóa chi phí đã đạt với ngoại lệ được giải thích; đề nghị Owner mua GitHub Pro nếu muốn khóa `main` của 2 private repo (như đã đồng ý nguyên tắc $4/tháng). Owner thao tác gói Pro, Codex không tự thanh toán hoặc đổi payment method. Kiểm lại budget $0 + Stop sau upgrade trước mọi quyền/merge.
+- **R2:** Codex chịu trách nhiệm thiết kế/cấu hình GitHub và mở nhánh chuẩn về vai trò, Chief chỉ giữ khóa private + merge ở bước riêng. Không cấp Codex chìa Chief, không ghi lên main cũ. P18 đã chuẩn bị PROMPT R2 trong cùng task dạng DRAFT_NOT_READY. Theo AGENTS, Claude Reviewer xác nhận đúng PROMPT SHA, GPT Host READY rồi Owner giao Codex. Không thêm một vòng nghiên cứu Dependabot.
+- **Không có mutation runtime:** P18 chỉ thay hồ sơ `work/github-management`; không can thiệp GitHub account/repo, VPS, cron, secrets hay RUN. NEXT_TRIGGER=CLAUDE_ACCEPT_R2_PROMPT_AND_OWNER_PRO_ACTIVE.
+- Nguồn tài liệu GitHub: https://docs.github.com/en/code-security/concepts/supply-chain-security/dependabot-on-actions ; https://docs.github.com/en/billing/concepts/product-billing/github-actions ; https://docs.github.com/en/billing/how-tos/set-up-budgets .
+
 
 
