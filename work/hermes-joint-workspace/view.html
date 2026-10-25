@@ -46,7 +46,7 @@ small{color:#666}
 <tr><td>T9</td><td>Host chốt sớm hoặc người không có quyền sửa lệnh/KQ thì bị chặn và báo Owner; không cần Hermes Mac</td><td>N3 guard + N4</td><td class="n">chưa</td></tr>
 </tbody>
 </table></div>
-<p><small>Owner 22/10 đã bỏ Hermes Mac/courier/0 dán tin. AI điều hành cao hơn là đề xuất, chờ Owner duyệt lại sau khi kiểm năng lực thực tế. N3 P382 đã READY một lượt hợp nhất cho Claude Code: xử lý quyền và đơn giản hóa nâng Hermes VPS; app Mac là màn hình, cập nhật riêng theo hãng. Chưa STARTED/chưa sửa production.</small></p>
+<p><small>Owner 22/10 đã bỏ Hermes Mac/courier/0 dán tin. AI điều hành cao hơn là đề xuất, chờ Owner duyệt lại sau khi kiểm năng lực thực tế. N3 P386 đã hoàn thành token và bảo vệ quyền Hermes; còn nút nâng VPS. P387 READY một lượt cuối cho Claude Code để hoàn thiện nút và kiểm thử mô phỏng; chưa STARTED. Mac là màn hình cập nhật riêng.</small></p>
 
 <h2 id="LO-TRINH">3. Lộ trình sáu bước — xanh xong · vàng đang làm · xám chưa làm</h2>
 <div class="wrap"><table>
@@ -54,7 +54,7 @@ small{color:#666}
 <tbody>
 <tr><td><strong>N1</strong> Đầu nối lên mây</td><td>Mây có đủ đầu nối như Mac. Giữ nguyên Mac. Cải tiến từ Mac đồng bộ lên mây.</td><td>Mac ngủ, GPT và Claude vẫn làm việc được; lệch thì máy tự báo</td><td class="g">xong 06/10</td></tr>
 <tr><td><strong>N2</strong> Đo OpenAI Dots</td><td>Đã đo identity và wake thật; Chat/Work/Dot dùng chung identity, wake riêng của Dot còn hạn chế.</td><td>Owner chấp nhận residual; OpenAI-main dùng một ghế; phần wake chuyển N3</td><td class="g">xong 07/10 · PASS_WITH_RESIDUAL</td></tr>
-<tr><td><strong>N3</strong> Hermes VPS thực dụng</td><td>P380 Codex dừng trước thay đổi. P382 hợp nhất cho Claude Code: xử lý credential đã phát hiện, hoàn thiện hai cửa sudo/GSM và mở COLLAB có Guard, sửa cơ chế nâng cấp bản vá bằng một lần bấm. VPS là Hermes chính; Mac Desktop là màn hình cập nhật độc lập, không cần cùng commit. Không thêm hệ thống mới.</td><td>Quyền được khóa đúng, công cụ không suy giảm; cập nhật VPS có đường lùi và thao tác đơn giản; Desktop tương thích; Guard/Điều 30–31 có bằng chứng</td><td class="y">P382 READY@074a3565 · chưa STARTED · N4–N6 chưa mở</td></tr>
+<tr><td><strong>N3</strong> Hermes VPS thực dụng</td><td>P386: bot cảnh báo đã đổi token, Hermes hết sudo và bị ngăn GSM; COLLAB có Guard, 69/69 và 32/32 kiểm âm đạt. Nâng VPS đã có chờ rỗi, Mac không cần trùng commit; còn thẻ Nâng/Để sau và đường lùi gọn. P387 chỉ giao hoàn thiện phần còn lại, không làm lại A/B.</td><td>Thẻ Owner bấm một lần, bộ nâng root tự chạy khi có bản vá và báo kết quả; thử mô phỏng + kiểm an toàn, live nâng thật chờ hãng có bản stable mới</td><td class="y">P387 READY@9210bb99 · chưa STARTED · N4–N6 chưa mở</td></tr>
 <tr><td><strong>N4</strong> Lõi hội đồng</td><td>Ý kiến → Host chốt → giao → làm → báo → nghiệm thu, có chuông.</td><td>Một vòng thật chạy trọn đầu cuối</td><td class="n">chưa</td></tr>
 <tr><td><strong>N5</strong> Hai cấp, đổi bằng bảng</td><td>Cùng một lõi chạy việc dễ (một AI) và việc khó (hội đồng).</td><td>Một việc dễ và một việc khó chạy thật; đổi agent, cấp, mức không sửa mã</td><td class="n">chưa</td></tr>
 <tr><td><strong>N6</strong> Nghiệm thu, đóng</td><td>Rerun bộ tiêu chí Owner duyệt sau khi đánh giá năng lực AI; không dùng Mac/Courier.</td><td>Acceptance hiện hành, Guard và đèn đạt</td><td class="n">chưa</td></tr>
