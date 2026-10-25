@@ -38,7 +38,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <small>Khoá vật · Hệ · Workflow · Vùng · Quyết định · Công dụng chỉ khi nguồn thiếu · Căn cứ · Người/ngày duyệt</small></div>
 <div class="arrow">↓</div>
 <div class="focus"><strong>01 VIEW GHÉP (CHƯA TẠO) → 01 MÀN HÌNH «SỔ TÀI SẢN»</strong><br>
-<small>Ghép S2 + S3 + S4 theo khoá. S1 là kênh đếm đối chiếu, không nhập tay vào S4. Ưu tiên Directus Studio nếu phép Đếm-5 chứng minh mở/lọc được.</small></div>
+<small>Ghép S2 + S3 + S4 theo khoá. S1 là kênh đếm đối chiếu, không nhập tay vào S4. Đích là Directus Studio (phải kiểm thật ở Đếm-5); nếu chưa hiển thị/lọc được thì trình Owner chọn cách xử lý, không tự coi trang /reports thay thế là ĐẠT.</small></div>
 <p class="muted">Cách gọi đúng: <strong>4 nguồn/sổ chức năng, không phải 4 bảng PG</strong>. Chỉ dự kiến 1 bảng S4 và 1 view ghép. Giữ nguyên cấu trúc và các consumer của S1–S3.</p>
 
 <h2>2. Roadmap thực hiện — làm từng bước nhỏ</h2>
@@ -55,7 +55,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <p class="muted">TS1–TS5 chưa chạy. Chỉ đánh dấu XONG khi có biên nhận thật; TS1 không ghi PG/Directus. Không tắt/xoá trong task này.</p>
 
 <h2>3. Cách đếm · khai tối thiểu · bot kiểm soát</h2>
-<details open>
+<details>
  <summary>Sáu phép đếm của TS1 (chỉ đọc)</summary>
  <div class="table-wrap"><table>
  <thead><tr><th>Mã</th><th>Kiểm gì</th><th>Nguồn/lệnh</th></tr></thead>
@@ -69,7 +69,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
  </tbody></table></div>
  <p>KQ cần có: số và tên theo loại, mốc đo, thiếu/thừa cụ thể, mức độ độc lập của các kênh, chưa đo được thì ghi CHƯA RÕ. Mốc cũ Census 393 và Ba Lô 385 là chênh chưa giải thích, không coi là kết quả mới.</p>
 </details>
-<details open>
+<details>
  <summary>Khai tối thiểu — chỉ những gì máy không tự biết</summary>
  <ul><li><strong>DOT/script mới:</strong> một câu mô tả mục đích trong tệp nguồn.</li>
  <li><strong>Bảng/collection nghiệp vụ mới:</strong> một câu mục đích và chú thích «?» tại từng cột.</li>
