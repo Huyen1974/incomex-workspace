@@ -4,14 +4,14 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 20:32 +07 · GPT Chat · P31
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 20:49 +07 · Codex · P32
 - 🎯 Mục tiêu: Codex cài GitHub self-hosted runner trên VPS, cho 2 repo PRIVATE chạy CI/test thật 2/2 GREEN, sau đó C1B CD thử, C2 khóa main, C3 nhiều agent.
 - 🏁 Xong C1A khi: 2/2 repo có CI run thật trên VPS, log/URL/SHA/test GREEN, runner giới hạn 2 CPU/3GB, Guard/Điều 30/31/Kuma đạt và ứng dụng cũ không đổi.
 - 📍 Tiến độ: ✓ R0/R1 → ✓ Codex P27 KQ DỪNG nguồn Web → ✓ P28 recovery → ✓ Claude P30 ACCEPT@2e33e0a7 → ✓ GPT P31 READY@2e33e0a7 → ■ Owner giao Codex RUN mới → □ C1A 2/2 CI → □ C1B → C2 → C3.
 - ✅ Đã xong: Host đọc toàn bộ PROMPT P30, xác minh last-touch SHA và chữ ký ACCEPT trùng khớp; READY đã ghi cùng SHA, PROMPT không sửa. Theo P30, bản Directus hiện có 0 session và không yêu cầu dùng/thử lại token cũ.
-- ■ Đang làm: — · 0 RUN active. Chưa Codex STARTED RUN phục hồi, chưa cài runner.
-- ⬜ Còn lại: Owner chuyển RUN_ID GHM-C1A-RESUME-20261025-02 cho Codex; Codex chạy S0–S3, Agent Data trước/Web sau, đưa vào Config Guard/Kuma, báo 2/2 run GREEN hoặc blocker thật theo repo.
-- ➡ Kế tiếp: **Owner giao Codex** đọc PROMPT.md tại last-touch SHA 2e33e0a7c932d91d594c3ad8732550e64a2dfd41, tuân luật S0 và VPS-GHI. NEXT_TRIGGER=OWNER_RUN_GHM_C1A_RESUME.
+- ■ Đang làm: Codex STARTED GHM-C1A-RESUME-20261025-02 · 1 RUN active · VPS-GHI đã giữ; PRE → Agent Data CI → Web CI → bảo vệ/POST.
+- ⬜ Còn lại: Cài runner, chạy CI thật Agent Data trước/Web sau, Config Guard/Kuma/Đ30–31 và POST; lưu URL/SHA/log 2/2 GREEN hoặc blocker đúng repo.
+- ➡ Kế tiếp: Codex thực thi S1 Agent Data sau PRE mới; PROMPT last-touch 2e33e0a7c932d91d594c3ad8732550e64a2dfd41. NEXT_TRIGGER=CODEX_S1_AD_AFTER_PRE.
 - ⛔ Không giao Claude chạy thay, không viết lại PROMPT, không dùng token, không sửa main/production/bật deploy cũ/mua Pro, không tự mở C1B/C2.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -522,6 +522,13 @@ Ghế: openai-main · Based_on: Codex P27; GPT P28/P29; Claude P30, file PROMPT 
 - **Chứng thực:** đã đọc toàn bộ PROMPT C1A-RESUME sau Claude P30, `git log -- PROMPT.md` full last-touch=2e33e0a7c932d91d594c3ad8732550e64a2dfd41; ACCEPT@2e33e0a7c932d91d594c3ad8732550e64a2dfd41 tại P30 hợp lệ; không sửa PROMPT sau ký.
 - **READY@2e33e0a7c932d91d594c3ad8732550e64a2dfd41** · GPT Host · RUN_ID=`GHM-C1A-RESUME-20261025-02` · EXECUTOR=Codex CLI/Desktop · SCOPE=C1A runner + CI hai repo trên VPS. **CHƯA STARTED**, chỉ Owner RUN mới được bắt đầu.
 - Mọi key/token vẫn không được in hoặc sử dụng để thử. S0 chặn thật nếu thiếu VPS-GHI/quyền, guard cgroup, secret khác còn hiệu lực; thiếu một repo không giả 2/2 PASS nhưng giữ phần repo đạt. NEXT_TRIGGER=OWNER_RUN_GHM_C1A_RESUME.
+
+## P32 — Codex STARTED · 2026-10-25 20:49 +07
+- RUN_ID=GHM-C1A-RESUME-20261025-02; Executor=Codex; Owner RUN trực tiếp; ACCEPT P30 + READY P31 @2e33e0a7c932d91d594c3ad8732550e64a2dfd41. PROMPT nguyên vẹn, sha256 13e57ef9a7182730b3f6d9f7c3d9a24f2e5ec40a4ace3424d3354f94dba85687.
+- S0: ngân sách Actions $0 + Stop ON; 15 workflow disabled và 3 kiểm thiết yếu không đổi; 2 repo PRIVATE/admin; runner hiện 0. Daily 20261025 khớp VPS HEAD AD 75ed0e80 / Web 0979ffa3; main 0a26280b / 07caed3b. Giữ runtime Web UNKNOWN, không đổi origin/cây phục vụ. Cổng Web dùng kết luận P30, không thử token. Bộ che dữ liệu giả PASS 8/8.
+- SSH/root hợp lệ, Docker systemd/cgroup v2, available RAM ~4.7GiB, PSI memory=0; swap gần đầy nên mỗi runner 1CPU/1.5GiB, không cấp thêm swap CI, chạy build tuần tự. Lấy VPS-GHI bằng CAS, hạn 2026-10-25T15:49Z; PRE mới trước mọi cài đặt. Không restart ứng dụng.
+- Thực hiện Agent Data runner + CI GREEN trước, lưu milestone rồi mới Web. Hai rollback riêng, giữ repo đã đạt. Đ30/31/Config Guard/Kuma và POST trong cùng RUN. Chưa tuyên PASS runner/CI; không C1B/C2. NEXT_TRIGGER=CODEX_S1_AD_AFTER_PRE.
+
 
 
 
