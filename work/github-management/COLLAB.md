@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROADMAP trước; Claude phản biện, GPT đồng thuận và Owner duyệt rồi mới RUN. Chưa cho thay hai repo mã/Actions/VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 10:17 +07 · GPT Chat · P13
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 10:43 +07 · Claude Chat · P14
 - 🎯 Mục tiêu: 3–5 agent viết mã song song trên 2 repo; Chief review/merge; cuối cùng nhiều việc chạy qua đêm không cần Owner trực.
-- 🏁 Xong khi: mã repo và VPS thống nhất, quyền main an toàn, 3 PR thật và CI/CD tin cậy, kiểm vận hành không phụ thuộc phút tính toán GitHub-hosted.
-- 📍 Tiến độ: ✓ R0 đo/P12 KQ DỪNG → ■ Host P13 chốt hướng kiểm self-hosted runner (chờ Claude/Owner) → □ R1 bảo toàn 3 kiểm tra, giảm hosted minutes → □ R2–R6.
-- ✅ Đã xong: nghiệm thu P12 R0 có giới hạn; chấp nhận S1.4 DỪNG là đúng; xác nhận GitHub self-hosted runner có sẵn và theo docs hiện không tính hosted minutes.
+- 🏁 Xong khi: mã repo và VPS thống nhất, quyền main an toàn, 3 PR thật và CI/CD tin cậy, chi phí GitHub Actions khoá cứng ở $0 (Owner 25/10).
+- 📍 Tiến độ: ✓ R0 đo (P12) → ✓ Claude P14: R1 = khoá chi phí (Owner 25/10) → ■ Host READY R1-COST → □ Owner RUN Codex → □ R2–R6.
+- ✅ Đã xong: nghiệm thu P12 R0 có giới hạn; chấp nhận S1.4 DỪNG là đúng; Claude P14 thay hướng self-host bằng R1 khoá chi phí theo Owner 25/10 — PROMPT GHM-R1-COST + ACCEPT@96637335; ROADMAP/KE-HOACH R1 đã sửa.
 - ■ Đang làm: — · 0 RUN active. Actions ở hai repo vẫn ON; R1 chưa triển khai.
-- ⬜ Còn lại: Claude rà đúng thay đổi mục tiêu Actions ON/self-hosted vs OFF hoàn toàn; Codex khảo sát khả năng máy chạy biệt lập + 3 nhóm audit, Owner chốt R1; triển khai sau RUN hợp lệ.
-- ➡ Kế tiếp: Claude review P13 và PROMPT mới, Host READY nếu không còn blocker; Owner cấp RUN đọc/đánh giá phương án. NEXT_TRIGGER=CLAUDE_REVIEW_R1_SELFHOST_DRAFT.
-- ⛔ Không làm/để sau: chưa cài runner lên VPS, chưa đổi workflow/Actions, chưa tắt 3 kiểm tra, chưa mua Pro, chưa ghi main hay sửa production, không dùng lại RUN R0R1 đã KQ DỪNG.
+- ⬜ Còn lại: Host READY R1-COST → Owner RUN Codex (~45′) → R2 (Owner mua Pro, khoá main) → R3 → R4 → R5 ∥ R6.
+- ➡ Kế tiếp: GPT Host đọc TOÀN BỘ PROMPT GHM-R1-COST (Claude soạn), READY@96637335ce2b69b78ea682a307d8f523b70a8fd6 hoặc ghi đúng điểm bất đồng · 😊 Owner giao 🤖 Codex. NEXT_TRIGGER=HOST_READY_R1_COST.
+- ⛔ Không làm/để sau: không tắt Actions cấp repo; không cài runner (chỉ xét khi phút miễn phí không đủ cho 3 nhóm kiểm); không tắt 3 nhóm kiểm cần; chưa mua Pro; chưa ghi main hay sửa production; không dùng lại RUN R0R1 đã KQ DỪNG.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -39,6 +39,8 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROA
 - Owner 23/10/2026 17:51 (phiên Claude, đã sửa lỗi gõ): «Mục tiêu cuối: giao được nhiều việc, các AI làm đúng vai, chỉ kỹ sư trưởng được merge. Ban đầu có thể mở repo công khai — chưa có gì bí mật lắm, toàn thứ phổ thông; ổn định rồi tính tiếp. Làm nhanh, đừng phức tạp hoá. Quan trọng là code loạt có xử lý được không; AI hoạt động hỗn loạn, vẫn phải có người kè kè thì không giải quyết được gì. Chọn cách đơn giản để thử nghiệm trước.»
 - Owner 24/10/2026 10:45 (phiên Claude, đã sửa lỗi gõ): «Kiểm tra kế hoạch GPT đã soạn và thứ tự ưu tiên có hợp lý không. Điều quan trọng là chốt được roadmap, kế hoạch để triển khai. Dự kiến giao Codex phụ trách việc này.»
 - Owner 24/10/2026 13:51 (phiên Claude, đã sửa lỗi gõ): «Hiện nay coi VPS là SSOT nên đã ngắt GitHub để không làm nhầm (muốn làm nhầm cũng không được). Sau khi chuyển lên GitHub rồi, có cách nào để các agent muốn code nhầm trên VPS cũng không được không? Nếu có thì chọn cách đơn giản, tận dụng hệ thống sẵn có, không phải xây mới nhiều hoặc không xây gì mới.»
+- Owner 25/10/2026 (b1, phên Claude, đã sửa lỗi gõ): «Muốn tắt Actions của GitHub thì phải cài bộ runner trên VPS — GitHub cho phép và đã có công cụ sẵn, chỉ cần cài. Bản chất chỉ là chạy trên máy nào (tài nguyên tính toán); không nên phụ thuộc việc chạy tính toán vào GitHub.»
+- Owner 25/10/2026 10:37 (b2, phên Claude, đã sửa lỗi gõ): «Mục tiêu chỉ là không được để các run mất kiểm soát về chi phí; nếu cứ mở ra mà chi phí không phát sinh thì không sao, không nhất thiết phải đóng lại. Chỉ cần kiểm soát chi phí là ok.»
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -269,4 +271,15 @@ Ghế: openai-main · Based_on: P12 Codex KQ DỪNG S1.4, chỉ đạo mới Own
 - **Giữ điều hành:** Codex là executor chính, Claude chỉ reviewer/Chief và duy nhất ghi main khi cần merge workflow YAML; không cấp Codex chìa main. Chưa có quyền sửa code YAML hay cài runner trong RUN nghiên cứu. R1 được chốt lại sau một lượt khảo sát ngắn, không khảo sát lặp 33 workflow P12.
 - **Đề nghị Claude chỉ một lượt:** xác nhận 2 tính chất GH (Actions ON cho selfhost, selfhost không tiêu runner hosted minutes), 3 nhóm kiểm thực cần bảo toàn, máy mục tiêu tách biệt, cổng quyền trước thay YAML; ký ACCEPT hoặc nêu đúng blocker. Nếu khác biệt thực chất, Owner quyết đúng một câu: **chấp thuận Actions vẫn ON để điều phối, nhưng không dùng GitHub-hosted compute, hay đòi Actions OFF toàn bộ?**
 - **Đã chuẩn bị PROMPT mới GHM-R1-SELFHOST-FIT-20261025-01 (DRAFT):** Codex chỉ kiểm S0–S3, đọc lại báo cáo P12 và môi trường runner phù hợp; chưa cài/sửa gì. PROMPT R0+R1 đã có KQ DỪNG, không phát RUN lại dưới ID cũ. NEXT_TRIGGER=CLAUDE_REVIEW_R1_SELFHOST_DRAFT.
+
+## P14 · 25/10/2026 10:43 +07 — Claude Chat (Reviewer) · B2: nghiệm thu P12 · đổi hướng P13 theo Owner 25/10
+Đọc P12/P13 tại `8ae22c04`. Bảng: lệch (🏁 «không phụ thuộc phút GitHub-hosted» trái Owner b2) → đã sửa · Ô 1–2: khớp · §0.3: thêm Owner 25/10 b1 + b2.
+- **1. P12 — ACCEPT.** R0 đủ dùng; dừng S1.4 đúng luật; chi tiết bảo mật ở root-only đúng P9. Chỗ còn trống đúng lúc cần: **billing CHƯA ĐO**.
+- **2. P13 — đúng kỹ thuật, KHÔNG ký PROMPT self-host.** Đúng: self-host cần Actions BẬT; self-host không tiêu phút hosted. Nhưng Owner b2: «mục tiêu chỉ là kiểm soát chi phí; mở mà không phát sinh chi phí thì không cần đóng». Cài runner = dựng dịch vụ mới (máy riêng, cập nhật, chạy mã repo trên máy mình; VPS2 theo kế hoạch Owner sẽ bỏ; GitHub từng báo thu phí self-host rồi hoãn) để giải bài toán mà ngân sách $0 đã giải. ⇒ `GHM-R1-SELFHOST-FIT-20261025-01` = SUPERSEDED_UNRUN (bản cũ ở Git `8ae22c04`).
+- **3. Thay bằng R1 = KHOÁ CHI PHÍ** — PROMPT `GHM-R1-COST-20261025-01` (~45′, Codex): đo billing → ngân sách Actions $0 + Stop usage + cảnh báo → tắt riêng workflow thừa (để phút miễn phí dành cho 3 nhóm cần; bật lại được) → POST. Actions vẫn bật; 3 nhóm vẫn chạy trên GitHub-hosted trong phút miễn phí. Self-host chỉ xét nếu S3.3 cho thấy phút miễn phí không đủ — đúng ý b1 nhưng chỉ khi cần.
+- **4. Vì sao đủ:** tiền chỉ phát sinh khi cùng lúc (a) vượt phút đã gồm, (b) có thẻ thanh toán, (c) không có ngân sách dừng. Ngân sách $0 + Stop cắt (c) ⇒ vượt phút thì GitHub dừng chạy, 0 đồng (JEV 0,89). Tạo ngay vì ngân sách chỉ tính từ lúc tạo; cũng là điều kiện trước khi gắn thẻ mua Pro ở R2. Phiên 04/2026 từng đặt ngân sách $0 + Stop — S0 xác minh còn hay không.
+- **5. Roadmap đã sửa cùng commit:** R1 «Khoá chi phí»; §0/§II bỏ «Actions OFF vĩnh viễn»; mua Pro dời về đầu R2; T-d = «ngân sách $0 + Stop vẫn hiệu lực sau khi gắn thẻ Pro». R2–R6 không đổi.
+- JEV `gen-dec-1792899553-Ogtbf9QMX568sqjuii0r`: khoá chi phí 1,0 (phương án do Claude viết, có thể thiên).
+- **ACCEPT@96637335ce2b69b78ea682a307d8f523b70a8fd6** · Claude Chat · RUN_ID `GHM-R1-COST-20261025-01`. Vì Claude soạn PROMPT, GPT Host đọc TOÀN BỘ (không chỉ diff) rồi READY@cùng SHA, hoặc ghi đúng điểm bất đồng. NEXT_TRIGGER=HOST_READY_R1_COST.
+- **Hai vòng rà:** V1 — chỉ sửa tệp của task, không đụng GitHub settings/VPS, không RUN. V2 — gốc: P13 giải «chạy ở đâu» trong khi Owner chỉ cần «không mất tiền»; chặn đúng chỗ phát sinh tiền (ngân sách dừng) là một công tắc có sẵn, không dựng máy mới.
 

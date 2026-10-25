@@ -4,15 +4,15 @@
 Ưu tiên 1: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 
 ## 0. Giới hạn
-- Hai kho `Huyen1974/agent-data-test`, `Huyen1974/web-test` giữ PRIVATE (lịch sử chưa quét bí mật). Khoá `main` trên kho private cần GitHub Pro (§V) ⇒ Owner mua Pro ngay sau R1, kèm ngân sách Actions $0 «dừng khi chạm mức».
+- Hai kho `Huyen1974/agent-data-test`, `Huyen1974/web-test` giữ PRIVATE (lịch sử chưa quét bí mật). Khoá `main` trên kho private cần GitHub Pro (§V) ⇒ Owner mua Pro ở đầu R2, sau khi ngân sách Actions $0 «dừng khi chạm mức» đã có (R1).
 - Codex phụ trách R0–R2 và điều phối R4/R6. **Ghi `main` chỉ KST** bằng chìa riêng (R3 trở đi); Codex không cầm chìa KST. GPT Host chốt PROMPT; Owner duyệt mutation production.
-- Không đổi VPS runtime, remote Git, deploy, secrets, cron, Guard ngoài RUN hợp lệ. GitHub Actions OFF vĩnh viễn (Owner 23/10: «dứt khoát không dùng»).
+- Không đổi VPS runtime, remote Git, deploy, secrets, cron, Guard ngoài RUN hợp lệ. GitHub Actions: không bắt buộc tắt; bắt buộc không phát sinh chi phí mất kiểm soát — ngân sách $0 + «Stop usage», chỉ giữ workflow cần (Owner 25/10, thay câu 23/10).
 - Kiểm thử unit trong sandbox riêng của từng ghế; pilot R4 chọn việc có unit test nên chưa cần staging; không dồn build/test lên VPS1 (swap đầy).
 
 ## I. Bảng mốc
 | Mốc | Ai | Việc | Đạt khi / điểm DỪNG |
 |---|---|---|---|
-| **R0+R1 — Đo + tắt Actions** (một RUN) | 🤖 Codex · 😊 Owner cuối mốc | Chỉ đọc: 2 thư mục mã VPS `docker/agent-data-repo`, `docker/nuxt-repo` (nhánh, HEAD, sạch/bẩn, HEAD có trên `vps-daily-*` chưa); dịch vụ → commit đang chạy; workflow + Dependabot; mọi thẻ/app/khoá ghi được 2 kho (tên + quyền, không in giá trị); có gì đang kéo `main` không; đường gọi cho R6 (Dot→Codex, Codex cloud, Claude Code web). Rồi tắt Actions cấp repo, tắt Dependabot tự mở PR, huỷ run dở. 😊 Sau đó Owner mua Pro + ngân sách $0. | Actions Disabled, push thử không sinh run, usage mới 0; bảng nguồn / đang chạy / thẻ; R6 khả thi có/không. **DỪNG trước khi tắt** nếu một workflow đang làm việc sản xuất mà chưa có đường thay. |
+| **R0 — Đo** ✓ P12 · **R1 — Khoá chi phí** | 🤖 Codex | R0 (xong, P12) chỉ đọc: 2 thư mục mã VPS `docker/agent-data-repo`, `docker/nuxt-repo` (nhánh, HEAD, sạch/bẩn, HEAD có trên `vps-daily-*` chưa); dịch vụ → commit đang chạy; workflow + Dependabot; mọi thẻ/app/khoá ghi được 2 kho (tên + quyền, không in giá trị); có gì đang kéo `main` không; đường gọi cho R6 (Dot→Codex, Codex cloud, Claude Code web). R1 (Owner 25/10: chỉ cần kiểm soát chi phí, không cần tắt Actions — PROMPT GHM-R1-COST): đo billing; ngân sách Actions $0 + «Stop usage» + cảnh báo; tắt riêng từng workflow thừa (bật lại được), giữ 3 nhóm kiểm cần chạy trên phút miễn phí; Actions vẫn bật; không runner. Self-hosted chỉ xét khi phút miễn phí không đủ cho 3 nhóm. | R0: bảng nguồn / đang chạy / thẻ (P12). R1: ngân sách $0 + Stop có thật; active chỉ còn 3 nhóm; tiền phát sinh 0. |
 | **R2 — Khoá + vai** | 🤖 Codex (GitHub) · Claude Code CLI trên VPS (chìa KST, PAT backup; cờ VPS-GHI + Đ30/31) | Ruleset chỉ `main` 2 kho: update · deletion · non_fast_forward, bypass duy nhất DeployKey. Chìa KST sinh trong bản clone riêng của KST trên VPS (remote riêng, không phải khoá mặc định của máy); 1 deploy key ghi/kho. Mỗi ghế dev 1 thẻ fine-grained (Contents + Pull requests, không Administration); hạ quyền mọi thẻ admin trong bảng R0. Codex soạn AGENTS.md ≤ 1 trang + mẫu PR 6 ô (chưa commit). | T-a, T-b, T-d, T-e PASS bằng danh tính thật (COLLAB P1 §4); 0 thẻ admin ngoài Owner trên web (passkey). |
 | **R3 — Mã nền = VPS** | KST | Tag `archive/main-<ngày>` cho main cũ. Bản clone KST lấy HEAD thẳng từ thư mục mã VPS (cùng máy), merge main cũ với chiến lược giữ nguyên cây VPS ⇒ `main` tiến thẳng, không force-push (T-c). Commit luật R2 lên trên. **Cầu nối tới R5:** mỗi sáng KST merge commit VPS mới vào main. | `git diff <HEAD VPS> main` chỉ khác các tệp luật; main cũ là tổ tiên; tag khôi phục được. |
 | **R4 — Thử 3 ghế** | Codex (cloud) · Claude Code (cloud) · Hermes (VPS) · KST | 3 việc thật, khác khu tệp, có unit test, ≤ 2 giờ; mỗi ghế sandbox riêng, nhánh `dev/<ghế>/<mã việc>`, phiếu 6 ô. KST duyệt trên main mới nhất: NHẬN / SỬA / TRẢ LẠI / BỎ. | 3 PR thật; ≥ 2 NHẬN; 0 lần dev ghi được main; Actions 0; ghi giờ chờ từng PR. |
@@ -22,7 +22,7 @@
 **Thứ tự:** R0+R1 → R2 → R3 → R4 → (R5 ∥ R6). R6 được viết code/PR song song, nhưng **cấm merge vào main khi R5 đang chốt release/deploy/rollback**. Đọc cổng P6 COLLAB và KE-HOACH §5. Mỗi mốc một RUN.
 
 ## II. Ba điều chỉnh với lời Owner
-1. «Tắt Actions đầu tiên»: đo và tắt trong cùng một RUN có điểm dừng; tắt xong mới gắn thẻ thanh toán (mua Pro).
+1. «Tắt Actions» → Owner 25/10 đổi thành «kiểm soát chi phí»: Actions vẫn bật; ngân sách $0 + «Stop usage» phải có trước khi gắn thẻ mua Pro.
 2. «Xoá mã main hiện tại»: không xoá. Main cũ thành tag + cha của commit merge; cây main mới đúng bằng cây VPS. Đổi main không chạm production vì GitHub→VPS đang cắt (R0 xác nhận).
 3. «Repo mở»: giữ private vì lịch sử chưa quét bí mật; khoá bằng Pro thay vì public.
 
