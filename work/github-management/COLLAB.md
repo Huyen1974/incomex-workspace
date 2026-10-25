@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 muốn thử 3 agent làm song song với GitHub Free trước khi quyết mua Pro; không mở hai repo private cũ hoặc ảnh hưởng VPS trước Owner RUN.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 13:55 +07 · GPT Chat · P20
-- 🎯 Mục tiêu: nhiều agent nhận việc, code song song, tự push nhánh/PR, KST review/merge; sau đó giao batch đêm.
-- 🏁 Xong khi: 3 agent thật/3 PR song song và ≥2 PR được Chief nhận, worker không thể push main, không mất code/secret/VPS, chưa cần Pro.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ Claude P19 cho Pro/private → ■ GPT P20 FREE PILOT theo Owner → □ Claude review → □ Owner RUN Codex bootstrap → □ 3 workers cùng code → □ Chief duyệt → □ quyết Pro/public/private.
-- ✅ Đã xong: GitHub Docs xác nhận Free public có branch protection/rulesets, private Free chỉ có Git/PR nhưng không có hardlock. 2 repo thực vẫn private; incomex-workspace public có rule ~ALL nên không sửa để thử.
-- ■ Đang làm: — · 0 RUN active. Không mua Pro, không tạo public repo pilot, không đổi code/main/VPS.
-- ⬜ Còn lại: Reviewer đọc PROMPT FREE PILOT mới và ký SHA → Host READY → Owner giao Codex → chuẩn bị sandbox → giao 3 agent → Chief nghiệm thu → Owner quyết định có trả Pro cho repo thật.
-- ➡ Kế tiếp: Claude rà P20, ROADMAP và PROMPT GHM-R2P-FREE-20261025-01; NEXT_TRIGGER=CLAUDE_ACCEPT_FREE_PILOT_PROMPT.
-- ⛔ Không làm/để sau: không mua Pro trước pilot; không công khai lịch sử 2 repo private; không đụng ruleset ~ALL của workspace; không chạy R2-A Pro đã ký cũ.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 15:07 +07 · GPT Chat · P21
+- 🎯 Mục tiêu: chứng minh 3–5 agent làm mã/PR/Chief song song VÀ phân định rõ CI với kênh CD thật, không gây tác động nhầm VPS.
+- 🏁 Xong khi: có bản đồ 3 tuyến và cổng an toàn để thử; pilot 3 agent/3 PR/Chief đạt; GitHub→VPS chỉ phục hồi sau Owner GO DROOT56 và thử rollback.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ đọc DROOT56 + PROOT08/09 + deploy YAML cũ → ■ P21 chốt G0 kiểm kênh đã cắt → □ Claude phản biện PROMPT → □ Owner RUN Codex chỉ đọc → □ Free pilot PR → □ quyết CD gate.
+- ✅ Đã xong: phát hiện P20 chỉ là thử PR trên kho mới, chưa kiểm được CI/CD gốc; khóa ngày 16/10 vẫn có hiệu lực cho tới khi xác minh khác.
+- ■ Đang làm: — · 0 RUN active. Không thay secrets, GitHub Actions, VPS, không cấp quyền nối GitHub→VPS.
+- ⬜ Còn lại: Claude rà PROMPT G0 → GPT READY khi đạt → Owner RUN Codex đọc 3 tuyến → Host nghiệm thu và đề xuất thứ tự pilot/CI/CD an toàn.
+- ➡ Kế tiếp: Claude Reviewer xem P21 và PROMPT G0 (READ-ONLY), NEXT_TRIGGER=CLAUDE_REVIEW_GHM_G0.
+- ⛔ Không làm/để sau: PROMPT pilot P20 chưa READY/RUN và không được dùng làm bằng chứng CD; không bật deploy workflows, không phục hồi khóa cũ, không sửa remote/Guard/main.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -369,6 +369,16 @@ Ghế: openai-main · Based_on: Owner 25/10 ưu tiên chứng minh 3 agent thậ
 - **Tính chất thảo luận:** đã viết PROMPT mới DRAFT_NOT_READY, không tạo repo/khóa/phát RUN. Claude Reviewer đọc delta P20/PROMPT một lượt và ký đúng SHA nếu đạt; Host phát READY sau, Owner chuyển Codex.
 - Docs: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets ; https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches ; https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility .
 - NEXT_TRIGGER=CLAUDE_ACCEPT_FREE_PILOT_PROMPT.
+## P21 · GPT Host 25/10/2026 — KIỂM SOÁT LẠI KÊNH CI/CD CŨ TRƯỚC KHI CODEX RUN
+Ghế: openai-main · DRAFT only · Based_on: Owner 25/10 nhắc CI/CD cũ đã chủ động cắt và thu hồi secret; DROOT56 root AGENTS; PROOT08/09 root COLLAB 16/10; P12/P17; YAML deploy hai repo.
+- **Đính chính P20:** Free pilot trên repo sạch chỉ chứng minh agent→GitHub branch/PR/Chief, KHÔNG chứng minh CI/CD của 2 repo thật và tuyệt đối không chứng minh kết nối GitHub→VPS. PROMPT P20 `GHM-R2P-FREE-20261025-01` vẫn chưa RUN, nay không được sử dụng làm bước kế; giữ trong Git history.
+- **Đã xác minh lịch sử:** DROOT56 ngày 16/10 cấm GitHub→VPS kể cả thử một lần nếu chưa Owner GO trên repo. PROOT08 đã vô hiệu đường SSH deploy bên GitHub/thu hồi secret chuyên dụng; PROOT09 đã thay origin hai Git top-level VPS bằng sentinel DROOT56 có Config Guard, vẫn giữ job VPS→GitHub riêng. KQ PROOT09 là FIX_FUNCTION_PASS/GLOBAL_GUARD_PARTIAL, không nhận vơ cả hệ thống xanh.
+- **YAML còn tồn tại không có nghĩa đường hoạt động:** workflow deploy cũ của Web có cơ chế build/rsync cả config và restart; Agent Data cũng từng rsync/SSH; việc khôi phục secret/bật workflow nguyên trạng có nguy cơ thay mã runtime không qua Guard và rollback. Chưa chứng minh tình trạng key/remotes/consumer *hiện tại* bằng đọc mới.
+- **Bằng chứng R0 chưa khép:** P12 Web runtime release SHA UNKNOWN và submodule dirty; Agent Data HEAD khác phiên bản image đang phục vụ; Github CI audit vận hành còn chạy không đồng nghĩa có CI PR/merge và CD release đã an toàn.
+- **Ba tuyến phải tách:** (1) Dev→GitHub branch/PR/test, (2) VPS→GitHub backup daily, (3) GitHub→VPS deploy ĐANG CẮT theo DROOT56. Thử riêng tuyến (1) không cần nối (3), nhưng không được gọi là end-to-end CD. Muốn nối (3): Owner cấp phép riêng, bảo vệ main, đối chiếu release SHA, thử an toàn/rollback/Guard và dùng credential quyền thấp mới, không hồi sinh workflow cũ một cách tự động.
+- **Bước kế** G0 read-only, Codex lập bản đồ ba tuyến/điểm khóa và những gì còn UNKNOWN; Claude Reviewer kiểm độc lập, Host chốt rồi mới yêu cầu Owner RUN pilot hoặc cho phép chuẩn bị CD. Không mua Pro/không tạo repo thử ở G0.
+- **Không READY/RUN:** PROMPT `GHM-G0-CICD-VERIFY-20261025-01` là DRAFT, Claude phải ACCEPT last-touch SHA, Host READY, Owner RUN. NEXT_TRIGGER=CLAUDE_REVIEW_GHM_G0.
+
 
 
 

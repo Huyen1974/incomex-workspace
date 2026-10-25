@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: theo Owner 25/10 thử multi-agent GitHub Free trước Pro; P20/PROMPT R2-P DRAFT chờ Claude, chưa RUN.**
+**Trạng thái: P21 DRAFT G0 read-only để kiểm lại CI/CD đã bị cố ý ngắt; Free pilot P20 không RUN; DROOT56 vẫn có hiệu lực.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — DRAFT `GHM-R2P-FREE-20261025-01` tạo một sandbox public sạch, tách biệt production, sau Reviewer ACCEPT/Host READY/Owner RUN. Lệnh private+Pro đã ký P19 = PARKED_UNRUN, không chạy.
+6. work/github-management/PROMPT.md — DRAFT `GHM-G0-CICD-VERIFY-20261025-01`, Codex CHỈ ĐỌC xác minh đường CI/CD cũ; Claude ký/Host READY/Owner RUN trước mọi thực hiện. Prompt pilot GitHub Free P20 còn trong Git history, KHÔNG RUN.
 
 Mục tiêu duy nhất của việc này: nhiều AI nhận nhiều việc, **viết mã song song trên branch/workspace riêng**, Chief duyệt PR trên nền mới nhất, Owner xem bảng kết quả sáng. R1 dùng Actions trong hạn mức miễn phí với hard budget $0; việc chuyển self-hosted chỉ xét sau khi có nhu cầu và máy phù hợp.
 

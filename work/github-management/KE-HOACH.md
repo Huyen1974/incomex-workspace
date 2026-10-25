@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**TRẠNG THÁI: Owner ưu tiên chứng minh 3 agent code song song trên GitHub Free trước khi mua Pro; R2-P PILOT DRAFT. R2-A/B private+Pro hoãn tới sau pilot.**
+**TRẠNG THÁI: P21 chèn G0 READ-ONLY xác minh CI/CD cũ và luật DROOT56 trước Free pilot, chưa cấp RUN hoặc nối GitHub→VPS.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
@@ -28,6 +28,7 @@ Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code
 | R0.3 | Actions, thẻ, đường gọi | Workflow 2 kho (lịch, lần chạy cuối, việc làm) + Dependabot; mọi thẻ/app/khoá ghi được 2 kho (tên + quyền, không in giá trị); chỉ đọc đường gọi cho R6: Dot→Codex, Codex cloud / Claude Code web nối được 2 kho | Mỗi workflow: MIGRATE (chức năng cần giữ → Guard/Kuma, ghi nợ) hoặc BỎ — không có GIỮ; ma trận thẻ; R6 khả thi có/không + bằng chứng |
 | R1.1 | Khoá chi phí (P14) | Owner 25/10: Actions vẫn bật. PROMPT GHM-R1-COST: đo billing; ngân sách Actions $0 + «Stop usage» + cảnh báo 75/90/100%; tắt riêng từng workflow thừa bằng `gh workflow disable` (bật lại được), giữ 3 nhóm kiểm cần; không runner, không tắt Actions cấp repo | Ngân sách $0 + Stop có; 3 nhóm nghiệp vụ + Dependabot dynamic managed (runner tiêu chuẩn miễn phí), 15 BỎ đã disable; budget $0 + Stop verified |
 | R1.2 | 😊 Owner mua Pro | Đầu R2 (khoá main cần Pro), chỉ sau R1.1: github.com/settings/billing → nâng GitHub Pro. Ngân sách $0 + Stop của R1.1 giữ nguyên nên gắn thẻ thanh toán không mở đường mất tiền | Trang billing: Pro + budget $0 có dừng |
+| G0 | Kiểm ba tuyến CI/CD cũ theo DROOT56 (READ-ONLY) | Codex sử dụng PROOT08/09, P12/P17 và mẫu mới để chỉ rõ GitHub PR/CI, backup VPS→GitHub và CD GitHub→VPS đã bị khóa; không nối lại, không tạo secret | Một bảng VERIFIED/UNKNOWN, tiêu chí phục hồi an toàn và lệnh bước kế độc lập |
 | R2-P(A) | Bootstrap Free | Codex dựng 1 repo public thử sạch/lịch sử mới; Actions repo thử OFF; ruleset main-only và 3 Issue, test worker thật dev branch/PR (+ main reject) | Repo/3 Issue/nhánh/permission evidence, không đụng 2 repo private |
 | R2-P(B) | 3 agent song song | Codex, Hermes, Claude/ghế khác nhận 3 việc tách scope, tự code/commit/PR ở 3 workspace; Chief review/test/merge lần lượt | 3 PR, ≥2 Chief NHẬN, 0 push main từ dev, giờ thực đo và bảng sáng |
 | R2.1 | Khoá main HAI REPO THẬT sau pilot | **R2-A** Codex: ruleset `chief-only-main` chỉ `main` 2 kho (update · deletion · non_fast_forward; bypass duy nhất DeployKey; trước đó đếm deploy key ghi = 0). **R2-B** Claude Code CLI trên VPS (cờ VPS-GHI, Đ30/31): tạo bản clone riêng của KST, sinh 1 chìa/kho trong đó (remote riêng, không phải khoá mặc định của máy); Codex gắn chìa công khai làm deploy key ghi | R2-A: ruleset active, 0 deploy key ghi · R2-B: đúng 1 deploy key ghi/kho |
