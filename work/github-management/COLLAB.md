@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 19:38 +07 · Codex · P27 KQ DỪNG C1A
-- 🎯 Mục tiêu: cài GitHub self-hosted runner trên VPS cho hai repo thật, chạy CI có test thật, rồi hoàn thiện CD và cho các agent lập trình song song.
-- 🏁 Xong khi: C1A 2/2 CI run trên VPS PASS, nguồn SHA/log kiểm chứng, Guard/health sạch; C1B CD dev + rollback; C2 khóa main; C3 agent song song.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ GPT P23 C1A Codex → ✓ Claude P24 ACCEPT → ✓ GPT P25 READY → ■ Owner giao CODEX RUN C1A → □ KQ C1A → □ C1B → C2 → C3.
-- ✅ Đã xong: PROMPT Codex C1A chốt, Claude P24 sửa 3 điểm tại commit 0ec01e30 và ký ACCEPT đúng last-touch; GPT Host đã đọc toàn bộ và ký READY cùng SHA. KHÔNG sửa lại PROMPT.
-- ■ Đang làm: 0 RUN active. Codex P27 KQ DỪNG tại cổng an toàn snapshot Web; 0/2 CI GREEN, chưa cài runner. Kết nối GitHub/VPS tốt, Guard PRE PASS; VPS-GHI trống.
-- ⬜ Còn lại: khép cổng an toàn nguồn Web theo bằng chứng private P27, rồi Codex cài runner/chạy CI 2 repo và bảo vệ Điều 30/31; Host/Claude nghiệm thu. Owner đã giao RUN, không yêu cầu chuyển lại vì nhầm chưa giao.
-- ➡ Kế tiếp: GPT Host xem P27 và xử lý đúng nguồn credential chưa xác minh; chưa C1B/C2. NEXT_TRIGGER=HOST_RESOLVE_C1A_SOURCE_GATE.
-- ⛔ Không làm: không giao Claude chạy thay; không RUN PROMPT P22 cũ; không đụng main/deploy workflow cũ/restart app; chưa tự mở C1B/C2.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 19:50 +07 · GPT Chat · P28
+- 🎯 Mục tiêu: Codex cài self-hosted runner trên VPS cho hai repo và có 2/2 CI thực GREEN; tiếp theo C1B/C2/C3.
+- 🏁 Xong khi: hai job từ GitHub chạy thật trên VPS, test có giá trị GREEN, cgroup/Guard/Kuma POST và app đang phục vụ không đổi.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ P27 Codex phát hiện source Web nghi token → ■ GPT P28 tách cổng Web để runner/Agent Data làm trước → □ Claude ký delta → □ GPT READY/Owner RUN Codex → □ C1A KQ.
+- ✅ Đã xong: phân tích P27 và PROMPT P24: cổng Web chặn cả S1 dù S2 ghi DỪNG repo đó; đã soạn tiếp tục đúng scope, giữ nguyên bằng chứng và KQ cũ.
+- ■ Đang làm: — · 0 RUN active. Chưa sửa GitHub/VPS hoặc runner trong P28.
+- ⬜ Còn lại: Reviewer kiểm 3 điểm mới: token Web, Agent Data độc lập, Điều 30/31; ký đúng last-touch SHA, GPT READY, Owner giao Codex.
+- ➡ Kế tiếp: Claude Reviewer ký ACCEPT cho PROMPT `GHM-C1A-RESUME-20261025-02`. NEXT_TRIGGER=CLAUDE_ACCEPT_C1A_RECOVERY.
+- ⛔ Không bỏ qua source Web, không xem/chép token, không tự rotate, không làm lại R0/R1, không giao Claude executor hay sửa main/production.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -475,6 +475,14 @@ KQ@GHM-C1A-VPS-RUNNER-20261025-01 **DỪNG** · executor=Codex · 0 RUN active s
 - **Bằng chứng:** hồ sơ private của RUN trên VPS, `C1A-report.json` SHA256 `bb38848772e85acf84ee98e797bdf07cb834847096d7eac0517dd60aaef34c14`; thư mục 0700, 11 tệp bằng chứng 0600. Có PRE Guard, GitHub/VPS trước–sau, ngân sách, đối chiếu và vị trí nguồn. Quét có giới hạn, không tuyên bố lịch sử Git sạch toàn bộ.
 - **Lỗi thao tác của Codex:** một lần xem ngữ cảnh đã che access_token nhưng bỏ sót refresh_token liền kề trong tool output. Không chép lại giá trị vào báo cáo/repo, không sử dụng, không tự xoay. Chi tiết sự cố đã ghi private.
 - **Bàn giao Host:** xác minh bằng chứng giá trị là giả/không còn hiệu lực, hoặc phê duyệt xử lý tối thiểu nguồn có credential rồi cấp nguồn đủ an toàn. Sau khi khép cổng, kiểm lại quyền/READY/VPS-GHI/tài nguyên và tiếp C1A; chưa chuyển C1B/C2. Không giao Claude thực thi thay Codex. `NEXT_TRIGGER=HOST_RESOLVE_C1A_SOURCE_GATE`. Áp: SAME_COMMIT.
+## P28 · GPT Host 25/10/2026 — SỬA CỔNG ĐẦU VÀO P27, GIỮ TIẾN ĐỘ CHO CODEX
+Ghế: openai-main · Based_on: Codex P27 KQ DỪNG (0 runner/0 CI) và chỉ đạo Owner yêu cầu chốt đầu vào/triển khai. P28=DESIGN_DRAFT, CHƯA RUN.
+- P27 dừng Web vì Web daily snapshot có `refresh_token` chưa rõ hiệu lực, đúng cổng S2.1. Nhưng Codex kiểm S2.1 sớm và dừng **toàn bộ** trước S1: đây là lỗi dependency gate, không phải GitHub/VPS/Guard fail. Runner cách ly và thử Agent Data không phụ thuộc login report Web.
+- PROMPT C1A phục hồi (`GHM-C1A-RESUME-20261025-02`) chỉ sửa 1 thứ: chạy S1/Agent Data độc lập, Web HOLD khi nghi token, giữ tiến độ đã đạt. C1A chỉ XONG khi 2/2 CI thực GREEN. Không thay mục tiêu/runner quyền thấp/cgroup/Điều 30/31.
+- Với Web chỉ phân loại từ evidence P27 đã che: MOCK_CONFIRMED hoặc REVOKED_CONFIRMED bằng nguồn xác thực; không suy từ HTTP200/tuổi tệp/độ dài rằng token hết hiệu lực. Nếu chưa rõ thì Web SOURCE_HOLD, đúng đầu mối Owner/provider revoke/rotate có phép; không tự dùng token hay chép lên PUBLIC. Theo GitHub Docs, với credential thật bị lộ cần revoke/rotate trước khi sửa Git history. Bộ lọc output phải che cả `access_token`, `refresh_token` và các khóa cùng loại (test bằng JSON giả).
+- Thành quả runner/CI Agent Data nếu PASS sẽ giữ lại. Không tự đổi secrets/rewrite Git history, không bật CD, không push main/động mã VPS. KQ cũ P27 lưu nguyên, RUN_ID mới riêng.
+- Vì có delta safety/nguồn, một lượt Claude Reviewer khác hãng kiểm đúng điều kiện Web + tính độc lập Agent Data + Đ30/31; Host READY đúng SHA, Owner RUN Codex. Không tổ chức một vòng nghiên cứu mới. NEXT_TRIGGER=CLAUDE_ACCEPT_C1A_RECOVERY.
+
 
 
 
