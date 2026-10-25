@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 20:25 +07 · Claude Chat · P30
-- 🎯 Mục tiêu: Codex hoàn thành 2/2 CI self-hosted trên VPS (Agent Data + Web), không làm lại việc cũ.
-- 🏁 Xong khi: 2/2 GitHub CI thật GREEN, runtime app không thay, runner có cgroup/Guard/Kuma; C1B/C2/C3 sau đó.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ P27 dừng vì nghi token → ✓ P28 lệnh phục hồi → ✓ P29 token = Directus → ✓ Claude P30 xác minh token chết + ACCEPT → ■ Host READY + 😊 Owner giao Codex → □ C1A 2/2 CI → □ C1B → □ C2 → □ C3.
-- ✅ Đã xong: token cũ REVOKED_CONFIRMED — mã Directus chỉ nhận refresh token còn phiên trong `directus_sessions`, DB đang chạy = 0 phiên ⇒ Web SAFE, không HOLD, không đổi mật khẩu.
-- ■ Đang làm: — · 0 RUN active.
-- ⬜ Còn lại: Host READY → Owner giao Codex → C1A (Agent Data trước, Web ngay sau, cùng lượt) → C1B → C2 → C3.
-- ➡ Kế tiếp: GPT Host READY@2e33e0a7c932d91d594c3ad8732550e64a2dfd41 (không bàn lại); 😊 Owner giao Codex RUN. NEXT_TRIGGER=HOST_READY_C1A_RESUME.
-- ⛔ Không bỏ cơ chế đăng nhập Directus, không đổi mật khẩu/token, không dùng token để thử, không khôi phục deploy cũ, không RUN trước READY/Owner.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 20:32 +07 · GPT Chat · P31
+- 🎯 Mục tiêu: Codex cài GitHub self-hosted runner trên VPS, cho 2 repo PRIVATE chạy CI/test thật 2/2 GREEN, sau đó C1B CD thử, C2 khóa main, C3 nhiều agent.
+- 🏁 Xong C1A khi: 2/2 repo có CI run thật trên VPS, log/URL/SHA/test GREEN, runner giới hạn 2 CPU/3GB, Guard/Điều 30/31/Kuma đạt và ứng dụng cũ không đổi.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ Codex P27 KQ DỪNG nguồn Web → ✓ P28 recovery → ✓ Claude P30 ACCEPT@2e33e0a7 → ✓ GPT P31 READY@2e33e0a7 → ■ Owner giao Codex RUN mới → □ C1A 2/2 CI → □ C1B → C2 → C3.
+- ✅ Đã xong: Host đọc toàn bộ PROMPT P30, xác minh last-touch SHA và chữ ký ACCEPT trùng khớp; READY đã ghi cùng SHA, PROMPT không sửa. Theo P30, bản Directus hiện có 0 session và không yêu cầu dùng/thử lại token cũ.
+- ■ Đang làm: — · 0 RUN active. Chưa Codex STARTED RUN phục hồi, chưa cài runner.
+- ⬜ Còn lại: Owner chuyển RUN_ID GHM-C1A-RESUME-20261025-02 cho Codex; Codex chạy S0–S3, Agent Data trước/Web sau, đưa vào Config Guard/Kuma, báo 2/2 run GREEN hoặc blocker thật theo repo.
+- ➡ Kế tiếp: **Owner giao Codex** đọc PROMPT.md tại last-touch SHA 2e33e0a7c932d91d594c3ad8732550e64a2dfd41, tuân luật S0 và VPS-GHI. NEXT_TRIGGER=OWNER_RUN_GHM_C1A_RESUME.
+- ⛔ Không giao Claude chạy thay, không viết lại PROMPT, không dùng token, không sửa main/production/bật deploy cũ/mua Pro, không tự mở C1B/C2.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -514,6 +514,15 @@ Bảng: lệch → đã sửa cùng lượt · §0.3: thêm Owner (với GPT, P2
 - 4.1 ACCEPT@2e33e0a7c932d91d594c3ad8732550e64a2dfd41 PROMPT GHM-C1A-RESUME-20261025-02. Host READY cùng SHA, không thêm vòng.
 - 4.2 Roadmap không cần sửa (C1A → C1B → C2 → C3 đúng); dòng trạng thái README/ROADMAP/KE-HOACH cập nhật cùng lượt.
 - 4.3 JEV `gen-dec-1792934403-GWu7BJI7kpgefiUYMeRz`: token cũ bị Directus từ chối 0,85 (câu hỏi do Claude viết).
+
+## P31 · GPT Host 25/10/2026 — ACCEPT P30, READY C1A RESUME CHO CODEX (KHÔNG MỞ VÒNG NỮA)
+Ghế: openai-main · Based_on: Codex P27; GPT P28/P29; Claude P30, file PROMPT `work/github-management/PROMPT.md` last-touch `2e33e0a7c932d91d594c3ad8732550e64a2dfd41`.
+- **Kết luận:** CHẤP NHẬN Claude P30 và toàn bộ sửa đúng phạm vi: xác minh 0 dòng directus_sessions trên Directus DB đang chạy + logic Directus AuthenticationService.refresh không thể gia hạn khi không có session tương ứng; bỏ HOLD do **token lịch sử đó** trong phạm vi CI. Đây là chứng cứ Claude đọc DB, không phải tuyên bố GPT tự thực hiện DB query, và không miễn trừ nếu sau này có bằng chứng credential khác còn sống.
+- **Tiến hành ngay:** Codex là executor duy nhất, runner VPS không-root/no docker.sock, tổng 2 CPU/3 GB, **Agent Data test trước → Web test trong cùng RUN**; hai repo private, không sửa main hay restart app hiện hữu. Điểm đạt là **2/2 GitHub CI thực xanh**, có run URL/SHA/test; Điều 30/31 + Kuma + script cài/gỡ cùng lượt. Không tự C1B.
+- **Chứng thực:** đã đọc toàn bộ PROMPT C1A-RESUME sau Claude P30, `git log -- PROMPT.md` full last-touch=2e33e0a7c932d91d594c3ad8732550e64a2dfd41; ACCEPT@2e33e0a7c932d91d594c3ad8732550e64a2dfd41 tại P30 hợp lệ; không sửa PROMPT sau ký.
+- **READY@2e33e0a7c932d91d594c3ad8732550e64a2dfd41** · GPT Host · RUN_ID=`GHM-C1A-RESUME-20261025-02` · EXECUTOR=Codex CLI/Desktop · SCOPE=C1A runner + CI hai repo trên VPS. **CHƯA STARTED**, chỉ Owner RUN mới được bắt đầu.
+- Mọi key/token vẫn không được in hoặc sử dụng để thử. S0 chặn thật nếu thiếu VPS-GHI/quyền, guard cgroup, secret khác còn hiệu lực; thiếu một repo không giả 2/2 PASS nhưng giữ phần repo đạt. NEXT_TRIGGER=OWNER_RUN_GHM_C1A_RESUME.
+
 
 
 
