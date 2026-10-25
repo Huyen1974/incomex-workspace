@@ -1,26 +1,27 @@
-# HJW P387 · KẾT THÚC NÚT NÂNG HERMES — KHÔNG LÀM LẠI A/B
-RUN_ID: HJW-HERMES-UPDATE-CLOSE-20261025-01
-STATUS: HOST_DRAFT — chỉ thực thi sau READY theo full SHA cuối chạm PROMPT.
-Host: GPT Chat · Reviewer nền: Claude Chat P381/P383 · Executor_Surface: Claude Code CLI do Owner chuyển tay.
-Write_Path: MCP workspace_* cho hồ sơ; VPS chỉ qua cơ chế quản trị/Config Apply được duyệt và khóa VPS-GHI. Mac chỉ là màn hình Hermes VPS.
+# HJW · KẾT THÚC PHẦN NÚT HERMES — KHÔNG LÀM LẠI
+RUN_ID: HJW-HERMES-FINALIZE-20261025-02
+STATUS: HOST_DRAFT · Chỉ RUN sau READY@last-touch-PROMPT tại task COLLAB, Owner chuyển tay Claude Code CLI.
+Host: GPT Chat P394 · Reviewer nền: Claude Chat P392 (63f55924), GPT Host P393 đóng RUN cũ.
+Executor_Surface: Claude Code CLI MỚI (KHÔNG resume phiên cũ).
+Write_Path: Incomex MCP workspace_* cho hồ sơ, VPS qua đường quản trị/apply-v0 đã duyệt và VPS-GHI CAS. Chưa có quyền thực thi cho đến khi Owner giao.
 
-**Mục tiêu duy nhất:** Chốt phần C còn thiếu P386 để lần vá stable kế tiếp Owner chỉ bấm một thẻ Telegram, bộ nâng `hermes-safe-update` thực hiện và báo kết quả. **A token/Kuma và B sudo/GSM/COLLAB đã hoàn thành: không đổi token, không đụng IAM, sudo, write_scope, cron/Guard nghiệp vụ hay chạy lại 69+32 test.** Không nâng Hermes thật khi vẫn đang v0.22.5 stable mới nhất.
+**Mục tiêu duy nhất:** đóng phần C nút nâng Hermes đã áp dở; giải phóng VPS cho việc khác. P386 A/B XONG, P390 đã áp 3 file+mốc, P393 hành chính STOP/KQ DỪNG phiên cũ và VPS-GHI trống. **Tuyệt đối không làm lại token/Kuma, sudo/GSM, 69/69+32/32, A/B, không copy backup nhiều GB, không nâng stable khi chưa có phiên bản mới, không tạo dịch vụ/plugin/timer mới.**
 
-**S0 · 0 mutation:** Đọc AGENTS, root/HJW COLLAB, P378–P387, KQ P386, PROMPT; kiểm READY/Owner RUN/lease/Guard và vị trí phiên bản. Dùng P386 làm bằng chứng, không khảo sát lại từ đầu. Dựng bản lùi CHỈ cho file thực sửa. Guard hoặc quyền chặn thì KQ DỪNG, không lách.
+**S0 (read-only, một lần):** Đọc AGENTS, root+HJW COLLAB P386/P390/P391/P392/P393 và PROMPT; kiểm latest READY, 0 RUN xung đột, STOP cũ, VPS-GHI trống. Kiểm có **bất kỳ tiến trình/job nào còn chạy từ RUN cũ** hay lượt cập nhật đang hoạt động không bằng đường VPS quản trị; mơ hồ ⇒ DỪNG/không restart. Kiểm config Guard 518/518 (đo tươi) và bản lùi byte-đúng của đúng các tệp P390. Sau S0 PASS ghi STARTED, dùng CAS nhận VPS-GHI cho thao tác ghi.
 
-**S1 · Thẻ bấm tối thiểu:** Timer stable và nút xác nhận Owner đã tồn tại. Dùng đúng handler `hjw-control` và vòng xử lý root đang chạy; chỉ mở rộng đường này nếu không có cách ít sửa hơn. Thẻ riêng bot Hermes: “Có bản stable X · Nâng / Để sau”. Nhận bấm phải đối chiếu Owner ID + mã dùng một lần, có hạn, chống bấm đôi, gắn đúng bản stable do **root tự xác nhận**; “Để sau” không chạy. Root gọi duy nhất lệnh nâng định sẵn, không nhận tên lệnh hay tham số shell từ callback. Giữ chặn Desktop→VPS, không khôi phục sudo Hermes, không xây plugin/daemon/cron/gateway mới. Nếu cần, chỉnh đúng plugin hiện hữu rồi restart đúng gateway có kiểm và đường lùi; không ảnh hưởng bot cảnh báo P385.
+**S1 (kiểm đã áp, không triển khai lại):** Kiểm root `offer-tick` đã chạy qua nhịp thực, log từ lúc P390 áp có lỗi lặp không. Nếu trạng thái đúng và Hermes rỗi, **restart chỉ `hermes-gateway` một lần** để nạp plugin, smoke gateway/serve/Telegram và nút. Nếu chưa rỗi, dừng sạch, không cắt lượt model và không giữ lease chờ. Không nới khóa `.git`, không cho app Mac nâng VPS.
 
-**S2 · Bản vá gọn có đường lùi:** Với bản vá cùng major.minor, ưu tiên quick state snapshot native + bản commit stable trước nâng và đường restore mã/phụ thuộc sẵn có. Trước khi bỏ bản chụp toàn cây ~7 GB phải kiểm được *trên fixture* các file trạng thái quan trọng có trong snapshot và khả năng lùi mã; hãng nói quick snapshot **không** thay dữ liệu DB lớn/migration. Nếu thiếu độ bao phủ hoặc gặp migration, **không bật đường cập nhật gọn cho bản đó** — báo yêu cầu dùng đường thay đổi lớn; tuyệt đối không tắt đường lùi để lấy tốc độ. Đối với bản vá thông thường đã chứng minh an toàn, bỏ upload Google Drive/full fixture trong mỗi lần nâng; giữ mutex tự lấy/trả, kiểm bản phát hành stable, kết quả update, health và một chat/tool nếu có sẵn. KQ nâng VPS KHÔNG chờ Desktop Mac, không ép cùng commit. Desktop chỉ tự cập nhật app theo chức năng app-only của hãng; không bấm nút cập nhật chung có thể nâng nhiều gateway. Không bật tự nâng không hỏi Owner.
+**S2 (kiểm nhanh, không kéo dài):** `hermes-safe-update check` chạy với khóa `.git` chỉ-đọc hiện hành, đo thời gian và tránh root-owned files trong `.git`. Không chạy fetch nâng thật. Đối chiếu S2 P388: `DUONG_GON_CHUA_CHUNG_MINH` — **giữ nguyên đường lùi đầy đủ**, không tiếp tục xây snapshot gọn. Chạy Guard POST/Điều 30–31 **chỉ với các thay đổi P390**. Lỗi thì lùi delta lỗi qua bản byte-đúng đã có và KQ DỪNG, không sửa Guard để che. Kiểm công việc đang chạy khác không bị ảnh hưởng.
 
-**S3 · Kiểm thử ngay, không đợi bản phát hành mới:** Mô phỏng một offer stable mới và callback thật của Owner trên môi trường khô, chứng minh chuỗi nhận thẻ→xác thực→root action cố định→kết quả; tuyệt đối không nâng production vì hiện đang up-to-date. Thử âm: người khác, hết hạn, dùng lại, nhấn đôi, sai target, VPS-GHI bận, Hermes đang chạy model, “Để sau”. Thử `hermes-safe-update check` với bản đang có phải báo “Đã mới nhất”, không thay đổi runtime. Guard PRE/POST + rollback/Đ30–31 CHỈ cho delta nút và bộ nâng, không chạy lại fixture N3 #21 không liên quan. Không được báo đã thử nâng stable thật; ghi `NEXT_REAL_PATCH_UNTESTED` như giới hạn tự nhiên, không mở RUN riêng chỉ để đợi phiên bản.
+**S3 (thoát khóa trước khi hỏi người):** Xác minh không job RUN tồn tại ngoài Hermes service thường trực; **nhả VPS-GHI bằng CAS ngay khi hoàn tất thao tác máy**, không giữ cờ chờ Owner. Gửi thẻ Telegram **DIỄN TẬP** đúng bot/Owner bằng đường hiện hữu, **không áp bản nâng thật**. Chạy lại đúng các negative chưa có chứng cứ runtime; không làm lại 35/35 và 15/15 unit test P390. Nếu Owner không bấm, ghi `OWNER_TAP_NOT_YET_OBSERVED` và đóng KQ, không giữ lượt chờ.
 
-**S4 · Đóng:** Thay luật P325.7: VPS patch=thẻ bấm + `hermes-safe-update` root, Mac=app-only độc lập; update lớn/migration dùng nhánh thủ công có chứng cứ; không lặp backup 7 GB/Drive/fixture mỗi patch. Ghi KQ cho RUN này, trạng thái C = TESTED_DRY_RUN hoặc DỪNG đúng sự thật; A/B từ P386 giữ nguyên, Guard POST lịch sử của A/B không sửa. Cập nhật roadmap/Bảng/Owner View đúng mức đã đạt, dọn vật tạm, trả VPS-GHI. Không dọn ba báo cáo rời trong RUN này.
+**S4 (một KQ, đóng):** KQ XONG chỉ khi gateway và root tick có bằng chứng, Guard POST đúng, thẻ đã được gửi và đường điều khiển có test dry-run/safe negative; nếu chưa đủ thì KQ DỪNG nêu một blocker duy nhất, **không mở vòng sửa vô hạn**. Ghi nhận live update khi có stable mới vẫn `NEXT_REAL_PATCH_UNTESTED`; đường gọn `DUONG_GON_CHUA_CHUNG_MINH`, giữ đường lùi cũ. Cập nhật Bảng/roadmap/Owner View và một biên nhận; 0 tiến trình tạm/cờ còn giữ. Không dọn báo cáo rời, không sửa N2 Dot/Graph/PG/Directus.
 
-STEP_WALK (một RUN, không giữ khóa trong lúc chờ người):
-| Pha | Ai/trình tự | Giới hạn | Bằng chứng / điểm dừng |
+STEP_WALK_V1 (giới hạn một lượt máy, dừng sạch khi bị cổng từ chối, không hẹn nền):
+| Bước | Ai/kích hoạt | Gate & bằng chứng | Nếu lỗi |
 |---|---|---|---|
-| S0 | Claude Code khi Owner giao đúng READY | read-gate đầu lượt | baseline+backup file chạm, kiểm cổng; FAIL→DỪNG |
-| S1 | Claude Code sau S0 | một lượt triển khai nhỏ | thẻ/Owner/nonce/root action; thiếu cơ chế sẵn có→DỪNG |
-| S2 | Claude Code sau S1 | trong cùng lượt | snapshot gọn + rollback fixture; không chứng minh được→không bật đường gọn |
-| S3 | Claude Code sau S2 | trong cùng lượt | pilot/âm+Guard; FAIL→lùi phần chạm |
-| S4 | Claude Code cuối lượt | báo ngay | KQ/commit/nhả khóa/0 việc nền |
+| S0 | Claude Code mới + Owner RUN | STOP cũ/KQ P393, không process cũ, rollback/Guard/VPS-GHI | KQ DỪNG, không mutation |
+| S1 | Claude Code sau S0 | root tick, gateway idle, một restart, health | lùi đúng delta nếu cần, báo Host |
+| S2 | Claude Code sau S1 | check .git RO, Guard POST footprint đúng | KQ DỪNG, không nới khóa |
+| S3 | Claude Code sau S2 | xác minh no jobs; trả VPS-GHI; gửi thẻ demo | báo giới hạn, không chờ Owner |
+| S4 | Claude Code cuối lượt | một KQ; task/Owner View đúng; 0 lease | Host rà, đóng |
