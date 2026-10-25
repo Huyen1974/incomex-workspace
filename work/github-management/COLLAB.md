@@ -11,7 +11,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - ✅ Đã xong: ngân sách $0 + Stop; 15 workflow thừa tắt; Claude đọc thẳng deploy cũ trên VPS: bật lại nguyên trạng = đè mã/cấu hình mới ⇒ viết lại chạy tại chỗ trên VPS.
 - ■ Đang làm: — · 0 RUN active.
 - ⬜ Còn lại: C1 (mã nền + runner + workflow + thử thật) → C2 khoá main + bật deploy khi main đổi → C3 nhiều agent → ca đêm.
-- ➡ Kế tiếp: GPT Host đọc TOÀN BỘ PROMPT C1, READY@0a15f66c0fb60a70bd2a7e9f15c6bd0b4896e157; 😊 Owner giao Claude Code CLI (VPS). NEXT_TRIGGER=HOST_READY_C1.
+- ➡ Kế tiếp: GPT Host đọc TOÀN BỘ PROMPT C1, READY@2d079c76d5116aa90db0fc743fc9188fb6ba111e; 😊 Owner giao Claude Code CLI (VPS). NEXT_TRIGGER=HOST_READY_C1.
 - ⛔ Không làm/để sau: không bật lại workflow deploy cũ, không khôi phục chìa SSH cũ; không pilot repo public (P20) hay khảo sát G0; không mua Pro trước C2; không chép compose/nginx từ repo.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -380,7 +380,7 @@ Ghế: openai-main · DRAFT only · Based_on: Owner 25/10 nhắc CI/CD cũ đã 
 - **Bước kế** G0 read-only, Codex lập bản đồ ba tuyến/điểm khóa và những gì còn UNKNOWN; Claude Reviewer kiểm độc lập, Host chốt rồi mới yêu cầu Owner RUN pilot hoặc cho phép chuẩn bị CD. Không mua Pro/không tạo repo thử ở G0.
 - **Không READY/RUN:** PROMPT `GHM-G0-CICD-VERIFY-20261025-01` là DRAFT, Claude phải ACCEPT last-touch SHA, Host READY, Owner RUN. NEXT_TRIGGER=CLAUDE_REVIEW_GHM_G0.
 
-## P22 · Claude Chat (Reviewer) · 25/10/2026 15:30 +07 — ĐẢO THỨ TỰ THEO OWNER 15:18: KHÔI PHỤC CI/CD TRƯỚC · PROMPT C1 · ACCEPT@0a15f66c0fb60a70bd2a7e9f15c6bd0b4896e157
+## P22 · Claude Chat (Reviewer) · 25/10/2026 15:30 +07 — ĐẢO THỨ TỰ THEO OWNER 15:18: KHÔI PHỤC CI/CD TRƯỚC · PROMPT C1 · ACCEPT@2d079c76d5116aa90db0fc743fc9188fb6ba111e
 Bảng: lệch → đã sửa cùng lượt · §0: dòng Xác nhận User + §0.3 thêm Owner 25/10 15:18.
 
 **1. Nhận lỗi thứ tự (Claude cùng chịu)**
@@ -400,9 +400,10 @@ Bảng: lệch → đã sửa cùng lượt · §0: dòng Xác nhận User + §0
 - BỎ: pilot repo public P20, khảo sát G0 (SUPERSEDED_UNRUN, giữ trong lịch sử Git).
 
 **4. Ký**
-- 4.1 ACCEPT@0a15f66c0fb60a70bd2a7e9f15c6bd0b4896e157 PROMPT GHM-C1-CICD-VPS-20261025-01. Host đọc toàn bộ, READY cùng SHA; Owner giao Claude Code CLI trên VPS.
+- 4.1 ACCEPT@2d079c76d5116aa90db0fc743fc9188fb6ba111e PROMPT GHM-C1-CICD-VPS-20261025-01. Host đọc toàn bộ, READY cùng SHA; Owner giao Claude Code CLI trên VPS.
 - 4.2 Lệnh có 2–4 lần khởi động lại agent-data/nuxt (~1 phút mỗi lần) — Owner RUN = đồng ý. Deploy thử dùng đúng SHA đang chạy ⇒ không đổi hành vi.
 - 4.3 JEV `gen-dec-1792916550-j3j7MuXgK4Qw0Wl9a6Ll`: bật lại YAML cũ có rủi ro đè mã 0,95 · khoá main trước khi deploy tự động 0,90 · bước kế JEV nghiêng «runner trước» 0,59 > «mã nền» 0,31 — Claude gộp cả hai vào 1 lệnh (A mã nền trước, B runner ngay sau) vì runner trên main 04/2026 sẽ deploy mã cũ (phương án do Claude viết, có thể thiên).
+- 4.4 Sửa sau rà vòng 2 (commit 2d079c76): runner CI bỏ `--ephemeral` (mỗi lần cần token mới ⇒ phải để thẻ admin thường trực trên VPS), thay bằng đăng ký 1 lần + hook dọn sau việc. Chữ ký chuyển sang last-touch mới 2d079c76; bản 0a15f66c không dùng.
 
 
 
