@@ -228,39 +228,6 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 - **Kuma** = Uptime Kuma đang chạy trên VPS; **`system_issues`** = bảng hàng đợi sự cố có sẵn, UI đã đọc.
 - **Luật Nhà** = luật Owner 15/10: mọi sổ nghiệp vụ phải có nhà, ghi «sẽ làm» trước khi tạo.
 - Chữ cũ không dùng: «vùng NHÁP» (đã bỏ — làm thật), «kênh A/B» (gọi là kênh Census / kênh Ba Lô), «T1–T8/L1–L3» cũ của thẻ này (nay là TT1–TT8 / Lớp-1–3).
-@@OLDTABLE2_P38@@ PG **≥16**: `pg_stat_user_tables.last_seq_scan`/`last_idx_scan` + các đếm ghi/quét, `stats_reset`; TS1 xác nhận `server_version_num`/tên cột trên VPS | chỉ mô tả **scan** kể từ reset; **không xác định thời điểm ghi cuối hay truy cập mọi loại**, backup/vacuum/counters/reset có thể nhiễu; `NULL` hoặc scan cũ **không chứng minh bảng ngừng dùng**, cấm làm chứng cứ OFF duy nhất |
-| K8 | Hàm còn được gọi không | `pg_stat_user_functions` — cần bật `track_functions` (**Owner gật riêng**) | chưa bật ⇒ ghi «không đo được» |
-| K9 | Collection / Flow / quyền Directus | `directus_collections` · `directus_fields` · `directus_flows` · `directus_permissions` (nằm trong PG) | collection trỏ tới bảng không có ở K1 |
-| K10 | DOT trên đĩa ↔ đã khai trong PG | `dot_tools` + `dot-dot-register` + `dot-dot-health` (TS1 kiểm quyền/RO/lịch/log/đường báo) | đếm **tập tên**, phát hiện lệch và chứng minh tin tới người; lỗi từ tháng 7 chưa phải tình trạng hiện tại |
-| K11 | DOT khai báo làm gì/ghi ở đâu, đã được bot gọi chưa | nhãn mã DOT → `dot-dot-catalog` (khai báo), Graph/log **khi có bằng chứng đo** | nhãn thiếu/lệch thì báo; **nhãn không chứng minh đã chạy, bot đã gọi hoặc thực ghi** |
-| K12 | Giữ/bỏ, công dụng, hệ, vùng | một bảng quyết định L3 với `CHECK` và trường người duyệt/giờ/bằng chứng có nguồn ghi tin cậy | PG chặn giá trị sai; **Directus Activity/Revisions không ghi thao tác SQL trực tiếp ngoài Directus** |
-| K13 | Nhìn, lọc, bảng tổng | Directus: collection + ghi chú «?» + bộ lọc lưu sẵn + Insights (Loại × Vùng) | — |
-| K14 | Ai được ghi | PG GRANT/role + Directus Policies + danh tính máy/DOT kiểm được | **thực nghiệm từ chối ghi ngoài phạm vi** trước khi nói «chỉ DOT mới ghi» |
-| K15 | **Lần chạy DOT đã xác minh** | `dot_tools.last_executed` hiện có nhưng số lịch sử chưa tin cậy; TS1 tìm log sự kiện của **đúng DOT**, thời điểm **run thực** (bắt đầu/kết thúc, RUN_ID/result), nguồn và độ tin cậy; `mtime` tệp log **chỉ là lúc tệp thay đổi**, không tự tương đương lần chạy | không có log/không liên kết đúng DOT/không đủ bằng chứng ⇒ `CHƯA ĐO ĐƯỢC`, **không điền đè**; N4 muốn cập nhật cột phải dùng DOT ghi có quyền/G2 sau TS1 |
-| K16 | Công dụng · thuộc hệ của vật cũ | ① nhãn 07/2026 (K5) → ② Graph → ③ AI đề xuất, người duyệt theo nhóm | chưa nguồn nào có ⇒ ⚪ CHƯA RÕ |
-
-**Khai — bắt buộc, đúng 1 lần, tại nơi sinh ra vật (ngoài bảng này: không khai tay):**
-| Mã | Vật | Khai gì | Ở đâu · lúc nào | Thiếu thì |
-|---|---|---|---|---|
-| Khai-1 | DOT / script **do ta tạo** | một câu **mục đích ban đầu** tại header nguồn; tên/đường/sha lấy tự động từ tệp | ghi 1 lần khi tạo, `dot-dot-register` tái sử dụng nếu đường phát hành đang gọi được; TS1 xác minh việc khai có tự ghi vào PG hay chưa | thiếu mô tả/tên lệch ⇒ cảnh báo **sau lượt đối soát**; không hứa tự đăng ký nếu chưa có lời gọi |
-| Khai-2 | Bảng/collection **nghiệp vụ do ta tạo** | một câu mục đích nghiệp vụ; giải thích trường `?` **chỉ cho trường cần ý nghĩa**, tái dùng mô tả/Field-spec đã duyệt, không nhập lại thông tin kỹ thuật có trong catalog | ghi một lần ở **nguồn định nghĩa khi tạo** bằng DOT/Directus đã duyệt, PG cung cấp tên/cột/kiểu/khóa | thiếu mô tả nghiệp vụ ⇒ hiện `THIẾU MÔ TẢ` khi có màn hình, **không làm hỏng DDL** |
-| Khai-3 | Hàm/view nghiệp vụ **do ta tạo** | một câu mục đích chưa suy ra từ tên/mã; ưu tiên `COMMENT ON` đúng vật khi đường tạo hợp lệ | 1 lần tại nguồn tạo; **trigger** tự lấy bảng/hàm/sự kiện từ `pg_trigger`, `pg_get_triggerdef()`; mô tả hàm không tự là mô tả riêng của trigger; không vượt guard `COMMENT ON TRIGGER` đang khóa | thiếu thì đánh dấu, không ép khai cho đối tượng extension/hệ thống hoặc mở đường DDL bị chặn |
-| Khai-4 | Quyết định Giữ/Sửa/Gộp/Tắt/Bỏ | **chỉ khi Owner quyết**, kèm ai/ngày/căn cứ; có thể thay đổi theo lịch sử | L3 qua DOT được phép, không phải khai một lần khi tạo vật; không ghi lại thông tin PG tự có | chưa có quyết định ⇒ `CHƯA QUYẾT` (không coi là Bỏ) |
-Vật **cũ**: không khai lại — lấy theo K5, K16.
-
-**Canh — giám sát bằng bot/màn hình, không cần người canh:**
-| Mã | Canh gì | Dùng cái có sẵn | Báo tới |
-|---|---|---|---|
-| Canh-1 | DOT đĩa ↔ `dot_tools` (so **tập tên + nguồn/phiên bản**, không chỉ số lượng) | `dot-dot-health` và đường đọc `dot-dot-catalog` **nếu TS1 chứng minh RO + lịch sống**; không chạy `--dry-run` đã biết rủi ro RW | `system_issues`/Telegram **chỉ khi đã kiểm log + biên nhận người nhận**; không khẳng định báo ngay |
-| Canh-2 | Vật mới thiếu mô tả ban đầu | cờ thiếu mô tả **suy ra từ metadata/nguồn**, không nhập tay; khi Studio đã có view/bảng thật | bản ghi/bộ lọc cảnh báo sau TS3; chưa có giao diện thì CHƯA TRIỂN KHAI |
-| Canh-3 | Số theo loại ↔ Census · bảng ↔ Ba Lô | đọc hai kênh độc lập đã kiểm (cùng thời điểm/phạm vi), đối chiếu **tập tên** | dòng chênh có tên/lý do trong Studio **sau TS3**; trước đó là dữ liệu TS1 chứ chưa có đèn live |
-| Canh-4 | Bot đếm **còn chạy** (khác bot **đếm đúng**) | Kuma **Push nếu monitor/nhịp đã cấu hình**, bot hoàn tất lượt gửi tình trạng đúng qua loader an toàn; TS1 kiểm monitor, lịch, sai số, thông báo | Kuma → Telegram **sau khi đo PASS tuyến thật**; bot sống nhưng đếm lệch vẫn phải báo lỗi qua Canh-1, không dùng heartbeat UP để che lỗi |
-«Ngay» = ở lần bot chạy kế tiếp, không phải tức thì (P35).
-
-**Không dùng:** event trigger mới (lỗi là chặn tạo bảng) · lịch chạy mới · LISTEN/NOTIFY (chưa có bên nghe) · `pg_read_file` (mở đọc đĩa quá rộng) · phần mềm danh mục ngoài · HTML nghiệp vụ.
-**Giới hạn giai đoạn đầu — N1–N5:** (N1) cron/systemd/docker làm sau PG+DOT; (N2) chỉ khai báo nơi DOT **dự kiến** ghi, chưa kết luận bot nào **đã** gọi; (N3) không yêu cầu lịch sử tuyệt đối vật sinh rồi mất giữa hai lần nhìn; (N4) **chỉ sau TS1 + G2 riêng** mới xét sửa bot có sẵn ghi `last_executed` từ **log đáng tin** và heartbeat Kuma, không sửa vội `dot_tools` đang dùng; (N5) Owner xem Studio, **quyết định có phê duyệt** mới cho AI ghi qua DOT có quyền. Đây là giới hạn phạm vi, không cho phép OFF/Xóa hoặc phát sinh trigger/lịch/HTML. Backup hằng ngày không chứng minh lịch sử đầy đủ.
-**Trần:** ≤ 2 vật PG mới · ≤ 1 DOT mới (chỉ B) · 0 trigger · 0 lịch · 0 HTML · 0 phần mềm ngoài · 0 registry mới. Vượt ⇒ dừng, trình Owner.
-**Hai cổng chính TS1 trước G1 (giữ đủ các phép đọc TS1):** (a) Directus thực dùng được view với list/filter/khóa định danh/đường sửa quyết định người, hay phải B; (b) DOT đếm **đúng tập tên, chỉ đọc an toàn, lịch chạy thật và thông báo tới người**. Bổ sung phép đọc kỹ thuật P36/P37: **phiên bản và đúng cột PG ≥16**; `last_*_scan` không phải lần dùng cuối; phân biệt `log.mtime` với **run có bằng chứng**; `dot_tools.last_executed` đang sai; Kuma có monitor Push và gửi/nhận nhịp đúng chưa. Không chạy `dot-dot-health --dry-run` khi đường RO chưa được chứng minh. Không sửa PG/Directus trong TS1.
 
 #### 3.KH — KẾ HOẠCH CÔNG VIỆC CHI TIẾT P19 · P29 · P30 SỔ PG TỰ QUẢN «PG QUẢN PG» TRƯỚC B1
 **Trạng thái: G0 CHỐT · B0 MỘT PHẦN/KQ DỪNG · B0b READY CHỜ OWNER DÁN · CHƯA RUN B0b · P30: TS1–TS5 thay B0c–B0f (GPT Host xác nhận).** B0b được làm **chỉ đúng hai mã DOT** theo PROMPT đã ACCEPT/READY; không cho phép tạo/sửa collection, schema, dữ liệu PG/Directus, quyền hay kích hoạt production. Đầu ra chính của dự án là **các collection thật quản lý trực tiếp trong Directus Studio**, không phải HTML/JSON/tệp khai báo/trang mô phỏng mới.
