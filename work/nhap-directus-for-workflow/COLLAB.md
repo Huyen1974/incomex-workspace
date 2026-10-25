@@ -154,26 +154,7 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 - TT7 **Khai tối thiểu**: chỉ khai cái máy không tự biết, **1 lần, tại nơi sinh ra vật** (mục 5).
 - TT8 **Thang nguồn**: ① PG → ② Graph/bot → ③ AI rà bổ sung (cách cuối, không đặt lịch AI tự gọi).
 - TT9 **Đi từng bước nhỏ**: chưa biết đủ mình có gì thì chưa dựng gì khác.
-@@C5@@  [PG: pg_catalog / pg_stat_* / pg_depend / COMMENT] ── đọc ─┐
-                      (Lớp-1, không khai tay)                │
-  [Tệp DOT/script có mô tả tại nguồn]                        │
-        └─ đường đăng ký ĐÃ KIỂM ─> [dot_tools có sẵn] ─ đọc ┤ (Lớp-2)
-               └─ bot đếm, báo lệch: CHƯA PASS LIVE          │
-  [Graph/bot] ── bằng chứng tham khảo (không tự quyết) ───────┤
-  [Owner DUYỆT] ──> [DOT có quyền] ──> [Lớp-3 quyết định] ───┘
-                                        │
-                     CHỈ 1 TRONG HAI ĐƯỜNG THỰC HIỆN
-      Cách A: [01 SQL VIEW đọc PG + dot_tools + Lớp-3]
-               + [01 bảng Lớp-3]  (ưu tiên nếu TS1 chứng minh)
-      Cách B: [01 bảng machine-cache + cột người Lớp-3]
-               + [đối soát có sẵn, hoặc ≤01 hàm/≤01 DOT mới]
-                                        │ CHỈ ĐỌC để xem
-                                        ▼
-              [01 Collection/MÀN HÌNH DIRECTUS STUDIO]
-                    Owner xem/lọc · AI cùng một nguồn
-  [Census + Ba Lô] ── kênh đối chứng, không cấp dữ liệu ──> ⚠ lệch
-```
-**Đường WRITE duy nhất:** PG tự sinh metadata Lớp-1; đầu tệp DOT là nhà mô tả DOT, `dot_tools` đang là kho khai có consumer nên **không thay/xóa**; chỉ sau khi Owner duyệt, AI mới được ghi **phần quyết định** Lớp-3 qua DOT đã được cho phép. Graph/bot bổ sung **bằng chứng có nguồn**, không tự ghi quyết định hay ép công dụng. Cách A/B chưa được triển khai và chỉ được chọn tại TS2/G1 sau TS1; không được giả vờ SQL VIEW đã đọc được trong Studio.
+@@C7@@**Đường WRITE duy nhất:** PG tự sinh metadata Lớp-1; đầu tệp DOT là nhà mô tả DOT, `dot_tools` đang là kho khai có consumer nên **không thay/xóa**; chỉ sau khi Owner duyệt, AI mới được ghi **phần quyết định** Lớp-3 qua DOT đã được cho phép. Graph/bot bổ sung **bằng chứng có nguồn**, không tự ghi quyết định hay ép công dụng. Cách A/B chưa được triển khai và chỉ được chọn tại TS2/G1 sau TS1; không được giả vờ SQL VIEW đã đọc được trong Studio.
 
 **2B. HỢP ĐỒNG CỘT & QUY TẮC KHÔNG ĐƯỢC HIỂU KHÁC (TS2 sẽ chốt tên máy thật)**
 | Cột nhìn chung trên Web | Nơi lấy/ghi duy nhất | Mặc định nếu chưa chứng minh |
