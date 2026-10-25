@@ -1,6 +1,13 @@
 #!/bin/bash
 set -euo pipefail
 umask 077
+if [[ "${1:-}" == --help ]]; then
+  echo 'dot-github-ci-runner — install/start/stop/remove/verify one bounded GitHub CI runner'
+  echo 'Usage: dot-github-ci-runner ACTION agent-data-test|web-test'
+  echo 'Install consumes only a short-lived registration token on stdin; root operator with approved RUN and VPS-GHI required.'
+  echo 'No deploy. Remove is per-repo and retains the private data volume.'
+  exit 0
+fi
 action=${1:?install|start|stop|remove|verify}
 repo=${2:?agent-data-test|web-test}
 case "$repo" in agent-data-test|web-test) ;; *) exit 64 ;; esac
