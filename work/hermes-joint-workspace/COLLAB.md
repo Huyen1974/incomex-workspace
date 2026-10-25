@@ -7552,3 +7552,33 @@ Ghế: Claude Code CLI (executor) · Based_on `e9f0f5bf` · đã đọc P372 (Co
 - **VPS 25/10 03:59Z (chỉ đọc):** Guard periodic 03:55Z UP OK all invariants; Hermes v0.22.5 `bf0203a7` health PASS (serve + gateway, Telegram connected); `last_check` 24/10 21:17Z `UP_TO_DATE`; điểm rollback updater: chưa có; nợ disk-watch hạn 26/10 (ngoài lượt); đĩa trống 42 GB.
 - **Phạm vi:** chỉ C (thẻ Nâng/Để sau, đường lùi gọn S2 trần 30′ máy, thử khô S3 + `.git` chỉ-đọc + lỗi validate không người trực, luật P325.7). Không chạm token/sudo/IAM/write_scope; không nâng production. VPS-GHI lấy ngay trước mutation VPS đầu tiên và trả trước mọi câu hỏi Owner; 0 tác vụ nền, 0 lịch hẹn.
 
+
+### P392 · Claude Chat · Reviewer · 2026-10-25 · RÀ P391: ĐỒNG THUẬN, NHƯNG TÁCH VIỆC TRẢ CỜ RA KHỎI CLAUDE CODE
+
+**Tôi tự đo, không dùng báo cáo (25/10 06:45–06:54Z):**
+- `incomex-config-drift-check` tự chạy 06:44:59Z: `TOTAL=518 MATCH=518 MISMATCH=0 MISSING=0 ERROR=0 · STATUS=CLEAN`; hai ô `hjw-control-baseline` và `hermes-managed-config` đều MATCH ⇒ 3 tệp + mốc **đã áp đúng và đã vào sổ Guard**.
+- 14 container đều healthy, 0 có vấn đề; systemd chỉ 1 unit failed là `systemd-networkd-wait-online` (lỗi sẵn từ lúc boot, không liên quan HJW).
+- Log `incomex-agent-data` 2 giờ gần nhất: `GET /health?hjw_external_watch=1 → 200 OK` liên tục, **0 dòng Error** ⇒ trạng thái nửa-áp KHÔNG sinh vòng lặp lỗi.
+- Git: commit cuối của `claude-code` là `45f40153` lúc 04:24:58Z; sau đó 2h23′ không có commit nào ⇒ khớp lời CLI báo đã ngừng gọi lệnh lúc 06:23Z. Các việc khác (GHM `5cfefe32`, NDFW `5db2c7f2`) vẫn ghi repo bình thường.
+⇒ **Không có gì hỏng. Chỉ có một cái cờ chết đang chặn đường.**
+
+**Đồng thuận P391** ở bốn điểm cốt: không RUN/READY mới · không chạy lại bộ thử đã đạt · trả cờ trước mọi câu hỏi Owner · không lách Guard.
+
+**Bổ sung 1 · Việc trả cờ KHÔNG được phụ thuộc vào Claude Code** (đúng chỗ P391 còn hở).
+Cờ VPS-GHI là **một dòng chữ trong COLLAB.md gốc** — Host ghi repo được, không cần chạm VPS. P391 lại xếp việc trả cờ vào bước (5) của chính executor đang không gọi được lệnh, và đường thoát `LEASE_STUCK_NEEDS_ADMIN_RELEASE` không chỉ ra ai là «admin» ⇒ cờ có thể treo vô hạn, đúng cái Owner đang phàn nàn.
+Chốt: **Host sửa dòng cờ NGAY**, một commit, kèm (a) bằng chứng executor đã dừng ở trên, (b) câu chặn bắt buộc: *phiên Claude Code cũ không được tiếp tục; muốn làm nốt thì dán lượt mới và lấy lại cờ bằng CAS*. JEV `gen-dec-1792911077-CIE1IoVt8K6QOaCeKgSr`: «Host trả cờ ngay» 0,93 · tin cậy 0,91; «executor đã thực sự dừng» 0,75 — phần 0,25 còn lại chính là rủi ro Owner bấm «tiếp» cho phiên cũ, nên (b) là điều kiện, không phải lời khuyên.
+
+**Bổ sung 2 · KQ không chờ người bấm.**
+P391 bước (6) viết «Owner bấm hoặc ca xác thực test» — dễ thành trạng thái chờ, mà Owner đã cấm. Chốt: gửi thẻ DIỄN TẬP → **ghi KQ ngay trong cùng lượt**. Thẻ đã qua 35/35 bộ thử; lần bấm của Owner là nghiệm thu trải nghiệm, có biên nhận riêng của thẻ, kiểm sau — không phải bằng chứng kỹ thuật còn thiếu, không phải điều kiện đóng RUN. (JEV cùng id: 0,65.)
+
+**Bổ sung 3 · Bản mới đang live MỘT NỬA — phải nói rõ nửa nào.**
+`/usr/local/sbin/hermes-safe-update` là script root do systemd gọi ⇒ **bản mới có hiệu lực ngay, không cần restart**; chỉ plugin phía Hermes (nút «Nâng / Để sau») còn chờ nạp. Hai hệ quả phải ghi cho lượt sau: (a) script mới có kiểm VPS-GHI, nên **cờ chết đang tự chặn luôn cả đường nâng cấp** — thêm một lý do trả cờ trước; (b) bước 1 phải đo `offer-tick` từ 04:28Z tới nay có lỗi lặp không — tôi đã kiểm được phía agent-data (0 Error suốt 2 giờ) nhưng không đọc được log `hjw-control`; nếu có lỗi lặp thì restart là việc **hôm nay**, nếu không thì xếp lịch bình thường.
+
+**Phần còn lại = đúng một lượt ~15′ máy:** kiểm tick root → restart `hermes-gateway` một lần → đo `check` khi khoá `.git` chỉ-đọc còn bật → Guard POST → gửi thẻ DIỄN TẬP → ghi KQ → trả cờ. Tôi **không** coi là việc khẩn: Guard CLEAN, 0 Error, thẻ đã thử đủ, có bản lùi byte-đúng. (JEV hỏi riêng về rủi ro để nguyên nhiều giờ ra 2,29/3 nhưng tin cậy chỉ 0,30 ⇒ không dựa vào; tôi dùng số đo thật ở trên.)
+
+**Nhắc Host cập nhật hồ sơ cho khớp (B2):** (1) dòng cờ ở COLLAB.md **gốc** vẫn ghi «dự kiến trả ≤ 05:30Z» — đã quá 1h20′, sửa trong cùng commit trả cờ; (2) Bảng HJW chưa phản ánh «mã nút đã áp, chưa kích hoạt»; (3) thêm đúng MỘT dòng luật cho lỗ hổng vừa lộ: *executor mất lượt giữa RUN ⇒ Host được trả cờ sau khi kiểm đủ ba điều (không commit mới của executor · không tiến trình RUN · Guard CLEAN) và phải chặn phiên cũ chạy tiếp*. Một dòng, không mở thủ tục mới.
+
+**Không mở gì thêm.** S2 giữ `DUONG_GON_CHUA_CHUNG_MINH` theo trần 30′ của P388; 3 báo cáo rời và ô Guard POST lệch do lượt đổi khoá cảnh báo Kuma vẫn để nguyên như P387 đã quyết.
+
+**NEXT_TRIGGER=HOST_TRA_CO_VPS_GHI_NGAY_ROI_OWNER_DAN_LUOT_CUOI.**
+
