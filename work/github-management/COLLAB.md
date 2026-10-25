@@ -4,14 +4,14 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROADMAP trước; Claude phản biện, GPT đồng thuận và Owner duyệt rồi mới RUN. Chưa cho thay hai repo mã/Actions/VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 11:03 +07 · Codex · P16 STARTED R1-COST
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 11:13 +07 · Codex · P17 KQ DỪNG R1-COST
 - 🎯 Mục tiêu: 3–5 agent viết mã song song trên hai repo; Chief kiểm/merge; cuối cùng ca đêm không cần Owner trực.
 - 🏁 Xong khi: GitHub có mã nền đúng và main khóa, 3 PR thực tế, workflow kiểm thiết yếu còn chạy; chi phí Actions metered được chặn bởi ngân sách 0 USD.
 - 📍 Tiến độ: ✓ R0 P12 → ✓ Claude P14 ACCEPT → ✓ GPT P15 READY R1-COST → ■ Owner giao Codex RUN R1 → □ KQ R1 → □ R2–R6.
 - ✅ Đã xong: GPT Host đọc trọn PROMPT R1-COST do Claude soạn, kiểm last-touch và ACCEPT cùng SHA, ký READY. Chưa chạy R1.
-- ■ Đang làm: Codex STARTED GHM-R1-COST-20261025-01; S0 đo billing/ngân sách/usage, Actions vẫn ON; không giữ VPS-GHI.
-- ⬜ Còn lại: Owner giao Codex R1-COST; Codex kiểm billing/budget/3 nhóm audit rồi disable workflow BỎ nếu đúng bằng chứng; GPT/Claude nghiệm thu KQ trước R2.
-- ➡ Kế tiếp: Codex xác minh ngân sách $0 + Stop, disable đúng workflow BỎ P12 và kiểm POST; NEXT_TRIGGER=CODEX_R1_COST_KQ.
+- ■ Đang làm: — · 0 RUN active. P17 KQ DỪNG: ngân sách Actions $0 + Stop đã xác minh; tắt 15 workflow, giữ 3 nhóm thiết yếu; còn 1 workflow động active do GitHub từ chối (422).
+- ⬜ Còn lại: GPT/Claude nghiệm thu ngân sách và 15 workflow đã tắt, xử lý blocker 1 workflow động không disable được; R2 chưa RUN.
+- ➡ Kế tiếp: GPT Host/Claude đọc P17 và báo cáo riêng, quyết mục động HTTP 422 cùng tiêu chí POST; NEXT_TRIGGER=GPT_HOST_CLAUDE_REVIEW_MANAGED_WORKFLOW_422_AND_R1_KQ.
 - ⛔ Không làm/để sau: chưa mua Pro, chưa cài runner, chưa đổi code/branch/main/secret/VPS; không tái chạy R0R1 hoặc self-host PROMPT cũ.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -300,5 +300,24 @@ STARTED@GHM-R1-COST-20261025-01 2026-10-25T04:03:15Z · executor=Codex CLI/Deskt
 - Owner trực tiếp giao RUN; đã đọc AGENTS, Bảng/README, P12–P15, ROADMAP và toàn bộ PROMPT. ACCEPT Claude P14 = READY GPT P15 = last-touch PROMPT `96637335ce2b69b78ea682a307d8f523b70a8fd6`; không STOP/STARTED trùng trong task, không thấy RUN Billing/workflow trùng phạm vi trong hồ sơ root hiện hành. Cờ VPS-GHI không lấy/đổi, không là điều kiện của RUN này.
 - S0 đo Billing/Budgets/usage/Copilot bằng quyền hiện có; S1 thiết lập hoặc xác minh Actions account budget $0 + Stop usage + alerts; S2 chỉ disable workflow BỎ đang active theo P12, giữ 3 nhóm cần; S3 đọc lại và KQ. Không sửa PROMPT/code/runtime, không mua Pro/cài runner. S1 chưa đạt vẫn được làm S2 theo §2.4, nhưng KQ không báo XONG.
 - Bằng chứng chi tiết ở thư mục root-only theo PROMPT; repo public chỉ tổng hợp. Dự kiến S0 ≤04:13Z, KQ ≤04:48Z; passkey/thiếu quyền dừng đúng bước, không giữ phiên nền chờ người. Áp: SAME_COMMIT.
+
+## P17 · Codex · 25/10/2026 11:13 +07 · KQ R1-COST DỪNG — ngân sách đạt, còn 1 workflow bị GitHub từ chối
+KQ@GHM-R1-COST-20261025-01 DỪNG · 2026-10-25T04:13:40Z · executor=Codex CLI/Desktop
+- Cùng PROMPT `96637335ce2b69b78ea682a307d8f523b70a8fd6` = ACCEPT Claude P14 = READY GPT P15; STARTED `2b432677928120fc11e07caca41cf6b01fba74cf`. Đã thực hiện S0 → S1 → S2 → S3; S1 đạt, S2 hoàn thành 15/16 mục cần tắt, điều kiện POST chỉ còn 3 workflow active chưa đạt ⇒ không báo XONG.
+- **S0 — số GitHub thực đo:** gói Free; phương thức thanh toán **CÓ** (không lưu chi tiết). Tháng 10 dùng **1.275/2.000 phút**, còn 725; phí Actions phải trả (net) **$0**, tháng 9 **$0**. Storage UI làm tròn 0 GB/0,5 GB; ledger tháng 10 ghi 3,450109745 GB-hours, phí net $0. Không nhầm giá trị gross $7,65 đã được khấu trừ với tiền phải trả.
+- **S1 — ngân sách CÓ, Stop CÓ:** trước RUN chưa có budget sản phẩm Actions. Đã tạo **Product=Actions, scope=Account/toàn tài khoản, $0**, bật **Stop usage when budget limit is reached** và **Receive budget threshold alerts (75/90/100%)**. Đã mở lại bản lưu: amount=0, cả hai checkbox=1; danh sách hiện Actions $0/$0, Usage blocked. Included usage alerts 90/100% đã ON từ trước, giữ nguyên. Ngân sách áp từ lúc tạo, không hồi tố; không coi là bảo đảm mọi loại phí/thuê bao bằng 0, không thử cố ý đốt hết quota.
+- **Copilot review:** tự động **KHÔNG** ở cả hai repo (trang cấu hình ghi No rulesets; tài khoản không có Copilot code review access). Không thay cài đặt Copilot. Khả năng người có giấy phép khác yêu cầu review thủ công được ghi riêng, không suy thành đã bật lịch tự động.
+
+| Repo | Active trước | Tắt thành công trong RUN | Active sau | Nhóm thiết yếu giữ active |
+|---|---:|---:|---:|---:|
+| agent-data-test | 9 | 7 | 2 | 1 |
+| web-test | 10 | 8 | 2 | 2 |
+| Tổng | 19 | 15 | 4 | 3 |
+
+- **S2 blocker thực tế:** mục BỎ còn lại là 1 workflow động do GitHub quản lý. Lệnh disable trả **HTTP 422: Unable to disable this workflow**; POST vẫn active. Dừng tại lỗi này; không đổi YAML/quyền/secret, không tắt Actions cấp repo hay ba nhóm cần giữ để vượt kiểm. Danh sách ID/tên, từng kết quả và lệnh bật lại đúng 15 mục đã tắt nằm trong báo cáo root-only.
+- **S3 POST:** Actions **enabled=true cả hai repo**; ba workflow thiết yếu giữ active, 15 mục đã tắt đều disabled_manually; main hai repo không đổi. Không hủy/trigger run; tại mốc POST không có run queued/in_progress. Các thay đổi đạt được giữ nguyên, không tự bật lại workflow thừa.
+- **Phút miễn phí/rủi ro cho Host (ước tính):** lịch hiện hành + thời lượng job thực của **242 lượt/30 ngày** cho ba nhóm ≈ **1.151 phút/tháng**, ~57,6% hạn mức 2.000, dư ~849 phút cho repo khác/retry/thao tác tay. Đây là ước tính trên hiện trạng gồm lượt lỗi/hủy; sửa lỗi hoặc tăng thời lượng có thể làm nhu cầu đổi. Quota dùng chung toàn tài khoản; hết phút/storage miễn phí có thể dừng cả ba nhóm kiểm tra. Chưa có căn cứ từ ước tính này để triển khai runner mới; các lỗi vận hành hiện hữu được ghi trong báo cáo riêng, không sửa trong R1.
+- **Báo cáo riêng đã lưu/đọc lại:** `/opt/incomex/work/github-management/GHM-R1-COST-20261025-01/R1-COST-report.json` · SHA256 `df8bf20fe94fe370c66228c76868f89b73fe3f52b994789c7920c0d6edea11a6`. Báo cáo dẫn hash từng bằng chứng: Billing PRE/POST, ảnh/UI readback, workflow PRE/POST, lịch sử thay đổi, phép đo 30 ngày, `workflow-rollback.txt`. Tệp root:0600, thư mục 0700; không ghi thông tin thanh toán nhạy cảm/credential lên repo public.
+- **Kết thúc sạch:** — · 0 RUN active; 0 tiến trình nền chờ người; VPS-GHI không lấy/đổi; 0 thay đổi mã/cấu hình/dịch vụ VPS, chỉ tệp bằng chứng theo ngoại lệ PROMPT. Không mua Pro/cài runner/R2. GPT Host và Claude nghiệm thu phần ngân sách/15 workflow đã đạt, quyết cách xử lý mục động HTTP 422 và tiêu chí còn 3 active trước bước kế. NEXT_TRIGGER=GPT_HOST_CLAUDE_REVIEW_MANAGED_WORKFLOW_422_AND_R1_KQ. Áp: SAME_COMMIT.
 
 
