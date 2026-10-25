@@ -52,6 +52,14 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 .arch-filters span{border:1px solid #bdcede;border-radius:99px;padding:5px 9px;font-size:15px;background:#fff}
 .arch-view-part p{font-size:15px}
 @media(max-width:820px){.arch-columns{grid-template-columns:1fr}.arch-funnel{grid-template-columns:1fr}.arch-funnel span:not(:nth-child(2)){display:none}.arch-views{grid-template-columns:1fr}.arch-views-down{flex-direction:row}.arch-views-down small{writing-mode:horizontal-tb;margin:0 0 0 9px}}
+
+/* Sơ đồ thứ tự: đường nối, không phải roadmap thứ hai */
+.milestone-path{display:flex;align-items:stretch;gap:7px;overflow-x:auto;padding:9px 2px 15px;margin:0 0 6px}
+.milestone-node{min-width:145px;max-width:178px;flex:1;padding:10px 11px;border:1px solid #c8d5e1;border-radius:9px;background:#fff;font-size:15px;line-height:1.35}
+.milestone-node strong,.milestone-node span{display:block}.milestone-node span{margin-top:4px;color:#56697d}
+.milestone-node.is-current{border:2px solid #4b7ea7;background:#ebf4fc}
+.milestone-arr{flex:none;font-size:22px;color:#647f96;align-self:center}
+@media(max-width:750px){.milestone-node{flex:0 0 150px}.milestone-path{overflow-x:auto}}
 </style>
 </head>
 <body>
@@ -79,7 +87,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
     </section>
     <section class="arch-lane" aria-label="Tài sản DOT bên ngoài PostgreSQL">
       <div class="arch-lane-title">NGUỒN 2 · CÔNG CỤ TRÊN VPS</div>
-      <div class="arch-node arch-existing"><strong>Tệp DOT / Script</strong><span>Đã tồn tại trên VPS; mô tả công dụng một lần ở tệp gốc</span></div>
+      <div class="arch-node arch-existing"><strong>Tệp DOT trên VPS</strong><span>Mô tả công dụng một lần ở tệp gốc; script ngoài DOT sẽ rà ở đợt sau, không tự đưa vào dot_tools</span></div>
       <div class="arch-down">↓ <small>Đăng ký bằng đường có sẵn</small></div>
       <div class="arch-node arch-existing"><strong>S3 · Sổ DOT</strong><span><code>dot-dot-register</code> → <code>dot_tools</code> · bảng hiện có; còn thiếu/lệch tên phải kiểm</span></div>
       <div class="arch-aside arch-review"><strong>Bot so tệp ↔ S3</strong><span>Hiện chưa chứng minh đầy đủ việc chạy, đếm đúng và gửi cảnh báo tới người</span></div>
@@ -124,6 +132,14 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 </div>
 
 <h2>3. Sơ đồ lộ trình — từng bước, không triển khai nhảy cóc</h2>
+<div class="milestone-path" aria-label="Thứ tự các mốc, kéo ngang để xem hết">
+ <div class="milestone-node is-current"><strong>■ B0b</strong><span>Đã READY<br>Chưa có kết quả</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>TS1 · ĐẾM</strong><span>Chỉ đọc, kiểm kê</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>TS2 · ĐỦ</strong><span>Chỉ sau duyệt G2</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>TS3 · SỔ</strong><span>Chỉ sau duyệt G1/G2</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>TS4–TS5</strong><span>Phân loại, đối soát</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>B1–B5</strong><span>Công thức, quy trình</span></div>
+</div>
 <div class="steps">
  <div class="step current"><b>■ ĐANG Ở ĐÂY · B0b</b><span>🤖 Claude Code: đã sẵn sàng, chưa có kết quả.<br>Chỉ sửa 2 DOT, không ghi dữ liệu.</span></div>
  <div class="step"><b>TS1 · ĐẾM</b><span>🤖 Máy chỉ đọc: 6 phép đếm, liệt kê tên thiếu/thừa.</span></div>
