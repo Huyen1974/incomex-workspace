@@ -2,17 +2,17 @@
 Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an toàn
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 muốn thử 3 agent làm song song với GitHub Free trước khi quyết mua Pro; không mở hai repo private cũ hoặc ảnh hưởng VPS trước Owner RUN.
+Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 15:07 +07 · GPT Chat · P21
-- 🎯 Mục tiêu: chứng minh 3–5 agent làm mã/PR/Chief song song VÀ phân định rõ CI với kênh CD thật, không gây tác động nhầm VPS.
-- 🏁 Xong khi: có bản đồ 3 tuyến và cổng an toàn để thử; pilot 3 agent/3 PR/Chief đạt; GitHub→VPS chỉ phục hồi sau Owner GO DROOT56 và thử rollback.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ đọc DROOT56 + PROOT08/09 + deploy YAML cũ → ■ P21 chốt G0 kiểm kênh đã cắt → □ Claude phản biện PROMPT → □ Owner RUN Codex chỉ đọc → □ Free pilot PR → □ quyết CD gate.
-- ✅ Đã xong: phát hiện P20 chỉ là thử PR trên kho mới, chưa kiểm được CI/CD gốc; khóa ngày 16/10 vẫn có hiệu lực cho tới khi xác minh khác.
-- ■ Đang làm: — · 0 RUN active. Không thay secrets, GitHub Actions, VPS, không cấp quyền nối GitHub→VPS.
-- ⬜ Còn lại: Claude rà PROMPT G0 → GPT READY khi đạt → Owner RUN Codex đọc 3 tuyến → Host nghiệm thu và đề xuất thứ tự pilot/CI/CD an toàn.
-- ➡ Kế tiếp: Claude Reviewer xem P21 và PROMPT G0 (READ-ONLY), NEXT_TRIGGER=CLAUDE_REVIEW_GHM_G0.
-- ⛔ Không làm/để sau: PROMPT pilot P20 chưa READY/RUN và không được dùng làm bằng chứng CD; không bật deploy workflows, không phục hồi khóa cũ, không sửa remote/Guard/main.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 15:30 +07 · Claude Chat · P22
+- 🎯 Mục tiêu: ƯU TIÊN 1 (Owner 25/10 15:18) — hệ thống chạy được: 2 repo có CI/CD với VPS, máy chạy đặt trên VPS. Sau đó: 3–5 agent code song song, chỉ KST merge, ca đêm không cần Owner trực.
+- 🏁 Xong khi: mỗi repo đi được nhánh → PR → test trên VPS → main → deploy VPS (health + lùi); main chỉ KST ghi; 3 agent thật làm song song trên 2 repo; ca đêm.
+- 📍 Tiến độ: ✓ R0 đo · ✓ R1 khoá chi phí · ✓ Claude P22 đảo thứ tự + ký C1 → ■ Host READY C1 → □ Claude Code CLI chạy C1 (CI/CD trên VPS) → □ C2 khoá main (Pro) → □ C3 nhiều agent → □ ca đêm.
+- ✅ Đã xong: ngân sách $0 + Stop; 15 workflow thừa tắt; Claude đọc thẳng deploy cũ trên VPS: bật lại nguyên trạng = đè mã/cấu hình mới ⇒ viết lại chạy tại chỗ trên VPS.
+- ■ Đang làm: — · 0 RUN active.
+- ⬜ Còn lại: C1 (mã nền + runner + workflow + thử thật) → C2 khoá main + bật deploy khi main đổi → C3 nhiều agent → ca đêm.
+- ➡ Kế tiếp: GPT Host đọc TOÀN BỘ PROMPT C1, READY@0a15f66c0fb60a70bd2a7e9f15c6bd0b4896e157; 😊 Owner giao Claude Code CLI (VPS). NEXT_TRIGGER=HOST_READY_C1.
+- ⛔ Không làm/để sau: không bật lại workflow deploy cũ, không khôi phục chìa SSH cũ; không pilot repo public (P20) hay khảo sát G0; không mua Pro trước C2; không chép compose/nginx từ repo.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -44,6 +44,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 muốn thử 3 agent làm son
 - Owner 25/10/2026 (b1, phiên Claude, đã sửa lỗi gõ): «Muốn tắt Actions của GitHub thì phải cài bộ runner trên VPS — GitHub cho phép và đã có công cụ sẵn, chỉ cần cài. Bản chất chỉ là chạy trên máy nào (tài nguyên tính toán); không nên phụ thuộc việc chạy tính toán vào GitHub.»
 - Owner 25/10/2026 10:37 (b2, phiên Claude, đã sửa lỗi gõ): «Mục tiêu chỉ là không được để các run mất kiểm soát về chi phí; nếu cứ mở ra mà chi phí không phát sinh thì không sao, không nhất thiết phải đóng lại. Chỉ cần kiểm soát chi phí là ok.»
 - Owner 25/10/2026 13:21 (phiên Claude, đã sửa lỗi gõ): «Tôi tưởng vấn đề này đã chốt rồi? Kiểm tra có gì thì thống nhất để giao Codex làm tiếp. Điều quan trọng là agent phải triển khai tiếp để có kết quả.» ⇒ việc đã chốt không bàn lại; mỗi PROMPT ghi rõ tiêu chí XONG để KQ không báo «DỪNG» khi mục tiêu đã đạt.
+- Owner 25/10/2026 15:18 (phiên Claude, đã sửa lỗi gõ): «Trước đây đã chuyển từ Google sang chạy trên GitHub một thời gian, sau đó vì deploy mất thời gian nên đã gỡ. Lẽ ra phải kiểm tra mật khẩu, khôi phục lại CI/CD và thử nghiệm trước — đó mới là việc cần ưu tiên. Phải xác định việc gì quan trọng trước để làm. Phải khôi phục được hệ thống chạy, đảm bảo cả 2 repo chạy được CI/CD với VPS trước đã. Trước đây chạy run trên GitHub, giờ phải cài ở VPS tất cả những việc đó; không làm thì bàn chi tiết để làm gì.» ⇒ (1) = GO DROOT56 cho khôi phục CI/CD GitHub↔VPS của 2 repo, qua cổng PROMPT; (2) mọi run đặt trên VPS bằng runner tự host; (3) thứ tự: chạy được trước, chi tiết sau.
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -378,6 +379,30 @@ Ghế: openai-main · DRAFT only · Based_on: Owner 25/10 nhắc CI/CD cũ đã 
 - **Ba tuyến phải tách:** (1) Dev→GitHub branch/PR/test, (2) VPS→GitHub backup daily, (3) GitHub→VPS deploy ĐANG CẮT theo DROOT56. Thử riêng tuyến (1) không cần nối (3), nhưng không được gọi là end-to-end CD. Muốn nối (3): Owner cấp phép riêng, bảo vệ main, đối chiếu release SHA, thử an toàn/rollback/Guard và dùng credential quyền thấp mới, không hồi sinh workflow cũ một cách tự động.
 - **Bước kế** G0 read-only, Codex lập bản đồ ba tuyến/điểm khóa và những gì còn UNKNOWN; Claude Reviewer kiểm độc lập, Host chốt rồi mới yêu cầu Owner RUN pilot hoặc cho phép chuẩn bị CD. Không mua Pro/không tạo repo thử ở G0.
 - **Không READY/RUN:** PROMPT `GHM-G0-CICD-VERIFY-20261025-01` là DRAFT, Claude phải ACCEPT last-touch SHA, Host READY, Owner RUN. NEXT_TRIGGER=CLAUDE_REVIEW_GHM_G0.
+
+## P22 · Claude Chat (Reviewer) · 25/10/2026 15:30 +07 — ĐẢO THỨ TỰ THEO OWNER 15:18: KHÔI PHỤC CI/CD TRƯỚC · PROMPT C1 · ACCEPT@0a15f66c0fb60a70bd2a7e9f15c6bd0b4896e157
+Bảng: lệch → đã sửa cùng lượt · §0: dòng Xác nhận User + §0.3 thêm Owner 25/10 15:18.
+
+**1. Nhận lỗi thứ tự (Claude cùng chịu)**
+- 1.1 Hội đồng làm theo thứ tự sai: khoá chi phí → khoá main → thử song song, trong khi đường mã → test → VPS chưa chạy. Có đường chạy thì mọi việc sau mới có giá trị.
+- 1.2 Claude P14 đã thu R1 về «chỉ khoá chi phí» và bác hướng runner trên VPS; P19 ký khoá main khi chưa kiểm CI/CD. Sai ưu tiên, sửa tại P22.
+
+**2. Claude đã tự đọc trên VPS (thay G0, không thêm vòng khảo sát)**
+- 2.1 Deploy cũ Web: build trên GitHub → SSH/rsync ~15 bước → chép đè compose + nginx (bản 03/2026) lên bản đang chạy (22/10) → tự chạy SQL → restart. Chậm vì build xa + chuyển qua mạng nhiều bước.
+- 2.2 Deploy cũ Agent Data: rsync `--delete` main 04/2026 đè thư mục mã VPS → build → tạo lại container. Bật lại = xoá mã mới trên VPS.
+- 2.3 Chìa SSH/secret đã thu hồi 16/10 — không cần khôi phục: runner trên VPS dùng biến/mật khẩu sẵn có tại chỗ.
+- 2.4 Runner tự host: không phí (GitHub hoãn phí $0,002/phút từ 17/12/2025, chưa áp dụng), không trừ phút miễn phí. Hook trước việc thoát ≠ 0 ⇒ việc không chạy (GitHub Docs). VPS 6 CPU · 12 GB RAM · còn ~5 GB · swap đầy ⇒ CI giới hạn 2 CPU/3 GB, 1 việc/lúc.
+
+**3. Thứ tự mới — không thêm việc, chỉ đảo (ROADMAP §0.5)**
+- C1 Khôi phục CI/CD trên VPS = R3 mã nền + runner + workflow mới + thử thật (PROMPT này, Claude Code CLI).
+- C2 Khoá main = R2-A/B (😊 Owner mua Pro · Codex ruleset · chìa KST) → bật deploy tự động khi main đổi.
+- C3 Nhiều agent trên 2 repo THẬT = R4 → ca đêm R6. Khoá VPS chống sửa nhầm (P7) sau C2.
+- BỎ: pilot repo public P20, khảo sát G0 (SUPERSEDED_UNRUN, giữ trong lịch sử Git).
+
+**4. Ký**
+- 4.1 ACCEPT@0a15f66c0fb60a70bd2a7e9f15c6bd0b4896e157 PROMPT GHM-C1-CICD-VPS-20261025-01. Host đọc toàn bộ, READY cùng SHA; Owner giao Claude Code CLI trên VPS.
+- 4.2 Lệnh có 2–4 lần khởi động lại agent-data/nuxt (~1 phút mỗi lần) — Owner RUN = đồng ý. Deploy thử dùng đúng SHA đang chạy ⇒ không đổi hành vi.
+- 4.3 JEV `gen-dec-1792916550-j3j7MuXgK4Qw0Wl9a6Ll`: bật lại YAML cũ có rủi ro đè mã 0,95 · khoá main trước khi deploy tự động 0,90 · bước kế JEV nghiêng «runner trước» 0,59 > «mã nền» 0,31 — Claude gộp cả hai vào 1 lệnh (A mã nền trước, B runner ngay sau) vì runner trên main 04/2026 sẽ deploy mã cũ (phương án do Claude viết, có thể thiên).
 
 
 
