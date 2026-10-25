@@ -154,20 +154,45 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 - TT7 **Khai tối thiểu**: chỉ khai cái máy không tự biết, **1 lần, tại nơi sinh ra vật** (mục 5).
 - TT8 **Thang nguồn**: ① PG → ② Graph/bot → ③ AI rà bổ sung (cách cuối, không đặt lịch AI tự gọi).
 - TT9 **Đi từng bước nhỏ**: chưa biết đủ mình có gì thì chưa dựng gì khác.
-@@C7@@**Đường WRITE duy nhất:** PG tự sinh metadata Lớp-1; đầu tệp DOT là nhà mô tả DOT, `dot_tools` đang là kho khai có consumer nên **không thay/xóa**; chỉ sau khi Owner duyệt, AI mới được ghi **phần quyết định** Lớp-3 qua DOT đã được cho phép. Graph/bot bổ sung **bằng chứng có nguồn**, không tự ghi quyết định hay ép công dụng. Cách A/B chưa được triển khai và chỉ được chọn tại TS2/G1 sau TS1; không được giả vờ SQL VIEW đã đọc được trong Studio.
+**2. Cấu trúc — 4 sổ, chỉ 1 sổ mới**
+| Sổ | Trả lời câu gì | Đã có? | Ai ghi | Xem ở đâu |
+|---|---|---|---|---|
+| **S1 Sổ đếm** = PG Census | mỗi loại có **bao nhiêu** (12 loại: bảng, view, hàm, trigger, index, sequence, cột…) | ✅ có — đếm sống từ `pg_catalog` mỗi lần bấm «Làm mới» | 🤖 máy | `/reports/report-pg` |
+| **S2 Sổ vật PG** = Ba Lô `balo_thuc_the` | **từng vật PG** là gì — mỗi vật 1 dòng, số STT giữ suốt đời | ✅ có — 4 loại: bảng · view · hàm · trigger; thêm vật mới bằng **lệnh đồng bộ có sẵn** (nút một chạm → `dot-balo-reconcile --sync`) | 🤖 máy | `/reports/report-balo-*` |
+| **S3 Sổ DOT** = `dot_tools` | có **những DOT nào** | ✅ có — đang lệch đĩa (3.01 D3) | 🤖 `dot-dot-register` đọc tệp DOT | Directus (CAT-006) |
+| **S4 Sổ quyết định** — MỚI | từng vật **dùng vào việc gì · hệ nào · Workflow? · giữ hay bỏ** | ⬜ chưa có — **bảng duy nhất phải tạo** | 🤖 AI đề xuất → 😊 Owner gật → DOT ghi | Directus |
+```text
+pg_catalog (PG tự biết)
+ ├─ đếm sống ───────────────────> S1 Sổ đếm (Census)          🤖
+ └─ lệnh đồng bộ có sẵn ───────────> S2 Ba Lô (mỗi vật 1 dòng)    🤖
+tệp DOT trên đĩa ─ dot-dot-register ─> S3 dot_tools                 🤖
+AI đề xuất ─ 😊 Owner gật ─ DOT ghi ─> S4 Sổ quyết định (MỚI)
+S2 + S3 + S4 ghép theo khoá ───────> 1 màn hình «Sổ tài sản»
+Bot so: S1↔S2 · đĩa↔S3 · S2/S3↔S4  ⇒ lệch thì cờ ⚠ có tên
+```
+- **Độc lập (Owner 24/10):** AI **chỉ ghi S4**. S1, S2, S3 do máy sinh, AI không sửa ⇒ là kênh đối chứng: máy đếm 393 bảng mà danh sách có 385 là biết ngay thiếu 8, thiếu tên nào.
+- **Màn hình «Sổ tài sản»:** 1 view ghép S2 + S3 + S4 (kèm mô tả nguồn, dung lượng, lần quét đọc thẳng từ PG). Hiện trên Directus nếu Đếm-5 chứng minh Directus đọc được view; không thì hiện bằng khuôn report sống có sẵn của `/reports` (cách PG Census đang chạy).
+- **Khoá:** dùng đúng khoá Ba Lô `khoa_nhan_dien` (vd `table:public.cong_thuc`, `function:public.fn_x(integer)`); DOT là `dot:<tên tệp>`.
+- **Phạm vi bản đầu:** 4 loại Ba Lô (bảng · view · hàm · trigger) + DOT. 8 loại còn lại của S1 (index, sequence, cột, ràng buộc, schema, view vật chất, thủ tục, bảng ngoài) **chỉ có số**; cần danh sách thì Owner quyết sau.
+- **Không đụng:** cột nhãn cũ của Ba Lô (nhóm, loài, lớp, active, ghi chú…) giữ nguyên, **không ghi quyết định mới vào đó**; `table_registry` · `collection_registry` · `meta_catalog` giữ nguyên, không dùng làm sổ đếm. Nhãn cũ VUNG/HE (07/2026, đầu tệp + COMMENT ON) chỉ là căn cứ để AI đề xuất.
+- **Giá trị cố định:** Quyết định = Giữ · Sửa · Gộp · Tắt · Bỏ (không có dòng S4 = Chưa quyết). Vùng = 🟢 đang dùng · 🟡 nuôi việc khác · 🔴 bỏ được · ⚪ chưa rõ. Workflow = Có · Dùng chung (Workflow + hệ khác) · Không (đã kiểm, chỉ hệ khác — **không phải căn cứ xoá**) · Chưa rõ (mặc định). Hệ = danh sách cố định 23 hệ (Bản đồ 29/07 §13.9.0). Tắt = ngừng, bật lại được; Bỏ = xoá hẳn (việc dọn làm). **Cờ ⚠** = lệch / thiếu mô tả / mất vật — khác Vùng 🔴.
 
-**2B. HỢP ĐỒNG CỘT & QUY TẮC KHÔNG ĐƯỢC HIỂU KHÁC (TS2 sẽ chốt tên máy thật)**
-| Cột nhìn chung trên Web | Nơi lấy/ghi duy nhất | Mặc định nếu chưa chứng minh |
-|---|---|---|
-| ID tài sản, loại, schema, tên, cấu trúc, phụ thuộc PG | `pg_catalog`/catalog khác; hàm có chữ ký; DOT dùng **đường dẫn nguồn chuẩn** để tránh trùng tên tệp; TS2 quy định ID đơn ổn định cho Directus (không dùng OID làm ID lâu dài) | Có vật thì hiển thị; không tự khai lại |
-| Mục đích từ nguồn | DOT: header; bảng/field nghiệp vụ: `note` nguồn; hàm/view nghiệp vụ: `COMMENT ON`; **vật cũ không có mô tả**: Lớp-3 là nhà tạm thay thế | THIẾU MÔ TẢ; nếu sau có mô tả ở nguồn, báo xung đột, **không để hai nơi cùng sửa** |
-| Hệ, Workflow, Vùng, Giữ/Sửa/Gộp/Tắt/Bỏ, người/ngày/căn cứ | **Lớp-3** sau Owner duyệt; máy/Graph chỉ đề xuất kèm nguồn | CHƯA RÕ / CHƯA QUYẾT, tuyệt đối không suy Bỏ |
-| Trạng thái tồn tại / dấu hiệu dùng | PG hiện tại, thống kê kèm mốc reset; DOT có log lượt chạy đã xác minh | KHÔNG ĐO ĐƯỢC ≠ KHÔNG SỬ DỤNG |
-| Cờ chênh/thiếu | Đọc độc lập Census/Ba Lô, bot/nhãn khi đã đo; không tạo một nguồn nghiệp vụ mới | Cờ ⚠, không đồng nghĩa Vùng 🔴 |
-**Bốn từ về Workflow (chỉ phân loại bằng chứng):** `Có` = có bằng chứng dùng cho Workflow và đang được quản như nguồn của Workflow; `Dùng chung` = có bằng chứng dùng cho Workflow **và hệ khác**; `Không` = xác minh thuộc hệ khác và **không có vai trò Workflow trong phạm vi được kiểm tra** (không suy từ `pg_depend` trống); `Chưa rõ` = thiếu chứng cứ, là **giá trị mặc định**. Không tự gắn `Không` để đưa vào danh sách OFF.
-**Dấu «?»**: với **mọi bảng/collection nghiệp vụ mới do nhóm chủ động tạo**, mô tả bảng **và từng field** phải có ghi chú giải nghĩa trong nguồn định nghĩa/Directus, ưu tiên sinh từ Field/spec đã duyệt; không nhập lại tên/kiểu máy đã biết. Bảng extension/PG nội bộ/đối tượng cũ không bị ép sửa hàng loạt; chỗ thiếu ghi cờ và xử lý khi có việc. `?` là yêu cầu nội dung hướng dẫn; TS1 phải kiểm cách hiển thị thực tế trong Studio, **không cam kết biểu tượng giao diện chưa có**.
-**«Sẽ làm»**: chỉ dùng trong **Sổ của các sổ cho sổ nghiệp vụ** (Công thức, MMOW...), **không phải trạng thái một object PG chưa tồn tại**; tình trạng máy = CÓ/ĐÃ MẤT/CHƯA ĐO và không tạo bản ghi giả.
-**Đổi tên/xóa/tái tạo**: khóa kỹ thuật thay đổi phải giữ được quyết định cũ gắn cờ ⚠ khi có record Lớp-3; VIEW chỉ phản ánh hiện tại, **không hứa lịch sử toàn bộ vật chưa từng được ghi nhận**.
+**2B. Cấu trúc bảng S4 — đề xuất để Owner duyệt từng dòng ở G1·TS3**
+| Cột | Nghĩa («?» hiện trên Directus) | Giá trị | Ai ghi |
+|---|---|---|---|
+| `khoa` (khoá chính) | vật nào — khoá Ba Lô hoặc `dot:<tên>` | phải có trong S2/S3 | 🤖 lúc tạo dòng |
+| `he` | thuộc hệ nào | 23 hệ · `chua_ro` | 🤖 đề xuất → 😊 gật |
+| `workflow` | có dùng cho Workflow không | `co` · `dung_chung` · `khong` · `chua_ro` | 🤖 → 😊 |
+| `vung` | bỏ đi có hỏng gì không | `xanh` · `vang` · `do` · `xam` | 🤖 → 😊 |
+| `quyet_dinh` | giữ hay bỏ | `giu` · `sua` · `gop` · `tat` · `bo` | 😊 |
+| `cong_dung` | 1 câu làm gì — **chỉ khi nguồn chưa có mô tả** (vật cũ) | ≤ 1 câu | 🤖 → 😊 |
+| `can_cu` | dựa vào đâu (nhãn 07/2026, Graph, log…) | bắt buộc khi khác `chua_ro` | 🤖 |
+| `nguoi_duyet` · `ngay_duyet` | ai gật, lúc nào | — | DOT ghi |
+- Giá trị khoá bằng `CHECK` của PG — ghi sai bị từ chối ngay. Bảng + từng cột có «?» (Khai-2).
+- **Không có dòng = Chưa quyết** — không tạo sẵn ~2.400 dòng rỗng, nên **không cần lệnh đối soát mới** cho S4.
+- AI ghi qua DOT có sẵn (đường ghi bản ghi B0b xác định, hoặc `dot-pg-atomic-apply`); ghi qua API Directus thì Directus tự giữ lịch sử sửa (Revisions).
+- **Mô tả một nhà:** vật có mô tả ở nguồn (Khai-1..3) thì sửa ở nguồn; `cong_dung` chỉ cho vật cũ chưa có. «Sẽ làm» không có ở S4 (chỉ ở Sổ của các sổ, 3.02).
+- **Vật mất** (khoá không còn trong S2/S3): dòng S4 giữ nguyên, màn hình gắn cờ ⚠ «mất vật».
 
 **3. Luật đọc số — bắt buộc (sai luật này là kết luận sai)**
 - Đọc-1 Số quét/ghi của PG chỉ là **dấu hiệu kể từ lần reset**. Tên cột trên màn hình: «LẦN QUÉT CUỐI (TỪ THỐNG KÊ PG)» — **không phải** «lần dùng cuối»; số 0 hoặc trống ≠ «không ai dùng». **PG không cho biết "bao lâu không dùng"**; số này **không bao giờ là căn cứ duy nhất để Tắt/Bỏ**.
