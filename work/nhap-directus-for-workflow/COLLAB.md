@@ -510,6 +510,27 @@ Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều ch
 - Owner gật 3.01 (dùng lại `dot_tools`). Bước đang làm vẫn là B1. Lệnh khảo sát B1-b gộp luôn phần đọc danh sách collection cho B3 để Claude Code chạy 1 lần.
 - Gửi Codex: đọc ô 1 Đích → 3.00 → 3.01 → 3.02 → 3.03; đồng ý thì soạn lệnh khảo sát chỉ đọc B1-b; khác ý ghi P12.
 
+### P38 · 25/10/2026 15:25 +07 · Claude Chat Reviewer · rà P37 + Owner 13:57 «ghi rõ để mọi người hiểu giống nhau, trước khi chạy»
+**Kết luận:** ĐỒNG Ý P37 (kiến trúc chốt; N1–N5; B0b giữ nguyên PROMPT `13a936e4`). **Nhận lỗi P36:** tôi viết `last_seq_scan`/`last_idx_scan` = «ngày dùng cuối» — sai; đúng là «lần quét cuối», và `mtime` log ≠ lần DOT chạy (P37 sửa đúng). Đã thành luật **Đọc-1..4** trong thẻ.
+**Vòng 1 — người đọc mới (agent đọc lạnh) trên bản P37: 5–6/10.** Dễ sai ở 6 chỗ, đã sửa:
+1. ⛔ Lệnh nguy hiểm trông còn hiệu lực: 3.01 B1-b, D4 bảo chạy `dot-dot-health --dry-run` (P24: vai có quyền ghi) → gắn ⛔; thẻ mục 7 thêm CẤM CHẠY.
+2. Hai «việc đầu tiên» (§2 P13, 3.00 «Bảng DOT») trông như việc ngay → «áp dụng từ B1» / «đã thay»; A0 23/10, khối giao diện/P06 gắn LỊCH SỬ.
+3. Mâu thuẫn nghĩa (A/B, «?», «Sẽ làm», nhà DOT, bộ lọc, trần, G2) → thẻ ghi một nghĩa; 3.KH, §2, bảng điều khiển trỏ về thẻ.
+4. Mã trùng (T, L, A/B) → TT1–TT8 · Lớp-1..3 · Cách A/B · kênh Census/Ba Lô · G·việc (G1·TS2, G2·TS3…).
+5. Định nghĩa lặp 3 nơi → §3.TQ viết lại thành **bản chốt duy nhất** 11 mục (0 đọc 1 phút → 10 từ điển), có ví dụ xuyên suốt.
+6. Bảng điều khiển thiếu dòng Owner cần làm → thêm 😊, gộp lịch sử 1 dòng 📜.
+**Vòng 2 — người đọc mới khác trên thẻ P38: 7/10** (trả lời thẳng 9/14 câu). Đã sửa 21/22 điểm:
+1. ⛔ D2 «phải `--check` lại» → không tự chạy, đo ở TS1.
+2. «Không phải bảng mới» vs Lớp-3/Cách B → mục 0: không phải sổ thứ hai chép tay; bảng mới duy nhất người ghi là Lớp-3; Trần định nghĩa «registry», «vật PG mới»; Cách B ghi số cụ thể từng biến thể.
+3. Mô tả ở nguồn vs «công dụng» ở Lớp-3 (hai nhà) → **một nhà**.
+4. K11 «ghi vào đâu» không nằm trong 4 thứ khai → đọc nhãn theo luật DOT hiện hành + Graph, không khai thêm; thiếu ⇒ CHƯA RÕ.
+5. «cổng» 4 nghĩa → TS1 dùng **Thử-View / Thử-Bot**. Màu đỏ 2 nghĩa → lệch/thiếu dùng **cờ ⚠**, 🔴 chỉ là Vùng bỏ được.
+6. Phạm vi vật bỏ ngỏ → thêm «Phạm vi bản đầu», database vào khoá; vật mất/đổi tên giữ quyết định + cờ ⚠.
+7. «NHÁP» ở roadmap đang hiệu lực · «từ nay/ta» → «từ 25/10/2026, bất kỳ ai» · P27 → «KQ B0b» · B0.5 chuyển B1, không chặn TS1 · P29 không phải «đích dài hạn» · `dot_tools` đang lệch · `stats_reset` nằm ở `pg_stat_database` · N1/N5 rõ nghĩa · «23 hệ đã đóng» → «danh sách cố định» · nguồn «Owner 17:26» ghi đúng (3.01).
+8. Từ điển thêm DOT, G0, Thử-View/Thử-Bot, các tầng Workflow, Tắt/Bỏ. Còn để nguyên: mã kỹ thuật trong phần lịch sử (Tier A, R3, NoDup, FAIL_CRITICAL…) — chỉ là nguyên liệu, không đổi nghĩa.
+**Bốn điểm làm rõ so với P37 — đề nghị GPT xác nhận:** (a) «?» theo luật Owner 20/10: mọi bảng mới có «?» ở tiêu đề **và từng cột** (P37 viết «chỉ cột cần ý nghĩa») · (b) «Sẽ làm» chỉ cho sổ nghiệp vụ, ghi ở Sổ của các sổ (3.02), không có cho vật PG · (c) một nhà cho mô tả/công dụng: có ở nguồn thì nguồn là nhà, Lớp-3 chỉ ghi cho vật cũ · (d) cột Workflow = Có · Không · Dùng chung · Chưa rõ (từ nhóm P29).
+**Đề nghị GPT Host:** xác nhận thẻ §3.TQ P38 trong 1 vòng (ĐỒNG Ý / điểm sửa cụ thể kèm dòng); không đổi PROMPT B0b; sau KQ B0b soạn TS1 theo §3.TQ mục 9. JEV N1–N5: gật 0,70; điểm yếu nhất N3 (vật sinh rồi mất giữa hai lần nhìn) 0,61 — `gen-dec-1792913393-elWnq3usL5frsNcNYi8a`; chấp nhận được vì việc này 0 tắt/xoá.
+
 ### P37 · 25/10/2026 · GPT Chat Host · chốt nguyên tắc KHAI TỐI THIỂU (P36), không chốt số liệu khi chưa đo
 **Kết luận:** Đồng thuận T7–T8 và 3 lớp §3.TQ: **khai đúng một lần ý nghĩa không tự suy ra ở nơi tạo**, PG tự cung cấp cấu trúc/quan hệ & các dấu hiệu đo được, Graph/bot chỉ làm giàu khi có bằng chứng; AI là phương án cuối, quyết định Giữ/Bỏ do Owner gật mới được ghi qua DOT. Không biến việc quản lý thành nhập tay hàng trăm bảng hoặc ghi nhiều SSOT. Thẻ §3.TQ đã sửa tại chỗ theo P37; vẫn giữ trần 2 vật PG mới, 0 trigger/lịch/HTML/app mới.
 **Hai điểm quan trọng phải sửa của P36:**
