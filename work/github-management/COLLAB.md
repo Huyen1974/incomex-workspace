@@ -4,14 +4,14 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROADMAP trước; Claude phản biện, GPT đồng thuận và Owner duyệt rồi mới RUN. Chưa cho thay hai repo mã/Actions/VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-24 16:19 +07 · GPT Chat · P10
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 09:54 +07 · Codex · P11 STARTED R0+R1
 - 🎯 Mục tiêu: 3–5 agent code song song trên 2 repo, Chief merge an toàn, cuối cùng batch đêm không người trực.
 - 🏁 Xong khi: R0–R4 Actions OFF/main khóa/mã nền/3 PR thật; R5 release SHA và rollback; R6 receipt và bảng sáng.
 - 📍 Tiến độ: ✓ Claude P9 ACCEPT → ✓ GPT P10 READY → ■ Owner giao Codex RUN R0+R1 → □ R0+R1 → □ R2–R6.
 - ✅ Đã xong: GPT Host chấp nhận 4 sửa P9, xác minh đúng last-touch PROMPT ce1d2f06 và ký READY; chưa RUN.
-- ■ Đang làm: — · 0 RUN active.
+- ■ Đang làm: Codex STARTED GHM-R0R1-20261024-01; S1 khảo sát chỉ đọc, chưa thay GitHub; không giữ VPS-GHI.
 - ⬜ Còn lại: Owner gửi RUN cho Codex; Codex kiểm Gate R0, tắt Actions nếu PASS, ghi KQ; Host/Claude nghiệm thu.
-- ➡ Kế tiếp: Owner giao Codex đọc PROMPT.md đúng SHA đã ký; NEXT_TRIGGER=OWNER_RUN_GHM_R0R1.
+- ➡ Kế tiếp: Codex hoàn tất R0 và kiểm S1.4; chỉ khi đạt mới tắt Actions hai repo, kiểm POST và ghi KQ. NEXT_TRIGGER=CODEX_S1_4_GATE.
 - ⛔ Không làm/để sau: chưa chạy R0+R1, chưa tắt Actions, chưa mua Pro, chưa sửa code/main/secret/VPS.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -230,3 +230,9 @@ Ghế: openai-main · Based_on: Claude P9 ACCEPT@ce1d2f06584ac6feba4c2bc727523cc
 - OWNER: gửi Codex RUN_ID + task/prompt đúng nguồn. Codex phải đọc AGENTS → COLLAB → PROMPT và kiểm S0/S1 trước S2, chỉ tắt Actions khi hard-stop đã PASS; ghi STARTED/KQ cùng Bảng, không tự phát R2.
 - NEXT_TRIGGER=OWNER_RUN_GHM_R0R1. Không mutation GitHub/VPS/secret trong lượt ký READY.
 
+
+## P11 · Codex · 25/10/2026 09:54 +07 · STARTED R0+R1
+STARTED@GHM-R0R1-20261024-01 2026-10-25T02:54:00Z · executor=Codex CLI/Desktop
+- Owner trực tiếp giao RUN; đã đọc AGENTS → COLLAB P9/P10 → ROADMAP → KE-HOACH → PROMPT/README. ACCEPT Claude = READY GPT = last-touch PROMPT `ce1d2f06584ac6feba4c2bc727523ccdd850d308`; không STOP/STARTED trùng ở task. S0 quyền GitHub hai repo private: admin=true, Actions hiện enabled=true ở cả hai; Dependabot security updates hiện disabled ở cả hai. SSH read-gate đạt. Chưa thay GitHub/VPS.
+- Bối cảnh VPS-GHI có lượt khác giữ; theo P9/P10/PROMPT, RUN này chỉ đọc VPS và không lấy/đổi cờ. S1 chụp giờ đo, trạng thái đang đổi ghi UNKNOWN; không fetch/pull/reset/sửa worktree. Chỉ sau S1.4 PASS mới đổi đúng hai cài đặt GitHub; không mua Pro, không R2–R6.
+- Chi tiết nhạy cảm chỉ lưu báo cáo hạn chế quyền đã được PROMPT cho phép; repo public chỉ giữ tổng hợp/số đếm. Dự kiến S1 ≤03:40Z, KQ ≤04:25Z; không giữ phiên chờ người, gặp passkey/thiếu quyền hoặc workflow thiết yếu chưa có đường thay thì KQ DỪNG sạch. Áp: SAME_COMMIT.
