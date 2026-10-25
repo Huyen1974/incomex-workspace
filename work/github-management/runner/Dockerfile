@@ -5,9 +5,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 RUN npm install --global pnpm@9.6.0
 RUN groupadd --gid 10001 ci && useradd --uid 10001 --gid ci --create-home runner && mkdir -p /runner-template /runner /ci-lock && chown runner:ci /runner /ci-lock
 RUN curl --fail --location --retry 3 --output /tmp/runner.tar.gz https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && echo "${RUNNER_SHA256}  /tmp/runner.tar.gz" | sha256sum --check --status && tar xzf /tmp/runner.tar.gz -C /runner-template && rm /tmp/runner.tar.gz && chown -R runner:ci /runner-template
-COPY ci-cleanup.sh /usr/local/bin/ci-cleanup
-RUN chmod 755 /usr/local/bin/ci-cleanup
-ENV ACTIONS_RUNNER_HOOK_JOB_COMPLETED=/usr/local/bin/ci-cleanup
+COPY ci-cleanup.sh /usr/local/bin/ci-cleanup.sh
+RUN chmod 755 /usr/local/bin/ci-cleanup.sh
+ENV ACTIONS_RUNNER_HOOK_JOB_COMPLETED=/usr/local/bin/ci-cleanup.sh
 ENV HOME=/runner/home
 USER 10001:10001
 WORKDIR /runner
