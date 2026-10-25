@@ -15,7 +15,7 @@ name="ghm-ci-$repo"
 volume="${name}-data"
 image='incomex-ci-runner:2.338.1-c1a'
 create_runner() {
-  docker create --name "$name" --restart unless-stopped --init --network ghm-ci --user 10001:10001 --cap-drop ALL --security-opt no-new-privileges --pids-limit 256 --cpus 1 --memory 1536m --memory-swap 1536m --log-opt max-size=10m --log-opt max-file=2 --mount "type=volume,src=$volume,dst=/runner" --mount type=volume,src=ghm-ci-build-lock,dst=/ci-lock "$image" >/dev/null
+  docker create --name "$name" --restart unless-stopped --stop-signal SIGINT --stop-timeout 30 --init --network ghm-ci --user 10001:10001 --cap-drop ALL --security-opt no-new-privileges --pids-limit 256 --cpus 1 --memory 1536m --memory-swap 1536m --log-opt max-size=10m --log-opt max-file=2 --mount "type=volume,src=$volume,dst=/runner" --mount type=volume,src=ghm-ci-build-lock,dst=/ci-lock "$image" >/dev/null
   docker start "$name" >/dev/null
 }
 case "$action" in
@@ -32,7 +32,8 @@ case "$action" in
  recreate)
   # Operator must first verify the GitHub runner is idle; preserves registration and private data.
   docker volume inspect "$volume" >/dev/null
-  docker rm -f "$name" >/dev/null
+  docker stop --time 30 "$name" >/dev/null
+  docker rm "$name" >/dev/null
   create_runner
   echo "RECREATED $name" ;;
  start|stop) docker "$action" "$name" >/dev/null; echo "$action $name" ;;

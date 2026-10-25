@@ -59,6 +59,13 @@ def main():
    p=subprocess.run(['docker','exec',name,'python3','-c',SOCKET_CHECK],text=True,capture_output=True,timeout=15)
    connection=json.loads(p.stdout) if p.returncode==0 else {'listener_or_connection':'unavailable'}
    if p.returncode: errors.append('listener-connection')
+   logs=subprocess.run(['docker','logs','--tail','300',name],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,timeout=15)
+   lifecycle=None
+   for line in logs.stdout.splitlines():
+    if any(k in line for k in ('Listening for Jobs','Running job:','completed with result')): lifecycle=True
+    if any(k in line for k in ('Runner connect error:','Runner listener exited','Session conflict')): lifecycle=False
+   if lifecycle is not True: errors.append('runner-session-not-ready')
+   connection['session_ready']=lifecycle is True
    output.append({'repo':repo,'ok':not errors,'errors':errors,'connection':connection})
   except Exception as e: output.append({'repo':repo,'ok':False,'errors':[type(e).__name__]})
  print(json.dumps({'ok':all(x['ok'] for x in output),'runners':output,'scope':'listener TLS connectivity + runtime limits; GitHub online API recorded separately at acceptance'},separators=(',',':')))
