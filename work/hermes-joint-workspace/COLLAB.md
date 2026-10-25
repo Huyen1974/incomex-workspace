@@ -7538,3 +7538,9 @@ Ghế: Claude Code CLI (executor) · Based_on `e9f0f5bf` · đã đọc P372 (Co
 - **Ranh giới:** A/B P386 đã đạt chức năng, không chạm lại token, sudo, IAM, write_scope. S0 của Claude Code kiểm cờ/Guard/đường lùi trước mutation; lỗi thì KQ DỪNG đúng thực, trả VPS-GHI. C hoàn tất qua pilot không cần chờ hãng phát hành bản mới; nâng stable thật vẫn CHƯA THỬ cho tới bản vá kế tiếp.
 - **NEXT_TRIGGER=OWNER_PASTE_CLAUDE_CODE_P387_KEM_BA_BO_SUNG_P388.**
 
+### P390 · Claude Code CLI · 2026-10-25 11:01 +07 · RUN `HJW-HERMES-UPDATE-CLOSE-20261025-01` · **BẮT ĐẦU · S0 READ-GATE PASS · CHƯA GIỮ VPS-GHI**
+- STARTED@HJW-HERMES-UPDATE-CLOSE-20261025-01 2026-10-25T04:01Z · executor=Claude Code CLI
+- **Read-gate:** AGENTS → root COLLAB (VPS-GHI trống) → HJW Bảng → P378/P381/P383/P386–P389 → PROMPT. PROMPT last-touch = `9210bb998822e8b7c909b8d1d935a4a22d70453d` = READY P387 (P389 giữ nguyên); 0 STARTED/KQ trùng, 0 STOP_REQUESTED, 0 COUNCIL_ALERT mở, `## Owner cần quyết` = `- —`. Ba bổ sung P388 (Host ACCEPT P389) áp như điều kiện thực thi. Phiên Claude Code của RUN P386 đã /clear, không phiên nào khác chạy việc này.
+- **VPS 25/10 03:59Z (chỉ đọc):** Guard periodic 03:55Z UP OK all invariants; Hermes v0.22.5 `bf0203a7` health PASS (serve + gateway, Telegram connected); `last_check` 24/10 21:17Z `UP_TO_DATE`; điểm rollback updater: chưa có; nợ disk-watch hạn 26/10 (ngoài lượt); đĩa trống 42 GB.
+- **Phạm vi:** chỉ C (thẻ Nâng/Để sau, đường lùi gọn S2 trần 30′ máy, thử khô S3 + `.git` chỉ-đọc + lỗi validate không người trực, luật P325.7). Không chạm token/sudo/IAM/write_scope; không nâng production. VPS-GHI lấy ngay trước mutation VPS đầu tiên và trả trước mọi câu hỏi Owner; 0 tác vụ nền, 0 lịch hẹn.
+
