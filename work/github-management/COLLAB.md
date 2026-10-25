@@ -9,7 +9,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - 🏁 Xong C1A khi: 2/2 repo có CI run thật trên VPS, log/URL/SHA/test GREEN, runner giới hạn 2 CPU/3GB, Guard/Điều 30/31/Kuma đạt và ứng dụng cũ không đổi.
 - 📍 Tiến độ: ✓ R0/R1 → ✓ Codex P27 KQ DỪNG nguồn Web → ✓ P28 recovery → ✓ Claude P30 ACCEPT@2e33e0a7 → ✓ GPT P31 READY@2e33e0a7 → ■ Owner giao Codex RUN mới → □ C1A 2/2 CI → □ C1B → C2 → C3.
 - ✅ Đã xong: Host đọc toàn bộ PROMPT P30, xác minh last-touch SHA và chữ ký ACCEPT trùng khớp; READY đã ghi cùng SHA, PROMPT không sửa. Theo P30, bản Directus hiện có 0 session và không yêu cầu dùng/thử lại token cũ.
-- ■ Đang làm: Codex STARTED GHM-C1A-RESUME-20261025-02 · 1 RUN active · VPS-GHI đã giữ; PRE → Agent Data CI → Web CI → bảo vệ/POST.
+- ■ Đang làm: Codex GHM-C1A-RESUME-20261025-02 · 1 RUN active · VPS-GHI đã giữ; PRE PASS, Agent Data CI GREEN 6/6; đang cài/chạy Web rồi bảo vệ/POST.
 - ⬜ Còn lại: Cài runner, chạy CI thật Agent Data trước/Web sau, Config Guard/Kuma/Đ30–31 và POST; lưu URL/SHA/log 2/2 GREEN hoặc blocker đúng repo.
 - ➡ Kế tiếp: Codex thực thi S1 Agent Data sau PRE mới; PROMPT last-touch 2e33e0a7c932d91d594c3ad8732550e64a2dfd41. NEXT_TRIGGER=CODEX_S1_AD_AFTER_PRE.
 - ⛔ Không giao Claude chạy thay, không viết lại PROMPT, không dùng token, không sửa main/production/bật deploy cũ/mua Pro, không tự mở C1B/C2.
@@ -528,6 +528,12 @@ Ghế: openai-main · Based_on: Codex P27; GPT P28/P29; Claude P30, file PROMPT 
 - S0: ngân sách Actions $0 + Stop ON; 15 workflow disabled và 3 kiểm thiết yếu không đổi; 2 repo PRIVATE/admin; runner hiện 0. Daily 20261025 khớp VPS HEAD AD 75ed0e80 / Web 0979ffa3; main 0a26280b / 07caed3b. Giữ runtime Web UNKNOWN, không đổi origin/cây phục vụ. Cổng Web dùng kết luận P30, không thử token. Bộ che dữ liệu giả PASS 8/8.
 - SSH/root hợp lệ, Docker systemd/cgroup v2, available RAM ~4.7GiB, PSI memory=0; swap gần đầy nên mỗi runner 1CPU/1.5GiB, không cấp thêm swap CI, chạy build tuần tự. Lấy VPS-GHI bằng CAS, hạn 2026-10-25T15:49Z; PRE mới trước mọi cài đặt. Không restart ứng dụng.
 - Thực hiện Agent Data runner + CI GREEN trước, lưu milestone rồi mới Web. Hai rollback riêng, giữ repo đã đạt. Đ30/31/Config Guard/Kuma và POST trong cùng RUN. Chưa tuyên PASS runner/CI; không C1B/C2. NEXT_TRIGGER=CODEX_S1_AD_AFTER_PRE.
+
+## P33 — Codex milestone Agent Data PASS · 2026-10-25 21:05 +07
+- Cùng RUN GHM-C1A-RESUME-20261025-02, giữ VPS-GHI. Agent Data CI GREEN thật: https://github.com/Huyen1974/agent-data-test/actions/runs/40199854696 (attempt 3), SHA eeb357de688e161c1fe575fdff626351a7b891a6, runner ID 21; 6 unit tests có sẵn PASS, cài dependencies/checkout/cleanup đều success. Không ghi main.
+- Lần đầu 6 test đã PASS nhưng hook thiếu đuôi .sh khiến job đỏ; đã sửa image. Lượt thứ hai hủy vì queue giữ phiên cũ sau recreate; công cụ đã thêm dừng mềm. Lượt 3 GREEN hoàn chỉnh. Config Guard từng báo owner của 2 tệp CI mới mang UID Mac; đã sửa đúng root:root, qua apply-v0 và xác minh CLEAN trước rerun. Không hạ kiểm định.
+- Giữ runner/kết quả Agent Data; chuyển S1/S2 Web theo nguồn SAFE P30. Đã đăng ký 5 tệp CI vào Config Guard, sổ mã và Master DOT có công cụ cài/gỡ riêng repo; hoàn thiện invariant/Kuma và POST sau Web. Đây là milestone 1/2, chưa KQ XONG. NEXT_TRIGGER=CODEX_WEB_CI.
+
 
 
 
