@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROADMAP trước; Claude phản biện, GPT đồng thuận và Owner duyệt rồi mới RUN. Chưa cho thay hai repo mã/Actions/VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 10:06 +07 · Codex · P12 KQ DỪNG S1.4
-- 🎯 Mục tiêu: 3–5 agent code song song trên 2 repo, Chief merge an toàn, cuối cùng batch đêm không người trực.
-- 🏁 Xong khi: R0–R4 Actions OFF/main khóa/mã nền/3 PR thật; R5 release SHA và rollback; R6 receipt và bảng sáng.
-- 📍 Tiến độ: ✓ Claude P9 ACCEPT → ✓ GPT P10 READY → ■ Owner giao Codex RUN R0+R1 → □ R0+R1 → □ R2–R6.
-- ✅ Đã xong: GPT Host chấp nhận 4 sửa P9, xác minh đúng last-touch PROMPT ce1d2f06 và ký READY; chưa RUN.
-- ■ Đang làm: Không còn RUN đang thực thi ở task; Codex P12 KQ DỪNG S1.4, R0 đã đo có UNKNOWN, R1 chưa thực hiện; Actions giữ ON hai repo, không giữ VPS-GHI.
-- ⬜ Còn lại: Host/Claude nghiệm thu R0 và blocker S1.4; cần chứng minh đường thay vận hành trước khi Owner quyết định tiếp R1.
-- ➡ Kế tiếp: GPT Host/Claude đọc P12 và báo cáo riêng, xử lý khoảng trống audit/canh; chờ quyết định Owner, không tự tiếp R1/R2. NEXT_TRIGGER=GPT_HOST_CLAUDE_REVIEW_S1_4_REPLACEMENT_GAP.
-- ⛔ Không làm/để sau: không tắt Actions khi S1.4 chưa đạt; không tự tạo đường thay, mua Pro, sửa code/main/secret/VPS hoặc làm R2–R6.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 10:17 +07 · GPT Chat · P13
+- 🎯 Mục tiêu: 3–5 agent viết mã song song trên 2 repo; Chief review/merge; cuối cùng nhiều việc chạy qua đêm không cần Owner trực.
+- 🏁 Xong khi: mã repo và VPS thống nhất, quyền main an toàn, 3 PR thật và CI/CD tin cậy, kiểm vận hành không phụ thuộc phút tính toán GitHub-hosted.
+- 📍 Tiến độ: ✓ R0 đo/P12 KQ DỪNG → ■ Host P13 chốt hướng kiểm self-hosted runner (chờ Claude/Owner) → □ R1 bảo toàn 3 kiểm tra, giảm hosted minutes → □ R2–R6.
+- ✅ Đã xong: nghiệm thu P12 R0 có giới hạn; chấp nhận S1.4 DỪNG là đúng; xác nhận GitHub self-hosted runner có sẵn và theo docs hiện không tính hosted minutes.
+- ■ Đang làm: — · 0 RUN active. Actions ở hai repo vẫn ON; R1 chưa triển khai.
+- ⬜ Còn lại: Claude rà đúng thay đổi mục tiêu Actions ON/self-hosted vs OFF hoàn toàn; Codex khảo sát khả năng máy chạy biệt lập + 3 nhóm audit, Owner chốt R1; triển khai sau RUN hợp lệ.
+- ➡ Kế tiếp: Claude review P13 và PROMPT mới, Host READY nếu không còn blocker; Owner cấp RUN đọc/đánh giá phương án. NEXT_TRIGGER=CLAUDE_REVIEW_R1_SELFHOST_DRAFT.
+- ⛔ Không làm/để sau: chưa cài runner lên VPS, chưa đổi workflow/Actions, chưa tắt 3 kiểm tra, chưa mua Pro, chưa ghi main hay sửa production, không dùng lại RUN R0R1 đã KQ DỪNG.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -257,3 +257,16 @@ KQ@GHM-R0R1-20261024-01 DỪNG · 2026-10-25T03:06:00Z · executor=Codex CLI/Des
 - **Không có thay đổi vận hành:** GitHub mutation=0; VPS code/config/runtime/service mutation=0; chỉ ghi tệp bằng chứng vào thư mục riêng đã duyệt. Không hủy/trigger run, không sửa YAML/branch/webhook/secret/quyền, không mua Pro/budget; billing CHƯA ĐO, không báo usage=0. Actions vẫn ON cả hai, chưa đạt nghiệm thu R1. Không R2–R6.
 - **Bằng chứng hạn chế quyền:** `/opt/incomex/work/github-management/GHM-R0R1-20261024-01/R0-R1-report.json`, SHA256 `d60845ec8603c3bc5aaaae2a102112b893f06268ecca8878f7f7a83b47fef310`; báo cáo chính dẫn 4 tệp điều tra và hash từng tệp. Kèm `github-post-readonly.json`, SHA256 `47281ddbe5761542e69e1e7b5a0d7b838de9037a070f0c85ea55287011782877`. Đã đọc lại trên VPS: root sở hữu, tệp 0600/thư mục 0700; chi tiết danh tính/quyền/đường ghi/tham chiếu secret không đưa lên repo public, không lấy giá trị secret.
 - **Kết thúc sạch:** các nhánh khảo sát đã xong; không giữ terminal/tiến trình nền chờ người, không lấy/đổi cờ VPS-GHI, không đụng RUN khác. GPT Host và Claude nghiệm thu R0 cùng blocker S1.4; Owner quyết định xử lý khoảng trống chức năng trước bước R1. NEXT_TRIGGER=GPT_HOST_CLAUDE_REVIEW_S1_4_REPLACEMENT_GAP. Không tự cấp RUN tiếp. Áp: SAME_COMMIT.
+
+## P13 · GPT Host 25/10/2026 — NGHIỆM THU P12 VÀ ĐỔI HƯỚNG R1 THEO ĐỀ NGHỊ OWNER
+Ghế: openai-main · Based_on: P12 Codex KQ DỪNG S1.4, chỉ đạo mới Owner 25/10 về máy GitHub self-hosted runner; tài liệu GitHub Actions chính thức 25/10. Trạng thái: DESIGN_REVIEW, KHÔNG READY/RUN.
+- **Nghiệm thu:** R0 đã đo được các phần quan trọng với UNKNOWN giữ nguyên. R1 chưa xong, Actions vẫn ON trên cả agent-data-test/web-test. Codex dừng S1.4 đúng vì có 3 nhóm kiểm tra vận hành chưa được chứng minh sẽ tiếp tục chạy đúng nếu tắt; không được báo “3 cái đang có = đã thay thế”. Theo P12, 33 workflow records gồm 28 YAML hiện hành + 1 dynamic + 4 cũ; 19 active/14 disabled; 3 MIGRATE_BLOCKED, 30 BỎ. Chi tiết nhạy cảm chỉ có trên VPS trong báo cáo root-only, không sao chép vào COLLAB public.
+- **Sửa hiểu về nền tảng:** GitHub cung cấp chính thức phần mềm opensource `actions/runner` để chạy self-hosted trên máy tự quản lý. Nếu repository **Disable GitHub Actions hoàn toàn** thì không workflow nào chạy, kể cả self-hosted runner. Muốn dùng runner này phải giữ Actions **ON**, cấu hình riêng các workflow được phép `runs-on: [self-hosted, …]`. Tính đến 25/10/2026 GitHub Docs ghi self-hosted runner không tính phí runner minutes; tài nguyên/cập nhật máy riêng do Owner gánh, GitHub vẫn chịu điều phối và một số log/artifact/storage có giới hạn/phí riêng. Các thay đổi giá có thể về sau.
+- **R1 có hai cách hợp lệ:** (A) Actions ON nhưng chỉ cho những workflow audit cần thiết chạy trên official self-hosted runner, vô hiệu các workflow dư, kiểm không còn job dùng GitHub-hosted; (B) Actions OFF hoàn toàn, chuyển 3 kiểm tra cần giữ thành script + timer/scheduler có sẵn trên máy riêng và kiểm hoạt động tương đương. **Host ưu tiên A nếu máy kiểm cách ly phù hợp đã có**, vì ít sửa workflow audit hiện hữu; B chỉ nếu Owner kiên quyết cần Actions OFF hoặc A không đạt.
+- **Cổng hạ tầng:** KHÔNG cài runner trực tiếp vào host VPS1 production dưới root hoặc chung Docker socket/secret. VPS1 swap gần hết; runner thực thi mã từ GitHub nên rủi ro không chỉ tiêu CPU. Ưu tiên VPS2 độc lập nếu thực sự có và đủ điều kiện; nếu không, máy riêng 24/7 đã xác nhận. Repo thuộc tài khoản cá nhân ⇒ runner cấp repo chỉ phục vụ một repo; có thể cần hai tiến trình/đăng ký trên một máy riêng, không mặc nhiên một runner chạy cả hai repo.
+- **Giữ tiêu chí tiền:** mục tiêu kiểm chứng là **0 phút GitHub-HOSTED sau chuyển**, chứ không đồng nghĩa “GitHub Actions disabled” hay “0 mọi chi phí”. Muốn đạt phải kiểm tất cả workflow *active* với `runs-on` và trigger, không còn bất kỳ job hosted ngoài ý muốn; billing/usage kiểm thực tế, budget $0 + Stop usage nếu Owner mua Pro là lưới phụ.
+- **Giữ đúng kiểm tra:** thay máy chạy không làm audit sai thành đúng. P12 ghi phương án VPS hiện bị `connection refused`; khi chuyển phải test đúng tài liệu/vector/semantic audit trên runner mới và so kết quả với workflow hiện dùng. Không chấp nhận health Kuma hay “runner online” làm bằng chứng tương đương kiểm chức năng.
+- **Giữ điều hành:** Codex là executor chính, Claude chỉ reviewer/Chief và duy nhất ghi main khi cần merge workflow YAML; không cấp Codex chìa main. Chưa có quyền sửa code YAML hay cài runner trong RUN nghiên cứu. R1 được chốt lại sau một lượt khảo sát ngắn, không khảo sát lặp 33 workflow P12.
+- **Đề nghị Claude chỉ một lượt:** xác nhận 2 tính chất GH (Actions ON cho selfhost, selfhost không tiêu runner hosted minutes), 3 nhóm kiểm thực cần bảo toàn, máy mục tiêu tách biệt, cổng quyền trước thay YAML; ký ACCEPT hoặc nêu đúng blocker. Nếu khác biệt thực chất, Owner quyết đúng một câu: **chấp thuận Actions vẫn ON để điều phối, nhưng không dùng GitHub-hosted compute, hay đòi Actions OFF toàn bộ?**
+- **Đã chuẩn bị PROMPT mới GHM-R1-SELFHOST-FIT-20261025-01 (DRAFT):** Codex chỉ kiểm S0–S3, đọc lại báo cáo P12 và môi trường runner phù hợp; chưa cài/sửa gì. PROMPT R0+R1 đã có KQ DỪNG, không phát RUN lại dưới ID cũ. NEXT_TRIGGER=CLAUDE_REVIEW_R1_SELFHOST_DRAFT.
+

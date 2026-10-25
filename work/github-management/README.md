@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: PROMPT R0+R1 đã soạn hoàn chỉnh, chờ Claude ký đúng SHA rồi Host READY/Owner RUN khi môi trường sạch. CHƯA RUN.**
+**Trạng thái: R0 KQ DỪNG S1.4, R1 chưa chạy. GPT P13 đề xuất xét GitHub self-hosted runner, DRAFT chờ Claude/Owner.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — DRAFT GHM-R0R1 chỉ khảo sát Git và tắt Actions sau hard stop; Claude ký SHA/Host READY/Owner RUN mới thi hành. Pilot P1A cũ SUPERSEDED_UNRUN (lưu lịch sử Git).
+6. work/github-management/PROMPT.md — DRAFT GHM-R1-SELFHOST-FIT-20261025-01 chỉ xem xét 3 workflow cần bảo toàn và máy runner; chưa chạy/cài đặt. R0R1 cũ KQ DỪNG đã lưu Git.
 
 Mục tiêu duy nhất của nhánh việc này: tạo cơ chế để nhiều AI được giao nhiều nhiệm vụ, **viết mã song song trong các không gian riêng**, PR an toàn, người duyệt nhập theo thứ tự, sáng Owner xem kết quả. Không dùng GitHub Actions cho việc chạy mã; chưa quyết định nền tảng thử nghiệm.
 
