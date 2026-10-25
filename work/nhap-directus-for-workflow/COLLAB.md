@@ -11,9 +11,9 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 23/10/2026: lập việc + ô 1 (14
 **Owner 25/10 13:57 — GHI RÕ TRƯỚC KHI CHẠY (có hiệu lực):** nguyên tắc, mục tiêu, cấu trúc phải ghi để mọi AI và mọi người đọc lại về sau **hiểu giống nhau**; đây là kiến trúc dài hạn. ⇒ **§3.TQ là bản chốt duy nhất (P38)**; mọi đoạn khác nếu khác thẻ thì theo thẻ.
 Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT đang làm host». Codex: thành viên (Host vòng P06–P15). Claude Chat: rà. Các lệnh RUN/production theo quyền Host và Owner.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 15:20 · Claude Reviewer · P38 · KIẾN TRÚC CHỐT Ở §3.TQ / B0b READY
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 · GPT Host · P39 · ĐÃ CÓ SƠ ĐỒ & ROADMAP NGHIỆM THU / B0b READY
 - 🎯 Mục tiêu: **«PG Tự quản» (PG quản PG)** — mỗi vật trong PG một dòng có địa chỉ: làm gì · thuộc hệ nào · dùng cho Workflow không · giữ hay bỏ. **PG tự khai «có gì», tự cập nhật**; người/AI chỉ ghi phần quyết định, mỗi thông tin một nơi. **Chỉ khai thác tính năng có sẵn của PG/Directus, tránh phức tạp** (Owner 25/10). Xem/lọc trên Directus Studio. Xong mới tới Công thức → Workflow; **không HTML nghiệp vụ mới**.
-- 🏁 Xong khi: Owner mở **một màn hình Directus** (§3.TQ) thấy **mọi vật PG theo loại + mọi DOT đã vào `dot_tools`** (DOT chưa vào thì bot báo lệch), mỗi vật một dòng (khoá §3.TQ mục 2); **máy tự điền phần máy biết**, người chỉ quyết công dụng/quyết định ở **đúng một bảng Lớp-3**. Census/Ba Lô so độc lập; lệch có tên + lý do hoặc CHƯA ĐỐI SOÁT, **không ép số cho khớp**. Không ai nhập lại; trong Trần §3.TQ mục 7; **0 tắt/xoá**.
+- 🏁 Xong khi: **ĐÚNG SƠ ĐỒ §3.TQ 2A/2B + NGHIỆM THU §3.KH:** Owner mở **một Directus Studio** thấy mỗi vật PG/ DOT đã khai đúng một dòng có nguồn; phần máy không phải khai, phần người chỉ ghi Lớp-3 sau duyệt qua DOT; đối chiếu Census/Ba Lô có tên lệch/nguồn; TS5 chứng minh tự hiện hoặc đối soát thực và cảnh báo có người nhận; giữ trần 2 vật PG mới, 0 trigger/lịch/HTML/app; **không xóa/OFF trong task**.
 - ✅ Đã làm: B0 MỘT PHẦN (P24); B0b ACCEPT/READY P26/P28; P29 kiểm PG Census 393 bảng và Ba Lô 385 tên (lệch 8 CHƯA ĐỐI SOÁT). P30 Claude đề xuất Sổ PG Tự quản và dữ liệu 29/07–01/08; **P31 GPT đồng ý hướng PG Tự quản nhưng chỉnh ba cơ chế**: chưa thay/xóa registry sống, không chép máy thành SSOT mới, không event trigger mặc định. P32–P37 chốt nguyên tắc; **P38 viết lại §3.TQ thành thẻ chốt duy nhất**, dọn chỗ mâu thuẫn, gắn ⛔ lệnh `--dry-run` cũ. Chưa tạo/sửa PG/Directus.
 - 📍 Tiến độ: [✅ G0] → [🟡 B0 MỘT PHẦN — phần còn lại vào TS1/B1] → [■ B0b READY] → [□ TS1 ĐO TRƯỚC KHI DỰNG] → [□ TS2 CHỌN CÁCH A/B · G1] → [□ TS3 DỰNG MÀN HÌNH + ĐỐI CHIẾU · G2] → [□ TS4 PHÂN LOẠI + BẢNG TỔNG] → [□ TS5 TỰ CẬP NHẬT · G2] → [□ B1 CÔNG THỨC] → [□ B2–B5 WORKFLOW].
 - ■ Đang làm: **B0b giữ nguyên PROMPT `13a936e4`, ACCEPT + READY, chưa STARTED/KQ, 0 RUN active** (đường Directus an toàn cho Thử-View của TS1 và cho TS3). P30 đã thay B0c–B0f bằng TS1–TS5; GPT Host xác nhận rồi soạn PROMPT TS1 chỉ đọc **sau khi B0b có KQ** (thay PROMPT sớm là mất READY B0b).
@@ -21,7 +21,7 @@ Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT 
 - ⬜ Còn mở: **B0b READY/chưa RUN**; TS1 đo thật Directus VIEW, DOT/health log/đếm/alert/Kuma, PG version & scan timestamps; đọc Census/Ba Lô và nguồn 29/07–01/08; TS2 (G1·TS2) mới chốt Cách A/B và bảng Lớp-3; TS3–TS5 dùng PG/Graph/bot tự điền tối đa, Owner không nhập lại; B1 Công thức sau khi nền phù hợp, OFF/Xóa ngoài task.
 - ✅ P17 · 24/10 · Owner bổ sung: chỉ sửa trong Directus không sửa HTML; làm MOW 001 xong làm tiếp 002–035, thêm MMOW 008/009; B0 rà các table PG hiện hữu để chọn bảng sẽ dùng; B4 đưa lên production **từng sổ/nhóm đã ổn định** chứ không chờ cả vùng NHÁP. Đã ghi vào roadmap; **chưa chạy kiểm kê PG/Directus, chưa tạo/sửa bảng**.
 - 📜 Lịch sử P16–P38 (chi tiết ở các khối P bên dưới): P16 collection-first · P20 bỏ chữ «thử/test», Host = GPT · P22–P23 B0 ACCEPT/READY · P26–P28 B0b ACCEPT/READY `13a936e4` · P30–P31 hướng PG Tự quản, giữ 4 sổ cũ · P32–P35 PG-native, Cách A/B, Trần · P36–P37 khai tối thiểu, «lần quét cuối» ≠ «lần dùng cuối», `mtime` ≠ lần chạy · P38 thẻ chốt duy nhất §3.TQ.
-- ➡ Kế tiếp: **B0b giữ nguyên PROMPT SHA `13a936e4`, ACCEPT/READY**. Khi có KQ B0b, GPT Host soạn TS1 **chỉ đọc** theo §3.TQ mục 9 (Thử-View · Thử-Bot · đo thêm: phiên bản PG + cột quét, log lượt chạy DOT, Kuma, nguồn đếm Census/Ba Lô). Claude rà 1 vòng, Owner chuyển DROOT38. Sau TS1 chốt Cách A/B ở G1·TS2; không tự mở G1 hay chạy TS1 dưới READY B0b. NEXT_TRIGGER=B0B_RESULT_FOR_TS1.
+- ➡ Kế tiếp: Owner **xem P39/§3.TQ/§3.KH để thống nhất kiến trúc**, không cần đọc lịch sử. B0b giữ nguyên PROMPT SHA `13a936e4`/ACCEPT/READY; nếu Owner đã cho chạy nhưng KQ chưa có thì **không dán lại RUN**. Sau KQ B0b Host mới soạn TS1 chỉ đọc theo §3.TQ mục 9 + bảng nghiệm thu, Reviewer rà; TS1 không tạo view/Lớp-3. G1·TS2 sau bằng chứng TS1, TS3 chỉ chạy sau G2 đúng việc. NEXT_TRIGGER=B0B_RESULT_FOR_TS1.
 - ⛔ Không tự ghi Directus/PG, mở quyền, đổi tên/xóa collection trong lượt chỉnh tài liệu này.
 
 📜 **LỊCH SỬ 23/10 — từ đây tới hết khối «Chỉ đạo P06»** (giao diện trang chủ, HTML, vùng NHÁP, diễn tập): không làm theo. Việc hiện hành: BẢNG ĐIỀU KHIỂN + §3.TQ.
@@ -125,7 +125,7 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 - Cần đạt: (1) thước đo chính = thời gian cho 1 việc; 1 tiếng/việc là không chấp nhận · (2) làm trong Directus để nhẹ và dùng lại về sau, không làm 2 lần · (3) không làm lại đống cũ: chép/move tệp HTML không tính là tiến độ · (4) bảng đầu tiên = Bảng DOT ⚠ **đã thay** bằng PG Tự quản (Owner 24/10 16:55; Bảng DOT nay là một khung nhìn, §3.TQ mục 2); nguyên tắc còn giữ: cái gì Directus đã có thì dùng luôn, thiếu DOT thì viết.
 - Hết hiệu lực từ 3.00: vẽ/chép/move dữ liệu HTML (P04–P07; tệp đã có giữ nguyên, không xoá) · lộ trình L0–L6 (3.1) · P09 mục 3 (dựng 4 collection 1 lượt) lùi sau Bảng DOT · **từ 24/10 16:55:** «bảng đầu tiên = Bảng DOT» · **P38:** lệnh khảo sát 3.01 B1-b (KHÔNG CHẠY).
 
-#### 3.TQ THẺ KIẾN TRÚC «PG TỰ QUẢN» — BẢN CHỐT DUY NHẤT (P38 · đọc thẻ này là đủ; mọi khối P30–P38 và đoạn cũ khác chỉ là lịch sử — nếu khác thẻ này thì theo thẻ này)
+#### 3.TQ THẺ KIẾN TRÚC «PG TỰ QUẢN» — NGUỒN DUY NHẤT (P38–P39: ĐỊNH NGHĨA + SƠ ĐỒ + HỢP ĐỒNG, chờ TS1 kiểm chứng)
 **0. Đọc trong 1 phút**
 - **Là gì:** «PG Tự quản» (Owner gọi «PG quản PG», «master of master», 24/10) là **một màn hình Directus**: mỗi vật trong PG và mỗi DOT đã vào `dot_tools` là **một dòng**, trả lời **là gì · thuộc hệ nào · có dùng cho Workflow không · giữ hay bỏ**. «Sổ PG Tự quản» là tên gọi của chính màn hình này — **không phải sổ đăng ký thứ hai để chép tay**: phần «có gì» do máy lấy từ PG (Cách A đọc thẳng; Cách B máy chép vào bảng đệm, không ai sửa tay). Bảng mới duy nhất người quyết ghi vào là Lớp-3.
 - **Phạm vi bản đầu:** database chính của Incomex (TS1 xác nhận còn database nào khác) · mọi schema trừ `pg_catalog`, `information_schema`, `pg_toast` · loại = bảng · view · view vật chất · index · sequence · hàm/thủ tục · trigger · extension (kể cả bảng `directus_*`, vì cũng là bảng PG) + collection/flow Directus + DOT. Cột, ràng buộc không làm dòng (đếm theo bảng). Danh sách loại chốt ở G1·TS2 sau khi TS1 đếm.
@@ -145,16 +145,55 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 - Lớp-1 **PG tự biết** (các loại ở «Phạm vi»): PG tự ghi, không ai khai; màn hình đọc thẳng sổ nội bộ PG (Cách A) hoặc máy chép vào bảng đệm (Cách B).
 - Lớp-2 **Khai 1 lần + bot đếm** (vật ngoài PG; bản đầu chỉ DOT). Nhà của DOT = **tệp DOT trên đĩa** (tên + mô tả đầu tệp; 3.01 — Owner gật 23/10 17:26); tác giả DOT viết mô tả (Khai-1). `dot_tools` (trong PG) và `00-SO-DOT.tsv` là **bản máy đọc lại**, không sửa tay — hiện `dot_tools` đang lệch đĩa (3.01 D3), chưa tin được cho tới khi TS1 đo. Công cụ có sẵn: `dot-dot-register` (đưa DOT vào `dot_tools`), `dot-dot-health` (bot đếm).
 - Lớp-3 **Quyết định người**: đúng **1 bảng mới** (Cách B: là các cột người trong chính bảng đệm) — hệ · Workflow · vùng · quyết định · ai/ngày/căn cứ, và **công dụng chỉ cho vật chưa có mô tả ở nguồn** (vật cũ, K16). Chỉ ghi khi Owner quyết; AI ghi qua DOT (N5).
-- **Mô tả/công dụng — một nhà:** vật có mô tả ở nguồn (Khai-1..3) thì nhà là nguồn, muốn sửa thì sửa ở nguồn, Lớp-3 không ghi lại; vật chưa có (vật cũ) thì nhà là Lớp-3. Màn hình hiện một cột «Công dụng»: có ở nguồn thì lấy nguồn, không thì lấy Lớp-3.
+- **Mô tả/công dụng — một nhà:** vật có mô tả **tại nguồn** (Khai-1..3) thì nguồn ấy là nhà; Lớp-3 **không chép**. Vật cũ chưa có mô tả nguồn mới dùng Lớp-3 làm nhà dự phòng; nếu về sau nguồn bổ sung mô tả, **báo xung đột và xác nhận một nhà**, không lặng lẽ cho hai nơi sửa. Màn hình chỉ hiện một cột «Công dụng» với nhãn nguồn/độ tin cậy; **quyết định quản lý vẫn luôn ở Lớp-3**, không nhập thành mô tả mã nguồn.
 - **Màn hình** = Lớp-1 + Lớp-2 + Lớp-3 nối theo khoá. Chọn sau TS1:
   - **Cách A** (ưu tiên): 1 view đọc thẳng PG + bảng Lớp-3 ⇒ 2 vật PG mới; luôn đúng hiện tại, không cần đồng bộ. Chỉ chọn khi TS1 **Thử-View** đạt. AI ghi Lớp-3 bằng DOT ghi bản ghi có sẵn (B0b đang tìm); không có ⇒ trình Owner, vì thêm DOT là vượt Trần của Cách A.
   - **Cách B** (dự phòng): 1 bảng đệm gồm cột máy + cột Lớp-3, làm mới bằng 1 lệnh đối soát — hoặc hàm PG (= 2 vật PG mới, 0 DOT mới), hoặc DOT (= 1 vật PG mới + 1 DOT mới); chỉ tươi tới lần đối soát gần nhất.
 - **Khoá dòng:** database + loại + schema + tên (hàm thêm danh sách tham số); DOT: tên tệp. Cột bảng (10.099) không làm dòng riêng, chỉ đếm theo bảng. Vật bị xoá/đổi tên: dòng Lớp-3 **giữ nguyên**, màn hình gắn cờ ⚠ «mất vật» — không tự xoá quyết định (cả hai cách).
 - **Giá trị cố định:** Quyết định = Giữ · Sửa · Gộp · Tắt · Bỏ · Chưa quyết. Vùng = 🟢 đang dùng · 🟡 nuôi việc khác (bỏ là hỏng thứ khác) · 🔴 bỏ được · ⚪ chưa rõ (Bản đồ 29/07 §5). Workflow = Có · Không · Dùng chung · Chưa rõ. Hệ = danh sách cố định 23 hệ (Bản đồ §13.9.0, §13.10.0). **Cờ ⚠** = lệch / thiếu mô tả / mất vật (khác Vùng 🔴). Tắt = ngừng chạy, giữ để bật lại; Bỏ = xoá hẳn (làm ở việc dọn).
+- **Workflow 4 giá trị không được hiểu rộng:** `Có` = đã có bằng chứng tham gia Workflow (chưa xác nhận dùng hệ khác); `Dùng chung` = có bằng chứng phục vụ Workflow và hệ khác; `Không` = đã rà đủ phạm vi và có chứng cứ **chỉ phục vụ hệ khác**; `Chưa rõ` = thiếu bằng chứng, **mặc định**. Không dùng `Không` làm chứng cứ an toàn tắt/xóa; `pg_depend` trống không chứng minh `Không`.
 - **Kênh 2:** PG Census + Ba Lô giữ nguyên. PG Tự quản **không lấy dữ liệu** từ kênh 2, chỉ **đặt cạnh để so** tên/loại/số; lệch = cờ ⚠ có tên. Kênh 2 cũng không lấy dữ liệu từ PG Tự quản.
 - **Nhãn cũ** COMMENT ON (VUNG/HE, đo 07/2026): chỉ đọc, là bằng chứng lịch sử; quyết định mới chỉ ghi ở Lớp-3.
 - **Sổ cũ** `table_registry` · `collection_registry` · `meta_catalog` · `dot_tools`: **giữ nguyên** (còn chương trình dùng), không thay, không gộp, không ghi quyết định mới vào đó; hiện trên màn hình như mọi bảng khác. Bộ lọc «Bảng DOT», «Sổ của các sổ» trên màn hình chỉ là **khung nhìn**, nhà dữ liệu không đổi.
 - **Trigger về sau:** «0 trigger mới» áp cho PG Tự quản. Dùng trigger/hàng đợi của PG cho Workflow là việc của B2–B5, Owner duyệt riêng, có PG Tự quản làm nền.
+
+
+**2A. BẢN VẼ CẤU TRÚC (đây là mô hình đích, CHƯA có quyền tạo mới)**
+\`\`\`text
+  [PG: pg_catalog / pg_stat_* / pg_depend / COMMENT] ── đọc ─┐
+                      (Lớp-1, không khai tay)                │
+  [Tệp DOT/script có mô tả tại nguồn]                        │
+        └─ đường đăng ký ĐÃ KIỂM ─> [dot_tools có sẵn] ─ đọc ┤ (Lớp-2)
+               └─ bot đếm, báo lệch: CHƯA PASS LIVE          │
+  [Graph/bot] ── bằng chứng tham khảo (không tự quyết) ───────┤
+  [Owner DUYỆT] ──> [DOT có quyền] ──> [Lớp-3 quyết định] ───┘
+                                        │
+                     CHỈ 1 TRONG HAI ĐƯỜNG THỰC HIỆN
+      Cách A: [01 SQL VIEW đọc PG + dot_tools + Lớp-3]
+               + [01 bảng Lớp-3]  (ưu tiên nếu TS1 chứng minh)
+      Cách B: [01 bảng machine-cache + cột người Lớp-3]
+               + [đối soát có sẵn, hoặc ≤01 hàm/≤01 DOT mới]
+                                        │ CHỈ ĐỌC để xem
+                                        ▼
+              [01 Collection/MÀN HÌNH DIRECTUS STUDIO]
+                    Owner xem/lọc · AI cùng một nguồn
+  [Census + Ba Lô] ── kênh đối chứng, không cấp dữ liệu ──> ⚠ lệch
+\`\`\`
+**Đường WRITE duy nhất:** PG tự sinh metadata Lớp-1; đầu tệp DOT là nhà mô tả DOT, \`dot_tools\` đang là kho khai có consumer nên **không thay/xóa**; chỉ sau khi Owner duyệt, AI mới được ghi **phần quyết định** Lớp-3 qua DOT đã được cho phép. Graph/bot bổ sung **bằng chứng có nguồn**, không tự ghi quyết định hay ép công dụng. Cách A/B chưa được triển khai và chỉ được chọn tại TS2/G1 sau TS1; không được giả vờ SQL VIEW đã đọc được trong Studio.
+
+**2B. HỢP ĐỒNG CỘT & QUY TẮC KHÔNG ĐƯỢC HIỂU KHÁC (TS2 sẽ chốt tên máy thật)**
+| Cột nhìn chung trên Web | Nơi lấy/ghi duy nhất | Mặc định nếu chưa chứng minh |
+|---|---|---|
+| ID tài sản, loại, schema, tên, cấu trúc, phụ thuộc PG | \`pg_catalog\`/catalog khác; hàm có chữ ký; DOT dùng **đường dẫn nguồn chuẩn** để tránh trùng tên tệp; TS2 quy định ID đơn ổn định cho Directus (không dùng OID làm ID lâu dài) | Có vật thì hiển thị; không tự khai lại |
+| Mục đích từ nguồn | DOT: header; bảng/field nghiệp vụ: \`note\` nguồn; hàm/view nghiệp vụ: \`COMMENT ON\`; **vật cũ không có mô tả**: Lớp-3 là nhà tạm thay thế | THIẾU MÔ TẢ; nếu sau có mô tả ở nguồn, báo xung đột, **không để hai nơi cùng sửa** |
+| Hệ, Workflow, Vùng, Giữ/Sửa/Gộp/Tắt/Bỏ, người/ngày/căn cứ | **Lớp-3** sau Owner duyệt; máy/Graph chỉ đề xuất kèm nguồn | CHƯA RÕ / CHƯA QUYẾT, tuyệt đối không suy Bỏ |
+| Trạng thái tồn tại / dấu hiệu dùng | PG hiện tại, thống kê kèm mốc reset; DOT có log lượt chạy đã xác minh | KHÔNG ĐO ĐƯỢC ≠ KHÔNG SỬ DỤNG |
+| Cờ chênh/thiếu | Đọc độc lập Census/Ba Lô, bot/nhãn khi đã đo; không tạo một nguồn nghiệp vụ mới | Cờ ⚠, không đồng nghĩa Vùng 🔴 |
+**Bốn từ về Workflow (chỉ phân loại bằng chứng):** \`Có\` = có bằng chứng dùng cho Workflow và đang được quản như nguồn của Workflow; \`Dùng chung\` = có bằng chứng dùng cho Workflow **và hệ khác**; \`Không\` = xác minh thuộc hệ khác và **không có vai trò Workflow trong phạm vi được kiểm tra** (không suy từ \`pg_depend\` trống); \`Chưa rõ\` = thiếu chứng cứ, là **giá trị mặc định**. Không tự gắn \`Không\` để đưa vào danh sách OFF.
+**Dấu «?»**: với **mọi bảng/collection nghiệp vụ mới do nhóm chủ động tạo**, mô tả bảng **và từng field** phải có ghi chú giải nghĩa trong nguồn định nghĩa/Directus, ưu tiên sinh từ Field/spec đã duyệt; không nhập lại tên/kiểu máy đã biết. Bảng extension/PG nội bộ/đối tượng cũ không bị ép sửa hàng loạt; chỗ thiếu ghi cờ và xử lý khi có việc. \`?\` là yêu cầu nội dung hướng dẫn; TS1 phải kiểm cách hiển thị thực tế trong Studio, **không cam kết biểu tượng giao diện chưa có**.
+**«Sẽ làm»**: chỉ dùng trong **Sổ của các sổ cho sổ nghiệp vụ** (Công thức, MMOW...), **không phải trạng thái một object PG chưa tồn tại**; tình trạng máy = CÓ/ĐÃ MẤT/CHƯA ĐO và không tạo bản ghi giả.
+**Đổi tên/xóa/tái tạo**: khóa kỹ thuật thay đổi phải giữ được quyết định cũ gắn cờ ⚠ khi có record Lớp-3; VIEW chỉ phản ánh hiện tại, **không hứa lịch sử toàn bộ vật chưa từng được ghi nhận**.
+
 **3. Luật đọc số — bắt buộc (sai luật này là kết luận sai)**
 - Đọc-1 Số quét/ghi của PG chỉ là **dấu hiệu kể từ lần reset**. Tên cột trên màn hình: «LẦN QUÉT CUỐI (TỪ THỐNG KÊ PG)» — **không phải** «lần dùng cuối»; số 0 hoặc trống ≠ «không ai dùng». **PG không cho biết "bao lâu không dùng"**; số này **không bao giờ là căn cứ duy nhất để Tắt/Bỏ**.
 - Đọc-2 Giờ sửa tệp log ≠ lần DOT chạy. Chỉ nhận dòng log ghi **đúng DOT + đúng lượt chạy**; không có ⇒ «CHƯA ĐO ĐƯỢC», không điền đè.
@@ -216,7 +255,7 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 **9. Bước kế tiếp**
 - 😊 Owner: dán lệnh B0b (đã READY) cho Claude Code. B0b sửa đường đọc/ghi Directus của 2 DOT — Thử-View của TS1 cần đường này. TS1 phải đợi B0b vì `PROMPT.md` chỉ giữ 1 lệnh; thay sớm là mất READY của B0b.
 - 🤖 TS1 (chỉ đọc) trả lời trước G1·TS2:
-  - **Thử-View:** Directus dùng được view không — xem, lọc, phân trang, khoá từng dòng, hiện được dòng Lớp-3 cùng màn hình ⇒ Cách A hay B.
+  - **Thử-View:** TS1 **chỉ đọc view đã tồn tại**: kiểm Directus list/filter/page/ID/quyền và đánh giá đường nối Lớp-3 theo thiết kế; **vì Lớp-3 chưa tạo, TS1 KHÔNG thể báo đã thấy/chỉnh Lớp-3 thành công**. Vòng xem + quyết định qua DOT + đọc lại thật phải nghiệm thu tại **TS3 sau G1/G2**. Không tạo view thử/không ghi ở TS1.
   - **Thử-Bot:** bot đếm DOT — đếm đúng tập tên, chỉ đọc an toàn, lịch chạy thật, tin tới người nhận.
   - Đo thêm: có những database nào · phiên bản PG + cột K7 · DOT nào có log ghi lượt chạy (K15) · Kuma có kiểu Push · Census/Ba Lô lấy số từ đâu, 393/385 lệch tên nào.
 - Mỗi câu trả lời một dòng: CÓ / KHÔNG / CHƯA RÕ + bằng chứng. Không sửa PG/Directus trong TS1.
@@ -233,10 +272,23 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 - **Luật Nhà** = luật Owner 15/10: mọi sổ nghiệp vụ phải có nhà, ghi «sẽ làm» trước khi tạo.
 - Chữ cũ không dùng: «vùng NHÁP» (đã bỏ — làm thật), «kênh A/B» (gọi là kênh Census / kênh Ba Lô), «T1–T8/L1–L3» cũ của thẻ này (nay là TT1–TT8 / Lớp-1–3) · «cổng A/B» của TS1 (nay Thử-View / Thử-Bot) · «dòng đỏ» (nay cờ ⚠). T1–T6 ở 3.01 là bảng «Thiếu gì» lịch sử.
 
-#### 3.KH — KẾ HOẠCH CÔNG VIỆC CHI TIẾT P19 · P29 · P30 SỔ PG TỰ QUẢN «PG QUẢN PG» TRƯỚC B1
+#### 3.KH — KẾ HOẠCH THỰC HIỆN DUY NHẤT P38–P39 · BẢN ĐỒ NGHIỆM THU BÁM §3.TQ
 **Trạng thái: G0 CHỐT · B0 MỘT PHẦN/KQ DỪNG · B0b READY CHỜ OWNER DÁN · CHƯA RUN B0b · P30: TS1–TS5 thay B0c–B0f (GPT Host xác nhận).** B0b được làm **chỉ đúng hai mã DOT** theo PROMPT đã ACCEPT/READY; không cho phép tạo/sửa collection, schema, dữ liệu PG/Directus, quyền hay kích hoạt production. Đầu ra chính của dự án là **các collection thật quản lý trực tiếp trong Directus Studio**, không phải HTML/JSON/tệp khai báo/trang mô phỏng mới.
 **Nguyên tắc cố định:** (a) kiểm tra dùng lại trước khi tạo; (b) tên kỹ thuật collection/table sử dụng lâu dài, **không nhúng `nhap_`/`test_`**; trạng thái thiết kế/duyệt/vận hành ở Sổ của các sổ và quyền, không ở tên; (c) mỗi đối tượng + thuộc tính chỉ một nhà SSOT, nơi khác chỉ đọc/liên kết; (d) việc đã chốt chuyển nguyên nội dung sang collection, việc chưa chốt sửa **ngay trong Directus, không sửa HTML**; (e) AI/máy tiếp cận Directus/PG theo luật DOT đã có, không tự cấp quyền production; (f) nhiệm vụ nhỏ, ưu tiên có sản phẩm nhìn thấy trong Studio trước khi nhân rộng.
 **Roadmap duy nhất là B0/B0b → TS1–TS5 → B1–B5 trong chính §3.KH (P30 thay B0c–B0f); bảng lịch sử L0–L6/đề xuất cũ chỉ để truy vết.** **cổng an toàn (B0b) → đo trước khi dựng (TS1) → chọn Cách A/B + thiết kế bảng Lớp-3 (TS2 · G1) → dựng màn hình + phủ đủ tên + đối chiếu kênh 2 (TS3 · G2) → phân loại + bảng tổng (TS4) → tự cập nhật (TS5 · G2) → Công thức đi qua sổ (B1) → Workflow → vận hành từng phần**. Thay hướng P13/P14 cũ ở thứ tự ưu tiên, không thêm roadmap thứ hai:
+
+**BẢN ĐỒ BÀN GIAO/NGHIỆM THU — đọc kèm BẢNG KẾ HOẠCH bên dưới, KHÔNG phải roadmap thứ hai.** Mỗi bước chỉ được đổi đèn khi có **bằng chứng thực tế**, không vì đã soạn/đã có code:
+| Mốc đang dùng | Sản phẩm/bằng chứng nhìn được | Ranh giới quyền/điểm dừng |
+|---|---|---|
+| **B0** — MỘT PHẦN (P24) | Census 393, Ba Lô 385 tên (chưa giải thích 8 tên); danh mục các DOT/PG ban đầu | Giữ KQ MỘT PHẦN, không kiểm kê lại vô ích |
+| **B0b** — READY, **CHƯA RUN** | P27/KQ từ Claude Code: hai DOT fail-closed, đọc metadata Directus, bảo vệ Điều 30/31 | Owner chuyển lệnh đã ACCEPT/READY; chỉ sửa **hai DOT**, **không** tạo PG/Directus |
+| **TS1** — CHƯA RUN | Báo cáo **chỉ đọc**: (1) VIEW thật trong Directus: list/filter/page/ID/role; (2) DOT đăng ký/đếm: tập tên, role RO, lịch, người nhận cảnh báo; (3) PG version, nguồn Census/Ba Lô, bằng chứng 29/07–01/08, log DOT/Kuma | **Không tạo VIEW/Lớp-3 nên không thể báo “đã chỉnh Lớp-3 thành công” ở TS1**; phần đó chỉ có thể chốt sau TS3. KQ CÓ/KHÔNG/CHƯA RÕ có chứng cứ; không chạy \`--dry-run\`/ \`--check\` chưa an toàn |
+| **TS2 · G1** — CHƯA DUYỆT | **Một bản thiết kế cụ thể được Owner duyệt**: Cách A hoặc B, tên đối tượng/ID một cột, cột Lớp-3, quyền & DOT ghi, sơ đồ nguồn/quan hệ, trần và rollback | Không tạo bảng/view khi G1 chưa gật; **A được ưu tiên, không phải mặc nhiên PASS** |
+| **TS3 · G2** — CHƯA DUYỆT | **SỔ THẬT** mở trong Studio; Owner đọc/lọc đúng đối tượng PG + DOT đã đăng ký; một quyết định được Owner duyệt ghi qua DOT, đọc lại đúng một nhà; đối chứng tập tên Census/Ba Lô hiển thị chênh | Chỉ áp schema/dữ liệu sau G1 và G2 đúng tên việc; trần ≤2 vật PG mới; không HTML khác |
+| **TS4** — CHƯA LÀM | Phân loại Workflow/Có/Không/Dùng chung/Chưa rõ, Hệ, Vùng và công dụng **có căn cứ**; mở bộ lọc/tổng hợp trên Directus; CHƯA RÕ còn đếm được | Máy/Graph đề xuất, Owner gật mới ghi quyết định; không tự đổi Chưa rõ → Bỏ |
+| **TS5 · G2** — CHƯA LÀM | Thêm PG object mới → VIEW thấy ngay (A) hoặc cache thấy ở lần đối soát được **gọi thực** (B); DOT mới theo đường khai hiện hữu → bot so đúng tên + cảnh báo có người nhận; lỗi bot không chặn DDL | Không trigger/lịch/HTML mới. N4 sửa bot, \`last_executed\`/Kuma có **G2 riêng**, không chạy trong TS1 |
+| **B1 → B5** — CHƯA RUN | Công thức thật → MBM/MMOW 007/MOW 001 → MOW 002–035, MMOW 008/009 → nghiệm thu nhóm → trang chủ đọc Directus khi cần | B1 có G1 riêng, B4 production duyệt từng nhóm; tắt/xóa thuộc việc cleanup **khác** |
+**Bài kiểm đọc lạnh 6 câu — agent đọc riêng §3.TQ và bảng này phải trả đúng:** (1) Object PG có từ đâu? \`pg_catalog\`; (2) DOT mới ra đời có tự vào PG nếu không ai gọi register? **KHÔNG**, bot chỉ phát hiện lệch; (3) Owner ghi trực tiếp Studio? **KHÔNG**, Owner duyệt/AI ghi DOT; (4) TS1 tạo view thử hay sửa Lớp-3? **KHÔNG**; (5) «Workflow = Không» có nghĩa xóa được? **KHÔNG**; (6) B0b cho phép tạo schema nghiệp vụ? **KHÔNG**. Sai một câu ⇒ **không phát READY** cho bước ghi; sửa đúng đoạn gây hiểu nhầm, không tạo thêm tài liệu.
 | Bước | Làm gì | Bằng chứng xong |
 |---|---|---|
 | **B0 Kiểm kê collections Directus và tables PG hiện có (chỉ đọc)** | **Đầu tiên** đọc danh sách collection đang có trong Directus qua DOT được phép; ghi tên máy/mã sổ/nhóm/field/quan hệ/ghi chú/số bản ghi/quyền/schema/SSOT, phân theo **trạng thái thiết kế/chính thức từ Sổ của các sổ, không suy từ tên table**. **Đồng thời đọc kiểm kê các table PG đang có** (schema, tên bảng, trường, khóa/quan hệ, số dòng, SSOT, production/đang thiết kế), lập danh sách **sẽ dùng lại / cần mở rộng / cần tạo / không đụng tới**. Đối chiếu `meta_catalog`, `dot_tools`, `workflows`, Master Công thức và CT-000.1/CT-008 từ HTML cũ; đánh dấu có sẵn, cần dùng lại, thiếu, không đồng nhất 35 MOW trong Master với số dòng `workflows` PG. Không tạo sổ kiểm kê song song nếu `meta_catalog` dùng được. | **Hai bảng kiểm kê**: collections Directus và **danh sách tables PG dự kiến sử dụng** với lý do, nguồn, quan hệ, tình trạng; chưa đọc không được ghi đã tồn tại |
@@ -509,6 +561,13 @@ Lưu ý: trong tiến trình có thể vừa tiếp tục nháp để điều ch
 - Đã sửa: ô 1 thêm khối Đích (A Chuyển · B Sáng tạo · Sổ theo dõi) · Tên việc · ô 2 9 dòng · lộ trình B0–B8 · 3.02 Sổ của các sổ = Master of Master + 6 cột theo dõi · 3.03 phân vai · Bảng điều khiển.
 - Owner gật 3.01 (dùng lại `dot_tools`). Bước đang làm vẫn là B1. Lệnh khảo sát B1-b gộp luôn phần đọc danh sách collection cho B3 để Claude Code chạy 1 lần.
 - Gửi Codex: đọc ô 1 Đích → 3.00 → 3.01 → 3.02 → 3.03; đồng ý thì soạn lệnh khảo sát chỉ đọc B1-b; khác ý ghi P12.
+
+### P39 · 25/10/2026 · GPT Chat Host · SƠ ĐỒ CẤU TRÚC + ROADMAP NGHIỆM THU theo Owner, rà P38
+**KQ:** Đồng ý hướng §3.TQ/P38 và cách sửa lịch sử/cấm lệnh nguy hiểm; **đã thêm BẢN VẼ 2A + HỢP ĐỒNG 2B ngay trong §3.TQ**, thêm **BẢN ĐỒ NGHIỆM THU** ngay trong §3.KH (không sinh file/roadmap thứ hai). P38 có vòng đọc lạnh 5–6/10 → 7/10; chưa đủ chứng minh ai cũng hiểu giống nhau ⇒ dùng 6 câu kiểm đọc lạnh trước READY bước ghi.
+**Bốn điểm P38 GPT Host quyết:** (a) **ĐỒNG Ý** '?' bảng + từng field của **bảng/collection nghiệp vụ mới do đội chủ động tạo**, dùng lại field/spec đã có, không ép sửa toàn bộ system/extension/legacy; TS1 kiểm đúng trải nghiệm ghi chú trên Studio. (b) **ĐỒNG Ý** «Sẽ làm» chỉ áp sổ nghiệp vụ và ở Sổ của các sổ; không tạo object PG ảo. (c) **ĐỒNG Ý CÓ ĐIỀU KIỆN XỬ LÝ XUNG ĐỘT**: mô tả mới sửa tại nguồn, legacy thiếu mới ghi Lớp-3; nếu về sau nguồn có mô tả thì cờ xung đột/chọn 1 nhà, không đồng thời sửa cả hai; nguồn kỹ thuật không thay cho quyết định quản lý. (d) **ĐỒNG Ý** Workflow 4 giá trị, đã ghi **định nghĩa bằng chứng** cho Có/Không/Dùng chung/Chưa rõ; «Không» không bao giờ suy từ thiếu đường Graph, mặc định «Chưa rõ».
+**Sửa lỗi nghiệm thu nghiêm trọng:** TS1 là chỉ đọc nên KHÔNG thể chứng minh full vòng chỉnh quyết định Lớp-3 chưa hề dựng; TS1 chỉ PASS về VIEW list/filter/page/key/role và tính khả thi đường nối; TS3 sau G1/G2 mới chứng minh đọc và ghi end-to-end. Không được tạo view để «test» ở TS1. Directus docs hỗ trợ collection readonly view ở mức khái niệm nhưng chưa hỗ trợ tạo SQL views qua Studio và cần ID/PK → TS1 phải đo **phiên bản Directus thật**. G1 không tự suy từ ACCEPT P38.
+**Giới hạn kỹ thuật cố định:** Lớp-1 PG hiện tại tự biết; Lớp-2 DOT phải có đường register + bot lệch được chứng minh, không giả là PG tự biết file mới; Lớp-3 một nguồn ghi quyết định duy nhất. Các registry cũ giữ nguyên consumer. Không có quyền tự tắt/xóa; P39 chỉ sửa COLLAB, **PROMPT B0b không đổi**, không tạo bảng/view/DOT, không đổi quyền/secret/VPS.
+**Trạng thái:** B0b last-touch PROMPT \`13a936e42b68f93df875aa3e26c612bad2b5022b\` Reviewer ACCEPT/Host READY, chưa thấy KQ theo lần kiểm của Host; TS1 CHƯA PROMPT. NEXT_TRIGGER=B0B_RESULT_FOR_TS1. Nội dung chi tiết hành động/nguồn và cổng ở §3.TQ/§3.KH này, khối P38 lịch sử giữ nguyên.
 
 ### P38 · 25/10/2026 15:25 +07 · Claude Chat Reviewer · rà P37 + Owner 13:57 «ghi rõ để mọi người hiểu giống nhau, trước khi chạy»
 **Kết luận:** ĐỒNG Ý P37 (kiến trúc chốt; N1–N5; B0b giữ nguyên PROMPT `13a936e4`). **Nhận lỗi P36:** tôi viết `last_seq_scan`/`last_idx_scan` = «ngày dùng cuối» — sai; đúng là «lần quét cuối», và `mtime` log ≠ lần DOT chạy (P37 sửa đúng). Đã thành luật **Đọc-1..4** trong thẻ.
