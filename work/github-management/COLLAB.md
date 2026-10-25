@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROADMAP trước; Claude phản biện, GPT đồng thuận và Owner duyệt rồi mới RUN. Chưa cho thay hai repo mã/Actions/VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 11:25 +07 · GPT Chat · P18
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 13:40 +07 · Claude Chat · P19
 - 🎯 Mục tiêu: 3–5 agent code song song trên hai repo; Chief kiểm/merge; sau cùng nhiều nhiệm vụ chạy đêm không cần Owner trực.
 - 🏁 Xong khi: phí Actions vượt mức bị khóa; main hai repo được bảo vệ, mã nền đúng, 3 PR và kiểm thử có bằng chứng; release/deploy có rollback.
-- 📍 Tiến độ: ✓ R0 P12 → ✓ R1-COST P17 được Host nghiệm thu NGOẠI LỆ Dependabot → ■ R2 chuẩn bị PROMPT cho Claude review → □ Owner mua Pro → □ Codex R2 → □ R3–R6.
-- ✅ Đã xong: budget Actions $0 + Stop + alerts (P17); 15 workflow thường đã disable; 3 kiểm thiết yếu được giữ; workflow Dependabot động miễn phút hosted tiêu chuẩn được ghi ngoại lệ (P18).
-- ■ Đang làm: — · 0 RUN active. KQ@GHM-R1-COST vẫn DỪNG theo máy lịch sử; R1 business objective ACCEPTED_WITH_EXCEPTION bởi Host, không sửa KQ.
-- ⬜ Còn lại: Owner nâng Pro khi sẵn sàng; Claude duyệt PROMPT R2; Host READY; Codex cài ruleset/mẫu vai trò theo cổng; KST chỉ quản khóa riêng và main ở lượt được phép.
-- ➡ Kế tiếp: Claude chỉ rà PROMPT R2 mới; Owner mua Pro sau R1 và giữ Actions budget hard-stop; Host ký READY đúng SHA sau review. NEXT_TRIGGER=CLAUDE_ACCEPT_R2_PROMPT_AND_OWNER_PRO_ACTIVE.
-- ⛔ Không làm/để sau: không tắt Dependabot động bằng thủ thuật; không khởi lại 15 workflow, không cài runner; chưa sửa main/secret/VPS/production; không chạy R2 trước Owner RUN.
+- 📍 Tiến độ: ✓ R0 P12 → ✓ R1 khoá chi phí (P17/P18) → ✓ Claude P19 ACCEPT R2-A → ■ Host READY + 😊 Owner mua Pro → □ Codex R2-A → □ R2-B chìa KST → □ R3–R6.
+- ✅ Đã xong: ngân sách Actions $0 + Stop + cảnh báo; 15 workflow thừa tắt, 3 nhóm kiểm giữ; Dependabot do GitHub quản lý (miễn phí) ghi ngoại lệ. PROMPT R2-A sửa 5 điểm và ACCEPT (P19).
+- ■ Đang làm: — · 0 RUN active.
+- ⬜ Còn lại: Owner mua Pro; Host READY; Codex R2-A (khoá main + luật repo); R2-B (chìa KST, deploy key, thẻ dev); R3–R6.
+- ➡ Kế tiếp: GPT Host đọc TOÀN BỘ PROMPT R2-A, READY@af59bba2b84391fd0d093b1554b04c86c2234cb4; 😊 Owner mua GitHub Pro (song song) rồi giao Codex RUN. NEXT_TRIGGER=HOST_READY_R2A_AND_OWNER_PRO.
+- ⛔ Không làm/để sau: không tắt Dependabot động; không bật lại 15 workflow; không runner; chưa sửa main/secret/VPS/production; không tạo chìa KST/deploy key trong R2-A.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -39,8 +39,9 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROA
 - Owner 23/10/2026 17:51 (phiên Claude, đã sửa lỗi gõ): «Mục tiêu cuối: giao được nhiều việc, các AI làm đúng vai, chỉ kỹ sư trưởng được merge. Ban đầu có thể mở repo công khai — chưa có gì bí mật lắm, toàn thứ phổ thông; ổn định rồi tính tiếp. Làm nhanh, đừng phức tạp hoá. Quan trọng là code loạt có xử lý được không; AI hoạt động hỗn loạn, vẫn phải có người kè kè thì không giải quyết được gì. Chọn cách đơn giản để thử nghiệm trước.»
 - Owner 24/10/2026 10:45 (phiên Claude, đã sửa lỗi gõ): «Kiểm tra kế hoạch GPT đã soạn và thứ tự ưu tiên có hợp lý không. Điều quan trọng là chốt được roadmap, kế hoạch để triển khai. Dự kiến giao Codex phụ trách việc này.»
 - Owner 24/10/2026 13:51 (phiên Claude, đã sửa lỗi gõ): «Hiện nay coi VPS là SSOT nên đã ngắt GitHub để không làm nhầm (muốn làm nhầm cũng không được). Sau khi chuyển lên GitHub rồi, có cách nào để các agent muốn code nhầm trên VPS cũng không được không? Nếu có thì chọn cách đơn giản, tận dụng hệ thống sẵn có, không phải xây mới nhiều hoặc không xây gì mới.»
-- Owner 25/10/2026 (b1, phên Claude, đã sửa lỗi gõ): «Muốn tắt Actions của GitHub thì phải cài bộ runner trên VPS — GitHub cho phép và đã có công cụ sẵn, chỉ cần cài. Bản chất chỉ là chạy trên máy nào (tài nguyên tính toán); không nên phụ thuộc việc chạy tính toán vào GitHub.»
-- Owner 25/10/2026 10:37 (b2, phên Claude, đã sửa lỗi gõ): «Mục tiêu chỉ là không được để các run mất kiểm soát về chi phí; nếu cứ mở ra mà chi phí không phát sinh thì không sao, không nhất thiết phải đóng lại. Chỉ cần kiểm soát chi phí là ok.»
+- Owner 25/10/2026 (b1, phiên Claude, đã sửa lỗi gõ): «Muốn tắt Actions của GitHub thì phải cài bộ runner trên VPS — GitHub cho phép và đã có công cụ sẵn, chỉ cần cài. Bản chất chỉ là chạy trên máy nào (tài nguyên tính toán); không nên phụ thuộc việc chạy tính toán vào GitHub.»
+- Owner 25/10/2026 10:37 (b2, phiên Claude, đã sửa lỗi gõ): «Mục tiêu chỉ là không được để các run mất kiểm soát về chi phí; nếu cứ mở ra mà chi phí không phát sinh thì không sao, không nhất thiết phải đóng lại. Chỉ cần kiểm soát chi phí là ok.»
+- Owner 25/10/2026 13:21 (phiên Claude, đã sửa lỗi gõ): «Tôi tưởng vấn đề này đã chốt rồi? Kiểm tra có gì thì thống nhất để giao Codex làm tiếp. Điều quan trọng là agent phải triển khai tiếp để có kết quả.» ⇒ việc đã chốt không bàn lại; mỗi PROMPT ghi rõ tiêu chí XONG để KQ không báo «DỪNG» khi mục tiêu đã đạt.
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -330,6 +331,30 @@ Ghế: openai-main · Based_on: P17 Codex (KQ@GHM-R1-COST-20261025-01 DỪNG), G
 - **R2:** Codex chịu trách nhiệm thiết kế/cấu hình GitHub và mở nhánh chuẩn về vai trò, Chief chỉ giữ khóa private + merge ở bước riêng. Không cấp Codex chìa Chief, không ghi lên main cũ. P18 đã chuẩn bị PROMPT R2 trong cùng task dạng DRAFT_NOT_READY. Theo AGENTS, Claude Reviewer xác nhận đúng PROMPT SHA, GPT Host READY rồi Owner giao Codex. Không thêm một vòng nghiên cứu Dependabot.
 - **Không có mutation runtime:** P18 chỉ thay hồ sơ `work/github-management`; không can thiệp GitHub account/repo, VPS, cron, secrets hay RUN. NEXT_TRIGGER=CLAUDE_ACCEPT_R2_PROMPT_AND_OWNER_PRO_ACTIVE.
 - Nguồn tài liệu GitHub: https://docs.github.com/en/code-security/concepts/supply-chain-security/dependabot-on-actions ; https://docs.github.com/en/billing/concepts/product-billing/github-actions ; https://docs.github.com/en/billing/how-tos/set-up-budgets .
+
+## P19 · Claude Chat (Reviewer) · 25/10/2026 13:40 +07 — R1 ĐÃ CHỐT · PROMPT R2-A sửa tại chỗ 5 điểm · ACCEPT@af59bba2b84391fd0d093b1554b04c86c2234cb4
+Bảng: lệch (➡ còn chờ Claude) → đã sửa cùng lượt · §0.3: thêm chỉ đạo Owner 25/10 13:21, sửa lỗi gõ «phên».
+
+**1. R1 — đồng ý P18, không bàn lại**
+- 1.1 Mục tiêu Owner b2 (không để chi phí mất kiểm soát) ĐẠT: ngân sách $0 + Stop có thật (P17).
+- 1.2 Mục 422 = workflow Dependabot do GitHub quản lý. Claude đã tự đối chiếu GitHub Docs: runner tiêu chuẩn không trừ phút miễn phí; chạy cả khi tắt Actions; GitHub sẽ bỏ khả năng tắt ⇒ 0 rủi ro tiền.
+- 1.3 Bài học: KQ «DỪNG» khi mục tiêu đã đạt làm Owner tưởng việc chưa chốt ⇒ từ R2-A, PROMPT ghi rõ tiêu chí XONG.
+
+**2. PROMPT R2-A — 5 sửa tại chỗ (commit af59bba2)**
+- 2.1 Lỗ khoá: bypass loại DeployKey mở cho MỌI deploy key ghi ⇒ S0 đếm, >0 thì DỪNG (P12 đo 0).
+- 2.2 Thứ tự: khoá main (S1) TRƯỚC, đẩy nhánh luật (S2) SAU ⇒ lần đẩy đó chứng minh nhánh dev vẫn mở. Bản cũ đẩy nhánh trước nên không chứng minh gì.
+- 2.3 T-a thử ngay ở R2-A bằng danh tính mạnh nhất (Owner admin): mạnh nhất bị chặn thì thẻ dev chắc chắn bị chặn — như incomex-workspace 25/09 (409). Bản cũ để HARDLOCK_UNTESTED tới khi có thẻ dev. T-e không thử thật; T-b/T-c ⇒ R2-B/R3.
+- 2.4 S0 liệt kê việc tự động đang đẩy thẳng main (ruleset chặn cả chúng) — ghi cho Host, không dừng.
+- 2.5 Tiêu chí XONG: T-b/T-c `PENDING_R2B` là đúng kế hoạch. Bản cũ buộc KQ DỪNG vì thiếu chìa KST — chìa vốn không thuộc R2-A.
+
+**3. Chia R2 (ROADMAP/KE-HOACH sửa cùng lượt)**
+- 3.1 R2-A (Codex, chỉ GitHub): ruleset `chief-only-main` + luật repo trên nhánh + T-a + T-d.
+- 3.2 R2-B: Claude Code CLI sinh chìa KST trên VPS (Đ30/31, VPS-GHI) · Codex gắn deploy key · thẻ dev + hạ quyền admin (R2.2) · T-b. Soạn sau KQ R2-A XONG (mỗi lần 1 PROMPT).
+
+**4. Ký**
+- 4.1 ACCEPT@af59bba2b84391fd0d093b1554b04c86c2234cb4 PROMPT GHM-R2-ACCESS-20261025-01 (last-touch = commit sửa của Claude).
+- 4.2 Việc người duy nhất: 😊 Owner mua Pro (hướng dẫn trong chat). Host READY làm song song; S0 tự kiểm Pro. Pro còn nâng phút miễn phí 2.000 → 3.000 (3 nhóm kiểm ước ~1.151 phút/tháng).
+- 4.3 JEV `gen-dec-1792909959-xgxrm76gaQcqDQpLknUf`: thử chặn bằng admin 0,77 · XONG kèm PENDING 0,66 · cần đếm deploy key 0,83 (phương án do Claude viết, có thể thiên).
 
 
 

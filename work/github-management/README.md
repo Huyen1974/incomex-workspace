@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: R1-COST đã được Host nghiệm thu mục tiêu có ngoại lệ Dependabot (P18); PROMPT R2-A DRAFT chờ Claude/Owner. Không RUN.**
+**Trạng thái: R1 khoá chi phí đã nghiệm thu (P18). PROMPT R2-A: Claude P19 ACCEPT, chờ Host READY + Owner mua Pro + RUN Codex.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — `GHM-R2-ACCESS-20261025-01` DRAFT cho Codex cài luật/ruleset private sau Pro; Reviewer ACCEPT + Host READY + Owner RUN mới thi hành. R1-COST đã KQ DỪNG có nghiệm thu ngoại lệ ở P18.
+6. work/github-management/PROMPT.md — `GHM-R2-ACCESS-20261025-01` cho Codex khoá main + luật repo sau khi Owner mua Pro; Claude ACCEPT P19 @af59bba2, chờ Host READY cùng SHA + Owner RUN. R1-COST đã KQ DỪNG có nghiệm thu ngoại lệ ở P18.
 
 Mục tiêu duy nhất của việc này: nhiều AI nhận nhiều việc, **viết mã song song trên branch/workspace riêng**, Chief duyệt PR trên nền mới nhất, Owner xem bảng kết quả sáng. R1 dùng Actions trong hạn mức miễn phí với hard budget $0; việc chuyển self-hosted chỉ xét sau khi có nhu cầu và máy phù hợp.
 
