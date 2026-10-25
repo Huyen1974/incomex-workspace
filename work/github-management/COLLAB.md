@@ -4,14 +4,14 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROADMAP trước; Claude phản biện, GPT đồng thuận và Owner duyệt rồi mới RUN. Chưa cho thay hai repo mã/Actions/VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 10:56 +07 · GPT Chat · P15
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 11:03 +07 · Codex · P16 STARTED R1-COST
 - 🎯 Mục tiêu: 3–5 agent viết mã song song trên hai repo; Chief kiểm/merge; cuối cùng ca đêm không cần Owner trực.
 - 🏁 Xong khi: GitHub có mã nền đúng và main khóa, 3 PR thực tế, workflow kiểm thiết yếu còn chạy; chi phí Actions metered được chặn bởi ngân sách 0 USD.
 - 📍 Tiến độ: ✓ R0 P12 → ✓ Claude P14 ACCEPT → ✓ GPT P15 READY R1-COST → ■ Owner giao Codex RUN R1 → □ KQ R1 → □ R2–R6.
 - ✅ Đã xong: GPT Host đọc trọn PROMPT R1-COST do Claude soạn, kiểm last-touch và ACCEPT cùng SHA, ký READY. Chưa chạy R1.
-- ■ Đang làm: — · 0 RUN active. GitHub Actions vẫn ON; ngân sách/chi phí chưa xác minh.
+- ■ Đang làm: Codex STARTED GHM-R1-COST-20261025-01; S0 đo billing/ngân sách/usage, Actions vẫn ON; không giữ VPS-GHI.
 - ⬜ Còn lại: Owner giao Codex R1-COST; Codex kiểm billing/budget/3 nhóm audit rồi disable workflow BỎ nếu đúng bằng chứng; GPT/Claude nghiệm thu KQ trước R2.
-- ➡ Kế tiếp: Owner chuyển lệnh RUN_ID=GHM-R1-COST-20261025-01 cho Codex, đọc PROMPT.md SHA 96637335; NEXT_TRIGGER=OWNER_RUN_GHM_R1_COST.
+- ➡ Kế tiếp: Codex xác minh ngân sách $0 + Stop, disable đúng workflow BỎ P12 và kiểm POST; NEXT_TRIGGER=CODEX_R1_COST_KQ.
 - ⛔ Không làm/để sau: chưa mua Pro, chưa cài runner, chưa đổi code/branch/main/secret/VPS; không tái chạy R0R1 hoặc self-host PROMPT cũ.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -294,5 +294,11 @@ Ghế: openai-main · Based_on: P12 Codex (R0 khảo sát + KQ DỪNG), P13/Clau
 - **Phân vai không đổi:** Codex executor chính, Claude kiểm độc lập/Chief; R1 chưa cần Chief ghi main. R2/R3/R5 có thao tác mã/VPS phải theo cổng quyền/khu và Owner RUN riêng.
 - **READY@96637335ce2b69b78ea682a307d8f523b70a8fd6** · GPT Host · RUN_ID=GHM-R1-COST-20261025-01 · Executor=Codex CLI/Desktop · Scope=GitHub billing Actions account budget + 2 repo workflow disable các mục BỎ dựa trên P12. **CHƯA STARTED** — chỉ Owner giao RUN mới kích hoạt.
 - NEXT_TRIGGER=OWNER_RUN_GHM_R1_COST. Không thay GitHub Billing/Actions/VPS ở lượt ký READY.
+
+## P16 · Codex · 25/10/2026 11:03 +07 · STARTED R1-COST
+STARTED@GHM-R1-COST-20261025-01 2026-10-25T04:03:15Z · executor=Codex CLI/Desktop
+- Owner trực tiếp giao RUN; đã đọc AGENTS, Bảng/README, P12–P15, ROADMAP và toàn bộ PROMPT. ACCEPT Claude P14 = READY GPT P15 = last-touch PROMPT `96637335ce2b69b78ea682a307d8f523b70a8fd6`; không STOP/STARTED trùng trong task, không thấy RUN Billing/workflow trùng phạm vi trong hồ sơ root hiện hành. Cờ VPS-GHI không lấy/đổi, không là điều kiện của RUN này.
+- S0 đo Billing/Budgets/usage/Copilot bằng quyền hiện có; S1 thiết lập hoặc xác minh Actions account budget $0 + Stop usage + alerts; S2 chỉ disable workflow BỎ đang active theo P12, giữ 3 nhóm cần; S3 đọc lại và KQ. Không sửa PROMPT/code/runtime, không mua Pro/cài runner. S1 chưa đạt vẫn được làm S2 theo §2.4, nhưng KQ không báo XONG.
+- Bằng chứng chi tiết ở thư mục root-only theo PROMPT; repo public chỉ tổng hợp. Dự kiến S0 ≤04:13Z, KQ ≤04:48Z; passkey/thiếu quyền dừng đúng bước, không giữ phiên nền chờ người. Áp: SAME_COMMIT.
 
 
