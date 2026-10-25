@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.3 · 24/10/2026
-**Trạng thái: Claude P5 + GPT Host P6 ĐỒNG THUẬN KỸ THUẬT CÓ CỔNG · CHỜ OWNER GO · KHÔNG RUN.**  
+**Trạng thái: R0 đã KQ DỪNG S1.4; R1-COST Claude P14 + GPT Host P15 ĐỒNG THUẬN, PROMPT READY đúng SHA, CHƯA OWNER RUN.**  
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
 Ưu tiên 1: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 

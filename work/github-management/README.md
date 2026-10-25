@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: R0 KQ DỪNG S1.4, R1 chưa chạy. GPT P13 đề xuất xét GitHub self-hosted runner, DRAFT chờ Claude/Owner.**
+**Trạng thái: GPT Host P15 READY cho GHM-R1-COST, chưa Owner RUN; các mốc sau theo lộ trình.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,9 +8,9 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — DRAFT GHM-R1-SELFHOST-FIT-20261025-01 chỉ xem xét 3 workflow cần bảo toàn và máy runner; chưa chạy/cài đặt. R0R1 cũ KQ DỪNG đã lưu Git.
+6. work/github-management/PROMPT.md — `GHM-R1-COST-20261025-01`, Claude ACCEPT + GPT READY cùng SHA `96637335...`; chỉ Owner giao Codex RUN mới thi hành. Không cài runner, không tắt Actions cấp repo.
 
-Mục tiêu duy nhất của nhánh việc này: tạo cơ chế để nhiều AI được giao nhiều nhiệm vụ, **viết mã song song trong các không gian riêng**, PR an toàn, người duyệt nhập theo thứ tự, sáng Owner xem kết quả. Không dùng GitHub Actions cho việc chạy mã; chưa quyết định nền tảng thử nghiệm.
+Mục tiêu duy nhất của việc này: nhiều AI nhận nhiều việc, **viết mã song song trên branch/workspace riêng**, Chief duyệt PR trên nền mới nhất, Owner xem bảng kết quả sáng. R1 dùng Actions trong hạn mức miễn phí với hard budget $0; việc chuyển self-hosted chỉ xét sau khi có nhu cầu và máy phù hợp.
 
 Một task gốc tại đây; khi sau này mở việc mã thật ở từng repo, Issue/PR của việc là hồ sơ thực thi gắn ID, không sao chép thông tin giữa nhiều nguồn.
 

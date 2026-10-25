@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**TRẠNG THÁI: KẾ HOẠCH ĐÃ ĐƯỢC CLAUDE P5 + GPT HOST P6 CHỐT KỸ THUẬT CÓ CỔNG; CHƯA OWNER GO, KHÔNG ĐƯỢC RUN.**
+**TRẠNG THÁI: Claude P14 + GPT Host P15 chốt hướng R1 KHOÁ CHI PHÍ; R1 PROMPT đã READY, CHƯA OWNER RUN. R2–R6 vẫn thực hiện theo từng cổng riêng.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 

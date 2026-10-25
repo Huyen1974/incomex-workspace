@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 24/10 yêu cầu KẾ HOẠCH + ROADMAP trước; Claude phản biện, GPT đồng thuận và Owner duyệt rồi mới RUN. Chưa cho thay hai repo mã/Actions/VPS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 10:43 +07 · Claude Chat · P14
-- 🎯 Mục tiêu: 3–5 agent viết mã song song trên 2 repo; Chief review/merge; cuối cùng nhiều việc chạy qua đêm không cần Owner trực.
-- 🏁 Xong khi: mã repo và VPS thống nhất, quyền main an toàn, 3 PR thật và CI/CD tin cậy, chi phí GitHub Actions khoá cứng ở $0 (Owner 25/10).
-- 📍 Tiến độ: ✓ R0 đo (P12) → ✓ Claude P14: R1 = khoá chi phí (Owner 25/10) → ■ Host READY R1-COST → □ Owner RUN Codex → □ R2–R6.
-- ✅ Đã xong: nghiệm thu P12 R0 có giới hạn; chấp nhận S1.4 DỪNG là đúng; Claude P14 thay hướng self-host bằng R1 khoá chi phí theo Owner 25/10 — PROMPT GHM-R1-COST + ACCEPT@96637335; ROADMAP/KE-HOACH R1 đã sửa.
-- ■ Đang làm: — · 0 RUN active. Actions ở hai repo vẫn ON; R1 chưa triển khai.
-- ⬜ Còn lại: Host READY R1-COST → Owner RUN Codex (~45′) → R2 (Owner mua Pro, khoá main) → R3 → R4 → R5 ∥ R6.
-- ➡ Kế tiếp: GPT Host đọc TOÀN BỘ PROMPT GHM-R1-COST (Claude soạn), READY@96637335ce2b69b78ea682a307d8f523b70a8fd6 hoặc ghi đúng điểm bất đồng · 😊 Owner giao 🤖 Codex. NEXT_TRIGGER=HOST_READY_R1_COST.
-- ⛔ Không làm/để sau: không tắt Actions cấp repo; không cài runner (chỉ xét khi phút miễn phí không đủ cho 3 nhóm kiểm); không tắt 3 nhóm kiểm cần; chưa mua Pro; chưa ghi main hay sửa production; không dùng lại RUN R0R1 đã KQ DỪNG.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 10:56 +07 · GPT Chat · P15
+- 🎯 Mục tiêu: 3–5 agent viết mã song song trên hai repo; Chief kiểm/merge; cuối cùng ca đêm không cần Owner trực.
+- 🏁 Xong khi: GitHub có mã nền đúng và main khóa, 3 PR thực tế, workflow kiểm thiết yếu còn chạy; chi phí Actions metered được chặn bởi ngân sách 0 USD.
+- 📍 Tiến độ: ✓ R0 P12 → ✓ Claude P14 ACCEPT → ✓ GPT P15 READY R1-COST → ■ Owner giao Codex RUN R1 → □ KQ R1 → □ R2–R6.
+- ✅ Đã xong: GPT Host đọc trọn PROMPT R1-COST do Claude soạn, kiểm last-touch và ACCEPT cùng SHA, ký READY. Chưa chạy R1.
+- ■ Đang làm: — · 0 RUN active. GitHub Actions vẫn ON; ngân sách/chi phí chưa xác minh.
+- ⬜ Còn lại: Owner giao Codex R1-COST; Codex kiểm billing/budget/3 nhóm audit rồi disable workflow BỎ nếu đúng bằng chứng; GPT/Claude nghiệm thu KQ trước R2.
+- ➡ Kế tiếp: Owner chuyển lệnh RUN_ID=GHM-R1-COST-20261025-01 cho Codex, đọc PROMPT.md SHA 96637335; NEXT_TRIGGER=OWNER_RUN_GHM_R1_COST.
+- ⛔ Không làm/để sau: chưa mua Pro, chưa cài runner, chưa đổi code/branch/main/secret/VPS; không tái chạy R0R1 hoặc self-host PROMPT cũ.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -282,4 +282,17 @@ Ghế: openai-main · Based_on: P12 Codex KQ DỪNG S1.4, chỉ đạo mới Own
 - JEV `gen-dec-1792899553-Ogtbf9QMX568sqjuii0r`: khoá chi phí 1,0 (phương án do Claude viết, có thể thiên).
 - **ACCEPT@96637335ce2b69b78ea682a307d8f523b70a8fd6** · Claude Chat · RUN_ID `GHM-R1-COST-20261025-01`. Vì Claude soạn PROMPT, GPT Host đọc TOÀN BỘ (không chỉ diff) rồi READY@cùng SHA, hoặc ghi đúng điểm bất đồng. NEXT_TRIGGER=HOST_READY_R1_COST.
 - **Hai vòng rà:** V1 — chỉ sửa tệp của task, không đụng GitHub settings/VPS, không RUN. V2 — gốc: P13 giải «chạy ở đâu» trong khi Owner chỉ cần «không mất tiền»; chặn đúng chỗ phát sinh tiền (ngân sách dừng) là một công tắc có sẵn, không dựng máy mới.
+
+## P15 · GPT Host 25/10/2026 — ACCEPT CLAUDE P14; READY R1-COST CHO CODEX
+Ghế: openai-main · Based_on: P12 Codex (R0 khảo sát + KQ DỪNG), P13/Claude P14, GitHub Docs budgets/actions hiện hành, `git log -- work/github-management/PROMPT.md` last-touch `96637335ce2b69b78ea682a307d8f523b70a8fd6`.
+- **Đồng thuận:** Owner đã đổi trọng tâm R1 sang không phát sinh phí Actions ngoài ý muốn. Không cần tắt toàn bộ Actions hoặc cài self-hosted runner ở bước này. Giữ ba nhóm kiểm thiết yếu trong hạn mức hosted miễn phí, disable theo ID những workflow BỎ đã xác minh ở P12; không xóa YAML, không dựng dịch vụ trên VPS.
+- **Nguồn/lệnh:** Claude P14 đã soạn PROMPT `GHM-R1-COST-20261025-01`, ký `ACCEPT@96637335ce2b69b78ea682a307d8f523b70a8fd6`. GPT Host đọc TOÀN BỘ PROMPT, xác minh cùng full SHA commit cuối chạm PROMPT; không sửa PROMPT sau ký. Bản self-host `GHM-R1-SELFHOST-FIT-20261025-01` là SUPERSEDED_UNRUN; R0R1 cũ đã KQ DỪNG, tuyệt đối không tái sử dụng.
+- **Billing thật phải đo:** budget Product=Actions, scope toàn tài khoản, 0 USD + Stop usage có khả dụng/được GitHub chấp nhận; không dựa vào nút cảnh báo đơn thuần. Budget toàn tài khoản có thể chặn **paid overage Actions của các repo khác** khi hết hạn mức. Những phút/chi phí có trước lúc lập budget không bị xóa hoặc bảo đảm hoàn lại; gói GitHub Pro nếu Owner mua sau này là phí thuê bao riêng. Nếu không tạo/xác minh được budget, `S1=FAIL`, không báo đã khóa tiền; S2 chỉ xử lý các workflow BỎ có nguồn bằng chứng, không tự tắt ba nhóm thiết yếu.
+- **Độ sẵn sàng vận hành:** ngân sách 0 USD có hard stop ⇒ khi hết phút miễn phí, ba kiểm tra cần giữ cũng có thể ngừng; nên S3.3 phải đo thực tế số phút/tháng của ba nhóm và ghi cảnh báo rủi ro này. Đây là đổi rủi ro phát sinh phí lấy rủi ro gián đoạn test, không che bằng câu “0 đồng tuyệt đối”.
+- **Tài liệu chính thức:** GitHub Budgets hỗ trợ Stop usage, ngân sách mới không áp hồi tố chu kỳ; included usage alerts ở 90/100% là mục riêng. Không nhầm cảnh báo 75/90/100% của ngân sách 0 USD với giám sát phút miễn phí.
+- **Song song:** Codex có thể chạy R1 khi VPS-GHI hoặc Claude Code dự án khác bận; R1 chỉ dùng GitHub Billing và settings workflows, không SSH/Git/đụng production VPS. **Không làm song song** nếu tác vụ khác đang sửa cùng account Billing/Budgets hoặc workflow settings hai repo; Codex kiểm trùng phạm vi ở S0. Trường hợp GitHub yêu cầu passkey, Owner xác thực/hoặc KQ DỪNG sạch, không giữ phiên nền chờ người.
+- **Phân vai không đổi:** Codex executor chính, Claude kiểm độc lập/Chief; R1 chưa cần Chief ghi main. R2/R3/R5 có thao tác mã/VPS phải theo cổng quyền/khu và Owner RUN riêng.
+- **READY@96637335ce2b69b78ea682a307d8f523b70a8fd6** · GPT Host · RUN_ID=GHM-R1-COST-20261025-01 · Executor=Codex CLI/Desktop · Scope=GitHub billing Actions account budget + 2 repo workflow disable các mục BỎ dựa trên P12. **CHƯA STARTED** — chỉ Owner giao RUN mới kích hoạt.
+- NEXT_TRIGGER=OWNER_RUN_GHM_R1_COST. Không thay GitHub Billing/Actions/VPS ở lượt ký READY.
+
 
