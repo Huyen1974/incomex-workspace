@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.3 · 24/10/2026
-**Trạng thái: C1A GHM-C1A-RESUME-20261025-02 — CI thật 2/2 GREEN (6/6 và 16/16 test); KQ DỪNG S3 P35 do nghiệm thu bảo vệ chưa đạt. Giữ kết quả; VPS-GHI đã trả. Host/Reviewer đọc hồ sơ riêng. C1B/C2 chưa chạy.**
+**Trạng thái: C1A đã chạy CI thật 2/2 GREEN (Codex P35, GitHub verified); S3 còn lỗi live swap/cgroup + coverage/Guard do thay đổi xen kẽ. GPT P36 soạn PROMPT CHỈ đóng S3 cho Codex, DRAFT chờ Claude ký, không rerun CI, C1B/C2 CHƯA RUN.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
 Ưu tiên 1 (Owner 25/10 15:18): hệ thống chạy được — mỗi repo đi được nhánh → PR → test → main → deploy VPS, máy chạy (runner) đặt trên VPS. Sau đó: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 

@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 21:36 +07 · Codex · P35
-- 🎯 Mục tiêu: Codex cài GitHub self-hosted runner trên VPS, cho 2 repo PRIVATE chạy CI/test thật 2/2 GREEN, sau đó C1B CD thử, C2 khóa main, C3 nhiều agent.
-- 🏁 Xong C1A khi: 2/2 repo có CI run thật trên VPS, log/URL/SHA/test GREEN, runner giới hạn 2 CPU/3GB, Guard/Điều 30/31/Kuma đạt và ứng dụng cũ không đổi.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A 2/2 CI GREEN → ⛔ C1A S3 DỪNG → □ C1B → C2 → C3.
-- ✅ Đã xong: Agent Data 6/6 và Web 16/16 test có sẵn GREEN trên runner VPS; giữ kết quả. [Báo cáo công khai đã lược thông tin](C1A-RESUME-REPORT.md).
-- ■ Đang làm: Không có RUN active của Codex; GHM-C1A-RESUME-20261025-02 KQ DỪNG S3; đã đóng kiểm tra tạm và trả VPS-GHI.
-- ⬜ Còn lại: Nghiệm thu bảo vệ chưa đạt; chi tiết và bằng chứng vận hành chỉ lưu riêng theo quy định repo public. Không suy từ CI xanh thành toàn bộ C1A đạt.
-- ➡ Kế tiếp: Host/Reviewer đối chiếu hồ sơ riêng và quyết định khép S3. NEXT_TRIGGER=HOST_REVIEW_C1A_CLOSEOUT.
-- ⛔ Không tự C1B/C2, không sửa main hoặc bật deploy cũ.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 · GPT Chat · P36
+- 🎯 Mục tiêu: C1A GitHub self-hosted CI trên VPS 2 repo được nghiệm thu và đóng đúng phạm vi, sau đó mới thử CD C1B.
+- 🏁 Xong khi: 2/2 CI/test GREEN đã đạt + runner live CPU/RAM/zero-swap được cưỡng chế/canh + C1A footprint/Guard scoped PASS; nợ toàn hệ riêng chủ, không tô xanh giả.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ Codex P35 2/2 CI GREEN → ⛔ S3 POST chưa đạt → ■ Host P36 giao bước đóng S3, PROMPT DRAFT → □ Claude review → □ Host READY/Owner RUN Codex S3 → □ nghiệm thu C1A → C1B.
+- ✅ Đã xong: GitHub API xác nhận 2 workflow/job success (Agent Data 6/6, Web 16/16 theo P35), hai runner ONLINE ở thời điểm KQ, VPS-GHI đã trả. Bằng chứng không cần chạy lại CI.
+- ■ Đang làm: — · 0 RUN active theo P35. Chưa có RUN S3 mới, chưa có mutation từ GPT.
+- ⬜ Còn lại: kiểm và khóa live `memory.swap.max=0`/INV25, nghiệm thu riêng footprint C1A, phân 80 mục thiếu coverage và RED xen kẽ cho đúng chủ; không làm lại CI.
+- ➡ Kế tiếp: Claude ký PROMPT S3 đúng SHA → GPT READY → Owner giao CODEX; NEXT_TRIGGER=CLAUDE_ACCEPT_GHM_C1A_S3_CLOSE_PROMPT.
+- ⛔ Không chạy C1B/C2, không rollback runner khỏe, không sửa main/prod, không hồi sinh deploy cũ hay đăng ký thêm dịch vụ giám sát.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -546,6 +546,17 @@ Ghế: openai-main · Based_on: Codex P27; GPT P28/P29; Claude P30, file PROMPT 
 - Nghiệm thu S3 chưa đạt; KQ DỪNG, không tuyên bố C1A XONG. Giữ kết quả CI. Chi tiết nguyên nhân, log, quyền, cấu hình và bằng chứng bảo vệ nằm trong hồ sơ riêng mang RUN_ID; không công khai dữ liệu vận hành.
 - [Báo cáo công khai](C1A-RESUME-REPORT.md) và [công cụ runner](runner/README.md). Không thay main hoặc khởi động lại ứng dụng. Các kiểm tra tạm đã kết thúc; 0 RUN active của Codex, trả VPS-GHI trong commit này.
 - NEXT_TRIGGER=HOST_REVIEW_C1A_CLOSEOUT: GPT Host/Claude nghiệm thu CI và đọc hồ sơ riêng trước quyết định tiếp theo. Không tự RUN C1B/C2.
+
+## P36 · GPT Host 25/10/2026 — NGHIỆM THU CI 2/2, GIAO ĐÚNG CỔNG S3 CÒN THIẾU
+Ghế: openai-main · Based_on: Codex P32–P35, báo cáo C1A root-only được Codex dẫn trong P35, GitHub API xác minh 2 run `40199854696` attempt 3 và `40200962649` đều `completed/success`, P35 PRE/POST; Docker Docs về `--memory-swap`.
+- **ACCEPT thành quả CI:** Agent Data 6/6, Web 16/16 trên runner VPS với SHA đúng như P35; **đã kiểm trạng thái GitHub job success**. Không tái dựng/chạy lại runner/CI chỉ vì Guard POST khác scope. Đây là hai test nhóm, không phải toàn bộ suite.
+- **KHÔNG ACCEPT S3:** P35 POST 23/25, FAIL C3.footprint_coverage/same_or_better, 80 mục coverage chưa đủ cùng ba đèn RED chưa phân nhân, và từng có `memory.swap.max=max` (kernel v2 không enforce zero-swap dù Docker khai cùng limit). Tại cuối P35 value trở lại 0, nhưng chưa chứng minh bền hoặc INV25 bắt runtime drift. VPS-GHI đã trả; runtime ứng dụng và main chưa đổi.
+- **Nguyên nhân làm S3 khó chốt:** chứng cứ P35 có RUN `CONN-REPAIR-20261025-02` sửa Guard/registry xen kẽ khi Codex giữ cờ. **Chưa xác minh ai sở hữu 80 mục/3 đèn**, không tự quy hết cho RUN khác. Đây là vấn đề attribution/giới hạn tài nguyên, không phải thất bại CI. Cần giữ nguyên PRE frozen và owner proof, không mở thêm khảo sát hệ thống.
+- **Hướng xử lý đúng một lượt:** Codex dùng PROMPT `GHM-C1A-S3-CLOSE-20261025-01` chỉ xử S3: kiểm live cgroup + tăng INV25 để Guard phát hiện `swap.max` sai; footprint/Guard cho riêng phần C1A; phân loại 80 mục từ thay đổi khác bằng evidence, không sửa hộ. Nếu Guard toàn hệ PARTIAL thì tách `C1A_SCOPED` và `GLOBAL_GUARD`, tuyệt đối không báo chung xanh giả. Không khởi động lại app và không đụng CI đã PASS.
+- **Quyền/gates:** PROMPT S3 mới là DRAFT_NOT_READY, Claude Reviewer khác hãng phải đọc P35 và đúng delta S3, ACCEPT last-touch SHA; Host READY rồi Owner RUN Codex. Chưa giao Claude thực thi thay Codex, chưa auto GO C1B/C2. Nếu check lực thi hành gặp RUN cạnh tranh đang giữ VPS-GHI, DỪNG sạch và báo đúng scope.
+- **Tập trung kết quả:** nghiệm thu theo scope nếu runner + quota live + C1A Guard coverage thực sự PASS và toàn bộ RED/80 ngoại phạm vi có chủ, bằng chứng; không gán UNKNOWN thành PASS. Có xung đột chưa phân ⇒ KQ DỪNG có một blocker/Owner để xử, không mở đại tu Guard.
+- NEXT_TRIGGER=CLAUDE_ACCEPT_GHM_C1A_S3_CLOSE_PROMPT.
+
 
 
 

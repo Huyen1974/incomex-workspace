@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**TRẠNG THÁI: C1A phục hồi (P28) — Claude P30 ACCEPT@2e33e0a7 (token Web đã chết ⇒ 2 repo cùng lượt), chờ Host READY + Owner RUN Codex; C1B baseline + dev CD sau C1A, C2 lock main.**
+**TRẠNG THÁI: Codex P35 đã CI 2/2 GREEN thật. P36 S3-CLOSE DRAFT giao Codex xử đúng 2 blocker: cgroup live no-swap/INV25 và Guard footprint bị xen kẽ; C1B/C2 chưa RUN.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
@@ -28,7 +28,7 @@ Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code
 | R0.3 | Actions, thẻ, đường gọi | Workflow 2 kho (lịch, lần chạy cuối, việc làm) + Dependabot; mọi thẻ/app/khoá ghi được 2 kho (tên + quyền, không in giá trị); chỉ đọc đường gọi cho R6: Dot→Codex, Codex cloud / Claude Code web nối được 2 kho | Mỗi workflow: MIGRATE (chức năng cần giữ → Guard/Kuma, ghi nợ) hoặc BỎ — không có GIỮ; ma trận thẻ; R6 khả thi có/không + bằng chứng |
 | R1.1 | Khoá chi phí (P14) | Owner 25/10: Actions vẫn bật. PROMPT GHM-R1-COST: đo billing; ngân sách Actions $0 + «Stop usage» + cảnh báo 75/90/100%; tắt riêng từng workflow thừa bằng `gh workflow disable` (bật lại được), giữ 3 nhóm kiểm cần; không runner, không tắt Actions cấp repo | Ngân sách $0 + Stop có; 3 nhóm nghiệp vụ + Dependabot dynamic managed (runner tiêu chuẩn miễn phí), 15 BỎ đã disable; budget $0 + Stop verified |
 | R1.2 | 😊 Owner mua Pro | Đầu R2 (khoá main cần Pro), chỉ sau R1.1: github.com/settings/billing → nâng GitHub Pro. Ngân sách $0 + Stop của R1.1 giữ nguyên nên gắn thẻ thanh toán không mở đường mất tiền | Trang billing: Pro + budget $0 có dừng |
-| C1A | Codex cài runner và chạy CI thật trên VPS | Hai GitHub repo private, mỗi repo runner CI cách ly non-root; không docker.sock/secret, tổng 2CPU/3GiB; một workflow `push` test mã thật trên nhánh dev/repo | 2/2 workflow/test PASS thực trên VPS; log/SHA, Guard/PRE-POST sạch |
+| C1A | Codex cài runner và chạy CI thật trên VPS | Hai GitHub repo private, mỗi repo runner CI cách ly non-root; không docker.sock/secret, tổng 2CPU/3GiB; một workflow `push` test mã thật trên nhánh dev/repo | CI 2/2 PASS (P35); S3 cần kiểm live zero-swap/INV25, coverage và kết luận scoped/global riêng. Không chạy lại hai CI đã PASS. |
 | C1B | Codex chuẩn baseline + CD DEV; KST nhập main | Chỉ sau C1A xanh: xác định runtime SHA Web/Agent Data, candidate branch, Chief duyệt, dev deploy thử và rollback; không khôi phục workflow/secret cũ | Dev CD SHA, health+rollback chứng minh, không đổi app đang dùng |
 | G0 · BỎ (P22) | Kiểm ba tuyến CI/CD cũ theo DROOT56 (READ-ONLY) | Codex sử dụng PROOT08/09, P12/P17 và mẫu mới để chỉ rõ GitHub PR/CI, backup VPS→GitHub và CD GitHub→VPS đã bị khóa; không nối lại, không tạo secret | Một bảng VERIFIED/UNKNOWN, tiêu chí phục hồi an toàn và lệnh bước kế độc lập |
 | R2-P(A) · BỎ (P22) | Bootstrap Free | Codex dựng 1 repo public thử sạch/lịch sử mới; Actions repo thử OFF; ruleset main-only và 3 Issue, test worker thật dev branch/PR (+ main reject) | Repo/3 Issue/nhánh/permission evidence, không đụng 2 repo private |
