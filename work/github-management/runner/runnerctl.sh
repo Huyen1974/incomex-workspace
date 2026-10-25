@@ -32,14 +32,17 @@ case "$action" in
  recreate)
   # Operator must first verify the GitHub runner is idle; preserves registration and private data.
   docker volume inspect "$volume" >/dev/null
-  docker stop --time 30 "$name" >/dev/null
-  docker rm "$name" >/dev/null
+  if docker container inspect "$name" >/dev/null 2>&1; then
+    docker stop --time 30 "$name" >/dev/null
+    docker rm "$name" >/dev/null
+  fi
   create_runner
   echo "RECREATED $name" ;;
  start|stop) docker "$action" "$name" >/dev/null; echo "$action $name" ;;
  remove)
   # Remove only this CI container. Volumes retain credentials until GitHub registration is revoked.
-  docker rm -f "$name" >/dev/null
+  docker stop --time 30 "$name" >/dev/null
+  docker rm "$name" >/dev/null
   echo "REMOVED $name; GitHub runner registration must also be removed by Mac admin; private volume retained." ;;
  verify)
   docker inspect --format '{{.Name}} user={{.Config.User}} cpu={{.HostConfig.NanoCpus}} memory={{.HostConfig.Memory}} swap={{.HostConfig.MemorySwap}} restart={{.HostConfig.RestartPolicy.Name}} network={{.HostConfig.NetworkMode}} privileged={{.HostConfig.Privileged}} state={{.State.Status}}' "$name" ;;
