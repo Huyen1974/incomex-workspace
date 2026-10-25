@@ -1,48 +1,36 @@
-# PROMPT — GHM C1 · KHÔI PHỤC CI/CD 2 REPO, MÁY CHẠY ĐẶT TRÊN VPS
-RUN_ID: GHM-C1-CICD-VPS-20261025-01
-STATUS: DRAFT — Claude soạn theo Owner 25/10 15:18 (COLLAB P22), ký ACCEPT@last-touch; GPT Host đọc TOÀN BỘ rồi READY@cùng SHA; Owner giao Claude Code CLI. Thay `GHM-G0-CICD-VERIFY-20261025-01` và pilot P20 `GHM-R2P-FREE-20261025-01` (cả hai SUPERSEDED_UNRUN, giữ trong lịch sử Git).
+# PROMPT — GHM C1A · CODEX CÀI GITHUB SELF-HOSTED RUNNER VÀ CHẠY CI THẬT TRÊN VPS
+RUN_ID: GHM-C1A-VPS-RUNNER-20261025-01
+STATUS: DRAFT_NOT_READY. Claude Reviewer rà P23 và PROMPT này, ACCEPT đúng last-touch SHA; GPT Host READY cùng SHA; Owner giao Codex mới RUN. Bản P22 `GHM-C1-CICD-VPS-20261025-01` đã có chữ ký nhưng SUPERSEDED_UNRUN (khác executor và cổng an toàn), KHÔNG DÁN CHẠY.
 
-Executor: Claude Code CLI chạy root trên VPS, vai KST (kỹ sư trưởng). Lấy cờ VPS-GHI trước mọi ghi; Điều 30/31: mọi thứ làm xong phải kiểm lại và đưa ngay vào bảo vệ trong cùng lượt.
-Giấy phép: Owner 25/10 15:18 (COLLAB §0.3) = GO DROOT56 cho đúng việc này — khôi phục CI/CD GitHub↔VPS của `Huyen1974/agent-data-test` và `Huyen1974/web-test` qua các cổng dưới. Không mở rộng sang việc khác.
-ENTRY: AGENTS.md root → root COLLAB (cờ VPS-GHI, DROOT56, PROOT08/09) → work/github-management/COLLAB §0 + Bảng + P12/P17/P22 → PROMPT này. Thiếu ACCEPT/READY cùng SHA hoặc Owner RUN ⇒ DỪNG.
+**EXECUTOR: CODEX CLI/DESKTOP**, chạy từ Mac qua quyền GitHub + đường SSH/VPS đã được Owner cấp. Codex tự triển khai toàn bộ C1A, Claude chỉ Reviewer/KST cho các thao tác ghi main ở C1B/C2. Nếu Codex thiếu quyền ghi VPS hợp lệ ⇒ KQ DỪNG đúng blocker; không tự chuyển nhiệm vụ sang Claude.
 
-**Mục tiêu:** mỗi repo chạy được đường nhánh → PR → test trên VPS → main → deploy trên VPS (kiểm sức khoẻ + tự lùi). GitHub không còn giữ chìa vào VPS: máy chạy (runner chính hãng GitHub, giấy phép MIT) nằm ngay trên VPS, dùng biến/mật khẩu sẵn có tại chỗ.
-**Vì sao không bật lại workflow cũ (Claude đọc 25/10):** Web build trên GitHub rồi SSH/rsync ~15 bước, chép đè `docker-compose.yml` + nginx từ repo (bản 03/2026) lên bản đang chạy (22/10), tự chạy SQL; Agent Data rsync `--delete` main 04/2026 đè thư mục mã VPS mới hơn. Bật lại = mất mã/cấu hình.
+**MỤC TIÊU NGHIỆM THU:** đăng ký self-hosted runner GitHub trên VPS cho cả **hai repo PRIVATE** `Huyen1974/agent-data-test` và `Huyen1974/web-test`, chạy tối thiểu 1 workflow **kiểm thử thực có giá trị** mỗi repo trên runner VPS, GitHub trả GREEN và có URL run + SHA. **Không coi runner ONLINE là XONG.** C1A là đường CI phát triển thực tế; C1B tiếp ngay sau để thử CD dev/rollback, C2 mới mở auto-deploy sau khóa main.
 
-## A — MÃ NỀN: main = mã trên VPS (≤45′)
-- A1 STARTED + cờ VPS-GHI. Đo lại từng thư mục mã `/opt/incomex/docker/agent-data-repo`, `/opt/incomex/docker/nuxt-repo`: nhánh, HEAD, tệp sửa chưa commit, submodule, bản `vps-daily-*` mới nhất; mã đang chạy (image agent-data, `/opt/incomex/deploys/nuxt-output`) dựng từ SHA nào — không rõ ghi UNKNOWN.
-- A2 Bản clone KST riêng `/opt/incomex/kst/<repo>` (root, 0700, ngoài tầm Hermes): clone cục bộ từ thư mục mã; phần sửa chưa commit → 1 commit «baseline VPS 2026-10-25» trong bản clone KST (KHÔNG commit/checkout/reset trong thư mục mã đang chạy). Quét bí mật trước khi đẩy; có dấu hiệu ⇒ DỪNG.
-- A3 Lấy main cũ qua đường riêng như job sao lưu `git-push-gh-daily-v2.sh` (KHÔNG đổi `origin` sentinel DROOT56, không đụng Config Guard của thư mục mã). Tag `archive/main-20261025` = main cũ; `git merge -s ours` ⇒ main tiến thẳng; đẩy main + tag, KHÔNG force-push.
-- A4 Trước khi đẩy: xác nhận mọi workflow deploy cũ đang disabled (P17); cùng commit chuyển 15 workflow BỎ sang `.github/workflows-archive/` (không xoá, không chạy được nữa). Sau khi đẩy: `git diff <baseline> origin/main` chỉ khác thư mục archive; main cũ là tổ tiên; tag có. Ghi SHA đồng bộ vào `/opt/incomex/kst/<repo>.synced`.
+**GIỚI HẠN OWNER GO:** Owner cho phép **cài runner/thử CI trên VPS giai đoạn phát triển** theo DROOT56, không mặc nhiên cho phép push baseline sai vào main, xóa/sửa cây mã đang phục vụ, khôi phục SSH secret hoặc tự restart live Agent Data/Nuxt. Không coi các container dịch vụ đang chạy là vô giá trị chỉ vì chưa production.
 
-## B — MÁY CHẠY TRÊN VPS (≤60′)
-- B1 Tải `actions/runner` bản mới nhất từ GitHub releases, kiểm SHA256 chính hãng. Token đăng ký lấy bằng thẻ sẵn có trên VPS (thẻ của job sao lưu nếu đủ quyền) — không in, không lưu. Không thẻ nào đủ quyền ⇒ DỪNG, NEXT_TRIGGER=OWNER_RUNNER_TOKEN (Host soạn sẵn các bước bấm cho Owner).
-- B2 Mỗi repo 2 máy chạy:
-  - `vps-deploy`: dịch vụ systemd, user `ghrunner` (nhóm docker), thư mục `/opt/incomex/runners/<repo>-deploy`. Cổng: hook trước việc `ACTIONS_RUNNER_HOOK_JOB_STARTED=/opt/incomex/runners/hooks/only-main.sh` (root:root 0755, `ghrunner` không sửa được) — exit 1 trừ khi `GITHUB_REF=refs/heads/main` VÀ `GITHUB_EVENT_NAME` ∈ {push, workflow_dispatch} VÀ `GITHUB_WORKFLOW_REF` = `<owner>/<repo>/.github/workflows/deploy-vps-local.yml@refs/heads/main`. Hook thoát ≠ 0 ⇒ việc không chạy (GitHub Docs).
-  - `vps-ci`: chạy trong container (ảnh runner chính hãng), đăng ký 1 lần lưu ở volume riêng (KHÔNG `--ephemeral`: mỗi lần cần token mới ⇒ phải để thẻ admin thường trực trên VPS); hook sau việc `ACTIONS_RUNNER_HOOK_JOB_COMPLETED` dọn thư mục làm việc; không gắn docker.sock, không gắn thư mục máy chủ, mạng riêng (không vào mạng compose), `--cpus 2 --memory 3g`, mỗi lúc 1 việc.
-- B3 Điều 30/31 + giám sát: đăng ký hook, cấu hình runner, `.git/config` bản clone KST vào `code-ledger.tsv` (LOCKED) / Config Guard; Kuma theo dõi các dịch vụ runner; đăng ký các script mới vào bảng công cụ.
+ENTRY: root AGENTS.md/Đ30–31/DROOT56 → root COLLAB PROOT08/09 & VPS-GHI → work/github-management COLLAB §0/Bảng/P12/P17/P22/P23 → ROADMAP/PROMPT. PRE/POST đều phải có evidence. Cờ VPS-GHI thuộc phạm vi ghi hệ thống; đọc trạng thái không giữ cờ. Chỉ ghi STARTED sau Owner RUN.
 
-## C — WORKFLOW MỚI (≤45′, KST đẩy lên main)
-- C1 `ci.yml`: on pull_request + push mọi nhánh, `runs-on: [self-hosted, vps-ci]`. Agent Data: pytest phần không cần DB thật. Web: `pnpm install --frozen-lockfile` + lint/test có sẵn + build.
-- C2 `deploy-vps-local.yml`: `runs-on: [self-hosted, vps-deploy]`, CHỈ `workflow_dispatch` với input `sha` (mặc định HEAD main; phải là tổ tiên của main). Trigger `push: main` thêm ở C2 khoá main, không phải lượt này.
-  - Trước: thư mục mã VPS không có commit/sửa mới so với `<repo>.synced`; có ⇒ DỪNG (KST đưa lên main trước) — không mất mã VPS.
-  - Agent Data: `docker build` từ bản checkout của runner → tag `agent-data-local:<sha>`; `latest` hiện tại → `prev`; mới → `latest`; `docker compose up -d --no-build agent-data`; kiểm `/info`, `/api/health`, số tài liệu ≥100; hỏng ⇒ `prev` → `latest`, tạo lại, exit 1.
-  - Web: build `.output` trong thư mục runner (giới hạn bộ nhớ), sao `nuxt-output` → `nuxt-output.prev`, chép bản mới (cục bộ), restart nuxt, reload nginx, kiểm `/knowledge`; hỏng ⇒ trả `.prev`.
-  - Xong: nếu SHA vừa deploy mới hơn thì thư mục mã VPS tiến thẳng (`--ff-only`) tới SHA đó từ bản checkout cục bộ, cập nhật `.synced`; `origin` giữ sentinel.
-  - KHÔNG: chép compose/nginx từ repo · SQL migration tự động · rsync DOT (ghi nợ riêng).
-- C3 3 workflow kiểm giữ lại: đổi `runs-on` → `[self-hosted, vps-ci]` ⇒ phút GitHub = 0.
+## S0 — CỔNG VÀ TÀI NGUYÊN
+1. Đọc lại bằng chứng R0/P12/P17/P22, **không làm lại khảo sát 33 workflows**. GitHub Actions Account budget $0 + Stop còn ON, 15 workflow thừa vẫn disabled, ba kiểm nghiệp vụ còn nguyên. Kiểm mã VPS/backup daily HEAD, GitHub main và bản code/runtime, ghi UNKNOWN nếu lệch (nhất là Web submodule). KHÔNG sửa `origin` sentinel DROOT56 hay Config Guard.
+2. Kiểm VPS-GHI, các RUN đang ghi Docker/2 code repo, container health, swap gần đầy, `docker info` hỗ trợ giới hạn memory/CPU qua cgroup. Nếu không đảm bảo khóa/trần tài nguyên hay Codex thiếu SSH/VPS quyền ghi đã duyệt thì DỪNG; không chiếm khóa để chờ.
+3. Ở nhánh thử GitHub, kiểm YAML deploy cũ còn disabled. Không kích hoạt `workflow_dispatch` deploy để “thử kết nối”.
 
-## D — THỬ THẬT (≤45′)
-- D1 CI: mỗi repo 1 PR nhỏ (1 dòng README) → `ci.yml` xanh trên `vps-ci`; ghi thời gian.
-- D2 Chặn: nhánh thử thêm 1 workflow `runs-on vps-deploy` → bị hook từ chối ở «Set up runner»; ghi bằng chứng rồi đóng PR/nhánh thử.
-- D3 Deploy: dispatch `deploy-vps-local` mỗi repo với `sha` = SHA đang chạy (A1) ⇒ không đổi hành vi; SHA đang chạy UNKNOWN ⇒ dùng mã nền A2 và ghi rõ. Health xanh; ghi thời gian so với cách cũ. Mỗi lần khởi động lại ~1 phút; Owner RUN lệnh này = đồng ý.
-- D4 Diễn tập lùi: chạy bước lùi (`prev`) rồi deploy lại → health xanh.
-- D5 Tải VPS trong lúc build/test: production vẫn trả lời bình thường; quá tải ⇒ dừng việc CI, báo Host. Phút GitHub-hosted tăng thêm = 0.
-- Nâng production lên mã nền mới hơn SHA đang chạy KHÔNG thuộc lượt này (Host/Owner quyết sau).
+## S1 — CÀI 2 RUNNER CI TÁCH BIỆT, GIỚI HẠN QUYỀN
+1. Cài binary `actions/runner` chính thức, pin release version + kiểm SHA256 chính hãng. Nếu đóng vào container thì ảnh do Codex tạo từ binary hãng; đừng ghi là official image nếu chưa xác minh.
+2. **Một registration runner/repo** (tài khoản GitHub cá nhân). Codex lấy registration token *ngắn hạn* bằng phiên GitHub admin trên Mac/Owner UI; đưa một lần qua kết nối mã hóa; KHÔNG chuyển PAT admin/backup vào VPS, không in token vào chat, log, script, systemd hoặc repo. Credentials runner lưu ở volume riêng chỉ runner đọc được.
+3. Runner thực thi code **không phải root, không ở nhóm docker, không dùng `docker.sock`, không `--privileged`**, không mount host root hay `/opt/incomex`/PG/GSM/.env/SSH/backup, không host-network/compose network; volume chỉ config runner và workspace CI riêng. Workflow `permissions: contents: read`, checkout không lưu credentials. Repo vẫn PRIVATE.
+4. Runner mỗi repo có label riêng; **tổng CPU CI ≤2 vCPU, RAM CI ≤3 GiB**, tối đa 1 build nặng mỗi lúc. Codex phải chứng minh giới hạn bằng container/cgroup thực; nếu 2 runner có thể chạy song song vượt trần thì tạm bật lần lượt 1 runner để test, không để tài nguyên VPS bị tranh. Mất tài nguyên ⇒ dừng CI trước, không dừng dịch vụ đang dùng. Không dùng job hook thay thế giới hạn quyền Docker/root.
+5. Có biên nhận 2 runner online từ GitHub UI/API; runner persistent + dọn workspace sau job chỉ được báo PILOT có giới hạn, **không** báo ephemeral/isolated tuyệt đối.
 
-## KQ
-- XONG khi A–D đạt cả 2 repo. NEXT_TRIGGER=GHM_C2_LOCK_MAIN (😊 Owner mua Pro → Codex khoá main + chìa KST → bật `push: main` cho deploy).
-- KQ@GHM-C1-CICD-VPS-20261025-01 XONG|DỪNG + Bảng cùng commit trong COLLAB: bảng 2 repo × A/B/C/D, thời gian deploy, URL PR thử. Repo public chỉ tóm tắt; chi tiết thẻ/đường ở `/opt/incomex/work/github-management/GHM-C1-CICD-VPS-20261025-01/` (root-only).
-- Lùi toàn bộ: dừng + gỡ runner (`config.sh remove`); main giữ nguyên (đã có tag `archive/`); workflow cũ vẫn nằm trong archive.
+## S2 — CI THẬT TRÊN 2 NHÁNH THỬ, KHÔNG GHI MAIN
+1. Với mỗi repo, tạo `dev/codex/ghm-c1a-probe` từ mã nguồn VPS/daily snapshot được xác minh, chỉ trong GitHub/clone riêng; không reset/pull/checkout cây phục vụ. Nếu snapshot chưa an toàn hoặc có secret/data ngoài Git thì DỪNG repo đó.
+2. Tạo `.github/workflows/ghm-ci-vps-probe.yml` trên nhánh thử, `on: push` CHỈ nhánh này, `runs-on` đúng CI runner label; không dùng `workflow_dispatch` (đòi file trên default branch), không có bước deploy, không đụng các YAML cũ trên main.
+3. Chạy thật: Agent Data pytest nhóm test unit không cần DB thật; Web dùng pnpm/node theo `package.json`, install lockfile và một lệnh lint/typecheck/test có thật. Không bịa test; phải có test thực hữu ích trên cả hai repo chứ không chỉ echo version. Nếu phụ thuộc DB/secret hoặc tài nguyên không đủ thì ghi FAILED/UNKNOWN, không “sửa” bằng cách gắn DB/secret thật.
+4. Ghi URL GitHub run, SHA nguồn, runner label/ID, kết quả các bước, peak RAM/CPU, phút GitHub-hosted cho **probe**. Không tuyên bố tổng tài khoản 0 hosted-minutes vì ba audit cũ vẫn có thể chạy.
 
-CẤM: khôi phục chìa SSH/secret cũ hoặc bật workflow cũ; chép compose/nginx từ repo; SQL tự động; force-push; xoá tệp (chỉ chuyển archive); đổi `origin` sentinel; tạo deploy key; mua Pro; >1 việc CI cùng lúc; đụng dịch vụ ngoài agent-data/nuxt/nginx reload. Gặp lỗi ⇒ dừng sạch đúng bước, KQ DỪNG + NEXT_TRIGGER, không giữ phiên chờ.
+## S3 — POST, DỌN VÀ BÀN GIAO
+- Kiểm 2 repo: runner online, probe workflow đã chạy từ GitHub trên VPS và test có kết quả, GitHub Actions budget $0+Stop còn, ba audit nguyên vẹn, 15 workflows thừa vẫn disabled; Git top-level VPS/Guard và container ứng dụng không bị thay. Tránh đẩy đường dẫn/actor/secret nhạy cảm lên task PUBLIC; bằng chứng chi tiết cất vùng root-only của việc.
+- **KQ XONG chỉ khi 2/2 repo có test thực PASS trên VPS và không gây thay đổi runtime mã/dịch vụ cũ**. Nếu còn một repo lỗi thì KQ DỪNG/PARTIAL đúng repo, nêu blocker và đường rollback riêng runner mới. Trả cờ/không giữ phiên chờ.
+- Khi XONG: giữ hai CI runner cô lập, ghi bước kế `GHM_C1B_BASELINE_DEV_CD`. **C1B** Codex chuẩn bị code baseline và dev CD thử local trên vùng riêng, Chief quyết nhập main, diễn tập rollback; **C2** Owner mua Pro nếu private + khóa main/Chief-only rồi mới cho auto-deploy khi main đổi. C1A KHÔNG tự RUN C1B/C2.
+
+CẤM: sử dụng runner nhận job PR có quyền root/docker.sock, đăng ký deploy runner đặc quyền trên VPS, phục hồi secret SSH GitHub→VPS cũ, bật workflow deploy cũ, force-push/merge main, sửa/đổi `origin`, ghép mã cũ vào mã sống, `rsync --delete`, SQL migration, copy compose/nginx, restart container ứng dụng/DB, mua Pro. Mọi đổi khác ngoài runner + nhánh/probe/STARTED/KQ ⇒ DỪNG và báo Host.

@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.3 · 24/10/2026
-**Trạng thái: Owner 25/10 15:18 đảo ưu tiên — C1 khôi phục CI/CD 2 repo trên VPS TRƯỚC, rồi C2 khoá main, rồi C3 nhiều agent. PROMPT C1: Claude P22 ACCEPT, chờ Host READY.**
+**Trạng thái: GPT P23 giữ C1→C2→C3; C1A CODEX cài runner + CI thật 2 repo trên VPS, PROMPT DRAFT chờ Claude ký. C1B mới dev CD; chưa RUN.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
 Ưu tiên 1 (Owner 25/10 15:18): hệ thống chạy được — mỗi repo đi được nhánh → PR → test → main → deploy VPS, máy chạy (runner) đặt trên VPS. Sau đó: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 
@@ -12,7 +12,8 @@
 ## 0.5 THỨ TỰ MỚI (Owner 25/10 15:18 — thay mọi thứ tự trước)
 | Bước | Ai | Việc | Đạt khi |
 |---|---|---|---|
-| **C1 — CI/CD chạy trên VPS** (= R3 + CI/CD) | 🤖 Claude Code CLI trên VPS (KST, cờ VPS-GHI, Điều 30/31) | Mã nền main = mã VPS · runner chính hãng trên VPS (deploy chỉ nhận việc từ main; CI trong hộp kín) · workflow deploy viết lại chạy tại chỗ · thử thật + diễn tập lùi. PROMPT `GHM-C1-CICD-VPS-20261025-01`. | 2 repo: PR → test xanh trên VPS; deploy + lùi xanh; workflow nhánh lạ bị chặn; phút GitHub = 0. |
+| **C1A — RUNNER CI TRÊN VPS** | 🤖 **Codex**, Claude giám sát | Cài runner official `actions/runner` trên VPS (mỗi repo một đăng ký) không-root/no docker.sock, giới hạn tài nguyên; workflow kiểm thử thật trên nhánh `dev/` của 2 repo. Không sửa main hay restart dịch vụ. | 2/2 GitHub CI runs thực chạy trên VPS có test PASS, SHA/log và Guard/health không đổi. |
+| **C1B — BASELINE + CD DEV/CANARY** | 🤖 Codex chuẩn bị, Claude KST duyệt main/release | Sau C1A đạt: đối chiếu mã VPS/image Web + Agent Data, baseline ứng viên, Chief duyệt; CD thử vùng dev/canary và rollback, không dùng workflow deploy SSH cũ. | Dev CD release SHA+smoke+rollback PASS trước bước C2. |
 | **C2 — Khoá main** (= R2-A/B) | 😊 Owner mua Pro · 🤖 Codex ruleset · KST chìa | Ruleset chỉ main + chìa KST; rồi bật `push: main` cho deploy. | Dev đẩy main bị chặn; main đổi ⇒ tự deploy. |
 | **C3 — Nhiều agent** (= R4 → R6) | 3 ghế + KST | 3 việc thật trên 2 repo thật → ca đêm. Khoá VPS chống sửa nhầm (P7) sau C2. | Như R4/R6. |
 BỎ (P22): G0 khảo sát chỉ đọc và R2-P pilot repo public — Claude đã đọc trực tiếp deploy cũ; thử song song làm thẳng trên 2 repo thật ở C3.
@@ -29,7 +30,7 @@ BỎ (P22): G0 khảo sát chỉ đọc và R2-P pilot repo public — Claude đ
 | **R5 — Triển khai từ main** (∥ R6) | KST · 😊 Owner GO (nối lại GitHub→VPS — luật DROOT56) | Theo cờ từng khu: VPS lấy đúng SHA main bằng thẻ chỉ đọc → build/khởi động lại theo cách đang dùng → health; lùi = SHA trước. Rồi **khoá VPS chống sửa mã nhầm (P7):** root `agent-data` của cổng workspace → chỉ đọc; 2 thư mục mã gắn chỉ đọc, chỉ bước deploy của KST mở rồi khoá lại; `origin` giữ URL chết DROOT56, deploy dùng URL riêng + thẻ chỉ đọc; Guard: thư mục sạch, HEAD = SHA đã deploy, đang chỉ đọc; biển `00-NHAN-THU-MUC.md` chỉ đường GitHub. Dừng backup ngược khi đã khớp. | SHA đang chạy = SHA main; diễn tập lùi PASS; sửa tay ⇒ «Read-only file system»; sửa qua MCP ⇒ `READ_ONLY_ROOT`; mở khoá ngoài deploy ⇒ Guard đỏ. |
 | **R6 — Ca đêm** (∥ R5) | 🤖 bộ giao việc đã chứng minh ở R0 · KST | Giao 3–5 việc buổi tối; mỗi việc biên nhận, hạn, dừng sạch; lỗi một việc không chặn việc khác; sáng KST duyệt, bảng 1 dòng/việc; không deploy. | ≥ 2/3 NHẬN, không ai canh đêm. Không có đường gọi thật ⇒ NO-GO, không chạy nền giả. |
 
-**Thứ tự (P22, thay P21):** R0/R1 ✓ → **C1** = R3 mã nền + CI/CD trên VPS → **C2** = R2-A/B khoá main + bật deploy khi main đổi → **C3** = R4 → R6; khoá VPS (P7, trong R5) sau C2. G0 và R2-P BỎ.
+**Thứ tự P23 (theo Owner):** R0/R1 ✓ → C1A CODEX cài runner/test thật 2 repo → C1B mã nền+CD vùng dev/canary có rollback → C2 khóa main private bằng Pro/Chief key mới mở auto-deploy → C3 nhiều agent/ca đêm. G0 và pilot public vẫn BỎ.
 
 ## II. Ba điều chỉnh với lời Owner
 1. «Tắt Actions» → Owner 25/10 đổi thành «kiểm soát chi phí»: Actions vẫn bật; ngân sách $0 + «Stop usage» phải có trước khi gắn thẻ mua Pro.

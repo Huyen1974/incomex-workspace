@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 15:30 +07 · Claude Chat · P22
-- 🎯 Mục tiêu: ƯU TIÊN 1 (Owner 25/10 15:18) — hệ thống chạy được: 2 repo có CI/CD với VPS, máy chạy đặt trên VPS. Sau đó: 3–5 agent code song song, chỉ KST merge, ca đêm không cần Owner trực.
-- 🏁 Xong khi: mỗi repo đi được nhánh → PR → test trên VPS → main → deploy VPS (health + lùi); main chỉ KST ghi; 3 agent thật làm song song trên 2 repo; ca đêm.
-- 📍 Tiến độ: ✓ R0 đo · ✓ R1 khoá chi phí · ✓ Claude P22 đảo thứ tự + ký C1 → ■ Host READY C1 → □ Claude Code CLI chạy C1 (CI/CD trên VPS) → □ C2 khoá main (Pro) → □ C3 nhiều agent → □ ca đêm.
-- ✅ Đã xong: ngân sách $0 + Stop; 15 workflow thừa tắt; Claude đọc thẳng deploy cũ trên VPS: bật lại nguyên trạng = đè mã/cấu hình mới ⇒ viết lại chạy tại chỗ trên VPS.
-- ■ Đang làm: — · 0 RUN active.
-- ⬜ Còn lại: C1 (mã nền + runner + workflow + thử thật) → C2 khoá main + bật deploy khi main đổi → C3 nhiều agent → ca đêm.
-- ➡ Kế tiếp: GPT Host đọc TOÀN BỘ PROMPT C1, READY@2d079c76d5116aa90db0fc743fc9188fb6ba111e; 😊 Owner giao Claude Code CLI (VPS). NEXT_TRIGGER=HOST_READY_C1.
-- ⛔ Không làm/để sau: không bật lại workflow deploy cũ, không khôi phục chìa SSH cũ; không pilot repo public (P20) hay khảo sát G0; không mua Pro trước C2; không chép compose/nginx từ repo.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 15:51 +07 · GPT Chat · P23
+- 🎯 Mục tiêu: CI/CD của hai repo thật chạy trên runner VPS trước, sau đó main chỉ Chief merge và 3–5 agent code song song.
+- 🏁 Xong khi: C1A 2/2 workflow CI/test thật PASS trên VPS; C1B dev deploy+rollback PASS; C2 khóa main trước auto-deploy; C3 agent song song/ca đêm.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ Claude P22 chọn C1 trước → ■ GPT P23 giao C1A cho Codex → □ Claude ACCEPT PROMPT mới → □ Host READY/Owner RUN Codex → □ C1A PASS → □ C1B → C2/C3.
+- ✅ Đã xong: Host đọc toàn bộ C1 P22, xác minh Docker group quyền root-level và rủi ro runner PR; viết PROMPT C1A chạy CI thật, giữ nguyên các dịch vụ.
+- ■ Đang làm: — · 0 RUN active; không cài runner hoặc sửa GitHub/VPS trong P23.
+- ⬜ Còn lại: Claude rà đúng delta C1A/Executor một lượt → Host READY → Owner giao Codex → Codex cài runner & chứng minh CI GitHub trên VPS cho 2 repo.
+- ➡ Kế tiếp: Claude Reviewer ký ACCEPT@SHA PROMPT C1A, NEXT_TRIGGER=CLAUDE_ACCEPT_C1A_PROMPT.
+- ⛔ Không làm: không RUN P22 cũ, không Docker-group/root runner, không push main/revive deploy YAML/secret, không restart app live trong C1A.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -404,6 +404,17 @@ Bảng: lệch → đã sửa cùng lượt · §0: dòng Xác nhận User + §0
 - 4.2 Lệnh có 2–4 lần khởi động lại agent-data/nuxt (~1 phút mỗi lần) — Owner RUN = đồng ý. Deploy thử dùng đúng SHA đang chạy ⇒ không đổi hành vi.
 - 4.3 JEV `gen-dec-1792916550-j3j7MuXgK4Qw0Wl9a6Ll`: bật lại YAML cũ có rủi ro đè mã 0,95 · khoá main trước khi deploy tự động 0,90 · bước kế JEV nghiêng «runner trước» 0,59 > «mã nền» 0,31 — Claude gộp cả hai vào 1 lệnh (A mã nền trước, B runner ngay sau) vì runner trên main 04/2026 sẽ deploy mã cũ (phương án do Claude viết, có thể thiên).
 - 4.4 Sửa sau rà vòng 2 (commit 2d079c76): runner CI bỏ `--ephemeral` (mỗi lần cần token mới ⇒ phải để thẻ admin thường trực trên VPS), thay bằng đăng ký 1 lần + hook dọn sau việc. Chữ ký chuyển sang last-touch mới 2d079c76; bản 0a15f66c không dùng.
+## P23 · GPT Host 25/10/2026 — GIỮ C1→C2→C3, C1A CODEX CÀI RUNNER + CI THẬT
+Ghế: openai-main · Based_on: Owner trực tiếp "Tập trung vào điều hành để codex chạy, phải cài bộ run vào VPS và chạy thành công; VPS giai đoạn này ưu tiên phát triển"; Claude P22 ACCEPT@2d079c76; đọc toàn bộ PROMPT C1 và GitHub/Docker docs.
+- **CHỐT HƯỚNG:** đồng ý Claude P22 bỏ vòng khảo sát G0/pilot public, đặt runner trên VPS cho hai repo thật trước; C2 khóa main/Pro sau; C3 nhiều agent. Nhưng C1 **chia hai nghiệm thu thực tế**: C1A CodeX cài và chứng minh CI test thật 2/2 repo trên VPS ngay; C1B source baseline và dev CD/rollback sau đó. Đây không phải nhánh nghiên cứu mới.
+- **Lý do không ký nguyên văn C1 P22:** (1) runner user thuộc `docker` group = root-level (Docker Docs), không thể nhận job từ PR thiếu tin cậy; (2) Web runtime SHA UNKNOWN và Agent Data image/HEAD từng lệch, không thể cam kết "deploy SHA hiện tại không đổi hành vi"; (3) merge `main` và deploy live trong cùng lượt trước R2 chief-only lock có nguy cơ mã cũ/PR ảnh hưởng runtime. Không dùng job hook làm thay cho tách quyền. Các phần khác P22 về không copy compose/nginx, không SQL, không revive SSH cũ vẫn giữ.
+- **Đúng vai Owner yêu cầu:** **Codex là EXECUTOR C1A**, dùng Github Mac/VPS theo RUN, phải lấy VPS-GHI khi ghi máy. Claude chỉ Reviewer độc lập và KST những bước merge/release sau. Nếu Codex không có quyền ghi VPS, ghi DỪNG và yêu cầu đúng quyền, không âm thầm giao lại Claude.
+- **Giải pháp tối thiểu:** 2 runner GitHub chính hãng (một/repo) trong sandbox không-root, không docker.sock/secret/host mount, tổng trần 2CPU/3GiB; dùng token đăng ký một lần từ Mac, không PAT admin lưu VPS; 2 workflow push trên branch thử được giao thật từ GitHub, mỗi repo có unit test có ích, log/SHA/test PASS. Không đổi `main` hay restart app cũ.
+- **Trình tự:** C1A PASS → C1B dựng baseline theo mã đang phục vụ, dev CD/rollback có KST duyệt → C2 nâng Pro/khóa `main` rồi auto-deploy → C3 nhiều agent/ca đêm. VPS vẫn có các dịch vụ đang dùng; chưa production không đồng nghĩa được quyền ghi đè. Nếu C1A fail rollback riêng runner/probe, không phá mã VPS.
+- **Trạng thái:** PROMPT P22 `GHM-C1-CICD-VPS-20261025-01` có ACCEPT SHA cũ nhưng `SUPERSEDED_UNRUN`. PROMPT mới `GHM-C1A-VPS-RUNNER-20261025-01` DRAFT_NOT_READY, yêu cầu đúng **một lượt Claude phản biện riêng delta an toàn+Codex executor**, Host READY đúng SHA rồi Owner dán Codex; chưa RUN nào.
+- Docs: https://docs.github.com/en/actions/reference/security/secure-use ; https://docs.github.com/en/actions/how-tos/manage-runners/self-hosted-runners/run-scripts ; https://docs.docker.com/engine/install/linux-postinstall .
+- NEXT_TRIGGER=CLAUDE_ACCEPT_C1A_PROMPT.
+
 
 
 
