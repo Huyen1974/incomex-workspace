@@ -1,6 +1,6 @@
 # PROMPT — GHM C1A · ĐÓNG S3 TRÊN BẰNG CHỨNG ĐÃ CÓ (KHÔNG CHẠY LẠI CI)
 RUN_ID: GHM-C1A-S3-CLOSE-20261025-01
-STATUS: DRAFT_NOT_READY — KHÔNG RUN. Claude Reviewer đọc P35/P36 + PROMPT này, chỉ rà 2 điểm swap/Guard và ký ACCEPT đúng last-touch SHA; GPT Host READY cùng SHA; Owner giao **CODEX** chạy. Giữ lịch sử P35 KQ DỪNG. Không dùng lại RUN_ID đã kết thúc.
+STATUS: DRAFT_NOT_READY — KHÔNG RUN. Claude P37 đã rà 2 điểm swap/Guard, sửa tại chỗ phạm vi S2 (chỉ thay đổi do chính C1A tạo; phần của RUN khác bàn giao, không chặn) và ký ACCEPT last-touch SHA; GPT Host READY cùng SHA; Owner giao **CODEX** chạy. Giữ lịch sử P35 KQ DỪNG. Không dùng lại RUN_ID đã kết thúc.
 
 **EXECUTOR: Codex CLI/Desktop trên Mac** · GitHub read-only đối chiếu 2 CI cũ, VPS qua quyền đã cấp + cờ VPS-GHI cho thay đổi đúng runner/INV25; `workspace_*` root=workspace chỉ ghi STARTED/KQ/Bảng. Claude Reviewer độc lập; không giao Claude thực thi thay Codex.
 
@@ -12,7 +12,7 @@ STATUS: DRAFT_NOT_READY — KHÔNG RUN. Claude Reviewer đọc P35/P36 + PROMPT 
 
 ## S0 — KHÓA ĐÚNG ĐẦU VÀO, READ-ONLY TRƯỚC GHI
 - Đối chiếu đúng P35: POST 23/25; C3.footprint_coverage và C3.same_or_better FAIL; footprint 87 mục (7 runner/CI có chứng cứ, 80 mục chưa đủ coverage gồm tệp dùng chung và tín hiệu giám sát từ RUN xen kẽ); sai lệch **live cgroup** `memory.swap.max=max` đã từng có ở cả hai runner, hiện báo về `0`. PRE gốc và mốc giờ từ P32/P35 là baseline cố định; **không làm PRE mới thay baseline cũ để tô xanh**.
-- Đọc bằng chứng private P35 chỉ đúng các tệp Guard POST, coverage, audit RUN khác `CONN-REPAIR-20261025-02` và dữ liệu cgroup. Với 80 mục không đủ coverage, phân loại `C1A_OWNED | OTHER_RUN_PROVEN | UNKNOWN` bằng commit/mtime/hash/owner/bằng chứng, KHÔNG mặc định mọi mục đều ngoài C1A. Không in credential, đường dẫn hay cấu hình nhạy cảm lên repo public.
+- Đọc bằng chứng private P35 chỉ đúng các tệp Guard POST, coverage, audit RUN khác `CONN-REPAIR-20261025-02` và dữ liệu cgroup. Với 80 mục không đủ coverage: **C1A_OWNED = đúng các thay đổi do chính RUN C1A tạo** (diff/apply receipt P32–P35 của Codex — Codex tự có); mọi mục còn lại = NOT_C1A, ghi danh sách + chủ nếu dấu vết cho thấy (vd CONN-REPAIR), không cần chứng minh thêm. KHÔNG đẩy thay đổi của C1A sang người khác. Không in credential, đường dẫn hay cấu hình nhạy cảm lên repo public.
 - Kiểm tra cờ VPS-GHI/HEAD/PROMPT/STOP hiện hành, không có writer khác đang sửa cùng Docker/Config Guard, trạng thái hai runner và các app, Config Guard và các đèn. Nếu đang có xung đột chủ quyền ghi thì **dừng mutation**, ghi đúng bằng chứng xung đột, không chờ giữ cờ hoặc lén ghi chồng. Khác SHA/runtime mới với hai job CI đã duyệt thì nói rõ; không nhận thử cũ cho runtime bị thay đổi.
 
 ## S1 — ĐÓNG ĐÚNG LỖ GIỚI HẠN SWAP CỦA RUNNER
@@ -23,11 +23,11 @@ STATUS: DRAFT_NOT_READY — KHÔNG RUN. Claude Reviewer đọc P35/P36 + PROMPT 
 ## S2 — TÁCH COVERAGE C1A KHỎI DELTA CỦA RUN KHÁC
 - Kiểm mỗi mục runner/CI C1A đã thay trong P32–P35 được ghi đủ footprint 4 ô (trước/sau/kiểm/rollback), Config Guard/code-ledger/INV25/Kuma; đủ `C1A_SCOPE_COVERAGE=PASS` khi có bằng chứng thật. Nếu thiếu mục C1A, bổ sung đúng mục đó theo Điều 30/31 qua đường apply hiện có; không đổi baseline chung để cho qua.
 - Các tệp dùng chung/đèn của `CONN-REPAIR-20261025-02` hoặc RUN khác: **không tự thêm vào phạm vi C1A**, không rollback cả registry/Guard, không tạo coverage thay chủ sở hữu. Phải chỉ ra bằng chứng actor/commit/hash và người chịu trách nhiệm từng nhóm, trả họ `80 mục chưa đủ coverage` hoặc phần UNKNOWN với receipt cụ thể. Nếu dấu vết cho thấy RUN khác ghi trong lúc Codex giữ VPS-GHI, ghi **CONCURRENT_WRITE_CONFLICT** với khoảng thời gian và chủ, thông báo Owner/Host; không âm thầm hợp thức hóa.
-- Với #11 (Disk Usage), #22 (Guard cache), #26 (Claude↔KB) báo RED trong POST P35: kiểm nguồn/nhịp ở mức đủ kết luận `C1A_CAUSED | OTHER_RUN_PROVEN | UNKNOWN`. Không tự xử lý dịch vụ khác, không đổi câu thông báo để làm sạch. Lấy một POST mới theo snapshot hiện tại và so với PRE P32/P35 đã đóng băng; báo riêng `GLOBAL_GUARD` thay vì gọi 23/25 là PASS.
+- Với #11 (Disk Usage), #22 (Guard cache), #26 (Claude↔KB) báo RED trong POST P35: chỉ cần kết luận có/không liên quan thay đổi của chính C1A (kỹ nhất #22 vì C1A đã sửa hàm periodic của Guard); có ⇒ `C1A_CAUSED` phải sửa; không ⇒ `NOT_C1A`, bàn giao Host. Không tự xử lý dịch vụ khác, không đổi câu thông báo để làm sạch. Lấy một POST mới theo snapshot hiện tại và so với PRE P32/P35 đã đóng băng; báo riêng `GLOBAL_GUARD` thay vì gọi 23/25 là PASS.
 
 ## S3 — POST KHÉP C1A, GIỮ HAI RUNNER
 - Chỉ `C1A_S3_SCOPED=PASS` khi đồng thời có (a) hai GitHub CI cũ success cùng SHA/source/runner image chưa bị thay vật chất, (b) kernel cgroup live **no-swap/CPU/RAM đúng** ở hai runner, checker hiện có bắt sai lệch, (c) các thay đổi C1A có footprint đủ và Guard chức năng C1A PASS, (d) không có RED mới quy nguyên nhân cho C1A, (e) runner online/restart policy phục hồi như P35, ứng dụng VPS và `main` không đổi.
-- Nếu các hạng mục chung khác vẫn đỏ nhưng được **chứng minh độc lập là không thuộc C1A**, ghi `C1A_S3_SCOPED=PASS · GLOBAL_GUARD=PARTIAL`, bảng nợ bằng chứng/Owner đúng việc; không ghi GLOBAL PASS, không tự đóng cảnh báo còn mở. Nếu còn dấu hiệu C1A gây lỗi hoặc 80 mục chưa phân định được thì **KQ DỪNG** với một blocker và NEXT_TRIGGER chính xác, giữ CI/runner đã đạt.
+- Nếu các hạng mục chung khác vẫn đỏ nhưng **không nằm trong thay đổi của chính C1A**, ghi `C1A_S3_SCOPED=PASS · GLOBAL_GUARD=PARTIAL`, bảng nợ bằng chứng/Owner đúng việc; không ghi GLOBAL PASS, không tự đóng cảnh báo còn mở. Chỉ **KQ DỪNG** khi còn lỗi do chính C1A (thay đổi C1A thiếu bảo vệ, swap live sai, hoặc RED do C1A gây ra) — một blocker + NEXT_TRIGGER chính xác, giữ CI/runner đã đạt. Mục NOT_C1A còn đỏ/thiếu KHÔNG chặn C1A.
 - KQ@GHM-C1A-S3-CLOSE-20261025-01 XONG|DỪNG + Bảng/README/ROADMAP cùng commit, bản private lưu PRE/POST, cgroup live/probe và danh sách attribution; trong repo public chỉ số đếm và kết luận. **KQ XONG (scoped) không tự cấp GO C1B**: Host/Reviewer đọc KQ rồi quyết có thể đi tiếp hay phải xử lý nợ liên quan. Trả VPS-GHI, dọn sampler, không chạy nền chờ.
 - Cấm: sửa main/PR/source của hai repo, full CI rerun nếu nguồn/môi trường không đổi; tự bật deploy/workflow cũ, sửa Docker daemon/PG/Qdrant/Directus/Nuxt/Agent Data/nginx, reboot VPS, xóa secret, đổi Guard baseline hàng loạt, tự nhận quyền của CONN-REPAIR, mở C1B/C2.
 
@@ -35,5 +35,5 @@ STEP_WALK_V1:
 | Bước | Executor / trigger | Hạn tham chiếu | Evidence | Lỗi / next |
 | S0 | Codex / Owner RUN | ≤15 phút | P35 private, owner map, cờ/Git state | scope/writer conflict⇒DỪNG Host |
 | S1 | Codex / S0 PASS | ≤30 phút | live cgroup both + INV25 negative fixture | live drift⇒quarantine đúng runner |
-| S2 | Codex / S1 PASS | ≤30 phút | C1A coverage 4 ô + external attribution | C1A thiếu proof⇒sửa đúng mục; UNKNOWN⇒DỪNG |
+| S2 | Codex / S1 PASS | ≤30 phút | C1A coverage 4 ô + external attribution | C1A thiếu proof⇒sửa đúng mục; NOT_C1A⇒bàn giao, không DỪNG |
 | S3 | Codex / S2 PASS | ≤15 phút | POST scoped/global, receipt + KQ | Host/Reviewer nghiệm thu |
