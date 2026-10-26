@@ -2,6 +2,7 @@
 # GS-C1D-NATIVE-AUTOCOVER-20261023-10 · LỖI GIẢ CÔ LẬP cho graph_cert v5 (c1d-1) + graph_autocover + graph-refresh lane c1d:
 #   K3 hàng rào danh mục ô · tín hiệu thay đổi đúng hạng · kế hoạch cộng-thêm 0 xoá/trần/nghịch đảo · quyết định lane.
 #   Không chạm Neo4j/PG/Directus/Qdrant/Lark production: trạng thái ở thư mục tạm, nguồn tiêm, Graph giả. Fixture KHÔNG phải lượt timer tự nhiên.
+# C1-D2 (GS-C1D2-SCOPED-AUTOCOVER-20261026-13): L17 kỳ vọng theo sổ đóng băng đầu ca + đối chứng âm L17n (+4 phải FAIL).
 # Dùng: python3 -I c1d_fixtures.py <graph_cert.py> <graph_autocover.py> <graph-refresh> <cert-cells c1d.json> <giấy v5 thật (chỉ đọc)> [--out F]
 import copy, hashlib, importlib.machinery, importlib.util, json, os, re, shutil, sys, tempfile, time
 
@@ -458,17 +459,32 @@ try:
             json.dump(cand_obj, open(live, "w"), indent=1, sort_keys=True, ensure_ascii=False)
         return True, "RESULT=APPLIED"
     RF.apply_v0 = fake_v0
-    RF.new_recovery_point = lambda g, pw, label, drive, report: rf_calls.append("recovery_point") or {"name": "fx", "state": st0, "meta_sha256": "m"}
+    # L17 (GS-C1D2-SCOPED-AUTOCOVER-20261026-13): kỳ vọng theo sổ nguồn ĐÓNG BĂNG đầu ca (srcs0) + 3 nút/+2 cạnh, không ghim số tuyệt đối
+    #   (183/154 sống làm ca cũ hỏng sẵn); giả new_recovery_point theo chữ ký D23 (điểm, đường tạm) và ghi nhận bước chốt commit_recovery_point.
+    p17 = (srcs0.get("c1d") or {}).get("_pilot_total") or {"nodes": 0, "edges": 0}
+    cn17 = ((srcs0.get("c1d") or {}).get("c1d:pgl1") or {}).get("created_nodes", 0)
+    stg17 = T2 + "/rp-staged"
+
+    def fake_rp17(g, pw, label, drive, report):
+        rf_calls.append("recovery_point")
+        os.makedirs(stg17, exist_ok=True)
+        return {"name": "fx", "state": st0, "meta_sha256": "m"}, stg17
+    RF.new_recovery_point = fake_rp17
+    RF.commit_recovery_point = lambda stg, rp: rf_calls.append("commit:" + os.path.basename(stg)) or None
     RF.pgl1_cross_from = lambda g, pw: {"edges": [1, 2]}
     RF.cert_tick = lambda rec, *a, **k: rf_calls.append("cert_tick") or {}
     RF.l2_tick = lambda rec: None
     rcx = RF.cmd_run(_t.SimpleNamespace(execute=True, trigger="manual", only="c1d:pgl1"))
     lastx = json.load(open(RF.STATE + "/last.json"))
     nsx = json.load(open(RF.SOURCES))
-    case("LANE", "L17", "cmd_run lane c1d trọn đường (hàm ghi giả): DELTA_APPLIED, sổ nguồn c1d + _pilot_total cộng dồn, cross-edges pgl1 viết lại",
-         rcx == 0 and lastx.get("result") == "DELTA_APPLIED" and nsx.get("c1d", {}).get("_pilot_total") == {"nodes": 3, "edges": 2}
-         and nsx["c1d"]["c1d:pgl1"]["created_nodes"] == 3 and os.path.exists(RF.PGL1_CROSS) and "recovery_point" in rf_calls,
-         (rcx, lastx.get("result"), lastx.get("why"), nsx.get("c1d")))
+    l17 = lambda dn: (rcx == 0 and lastx.get("result") == "DELTA_APPLIED"
+                      and nsx.get("c1d", {}).get("_pilot_total") == {"nodes": p17["nodes"] + 3 + dn, "edges": p17["edges"] + 2}
+                      and nsx["c1d"]["c1d:pgl1"]["created_nodes"] == cn17 + 3 + dn and os.path.exists(RF.PGL1_CROSS)
+                      and "recovery_point" in rf_calls and "commit:rp-staged" in rf_calls)
+    case("LANE", "L17", "cmd_run lane c1d trọn đường (hàm ghi giả): DELTA_APPLIED, _pilot_total = sổ đầu ca +3/+2, created_nodes đầu ca +3, chốt điểm tạm, cross-edges pgl1",
+         l17(0), (rcx, lastx.get("result"), lastx.get("why"), p17, nsx.get("c1d", {}).get("_pilot_total"), rf_calls))
+    case("LANE", "L17n", "đối chứng âm L17: cùng lượt, kỳ vọng giả cộng +4 nút ⇒ phép kiểm phải KHÔNG khớp (không phải phép luôn đúng)", not l17(1),
+         nsx.get("c1d", {}).get("_pilot_total"))
     case("LANE", "L14", "unit HJW chờ chủ nằm trong danh sách loại trừ của danh mục (không tự nhận)",
          set(json.load(open(CELLS_P))["c1d"]["units_excluded_pending_owner"]) == {"incomex-hjwcap.path", "incomex-hjwcap.service"}, "")
 finally:

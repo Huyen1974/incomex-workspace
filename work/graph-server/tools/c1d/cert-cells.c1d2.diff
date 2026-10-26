@@ -1,0 +1,40 @@
+--- a/manifest/cert-cells.json
++++ b/manifest/cert-cells.json
+@@ -40,7 +40,7 @@
+   ]
+  },
+  "canon": "CANON-V1: hàng JSON gọn sort_keys UTF-8, sắp theo byte, tiền tố độ dài 8 byte big-endian, SHA256; đối tượng và cạnh băm riêng",
+- "catalog_version": "c1d-1",
++ "catalog_version": "c1d2-1",
+  "cells": [
+   {
+    "authority": "PG catalog (pg_class/pg_trigger/pg_proc/pg_constraint/pg_depend) db directus, vai context_pack_readonly",
+@@ -1090,6 +1090,10 @@
+    "graph": null,
+    "key": "git:workspace:work",
+    "parent": "git",
++   "parent_prefixes": [
++    "git:work/"
++   ],
++   "parent_prefixes_note": "C1-D2 A: G9 work/* là MỘT loại nguồn (git ls-tree clone cổng) — ô chỉ-nguồn, Graph chưa có loại ⇒ vẫn MỘT PHẦN (GAP-C0-13, ACK Host P193); thư mục việc mới không còn báo vàng từng cái",
+    "scope": "thư mục việc work/* + work/done-tasks/* tại HEAD bản clone cổng",
+    "source": {
+     "adapter": "git"
+@@ -1923,6 +1927,10 @@
+    },
+    "key": "infra:container",
+    "parent": "docker",
++   "parent_prefixes": [
++    "docker:"
++   ],
++   "parent_prefixes_note": "C1-D2 A (GS-C1D2-SCOPED-AUTOCOVER-20261026-13): ô đối chiếu MỌI container (trừ exclude_patterns của chính ô) nguồn↔Graph ⇒ nhận cha G2 theo tiền tố; container mới do lane c1d:infra tự nạp, chưa nạp ⇒ ô MỘT PHẦN",
+    "scope": "MỌI container (mọi trạng thái, trừ mẫu tạm: workspace-job-* và Neo4j tạm của chính graph-refresh incomex-graph-v1-rc-*): tên + Id(12) + image khai báo. KHÔNG gồm mount/mạng/biến môi trường (ô docker:container).",
+    "source": {
+     "adapter": "c1d",
+@@ -3608,5 +3616,5 @@
+   "UNSUPPORTED": "nút không nhãn, nhãn/cạnh lạ, CALL/APOC/subquery ⇒ MỘT PHẦN, cần mọi ô"
+  },
+  "ttl_hours": 26,
+- "written_by": "GS-C1D-NATIVE-AUTOCOVER-20261023-10"
++ "written_by": "GS-C1D-NATIVE-AUTOCOVER-20261023-10 · C1-D2 GS-C1D2-SCOPED-AUTOCOVER-20261026-13: +parent_prefixes infra:container [docker:] + git:workspace:work [git:work/]"
+ }
