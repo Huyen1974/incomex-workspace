@@ -63,6 +63,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 .milestone-node.is-current{border:2px solid #4b7ea7;background:#ebf4fc}
 .milestone-arr{flex:none;font-size:22px;color:#647f96;align-self:center}
 @media(max-width:750px){.milestone-node{flex:0 0 150px}.milestone-path{overflow-x:auto}}
+.all-types{border:1px solid #cfdde9;border-radius:10px;background:#f7fbfe;padding:12px;margin:0 0 16px}.all-types h3{font-size:16px;margin:0 0 8px}.all-types p{font-size:15px}.type-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.type-grid div{padding:9px;border-radius:7px;border:1px dashed #a4bacd;background:white}.type-grid .has{border-style:solid;border-color:#8cae96;background:#f0f9f2}.type-grid b,.type-grid small{display:block;font-size:15px}.type-grid small{color:#576679}@media(max-width:700px){.type-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
@@ -78,12 +79,24 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <h2>1. Sơ đồ tổng thể — toàn bộ bức tranh PG Tự quản</h2>
+<section class="all-types"><h3>12 danh mục cần nhìn được từng tên, ID và quan hệ</h3><p><strong>4 loại đã có danh sách trong Ba Lô</strong>; <strong>8 loại còn lại phải lấy danh sách từ PG catalog ở TS1</strong>, không chấp nhận chỉ có số đếm. Đây là 12 cách xem, <strong>không tạo 12 bảng PG mới</strong>.</p><div class="type-grid"><div class="new"><b>01 · Schema</b><small>mở rộng từ catalog</small></div>
+<div class="has"><b>02 · Table</b><small>Ba Lô có</small></div>
+<div class="has"><b>03 · View</b><small>Ba Lô có</small></div>
+<div class="new"><b>04 · Matview</b><small>catalog</small></div>
+<div class="new"><b>05 · Sequence</b><small>catalog</small></div>
+<div class="has"><b>06 · Function</b><small>Ba Lô có</small></div>
+<div class="new"><b>07 · Procedure</b><small>catalog</small></div>
+<div class="has"><b>08 · Trigger</b><small>Ba Lô có</small></div>
+<div class="new"><b>09 · Constraint</b><small>catalog</small></div>
+<div class="new"><b>10 · Index</b><small>catalog</small></div>
+<div class="new"><b>11 · Foreign table</b><small>catalog</small></div>
+<div class="new"><b>12 · Column</b><small>catalog</small></div></div><p>Graph cần kiểm đủ nút/cạnh của từng loại. PostgreSQL có loại khác ngoài 12 loại Census thì phải báo thiếu phạm vi; chưa kiểm là CHƯA RÕ.</p></section>
 <figure class="arch-figure" aria-labelledby="arch-caption">
   <div class="arch-legend"><span><i class="legend-existing"></i> Đã có, dùng lại</span><span><i class="legend-proposed"></i> Dự kiến, chưa tạo</span><span><i class="legend-unknown"></i> Cần kiểm chứng</span></div>
   <div class="arch-columns">
     <section class="arch-lane" aria-label="Những tài sản có sẵn trong PostgreSQL">
       <div class="arch-lane-title">NGUỒN 1 · TÀI SẢN PG</div>
-      <div class="arch-node arch-existing"><strong>PostgreSQL tự biết</strong><span><code>pg_catalog</code> · tên, loại, cấu trúc, quan hệ; không khai tay</span></div>
+      <div class="arch-node arch-existing"><strong>PG catalog · đủ 12 loại theo ID</strong><span><code>pg_catalog</code> là nguồn danh sách, cha và quan hệ cho tất cả 12 loại; thiếu tên phải ghi rõ trong TS1</span></div>
       <div class="arch-down">↓ <small>Máy đọc và đồng bộ</small></div>
       <div class="arch-node arch-existing"><strong>S2 · Ba Lô</strong><span><code>balo_thuc_the</code> · bảng hiện có, 4 loại đã ghi từng tên; đồng bộ bằng lệnh có sẵn</span></div>
       <div class="arch-aside"><strong>S1 · Census — báo cáo sống</strong><span>Đếm từ PG mỗi lần xem, không lưu số. Chỉ là kênh <b>đối chiếu</b>, không cấp danh mục cho Sổ tài sản.</span></div>
@@ -106,8 +119,8 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
   <div class="arch-funnel" aria-hidden="true"><span>↘</span><span>↓</span><span>↙</span></div>
   <div class="arch-sink">
     <div class="arch-node arch-proposed">
-      <strong>Câu ghép S2 + S3 + S4 — chưa tạo</strong>
-      <span>Ghép vật PG + DOT, nối quyết định theo mã. Không tạo VIEW trong PG: câu ghép lưu ở sổ báo cáo có sẵn. S1 chỉ để so số.</span>
+      <strong>Danh mục tổng · PG catalog 12 + S2 + S3 + S4 — chưa công bố</strong>
+      <span>Catalog là nguồn tên/ID của 12 loại; S2 thêm nhãn cho 4 loại, S3 ghi DOT, S4 giữ quyết định. S1 Census chỉ dùng đếm so, không tạo thêm bảng/VIEW riêng.</span>
     </div>
     <div class="arch-down">↓ <small>🤖 1 lệnh DOT có sẵn công bố lên Nuxt · TS1 đo tốc độ</small></div>
     <div class="arch-node arch-proposed arch-final"><strong>😊 Trang báo cáo Nuxt — Sổ tài sản</strong><span>Anh xem và lọc trên web; 🤖 máy đọc cùng nguồn. Không ai vào Directus (chỉ DOT).</span></div>
@@ -115,7 +128,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
   <div class="arch-alert"><strong>Máy kiểm chênh lệch:</strong> PG ↔ Ba Lô · Census ↔ Ba Lô · Tệp DOT ↔ S3 · S2/S3 ↔ S4. Bot thực sự hoạt động, mốc đo và nơi nhận cảnh báo cần xác minh ở TS1/TS5.</div>
   <figcaption id="arch-caption">Mũi tên liền = đường đọc hoặc đăng ký đã thiết kế; hộp nét đứt = chưa được tạo. S1 và S2 cùng dựa trên PG: đối chiếu kết quả và phạm vi nhưng <strong>không mặc nhiên là hai nguồn đo độc lập</strong>. Đây là sơ đồ kiến trúc dự kiến theo §3.TQ, không phải bằng chứng hệ thống đã chạy.</figcaption>
 </figure>
-<div class="arch-risk"><strong>🟡 Hai điểm còn mở:</strong> (1) Ba Lô mới có tên từng vật cho 4 loại; 8 loại khác mới chỉ có số. (2) Trang báo cáo Nuxt với ~2.500 dòng: TS1 đo tốc độ mở và lọc.</div>
+<div class="arch-risk"><strong>Ba cổng TS1 chưa được chứng minh:</strong> (1) 12 loại có tập tên/ID và cha/cạnh theo nguồn PG; (2) Graph khớp nút/cạnh theo loại; (3) Nuxt đủ nhanh và có quyền xem dữ liệu nội bộ — không đưa danh mục nhạy cảm lên trang công khai.</div>
 
 <h2>2. Anh xem Sổ tài sản ở đâu?</h2>
 <div class="arch-views">
@@ -137,8 +150,8 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 
 <h2>3. Lộ trình — từng bước, không nhảy cóc</h2>
 <div class="milestone-path" aria-label="Thứ tự các mốc, kéo ngang để xem hết">
- <div class="milestone-node is-current"><strong>■ B0b</strong><span>🤖 Đã giao, chờ chạy<br>Sửa 2 công cụ, không ghi dữ liệu</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node"><strong>TS1 · ĐẾM</strong><span>🤖 Chỉ đọc: đếm, liệt kê thiếu/thừa</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>✅ B0b</strong><span>🤖 XONG P27: hai công cụ đã được bảo vệ</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node is-current"><strong>■ TS1 · ĐẾM</strong><span>🤖 Chưa READY: phải kiểm tên/ID/cạnh đủ 12 loại, Graph và Nuxt</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS2 · ĐỦ</strong><span>😊 Duyệt → 🤖 bổ sung sổ</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS3 · SỔ</strong><span>😊 Duyệt cột → 🤖 tạo sổ quyết định + trang Nuxt</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS4–TS5</strong><span>🤖 Đề xuất → 😊 duyệt · 🤖 máy canh lệch</span></div><div class="milestone-arr" aria-hidden="true">→</div>
@@ -184,7 +197,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 
 <h2>5. Điểm sẽ trình anh sau khi đếm</h2>
 <div class="note">
-<p>⚪ Độ phủ bản đầu: tên 4 loại vật PG + DOT; 8 loại khác chỉ có số — chưa phải đủ toàn PG.</p>
+<p><strong>P47 thay giới hạn cũ:</strong> phải có tên/ID và quan hệ của đủ 12 loại Census; tám loại ngoài Ba Lô phải lấy danh sách trực tiếp từ PG catalog. Loại PG ngoài 12 phải ghi thiếu phạm vi.</p>
 <p>⚪ Từng cột của Sổ quyết định và quyền ghi.</p>
 <p class="muted">Trình cùng lúc, kèm đề xuất — anh chỉ gật hoặc lắc.</p>
 </div>
