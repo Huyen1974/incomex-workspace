@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: P54 C1B KQ DỪNG tại S0 — chưa chứng minh cổng main/workflow hợp lệ cho Codex theo PROMPT P53. 0 mutation main/deploy/audit, 0 RUN active; VPS-GHI không nhận/giữ. Host xác minh capability hiện hữu rồi Owner giao tiếp cùng RUN; sáu safety P50/C1A giữ nguyên. Chi tiết và NEXT_TRIGGER tại COLLAB P54.**
+**Trạng thái: P54 C1B dừng ở S0 vì lệnh tự cấm đường ghi duy nhất của Codex; Claude P55 gỡ cổng quyền (phiên gh Owner chỉ để push/archive) + thêm S7 archive repo không dùng. Chờ Host READY@7d549e7a + Owner giao Codex cùng RUN_ID. 0 mutation main/deploy.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — `GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01` cho **CODEX**, đã READY@cef559c90506b7fac5b66bfc847f5f58f7e6a680 trong COLLAB P53. PROMPT C1B cũ giao Claude Code CLI là SUPERSEDED_UNRUN; không dùng. Owner chuyển CODEX RUN khi VPS-GHI trống, Codex kiểm Guard/quyền trước mutation.
+6. work/github-management/PROMPT.md — `GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01` cho **CODEX**, Claude P55 sửa cổng quyền + thêm S7 ⇒ READY P53 hết hiệu lực, chờ Host READY@7d549e7a. PROMPT C1B cũ giao Claude Code CLI là SUPERSEDED_UNRUN; không dùng. Owner chuyển CODEX RUN khi VPS-GHI trống, Codex kiểm Guard/quyền trước mutation.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.

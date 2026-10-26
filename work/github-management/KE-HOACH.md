@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**Trạng thái: P54 C1B KQ DỪNG tại S0 — chưa chứng minh cổng main/workflow hợp lệ cho Codex theo PROMPT P53. 0 mutation main/deploy/audit, 0 RUN active; VPS-GHI không nhận/giữ. Host xác minh capability hiện hữu rồi Owner giao tiếp cùng RUN; sáu safety P50/C1A giữ nguyên. Chi tiết và NEXT_TRIGGER tại COLLAB P54.**
+**Trạng thái: P54 C1B dừng ở S0 vì lệnh tự cấm đường ghi duy nhất của Codex; Claude P55 gỡ cổng quyền (phiên gh Owner chỉ để push/archive) + thêm S7 archive repo không dùng. Chờ Host READY@7d549e7a + Owner giao Codex cùng RUN_ID. 0 mutation main/deploy.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
