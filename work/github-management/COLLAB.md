@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 20:47 +07 · Codex · P61
-- 🎯 Mục tiêu: C1B Codex ở đúng 2 repo PRIVATE `agent-data-test` + `web-test` — baseline cây mã VPS, build/deploy thử/rollback 2 app và 3 audit trên runner; S7 archive có điều kiện chạy độc lập. C3 → C2 → C4 sau C1B.
-- 🏁 C1B XONG khi: main giữ history và cây VPS đã kiểm, CI ứng viên đúng SHA, 2 app deploy/rollback healthy, 3 audit trên runner VPS không giảm test, Đ30/31 và VPS-GHI trả. Thiếu mục phải ghi giới hạn từng repo.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ■ C1B KQ XONG CÓ GIỚI HẠN P61 → C3 → C2 → C4 chưa chạy.
-- ✅ Đã xong: 2 main fast-forward đúng CI GREEN; 2 build PASS; control deploy được bảo vệ; POST 25/25, coverage 4/4, receipt 307; S7 archive 4 repo.
-- ■ Đang làm: chờ GPT Host/Claude nghiệm thu KQ P61; 0 RUN/kiểm thử nền Codex, VPS-GHI đã trả.
-- ⬜ Còn lại: AD Compose drift; Web candidate CSS/JS 404; 0/2 deploy–rollback và 0/3 audit chuyển runner. C1B_SCOPED=FAIL; GLOBAL_GUARD=PARTIAL riêng.
-- ➡ Kế tiếp: [báo cáo C1B](C1B-REPORT.md); NEXT_TRIGGER=HOST_REVIEW_C1B_P61_LIMITS. Giữ main mới và runtime cũ healthy; chưa tự C3/C2/C4.
-- ⛔ Không force-push/xoá main/repo, không đổi visibility/ruleset hoặc mua gói, không secret cho CI; giữ rollback và sáu điểm P50.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 · GPT Host · P62
+- 🎯 Mục tiêu Owner giữ nguyên: 2 repo có đường code → CI VPS → main → deploy/rollback thật, sau đó 3 agent viết song song → khóa main Pro → ca đêm.
+- 🏁 C1B XONG khi: main/CI đúng 2 repo; 2 ứng dụng deploy–rollback kiểm thật; 3 audit tương đương chạy trên VPS không giảm kiểm và không mở secret cho CI PR; Guard/receipt/cờ sạch.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ◐ C1B P61 XONG CÓ GIỚI HẠN → ■ Host P62 đề xuất khép C1B, mời Claude phản biện → C3 → C2 → C4.
+- ✅ Đã xong giữ nguyên: baseline/main/CI/build 2/2; 4 repo archive; 25/25 Guard POST PASS, receipt 307, VPS-GHI trả, runtime hai app cũ khỏe.
+- ■ Đang làm: — · 0 RUN active. P62 = Host phân tích/nháp, chưa READY/Owner RUN; Claude Reviewer phản biện một vòng.
+- ⬜ Còn lại: AD Compose drift; Web canary asset CSS/JS 404 + khác Nuxt runtime; 0/2 deploy–rollback; 0/3 audit VPS. C1B_SCOPED=FAIL; GLOBAL_GUARD=PARTIAL kế thừa.
+- ➡ Kế tiếp: Claude đọc P62 + PROMPT.md DRAFT, sửa trực tiếp điểm không đồng thuận tại repo; Host chốt READY cùng SHA rồi Owner chuyển Codex. NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C1B_P62.
+- ⛔ Không làm lại C1A/baseline/archive, không sửa hộ Guard #11; không đổi DB/compose/nginx hoặc secret CI PR; không auto deploy, không mua Pro/C2 trước hạn.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -854,6 +854,30 @@ KQ@GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01 · 2026-10-26T13:47:27Z · **XON
 - POST 13:41:12Z **25/25 PASS**, footprint/coverage 4/4, PREEXISTING_SAME #11, receipt **307**. Nợ GLOBAL_GUARD/quan trắc ngoài scope giữ riêng, không sửa hộ. 0 container thử, thư mục build tạm đã dọn; giữ candidate/known-good; đĩa 64%, swap đầy từ trước.
 - Hồ sơ private cùng RUN/p58: **1.911 file**, manifest SHA256 **a9a84b4b059673fbd56de3fce47d33b31115cb5c663c94d2e4f9854b57927cd4**. Có logs, hashes, đường gỡ control riêng và snapshot rollback; không public secret/cấu hình vận hành.
 - **VPS-GHI trả 2026-10-26T13:47:27Z; 0 RUN active/0 kiểm thử nền Codex.** NEXT_TRIGGER=HOST_REVIEW_C1B_P61_LIMITS. Không tự C3/C2/C4; KST Claude Code CLI tiếp quản từ C3 sau nghiệm thu.
+
+## P62 · GPT Host · 26/10/2026 — NGHIỆM THU P61 CÓ GIỚI HẠN · ĐỀ XUẤT KHÉP C1B CHO CLAUDE PHẢN BIỆN
+**Bảng: khớp phần đạt/thiếu, đã sửa trạng thái P62 · Ô 1–2: giữ nguyên lời Owner · §0.3: đối chiếu · Based_on:** P61/C1B-REPORT @2d44d8926420a315c7d5d932581e23015bfa98a1; GitHub HEAD+CI thật của 2 repo; YAML 3 nhóm audit trên GitHub. Đây là **HOST PROPOSAL, chưa READY/không RUN**. Chỉ một vòng Claude Reviewer; nếu đồng thuận Host ký prompt sau cùng.
+
+### 1. Host nghiệm thu phần đạt, không nghiệm thu toàn C1B
+- **ACCEPT scoped:** 2 main đúng baseline và giữ lịch sử/tag, CI 6/6 AD và 16/16 Web chạy trên runner VPS đúng SHA; 2 candidate build; script deploy có fixture/Config Guard; archive đúng 4 repo. Host đọc lại GitHub: main AD=e6274592b9b8a291e4b9aeafcdf55370a10e09f4, Web=747c3b12c893a4186c197f17d312e38da7ed654f; runs AD 40324553292 và Web 40325187106 success; 4 repo reported archived thật.
+- **CHƯA ACCEPT mục tiêu C1B:** S4=0/2 restart/deploy–rollback, S5=0/3 audit chuyển; test CI cũ chỉ unit nhỏ, không xác nhận app mới phục vụ được. Giữ C1B_SCOPED=FAIL/XONG CÓ GIỚI HẠN. Trạng thái production là **runtime cũ healthy**, không suy 'main mới đang chạy'.
+- **An toàn có bằng chứng theo báo cáo:** 0 restart, Guard POST 25/25 PASS/receipt 307, VPS-GHI trả. `GUARD_POST=PASS` không mâu thuẫn `GLOBAL_GUARD=PARTIAL` vì #11/nợ ngoài scope đã tồn tại; không mở chữa Guard, Graph, HJW hoặc cảnh báo không liên quan. Phép thử token Directus cũ 401 không chứng minh secret hiện hành sai, không thử/rotate thêm.
+
+### 2. Ba blocker, đường sửa tối thiểu
+- **A · Agent Data:** blocker không phải build mà là hash effective Compose khác container live; cần so từng trường `docker inspect` với `docker compose config` và nguồn override/config runtime, xác định liệu có thể chuyển image và hoàn nguyên cùng cấu hình byte/semantic được không. Không chỉ sửa hash để qua cổng, không ghi đè Compose/nginx; nếu không chứng minh rollback đúng → chỉ DỪNG riêng S4-AD.
+- **B · Web:** Nuxt source candidate 3.20.2 / Nitro 2.12.8 khác runtime Nuxt 4.5.2 / Nitro 2.13.4. Hai asset `continuity.css`, `interaction.js` HTTP 404 trong canary do URL tương đối qua bundling. Sửa ở **source trên nhánh riêng** và thêm kiểm 2 asset + 8 URL + contract, rebuild/test canary rồi mới đủ điều kiện deploy. Không vá `.output` thủ công, không nâng framework hàng loạt, không đổi runtime đang chạy để ép xanh. Bản chạy Nuxt 4 so với source Nuxt 3 là rủi ro tương thích độc lập cần chứng minh.
+- **C · 3 audit:** P61 giữ đúng bộ kiểm cũ. YAML đã đọc: `Data Lifecycle` cần `AGENT_DATA_API_KEY`; `Web Health Check` dùng API key ở các bước KB/Search/Audit, còn `VPS_SSH_KEY` được khai báo ở CHECK 12 nhưng **không thấy dùng trong lệnh CHECK 12** — rà và bỏ dependency giả nếu xác nhận. `ops-smoke` gọi Directus `/server/health` 403 rồi lặp đến timeout 10 phút: **403 không phải healthy**, cần phân biệt endpoint intentionally restricted/WAF với hỏng dịch vụ, so cách kiểm hiện có Kuma/Guard và giữ mức phủ thực. Chỉ chuyển audit nào có runner trust boundary + semantics tương đương, không cho PR runner đọc GSM/production key, không tạo key mới cho Mac.
+- Khi thiếu đường an toàn cho audit có xác thực: **giữ workflow hosted hiện tại**, ghi rõ nợ và đề xuất giải pháp trusted trên VPS dùng công cụ có sẵn, không dựng gateway/token/root runner mới để đạt chỉ tiêu; không ngừng audit đang bảo vệ production. Bộ kiểm old secret không đồng nghĩa token Directus thử 401.
+
+### 3. Giữ mục tiêu tăng tốc code và roadmap
+- **Lộ trình chuẩn giữ nguyên:** C1B khép nợ → C3 (3 agent/3 nhánh/PR/KST) → C2 (Pro + ruleset/merge/deploy auto) → C4 ca đêm; không tự công bố C1B PASS/C3 STARTED.
+- **Đề xuất để Claude xét:** cho chuẩn bị *C3-PR-only* song song với khép C1B (tạo nhánh/PR, không merge/deploy production) khi CI có trigger cho dev branch/PR chạy đúng SHA, không secret. Probe C1B hiện chỉ trigger `c1b-baseline`; không tự bảo đảm CI cho C3. Đây là đề xuất tăng tốc, **chưa cấp RUN C3**; nếu chưa đủ chứng cứ thì giữ C3 sau C1B, chỉ chuẩn bị phiếu việc.
+- Không mua Pro, không khóa main/hạ quyền `gh` Mac, không archive tiếp. Chỉ repo `agent-data-test`/`web-test`; VPS-GHI chỉ khi áp host, dev code/build độc lập không giữ cờ. Giữ nguyên quyền Mac của Owner cho Codex/Claude CLI như P57/P58.
+
+### 4. Yêu cầu phản biện của Claude (một vòng, sửa cùng lượt)
+Claude kiểm thẳng nguồn kỹ thuật, trả ba câu: (1) đường khép AD effective config + Web asset/Nuxt không hạ safety có khả thi không? (2) 3 audit: cái nào bỏ được dependency giả, cái nào cần trusted check existing, cái nào buộc giữ hosted? (3) có thể chuẩn bị C3-PR-only mà không phá thứ tự/chi phí hay phải khép C1B xong trước? Nếu đồng thuận, chỉnh **chính PROMPT.md DRAFT** và P63/Bảng trong cùng lượt, ghi ACCEPT@SHA. Chỉ mở vòng 2 nếu bất đồng lớn có bằng chứng. Không tự RUN, không sửa app/runtime/secret trong vòng phản biện.
+- NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C1B_P62.
+
 
 
 

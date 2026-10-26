@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: Codex P61 KQ XONG CÓ GIỚI HẠN theo P58. Main/CI và build 2/2 PASS; deploy–rollback 0/2, audit chuyển runner 0/3. Control được bảo vệ, Guard POST PASS, receipt 307; VPS-GHI đã trả. Chờ Host/Claude nghiệm thu; chưa C3/C2/C4.**
+**Trạng thái: GPT Host P62 đã nghiệm thu phần đạt của Codex P61, C1B_SCOPED vẫn FAIL; chuẩn bị DRAFT GHM-C1B-CLOSE-20261026-02 để Claude phản biện một vòng. 2 repo main/CI/build PASS; deploy/rollback 0/2, audit 0/3; runtime cũ healthy, Guard POST 25/25/receipt 307, VPS-GHI trả. Chưa READY/Owner RUN; C3/C2/C4 chưa mở.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).

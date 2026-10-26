@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.3 · 24/10/2026
-**Trạng thái: Codex P61 KQ XONG CÓ GIỚI HẠN theo P58; main/CI + build 2/2 PASS, deploy–rollback 0/2 và audit chuyển 0/3. Guard POST PASS/receipt 307; C1B_SCOPED=FAIL, GLOBAL_GUARD=PARTIAL; VPS-GHI đã trả. Host/Claude xem C1B-REPORT.md trước bước tiếp; thứ tự C1B → C3 → C2 Pro → C4 không đổi.**
+**Trạng thái: GPT Host P62 ACCEPT kết quả từng phần P61 nhưng C1B chưa đủ: 2/2 baseline/main/CI/build, 0/2 deploy–rollback, 0/3 audit. Claude phản biện DRAFT khép C1B trước Host READY; thứ tự C1B → C3 → C2 Pro → C4 giữ nguyên. Đề xuất chuẩn bị C3-PR-only song song chưa có RUN/phê duyệt. Guard POST PASS, GLOBAL_GUARD PARTIAL riêng; VPS-GHI trả.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
 Ưu tiên 1 (Owner 25/10 15:18): hệ thống chạy được — mỗi repo đi được nhánh → PR → test → main → deploy VPS, máy chạy (runner) đặt trên VPS. Sau đó: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 
