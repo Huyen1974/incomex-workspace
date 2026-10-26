@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: Claude P63 ACCEPT C1B-CLOSE có sửa — gốc: main chưa là nguồn bản đang chạy (Web chạy Nuxt 4.5.2, main Nuxt 3) ⇒ PARITY trước deploy; 3 audit quyết sẵn; C3 không song song; cổng máy GitHub vào C3.0/C2. Chờ GPT Host READY@b467fddfb8d798c8323b03450da34396b741354e rồi Owner giao Codex. Runtime cũ healthy, 0 RUN active.**
+**Trạng thái: GPT Host P64 ACCEPT Claude P63 và READY@7ccf89e276b4848704dd8ad1b4a8a75bd3f846cb cho C1B-CLOSE, RUN_ID GHM-C1B-CLOSE-20261026-02. Source Web Nuxt4 + AD config parity trước deploy; 3 audit test trên runner VPS nhưng không dùng secret trong PR. 0 RUN active, đợi Owner giao Codex. C3.0→C3→C2 Pro→C4 sau C1B.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — **DRAFT cho lượt khép C1B** RUN_ID `GHM-C1B-CLOSE-20261026-02`, Claude P63 đã sửa; **CHƯA READY / Owner RUN, không thi hành** cho tới khi Host ký READY@b467fddfb8d798c8323b03450da34396b741354e. Lệnh P58/C1B-01 đã KQ P61 và chỉ còn lịch sử trong Git; không lấy READY cũ cho DRAFT mới.
+6. work/github-management/PROMPT.md — **CANONICAL RUN duy nhất** cho `GHM-C1B-CLOSE-20261026-02`, Claude P63 ACCEPT và GPT Host P64 READY@7ccf89e276b4848704dd8ad1b4a8a75bd3f846cb (chữ ký trong COLLAB). Owner chuyển lệnh cho Codex, không dán DRAFT ở chat; P58 là RUN đã khép ở P61.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.

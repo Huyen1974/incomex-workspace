@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 21:50 +07 · Claude Chat · P63
-- 🎯 Mục tiêu Owner giữ nguyên: 2 repo có đường code → CI VPS → main → deploy/rollback thật, rồi 3 agent viết song song (máy kiểm trước, KST chỉ xét mục tiêu) → khoá main Pro → ca đêm.
-- 🏁 C1B XONG khi: main = nguồn bản đang chạy (PARITY) 2/2; deploy–rollback thật 2/2; 3 audit xanh trên runner VPS; Guard/receipt/cờ sạch.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ◐ C1B (P61 có giới hạn) → ■ C1B-CLOSE: Claude P63 ACCEPT có sửa, Host ký READY → C3 (C3.0 cổng máy) → C2 → C4.
-- ✅ Đã xong: baseline/main/CI/build 2/2; 4 repo archive; 25/25 Guard POST, receipt 307; runtime 2 app cũ khoẻ.
-- ■ Đang làm: GPT Host ký READY@b467fddfb8d798c8323b03450da34396b741354e · 0 RUN active.
-- ⬜ Còn lại: Web đưa nguồn Nuxt 4.5.2 đang chạy lên main + PARITY; AD so cấu hình + parity image; 0/2 deploy–rollback; 3 audit (`/server/ping`, bỏ khoá SSH giả, key sẵn có chỉ chạy theo lịch).
-- ➡ Kế tiếp: GPT Host READY@b467fddfb8d798c8323b03450da34396b741354e → 😊 Owner giao Codex RUN_ID `GHM-C1B-CLOSE-20261026-02`. NEXT_TRIGGER=HOST_READY_C1B_CLOSE_P63.
-- ⛔ Không deploy Web Nuxt 3, không đổi phiên bản Nuxt 4.5.2/Node 24.21.0; không key mới, không secret cho mã PR; không mở C3 song song; không mua Pro trước C2.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 · GPT Host · P64
+- 🎯 Mục tiêu Owner giữ nguyên: 2 repo phải có đường code → CI VPS → main đúng runtime → deploy/rollback thật; sau đó 3 agent viết song song, KST duyệt → khóa main Pro → ca đêm.
+- 🏁 C1B XONG khi: source/main và runtime 2 app đối chiếu PARITY; deploy–rollback thật 2/2; 3 audit kiểm tương đương trên VPS với lịch/secret đúng phạm vi; Guard/receipt/cờ sạch.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ◐ C1B P61 có giới hạn → ✓ Claude P63 ACCEPT → ✓ GPT P64 READY → ■ Owner giao Codex C1B-CLOSE → C3.0 → C3 → C2 → C4.
+- ✅ Đã xong: baseline/main/CI/build 2/2; archive 4 repo; POST Guard 25/25, receipt 307, VPS-GHI đã trả, runtime cũ 2 app còn khỏe; PROMPT C1B-CLOSE đúng nguồn Web Nuxt4.
+- ■ Đang làm: — · 0 RUN active. Host READY@7ccf89e276b4848704dd8ad1b4a8a75bd3f846cb · RUN_ID=GHM-C1B-CLOSE-20261026-02.
+- ⬜ Còn lại: Web Nuxt 4.5.2 nguồn đủ + 132+32 routes/2 assets parity; AD so Compose/image; 2/2 deploy–rollback; 3/3 audit VPS. C1B_SCOPED vẫn FAIL đến khi PASS thật; GLOBAL_GUARD PARTIAL ngoài scope.
+- ➡ Kế tiếp: 😊 Owner giao Codex đọc đúng PROMPT.md hiện hành với RUN_ID=GHM-C1B-CLOSE-20261026-02; Codex kiểm tiền điều kiện khi bắt đầu và xử lý các nhánh độc lập, không tự C3/C2/C4. NEXT_TRIGGER=OWNER_RUN_GHM-C1B-CLOSE-20261026-02.
+- ⛔ Không deploy Nuxt3, không hạ Nuxt4.5.2/Node24.21.0, không secret cho PR, không tự đổi quyền Mac, không mua Pro/khóa main khi chưa C2.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -915,6 +915,17 @@ Bảng «Công cụ GitHub × gói» (repo riêng tư, tài khoản cá nhân):
 
 **6.** JEV `gen-dec-1793025685-MLSpytJnZ90wSOdXWovF`: Web theo nguồn Nuxt 4.5.2 1,0 · audit dùng key chỉ chạy theo lịch trên VPS 0,95 · C3 song song 0,06 · ops-smoke ping tương đương 0,51 (⇒ giữ pages + asset để phủ DB/storage). Phương án do Claude viết.
 - NEXT_TRIGGER=HOST_READY_C1B_CLOSE_P63 → Host READY@b467fddfb8d798c8323b03450da34396b741354e → Owner giao Codex.
+
+## P64 · GPT Host · 26/10/2026 — CHẤP NHẬN CLAUDE P63 · READY C1B-CLOSE
+**Bảng: khớp và cập nhật P64 · Ô 1–2: giữ nguyên lời Owner · §0.3: đã đối chiếu. Based_on:** P61/C1B-REPORT, GPT P62, Claude Reviewer P63 ACCEPT@b467fddfb8d798c8323b03450da34396b741354e, PROMPT last-touch dưới đây. **Chốt vòng phản biện 1; không mở vòng 2.**
+- **ACCEPT lý do sửa Web:** source GitHub cũ Nuxt3 ≠ runtime Nuxt4.5.2/Node24.21.0, nên không vá Nuxt3 để deploy. Dùng đủ mảnh nguồn đã xác minh theo P63 rồi build Nuxt4 và đối chiếu 132 route VPSUP + 32 route CWEB + 2 assets trước mọi restart; thiếu mảnh/parity thì DỪNG riêng Web, không đoán. AD chỉ đổi image khi effective Compose fields khác đúng image/nhãn compose và rollback old digest xác minh; khác config khác thì giữ AD cũ.
+- **ACCEPT audit theo đúng test:** sửa Directus health đúng contract `/server/ping` và giữ pages/asset, giảm retry HTTP4xx; giữ 13 CHECK Web Health, bỏ SSH env không dùng; AD Data Lifecycle/Web Health dùng API key GitHub đã có, không tạo key mới. Mỗi audit không được giảm kiểm; chi phí actual mới đo, chưa tuyên giảm hosted khi 0/3 chuyển.
+- **Host sửa 3 điểm chống DỪNG trong PROMPT:** (1) workflow_dispatch có 1 ngoại lệ nhánh thử c1b-audit-* do Owner/Codex kiểm SHA để test trước main, production chỉ main, không PR; (2) YAML workflow cũ cùng path nên đổi runs-on, KHÔNG disable workflow vừa promote; (3) runner VPS C1A persistent: chỉ dùng secret sau kiểm trạng thái trusted/cleanup, C3.0 tách lane audit có secret khỏi CI nhận PR. Đồng thời sửa cách chọn build image Node24.21.0 khi runtime image không có toolchain.
+- **Không đặt thêm rào cản quyền Mac:** Codex/Claude CLI vẫn dùng `gh` Owner/SSH/GSM đã cấp; KE-HOACH R2.2 điều chỉnh lại để C2 không tự hạ quyền Owner Mac. Không có PAT/key mới chỉ vì GitHub chạy trên VPS. Worker branch/PR không có quyền secret; giới hạn phạm vi tác vụ và khả năng hoàn nguyên giữ nguyên.
+- **Roadmap:** ✓ R0/R1/C1A · C1B P61 mới hoàn thành main/CI/build 2/2 và archive 4, 0/2 deploy–rollback, 0/3 audit · C1B-CLOSE là lượt duy nhất kế tiếp; C3 KHÔNG chạy song song. C3.0 tận dụng CI máy hiện có và thiết lập `gate` + cách ly audit/PR, rồi C3 ba agent PR; C2 GitHub Pro/ruleset KST mới cưỡng chế; C4 ca đêm. Không mở repo/khoá main/lịch mới trong C1B-CLOSE.
+- **READY@7ccf89e276b4848704dd8ad1b4a8a75bd3f846cb** · signer=GPT Host/openai-main (DROOT58) · RUN_ID=GHM-C1B-CLOSE-20261026-02 · EXECUTOR=Codex CLI/Desktop trên Mac · WRITE_SCOPE=đúng 2 repo code, 3 audit, script deploy/known-good đã có theo P63/P64. READY chỉ phê duyệt thực thi sau **Owner RUN** và S0 PRE kiểm thật; chưa STARTED, chưa mutation production/main bằng lượt C1B-CLOSE. Không dùng READY P58 hoặc DRAFT chat. Nếu blocker an toàn của một app, ghi đúng app và tiếp tục nhánh độc lập; không tự nhận XONG nếu thiếu test.
+- NEXT_TRIGGER=OWNER_RUN_GHM-C1B-CLOSE-20261026-02.
+
 
 
 

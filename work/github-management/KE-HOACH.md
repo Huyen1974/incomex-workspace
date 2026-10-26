@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**Trạng thái: C1B đạt main/CI/build 2/2 + archive 4 repo; thiếu deploy–rollback 0/2 và audit 0/3. Claude P63: gốc là main chưa là nguồn bản đang chạy ⇒ PROMPT C1B-CLOSE đòi PARITY (Web nguồn Nuxt 4.5.2, AD so cấu hình + image), 3 audit quyết sẵn, C3 không song song. Chờ Host READY@b467fddfb8d798c8323b03450da34396b741354e. C3 bắt đầu bằng C3.0 cổng máy (COLLAB P63 §5).**
+**Trạng thái: GPT Host P64 ACCEPT Claude P63 và READY@7ccf89e276b4848704dd8ad1b4a8a75bd3f846cb cho RUN `GHM-C1B-CLOSE-20261026-02`. C1B P61 còn Web Nuxt4 source parity, AD effective Compose/image, deploy–rollback 0/2 và audit 0/3; không làm lại baseline/CI đã đạt, không mở C3 song song. C3.0 = máy kiểm + tách lane audit secret/CI PR; C2 không tự hạ quyền `gh` Owner trên Mac. Owner giao Codex theo PROMPT.md chuẩn.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
