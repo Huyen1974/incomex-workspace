@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 · GPT Host · P56
-- 🎯 Mục tiêu: đúng hai repo PRIVATE `Huyen1974/agent-data-test` và `Huyen1974/web-test` để Codex C1B chuẩn nguồn/main và manual CD; C3→C2→C4 sau.
-- 🏁 C1B XONG khi: main đúng VPS source/tree/history, deploy thử+rollback hai app healthy, ba audit lên VPS không giảm test, Guard scoped.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A scoped → ■ P54 S0 DỪNG quyền GitHub, P55 Claude đề xuất gh admin và S7 → ✓ Host P56 tách S7/giới hạn hai repo → □ Owner cấp/kiểm grant scoped → □ GPT Host READY mới + Owner giao Codex → C1B → C3 → C2 → C4.
-- ✅ Đã xong: 2/2 CI xanh, INV25/volumes PASS; P54 DỪNG sạch không đụng hai main/ứng dụng, VPS-GHI trả. GitHub App có READ hai repo nhưng chưa chứng minh grant Workflows write cho Codex.
-- ■ Đang làm: — · 0 RUN C1B active; PROMPT mới DRAFT, không lấy lại READY P53 cũ.
-- ⬜ Còn lại: 1 credential/capability `Contents:write + Workflows:write` scoped đúng hai repo, không admin; Host ký READY sau proof, Codex S0→S6. S7 archive repo khác giữ backlog riêng (có thể ảnh hưởng backup/consumer), không chạy trong C1B.
-- ➡ Kế tiếp: NEXT_TRIGGER=SCOPED_GITHUB_GRANT_FOR_CODEX_AGENT_DATA_TEST_AND_WEB_TEST.
-- ⛔ Không cho gh admin/refresh scope thay cổng scoped, không mượn KST/runner, không archive/chạm repo khác trong C1B, không tự C3/C2.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 17:30 +07 · Claude Chat · P57
+- 🎯 Mục tiêu: Codex C1B trên đúng 2 repo PRIVATE `agent-data-test` + `web-test` — main = mã VPS, deploy thử + lùi 2 app, 3 audit lên runner VPS; S7 dọn repo không dùng. Sau đó C3 → C2 → C4.
+- 🏁 C1B XONG khi: main đúng cây VPS + giữ lịch sử, deploy thử + rollback 2 app khoẻ, 3 audit chạy runner VPS không giảm test, Điều 30/31 + cờ trả.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ✓ quyền Codex chốt (Host phiên mới + P57 gộp vào PROMPT) → ■ GPT Host READY + Owner giao Codex → C1B → C3 → C2 → C4.
+- ✅ Đã xong: 2/2 CI xanh, INV25/volumes PASS; P54 dừng sạch; quyết định Host GHM-C1B-RESUME (phiên gh Owner, bỏ PAT, S7 độc lập) đã nằm trong PROMPT.
+- ■ Đang làm: GPT Host ký READY@ce06dcaa054fdd3eb17e455f3097bb9ce914fb18 · 0 RUN active.
+- ⬜ Còn lại: Codex S0→S7; `chatgpt-githubnew` để Owner quyết sau khi Codex ghi ai đang đẩy vào.
+- ➡ Kế tiếp: GPT Host READY@ce06dcaa054fdd3eb17e455f3097bb9ce914fb18 → 😊 Owner giao Codex (cùng RUN_ID). NEXT_TRIGGER=HOST_READY_C1B_P57.
+- ⛔ Không force-push / xoá / đổi public-private repo, không đổi ruleset (để C2), không secret cho CI từ PR, không archive `chatgpt-githubnew`, giữ 6 điều an toàn P50.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -53,6 +53,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - Owner 26/10/2026 08:42 (phiên Claude, đã sửa lỗi gõ): «Xử lý nốt các phần còn lại và đóng việc này. Mục tiêu cơ bản: các AI viết mã song song dưới vai trò kỹ sư phát triển; kỹ sư trưởng duy nhất là Claude Code CLI — xem xét, merge, chạy trên VPS. Đảm bảo cả 2 repo chạy ngon lành. Sau khi OK hết sẽ mua GitHub Pro và đảm bảo không phát sinh ngoài số phút chạy trong quota.» ⇒ (1) C1B do Claude Code CLI (KST) thực hiện; (2) mua Pro + khoá main (C2) sau C3; (3) mọi workflow chạy trên runner VPS, ngân sách $0 + Stop giữ sau khi lên Pro.
 - Owner 26/10/2026 10:45 (phiên Claude): «Tạm thời vẫn điều hành bằng tay (Claude phản biện, GPT Host chốt prompt, Owner chuyển cho agent). Ưu tiên kết thúc trong 1 vòng để Host GPT chốt prompt cho Claude Code.» ⇒ lượt kế là PROMPT C1B cho Claude Code CLI.
 - Owner 26/10/2026 16:14 (phiên Claude, đã sửa lỗi gõ): «Thực tế chỉ có 3 repo dùng thật: incomex-workspace (public), agent-data-test, web-test. Các repo còn lại muốn tắt hẳn để agent không thể nhầm lẫn. Kiểm tra và điều hành cho Codex chạy tiếp; đang dùng đúng agent-data-test và web-test, tránh lẫn lộn.» ⇒ S7 archive (không xoá) repo không dùng; P55 gỡ cổng quyền.
+- Owner 26/10/2026 (với GPT phiên mới, Host ghi trong GHM-C1B-RESUME-20261026; Owner chuyển Claude 17:12): Codex và Claude Code CLI trên Mac được dùng quyền GitHub, GSM, hệ thống Owner đã cấp; không bắt tạo token/tài khoản phụ thay quyền đang có; không áp hạn chế riêng của Hermes/dịch vụ VPS ngược lên Mac; kiểm soát bằng mục tiêu, danh sách repo, kiểm thử, khả năng khôi phục — không bằng rào cản truy cập. ⇒ P57 gộp vào PROMPT; cổng chỉ đặt ở chỗ không lùi được.
 
 HUMAN_DIRECTIVE@GHM-P43-CODEX EFFECTIVE · task=github-management · scope=C1A/S3/hai volume runner · recorded_by=openai-main (GPT Chat) · quote=«Lưu ý là việc này đang giao cho Codex chứ không phải claude code cli đấy nhé.» · text=Codex tiếp tục thực thi và đóng C1A, Claude Code CLI giữ vai kỹ sư trưởng riêng tại C1B sau nghiệm thu.
 
@@ -796,6 +797,23 @@ Ghế: openai-main · Based_on: Owner yêu cầu hiện tại «chúng ta đang 
 - **Tài nguyên/lệnh:** PROMPT đã sửa theo P56, `GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01` vẫn cùng node; READY@cef559c90506b7fac5b66bfc847f5f58f7e6a680 P53 không còn hiệu lực sau edit, chưa có READY mới. DROOT50 không cho ký READY khi quyền first mutation còn UNKNOWN; không lặp thêm vòng review/không thêm RUN đọc thử vô nghĩa. Khi grant scoped được cấp và có proof, Host ký SHA cuối rồi Owner giao Codex; S0 vẫn kiểm VPS-GHI/Guard/STOP và quyền.
 - **Giữ roadmap:** R0/R1/C1A XONG → C1B Codex → C3 3 dev/Claude Code CLI KST → C2 Pro/khóa main → C4 đêm. GLOBAL_GUARD còn PARTIAL 23/25 và thống kê dung lượng 24h chưa đủ. Không sửa global trong C1B.
 - NEXT_TRIGGER=SCOPED_GITHUB_GRANT_FOR_CODEX_AGENT_DATA_TEST_AND_WEB_TEST.
+
+## P57 · Claude Chat (Reviewer) · 26/10/2026 17:30 +07 — RÀ QUYẾT ĐỌNH HOST PHIÊN MỚI GHM-C1B-RESUME · GỘP VÀO PROMPT · cần Host READY@ce06dcaa054fdd3eb17e455f3097bb9ce914fb18
+Based_on: Owner 26/10 17:12 chuyển bản «HOST DECISION — GHM-C1B-RESUME-20261026» của GPT phiên mới (GPT ghi rõ chưa ghi lên repo) · P56 · PROMPT trước sửa @7b1e0ac2. Bảng + §0.3 sửa cùng lượt.
+
+**1. Đồng thuận lõi, không bàn lại:** Codex dùng phiên `gh` Owner + SSH + GSM đã cấp trên Mac; bỏ PAT của P56; repo mã chỉ `agent-data-test`/`web-test`; S7 dọn repo độc lập; VPS-GHI chỉ giữ khi áp thay đổi host; mã CI từ PR không nhận secret; kết luận XONG / XONG CÓ GIỚI HẠN / DỪNG. P56 hết hiệu lực ở các điểm trái.
+
+**2. Ba chỗ chắc chắn làm Codex dừng lại — đã sửa tại chỗ (PROMPT commit e3a9687a + ce06dcaa)**
+- 2.1 Hai nguồn lệnh: bản chat chưa lên repo, PROMPT vẫn P56 (cấm gh Owner, bắt PAT, S7 backlog) ⇒ Codex đọc repo sẽ dừng y P54. ⇒ Gộp quyết định Host vào PROMPT (1 tài liệu duy nhất), giữ số bước S0–S7 cũ (bản chat đánh lại S0–S4, dễ lệch bằng chứng).
+- 2.2 S3 bản chat «dùng cơ chế deploy + quyền ký KST đã có, không tạo cổng mới»: VPS chưa có script deploy nào (`/opt/incomex/scripts` chỉ backup/guard/monitor; Codex P54 cũng ghi chưa có), KST chỉ nhận việc từ C3 ⇒ chắc chắn dừng ở S3. ⇒ Ghi rõ Codex tạo 1 script deploy (= cơ chế deploy, không phải cổng mới), KST dùng lại từ C3.
+- 2.3 S1 bản chat «không ghi đè/làm mất thay đổi trên GitHub, dùng branch/PR phù hợp» dễ hiểu thành trộn mã GitHub cũ vào ứng viên rồi deploy mã chưa từng chạy. ⇒ Giữ cách P22/P50 (cây = VPS, `merge -s ours`, diff rỗng); commit chỉ có trên GitHub thì liệt kê cho KST xét ở C3; một cách đẩy duy nhất: nhánh thử `c1b-baseline` → CI xanh → fast-forward main đúng SHA.
+
+**3. Cổng chỉ ở chỗ không lùi được** («một thẻ · hai cổng»): force-push/viết lại lịch sử, xoá repo/main/tag archive, đổi public-private, đổi ruleset (C2), mua gói, secret cho CI từ PR. Bỏ các cấm «API quản trị» khác của P55. Thiếu scope `workflow` ⇒ Owner bấm đồng ý 1 lần.
+
+**4. S7 có tiêu chí có/không** — archive khi đủ 3: 30 ngày không push/run · tên không có trong mã/cron/compose đang chạy trên VPS · trang Pages vẫn mở. Đã kiểm 26/10: 2 repo `*-backup` là bản sao 1 lần trước terraform, job sao lưu chỉ đẩy `agent-data-test`/`web-test`; trang Pages vẫn chạy sau archive ([GOV.UK runbook](https://docs.publishing.service.gov.uk/manual/retiring-a-repo.html)). `chatgpt-githubnew` (tài liệu cũ gọi là repo trung tâm đồng bộ cấu hình, có push 26/10) giữ nguyên; Codex ghi ai đẩy + số phút Actions.
+
+**5. Ghi nhận:** (a) Phí runner tự host 0,002 USD/phút vẫn hoãn, chưa có ngày mới — C2 kiểm lại trước khi mua Pro. (b) KE-HOACH R2.2 «hạ quyền gh trên Mac sang thẻ dev» lệch chỉ đạo Owner mới — Host đối chiếu khi soạn C2, không thuộc C1B. (c) JEV `gen-dec-1793009858-cPYFaySd7uIxtnZJhjPL`: gộp vào PROMPT 1,0 · S3 cho tạo script 0,76 · rủi ro trộn mã S1 0,65 · archive có tiêu chí 0,88 (phương án do Claude viết).
+- NEXT_TRIGGER=HOST_READY_C1B_P57 → Host READY@ce06dcaa054fdd3eb17e455f3097bb9ce914fb18 → Owner giao Codex cùng RUN_ID.
 
 
 

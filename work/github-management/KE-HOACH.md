@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**Trạng thái: P54 C1B DỪNG S0 vì grant Contents+Workflows write chưa chứng minh. Host P56 giới hạn C1B đúng `agent-data-test`/`web-test`, không dùng gh Owner admin; S7 archive repo không dùng từ chỉ đạo Owner là backlog độc lập phải kiểm backup/consumer. PROMPT DRAFT_NOT_READY, không RUN bằng SHA P53 cũ; cần cổng ghi scoped rồi Host READY/Owner giao Codex. C1A scoped PASS.**
+**Trạng thái: Host phiên mới (GHM-C1B-RESUME) chốt Codex dùng phiên gh Owner trên Mac (bỏ PAT), repo mã chỉ `agent-data-test`/`web-test`, S7 dọn repo độc lập có tiêu chí có/không. Claude P57 gộp vào PROMPT. Chờ Host READY@ce06dcaa054fdd3eb17e455f3097bb9ce914fb18 + Owner giao Codex. C1A scoped PASS. (R2.2 hạ quyền gh Mac: Host đối chiếu chỉ đạo Owner mới khi soạn C2.)**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 

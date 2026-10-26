@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: C1B P54 KQ DỪNG S0, Host P56 chốt hai repo PRIVATE agent-data-test/web-test; GitHub connector READ chưa đủ chứng minh Codex có Workflows write. Cần cấp grant scoped, không dùng admin gh. PROMPT DRAFT_NOT_READY, S7 archive repo khác là backlog, không chạy trong C1B.**
+**Trạng thái: Host phiên mới (GHM-C1B-RESUME) chốt Codex dùng phiên gh Owner trên Mac, bỏ PAT, S7 dọn repo độc lập; Claude P57 gộp vào PROMPT + 3 sửa chống dừng. Chờ GPT Host READY@ce06dcaa054fdd3eb17e455f3097bb9ce914fb18 rồi Owner giao Codex cùng RUN_ID. 0 mutation main/deploy.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — `GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01` cho CODEX, **DRAFT_NOT_READY** tại P56. READY P53 cũ vô hiệu vì PROMPT đã sửa; cần Contents write + Workflows write đúng hai test repo, Host ký SHA mới rồi Owner mới giao. S7 archive repo khác chưa được phép trong C1B.
+6. work/github-management/PROMPT.md — `GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01` cho CODEX, **DRAFT** tại P57 (đã gộp quyết định Host GHM-C1B-RESUME). READY cũ vô hiệu; Host ký READY@ce06dcaa054fdd3eb17e455f3097bb9ce914fb18 rồi Owner giao. S7 dọn repo chạy độc lập trong cùng RUN.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
