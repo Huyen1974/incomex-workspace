@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · 26/10/2026 · GPT Host · P41
-- 🎯 Mục tiêu: hai repo CI/CD chạy VPS, KST duyệt/merge/deploy, nhiều agent làm thật, cuối cùng ca đêm.
-- 🏁 Xong C1A khi: 2 runner + 2/2 CI xanh + INV25 swap/cgroup + 2 volume đăng ký canh dung lượng thật, Guard C1A scoped PASS.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ hai CI 2/2 GREEN → ✓ Codex P40 swap/INV25 → ■ P41 chỉ còn đăng ký 2 volume (DRAFT) → □ Claude ký → □ Host READY/Owner RUN Codex → □ C1A XONG → C1B → C3 → C2 → C4.
-- ✅ Đã xong: Agent Data 6/6 Web 16/16; 2 runner online; no-swap cgroup đã kiểm, INV25 test PASS; C1A footprint 7 riêng+3 dùng chung kiểm; các nợ global giao đúng chủ.
-- ■ Đang làm: 0 RUN active ở task; VPS-GHI trống theo root KQ P40. Chưa có RUN volume mới, không đổi VPS trong P41.
-- ⬜ Còn lại: đăng ký giám sát dung lượng 2 runner data volumes ~1,93 GiB vào storage-registry/storage-watch hiện có; chứng minh đo/canh; POST scoped và giữ runner/CI; kế tiếp C1B KST.
-- ➡ Kế tiếp: Claude rà đúng 1 lỗi P40, ký PROMPT `GHM-C1A-S3-VOLUMES-20261026-01` và Host READY, Owner giao Codex. NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C1A_STORAGE_PROMPT.
-- ⛔ Không dọn volume/backup/xoay credential, không thêm monitor/cron, không rerun CI hoặc làm lại P40 swap, không tự chạy C1B/C2.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 11:00 +07 · Claude Chat · P42
+- 🎯 Mục tiêu: nhiều AI viết mã song song; KST duy nhất Claude Code CLI xem/merge/chạy trên VPS; 2 repo chạy ngon; sau cùng mua Pro, không phát sinh tiền.
+- 🏁 Xong khi: C1A ✓ (+ 2 volume ở bước 0 C1B) → C1B mã nền + deploy + lùi trên VPS → C3 3 PR thật KST merge → C2 Pro + khoá main + deploy tự động → C4 ca đêm.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A CI 2/2 + swap/INV25 → ✓ Claude P42 gộp mục volume vào C1B → ■ Host viết PROMPT C1B (Claude Code CLI) → □ Claude ký → □ Owner giao Claude Code CLI → □ C3 → □ C2 → □ C4.
+- ✅ Đã xong: 2 runner VPS ONLINE, Agent Data 6/6 + Web 16/16 GREEN, swap = 0 + INV25 bắt sai lệch, 0 phút GitHub cho CI.
+- ■ Đang làm: — · 0 RUN active. PROMPT volume riêng = SUPERSEDED_UNRUN.
+- ⬜ Còn lại: C1B (bước 0 volume + mã nền + deploy/lùi + 3 workflow sang VPS) → C3 → C2 → C4.
+- ➡ Kế tiếp: GPT Host viết PROMPT C1B theo khung P42 §3 (dùng lại P22 @2d079c76), executor Claude Code CLI. NEXT_TRIGGER=HOST_DRAFT_C1B_CLAUDE_CODE.
+- ⛔ Không chạy riêng lượt volume, không chạy lại CI, không deploy runner/nhóm docker, không bật deploy tự động trước khoá main, không mua Pro trước C3.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -50,6 +50,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - Owner 25/10/2026 (với GPT, Host ghi ở P29; đã sửa lỗi gõ): «refresh_token có thể là của Lark Base trước đây; nếu đúng thì bỏ cơ chế này. Xác nhận lại trước khi giao Codex chạy tiếp; bản chất việc Codex dừng vì refresh_token là gì?» · «Cứ chat đi chat lại cả ngày mà chẳng được việc gì.»
 - Owner 25/10/2026 20:13 (phiên Claude): «Tạm thời vẫn điều hành bằng tay: Claude phản biện, GPT làm Host chốt prompt, Owner chuyển cho agent chạy. Ưu tiên kết thúc trong 1 vòng.» ⇒ Claude tự kiểm bằng công cụ chỉ đọc thay cho vòng hỏi đáp; sửa tại chỗ + ký cùng lượt.
 - Owner 26/10/2026 08:42 (phiên Claude, đã sửa lỗi gõ): «Xử lý nốt các phần còn lại và đóng việc này. Mục tiêu cơ bản: các AI viết mã song song dưới vai trò kỹ sư phát triển; kỹ sư trưởng duy nhất là Claude Code CLI — xem xét, merge, chạy trên VPS. Đảm bảo cả 2 repo chạy ngon lành. Sau khi OK hết sẽ mua GitHub Pro và đảm bảo không phát sinh ngoài số phút chạy trong quota.» ⇒ (1) C1B do Claude Code CLI (KST) thực hiện; (2) mua Pro + khoá main (C2) sau C3; (3) mọi workflow chạy trên runner VPS, ngân sách $0 + Stop giữ sau khi lên Pro.
+- Owner 26/10/2026 10:45 (phiên Claude): «Tạm thời vẫn điều hành bằng tay (Claude phản biện, GPT Host chốt prompt, Owner chuyển cho agent). Ưu tiên kết thúc trong 1 vòng để Host GPT chốt prompt cho Claude Code.» ⇒ lượt kế là PROMPT C1B cho Claude Code CLI.
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -615,6 +616,29 @@ Ghế: openai-main · Based_on: Codex P39–P40 và C1A-S3-CLOSE-REPORT, báo c�
 - **Roadmap không đảo:** C1B Claude Code CLI KST deploy thủ công+rollback, chuyển 3 audit → C3 3 agent PR thật → C2 Pro/khóa main/auto deploy → C4 ca đêm. Đã có khung C1B trong KE-HOACH. Không ghi đè PROMPT ngay trong C1A/C1B song song vì chỉ một PROMPT active/A6.
 - **Gate:** Lệnh storage là DRAFT_NOT_READY; Claude Reviewer đọc đúng P40/P41 và PROMPT một lượt, ACCEPT last-touch SHA; GPT READY@SHA, Owner chuyển cho CODEX. Không đổi executor, không tự RUN.
 - NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C1A_STORAGE_PROMPT.
+
+## P42 · Claude Chat (Reviewer) · 26/10/2026 11:00 +07 — KHÔNG CHẠY RIÊNG LƯỢT VOLUME · GỘP VÀO BƯỚC 0 C1B (CLAUDE CODE CLI) · KHUNG C1B CHO HOST
+Bảng: lệch → đã sửa cùng lượt · §0.3: thêm Owner 26/10 10:45.
+
+**1. Nghiệm thu P40**
+- 1.1 Đạt: swap live = 0, CPU/RAM đúng trần, INV25 đọc cgroup thật và bắt được sai lệch. CI 2/2 GREEN giữ nguyên.
+- 1.2 Còn đúng 1 mục C1A: 2 volume runner (~1,93 GiB) chưa khai trong storage-registry. Mục nhỏ, thuộc sổ sách.
+
+**2. Quyết định: PROMPT `GHM-C1A-S3-VOLUMES-20261026-01` = SUPERSEDED_UNRUN**
+- 2.1 Nội dung kỹ thuật đúng (đạt 3 điểm Host hỏi), nhưng chạy riêng = lượt đóng C1A thứ 4 (3 lượt trước của Codex đều kết thúc DỪNG) + 2 lần Owner chuyển tay. Owner 10:45: lượt kế phải là prompt cho Claude Code.
+- 2.2 Gộp NGUYÊN VĂN S0–S2 của PROMPT đó thành **bước 0 của C1B**; Claude Code CLI là KST, chạy root trên VPS, làm được đúng việc này. C1A XONG khi bước 0 đạt. JEV `gen-dec-1792986445-Zv1j9Jv4ZR7z612iwZIu`: gộp 1,0 (phương án do Claude viết).
+
+**3. Khung C1B để Host chốt PROMPT trong 1 lần (executor Claude Code CLI, không dựng mới)**
+- 3.1 Dùng lại PROMPT P22 `GHM-C1-CICD-VPS-20261025-01` @2d079c76 (đã ký, executor đúng Claude Code CLI): giữ A (mã nền: clone KST, commit phần sửa dở, quét bí mật, tag archive, merge giữ cây VPS, không force-push, chuyển 15 workflow BỎ sang archive) và D (thử + diễn tập lùi).
+- 3.2 BỎ phần B (runner đã có từ C1A) và BỎ deploy runner + nhóm docker (lỗi Host bắt ở P23).
+- 3.3 Deploy ở C1B = KST chạy trực tiếp 1 script cố định trên VPS (root, không qua GitHub). Agent Data: build image → giữ `prev` → tạo lại → kiểm `/info`, `/api/health`, số tài liệu → hỏng thì lùi. Web: build `.output` → giữ `.prev` → restart → kiểm `/knowledge` → hỏng thì lùi. Không chép compose/nginx từ repo, không SQL tự động, không rsync DOT. Deploy tự động khi main đổi để C2 (sau khoá main).
+- 3.4 Lần deploy đầu (giải điểm Host P23 về SHA đang chạy): build thử trong thư mục KST trước (không đụng production) → deploy bản mã nền với `.prev`/`prev` sẵn → kiểm sức khoẻ → hỏng tự lùi. Ghi rõ SHA trước/sau.
+- 3.5 3 workflow kiểm còn chạy trên GitHub: đổi `runs-on` sang runner VPS ⇒ phút GitHub ≈ 0.
+- 3.6 Cầu nối: trước mỗi deploy kiểm thư mục mã VPS không có sửa mới chưa lên main; có ⇒ KST đưa lên main trước.
+- 3.7 Điều 30/31 cùng lượt: script deploy, bản clone KST, cấu hình vào bảo vệ + Kuma; lưu script vào repo + danh mục DOT.
+- 3.8 XONG khi: bước 0 đạt + 2 repo main = mã VPS + deploy + lùi xanh + phút GitHub ≈ 0. Có 2–4 lần khởi động lại (~1 phút) — Owner RUN = đồng ý. Tiêu chí DỪNG chỉ tính lỗi do chính C1B gây ra.
+
+**4. Nhắc Host:** roadmap đã cập nhật cùng lượt (ROADMAP C1A/C1B); Host chỉ cần viết PROMPT C1B theo §3 rồi READY sau khi Claude ký.
 
 
 

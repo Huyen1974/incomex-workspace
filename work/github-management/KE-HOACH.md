@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**TRẠNG THÁI: 26/10/2026 · P40 Codex S3 KQ DỪNG chỉ do 2 volume runner ~1,93 GiB thiếu đăng ký giám sát; CPU/RAM/swap + INV25 đã đạt, CI 2/2 GREEN giữ. GPT P41 chuẩn bị PROMPT sửa hai khai báo theo storage-registry/storage-watch có sẵn, chưa RUN; kế tiếp C1B KST → C3 → C2 → C4.**
+**TRẠNG THÁI: 26/10/2026 · C1A CI 2/2 GREEN + CPU/RAM/swap + INV25 đạt (P40). Mục khai 2 volume runner gộp vào bước 0 C1B (Claude P42). Kế tiếp: Host viết PROMPT C1B cho Claude Code CLI → C3 → C2 → C4.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
