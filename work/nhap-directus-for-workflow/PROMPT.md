@@ -1,7 +1,7 @@
-# TS2 · DOT REGISTER KHOÁ MÁY + ĐỒNG BỘ THEO SỰ KIỆN — BẢN CHỐT KỸ THUẬT CHỜ G2
+# TS2 · DOT REGISTER KHOÁ MÁY + ĐỒNG BỘ THEO SỰ KIỆN — G2 OWNER APPROVED · RUN KHI READ-GATE PASS
 RUN_ID: NDW-TS2-DOTTOOLS-AUTOSYNC-20261026-01
 TASK: work/nhap-directus-for-workflow
-STATUS: DRAFT_OWNER_G2_REQUIRED. Chỉ sau Owner trực tiếp duyệt G2·TS2 đúng mục 1–3 P57, Host mới ký READY@last-touch; Owner sau đó mới dispatch DROOT38. Không RUN khi thiếu G2/READY/STOP gate.
+STATUS: OWNER G2·TS2 ĐÃ DUYỆT MỤC 1–3 (P58); chỉ RUN khi COLLAB có Host READY@SHA trùng commit cuối chạm PROMPT, Owner chuyển câu DROOT38 và read-gate S0 PASS. Thiếu G2/READY hoặc có STOP/VPS-GHI bận thì DỪNG trước mutation; câu STATUS này KHÔNG phải lệnh tự chặn khi đã đủ gate. Mục 4 track_functions KHÔNG được phép.
 EXECUTOR: Claude Code CLI, cổng DOT/script-wrapper và workspace theo AGENTS; quyền mutation giới hạn đúng footprint Owner duyệt, bảo vệ Điều 30/31; tối đa một RUN thực thi, không giữ terminal chờ.
 
 ## 0. ĐÍCH VÀ CHỨNG CỨ
