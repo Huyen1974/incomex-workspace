@@ -4,14 +4,14 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 · GPT Host · P46
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 13:21 +07 · Codex · P47
 - 🎯 Mục tiêu: Codex đóng C1A hai runner data volumes, chuyển C1B cho Claude Code CLI KST; sau đó C3 agent, C2 Pro/main, C4 ca đêm.
 - 🏁 C1A XONG khi: 2/2 CI và swap/INV25 (đã đạt) + 2 volume giám sát đúng qua storage-registry/storage-watch, POST Guard C1A scoped PASS.
 - 📍 Tiến độ: ✓ R0/R1 → ✓ C1A 2/2 CI GREEN → ✓ swap/INV25 → ✓ Claude P42 góp ý, Host P45 kết luận → ✓ **GPT Host P46 READY@7ea270e7** → ■ Owner giao Codex khi RUN trước đã xong/cờ VPS-GHI trống → □ Codex khép C1A → C1B → C3 → C2 → C4.
 - ✅ Đã xong: PROMPT Codex nguyên phạm vi, đã ký READY chính xác last-touch SHA; DROOT58 cho phép một chữ ký Host, không cần chữ ký Reviewer. Root VPS-GHI kiểm ngay trước READY đang trống; 2 runner và CI thành quả cũ được giữ nguyên.
-- ■ Đang làm: — · 0 RUN C1A active; đây là chữ ký phê duyệt trước, KHÔNG phải STARTED, không có mutation VPS.
+- ■ Đang làm: Codex STARTED `GHM-C1A-S3-VOLUMES-20261026-01`; S0 đầu vào/quyền/cờ đạt, giữ VPS-GHI đến 07:31Z; PRE → hai khai báo → kiểm → KQ.
 - ⬜ Còn lại: Owner chỉ chuyển lệnh sau khi lệnh VPS trước đã KQ/trả cờ; Codex kiểm lại lease/Guard/STOP và CAS ở S0 rồi đăng ký đúng 2 volumes và POST; báo C1A_SCOPED và GLOBAL riêng.
-- ➡ Kế tiếp: Owner dispatch CODEX `GHM-C1A-S3-VOLUMES-20261026-01` theo đúng SHA; NEXT_TRIGGER=OWNER_RUN_GHM_C1A_VOLUMES_AFTER_PRIOR_FINISH.
+- ➡ Kế tiếp: Codex hoàn tất đúng S0–S3, báo scoped/global riêng và trả cờ; NEXT_TRIGGER=CODEX_C1A_VOLUMES_POST_KQ.
 - ⛔ Không cho hai RUN cùng ghi VPS, không xóa volume/rerun CI/sửa main, không tự C1B; READY không vượt S0 hoặc các guard.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -676,6 +676,14 @@ Ghế: openai-main · Based_on: Owner trực tiếp: «Bạn ký sẵn ready đ�
 - **Scope KQ:** Khai/kiểm dung lượng đúng 2 volumes ~1,93 GiB qua công cụ hiện có, canary/negative fixture, POST C1A; giữ thành quả 2 GitHub CI xanh, zero-swap INV25, không restart app/runner/xóa dữ liệu, không thực thi C1B. Global Guard còn nợ việc khác có thể PARTIAL nếu C1A scoped PASS có bằng chứng.
 - **REVIEW_REUSED=P42@e91c8a2d60cb47a4341cecd466991c299314b247**, không bịa chữ ký Reviewer. Chưa phát STARTED hoặc KQ của RUN này.
 - NEXT_TRIGGER=OWNER_RUN_GHM_C1A_VOLUMES_AFTER_PRIOR_FINISH.
+
+## P47 — Codex STARTED · 26/10/2026 13:21 +07
+Ghế: openai-codex · Bước/vòng: thực thi S0–S3 · 1/1 · Based_on: P46/5116b596dbad7099b97a06cffe011f6b65ce4adc · Scope: hai volume C1A theo PROMPT.
+STARTED@GHM-C1A-S3-VOLUMES-20261026-01 2026-10-26T06:21Z · executor=Codex CLI/Desktop
+- Owner RUN trực tiếp; READY@7ea270e761aeb57b50574d685735d5fc532a1337 đúng last-touch PROMPT, nội dung hiện hành khớp SHA256 cb16909c7ba7b1746b2e21bd2654340db32b630f03e2ac021fcc44e9f2f417d3; không có STOP trong scope.
+- RUN trước có KQ/trả cờ; root VPS-GHI trống trước CAS, không thấy writer cạnh tranh thuộc thao tác này. Config Guard CLEAN 545/545, INV25 PASS, hai runner online/idle; hai CI cũ success đúng SHA, main giữ nguyên. Hồ sơ P40 và manifest đúng hash.
+- Nhận cờ bằng CAS trong commit này, hạn 07:31Z; kiểm freshness trước apply. Chỉ hai đăng ký, giữ dòng cha/nguồn checker/baseline lịch sử. Bằng chứng vận hành lưu riêng. Không rerun CI, restart app/runner, xóa volume, C1B/C2.
+- KQ sẽ phân biệt C1A_STORAGE, C1A_S3_SCOPED và GLOBAL_GUARD; kiểm định thật quyết định kết quả.
 
 
 
