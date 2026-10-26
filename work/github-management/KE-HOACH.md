@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**TRẠNG THÁI: P49 Host ACCEPT C1A scoped sau CI 2/2, swap/INV25, runner volumes 8/8 PASS. GLOBAL_GUARD vẫn PARTIAL, chưa đủ thống kê 24h phân loại mới. C1B Claude Code CLI KST DRAFT `GHM-C1B-KST-BASELINE-MANUAL-CD-20261026-01`, Claude P50 đã góp ý + sửa 6 điểm, chờ Host READY@b9953e61 + Owner RUN; tiếp C3 → C2 Pro → C4.**
+**TRẠNG THÁI: C1A scoped PASS; Host P51 READY@3c2b0cbe06bb86eea76a5014fda21c36e31e8d9d cho C1B Claude Code CLI KST (P50 sáu sửa an toàn), chỉ Owner RUN mới STARTED. Xác minh nguồn/main/runtime, main baseline an toàn, deploy+rollback hai app và chuyển 3 audit VPS; C3 → C2 Pro → C4. Global Guard PARTIAL và số liệu phân loại 24h chưa đủ, không giả toàn hệ PASS.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 

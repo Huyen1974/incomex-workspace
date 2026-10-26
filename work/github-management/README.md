@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: C1A P49 Host ACCEPT scoped, GLOBAL_GUARD PARTIAL (23/25), 24h history mới chưa đủ. C1B cho Claude Code CLI KST: Claude P50 đã góp ý + sửa 6 điểm, chờ Host READY@b9953e61 + Owner RUN.**
+**Trạng thái: GPT Host P51 đã ký READY@3c2b0cbe06bb86eea76a5014fda21c36e31e8d9d cho C1B Claude Code CLI KST, Owner chưa RUN. Claude P50 đã góp ý/sửa sáu điểm; 4 app restart diễn tập + đúng một khôi phục emergency known-good khi cần. C1A scoped XONG; Global Guard PARTIAL, thống kê 24h chưa đủ.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — DRAFT `GHM-C1B-KST-BASELINE-MANUAL-CD-20261026-01` cho **Claude Code CLI KST**: chuẩn source/main bảo toàn lịch sử, manual deploy+rollback hai app, chuyển 3 audit lên runner VPS. Claude P50 đã góp ý + sửa 6 điểm; Host ký READY@b9953e61 theo DROOT58, Owner chuyển RUN; chưa STARTED.
+6. work/github-management/PROMPT.md — READY@3c2b0cbe06bb86eea76a5014fda21c36e31e8d9d tại COLLAB P51, RUN `GHM-C1B-KST-BASELINE-MANUAL-CD-20261026-01` cho **Claude Code CLI KST**, chỉ Owner chuyển RUN mới được thực thi. Main tiến thẳng từ VPS source đã kiểm, manual build/deploy candidate+rollback hai app, chuyển ba audit sang VPS; không tự C3/C2.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
