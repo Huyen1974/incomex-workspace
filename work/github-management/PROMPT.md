@@ -1,6 +1,6 @@
 # PROMPT — GHM C1A · KHÉP 1 LỖI S3: KHAI BÁO DUNG LƯỢNG 2 VOLUME RUNNER
 RUN_ID: GHM-C1A-S3-VOLUMES-20261026-01
-STATUS: DRAFT_NOT_READY — DROOT58: CODEX làm C1A hai volumes, Claude P42 đã góp ý kỹ thuật và Host P44/P45 chốt; **chỉ một chữ ký READY@full last-touch SHA của Host hoặc Co-host hợp lệ**, không cần chữ ký Council/Reviewer. Chưa READY vì VPS-GHI có RUN khác gia hạn ở mẫu gần nhất; Host chỉ ký khi cờ thật trống và có thể START. AUTO0 Owner chuyển RUN là dispatch, không ký kỹ thuật lần hai. Chưa STARTED; P39–P40 đã KQ DỪNG.
+STATUS: READY_VIA_COLLAB — Host P46 đã chốt kỹ thuật theo Claude P42 và DROOT58. **Chữ ký duy nhất có hiệu lực là `READY@<full last-touch PROMPT SHA>` của Host trong `work/github-management/COLLAB.md`**; không cần Reviewer ký. Owner chuyển RUN cho CODEX chỉ sau khi lệnh VPS trước hoàn tất, VPS-GHI trống và S0 kiểm cờ/Guard/quyền PASS. Chưa có STARTED/KQ cho RUN này; không chạy lại P39–P40.
 
 EXECUTOR_SURFACE: **Codex CLI/Desktop**, quyền GitHub/VPS đã có. WRITE_PATH: chỉ khai báo tài nguyên hai volume runner C1A vào cơ chế storage-registry/storage-watch hiện hành và bằng chứng Guard liên quan trên VPS, qua cờ VPS-GHI/Đ30–31; trong repo chỉ ghi STARTED/KQ/Bảng/roadmap của `work/github-management`. Không giao Claude Code chạy thay. **Không xây thêm monitor/script cron mới.**
 
