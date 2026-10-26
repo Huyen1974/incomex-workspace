@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: C1A có 2/2 CI GREEN thật (P35); S3 chưa nghiệm thu vì swap live và Guard xen kẽ. GPT P36 đã soạn PROMPT S3-CLOSE cho CODEX, DRAFT chờ Claude ACCEPT/Host READY/Owner RUN.**
+**Trạng thái: C1A có 2/2 CI GREEN thật (P35). PROMPT S3-CLOSE cho Codex: Claude P37 ACCEPT@e58ec113, chờ Host READY + Owner RUN. Sau đó C1B (Claude Code CLI) → C3 → C2 Pro → C4.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — DRAFT `GHM-C1A-S3-CLOSE-20261025-01` cho Codex chỉ hoàn tất S3/INV25/coverage; Claude review rồi Host READY/Owner RUN. C1A 2/2 CI cũ đã PASS giữ nguyên, không tự RUN lại.
+6. work/github-management/PROMPT.md — `GHM-C1A-S3-CLOSE-20261025-01` cho Codex chỉ hoàn tất S3/INV25/coverage phần C1A; Claude P37 ACCEPT@e58ec113, chờ Host READY cùng SHA + Owner RUN. C1A 2/2 CI cũ đã PASS giữ nguyên, không tự RUN lại.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.

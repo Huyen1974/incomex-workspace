@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.3 · 24/10/2026
-**Trạng thái: C1A đã chạy CI thật 2/2 GREEN (Codex P35, GitHub verified); S3 còn lỗi live swap/cgroup + coverage/Guard do thay đổi xen kẽ. GPT P36 soạn PROMPT CHỈ đóng S3 cho Codex, DRAFT chờ Claude ký, không rerun CI, C1B/C2 CHƯA RUN.**
+**Trạng thái: C1A CI 2/2 GREEN (P35); đóng S3 (Codex, `GHM-C1A-S3-CLOSE`) Claude P37 ACCEPT@e58ec113, chờ Host READY. Thứ tự còn lại theo Owner 26/10: C1B (Claude Code CLI) → C3 nhiều agent → C2 mua Pro + khoá main → C4 ca đêm.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
 Ưu tiên 1 (Owner 25/10 15:18): hệ thống chạy được — mỗi repo đi được nhánh → PR → test → main → deploy VPS, máy chạy (runner) đặt trên VPS. Sau đó: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 
@@ -12,10 +12,11 @@
 ## 0.5 THỨ TỰ MỚI (Owner 25/10 15:18 — thay mọi thứ tự trước)
 | Bước | Ai | Việc | Đạt khi |
 |---|---|---|---|
-| **C1A — RUNNER CI TRÊN VPS** | 🤖 **Codex**, Claude giám sát | Cài runner official `actions/runner` trên VPS (mỗi repo một đăng ký) không-root/no docker.sock, giới hạn tài nguyên; workflow kiểm thử thật trên nhánh `dev/` của 2 repo. Không sửa main hay restart dịch vụ. | 2/2 GitHub CI runs thực chạy trên VPS có test PASS, SHA/log và Guard/health không đổi. |
-| **C1B — BASELINE + CD DEV/CANARY** | 🤖 Codex chuẩn bị, Claude KST duyệt main/release | Sau C1A đạt: đối chiếu mã VPS/image Web + Agent Data, baseline ứng viên, Chief duyệt; CD thử vùng dev/canary và rollback, không dùng workflow deploy SSH cũ. | Dev CD release SHA+smoke+rollback PASS trước bước C2. |
-| **C2 — Khoá main** (= R2-A/B) | 😊 Owner mua Pro · 🤖 Codex ruleset · KST chìa | Ruleset chỉ main + chìa KST; rồi bật `push: main` cho deploy. | Dev đẩy main bị chặn; main đổi ⇒ tự deploy. |
-| **C3 — Nhiều agent** (= R4 → R6) | 3 ghế + KST | 3 việc thật trên 2 repo thật → ca đêm. Khoá VPS chống sửa nhầm (P7) sau C2. | Như R4/R6. |
+| **C1A — RUNNER CI TRÊN VPS** ✓ CI 2/2 GREEN (P35) · đóng S3 (P36/P37) | 🤖 **Codex**, Claude giám sát | Cài runner official `actions/runner` trên VPS (mỗi repo một đăng ký) không-root/no docker.sock, giới hạn tài nguyên; workflow kiểm thử thật trên nhánh `dev/` của 2 repo. Không sửa main hay restart dịch vụ. | 2/2 GitHub CI runs thực chạy trên VPS có test PASS, SHA/log và Guard/health không đổi. |
+| **C1B — MÃ NỀN + DEPLOY TRÊN VPS** | 🤖 **Claude Code CLI = KST** (Owner 26/10: KST duy nhất xem/merge/chạy trên VPS) | main = mã đang chạy trên VPS (tag archive, merge giữ cây VPS, không force-push); deploy chạy tại chỗ trên VPS qua 1 script cố định (cổng hẹp, không nhóm docker), KST bấm tay; health + lùi; 3 workflow kiểm còn chạy trên GitHub chuyển sang runner VPS. Không dùng workflow deploy SSH cũ. | 2 repo: deploy + lùi xanh trên VPS; phút GitHub-hosted ≈ 0. |
+| **C3 — NHIỀU AGENT** (= R4) | 3 ghế dev + KST | 3 việc thật trên 2 repo thật; mỗi ghế nhánh `dev/<ghế>/<việc>` → PR → CI trên VPS → KST xem/merge/deploy. Trước khoá main: deploy chỉ khi KST bấm, agent lỡ đẩy main không lên VPS. | 3 PR thật, ≥2 NHẬN, 0 dev ghi main. |
+| **C2 — MUA PRO + KHOÁ MAIN** (= R2-A/B; Owner 26/10: sau khi OK hết) | 😊 Owner mua Pro · 🤖 Codex ruleset · KST chìa | Ruleset chỉ main + chìa KST; bật deploy tự động khi main đổi; kiểm lại ngân sách $0 + Stop sau khi lên Pro (phút miễn phí tính chung cả tài khoản). | Dev đẩy main bị chặn; main đổi ⇒ tự deploy; tiền phát sinh = 0 ngoài phí Pro. |
+| **C4 — CA ĐÊM** (= R6, định nghĩa «xong» §2) | DOT nhắc Codex đốc công · KST | Tối giao loạt việc, sáng KST duyệt; bảng 1 dòng/việc. Khoá VPS chống sửa nhầm (P7) cùng lúc. | ≥2/3 NHẬN, không ai canh đêm. |
 BỎ (P22): G0 khảo sát chỉ đọc và R2-P pilot repo public — Claude đã đọc trực tiếp deploy cũ; thử song song làm thẳng trên 2 repo thật ở C3.
 
 ## I. Bảng mốc

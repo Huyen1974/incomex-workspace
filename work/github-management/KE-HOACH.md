@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**TRẠNG THÁI: Codex P35 đã CI 2/2 GREEN thật. P36 S3-CLOSE DRAFT giao Codex xử đúng 2 blocker: cgroup live no-swap/INV25 và Guard footprint bị xen kẽ; C1B/C2 chưa RUN.**
+**TRẠNG THÁI: Codex P35 đã CI 2/2 GREEN thật. S3-CLOSE (Codex) Claude P37 ACCEPT@e58ec113, chờ Host READY. Thứ tự còn lại (Owner 26/10, ROADMAP §0.5): C1B Claude Code CLI → C3 → C2 Pro → C4.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 

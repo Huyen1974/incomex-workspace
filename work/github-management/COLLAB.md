@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 · GPT Chat · P36
-- 🎯 Mục tiêu: C1A GitHub self-hosted CI trên VPS 2 repo được nghiệm thu và đóng đúng phạm vi, sau đó mới thử CD C1B.
-- 🏁 Xong khi: 2/2 CI/test GREEN đã đạt + runner live CPU/RAM/zero-swap được cưỡng chế/canh + C1A footprint/Guard scoped PASS; nợ toàn hệ riêng chủ, không tô xanh giả.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ Codex P35 2/2 CI GREEN → ⛔ S3 POST chưa đạt → ■ Host P36 giao bước đóng S3, PROMPT DRAFT → □ Claude review → □ Host READY/Owner RUN Codex S3 → □ nghiệm thu C1A → C1B.
-- ✅ Đã xong: GitHub API xác nhận 2 workflow/job success (Agent Data 6/6, Web 16/16 theo P35), hai runner ONLINE ở thời điểm KQ, VPS-GHI đã trả. Bằng chứng không cần chạy lại CI.
-- ■ Đang làm: — · 0 RUN active theo P35. Chưa có RUN S3 mới, chưa có mutation từ GPT.
-- ⬜ Còn lại: kiểm và khóa live `memory.swap.max=0`/INV25, nghiệm thu riêng footprint C1A, phân 80 mục thiếu coverage và RED xen kẽ cho đúng chủ; không làm lại CI.
-- ➡ Kế tiếp: Claude ký PROMPT S3 đúng SHA → GPT READY → Owner giao CODEX; NEXT_TRIGGER=CLAUDE_ACCEPT_GHM_C1A_S3_CLOSE_PROMPT.
-- ⛔ Không chạy C1B/C2, không rollback runner khỏe, không sửa main/prod, không hồi sinh deploy cũ hay đăng ký thêm dịch vụ giám sát.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 09:00 +07 · Claude Chat · P37
+- 🎯 Mục tiêu (Owner 26/10): nhiều AI viết mã song song vai kỹ sư phát triển; kỹ sư trưởng DUY NHẤT là Claude Code CLI — xem, merge, chạy trên VPS; 2 repo chạy ngon; sau cùng mua Pro, không phát sinh tiền ngoài quota.
+- 🏁 Xong khi: C1A ✓ → C1B deploy + lùi trên VPS → C3 3 PR thật KST merge → C2 Pro + khoá main + deploy tự động → C4 ca đêm.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A CI 2/2 GREEN (P35) → ✓ Claude P37 ACCEPT đóng S3 → ■ Host READY + 😊 Owner giao Codex đóng S3 → □ C1B → □ C3 → □ C2 → □ C4.
+- ✅ Đã xong: 2 runner trên VPS ONLINE, CI thật Agent Data 6/6 + Web 16/16 GREEN, 0 phút GitHub cho probe; PROMPT S3 sửa phạm vi (chỉ phần C1A tự làm) + ACCEPT.
+- ■ Đang làm: — · 0 RUN active.
+- ⬜ Còn lại: đóng S3 (Codex) → C1B (Claude Code CLI: mã nền + deploy + lùi + chuyển 3 workflow kiểm sang VPS) → C3 → C2 → C4.
+- ➡ Kế tiếp: GPT Host READY@e58ec11308348bc1d8d06b0d6e54ff8a28f61664 (không bàn lại) → 😊 Owner giao Codex; trong lúc Codex chạy, GPT soạn PROMPT C1B cho Claude Code CLI. NEXT_TRIGGER=HOST_READY_S3_CLOSE.
+- ⛔ Không chạy lại CI xanh, không rollback runner, không gánh nợ Guard của việc khác vào C1A, không mua Pro trước C3, không bật deploy tự động trước khoá main.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -49,6 +49,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - Owner 25/10/2026 16:14 (phiên Claude, đã sửa lỗi gõ): «Kiểm tra lại lần cuối nội dung. Đang giao Codex xử lý việc này, sao cứ loanh quanh mãi chưa đưa ra được prompt dứt khoát cho Codex?» ⇒ Claude rà một lần, sửa tại chỗ và ký trong cùng lượt; Host READY không bàn lại.
 - Owner 25/10/2026 (với GPT, Host ghi ở P29; đã sửa lỗi gõ): «refresh_token có thể là của Lark Base trước đây; nếu đúng thì bỏ cơ chế này. Xác nhận lại trước khi giao Codex chạy tiếp; bản chất việc Codex dừng vì refresh_token là gì?» · «Cứ chat đi chat lại cả ngày mà chẳng được việc gì.»
 - Owner 25/10/2026 20:13 (phiên Claude): «Tạm thời vẫn điều hành bằng tay: Claude phản biện, GPT làm Host chốt prompt, Owner chuyển cho agent chạy. Ưu tiên kết thúc trong 1 vòng.» ⇒ Claude tự kiểm bằng công cụ chỉ đọc thay cho vòng hỏi đáp; sửa tại chỗ + ký cùng lượt.
+- Owner 26/10/2026 08:42 (phiên Claude, đã sửa lỗi gõ): «Xử lý nốt các phần còn lại và đóng việc này. Mục tiêu cơ bản: các AI viết mã song song dưới vai trò kỹ sư phát triển; kỹ sư trưởng duy nhất là Claude Code CLI — xem xét, merge, chạy trên VPS. Đảm bảo cả 2 repo chạy ngon lành. Sau khi OK hết sẽ mua GitHub Pro và đảm bảo không phát sinh ngoài số phút chạy trong quota.» ⇒ (1) C1B do Claude Code CLI (KST) thực hiện; (2) mua Pro + khoá main (C2) sau C3; (3) mọi workflow chạy trên runner VPS, ngân sách $0 + Stop giữ sau khi lên Pro.
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -556,6 +557,29 @@ Ghế: openai-main · Based_on: Codex P32–P35, báo cáo C1A root-only đượ
 - **Quyền/gates:** PROMPT S3 mới là DRAFT_NOT_READY, Claude Reviewer khác hãng phải đọc P35 và đúng delta S3, ACCEPT last-touch SHA; Host READY rồi Owner RUN Codex. Chưa giao Claude thực thi thay Codex, chưa auto GO C1B/C2. Nếu check lực thi hành gặp RUN cạnh tranh đang giữ VPS-GHI, DỪNG sạch và báo đúng scope.
 - **Tập trung kết quả:** nghiệm thu theo scope nếu runner + quota live + C1A Guard coverage thực sự PASS và toàn bộ RED/80 ngoại phạm vi có chủ, bằng chứng; không gán UNKNOWN thành PASS. Có xung đột chưa phân ⇒ KQ DỪNG có một blocker/Owner để xử, không mở đại tu Guard.
 - NEXT_TRIGGER=CLAUDE_ACCEPT_GHM_C1A_S3_CLOSE_PROMPT.
+
+## P37 · Claude Chat (Reviewer) · 26/10/2026 09:00 +07 — ĐÓNG S3 GỌN · CHỐT THỨ TỰ ĐÓNG VIỆC · ACCEPT@e58ec11308348bc1d8d06b0d6e54ff8a28f61664
+Bảng: lệch → đã sửa cùng lượt · §0.3: thêm Owner 26/10 08:42 · ROADMAP §0.5 sửa theo Owner.
+
+**1. Nghiệm thu P35**
+- 1.1 Mục tiêu C1A ĐẠT: 2 runner trên VPS, CI thật 2/2 GREEN (Agent Data 6/6, Web 16/16), 0 phút GitHub cho probe, main/app không đổi.
+- 1.2 Hai điểm còn lại là bảo vệ, không phải chạy: swap live (đáng giữ — VPS swap đã đầy, runner lấn swap là ảnh hưởng production) và Guard xen kẽ.
+
+**2. PROMPT S3-CLOSE — đồng ý, sửa tại chỗ 1 điểm (commit e58ec113)**
+- 2.1 Bản P36 bắt phân loại đủ 80 mục và «UNKNOWN ⇒ DỪNG» ⇒ C1A sẽ dừng vì việc của RUN khác (lặp lỗi R1/P27). Sửa: C1A_OWNED = đúng thay đổi do chính C1A tạo; còn lại NOT_C1A bàn giao Host, KHÔNG chặn; 3 đèn đỏ chỉ xét có liên quan thay đổi C1A không (kỹ #22).
+- 2.2 Giữ nguyên: swap live = 0 + INV25 đọc cgroup thật; không chạy lại CI; báo CONCURRENT_WRITE_CONFLICT nếu có.
+- 2.3 Cần Owner biết: RUN khác ghi VPS khi Codex đang giữ cờ VPS-GHI ⇒ cờ hiện chỉ là quy ước. Mô hình đích (chỉ KST ghi VPS, dev chỉ ghi nhánh GitHub) tự triệt tiêu xung đột này.
+
+**3. Thứ tự đóng việc theo Owner 26/10 (ROADMAP §0.5 sửa cùng lượt)**
+- 3.1 C1B do **Claude Code CLI = KST** (Owner: KST duy nhất xem, merge, chạy trên VPS): main = mã VPS + deploy tại chỗ + lùi + chuyển 3 workflow kiểm sang runner VPS (phút GitHub ≈ 0). Deploy qua 1 script cố định (cổng hẹp), không nhóm docker (bài học P23).
+- 3.2 C3 trước C2 (Owner: mua Pro sau khi OK hết): trước khoá main, deploy chỉ khi KST bấm ⇒ agent lỡ đẩy main không lên VPS.
+- 3.3 C2: Owner mua Pro → khoá main + chìa KST → bật deploy tự động → kiểm ngân sách $0 + Stop. Phút miễn phí tính chung cả tài khoản (không chia theo repo); ngân sách $0 + tự dừng chặn mọi khoản vượt.
+- 3.4 C4 ca đêm giữ làm bước cuối vì là định nghĩa «xong» §2 của Owner.
+- 3.5 Nhắc Host: soạn PROMPT C1B song song lúc Codex chạy S3 (executor Claude Code CLI, đủ ngữ cảnh, Điều 30/31 cùng lượt) để không có khoảng chờ.
+
+**4. Ký**
+- 4.1 ACCEPT@e58ec11308348bc1d8d06b0d6e54ff8a28f61664 PROMPT GHM-C1A-S3-CLOSE-20261025-01. Host READY cùng SHA, không thêm vòng.
+- 4.2 JEV `gen-dec-1792979097-LrWMSognEbUVmEYnSHrU`: phạm vi «chỉ phần C1A tự làm» 0,99 (phương án do Claude viết).
 
 
 
