@@ -70,12 +70,12 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
 <section class="owner-actions ok"><h2>😊 Anh chưa phải quyết gì</h2>
-<p>✅ B0b xong · ✅ Claude đã rà, chốt kiến trúc (Thẻ P48).</p>
-<p>🤖 GPT soạn lệnh Đếm (TS1, chỉ đọc) → Claude ký → anh chuyển Claude Code.</p>
+<p>✅ B0b XONG P27 · ✅ GPT Host ACCEPT kiến trúc P48, đã sửa an toàn ở P49.</p>
+<p>■ PROMPT TS1 chỉ đọc đã soạn trên repo: <strong>NDW-TS1-12TYPE-INVENTORY-20261026-01</strong>. Chờ <strong>Claude Chat ACCEPT đúng phiên bản PROMPT</strong> rồi GPT Host mới ký READY; anh chưa chuyển Claude Code.</p>
 <p class="muted">Sau Đếm: anh gật cấu trúc + cột Sổ quyết định, kèm số thật.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
-<span class="flag">Thẻ P48 · chưa tạo gì trong PG</span>
-<span class="flag">✅ B0b xong · ■ TS1 chưa READY</span>
+<span class="flag">Thẻ P48 + Host P49 · 1 S4 + ≤3 view chỉ là thiết kế</span>
+<span class="flag">✅ B0b XONG · ■ TS1 DRAFT, chờ Claude Review/Host READY</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <h2>1. Sơ đồ tổng thể — toàn bộ bức tranh PG Tự quản</h2>
@@ -83,7 +83,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <div class="has"><b>A · Vật PG</b><small>Mọi loại trong PG (12 loại Census + loại khác nếu có). 🤖 PG tự kể, không khai tay.</small></div>
 <div class="has"><b>B · Khai báo trong PG</b><small>Directus (collection, field, quan hệ, flow) + sổ DOT + các sổ đăng ký. 🤖 đọc thẳng.</small></div>
 <div class="new"><b>C · Ngoài PG</b><small>Tệp DOT trên máy chủ: khai 1 lần vào sổ DOT; 🤖 máy so đĩa ↔ sổ.</small></div></div>
-<p>Chỉ thêm <strong>1 bảng</strong> (Sổ quyết định 😊) + <strong>3 view</strong> (Danh mục vật · Danh mục quan hệ · Bảng đối soát). View là câu đọc có tên, không chứa dữ liệu ⇒ không bao giờ cũ. 😊 Nuxt và 🤖 Graph đọc <strong>cùng</strong> view.</p></section>
+<p><strong>Phương án P49:</strong> dự kiến tối đa <strong>1 bảng S4</strong> (quyết định) + <strong>3 SQL View</strong> (vật · quan hệ · đối soát), <strong>CHƯA TẠO</strong>. View đọc dữ liệu ở lúc truy vấn, không lưu bản sao; tệp DOT bên ngoài vẫn cần đăng ký. 😊 Nuxt và 🤖 Graph sẽ dùng chung hợp đồng dữ liệu <strong>sau khi Graph Host đổi nguồn và chứng minh hoạt động</strong>, không phải tự động từ bây giờ.</p></section>
 <figure class="arch-figure" aria-labelledby="arch-caption">
   <div class="arch-legend"><span><i class="legend-existing"></i> Đã có, dùng lại</span><span><i class="legend-proposed"></i> Dự kiến, chưa tạo</span><span><i class="legend-unknown"></i> Cần kiểm chứng</span></div>
   <div class="arch-columns">
@@ -118,13 +118,13 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
     <div class="arch-funnel" aria-hidden="true"><span>↙</span><span></span><span>↘</span></div>
     <div class="arch-columns" style="grid-template-columns:1fr 1fr">
       <div class="arch-node arch-proposed arch-final"><strong>😊 Nuxt — Bảng đối soát trước</strong><span>30 giây biết sai ở đâu: 🟢 khớp · 🔴 lệch (bấm ra tên) · ⚪ chưa đo.</span></div>
-      <div class="arch-node arch-proposed arch-final"><strong>🤖 Graph — đọc cùng view</strong><span>Tự nạp mỗi đêm (timer có sẵn), giấy ĐỦ/MỘT PHẦN — không lạc hậu quá 1 đêm.</span></div>
+      <div class="arch-node arch-proposed arch-final"><strong>🤖 Graph — nguồn chung là mục tiêu</strong><span>Graph Host sẽ kiểm và đổi đường đọc sau TS1/G1. Timer đêm đã có nhưng lượt bỏ qua/khác quyền phải báo MỘT PHẦN; chưa cam kết trễ ≤1 đêm.</span></div>
     </div>
   </div>
-  <div class="arch-alert"><strong>Máy tự so (Bảng đối soát):</strong> PG ↔ Census · PG ↔ Ba Lô · Directus ↔ PG · sổ khai báo ↔ PG · đĩa ↔ sổ DOT · Sổ quyết định ↔ vật · Graph ↔ view.</div>
+  <div class="arch-alert"><strong>Máy tự so (Bảng đối soát):</strong> PG ↔ Census · 4 loại PG ↔ Ba Lô · khai báo Directus ↔ PG (trừ folder/alias hợp lệ) · đĩa DOT ↔ sổ DOT · S4 ↔ vật · Graph ↔ VIEW sau khi tích hợp. Trạng thái: 🟢 có đủ phép đo và khớp · 🔴 lệch thật có ID/tên · ⚪ chưa đo, lỗi quyền hoặc mốc khác nhau. Không tô xanh giả.</div>
   <figcaption id="arch-caption">Mũi tên liền = đường đọc hoặc đăng ký đã thiết kế; hộp nét đứt = chưa được tạo. S1 và S2 cùng dựa trên PG: đối chiếu kết quả và phạm vi nhưng <strong>không mặc nhiên là hai nguồn đo độc lập</strong>. Đây là sơ đồ kiến trúc dự kiến theo §3.TQ, không phải bằng chứng hệ thống đã chạy.</figcaption>
 </figure>
-<div class="arch-risk"><strong>🟡 TS1 phải chứng minh:</strong> (1) đủ tên/ID/quan hệ mọi loại A + B + C; (2) khoá chung trùng khoá Graph đang dùng; (3) Nuxt đủ nhanh; cột + mô tả không lộ công khai.</div>
+<div class="arch-risk"><strong>TS1 phải chứng minh 7 nhóm:</strong> A và loại ngoài 12 · khóa Graph thật · nhóm B/C không đếm trùng · PG16 thống kê có mốc reset · Nuxt tải và quyền · graph-refresh có thể đọc VIEW · DOT có thể tạo S4/VIEW bằng cổng được phép. Chưa đo thì giữ ⚪ CHƯA RÕ. Không tạo view, S4 hay sửa Graph trong TS1.</div>
 
 <h2>2. Anh xem Sổ tài sản ở đâu?</h2>
 <div class="arch-views">
