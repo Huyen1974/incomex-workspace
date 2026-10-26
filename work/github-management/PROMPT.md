@@ -1,7 +1,7 @@
 # PROMPT — GHM C1B · CODEX ĐIỀU HÀNH NGUỒN, MANUAL DEPLOY + ROLLBACK, 3 AUDIT
 
 RUN_ID: GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01
-STATUS: DRAFT — Host phiên mới (GPT, quyết định GHM-C1B-RESUME-20261026, Owner chuyển 26/10 17:12) thay P56: Codex dùng phiên `gh` Owner trên Mac, bỏ yêu cầu PAT, S7 archive chạy độc lập. Claude P57 gộp quyết định đó vào đây (1 tài liệu duy nhất) + 3 sửa để Codex không dừng. Mọi READY cũ vô hiệu; cần GPT Host READY đúng last-touch SHA mới, rồi Owner RUN cùng RUN_ID. Repo mã chỉ `agent-data-test` + `web-test`.
+STATUS: CANONICAL_RUN_INSTRUCTION — Host chốt GHM-C1B-RESUME-20261026 và chấp nhận Claude P57; Codex dùng phiên `gh` Owner trên Mac, bỏ PAT, S7 archive độc lập. Lệnh duy nhất ở file này; các READY cũ (P51/P53) và điểm trái tại P56 vô hiệu. Hiệu lực khi GPT Host ký READY đúng last-touch SHA của PROMPT tại `COLLAB.md` P58 và Owner RUN cùng RUN_ID; không dùng bản prompt trong chat. Repo mã chỉ `agent-data-test` + `web-test`.
 
 EXECUTOR_SURFACE: **Codex CLI/Desktop — executor duy nhất C1B**. Claude Chat là Reviewer; Claude Code CLI giữ vai trò kỹ sư trưởng KST cho xét/merge/deploy giai đoạn C3 trở đi, **không phải executor của C1B**. Owner đổi bề mặt thực thi C1B một lần, không đổi KST lâu dài.
 WRITE_PATH: chỉ 2 repo PRIVATE Huyen1974/agent-data-test và Huyen1974/web-test (clone Codex biệt lập, refs/nhánh main trong đúng phạm vi C1B); các DOT/script-wrapper host được Đ30/31 quản lý cho 2 ứng dụng Agent Data/Nuxt; đúng 3 nhóm audit active P17; và báo cáo work/github-management. **GitHub: phiên `gh` Owner trên Mac (đoạn QUYỀN). Host: SSH root Owner đã cấp cho Codex, dưới VPS-GHI + Điều 30/31.** VPS-GHI CAS, recheck Guard/STOP/Đ30–31 trước khi đụng host.
