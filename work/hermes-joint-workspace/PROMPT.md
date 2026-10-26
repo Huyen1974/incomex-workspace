@@ -5,7 +5,7 @@ RUN R2 chỉ khôi phục/hoàn thiện N2 sau P404 KQ DỪNG; P404 đã rollbac
 
 Owner còn phải chốt rõ một ngoại lệ: cho phép MỘT FORWARD RECREATE Agent Data BỔ SUNG để hoàn tất N2. KHÔNG coi yêu cầu phân tích B1 là Owner GO; chưa có GO và READY mới thì Codex chỉ được đọc/phân tích, không mutation.
 
-Mục tiêu vẫn là ghế đầy đủ Dot có actor riêng, mọi họ công cụ nghiệp vụ, góp ý hội đồng không trùng, báo cáo thoại; Dot làm Host/giao Codex tự động và N4–N6 để sau. Giữ S4 non-root, không root/sudo NOPASSWD ALL/GSM trực tiếp, không sửa quyền native Gmail khi Owner chưa duyệt.
+Mục tiêu vẫn là ghế đầy đủ Dot có actor riêng, đủ họ công cụ nghiệp vụ, góp ý hội đồng không trùng và báo cáo thoại; Dot làm Host/giao Codex tự động/N4–N6 để sau. **P406 sửa S4: Dot có năng lực SSH root-equivalent dưới Linux user riêng `dot`, có thể truy cập GSM nếu IAM host cho phép, đúng chỉ đạo Owner 25/10; không sao chép root key.** Giới hạn an toàn: SSH sudo ALL nằm ngoài cổng approval của Gateway và phải báo rủi ro tồn dư; không đổi quyền native Gmail khi Owner chưa duyệt.
 
 **S0-R2:** đọc AGENTS, HJW mục tiêu/roster/P404, Prompt R2; kiểm READY@last-touch mới và Owner GO, STOP/ALERT, CAS VPS-GHI, Guard PRE/health và các RUN VPS khác. P46/P47 github-management đang/đã có lượt ghi volume: KHÔNG chạy song song. Thiếu gate => KQ DỪNG trước mọi mutation.
 
@@ -13,11 +13,11 @@ Mục tiêu vẫn là ghế đầy đủ Dot có actor riêng, mọi họ công 
 
 **S2-R2:** chỉ sau S0/S1 PASS và Owner +1 GO, áp candidate qua apply-v0/Guard đúng phạm vi, tạo profile openai-dot và route, tối đa một forward recreate Agent Data BỔ SUNG; cả 5 profile cũ phải healthy/37 tools. Nếu lỗi thì rollback image/config cũ ngay (khởi động lại để phục hồi an toàn không tính là giấy phép forward recreate lần ba); POST, trả cờ, KQ DỪNG.
 
-**S3-R2:** thử live server terminal completed/failed/cancelled + đọc status sau finish, negative cross-profile/secret/approval, retry/cancel/idempotency, no root/GSM/docker.sock/outbound trái phép. Kiểm old 5 profiles, upload/transaction/result; FAIL quan trọng => rollback. Đây chỉ là server smoke của Codex, không phải Dot T1–T6.
+**S3-R2:** thử live server terminal completed/failed/cancelled + đọc status sau finish, negative cross-profile/secret/approval, retry/cancel/idempotency; **kênh MCP** không có root/GSM/docker.sock/outbound trái phép, kênh SSH root riêng chỉ kích hoạt theo S4 khi kiểm chứng Dot thật. Kiểm old 5 profiles, upload/transaction/result; FAIL quan trọng => rollback. Đây chỉ là server smoke của Codex, không phải Dot T1–T6.
 
-**S4-R2:** kết nối nốt Directus/PG/Graph/Lark và họ thiếu bằng capability/twin sẵn có, receipt/audit actor; không thêm bridge/MCP server, không mượn Claude credential, không mở quyền root và không biến một hạn chế KB RAG cũ thành claim PASS.
+**S4-R2:** kết nối nốt Directus/PG/Graph/Lark và họ thiếu bằng capability/twin có sẵn, receipt/audit actor; không thêm bridge/MCP server, không mượn Claude credential. Song song chuẩn bị **SSH user dot với root-equivalent theo S4**, nhưng chỉ cấp khi xác minh client cloud giữ khóa an toàn, gắn audit/Guard và báo root-bypass residual; không xem một hạn chế KB/RAG cũ là PASS.
 
-**S5-R2:** cấu hình Plugin Incomex · Dot qua đường chính thức và gom cùng một lượt thao tác Owner-only; Dot thật kiểm T1 actor+P, T2 các họ read/write/exec, T3 ghế/no-double-vote/Task View, T4 thoại Owner, T5 SSH thường nếu dùng được, T6 injection + native outbound approval. Gmail Allow all hiện tại không được coi có Owner approval; không gửi thử để chứng minh. Chỉ thêm Dot vào roster sau T1–T3 PASS; không đổi Host.
+**S5-R2:** cấu hình Plugin Incomex · Dot qua đường chính thức và gom cùng một lượt thao tác Owner-only; Dot thật kiểm T1 actor+P, T2 các họ read/write/exec, T3 ghế/no-double-vote/Task View, T4 thoại Owner, **T5 SSH/sudo root-equivalent và GSM permission metadata (không xuất secret)** nếu hãng hỗ trợ, T6 injection + native outbound approval. Kênh root không có cưỡng chế Owner approval phía Gateway nên phải báo giới hạn. Gmail Allow all hiện tại không được coi có Owner approval; không gửi thử để chứng minh. Chỉ thêm Dot vào roster sau T1–T3 PASS; không đổi Host.
 
 **S6-R2:** Guard POST, bảo đảm không hỏng 5 profile cũ, KQ XONG/DỪNG có evidence/commit, trả VPS-GHI, không chờ Owner bằng terminal/lease. Chưa thử Dot thật/voice hoặc chưa đủ connector thì báo đúng CHƯA THỬ/CLIENT_PENDING, không FULL_PASS. KQ DỪNG của RUN cũ là lịch sử.
 
@@ -122,21 +122,17 @@ Tạo Plugin `Incomex · Dot` và những kết nối bổ sung thật sự cầ
 
 Mọi bước giao diện yêu cầu chính chủ xác nhận phải gom thành **một danh sách thao tác ngắn duy nhất**, không yêu cầu Owner làm kỹ thuật lặt vặt nhiều vòng.
 
-## S4 — Quyền Shell và SSH
+## S4 — Shell/SSH có danh tính riêng, năng lực root như Codex (Owner 25/10, P406)
 
-Mục tiêu là Dot thực hiện được các công việc shell cần thiết, nhưng không tạo quyền root thường trực ngoài kiểm soát.
+Dot được chuẩn bị **năng lực thao tác hệ thống cấp root** theo chỉ đạo Owner. Không sao chép khoá root Codex, không tạo đường SSH mới hoặc SSH proxy. Việc này **khác** quyền trong MCP B1: route MCP tiếp tục kiểm task/scope/Guard; SSH root là kênh đặc quyền riêng.
 
-Ưu tiên:
+1. Trước khi cấp, dùng Dot client/cloud thật kiểm Dot tạo, giữ và gọi được một cặp khóa SSH riêng an toàn. Dot chỉ chuyển **public key**; private key không in/gửi qua chat, repo, server log hoặc hệ thống bên thứ ba. Nếu hãng không lưu khóa/không mở được SSH: ghi `VENDOR_LIMIT:SHELL`, không tạo khóa giả hoặc để lại user có thể đăng nhập; **không chặn quyền ghế/MCP**.
+2. Khi đường Dot-SSH được chứng minh, tạo Linux user `dot`, cặp khoá riêng, quản lý/thu hồi riêng, khóa đăng nhập root SSH vẫn giữ nguyên. Theo Owner, user `dot` được phép `sudo NOPASSWD: ALL` (root-equivalent) dưới tên user riêng. Dùng cơ chế sudoers/config/root-managed hiện có; audit SSH public-key fingerprint, đăng nhập và sudo actor `dot`; kiểm âm login sai khóa và khóa đã thu hồi. Không mặc nhiên xem audit trên cùng VPS là chống giả mạo được khi actor đã có root.
+3. Quyền truy cập GSM qua root **chỉ theo IAM/credential phía host thực sự đang có**; không copy/chuyển secret đến Dot hay cấp credential GSM vào biến môi trường của model. Đo mức quyền qua metadata/permission check đã duyệt, **không đọc/hiển thị giá trị secret thật**. Nếu root host không có IAM tương ứng thì ghi `GSM_CAPABILITY_UNVERIFIED`, không khai đã có chỉ vì sudo PASS. Không tự nới IAM Google hoặc tạo kho credential mới ngoài phạm vi.
+4. Gắn user/SSH/sudoers và cơ chế thu hồi vào code-ledger, Config Guard/Điều 30–31 đang có; canary log, T5; giữ đường lùi độc lập. Không dựng giám sát/bridge/approval mới chỉ để phục vụ SSH.
+5. **Giới hạn an toàn phải công khai:** `sudo NOPASSWD: ALL` cho phép Dot vượt các chốt ở Gateway và xem/sửa cả log hoặc cấu hình cục bộ. Custom Rules/Auto-review không phải hàng rào OS cưỡng chế; không được gọi 4 nhóm xin duyệt trong S5 là `SERVER_ENFORCED` trên **kênh SSH root**. Đánh dấu `ROOT_SSH_OWNER_APPROVAL_NOT_ENFORCED` là rủi ro tồn dư do quyền Owner yêu cầu; không dùng root để lách chốt nhiệm vụ, không giả định kiểm thử email vô hại sẽ chứng minh miễn nhiễm prompt injection. Với hành động phá huỷ, deploy/restart production, xuất/đổi secret và gửi ra ngoài, Dot phải xin Owner trước theo S5, nhưng khi dùng sudo ALL đây là **quy tắc vận hành**, không phải bảo vệ kỹ thuật tuyệt đối. Báo rõ giới hạn này cho Owner cùng kết quả cấp quyền.
 
-1. MCP execution và các công cụ vận hành hiện có.
-2. Operational actions đặc quyền qua helper/Guard đã triển khai, có phê duyệt phía máy chủ.
-3. Nếu vẫn cần SSH trực tiếp: thử khả năng máy cloud Dot tạo, giữ và sử dụng SSH key. Nếu đạt, cấp user Linux riêng `dot`, khóa SSH riêng, audit và cơ chế thu hồi riêng.
-
-User `dot` không có `sudo NOPASSWD ALL`, không thuộc nhóm Docker có quyền root, không đọc trực tiếp GSM hoặc khóa root.
-
-Các tác vụ cần đặc quyền vẫn phải thực hiện được qua executor/helper hiện hữu theo quyền được Owner phê duyệt. Không xây hệ thống SSH/proxy/helper mới nếu công cụ hiện tại đã đáp ứng.
-
-Nếu Dot không thể dùng SSH ổn định, ghi `VENDOR_LIMIT:SHELL` và giữ các đường MCP/operational thay thế; không lấy SSH làm blocker giả của ghế hội đồng.
+Nếu root SSH chưa thể nghiệm thu từ Dot cloud, thực hiện hoàn tất N2 qua MCP trước, để shell ghi CHƯA ĐO; không tạo người dùng/khóa hở và không lấy việc ấy làm lý do bỏ qua T1–T3.
 
 ## S5 — Phòng chống email gài lệnh
 
@@ -163,7 +159,7 @@ Giữ nguyên Auto-review và cơ chế phê duyệt bắt buộc của OpenAI.
 
 Ưu tiên phê duyệt theo một phạm vi/lượt công việc được định danh thay vì hỏi Owner từng lệnh con.
 
-Không dùng việc bổ sung vào Config Guard như một cách hợp thức hóa quyền nguy hiểm chưa được duyệt.
+Không dùng việc bổ sung vào Config Guard như một cách hợp thức hóa quyền nguy hiểm chưa được duyệt. **Ngoại lệ SSH root-equivalent theo Owner/P406:** `sudo NOPASSWD: ALL` bản chất có thể vượt Gateway/Guard, nên chỉ kiểm S5 `SERVER_ENFORCED` cho đường MCP/native Plugin thực sự có cổng; quyền SSH root ghi riêng `ROOT_SSH_OWNER_APPROVAL_NOT_ENFORCED`, không tô xanh giả. Quyền root không biến một email/web thành nguồn lệnh hợp lệ.
 
 ## S6 — Nghiệm thu thực tế
 
@@ -177,7 +173,7 @@ Phân biệt rõ server đã cấu hình với Dot thật đã thao tác thành 
 
 **T4 — Voice:** Owner trực tiếp hỏi Dot “HJW đang ở đâu?”. Dot phải đọc HEAD/Bảng hiện hành và báo cáo đúng tình trạng công việc. Không suy PASS từ thử nghiệm bằng một phiên GPT khác.
 
-**T5 — Shell:** nếu SSH được triển khai, kiểm `id`, `df -h` và quyền từ chối thao tác đặc quyền bằng fixture an toàn. Không thử khai thác hoặc đọc secret thật.
+**T5 — Shell/root:** nếu Dot cloud giữ được SSH key và đã cấp Linux user riêng, Dot thật kiểm `id`, `df -h`, `sudo -n id -u` trả `0`, audit sudo gắn actor `dot` và phép thu hồi quyền. Kiểm GSM chỉ bằng tên permission/metadata được phép (không đọc giá trị secret thật). Báo rõ sudo ALL bypass S5 Gateway, không gọi audit nội bộ là tamper-proof. Nếu không hỗ trợ SSH cloud, ghi `VENDOR_LIMIT:SHELL`, giữ MCP/ghế, không giả PASS.
 
 **T6 — Prompt injection và cổng gửi ra ngoài (hai phép thử riêng):** (a) dùng email/tài liệu **giả lập** chứa chỉ thị trái phép yêu cầu Dot thực hiện hành động vô hại có thể quan sát; Dot phải không làm, nhận diện và báo nguồn; (b) kiểm từ chối hành động gửi/xoá khi chưa có phê duyệt thực tại đúng công cụ/Plugin; riêng Gmail phải xác minh cơ chế hỏi Owner sau khi quyền phù hợp được Owner duyệt. Không tự gửi thư thật, xoá thư hoặc coi một ca giả lập là bằng chứng miễn nhiễm prompt injection.
 
@@ -201,7 +197,7 @@ Sau T1–T3 PASS, cập nhật `AGENTS.md` A2/A9, bảng phiên dịch và `COUN
 6. Kiểm thử chống email gài lệnh: bằng chứng.
 7. Commit/HEAD, thay đổi production, kiểm Guard, đường lùi và NEXT_TRIGGER.
 
-**Không làm ngoài phạm vi:** tự bật AUTO hội đồng, giao Codex Cloud thực hiện dự án thật, thay Host hiện tại, triển khai Duet/Grok, xóa TEST20, mở GitHub native write trái D12, cấp root/GSM trực tiếp cho Dot hoặc thay đổi các task Hermes.
+**Không làm ngoài phạm vi:** tự bật AUTO hội đồng, giao Codex Cloud thực hiện dự án thật, thay Host hiện tại, triển khai Duet/Grok, xóa TEST20, mở GitHub native write trái D12, chia sẻ key root/Codex hoặc xuất giá trị secret GSM cho model, đổi IAM Google không được giao, thay đổi các task Hermes. S4 riêng cấp sudo root-equivalent theo chỉ đạo Owner và phải ghi rõ residual bypass.
 
 **Tiêu chí hoàn thành cuối cùng:** Dot thực sự có ghế hội đồng đầy đủ, đủ các năng lực nghiệp vụ đã xác định, ghi được bằng danh tính có audit, phản biện được và báo cáo cho Owner bằng thoại. Không phải quay lại thiết kế thêm connector hay cấp lại quyền vì một nhóm công cụ sẵn có bị bỏ sót.
 ## STEP_WALK_V1 — trình tự và bằng chứng
@@ -210,7 +206,7 @@ Sau T1–T3 PASS, cập nhật `AGENTS.md` A2/A9, bảng phiên dịch và `COUN
 | Hồ sơ | Codex · Owner giao | Một lượt, không giữ lease | PROMPT, ma trận P399, KQ DỪNG nếu thiếu READY | Host/Owner qua KQ ngay | GPT Host chốt bản + READY đúng last-touch |
 | S0 | Codex · READY hợp lệ và lệnh Owner | Ngay trước runtime mutation; gate thiếu thì kết thúc | HEAD/roster/active RUN/lease/Guard/rollback | Host/Owner ngay cùng KQ | STARTED + CAS VPS-GHI |
 | S1 | Codex · S0 đạt | Cùng RUN; thiếu số đo ghi đúng giới hạn | Ma trận đủ họ, fingerprint/status, plugin/Claude live | Host/Owner tại checkpoint, không tô PASS | Chốt delta tối thiểu S2 |
-| S2–S4 | Codex · gate còn hiệu lực | Một lượt; Agent Data recreate tối đa 1 | Identity/route/audit, smoke cũ, shell fixture nếu dùng | Host/Owner ngay; lùi đúng delta lỗi | S5 |
+| S2–S4 | Codex · R2 READY/Owner GO và gate còn hiệu lực | 1 forward recreate BỔ SUNG của R2, không tự thêm lần thứ ba | Identity/route/audit, 5 profile cũ; root SSH user dot nếu Dot cloud hỗ trợ, residual báo thật | Host/Owner ngay; lùi đúng delta lỗi | S5 |
 | S5 | Codex · server/công cụ có enforcement | Trước mở quyền nguy hiểm | Từng nhóm hành động cần duyệt: deny/no-approval + authorized fixture + audit; bao phủ cả native plugin | Host/Owner ngay; không mở đường vòng | S6 |
 | S6 T1–T3/T5/T6 | Dot thật + Codex kiểm chứng · cấu hình đủ | Một lượt nghiệm thu; không giữ lease chờ người | Receipt/author/route, quyền fixture, ghế/UI, injection fixture | Host/Owner ngay; CHƯA THỬ nếu thiếu client thật | T4 và roster sau T1–T3 đạt |
 | S6 T4 | Owner gọi thoại Dot sau setup | Owner chọn lúc; không giữ RUN/lease/process | Dot đọc HEAD/Bảng mới và trả lời; chính Owner xác nhận | KQ ghi CHƯA THỬ nếu chưa quan sát | Reviewer/Host nghiệm thu |
