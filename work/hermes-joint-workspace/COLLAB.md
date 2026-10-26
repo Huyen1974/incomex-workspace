@@ -482,7 +482,7 @@
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-25 20:48 +07 · GPT Host P403 · **N2 DOT READY đúng SHA; CHƯA RUN; GH C1A ĐANG GIỮ VPS-GHI · N3 CLOSED_WITH_LIMITS**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 11:16 +07 · Codex P404 · **N2 DOT STARTED; PRE PASS; ỨNG VIÊN S5 ĐANG KIỂM — CHƯA BẬT DOT · N3 CLOSED_WITH_LIMITS**
 - 📥 **Đã xử lý hết, gom lại (P332):** PROOT05 16/10 và Owner 17/10 07:15 (sửa xanh #11/#21/#22, cờ bỏ quên P313, stop-hook) → xong ở P314 + P321, Host nghiệm thu P322; Owner 17/10 21:23 (nâng Hermes) → xong ở P325–P330, Host nghiệm thu P332. Chi tiết gốc còn trong các mục P đó.
 - ✅ *(đã xong P321 — giữ để tra cứu)* 📥 **Owner 17/10/2026 07:15 qua Claude Chat (root) — GIẢI QUYẾT NỐT VƯỚNG MẮC HJW** (Owner: «phên Gemini JW và HJW đang vướng gì chưa giải quyết … soạn prompt yêu cầu 2 phiên đó giải quyết nốt các vướng mắc»). Bảng đèn 17/10 00:10Z: 19 xanh · 3 đỏ, cả 3 có phần của HJW:
   1. **Cờ bỏ quên:** P313 `HJW-N3-COURIER-HARD-PART-SPIKE-20261012-01` STARTED 13/10 02:22Z, 4 ngày không bước/KQ, Bảng đứng từ 13/10 ⇒ Host kiểm tiến trình rồi ghi `KQ@… DỪNG · CỜ_BỎ_QUÊN` (DROOT54 b), cập nhật Bảng. — ✅ **P314 đã đóng.**
@@ -7745,5 +7745,8 @@ STARTED@HJW-N2-DOT-SEAT-20261025-01 2026-10-26T03:52Z · executor=Codex trên Ma
 - Ghi nhận minh bạch: STARTED và CAS đã commit trước PRE tại cbb4c494; chuẩn hóa thêm cú pháp máy đọc trong lượt này khi PRE đang chạy.
 - Owner RUN trực tiếp 26/10; đọc HEAD e91c8a2d60cb47a4341cecd466991c299314b247, PROMPT last-touch be44efd896bf4ad2befb6a9737b23041d51a8277, Claude ACCEPT P402 và Host READY P403. Giữ nguyên PROMPT. P399 chỉ là kết quả lượt trước.
 - GHM-C1A-S3-CLOSE P40 đã KQ DỪNG, 0 RUN active và trả VPS-GHI 03:26Z; P41 volume-fix còn DRAFT_NOT_READY. Nhận VPS-GHI bằng CAS cùng commit này, hạn 04:52Z; không sửa task GitHub.
-- Bước hiện hành S0: chạy Guard PRE mới, ghi rõ kết quả trước bất kỳ thay đổi cấu hình Dot. Guard toàn cục ở P40 còn PARTIAL/FAIL, chưa suy diễn thành kết quả N2.
+- S0 **Guard PRE PASS 03:52:40Z**; baseline có #11/#24/#26 đỏ sẵn, không tự coi là blocker N2. Bằng chứng: VPS `HJW-N2-DOT-SEAT-20261025-01/guard-pre-HJW-N2-DOT-SEAT-20261025-01-20261026T035240Z.json`.
+- 04:16Z S5 ứng viên: mã B1 đang chạy `_legacy_write_gate` bỏ qua master profile; `bind()` đặt agent_id=None, nên không đi qua agent scope; worker mặc định network=bridge. Phép giả lập không enqueue/không outbound xác nhận null/null. Đang thêm kiểm quyền từ cấu hình server theo profile ngay trong gateway hiện hữu, scope tác vụ, ownership upload/result/task và argv được duyệt; chưa bật khóa/route/profile.
+- Thử riêng ứng viên: policy 20/20; connector selftest 26/26; tham số hóa profile 6/6 (render Claude cũ byte-identical). Release gate đầy đủ đang chạy trong container thử; chưa có kết quả. Source base b6ebaf9 đang phát hành; không đưa commit Hermes 75ed0e8 chưa phát hành vào N2.
+- Giao diện Dot: inventory không có browser dot; công cụ CUA từ chối app com.openai.codex vì giới hạn an toàn. Đây là giới hạn điều khiển của executor, KHÔNG phải bằng chứng Dot thiếu shell. Chưa có T1–T6 từ Dot thật.
 - Phạm vi S0–S7/T1–T6 đúng PROMPT; không root/GSM trực tiếp hoặc sudo NOPASSWD ALL cho Dot, không tự đổi Gmail. Roster chỉ cập nhật sau bằng chứng Dot thật.
