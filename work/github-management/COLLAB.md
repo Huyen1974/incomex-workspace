@@ -10,9 +10,9 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - 🏁 C1B XONG khi: main = nguồn bản đang chạy (PARITY) 2/2; deploy–rollback thật 2/2; 3 audit xanh trên runner VPS; Guard/receipt/cờ sạch.
 - 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ◐ C1B (P61 có giới hạn) → ■ C1B-CLOSE: Claude P63 ACCEPT có sửa, Host ký READY → C3 (C3.0 cổng máy) → C2 → C4.
 - ✅ Đã xong: baseline/main/CI/build 2/2; 4 repo archive; 25/25 Guard POST, receipt 307; runtime 2 app cũ khoẻ.
-- ■ Đang làm: GPT Host ký READY@bc4addef56b7bff91ba6f179d9fa8a01e81b9b54 · 0 RUN active.
+- ■ Đang làm: GPT Host ký READY@b467fddfb8d798c8323b03450da34396b741354e · 0 RUN active.
 - ⬜ Còn lại: Web đưa nguồn Nuxt 4.5.2 đang chạy lên main + PARITY; AD so cấu hình + parity image; 0/2 deploy–rollback; 3 audit (`/server/ping`, bỏ khoá SSH giả, key sẵn có chỉ chạy theo lịch).
-- ➡ Kế tiếp: GPT Host READY@bc4addef56b7bff91ba6f179d9fa8a01e81b9b54 → 😊 Owner giao Codex RUN_ID `GHM-C1B-CLOSE-20261026-02`. NEXT_TRIGGER=HOST_READY_C1B_CLOSE_P63.
+- ➡ Kế tiếp: GPT Host READY@b467fddfb8d798c8323b03450da34396b741354e → 😊 Owner giao Codex RUN_ID `GHM-C1B-CLOSE-20261026-02`. NEXT_TRIGGER=HOST_READY_C1B_CLOSE_P63.
 - ⛔ Không deploy Web Nuxt 3, không đổi phiên bản Nuxt 4.5.2/Node 24.21.0; không key mới, không secret cho mã PR; không mở C3 song song; không mua Pro trước C2.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -879,8 +879,8 @@ KQ@GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01 · 2026-10-26T13:47:27Z · **XON
 Claude kiểm thẳng nguồn kỹ thuật, trả ba câu: (1) đường khép AD effective config + Web asset/Nuxt không hạ safety có khả thi không? (2) 3 audit: cái nào bỏ được dependency giả, cái nào cần trusted check existing, cái nào buộc giữ hosted? (3) có thể chuẩn bị C3-PR-only mà không phá thứ tự/chi phí hay phải khép C1B xong trước? Nếu đồng thuận, chỉnh **chính PROMPT.md DRAFT** và P63/Bảng trong cùng lượt, ghi ACCEPT@SHA. Chỉ mở vòng 2 nếu bất đồng lớn có bằng chứng. Không tự RUN, không sửa app/runtime/secret trong vòng phản biện.
 - NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C1B_P62.
 
-## P63 · Claude Chat (Reviewer) · 26/10/2026 21:50 +07 — ACCEPT C1B-CLOSE CÓ SỬA · GỐC: MAIN CHƯA LÀ NGUỒN BẢN ĐANG CHẠY · cần Host READY@bc4addef56b7bff91ba6f179d9fa8a01e81b9b54
-Based_on: P61/C1B-REPORT @2d44d892 · P62 · PROMPT DRAFT @0b022c69 · đọc thẳng: package.json 2 cây Web trên VPS, YAML 3 audit, hồ sơ done-tasks vps1-up-grade + CWEB + vps-clean, scripts VPS. Bảng + §0.3 (Owner 21:32) sửa cùng lượt. PROMPT sửa tại chỗ: commit 57ccef49 + bc4addef.
+## P63 · Claude Chat (Reviewer) · 26/10/2026 21:50 +07 — ACCEPT C1B-CLOSE CÓ SỬA · GỐC: MAIN CHƯA LÀ NGUỒN BẢN ĐANG CHẠY · cần Host READY@b467fddfb8d798c8323b03450da34396b741354e
+Based_on: P61/C1B-REPORT @2d44d892 · P62 · PROMPT DRAFT @0b022c69 · đọc thẳng: package.json 2 cây Web trên VPS, YAML 3 audit, hồ sơ done-tasks vps1-up-grade + CWEB + vps-clean, scripts VPS. Bảng + §0.3 (Owner 21:32) sửa cùng lượt. PROMPT sửa tại chỗ: commit 57ccef49 + bc4addef + b467fddf.
 
 **1. Đồng thuận P62:** nhận phần đạt P61 (2 main + CI + build + archive 4 + an toàn 25/25); C1B chưa XONG; thứ tự C1B → C3 → C2 → C4.
 
@@ -914,7 +914,7 @@ Bảng «Công cụ GitHub × gói» (repo riêng tư, tài khoản cá nhân):
 - 5.4 C3.0 dựng/hồi sinh `gate` trên runner VPS trước khi 3 agent viết; C2 bật «bắt buộc gate xanh» + auto-merge sau KST duyệt + environment cho secret. Đã ghi ROADMAP §0.5.
 
 **6.** JEV `gen-dec-1793025685-MLSpytJnZ90wSOdXWovF`: Web theo nguồn Nuxt 4.5.2 1,0 · audit dùng key chỉ chạy theo lịch trên VPS 0,95 · C3 song song 0,06 · ops-smoke ping tương đương 0,51 (⇒ giữ pages + asset để phủ DB/storage). Phương án do Claude viết.
-- NEXT_TRIGGER=HOST_READY_C1B_CLOSE_P63 → Host READY@bc4addef56b7bff91ba6f179d9fa8a01e81b9b54 → Owner giao Codex.
+- NEXT_TRIGGER=HOST_READY_C1B_CLOSE_P63 → Host READY@b467fddfb8d798c8323b03450da34396b741354e → Owner giao Codex.
 
 
 
