@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: C1B đã Host P53 READY cho CODEX, READY cũ P51 Claude Code CLI mất hiệu lực. Chưa STARTED; Owner chỉ giao Codex khi RUN VPS trước xong và VPS-GHI trống. Giữ P50 sáu safety, không đưa Codex khóa KST. GLOBAL_GUARD PARTIAL.**
+**Trạng thái: P54 C1B KQ DỪNG tại S0 — chưa chứng minh cổng main/workflow hợp lệ cho Codex theo PROMPT P53. 0 mutation main/deploy/audit, 0 RUN active; VPS-GHI không nhận/giữ. Host xác minh capability hiện hữu rồi Owner giao tiếp cùng RUN; sáu safety P50/C1A giữ nguyên. Chi tiết và NEXT_TRIGGER tại COLLAB P54.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).

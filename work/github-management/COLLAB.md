@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 15:01 +07 · GPT Host · P53
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 15:54 +07 · Codex · P54
 - 🎯 Mục tiêu: CODEX thực hiện C1B cho 2 repo GitHub/VPS, Claude Code CLI giữ KST C3 trở đi; cuối cùng nhiều agent và ca đêm.
 - 🏁 C1B đạt khi: source/main đúng tree/history, deploy thử thủ công + rollback 2 app, 3 audit runner VPS; rồi C3 → C2 Pro → C4.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A scoped PASS → ✓ P50 6 safety → ✓ Owner P52 đổi C1B sang CODEX → ✓ **Host P53 READY@cef559c9** → ■ Owner giao Codex khi cờ trống → □ C1B → C3 → C2 → C4.
-- ✅ Đã xong: Prompt C1B Codex đã sửa toàn phần, READY đúng SHA mới; READY P51 cho Claude bị vô hiệu trước khi RUN. C1A 2/2 CI GREEN, INV25/no-swap/volumes 8/8 PASS.
-- ■ Đang làm: — · 0 RUN C1B active; chưa main push, chưa restart app. Root VPS-GHI lần gần nhất bận CONN-REPAIR; phải kiểm lại trước khi Owner dispatch.
-- ⬜ Còn lại: Owner chuyển `GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01` cho Codex đúng khi VPS trống; Codex phải đủ quyền hợp lệ tại main/deploy hoặc fail-closed; C3 KST/3 PR, C2 Pro, C4 đêm. GLOBAL_GUARD=PARTIAL, chưa đủ 24h lịch sử.
-- ➡ Kế tiếp: **Owner RUN CODEX C1B** khi RUN VPS trước đã kết thúc/trả cờ; NEXT_TRIGGER=OWNER_RUN_GHM_C1B_CODEX_AFTER_VPS_FREE.
-- ⛔ Không dùng PROMPT/READY Claude C1B cũ, không mượn quyền KST/root/runner hoặc tự cấp credential, không tự C3/C2/auto CD.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A scoped PASS → ✓ P50 6 safety → ✓ P53 READY/Owner RUN → ■ C1B DỪNG S0 quyền (P54) → □ C1B → C3 → C2 → C4.
+- ✅ Đã xong: đối chiếu READY/PROMPT, RUN trước KQ/cờ trống, hồ sơ C1A 47/47 hash; khảo sát chỉ đọc quyền và nguồn/runtime. Chưa thay main/deploy/audit.
+- ■ Đang làm: — · 0 RUN active; không nhận/giữ VPS-GHI vì S0 quyền chưa đạt; không tiến trình nền.
+- ⬜ Còn lại: một blocker CODEX_MAIN_WORKFLOW_CAPABILITY_UNVERIFIED; Host xác minh đường hiện hữu cho Codex ghi main/workflow hợp lệ, không dùng quyền admin/KST. S1–S5 chưa chạy; không coi cổng deploy/Guard/rollback đã đạt.
+- ➡ Kế tiếp: Host chỉ rõ capability/identity/quyền main + workflow và đường gọi hiện hữu, rồi Owner giao tiếp cùng RUN; NEXT_TRIGGER=HOST_CONFIRM_EXISTING_CODEX_MAIN_WORKFLOW_CAPABILITY_AND_REDISPATCH.
+- ⛔ Không mượn khóa KST, dùng thẻ admin để push, tự cấp quyền hoặc thử push để dò cổng. Không tự C3/C2/C4; giữ sáu safety P50 và C1A.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -755,6 +755,21 @@ Ghế: openai-main · Based_on: P48 C1A scoped PASS, Claude Reviewer P50 đã s�
 - **Điều kiện thi hành:** Owner chỉ chuyển khi RUN VPS trước KQ và root `VPS-GHI: trống`; Codex S0 kiểm lại tài nguyên/Guard/identity/STOP và CAS cờ trước mutation. Cờ bận ⇒ STOP/KQ DỪNG sạch, không chờ giữ máy. Giữ `GLOBAL_GUARD=PARTIAL` 23/25 và hạn chế thống kê 24h chưa đủ, không làm nợ khác.
 - **Roadmap giữ nguyên:** C1A scoped XONG → C1B Codex → C3 KST Claude/ba agent PR → C2 Pro/khóa main/auto deploy → C4 ca đêm.
 - NEXT_TRIGGER=OWNER_RUN_GHM_C1B_CODEX_AFTER_VPS_FREE.
+
+
+## P54 · Codex · 26/10/2026 15:54 +07 — KQ DỪNG S0, chưa mutation
+Ghế: openai-codex · Bước/vòng: S0 thực thi chỉ đọc · 1/1 · Based_on: Owner RUN trực tiếp; P53 READY@cef559c90506b7fac5b66bfc847f5f58f7e6a680; P50 sáu safety · Scope: C1B đúng PROMPT.
+STARTED@GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01 · 2026-10-26T08:46Z · S0 chỉ đọc (ghi lại cùng KQ này; không phải STARTED triển khai/cấp cờ).
+KQ@GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01 DỪNG · 2026-10-26T08:54Z
+- **Một blocker:** CODEX_MAIN_WORKFLOW_CAPABILITY_UNVERIFIED. Chưa chứng minh capability hiện hữu cho Codex ghi main **và workflow** đúng điều kiện không admin/KST/đọc khóa. Không phải lỗi GitHub từ chối push: chưa thử push hoặc tạo ref để dò quyền.
+- Bằng chứng đã lược thông tin: metadata CLI hiện dùng thẻ có nhóm quyền quản trị, không phù hợp WRITE_PATH/S2.2. Connector đọc được hai repo nhưng metadata quyền người dùng không chứng minh grant App cho workflow; không suy ra App chắc chắn thiếu quyền. Đường backup hiện hữu dành nhánh backup, có thao tác cây sống/nhánh ngoài C1B, chưa có interface candidate/main/CAS cho Codex được chứng minh; không gọi hoặc trích khóa. UI grant App chưa có phiên đăng nhập để xác minh.
+- **Cổng khác:** READY last-touch và nội dung PROMPT khớp SHA256 2edab47fd281aff305e209b81cd7e725d7a6717df63656e97284b529f82f9ec5; RUN trước CONN-REPAIR-20261026-03A KQ/trả cờ 08:34Z, root VPS-GHI trống khi kiểm. Không có STOP/COUNCIL_ALERT trong task. P48 private manifest kiểm 47/47 hash đúng. C1A giữ nguyên; AGENTS delta DROOT59 đã đọc.
+- Hai main không đổi; hai app healthy/HTTP 200 trong mẫu mới, runner còn chạy. SOURCE_HEAD và runtime được tách, ánh xạ đầy đủ còn UNKNOWN, không đoán bằng nhau. Quyền root đang có không thay bằng chứng wrapper deploy hợp lệ.
+- **S0 chưa PASS; S1–S5 KHÔNG CHẠY.** Billing hiện tại, Guard PRE/rollback/compose-hash đầy đủ chưa hoàn tất; không nhận vơ PASS. C1B_SCOPED=FAIL (gate); GLOBAL_GUARD=PARTIAL kế thừa, không có POST/receipt deployment mới.
+- **0 thay đổi vận hành VPS; 0 mutation hai repo mã; 0 restart/deploy/CI rerun; không lấy cờ và không giữ cờ chờ.** Không đọc giá trị secret/mượn chìa KST/cấp quyền, không tự C3/C2/C4. Chỉ ghi báo cáo điều phối qua cổng workspace. Các lệnh đọc kết thúc, không sampler/build nền.
+- Hồ sơ riêng máy executor: C1B-S0-REPORT.md, SHA256 **3a9ee10c3f80b7dc4d30ff9eea5db3d643ff0a5408033614f7c4ce196eac7e45**. Không đẩy chi tiết quyền/vận hành lên repo public; không ghi hồ sơ lên VPS khi S0 chưa đạt.
+- **NEXT_TRIGGER=HOST_CONFIRM_EXISTING_CODEX_MAIN_WORKFLOW_CAPABILITY_AND_REDISPATCH.** Host/Owner xác nhận identity/grant main + Workflows write và đường gọi hiện hữu đúng Codex; nếu chưa có, Host/Owner quyết quyền/phân công, executor không tự làm. Khi giao tiếp cùng RUN, kiểm lại S0/VPS-GHI/Guard/deploy; không làm lại C1A hoặc tự tạo RUN.
+
 
 
 

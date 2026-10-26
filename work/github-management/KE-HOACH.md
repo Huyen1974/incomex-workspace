@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**TRẠNG THÁI: C1B đã Host P53 READY@cef559c90506b7fac5b66bfc847f5f58f7e6a680 cho CODEX, theo Owner P52; lệnh P51 giao Claude CLI đã SUPERSEDED_UNRUN, chưa có STARTED C1B. C1A scoped PASS; Codex có mục tiêu source/main, manual deploy/rollback và 3 audit đúng quyền scoped, không mượn chìa KST. Owner chỉ dispatch khi VPS-GHI trống; sau đó C3 KST Claude → C2 Pro → C4.**
+**Trạng thái: P54 C1B KQ DỪNG tại S0 — chưa chứng minh cổng main/workflow hợp lệ cho Codex theo PROMPT P53. 0 mutation main/deploy/audit, 0 RUN active; VPS-GHI không nhận/giữ. Host xác minh capability hiện hữu rồi Owner giao tiếp cùng RUN; sáu safety P50/C1A giữ nguyên. Chi tiết và NEXT_TRIGGER tại COLLAB P54.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
