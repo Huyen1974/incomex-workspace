@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**TRẠNG THÁI: 26/10/2026 Owner trực tiếp chốt CODEX thực hiện 2 volume C1A S3; P43 PROMPT Codex đã DRAFT chờ Claude ký SHA/Host READY/Owner RUN. CI 2/2, swap/INV25 đã đạt P40. C1B riêng Claude Code CLI KST → C3 → C2 Pro → C4.**
+**TRẠNG THÁI: DROOT58 chỉ cần Host/Co-host hợp lệ ký READY, Reviewer có ý kiến chứ không ký. C1A CODEX xử hai runner volumes, P42 góp ý kỹ thuật 3/3, Host P45 chốt; CI 2/2 và INV25 đã PASS. Chưa RUN mới khi VPS-GHI bận; tiếp C1B KST → C3 → C2 → C4.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
@@ -88,7 +88,7 @@ Khi fail, Codex báo KQ DỪNG + NEXT_TRIGGER, trả mọi lock; không tự ph�
 ## 6. Đề nghị Claude phản biện — một vòng, đi thẳng vào điểm quyết định
 Claude Reviewer đọc AGENTS.md → COLLAB §0/Bảng/P3/P4 → ROADMAP.md → tài liệu này. Kiểm sáu câu hỏi: (1) R0→R1 không làm mất backup/monitor? (2) Khóa main private/Pro đúng quyền thực? (3) R3 mã nguồn từ runtime và cách giữ lịch sử có chuẩn? (4) R4 ba agent/merge stale/các test thật? (5) R5 deploy một SHA, kiểm rollback, chặn luồng ngược? (6) R6 reuse hội đồng/DOT, có receipt, không giả tự động?
 
-Claude ghi trực tiếp ý kiến trong COLLAB một mục P-Review: **ACCEPT / ACCEPT_WITH_CORRECTIONS / BLOCKED**, kèm diff cụ thể, evidence và SHA file đang đọc. Có thể sửa bản nháp đúng phần chưa đạt nhưng không mở thêm mục tiêu, không dùng phản biện làm lệnh RUN. GPT Host chốt sau khi đọc diff; Owner xác nhận roadmap; **chỉ sau đó mới soạn RUN Codex đầu tiên (R0 read-only)**. Nếu Claude còn bất đồng thực chất về mất mã, quyền hoặc production, Host ghi đúng một câu Owner cần quyết, không tiếp tục bằng giả đồng thuận.
+Reviewer khác hãng ghi P-Review có evidence (`ACCEPTED|PARTIAL|REJECTED` là ý kiến, KHÔNG là chữ ký). Host xem và quyết định cuối; **chỉ một `READY@<full last-touch PROMPT SHA>` của Host hoặc Co-host hợp lệ là đủ**, không cần `ACCEPT@SHA` từ hội đồng (DROOT58). Host tự quyết có mở vòng 2/3 khi còn vấn đề kỹ thuật thật, **TỐI ĐA 3** theo DROOT57; không mở vòng do chỉnh STATUS/SHA. AUTO0 Owner chuyển prompt chỉ để kích hoạt executor, các cổng Guard/VPS-GHI/Owner-only còn hiệu lực.
 
 ## 7. Dữ kiện đã đo và chưa đo
 Ngày 24/10: Git VPS agent-data, UI và workspace báo clean; GitHub main hai repo còn cũ/không protected, chứa 17 và 11 workflow; có Actions được kích hoạt theo lịch. **Chưa đo** remotes/upstreams, `docker/nuxt-repo`, commit đang chạy từng dịch vụ và các thẻ đang có quyền; bắt buộc làm tại R0. Claude P5 bổ sung: `vps-daily-20261023` = HEAD VPS agent-data (75ed0e80); agent-data đang chạy b6ebaf94 (đo 23/10). VPS có swap gần cạn, vì vậy không mặc định dùng VPS1 để chạy toàn bộ build/test.
