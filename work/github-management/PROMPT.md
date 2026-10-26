@@ -1,7 +1,7 @@
 # PROMPT — GHM C1B · KST CHỐT NGUỒN, MANUAL DEPLOY + ROLLBACK, CHUYỂN 3 AUDIT
 
 RUN_ID: GHM-C1B-KST-BASELINE-MANUAL-CD-20261026-01
-STATUS: DRAFT_NOT_READY — GPT Host P49 soạn. Claude P50 đã góp ý và sửa tại chỗ 6 điểm chặn chạy/an toàn (xem COLLAB P50); **không cần chữ ký Reviewer** theo DROOT58. GPT Host ký READY cuối đúng SHA PROMPT; Owner chuyển RUN cho Claude Code CLI mới được thực thi. Không dùng PROMPT P22 cũ.
+STATUS: READY_VIA_COLLAB — Claude Chat Reviewer P50 đã đánh giá và sửa 6 điểm; GPT Host chấp nhận, **chữ ký duyệt duy nhất là READY@full last-touch PROMPT SHA trong COLLAB của task theo DROOT58**. Không cần Reviewer ký. **Chưa STARTED**; chỉ sau Owner RUN đúng RUN_ID cho Claude Code CLI/KST, S0/Guard/VPS-GHI PASS mới được mutation. C1A scoped đã XONG, không dùng PROMPT P22 cũ.
 
 EXECUTOR_SURFACE: **Claude Code CLI, kỹ sư trưởng (KST)**. Claude Chat chỉ là Reviewer; Codex C1A đã hoàn thành scoped.
 WRITE_PATH: chỉ 2 kho PRIVATE Huyen1974/agent-data-test và Huyen1974/web-test (KST clone/refs/nhánh main); chỉ công cụ triển khai thủ công được bảo vệ trên VPS cho hai ứng dụng Agent Data, Nuxt; chỉ 3 nhóm audit active ghi P17; hồ sơ work/github-management. Không cho runner CI/PR cầm Docker/root/socket, admin token hoặc đường deploy. Thao tác VPS qua cờ VPS-GHI CAS và DOT/apply-v0 Đ30/31.
