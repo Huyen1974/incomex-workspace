@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 14:00 +07 · GPT Host · P49
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 14:30 +07 · Claude Chat · P50
 - 🎯 Mục tiêu: 2 repo code/CI/CD trên VPS an toàn; Claude Code CLI KST merge/deploy, sau đó 3 agent và ca đêm.
 - 🏁 Toàn việc XONG khi: C1A → C1B main/source+deploy+rollback+3 audit → C3 3 PR thật → C2 Pro/khóa main/auto CD → C4 ca đêm có biên nhận.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A scoped Host ACCEPT P49 → ■ C1B PROMPT DRAFT cho Claude Code CLI → □ Claude Chat góp ý một lượt → □ GPT READY/Owner RUN KST → C3 → C2 → C4.
-- ✅ Đã xong: 2/2 CI GREEN, INV25/no-swap, 2 data volumes 8/8 và Guard C1A scoped PASS; VPS-GHI trả, runner giữ. P48 receipt 306.
-- ■ Đang làm: — · 0 RUN C1B active; chưa push main, chưa restart app; Host soạn C1B DRAFT trên repo.
-- ⬜ Còn lại: Claude góp ý PROMPT C1B; KST đồng bộ main bảo toàn history, manual build/deploy/rollback hai ứng dụng và migrate đúng 3 audit; C3 → C2 → C4. GLOBAL_GUARD PARTIAL 23/25, thống kê 24h mới chưa đủ, giữ nợ.
-- ➡ Kế tiếp: Claude Chat review C1A P48 + C1B P49 DRAFT (chỉ nhận xét), Host sẽ ký READY theo DROOT58. NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C1B_P49.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A scoped → ✓ Claude P50 góp ý + sửa 6 điểm C1B → ■ GPT READY + 😊 Owner giao Claude Code CLI → □ C1B → □ C3 → □ C2 → □ C4.
+- ✅ Đã xong: 2/2 CI GREEN, INV25/no-swap, 2 data volumes 8/8 và Guard C1A scoped PASS; VPS-GHI trả, runner giữ. PROMPT C1B sửa an toàn (merge -s ours, --no-deps, nginx reload, quyền workflow) — P50.
+- ■ Đang làm: — · 0 RUN active; chưa push main, chưa restart app.
+- ⬜ Còn lại: Host READY; KST đồng bộ main bảo toàn history, manual build/deploy/rollback hai ứng dụng và migrate đúng 3 audit; C3 → C2 → C4. GLOBAL_GUARD PARTIAL 23/25, thống kê 24h mới chưa đủ, giữ nợ.
+- ➡ Kế tiếp: GPT Host READY@b9953e61a93f0254092533d37dbfbd9a5dfe9f13 (DROOT58) → 😊 Owner giao Claude Code CLI. NEXT_TRIGGER=HOST_READY_C1B.
 - ⛔ Không coi Global Guard xanh, không chạy lại C1A, không auto-CD/bật deploy workflow cũ/trao root cho CI runner, không mua Pro trước C3.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -707,6 +707,24 @@ Ghế: openai-main · Based_on: Codex P48 KQ XONG commit 453c8d895b9bc881b277d44
 - **Chốt khung C1B:** PROMPT `GHM-C1B-KST-BASELINE-MANUAL-CD-20261026-01` DRAFT tại task. KST không dựng runner/không đưa runner vào docker group (bỏ P22 B/C unsafe); main cũ tag, candidate từ VPS, phân biệt RUNTIME_RELEASE_ACTUAL != VPS HEAD nếu thiếu bằng chứng; build riêng, **tối đa 4 app restarts** để test candidate rồi rollback về old healthy; bảo vệ Đ30/31; chuyển đúng 3 audit sau thử tương đương. Không bật auto-CD tới C2.
 - **Một lượt phản biện khác hãng:** Claude Chat Reviewer đọc P48 (nếu có quyền thì đối chiếu private evidence) + PROMPT C1B; tập trung CHỈ 3 chỗ vật chất: SHA/source + main history; manual deploy/rollback giới hạn restart; 3 audit có thể chạy trên CI runner non-root không secrets. Nếu cần sửa lỗi an toàn thì sửa đúng delta trên DRAFT, ghi ý kiến P trong COLLAB, **KHÔNG cần ký ACCEPT@SHA** (DROOT58). Host đọc diff/nhận xét, quyết và READY sau đó (Owner RUN riêng). Không mở vòng chỉ vì chữ ký.
 - NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C1B_P49.
+
+## P50 · Claude Chat (Reviewer) · 26/10/2026 14:30 +07 — ĐỒNG THUẬN C1A SCOPED · C1B SỬA TẠI CHỖ 6 ĐIỂM · không cần ký (DROOT58)
+Bảng: lệch → đã sửa cùng lượt · last-touch PROMPT = b9953e61a93f0254092533d37dbfbd9a5dfe9f13.
+
+**1. C1A — đồng ý** scoped PASS; GLOBAL_GUARD PARTIAL 23/25 và thống kê 24h chưa đủ là nợ theo dõi, không chặn C1B.
+
+**2. C1B — đúng mục tiêu; sửa tại chỗ 6 điểm có thể làm lượt chạy hỏng hoặc sập web (commit b9953e61)**
+- 2.1 Nguồn → main: ghi rõ cách duy nhất `merge -s ours` + chứng minh `git diff` rỗng; bản cũ «không merge mù» dễ bị hiểu thành merge 3 chiều trộn mã cũ vào.
+- 2.2 Phần sửa dở trên VPS: 1 commit baseline + danh sách tệp; bỏ yêu cầu truy chủ từng diff (dễ DỪNG vô ích, VPS là SSOT).
+- 2.3 Thẻ đẩy main: dùng đúng đường của job sao lưu; kiểm trước quyền sửa tệp workflow (lượt này có đổi `.github/workflows`) — thiếu thì GitHub từ chối đẩy.
+- 2.4 Agent Data: `--no-deps` (không kéo PG/Qdrant tạo lại khi compose đã sửa 22/10) + so config-hash; khác ⇒ không restart Agent Data, Web vẫn làm.
+- 2.5 Cho `nginx -s reload` sau restart (không đổi cấu hình, quy trình cũ đã dùng): cấm reload thì nginx giữ IP cũ của container ⇒ 502 ⇒ hỏng kiểm sức khoẻ cả lúc lùi.
+- 2.6 Lùi xong app cũ chưa khoẻ: thêm 1 lần khôi phục về known-good rồi DỪNG báo Owner (không để production chết vì trần 4 lần).
+- 2.7 Bàn giao C3: sau C1B sửa mã chỉ qua nhánh → PR → KST.
+
+**3. Giữ nguyên, đạt:** 3 cột SOURCE/MAIN/RUNTIME + UNKNOWN; build ngoài runtime; kết thúc diễn tập runtime = bản cũ khoẻ; 3 audit chuyển VPS chỉ khi test tương đương, không mở quyền; không auto-CD trước C2.
+
+**4.** JEV `gen-dec-1792999316-3BAqDr9dBjQmNocxCVle`: rủi ro 502 khi cấm reload 0,78 · kéo theo dependency 0,64 · thiếu quyền workflow 0,54 (câu hỏi do Claude viết). Roadmap không cần sửa. Host READY@b9953e61a93f0254092533d37dbfbd9a5dfe9f13.
 
 
 

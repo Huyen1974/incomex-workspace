@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.3 · 24/10/2026
-**Trạng thái: C1A được Host P49 ACCEPT scoped (2/2 CI, swap/INV25, 2 volumes 8/8), GLOBAL_GUARD PARTIAL 23/25 và thống kê 24h mới chưa đủ. C1B Claude Code CLI KST đã có PROMPT DRAFT `GHM-C1B-KST-BASELINE-MANUAL-CD-20261026-01` chờ Claude Chat nhận xét rồi Host READY/Owner RUN. Sau C1B → C3 → C2 Pro → C4.**
+**Trạng thái: C1A được Host P49 ACCEPT scoped (2/2 CI, swap/INV25, 2 volumes 8/8), GLOBAL_GUARD PARTIAL 23/25 và thống kê 24h mới chưa đủ. C1B Claude Code CLI KST đã có PROMPT DRAFT `GHM-C1B-KST-BASELINE-MANUAL-CD-20261026-01` Claude P50 đã góp ý + sửa 6 điểm; chờ Host READY@b9953e61 + Owner RUN. Sau C1B → C3 → C2 Pro → C4.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
 Ưu tiên 1 (Owner 25/10 15:18): hệ thống chạy được — mỗi repo đi được nhánh → PR → test → main → deploy VPS, máy chạy (runner) đặt trên VPS. Sau đó: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 
