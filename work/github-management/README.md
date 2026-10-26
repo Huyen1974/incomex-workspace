@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: Owner 26/10 đã đổi executor C1B sang **Codex**; PROMPT/READY P51 cho Claude Code CLI đã bị supersede trước STARTED. C1A scoped PASS; C1B Codex main/source + manual deploy/rollback + 3 audit, không chuyển khóa/quyền KST. Chờ Host READY SHA mới/Owner dispatch. GLOBAL_GUARD PARTIAL.**
+**Trạng thái: C1B đã Host P53 READY cho CODEX, READY cũ P51 Claude Code CLI mất hiệu lực. Chưa STARTED; Owner chỉ giao Codex khi RUN VPS trước xong và VPS-GHI trống. Giữ P50 sáu safety, không đưa Codex khóa KST. GLOBAL_GUARD PARTIAL.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — **GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01** cho **CODEX CLI/Desktop**; lệnh P51 `GHM-C1B-KST-BASELINE-MANUAL-CD-20261026-01` READY cho Claude Code CLI bị thay theo Owner trước RUN. Giữ sáu biện pháp an toàn P50, host sẽ ký READY SHA mới; Owner chỉ giao bản Codex.
+6. work/github-management/PROMPT.md — `GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01` cho **CODEX**, đã READY@cef559c90506b7fac5b66bfc847f5f58f7e6a680 trong COLLAB P53. PROMPT C1B cũ giao Claude Code CLI là SUPERSEDED_UNRUN; không dùng. Owner chuyển CODEX RUN khi VPS-GHI trống, Codex kiểm Guard/quyền trước mutation.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.

@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 15:01 +07 · GPT Host · P52
-- 🎯 Mục tiêu: Codex tiếp tục làm C1B GitHub/CI/CD hai repo; Claude Code CLI giữ vai KST lâu dài từ C3; sau đó C2 Pro/khóa main và C4 ca đêm.
-- 🏁 XONG khi: C1A scoped đã đạt; C1B Codex chứng minh main/source đúng + manual deploy/rollback 2 app + 3 audit runner VPS; C3 ba PR thật/KST xét; C2 khóa main, C4 ca đêm.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A scoped PASS → ✓ Claude P50 sáu điểm kỹ thuật → ■ Owner đổi C1B executor sang **Codex**, Host làm PROMPT/READY mới → □ Owner giao Codex → C1B → C3 → C2 → C4.
-- ✅ Đã xong: 2/2 CI GREEN; swap/INV25 + volume 8/8 PASS; P50 sáu biện pháp bảo vệ còn nguyên. C1B cũ P51 READY cho Claude **SUPERSEDED_UNRUN**, chưa có STARTED/KQ.
-- ■ Đang làm: — · 0 RUN C1B active theo P51; chưa push main/khởi động lại production.
-- ⬜ Còn lại: Codex thực thi C1B theo Owner RUN và capability được phép; không lấy khóa KST. Nếu main/deploy chỉ có KST-only gate thì dừng đúng blocker, không lách. Sau C1B: C3 → C2 → C4. GLOBAL_GUARD=PARTIAL 23/25, lịch sử 24h mới chưa đủ.
-- ➡ Kế tiếp: Host ký READY last-touch PROMPT CODEX, Owner dispatch **GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01** khi cờ VPS-GHI thực sự trống. NEXT_TRIGGER=HOST_READY_GHM_C1B_CODEX.
-- ⛔ Không dùng lệnh Claude C1B cũ, không tự cấp root/đọc secret KST, không tự C3/C2/auto CD.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 15:01 +07 · GPT Host · P53
+- 🎯 Mục tiêu: CODEX thực hiện C1B cho 2 repo GitHub/VPS, Claude Code CLI giữ KST C3 trở đi; cuối cùng nhiều agent và ca đêm.
+- 🏁 C1B đạt khi: source/main đúng tree/history, deploy thử thủ công + rollback 2 app, 3 audit runner VPS; rồi C3 → C2 Pro → C4.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A scoped PASS → ✓ P50 6 safety → ✓ Owner P52 đổi C1B sang CODEX → ✓ **Host P53 READY@cef559c9** → ■ Owner giao Codex khi cờ trống → □ C1B → C3 → C2 → C4.
+- ✅ Đã xong: Prompt C1B Codex đã sửa toàn phần, READY đúng SHA mới; READY P51 cho Claude bị vô hiệu trước khi RUN. C1A 2/2 CI GREEN, INV25/no-swap/volumes 8/8 PASS.
+- ■ Đang làm: — · 0 RUN C1B active; chưa main push, chưa restart app. Root VPS-GHI lần gần nhất bận CONN-REPAIR; phải kiểm lại trước khi Owner dispatch.
+- ⬜ Còn lại: Owner chuyển `GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01` cho Codex đúng khi VPS trống; Codex phải đủ quyền hợp lệ tại main/deploy hoặc fail-closed; C3 KST/3 PR, C2 Pro, C4 đêm. GLOBAL_GUARD=PARTIAL, chưa đủ 24h lịch sử.
+- ➡ Kế tiếp: **Owner RUN CODEX C1B** khi RUN VPS trước đã kết thúc/trả cờ; NEXT_TRIGGER=OWNER_RUN_GHM_C1B_CODEX_AFTER_VPS_FREE.
+- ⛔ Không dùng PROMPT/READY Claude C1B cũ, không mượn quyền KST/root/runner hoặc tự cấp credential, không tự C3/C2/auto CD.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -745,6 +745,17 @@ Ghế: openai-main · Based_on: Owner trực tiếp yêu cầu đổi câu OWNER
 - **Roadmap không đảo:** C1A XONG scoped → C1B CODEX → C3 KST Claude xét/merge PR 3 agent → C2 Owner mua Pro + khóa main/auto CD → C4 ca đêm. Guard global 23/25 PARTIAL, 24h trend volume chưa đủ không chặn scoped C1B nhưng không báo toàn hệ xanh.
 - **Kế tiếp:** Host ký READY đúng last-touch SHA của PROMPT mới, Owner chỉ chuyển `CODEX — OWNER RUN C1B` một lần; RUN lúc máy còn cờ bận thì S0 fail-closed. Không cần vòng phản biện mới cho chỉ thị đổi executor thuần hành chính, không nới quyền.
 - NEXT_TRIGGER=HOST_READY_GHM_C1B_CODEX.
+
+## P53 · GPT Host 26/10/2026 — READY C1B CHO CODEX THEO CHỈ ĐẠO OWNER
+Ghế: openai-main · Based_on: P48 C1A scoped PASS, Claude Reviewer P50 đã sửa 6 điểm safety kỹ thuật, GPT P51 READY cũ, Owner trực tiếp đổi executor tại P52 trước RUN, PROMPT last-touch `cef559c90506b7fac5b66bfc847f5f58f7e6a680`.
+- **Chỉ đạo Owner có hiệu lực:** executor của C1B = **Codex CLI/Desktop**, thay Claude Code CLI. Lệnh trước `GHM-C1B-KST-BASELINE-MANUAL-CD-20261026-01` với READY@3c2b0cbe06bb86eea76a5014fda21c36e31e8d9d **SUPERSEDED_UNRUN** (PROMPT đã đổi, khác RUN_ID, chưa STARTED). Không dùng lời giao cũ. Claude Code CLI giữ vai KST từ C3 trở đi, không nhận C1B.
+- **Sáu điểm an toàn P50 không đổi:** Git main giữ VPS tree + history, baseline dirty scan 1 commit, kiểm quyền workflow push, Agent Data `--no-deps` và compose-hash, nginx reload không đổi config, deploy/rollback 2 app tối đa 4 restart diễn tập + chỉ 1 lần cứu hộ known-good, không tự mở auto CD/SQL.
+- **Giới hạn quyền là cổng cứng:** Codex chỉ push main hoặc yêu cầu host deploy qua đúng capability đã được phép theo identity Codex và Owner RUN; không mượn khóa KST/admin, không nâng quyền runner/CI/root ngoài cổng. Nếu các quyền đang dành riêng KST thì Codex KQ DỪNG tại S0/S2/S4 đúng chỗ, bàn giao nợ, không vượt cổng để báo XONG.
+- **READY@cef559c90506b7fac5b66bfc847f5f58f7e6a680** · signer=GPT Host/openai-main (DROOT58, chỉ cần một chữ ký) · RUN_ID=`GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01` · EXECUTOR=CODEX CLI/Desktop · scope=2 repo PRIVATE baseline/main tiến thẳng + manual build/deploy ứng viên/rollback đúng cổng + 3 audit VPS. Đây là ký trước để Owner chuyển đúng RUN; **chưa STARTED, chưa GHI VPS**.
+- **Điều kiện thi hành:** Owner chỉ chuyển khi RUN VPS trước KQ và root `VPS-GHI: trống`; Codex S0 kiểm lại tài nguyên/Guard/identity/STOP và CAS cờ trước mutation. Cờ bận ⇒ STOP/KQ DỪNG sạch, không chờ giữ máy. Giữ `GLOBAL_GUARD=PARTIAL` 23/25 và hạn chế thống kê 24h chưa đủ, không làm nợ khác.
+- **Roadmap giữ nguyên:** C1A scoped XONG → C1B Codex → C3 KST Claude/ba agent PR → C2 Pro/khóa main/auto deploy → C4 ca đêm.
+- NEXT_TRIGGER=OWNER_RUN_GHM_C1B_CODEX_AFTER_VPS_FREE.
+
 
 
 
