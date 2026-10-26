@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · 26/10/2026 · GPT Host · P43
-- 🎯 Mục tiêu: CI/CD hai repo chạy trên VPS; sau đó 3 agent code thật, KST duyệt/merge/deploy và ca đêm.
-- 🏁 Xong C1A khi: 2/2 CI GREEN + giới hạn swap/INV25 đạt (đã chứng minh P40) + hai runner data volumes có sổ dung lượng/canh tăng trưởng và Guard scoped đạt.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ runner + CI 2/2 GREEN → ✓ P40 swap/INV25 → ■ P43 chốt **CODEX** làm 2 volume (PROMPT DRAFT) → □ Claude ký full SHA → □ Host READY/Owner giao Codex → □ C1A XONG → C1B → C3 → C2 → C4.
-- ✅ Đã đạt: Agent Data 6/6, Web 16/16; hai runner ở P40 ONLINE; CPU/RAM/no-swap cgroup, INV25 test đạt. P42 xác nhận giải pháp volume đúng kỹ thuật, không ký vì muốn đổi người làm.
-- ■ Đang làm: — · 0 RUN C1A active. VPS-GHI ở lần đọc gần nhất do HJW-N2-DOT-SEAT-20261025-01 (Codex) giữ; kiểm lại trạng thái thực ngay trước Owner giao.
-- ⬜ Còn lại: Codex khai báo đúng 2 volumes ~1,93 GiB vào registry/storage-watch/Guard hiện có, chứng minh canh đúng và POST scoped; giữ CI/runner, không làm lại. Kế đó C1B Claude Code CLI KST → C3 → C2 Pro → C4.
-- ➡ Kế tiếp: Claude ký ACCEPT đúng last-touch PROMPT đang giao Codex; GPT READY; Owner giao Codex khi cờ VPS-GHI trống. NEXT_TRIGGER=CLAUDE_ACCEPT_GHM_C1A_VOLUMES_CODEX.
-- ⛔ Không dùng P42 làm phép đổi executor; không tự gộp vào C1B, không rerun CI/xóa volume/mở thêm monitor, không cho Codex tự chạy C1B.
+### BẢNG ĐIỀU KHIỂN · 26/10/2026 · GPT Host · P44
+- 🎯 Mục tiêu: Codex đóng 2 volume C1A, sau đó C1B KST deploy/rollback, C3 nhiều agent, C2 Pro/main, C4 ca đêm.
+- 🏁 C1A XONG khi: 2/2 CI xanh và quota/INV25 đã đạt; 2 volume ~1,93 GiB được storage-watch canh thật, POST/Guard scoped PASS.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A CI 2/2 + swap/INV25 → ✓ Reviewer Claude P42 đã đánh giá giải pháp volume kỹ thuật → ✓ Host P44 kết luận không cần vòng mới (DROOT57) → ■ Chốt PROMPT Codex → □ READY/Owner RUN khi cờ VPS-GHI thực tế trống → C1B → C3 → C2 → C4.
+- ✅ Đã xong: 2 runner + CI Agent Data 6/6, Web 16/16 GREEN; P40 cgroup/INV25 PASS. Host nhận xét P42 kỹ thuật đạt 3 điểm; khác biệt executor đã được Owner chốt Codex ở P43.
+- ■ Đang làm: — · 0 RUN C1A active theo P40. Không mở vòng phản biện mới hoặc chạy C1B thay.
+- ⬜ Còn lại: Codex khai đúng 2 volume bằng storage-registry/storage-watch sẵn có, kiểm PRE/POST & Guard; nợ ngoài C1A giao chủ. Sau nghiệm thu C1A Host mới giao C1B Claude Code CLI.
+- ➡ Kế tiếp: Host ký READY đúng PROMPT last-touch khi điều kiện dispatch/cờ VPS-GHI sạch, Owner giao Codex. NEXT_TRIGGER=HOST_READY_OR_RESOURCE_GATE_C1A_VOLUMES.
+- ⛔ Không gọi Claude chỉ để ký SHA; không giả Reviewer ACCEPT@new SHA; không rerun CI, không xóa volume/bật deploy/chạy C1B.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -650,6 +650,16 @@ Ghế: openai-main · Based_on: P40 Codex, P41 GPT PROMPT volume, P42 Claude rev
 - **Tài nguyên chung:** cờ VPS-GHI ở lượt đọc root gần nhất do `HJW-N2-DOT-SEAT-20261025-01` giữ; **không cho RUN viết VPS khi cờ chưa trả thật**. Codex S0 tự kiểm CAS theo luật, không suy từ deadline là cờ trống, không chạy hai lượt ghi song song.
 - **Để hoàn tất sớm:** chỉ cần Claude ghi ACCEPT đúng SHA, GPT phát READY, Owner chuyển Codex một lần. Sau KQ C1A mới chuyển PROMPT.md sang C1B theo A6 (một PROMPT đang hoạt động), Host cho Claude Code CLI sau nghiệm thu riêng.
 - NEXT_TRIGGER=CLAUDE_ACCEPT_GHM_C1A_VOLUMES_CODEX.
+
+## P44 · GPT Host 26/10/2026 — QUY TẮC TỐI ĐA 3 VÒNG; CHỐT KHÔNG CẦN PHẢN BIỆN THÊM CHO C1A
+Ghế: openai-main · Based_on: chỉ đạo Owner trực tiếp phiên GPT 26/10; AGENTS DROOT57; P41 Host soạn đúng nghiệp vụ, P42 Claude khác hãng đã đánh giá 3 điều kiện kỹ thuật đều đạt, P43 Owner xác nhận Codex executor.
+- **Review scope đã đạt, không mở vòng tiếp:** Claude P42 «Nội dung kỹ thuật đúng (đạt 3 điểm Host hỏi)», đề xuất gộp sang Claude Code CLI để giảm chuyển tay. Host đánh giá khác biệt là **phân vai/độ lớn lượt**, không phải một lỗi kỹ thuật của S0–S3; Owner trực tiếp đã chốt giữ Codex C1A. **HOST ACCEPT ý kiến kiểm kỹ thuật P42, REJECT thay executor theo chỉ đạo Owner.**
+- **REVIEW_REUSED=P42@e91c8a2d60cb47a4341cecd466991c299314b247; DIFF=ADMIN_ONLY:** PROMPT volume P41 S0–S3 được giữ nguyên; P43 chỉ đổi STATUS/ENTRY để khẳng định Codex. Theo DROOT57, không đòi Claude ký lại SHA chỉ vì phần hành chính, không giả `ACCEPT@SHA` từ Claude. Host được chốt rồi ký READY đúng SHA cuối của PROMPT nếu các cổng thực thi hiện xanh.
+- **Quy trình Owner chốt toàn hệ:** mặc định **1 VÒNG, TỐI ĐA 3 VÒNG**; Host tự quyết có gọi vòng 2/3 không và chỉ khi có bất đồng/chưa chắc về chứng cứ; không dùng hết ba vòng cho đủ quota; sau vòng 3 còn bất đồng thì hỏi Owner. Đã ghi DROOT57 tại root và cập nhật AGENTS A5/A6, giữ nguyên lịch sử DROOT55.
+- **Node đang giao:** `GHM-C1A-S3-VOLUMES-20261026-01`, executor Codex CLI/Desktop. Đích hai runner data volumes (~1,93 GiB) vào storage-registry/storage-watch hiện có; kiểm true footprint/protection và giữ 2 CI/runner. C1B (Claude Code CLI KST) chỉ khi C1A được nghiệm thu.
+- **Cờ VPS:** root có RUN khác `HJW-N2-DOT-SEAT-20261025-01` trong mẫu trước. Khác với quyết định hội đồng, đây là *cổng tài nguyên thật*: nếu vẫn đang giữ cờ thì **KHÔNG READY/RUN** cho Codex; không dùng hết hạn ảo để đoán đã trả. Host chỉ được READY khi first mutation có thể làm ngay; Codex CAS và kiểm lại cờ trước ghi.
+- NEXT_TRIGGER=HOST_READY_OR_RESOURCE_GATE_C1A_VOLUMES.
+
 
 
 

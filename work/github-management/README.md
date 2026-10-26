@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: P43 theo chỉ thị Owner: C1A hai volume thuộc CODEX, không thuộc Claude Code CLI. PROMPT Codex DRAFT chờ Claude ký SHA/Host READY/Owner RUN. CI 2/2 và swap/INV25 đã đạt, VPS-GHI cần kiểm lại khi giao.**
+**Trạng thái: DROOT57 đã chốt mặc định một vòng, TỐI ĐA ba vòng. C1A hai volume vẫn do CODEX; Claude P42 đã phản biện kỹ thuật, Host P44 không mở lại hội đồng chỉ vì STATUS/SHA. Chưa Codex RUN mới; chỉ READY khi cờ VPS-GHI sạch, sau đó C1B KST.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — `GHM-C1A-S3-VOLUMES-20261026-01` cho **CODEX** sửa hai khai báo volumes, DRAFT_NOT_READY chờ Claude ACCEPT đúng SHA rồi Host READY/Owner RUN. P42 gộp sang C1B không áp dụng theo chỉ thị trực tiếp P43.
+6. work/github-management/PROMPT.md — `GHM-C1A-S3-VOLUMES-20261026-01` cho CODEX. Kỹ thuật P41 đã Claude P42 xác nhận đạt 3 điều kiện, P43/P44 chỉ chốt lại phân vai theo Owner; Host không bắt Claude ký lặp, dùng DROOT57. READY cần đúng last-touch SHA + cờ VPS-GHI thực tế trống.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
