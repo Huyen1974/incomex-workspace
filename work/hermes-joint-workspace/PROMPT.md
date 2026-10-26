@@ -1,6 +1,6 @@
 # CODEX — HJW-N2-DOT-SEAT-RECOVER-20261026-01
 
-## R2 — HIỆU LỰC 26/10, DRAFT_NOT_READY, CHƯA RUN
+## R2 — PROMPT CHỐT P407 · CHỈ CHẠY KHI HOST READY ĐÚNG SHA + OWNER GO
 RUN R2 chỉ khôi phục/hoàn thiện N2 sau P404 KQ DỪNG; P404 đã rollback production và trả VPS-GHI. Đây KHÔNG phải RUN cũ được chạy lại. Khi mâu thuẫn, điều kiện R2 ở đầu file này ưu tiên hơn hạn mức recreate ban đầu của RUN đã đóng. Các mục mục tiêu, danh mục kết nối, S3–S7 và T1–T6 bên dưới vẫn áp dụng.
 
 Owner còn phải chốt rõ một ngoại lệ: cho phép MỘT FORWARD RECREATE Agent Data BỔ SUNG để hoàn tất N2. KHÔNG coi yêu cầu phân tích B1 là Owner GO; chưa có GO và READY mới thì Codex chỉ được đọc/phân tích, không mutation.
@@ -26,7 +26,7 @@ Mục tiêu vẫn là ghế đầy đủ Dot có actor riêng, đủ họ công 
 ## HỢP ĐỒNG N2 GIỮ LẠI TỪ PROMPT TRƯỚC
 
 
-Trạng thái tài liệu: DRAFT_NOT_READY · Codex ghi theo yêu cầu trực tiếp Owner ngày 25/10/2026; chưa có READY của GPT Chat Host cho bản này.
+Lịch sử: DRAFT cũ Codex 25/10 đã KQ DỪNG ở P404; R2 hiện tại chỉ chạy sau HOST READY đúng SHA của PROMPT và Owner cho thêm một forward recreate.
 Executor_Surface: Codex trên Mac.
 Write_Path: hồ sơ qua MCP AgentData workspace_* root=workspace, path tương đối trong work/hermes-joint-workspace; production qua đường quản trị/apply-v0 đã duyệt, sau READY + VPS-GHI CAS + Guard.
 Host hiện hành: GPT Chat (GPT-HJW-260922-A); Reviewer: Claude Chat. Codex không ký thay Host.
