@@ -79,7 +79,7 @@ Owner giao Codex rà và bổ sung task, bắt đầu thiết kế lại trang c
 
 ### 1. Mục tiêu
 **ĐÍCH 0 · Owner 24/10 16:55 + 25/10 09:40, 10:28, 13:18, 13:57, 15:25 — «PG Tự quản» (PG quản PG), làm trước Công thức:** mỗi vật trong PG có địa chỉ và biết **làm gì · thuộc hệ nào · có dùng cho Workflow (MBM → MMOW → MOW → MOT → MOIT/MOUT → Field + 4 bà mẹ) không · giữ / sửa / gộp / tắt / bỏ**; Owner xem trên Nuxt Reports là hiểu ngay **có gì · vướng gì**.
-**Bổ sung Owner 26/10 — AUTO-SYNC là điều kiện XONG:** các trường máy tự biết phải đọc sống hoặc tự đồng bộ có kiểm chứng, không để sổ Ba Lô/DOT/Graph lạc hậu mà vẫn báo ĐỦ; nếu không đồng bộ được thì lỗi/cảnh báo, chỉ chuyển quy trình phát sinh khi thật cần hành động. Chi tiết và tiêu chuẩn đo tại §3.TQ SYNC-1..7. Áp từ TS2, không đổi TS1 đang STARTED.
+**Bổ sung Owner 26/10 — TỰ ĐỒNG BỘ, hiểu theo P55 sau P52/P54:** PG đọc sống, `dot_tools` và Graph là 2 bản lưu cần auto-update/đèn/cảnh báo, không được im lặng; Ba Lô cũ là LEGACY chỉ bảo toàn, không làm nguồn đối soát/sync mới. Lỗi kéo dài mới sinh 1 vụ việc đáng xử lý. Kết quả TS1 KQ P52 đã có, không chạy lại.
 **Tinh thần, kiến trúc, bảng tra, khai/canh, trần, bước kế tiếp: chỉ đọc §3.TQ — bản chốt duy nhất.** Ý P30 cũ (gộp Bảng DOT/Sổ của các sổ vào sổ mới, thay 4 sổ cũ làm nhà, event trigger) đã bỏ; các khối P30–P40 chỉ là lịch sử thảo luận.
 
 ⚠ P38: các mục dưới (P13, P15, 1–8, đường DOT P21) là **đích dài hạn cho B1–B5**, không phải việc ngay. P29 = lời Owner gốc của Đích 0 (giữ nguyên ý; cách làm theo §3.TQ). Việc ngay = §3.TQ mục 9. Chữ «vùng NHÁP» trong đó là lịch sử (nay làm thật).
@@ -106,8 +106,8 @@ Biến toàn bộ thiết kế quy trình đã chốt từ các bảng HTML thà
 
 ### 2. Thế nào là hoàn thành
 **ĐÍCH 0 · CHỐT NGHIỆM THU MỚI theo Owner 26/10:**
-- Đối tượng PG (A) xem trực tiếp catalog/VIEW sống; sổ lưu thông tin máy như `balo_thuc_the` (4 loại đang được phục vụ) và `dot_tools` (C) phải có vòng phát hiện→đồng bộ tự động được phép→đọc lại kiểm tập ID đúng phạm vi; nếu không có lịch tự chạy được đo/cổng xác thực hợp lệ thì ghi CHƯA ĐẠT, không gọi đã AUTO.
-- Trước khi nghiệm thu: tạo/thay đổi mẫu an toàn sau G1/G2 ⇒ máy phản ánh ở nguồn/view ngay khi đọc, các sổ lưu cập nhật ở lượt đồng bộ kế tiếp có đo SLA; khi không làm được/quá hạn phải có cờ lỗi và tin cảnh báo có người nhận, không xanh giả. Mất quyền/khác snapshot giữ CHƯA RÕ có lý do; Graph giấy ĐỦ/MỘT PHẦN đúng nguồn/tuổi.
+- **Tài sản PG** lấy từ catalog sống qua V1/V2 cho mọi DB, Census SELECT độc lập, Graph có đối chứng/giấy. **Chỉ các bản lưu thực sự cần** là `dot_tools` và Graph có vòng phát hiện → cập nhật được phép → đo lại/timestamp/cảnh báo. Ba Lô/registry legacy không phải nguồn để nghiệm thu đồng bộ.
+- **Nghiệm thu:** sau G1/G2 chọn một biến động mẫu hợp lệ → PG VIEW sống thấy đúng; Graph và `dot_tools` phải cập nhật trong SLA đo thực tế hoặc có trạng thái MỘT PHẦN/LỖI + alert có biên nhận. Nếu source reader lỗi/quá hạn/khác snapshot không tô xanh; Nuxt phải có auth trước hiển thị metadata nội bộ. Không có biên nhận thì CHƯA ĐẠT.
 - Cảnh báo gộp theo nguyên nhân, tự thử lại có giới hạn; tự khôi phục không tạo phiếu phát sinh, chỉ lỗi tồn tại hoặc cần quyết định/quyền của người mới chuyển 1 vụ việc. Chưa có quyết định S4 là CHƯA QUYẾT, **không phải lỗi đồng bộ**. Không ghi đè nhãn do người quyết hay tự xoá/tắt.
 
 **⚠ Áp dụng từ B1 (P38) · P13 — việc đầu tiên bắt buộc:** đạt ô 1 mục 8 bằng một collection thật mở được trong Data Studio, có dữ liệu và quan hệ đọc lại được. Phân biệt sửa qua DOT và sửa trực tiếp bằng Studio; không báo đã kiểm đường chưa được phép/chưa chạy. Tiêu chí trang chủ dưới đây không chặn việc đầu tiên. “Lên PG production” trong các dòng sau được hiểu là nghiệm thu/kích hoạt hoặc migration theo kiến trúc thực tế, không phải lần đầu tạo SQL.
@@ -123,7 +123,7 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 9. Mọi thao tác Directus/PG qua DOT; dữ liệu thiết kế mới không nhúng vào HTML. Đếm riêng tiến độ chuyển collection và triển khai PG; không gọi copy HTML là hoàn thành.
 
 **P29 — (lịch sử; nay theo TIÊU CHÍ ĐÍCH 0 ngay dưới) tiêu chí nghiệm thu bổ sung cho quản lý tài sản:** (i) 100% bảng PG ở snapshot đã chọn có **một định danh `database.schema.table` trong danh mục**, kể cả trạng thái «CHƯA RÕ», có mốc thời gian và nguồn; so khớp từng tên với PG Census/Ba Lô, mọi chênh ghi rõ; (ii) bảng/collection/DOT/tool có mục đích, hệ dùng, nhà SSOT, quan hệ/phụ thuộc, trạng thái **đang dùng Workflow / dùng hệ khác / dùng chung / chưa rõ / ứng viên OFF** và bằng chứng; (iii) Dashboard gốc là **Directus collection thực** cùng thông tin cho Owner và máy, được mở/lọc/đọc lại trên web; không HTML bản thứ hai; (iv) biết số DOT/tool hiện sống, đủ/thiếu, chạy tốt/cần sửa/ứng viên ngừng theo lần đo hiện hành; (v) có số liệu disk/trigger/job/consumer **đã đo**, nhưng **không off/xóa** cho tới khi Graph/phụ thuộc và Owner duyệt; (vi) không ép xử lý sâu 100% bảng trước B1, trước hết phủ đủ tên/trạng thái và rà kỹ nhóm Workflow cùng shared-critical. Các điều kiện cũ giữ nguyên.
-**TIÊU CHÍ ĐÍCH 0 — HIỆN HÀNH (P30, chỉnh P38; khác P29 thì theo đây):** (1) màn hình «Sổ tài sản» (§3.TQ mục 2) mở/lọc được trên **trang báo cáo Nuxt `/reports`** (Owner 21:07; Đếm-5 đo khuôn với cỡ thật), bảng + từng cột có «?» · (2) 100% vật PG theo loại có 1 dòng, khoá = loại + schema.tên (+ chữ ký hàm); số theo loại = Census **hoặc lệch có tên**, tập tên bảng = Ba Lô cùng mốc **hoặc lệch có tên**; lệch ghi tên + lý do; cột bảng (10.099) không làm dòng riêng, chỉ đếm theo bảng · (3) mỗi dòng có Hệ · Công dụng · Workflow · Vùng · Quyết định; «chưa rõ» được phép nhưng đếm được, có lý do/giới hạn đo · (4) bảng tổng Loại × Vùng tô màu + trả lời về DOT: dùng được / cần sửa / thiếu (tên) / sẽ bỏ cùng bảng · (5) tạo/xoá 1 vật → màn hình tự đổi, không ai ghi tay (sau lần đồng bộ Ba Lô kế tiếp; chứng minh ở TS5/B1) · (6) có người đọc thật: agent tra màn hình trước khi tạo vật mới (đã có chưa?), đo được · (7) 0 tắt/xoá trong việc này.
+**TIÊU CHÍ ĐÍCH 0 — HIỆN HÀNH P55:** (1) Danh mục V1/V2 đọc sống A đủ mọi DB, 12 loại Census + loại ngoài; khóa đủ DB, bản ghi không trùng, quan hệ có nguồn; (2) V3 đối soát PG↔Census↔Graph + DOT↔`dot_tools`, đọc đủ/đúng tuổi mới xanh, chưa đo là trắng có lý do; (3) người xem trên Nuxt sau cổng đăng nhập API Owner-only và quyền tối thiểu (chưa có thì không công bố); (4) S4 chứa quyết định có Owner duyệt, vật DROP/CREATE cùng tên đổi OID phải cảnh báo; (5) đồng bộ thật của `dot_tools`/Graph với nhịp đo + alert + 1 retry, hồ sơ phát sinh chỉ khi cần; (6) Ba Lô cũ không thuộc pipeline mới, 0 OFF/XÓA; (7) Graph và tên tài sản hỗ trợ Công thức→Workflow sau nền. P29 và tiêu chí cũ chỉ Balo/Directus Studio là lịch sử, không làm tiêu chí nghiệm thu nữa.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 
@@ -292,7 +292,7 @@ Tổng 16.513 vật (6.414 không kể cột). Constraint theo loại: n 2.060 (
 
 **0. Đọc trong 1 phút**
 - **Là gì:** «PG quản PG» (Owner 24/10, «master of master») = biết **chắc chắn PG có gì**, mỗi thứ **làm gì · thuộc hệ nào · dùng cho Workflow không · giữ hay bỏ**, nhìn được trên web.
-- **Làm thế nào:** **không dựng hệ mới.** PG đã có **3 sổ máy tự ghi** (đếm · danh sách vật PG · danh sách DOT). Chỉ thêm **1 sổ người quyết** ⇒ 4 sổ = 1 báo cáo sống (Census) + 2 bảng có sẵn (Ba Lô, `dot_tools`) + 1 bảng mới (S4), cộng 1 báo cáo ghép trên Nuxt để người xem (mục 2).
+- **Làm thế nào (P55):** PG catalog đọc sống các loại A, Census là câu đếm độc lập, Graph đối soát độc lập có giấy (hiện PARTIAL); tệp DOT chỉ được chép danh mục tối thiểu vào `dot_tools` rồi máy tự canh, S4 là một bảng quyết định dự kiến. **Ba Lô cũ không là nhà của danh mục mới**, được giữ nguyên để tham khảo nhãn.
 - **Bắt đầu nhỏ:** bước đầu **chỉ đếm** bằng lệnh có sẵn, không tạo gì (mục 4). Đếm đủ, khớp rồi mới dựng sổ quyết định.
 - **Thứ tự:** TS1 → TS5 (§3.KH) → Công thức (B1) → Workflow (B2–B5).
 - **Một câu:** máy đếm và liệt kê → AI đề xuất → Owner quyết → ghi đúng 1 nơi.
@@ -306,34 +306,33 @@ Tổng 16.513 vật (6.414 không kể cột). Constraint theo loại: n 2.060 (
 - TT7 **Khai tối thiểu**: chỉ khai cái máy không tự biết, **1 lần, tại nơi sinh ra vật** (mục 5).
 - TT8 **Thang nguồn**: ① PG → ② Graph/bot → ③ AI rà bổ sung (cách cuối, không đặt lịch AI tự gọi).
 - TT9 **Đi từng bước nhỏ**: chưa biết đủ mình có gì thì chưa dựng gì khác.
-**2. Cấu trúc — 4 sổ, chỉ 1 sổ mới**
-| Sổ | Trả lời câu gì | Đã có? | Ai ghi | Xem ở đâu |
-|---|---|---|---|---|
-| **S1 Sổ đếm** = PG Census, **báo cáo sống** `/reports/report-pg` | mỗi loại có **bao nhiêu** (12 loại), chạy lại SQL khi mở | ✅ có — câu SQL `view_sql` trong `table_registry` (`tbl_report_pg`), không lưu số; giờ đếm xác định theo lượt đọc | 🤖 máy | `/reports/report-pg` |
-| **S2 Sổ vật PG** = Ba Lô `balo_thuc_the` | **từng vật PG** là gì — mỗi vật 1 dòng, số STT giữ suốt đời | ✅ có — 4 loại: bảng · view · hàm · trigger; thêm vật mới bằng **lệnh đồng bộ có sẵn** (nút một chạm → `dot-balo-reconcile --sync`) | 🤖 máy | `/reports/report-balo-*` |
-| **S3 Sổ DOT** = `dot_tools` | có **những DOT nào** | ✅ có — đang lệch đĩa (3.01 D3) | 🤖 `dot-dot-register` đọc tệp DOT | Nuxt `/reports` (báo cáo ghép, TS3) |
-| **S4 Sổ quyết định** — MỚI | từng vật **dùng vào việc gì · hệ nào · Workflow? · giữ hay bỏ** | ⬜ chưa có — **bảng duy nhất phải tạo** | 🤖 AI đề xuất → 😊 Owner gật → DOT ghi | Nuxt `/reports` (báo cáo ghép) |
+**2. Cấu trúc HIỆN HÀNH P55 — một danh mục sống, một sổ DOT, một sổ quyết định (chưa dựng)**
+| Nhà/nguồn | Vai trò trong hệ mới | Tình trạng / ai ghi |
+|---|---|---|
+| **A · PG catalog** | Mọi vật PG qua V1 danh mục sống; V2 quan hệ, **DB-qualified key**. Không chép máy | P52 16.513 vật ở DB `directus` đã đo; 3 DB còn thiếu. PG là nguồn gốc |
+| **Census S1** | Câu đếm SELECT sống độc lập để kiểm số 12 loại; không lưu số | Có; cùng DB/schema/mốc mới so được, không được tự gọi độc lập hoàn toàn |
+| **Graph** | Kho nút/cạnh + giấy độ phủ, tự refresh sau khi Graph Host đổi reader & định danh DB | PARTIAL; hiện chưa đọc 2 VIEW, phải có lịch/cert/alert được nghiệm thu |
+| **C · DOT trên đĩa → B `dot_tools`** | PG không đọc trực tiếp tệp; DOT có nhà đăng ký 1 lần + máy tự đối soát/cập nhật, kiểm lại | Có 253 active theo công cụ hiện hành; code/hash mapping còn thiếu P52, không tự xóa/tạo |
+| **S4 MỚI** | Chỉ người quyết: Hệ, Workflow, Vùng, Giữ/Sửa/Tắt/Bỏ, căn cứ, OID quan sát | Chưa tạo; tối đa 1 bảng, chỉ sau G1/G2 |
+| **3 VIEW MỚI** | V1 vật, V2 quan hệ, V3 đối soát (PG↔Census↔Graph và DOT↔dot_tools), có trạng thái + tuổi | Chưa tạo; chưa được công bố Nuxt khi API thiếu đăng nhập |
+| **LEGACY: `balo_thuc_the` + 4 báo cáo + socket và các registry cũ** | Bảo tồn, đọc nhãn lịch sử nếu có ích; TS4 dùng làm gợi ý theo duyệt | KHÔNG là SSOT/danh mục/đối soát/writer mới; không sửa, không `--sync`, không OFF/xóa ở NDW |
 ```text
-pg_catalog (PG tự biết)
- ├─ đếm sống ───────────────────> S1 Sổ đếm (Census)          🤖
- └─ lệnh đồng bộ có sẵn ───────────> S2 Ba Lô (mỗi vật 1 dòng)    🤖
-tệp DOT trên đĩa ─ dot-dot-register ─> S3 dot_tools                 🤖
-AI đề xuất ─ 😊 Owner gật ─ DOT ghi ─> S4 Sổ quyết định (MỚI)
-S2 + S3 + S4 ghép theo khoá ───────> 1 báo cáo Nuxt «Sổ tài sản» 😊
-Bot so: S1↔S2 · đĩa↔S3 · S2/S3↔S4  ⇒ lệch thì cờ ⚠ có tên
+PG pg_catalog (4 DB) ── live SELECT ──> V1 Vật + V2 Quan hệ ───> V3 Đối soát
+                                │                       ↑             ↑
+Census (SELECT sống riêng) ────┴── kiểm cùng phạm vi ──┘             │
+Graph (đọc theo Graph Host, giấy MỘT PHẦN/ĐỦ + thời hạn) ──────────┘
+DOT/script trên đĩa ⇄ `dot_tools` (tự ghép identity/auto-sync sau G2) ──┘
+Owner duyệt ── DOT được phép ──> S4 Quyết định ── LEFT JOIN V1 khi đã tạo
+Ba Lô cũ = LEGACY lưu riêng, không nối vào pipeline mới
 ```
-- **Đầu ra báo cáo S1 và cột S2–S3** (không sửa nguồn): S1 `/reports/report-pg` trả loại · số vừa đếm · giờ đọc (nếu có); **không coi `v_report_pg` là view hay bảng lưu số; TS1 kiểm có vật PG cùng tên này không** · S2 `balo_thuc_the`: `stt` · `khoa_nhan_dien` · `ten` · `noi_luu` · `loai_census` · `da_mat` (+ nhãn cũ) · S3 `dot_tools`: `code` · `name` · `description` · `file_path` · `status` · `category`… · S4: mục 2B · View ghép: khoá · loại · tên · mô tả nguồn · cột S4 · cờ ⚠ (TS3 chốt).
-- **Độc lập (Owner 24/10):** AI **không sửa tay S1–S3**; S1 đếm lại khi mở; S2–S3 chỉ được cập nhật bằng lệnh máy có sẵn (`--sync`, `dot-dot-register`) — AI chỉ chạy các lệnh đó sau G2·TS2 ⇒ độc lập với AI: máy đếm 393 bảng mà danh sách có 385 là biết ngay thiếu 8, thiếu tên nào. Census và Ba Lô cùng đọc `pg_catalog` bằng **2 truy vấn riêng** ⇒ không gọi là 2 phép đo độc lập với nhau; TS1 ghi phạm vi mỗi bên (Đếm-2). AI chỉ ghi S4, qua DOT, sau khi Owner gật.
-- **Màn hình «Sổ tài sản» (P46 · Owner 21:07):** 1 câu SELECT ghép S2 + S3 + S4 (kèm mô tả nguồn, dung lượng, lần quét đọc thẳng từ PG), công bố thành **1 báo cáo Nuxt `/reports/<tên>`** bằng `dot-report-publish` — người xem/lọc ở đó, **không vào Directus**; không cần VIEW PG. Lọc lưu sẵn = link `?f_<cột>=<giá trị>`; màu = biểu tượng trong giá trị. Đếm-5 đo được cỡ thật thì mới coi là đạt.
-- **Khoá:** dùng đúng khoá Ba Lô `khoa_nhan_dien` (vd `table:public.cong_thuc`, `function:public.fn_x(integer)`); DOT là `dot:<tên tệp>`.
-- **N6 CŨ HẾT HIỆU LỰC theo P47:** bản đầu phải liệt kê đủ tên/ID, cha/cạnh của 12 loại Census từ pg_catalog. Tám loại ngoài Ba Lô vẫn có danh sách máy; không ép bổ sung vật lý vào Ba Lô; loại PG khác Census báo SCOPE_GAP.
-- **Không đụng:** cột nhãn cũ của Ba Lô (nhóm, loài, lớp, active, ghi chú…) giữ nguyên, **không ghi quyết định mới vào đó**; `table_registry` · `collection_registry` · `meta_catalog` giữ nguyên, không dùng làm sổ đếm. Nhãn cũ VUNG/HE (07/2026, đầu tệp + COMMENT ON) chỉ là căn cứ để AI đề xuất.
-- **Giá trị cố định:** Quyết định = Giữ · Sửa · Gộp · Tắt · Bỏ (không có dòng S4 = Chưa quyết). Vùng = 🟢 đang dùng · 🟡 nuôi việc khác · 🔴 bỏ được · ⚪ chưa rõ. Workflow = Có · Dùng chung (Workflow + hệ khác) · Không (đã kiểm, chỉ hệ khác — **không phải căn cứ xoá**) · Chưa rõ (mặc định). Hệ = danh sách cố định 23 hệ (Bản đồ 29/07 §13.9.0). Tắt = ngừng, bật lại được; Bỏ = xoá hẳn (việc dọn làm). **Cờ ⚠** = lệch / thiếu mô tả / mất vật — khác Vùng 🔴.
-
+- **Tính tự động:** PG đọc sống, chỉ `dot_tools` và Graph là hai bản lưu cần tự đồng bộ và chứng minh thời hạn/đèn. S4 không tự cập nhật quyết định. Số đã đo/chưa đo đúng nguồn; không biến legacy drift 37 thành lỗi của sản phẩm mới.
+- **Quyền:** Nuxt Reports là cửa người xem nhưng **đang chặn công bố** danh mục/quan hệ/cột nội bộ do `/api/reports/live` chưa xác thực; kiểm backend/API/role trước G1/G2. `dot-report-publish --dry-run` hiện không trả số và có lỗi temp; không dùng đường tạo lỗi SQL để khai thác số.
+- **Cột/khoá:** V1/V2/S4 dùng khóa có DB với vật per-DB; `oid_at_decision` chỉ để canh vật đã bị thay thế cùng tên, không làm PK. DOT dùng `code`/hash hợp lệ; không dùng khóa Ba Lô đời cũ.
+- **Giữ nguyên luật nghiệp vụ:** quyết định Giữ/Sửa/Gộp/Tắt/Bỏ phải Owner duyệt; thiếu quyết định = CHƯA_QUYẾT (không phải lỗi sync); từ nhãn cũ chỉ được đề xuất, không tự gán. Không Tắt/Xóa trong việc này.
 **2B. Cấu trúc bảng S4 — đề xuất để Owner duyệt từng dòng ở G1·TS3**
 | Cột | Nghĩa («?» hiện trên Directus) | Giá trị | Ai quyết |
 |---|---|---|---|
-| `khoa` (khoá chính) | vật nào — khoá Ba Lô hoặc `dot:<tên>` | phải có trong S2/S3 | 🤖 theo vật |
+| `khoa` (khoá chính) | canonical key có DB với A, `dot:<code>` với DOT | V1 theo Graph Host, CHƯA DUYỆT cho đến khi khép va chạm | 🤖 máy, G1 |
 | `he` | thuộc hệ nào | 23 hệ · `chua_ro` | 🤖 đề xuất → 😊 gật |
 | `workflow` | có dùng cho Workflow không | `co` · `dung_chung` · `khong` · `chua_ro` | 🤖 → 😊 |
 | `vung` | bỏ đi có hỏng gì không | `xanh` · `vang` · `do` · `xam` | 🤖 → 😊 |
@@ -346,7 +345,7 @@ Bot so: S1↔S2 · đĩa↔S3 · S2/S3↔S4  ⇒ lệch thì cờ ⚠ có tên
 - **Không có dòng = Chưa quyết** — không tạo sẵn hàng nghìn dòng rỗng (số đúng: Đếm-1), nên **không cần lệnh đối soát mới** cho S4.
 - AI ghi qua DOT có sẵn (đường ghi bản ghi B0b xác định, hoặc `dot-pg-atomic-apply`); ghi qua API Directus thì Directus tự giữ lịch sử sửa (Revisions).
 - **Mô tả một nhà:** vật có mô tả ở nguồn (Khai-1..3) thì sửa ở nguồn; `cong_dung` chỉ cho vật cũ chưa có. «Sẽ làm» không có ở S4 (chỉ ở Sổ của các sổ, 3.02).
-- **Vật mất** (khoá không còn trong S2/S3): dòng S4 giữ nguyên, màn hình gắn cờ ⚠ «mất vật».
+- **Vật mất/đổi:** so S4 với V1 live (không S2 legacy) + `dot_tools` đang hợp lệ; khóa mất hoặc OID đổi cùng tên thì giữ quyết định cũ, hiện cảnh báo cần Owner rà lại. Không tự gán lại.
 
 **3. Luật đọc số — bắt buộc (sai luật này là kết luận sai)**
 - Đọc-1 Số quét/ghi của PG chỉ là **dấu hiệu kể từ lần reset**. Tên cột trên màn hình: «LẦN QUÉT CUỐI (TỪ THỐNG KÊ PG)» — **không phải** «lần dùng cuối»; số 0 hoặc trống ≠ «không ai dùng». **PG không cho biết "bao lâu không dùng"**; số này **không bao giờ là căn cứ duy nhất để Tắt/Bỏ**.
@@ -421,7 +420,7 @@ Bot so: S1↔S2 · đĩa↔S3 · S2/S3↔S4  ⇒ lệch thì cờ ⚠ có tên
 
 #### 3.KH — KẾ HOẠCH CHI TIẾT CÔNG VIỆC (P40 · roadmap duy nhất · bám §3.TQ)
 **P55 — ROADMAP HIỆN HÀNH sau TS1 P52 và Claude P54:** Không thêm TS0. TS2: `dot_tools`/danh tính nguồn đa DB, code/hash, kế hoạch auto writer có quyền; Ba Lô cũ=LEGACY, không sync. TS3: 1 S4 + ≤3 VIEW khi đúng khóa/có quyền G1/G2; Nuxt auth API phải được Host ứng dụng sửa/kiểm trước khi công bố; Graph Host sửa `gs_key`+reader riêng. TS4: lấy nhãn có ích từ legacy làm đề xuất (1 lần/Owner duyệt). TS5: `dot_tools` và Graph tự đồng bộ theo lịch/giấy đã nghiệm thu, chống trùng cảnh báo và 1 phiếu khi thật cần. B1 Công thức sau nền. Đính chính PG18.6 và cấm SQL-error số; các đoạn P40/P47/P53 trái P55 là lịch sử.
-**P53 · GATE tự đồng bộ từ TS2:** TS1 đang STARTED giữ nguyên; TS2 phải kiểm và thiết lập được (sau G2) máy tự verify→sync→verify cho sổ lưu Ba Lô/DOT bằng lịch/cổng hiện hữu, nếu không làm được phải báo lỗi; TS3 hiển thị nguồn/tuổi/trạng thái từ VIEW đối soát; TS5 kiểm chứng alert, retry, chống trùng, mức escalations và Graph freshness. Không cho nghiệm thu Sổ tài sản chỉ vì có VIEW trong khi dữ liệu sổ lưu cũ. Nếu thiếu cơ chế thực sự, Host trình thay đổi tối thiểu đúng quyền và một review khác hãng sau TS1 KQ, không tự tạo lịch/DOT mới.
+**P55 thay P53 ở phần triển khai:** Ba Lô chỉ là LEGACY, không có nhiệm vụ `--sync`. TS2 chỉ xác minh/tự đồng bộ `dot_tools` theo code/hash sau G2; TS3 V1/V2/V3 live và S4 theo khóa có DB, chỉ công bố khi Nuxt API có auth; TS5 Graph Host reader/giấy và alert theo mốc, dot_tools canh danh tính, retry 1, nâng lỗi lên phiếu khi thật cần. P53 là lịch sử chỉ đạo auto-sync trước khi chốt loại bỏ Ba Lô khỏi pipeline.
 **P49 — Roadmap được Host chốt:** B0b đã XONG; **TS1 chỉ đọc** đo P48 (a)–(g) + count/name/ID/quan hệ A/B/C, thử SELECT an toàn (không CREATE VIEW), báo GAP/UNKNOWN. **TS2** rà sai lệch, chọn đường đọc đủ không tự mở rộng Ba Lô; **TS3** G1/G2 cấp quyền mới cho 1 S4 + tối đa 3 VIEW, DOT tạo/nạp còn thiếu phải có kế hoạch an toàn; **TS4** duyệt phân loại theo nhóm; **TS5** bot canh + Graph Host đổi reader và kiểm chứng giấy/nhịp ở task Graph riêng; B1 Công thức, B2–B5 Workflow chỉ sau nền đạt. Luật xét XONG ở K7: giữ ⚪ khi chưa đo thật, không bắt tô hết xanh/đỏ. Trần: 0 RUN viết trong TS1, 0 event trigger/lịch mới, không bật track_functions.
 
 **P47 cập nhật roadmap hiện hành:** B0b XONG → TS1 chỉ đọc ID/tên/cha/cạnh 12 loại, Graph nodes/edges, Nuxt tải/quyền → TS2 đủ đường đọc và đối soát 12 loại, không mặc định sửa Ba Lô → TS3 S4 + Nuxt tổng/12 lọc sau G1/G2 → TS4 phân loại → TS5 canh/Graph; B1 Công thức sau. Các dòng cũ chỉ 4 loại là lịch sử, theo P47. Chưa có DOT tạo collection/nạp dòng (P27).
