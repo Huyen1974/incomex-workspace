@@ -69,13 +69,13 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>TS2 READY đã ký — Owner chỉ cần chuyển câu giao việc cho Claude Code</h2>
+<section class="owner-actions ok"><h2>TS2 đã DỪNG an toàn · TS2R đã có phương án mới chờ Claude rà</h2>
 <p>✅ B0b XONG P27 · ✅ GPT Host ACCEPT kiến trúc P48, đã sửa an toàn ở P49.</p>
-<p>✅ Owner G2 (1–3) và GPT Host P59 READY trên PROMPT last-touch <code>1f8c50c5</code>, RUN <code>NDW-TS2-DOTTOOLS-AUTOSYNC-20261026-01</code>. Không cần duyệt/ký thêm. <strong>Không bật track_functions, không sửa Ba Lô, Graph, Nuxt hay cấu hình PG.</strong> Agent tự kiểm S0/Guard, lấy VPS-GHI bằng CAS khi cờ trống; khi bận/tải không an toàn thì dừng và báo, không giành cờ.</p>
+<p>Claude Code P60 KQ DỪNG tại S1, 0 thay đổi production: writer chưa có quyền thực chỉ <code>dot_tools</code>; công cụ cũ ghi sai tên cột và nuốt lỗi HTTP; 14/31 thay đổi DOT không qua Git. GPT Host P61 chọn <strong>một machine account Directus/policy quyền hẹp</strong>, 1 receipt Guard root-only cho hash/giờ và 1 systemd <code>.path</code>+service. <strong>TS2R chỉ DRAFT, thiếu G2 bổ sung cấp user/policy/token</strong>. Ưu tiên GitHub trước, không chạy lại lệnh TS2 cũ.</p>
 <p class="muted">Sau Đếm: anh gật cấu trúc + cột Sổ quyết định, kèm số thật.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
 <span class="flag">P55 · PG đọc sống + Census + Graph · Ba Lô LEGACY</span>
-<span class="flag">✅ B0b/TS1 XONG · ✅ G2 Owner 1–3 · ✅ TS2 READY@1f8c50c5 · ■ 0 RUN active</span>
+<span class="flag">✅ B0b/TS1 XONG · TS2 DỪNG an toàn P60 · ■ TS2R DRAFT, chưa READY/RUN</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <h2>1. Sơ đồ tổng thể — toàn bộ bức tranh PG Tự quản</h2>
@@ -129,7 +129,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <div class="milestone-path" aria-label="Thứ tự các mốc, kéo ngang để xem hết">
  <div class="milestone-node"><strong>✅ B0b</strong><span>🤖 XONG P27: hai công cụ đã được bảo vệ</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>✅ TS1 · ĐẾM</strong><span>XONG khảo sát P52; còn 3 DB + Graph/đăng nhập thiếu</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node is-current"><strong>■ TS2 · NGUỒN</strong><span>Ghép DOT code/hash, đề xuất auto `dot_tools`, không sync Ba Lô; khóa Graph đa DB</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node is-current"><strong>■ TS2R · DOT</strong><span>Dùng số S1 P60, một service identity + đúng schema/HTTP + .path theo dõi bin; chờ G2 bổ sung</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS3 · SỔ</strong><span>😊 Duyệt cột → 🤖 tạo sổ quyết định + trang Nuxt</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS4–TS5</strong><span>🤖 Máy tự sửa lỗi được phép, cảnh báo có hạn; chỉ phát sinh 1 vụ khi cần người</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>B1–B5</strong><span>Công thức → Workflow</span></div>
@@ -172,7 +172,8 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
  <p>Chỉ nói «có cảnh báo» khi đã chứng minh lịch chạy, kết quả và người nhận. Chưa tạo lịch mới, DOT mới, trigger hoặc app mới.</p>
 </details>
 
-<h2>5. Điểm phải giải quyết sau kết quả Đếm P52</h2>
+<h2>5. Điểm phải giải quyết sau TS2 DỪNG P60</h2>
+<p><strong>P61:</strong> Claude Chat rà một vòng lựa chọn writer quyền hẹp A, biên nhận root-only thay vì thêm cột PG ngay, systemd .path có test edit ngoài Git, Public Access chưa kiểm ẩn danh và đường lùi giữ nguyên worktree dirty. Sau đó chỉ cần Owner bổ sung G2 đúng 1 identity/policy/token; không bật track_functions hay sửa Ba Lô, Graph, Nuxt.</p>
 <p><strong>P57:</strong> Owner cần chốt G2 chỉ cho mục 1–3 (một DOT + cột kỹ thuật đã xác minh + một đường event/đèn có chứng cứ). Không bật track_functions, không tạo thêm bảng Nền; chỉ hiển thị nhãn suy ra với provenance đáng tin. Test commit rỗng không đủ nghiệm thu tự đồng bộ.</p>
 <p>Ưu tiên: (1) API Nuxt đang thiếu kiểm đăng nhập; (2) khóa Graph cần có DB và Graph Host xác nhận đường reader; (3) `dot_tools` cần ghép code/hash trước khi tự đăng ký; (4) 3 DB chưa đo. Không mở lại đồng bộ Ba Lô cũ. Lỗi `dot-report-publish` và giới hạn tài nguyên đo được đưa vào nợ an toàn.</p>
 <div class="note">
