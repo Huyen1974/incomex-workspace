@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**Trạng thái: Host phiên mới (GHM-C1B-RESUME) chốt Codex dùng phiên gh Owner trên Mac (bỏ PAT), repo mã chỉ `agent-data-test`/`web-test`, S7 dọn repo độc lập có tiêu chí có/không. Claude P57 gộp vào PROMPT. Chờ Host READY@ce06dcaa054fdd3eb17e455f3097bb9ce914fb18 + Owner giao Codex. C1A scoped PASS. (R2.2 hạ quyền gh Mac: Host đối chiếu chỉ đạo Owner mới khi soạn C2.)**
+**Trạng thái: GPT Host P58 READY@39dde3fbb411a4c626ab979cb6296ba139798fba cho C1B Codex (Owner `gh`/SSH/GSM trên Mac, script deploy tạo ở S3, CI probe C1A theo branch/SHA, S5 độc lập S4 partial, S7 archive có điều kiện). RUN_ID `GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01` chưa Owner RUN. C1A scoped PASS. R2.2 quyền `gh` Mac phải xét lại chỉ đạo Owner khi tới C2.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 

@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.3 · 24/10/2026
-**Trạng thái: Host phiên mới (GHM-C1B-RESUME) thay P56: Codex dùng phiên gh Owner trên Mac, bỏ PAT, S7 dọn repo độc lập. Claude P57 gộp vào PROMPT + 3 sửa chống dừng (S3 tạo script deploy, S1 không trộn mã cũ, nhánh thử → CI → fast-forward). Chờ Host READY@ce06dcaa054fdd3eb17e455f3097bb9ce914fb18 + Owner giao Codex. C1A scoped PASS; C1B S1–S7 chưa chạy; thứ tự C1B → C3 → C2 Pro → C4 giữ nguyên.**
+**Trạng thái: GPT Host P58 READY@39dde3fbb411a4c626ab979cb6296ba139798fba cho PROMPT C1B (Claude P57 + Host sửa CI branch trigger/S5 độc lập/VPS-GHI scoped). Chưa Owner RUN; C1A scoped PASS, C1B chưa triển khai. Thứ tự C1B → C3 → C2 Pro → C4 không đổi.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
 Ưu tiên 1 (Owner 25/10 15:18): hệ thống chạy được — mỗi repo đi được nhánh → PR → test → main → deploy VPS, máy chạy (runner) đặt trên VPS. Sau đó: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 
