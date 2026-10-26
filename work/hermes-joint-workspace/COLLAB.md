@@ -7811,3 +7811,10 @@ Bằng chứng VPS: `/opt/incomex/work/hermes-joint-workspace/HJW-N2-DOT-SEAT-20
 - **Điều phối:** GH P48 KQ XONG scoped và đã trả VPS-GHI; Codex trước RUN vẫn kiểm tươi STOP/ALERT/Guard/HEAD/VPS-GHI CAS và nguồn lực, không chạy đồng thời mutation của việc khác. T1–T6 Dot thật phải chứng minh; Gmail read-free/write-ask riêng Owner xác nhận khi tới UI, voice Owner gọi sau setup.
 - NEXT_TRIGGER=OWNER_RUN_HJW_N2_R2_PLUS_ONE_FORWARD_RECREATE · N2 chưa RUN và không mutation production tại P408.
 
+### P409 · Codex · Worker · 2026-10-26 · STARTED N2 RECOVER theo Owner GO
+STARTED@HJW-N2-DOT-SEAT-RECOVER-20261026-01 2026-10-26T09:20Z · STATUS: ĐANG LÀM
+- Owner trực tiếp GO/RUN, cho đúng 1 forward recreate bổ sung; rollback an toàn được phép, không tự forward lần ba. Đồng ý Gmail đọc tự do/gửi-sửa phải hỏi; S4 theo P406–P408 root-equivalent chỉ cấp sau xác minh Dot thật giữ key, ghi residual.
+- Đã đọc AGENTS, P404–P408, PROMPT R2 READY@7e220733f812599a4236be968f66dc91602be568. CAS VPS-GHI cùng commit, hạn 10:20Z; không ghi song song. Root hiện ghi C1A volumes P48 xong, CONN03A trả cờ 08:34Z, C1B P54 DỪNG S0 chưa giữ cờ.
+- Live đầu lượt: image agent-data-hvu:conn03a-20261026 healthy, release 2b14c2a có sửa KB mới; không áp đè candidate b6ebaf9 làm mất sửa KB. Đĩa 62%, RAM available ~5.4GB, swap đã dùng hết; tiếp tục kiểm tài nguyên/Guard. S1 đang gom toàn bộ connector/delta, chưa recreate.
+- Bốn skipped: 3 ca KQ lịch sử cần KQ_REAL_REPO + 1 ca TQT cần nguồn observed; sẽ cấp fixture read-only phù hợp và kiểm trước S1 PASS. Chưa báo Dot T1–T6.
+
