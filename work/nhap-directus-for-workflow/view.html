@@ -69,21 +69,21 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>😊 TS1 đang kiểm đếm · bổ sung yêu cầu đồng bộ tự động P53</h2>
+<section class="owner-actions ok"><h2>TS1 đã XONG khảo sát · bước sau: TS2 theo kiến trúc P55</h2>
 <p>✅ B0b XONG P27 · ✅ GPT Host ACCEPT kiến trúc P48, đã sửa an toàn ở P49.</p>
-<p>■ Claude Code <strong>đã STARTED TS1 lúc 13:58 ngày 26/10</strong>, chỉ đọc, RUN <code>NDW-TS1-12TYPE-INVENTORY-20261026-01</code>. Chưa có biên nhận KQ tại lần cập nhật này. Owner đã bổ sung mục tiêu <strong>tự cập nhật kỹ thuật thật, lỗi thì cảnh báo, chỉ tạo việc khi cần người</strong> cho TS2–TS5; không thay lệnh TS1 đang chạy.</p>
+<p>✅ Claude Code TS1 <strong>KQ XONG P52</strong> (35 phút, 0 ghi PG); GPT Host P55 nghiệm thu phạm vi khảo sát có giới hạn. Cùng repo, Claude P54 góp ý theo hướng <strong>Ba Lô cũ là LEGACY</strong>, không xây đường sync cho Ba Lô. Tiếp theo soạn/duyệt TS2 để chuẩn hóa nguồn `dot_tools` và hợp đồng Graph, chưa có lệnh production READY.</p>
 <p class="muted">Sau Đếm: anh gật cấu trúc + cột Sổ quyết định, kèm số thật.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
-<span class="flag">Thẻ P48 + Host P49 · 1 S4 + ≤3 view chỉ là thiết kế</span>
-<span class="flag">✅ B0b XONG · ■ TS1 STARTED · P53 tự đồng bộ: yêu cầu chưa chạy</span>
+<span class="flag">P55 · PG đọc sống + Census + Graph · Ba Lô LEGACY</span>
+<span class="flag">✅ B0b XONG · ✅ TS1 AUDIT XONG · ■ TS2 chưa READY</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <h2>1. Sơ đồ tổng thể — toàn bộ bức tranh PG Tự quản</h2>
-<section class="arch-figure" aria-label="Tự đồng bộ tài sản — yêu cầu P53, chưa nghiệm thu">
-<h3 style="margin:0 0 12px">P53 · Tài sản thay đổi phải tự cập nhật, không đồng bộ được phải cảnh báo</h3>
+<section class="arch-figure" aria-label="Tự đồng bộ tài sản — yêu cầu P55, chưa nghiệm thu">
+<h3 style="margin:0 0 12px">P55 · Tự cập nhật đúng hai tập cần bản sao, không duy trì Ba Lô cũ</h3>
 <div class="arch-columns">
 <div class="arch-node arch-existing"><strong>A · Vật PG</strong><span><code>pg_catalog</code> → VIEW đọc sống. Tài sản mới thấy khi truy vấn, không chép dữ liệu máy.</span></div>
-<div class="arch-node arch-proposed"><strong>B/C · Sổ lưu Ba Lô, DOT</strong><span>Tự so ID → chạy đúng DOT được duyệt → so lại. Chưa chứng minh lịch chạy/thành công thì <b>CHƯA ĐẠT</b>.</span></div>
+<div class="arch-node arch-proposed"><strong>`dot_tools` + Graph</strong><span>Hai tập cần tự đồng bộ đúng ID/giấy/mốc; thử sửa có hạn, kiểm lại và báo lỗi khi trễ. Ba Lô cũ không thuộc luồng.</span></div>
 <div class="arch-node arch-proposed"><strong>Lỗi, tự sửa, cảnh báo</strong><span>Chênh trong nhịp: đang cập nhật; quá hạn: lỗi và báo. Tự xử lý trước, chỉ cần người thì mới tạo 1 vụ việc gộp.</span></div>
 </div>
 <p style="font-size:15px;margin:12px 0 0"><strong>Phân biệt:</strong> chưa có quyết định phân loại là “Chưa quyết”, không phải lỗi đồng bộ. Graph chỉ nhận “ĐỦ” khi có giấy nguồn/nhịp đúng; nếu quá tuổi thì “MỘT PHẦN”. <strong>Đây mới là yêu cầu thiết kế</strong>, chưa bật đồng bộ tự ghi trong sản xuất.</p>
@@ -94,44 +94,16 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <div class="new"><b>C · Ngoài PG</b><small>Tệp DOT trên máy chủ: khai 1 lần vào sổ DOT; 🤖 máy so đĩa ↔ sổ.</small></div></div>
 <p><strong>Phương án P49:</strong> dự kiến tối đa <strong>1 bảng S4</strong> (quyết định) + <strong>3 SQL View</strong> (vật · quan hệ · đối soát), <strong>CHƯA TẠO</strong>. View đọc dữ liệu ở lúc truy vấn, không lưu bản sao; tệp DOT bên ngoài vẫn cần đăng ký. 😊 Nuxt và 🤖 Graph sẽ dùng chung hợp đồng dữ liệu <strong>sau khi Graph Host đổi nguồn và chứng minh hoạt động</strong>, không phải tự động từ bây giờ.</p></section>
 <figure class="arch-figure" aria-labelledby="arch-caption">
-  <div class="arch-legend"><span><i class="legend-existing"></i> Đã có, dùng lại</span><span><i class="legend-proposed"></i> Dự kiến, chưa tạo</span><span><i class="legend-unknown"></i> Cần kiểm chứng</span></div>
-  <div class="arch-columns">
-    <section class="arch-lane" aria-label="Những tài sản có sẵn trong PostgreSQL">
-      <div class="arch-lane-title">NGUỒN 1 · TÀI SẢN PG</div>
-      <div class="arch-node arch-existing"><strong>PG catalog · đủ 12 loại theo ID</strong><span><code>pg_catalog</code> là nguồn danh sách, cha và quan hệ cho tất cả 12 loại; thiếu tên phải ghi rõ trong TS1</span></div>
-      <div class="arch-down">↓ <small>Ba Lô chỉ lưu nhãn 4 loại; 8 loại còn lại đọc thẳng catalog</small></div>
-      <div class="arch-node arch-existing"><strong>S2 · Ba Lô</strong><span><code>balo_thuc_the</code> · bảng hiện có, 4 loại đã ghi từng tên; đồng bộ bằng lệnh có sẵn</span></div>
-      <div class="arch-aside"><strong>S1 · Census — báo cáo sống</strong><span>Đếm từ PG mỗi lần xem, không lưu số. Chỉ là kênh <b>đối chiếu</b>, không cấp danh mục cho Sổ tài sản.</span></div>
-    </section>
-    <section class="arch-lane" aria-label="Tài sản DOT bên ngoài PostgreSQL">
-      <div class="arch-lane-title">NGUỒN 2 · CÔNG CỤ TRÊN VPS</div>
-      <div class="arch-node arch-existing"><strong>Tệp DOT trên VPS</strong><span>Mô tả công dụng một lần ở tệp gốc; script ngoài DOT sẽ rà ở đợt sau, không tự đưa vào dot_tools</span></div>
-      <div class="arch-down">↓ <small>Đăng ký bằng đường có sẵn</small></div>
-      <div class="arch-node arch-existing"><strong>S3 · Sổ DOT</strong><span><code>dot-dot-register</code> → <code>dot_tools</code> · bảng hiện có; còn thiếu/lệch tên phải kiểm</span></div>
-      <div class="arch-aside arch-review"><strong>Bot so tệp ↔ S3</strong><span>Hiện chưa chứng minh đầy đủ việc chạy, đếm đúng và gửi cảnh báo tới người</span></div>
-    </section>
-    <section class="arch-lane" aria-label="Thông tin bằng chứng và quyết định">
-      <div class="arch-lane-title">NGUỒN 3 · CHỨNG CỨ / QUYẾT ĐỊNH</div>
-      <div class="arch-node arch-existing"><strong>Graph · kiểm nút và cạnh</strong><span>Đối soát 12 loại theo ID/cha/cạnh; thiếu bằng chứng thì PARTIAL/UNKNOWN, không tự kết luận “Bỏ”</span></div>
-      <div class="arch-down">↓ <small>Máy đề xuất · Owner duyệt</small></div>
-      <div class="arch-node arch-proposed"><strong>S4 · Sổ quyết định</strong><span><b>CHƯA TẠO</b> · một bảng dự kiến: hệ, Workflow, vùng, quyết định, căn cứ, người duyệt</span></div>
-      <div class="arch-aside"><strong>Quyền ghi</strong><span>Chỉ ghi sau khi 😊 Owner duyệt, AI ghi qua DOT; không nhập tay hàng nghìn dòng</span></div>
-    </section>
-  </div>
-  <div class="arch-funnel" aria-hidden="true"><span>↘</span><span>↓</span><span>↙</span></div>
-  <div class="arch-sink">
-    <div class="arch-node arch-proposed">
-      <strong>3 view: Danh mục vật · Danh mục quan hệ · Bảng đối soát — chưa tạo</strong>
-      <span>Đọc sống từ PG, nối Sổ quyết định theo 1 khoá chung. Không chép, không ai cập nhật tay.</span>
-    </div>
-    <div class="arch-funnel" aria-hidden="true"><span>↙</span><span></span><span>↘</span></div>
-    <div class="arch-columns" style="grid-template-columns:1fr 1fr">
-      <div class="arch-node arch-proposed arch-final"><strong>😊 Nuxt — Bảng đối soát trước</strong><span>30 giây biết sai ở đâu: 🟢 khớp · 🔴 lệch (bấm ra tên) · ⚪ chưa đo.</span></div>
-      <div class="arch-node arch-proposed arch-final"><strong>🤖 Graph — nguồn chung là mục tiêu</strong><span>Graph Host sẽ kiểm và đổi đường đọc sau TS1/G1. Timer đêm đã có nhưng lượt bỏ qua/khác quyền phải báo MỘT PHẦN; chưa cam kết trễ ≤1 đêm.</span></div>
-    </div>
-  </div>
-  <div class="arch-alert"><strong>Máy tự so (Bảng đối soát):</strong> PG ↔ Census · 4 loại PG ↔ Ba Lô · khai báo Directus ↔ PG (trừ folder/alias hợp lệ) · đĩa DOT ↔ sổ DOT · S4 ↔ vật · Graph ↔ VIEW sau khi tích hợp. Trạng thái: 🟢 có đủ phép đo và khớp · 🔴 lệch thật có ID/tên · ⚪ chưa đo, lỗi quyền hoặc mốc khác nhau. Không tô xanh giả.</div>
-  <figcaption id="arch-caption">Mũi tên liền = đường đọc hoặc đăng ký đã thiết kế; hộp nét đứt = chưa được tạo. S1 và S2 cùng dựa trên PG: đối chiếu kết quả và phạm vi nhưng <strong>không mặc nhiên là hai nguồn đo độc lập</strong>. Đây là sơ đồ kiến trúc dự kiến theo §3.TQ, không phải bằng chứng hệ thống đã chạy.</figcaption>
+<div class="arch-legend"><span><i class="legend-existing"></i> Đọc được hiện tại</span><span><i class="legend-proposed"></i> Dự kiến, chưa tạo</span><span><i class="legend-unknown"></i> Cần kiểm chứng</span></div>
+<div class="arch-columns">
+<section class="arch-lane"><div class="arch-lane-title">A · TÀI SẢN PG SỐNG</div><div class="arch-node arch-existing"><strong>PG `pg_catalog` · 4 DB</strong><span>Đọc tên/ID/cha/quan hệ khi truy vấn. TS1 đã đo 16.513 vật của directus, 3 DB khác chưa đo.</span></div><div class="arch-down">↓ <small>Census SELECT đếm sống độc lập theo phạm vi</small></div><div class="arch-aside"><strong>Census</strong> 12 loại khớp tại DB directus, các DB khác chưa kiểm</div></section>
+<section class="arch-lane"><div class="arch-lane-title">C → B · DOT NGOÀI PG</div><div class="arch-node arch-existing"><strong>Tệp DOT trên máy chủ</strong><span>Máy phân biệt active / bản cũ / backup theo code và hash. Chỉ số 253/253 đã kiểm trong tập được lọc.</span></div><div class="arch-down">↓ <small>Auto-register có kiểm chứng, CHƯA chạy</small></div><div class="arch-node arch-proposed"><strong>`dot_tools` cần tự đồng bộ</strong><span>190 dòng thiếu script_path, 129 tệp chưa ghép theo tên: đang cần phân biệt, chưa được tự thêm/xoá.</span></div></section>
+<section class="arch-lane"><div class="arch-lane-title">QUAN HỆ · QUYẾT ĐỊNH</div><div class="arch-node arch-existing"><strong>Graph · hiện MỘT PHẦN</strong><span>Đối chứng nút/cạnh, giấy theo mốc; khoá hiện thiếu DB nên Graph Host phải nâng reader và khoá.</span></div><div class="arch-down">↓ <small>Owner duyệt, máy ghi đúng quyền</small></div><div class="arch-node arch-proposed"><strong>S4 · sổ quyết định</strong><span>Chưa tạo; một bảng, khóa chuẩn có DB, dấu OID khi quyết; không tự gán Giữ/Bỏ.</span></div></section>
+</div>
+<div class="arch-funnel"><span>↘</span><span>↓</span><span>↙</span></div>
+<div class="arch-sink"><div class="arch-node arch-proposed"><strong>3 SQL VIEW dự kiến · vật / quan hệ / đối soát</strong><span>PG sống + Census + giấy Graph + DOT đăng ký + S4 (nếu có). Màu: 🟢 đo đủ/khớp · 🔴 sai thật · ⚪ chưa đo, lỗi đọc hoặc chưa phủ.</span></div><div class="arch-down">↓ <small>Chỉ công bố khi quyền truy cập được sửa và kiểm</small></div><div class="arch-node arch-proposed arch-final"><strong>Nuxt · Bảng đối soát trước</strong><span>API /api/reports/live hiện chưa kiểm đăng nhập; KHÔNG đưa metadata nội bộ ra ngoài. Graph chỉ được đổi reader trong việc Graph riêng.</span></div></div>
+<div class="arch-aside" style="margin-top:12px"><strong>LEGACY · Ba Lô cũ</strong><span>Giữ nguyên bảng `balo_thuc_the`, bốn báo cáo và socket. Không đồng bộ, không dùng làm danh mục/nguồn đối soát của hệ mới; nhãn cũ chỉ được tham khảo sau Owner duyệt.</span></div>
+<figcaption id="arch-caption">P55: danh mục máy đọc sống; hai tập có bản sao cần tự đồng bộ là `dot_tools` và Graph. Hình là mục tiêu triển khai, KHÔNG là bằng chứng các thành phần mới đã chạy.</figcaption>
 </figure>
 <div class="arch-risk"><strong>TS1 phải chứng minh 7 nhóm:</strong> A và loại ngoài 12 · khóa Graph thật · nhóm B/C không đếm trùng · PG16 thống kê có mốc reset · Nuxt tải và quyền · graph-refresh có thể đọc VIEW · DOT có thể tạo S4/VIEW bằng cổng được phép. Chưa đo thì giữ ⚪ CHƯA RÕ. Không tạo view, S4 hay sửa Graph trong TS1.</div>
 
@@ -156,13 +128,13 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <h2>3. Lộ trình — từng bước, không nhảy cóc</h2>
 <div class="milestone-path" aria-label="Thứ tự các mốc, kéo ngang để xem hết">
  <div class="milestone-node"><strong>✅ B0b</strong><span>🤖 XONG P27: hai công cụ đã được bảo vệ</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node is-current"><strong>■ TS1 · ĐẾM</strong><span>🤖 Chỉ đọc: đếm đủ A + B + C, khoá Graph, Nuxt</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node"><strong>TS2 · ĐỦ</strong><span>😊 Duyệt cổng → 🤖 máy tự đối soát/đồng bộ Ba Lô và DOT, kiểm lại</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>✅ TS1 · ĐẾM</strong><span>XONG khảo sát P52; còn 3 DB + Graph/đăng nhập thiếu</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node is-current"><strong>■ TS2 · NGUỒN</strong><span>Ghép DOT code/hash, đề xuất auto `dot_tools`, không sync Ba Lô; khóa Graph đa DB</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS3 · SỔ</strong><span>😊 Duyệt cột → 🤖 tạo sổ quyết định + trang Nuxt</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS4–TS5</strong><span>🤖 Máy tự sửa lỗi được phép, cảnh báo có hạn; chỉ phát sinh 1 vụ khi cần người</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>B1–B5</strong><span>Công thức → Workflow</span></div>
 </div>
-<p class="muted">P53: TS1 chỉ đọc, không thay PROMPT. Các sổ lưu chỉ được tự ghi sau G1/G2; ưu tiên DOT/lịch/đường cảnh báo đang có. Trần thiết kế hiện vẫn 1 bảng S4 + ≤3 VIEW, không tự thêm trigger/lịch, không tắt/xoá.</p>
+<p class="muted">P55: TS1 đã XONG, TS2 chưa ký. Chỉ `dot_tools`/Graph cần tự cập nhật; PG đọc sống. Dự kiến tối đa 1 S4 + 3 VIEW, không tạo trigger/lịch tự tiện; giữ legacy nguyên trạng và phải bảo vệ API Nuxt trước công bố.</p>
 
 <h2>4. Cách đếm · khai tối thiểu · bot kiểm soát</h2>
 <details>
@@ -200,8 +172,8 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
  <p>Chỉ nói «có cảnh báo» khi đã chứng minh lịch chạy, kết quả và người nhận. Chưa tạo lịch mới, DOT mới, trigger hoặc app mới.</p>
 </details>
 
-<h2>5. Điểm sẽ trình anh sau khi đếm</h2>
-<p><strong>Thêm theo P53:</strong> bằng chứng về lịch đồng bộ Ba Lô/DOT, ngưỡng trễ thực, cách tự sửa có bảo vệ, cách cảnh báo đúng lỗi và điều kiện mở quy trình phát sinh. Không để anh phải xử lý từng lệch số nhỏ.</p>
+<h2>5. Điểm phải giải quyết sau kết quả Đếm P52</h2>
+<p>Ưu tiên: (1) API Nuxt đang thiếu kiểm đăng nhập; (2) khóa Graph cần có DB và Graph Host xác nhận đường reader; (3) `dot_tools` cần ghép code/hash trước khi tự đăng ký; (4) 3 DB chưa đo. Không mở lại đồng bộ Ba Lô cũ. Lỗi `dot-report-publish` và giới hạn tài nguyên đo được đưa vào nợ an toàn.</p>
 <div class="note">
 <p>⚪ Cấu trúc 3 nhóm + 1 bảng + 3 view (Thẻ P48).</p>
 <p>⚪ Từng cột của Sổ quyết định và quyền ghi.</p>
