@@ -1,5 +1,6 @@
 # COLLAB — github-management
 Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an toàn
+Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
