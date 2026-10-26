@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.3 · 24/10/2026
-**Trạng thái: C1A CI 2/2 GREEN giữ nguyên; S3-CLOSE P40 KQ DỪNG, kiểm định đã cải thiện nhưng còn 1 thiếu sót tài nguyên thuộc chính C1A. C1A_S3_SCOPED=FAIL · GLOBAL_GUARD=PARTIAL. VPS-GHI đã trả; Host đọc hồ sơ riêng. Không tự C1B/C2.**
+**Trạng thái: C1A 2/2 CI GREEN và swap/INV25 đạt (P40), còn duy nhất 2 runner data volumes ~1,93 GiB chưa khai báo đúng storage-watch; GPT P41 DRAFT lệnh Codex sửa vào registry hiện có, chờ Claude ký/Host READY/Owner RUN. Nếu scoped PASS → C1B KST → C3 → C2 Pro → C4 ca đêm. GLOBAL_GUARD vẫn PARTIAL theo nợ khác.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
 Ưu tiên 1 (Owner 25/10 15:18): hệ thống chạy được — mỗi repo đi được nhánh → PR → test → main → deploy VPS, máy chạy (runner) đặt trên VPS. Sau đó: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 

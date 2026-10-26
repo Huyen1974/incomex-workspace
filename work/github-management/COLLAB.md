@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · 26/10/2026 10:26 +07 · Codex · P40
-- 🎯 Mục tiêu: CI/CD hai repo thực trên VPS; nhiều agent code song song, Claude Code CLI là kỹ sư trưởng kiểm/merge/deploy; ca đêm tự thực hiện có biên nhận.
-- 🏁 Đóng toàn việc khi: C1A S3 đạt → C1B deploy thủ công+rollback trên VPS, đưa 3 audit lên VPS → C3 ba PR thật/KST merge → C2 Pro/khóa main/auto-deploy → C4 ca đêm.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A CI 2/2 xanh → ✓ kiểm quota/INV25 → ⛔ C1A S3 còn 1 blocker thuộc C1A → C1B → C3 → C2 → C4.
-- ✅ Đã xong: giữ hai CI cũ; mở rộng kiểm định hiện có, kiểm thử và đối chiếu thực tế đạt. Phần thay đổi C1A trong tài liệu dùng chung đã tách và có bằng chứng riêng.
-- ■ Đang làm: 0 RUN active của Codex; KQ DỪNG GHM-C1A-S3-CLOSE-20261025-01, trả VPS-GHI và kết thúc kiểm tra tạm.
-- ⬜ Còn lại: 1 thiếu sót khai báo tài nguyên của chính C1A; không lấy nợ của RUN khác làm blocker. C1A_S3_SCOPED=FAIL · GLOBAL_GUARD=PARTIAL. Bằng chứng chi tiết giữ riêng.
-- ➡ Kế tiếp: Host/Reviewer đọc KQ P40 và hồ sơ riêng, quyết cách khép thiếu sót của C1A theo cơ chế hiện có. NEXT_TRIGGER=HOST_REVIEW_C1A_STORAGE_ACCOUNTING.
-- ⛔ Không tự chạy lại CI, cài lại runner, sửa main/ứng dụng hoặc C1B/C2.
+### BẢNG ĐIỀU KHIỂN · 26/10/2026 · GPT Host · P41
+- 🎯 Mục tiêu: hai repo CI/CD chạy VPS, KST duyệt/merge/deploy, nhiều agent làm thật, cuối cùng ca đêm.
+- 🏁 Xong C1A khi: 2 runner + 2/2 CI xanh + INV25 swap/cgroup + 2 volume đăng ký canh dung lượng thật, Guard C1A scoped PASS.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ hai CI 2/2 GREEN → ✓ Codex P40 swap/INV25 → ■ P41 chỉ còn đăng ký 2 volume (DRAFT) → □ Claude ký → □ Host READY/Owner RUN Codex → □ C1A XONG → C1B → C3 → C2 → C4.
+- ✅ Đã xong: Agent Data 6/6 Web 16/16; 2 runner online; no-swap cgroup đã kiểm, INV25 test PASS; C1A footprint 7 riêng+3 dùng chung kiểm; các nợ global giao đúng chủ.
+- ■ Đang làm: 0 RUN active ở task; VPS-GHI trống theo root KQ P40. Chưa có RUN volume mới, không đổi VPS trong P41.
+- ⬜ Còn lại: đăng ký giám sát dung lượng 2 runner data volumes ~1,93 GiB vào storage-registry/storage-watch hiện có; chứng minh đo/canh; POST scoped và giữ runner/CI; kế tiếp C1B KST.
+- ➡ Kế tiếp: Claude rà đúng 1 lỗi P40, ký PROMPT `GHM-C1A-S3-VOLUMES-20261026-01` và Host READY, Owner giao Codex. NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C1A_STORAGE_PROMPT.
+- ⛔ Không dọn volume/backup/xoay credential, không thêm monitor/cron, không rerun CI hoặc làm lại P40 swap, không tự chạy C1B/C2.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -606,6 +606,16 @@ Ghế: openai-main · Based_on: P35–P36, P37 Claude ký ACCEPT, GitHub xác nh
 - [Báo cáo công khai](C1A-S3-CLOSE-REPORT.md); bản đầy đủ riêng SHA256 5a5358545f7a18c3bde20e9d69946aebfbbe087fa4bf7866ac0ce4b212fa0620; manifest riêng 2931f01a139b0b453f898878cf937a924e62b3f3f45a614a0427aab420d173b0. POST SHA256 92718fdeeb5772f3eadffdecb05ebd9946b376d113a5e775f1999edc6fa99581.
 - 0 RUN active của Codex; kiểm tra tạm đã kết thúc; VPS-GHI trả trong commit này. Không C1B/C2.
 - NEXT_TRIGGER=HOST_REVIEW_C1A_STORAGE_ACCOUNTING.
+
+## P41 · GPT Host 26/10/2026 — KẾT QUẢ P40: CHỈ CÒN KHAI BÁO 2 VOLUME RUNNER, DRAFT RUN CODEX
+Ghế: openai-main · Based_on: Codex P39–P40 và C1A-S3-CLOSE-REPORT, báo cáo private Owner; root VPS-GHI trả cờ; VPSC-D31 có sẵn `storage-registry.tsv` (entry sâu thắng)/storage-watch/#11; runnerctl.sh xác nhận data volume persistent.
+- **Nhận thành quả:** C1A 2/2 CI thật GREEN, swap cgroup live=0/CPU/RAM đạt, INV25 và các fixture/đầu kiểm đã đạt; giữ nguyên. P40 `C1A_S3_SCOPED=FAIL` chính xác vì **hai runner persistent data volumes ~1,93 GiB chưa được ghi danh và canh dung lượng theo contract**. Đây không phải disk full, không cần cleanup. GLOBAL_GUARD=PARTIAL còn nợ RUN khác.
+- **Một lỗi, một RUN cuối:** `GHM-C1A-S3-VOLUMES-20261026-01` Codex sửa đúng 2 đăng ký resource volume vào lớp storage-registry/storage-watch **đã có**; đo size/cap thật, proof canary không giả, Guard Đ30/31 cùng lượt. Không đặt lớp MONITORED/ROTATING nếu schema không hỗ trợ, không đặt valve cleanup giả, không thêm timer/script, không xóa credential của runner. Cần máy kiểm ở S0 xác minh path/schema thực vì connector Host không có shell VPS; chưa gọi PASS trước KQ.
+- **Đóng đúng phạm vi:** nếu cả 2 volume có owner, class/size/cap và storage-watch bắt vượt trần/hỏng khai báo, runner/Guard/CI giữ nguyên thì có thể `C1A_S3_SCOPED=PASS` dù `GLOBAL_GUARD=PARTIAL` với nợ ngoài C1A; Host/Reviewer nhận KQ rồi chuyển C1B. Không lặp R0/R1/test, không làm lại P40 swap.
+- **Roadmap không đảo:** C1B Claude Code CLI KST deploy thủ công+rollback, chuyển 3 audit → C3 3 agent PR thật → C2 Pro/khóa main/auto deploy → C4 ca đêm. Đã có khung C1B trong KE-HOACH. Không ghi đè PROMPT ngay trong C1A/C1B song song vì chỉ một PROMPT active/A6.
+- **Gate:** Lệnh storage là DRAFT_NOT_READY; Claude Reviewer đọc đúng P40/P41 và PROMPT một lượt, ACCEPT last-touch SHA; GPT READY@SHA, Owner chuyển cho CODEX. Không đổi executor, không tự RUN.
+- NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C1A_STORAGE_PROMPT.
+
 
 
 
