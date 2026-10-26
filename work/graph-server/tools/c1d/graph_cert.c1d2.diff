@@ -1,0 +1,140 @@
+--- a/bin/refresh/graph_cert.py
++++ b/bin/refresh/graph_cert.py
+@@ -107,7 +107,8 @@
+ LEDGER = "/opt/incomex/scripts/code-ledger.tsv"
+ BASES = "/opt/incomex/lark-client/config/bases.yaml"
+ BAK = r"\.(bak|pre)[-.]|\.stage0-frozen|\.[0-9]{8}T[0-9]{6}Z$"   # luật nhãn dot/bin LBL-2 (cùng đặc tả R6D/R7, viết lại độc lập)
+-ENGINE_VERSION = "c1d-1"
++ENGINE_VERSION = "c1d2-1"   # C1-D2: bộ đọc Graph của ô loại nút/cạnh gs_status=retired · nhãn N4 MỘT PHẦN khi phạm vi có bản retire · VÀNG SOURCE_BLOCKED_OWNED
++ACTIVE = "coalesce(%s.gs_status, '') <> 'retired'"   # C1-D2 R3: đối tượng còn hiện hành (retire = thuộc tính, không xoá)
+ INVENTORY = CERT_DIR + "/inventory.json"              # C1-C: kho kiểm kê G1–G9 lần chụp tốt cuối (dữ liệu, không phải giấy)
+ GRAPH_CTR = "incomex-graph-neo4j"                     # container Neo4j production (Id/StartedAt thuộc hàng rào K1)
+ REFRESH_LOCK = "/run/lock/incomex-graph-refresh.lock"  # khoá của graph-refresh (chỉ ĐỌC trạng thái qua /proc/locks)
+@@ -885,11 +886,12 @@
+ 
+ def graph_nodes(g, pw, label, attrs, prefix, page=GRAPH_PAGE):
+     lab = label.replace("`", "")
+-    total = g_rows(g, pw, "MATCH (n:`%s`) RETURN count(n) AS c" % lab)[0]["c"]
++    total = g_rows(g, pw, "MATCH (n:`%s`) WHERE %s RETURN count(n) AS c" % (lab, ACTIVE % "n"))[0]["c"]
++    retired = g_rows(g, pw, "MATCH (n:`%s`) WHERE NOT (%s) RETURN count(n) AS c" % (lab, ACTIVE % "n"))[0]["c"]
+     rows, after, pages, bad_key = [], "", 0, 0
+     while True:
+-        rs = g_rows(g, pw, "MATCH (n:`%s`) WHERE n.gs_key > $after RETURN n.gs_key AS k, n.id AS id, [a IN $attrs | n[a]] AS av, "
+-                           "'GS' IN labels(n) AS gs ORDER BY n.gs_key LIMIT $page" % lab, {"after": after, "attrs": attrs, "page": page})
++        rs = g_rows(g, pw, "MATCH (n:`%s`) WHERE n.gs_key > $after AND %s RETURN n.gs_key AS k, n.id AS id, [a IN $attrs | n[a]] AS av, "
++                           "'GS' IN labels(n) AS gs ORDER BY n.gs_key LIMIT $page" % (lab, ACTIVE % "n"), {"after": after, "attrs": attrs, "page": page})
+         pages += 1
+         for r in rs:
+             rows.append([label, r["id"]] + [None if v is None else str(v) for v in r["av"]])
+@@ -898,18 +900,20 @@
+         if len(rs) < page:
+             break
+         after = rs[-1]["k"]
+-    return {"rows": rows, "total": total, "pages": pages, "complete": total == len(rows), "gs_key_bad": bad_key}
++    return {"rows": rows, "total": total, "pages": pages, "complete": total == len(rows), "gs_key_bad": bad_key, "retired_excluded": retired}
+ 
+ 
+ def graph_edges(g, pw, rtype, a, b, prov, page=GRAPH_PAGE):
+     t = rtype.replace("`", "")
+-    total_all = g_rows(g, pw, "MATCH ()-[r:`%s`]->() RETURN count(r) AS c" % t)[0]["c"]
+-    total = g_rows(g, pw, "MATCH (:`%s`)-[r:`%s`]->(:`%s`) RETURN count(r) AS c" % (a, t, b))[0]["c"]
++    act = "%s AND %s AND %s" % (ACTIVE % "r", ACTIVE % "x", ACTIVE % "y")      # C1-D2 R3: cạnh retire hoặc chạm nút retire ⇒ không còn hiện hành
++    total_all = g_rows(g, pw, "MATCH (x)-[r:`%s`]->(y) WHERE %s RETURN count(r) AS c" % (t, act))[0]["c"]
++    total = g_rows(g, pw, "MATCH (x:`%s`)-[r:`%s`]->(y:`%s`) WHERE %s RETURN count(r) AS c" % (a, t, b, act))[0]["c"]
++    retired = g_rows(g, pw, "MATCH (x:`%s`)-[r:`%s`]->(y:`%s`) WHERE NOT (%s) RETURN count(r) AS c" % (a, t, b, act))[0]["c"]
+     cond = " AND ".join("r[%s] IS NOT NULL" % json.dumps(k) for k in prov) or "true"
+     rows, after, pages, noprov = [], "", 0, 0
+     while True:
+-        rs = g_rows(g, pw, "MATCH (x:`%s`)-[r:`%s`]->(y:`%s`) WITH x, r, y, x.gs_key + '|' + y.gs_key + '|' + elementId(r) AS k WHERE k > $after "
+-                           "RETURN k, x.id AS s, y.id AS d, %s AS prov ORDER BY k LIMIT $page" % (a, t, b, cond), {"after": after, "page": page})
++        rs = g_rows(g, pw, "MATCH (x:`%s`)-[r:`%s`]->(y:`%s`) WHERE %s WITH x, r, y, x.gs_key + '|' + y.gs_key + '|' + elementId(r) AS k WHERE k > $after "
++                           "RETURN k, x.id AS s, y.id AS d, %s AS prov ORDER BY k LIMIT $page" % (a, t, b, act, cond), {"after": after, "page": page})
+         pages += 1
+         for r in rs:
+             rows.append([r["s"], rtype, r["d"]])
+@@ -918,7 +922,7 @@
+             break
+         after = rs[-1]["k"]
+     return {"rows": rows, "total": total, "total_all_endpoints": total_all, "pages": pages,
+-            "complete": total == len(rows), "other_endpoints": total_all - total, "provenance_missing": noprov}
++            "complete": total == len(rows), "other_endpoints": total_all - total, "provenance_missing": noprov, "retired_excluded": retired}
+ 
+ 
+ def graph_read(g, pw, spec):
+@@ -1720,10 +1724,13 @@
+     admitted = {c.get("parent") for c in cells if c.get("parent")} | set(base.get("accepted_directory_parents") or []) | \
+         {p for c in cells for p in (c.get("parents") or [])}         # C1-D: ô lane nhận đúng tập cha nó đối chiếu nguồn↔Graph (không phải ACK)
+     cellpar = {p for c in cells for p in (c.get("parents") or [])}
+-    prefixes = tuple(p for c in cells for p in (c.get("parent_prefixes") or []))
+-    if prefixes:                                     # C1-D: ô lane nhận mọi cha theo tiền tố — chính ô đối chiếu từng cha nguồn↔Graph
++    for c in cells:                                  # C1-D: ô lane nhận mọi cha theo tiền tố — chính ô đối chiếu từng cha nguồn↔Graph
++        pp = tuple(c.get("parent_prefixes") or [])
++        if not pp:
++            continue
++        ex = [re.compile(x) for x in ((c.get("source") or {}).get("exclude_patterns") or [])]   # C1-D2: cha ô tự loại trừ ⇒ không nhận
+         for g_, xs in parents.items():
+-            admitted |= {x for x in xs if x.startswith(prefixes)}
++            admitted |= {x for x in xs if x.startswith(pp) and not any(e.search(x) for e in ex)}
+     unhandled, vanished, per_gate = [], [], {}
+     for g, pre in GATE_PREFIX.items():
+         if g not in parents:
+@@ -2270,6 +2277,7 @@
+         r = evaluate(c, src, gr, now, cat.get("ttl_hours", MAX_TTL_H))
+         r["graph_snapshot"] = gsnap
+         r["seconds"] = round(time.time() - ct, 1)
++        r["retired_in_scope"] = sum(int(v.get("retired_excluded") or 0) for v in (gr.get("meta") or {}).values() if isinstance(v, dict))   # C1-D2 R3
+         res[c["key"]] = r
+     base = jload(BASELINE) or {}
+     dr = directory(cat["cells"], S, base) if not only else None
+@@ -2846,7 +2854,9 @@
+         if page and not anchor:
+             lab["layers"]["L2"]["paging"] = {"requested": str(page)[:120], "accepted": False,
+                                              "denied": "CURSOR_SCOPE_MISMATCH (truy vấn không neo vào bảng mẫu L1)"}
+-        if qc in ("CELL_SCOPED_LOOKUP", "L1_SCOPED_LOOKUP") and not miss:
++        ret_cells = sorted(k for k in need if ((((doc or {}).get("cells") or {}).get(k) or {}).get("retired_in_scope") or 0) > 0)
++        lab["retired_in_scope_cell_ids"] = ret_cells                 # C1-D2 R3: Graph còn giữ bản retire trong phạm vi ô
++        if qc in ("CELL_SCOPED_LOOKUP", "L1_SCOPED_LOOKUP") and not miss and not ret_cells:
+             iss = [eff[k][2] for k in need]
+             exp = [eff[k][3] for k in need]
+             lab.update(completeness_label=DU, proof_issued_at=min(iss), expires_at=min(exp), query_actionability=ACT_OK,
+@@ -2858,6 +2868,9 @@
+                                                                  for i, k in enumerate(miss[:8])) + ("…" if len(miss) > 8 else ""))
+             if result_rows == 0:
+                 lab["reason"] += "; kết quả rỗng KHÔNG chứng minh vắng quan hệ"
++            if ret_cells and not miss:
++                lab["reason"] = ("RETIRED_IN_SCOPE %s: Graph còn giữ nút/cạnh đã retire (gs_status=retired, không xoá cứng) mà truy vấn tự viết "
++                                 "không được chứng minh đã loại ⇒ MỘT PHẦN" % ",".join(ret_cells[:3])) + ("; " + lab["reason"] if reason else "")
+         if fence["status"] != "MATCH":
+             lab["reason"] = "%s · %s · %s" % (fence["status"], fence.get("why"), lab.get("reason") or "")
+         if fst != "MATCH":
+@@ -2872,10 +2885,10 @@
+ 
+ # =========================================================================== CT5 — đèn + biên nhận sự cố
+ SEVERITY = {"OPERATIONAL": "critical", "COVERAGE_REGRESSION": "critical", "NEW_SOURCE_UNHANDLED": "warning", "SOURCE_VANISHED": "warning",
+-            "PENDING_HOST_ACK": "warning", "SOURCE_CHANGE": "info", "SIGNAL_DEGRADED": "warning"}
++            "PENDING_HOST_ACK": "warning", "SOURCE_CHANGE": "info", "SIGNAL_DEGRADED": "warning", "SOURCE_BLOCKED_OWNED": "warning"}
+ 
+ 
+-def alarm(doc, op_failure=None, now=None, baseline=None, prev_open=None):
++def alarm(doc, op_failure=None, now=None, baseline=None, prev_open=None, owned=None):
+     """⇒ (status 'up'|'down', msg ≤ 200, incidents[]). CT5 + C1-C (kiểu Alertmanager: mức · dập trùng · nhắc lại):
+     ĐỎ critical — gọi trang (DOWN) MỌI lượt tới khi hết: OPERATIONAL (lượt bỏ qua, máy/giấy lỗi, bộ đọc ô/kiểm kê hỏng, cửa không đọc được)
+        · COVERAGE_REGRESSION (ô sàn certified_floor không còn ĐỦ — gồm hết hạn, Graph đổi giữa lượt).
+@@ -2883,6 +2896,8 @@
+        PHẦN chưa nhận mốc). Gọi trang ĐÚNG MỘT lượt khi mã sự cố xuất hiện (Telegram), sau đó UP kèm danh sách vàng mở; nhắc lại khi quá
+        yellow_repeat_hours (mốc, mặc định 168h). Nhãn N4 vẫn MỘT PHẦN suốt thời gian vàng mở.
+     GHI SỔ info — SOURCE_CHANGE: thay đổi con trong họ đã nhận MỘT PHẦN (thêm/sửa/xoá) — biên nhận + nêu trong tin, không gọi trang.
++    VÀNG C1-D2 R2 — SOURCE_BLOCKED_OWNED (owned, do graph-refresh tách): nguồn ngoài BLOCKED có chủ khai báo, chứng cứ đọc trọn (vd cây mã
++       bản chạy ≠ HEAD) — lane đó không ghi, ô MỘT PHẦN; mọi lỗi nội bộ Graph (máy/giấy/điểm khôi phục/sàn) vẫn ĐỎ.
+     Mốc chỉ dập tin trùng — không bao giờ làm ô xanh."""
+     now = time.time() if now is None else now
+     baseline = baseline if baseline is not None else (jload(BASELINE) or {})
+@@ -2894,6 +2909,8 @@
+     inc = []
+     if op_failure:
+         inc.append({"kind": "OPERATIONAL", "cell": "graph-refresh", "reason": op_failure})
++    for x in owned or []:
++        inc.append({"kind": "SOURCE_BLOCKED_OWNED", "cell": x["cell"], "reason": x["reason"], "owner": x["owner"]})
+     if doc is not None:
+         ok, why = verify_manifest(doc, now)
+         if not ok:
