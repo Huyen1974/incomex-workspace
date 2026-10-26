@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 17:40 +07 · GPT Host · P58
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 19:23 +07 · Codex · P59
 - 🎯 Mục tiêu: C1B Codex ở đúng 2 repo PRIVATE `agent-data-test` + `web-test` — baseline cây mã VPS, build/deploy thử/rollback 2 app và 3 audit trên runner; S7 archive có điều kiện chạy độc lập. C3 → C2 → C4 sau C1B.
 - 🏁 C1B XONG khi: main giữ history và cây VPS đã kiểm, CI ứng viên đúng SHA, 2 app deploy/rollback healthy, 3 audit trên runner VPS không giảm test, Đ30/31 và VPS-GHI trả. Thiếu mục phải ghi giới hạn từng repo.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ✓ Claude P57 → ✓ GPT READY P58 → ■ C1B Codex (chưa RUN) → C3 → C2 → C4.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ✓ Claude P57 → ✓ GPT READY P58 → ■ C1B Codex STARTED P59 → C3 → C2 → C4.
 - ✅ Đã xong: C1A 2/2 CI, INV25/volumes scoped PASS; P54 DỪNG sạch; PROMPT đã gộp P57 và Host sửa thêm nhánh CI probe C1A, S5 độc lập, VPS-GHI chỉ giữ lúc ghi host.
-- ■ Đang làm: — · 0 RUN active. Host READY@39dde3fbb411a4c626ab979cb6296ba139798fba · RUN_ID=GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01.
+- ■ Đang làm: Codex STARTED cùng RUN theo P58; S0/S1 clone và đối chiếu trên Mac, chưa nhận VPS-GHI; chỉ lấy cờ ngay trước ghi host S3–S5.
 - ⬜ Còn lại: Codex thực thi S0–S7; `chatgpt-githubnew` giữ nguyên, chỉ kiểm actor/Actions; C3 nhiều agent, C2 Pro/ruleset, C4 ca đêm sau nghiệm thu.
-- ➡ Kế tiếp: 😊 Owner dán 1 lệnh giao Codex đọc PROMPT.md chuẩn; Codex tiếp tục việc độc lập khi VPS-GHI bận, chỉ dừng phần tác động bị chặn. NEXT_TRIGGER=OWNER_RUN_GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01.
+- ➡ Kế tiếp: Codex thực hiện S0–S7 và ghi bằng chứng từng repo; NEXT_TRIGGER=CODEX_C1B_S0_S7_KQ.
 - ⛔ Không force-push/xoá main/repo, không đổi visibility/ruleset hoặc mua gói, không secret cho CI; không triển khai SQL/compose/nginx, giữ rollback và 6 điểm P50.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -823,6 +823,15 @@ Based_on: Owner chỉ đạo không hạn chế quyền Mac; Codex P54, Claude P
 - **Một lệnh chuẩn:** `work/github-management/PROMPT.md`, mọi lệnh khác chỉ tham chiếu. P51/P53 READY cũ và P56 trái P57 không áp dụng; READY ghim đúng last-touch dưới đây, PROMPT không sửa tiếp nếu không ký lại.
 - **READY@39dde3fbb411a4c626ab979cb6296ba139798fba** · signer=GPT Host/openai-main · EXECUTOR=Codex CLI/Desktop · RUN_ID=`GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01` · scope=S0–S7 của PROMPT hiện hành. Chưa STARTED; chưa mutate hai repo mã, chưa deploy/restart VPS, chưa archive. Owner chỉ chuyển một lệnh. Codex S0 kiểm quyền, Guard/VPS-GHI trước mutation; phân loại PARTIAL riêng từng repo và không tự mở C3/C2/C4.
 - NEXT_TRIGGER=OWNER_RUN_GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01.
+
+## P59 · Codex · 26/10/2026 19:23 +07 — STARTED tiếp cùng RUN theo P58
+Ghế: openai-codex · Bước/vòng: thực thi S0–S7 · 1/1 · Based_on: Owner RUN trực tiếp và P58 READY@39dde3fbb411a4c626ab979cb6296ba139798fba · Scope: PROMPT hiện hành.
+STARTED@GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01 · 2026-10-26T12:23Z
+- PROMPT last-touch đúng SHA READY, content SHA256 75e636ad9fc3edb7c4658701ccc15fedea02fc4f060ae5cb393c9b927ef7a1cc. P54 giữ lịch sử, giới hạn quyền cũ bị P57/P58 thay thế; phiên gh Owner có workflow và SSH đã xác nhận, không cần thẻ mới.
+- S0/S1/GitHub-only không giữ VPS-GHI. Root hiện trống sau Graph P260 trả cờ; sẽ đọc lại và CAS trước từng nhóm mutation host. 2 app healthy, runner đang chạy; giữ CI C1A, không đọc/in secret.
+- Clone biệt lập trên Mac; baseline VPS + archive main cũ + merge ours/tree check; CI đúng candidate trước fast-forward. S5/S7 tiếp tục độc lập nếu app khác bị chặn; không đổi sáu safety P50, không tự C3/C2/C4.
+- NEXT_TRIGGER=CODEX_C1B_S0_S7_KQ.
+
 
 
 
