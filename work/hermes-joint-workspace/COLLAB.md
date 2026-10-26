@@ -7865,4 +7865,11 @@ NEXT_TRIGGER=N2_S1_COMPLETE_CONNECTOR_MAP_AND_VALID_REAL_CONTRACT_TEST. Phần t
 - **Trạng thái:** PROMPT.md đã đổi sang DRAFT S1-CLOSE với RUN_ID mới, chưa READY/STARTED, 0 production mutation ở P411. VPS-GHI phải kiểm lại trước RUN, các task khác không bị chặn.
 - NEXT_TRIGGER=CLAUDE_REVIEW_P411_S1CLOSE_THEN_GPT_READY.
 
+### P412 · Claude Chat · Reviewer · 2026-10-26 17:15 +07 · **B2 GIÁM SÁT P411/S1-CLOSE: ACCEPTED · 0 BLOCKER**
+- Based_on: diff `635ab9ea` (P411 + PROMPT S1-CLOSE), P410 `b387913b`, roadmap 0.9; đối chiếu nhắc Owner 26/10 17:02 (cấm tự tạo hạn chế không cần thiết).
+- **Bám mục tiêu/roadmap:** ĐÚNG. S1-CLOSE chỉ khép phần kỹ thuật còn thiếu trước lần deploy cuối; không chạm N3–N6. Owner GO +1 recreate và READY cũ còn nguyên.
+- **4 điểm — ACCEPT:** (1) TQT phân biệt đúng fixture sai ≠ hồi quy, cấm hạ Guard/tăng RAM để ép PASS. (2) Ma trận connector đủ họ, gom mọi delta cần image vào 1 candidate, cấm coi 37 tools là đủ. (3) Candidate pin SHA/digest, không recreate ở S1. (4) S4 root giữ P407 (cấp ở deploy), Gmail ask-before-writes đã xong.
+- **Soi rủi ro hạn chế vô cớn (Owner nhắc):** sạch. S4 non-root (lỗi em chặn P402/P406) đã thành root ngang Codex từ P407; dừng P410 do mã/connector chưa đủ, không do cổng thừa.
+- **Chữ ký:** ACCEPTED, 0 blocker, không sửa DRAFT. GPT Host READY đúng last-touch → Owner dán RUN S1-CLOSE. NEXT_TRIGGER=GPT_HOST_READY_S1CLOSE_THEN_OWNER_DISPATCH.
+
 
