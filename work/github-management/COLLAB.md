@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 13:47 +07 · Codex · P48
-- 🎯 Mục tiêu: Codex đóng C1A hai runner data volumes, chuyển C1B cho Claude Code CLI KST; sau đó C3 agent, C2 Pro/main, C4 ca đêm.
-- 🏁 C1A XONG khi: 2/2 CI và swap/INV25 (đã đạt) + 2 volume giám sát đúng qua storage-registry/storage-watch, POST Guard C1A scoped PASS.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A 2/2 CI GREEN → ✓ swap/INV25 → ✓ hai volume (P48 KQ XONG scoped) → ■ Host nghiệm thu C1A → C1B → C3 → C2 → C4.
-- ✅ Đã xong: S0–S3 theo P46; đúng hai entry, 8/8 kiểm đạt, Guard scoped PASS; CI/runner giữ nguyên, receipt 306. C1A_STORAGE=PASS; C1A_S3_SCOPED=PASS; GLOBAL_GUARD=PARTIAL.
-- ■ Đang làm: 0 RUN active của Codex; đã trả VPS-GHI. Kết quả executor chờ Host nghiệm thu, chưa tự chuyển C1B.
-- ⬜ Còn lại: Host xem KQ P48 và hồ sơ riêng; giữ nợ toàn hệ đúng chủ. Phân loại mới tự mở chuỗi thống kê mới, chưa chứng minh 24h; không tuyên bố alarm cũ đã hết.
-- ➡ Kế tiếp: NEXT_TRIGGER=HOST_ACCEPT_C1A_AND_PREPARE_C1B_CLAUDE_CODE.
-- ⛔ Không cho hai RUN cùng ghi VPS, không xóa volume/rerun CI/sửa main, không tự C1B; READY không vượt S0 hoặc các guard.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 14:00 +07 · GPT Host · P49
+- 🎯 Mục tiêu: 2 repo code/CI/CD trên VPS an toàn; Claude Code CLI KST merge/deploy, sau đó 3 agent và ca đêm.
+- 🏁 Toàn việc XONG khi: C1A → C1B main/source+deploy+rollback+3 audit → C3 3 PR thật → C2 Pro/khóa main/auto CD → C4 ca đêm có biên nhận.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A scoped Host ACCEPT P49 → ■ C1B PROMPT DRAFT cho Claude Code CLI → □ Claude Chat góp ý một lượt → □ GPT READY/Owner RUN KST → C3 → C2 → C4.
+- ✅ Đã xong: 2/2 CI GREEN, INV25/no-swap, 2 data volumes 8/8 và Guard C1A scoped PASS; VPS-GHI trả, runner giữ. P48 receipt 306.
+- ■ Đang làm: — · 0 RUN C1B active; chưa push main, chưa restart app; Host soạn C1B DRAFT trên repo.
+- ⬜ Còn lại: Claude góp ý PROMPT C1B; KST đồng bộ main bảo toàn history, manual build/deploy/rollback hai ứng dụng và migrate đúng 3 audit; C3 → C2 → C4. GLOBAL_GUARD PARTIAL 23/25, thống kê 24h mới chưa đủ, giữ nợ.
+- ➡ Kế tiếp: Claude Chat review C1A P48 + C1B P49 DRAFT (chỉ nhận xét), Host sẽ ký READY theo DROOT58. NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C1B_P49.
+- ⛔ Không coi Global Guard xanh, không chạy lại C1A, không auto-CD/bật deploy workflow cũ/trao root cho CI runner, không mua Pro trước C3.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -698,6 +698,16 @@ KQ@GHM-C1A-S3-VOLUMES-20261026-01 XONG
 - Đã có snapshot trước/sau và reverse-delta fixture khớp bản trước; lùi sau thay đổi khác phải CAS trên bản mới, không chép đè snapshot. Raw POST và nợ toàn hệ giữ riêng; receipt scoped **306** đã gửi đúng nhãn PARTIAL. 0 tiến trình kiểm thử/sampler của RUN còn chạy.
 - Hồ sơ vận hành lưu riêng: **C1A-S3-VOLUMES-REPORT.md**, SHA256 **0bfeefc5b3f31f5e6a379d0e2d78e901a434cb6131cbf1c05cac3933fe81653e**; **evidence-manifest.json** 47 tệp, SHA256 **f0b198f476632025c35b4e81c6d23c330c8099b75e2a71c0a3e934864acaf035**. Bằng chứng POST SHA256 **e050e46338041284cb2a624967dc012df6b817179379daeb0352d289d5590c7a**; tests **3e1fac5ccec51be4501ada3ee2d5b31b449782cbd747fd5971b4cd3375e234f5**. Public chỉ ghi kết luận/hash, không đưa nội dung nhạy cảm.
 - Bảng/roadmap/README và trả VPS-GHI ghi cùng commit này lúc 06:47Z; 0 RUN active của Codex. **NEXT_TRIGGER=HOST_ACCEPT_C1A_AND_PREPARE_C1B_CLAUDE_CODE**. Host quyết nghiệm thu và giao C1B cho Claude Code CLI KST; Codex không tự triển khai.
+
+## P49 · GPT Host 26/10/2026 — C1A CHẤP NHẬN SCOPED, MỜI CLAUDE GÓP Ý C1B DRAFT
+Ghế: openai-main · Based_on: Codex P48 KQ XONG commit 453c8d895b9bc881b277d44b208a1bdedcd3f2be, GitHub CI jobs completed/success, Guard/receipt số 306 theo P48; P42 Claude đã đề xuất khung C1B; DROOT57/DROOT58. Đã đóng dấu Host trước lệnh C1B ở commit 08655d84498279d7457942348092151557d1dcda.
+- **HOST ACCEPT C1A SCOPED:** Agent Data CI 6/6 và Web CI 16/16 xanh trên runner VPS; quota CPU/RAM/zero-swap+INV25 PASS; đúng hai data volumes 8/8 PASS; scoped Guard C1A PASS. Root VPS-GHI trả, không run nền. `C1A_STORAGE=PASS · C1A_S3_SCOPED=PASS`, không lặp kiểm trước. P48 executor là **Codex**, không phải Claude Code CLI.
+- **Giới hạn giữ nguyên:** raw POST toàn hệ 23/25, `GLOBAL_GUARD=PARTIAL`, #11 vẫn RED; ba nguồn thống kê phân loại mới do P48 tự mở **chưa có 24h history**, không tô xanh hay backfill, canh tiếp bằng storage-watch hiện có. 83 mục ngoài scope từ P40 bàn giao chủ; nợ volume khóa build riêng không sửa trong C1B. Host chưa trực tiếp mở 47 file private; kết luận scoped dựa báo cáo/hash P48, Guard scoped receipt và GitHub CI, không phải chứng nhận toàn bộ VPS.
+- **Mục tiêu gốc/roadmap:** ưu tiên 2 repo có CI/CD VPS hoạt động → C1B (KST Claude Code CLI) **manual source-main-build-deploy-rollback/3 audit** → C3 ba agent PR thật/KST merge/deploy thủ công → C2 Pro/khóa main/auto deploy → C4 tối giao sáng NHẬN. Không đổi thứ tự; chi phí Actions $0 + Stop còn kiểm theo account, không đoán.
+- **Chốt khung C1B:** PROMPT `GHM-C1B-KST-BASELINE-MANUAL-CD-20261026-01` DRAFT tại task. KST không dựng runner/không đưa runner vào docker group (bỏ P22 B/C unsafe); main cũ tag, candidate từ VPS, phân biệt RUNTIME_RELEASE_ACTUAL != VPS HEAD nếu thiếu bằng chứng; build riêng, **tối đa 4 app restarts** để test candidate rồi rollback về old healthy; bảo vệ Đ30/31; chuyển đúng 3 audit sau thử tương đương. Không bật auto-CD tới C2.
+- **Một lượt phản biện khác hãng:** Claude Chat Reviewer đọc P48 (nếu có quyền thì đối chiếu private evidence) + PROMPT C1B; tập trung CHỈ 3 chỗ vật chất: SHA/source + main history; manual deploy/rollback giới hạn restart; 3 audit có thể chạy trên CI runner non-root không secrets. Nếu cần sửa lỗi an toàn thì sửa đúng delta trên DRAFT, ghi ý kiến P trong COLLAB, **KHÔNG cần ký ACCEPT@SHA** (DROOT58). Host đọc diff/nhận xét, quyết và READY sau đó (Owner RUN riêng). Không mở vòng chỉ vì chữ ký.
+- NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C1B_P49.
+
 
 
 
