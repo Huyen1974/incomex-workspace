@@ -70,11 +70,11 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
 <section class="owner-actions ok"><h2>😊 Anh không cần làm gì lúc này</h2>
-<p>🟢 Lệnh B0b đã giao Claude Code (21:07) — 🤖 đang chờ máy rảnh để chạy.</p>
+<p>✅ B0b đã XONG (P27). GPT Host chốt P47: kiểm kê đủ 12 loại Census theo tên/ID/quan hệ, không tạo 12 bảng PG.</p><p>■ TS1 đang chuẩn bị: Claude phản biện P47 một vòng, sau đó Host phát lệnh TS1 chỉ đọc với mã RUN riêng. Chưa có TS1 READY/RUN.</p>
 <p>🟢 Đã chốt: anh xem mọi bảng trên <strong>trang báo cáo Nuxt</strong>, không vào Directus (chỉ máy dùng).</p>
 <p class="muted">Việc kế tiếp của anh: duyệt cột Sổ quyết định — sau khi có số đếm (TS1), kèm đề xuất.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
-<span class="flag">Sơ đồ = thiết kế, chưa tạo gì trong PG</span>
+<span class="flag">P47 · B0b XONG · 12 danh mục dự kiến, chưa tạo gì trong PG</span>
 <span class="flag">B0b đã giao, chờ chạy</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
@@ -97,7 +97,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
     <section class="arch-lane" aria-label="Những tài sản có sẵn trong PostgreSQL">
       <div class="arch-lane-title">NGUỒN 1 · TÀI SẢN PG</div>
       <div class="arch-node arch-existing"><strong>PG catalog · đủ 12 loại theo ID</strong><span><code>pg_catalog</code> là nguồn danh sách, cha và quan hệ cho tất cả 12 loại; thiếu tên phải ghi rõ trong TS1</span></div>
-      <div class="arch-down">↓ <small>Máy đọc và đồng bộ</small></div>
+      <div class="arch-down">↓ <small>Ba Lô chỉ lưu nhãn 4 loại; 8 loại còn lại đọc thẳng catalog</small></div>
       <div class="arch-node arch-existing"><strong>S2 · Ba Lô</strong><span><code>balo_thuc_the</code> · bảng hiện có, 4 loại đã ghi từng tên; đồng bộ bằng lệnh có sẵn</span></div>
       <div class="arch-aside"><strong>S1 · Census — báo cáo sống</strong><span>Đếm từ PG mỗi lần xem, không lưu số. Chỉ là kênh <b>đối chiếu</b>, không cấp danh mục cho Sổ tài sản.</span></div>
     </section>
@@ -110,7 +110,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
     </section>
     <section class="arch-lane" aria-label="Thông tin bằng chứng và quyết định">
       <div class="arch-lane-title">NGUỒN 3 · CHỨNG CỨ / QUYẾT ĐỊNH</div>
-      <div class="arch-node arch-existing"><strong>PG + Graph / Bot / Log</strong><span>Cung cấp dấu hiệu và bằng chứng; không tự kết luận “Bỏ” hoặc “không dùng”</span></div>
+      <div class="arch-node arch-existing"><strong>Graph · kiểm nút và cạnh</strong><span>Đối soát 12 loại theo ID/cha/cạnh; thiếu bằng chứng thì PARTIAL/UNKNOWN, không tự kết luận “Bỏ”</span></div>
       <div class="arch-down">↓ <small>Máy đề xuất · Owner duyệt</small></div>
       <div class="arch-node arch-proposed"><strong>S4 · Sổ quyết định</strong><span><b>CHƯA TẠO</b> · một bảng dự kiến: hệ, Workflow, vùng, quyết định, căn cứ, người duyệt</span></div>
       <div class="arch-aside"><strong>Quyền ghi</strong><span>Chỉ ghi sau khi 😊 Owner duyệt, AI ghi qua DOT; không nhập tay hàng nghìn dòng</span></div>
@@ -125,7 +125,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
     <div class="arch-down">↓ <small>🤖 1 lệnh DOT có sẵn công bố lên Nuxt · TS1 đo tốc độ</small></div>
     <div class="arch-node arch-proposed arch-final"><strong>😊 Trang báo cáo Nuxt — Sổ tài sản</strong><span>Anh xem và lọc trên web; 🤖 máy đọc cùng nguồn. Không ai vào Directus (chỉ DOT).</span></div>
   </div>
-  <div class="arch-alert"><strong>Máy kiểm chênh lệch:</strong> PG ↔ Ba Lô · Census ↔ Ba Lô · Tệp DOT ↔ S3 · S2/S3 ↔ S4. Bot thực sự hoạt động, mốc đo và nơi nhận cảnh báo cần xác minh ở TS1/TS5.</div>
+  <div class="arch-alert"><strong>Máy kiểm chênh lệch:</strong> 12 tập ID catalog ↔ Census theo loại · 4 loại ↔ Ba Lô · tệp DOT ↔ S3 · ID ↔ S4 · nút/cạnh catalog ↔ Graph. Bot gửi cảnh báo thật và mốc đo còn phải chứng minh ở TS1/TS5.</div>
   <figcaption id="arch-caption">Mũi tên liền = đường đọc hoặc đăng ký đã thiết kế; hộp nét đứt = chưa được tạo. S1 và S2 cùng dựa trên PG: đối chiếu kết quả và phạm vi nhưng <strong>không mặc nhiên là hai nguồn đo độc lập</strong>. Đây là sơ đồ kiến trúc dự kiến theo §3.TQ, không phải bằng chứng hệ thống đã chạy.</figcaption>
 </figure>
 <div class="arch-risk"><strong>Ba cổng TS1 chưa được chứng minh:</strong> (1) 12 loại có tập tên/ID và cha/cạnh theo nguồn PG; (2) Graph khớp nút/cạnh theo loại; (3) Nuxt đủ nhanh và có quyền xem dữ liệu nội bộ — không đưa danh mục nhạy cảm lên trang công khai.</div>
@@ -143,7 +143,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
   <div class="arch-view-part arch-proposed"><strong>Đích — 1 trang báo cáo Nuxt</strong>
     <p>Cùng khuôn với các báo cáo đang chạy ở mục <a href="https://vps.incomexsaigoncorp.vn/reports" target="_blank" rel="noopener">Reports</a>: ô tìm, lọc theo cột, «?» ở đầu cột.</p>
     <p>Mỗi bộ lọc là 1 đường link — bấm là ra:</p>
-    <div class="arch-filters"><span>Tất cả</span><span>Vật PG</span><span>DOT</span><span>Phục vụ Workflow</span><span>⚪ Chưa quyết</span><span>⚠ Thiếu / lệch</span></div>
+    <div class="arch-filters"><span>Tất cả</span><span>12 loại PG</span><span>DOT</span><span>Phục vụ Workflow</span><span>⚪ Chưa quyết</span><span>⚠ Thiếu ID/cạnh</span></div>
     <p class="muted">Màu hiện bằng biểu tượng trong ô: 🟢 Giữ · 🟡 Sửa · 🔴 Bỏ · ⚪ Chưa quyết.</p>
   </div>
 </div>
@@ -165,11 +165,11 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
  <div class="table-wrap"><table>
  <thead><tr><th>Mã</th><th>Kiểm gì</th><th>Nguồn/lệnh</th></tr></thead>
  <tbody>
- <tr><td>Đếm-1</td><td>Số theo 12 loại PG</td><td>Báo cáo sống <code>/reports/report-pg</code> (cần kiểm đường chỉ đọc)</td></tr>
- <tr><td>Đếm-2</td><td>Tên thiếu/thừa trong Ba Lô</td><td><code>dot-balo-reconcile --verify</code>; Claude P40 đã rà mã; người chạy phải kiểm lại điều kiện an toàn</td></tr>
+ <tr><td>Đếm-1</td><td>12 loại: số VÀ từng ID/tên/cha</td><td>Census đếm sống; đọc <code>pg_catalog</code> chỉ đọc lấy danh sách định danh của đủ 12 loại và so theo mốc</td></tr>
+ <tr><td>Đếm-2</td><td>Ba Lô 4 loại; tám loại khác theo PG</td><td><code>dot-balo-reconcile --verify</code> chỉ so 4 loại; tám loại còn lại bắt buộc có ID/tên từ catalog, không chạy sync</td></tr>
  <tr><td>Đếm-3</td><td>DOT trên đĩa ↔ đăng ký</td><td>Danh sách tệp DOT so với <code>dot_tools</code>, theo tập tên</td></tr>
  <tr><td>Đếm-4</td><td>Đường đồng bộ, lịch, log</td><td>Đọc mã <code>dot-balo-one-click-guard</code>, <code>dot-verify-loai-report</code>, systemd; chưa an toàn thì không chạy</td></tr>
- <tr><td>Đếm-5</td><td>Trang báo cáo Nuxt chịu được ~2.500 dòng không?</td><td>Đo trang lớn nhất đang có + chạy thử chỉ đọc câu ghép; không ghi gì</td></tr>
+ <tr><td>Đếm-5</td><td>Nuxt tải/lọc 12 loại và bảo mật được không?</td><td>Đo dữ liệu lớn (kể cả ~10.099 cột), quyền truy cập Owner, tránh route công khai metadata nhạy cảm; không ghi</td></tr>
  <tr><td>Đếm-6</td><td>Bot DOT có thực sự an toàn/sống không?</td><td>Đọc mã, cron, quyền, tuyến cảnh báo của <code>dot-dot-health</code>; KHÔNG chạy</td></tr>
  </tbody></table></div>
  <p>KQ cần có: số và tên theo loại, mốc đo, thiếu/thừa cụ thể, mức độ độc lập của các kênh, chưa đo được thì ghi CHƯA RÕ. Mốc cũ Census 393 và Ba Lô 385 là chênh chưa giải thích, không coi là kết quả mới.</p>
