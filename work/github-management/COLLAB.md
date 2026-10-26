@@ -10,7 +10,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - 🏁 C1B XONG khi: main giữ history và cây VPS đã kiểm, CI ứng viên đúng SHA, 2 app deploy/rollback healthy, 3 audit trên runner VPS không giảm test, Đ30/31 và VPS-GHI trả. Thiếu mục phải ghi giới hạn từng repo.
 - 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ✓ Claude P57 → ✓ GPT READY P58 → ■ C1B Codex STARTED P59 → C3 → C2 → C4.
 - ✅ Đã xong: C1A 2/2 CI, INV25/volumes scoped PASS; P54 DỪNG sạch; PROMPT đã gộp P57 và Host sửa thêm nhánh CI probe C1A, S5 độc lập, VPS-GHI chỉ giữ lúc ghi host.
-- ■ Đang làm: Codex STARTED cùng RUN theo P58; S0/S1 clone và đối chiếu trên Mac, chưa nhận VPS-GHI; chỉ lấy cờ ngay trước ghi host S3–S5.
+- ■ Đang làm: Codex S0–S2 PASS: 2/2 main fast-forward đúng CI GREEN; nhận VPS-GHI 12:54Z–13:24Z cho S3 build riêng/rollback. S7 archive 4 repo, 5 giữ; S5 đang đối chiếu phụ thuộc secret/HTTP 403.
 - ⬜ Còn lại: Codex thực thi S0–S7; `chatgpt-githubnew` giữ nguyên, chỉ kiểm actor/Actions; C3 nhiều agent, C2 Pro/ruleset, C4 ca đêm sau nghiệm thu.
 - ➡ Kế tiếp: Codex thực hiện S0–S7 và ghi bằng chứng từng repo; NEXT_TRIGGER=CODEX_C1B_S0_S7_KQ.
 - ⛔ Không force-push/xoá main/repo, không đổi visibility/ruleset hoặc mua gói, không secret cho CI; không triển khai SQL/compose/nginx, giữ rollback và 6 điểm P50.
@@ -831,6 +831,16 @@ STARTED@GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01 · 2026-10-26T12:23Z
 - S0/S1/GitHub-only không giữ VPS-GHI. Root hiện trống sau Graph P260 trả cờ; sẽ đọc lại và CAS trước từng nhóm mutation host. 2 app healthy, runner đang chạy; giữ CI C1A, không đọc/in secret.
 - Clone biệt lập trên Mac; baseline VPS + archive main cũ + merge ours/tree check; CI đúng candidate trước fast-forward. S5/S7 tiếp tục độc lập nếu app khác bị chặn; không đổi sáu safety P50, không tự C3/C2/C4.
 - NEXT_TRIGGER=CODEX_C1B_S0_S7_KQ.
+
+## P60 · Codex · 26/10/2026 19:54 +07 — S0–S2 PASS, checkpoint trước S3
+Ghế: openai-codex · cùng RUN C1B/P58; không KQ, RUN còn STARTED.
+- Guard PRE 12:37Z PASS, Config Guard CLEAN; #11 đỏ có trước. PROMPT hash không đổi, không STOP. VPS-GHI nhận CAS 12:54Z, hạn 13:24Z cho build ngoài runtime và giữ known-good; sẽ trả trước hạn/gia hạn bằng CAS.
+- Agent Data main e6274592b9b8a291e4b9aeafcdf55370a10e09f4, CI [40324553292](https://github.com/Huyen1974/agent-data-test/actions/runs/40324553292), 6 passed. Web main 747c3b12c893a4186c197f17d312e38da7ed654f, CI [40325187106](https://github.com/Huyen1974/web-test/actions/runs/40325187106), 16 passed. Fast-forward, old main tag archive/c1b-main-before-20261026 mỗi repo readback PASS; chỉ ngoại lệ workflow probe ngoài baseline. Gitlink Web được giữ bằng snapshot commit/tag riêng, parent baseline một commit; source VPS không đổi.
+- Source HEAD khác runtime: AD image conn03a giữ nguyên; Web output Nuxt 4.5.2 trong khi source lock dùng Nuxt 3. Build/canary cần chứng minh, không giả định tương đương. AD Compose config hash khác live container nên S4 AD bị chặn theo PROMPT; không restart.
+- Quét secret có bằng chứng private, JWT cũ hết hạn; token report Directus đã được Owner cho phép kiểm một GET, HTTP 401, không in giá trị. Old literal API defaults không trùng env container live; giá trị có trong main cũ, ghi nợ lịch sử, không rotate trong C1B.
+- S7 archive đã readback: platform-infra, mpc_back_end_for_agent, LarkBase_OAuth_Policy, tool-kiem-thu-ci. Hai backup có workflow chạy 26/10 nên giữ. chatgpt-githubnew giữ: github-actions[bot] push main 07:54Z; tháng 10 dùng 46 phút, net $0; không sửa.
+- S5: Data Lifecycle/Health Check cần secret production; ops-smoke GET health=403, pages/asset=200. Không giảm kiểm, không cấp secret runner; tiếp tục đối chiếu độc lập.
+- Runtime production vẫn old healthy, 0 app restart tại checkpoint; tiếp tục S3–S6.
 
 
 
