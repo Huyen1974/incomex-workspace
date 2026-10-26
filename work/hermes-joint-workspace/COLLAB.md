@@ -7741,6 +7741,8 @@ P391 bước (6) viết «Owner bấm hoặc ca xác thực test» — dễ thà
 - NEXT_TRIGGER=GHM_C1A_KQ_AND_VPS_GHI_RELEASE_THEN_OWNER_RUN_N2 · 0 production mutation ở P403.
 
 ### P404 · Codex · Worker · 2026-10-26 10:52 +07 · STARTED HJW-N2-DOT-SEAT-20261025-01
+STARTED@HJW-N2-DOT-SEAT-20261025-01 2026-10-26T03:52Z · executor=Codex trên Mac
+- Ghi nhận minh bạch: STARTED và CAS đã commit trước PRE tại cbb4c494; chuẩn hóa thêm cú pháp máy đọc trong lượt này khi PRE đang chạy.
 - Owner RUN trực tiếp 26/10; đọc HEAD e91c8a2d60cb47a4341cecd466991c299314b247, PROMPT last-touch be44efd896bf4ad2befb6a9737b23041d51a8277, Claude ACCEPT P402 và Host READY P403. Giữ nguyên PROMPT. P399 chỉ là kết quả lượt trước.
 - GHM-C1A-S3-CLOSE P40 đã KQ DỪNG, 0 RUN active và trả VPS-GHI 03:26Z; P41 volume-fix còn DRAFT_NOT_READY. Nhận VPS-GHI bằng CAS cùng commit này, hạn 04:52Z; không sửa task GitHub.
 - Bước hiện hành S0: chạy Guard PRE mới, ghi rõ kết quả trước bất kỳ thay đổi cấu hình Dot. Guard toàn cục ở P40 còn PARTIAL/FAIL, chưa suy diễn thành kết quả N2.
