@@ -4,14 +4,14 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 13:21 +07 · Codex · P47
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 13:47 +07 · Codex · P48
 - 🎯 Mục tiêu: Codex đóng C1A hai runner data volumes, chuyển C1B cho Claude Code CLI KST; sau đó C3 agent, C2 Pro/main, C4 ca đêm.
 - 🏁 C1A XONG khi: 2/2 CI và swap/INV25 (đã đạt) + 2 volume giám sát đúng qua storage-registry/storage-watch, POST Guard C1A scoped PASS.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A 2/2 CI GREEN → ✓ swap/INV25 → ✓ Claude P42 góp ý, Host P45 kết luận → ✓ **GPT Host P46 READY@7ea270e7** → ■ Owner giao Codex khi RUN trước đã xong/cờ VPS-GHI trống → □ Codex khép C1A → C1B → C3 → C2 → C4.
-- ✅ Đã xong: PROMPT Codex nguyên phạm vi, đã ký READY chính xác last-touch SHA; DROOT58 cho phép một chữ ký Host, không cần chữ ký Reviewer. Root VPS-GHI kiểm ngay trước READY đang trống; 2 runner và CI thành quả cũ được giữ nguyên.
-- ■ Đang làm: Codex STARTED `GHM-C1A-S3-VOLUMES-20261026-01`; S0 đầu vào/quyền/cờ đạt, giữ VPS-GHI đến 07:31Z; PRE → hai khai báo → kiểm → KQ.
-- ⬜ Còn lại: Owner chỉ chuyển lệnh sau khi lệnh VPS trước đã KQ/trả cờ; Codex kiểm lại lease/Guard/STOP và CAS ở S0 rồi đăng ký đúng 2 volumes và POST; báo C1A_SCOPED và GLOBAL riêng.
-- ➡ Kế tiếp: Codex hoàn tất đúng S0–S3, báo scoped/global riêng và trả cờ; NEXT_TRIGGER=CODEX_C1A_VOLUMES_POST_KQ.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A 2/2 CI GREEN → ✓ swap/INV25 → ✓ hai volume (P48 KQ XONG scoped) → ■ Host nghiệm thu C1A → C1B → C3 → C2 → C4.
+- ✅ Đã xong: S0–S3 theo P46; đúng hai entry, 8/8 kiểm đạt, Guard scoped PASS; CI/runner giữ nguyên, receipt 306. C1A_STORAGE=PASS; C1A_S3_SCOPED=PASS; GLOBAL_GUARD=PARTIAL.
+- ■ Đang làm: 0 RUN active của Codex; đã trả VPS-GHI. Kết quả executor chờ Host nghiệm thu, chưa tự chuyển C1B.
+- ⬜ Còn lại: Host xem KQ P48 và hồ sơ riêng; giữ nợ toàn hệ đúng chủ. Phân loại mới tự mở chuỗi thống kê mới, chưa chứng minh 24h; không tuyên bố alarm cũ đã hết.
+- ➡ Kế tiếp: NEXT_TRIGGER=HOST_ACCEPT_C1A_AND_PREPARE_C1B_CLAUDE_CODE.
 - ⛔ Không cho hai RUN cùng ghi VPS, không xóa volume/rerun CI/sửa main, không tự C1B; READY không vượt S0 hoặc các guard.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -684,6 +684,20 @@ STARTED@GHM-C1A-S3-VOLUMES-20261026-01 2026-10-26T06:21Z · executor=Codex CLI/D
 - RUN trước có KQ/trả cờ; root VPS-GHI trống trước CAS, không thấy writer cạnh tranh thuộc thao tác này. Config Guard CLEAN 545/545, INV25 PASS, hai runner online/idle; hai CI cũ success đúng SHA, main giữ nguyên. Hồ sơ P40 và manifest đúng hash.
 - Nhận cờ bằng CAS trong commit này, hạn 07:31Z; kiểm freshness trước apply. Chỉ hai đăng ký, giữ dòng cha/nguồn checker/baseline lịch sử. Bằng chứng vận hành lưu riêng. Không rerun CI, restart app/runner, xóa volume, C1B/C2.
 - KQ sẽ phân biệt C1A_STORAGE, C1A_S3_SCOPED và GLOBAL_GUARD; kiểm định thật quyết định kết quả.
+
+
+## P48 — Codex KQ XONG theo phạm vi C1A · 26/10/2026 13:47 +07
+Ghế: openai-codex · Bước/vòng: thực thi S3 · 1/1 · Based_on: P46 READY@7ea270e761aeb57b50574d685735d5fc532a1337; P47 STARTED a27ac72f78f787f39fb0616b9474224ae58060a0 · Scope: đúng hai volume runner và bảo vệ hiện có.
+KQ@GHM-C1A-S3-VOLUMES-20261026-01 XONG
+- **C1A_STORAGE=PASS · C1A_S3_SCOPED=PASS · GLOBAL_GUARD=PARTIAL.** Executor hoàn thành S0–S3 theo phạm vi; Host chưa nghiệm thu. Raw POST toàn hệ vẫn FAIL (23/25), giữ nguyên bằng chứng; không đổi Guard để xanh.
+- S0 xác nhận RUN trước kết thúc/cờ trống, nguồn P40 + manifest đúng hash, quyền/STOP/PRE đạt; STARTED và lấy cờ CAS trước ghi. S1 chỉ thêm hai entry vào sổ hiện hữu qua luồng apply được bảo vệ, không đổi dòng cha/mã watcher hay thêm monitor.
+- S2 đạt 8/8: dung lượng thật khớp từng entry, bình thường/vượt trần và mất mount trong fixture cô lập. Cap theo công thức/fallback policy sẵn có. STATIC kiểm cap; đường phát hiện mất/sai mount/container là INV25, không tuyên bố STATIC tự phát hiện mọi mất đường filesystem.
+- Hai runner online/idle, CPU/RAM/zero-swap giữ; hai CI success đúng SHA/attempt đã có, không rerun. Không xóa volume, sửa main, restart ứng dụng/runner, cài lại hay C1B/C2. Bảo vệ scoped đủ 8 mục vật lý + 3 delta dùng chung P40 còn nguyên hash; 83 mục ngoài C1A giữ đúng chủ.
+- **Giới hạn do lần phân loại này:** cơ chế hiện hữu tự mở phiên thống kê theo phân loại mới, ba nguồn có nợ bằng chứng chờ đủ lịch sử theo policy. Lịch sử cũ giữ nguyên, không reset/backfill thủ công, không có kết luận tăng trưởng 24h. Đây là hệ quả của RUN này, không gán cho RUN khác. Cap/INV25 đã kiểm thật; toàn hệ vẫn PARTIAL và đèn đĩa vẫn đỏ, không coi alarm trước đó đã xử lý. Nợ volume khóa dùng chung chỉ báo Host, không sửa ngoài scope.
+- Đã có snapshot trước/sau và reverse-delta fixture khớp bản trước; lùi sau thay đổi khác phải CAS trên bản mới, không chép đè snapshot. Raw POST và nợ toàn hệ giữ riêng; receipt scoped **306** đã gửi đúng nhãn PARTIAL. 0 tiến trình kiểm thử/sampler của RUN còn chạy.
+- Hồ sơ vận hành lưu riêng: **C1A-S3-VOLUMES-REPORT.md**, SHA256 **0bfeefc5b3f31f5e6a379d0e2d78e901a434cb6131cbf1c05cac3933fe81653e**; **evidence-manifest.json** 47 tệp, SHA256 **f0b198f476632025c35b4e81c6d23c330c8099b75e2a71c0a3e934864acaf035**. Bằng chứng POST SHA256 **e050e46338041284cb2a624967dc012df6b817179379daeb0352d289d5590c7a**; tests **3e1fac5ccec51be4501ada3ee2d5b31b449782cbd747fd5971b4cd3375e234f5**. Public chỉ ghi kết luận/hash, không đưa nội dung nhạy cảm.
+- Bảng/roadmap/README và trả VPS-GHI ghi cùng commit này lúc 06:47Z; 0 RUN active của Codex. **NEXT_TRIGGER=HOST_ACCEPT_C1A_AND_PREPARE_C1B_CLAUDE_CODE**. Host quyết nghiệm thu và giao C1B cho Claude Code CLI KST; Codex không tự triển khai.
+
 
 
 

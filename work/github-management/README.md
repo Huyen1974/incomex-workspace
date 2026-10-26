@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: `GHM-C1A-S3-VOLUMES-20261026-01` đã GPT Host P46 READY@7ea270e761aeb57b50574d685735d5fc532a1337; chưa STARTED. Owner cam kết chỉ giao khi RUN trước xong, VPS-GHI trống; Codex S0 vẫn bắt buộc kiểm cờ/Guard. DROOT58 một chữ ký Host, không Reviewer ký.**
+**Trạng thái: P48 KQ XONG theo phạm vi `GHM-C1A-S3-VOLUMES-20261026-01`; C1A_STORAGE=PASS, C1A_S3_SCOPED=PASS, GLOBAL_GUARD=PARTIAL. Hai volume đã khai báo/canh thật, CI cũ giữ nguyên; VPS-GHI đã trả, 0 RUN active của Codex. Chờ GPT Host nghiệm thu C1A trước C1B. Chuỗi đo theo phân loại mới chưa đủ 24h; không coi toàn hệ xanh.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -12,7 +12,7 @@
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
-9. [C1A-S3-CLOSE-REPORT.md](C1A-S3-CLOSE-REPORT.md) — KQ S3 lượt 26/10; số đếm công khai, chi tiết và nợ riêng bàn giao Host.
+9. [C1A-S3-CLOSE-REPORT.md](C1A-S3-CLOSE-REPORT.md) — báo cáo lịch sử P40. Kết quả mới nhất là **COLLAB P48**, có hash báo cáo riêng và manifest 47 tệp; giữ nợ/giới hạn toàn hệ tách khỏi C1A scoped.
 
 Mục tiêu duy nhất của việc này: nhiều AI nhận nhiều việc, **viết mã song song trên branch/workspace riêng**, Chief duyệt PR trên nền mới nhất, Owner xem bảng kết quả sáng. R1 dùng Actions trong hạn mức miễn phí với hard budget $0; Owner 25/10 15:18: mọi run đặt trên VPS bằng runner tự host; ưu tiên 1 là CI/CD chạy được.
 
