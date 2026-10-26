@@ -1,4 +1,30 @@
-# CODEX — HJW-N2-DOT-SEAT-20261025-01
+# CODEX — HJW-N2-DOT-SEAT-RECOVER-20261026-01
+
+## R2 — HIỆU LỰC 26/10, DRAFT_NOT_READY, CHƯA RUN
+RUN R2 chỉ khôi phục/hoàn thiện N2 sau P404 KQ DỪNG; P404 đã rollback production và trả VPS-GHI. Đây KHÔNG phải RUN cũ được chạy lại. Khi mâu thuẫn, điều kiện R2 ở đầu file này ưu tiên hơn hạn mức recreate ban đầu của RUN đã đóng. Các mục mục tiêu, danh mục kết nối, S3–S7 và T1–T6 bên dưới vẫn áp dụng.
+
+Owner còn phải chốt rõ một ngoại lệ: cho phép MỘT FORWARD RECREATE Agent Data BỔ SUNG để hoàn tất N2. KHÔNG coi yêu cầu phân tích B1 là Owner GO; chưa có GO và READY mới thì Codex chỉ được đọc/phân tích, không mutation.
+
+Mục tiêu vẫn là ghế đầy đủ Dot có actor riêng, mọi họ công cụ nghiệp vụ, góp ý hội đồng không trùng, báo cáo thoại; Dot làm Host/giao Codex tự động và N4–N6 để sau. Giữ S4 non-root, không root/sudo NOPASSWD ALL/GSM trực tiếp, không sửa quyền native Gmail khi Owner chưa duyệt.
+
+**S0-R2:** đọc AGENTS, HJW mục tiêu/roster/P404, Prompt R2; kiểm READY@last-touch mới và Owner GO, STOP/ALERT, CAS VPS-GHI, Guard PRE/health và các RUN VPS khác. P46/P47 github-management đang/đã có lượt ghi volume: KHÔNG chạy song song. Thiếu gate => KQ DỪNG trước mọi mutation.
+
+**S1-R2: gom hết trước khi triển khai.** Kiểm bằng chứng private P404, pin local source 5a7ba3a7b45d3d7c95de84374174a967b2d61ef5 và image agent-data-hvu:hjw-n2-dot-20261026-r2 ID sha256:d061ab949e3446f0a9b076df083b44f5d2f8d5e73faf1d1cbbc2b1c1cbebfb5b, kiểm 29 modules hash, baseline/7 cấu hình lùi. Phân loại 4 skipped trong 297 PASS/4 skipped + 15 handler PASS; nếu skipped liên quan auth, ownership, lifecycle hoặc rollback chưa giải thích => DỪNG trước recreate. Rà fix Queue.finish: sau completed/failed/cancelled phải còn metadata trusted owner/profile/operation_id/args_hash/source_head để workspace_exec_status trả kết quả; argv/secret không tồn. Kiểm cancel/replay/idempotency/timeout/cross-profile denial. Hoàn tất bản đồ các họ Workspace/KB/RAG/UI, Directus/PG/Graph/Lark/VPS/JEV/Google/GitHub, ghi rõ đâu cần image, đâu chỉ route/twin/Plugin hãng; gom MỌI delta cần forward recreate vào một bản, không suy 37 tool là đủ toàn bộ. Không biết cách làm đủ nhóm bắt buộc trước recreate => DỪNG, không tiêu lượt extra.
+
+**S2-R2:** chỉ sau S0/S1 PASS và Owner +1 GO, áp candidate qua apply-v0/Guard đúng phạm vi, tạo profile openai-dot và route, tối đa một forward recreate Agent Data BỔ SUNG; cả 5 profile cũ phải healthy/37 tools. Nếu lỗi thì rollback image/config cũ ngay (khởi động lại để phục hồi an toàn không tính là giấy phép forward recreate lần ba); POST, trả cờ, KQ DỪNG.
+
+**S3-R2:** thử live server terminal completed/failed/cancelled + đọc status sau finish, negative cross-profile/secret/approval, retry/cancel/idempotency, no root/GSM/docker.sock/outbound trái phép. Kiểm old 5 profiles, upload/transaction/result; FAIL quan trọng => rollback. Đây chỉ là server smoke của Codex, không phải Dot T1–T6.
+
+**S4-R2:** kết nối nốt Directus/PG/Graph/Lark và họ thiếu bằng capability/twin sẵn có, receipt/audit actor; không thêm bridge/MCP server, không mượn Claude credential, không mở quyền root và không biến một hạn chế KB RAG cũ thành claim PASS.
+
+**S5-R2:** cấu hình Plugin Incomex · Dot qua đường chính thức và gom cùng một lượt thao tác Owner-only; Dot thật kiểm T1 actor+P, T2 các họ read/write/exec, T3 ghế/no-double-vote/Task View, T4 thoại Owner, T5 SSH thường nếu dùng được, T6 injection + native outbound approval. Gmail Allow all hiện tại không được coi có Owner approval; không gửi thử để chứng minh. Chỉ thêm Dot vào roster sau T1–T3 PASS; không đổi Host.
+
+**S6-R2:** Guard POST, bảo đảm không hỏng 5 profile cũ, KQ XONG/DỪNG có evidence/commit, trả VPS-GHI, không chờ Owner bằng terminal/lease. Chưa thử Dot thật/voice hoặc chưa đủ connector thì báo đúng CHƯA THỬ/CLIENT_PENDING, không FULL_PASS. KQ DỪNG của RUN cũ là lịch sử.
+
+**STEP_WALK_V1 R2:** S0=read-gate/CAS; S1=code+skipped+matrix+rollback trước recreate; S2=duy nhất 1 forward recreate hoặc rollback; S3=terminal/auth live; S4=hoàn thiện kết nối; S5=Dot thật T1–T6; S6=POST/KQ/trả cờ. Đầu ra mỗi bước: evidence theo P404/private, fail thì KQ DỪNG + đúng một NEXT_TRIGGER.
+
+## HỢP ĐỒNG N2 GIỮ LẠI TỪ PROMPT TRƯỚC
+
 
 Trạng thái tài liệu: DRAFT_NOT_READY · Codex ghi theo yêu cầu trực tiếp Owner ngày 25/10/2026; chưa có READY của GPT Chat Host cho bản này.
 Executor_Surface: Codex trên Mac.
@@ -20,7 +46,7 @@ Task: `work/hermes-joint-workspace`
 
 Đọc trước `AGENTS.md`, `README.md`, `COLLAB.md` của HJW, §1–§3, P365, P366, P369, P379 và đặc biệt **P398 ngày 25/10/2026**.
 
-RUN_ID: `HJW-N2-DOT-SEAT-20261025-01`
+RUN_ID: `HJW-N2-DOT-SEAT-RECOVER-20261026-01`
 
 **Mục tiêu Owner:**
 
@@ -77,7 +103,7 @@ Thực hiện:
 3. Dùng khuôn route/nginx đã có; gắn identity server-side `openai-dot`.
 4. Tái sử dụng `dot-connector-sync`; tham số hóa phần đang gắn cứng tên agent, không xây công cụ song song.
 5. Kết nối đủ các MCP/twin cần thiết, giữ nguyên endpoint đang PASS của GPT, Claude và Codex.
-6. Recreate Agent Data tối đa một lần nếu bắt buộc, sau kiểm tra ảnh hưởng và có bản lùi; xác minh lại các kết nối cũ.
+6. RUN R2: chỉ MỘT forward recreate BỔ SUNG sau Owner cho phép, khi đã gộp các delta cần recreate ở S1-R2; rollback để phục hồi an toàn được phép, không forward recreate lần nữa. Kiểm các kết nối cũ sau đó.
 7. Đăng ký route/profile và bảo vệ bằng Điều 30/31.
 
 Audit phải lưu được credential identity, route, task, operation ID, commit và thời gian.
