@@ -5,12 +5,12 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 23:24 +07 · Codex · P65
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 23:23 +07 · Codex · P65
 - 🎯 Mục tiêu Owner giữ nguyên: 2 repo phải có đường code → CI VPS → main đúng runtime → deploy/rollback thật; sau đó 3 agent viết song song, KST duyệt → khóa main Pro → ca đêm.
 - 🏁 C1B XONG khi: source/main và runtime 2 app đối chiếu PARITY; deploy–rollback thật 2/2; 3 audit kiểm tương đương trên VPS với lịch/secret đúng phạm vi; Guard/receipt/cờ sạch.
 - 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ◐ C1B P61 có giới hạn → ✓ Claude P63 ACCEPT → ✓ GPT P64 READY → ■ Owner giao Codex C1B-CLOSE → C3.0 → C3 → C2 → C4.
 - ✅ Đã xong: baseline/main/CI/build 2/2; archive 4 repo; POST Guard 25/25, receipt 307, VPS-GHI đã trả, runtime cũ 2 app còn khỏe; PROMPT C1B-CLOSE đúng nguồn Web Nuxt4.
-- ■ Đang làm: Codex STARTED P65 · RUN_ID=GHM-C1B-CLOSE-20261026-02 · S0 PASS, nhận VPS-GHI 16:24–18:00Z; tìm đủ lab Nuxt4 trên VPS2; AD effective config 18/18 khớp, image không thiếu mã; kiểm candidate/audit trước deploy.
+- ■ Đang làm: Codex STARTED P65 · RUN_ID=GHM-C1B-CLOSE-20261026-02 · S0 PASS, nhận VPS-GHI 16:17:39–18:00Z (sửa mốc nhập nhầm theo timestamp commit thật 5816be7); tìm đủ lab Nuxt4 trên VPS2; AD effective config 18/18 khớp, image không thiếu mã; kiểm candidate/audit trước deploy.
 - ⬜ Còn lại: Web Nuxt 4.5.2 nguồn đủ + 132+32 routes/2 assets parity; AD so Compose/image; 2/2 deploy–rollback; 3/3 audit VPS. C1B_SCOPED vẫn FAIL đến khi PASS thật; GLOBAL_GUARD PARTIAL ngoài scope.
 - ➡ Kế tiếp: Codex thực hiện PROMPT C1B-CLOSE P64, ghi KQ từng hạng mục; NEXT_TRIGGER=CODEX_KQ_GHM-C1B-CLOSE-20261026-02. Không tự C3/C2/C4.
 - ⛔ Không deploy Nuxt3, không hạ Nuxt4.5.2/Node24.21.0, không secret cho PR, không tự đổi quyền Mac, không mua Pro/khóa main khi chưa C2.
