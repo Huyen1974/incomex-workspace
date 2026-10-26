@@ -1,7 +1,7 @@
 # TS2R · DOT REGISTER QUYỀN HẸP + TỰ ĐỒNG BỘ THEO SỰ KIỆN
 RUN_ID: NDW-TS2R-SCOPED-DOT-AUTO-20261026-02
 TASK: work/nhap-directus-for-workflow
-STATUS: DRAFT — CHỜ CLAUDE REVIEW P61 + OWNER G2 BỔ SUNG cho 1 policy + 1 API-only machine user + 1 static token GSM; KHÔNG RUN. G2 P58 cũ chỉ cấp sửa 1 DOT/metadata/event, không cấp tạo user/secret/policy. Sau ý kiến khác hãng và Owner duyệt bổ sung, GPT Host mới ký READY@SHA cuối chạm PROMPT. Owner dispatch DROOT38. Không sử dụng chữ ký READY P59 của RUN đã KQ DỪNG.
+STATUS: Chỉ được RUN khi COLLAB có (i) ý kiến phản biện P61/TS2R khác hãng đã được Host chốt, (ii) Owner G2 BỔ SUNG riêng cho tạo 1 policy + 1 API-only machine user + 1 static token GSM, (iii) Host READY@SHA trùng last-touch PROMPT này và Owner dispatch DROOT38, (iv) read-gate S0 PASS. Thiếu một điều kiện thì DỪNG trước mutation; dòng STATUS không phải lệnh tự chặn khi đã đủ các gate. G2 P58 chỉ cấp sửa 1 DOT/metadata/event, không cấp user/secret/policy. READY P59 của RUN cũ đã KQ DỪNG KHÔNG áp dụng.
 EXECUTOR_SURFACE: Claude Code CLI · WRITE_PATH: script-wrapper/DOT quản trị và Directus có quyền thực đã audit, cờ VPS-GHI qua CAS, Guard Điều 30/31; không psql/curl ad-hoc để vượt quyền.
 
 ## Đích hiện hành và reuse số đo P60
