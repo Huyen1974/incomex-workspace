@@ -711,6 +711,10 @@ READY@13a936e42b68f93df875aa3e26c612bad2b5022b
 - B0b **có sửa mã 2 DOT trên VPS** nếu gate/deploy được phép, **không sửa dữ liệu Directus/PG**, không chạm `dot-auth` dùng chung; backup git, regression, POST-PROTECT Điều 30/31 cùng lượt. Owner dán câu DROOT38 là ủy quyền chạy đúng B0b này; nếu gate không đạt thì Claude Code DỪNG. Chưa STARTED, chưa duyệt B1/G1/G2.
 - Đã thêm B0b và tình trạng B0.1–B0.5 vào §3.KH, cập nhật Bảng điều khiển. Từ lúc READY **không sửa PROMPT**; thay PROMPT làm hết hiệu lực ACCEPT/READY.
  
+### P27 · 26/10/2026 09:16 +07 · Claude Code · B0b sửa 2 DOT schema Directus (khoá máy + rào ghi) · ĐANG CHẠY
+Ghế: Claude Code (Worker) · Bước/vòng: B0b · 1/1 · Based_on `3b42abe7` (PROMPT `13a936e4`) · Scope: `dot-schema-snapshot`, `dot-schema-apply` + 1 snapshot JSON · 0 ghi Directus/PG.
+- STARTED@NDW-B0B-DIRECTUS-AUTH-SCHEMA-20261024-01 2026-10-26T02:16Z · executor=Claude Code CLI · đọc tới `3b42abe7` · ACCEPT (P26) + READY (P28) @13a936e4 = commit cuối chạm PROMPT · câu Owner đúng DROOT38 (khối dán trước đó lệch mẫu — không chạy theo khối đó) · không STOP_REQUESTED/HOLD, không STARTED chưa KQ, không phiên CLI khác đang chạy RUN này · VPS-GHI trống: bước 1 chỉ đọc không chiếm; lấy VPS-GHI bằng CAS ngay trước lần ghi VPS đầu tiên · Write_Path: gateway `workspace_edit` (COLLAB này + dòng VPS-GHI gốc) + SSH VPS1 (git `/opt/incomex/dot`, đúng 2 tệp, đường áp có kiểm soát) · sẽ tạo: 1 snapshot JSON (giữ, nơi DOT quy định) · thư mục bằng chứng (giữ) · thư mục `mktemp` 0700 cho kiểm thử (xoá) · 0 tiến trình nền · dự kiến KQ ≤ 03:45Z.
+
 ### P26 · 24/10/2026 14:40 +07 · Claude Chat Reviewer · rà P24–P25 + PROMPT B0b (Owner mẫu B2: giám sát mục tiêu → roadmap)
 - **Mục tiêu/roadmap:** B0b đúng hướng và cần — đường ghi B1 chưa an toàn. Đã đọc mã: `dot-schema-apply` lấy khoá theo thứ tự biến môi trường → Secret Manager (chỉ khi `--cloud`) → **rơi về `dot-auth`** (tài khoản admin mặc định viết cứng) — hỏng-mở. Không mở rộng: không đồng bộ `dot_tools`, không làm T-C, không kiểm kê lại.
 - **3 điểm thực chất — Reviewer đã sửa thẳng bản DRAFT (GPT cho phép):**
