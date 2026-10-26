@@ -69,16 +69,25 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>😊 Bước tiếp: chuyển TS1 sau khi Codex trả cờ VPS-GHI</h2>
+<section class="owner-actions ok"><h2>😊 TS1 đang kiểm đếm · bổ sung yêu cầu đồng bộ tự động P53</h2>
 <p>✅ B0b XONG P27 · ✅ GPT Host ACCEPT kiến trúc P48, đã sửa an toàn ở P49.</p>
-<p>✅ Claude P50 đã ACCEPT · ✅ GPT Host P51 đã READY, RUN_ID <code>NDW-TS1-12TYPE-INVENTORY-20261026-01</code>, PROMPT <code>4944d0de</code>. <strong>Chưa chạy.</strong> Khi Codex đã KQ/trả cờ và máy đủ tài nguyên, anh mới chuyển câu DROOT38 cho Claude Code; executor kiểm gate lần nữa.</p>
+<p>■ Claude Code <strong>đã STARTED TS1 lúc 13:58 ngày 26/10</strong>, chỉ đọc, RUN <code>NDW-TS1-12TYPE-INVENTORY-20261026-01</code>. Chưa có biên nhận KQ tại lần cập nhật này. Owner đã bổ sung mục tiêu <strong>tự cập nhật kỹ thuật thật, lỗi thì cảnh báo, chỉ tạo việc khi cần người</strong> cho TS2–TS5; không thay lệnh TS1 đang chạy.</p>
 <p class="muted">Sau Đếm: anh gật cấu trúc + cột Sổ quyết định, kèm số thật.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
 <span class="flag">Thẻ P48 + Host P49 · 1 S4 + ≤3 view chỉ là thiết kế</span>
-<span class="flag">✅ B0b XONG · ✅ TS1 READY · ■ Chờ Codex KQ/trả VPS-GHI</span>
+<span class="flag">✅ B0b XONG · ■ TS1 STARTED · P53 tự đồng bộ: yêu cầu chưa chạy</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <h2>1. Sơ đồ tổng thể — toàn bộ bức tranh PG Tự quản</h2>
+<section class="arch-figure" aria-label="Tự đồng bộ tài sản — yêu cầu P53, chưa nghiệm thu">
+<h3 style="margin:0 0 12px">P53 · Tài sản thay đổi phải tự cập nhật, không đồng bộ được phải cảnh báo</h3>
+<div class="arch-columns">
+<div class="arch-node arch-existing"><strong>A · Vật PG</strong><span><code>pg_catalog</code> → VIEW đọc sống. Tài sản mới thấy khi truy vấn, không chép dữ liệu máy.</span></div>
+<div class="arch-node arch-proposed"><strong>B/C · Sổ lưu Ba Lô, DOT</strong><span>Tự so ID → chạy đúng DOT được duyệt → so lại. Chưa chứng minh lịch chạy/thành công thì <b>CHƯA ĐẠT</b>.</span></div>
+<div class="arch-node arch-proposed"><strong>Lỗi, tự sửa, cảnh báo</strong><span>Chênh trong nhịp: đang cập nhật; quá hạn: lỗi và báo. Tự xử lý trước, chỉ cần người thì mới tạo 1 vụ việc gộp.</span></div>
+</div>
+<p style="font-size:15px;margin:12px 0 0"><strong>Phân biệt:</strong> chưa có quyết định phân loại là “Chưa quyết”, không phải lỗi đồng bộ. Graph chỉ nhận “ĐỦ” khi có giấy nguồn/nhịp đúng; nếu quá tuổi thì “MỘT PHẦN”. <strong>Đây mới là yêu cầu thiết kế</strong>, chưa bật đồng bộ tự ghi trong sản xuất.</p>
+</section>
 <section class="all-types"><h3>Một công thức: PG tự kể + Khai 1 lần + Người quyết</h3><div class="type-grid">
 <div class="has"><b>A · Vật PG</b><small>Mọi loại trong PG (12 loại Census + loại khác nếu có). 🤖 PG tự kể, không khai tay.</small></div>
 <div class="has"><b>B · Khai báo trong PG</b><small>Directus (collection, field, quan hệ, flow) + sổ DOT + các sổ đăng ký. 🤖 đọc thẳng.</small></div>
@@ -148,12 +157,12 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <div class="milestone-path" aria-label="Thứ tự các mốc, kéo ngang để xem hết">
  <div class="milestone-node"><strong>✅ B0b</strong><span>🤖 XONG P27: hai công cụ đã được bảo vệ</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node is-current"><strong>■ TS1 · ĐẾM</strong><span>🤖 Chỉ đọc: đếm đủ A + B + C, khoá Graph, Nuxt</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node"><strong>TS2 · ĐỦ</strong><span>😊 Duyệt → 🤖 bổ sung sổ</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>TS2 · ĐỦ</strong><span>😊 Duyệt cổng → 🤖 máy tự đối soát/đồng bộ Ba Lô và DOT, kiểm lại</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS3 · SỔ</strong><span>😊 Duyệt cột → 🤖 tạo sổ quyết định + trang Nuxt</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node"><strong>TS4–TS5</strong><span>🤖 Đề xuất → 😊 duyệt · 🤖 máy canh lệch</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>TS4–TS5</strong><span>🤖 Máy tự sửa lỗi được phép, cảnh báo có hạn; chỉ phát sinh 1 vụ khi cần người</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>B1–B5</strong><span>Công thức → Workflow</span></div>
 </div>
-<p class="muted">Giới hạn: 1 bảng + 3 view · 0 trigger · 0 lịch mới · không tắt/xoá. TS1 không ghi gì.</p>
+<p class="muted">P53: TS1 chỉ đọc, không thay PROMPT. Các sổ lưu chỉ được tự ghi sau G1/G2; ưu tiên DOT/lịch/đường cảnh báo đang có. Trần thiết kế hiện vẫn 1 bảng S4 + ≤3 VIEW, không tự thêm trigger/lịch, không tắt/xoá.</p>
 
 <h2>4. Cách đếm · khai tối thiểu · bot kiểm soát</h2>
 <details>
@@ -192,6 +201,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 </details>
 
 <h2>5. Điểm sẽ trình anh sau khi đếm</h2>
+<p><strong>Thêm theo P53:</strong> bằng chứng về lịch đồng bộ Ba Lô/DOT, ngưỡng trễ thực, cách tự sửa có bảo vệ, cách cảnh báo đúng lỗi và điều kiện mở quy trình phát sinh. Không để anh phải xử lý từng lệch số nhỏ.</p>
 <div class="note">
 <p>⚪ Cấu trúc 3 nhóm + 1 bảng + 3 view (Thẻ P48).</p>
 <p>⚪ Từng cột của Sổ quyết định và quyền ghi.</p>
