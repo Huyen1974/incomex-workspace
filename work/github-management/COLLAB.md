@@ -4,15 +4,15 @@ Tên việc: Tổ chức nhiều agent viết mã song song và nhập mã an to
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · 26/10/2026 10:11 +07 · Codex · P39
+### BẢNG ĐIỀU KHIỂN · 26/10/2026 10:26 +07 · Codex · P40
 - 🎯 Mục tiêu: CI/CD hai repo thực trên VPS; nhiều agent code song song, Claude Code CLI là kỹ sư trưởng kiểm/merge/deploy; ca đêm tự thực hiện có biên nhận.
 - 🏁 Đóng toàn việc khi: C1A S3 đạt → C1B deploy thủ công+rollback trên VPS, đưa 3 audit lên VPS → C3 ba PR thật/KST merge → C2 Pro/khóa main/auto-deploy → C4 ca đêm.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A CI 2/2 xanh → ✓ Claude P37 ACCEPT S3 → ✓ GPT P38 READY S3 → ■ Owner giao Codex RUN → □ C1A nghiệm thu → C1B → C3 → C2 → C4.
-- ✅ Đã xong: hai runner VPS; CI Agent Data 6/6, Web 16/16 PASS; Actions budget toàn tài khoản $0 + Stop, 15 workflow thừa tắt. PROMPT S3 đúng SHA P37 giữ nguyên.
-- ■ Đang làm: Codex STARTED GHM-C1A-S3-CLOSE-20261025-01; S0 đạt, giữ VPS-GHI theo root COLLAB; chỉ khép S3, giữ hai CI đã GREEN.
-- ⬜ Còn lại: swap live phải bằng 0 + INV25 bắt lệch; footprint của C1A đạt; 80 mục/3 đèn của việc khác ghi nợ, không sửa hộ; C1B KST; C3 agent; C2 hard-lock/Pro; C4 ca đêm.
-- ➡ Kế tiếp: Codex thực hiện S1–S3 đúng PROMPT đã READY. NEXT_TRIGGER=CODEX_COMPLETE_C1A_S3_SCOPE.
-- ⛔ Không chạy lại CI, không rollback runner khỏe, không sửa main/bật deploy cũ; trước C2 manual deploy only, chưa có hard-lock trên repo private Free.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A CI 2/2 xanh → ✓ kiểm quota/INV25 → ⛔ C1A S3 còn 1 blocker thuộc C1A → C1B → C3 → C2 → C4.
+- ✅ Đã xong: giữ hai CI cũ; mở rộng kiểm định hiện có, kiểm thử và đối chiếu thực tế đạt. Phần thay đổi C1A trong tài liệu dùng chung đã tách và có bằng chứng riêng.
+- ■ Đang làm: 0 RUN active của Codex; KQ DỪNG GHM-C1A-S3-CLOSE-20261025-01, trả VPS-GHI và kết thúc kiểm tra tạm.
+- ⬜ Còn lại: 1 thiếu sót khai báo tài nguyên của chính C1A; không lấy nợ của RUN khác làm blocker. C1A_S3_SCOPED=FAIL · GLOBAL_GUARD=PARTIAL. Bằng chứng chi tiết giữ riêng.
+- ➡ Kế tiếp: Host/Reviewer đọc KQ P40 và hồ sơ riêng, quyết cách khép thiếu sót của C1A theo cơ chế hiện có. NEXT_TRIGGER=HOST_REVIEW_C1A_STORAGE_ACCOUNTING.
+- ⛔ Không tự chạy lại CI, cài lại runner, sửa main/ứng dụng hoặc C1B/C2.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -596,6 +596,17 @@ Ghế: openai-main · Based_on: P35–P36, P37 Claude ký ACCEPT, GitHub xác nh
 - S0: đối chiếu hồ sơ P35 đúng hash; hai CI cũ vẫn success đúng SHA, runner idle và image giữ nguyên; kiểm đầu vào/quyền/cờ hiện hành đạt. Nhận VPS-GHI bằng CAS trong commit này, hạn 04:41Z. Bằng chứng vận hành giữ riêng.
 - Chỉ khép phần bảo vệ C1A; không chạy lại CI, không cài lại runner, không sửa main/ứng dụng hoặc C1B/C2. KQ sẽ tách C1A_S3_SCOPED và GLOBAL_GUARD; phần ngoài phạm vi bàn giao Host.
 - NEXT_TRIGGER=CODEX_COMPLETE_C1A_S3_SCOPE.
+
+## P40 — Codex KQ@GHM-C1A-S3-CLOSE-20261025-01 DỪNG · 26/10/2026 10:26 +07
+- Owner RUN; ACCEPT P37 + READY P38 cùng e58ec11308348bc1d8d06b0d6e54ff8a28f61664. PROMPT giữ nguyên. STARTED P39 commit bf18499672fdc96caa421a0bf314a82438cbbcac.
+- C1A_S3_SCOPED=FAIL · GLOBAL_GUARD=PARTIAL; raw POST=FAIL. Chỉ một blocker thuộc chính C1A: thiếu khai báo tài nguyên phát sinh theo cơ chế bảo vệ hiện có. Chi tiết lỗi và cách xác định thuộc C1A nằm trong hồ sơ riêng; không công khai cấu hình/đường dẫn/log.
+- Phần đã đạt: mở rộng checker hiện có, 76/76 fixture, 5/5 kiểm truyền kết quả, 3/3 kiểm tích hợp và 6/6 mẫu thử nhẹ; 7 mục riêng + 3 delta dùng chung được kiểm riêng. Hai runner online; hai CI P35 giữ success, không rerun/cài lại. Ứng dụng và main giữ nguyên.
+- Attribution: từ 87 mục P35 có 7 riêng C1A, 3 mixed chứa delta C1A, 77 NOT_C1A. POST hiện tại 93 mục; 83 NOT_C1A bàn giao GPT Host theo danh sách riêng, chủ chưa rõ vẫn UNKNOWN. Không sửa hộ, không lấy chúng làm lý do dừng scoped.
+- Đã xử lý phần kiểm định thuộc quyền RUN, giữ thay đổi đã đạt. Không ghi lùi lịch sử hoặc thay sổ/baseline chung để hợp thức hóa thiếu sót còn lại. Chưa có biên nhận toàn bộ PASS.
+- [Báo cáo công khai](C1A-S3-CLOSE-REPORT.md); bản đầy đủ riêng SHA256 5a5358545f7a18c3bde20e9d69946aebfbbe087fa4bf7866ac0ce4b212fa0620; manifest riêng 2931f01a139b0b453f898878cf937a924e62b3f3f45a614a0427aab420d173b0. POST SHA256 92718fdeeb5772f3eadffdecb05ebd9946b376d113a5e775f1999edc6fa99581.
+- 0 RUN active của Codex; kiểm tra tạm đã kết thúc; VPS-GHI trả trong commit này. Không C1B/C2.
+- NEXT_TRIGGER=HOST_REVIEW_C1A_STORAGE_ACCOUNTING.
+
 
 
 

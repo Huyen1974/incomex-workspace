@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: C1A CI 2/2 PASS; Claude P37 ACCEPT + GPT P38 READY S3 cho Codex, chưa Owner RUN. C1B Claude Code CLI KST → C3 → C2 Pro → C4 ca đêm.**
+**Trạng thái: C1A CI 2/2 GREEN giữ nguyên; S3-CLOSE P40 KQ DỪNG, kiểm định đã cải thiện nhưng còn 1 thiếu sót tài nguyên thuộc chính C1A. C1A_S3_SCOPED=FAIL · GLOBAL_GUARD=PARTIAL. VPS-GHI đã trả; Host đọc hồ sơ riêng. Không tự C1B/C2.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,10 +8,11 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — `GHM-C1A-S3-CLOSE-20261025-01`, Claude P37 ACCEPT + GPT P38 READY cùng SHA `e58ec11308348bc1d8d06b0d6e54ff8a28f61664`. Chỉ Owner giao Codex mới RUN; không làm lại hai CI đã PASS, không tự C1B/C2.
+6. work/github-management/PROMPT.md — `GHM-C1A-S3-CLOSE-20261025-01`, Claude P37 ACCEPT + GPT P38 READY cùng SHA `e58ec11308348bc1d8d06b0d6e54ff8a28f61664`. Owner RUN đã thực hiện, KQ P40; không làm lại hai CI đã PASS, không tự C1B/C2.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
+9. [C1A-S3-CLOSE-REPORT.md](C1A-S3-CLOSE-REPORT.md) — KQ S3 lượt 26/10; số đếm công khai, chi tiết và nợ riêng bàn giao Host.
 
 Mục tiêu duy nhất của việc này: nhiều AI nhận nhiều việc, **viết mã song song trên branch/workspace riêng**, Chief duyệt PR trên nền mới nhất, Owner xem bảng kết quả sáng. R1 dùng Actions trong hạn mức miễn phí với hard budget $0; Owner 25/10 15:18: mọi run đặt trên VPS bằng runner tự host; ưu tiên 1 là CI/CD chạy được.
 

@@ -11,4 +11,4 @@ Mỗi container user 10001, không Docker socket/host mounts/privileged; 1 CPU/1
 
 Rollback từng repo: stop/remove đúng container qua runnerctl, xóa registration tương ứng bằng phiên GitHub admin trên Mac. Volume riêng giữ lại để khôi phục, không xóa dữ liệu tùy tiện. Không thao tác application containers hoặc source tree đang phục vụ.
 
-Trạng thái: CI 2/2 GREEN; KQ DỪNG S3, chưa nghiệm thu toàn bộ Đ30–31. Xem [báo cáo công khai đã lược thông tin](../C1A-RESUME-REPORT.md) và [COLLAB P35](../COLLAB.md). Chi tiết vận hành và các điểm chưa đạt chỉ lưu vùng bằng chứng riêng, không đưa lên repo public. Không tự chạy C1B/C2.
+Trạng thái mới nhất: CI 2/2 GREEN giữ nguyên; [S3-CLOSE P40](../C1A-S3-CLOSE-REPORT.md) KQ DỪNG do 1 thiếu sót thuộc C1A, chưa nghiệm thu toàn bộ Đ30–31. Checker vận hành đã được cập nhật trong RUN S3-CLOSE; nguồn hiện hành, hash và bản lùi lưu trong hồ sơ riêng theo giới hạn PROMPT. Các tệp code ở thư mục này là snapshot P35, không dùng snapshot checker cũ để ghi đè bản vận hành mới. Điều phối tại [COLLAB](../COLLAB.md). Không tự chạy C1B/C2.
