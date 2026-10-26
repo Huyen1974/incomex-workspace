@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 14:50 +07 · GPT Host · P51
-- 🎯 Mục tiêu: CI/CD an toàn cho hai repo VPS, KST merge/deploy thủ công; sau đó thử 3 agent/C3, khóa main/C2 và ca đêm/C4.
-- 🏁 XONG toàn việc: C1A CI runner PASS → C1B main/source đúng + deploy candidate/rollback 2 app + 3 audit lên runner VPS → C3 3 PR thật → C2 Pro/khóa main + auto CD → C4 ca đêm.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A scoped PASS → ✓ Claude P50 nhận xét/sửa 6 điểm → ✓ GPT P51 **READY@3c2b0cbe** → ■ Owner giao **Claude Code CLI KST** C1B → □ C1B KQ → C3 → C2 → C4.
-- ✅ Đã xong: CI 2/2 thực xanh, zero-swap/INV25 và volumes 8/8, Guard C1A scoped PASS; PROMPT C1B đã Host ký READY đúng last-touch SHA. Giữ Global Guard PARTIAL 23/25, chưa đủ 24h thống kê mới.
-- ■ Đang làm: — · 0 RUN C1B active, chưa push main/restart app; đây là chữ ký duyệt chứ chưa STARTED.
-- ⬜ Còn lại: KST xác minh VPS source/GitHub main/runtime, backup main cũ và known-good, đẩy main bảo toàn tree/history, build thử/deploy+rollback từng app, chuyển đúng 3 audit khi thử tương đương. Sau C1B là C3 nhiều agent, C2 Pro, C4 ca đêm.
-- ➡ Kế tiếp: **Owner chuyển RUN `GHM-C1B-KST-BASELINE-MANUAL-CD-20261026-01` cho Claude Code CLI** sau khi chắc không có RUN VPS khác; Codex không thực thi C1B. NEXT_TRIGGER=OWNER_RUN_GHM_C1B_KST.
-- ⛔ Không dùng PROMPT P22 cũ, không tự bật auto-deploy, không ghép runner CI vào Docker/root, không force push, không tái mở C1A/nợ Guard ngoài scope.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 15:01 +07 · GPT Host · P52
+- 🎯 Mục tiêu: Codex tiếp tục làm C1B GitHub/CI/CD hai repo; Claude Code CLI giữ vai KST lâu dài từ C3; sau đó C2 Pro/khóa main và C4 ca đêm.
+- 🏁 XONG khi: C1A scoped đã đạt; C1B Codex chứng minh main/source đúng + manual deploy/rollback 2 app + 3 audit runner VPS; C3 ba PR thật/KST xét; C2 khóa main, C4 ca đêm.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A scoped PASS → ✓ Claude P50 sáu điểm kỹ thuật → ■ Owner đổi C1B executor sang **Codex**, Host làm PROMPT/READY mới → □ Owner giao Codex → C1B → C3 → C2 → C4.
+- ✅ Đã xong: 2/2 CI GREEN; swap/INV25 + volume 8/8 PASS; P50 sáu biện pháp bảo vệ còn nguyên. C1B cũ P51 READY cho Claude **SUPERSEDED_UNRUN**, chưa có STARTED/KQ.
+- ■ Đang làm: — · 0 RUN C1B active theo P51; chưa push main/khởi động lại production.
+- ⬜ Còn lại: Codex thực thi C1B theo Owner RUN và capability được phép; không lấy khóa KST. Nếu main/deploy chỉ có KST-only gate thì dừng đúng blocker, không lách. Sau C1B: C3 → C2 → C4. GLOBAL_GUARD=PARTIAL 23/25, lịch sử 24h mới chưa đủ.
+- ➡ Kế tiếp: Host ký READY last-touch PROMPT CODEX, Owner dispatch **GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01** khi cờ VPS-GHI thực sự trống. NEXT_TRIGGER=HOST_READY_GHM_C1B_CODEX.
+- ⛔ Không dùng lệnh Claude C1B cũ, không tự cấp root/đọc secret KST, không tự C3/C2/auto CD.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -54,6 +54,8 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - Owner 26/10/2026 10:45 (phiên Claude): «Tạm thời vẫn điều hành bằng tay (Claude phản biện, GPT Host chốt prompt, Owner chuyển cho agent). Ưu tiên kết thúc trong 1 vòng để Host GPT chốt prompt cho Claude Code.» ⇒ lượt kế là PROMPT C1B cho Claude Code CLI.
 
 HUMAN_DIRECTIVE@GHM-P43-CODEX EFFECTIVE · task=github-management · scope=C1A/S3/hai volume runner · recorded_by=openai-main (GPT Chat) · quote=«Lưu ý là việc này đang giao cho Codex chứ không phải claude code cli đấy nhé.» · text=Codex tiếp tục thực thi và đóng C1A, Claude Code CLI giữ vai kỹ sư trưởng riêng tại C1B sau nghiệm thu.
+
+HUMAN_DIRECTIVE@GHM-P52-C1B-CODEX EFFECTIVE · task=github-management · scope=C1B/executor_only · step=next RUN · recorded_by=openai-main (GPT Chat) · quote=«Vây: CLAUDE CODE CLI — OWNER RUN C1B => đổi thành CODEX — OWNER RUN C1B trước khi giao nhé?» · text=Codex thực thi C1B thay Claude Code CLI; không coi là chủ trương thay KST độc quyền review/merge/deploy lâu dài, không cấp thêm secret/quyền vượt gate. Audit: Owner trực tiếp 26/10/2026, trước C1B STARTED.
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -734,6 +736,16 @@ Ghế: openai-main · Based_on: GPT P49 DRAFT, Claude Chat P50 + commit `b9953e6
 - **Giới hạn phải giữ:** GLOBAL_GUARD=PARTIAL (raw POST 23/25), C1A volumes thống kê 24h chưa đủ; HSMQT/Graph/HJW RUN khác có thể đổi máy nên Codex/KST bắt buộc kiểm lại VPS-GHI, source runtime và Guard PRE tại S0. Không tuyên bố toàn VPS sạch hoặc 3 audit đã chuyển.
 - **READY@3c2b0cbe06bb86eea76a5014fda21c36e31e8d9d** · signer=GPT Host/openai-main · RUN_ID=`GHM-C1B-KST-BASELINE-MANUAL-CD-20261026-01` · EXECUTOR=Claude Code CLI KST · SCOPE=hai repo PRIVATE baseline/main tiến thẳng + hai app manual candidate deploy/rollback + ba workflow audit sang runner VPS. **CHƯA STARTED**, không mutation VPS, không tự chạy C3/C2/C4. Owner chuyển thủ công là dispatch và xác nhận scope đổi main/restart hai ứng dụng trong PROMPT; RUN trước chưa KQ hoặc cờ bận ⇒ agent STOP trước mutation và KQ DỪNG.
 - NEXT_TRIGGER=OWNER_RUN_GHM_C1B_KST.
+
+## P52 · GPT Host 26/10/2026 — OWNER ĐỔI EXECUTOR C1B CLAUDE CODE CLI → CODEX, READY CŨ VÔ HIỆU
+Ghế: openai-main · Based_on: Owner trực tiếp yêu cầu đổi câu OWNER RUN C1B sang CODEX trước khi giao; P48 C1A scoped PASS, P50 Claude góp ý sáu safety, P51 READY cũ chưa STARTED.
+- **HUMAN_DIRECTIVE:** owner giao Codex tiếp tục xử lý C1B. `GHM-C1B-KST-BASELINE-MANUAL-CD-20261026-01` trước đây READY@3c2b0cbe06bb86eea76a5014fda21c36e31e8d9d = **SUPERSEDED_UNRUN**, không được sử dụng; thay bằng `GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01` cho **Codex CLI/Desktop**. Không thay Host GPT Chat, Claude Chat vẫn Reviewer, Claude Code CLI giữ vai KST/C3.
+- **Giới hạn quyền:** Owner đổi executor, không tự đưa token/khóa KST/sudo/runner privilege cho Codex. Codex chỉ dùng đúng cổng GitHub main và DOT/deploy host đã được phép dưới identity Codex; không hợp lệ ⇒ S0/S2/S4 KQ DỪNG trước hành động đó, không bypass, không sửa cờ cứng.
+- **Giữ 6 điểm an toàn P50:** `merge -s ours` chứng minh tree; baseline dirty single-commit có quét secret; kiểm workflows push permissions; `--no-deps`/compose hash; nginx reload không đổi config; tối đa 4 restart diễn tập + một lần cứu hộ known-good; rollback về runtime cũ, không đánh tráo SOURCE_HEAD thành RUNTIME_SHA.
+- **Roadmap không đảo:** C1A XONG scoped → C1B CODEX → C3 KST Claude xét/merge PR 3 agent → C2 Owner mua Pro + khóa main/auto CD → C4 ca đêm. Guard global 23/25 PARTIAL, 24h trend volume chưa đủ không chặn scoped C1B nhưng không báo toàn hệ xanh.
+- **Kế tiếp:** Host ký READY đúng last-touch SHA của PROMPT mới, Owner chỉ chuyển `CODEX — OWNER RUN C1B` một lần; RUN lúc máy còn cờ bận thì S0 fail-closed. Không cần vòng phản biện mới cho chỉ thị đổi executor thuần hành chính, không nới quyền.
+- NEXT_TRIGGER=HOST_READY_GHM_C1B_CODEX.
+
 
 
 
