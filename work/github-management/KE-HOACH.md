@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**TRẠNG THÁI: DROOT58 chỉ cần Host/Co-host hợp lệ ký READY, Reviewer có ý kiến chứ không ký. C1A CODEX xử hai runner volumes, P42 góp ý kỹ thuật 3/3, Host P45 chốt; CI 2/2 và INV25 đã PASS. Chưa RUN mới khi VPS-GHI bận; tiếp C1B KST → C3 → C2 → C4.**
+**TRẠNG THÁI: GPT Host P46 đã READY@7ea270e761aeb57b50574d685735d5fc532a1337 cho CODEX khép hai runner volumes C1A, Owner chuyển lệnh khi RUN trước kết thúc và VPS-GHI trống. Chưa STARTED; CI 2/2 và INV25 đạt. Sau C1A → C1B KST → C3 → C2 Pro → C4.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 

@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.3 · 24/10/2026
-**Trạng thái: DROOT58 bỏ chữ ký Reviewer bắt buộc; Host/Co-host hợp lệ ký READY một lần sau góp ý khác hãng. GPT P45 chốt CODEX làm 2 volumes C1A, giữ 2/2 CI và swap/INV25 đã PASS. PROMPT DRAFT, đợi VPS-GHI thật trống để Host ký READY rồi Owner dispatch; sau C1A → C1B KST → C3 → C2 Pro → C4.**
+**Trạng thái: GPT Host P46 ký sẵn READY theo Owner cho RUN Codex C1A hai volumes, đúng last-touch PROMPT SHA 7ea270e761aeb57b50574d685735d5fc532a1337. Owner chỉ dispatch khi RUN VPS trước có KQ/trả cờ; Codex S0 recheck VPS-GHI/Guard và CAS trước mutation. 2/2 CI, swap/INV25 PASS giữ; sau C1A → C1B KST → C3 → C2 Pro → C4.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
 Ưu tiên 1 (Owner 25/10 15:18): hệ thống chạy được — mỗi repo đi được nhánh → PR → test → main → deploy VPS, máy chạy (runner) đặt trên VPS. Sau đó: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 

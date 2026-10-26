@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: DROOT58 — Hội đồng chỉ góp ý, Host/Co-host hợp lệ ký một READY. C1A hai volume do CODEX, phản biện P42 đã đủ và Host P45 chốt. PROMPT chưa READY vì VPS-GHI mẫu gần nhất còn bận; kiểm cờ thật trống rồi Host ký SHA và Owner chuyển Codex.**
+**Trạng thái: `GHM-C1A-S3-VOLUMES-20261026-01` đã GPT Host P46 READY@7ea270e761aeb57b50574d685735d5fc532a1337; chưa STARTED. Owner cam kết chỉ giao khi RUN trước xong, VPS-GHI trống; Codex S0 vẫn bắt buộc kiểm cờ/Guard. DROOT58 một chữ ký Host, không Reviewer ký.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — `GHM-C1A-S3-VOLUMES-20261026-01` cho **CODEX**. Claude P42 đã góp ý, Host P44/P45 chốt; chỉ cần một READY của Host/Co-host đúng last-touch SHA theo DROOT58, không Reviewer ACCEPT. Chờ resource gate, chưa RUN.
+6. work/github-management/PROMPT.md — đã **READY@7ea270e761aeb57b50574d685735d5fc532a1337** do GPT Host ký trong COLLAB P46, executor CODEX, chỉ khép C1A hai volumes. Owner dispatch sau RUN khác kết thúc, executor recheck cờ/Guard và không tự C1B.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
