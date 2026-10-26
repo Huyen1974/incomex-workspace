@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**Trạng thái: P54 C1B dừng ở S0 vì lệnh tự cấm đường ghi duy nhất của Codex; Claude P55 gỡ cổng quyền (phiên gh Owner chỉ để push/archive) + thêm S7 archive repo không dùng. Chờ Host READY@7d549e7a + Owner giao Codex cùng RUN_ID. 0 mutation main/deploy.**
+**Trạng thái: P54 C1B DỪNG S0 vì grant Contents+Workflows write chưa chứng minh. Host P56 giới hạn C1B đúng `agent-data-test`/`web-test`, không dùng gh Owner admin; S7 archive repo không dùng từ chỉ đạo Owner là backlog độc lập phải kiểm backup/consumer. PROMPT DRAFT_NOT_READY, không RUN bằng SHA P53 cũ; cần cổng ghi scoped rồi Host READY/Owner giao Codex. C1A scoped PASS.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 

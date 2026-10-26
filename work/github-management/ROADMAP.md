@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.3 · 24/10/2026
-**Trạng thái: P54 C1B dừng ở S0 vì lệnh tự cấm đường ghi duy nhất của Codex; Claude P55 gỡ cổng quyền (phiên gh Owner chỉ để push/archive) + thêm S7 archive repo không dùng. Chờ Host READY@7d549e7a + Owner giao Codex cùng RUN_ID. 0 mutation main/deploy.**
+**Trạng thái: Codex C1B P54 KQ DỪNG tại S0 do chưa chứng minh main/workflow write. Claude P55 đề xuất dùng gh admin và S7 archive repo khác; Host P56 chỉ giữ hai repo PRIVATE `agent-data-test`/`web-test`, không chấp nhận gh admin làm scoped grant, S7 thành backlog độc lập. PROMPT C1B DRAFT_NOT_READY, READY P53 cũ vô hiệu; cần grant Contents write + Workflows write cho Codex đúng hai repo rồi Host READY/Owner RUN. C1A scoped PASS; C1B S1–S6 chưa chạy; C3→C2 Pro→C4 giữ nguyên.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
 Ưu tiên 1 (Owner 25/10 15:18): hệ thống chạy được — mỗi repo đi được nhánh → PR → test → main → deploy VPS, máy chạy (runner) đặt trên VPS. Sau đó: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 
