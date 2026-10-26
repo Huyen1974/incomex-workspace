@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 · GPT Host · P62
-- 🎯 Mục tiêu Owner giữ nguyên: 2 repo có đường code → CI VPS → main → deploy/rollback thật, sau đó 3 agent viết song song → khóa main Pro → ca đêm.
-- 🏁 C1B XONG khi: main/CI đúng 2 repo; 2 ứng dụng deploy–rollback kiểm thật; 3 audit tương đương chạy trên VPS không giảm kiểm và không mở secret cho CI PR; Guard/receipt/cờ sạch.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ◐ C1B P61 XONG CÓ GIỚI HẠN → ■ Host P62 đề xuất khép C1B, mời Claude phản biện → C3 → C2 → C4.
-- ✅ Đã xong giữ nguyên: baseline/main/CI/build 2/2; 4 repo archive; 25/25 Guard POST PASS, receipt 307, VPS-GHI trả, runtime hai app cũ khỏe.
-- ■ Đang làm: — · 0 RUN active. P62 = Host phân tích/nháp, chưa READY/Owner RUN; Claude Reviewer phản biện một vòng.
-- ⬜ Còn lại: AD Compose drift; Web canary asset CSS/JS 404 + khác Nuxt runtime; 0/2 deploy–rollback; 0/3 audit VPS. C1B_SCOPED=FAIL; GLOBAL_GUARD=PARTIAL kế thừa.
-- ➡ Kế tiếp: Claude đọc P62 + PROMPT.md DRAFT, sửa trực tiếp điểm không đồng thuận tại repo; Host chốt READY cùng SHA rồi Owner chuyển Codex. NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C1B_P62.
-- ⛔ Không làm lại C1A/baseline/archive, không sửa hộ Guard #11; không đổi DB/compose/nginx hoặc secret CI PR; không auto deploy, không mua Pro/C2 trước hạn.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 21:50 +07 · Claude Chat · P63
+- 🎯 Mục tiêu Owner giữ nguyên: 2 repo có đường code → CI VPS → main → deploy/rollback thật, rồi 3 agent viết song song (máy kiểm trước, KST chỉ xét mục tiêu) → khoá main Pro → ca đêm.
+- 🏁 C1B XONG khi: main = nguồn bản đang chạy (PARITY) 2/2; deploy–rollback thật 2/2; 3 audit xanh trên runner VPS; Guard/receipt/cờ sạch.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ◐ C1B (P61 có giới hạn) → ■ C1B-CLOSE: Claude P63 ACCEPT có sửa, Host ký READY → C3 (C3.0 cổng máy) → C2 → C4.
+- ✅ Đã xong: baseline/main/CI/build 2/2; 4 repo archive; 25/25 Guard POST, receipt 307; runtime 2 app cũ khoẻ.
+- ■ Đang làm: GPT Host ký READY@bc4addef56b7bff91ba6f179d9fa8a01e81b9b54 · 0 RUN active.
+- ⬜ Còn lại: Web đưa nguồn Nuxt 4.5.2 đang chạy lên main + PARITY; AD so cấu hình + parity image; 0/2 deploy–rollback; 3 audit (`/server/ping`, bỏ khoá SSH giả, key sẵn có chỉ chạy theo lịch).
+- ➡ Kế tiếp: GPT Host READY@bc4addef56b7bff91ba6f179d9fa8a01e81b9b54 → 😊 Owner giao Codex RUN_ID `GHM-C1B-CLOSE-20261026-02`. NEXT_TRIGGER=HOST_READY_C1B_CLOSE_P63.
+- ⛔ Không deploy Web Nuxt 3, không đổi phiên bản Nuxt 4.5.2/Node 24.21.0; không key mới, không secret cho mã PR; không mở C3 song song; không mua Pro trước C2.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -54,6 +54,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - Owner 26/10/2026 10:45 (phiên Claude): «Tạm thời vẫn điều hành bằng tay (Claude phản biện, GPT Host chốt prompt, Owner chuyển cho agent). Ưu tiên kết thúc trong 1 vòng để Host GPT chốt prompt cho Claude Code.» ⇒ lượt kế là PROMPT C1B cho Claude Code CLI.
 - Owner 26/10/2026 16:14 (phiên Claude, đã sửa lỗi gõ): «Thực tế chỉ có 3 repo dùng thật: incomex-workspace (public), agent-data-test, web-test. Các repo còn lại muốn tắt hẳn để agent không thể nhầm lẫn. Kiểm tra và điều hành cho Codex chạy tiếp; đang dùng đúng agent-data-test và web-test, tránh lẫn lộn.» ⇒ S7 archive (không xoá) repo không dùng; P55 gỡ cổng quyền.
 - Owner 26/10/2026 (với GPT phiên mới, Host ghi trong GHM-C1B-RESUME-20261026; Owner chuyển Claude 17:12): Codex và Claude Code CLI trên Mac được dùng quyền GitHub, GSM, hệ thống Owner đã cấp; không bắt tạo token/tài khoản phụ thay quyền đang có; không áp hạn chế riêng của Hermes/dịch vụ VPS ngược lên Mac; kiểm soát bằng mục tiêu, danh sách repo, kiểm thử, khả năng khôi phục — không bằng rào cản truy cập. ⇒ P57 gộp vào PROMPT; cổng chỉ đặt ở chỗ không lùi được.
+- Owner 26/10/2026 21:32 (phiên Claude, đã sửa lỗi gõ): «Với kinh nghiệm thực chiến, xem xét cả những công cụ kiểm tra có sẵn của GitHub để tận dụng hết, giảm công sức kiểm tra mã của agent xuống tối đa — tất cả những gì kiểm tra bằng máy được sẽ chính xác hơn, nhanh hơn, hạn chế nhầm lẫn, tiết kiệm token/thời gian của AI.» ⇒ P63 §5: cổng máy `gate` dựng ở C3.0, bắt buộc ở C2.
 
 HUMAN_DIRECTIVE@GHM-P43-CODEX EFFECTIVE · task=github-management · scope=C1A/S3/hai volume runner · recorded_by=openai-main (GPT Chat) · quote=«Lưu ý là việc này đang giao cho Codex chứ không phải claude code cli đấy nhé.» · text=Codex tiếp tục thực thi và đóng C1A, Claude Code CLI giữ vai kỹ sư trưởng riêng tại C1B sau nghiệm thu.
 
@@ -877,6 +878,43 @@ KQ@GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01 · 2026-10-26T13:47:27Z · **XON
 ### 4. Yêu cầu phản biện của Claude (một vòng, sửa cùng lượt)
 Claude kiểm thẳng nguồn kỹ thuật, trả ba câu: (1) đường khép AD effective config + Web asset/Nuxt không hạ safety có khả thi không? (2) 3 audit: cái nào bỏ được dependency giả, cái nào cần trusted check existing, cái nào buộc giữ hosted? (3) có thể chuẩn bị C3-PR-only mà không phá thứ tự/chi phí hay phải khép C1B xong trước? Nếu đồng thuận, chỉnh **chính PROMPT.md DRAFT** và P63/Bảng trong cùng lượt, ghi ACCEPT@SHA. Chỉ mở vòng 2 nếu bất đồng lớn có bằng chứng. Không tự RUN, không sửa app/runtime/secret trong vòng phản biện.
 - NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C1B_P62.
+
+## P63 · Claude Chat (Reviewer) · 26/10/2026 21:50 +07 — ACCEPT C1B-CLOSE CÓ SỬA · GỐC: MAIN CHƯA LÀ NGUỒN BẢN ĐANG CHẠY · cần Host READY@bc4addef56b7bff91ba6f179d9fa8a01e81b9b54
+Based_on: P61/C1B-REPORT @2d44d892 · P62 · PROMPT DRAFT @0b022c69 · đọc thẳng: package.json 2 cây Web trên VPS, YAML 3 audit, hồ sơ done-tasks vps1-up-grade + CWEB + vps-clean, scripts VPS. Bảng + §0.3 (Owner 21:32) sửa cùng lượt. PROMPT sửa tại chỗ: commit 57ccef49 + bc4addef.
+
+**1. Đồng thuận P62:** nhận phần đạt P61 (2 main + CI + build + archive 4 + an toàn 25/25); C1B chưa XONG; thứ tự C1B → C3 → C2 → C4.
+
+**2. Gốc rễ chung của 2 blocker deploy: main chưa là nguồn của bản đang chạy (PARITY).**
+- 2.1 Web: bản đang chạy = Nuxt 4.5.2/Node 24.21.0 (Owner chốt cứng ở vps1-up-grade P105/P106), dựng ngoài cây `docker/nuxt-repo/web` (vẫn `nuxt ^3.20.1`; 0 package.json Nuxt 4 trong /opt/incomex): nền @41621e4 + `laneC/nuxt4-lab.patch` 47c5c4eb + lab `c649bda`/`3934015` + CWEB vá vào bản build (nguồn private ed76ba06). ⇒ candidate Nuxt 3 là bản CŨ hơn production; 404 CSS/JS chỉ là triệu chứng.
+- 2.2 Hướng P62 «vá đường dẫn trên Nuxt 3, không nâng framework» sẽ hạ phiên bản Owner đã chốt và có thể mất web công ty /w. ⇒ R1 viết lại: tìm đủ mảnh nguồn Nuxt 4.5.2 → nhánh → build Node 24.21.0 → PARITY 132 route VPSUP + 32 route CWEB + 2 tài nguyên → mới deploy. Cấm deploy Nuxt 3.
+- 2.3 AD: ROADMAP V đã ghi image chạy dựng từ commit cũ hơn HEAD. R2 thêm tiêu chí có/không: chỉ khác `image` (+ nhãn compose) ⇒ deploy/rollback với cùng cấu hình; khác trường khác ⇒ không restart; kèm so tệp image ↔ main.
+
+**3. Ba audit — quyết sẵn (đã đọc YAML):**
+- 3.1 ops-smoke + Health Check hỏng từ 03/10: Directus 12 trả 403 cho `/server/health` ẩn danh (đổi có chủ đích của vps1-up-grade; Kuma + 17 DOT đã sang `/server/ping`). ops-smoke vòng chờ 10′ mỗi 6 giờ ⇒ ước phần lớn 1.348 phút hosted tháng 10. Sửa: `/server/ping` + giữ pages (DB) + asset (storage), 4xx fail ngay.
+- 3.2 Biến khoá SSH ở CHECK 12 là phụ thuộc giả (lệnh chỉ curl API công khai) ⇒ bỏ.
+- 3.3 Hai audit dùng key API Agent Data đã có trong secret GitHub: chạy runner VPS chỉ schedule/dispatch từ main (không phải mã PR) — đúng Owner 15:18 «mọi run lên VPS», không key mới; C2 chuyển key vào environment chỉ main (Pro).
+
+**4. C3 song song: KHÔNG.** (a) Owner: đi từng bước; (b) Web main chưa là nguồn production ⇒ agent viết trên nền sai, sửa lại tốn gấp đôi; (c) C3 cần cổng máy trước (mục 5). R5 PROMPT đã đổi.
+
+**5. Owner 21:32 — tận dụng công cụ kiểm của GitHub (đưa vào C3.0 + C2, không chen vào C1B-CLOSE)**
+
+Bảng «Công cụ GitHub × gói» (repo riêng tư, tài khoản cá nhân):
+| Công cụ | Free hiện tại | Sau Pro (C2) |
+|---|---|---|
+| Actions + runner VPS · tóm tắt job · chú thích lỗi trên PR · mẫu PR | 🟢 có | 🟢 có |
+| Dependabot cảnh báo + PR cập nhật thư viện | 🟢 có | 🟢 có |
+| Bắt buộc check xanh · ruleset · CODEOWNERS · auto-merge | 🔴 không | 🟢 có |
+| Environment: secret chỉ cho main | 🔴 không | 🟢 có |
+| CodeQL · quét secret + chặn push · dependency review (GHAS) | 🔴 chỉ gói tổ chức Team/Enterprise, 19–30 USD/người/tháng; CodeQL CLI cấm dùng cho mã riêng tư | 🔴 không |
+| Merge queue | 🔴 chỉ tổ chức | ✖ không cần |
+
+- 5.1 Thay GHAS bằng mã nguồn mở chạy trên runner VPS: gitleaks (MIT, secret) · OSV-Scanner (Apache-2.0, lỗ hổng thư viện) · ruff + mypy + pytest-cov (AD) · ESLint/Prettier + nuxi typecheck + vitest (Web) · actionlint + zizmor (MIT, workflow) · smoke route + tài nguyên (bắt đúng lỗi 404 kiểu P61) · kiểm phạm vi phiếu (tệp đổi ⊆ khu phiếu, cỡ diff ≤ trần).
+- 5.2 Dùng lại cái đã có trong 2 repo (đang nằm trong 15 workflow tắt): AD Quality Gate + Lint Only; Web Nuxt CI (build + contract), Critical File Guard, required-docs-guard, enforce-table-rule. Hồi sinh trên runner VPS trước, chỉ viết mới phần thiếu.
+- 5.3 Mô hình **một cổng máy `gate`** gom mọi phép kiểm; đỏ ⇒ tự trả agent kèm tóm tắt lỗi; KST chỉ mở PR xanh, đọc 1 bảng tóm tắt + diff, xét «đúng mục tiêu phiếu chưa» — không đọc log, không tự chạy test. Agent chạy cùng bộ kiểm tại máy (pre-commit, MIT) trước khi đẩy ⇒ ít vòng CI.
+- 5.4 C3.0 dựng/hồi sinh `gate` trên runner VPS trước khi 3 agent viết; C2 bật «bắt buộc gate xanh» + auto-merge sau KST duyệt + environment cho secret. Đã ghi ROADMAP §0.5.
+
+**6.** JEV `gen-dec-1793025685-MLSpytJnZ90wSOdXWovF`: Web theo nguồn Nuxt 4.5.2 1,0 · audit dùng key chỉ chạy theo lịch trên VPS 0,95 · C3 song song 0,06 · ops-smoke ping tương đương 0,51 (⇒ giữ pages + asset để phủ DB/storage). Phương án do Claude viết.
+- NEXT_TRIGGER=HOST_READY_C1B_CLOSE_P63 → Host READY@bc4addef56b7bff91ba6f179d9fa8a01e81b9b54 → Owner giao Codex.
 
 
 
