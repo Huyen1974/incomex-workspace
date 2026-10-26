@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 · GPT Host · P64
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 23:03 +07 · Codex · P65
 - 🎯 Mục tiêu Owner giữ nguyên: 2 repo phải có đường code → CI VPS → main đúng runtime → deploy/rollback thật; sau đó 3 agent viết song song, KST duyệt → khóa main Pro → ca đêm.
 - 🏁 C1B XONG khi: source/main và runtime 2 app đối chiếu PARITY; deploy–rollback thật 2/2; 3 audit kiểm tương đương trên VPS với lịch/secret đúng phạm vi; Guard/receipt/cờ sạch.
 - 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ◐ C1B P61 có giới hạn → ✓ Claude P63 ACCEPT → ✓ GPT P64 READY → ■ Owner giao Codex C1B-CLOSE → C3.0 → C3 → C2 → C4.
 - ✅ Đã xong: baseline/main/CI/build 2/2; archive 4 repo; POST Guard 25/25, receipt 307, VPS-GHI đã trả, runtime cũ 2 app còn khỏe; PROMPT C1B-CLOSE đúng nguồn Web Nuxt4.
-- ■ Đang làm: — · 0 RUN active. Host READY@7ccf89e276b4848704dd8ad1b4a8a75bd3f846cb · RUN_ID=GHM-C1B-CLOSE-20261026-02.
+- ■ Đang làm: Codex STARTED P65 · RUN_ID=GHM-C1B-CLOSE-20261026-02 · đối chiếu S0/P61, nguồn Nuxt4, AD effective config và trust runner; chưa nhận VPS-GHI/chưa áp host.
 - ⬜ Còn lại: Web Nuxt 4.5.2 nguồn đủ + 132+32 routes/2 assets parity; AD so Compose/image; 2/2 deploy–rollback; 3/3 audit VPS. C1B_SCOPED vẫn FAIL đến khi PASS thật; GLOBAL_GUARD PARTIAL ngoài scope.
-- ➡ Kế tiếp: 😊 Owner giao Codex đọc đúng PROMPT.md hiện hành với RUN_ID=GHM-C1B-CLOSE-20261026-02; Codex kiểm tiền điều kiện khi bắt đầu và xử lý các nhánh độc lập, không tự C3/C2/C4. NEXT_TRIGGER=OWNER_RUN_GHM-C1B-CLOSE-20261026-02.
+- ➡ Kế tiếp: Codex thực hiện PROMPT C1B-CLOSE P64, ghi KQ từng hạng mục; NEXT_TRIGGER=CODEX_KQ_GHM-C1B-CLOSE-20261026-02. Không tự C3/C2/C4.
 - ⛔ Không deploy Nuxt3, không hạ Nuxt4.5.2/Node24.21.0, không secret cho PR, không tự đổi quyền Mac, không mua Pro/khóa main khi chưa C2.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -925,6 +925,13 @@ Bảng «Công cụ GitHub × gói» (repo riêng tư, tài khoản cá nhân):
 - **Roadmap:** ✓ R0/R1/C1A · C1B P61 mới hoàn thành main/CI/build 2/2 và archive 4, 0/2 deploy–rollback, 0/3 audit · C1B-CLOSE là lượt duy nhất kế tiếp; C3 KHÔNG chạy song song. C3.0 tận dụng CI máy hiện có và thiết lập `gate` + cách ly audit/PR, rồi C3 ba agent PR; C2 GitHub Pro/ruleset KST mới cưỡng chế; C4 ca đêm. Không mở repo/khoá main/lịch mới trong C1B-CLOSE.
 - **READY@7ccf89e276b4848704dd8ad1b4a8a75bd3f846cb** · signer=GPT Host/openai-main (DROOT58) · RUN_ID=GHM-C1B-CLOSE-20261026-02 · EXECUTOR=Codex CLI/Desktop trên Mac · WRITE_SCOPE=đúng 2 repo code, 3 audit, script deploy/known-good đã có theo P63/P64. READY chỉ phê duyệt thực thi sau **Owner RUN** và S0 PRE kiểm thật; chưa STARTED, chưa mutation production/main bằng lượt C1B-CLOSE. Không dùng READY P58 hoặc DRAFT chat. Nếu blocker an toàn của một app, ghi đúng app và tiếp tục nhánh độc lập; không tự nhận XONG nếu thiếu test.
 - NEXT_TRIGGER=OWNER_RUN_GHM-C1B-CLOSE-20261026-02.
+
+## P65 · Codex · 26/10/2026 — STARTED C1B-CLOSE
+STARTED@GHM-C1B-CLOSE-20261026-02 2026-10-26T16:03:10Z · executor=Codex Desktop/openai-codex
+- Owner RUN trực tiếp, P64 READY đúng last-touch 7ccf89e276b4848704dd8ad1b4a8a75bd3f846cb đã kiểm GitHub. PROMPT SHA256 3af5f83d0eae4b2f44e6ebeb507eba0ef4ffe8a77b64d326fbc1bdb1a8989725. Hai main vẫn đúng SHA P61.
+- Kế thừa phần P61 đã đạt; không dựng lại runner, không điều tra token cũ. R1 nguồn Nuxt4/PARITY, R2 effective config/source AD, R3 audit kiểm độc lập; không nhận secret cho PR. R4 chỉ sau app riêng đủ cổng.
+- Root VPS-GHI đang trống sau HJW P415; chưa nhận cờ, chỉ lấy CAS trước áp host. Đọc/clone/GitHub-only tiếp tục độc lập; giữ nợ #11 ngoài scope theo DROOT59.
+- Bảng đã cập nhật; không thay mục tiêu/PROMPT. NEXT_TRIGGER=CODEX_KQ_GHM-C1B-CLOSE-20261026-02.
 
 
 
