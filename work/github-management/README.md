@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: GPT Host P58 READY@39dde3fbb411a4c626ab979cb6296ba139798fba sau Claude P57; PROMPT có CI branch trigger, S5 độc lập, VPS-GHI chỉ khi mutation host. Owner giao Codex RUN_ID `GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01`. 0 mutation main/deploy trước RUN.**
+**Trạng thái: Codex P61 KQ XONG CÓ GIỚI HẠN theo P58. Main/CI và build 2/2 PASS; deploy–rollback 0/2, audit chuyển runner 0/3. Control được bảo vệ, Guard POST PASS, receipt 307; VPS-GHI đã trả. Chờ Host/Claude nghiệm thu; chưa C3/C2/C4.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -13,6 +13,8 @@
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
 9. [C1A-S3-CLOSE-REPORT.md](C1A-S3-CLOSE-REPORT.md) — báo cáo lịch sử P40. Kết quả mới nhất là **COLLAB P48**, có hash báo cáo riêng và manifest 47 tệp; giữ nợ/giới hạn toàn hệ tách khỏi C1A scoped.
+
+10. [C1B-REPORT.md](C1B-REPORT.md) — KQ P61 hiện hành: phần đạt, blocker từng app/audit, CI/SHA, archive, bằng chứng riêng và đường tiếp.
 
 Mục tiêu duy nhất của việc này: nhiều AI nhận nhiều việc, **viết mã song song trên branch/workspace riêng**, Chief duyệt PR trên nền mới nhất, Owner xem bảng kết quả sáng. R1 dùng Actions trong hạn mức miễn phí với hard budget $0; Owner 25/10 15:18: mọi run đặt trên VPS bằng runner tự host; ưu tiên 1 là CI/CD chạy được.
 

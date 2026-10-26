@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 19:23 +07 · Codex · P59
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 20:47 +07 · Codex · P61
 - 🎯 Mục tiêu: C1B Codex ở đúng 2 repo PRIVATE `agent-data-test` + `web-test` — baseline cây mã VPS, build/deploy thử/rollback 2 app và 3 audit trên runner; S7 archive có điều kiện chạy độc lập. C3 → C2 → C4 sau C1B.
 - 🏁 C1B XONG khi: main giữ history và cây VPS đã kiểm, CI ứng viên đúng SHA, 2 app deploy/rollback healthy, 3 audit trên runner VPS không giảm test, Đ30/31 và VPS-GHI trả. Thiếu mục phải ghi giới hạn từng repo.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ✓ Claude P57 → ✓ GPT READY P58 → ■ C1B Codex STARTED P59 → C3 → C2 → C4.
-- ✅ Đã xong: C1A 2/2 CI, INV25/volumes scoped PASS; P54 DỪNG sạch; PROMPT đã gộp P57 và Host sửa thêm nhánh CI probe C1A, S5 độc lập, VPS-GHI chỉ giữ lúc ghi host.
-- ■ Đang làm: Codex S0–S2 PASS: 2/2 main fast-forward đúng CI GREEN; nhận VPS-GHI 12:54Z–13:24Z cho S3 build riêng/rollback. S7 archive 4 repo, 5 giữ; S5 đang đối chiếu phụ thuộc secret/HTTP 403.
-- ⬜ Còn lại: Codex thực thi S0–S7; `chatgpt-githubnew` giữ nguyên, chỉ kiểm actor/Actions; C3 nhiều agent, C2 Pro/ruleset, C4 ca đêm sau nghiệm thu.
-- ➡ Kế tiếp: Codex thực hiện S0–S7 và ghi bằng chứng từng repo; NEXT_TRIGGER=CODEX_C1B_S0_S7_KQ.
-- ⛔ Không force-push/xoá main/repo, không đổi visibility/ruleset hoặc mua gói, không secret cho CI; không triển khai SQL/compose/nginx, giữ rollback và 6 điểm P50.
+- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ■ C1B KQ XONG CÓ GIỚI HẠN P61 → C3 → C2 → C4 chưa chạy.
+- ✅ Đã xong: 2 main fast-forward đúng CI GREEN; 2 build PASS; control deploy được bảo vệ; POST 25/25, coverage 4/4, receipt 307; S7 archive 4 repo.
+- ■ Đang làm: chờ GPT Host/Claude nghiệm thu KQ P61; 0 RUN/kiểm thử nền Codex, VPS-GHI đã trả.
+- ⬜ Còn lại: AD Compose drift; Web candidate CSS/JS 404; 0/2 deploy–rollback và 0/3 audit chuyển runner. C1B_SCOPED=FAIL; GLOBAL_GUARD=PARTIAL riêng.
+- ➡ Kế tiếp: [báo cáo C1B](C1B-REPORT.md); NEXT_TRIGGER=HOST_REVIEW_C1B_P61_LIMITS. Giữ main mới và runtime cũ healthy; chưa tự C3/C2/C4.
+- ⛔ Không force-push/xoá main/repo, không đổi visibility/ruleset hoặc mua gói, không secret cho CI; giữ rollback và sáu điểm P50.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -841,6 +841,20 @@ Ghế: openai-codex · cùng RUN C1B/P58; không KQ, RUN còn STARTED.
 - S7 archive đã readback: platform-infra, mpc_back_end_for_agent, LarkBase_OAuth_Policy, tool-kiem-thu-ci. Hai backup có workflow chạy 26/10 nên giữ. chatgpt-githubnew giữ: github-actions[bot] push main 07:54Z; tháng 10 dùng 46 phút, net $0; không sửa.
 - S5: Data Lifecycle/Health Check cần secret production; ops-smoke GET health=403, pages/asset=200. Không giảm kiểm, không cấp secret runner; tiếp tục đối chiếu độc lập.
 - Runtime production vẫn old healthy, 0 app restart tại checkpoint; tiếp tục S3–S6.
+
+## P61 · Codex · 26/10/2026 20:47 +07 — KQ XONG CÓ GIỚI HẠN
+Ghế: openai-codex · Based_on: Owner RUN trực tiếp, P58 READY@39dde3fbb411a4c626ab979cb6296ba139798fba · Bước: S0–S7 · Bảng/ROADMAP/README cập nhật cùng commit; §0.1–2 không đổi.
+KQ@GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01 · 2026-10-26T13:47:27Z · **XONG CÓ GIỚI HẠN**
+- **C1B_SCOPED=FAIL; CONTROL_PROTECTION=PASS; GUARD_POST=PASS; GLOBAL_GUARD=PARTIAL.** Báo cáo chuẩn: [C1B-REPORT.md](C1B-REPORT.md). Không nhận đủ C1B khi chưa deploy/rollback và chưa chuyển audit.
+- S1–S2 PASS 2/2: AD main e6274592b9b8a291e4b9aeafcdf55370a10e09f4 / CI 40324553292 (6 passed); Web main 747c3b12c893a4186c197f17d312e38da7ed654f / CI 40325187106 (16 passed). Main cũ giữ ancestry và tag archive; Web dirty gitlink có snapshot/tag riêng. Source VPS không đổi.
+- S3 build PASS 2/2. AD candidate b2526adbac2f300325a7e75bd54e88b9b027d6b0cbc3dddcf3fecb84632eb2b4; Web Nuxt 3.20.2 khác runtime 4.5.2. Một control deploy/config đã đăng ký bảo vệ, kiểm âm/atomic fixture/drift detector PASS, cấu hình hiện khóa hai blocker. Không coi fixture là rollback production.
+- S4 DỪNG riêng: AD Compose hash khác container thật; Web canary HTML 8/8 trả 200 nhưng CSS/JS 2/2 trả 404 do đường dẫn sau bundling. Không vá source/output ngoài baseline để qua cổng. **0 restart, 0/2 deploy–rollback; hai app old healthy, StartedAt/image/output giữ nguyên.**
+- S5 0/3 chuyển: Data Lifecycle + Health Check cần secret; ops-smoke run 40326499440 thực nhận ghm-ci-web-test, health 403 rồi hết 10 phút (annotation xác nhận), không promote. Ba nhóm cũ vẫn active, deploy cũ vẫn disabled; hosted giảm thực tế 0. Budget Actions $0 + Usage blocked, usage Linux 1.348 gross/1.348 discount, net $0.
+- S7 archive 4 / giữ 5 đúng tiêu chí; chatgpt-githubnew giữ, bot push 07:54Z, tháng 10 dùng 46 phút net $0. Chi tiết/undo trong báo cáo.
+- POST 13:41:12Z **25/25 PASS**, footprint/coverage 4/4, PREEXISTING_SAME #11, receipt **307**. Nợ GLOBAL_GUARD/quan trắc ngoài scope giữ riêng, không sửa hộ. 0 container thử, thư mục build tạm đã dọn; giữ candidate/known-good; đĩa 64%, swap đầy từ trước.
+- Hồ sơ private cùng RUN/p58: **1.911 file**, manifest SHA256 **a9a84b4b059673fbd56de3fce47d33b31115cb5c663c94d2e4f9854b57927cd4**. Có logs, hashes, đường gỡ control riêng và snapshot rollback; không public secret/cấu hình vận hành.
+- **VPS-GHI trả 2026-10-26T13:47:27Z; 0 RUN active/0 kiểm thử nền Codex.** NEXT_TRIGGER=HOST_REVIEW_C1B_P61_LIMITS. Không tự C3/C2/C4; KST Claude Code CLI tiếp quản từ C3 sau nghiệm thu.
+
 
 
 
