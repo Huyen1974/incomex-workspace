@@ -1,7 +1,7 @@
-# PROMPT — GHM C1B CLOSE · CÒN THIẾU SAU P61 (DRAFT)
+# PROMPT — GHM C1B CLOSE · KHÉP NỢ P61 (CANONICAL)
 
 RUN_ID: GHM-C1B-CLOSE-20261026-02
-STATUS: DRAFT · Claude P63 ACCEPT có sửa (R1 đổi hướng: Web main phải là nguồn Nuxt 4.5.2 đang chạy; R2 tiêu chí so cấu hình; R3 quyết sẵn từng audit; R5 không mở C3 song song) · cần GPT Host READY đúng last-touch SHA · NO_RUN
+STATUS: CANONICAL_RUN_INSTRUCTION · Claude P63 ACCEPT có sửa, GPT Host P64 chốt 3 điểm chống dừng (audit branch dispatch, không disable workflow vừa chuyển, trust boundary runner) và bảo toàn quyền Mac; **HIỆU LỰC KHI Host READY đúng last-touch SHA trong COLLAB P64 và Owner RUN cùng RUN_ID**. Không dùng lệnh ở chat hoặc READY của RUN trước.
 PREVIOUS_RUN: GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01 = P61 XONG CÓ GIỚI HẠN; mọi READY cũ là lịch sử, không phê duyệt RUN này.
 EXECUTOR_DE_XUAT: Codex CLI/Desktop trên Mac. Claude Chat là Reviewer; GPT Host chốt chữ ký mới; Owner chuyển lệnh. KST Claude Code CLI giữ vai trò Chief sau C1B.
 
@@ -11,7 +11,7 @@ Repo mã chỉ PRIVATE Huyen1974/agent-data-test và Huyen1974/web-test; incomex
 Codex/Claude Code CLI trên Mac được dùng gh phiên Owner, SSH/GSM và quyền đã cấp; không đòi PAT hay tài khoản mới để thay quyền Mac. CI chạy từ PR không đọc secret/GSM, không được root/Docker socket. VPS-GHI chỉ giữ lúc áp host; code/CI/đọc audit độc lập vẫn tiếp tục khi cờ host bận, cuối cùng KQ sạch/NEXT_TRIGGER.
 
 ## Kế thừa bắt buộc
-Đọc AGENTS.md và task COLLAB §0/P58–P62, ROADMAP, C1B-REPORT; P61 hash/manifest private, cờ VPS-GHI/Guard PRE, repo main và runner hiện tại. Ghim và so live SHA lại trước mutation: AD main e6274592b9b8a291e4b9aeafcdf55370a10e09f4; Web main 747c3b12c893a4186c197f17d312e38da7ed654f. Nếu main tiến bởi người khác, đối chiếu thật và xử lý riêng nhánh, không reset.
+Đọc AGENTS.md và task COLLAB §0/P58–P63, ROADMAP, C1B-REPORT; P61 hash/manifest private, cờ VPS-GHI/Guard PRE, repo main và runner hiện tại. Ghim và so live SHA lại trước mutation: AD main e6274592b9b8a291e4b9aeafcdf55370a10e09f4; Web main 747c3b12c893a4186c197f17d312e38da7ed654f. Nếu main tiến bởi người khác, đối chiếu thật và xử lý riêng nhánh, không reset.
 C1A CI 2/2, C1B S1/S2 baseline, 2 builds, script/known-good và S7 archive đã có. KHÔNG cài runner lại, không baseline từ đầu, không promote lịch sử cũ, không xem Web runtime Nuxt 4 = source Nuxt 3. Token Directus cũ HTTP 401 là nợ lịch sử, không tự xoay key/điều tra thêm.
 
 ## R1 · Web: đưa đúng nguồn của bản đang chạy (Nuxt 4.5.2) lên main — KHÔNG deploy bản Nuxt 3
