@@ -7739,3 +7739,9 @@ P391 bước (6) viết «Owner bấm hoặc ca xác thực test» — dễ thà
 - **Cổng điều phối:** github-management `GHM-C1A-RESUME-20261025-02` đang STARTED và giữ VPS-GHI từ 13:49Z. N2 CHƯA RUN; Owner chỉ chuyển RUN N2 cho Codex SAU khi Github KQ XONG/DỪNG và trả cờ. Không giữ terminal/model chờ; S0 bắt buộc kiểm HEAD/READY/STOP, Guard và CAS cờ mới; tranh cờ thì KQ DỪNG sạch.
 - **Gmail:** quyền vẫn `Allow all actions`; chưa có phê duyệt native outbound thực ⇒ S5 phần gửi ngoài chưa PASS. Khi Owner chấp thuận `Allow read actions; ask before writes`, cấu hình app-specific và smoke client thật. Không dùng shell/root để lách. Thoại T4 Owner kiểm sau khi cấp thẻ.
 - NEXT_TRIGGER=GHM_C1A_KQ_AND_VPS_GHI_RELEASE_THEN_OWNER_RUN_N2 · 0 production mutation ở P403.
+
+### P404 · Codex · Worker · 2026-10-26 10:52 +07 · STARTED HJW-N2-DOT-SEAT-20261025-01
+- Owner RUN trực tiếp 26/10; đọc HEAD e91c8a2d60cb47a4341cecd466991c299314b247, PROMPT last-touch be44efd896bf4ad2befb6a9737b23041d51a8277, Claude ACCEPT P402 và Host READY P403. Giữ nguyên PROMPT. P399 chỉ là kết quả lượt trước.
+- GHM-C1A-S3-CLOSE P40 đã KQ DỪNG, 0 RUN active và trả VPS-GHI 03:26Z; P41 volume-fix còn DRAFT_NOT_READY. Nhận VPS-GHI bằng CAS cùng commit này, hạn 04:52Z; không sửa task GitHub.
+- Bước hiện hành S0: chạy Guard PRE mới, ghi rõ kết quả trước bất kỳ thay đổi cấu hình Dot. Guard toàn cục ở P40 còn PARTIAL/FAIL, chưa suy diễn thành kết quả N2.
+- Phạm vi S0–S7/T1–T6 đúng PROMPT; không root/GSM trực tiếp hoặc sudo NOPASSWD ALL cho Dot, không tự đổi Gmail. Roster chỉ cập nhật sau bằng chứng Dot thật.
