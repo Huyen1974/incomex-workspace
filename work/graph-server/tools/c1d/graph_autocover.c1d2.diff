@@ -1,0 +1,184 @@
+--- a/bin/refresh/graph_autocover.py
++++ b/bin/refresh/graph_autocover.py
+@@ -19,6 +19,13 @@
+   nguồn mất đối tượng ⇒ giữ trong Graph, báo `stale` (ô MỘT PHẦN, không tỉa). Trần toàn pilot C1-D (cert-cells c1d.caps) tính cộng dồn
+   theo refresh-sources c1d.*.created_* — vượt ⇒ lấy mẫu tất định theo sha256(khoá ổn định), CAP_BOUND_PARTIAL, phần dư không ghi.
+   Nghịch đảo I = xoá đúng cạnh/nút đã tạo (gs_edge_key/gs_key) + đặt lại thuộc tính cũ của phần đã SET.
++RETIRE (GS-C1D2-SCOPED-AUTOCOVER-20261026-13, R3/T4): chỉ lane c1d:infra, chỉ khi bộ đọc gốc đọc TRỌN chứng minh đối tượng đã mất — nút
++  DockerContainer vắng trong `docker ps -a` (kể cả mẫu tạm) · NetListener vắng trong `ss -ltne` · GitRepository vắng trong lượt quét .git;
++  cạnh G5/G9 (BOUND_BY_PROCESS_OF/PUBLISHED_BY/LISTENS_ON/WORKTREE_OF/RESOLVES_TO_TOPLEVEL) khi hai đầu còn sống, cổng nghe không mơ hồ
++  mà nguồn không còn cạnh đó (A→B thành A→C), hoặc khi một đầu bị retire. Đánh dấu bằng THUỘC TÍNH trên chính nút/cạnh (gs_status=retired
++  + retired_at/retired_reason/retired_by) — không xoá cứng, không đổi nhãn/loại cạnh. Đối tượng quay lại nguồn ⇒ SET thuộc tính nguồn (hồi
++  sinh). SystemdUnit/TRIGGERS/REQUIRES_MOUNT/lane pgl1: vắng nguồn KHÔNG chứng minh mất ⇒ giữ `stale` (ô MỘT PHẦN). Nghịch đảo I = đặt lại
++  nguyên thuộc tính cũ của phần đã retire.
+ """
+ import hashlib, importlib.machinery, importlib.util, json, os, re, subprocess, time
+ 
+@@ -31,9 +38,18 @@
+ TYPES = {"c1d:infra": {"BOUND_BY_PROCESS_OF", "PUBLISHED_BY", "LISTENS_ON", "TRIGGERS", "REQUIRES_MOUNT", "WORKTREE_OF", "RESOLVES_TO_TOPLEVEL"},
+          "c1d:pgl1": {"HAS_FK", "REFERENCES", "DEPENDS_ON", "MAPS_TO_TABLE", "RELATION_MANY", "RELATION_ONE", "PERMISSION_ON"}}
+ VOLATILE = {"snapshot_utc", "run", "loaded_at", "gs_edge_key", "head_at_load", "source_file"}   # không thuộc danh tính khi so khác
++RETIRED = "retired"                                  # C1-D2 R3: gs_status của nút/cạnh đã mất ở nguồn (chứng minh bằng bộ đọc trọn)
++RETIRE = {"c1d:infra": {"labels": {"DockerContainer": "docker ps -a", "NetListener": "ss -ltne", "GitRepository": "quét .git"},
++                        # loại cạnh ⇒ vị trí đầu CHỦ THỂ (bộ đọc trọn của đầu này quyết toàn bộ cạnh loại đó của nó): cổng nghe / kho git
++                        "subject": {"BOUND_BY_PROCESS_OF": 0, "PUBLISHED_BY": 0, "LISTENS_ON": 2, "WORKTREE_OF": 0, "RESOLVES_TO_TOPLEVEL": 0},
++                        "listener_types": {"BOUND_BY_PROCESS_OF", "PUBLISHED_BY", "LISTENS_ON"}}}
+ now_iso = lambda: time.strftime("%FT%TZ", time.gmtime())
+ 
+ 
++def is_retired(p):
++    return (p or {}).get("gs_status") == RETIRED
++
++
+ def sh(cmd, timeout=120, inp=None):
+     try:
+         p = subprocess.run(cmd, capture_output=True, timeout=timeout, input=inp)
+@@ -131,10 +147,12 @@
+     return out
+ 
+ 
+-def read_containers(ephemeral):
++def read_containers(ephemeral, seen=None):
+     rc, o, _ = sh(["docker", "ps", "-a", "--format", "{{.Names}}"], 60)
+     if rc != 0:
+         raise RuntimeError("docker ps rc=%s" % rc)
++    if seen is not None:                              # C1-D2 R3: MỌI tên (kể cả mẫu tạm) — chỉ vắng ở đây mới chứng minh container đã mất
++        seen.extend(o.split())
+     names = sorted(n for n in o.split() if not any(re.search(e, "docker:" + n) for e in ephemeral))
+     out = {}
+     for n in names:
+@@ -218,7 +236,9 @@
+                                                           "gs_edge_key": sha16("%s|%s|%s" % (s, t, d))}}
+ 
+     # --- G2 container
+-    ctr = read_containers(eph)
++    seen = []
++    ctr = read_containers(eph, seen)
++    rep["retire_proof"] = {"containers_all": sorted(set(seen)), "readers": dict(RETIRE["c1d:infra"]["labels"])}
+     for n, x in ctr.items():
+         node("DockerContainer", n, {"container_id": x["id12"], "image": x["image"]}, "G2", "docker inspect")
+     # --- G5 listener → chủ
+@@ -355,8 +375,43 @@
+     return out
+ 
+ 
+-def plan(g, pw, lane, nodes, edges, caps, used, extra_check=None):
+-    """Kế hoạch cộng-thêm ⇒ dict (create/set/stale/problems/F/I). used = {nodes, edges} đã tạo cộng dồn của pilot (trần toàn C1-D)."""
++def retire_plan(lane, gn, ge, nodes, edges, other, native):
++    """C1-D2 R3: phần stale CHỨNG MINH được là đã mất ⇒ (nút retire [{k, old}], cạnh retire [{key, old}], lý do giữ stale). native = báo cáo
++    bộ đọc gốc của lượt (desired_*); thiếu ⇒ không retire gì."""
++    rule = RETIRE.get(lane)
++    if not rule or not isinstance(native, dict) or "retire_proof" not in native:
++        return [], [], "lane/bộ đọc không chứng minh được vắng mặt"
++    all_ctr = set((native.get("retire_proof") or {}).get("containers_all") or [])
++    amb = {"net:listen:" + a for a in native.get("ambiguous_listeners") or []}
++    lab = lambda k: next((x for x in gn[k][0] if x != "GS"), None)
++    rn = []
++    for k in sorted(k for k in gn if k not in nodes and not is_retired(gn[k][1])):
++        lb = lab(k)
++        if lb not in rule["labels"]:
++            continue
++        if lb == "DockerContainer" and str(gn[k][1].get("id")) in all_ctr:   # còn trong docker ps -a (mẫu tạm bị lọc) ⇒ chưa chứng minh mất
++            continue
++        rn.append({"k": k, "old": gn[k][1], "reader": rule["labels"][lb]})
++    gone = {x["k"] for x in rn}
++    re_ = []
++    for key in sorted(ge):
++        have = ge[key]
++        if key in edges or len(have) != 1 or is_retired(have[0]) or key[1] not in TYPES[lane] or not (key[0] in gn or key[2] in gn):
++            continue
++        if key[0] in gone or key[2] in gone:
++            re_.append({"key": key, "old": have[0], "why": "ENDPOINT_RETIRED"})
++            continue
++        pos = rule["subject"].get(key[1])
++        subj = key[pos] if pos is not None else None
++        # đầu chủ thể còn sống trong lượt đọc trọn này (có trong tập nguồn) và không mơ hồ ⇒ nguồn đã nói đủ cạnh của nó ⇒ cạnh vắng = đã mất
++        if subj and subj in nodes and not (key[1] in rule["listener_types"] and subj in amb):
++            re_.append({"key": key, "old": have[0], "why": "SOURCE_EDGE_ABSENT_SUBJECT_FULLY_READ " + subj})
++    return rn, re_, None
++
++
++def plan(g, pw, lane, nodes, edges, caps, used, extra_check=None, native=None):
++    """Kế hoạch cộng-thêm ⇒ dict (create/set/retire/stale/problems/F/I). used = {nodes, edges} đã tạo cộng dồn của pilot (trần toàn C1-D).
++    native = báo cáo bộ đọc gốc (desired_*) — C1-D2 R3 chỉ retire khi báo cáo chứng minh vắng mặt."""
+     layer = LAYER[lane]
+     gn, ge = graph_layer(g, pw, layer)
+     other = graph_keys(g, pw, {k for k in nodes if k not in gn} | {x for e in edges for x in (e[0], e[2]) if x not in gn and x not in nodes})
+@@ -392,9 +447,14 @@
+     outside = [e for e in create_e + [x["new"] for x in set_e] if isinstance(e, dict) and "s" in e and e["s"] not in mine and e["d"] not in mine]
+     if outside:                                  # cạnh lane phải chạm ít nhất một nút của lane (không tạo quan hệ giữa hai lớp khác)
+         problems.append("EDGE_OUTSIDE_LANE %d" % len(outside))
+-    stale_n = sorted(k for k in gn if k not in nodes)
+     lane_t = TYPES[lane]
+-    stale_e = sorted("|".join(k) for k in ge if k not in edges and k[1] in lane_t and (k[0] in gn or k[2] in gn))
++    retire_n, retire_e, retire_why = retire_plan(lane, gn, ge, nodes, edges, other, native) if not problems else ([], [], "kế hoạch có vấn đề")
++    rk, rek = {x["k"] for x in retire_n}, {x["key"] for x in retire_e}
++    old_ret_n = sorted(k for k in gn if k not in nodes and is_retired(gn[k][1]))
++    old_ret_e = sorted("|".join(k) for k in ge if k not in edges and k[1] in lane_t and ge[k] and all(is_retired(p) for p in ge[k]))
++    stale_n = sorted(k for k in gn if k not in nodes and k not in rk and not is_retired(gn[k][1]))
++    stale_e = sorted("|".join(k) for k in ge if k not in edges and k[1] in lane_t and (k[0] in gn or k[2] in gn) and k not in rek
++                     and not (ge[k] and all(is_retired(p) for p in ge[k])))
+     cap_partial = False
+     room_n = max(int(caps.get("nodes", 0)) - int(used.get("nodes", 0)), 0)
+     room_e = max(int(caps.get("edges", 0)) - int(used.get("edges", 0)), 0)
+@@ -407,27 +467,35 @@
+         problems += extra_check(gn, other)
+     ck = sorted(n["p"]["gs_key"] for n in create_n)
+     ek = sorted(e["p"]["gs_edge_key"] for e in create_e)
+-    F, I = statements(create_n, set_n, create_e, set_e, ck, ek)
++    ret = {"gs_status": RETIRED, "retired_at": now_iso(), "retired_by": "graph-refresh " + lane}
++    for x in retire_n:
++        x["ret"] = dict(ret, retired_reason="SOURCE_ABSENT_FULL_READ " + x["reader"])
++    for x in retire_e:
++        x["ret"] = dict(ret, retired_reason=x["why"])
++    F, I = statements(create_n, set_n, create_e, set_e, ck, ek, retire_n, retire_e)
+     out = {"lane": lane, "layer": layer, "at": now_iso(), "create_nodes": create_n, "set_nodes": set_n, "create_edges": create_e, "set_edges": set_e,
++           "retire_nodes": retire_n, "retire_edges": retire_e, "retire_hold_why": retire_why,
+            "reuse_nodes": reuse, "stale_nodes": stale_n, "stale_edges": stale_e, "created_keys": ck, "created_edge_keys": ek, "problems": problems,
+            "cap_bound_partial": cap_partial, "caps": caps, "used_before": used,
+            "counts": {"nodes_add": len(create_n), "edges_add": len(create_e), "nodes_set": len(set_n), "edges_set": len(set_e), "nodes_delete": 0,
+-                      "edges_delete": 0, "stale_nodes": len(stale_n), "stale_edges": len(stale_e), "reused": len(reuse)},
++                      "edges_delete": 0, "nodes_retire": len(retire_n), "edges_retire": len(retire_e), "already_retired_nodes": len(old_ret_n),
++                      "already_retired_edges": len(old_ret_e), "stale_nodes": len(stale_n), "stale_edges": len(stale_e), "reused": len(reuse)},
+            "F": F, "I": I}
+-    out["sha256"] = hashlib.sha256(json.dumps({k: out[k] for k in ("create_nodes", "set_nodes", "create_edges", "set_edges")}, sort_keys=True,
+-                                              ensure_ascii=False, default=str).encode()).hexdigest()
++    out["sha256"] = hashlib.sha256(json.dumps({k: out[k] for k in ("create_nodes", "set_nodes", "create_edges", "set_edges", "retire_nodes", "retire_edges")},
++                                              sort_keys=True, ensure_ascii=False, default=str).encode()).hexdigest()
+     # vân tay DANH TÍNH của kế hoạch (bỏ thuộc tính dễ đổi: snapshot_utc/run/…) — dùng kiểm «nguồn đổi giữa lượt»: đọc lại nguồn chỉ khác dấu
+     # giờ chụp ⇒ cùng vân tay; đối tượng/cạnh/thuộc tính danh tính đổi ⇒ khác ⇒ dừng trước ghi
+     out["ident_sha256"] = hashlib.sha256(json.dumps({"n": sorted([n["p"]["gs_key"], _ident(n["p"])] for n in create_n),
+                                                      "sn": sorted([x["k"], _ident(x["new"])] for x in set_n),
+                                                      "e": sorted([e["s"], e["t"], e["d"], _ident(e["p"])] for e in create_e),
+-                                                     "se": sorted([list(x["key"]), _ident(x["new"])] for x in set_e)},
++                                                     "se": sorted([list(x["key"]), _ident(x["new"])] for x in set_e),
++                                                     "rn": sorted(x["k"] for x in retire_n), "re": sorted(list(x["key"]) for x in retire_e)},
+                                                     sort_keys=True, ensure_ascii=False, default=str).encode()).hexdigest()
+-    out["empty"] = not (create_n or set_n or create_e or set_e)
++    out["empty"] = not (create_n or set_n or create_e or set_e or retire_n or retire_e)
+     return out
+ 
+ 
+-def statements(create_n, set_n, create_e, set_e, ck, ek):
++def statements(create_n, set_n, create_e, set_e, ck, ek, retire_n=(), retire_e=()):
+     F, I = [], []
+     by = {}
+     for n in create_n:
+@@ -449,6 +517,17 @@
+         s, t, d = x["key"]
+         F.append(("MATCH (a:GS {gs_key: $s})-[x:`%s`]->(b:GS {gs_key: $d}) SET x = $p" % t.replace("`", ""), {"s": s, "d": d, "p": x["new"]}))
+         I.append(("MATCH (a:GS {gs_key: $s})-[x:`%s`]->(b:GS {gs_key: $d}) SET x = $p" % t.replace("`", ""), {"s": s, "d": d, "p": x["old"]}))
++    if retire_n:                                   # C1-D2 R3: đánh dấu thuộc tính, KHÔNG xoá/đổi nhãn; I đặt lại nguyên thuộc tính cũ
++        F.append(("UNWIND $rows AS r MATCH (n:GS {gs_key: r.k}) SET n += r.ret", {"rows": [{"k": x["k"], "ret": x["ret"]} for x in retire_n]}))
++    rt = {}
++    for x in retire_e:
++        rt.setdefault(x["key"][1], []).append(x)
++    for t, xs in sorted(rt.items()):
++        cy = "UNWIND $rows AS r MATCH (a:GS {gs_key: r.s})-[x:`%s`]->(b:GS {gs_key: r.d}) SET x %s r.%s" % (t.replace("`", ""), "%s", "%s")
++        F.append((cy % ("+=", "ret"), {"rows": [{"s": x["key"][0], "d": x["key"][2], "ret": x["ret"]} for x in xs]}))
++        I.append((cy % ("=", "p"), {"rows": [{"s": x["key"][0], "d": x["key"][2], "p": x["old"]} for x in xs]}))
++    if retire_n:
++        I.append(("UNWIND $rows AS r MATCH (n:GS {gs_key: r.k}) SET n = r.p", {"rows": [{"k": x["k"], "p": x["old"]} for x in retire_n]}))
+     if ek:
+         I.insert(0, ("MATCH (:GS)-[x]->(:GS) WHERE x.gs_edge_key IN $k DELETE x", {"k": ek}))
+     if set_n:
