@@ -6,7 +6,7 @@ STATUS: READY_VIA_COLLAB — Claude Chat Reviewer P50 đã đánh giá và sửa
 EXECUTOR_SURFACE: **Claude Code CLI, kỹ sư trưởng (KST)**. Claude Chat chỉ là Reviewer; Codex C1A đã hoàn thành scoped.
 WRITE_PATH: chỉ 2 kho PRIVATE Huyen1974/agent-data-test và Huyen1974/web-test (KST clone/refs/nhánh main); chỉ công cụ triển khai thủ công được bảo vệ trên VPS cho hai ứng dụng Agent Data, Nuxt; chỉ 3 nhóm audit active ghi P17; hồ sơ work/github-management. Không cho runner CI/PR cầm Docker/root/socket, admin token hoặc đường deploy. Thao tác VPS qua cờ VPS-GHI CAS và DOT/apply-v0 Đ30/31.
 
-**Giấy phép thực thi:** Owner 25/10 đã cho phép phục hồi CI/CD đúng 2 repo qua DROOT56; **Owner RUN đúng lệnh C1B này** là sự chấp thuận giới hạn cho KST cập nhật main an toàn, build, thử deploy ứng viên và rollback, có thể cần **TỐI ĐA 4 lần restart ứng dụng** (Agent Data 2, Nuxt 2), lần lượt và có health/rollback. Không phải quyền mở auto-CD, mua Pro, thay DB/compose/nginx hoặc ảnh hưởng task khác. Chưa Owner RUN thì tuyệt đối không mutate.
+**Giấy phép thực thi:** Owner 25/10 đã cho phép phục hồi CI/CD đúng 2 repo qua DROOT56; **Owner RUN đúng lệnh C1B này** là sự chấp thuận giới hạn cho KST cập nhật main an toàn, build, thử deploy ứng viên và rollback, chỉ có **TỐI ĐA 4 lần restart ứng dụng cho diễn tập** (Agent Data 2, Nuxt 2), lần lượt và có health/rollback; **ngoại lệ đúng 1 lần khôi phục known-good khẩn cấp tại S4.3 chỉ khi rollback chưa khỏe, tuyệt đối không dùng để thử thêm candidate**. Không phải quyền mở auto-CD, mua Pro, thay DB/compose/nginx hoặc ảnh hưởng task khác. Chưa Owner RUN thì tuyệt đối không mutate.
 
 **Mục tiêu XONG:** hai repo có main giữ đúng mã nguồn ứng viên đã xác minh từ VPS, không mất main cũ/history; candidate được build ngoài runtime, **deploy bằng một script local KST bấm tay**, health đạt, diễn tập rollback trở lại **runtime cũ** đạt; ba nhóm audit vốn chạy GitHub-hosted được chuyển sang runner VPS với nội dung kiểm tương đương. C1A đã XONG scoped: CI Agent Data run 40199854696 (6/6), Web run 40200962649 (16/16), INV25/cgroup no-swap, 2 volume 8/8. Không chạy lại C1A.
 
@@ -56,4 +56,4 @@ STEP_WALK_V1:
 | S5 | KST | S4 PASS | 3 audit runner VPS/log+URL/test | giữ audit an toàn, nợ đúng |
 | S6 | KST | S5 PASS | POST Đ30/31/receipt/KQ/cờ trả | Host nghiệm thu |
 
-CẤM: GitHub Actions deploy/SSH/rsync như P22 cũ; CI runner Docker socket/root/secret; deploy do push main trước C2; force-push/history rewrite, DB SQL/compose/nginx copy, reboot VPS, vượt 4 app restart, mua Pro/khóa main/auto-CD, tự chạy C3.
+CẤM: GitHub Actions deploy/SSH/rsync như P22 cũ; CI runner Docker socket/root/secret; deploy do push main trước C2; force-push/history rewrite, DB SQL/compose/nginx copy, reboot VPS, vượt 4 lần restart diễn tập hoặc dùng ngoại lệ 1 lần ngoài mục đích khôi phục khẩn cấp known-good ở S4.3, mua Pro/khóa main/auto-CD, tự chạy C3.
