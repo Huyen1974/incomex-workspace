@@ -24,7 +24,7 @@ Gốc (Claude P63 kiểm): web đang chạy = Nuxt 4.5.2/Node 24.21.0, phiên b�
 ## R2 · Gỡ khác biệt Agent Data Compose mà không đổi production config
 So effective service config hiện dùng (docker inspect/container fingerprint + mounts/env đã ẩn giá trị) với compose rendered config và overrides; chỉ ghi diff đã khử bí mật. Xác định config-hash lệch do đâu, đường chạy candidate image và rollback old digest với đúng network/volumes/env/port/user/entrypoint.
 Tiêu chí có/không (P63): so từng trường image, env (so hash giá trị, không in), mounts, networks, ports, user, entrypoint, cmd, restart, healthcheck, labels (bỏ qua nhãn `com.docker.compose.*`). Khác DUY NHẤT ở `image` (và nhãn compose) ⇒ PASS: deploy = cùng cấu hình + image candidate, rollback = cùng cấu hình + digest cũ ghim. Khác bất kỳ trường nào khác ⇒ KHÔNG restart AD, ghi tên trường.
-Kèm PARITY nguồn: so tệp mã trong image đang chạy (bỏ tệp sinh) với cây main (ROADMAP V: image chạy dựng từ commit cũ hơn HEAD). Khác chỉ vì main có commit mới hơn ⇒ ghi danh sách, không chặn; có tệp trong image mà main không có ⇒ DỪNG AD, đưa tệp đó lên nhánh trước.
+Kèm PARITY nguồn: so tệp mã trong image đang chạy (bỏ tệp sinh) với cây main (ROADMAP V: image chạy dựng từ commit cũ hơn HEAD). Khác chỉ vì main có commit mới hơn ⇒ ghi danh sách, không chặn; có tệp trong image mà main không có ⇒ đưa tệp đó lên nhánh → CI → main (cùng cách R1.4) rồi mới diễn tập; không làm được ⇒ DỪNG riêng AD.
 Nếu không chứng minh được hoàn nguyên đúng trạng thái old, KHÔNG restart AD. Không đổi Compose/nginx hoặc nâng quyền runner để ép PASS. AD canary/contract thật phải đạt trước deploy. Nếu blocker AD chưa giải được, ghi riêng AD và tiếp tục Web/audit độc lập.
 
 ## R3 · 3 audit: giữ tính năng, chuyển khi đáng tin
