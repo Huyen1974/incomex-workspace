@@ -1,6 +1,6 @@
 # PROMPT — GHM C1A · KHÉP 1 LỖI S3: KHAI BÁO DUNG LƯỢNG 2 VOLUME RUNNER
 RUN_ID: GHM-C1A-S3-VOLUMES-20261026-01
-STATUS: SUPERSEDED_UNRUN (Claude P42) — KHÔNG RUN riêng. Nội dung S0–S2 dưới đây giữ nguyên làm **bước 0 của PROMPT C1B** (Claude Code CLI = KST, root trên VPS); C1A đóng khi bước 0 đó đạt. RUN P39–P40 cũ đã KQ DỪNG, không tái sử dụng.
+STATUS: DRAFT_NOT_READY — Owner 26/10 trực tiếp xác nhận CODEX làm C1A/S3 hai volume; đề xuất P42 gộp sang C1B Claude Code CLI không áp dụng. Claude P42 xác nhận nội dung kỹ thuật đúng nhưng chưa ký ACCEPT@SHA; Reviewer chỉ cần ký đúng full SHA lần cuối chạm PROMPT hiện tại, GPT Host READY cùng SHA, Owner giao CODEX RUN. RUN ID này CHƯA STARTED; P39–P40 là RUN trước đã DỪNG.
 
 EXECUTOR_SURFACE: **Codex CLI/Desktop**, quyền GitHub/VPS đã có. WRITE_PATH: chỉ khai báo tài nguyên hai volume runner C1A vào cơ chế storage-registry/storage-watch hiện hành và bằng chứng Guard liên quan trên VPS, qua cờ VPS-GHI/Đ30–31; trong repo chỉ ghi STARTED/KQ/Bảng/roadmap của `work/github-management`. Không giao Claude Code chạy thay. **Không xây thêm monitor/script cron mới.**
 
@@ -10,7 +10,7 @@ EXECUTOR_SURFACE: **Codex CLI/Desktop**, quyền GitHub/VPS đã có. WRITE_PATH
 - P40: cgroup live zero-swap/CPU/RAM đúng, INV25 PASS (76/76 fixtures, 5/5, 3/3, 6/6), runner ONLINE, C1A coverage 7 mục riêng + 3 delta dùng chung đã kiểm; GLOBAL_GUARD=PARTIAL do nợ khác. Không chạy lại các phép thử đó nếu nguồn không đổi.
 
 ## S0 — XÁC ĐỊNH CHÍNH XÁC HAI VOLUME & CỔNG GHI
-1. Đọc AGENTS.md → root COLLAB (DROOT30/31/48, VPS-GHI) → work/github-management COLLAB P35–P41 → báo cáo private P40 **đúng SHA + manifest** → `runner/README.md`/`runnerctl.sh` để xác định **đúng 2 data volumes được P40 nêu**; không đo/đụng toàn Docker. Kiểm volume khóa dùng chung có đang được khai báo riêng hay không, chỉ báo nếu thuộc nợ khác.
+1. Đọc AGENTS.md → root COLLAB (DROOT30/31/48, VPS-GHI) → work/github-management COLLAB P35–P43 → báo cáo private P40 **đúng SHA + manifest** → `runner/README.md`/`runnerctl.sh` để xác định **đúng 2 data volumes được P40 nêu**; không đo/đụng toàn Docker. Kiểm volume khóa dùng chung có đang được khai báo riêng hay không, chỉ báo nếu thuộc nợ khác.
 2. Đọc **chỉ** contract và các dòng có liên quan của `/opt/incomex/scripts/storage-registry.tsv`, cơ chế `storage-watch`/#11, Config Guard/code-ledger và đường apply-v0 hiện hữu. Đối chiếu path Docker volume thực tế, owner, vòng đời persistent, phân loại được hệ thống hỗ trợ. Dùng kích thước live từng volume và tổng; không dump nội dung volume (chứa credential runner). Lấy số tăng theo lịch sử sẵn có nếu có, không bịa trend/cap. Không suy từ 1,93 GiB là lỗi đầy đĩa.
 3. PRE: chụp đúng bản registry + baseline/guard hash, trạng thái #11, health app/runner, giới hạn swap/cgroup đã đạt. Kiểm VPS-GHI trống, không actor khác ghi cùng storage-registry/Config Guard; lấy cờ CAS và kiểm freshness trước first mutation. Nếu bận, DỪNG không ghi chồng. Không dùng PRE mới thay PRE gốc P35/P40 để tô xanh sai.
 
