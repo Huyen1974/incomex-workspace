@@ -1,69 +1,53 @@
-# CODEX — HJW-N2-DOT-S1-CLOSE-20261026-02
+# CODEX — HJW-N2-DOT-NATIVE-FIRST-20261026-03
 
-RUN_ID: HJW-N2-DOT-S1-CLOSE-20261026-02
-STATUS: DRAFT_NOT_READY. Chỉ chạy sau Host READY đúng last-touch SHA + Owner RUN mới.
-Executor_Surface: Codex trên Mac · Task: work/hermes-joint-workspace.
-Write_Path: hồ sơ qua workspace_*/fs_* theo D12; phần mã ứng viên VPS trong worktree thử độc lập theo Đ30/31 và cờ VPS-GHI nếu có ghi lên VPS. KHÔNG ghi Agent Data/container production.
+RUN_ID: HJW-N2-DOT-NATIVE-FIRST-20261026-03
+STATUS: DRAFT — CHƯA READY, CHƯA OWNER RUN, CHƯA ĐỔI TIÊU CHÍ NGHIỆM THU N2.
+Executor_Surface: Codex Mac, nghiệm thu thực từ Dot/Owner.
+Task: work/hermes-joint-workspace; Repo: Huyen1974/incomex-workspace.
+Write_Path: workspace gateway đúng D12 cho hồ sơ; Dot/Work/Codex cloud/local theo công cụ HÃNG có sẵn. KHÔNG ghi VPS/production.
 
-## MỤC TIÊU & CỬA VÀO
+## 0 — Nguồn và phạm vi
 
-Chỉ hoàn tất S1 bị DỪNG tại P410, để có một candidate N2 hoàn chỉnh, kiểm chứng được, sau đó mới sử dụng +1 forward recreate Agent Data đã được Owner cho phép nhưng CHƯA DÙNG. KHÔNG triển khai Agent Data, không thay nginx/route, không mở Plugin Dot, không cấp SSH/sudo/GSM, không đổi Gmail. Git giữ PROMPT R2 trước tại commit 7e220733f812599a4236be968f66dc91602be568.
+Đọc AGENTS, HJW COLLAB §1–§3, P398/P407/P408/P410/P413/P415/P416 và HUMAN_DIRECTIVE HJW-OWNER-20261026-07 (26/10 23:00). Mục tiêu Owner cũ chưa bị hủy: Dot có danh tính riêng, ghế độc lập/quorum không trùng, đủ capability, báo cáo tiến độ bằng thoại. Chỉ đạo mới ưu tiên: Dot làm người điều phối, đọc/ghi báo cáo, nhắc hội đồng, giao công việc nặng cho Codex/Work; tận dụng công cụ hãng, KHÔNG tự dựng thêm cầu nối/connector phức tạp. Phần gợi ý tạm không coi Graph/PG/Directus/Lark/root là gate cho giai đoạn đầu là ý kiến Claude, CHƯA được Owner chốt thay §1–§2.
 
-Giữ đúng mục tiêu Owner N2 trong HJW §1–§3: Dot có actor openai-dot riêng, đủ kết nối nghiệp vụ, ghế phản biện có receipt, báo cáo cho Owner bằng thoại. Cơ chế SSH/root-equivalent trong P407/P408 vẫn thuộc hợp đồng N2 sau này, với rủi ro ROOT_SSH_OWNER_APPROVAL_NOT_ENFORCED; không triển khai ở RUN S1-only. Dot làm Host, gọi Codex/Work tự động, N4–N6 để sau. N1 Cloud đã đạt; N3 Hermes CLOSED_WITH_LIMITS.
+Bản này chỉ là native capability CANARY với chứng cứ thực, không triển khai root/GSM, không sửa Plugin Gmail, không cấp/đổi secret, không dùng một forward recreate Agent Data còn lại. Không khởi chạy khi GitHub C1B P65 hoặc việc khác đang dùng resource; phần đọc repo có thể tiến hành không tranh VPS-GHI khi Host và Owner đã giao đúng RUN.
 
-**Không coi báo cáo B1/ý kiến Reviewer là RUN.** P410 KQ DỪNG đã đóng RUN cũ. Owner GO +1 recreate có từ R2, không phải quyền cho RUN_ID mới tự chạy khi chưa Host READY/Owner dispatch.
+Căn cứ hãng: https://help.openai.com/en/articles/20001530-getting-started-with-your-dot
+Codex Cloud: https://help.openai.com/en/articles/20001545-using-codex-cloud
 
-## S0 — READ-GATE VÀ CÔ LẬP
+## S0 — Check vào đúng nguồn
 
-Đọc AGENTS, HJW COLLAB mục tiêu/Bảng/roadmap/P404–P411, PROMPT hiện hành, nguồn TQT P38 và P410. Kiểm HEAD, STOP/ALERT, Executor_Surface/Write_Path và Guard. Khi chỉ đọc không giữ VPS-GHI; nếu cần sửa candidate/build/thử trên VPS thì lấy cờ CAS trước, có giới hạn tài nguyên và nhả ngay sau checkpoint. Nếu task khác giữ cờ => KQ DỪNG/nhả phiên, không tranh máy, không chờ terminal. Không gọi thêm API AI thuê bao, không chạm database/live services để thử.
+Đọc và kiểm HEAD, Host, roster, trạng thái READY/Owner GO mới. Không dùng READY của S1-CLOSE đã KQ DỪNG. Phần chỉ đọc không cần VPS-GHI. Nếu thao tác cần người dùng/Plugin confirmation, không giữ terminal/cờ chờ, gom thành một danh sách ngắn ở KQ. Nếu phần Mac còn bận GitHub C1B thì không chen ngang.
 
-## S1 — CHỐT CA TQT HỢP ĐỒNG THẬT, KHÔNG TEST CHẠY VÒNG TRÒN
+## S1 — Dot thật đọc/ghi SSOT và thoại
 
-Nguồn chính: work/tools-quy-trinh/COLLAB.md P38 và các CHECK004/005/006, codec packed-history/HISTORY_REFERENCE của view đã ghim, guard hiện hữu FIELD-identity, RESULT-P01 và checkpoint. P410 báo 3 phép thử KQ lịch sử đã PASS; ca thứ tư bị TRIAL_CONTRACT_REJECTED do fixture chưa hợp hợp đồng, KHÔNG phải bằng chứng production hỏng.
+Kiểm Dot có thể sử dụng Plugin/GitHub/Incomex MCP hiện có để đọc AGENTS, HJW COLLAB/Bảng/HEAD và trả báo cáo có commit/timestamp. Owner khởi tạo cuộc gọi Live để kiểm tiếng nói; Dot không tự gọi Owner. Không lấy GPT/Codex thực hiện thay để báo Dot PASS.
 
-1. Lấy observed/signed fixture hợp lệ theo nguồn/đường đọc đã được duyệt, chỉ READ-ONLY; không tạo giả Owner approval, RESULT-P01, FIELD-identity, checkpoint hay sửa validator/policy/Guard để ép PASS. Xác minh history/codec/checkpoint đúng phiên.
-2. Kiểm TQT với CÙNG điều kiện/tệp đầu vào đối với baseline conn03a đang dùng và candidate (không phải production). Nếu cả hai từ chối do fixture không hợp đồng, ghi INCONCLUSIVE_FIXTURE với chứng cứ và phân loại TQT thành nợ fixture có chủ; không gọi đó là TQT PASS. Chỉ được coi là **không hồi quy so với baseline** nếu diff chứng minh không đổi cổng TQT/trial/ACL và các negative tests liên quan vẫn PASS.
-3. Nếu baseline hợp lệ/PASS mà candidate FAIL, hoặc thay đổi candidate chạm đường dùng chung trial/ownership làm mất bảo vệ, phải BLOCK S1; sửa đúng mã/fixture theo nguồn đã duyệt rồi thử lại có giới hạn. Nếu không tạo được fixture hợp lệ và đường TQT có thể bị ảnh hưởng bởi candidate => BLOCK, không đoán an toàn.
-4. Giới hạn bộ thử như evidence P38: ưu tiên chạy trực tiếp CHECK004/codec ở vùng thử; đừng lặp container 1–2 GiB vô hạn. Từ chối hợp đồng là lỗi dữ liệu đầu vào, không giải bằng tăng RAM tùy tiện.
+Chỉ khi có quyền giao hợp lệ, Dot thử một ý kiến vô hại trong HJW qua workspace gateway với operation_id + commit/receipt. Kiểm identity do máy chủ ghi; client tự ghi tên Dot KHÔNG chứng minh ghế khác. Nếu shared OpenAI identity, chỉ ghi COORDINATION_CANARY_SHARED_ID; KHÔNG thêm ghế hoặc phiếu độc lập, không đổi Host. Nếu máy chủ thực sự xác minh openai-dot thì mới ghi INDEPENDENT_SEAT_PASS.
 
-## S2 — KHÉP MA TRẬN ĐỦ CONNECTOR TRƯỚC RECREATE
+Nếu thiếu identity riêng nhưng vẫn làm được việc điều phối, giữ canary ở mức điều phối. Nếu một profile B1 nhỏ đã có sẵn đủ dùng, ghi rõ; không triển khai candidate P415 hay xin thêm gateway/bridge để có identity trong bước này.
 
-Không coi “37 tools Agent Data” đồng nghĩa đầy đủ mọi connector. Từ P399/P404/P410, mỗi họ phải có một dòng: current source/route, cloud-usable?, Dot credential/actor từ server, read/write/execute, phép âm, cấu hình nằm ở image hay ngoài image, tình trạng PASS/CHƯA THỬ/CHƯA THỂ, bằng chứng.
+## S2 — Dot giao Codex/Work bằng đường có sẵn
 
-Các họ bắt buộc: Workspace/KB/RAG/upload/transaction/exec/UI, Directus + PG/schema, Graph/Neo4j read, Lark, VPS status/operational, JEV, Gmail/Drive/Calendar/GitHub/Canva và đường chính thức Codex Cloud/Work/Mac/voice.
+Dot có thể tạo Codex Cloud task trong environment đã publish, hoặc tạo Work/Codex local task khi Owner đã bật truy cập máy và máy đang online. Tách Cloud vs Local, không hứa gọi được một phiên GPT/Claude Chat đang mở. Làm canary bằng một việc chỉ đọc hoặc fixture vô hại, không gửi lệnh root/ghi production.
 
-- Với Directus/PG và Lark đang dùng nhãn/credential cố định, không coi thêm URL là định danh Dot. Xác minh cách dùng các twin/gateway và server-side actor/scope đang có; không chia khóa Claude để giả identity.
-- Với Graph stdio/SSH loopback, chứng minh có cloud route tương thích hiện hữu hoặc ghi blocker chính xác; KHÔNG dựng bridge, reverse proxy hoặc server MCP mới ngoài scope.
-- Với vendor Plugin/voice/SSH cloud chỉ Owner/Dot thật mới xác minh được: phân loại CLIENT_ONLY_PENDING; không bắt phải có client khi chưa cấp Dot route. Gmail đã được đặt Allow read actions / ask before writes, không đổi thêm và không gửi thử.
-- Đưa TẤT CẢ delta server-side phải ở trong image vào cùng candidate trước khi dùng +1 recreate. Delta độc lập (Plugin native/user-only) phải ghi rõ để không giả thiếu restart. Nếu connector bắt buộc vẫn cần image lần thứ hai/chưa biết giải pháp => S1_BLOCKED, không consume recreate.
+Ghi ID của tác vụ, điều kiện môi trường, cách Codex đưa kết quả về đúng repo A qua gateway D12 nếu là một việc ghi đã được Host/Owner cho phép, và cách Dot tự đối chiếu commit. Không dùng native GitHub push trái quy trình đang áp dụng. Nếu môi trường hãng hoặc quyền máy chưa bật, ghi CLIENT_ONLY_PENDING và đúng thao tác Owner cần làm sau, không tự xây dịch vụ thay thế.
 
-## S3 — CANDIDATE CỐ ĐỊNH, THỬ TRÊN MÃ VÀ IMAGE TẠM
+## S3 — Không đuổi lỗi cũ làm blocker giả
 
-Baseline live theo P410: agent-data conn03a release 2b14c2a, image rollback digest ở P410; giữ KB/CONN03A hiện hành, không lấy checkout Hermes chưa phát hành. Candidate đầu vào R2 là local commit 8bd6d6c21e2336e610e2ace80c0219f7bcebd255, ref candidate/hjw-n2-recover-20261026, parent 2b14c2a. Rà mọi diff trong candidate (Queue.finish/terminal/cancel/recovery/ownership/worker import workspace_runtime.py) và 8 cấu hình đã sao lưu.
+P415 TQT signed-read/no-change đã PASS baseline và candidate, fixture cũ invalid cả hai; candidate offline 328 PASS/3 FAIL/1 collection error, không có failure ID mới theo báo cáo Codex, nhưng KHÔNG gọi full-suite PASS. Native canary không sửa mã nên không chạy lại bộ TQT/suite dài để cầu xanh.
 
-Nếu sửa candidate, commit mới **chỉ trong nhánh thử**, ghi SHA và danh sách diff đúng scope; không sửa production hoặc tự đổi source release đã ghim trong PROMPT này. Đo lại 63 regression trọng tâm, test rộng hiện có (không lấy 63 thay full suite), trial/TQT baseline differential, cross-profile denial, không rò argv/secret, lifecycle completed/failed/cancelled, replay/idempotency và hồi quy KB 5 profile cũ. Có thể build image tạm trong vùng thử khi tài nguyên cho phép, ghi image digest. Chỉ cấp nhãn S1_CANDIDATE_READY khi source SHA và image digest được pin, các suite bắt buộc đủ, ma trận S2 đã xác nhận delta không cần forward recreate ngoài 1 lần đã được Owner cho.
+P415 Guard POST 24/25 FAIL do #11 heartbeat, footprint 0; không đổi chữ thành PASS. DROOT59: ghi trạng thái và chủ giám sát, nếu có bằng chứng sự cố thật thì báo đúng luồng, không tự mở RUN HJW chạy theo đèn đỏ của việc khác. Không coi 37 tools Agent Data là đủ Directus/Graph/Lark; các họ ấy giữ status BLOCKED/CHƯA THỬ trong roadmap mà không ép giải quyết trước điều phối thử.
 
-Không đổi health/Guard baseline để che lỗi. Nếu test fail, nguồn thiếu hoặc phải đổi thiết kế lớn, dừng với đúng một blocker và đề nghị patch nhỏ, không tự mở task mới.
+## S4 — Đóng canary đúng cấp
 
-## S4 — KẾT QUẢ VÀ TRẢ MÁY
+KQ bảng gọn: Dot read HJW; Dot write receipt; actor riêng/chung; Owner voice; Dot→Codex/Work task; kết quả Codex đúng repo A; Owner chỉ cần bấm gì. Ghi một trạng thái:
+- COORDINATION_CANARY_PASS chỉ khi các chức năng điều phối đã thử từ Dot thật, KHÔNG gọi ghế độc lập.
+- INDEPENDENT_SEAT_PASS chỉ khi có identity máy chủ riêng + receipt/quorum không trùng.
+- CLIENT_ONLY_PENDING hoặc NOT_TESTED nếu chưa có quyền bề mặt/chưa thử.
+Không sửa §1–§2, không thông báo N2 FULL_PASS khi Owner chưa chốt scope và nghiệm thu.
 
-Ghi P/KQ cùng Bảng/roadmap tại HJW bằng gateway, không ghi mật khẩu/secret lên repo. Báo:
-- TQT: VALID_PASS hoặc BASELINE_SAME_FIXTURE_INVALID (không được tính PASS) hoặc REGRESSION_BLOCKED, evidence có thể kiểm.
-- Các họ connector: SERVER_READY / CLIENT_ONLY_PENDING / BLOCKED (lý do cụ thể và owner kỹ thuật).
-- Candidate source SHA/image digest và full regression vs baseline; nếu chưa đủ ghi NOT_DEPLOYABLE.
-- Lượt +1 forward recreate: **UNUSED**, image/config production không đổi, Guard/health/footprint thật; trả VPS-GHI, không job thử nền.
-- Một NEXT_TRIGGER cho Host chốt bước triển khai cuối khi S1 đủ; nếu còn BLOCKED, nêu đúng chỗ cần sửa, không đề nghị Owner duyệt lại GO.
+Bảo toàn candidate P415/source/image/rollback, +1 recreate UNUSED, Gmail đã có quyền đọc tự do/hỏi trước ghi, S4/root/GSM Owner 25/10 vẫn lưu yêu cầu lịch sử, không thu hồi. Trả mọi resource đã dùng, KQ XONG/DỪNG của riêng canary và một NEXT_TRIGGER.
 
-Nếu tất cả S1 đạt, KQ XONG của RUN S1-only, **không phải N2 FULL_PASS**; Host sẽ soạn READY cho một RUN triển khai/đo Dot thật, chỉ dùng +1 forward recreate và thao tác Owner gom một lần.
-
-## STEP_WALK_V1
-
-| Bước | Ai/trigger | Evidence phải đo | Nếu không đạt |
-|---|---|---|---|
-| S0 | Codex · Owner RUN + Host READY | HEAD, role, cờ/Guard, scope | DỪNG sạch |
-| S1 | Codex · S0 PASS | observed TQT + so baseline/candidate | phân biệt invalid fixture / regression |
-| S2 | Codex · S1 rõ | full connector matrix + 1-recreate dependency | BLOCKED đúng họ |
-| S3 | Codex · S2 rõ | candidate SHA/digest, suites, rollback | NOT_DEPLOYABLE |
-| S4 | Codex · kết thúc | POST, KQ, trả cờ, NEXT_TRIGGER | DỪNG + 1 blocker |
-
-CẤM: tự recreate/restart Agent Data, nginx hay service production; tạo key/route/plugin/live Gmail, root/GSM/SSH cho Dot trong lượt này; sửa/giảm trial validator/Guard; dùng task Codex hoặc server fixture để ghi PASS T1–T6 Dot thật; thay scope sang Hermes/GitHub/Graph/Directus production; đặt lịch hoặc giữ máy chờ Owner.
+STEP_WALK_V1: S0=Codex/Owner RUN/READY, HEAD/roster; S1=Dot thực hiện read/P/Voice và có receipt; S2=Dot→Codex native task + repo kết quả; S3=Codex disposition P415/DROOT59; S4=KQ, trả tài nguyên.
+CẤM: tự sửa app/backend/credential hoặc mở MCP server/gateway mới; tự recreate Agent Data; dùng root/GSM trong canary; giả danh Dot bằng GPT/CLI; xem shared OpenAI identity thành hai phiếu; giữ VPS-GHI chờ Owner gọi thoại.
