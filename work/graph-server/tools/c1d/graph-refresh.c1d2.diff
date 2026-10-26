@@ -1,0 +1,336 @@
+--- a/bin/graph-refresh
++++ b/bin/graph-refresh
+@@ -14,9 +14,15 @@
+   recovery-manifest (→ cross-edges → bộ nạp b88/pgdot) → CHỐT điểm khôi phục (tráo nguyên tử với `current`) — C1-D-FIX D23.
+   Hỏng sau ghi ⇒ bỏ bản tạm + trả bộ nạp + inverse + apply-v0 bản trước (điểm khôi phục, sổ, Graph đều về PRE).
+   nuxt-web đổi bản build ⇒ SKIP_NEEDS_IDENTITY (không tự đoán nguồn bản build mới).
+-Tiền điều kiện (thiếu một ⇒ SKIP, không ghi): khoá riêng, VPS-GHI trống (bản clone cổng workspace, tươi ≤24h), Guard periodic
+-  «UP OK» ≤15′, Config Guard CLEAN, graph-v1 status sạch + invariants = manifest, điểm khôi phục khớp manifest, RAM ≥3GiB, đĩa ≥20GiB,
+-  không tiến trình ghi khác, không có tệp STOP.
++Tiền điều kiện (thiếu một ⇒ SKIP, không ghi): khoá riêng, VPS-GHI trống (bản clone cổng workspace, CHỨNG MINH tươi — C1-D2 P255(a):
++  HEAD clone = HEAD remote đọc ngay bằng `git ls-remote` ẩn danh, hoặc khi ls-remote lỗi thì gateway đã đối chiếu ≤300s; kiểm lại ngay trước
++  giao dịch Graph VÀ sau giao dịch, trước khi áp sổ), Guard periodic «UP OK» ≤15′, Config Guard CLEAN, graph-v1 status sạch + invariants =
++  manifest, điểm khôi phục khớp manifest + H1 (meta.invariants của điểm = graph-invariants.json theo inv_equal), RAM ≥3GiB, đĩa ≥20GiB,
++  không tiến trình ghi khác, không có tệp STOP. T6: đo tài nguyên/chi phí từng pha (rec.t6); áp lực thật (PSI memory, swap vào/ra, RAM,
++  đĩa) ngay trước bản tạm hoặc trước ghi ⇒ SKIP an toàn.
++C1-D2 (GS-C1D2-SCOPED-AUTOCOVER-20261026-13): chuông #24 theo LÝ DO — cây mã BLOCKED chỉ vì bản chạy ≠ HEAD (đọc trọn, có danh sách tệp)
++  của nguồn có chủ khai báo (CODE_OWNED_BLOCKED) ⇒ VÀNG SOURCE_BLOCKED_OWNED (gọi trang một lần, nhắc 168h), lane đó không ghi, ô MỘT
++  PHẦN; mọi BLOCKED khác, lỗi máy/điểm khôi phục/sàn ⇒ ĐỎ như cũ. Lane c1d:infra retire đối tượng mất có chứng minh (graph_autocover R3).
+ Lệnh:  check [--out DIR]                  chỉ đọc nguồn + Graph; in quyết định từng lane
+        run [--execute] [--trigger T]      đường làm mới (timer gọi `run --execute --trigger timer`)
+        recovery-point [--drive]           xuất logic + nạp lại kiểm (+ mã hoá D23 lên Drive) — chỉ khi Graph = manifest
+@@ -88,6 +94,12 @@
+ C1D_LANES = ("c1d:infra", "c1d:pgl1")
+ L2_TOOL = RB + "/c1b_l2.py"
+ C1D_GATE_ALLOWED = ("AMBIGUOUS_OWNER", "GIT_UNREADABLE")   # lý do ô lane được phép còn lại khi nạp phần đã chứng minh (ô vẫn MỘT PHẦN)
++FLAG_MAX_AGE_S = 300                                       # C1-D2 P255(a): cờ VPS-GHI phải được chứng minh tươi trong 5′
++GW_REMOTE = "https://github.com/Huyen1974/incomex-workspace.git"   # chỉ `ls-remote` ẩn danh (so HEAD) — không tải mã, không ghi clone gateway
++GW_SYNC = "/opt/incomex/data/workspace-tools/" + hashlib.sha256(b"workspace").hexdigest() + ".sync"   # mốc gateway đối chiếu clone↔remote
++CODE_OWNED_BLOCKED = {"claude-mcp": "PROOT12 · MCPW (root COLLAB; Host P254/P257/P258)"}   # C1-D2 R2: chủ đã khai cho «bản chạy ≠ HEAD»
++T6_PSI_MEM_MAX = 10.0                                      # C1-D2 T6: memory PSI some avg10 (%) ⇒ áp lực thật
++T6_SWAP_PAGES_MAX = 256                                    # C1-D2 T6: trang swap vào+ra trong 1 s đo ⇒ đang thrash
+ now = lambda: time.strftime("%FT%TZ", time.gmtime())
+ 
+ 
+@@ -134,18 +146,48 @@
+ 
+ 
+ # =========================================================================== tiền điều kiện (fail-closed ⇒ SKIP)
++def ls_remote_head(timeout=20):
++    """HEAD nhánh main của repo workspace đọc NGAY bằng `git ls-remote` ẩn danh (không khoá, không tải đối tượng). Lỗi ⇒ None."""
++    try:
++        rc, o, _ = sh(["git", "-c", "credential.helper=", "ls-remote", GW_REMOTE, "refs/heads/main"], timeout=timeout,
++                      env=dict(os.environ, GIT_TERMINAL_PROMPT="0"))
++    except Exception:  # noqa: BLE001
++        return None
++    h = o.split("\t", 1)[0].strip() if rc == 0 else ""
++    return h if re.fullmatch(r"[0-9a-f]{40}", h) else None
++
++
++def flag_fresh(clone_head, remote_head, sync_age):
++    """C1-D2 P255(a) — hàm thuần: cờ trong clone cổng chỉ tin khi clone = remote NGAY lúc kiểm, hoặc (ls-remote lỗi) gateway vừa đối chiếu ≤300s."""
++    if remote_head:
++        return (True, "REMOTE_HEAD_EQ_CLONE") if remote_head == clone_head else (False, "CLONE_BEHIND_REMOTE")
++    if sync_age is not None and sync_age <= FLAG_MAX_AGE_S:
++        return True, "GATEWAY_SYNC_LE_%dS" % FLAG_MAX_AGE_S
++    return False, "LS_REMOTE_FAIL_AND_SYNC_OLDER_%dS" % FLAG_MAX_AGE_S
++
++
+ def vps_ghi_state():
+-    """Đọc dòng VPS-GHI của root COLLAB trong bản clone cổng workspace (chỉ đọc). Tươi = FETCH_HEAD ≤ 24h."""
++    """Đọc dòng VPS-GHI của root COLLAB trong bản clone cổng workspace (chỉ đọc). C1-D2 P255(a): tươi phải CHỨNG MINH tại lúc kiểm (flag_fresh);
++    clone cũ/không chứng minh được ⇒ ok False ⇒ lượt ghi SKIP (giấy vẫn cấp, ô chưa đồng bộ MỘT PHẦN). Không fetch/ghi clone của gateway."""
+     try:
+         age = time.time() - os.stat(GW_CLONE + "/.git/FETCH_HEAD").st_mtime
+         line = next((l for l in open(GW_CLONE + "/COLLAB.md", encoding="utf-8") if l.startswith("- **VPS-GHI:")), None)
+-    except OSError as e:
++        head = git(GW_CLONE, "rev-parse", "HEAD").stdout.decode().strip()
++    except (OSError, subprocess.SubprocessError) as e:
+         return {"ok": False, "why": "không đọc được clone cổng: %s" % type(e).__name__}
+     if line is None:
+         return {"ok": False, "why": "không thấy dòng VPS-GHI"}
+     free = line.startswith("- **VPS-GHI: trống**")
+-    return {"ok": free and age <= 86400, "free": free, "fetch_age_s": int(age), "why": None if free and age <= 86400 else
+-            ("VPS-GHI đang giữ" if not free else "clone cổng cũ %ds > 24h ⇒ không biết cờ" % age)}
++    try:
++        sync_age = time.time() - os.stat(GW_SYNC).st_mtime
++    except OSError:
++        sync_age = None
++    remote = ls_remote_head()
++    fresh, how = flag_fresh(head, remote, sync_age)
++    ok = free and fresh
++    return {"ok": ok, "free": free, "fresh": how, "fetch_age_s": int(age), "sync_age_s": None if sync_age is None else int(sync_age),
++            "clone_head": head[:12], "remote_head": (remote or "")[:12],
++            "why": None if ok else ("VPS-GHI đang giữ" if not free else "cờ VPS-GHI không chứng minh tươi: %s" % how)}
+ 
+ 
+ def guard_state():
+@@ -173,13 +215,63 @@
+     return [l for l in o.splitlines() if l.split(" ", 1)[0] != me and "pgrep" not in l][:5]
+ 
+ 
+-def recovery_ok():
++def _vmswap():
++    v = {}
++    for ln in open("/proc/vmstat"):
++        k, _, x = ln.partition(" ")
++        if k in ("pswpin", "pswpout"):
++            v[k] = int(x)
++    return v.get("pswpin", 0) + v.get("pswpout", 0)
++
++
++def _psi(kind):
++    try:
++        return float(re.search(r"avg10=([\d.]+)", open("/proc/pressure/" + kind).readline()).group(1))
++    except (OSError, AttributeError, ValueError):
++        return None
++
++
++def t6_probe(rec, phase, gate=False):
++    """C1-D2 T6: đo tài nguyên + chi phí tới mốc pha (chỉ đọc /proc + getrusage) ⇒ rec.t6.phases. gate ⇒ áp lực THẬT (RAM < 3GiB, đĩa < 20GiB,
++    PSI memory > ngưỡng, swap vào/ra trong 1 s > ngưỡng) ⇒ Skip (không dựng bản tạm/không ghi). Swap đầy đơn độc không phải áp lực."""
++    import resource
++    rs, rc_ = resource.getrusage(resource.RUSAGE_SELF), resource.getrusage(resource.RUSAGE_CHILDREN)
++    du = shutil.disk_usage("/")
++    t6 = rec.setdefault("t6", {"phases": []})
++    ph = {"phase": phase, "at": now(), "t": round(time.time(), 1), "mem_avail": mem_avail(), "disk_free": du.free,
++          "psi_avg10": {k: _psi(k) for k in ("memory", "cpu", "io")}, "swap_pages_total": _vmswap(),
++          "cpu_self_s": round(rs.ru_utime + rs.ru_stime, 2), "cpu_children_s": round(rc_.ru_utime + rc_.ru_stime, 2),
++          "maxrss_self_kb": rs.ru_maxrss, "maxrss_children_kb": rc_.ru_maxrss}
++    if t6["phases"]:
++        p0 = t6["phases"][-1]
++        ph.update(elapsed_s=round(ph["t"] - p0["t"], 1), cpu_s=round(ph["cpu_self_s"] + ph["cpu_children_s"] - p0["cpu_self_s"] - p0["cpu_children_s"], 2),
++                  disk_delta=ph["disk_free"] - p0["disk_free"])
++    t6["phases"].append(ph)
++    if gate:
++        s0 = _vmswap()
++        time.sleep(1)
++        ph["swap_pages_1s"] = _vmswap() - s0
++        why = [x for x, bad in (("RAM < 3GiB", ph["mem_avail"] < 3 * 1024 ** 3), ("đĩa < 20GiB", du.free < 20 * 1024 ** 3),
++                                ("PSI memory %.1f > %.1f" % (ph["psi_avg10"]["memory"] or 0, T6_PSI_MEM_MAX), (ph["psi_avg10"]["memory"] or 0) > T6_PSI_MEM_MAX),
++                                ("swap %d trang/s > %d" % (ph["swap_pages_1s"], T6_SWAP_PAGES_MAX), ph["swap_pages_1s"] > T6_SWAP_PAGES_MAX)) if bad]
++        ph["gate"] = why or "PASS"
++        if why:
++            raise Skip("T6 áp lực tài nguyên trước %s: %s" % (phase, "; ".join(why)))
++    return ph
++
++
++def recovery_ok(g=None):
+     rm = jload(RECMAN)
+     if not rm or not os.path.isdir(REC_CUR):
+         return {"ok": False, "why": "chưa có điểm khôi phục hiện hành"}
+     meta, bad = GR.verify_files(REC_CUR)
+     ok = not bad and sha_file(REC_CUR + "/meta.json") == rm.get("current", {}).get("meta_sha256")
+-    return {"ok": ok, "meta": meta if ok else None, "why": None if ok else "điểm khôi phục lệch manifest %s" % bad}
++    why = None if ok else "điểm khôi phục lệch manifest %s" % bad
++    if ok:                                  # C1-D2 H1: trường invariant có nghĩa của điểm = graph-invariants.json (bỏ run/computed_at)
++        diff = (g or r7_g1lib.load(G1)).inv_equal((meta or {}).get("invariants") or {}, jload(INV, {}) or {})
++        if diff:
++            ok, why = False, "H1 meta.invariants của điểm khôi phục ≠ graph-invariants.json %s (W2: Graph/INV đã tiến, điểm/RECMAN còn PRE)" % diff
++    return {"ok": ok, "meta": meta if ok else None, "why": why}
+ 
+ 
+ def preconditions(g, pw, need_vps=True):
+@@ -198,7 +290,7 @@
+         pc["invariants_eq_manifest"] = not g.inv_equal(g.invariants(pw), jload(INV, {}))
+     except Exception as e:  # noqa: BLE001
+         pc["invariants_eq_manifest"] = False
+-    pc["recovery"] = recovery_ok()
++    pc["recovery"] = recovery_ok(g)
+     du = shutil.disk_usage("/")
+     pc["resources"] = {"ok": mem_avail() >= 3 * 1024 ** 3 and du.free >= 20 * 1024 ** 3, "mem_avail": mem_avail(), "disk_free": du.free}
+     ow = other_writers()
+@@ -419,7 +511,7 @@
+                 nodes, edges, rep_ = GA.desired_infra(cat, code_caps, sources, run="graph-refresh " + lane)
+             else:
+                 nodes, edges, rep_ = GA.desired_pgl1(cat, run="graph-refresh " + lane)
+-            pl = GA.plan(g, pw, lane, nodes, edges, caps, used)
++            pl = GA.plan(g, pw, lane, nodes, edges, caps, used, native=rep_)     # C1-D2 R3: retire chỉ khi báo cáo bộ đọc chứng minh vắng mặt
+             pl["native_report"] = rep_
+             out[lane] = pl
+         except Exception as e:  # noqa: BLE001
+@@ -1016,8 +1108,27 @@
+         return {"pushed": False, "why": type(e).__name__}
+ 
+ 
+-def cert_tick(rec, g=None, pw=None, b88_input=None, op_failure=None, issue=True, push=True):
+-    """CT2–CT5: cấp/thu hồi giấy (nếu issue) → đèn + biên nhận sự cố. Không bao giờ ném lỗi, không đổi rc của lượt làm mới."""
++def code_blocked_split(dec_):
++    """C1-D2 R2/P255(b): tách cây mã BLOCKED ⇒ (đỏ [repo], vàng có chủ [sự cố]). Vàng CHỈ khi: chụp đọc trọn không lỗi, lý do đúng
++    «bản chạy ≠ nguồn cho vào» với danh sách tệp lệch không rỗng, và cây có chủ khai báo trong CODE_OWNED_BLOCKED. Còn lại ⇒ đỏ."""
++    red, owned = [], []
++    for r_, v in sorted(((dec_.get("code") or {}).get("repos") or {}).items()):
++        if v.get("decision") not in ("BLOCKED", "SKIP_NEEDS_IDENTITY"):
++            continue
++        rt = v.get("runtime") or {}
++        diff = rt.get("diff_vs_head") or rt.get("disk_vs_head_diff") or []
++        if v.get("decision") == "BLOCKED" and r_ in CODE_OWNED_BLOCKED and v.get("why") == "bản chạy ≠ nguồn cho vào" and diff:
++            owned.append({"cell": "code:" + r_, "owner": CODE_OWNED_BLOCKED[r_],
++                          "reason": "RUNTIME_NE_HEAD %s %d tệp (%s) · lane không ghi · ô MỘT PHẦN · cấm hành động theo cây này"
++                                    % (r_, len(diff), ",".join(sorted(diff)[:3]))})
++        else:
++            red.append("%s %s" % (r_, v.get("decision")))
++    return red, owned
++
++
++def cert_tick(rec, g=None, pw=None, b88_input=None, op_failure=None, issue=True, push=True, owned=None):
++    """CT2–CT5: cấp/thu hồi giấy (nếu issue) → đèn + biên nhận sự cố. Không bao giờ ném lỗi, không đổi rc của lượt làm mới.
++    owned (C1-D2 R2) = nguồn ngoài BLOCKED có chủ đã chứng minh ⇒ VÀNG SOURCE_BLOCKED_OWNED, không ĐỎ."""
+     out, doc = {}, None
+     if issue:
+         try:
+@@ -1027,7 +1138,7 @@
+         except Exception as e:  # noqa: BLE001
+             op_failure = "; ".join(x for x in (op_failure, "máy cấp giấy lỗi %s %s" % (type(e).__name__, str(e)[:100])) if x)
+     try:
+-        st, msg, inc = GC.alarm(doc, op_failure)
++        st, msg, inc = GC.alarm(doc, op_failure, owned=owned)
+         new, gone = GC.record_incidents(inc)
+         if new:
+             msg = ("MỚI %s · " % ",".join(i["id"] for i in new[:5])) + msg
+@@ -1038,6 +1149,8 @@
+         out["alarm_error"] = "%s %s" % (type(e).__name__, str(e)[:160])
+         if push:
+             out["push"] = cert_push("down", "OPERATIONAL: máy báo đèn lỗi %s" % type(e).__name__)
++    if owned:
++        out["owned_blocked"] = [i["cell"] for i in owned]
+     rec["cert"] = out
+     return out
+ 
+@@ -1114,6 +1227,7 @@
+         logline(rec); print("RUN SKIP_BUSY_LOCK"); return 0 if a.trigger == "timer" else 3
+     g = r7_g1lib.load(G1)
+     pw = g.password()
++    t6_probe(rec, "start")
+     pc, bad = preconditions(g, pw, need_vps=a.execute)
+     rec["preconditions"] = pc
+     if bad:
+@@ -1137,6 +1251,7 @@
+         caps["c1d"] = cap_c1d(g, pw, sources, caps["code"])
+         dec = decide(caps, sources)
+         rec["decision"] = dec
++        t6_probe(rec, "sources_read")
+         todo = [l for l in ("b88", "pgdot") if dec[l]["decision"] == "DELTA"] + \
+                ["code:" + r for r, v in dec["code"]["repos"].items() if v["decision"] == "DELTA"] + \
+                [l for l in C1D_LANES if (dec.get(l) or {}).get("decision") == "DELTA"]
+@@ -1157,6 +1272,7 @@
+         item = todo[0]                         # MỘT mục/lượt; mục còn lại lượt sau (đường làm mới giống hệt)
+         report[item] = {}
+         try:
++            t6_probe(rec, "before_temp_build", gate=True)          # C1-D2 T6: áp lực thật ⇒ không dựng Neo4j tạm
+             if item in ("b88", "pgdot"):
+                 snaps = caps[item]["snapshot_utc"] if item == "pgdot" else {"B88_SNAP": caps["b88"]["snapshot_utc"]}
+                 plan = build_csv_lane(item, caps[item]["input_dir"], snaps, LOADED + "/" + item, sources[item]["snapshot_utc"], work, report[item], expect=live)
+@@ -1183,8 +1299,11 @@
+                     raise Skip("nguồn %s đổi giữa lượt" % item)
+             elif code_identity(repo, spec)["files_tsv_sha256"] != caps["code"][repo]["files_tsv_sha256"]:
+                 raise Skip("nguồn %s đổi giữa lượt" % item)
+-            if not vps_ghi_state()["ok"] or other_writers() or os.path.exists(STOPF):
+-                raise Skip("bận/STOP ngay trước ghi")
++            t6_probe(rec, "before_production_write", gate=True)    # C1-D2 T6
++            vg = vps_ghi_state()
++            report[item]["vps_ghi_before_write"] = {k: vg.get(k) for k in ("ok", "fresh", "why", "clone_head", "remote_head", "held_by")}
++            if not vg["ok"] or other_writers() or os.path.exists(STOPF):
++                raise Skip("bận/STOP/cờ không tươi ngay trước ghi: %s" % (vg.get("why") or "writer khác/STOP"))
+         except Skip as e:
+             report[item]["skip"] = str(e)
+             rec["result"] = "DELTA_SKIPPED_SAFE"
+@@ -1192,6 +1311,11 @@
+         target = {"g": g, "pw": pw, "import": ROOT + "/import"}
+         apply_plan(target, plan, report[item])
+         applied = plan
++        t6_probe(rec, "graph_transaction_done")
++        vg = vps_ghi_state()                 # C1-D2 P255(a): kiểm lại sau mốc đổi pha — cờ đổi chủ/không tươi ⇒ lùi Graph về PRE, không áp sổ
++        report[item]["vps_ghi_after_tx"] = {k: vg.get(k) for k in ("ok", "fresh", "why", "held_by")}
++        if not vg["ok"] or os.path.exists(STOPF):
++            raise Fail("cờ VPS-GHI/STOP đổi sau giao dịch Graph: %s" % (vg.get("why") or "STOP"))
+         mid = "GRAPH-REFRESH-" + ts
+         live_inv = g.invariants(pw)
+         ok, out = apply_v0("graph-v1-invariants", INV, {"run": RUN_LABEL + "-" + ts, **live_inv, "computed_at": now()}, mid)
+@@ -1214,7 +1338,9 @@
+             tot["edges"] += cc["edges_add"]
+             c1[item] = {"plan_sha256": plan["plan_sha256"], "applied_at": now(), "counts": cc, "run": RUN_LABEL + "-" + ts,
+                         "created_nodes": (c1.get(item) or {}).get("created_nodes", 0) + cc["nodes_add"],
+-                        "created_edges": (c1.get(item) or {}).get("created_edges", 0) + cc["edges_add"]}
++                        "created_edges": (c1.get(item) or {}).get("created_edges", 0) + cc["edges_add"],
++                        "retired_nodes": (c1.get(item) or {}).get("retired_nodes", 0) + cc.get("nodes_retire", 0),     # C1-D2 R3 (cộng dồn)
++                        "retired_edges": (c1.get(item) or {}).get("retired_edges", 0) + cc.get("edges_retire", 0)}
+         elif item == "b88":                          # C1-D fix2: lane c1d KHÔNG rơi xuống nhánh code (UnboundLocalError repo, lượt 11:18Z đã tự lùi)
+             ns["b88"].update(csv_sha256=caps["b88"]["csv_sha256"], snapshot_utc={"B88_SNAP": caps["b88"]["snapshot_utc"]}, loaded_at=now())
+         elif item == "pgdot":
+@@ -1289,15 +1415,28 @@
+     finally:
+         rec["report"] = report
+         dec_ = rec.get("decision") or {}
+-        opf = [l + " " + dec_[l]["decision"] for l in ("b88", "pgdot", "code") if (dec_.get(l) or {}).get("decision") in ("BLOCKED", "SKIP_NEEDS_IDENTITY")]
++        opf = [l + " " + dec_[l]["decision"] for l in ("b88", "pgdot") if (dec_.get(l) or {}).get("decision") in ("BLOCKED", "SKIP_NEEDS_IDENTITY")]
++        red_code, owned = code_blocked_split(dec_)           # C1-D2 R2: chỉ «bản chạy ≠ HEAD» của cây có chủ ⇒ VÀNG; còn lại ĐỎ như cũ
++        if red_code:
++            opf.append("code BLOCKED " + ",".join(red_code))
+         opf += [l + " BLOCKED" for l in C1D_LANES if (dec_.get(l) or {}).get("decision") == "BLOCKED"]
+         if rec.get("result") in ("FAIL", None):
+             opf.append("làm mới %s %s" % (rec.get("result") or "dừng giữa chừng", rec.get("why") or ""))
++        if rec.get("result") == "SKIP_RECOVERY_STALE":       # C1-D2 H1: Graph ≠ điểm khôi phục hiện hành ⇒ ĐỎ (trước đây im lặng)
++            opf.append("làm mới SKIP_RECOVERY_STALE: Graph sống ≠ trạng thái điểm khôi phục hiện hành")
++        try:
++            t6_probe(rec, "end")
++            ph = rec["t6"]["phases"]
++            rec["t6"]["total"] = {"elapsed_s": round(ph[-1]["t"] - ph[0]["t"], 1), "cpu_s": round(sum(p.get("cpu_s") or 0 for p in ph), 2),
++                                  "maxrss_children_kb": max(p["maxrss_children_kb"] for p in ph), "min_mem_avail": min(p["mem_avail"] for p in ph),
++                                  "min_disk_free": min(p["disk_free"] for p in ph)}
++        except Exception as e:  # noqa: BLE001
++            rec.setdefault("t6", {})["error"] = "%s %s" % (type(e).__name__, str(e)[:120])
+         l2f = l2_tick(rec)                          # C1-D: L2 làm mới mỗi lượt (chỉ đọc nguồn)
+         if l2f:
+             opf.append(l2f)
+         b88_in = ((locals().get("caps") or {}).get("b88") or {}).get("input_dir")
+-        cert_tick(rec, g, pw, b88_input=b88_in if b88_in and os.path.isdir(b88_in) else None, op_failure="; ".join(opf) or None)
++        cert_tick(rec, g, pw, b88_input=b88_in if b88_in and os.path.isdir(b88_in) else None, op_failure="; ".join(opf) or None, owned=owned)
+         rec["finished_at"] = now()
+         logline(rec)
+         if rec.get("result") != "FAIL":
+@@ -1518,6 +1657,24 @@
+     for size, rem, want in ((2513, 50, True), (2513, 51, False), (1276, 26, False)):
+         ok_all &= gate(size, rem) == want
+         print("  gate   xoá %d/%d (%.2f%%) -> %s" % (rem, size, 100 * rem / size, "cho" if gate(size, rem) else "chặn"))
++    # C1-D2 P255(a): cờ VPS-GHI chỉ tin khi chứng minh tươi (hàm thuần)
++    h1, h2 = "a" * 40, "b" * 40
++    for name, args, want in (("clone = remote ngay lúc kiểm", (h1, h1, None), True), ("clone tụt sau remote", (h1, h2, 5), False),
++                             ("ls-remote lỗi + gateway 299s", (h1, None, 299), True), ("ls-remote lỗi + gateway 301s", (h1, None, 301), False),
++                             ("ls-remote lỗi + không có mốc gateway", (h1, None, None), False)):
++        got = flag_fresh(*args)[0]
++        ok_all &= got == want
++        print("  flag   %-44s -> %s %s" % (name, "tươi" if got else "KHÔNG tươi", "ok" if got == want else "SAI"))
++    # C1-D2 R2: BLOCKED có chủ (bản chạy ≠ HEAD, đọc trọn) ⇒ vàng; lỗi chụp / cây không chủ / danh sách rỗng ⇒ đỏ
++    mk = lambda repo, why, diff: {"code": {"repos": {repo: {"decision": "BLOCKED", "why": why, "runtime": {"diff_vs_head": diff}}}}}
++    for name, d, want in (("claude-mcp bản chạy ≠ HEAD (có tệp)", mk("claude-mcp", "bản chạy ≠ nguồn cho vào", ["app/server.py"]), "owned"),
++                          ("claude-mcp lỗi chụp", mk("claude-mcp", "RuntimeError đọc byte", []), "red"),
++                          ("claude-mcp danh sách lệch rỗng", mk("claude-mcp", "bản chạy ≠ nguồn cho vào", []), "red"),
++                          ("cây không có chủ khai báo", mk("claude-kb", "bản chạy ≠ nguồn cho vào", ["x.py"]), "red")):
++        red, own = code_blocked_split(d)
++        got = "owned" if own and not red else ("red" if red and not own else "?")
++        ok_all &= got == want
++        print("  alarm  %-44s -> %s %s" % (name, got, "ok" if got == want else "SAI"))
+     print("GRAPH-REFRESH SELFTEST: %s" % ("PASS" if ok_all else "FAIL"))
+     return 0 if ok_all else 1
+ 
