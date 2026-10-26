@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — lệnh RUN **duy nhất** cho Codex, Host READY@39dde3fbb411a4c626ab979cb6296ba139798fba tại COLLAB P58; Owner giao RUN_ID `GHM-C1B-CODEX-BASELINE-MANUAL-CD-20261026-01`. S7 dọn repo độc lập; bản chat không phải lệnh.
+6. work/github-management/PROMPT.md — **DRAFT cho lượt khép C1B** RUN_ID `GHM-C1B-CLOSE-20261026-02`, Host P62 mời Claude phản biện; **CHƯA READY / Owner RUN, không thi hành**. Lệnh P58/C1B-01 đã KQ P61 và chỉ còn lịch sử trong Git; không lấy READY cũ cho DRAFT mới.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
