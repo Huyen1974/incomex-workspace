@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: GPT Host P64 ACCEPT Claude P63 và READY@7ccf89e276b4848704dd8ad1b4a8a75bd3f846cb cho C1B-CLOSE, RUN_ID GHM-C1B-CLOSE-20261026-02. Source Web Nuxt4 + AD config parity trước deploy; 3 audit test trên runner VPS nhưng không dùng secret trong PR. 0 RUN active, đợi Owner giao Codex. C3.0→C3→C2 Pro→C4 sau C1B.**
+**Trạng thái: Owner đã RUN C1B-CLOSE `GHM-C1B-CLOSE-20261026-02`; Codex P65 STARTED theo P64 READY@7ccf89e276b4848704dd8ad1b4a8a75bd3f846cb. Đang thực thi: Web Nuxt 4.5.2 đã build tái lập và PARITY 166/166; CI nguồn đang xử lý checkout gitlink lịch sử. Hai audit đã chuyển và GREEN trên main; Web Health Check chưa đạt nên giữ workflow cũ. AD effective config/source đã đối chiếu, canary bootstrap đang chờ quyết định Owner sau chặn tự động. Deploy–rollback chưa thực hiện. Chưa nghiệm thu C1B, không chạy C3/C2/C4.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -14,7 +14,8 @@
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
 9. [C1A-S3-CLOSE-REPORT.md](C1A-S3-CLOSE-REPORT.md) — báo cáo lịch sử P40. Kết quả mới nhất là **COLLAB P48**, có hash báo cáo riêng và manifest 47 tệp; giữ nợ/giới hạn toàn hệ tách khỏi C1A scoped.
 
-10. [C1B-REPORT.md](C1B-REPORT.md) — KQ P61 hiện hành: phần đạt, blocker từng app/audit, CI/SHA, archive, bằng chứng riêng và đường tiếp.
+10. [C1B-CLOSE-REPORT.md](C1B-CLOSE-REPORT.md) — tiến độ và bằng chứng RUN C1B-CLOSE đang thực hiện.
+11. [C1B-REPORT.md](C1B-REPORT.md) — KQ P61 kế thừa: phần đạt, blocker từng app/audit, CI/SHA, archive, bằng chứng riêng và đường tiếp.
 
 Mục tiêu duy nhất của việc này: nhiều AI nhận nhiều việc, **viết mã song song trên branch/workspace riêng**, Chief duyệt PR trên nền mới nhất, Owner xem bảng kết quả sáng. R1 dùng Actions trong hạn mức miễn phí với hard budget $0; Owner 25/10 15:18: mọi run đặt trên VPS bằng runner tự host; ưu tiên 1 là CI/CD chạy được.
 
