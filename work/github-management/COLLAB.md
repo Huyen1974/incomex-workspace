@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-26 23:23 +07 · Codex · P65
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 00:34 +07 · Codex · P66
 - 🎯 Mục tiêu Owner giữ nguyên: 2 repo phải có đường code → CI VPS → main đúng runtime → deploy/rollback thật; sau đó 3 agent viết song song, KST duyệt → khóa main Pro → ca đêm.
 - 🏁 C1B XONG khi: source/main và runtime 2 app đối chiếu PARITY; deploy–rollback thật 2/2; 3 audit kiểm tương đương trên VPS với lịch/secret đúng phạm vi; Guard/receipt/cờ sạch.
 - 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ◐ C1B P61 có giới hạn → ✓ Claude P63 ACCEPT → ✓ GPT P64 READY → ■ Owner giao Codex C1B-CLOSE → C3.0 → C3 → C2 → C4.
 - ✅ Đã xong: baseline/main/CI/build 2/2; archive 4 repo; POST Guard 25/25, receipt 307, VPS-GHI đã trả, runtime cũ 2 app còn khỏe; PROMPT C1B-CLOSE đúng nguồn Web Nuxt4.
-- ■ Đang làm: Codex STARTED P65 · RUN_ID=GHM-C1B-CLOSE-20261026-02 · S0 PASS, nhận VPS-GHI 16:17:39–18:00Z (sửa mốc nhập nhầm theo timestamp commit thật 5816be7); tìm đủ lab Nuxt4 trên VPS2; AD effective config 18/18 khớp, image không thiếu mã; kiểm candidate/audit trước deploy.
-- ⬜ Còn lại: Web Nuxt 4.5.2 nguồn đủ + 132+32 routes/2 assets parity; AD so Compose/image; 2/2 deploy–rollback; 3/3 audit VPS. C1B_SCOPED vẫn FAIL đến khi PASS thật; GLOBAL_GUARD PARTIAL ngoài scope.
-- ➡ Kế tiếp: Codex thực hiện PROMPT C1B-CLOSE P64, ghi KQ từng hạng mục; NEXT_TRIGGER=CODEX_KQ_GHM-C1B-CLOSE-20261026-02. Không tự C3/C2/C4.
+- ■ Đang làm: 0 RUN active Codex. P66 KQ XONG CÓ GIỚI HẠN; Web nguồn Nuxt4/parity 166/166/CI/main/deploy–rollback thật PASS; hai audit main GREEN. VPS-GHI đã trả; deploy lease đóng 17:29:53Z, bản cũ hai app healthy.
+- ⬜ Còn lại: AD canary bootstrap chưa được phép thực hiện sau auto-review rejection; Web Health CHECK2/5/7/8/12 FAIL, hosted giữ ACTIVE. AD effective config thực tế 17/17 khớp (sửa số đếm checkpoint 18). Deploy–rollback đạt 1/2, audit VPS 2/3; C1B_SCOPED=FAIL, GLOBAL_GUARD=PARTIAL; POST cuối 25/25 và coverage 1/1 PASS.
+- ➡ Kế tiếp: GPT Host/Claude nghiệm thu phần đạt và xử lý blocker theo báo cáo P66. NEXT_TRIGGER=HOST_REVIEW_C1B_P66_LIMITS. Không giữ VPS chờ, không tự tạo RUN hay C3/C2/C4.
 - ⛔ Không deploy Nuxt3, không hạ Nuxt4.5.2/Node24.21.0, không secret cho PR, không tự đổi quyền Mac, không mua Pro/khóa main khi chưa C2.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -932,6 +932,20 @@ STARTED@GHM-C1B-CLOSE-20261026-02 2026-10-26T16:03:10Z · executor=Codex Desktop
 - Kế thừa phần P61 đã đạt; không dựng lại runner, không điều tra token cũ. R1 nguồn Nuxt4/PARITY, R2 effective config/source AD, R3 audit kiểm độc lập; không nhận secret cho PR. R4 chỉ sau app riêng đủ cổng.
 - Root VPS-GHI đang trống sau HJW P415; chưa nhận cờ, chỉ lấy CAS trước áp host. Đọc/clone/GitHub-only tiếp tục độc lập; giữ nợ #11 ngoài scope theo DROOT59.
 - Bảng đã cập nhật; không thay mục tiêu/PROMPT. NEXT_TRIGGER=CODEX_KQ_GHM-C1B-CLOSE-20261026-02.
+
+## P66 · Codex · 27/10/2026 — KQ XONG CÓ GIỚI HẠN
+Ghế: openai-codex · Based_on: Owner RUN trực tiếp, P64 READY@7ccf89e276b4848704dd8ad1b4a8a75bd3f846cb · R1–R5 PROMPT hiện hành. Bảng/ROADMAP/README/báo cáo cùng commit; mục tiêu và chữ ký Host không đổi.
+KQ@GHM-C1B-CLOSE-20261026-02 · 2026-10-26T17:34:57Z · **XONG CÓ GIỚI HẠN**
+- **C1B_SCOPED=FAIL; WEB_R1_R4=PASS; CONTROL_PROTECTION=PASS; GUARD_POST=PASS 25/25; GLOBAL_GUARD=PARTIAL.** Báo cáo: [C1B-CLOSE-REPORT.md](C1B-CLOSE-REPORT.md). Chưa đủ 2/2 app và 3/3 audit để nghiệm thu toàn C1B.
+- Web đúng Nuxt4.5.2/Node24.21.0: đủ nguồn lab + CWEB; build tái lập PASS, parity 166/166. Main non-force `728fa1deaee45b36c07714ede1da4c0633683e89`; [CI 40366408664](https://github.com/Huyen1974/web-test/actions/runs/40366408664) GREEN, 16/16 unit test/quét delta secret PASS. Giữ gitlink lịch sử; checkout exact SHA với auth tạm, không thêm trigger dev/PR.
+- **Web deploy–rollback thật PASS:** deploy 17:19:49Z, 34/34 static contract đúng checksum; rollback 17:20:25Z, old healthy 17:20:36Z. 1.831 tệp + 6 symlink và profile old nguyên vẹn. Hai restart Web, 0 restart AD/DB/nginx/VPS; nginx chỉ reload theo công cụ P61. Script deploy P61 nguyên SHA, không thêm cơ chế deploy.
+- AD so config **17/17** khớp (đính chính con số checkpoint 18), 40 tệp image không thiếu main; candidate giữ nguyên image Config. Canary PG read-only trả /kb/list 500 do bootstrap CREATE bị chặn; 6 đối tượng DB đã tồn tại nhưng auto-review vẫn từ chối chạy bootstrap bằng quyền production. Đã hỏi Owner quyền đúng canary, chưa có trả lời; DỪNG riêng AD, không vượt chặn. Old healthy/StartedAt 08:19:50Z không đổi.
+- Audit **2/3**: [Lifecycle main 40359232468](https://github.com/Huyen1974/agent-data-test/actions/runs/40359232468) @2517394 GREEN; [ops main 40359238669](https://github.com/Huyen1974/web-test/actions/runs/40359238669) @f1fe708 GREEN. Lịch/ACTIVE giữ, chỉ main schedule/dispatch, không secret PR. Lifecycle báo 2 orphan/1 ghost, không auto-heal. [Web Health candidate 40358212304](https://github.com/Huyen1974/web-test/actions/runs/40358212304): 8/13 PASS, lỗi CHECK2/5/7/8/12, không promote. Gap9613 chưa chứng minh mất dữ liệu. Hosted cũ còn ACTIVE.
+- POST cuối 17:31:54Z **25/25 PASS**, footprint/coverage 1/1; #11 PREEXISTING_SAME. Hai POST trước lỗi metadata proof/heartbeat được giữ bằng chứng; sửa đúng proof, không sửa Guard hay chữa #11. GLOBAL_GUARD PARTIAL do nợ cũ và vùng UNKNOWN.
+- Hai runner online/idle; 1CPU/1,5GiB/no-extra-swap. 0 container thử; build tạm đã dọn, giữ candidate/known-good. Deploy lease đóng 17:29:53Z, LEASE_EXPIRED chặn trước mutation, restart counter vẫn 2. VPS-GHI trả trong commit KQ này, 0 RUN active Codex.
+- Hồ sơ private **96 tệp**, manifest SHA256 **76292db27f083dc94a24a2eaf65afd121f218bf476d04e653c1c5387903292d3**, chốt 17:33:15Z; báo cáo public đã quét secret sạch.
+- **NEXT_TRIGGER=HOST_REVIEW_C1B_P66_LIMITS**: Host/Claude nghiệm thu riêng Web + hai audit và chốt hướng AD bootstrap/Web Health. Không tự tạo RUN hoặc C3/C2/C4.
+
 
 
 
