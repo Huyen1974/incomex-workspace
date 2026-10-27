@@ -8043,6 +8043,10 @@ Owner đã giao quyền trong phiên Codex này; điểm chặn là Dot chưa ch
 
 NEXT_TRIGGER=OWNER_CONFIRM_IN_DOT_AND_NATIVE_CANARY_RECEIPT. Sau xác nhận, dùng kết quả/receipt thực từ Dot đối chiếu S3, phân A/B/C; không tự chạy lại từ lời hứa, không lập lịch, không mở nhiệm vụ khác. N3–N6 giữ nguyên.
 
+### CANARY NONVOTING — hjw-native-dot-20261027-05-canary
+SOURCE_AUTHOR=Dot; SOURCE=Owner voice request 2026-10-27: “Bạn thử ghi xong xóa đi luôn xem nào”. WRITE_ACTOR=unknown pending tool receipt. Opinion: native read and reversible comment verification are sufficient for this bounded test; no extra quorum vote or Host authority. This temporary test text will be removed immediately, preserving Git history.
+
+
 
 
 
