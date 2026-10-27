@@ -1,0 +1,274 @@
+--- graph-refresh.pre
++++ graph-refresh
+@@ -23,6 +23,13 @@
+ C1-D2 (GS-C1D2-SCOPED-AUTOCOVER-20261026-13): chuông #24 theo LÝ DO — cây mã BLOCKED chỉ vì bản chạy ≠ HEAD (đọc trọn, có danh sách tệp)
+   của nguồn có chủ khai báo (CODE_OWNED_BLOCKED) ⇒ VÀNG SOURCE_BLOCKED_OWNED (gọi trang một lần, nhắc 168h), lane đó không ghi, ô MỘT
+   PHẦN; mọi BLOCKED khác, lỗi máy/điểm khôi phục/sàn ⇒ ĐỎ như cũ. Lane c1d:infra retire đối tượng mất có chứng minh (graph_autocover R3).
++GS-RAM-GATE (GS-RAM-GATE-C1E-20261027-15, P268 §3 / P269): CỔNG NHẬN lane code TRƯỚC mọi container (Enola, Neo4j tạm, Cognee) — cần =
++  sàn 3GiB (giữ nguyên) + trần Enola/Cognee 1536MiB + trần cứng Neo4j tạm 1024MiB + đệm 512MiB (− phần trần Neo4j tạm đã chiếm khi nó đang
++  chạy); kiểm khi chọn mục (cả dry-run và `check`, chỉ đọc /proc) và tái kiểm ngay trước từng lần dựng. Thiếu ⇒ SKIP_RESOURCE: 0 container,
++  0 ghi, ô code MỘT PHẦN/NOT_ACTION_SAFE, sổ nạp giữ mốc cũ (không NO_CHANGE, không giấy ĐỦ); mục DELTA kế (b88/pgdot/c1d) vẫn được chọn
++  lượt này; VÀNG có chủ (Graph Host + root/VPSC) trên #24, tin UP mở đầu «Cấp 2 RAM: …» để bản tin 08:00 (Guard tier_cap2) thấy. Tụt RAM khi
++  Neo4j tạm đã nhận đang chạy (trước Cognee) hoặc vòng canh 3GiB trong container ⇒ FAIL ĐỎ như cũ. Lượt sau đủ RAM ⇒ timer 22:40Z có sẵn
++  tự nạp. cgroup memory.peak quan sát từng container ghi vào rec.mem_peak để hiệu chỉnh số «cần».
+ Lệnh:  check [--out DIR]                  chỉ đọc nguồn + Graph; in quyết định từng lane
+        run [--execute] [--trigger T]      đường làm mới (timer gọi `run --execute --trigger timer`)
+        recovery-point [--drive]           xuất logic + nạp lại kiểm (+ mã hoá D23 lên Drive) — chỉ khi Graph = manifest
+@@ -100,6 +107,13 @@
+ CODE_OWNED_BLOCKED = {"claude-mcp": "PROOT12 · MCPW (root COLLAB; Host P254/P257/P258)"}   # C1-D2 R2: chủ đã khai cho «bản chạy ≠ HEAD»
+ T6_PSI_MEM_MAX = 10.0                                      # C1-D2 T6: memory PSI some avg10 (%) ⇒ áp lực thật
+ T6_SWAP_PAGES_MAX = 256                                    # C1-D2 T6: trang swap vào+ra trong 1 s đo ⇒ đang thrash
++RAM_FLOOR_B = 3 * 1024 ** 3                                # sàn RAM host — GIỮ NGUYÊN (vòng canh run_container · T6 · cổng nhận)
++COG_CAP_B = 1536 * 1024 ** 2                               # GS-RAM-GATE: trần cgroup Enola/Cognee (run_container --memory = --memory-swap 1536m)
++TEMP_CAP_B = 1024 * 1024 ** 2                              # GS-RAM-GATE: trần cứng Neo4j tạm GR.Temp (--memory = --memory-swap 1024m, start() kiểm)
++ADMIT_BUFFER_B = 512 * 1024 ** 2                           # GS-RAM-GATE: đệm ≥512MiB
++CODE_ADMIT_NEED_B = RAM_FLOOR_B + COG_CAP_B + TEMP_CAP_B + ADMIT_BUFFER_B   # 6GiB — bảo thủ theo trần (chưa có đỉnh đo thật)
++RES_OWNER = "Graph Host + root/VPSC (RAM dùng chung)"      # P269: dung lượng là việc root; Graph không dọn RAM việc khác
++MEM_PEAKS = {}                                             # GS-RAM-GATE: cgroup memory.peak quan sát được từng container của lượt (byte)
+ now = lambda: time.strftime("%FT%TZ", time.gmtime())
+ 
+ 
+@@ -111,6 +125,13 @@
+     pass
+ 
+ 
++class ResourceSkip(Skip):
++    """GS-RAM-GATE: cổng nhận lane code không đạt ⇒ SKIP_RESOURCE (vàng có chủ), không container nào của lane đang chạy."""
++    def __init__(self, adm):
++        Skip.__init__(self, adm["reason"])
++        self.adm = adm
++
++
+ def sh(cmd, inp=None, timeout=900, env=None):
+     p = subprocess.run(cmd, input=inp, capture_output=True, timeout=timeout, env=env)
+     return p.returncode, p.stdout.decode(errors="replace"), p.stderr.decode(errors="replace")
+@@ -260,6 +281,67 @@
+     return ph
+ 
+ 
++def ctr_mem(name):
++    """GS-RAM-GATE: cgroup v2 memory.current/peak (byte) của container đang chạy — chỉ đọc. Không đọc được ⇒ None."""
++    try:
++        rc, o, _ = sh(["docker", "inspect", "-f", "{{.Id}}", name], timeout=30)
++        cg = "/sys/fs/cgroup/system.slice/docker-%s.scope/memory." % o.strip()
++        return {k: int(open(cg + k).read().split()[0]) for k in ("current", "peak")} if rc == 0 and o.strip() else None
++    except Exception:  # noqa: BLE001
++        return None
++
++
++def _admit_measure():
++    s0 = _vmswap()
++    time.sleep(1)
++    return {"mem_avail": mem_avail(), "psi_mem": _psi("memory"), "swap_pages_1s": _vmswap() - s0, "disk_free": shutil.disk_usage("/").free}
++
++
++def code_admission(repo, phase, held=0, probe=None):
++    """GS-RAM-GATE: cổng nhận lane code (chỉ đọc /proc). cần = sàn + trần Cognee + trần Neo4j tạm + đệm − held (phần trần Neo4j tạm đã nằm
++    trong MemAvailable khi bản tạm đang chạy). Áp lực thật (PSI memory, swap vào/ra 1 s, đĩa) cũng chặn như T6; PSI không đọc được ⇒ chặn."""
++    m = (probe or _admit_measure)()
++    need = CODE_ADMIT_NEED_B - max(0, min(int(held or 0), TEMP_CAP_B))
++    psi = m.get("psi_mem")
++    why = [x for x, bad in (("RAM", m["mem_avail"] < need),
++                            ("PSI memory %s > %.1f" % ("?" if psi is None else "%.1f" % psi, T6_PSI_MEM_MAX), psi is None or psi > T6_PSI_MEM_MAX),
++                            ("swap %d trang/s > %d" % (m["swap_pages_1s"], T6_SWAP_PAGES_MAX), m["swap_pages_1s"] > T6_SWAP_PAGES_MAX),
++                            ("đĩa < 20GiB", m["disk_free"] < 20 * 1024 ** 3)) if bad]
++    gb = lambda b: b / 1024 ** 3
++    short = max(0, need - m["mem_avail"])
++    head = "; ".join(("RAM thiếu %.1fGiB (cần %.1f có %.1f)" % (gb(short), gb(need), gb(m["mem_avail"]))) if x == "RAM" else x for x in why)
++    return {"repo": repo, "phase": phase, "at": now(), "ok": not why, "why": why, "required": need, "available": m["mem_avail"], "shortfall": short,
++            "held": int(held or 0), "budget": {"floor": RAM_FLOOR_B, "cognee_cap": COG_CAP_B, "temp_cap": TEMP_CAP_B, "buffer": ADMIT_BUFFER_B},
++            "psi_mem": psi, "swap_pages_1s": m["swap_pages_1s"], "disk_free": m["disk_free"], "owner": RES_OWNER,
++            "digest": "code:%s thiếu %.1f/%.1fGiB" % (repo, gb(short), gb(need)) if "RAM" in why else "code:%s %s" % (repo, head[:40]),
++            "reason": "%s · RESOURCE_BLOCKED %s · sàn 3 + Cognee 1.5 + Neo4j tạm 1 + đệm 0.5 · không dựng container · ô MỘT PHẦN · NOT_ACTION_SAFE"
++                      % (head or "đủ", repo)}
++
++
++def admit_code(todo, report, probe=None):
++    """GS-RAM-GATE: bỏ có chủ các mục code:* ĐỨNG ĐẦU hàng chờ khi cổng nhận không đạt ⇒ (hàng chờ còn lại, [admission thiếu]). Gặp mục
++    không phải code hoặc code đã nhận thì dừng (vẫn MỘT mục/lượt); mục sau không bị đánh giá ở lượt này."""
++    todo, skipped = list(todo), []
++    while todo and todo[0].startswith("code:"):
++        adm = code_admission(todo[0].split(":", 1)[1], "select", probe=probe)
++        report.setdefault(todo[0], {})["admission"] = [adm]
++        if adm["ok"]:
++            break
++        skipped.append(adm)
++        todo.pop(0)
++    return todo, skipped
++
++
++def res_owned(rec):
++    """GS-RAM-GATE: SKIP_RESOURCE ⇒ vàng có chủ (graph_cert.alarm SOURCE_BLOCKED_OWNED), một mục/cây; lỗi nội bộ Graph vẫn ĐỎ riêng."""
++    seen, out = set(), []
++    for adm in rec.get("resource_skip") or []:
++        if adm["repo"] not in seen:
++            seen.add(adm["repo"])
++            out.append({"cell": "code:" + adm["repo"], "owner": adm["owner"], "reason": adm["reason"], "digest": adm["digest"]})
++    return out
++
++
+ def recovery_ok(g=None):
+     rm = jload(RECMAN)
+     if not rm or not os.path.isdir(REC_CUR):
+@@ -787,6 +869,9 @@
+     t0 = time.time()
+     try:
+         while sh(["docker", "inspect", "-f", "{{.State.Status}}", name])[1].strip() == "running":
++            pk = ctr_mem(name)                                 # GS-RAM-GATE: đỉnh cgroup quan sát (đơn điệu, mẫu 5 s)
++            if pk:
++                MEM_PEAKS[name] = max(MEM_PEAKS.get(name, 0), pk["peak"])
+             if mem_avail() < 3 * 1024 ** 3 or time.time() - t0 > timeout:
+                 sh(["docker", "stop", "-t", "5", name])
+                 raise Fail("%s dừng: RAM < 3GiB hoặc quá hạn" % name)
+@@ -822,6 +907,10 @@
+     if kind != "py" or sh(["python3", "-I", "-B", RB + "/r7_b4_py.py", "oracle", cw + "/src/" + repo, ft, orc], timeout=600)[0] != 0:
+         raise Skip("oracle %s không chạy (chỉ cây Python tự dựng lại; Nuxt cần lượt có người)" % repo)
+     sh(["chown", "-R", "1000:1000", cw + "/src"])
++    adm = code_admission(repo, "before_enola")              # GS-RAM-GATE: tái kiểm sát lúc dựng container đầu tiên của lane
++    report.setdefault("admission_spawn", []).append(adm)
++    if not adm["ok"]:
++        raise ResourceSkip(adm)
+     ec, lg = run_container("gs-refresh-enola", ["--network", "none", "-e", "ENOLA_NO_UPDATE_CHECK=1", "-e", "ENOLA_NO_PROMPTS=1",
+                                                 "-v", cw + "/src:/build-src", "--entrypoint", "/app/.venv/bin/enola", COG, "--generate", "/build-src/" + repo], 900)
+     facts = cw + "/src/" + repo + "/.enola/facts.jsonl"
+@@ -834,6 +923,10 @@
+     report["raw_gate"] = (o + e).strip()[-240:]
+     if rc != 0:
+         raise Skip("cổng thô %s FAIL" % repo)
++    adm = code_admission(repo, "before_temp")               # GS-RAM-GATE: Enola đã xong + gỡ ⇒ chưa container nào của lane chạy
++    report.setdefault("admission_spawn", []).append(adm)
++    if not adm["ok"]:
++        raise ResourceSkip(adm)
+     t, gt, pre_hash = temp_from_recovery("rf-code", apoc=True, expect=expect)
+     envf = "/dev/shm/gs-refresh-cognee.env"
+     try:
+@@ -843,6 +936,13 @@
+             raise Skip("cây %s có cạnh vượt biên" % repo)
+         code_size = sum(1 for x in GR.read_state(gt, "")[0] if json.loads(x)["p"].get("gs_layer") == "code")
+         tx_ok(t.tx, delete_keys(old["keys"]), "xoá cây cũ trên tạm")
++        tm = ctr_mem(t.ctr) or {}
++        if tm.get("peak"):
++            MEM_PEAKS[t.ctr] = max(MEM_PEAKS.get(t.ctr, 0), tm["peak"])
++        adm = code_admission(repo, "before_cognee", held=tm.get("current", 0))   # GS-RAM-GATE: tái kiểm sát lúc dựng Cognee
++        report.setdefault("admission_spawn", []).append(adm)
++        if not adm["ok"]:                     # Neo4j tạm ĐÃ NHẬN đang chạy mà RAM tụt ⇒ ĐỎ (PROMPT R3), không gọi vàng
++            raise Fail("RAM tụt giữa lane code sau khi nhận (trước Cognee): %s" % adm["reason"][:160])
+         cs = cw + "/cognee"      # trạng thái builder RỖNG mỗi lần (như R7 lần đầu) ⇒ Cognee xử lý trọn cây, không bỏ tệp «đã xử lý»
+         for x in ("system", "data"):
+             os.makedirs(cs + "/" + x, mode=0o700)
+@@ -897,6 +997,9 @@
+             os.remove(envf)
+         except OSError:
+             pass
++        tm = ctr_mem(t.ctr)
++        if tm:
++            MEM_PEAKS[t.ctr] = max(MEM_PEAKS.get(t.ctr, 0), tm["peak"])
+         report["temp_cleanup"] = t.cleanup()
+     return {"lane": "code:" + repo, "F": F, "I": I, "pre_hash": pre_hash, "new_hash": new_hash, "new_inv": inv_new, "stage_new": None, "stage_old": None}
+ 
+@@ -1142,6 +1245,9 @@
+         new, gone = GC.record_incidents(inc)
+         if new:
+             msg = ("MỚI %s · " % ",".join(i["id"] for i in new[:5])) + msg
++        res = [i for i in owned or [] if i.get("digest")]
++        if res and st == "up":                     # GS-RAM-GATE: bản tin 08:00 (Guard tier_cap2) chỉ lấy #24 khi đỏ hoặc tin mở đầu «Cấp 2»
++            msg = "Cấp 2 RAM: %s · chủ Graph Host+VPSC · %s" % ("; ".join(i["digest"] for i in res[:2]), msg)
+         out["alarm"] = {"status": st, "msg": msg[:200], "incidents": len(inc), "new": [i["id"] for i in new], "resolved": [i["id"] for i in gone]}
+         if push:
+             out["push"] = cert_push(st, msg)
+@@ -1192,8 +1298,12 @@
+     os.makedirs(work, mode=0o700, exist_ok=False)
+     caps = {"b88": cap_b88(work), "pgdot": cap_pgdot(work), "code": cap_code(work, sources)}
+     dec = decide(caps, sources)
+-    rec = {"at": now(), "cmd": "check", "decision": dec, "work": work}
+-    json.dump({"caps": caps, "decision": dec}, open(work + "/check.json", "w"), ensure_ascii=False, indent=1, sort_keys=True, default=str)
++    adm = [code_admission(r, "check") for r, v in sorted(dec["code"]["repos"].items()) if v["decision"] == "DELTA"]   # GS-RAM-GATE (chỉ đọc)
++    rec = {"at": now(), "cmd": "check", "decision": dec, "work": work, "admission": adm}
++    json.dump({"caps": caps, "decision": dec, "admission": adm}, open(work + "/check.json", "w"), ensure_ascii=False, indent=1, sort_keys=True, default=str)
++    for x in adm:
++        print("ADMIT code:%s %s cần %d có %d thiếu %d %s" % (x["repo"], "OK" if x["ok"] else "SKIP_RESOURCE", x["required"], x["available"],
++                                                           x["shortfall"], x["why"]))
+     print("CHECK b88=%s pgdot=%s code=%s %s" % (dec["b88"]["decision"], dec["pgdot"]["decision"], dec["code"]["decision"],
+                                                 {k: v["decision"] for k, v in dec["code"]["repos"].items()}))
+     if not a.out:
+@@ -1258,19 +1368,25 @@
+         if getattr(a, "only", None):                 # C1-D: lượt thủ công chỉ một lane (không ép b88/pgdot/code đổi theo)
+             todo = [x for x in todo if x == a.only]
+         rec["delta_items"] = todo
+-        if not todo:
++        todo, res_skip = admit_code(todo, report)              # GS-RAM-GATE: cổng nhận lane code (cả dry-run — chỉ đọc /proc)
++        if res_skip:
++            rec["resource_skip"] = res_skip
++        if not rec["delta_items"]:
+             rec["result"] = "NO_CHANGE" if all(dec[l]["decision"] == "NO_CHANGE" for l in ("b88", "pgdot", "code") + tuple(x for x in C1D_LANES if x in dec)) \
+                 else "NO_MUTATION_WITH_SKIPS"
+             return 0
+         if not a.execute:
+-            rec["result"] = "DELTA_DETECTED_DRY"
++            rec["result"] = "DELTA_DETECTED_DRY" if todo else "SKIP_RESOURCE"
+             return 0
+         live = full_hash(g, pw)
+         if live != pre["recman"]["current"]["state"]:
+             rec["result"] = "SKIP_RECOVERY_STALE"
+             return 0
++        if not todo:                           # GS-RAM-GATE: mọi mục DELTA còn lại là code thiếu chỗ RAM ⇒ bỏ có chủ (sau kiểm H1/điểm khôi phục)
++            rec["result"] = "SKIP_RESOURCE"
++            return 0
+         item = todo[0]                         # MỘT mục/lượt; mục còn lại lượt sau (đường làm mới giống hệt)
+-        report[item] = {}
++        report.setdefault(item, {})
+         try:
+             t6_probe(rec, "before_temp_build", gate=True)          # C1-D2 T6: áp lực thật ⇒ không dựng Neo4j tạm
+             if item in ("b88", "pgdot"):
+@@ -1306,7 +1422,11 @@
+                 raise Skip("bận/STOP/cờ không tươi ngay trước ghi: %s" % (vg.get("why") or "writer khác/STOP"))
+         except Skip as e:
+             report[item]["skip"] = str(e)
+-            rec["result"] = "DELTA_SKIPPED_SAFE"
++            if isinstance(e, ResourceSkip):                    # GS-RAM-GATE: tái kiểm lúc dựng không đạt ⇒ bỏ có chủ (0 container lane đang chạy)
++                rec.setdefault("resource_skip", []).append(e.adm)
++                rec["result"] = "SKIP_RESOURCE"
++            else:
++                rec["result"] = "DELTA_SKIPPED_SAFE"
+             return 0
+         target = {"g": g, "pw": pw, "import": ROOT + "/import"}
+         apply_plan(target, plan, report[item])
+@@ -1417,6 +1537,9 @@
+         dec_ = rec.get("decision") or {}
+         opf = [l + " " + dec_[l]["decision"] for l in ("b88", "pgdot") if (dec_.get(l) or {}).get("decision") in ("BLOCKED", "SKIP_NEEDS_IDENTITY")]
+         red_code, owned = code_blocked_split(dec_)           # C1-D2 R2: chỉ «bản chạy ≠ HEAD» của cây có chủ ⇒ VÀNG; còn lại ĐỎ như cũ
++        owned += res_owned(rec)                              # GS-RAM-GATE: SKIP_RESOURCE ⇒ VÀNG có chủ
++        if MEM_PEAKS:
++            rec["mem_peak"] = dict(MEM_PEAKS)
+         if red_code:
+             opf.append("code BLOCKED " + ",".join(red_code))
+         opf += [l + " BLOCKED" for l in C1D_LANES if (dec_.get(l) or {}).get("decision") == "BLOCKED"]
+@@ -1675,6 +1798,28 @@
+         got = "owned" if own and not red else ("red" if red and not own else "?")
+         ok_all &= got == want
+         print("  alarm  %-44s -> %s %s" % (name, got, "ok" if got == want else "SAI"))
++    # GS-RAM-GATE: cổng nhận lane code (hàm thuần, số đo giả) — thiếu ⇒ SKIP có số thiếu; đủ ⇒ nhận; held trừ đúng trần Neo4j tạm
++    G = 1024 ** 3
++    pr = lambda ram, psi=0.0, sw=0, disk=30 * G: (lambda: {"mem_avail": int(ram), "psi_mem": psi, "swap_pages_1s": sw, "disk_free": disk})
++    for name, kw, want in (("RAM 3.9GiB ⇒ SKIP_RESOURCE", dict(probe=pr(3.9 * G)), False), ("RAM 6.5GiB ⇒ nhận", dict(probe=pr(6.5 * G)), True),
++                           ("RAM = cần ⇒ nhận", dict(probe=pr(CODE_ADMIT_NEED_B)), True), ("RAM = cần−1 ⇒ SKIP", dict(probe=pr(CODE_ADMIT_NEED_B - 1)), False),
++                           ("PSI 12 ⇒ SKIP", dict(probe=pr(7 * G, psi=12.0)), False), ("PSI không đọc được ⇒ SKIP", dict(probe=pr(7 * G, psi=None)), False),
++                           ("Neo4j tạm chiếm 0.9GiB, còn 5.2GiB ⇒ nhận", dict(probe=pr(5.2 * G), held=int(0.9 * G)), True),
++                           ("held vượt trần chỉ trừ 1GiB", dict(probe=pr(4.9 * G), held=3 * G), False)):
++        a_ = code_admission("r", "selftest", **kw)
++        got = a_["ok"] and a_["shortfall"] == 0 if want else (not a_["ok"] and (a_["shortfall"] > 0 or a_["why"] != ["RAM"]))
++        ok_all &= bool(got)
++        print("  admit  %-44s -> %s %s" % (name, "nhận" if a_["ok"] else "SKIP thiếu %d" % a_["shortfall"], "ok" if got else "SAI"))
++    rest, sk = admit_code(["code:r", "c1d:infra"], {}, probe=pr(3.9 * G))
++    rest2, sk2 = admit_code(["code:r", "c1d:infra"], {}, probe=pr(6.5 * G))
++    got = rest == ["c1d:infra"] and len(sk) == 1 and rest2 == ["code:r", "c1d:infra"] and not sk2
++    ok_all &= got
++    print("  admit  %-44s -> %s %s" % ("thiếu ⇒ bỏ code, lane kế vẫn chạy", rest, "ok" if got else "SAI"))
++    own = res_owned({"resource_skip": sk})
++    st_, _m, inc_ = GC.alarm(None, None, owned=own, baseline={}, prev_open={})
++    got = st_ == "down" and [i["severity"] for i in inc_] == ["warning"] and inc_[0]["kind"] == "SOURCE_BLOCKED_OWNED"
++    ok_all &= got
++    print("  alarm  %-44s -> %s %s" % ("SKIP_RESOURCE ⇒ VÀNG có chủ (không critical)", [(i["kind"], i["severity"]) for i in inc_], "ok" if got else "SAI"))
+     print("GRAPH-REFRESH SELFTEST: %s" % ("PASS" if ok_all else "FAIL"))
+     return 0 if ok_all else 1
+ 
