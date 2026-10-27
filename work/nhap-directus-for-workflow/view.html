@@ -69,13 +69,13 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>P67 · Chốt Tiêu chí 0: PG-native trước, 5 biên ngoài PG chỉ dùng lại</h2>
+<section class="owner-actions ok"><h2>P68 · PG-L0 G0 chỉ đọc đã có READY, Owner giao sau GitHub</h2>
 <p>✅ B0b XONG P27 · ✅ GPT Host ACCEPT kiến trúc P48, đã sửa an toàn ở P49.</p>
 <p>PG18.6/Directus12.4.1 và các hệ đã dựng được ưu tiên dùng lại, 0 mã mới mặc định. GPT Host P67 chốt P66: PG lo dữ liệu/quan hệ trong PG, S4/VIEW và queue; DOT-live nếu Docker/file-role an toàn. Ngoài PG chỉ 5 ranh giới Kuma/Guard tick, Telegram, Docker RO, Nginx auth Reports+API, Graph code dependency. <strong>PG-L0 G0 chỉ đọc, không sửa runtime, không cấp G1/G2.</strong> Cổng query_pg cũ từng chạy READ ONLY phải xác minh còn bind ở Claude Code; Kuma PostgreSQL monitor chưa chắc biết đọc kết quả SQL business sai, phải kiểm.</p>
 <p class="muted">Mốc tiếp theo: chứng minh native PG-L0 an toàn/đủ dữ liệu → Owner duyệt riêng nếu cần mount/role/VIEW → PG-A triển khai trước, EXT-B chỉ khi không thể làm bằng PG an toàn.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
 <span class="flag">P55 · PG đọc sống + Census + Graph · Ba Lô LEGACY</span>
-<span class="flag">✅ B0b/TS1 · ✅ Claude P66 / Host P67 Tiêu chí 0 · ■ L0 G0 chỉ đọc, Host ký READY</span>
+<span class="flag">✅ B0b/TS1 · ✅ P66/P67 Tiêu chí 0 · ✅ P68 READY G0 L0@6de72c45 · ■ Owner chọn giờ sau GitHub</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <section class="arch-figure" aria-label="P65 hai nhóm PG-first và ranh giới ngoài PG">
