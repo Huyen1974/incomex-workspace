@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: GPT Host P69 ACCEPT Claude P68 và READY@88fbbda8c3da2043539d8e41701f21649b3ea64a cho RUN `GHM-C1B-FINALIZE-20261027-03`. C1B P66 Web Nuxt4/deploy–rollback PASS, 2 audit VPS GREEN; còn AD canary PG read-only/no DDL + Web Health 13 CHECK đúng (FAIL thật giữ RED). Owner chưa RUN, VPS-GHI đã trả. C3.0→C3→C2 Pro→C4 sau nghiệm thu C1B.**
+**Trạng thái: P71 KQ XONG CÓ GIỚI HẠN C1B-FINALIZE. AD source/main5bc8a3f, CI14/canary0DDL PASS; deploy–rollback chưa đạt (Compose gate + exact old bootstrap DDL). Web Health candidate chạy13 CHECK nhưng auth401, bản sửa d3b1ec8 chưa được chạy do auto-review chặn lượt thứ hai; chưa promote, main728fa1d giữ nguyên. Web và2 audit P66 giữ đạt. POST25/25 footprint0, receipt309, VPS-GHI trả; C1B_SCOPED=FAIL, AUDIT_EXECUTION_VERIFIED=PARTIAL, GLOBAL_GUARD PARTIAL#24. Host xem P71/[C1B-FINALIZE-REPORT.md](C1B-FINALIZE-REPORT.md), xử lý blocker/cấp rõ lượt tiếp trước C3.0→C3→C2→C4.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -14,8 +14,9 @@
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
 9. [C1A-S3-CLOSE-REPORT.md](C1A-S3-CLOSE-REPORT.md) — báo cáo lịch sử P40. Kết quả mới nhất là **COLLAB P48**, có hash báo cáo riêng và manifest 47 tệp; giữ nợ/giới hạn toàn hệ tách khỏi C1A scoped.
 
-10. [C1B-CLOSE-REPORT.md](C1B-CLOSE-REPORT.md) — KQ P66 C1B-CLOSE: Web đạt, 2/3 audit đạt; blocker AD/Web Health, bằng chứng và đường tiếp.
-11. [C1B-REPORT.md](C1B-REPORT.md) — KQ P61 kế thừa: phần đạt, blocker từng app/audit, CI/SHA, archive, bằng chứng riêng và đường tiếp.
+10. [C1B-FINALIZE-REPORT.md](C1B-FINALIZE-REPORT.md) — KQ mới nhất P71: AD source/CI/canary đạt; deploy và Web audit còn blocker; Guard/receipt/cờ đóng.
+11. [C1B-CLOSE-REPORT.md](C1B-CLOSE-REPORT.md) — KQ P66 C1B-CLOSE: Web đạt, 2/3 audit đạt; blocker AD/Web Health, bằng chứng và đường tiếp.
+12. [C1B-REPORT.md](C1B-REPORT.md) — KQ P61 kế thừa: phần đạt, blocker từng app/audit, CI/SHA, archive, bằng chứng riêng và đường tiếp.
 
 Mục tiêu duy nhất của việc này: nhiều AI nhận nhiều việc, **viết mã song song trên branch/workspace riêng**, Chief duyệt PR trên nền mới nhất, Owner xem bảng kết quả sáng. R1 dùng Actions trong hạn mức miễn phí với hard budget $0; Owner 25/10 15:18: mọi run đặt trên VPS bằng runner tự host; ưu tiên 1 là CI/CD chạy được.
 

@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 09:40 +07 · GPT Host · P69
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 10:57 +07 · Codex · P71 KQ
 - 🎯 Mục tiêu Owner giữ nguyên: code → GitHub CI runner VPS → main đúng runtime → deploy/rollback hai repo; sau đó C3.0 máy kiểm, C3 ba agent viết song song/KST, C2 Pro khóa main, C4 ca đêm.
-- 🏁 C1B XONG khi: Web P66 và AD canary/deploy/rollback đều PASS, 3 audit vận hành đúng trên runner VPS (kể cả phát hiện FAIL nghiệp vụ thật phải báo RED), Guard/receipt/cờ trả; không nhầm PASS kỹ thuật với sức khỏe nghiệp vụ.
-- 📍 Tiến độ: ✓ R0/R1/C1A → ◐ C1B P66: Web PASS, 2/3 audit GREEN → ✓ Claude P68 → ✓ GPT P69 READY → ■ Owner giao Codex C1B-FINALIZE → C3.0 → C3 → C2 → C4.
-- ✅ Đã xong: Web Nuxt4 parity 166/166, CI và deploy–rollback thật PASS; Agent Data effective config 17/17; Lifecycle và ops-smoke VPS GREEN; archive 4 repo; P66 POST 25/25, VPS-GHI và lease trả.
-- ■ Đang làm: Codex STARTED P70 · RUN_ID=GHM-C1B-FINALIZE-20261027-03 · 2026-10-27T03:30:17Z · Owner RUN/P69 READY đã xác minh; S0 kiểm runtime/Guard, chưa nhận VPS-GHI; giữ nguyên phần P66 đạt.
-- ⬜ Còn lại: Agent Data kiểm 6 tên bằng PG read-only, canary và deploy–rollback thật; Web Health kiểm 13/13 đúng contract, giữ FAIL thật và cảnh báo; GLOBAL_GUARD PARTIAL #11 ngoài scope.
-- ➡ Kế tiếp: 😊 Owner chuyển đúng một câu RUN cho Codex đọc PROMPT.md; executor tự thực thi từng nhánh, không dừng dây chuyền do blocker quyền ngoài scope. NEXT_TRIGGER=OWNER_RUN_GHM-C1B-FINALIZE-20261027-03.
-- ⛔ Không production DDL, không đổi ngưỡng dữ liệu/timeout, không ép xanh job thật RED, không làm lại phần đã đạt, không tự C3/C2/C4.
+- 🏁 C1B XONG khi: Web P66 và AD canary/deploy/rollback đều PASS, 3 audit vận hành đúng trên runner VPS (FAIL nghiệp vụ thật vẫn RED), Guard/receipt/cờ trả.
+- 📍 Tiến độ: ✓ R0/R1/C1A → ◐ C1B P71 XONG CÓ GIỚI HẠN; C1B_SCOPED=FAIL, chưa nghiệm thu deploy AD/chuyển Web Health → C3.0/C3/C2/C4 chưa chạy.
+- ✅ Đã xong: giữ Web Nuxt4/deploy–rollback + Lifecycle/ops P66; AD fast-path SELECT, 6/6 object, canary0DDL và CI14 PASS, main5bc8a3f; Web helper/test11 và một đối chứng hosted/VPS; POST25/25, footprint0, receipt309.
+- ■ Đang làm: không có RUN Codex active; GHM-C1B-FINALIZE-20261027-03 đã KQ P71, VPS-GHI trả. Host xem [C1B-FINALIZE-REPORT.md](C1B-FINALIZE-REPORT.md).
+- ⬜ Còn lại: AD script P61 chặn Compose hash + exact old rollback gửi CREATE; Web auth401 và candidate sửa d3b1ec8 chưa chạy; audit candidate191ff45 có 7 PASS/1 FAIL dữ liệu/5 lỗi kỹ thuật hoặc chưa xác minh. GLOBAL_GUARD PARTIAL #24 và UNKNOWN kế thừa.
+- ➡ Kế tiếp: Host xử lý hai điều kiện AD và đường auth Web; Owner cấp rõ lượt candidate bổ sung nếu tiếp tục (auto-review đã từ chối lượt thứ hai). NEXT_TRIGGER=HOST_REVIEW_P71_AND_SCOPED_AUTHORIZATION; không giữ RUN chờ.
+- ⛔ Không production DDL, không đổi ngưỡng/timeout, không ép xanh, không làm lại phần P66 đạt, không tự C3/C2/C4.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -996,6 +996,18 @@ STARTED@GHM-C1B-FINALIZE-20261027-03 2026-10-27T03:30:17Z · executor=Codex Desk
 - Owner RUN trực tiếp; P69 READY@88fbbda8c3da2043539d8e41701f21649b3ea64a, PROMPT SHA256 b6a9c6d10ba6ee890cfd3a264c9ad385fa495935a011f59a7ae8495a6c85824b đã đối chiếu GitHub last-touch. Hai main còn đúng P66, runner online/idle, không có STOP cho RUN.
 - Thực thi S0–S4: AD SELECT-only fast-path/canary/CI, S3 chỉ khi đúng mọi gate; Web Health 13 CHECK trả kết quả đúng, lỗi nghiệp vụ thật giữ RED. Không production DDL, không làm lại Web/hai audit đã đạt. Chưa nhận VPS-GHI, chỉ nhận CAS trước host mutation.
 - NEXT_TRIGGER=CODEX_KQ_GHM-C1B-FINALIZE-20261027-03.
+
+## P71 · Codex · 27/10/2026 10:57 +07 — KQ XONG CÓ GIỚI HẠN C1B-FINALIZE
+KQ@GHM-C1B-FINALIZE-20261027-03 · STATUS=XONG CÓ GIỚI HẠN · executor=Codex/openai-codex · P69 READY@88fbbda8c3da2043539d8e41701f21649b3ea64a.
+**Bảng: đã cập nhật · Mục tiêu Owner: giữ nguyên · báo cáo chuẩn: [C1B-FINALIZE-REPORT.md](C1B-FINALIZE-REPORT.md).**
+- S0 PASS; Guard PRE22/22, P66 manifest96/96. S1 PASS: AD main `5bc8a3f8cb0ba86654fe4c0e683abbc6e6f9469f`, CI [40445758771](https://github.com/Huyen1974/agent-data-test/actions/runs/40445758771) GREEN14 tests trên VPS; canary /info,/health,/kb/list200+items array, PG read-only SELECT duy nhất/0DDL, 6/6 tên đúng schema.
+- S2 chưa nghiệm thu: [candidate40445988505](https://github.com/Huyen1974/web-test/actions/runs/40445988505) SHA191ff455… chạy đủ13 CHECK trên VPS, 7PASS/1FAIL dữ liệu(CHECK2)/5 lỗi kỹ thuật hoặc UNKNOWN. Auth401 không được gọi là RAG zero-context/mất tài liệu. GET registry hosted11,33s/VPS2,59s, giữ15s. Bản sửa cuối `d3b1ec811eb79733a4b63fe30c2adaf3b4f935b1` đã push nhánh, chưa chạy: auto-review từ chối dispatch thứ hai có secret, không bypass. Web main728fa1d và audit cũ ACTIVE; không đổi key.
+- S3 DỪNG trước restart: script nguyên P61 so hash Compose không bằng; exact old image bootstrap còn3 CREATE TABLE+3 CREATE INDEX. Không thay gate, không chạy productionDDL, không đổi old để giả rollback.
+- `C1B_SCOPED=FAIL/CHƯA ĐẠT`; `AUDIT_EXECUTION_VERIFIED=PARTIAL`; `BUSINESS_HEALTH=FAIL` theo CHECK2, nhánh auth=UNKNOWN. Giữ toàn bộ phần P66 đạt; migration audit vẫn2/3. Không chạy C3/C2/C4.
+- POST scoped25/25 PASS, footprint0, PREEXISTING_SAME#24; receipt309. GLOBAL_GUARD PARTIAL (#24 Graph +3 vùngUNKNOWN) ngoài scope. Private manifest28 tệp SHA256 `405421593757c28a99517a7cfdb1d69e2f788a4f611a716edd62947d0b9418ca`.
+- 0restart/0DDL, ứng dụng healthy cùng image/start; 0canary/build tạm; giữ candidate/known-good; deploy lease cũ vẫn đóng, không mở lease mới. VPS-GHI trả03:57Z, 0RUN active Codex.
+- NEXT_TRIGGER=HOST_REVIEW_P71_AND_SCOPED_AUTHORIZATION: Host chốt Compose gate/rollback khôngDDL; đường auth Web và lượt thử bổ sung cần Owner cấp rõ sau auto-review rejection. Không hỏi rồi giữ RUN chờ.
+
 
 
 
