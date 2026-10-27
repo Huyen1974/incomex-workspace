@@ -1,67 +1,52 @@
-# CODEX — HJW-N2-DOT-NATIVE-MAX-20261027-05
+# CODEX — HJW-N2-EVENT-CODEX-NATIVE-20261027-06
 
-RUN_ID: HJW-N2-DOT-NATIVE-MAX-20261027-05
-TRẠNG THÁI: Chỉ RUN khi Host READY đúng last-touch PROMPT SHA ở HJW COLLAB + Owner chuyển lệnh. Không tự STARTED.
-Executor_Surface: Codex Mac; Dot thật trên bề mặt OpenAI đã có.
-Task: work/hermes-joint-workspace · Repo: Huyen1974/incomex-workspace
-Write_Path: tài liệu qua workspace_* / fs_* D12; Dot/Codex Cloud/Work dùng native tools và quyền đang có; không ghi VPS production.
+RUN_ID: HJW-N2-EVENT-CODEX-NATIVE-20261027-06
+STATUS: DRAFT_NOT_READY; chờ Claude review, GPT Host READY đúng last-touch và Owner dispatch. CHƯA RUN.
+Executor_Surface: Codex Mac; Dot phải tự thực hiện các phép thử client thật; Codex không đóng giả Dot.
+Task: work/hermes-joint-workspace; repo Huyen1974/incomex-workspace.
+Write_Path: hồ sơ HJW qua workspace tools D12; đọc/đo MCP 2.0 bằng client/endpoint có quyền sẵn. KHÔNG sửa production, GitHub settings, hay cấu hình Dot.
 
-## 0. MỤC TIÊU NATIVE-MAX
+## MỤC TIÊU: ĐÚNG BA VẤN ĐỀ OWNER 27/10
 
-Đọc AGENTS.md, HJW COLLAB §1–§3, P415–P422 và PROMPT. Owner chốt hướng KHAI THÁC TỐI ĐA năng lực Dot do hãng cung cấp và kết nối Incomex chạy ổn định. Dot đọc/nêu ý kiến hội đồng, báo cáo, trao đổi thoại, điều phối Codex/Work khi có sẵn; không dựng cổng/bridge/SSH/proxy/credential mới vì công cụ hãng không có một chức năng mong muốn.
+(1) MCP Incomex có EVENT để Dot được gọi chủ động không? (2) VPS và GitHub có thể gửi event/webhook đến Dot theo hãng không, có thể chia một nguồn event với GPT/Codex không? (3) Dot có tạo MỖI TASK MỘT PHIÊN CODEx local mới được không?
 
-Giữ AGENTS A2: chỉ 1 phiếu quorum cho 1 trusted server-side identity. Dot dùng chung gpt-web với GPT vẫn được nêu ý kiến và làm việc, nhưng KHÔNG tính một phiếu độc lập. Trong hồ sơ tách SOURCE_AUTHOR (Dot task/provider hoặc Owner-confirmed với mức chứng cứ rõ) và WRITE_ACTOR (principal do Gateway/công cụ thực thi xác minh). Tên client tự khai không biến thành trusted actor.
+KHÔNG tự triển khai cổng/hệ thống; chỉ thử đường có sẵn rồi báo bằng chứng. Giữ N2 Native-Max A/B/C, phiếu A2 một trusted identity = một quorum; không dùng event làm Host READY/GO. P425 CLIENT_PENDING đã đóng; sau P425 có hai commit canary Dot ghi/xóa theo Owner voice, nhưng lúc ghi actor còn UNKNOWN pending receipt, không coi đó là proof danh tính riêng.
 
-BA MỨC KẾT QUẢ:
-A NATIVE_MAX_INDEPENDENT: actor Dot thực sự riêng với GPT, một phiếu không trùng, audit/receipt đủ; chỉ cập nhật roster/quorum khi tuân A2/A9 và quyền hợp lệ.
-B NATIVE_MAX_WITH_LIMITS: Dot thật làm được việc hữu ích bằng đồ hãng với dấu vết đúng khả năng chứng minh, nhưng shared actor nên KHÔNG thêm phiếu. B là XONG giai đoạn native có giới hạn, không phải FULL_INDEPENDENT_SEAT; không mặc định đề nghị tạo chìa/cổng.
-C CLIENT_ONLY_PENDING / VENDOR_LIMIT: còn thao tác chính chủ hoặc hãng không hỗ trợ; ghi chính xác, không giả PASS, không sinh dự án mở rộng.
+Căn cứ chính thức: https://developers.openai.com/plugins/build/mcp-events ; https://help.openai.com/en/articles/20001530-getting-started-with-your-dot ; https://help.openai.com/en/articles/20001275-chatgpt-work-and-codex .
 
-Thoại/điều phối Codex được thử SONG SONG, không đợi ghế/quorum độc lập. Các mục Directus/PG/Graph/Lark, S4/root/GSM, +1 Agent Data recreate giữ lịch sử, KHÔNG là gate NATIVE-MAX; chỉ làm khi Owner chọn vì việc thực tế.
+## E0 — KIỂM ĐÚNG KHẢ NĂNG MCP LIVE, KHÔNG SUY TỪ SỐ TOOL
 
-Tài liệu hãng: https://help.openai.com/en/articles/20001530-getting-started-with-your-dot
-https://help.openai.com/en/articles/20001529-dots-privacy-security-and-safety-faqs
-https://help.openai.com/en/articles/20001545-using-codex-cloud
+Đọc AGENTS, HJW COLLAB §1–§3 P423–P426, PROMPT, HEAD, STOP/active Codex/GH, DROOT59. Kiểm MCP server đang kết nối từ Dot/Work qua trang Plugin hoặc read-only protocol call có auth hiện hữu:
+- MCP server/discover có supportedVersions 2026-07-28 và capabilities.events không?
+- events/list có tên/filter/schema, delivery webhook không? Có events/subscribe, events/unsubscribe không?
+- plugin ChatGPT đã rescan và hiện tab Events hay chỉ Tools? Có subscription nào của Dot thật không?
+Định dạng KQ: EVENTS_AVAILABLE_PROVEN / TOOLS_ONLY_CONFIRMED / UNKNOWN_NO_ACCESS. Repo tìm kiếm chưa thấy events/subscribe, đó KHÔNG đủ kết luận runtime chưa hỗ trợ. Không in token, subscription secret hoặc URL cá nhân lên repo.
 
-## S0 — CỔNG THỰC DỤNG
+OpenAI MCP Events hỗ trợ Dot và Work Cloud, callback HTTPS do ChatGPT cấp sau sự kiện đăng ký, giao thức MCP 2.0 2026-07-28; không phải polling, SSE hay công cụ thường. ChatGPT/GPT Chat thường và Codex Desktop KHÔNG mặc nhiên là hai MCP Events subscribers chỉ vì đang dùng chung công cụ.
 
-Codex kiểm HJW HEAD, roster, Host READY đúng SHA, Owner RUN, STOP/active Codex sessions. Kiểm Dot/plugin đã có, không bắt tạo mới. Đọc repo không cần VPS-GHI. Nếu cần Owner bấm một nút UI, ghi một hướng dẫn ngắn sau; không giữ CLI hoặc lease để chờ. Không xin lại quyền Gmail/GSM/root đã có.
+## E1 — THỬ 1 EVENT/WEBHOOK NẾU ĐÃ CÓ ĐƯỜNG CHÍNH THỨC
 
-## S1 — DOT THẬT: ĐỌC, Ý KIẾN, DẤU VẾT
+Nếu Events tồn tại và Owner đã trực tiếp cho Dot subscribe: kiểm một subscription riêng của Dot, filter HJW, callback URL/secret do ChatGPT gửi từ events/subscribe. Kiểm callback verification challenge và Standard Webhooks signature; phát duy nhất một event CANARY nhẹ mang task_id, commit, eventId, timestamp, không có secret và không có lệnh ghi production. 2xx mới là nhận HTTP; Dot phải thực sự phản hồi bằng đọc repo/HEAD mới tính live PASS. EventId lặp không được tạo trùng task. Ngăn event loop do chính tác vụ sinh ra.
 
-Dot thật (không phải GPT/Codex giả lập) đọc AGENTS, HJW COLLAB/Bảng và HEAD, đưa một nhận định ngắn về tình hình nhiệm vụ với commit hiện hành. Kiểm evidence hãng: Dot task/profile link hoặc ID nếu có, timestamp/kết quả, mức độ chắc chắn của SOURCE_AUTHOR.
+GitHub: đường native event-triggered Work task của OpenAI hỗ trợ GitHub PR activity; đó là Work trigger, CHƯA phải Dot event trực tiếp. Xem GH Plugin event catalog thực tế trước. Owner View đã có webhook GitHub push vào /api/knowledge/owner-view-webhook, tuyệt đối không sửa/chiếm endpoint này. Không tự post thẳng vào URL trang Dot; phương án VPS -> MCP Events -> callback ChatGPT chỉ hoạt động sau subscription thực.
 
-Nếu Dot được phép ghi qua workspace Gateway D12, thử một ý kiến P CANARY NONVOTING và ghi operation_id/commit/receipt/WRITE_ACTOR thực. Nếu Dot chưa thể ghi thì Owner có thể giao Codex chuyển hộ nguyên văn, nhưng hồ sơ phải ghi WRITE_ACTOR=Codex, SOURCE_AUTHOR=Dot và link/Owner witness; không giả rằng Dot trực tiếp ghi. Không mở thêm key chỉ để đạt bước này.
+Nếu E0 không thấy Events, E1 ghi NOT_IMPLEMENTED/UNVERIFIED, không viết MCP v2 handler, không tạo listener, proxy, timer hoặc server mới. Nếu Owner thật sự cần VPS gọi Dot, trình đúng một phương án sửa tối thiểu endpoint MCP HIỆN HỮU theo tài liệu hãng, chỉ thi công sau Owner phê duyệt.
 
-Một thử âm nhỏ: tự chép tên Dot khi dùng gpt-web không được tính thành phiếu thứ hai. Không sửa A2/quorum để ép PASS. Nếu provider/B1 đã có trusted Dot principal thật thì đo và dùng, không bắt chờ một giải pháp mới.
+## E2 — DOT TẠO CODEX NEW TASK, MỖI TASK MỘT PHIÊN ĐỘC LẬP
 
-## S2 — THOẠI VÀ CODEX/WORK THEO HÃNG
+Nhờ Dot THẬT tạo một Codex task CHỈ ĐỌC: lấy HEAD HJW và tóm tắt 3 dòng. Không điều khiển phiên Codex hiện đang làm GitHub.
+- Local: chỉ thử khi Owner đã bật Computers > Your computer > Allow access trong ChatGPT desktop và Mac/ChatGPT app online. Kiểm tác vụ Codex riêng mới ở sidebar, có task ID, thời điểm, kết quả, không trộn history của các task khác.
+- Cloud: nếu environment Codex Cloud đã publish, Dot có thể tạo một task cloud riêng; kiểm task ID và output. Không yêu cầu Mac bật.
+- Phân biệt rõ Dot TẠO TASK MỚI (được tài liệu hãng hỗ trợ) với Dot ĐIỀU KHIỂN GUI CODEx Desktop / gửi lệnh vào phiên đang mở (CHƯA chứng minh). Không dùng CLI app-server, AppleScript, SDK tự dựng chỉ để thử, không giả login/Owner approval. Nếu thiếu quyền local, ghi CLIENT_ONLY_PENDING với một nút cần bấm và kết thúc sạch, không giữ terminal chờ.
 
-Owner có thể chủ động gọi Dot hỏi "HJW đang ở đâu?" để Dot đọc HEAD và báo. Nếu Owner chưa gọi thì VOICE_PENDING, không giữ terminal chờ và không giả PASS.
+## E3 — MỘT NGUỒN EVENT, CÁC SUBSCRIBER ĐỘC LẬP
 
-Nếu Codex Cloud environment đã publish, Dot thử một Cloud task CHỈ ĐỌC và trả task ID/kết quả. Không bắt thiết lập environment mới chỉ để nghiệm thu. Work/Codex Local chỉ thử khi Owner đã bật Computers > Your computer > Allow access và Mac online; nếu chưa thì LOCAL_PENDING, không chặn Cloud/Voice.
+Có thể tái sử dụng cùng nguồn/tên event cho Dot và Work khi được hãng hỗ trợ, nhưng mỗi subscriber PHẢI có subscription_id, callback URL, signing secret, filters, quyền và biên nhận riêng. Không gom chung secret/callback hay tạo phiếu quorum thứ hai từ cùng server identity. Event chỉ báo tình trạng, không tự cấp Host GO, không tự tạo lệnh worker. Codex được Dot giao bằng native task, không coi Codex là subscriber MCP Events nếu chưa có chứng cứ.
 
-Không khẳng định Dot gọi được một phiên GPT/Claude đang mở nếu chưa có đường hãng. Không dựng courier/MCP bridge. Ghi repo qua D12 theo đúng quyền, không native push lách luật. Gmail đọc không hỏi/ghi hỏi trước; không gửi thư ra ngoài để thử.
+## E4 — ĐÓNG CÓ BẰNG CHỨNG
 
-## S3 — BÁO A/B/C, KHÔNG MUA THÊM RẮC RỐI
+Báo 4 dòng: (1) MCP Events trạng thái và proof live, (2) GitHub PR/Owner View vs Dot/VPS webhook canary, (3) Dot tạo Codex local NEW TASK / Cloud task ID riêng, (4) một việc tối thiểu tiếp theo (hoặc NONE). Dùng PASS / PARTIAL / UNKNOWN / CLIENT_PENDING đúng thực, không khai LIVE_PASS chỉ từ tài liệu/HTTP 2xx. Ghi HJW P/KQ, Bảng, NEXT_TRIGGER; giữ +1 Agent Data recreate UNUSED và N3–N6. Không đổi quorum/roster, không sửa production.
 
-Bảng 6 ô bắt buộc: Dot đọc HJW/HEAD; Dot opinion/nguồn; WRITE_ACTOR/receipt; phiếu quorum có thêm không; Voice; Codex Cloud/Local. Mỗi ô PASS/PARTIAL/CLIENT_PENDING/VENDOR_LIMIT/NOT_TESTED, chỉ rõ bằng chứng hoặc giới hạn. Chốt A/B/C.
+STEP_WALK_V1: E0 read-only discovery -> E1 một signed event nếu đã hỗ trợ và Dot đã subscribe -> E2 một new Codex native read-only task từ Dot -> E3 fanout/security judgement -> E4 evidence/KQ. Thiếu điều kiện thì SKIP đúng nhánh, không mở job chờ.
 
-Không chạy lại suite TQT, image candidate P415 hay Guard #11 khi RUN không thay mã/VPS. DROOT59 giữ nợ giám sát đúng chủ, không gọi lỗi có trước thành blocker mới. Nếu B: báo "Dot tham gia được, chưa có phiếu quorum riêng"; không tự xin cấp chìa. Nếu A: chỉ thêm roster sau chứng cứ đầy đủ. Nếu C: chỉ một danh sách nút chính chủ cần bấm.
-
-## S4 — KQ VÀ ĐÓNG PHIÊN
-
-Ghi HJW COLLAB + Bảng/roadmap đúng cấp đạt, với SHA/receipt thật. KQ XONG cho NATIVE-MAX nếu có hành động Dot thực tế hữu ích và truy vết đúng cấp, kể cả B có giới hạn. Không gọi toàn N2 FULL_INDEPENDENT khi phiếu còn shared. Nếu không thử được Dot thật thì DỪNG/CLIENT_PENDING. Không mở task khác, không giữ process/lease chờ Owner.
-
-CẤM: cấp/chuyển key/root/GSM, làm gateway/SSH/proxy/Agent Data recreate, thay Directus/PG/Graph/Lark, mở Auto hội đồng hay thay Host, tạo phiếu thứ hai từ gpt-web, sửa Gmail settings, ép dashboard xanh.
-
-STEP_WALK_V1:
-| Bước | Ai/Trigger | Evidence | Thiếu thì |
-|---|---|---|---|
-| S0 | Codex / Owner RUN + Host READY | HEAD/roster/scope | DỪNG |
-| S1 | Dot thật/Codex chứng thực | Dot source vs Write Actor/receipt | mức B/C trung thực |
-| S2 | Owner/Dot | Voice/Cloud/Local task khi có | CLIENT_PENDING |
-| S3 | Codex | Bảng 6 ô + A/B/C + quorum | không bắt key mới |
-| S4 | Codex | KQ/commit/0 VPS mutation/NEXT_TRIGGER | DỪNG có bằng chứng |
-
-BÁO OWNER 3 CÂU: Dot làm được gì? Có thêm phiếu riêng không? Cần Owner bấm gì nếu có?
+CẤM: tự nâng MCP server, đổi nginx/GH webhook/Owner View, cài bridge/proxy/SDK, lập script trigger Dot không chính thức, tạo credential/key mới, cấp root/GSM, in secret, gửi email, tự điều khiển phiên Codex đang làm việc, lập event lặp gây spam.
