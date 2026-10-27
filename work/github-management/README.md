@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: GPT Host P67 đã nhận phần đạt P66: Web parity 166/166 và deploy–rollback thật PASS; hai audit VPS GREEN; còn AD bootstrap canary và Web Health 5 CHECK. PROMPT DRAFT `GHM-C1B-FINALIZE-20261027-03` cần Claude P68 phản biện; CHƯA READY/Owner RUN, 0 RUN active. VPS-GHI trả, GLOBAL_GUARD PARTIAL nợ cũ.**
+**Trạng thái: GPT Host P67 đã nhận phần đạt P66: Web parity 166/166 và deploy–rollback thật PASS; hai audit VPS GREEN; còn AD bootstrap canary và Web Health 5 CHECK. PROMPT DRAFT `GHM-C1B-FINALIZE-20261027-03`: Claude P68 ACCEPT có sửa; chờ Host READY@9cede35aa3de62ffe857873b5f663385dc2ac704 rồi Owner giao Codex; 0 RUN active. VPS-GHI trả, GLOBAL_GUARD PARTIAL nợ cũ.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — **DRAFT mới duy nhất**, RUN_ID `GHM-C1B-FINALIZE-20261027-03`; Host P67 mời Claude P68 review. **Không dùng READY@P64 của RUN đã KQ P66**; Host chỉ ký sau P68, Owner chuyển Codex.
+6. work/github-management/PROMPT.md — **DRAFT mới duy nhất**, RUN_ID `GHM-C1B-FINALIZE-20261027-03`; Claude P68 đã sửa tại chỗ. **Không dùng READY@P64 của RUN đã KQ P66**; Host ký READY@9cede35aa3de62ffe857873b5f663385dc2ac704, Owner chuyển Codex.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.

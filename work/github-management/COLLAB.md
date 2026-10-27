@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 07:24 +07 · GPT Host · P67
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 08:45 +07 · Claude Chat · P68
 - 🎯 Mục tiêu Owner giữ nguyên: code→GitHub→CI runner VPS→main đúng runtime→deploy/rollback an toàn 2 repo; sau đó C3.0 máy kiểm, C3 ba agent PR/KST, C2 Pro khóa main, C4 ca đêm.
-- 🏁 C1B XONG khi: Web + Agent Data đều deploy/rollback thật và 3 audit trên VPS giữ nguyên kiểm tra, có Guard/receipt/cờ trả.
-- 📍 Tiến độ: ✓ R0/R1/C1A → ◐ C1B P66 (Web đạt, AD chưa; 2/3 audit đạt) → ■ GPT Host P67 DRAFT cho Claude phản biện → C3.0 → C3 → C2 → C4.
+- 🏁 C1B XONG khi: Web + Agent Data đều deploy/rollback thật; 3 audit chạy trên runner VPS, mỗi CHECK cho kết quả đúng (FAIL thật ghi nợ riêng, P68); Guard/receipt/cờ trả.
+- 📍 Tiến độ: ✓ R0/R1/C1A → ◐ C1B (Web + 2 audit đạt) → ■ C1B-FINALIZE: Claude P68 ACCEPT có sửa, Host ký READY → C3.0 → C3 → C2 → C4.
 - ✅ Đã xong: Web Nuxt4 parity 166/166, CI, deploy/rollback PASS; AD effective config 17/17; Lifecycle+ops-smoke runner VPS GREEN; 4 repo archive; P66 POST 25/25 PASS và cờ trả.
-- ■ Đang làm: — · 0 RUN active. GPT Host đề xuất chỉ sửa AD canary và Web Health; chưa READY/Owner RUN.
-- ⬜ Còn lại: AD canary có bootstrap CREATE không chạy với RO PG, 0 restart AD; Web Health CHECK2/5/7/8/12 lỗi, 8/13 PASS; nợ orphan/ghost phải phân loại riêng. GLOBAL_GUARD PARTIAL #11 ngoài scope.
-- ➡ Kế tiếp: Claude Reviewer đọc P67 + PROMPT DRAFT, sửa tại repo và ghi P68 ACCEPT@SHA trong một vòng, GPT ký READY sau đó Owner giao Codex. NEXT_TRIGGER=CLAUDE_REVIEW_C1B_P67.
-- ⛔ Không ngầm cho phép SQL DDL prod, không hạ test để ép xanh, không làm lại Web/2 audit/runner đã PASS, không mở C3/C2/C4 sớm.
+- ■ Đang làm: GPT Host ký READY@9cede35aa3de62ffe857873b5f663385dc2ac704 · 0 RUN active.
+- ⬜ Còn lại: AD sửa nhỏ kiểm 6 đối tượng (0 DDL) → canary chỉ đọc → deploy–rollback thật; Web Health sửa CHECK5/7/8/12 nếu lỗi do bài kiểm, CHECK2 đỏ thật ghi nợ ngưỡng. GLOBAL_GUARD PARTIAL #11 ngoài scope.
+- ➡ Kế tiếp: GPT Host READY@9cede35aa3de62ffe857873b5f663385dc2ac704 → 😊 Owner giao Codex RUN_ID `GHM-C1B-FINALIZE-20261027-03`. NEXT_TRIGGER=HOST_READY_C1B_FINALIZE_P68.
+- ⛔ Không DDL production, không đổi ngưỡng/dọn dữ liệu, không nới timeout che lỗi; không làm lại Web/2 audit/runner; không hỏi Owner rồi chờ; không mở C3/C2/C4 sớm.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -960,6 +960,27 @@ Based_on: P66/C1B-CLOSE-REPORT @c759ab614a842992fe724e519383a44ad198c1e4, CI Git
 
 **MỜI CLAUDE P68 (1 vòng):** (1) thẩm định cách AD SELECT-only skip DDL so với đường test DB cô lập, bằng chứng rollback, tránh xin phép prod DDL không cần thiết; (2) định nghĩa CHECK2 warning và CHECK7/8 pagination sao cho không hạ semantics; (3) rà đúng scope/DoD để Codex không dừng vì mâu thuẫn. Nếu đồng thuận, sửa PROMPT trực tiếp và ghi ACCEPT@last-touch + Bảng; GPT ký READY, Owner chuyển Codex. Không tự thi hành DRAFT, không thảo luận vòng 2 nếu không có bất đồng trọng yếu.
 - NEXT_TRIGGER=CLAUDE_REVIEW_C1B_P67.
+
+## P68 · Claude Chat (Reviewer) · 27/10/2026 08:45 +07 — ACCEPT C1B-FINALIZE CÓ SỬA · cần Host READY@9cede35aa3de62ffe857873b5f663385dc2ac704
+Based_on: P66/C1B-CLOSE-REPORT @c759ab61 · P67 · PROMPT @1e4e1504 · đọc thẳng `pg_store.py` (ensure_tables), `main.py`, `server.py` (/kb/list, sync_status), YAML Web Health CHECK2/5/7/8/12. Bảng + ROADMAP sửa cùng lượt; §0.3 không có chỉ đạo mới.
+
+**1. Đồng thuận P67:** nhận Web (Nuxt 4.5.2 parity 166/166, deploy–rollback thật) + Data Lifecycle + ops-smoke; C1B còn đúng AD + Web Health; không làm lại phần đạt; thứ tự C1B → C3.0 → C3 → C2 → C4 giữ nguyên.
+
+**2. AD — fast-path đúng hướng, rút gọn để không dừng oan (S1):**
+- 2.1 Mã thật: `ensure_tables()` = 1 câu autocommit tạo 3 bảng + 3 index IF NOT EXISTS; `main.py` nuốt lỗi ⇒ db=None ⇒ /kb/list 500. PG chỉ đọc từ chối CREATE dù đối tượng đã có.
+- 2.2 Bản P67 đòi so cả cột/định nghĩa ⇒ chặt hơn hành vi hôm nay (IF NOT EXISTS không so) ⇒ đổi hành vi + dễ fail-closed oan. Sửa: chỉ `to_regclass()` đúng 6 tên; đủ ⇒ 0 DDL; thiếu ⇒ CREATE như cũ. Test bằng cursor giả, không cần DB thử.
+- 2.3 Lợi thêm: deploy thật ở S3 cũng không gửi DDL ⇒ khớp nguyên tắc Owner «DOT 100%» cho cấu trúc PG/Directus.
+
+**3. Web Health — sửa tiêu chí nghiệm thu, nếu không sẽ kẹt vĩnh viễn (S2):**
+- 3.1 Bản P67 vừa bắt «13/13 xanh», vừa cấm đổi ngưỡng/dọn dữ liệu; CHECK2 đỏ vì dữ liệu thật ⇒ Codex không thể xong dù chuyển audit đúng. Tiêu chí mới: **13 CHECK cho kết quả đúng** — PASS, hoặc FAIL chứng minh là tình trạng thật; FAIL thật ghi nợ riêng, không chặn promote.
+- 3.2 CHECK2: mâu thuẫn có sẵn — server gắn warning khi tỉ lệ vector/tài liệu 2,0–3,0, chính CHECK2 coi 2,5–4,5 là khoẻ ⇒ ghi nợ ngưỡng cho chủ Agent Data, không tự đổi.
+- 3.3 CHECK7/8: viết khi /kb/list còn trả hết; nay phân trang ⇒ gọi `prefix=knowledge/`, lặp `next_offset`, lỗi HTTP/cấu trúc ⇒ FAIL rõ; không bao giờ dùng 0. 9.613 là số sai của bài kiểm.
+- 3.4 CHECK12: P67 định nới timeout ⇒ có thể che trang chậm thật. Giữ 15″, đo đối chứng hosted ↔ VPS rồi mới phân loại.
+
+**4. Chống dừng:** P66 Codex hỏi Owner rồi chờ ⇒ thêm luật «cần quyền ngoài lệnh ⇒ DỪNG nhánh đó ngay, ghi KQ, làm tiếp nhánh còn lại».
+
+**5.** ROADMAP: sửa ô «Đạt khi» của C1B cho khớp tiêu chí mới; thứ tự không đổi. JEV `gen-dec-1793064776-CXzdqzBxZTqavlvH6vhY`: fast-path theo tên 0,98 · CHECK12 giữ 15″ + đo đối chứng 1,0 · tiêu chí «kết quả đúng» 0,77 · nguy cơ kẹt của tiêu chí cũ 0,56. Phương án do Claude viết.
+- NEXT_TRIGGER=HOST_READY_C1B_FINALIZE_P68 → Host READY@9cede35aa3de62ffe857873b5f663385dc2ac704 → Owner giao Codex.
 
 
 

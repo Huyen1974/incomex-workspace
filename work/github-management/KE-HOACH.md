@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**Trạng thái: GPT Host P67 đối chiếu P66: Web source/CI/parity/deploy–rollback và 2 audit VPS PASS; AD canary bootstrap readonly chưa đạt, Web Health 8/13 PASS (CHECK2/5/7/8/12 còn nợ). DRAFT `GHM-C1B-FINALIZE-20261027-03` để Claude P68 phản biện, chưa READY/RUN. Không làm lại runner/Web/2 audit/archive, giữ C1B → C3.0 → C3 → C2 Pro → C4.**
+**Trạng thái: GPT Host P67 đối chiếu P66: Web source/CI/parity/deploy–rollback và 2 audit VPS PASS; AD canary bootstrap readonly chưa đạt, Web Health 8/13 PASS (CHECK2/5/7/8/12 còn nợ). DRAFT `GHM-C1B-FINALIZE-20261027-03`: Claude P68 ACCEPT có sửa, chờ Host READY@9cede35aa3de62ffe857873b5f663385dc2ac704. Không làm lại runner/Web/2 audit/archive, giữ C1B → C3.0 → C3 → C2 Pro → C4.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
