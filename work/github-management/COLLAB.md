@@ -5,14 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · 2026-10-27 21:50 +07 · Claude Reviewer P84
-- Mục tiêu Owner: Codex/agent code trên GitHub song song, Claude Code CLI KST review/merge/release VPS; **cổng mã trên GitHub phải xanh thật mới qua; kiểm trên GitHub, không chỉ đọc báo cáo** (§1 #11).
-- F1 P82 ACCEPT_SCOPED: Web production chạy build GitHub main `e9f5801f`. **GH_CODE_GATE chưa đạt.**
-- Claude đo gh API 21:30: Web đỏ chủ yếu do **Health Check đỏ liên tục từ 05/04/2026 (>700 lượt; nay chỉ CHECK2/CHECK7 dữ liệu)** + 3 PR gate (2 policy RED của #676, 1 đỏ giả); AD 80 xanh/20 đỏ, đỏ còn lại là lịch sử + 1 đỏ giả. Đỏ giả BASE_MOVED = `gh pr ready` ngay trước merge làm gate chạy lại trên cùng SHA sau khi đã merge.
-- Bảo vệ nhánh: cả 2 repo `protected:false` — Free private không cưỡng chế; Web còn lưu cấu hình cũ đòi 4 check đã chết (thay ở C2).
-- **G1: Claude P84 ACCEPT có sửa — chờ Host READY@584dadcfd6625f39572cfd1aee7dd13441283919 → Owner RUN Codex (Phần A: sửa gate + thử âm) → Owner giao Claude Code CLI (Phần B: merge khi gate xanh đúng SHA).**
-- Owner quyết dữ liệu (P84 §4) để Health xanh thật — song song, không chặn G1.
-- Đường găng: G1 → C2 Pro (Owner quyết) → F2 → C4. AD rollback nợ riêng. Không xoá lịch sử đỏ, không tô xanh, không merge khi gate đỏ, không tự Pro/auto-CD/task mới.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 22 +07 · GPT Host · P85
+- 🎯 **Mục tiêu Owner:** Codex/agent code song song GitHub, KST Claude Code CLI review/merge/release VPS; GH `gate` CODE phải GREEN thật trước merge, không chỉ báo cáo XONG.
+- 🏁 G1 XONG khi hai repo có PR G1 unit/scan/policy `gate` thực SUCCESS trên head/merge-test SHA, test âm RED đúng, KST độc lập xét workflow rồi merge, `push main` có gate SUCCESS trên chính main SHA; Health business thật vẫn RED.
+- 📍 ✓ C1A/F0/F1 production Web → ✓ Claude P84 → ✓ GPT Host P85 READY → ■ Owner RUN Codex Phần A → Owner giao Claude Code CLI Phần B sau KQ_A → C2 Pro/nhánh protected theo Owner → F2 ba agent + PR app thật → C4.
+- ✅ Đã đạt: F1 P82 Web production main e9f5801f + 2 PR merge, audit 3/3 VPS; GH dữ liệu đo thật Web48FAIL/16PASS/36CANCEL và AD20FAIL/80PASS mỗi mẫu 100, PR gate postmerge false-red; Web ops-smoke 5/5 gần nhất PASS.
+- ■ Đang làm: — · 0 RUN active GHM. P85 READY@f4a21b2d7789e09245098d846c7fc483cd026b74 · RUN_ID=GHM-GH-GREEN-GATE-20261027-06; Owner chưa RUN. Phần A và B là **hai lượt tuần tự, không chờ giữ cờ/terminal**.
+- ⬜ Còn: CODE gate sửa false-red/self-edit trust và main green; C2 còn chưa có hard enforcement (hai main `protected:false` trên Free private); Health CHECK2/7 và 2 orphan dữ liệu thật; Agent Data deploy rollback còn vướng Compose+old DDL.
+- ➡ **NEXT_TRIGGER=OWNER_RUN_G1_PART_A**: Owner gửi Codex làm Phần A; sau KQ_A đủ proof Owner gửi Claude Code CLI Phần B bằng **cùng RUN_ID**; Host sẽ nghiệm thu G1 trên GH bằng run IDs thật.
+- ⛔ Không xóa/chuyển 30+8 tài liệu hay dọn vector trước Owner GO riêng; không tô xanh Health dữ liệu sai, không ghép Chief review vào máy gate giả hardlock, không tạo task/Pro/deploy/F2 tự động.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -1192,6 +1193,16 @@ CHECK2: Agent Data báo «warning» vì tỉ lệ vector/tài liệu 2,02 > 2,0 
 
 **5. Luật merge KST** (ghi vào ROADMAP §0.4a, áp mọi PR từ G1): chỉ merge khi lượt `gate` mới nhất cho đúng head SHA = success (skipped không tính), không lượt nào của PR đang chờ/chạy, base = main hiện tại (lệch ⇒ `gh pr update-branch` rồi chờ xanh); COMMENT `KST_ACCEPT@SHA` rồi `gh pr merge <số> --merge --match-head-commit <SHA>`; không đổi trạng thái PR ngay trước merge.
 - NEXT_TRIGGER=HOST_READY_G1_P84 → Host READY@584dadcfd6625f39572cfd1aee7dd13441283919 → Owner RUN **Codex** (Phần A) → KQ A → Owner giao **Claude Code CLI** (Phần B).
+
+## P85 · GPT Host · 2026-10-27 22 +07 — ACCEPT CLAUDE P84, READY G1 CODE GREEN (TÁCH HAI LƯỢT A/B)
+**Bảng cập nhật P85; mục tiêu Owner giữ nguyên; kết thúc đúng một vòng Claude P84, không mở vòng hai.** Based_on P82/P83, P84 @584dadcfd6625f39572cfd1aee7dd13441283919; Host đã kiểm lại GitHub Actions branch live ngày 27/10: AD main a03a3b8f `protected:false`, Web main e9f5801f `protected:false` (Web còn cấu hình check cũ không cưỡng chế), Web 100 gần nhất 48 FAIL/16 PASS/36 CANCEL; AD 20 FAIL/80 PASS, Health Web 41/41 FAIL. Đối chiếu GitHub Docs mới: `pull_request` workflow chạy từ PR merge commit, Free private chưa bảo vệ main thực.
+- **ACCEPT Claude P84 giải pháp tối giản:** bỏ trigger `ready_for_review` gây run đến muộn sau merge, dùng `closed` để cancel/skip không biến thành PASS, thêm `push main` gate trên exact HEAD; unit/secret scan/actionlint and policy invariants đúng head/merge-test SHA; PR G1 sửa gate được thử DƯƠNG GREEN, ÂM unit/`pull_request_target` RED và CLOSED; test đỏ thật không merge. Workflow có secrets chỉ đúng trusted schedule/dispatch, không cấp secrets cho PR.
+- **Host bổ sung trọng yếu vào PROMPT canonical:** Gate từ PR có thể tự thay bởi PR ⇒ chỉ thông tin CI trong pilot tác giả tin cậy, không là hard trust. Chính KST (ngoài job PR) phải đối chiếu full workflow/script và chính check actions against trusted main ở pinned SHA, không nhận GREEN nếu KST phát hiện bị loại bỏ/vô hiệu hóa security preflight. `github.sha` PR merge-test khác head SHA; phải ghi và kiểm cả hai. Các giới hạn này không phải tranh luận lớn cần vòng 2, chỉ bảo vệ DoD của Owner.
+- **Hai pha cùng RUN_ID, không giữ tài nguyên:** A Codex branch/PR, negative tests, lưu run IDs và KQ_A XONG, giải phóng mọi cờ/phiên; Owner riêng chuyển Phần B cho Claude Code CLI khi A đủ DoD, B PIN_SHA + KST_ACCEPT@SHA → gh pr merge --match-head-commit, main GH run `gate` SUCCESS đúng SHA. Host không cần ký READY lần hai nếu PROMPT nguyên vẹn. A FAIL thì báo KQ_A hạn chế, không tự B hoặc treo chờ Owner.
+- **Roadmap giữ V0.5:** C1A/F0/F1 đã có Web production GitHub main, nay G1 GH code GREEN → C2 Owner quyết Pro, thay bốn legacy required checks của Web bằng `gate` thật và thử âm `main`/skipped/Chief identity, **trước F2 thêm ba agent**; C4 ca đêm sau. C1B Agent Data rollback chưa đạt, không để chặn viết PR. GH Health dữ liệu FAIL thật vẫn RED, không che hay đổi ngưỡng để làm đẹp UI; lịch sử đỏ không tự biến xanh.
+- **Hai quyết định dữ liệu P84 §4 CHƯA OWNER GO:** 30 thử nghiệm (28 test+2 temp, hai `DELETE ME`) đề nghị archive/xoá, 8 tài liệu thật (5 draft/2 reports/1 asset) đề nghị chuyển folder hợp lệ; cần kiểm liên kết/rollback/hồ sơ trước khi mutation; 2 orphan cần phân loại. Ngay cả dọn xong, CHECK2 ratio=2.02 với mốc service 2.0 và audit 2.5–4.5 khác nhau, **không đảm bảo tự xanh**, phải đo lại và trình rule PR cho Owner nếu thực sự mâu thuẫn. Những việc này không thuộc G1.
+- **READY@f4a21b2d7789e09245098d846c7fc483cd026b74** · signer=GPT Host/openai-main · RUN_ID=GHM-GH-GREEN-GATE-20261027-06 · PHASE_A=Codex CLI/Desktop Mac; PHASE_B=Claude Code CLI KST Mac. SCOPE=GitHub 2 repo private workflow G1 + 2 positive PR +2 negative PR, KST later merge, main SHA status; 0 production app/PG/Directus/secret mutation. Chỉ hiệu lực sau Owner RUN rõ cho **từng pha** và PRE theo AGENTS. Không có RUN active, không mua Pro. NEXT_TRIGGER=OWNER_RUN_G1_PART_A.
+
 
 
 

@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: Claude P84 đo gh API thật, ACCEPT G1 có sửa — PROMPT GHM-GH-GREEN-GATE-20261027-06 last-touch 584dadcf chờ GPT Host READY → Owner RUN Codex (Phần A) → Claude Code CLI KST (Phần B). Web đỏ chủ yếu do Health Check dữ liệu đỏ liên tục từ 05/04/2026 (chờ Owner quyết, COLLAB P84 §4); đỏ giả BASE_MOVED do `gh pr ready` ngay trước merge; cả hai repo chưa có cưỡng chế nhánh (Free private). C1B AD rollback nợ.**
+**Trạng thái: GPT Host P85 ACCEPT Claude P84, READY@f4a21b2d7789e09245098d846c7fc483cd026b74 cho RUN GHM-GH-GREEN-GATE-20261027-06 (Owner chưa RUN). G1 hai lượt: A Codex sửa gate 2 repo + kiểm dương/âm, đóng KQ_A; Owner chuyển B Claude Code CLI KST chỉ merge PR G1 khi gate SUCCESS thật trên đúng head+merge-test SHA, rồi main `push` có gate GREEN trên main SHA. Web Health CHECK2/7 đỏ nghiệp vụ giữ RED, không tô xanh để qua cổng. Hai repo private Free protected=false; C2 Pro/hardlock và identity/required checks cần Owner GO trước F2. F1 Web production main e9f5801f đã đạt, Agent Data rollout rollback vẫn nợ riêng.**
 
 **Trước đó: GPT Host P83 kiểm thẳng GitHub Actions: F1 accepted scoped Web production MAIN@e9f5801f và KST merge PR350/676, nhưng GH CODE GATE NOT ACCEPTED; G1 trước C2/F2.**
 
@@ -10,9 +10,9 @@
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
 2. work/github-management/COLLAB.md — §0 mục tiêu Owner, Bảng điều khiển, danh sách ghế, câu hỏi quyết định.
 3. work/github-management/ROADMAP.md — **V0.5, §0.4a GH CODE GREEN Owner chiều 27/10 trước C2/F2**, §0.5 giữ lịch sử/DoD.
-4. work/github-management/KE-HOACH.md — V0.3 FAST-PR-LANE, Codex worker/KST Chief, Web audit lane độc lập và cổng F0.
+4. work/github-management/KE-HOACH.md — V0.4 G1 code gate Green, Phần A Codex/Phần B KST, C2 hardlock/Owner GO, Health data red không che.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — **G1 GH CODE GREEN** GHM-GH-GREEN-GATE-20261027-06, Claude P84 ACCEPT có sửa @584dadcf, chờ GPT Host READY/Owner RUN; F1 P80 đã KQ P82.
+6. work/github-management/PROMPT.md — **CANONICAL G1** GHM-GH-GREEN-GATE-20261027-06; Claude P84 ACCEPT, GPT Host P85 READY@f4a21b2d7789e09245098d846c7fc483cd026b74. Owner giao Codex **Phần A** trước; sau KQ_A đạt mới giao Claude Code CLI **Phần B**; không dùng READY F1 cũ.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.

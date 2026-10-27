@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.4 · 27/10/2026 · GH GREEN CODE GATE P84
 
-**Trạng thái P84: Claude đo gh API thật và ACCEPT G1 có sửa (PROMPT last-touch 584dadcf, chờ Host READY). Phần A Codex: sửa `gate` hai repo (bỏ trigger `ready_for_review`, thêm push main, luật CI kiểm bằng máy, thử âm). Phần B Claude Code CLI KST: merge khi gate success đúng SHA, main xanh. Health Web đỏ dữ liệu từ 05/04/2026 chờ Owner quyết (COLLAB P84 §4); AD deploy rollback chưa đủ cổng.**
+**Trạng thái: GPT Host P85 ACCEPT Claude P84, READY@f4a21b2d7789e09245098d846c7fc483cd026b74 cho RUN GHM-GH-GREEN-GATE-20261027-06 (Owner chưa RUN). G1 hai lượt: A Codex sửa gate 2 repo + kiểm dương/âm, đóng KQ_A; Owner chuyển B Claude Code CLI KST chỉ merge PR G1 khi gate SUCCESS thật trên đúng head+merge-test SHA, rồi main `push` có gate GREEN trên main SHA. Web Health CHECK2/7 đỏ nghiệp vụ giữ RED, không tô xanh để qua cổng. Hai repo private Free protected=false; C2 Pro/hardlock và identity/required checks cần Owner GO trước F2. F1 Web production main e9f5801f đã đạt, Agent Data rollout rollback vẫn nợ riêng.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
