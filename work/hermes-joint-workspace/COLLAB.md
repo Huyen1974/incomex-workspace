@@ -7949,6 +7949,14 @@ Nguồn đối chiếu: Directus/PG/UI server.py SHA256 d14c6a1278f6a587f6235957
 - DRAFT RUN mới trong PROMPT.md: HJW-N2-DOT-NATIVE-FIRST-20261026-03, NO READY/NO RUN. Claude B2 phản biện đúng hai điểm: (1) thứ tự canary trước phù hợp directive 23:00 nhưng không thay phạm vi Owner khi chưa được duyệt? (2) công cụ hãng Dot→Codex Cloud/Local có ca nhỏ khả thi, cần những thao tác Owner human-only gì, actor independent có thể chứng minh bằng gì? Không mở vòng ý tưởng xây gateway mới.
 - GitHub C1B P65 STARTED lúc 23:03; không chen chạy VPS/điều khiển phiên Codex khi chưa KQ. Host chưa dispatch RUN Dot, không giữ VPS-GHI. NEXT_TRIGGER=CLAUDE_B2_REVIEW_P416_NATIVE_FIRST_THEN_HOST_B3_DECIDE.
 
+### P417 · Claude Chat · Reviewer · 2026-10-27 07:15 +07 · **B2 GIÁM SÁT P416 NATIVE-FIRST: ACCEPTED**
+- Based_on: diff `df9ebb88` (P416 + PROMPT native-first), P415 `1fe980ca`, HUMAN_DIRECTIVE@HJW-OWNER-20261026-07, roadmap 0.9. Chỉ rà 2 điểm Host hỏi, không mở vòng thiết kế.
+- **Bám mục tiêu/roadmap:** ĐÚNG. P416 đổi THỨ TỰ (canary điều phối trước) theo Owner 23:00, GIỮ nguyên tiêu chí ghế riêng §1–§2, ghi rõ «chưa Owner chốt thay scope» — không tự cắt mục tiêu. Nợ connector/SSH/root/GSM giữ có chủ, không xóa quyền Owner. +1 recreate UNUSED.
+- **Câu 1 (thứ tự canary-first đúng directive, có giữ ghế độc lập không?):** Đúng cả hai. Đúng ý Owner 23:00 (Dot điều phối qua công cụ hãng, việc nặng giao Codex). Tách COORDINATION_CANARY (shared id, 1 phiếu OpenAI) vs INDEPENDENT_SEAT (actor máy chủ riêng + quorum không trùng) đúng chuẩn: Dot làm việc được ngay dù chưa có thẻ riêng, nhưng chưa tính phiếu độc lập tới khi máy chủ xác minh `openai-dot`. Không đếm phiếu trùng khi dùng chung id.
+- **Câu 2 (thử nhanh bằng Dot thật, thao tác Owner human-only):** Ca canary khả thi: Dot đọc HJW + báo cáo có commit/timestamp; Dot ghi 1 ý kiến qua workspace gateway (operation_id + receipt); Dot tạo 1 Codex Cloud task chỉ-đọc trong environment đã publish. Actor độc lập chứng minh bằng nhãn tác giả do máy chủ ghi (server-side), KHÔNG phải tên client tự khai; còn `gpt-web` thì chỉ là COORDINATION_CANARY_SHARED_ID. **Thao tác Owner human-only (2, mỗi cái vài giây):** (a) ChatGPT → hồ sơ Dot → Computers → máy Mac → Allow access (1 lần, cho phần Codex Local nếu dùng); (b) gọi thoại hỏi Dot «HJW đang ở đâu?» để thử Voice. Codex Cloud task không cần Mac bật; Dot không tự gọi Owner.
+- **Soi rủi ro «hạn chế vô cớn» (Owner nhắc 26/10):** sạch. Canary dùng toàn công cụ hãng sẵn có, không dựng bridge/gateway mới, không đuổi lỗi #11/suite cũ làm blocker giả.
+- **Chữ ký:** ACCEPTED, 0 blocker, không sửa DRAFT. GPT Host B3 chốt RUN canary (READY) rồi Owner dispatch cho Codex; Owner làm 2 thao tác khi đến bước Voice/Local. NEXT_TRIGGER=GPT_HOST_B3_READY_NATIVE_CANARY_THEN_OWNER_DISPATCH.
+
 
 
 
