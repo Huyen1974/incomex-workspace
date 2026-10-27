@@ -8165,6 +8165,19 @@ NEXT_TRIGGER=OWNER_DIRECT_CONFIRM_RUN08_IN_DOT_THEN_NATIVE_RECEIPTS. Khi có k�
 - NEXT_TRIGGER=CLAUDE_REVIEW_P435_FRESH_WORK_APPS_THEN_HOST_READY.
 
 
+### P436 · Codex · Rà kỹ thuật theo yêu cầu Owner B2 · 2026-10-27
+**PARTIAL về yêu cầu chữ ký Claude; nội dung kỹ thuật ACCEPTED sau sửa DRAFT.** Đây là Codex rà, không phải Claude và không tính thay phiếu phản biện khác hãng. Based_on P434–P435, commit 4ac6a606f9f1e290a33a0d92b6ddebc5ab8947d7; PROMPT RUN09 trước sửa SHA256 920775032f30e5132b2914d738dcc3c93d0aad63e5a4545acd25cc83f564abea.
+
+1. **Đơn giản: ACCEPTED.** Tối đa bốn Work mới, mỗi Work mở đúng một phiên mới và gửi một CANARY; bỏ prebound session_ref, chỉ thu ID/link sau tạo nếu có. T1 không vào được Mac thì dừng; lỗi một ứng dụng sau khi vào được Mac không chặn các đích khác.
+2. **Giới hạn Mac: ACCEPTED sau sửa tại chỗ.** DRAFT đã phân Cloud-only với Cloud điều phối local execution. Bổ sung bằng chứng phải từ công cụ trên Mac của chính Work, browser cũng phải trên Mac; không nhận nhãn Local làm proof. T3/T4 nếu hãng chặn thì NOT_AVAILABLE/lỗi thật, không vượt chặn bằng shell/API, không dùng Dot→Codex thay Work→Codex. Bổ sung hai câu CANARY cố định và chạy lần lượt tránh tranh cùng giao diện. Không yêu cầu thêm hạ tầng hoặc thử lại workflow dài.
+3. **Owner DIRECT: ACCEPTED.** Giữ một lệnh T0 gửi Your dot sau Host READY. Không Codex relay, không PA1/Events/cron trong RUN09, không xin thêm session ref. Nếu hãng thật sự cần quyền máy mới thì xử lý đúng giao diện, không giả đã cấp.
+
+Đối chiếu OpenAI Docs: https://learn.chatgpt.com/docs/dots/computers-and-apps xác nhận local Work/Codex và cloud-managed task dùng máy kết nối; máy phải online/app mở, không bảo đảm mọi app/browser. Hạn chế từng ứng dụng phải ghi từ kết quả thực; lỗi Codex computer-use ở lượt trước không tự chứng minh Work chắc chắn bị chặn giống nhau.
+
+Chỉ sửa PROMPT DRAFT + ghi P436; KHÔNG READY, KHÔNG RUN, KHÔNG production mutation, không đổi A2/roster; +1 recreate UNUSED. Không có canary mới được gửi. NEXT_TRIGGER=GPT_HOST_REVIEW_P436_DRAFT_AND_RESOLVE_CLAUDE_SIGNATURE. Host nhận đúng nguồn Codex, không ghi đã có Claude ACCEPT nếu Claude chưa ký.
+
+
+
 
 
 

@@ -34,11 +34,14 @@ Dot cần thêm xác nhận quyền máy thì hỏi trực tiếp Owner trong ap
 
 Mỗi Work task chỉ mở MỘT đích, không cần gắn vào phiên hội đồng hiện hữu. Claude/Terminal/Codex có thể là các ứng dụng riêng, không được ép tất cả nằm trong một cửa sổ ChatGPT. Không tự cài đặt hay sửa môi trường để ép xanh; không tác động các phiên sản xuất đang mở.
 
+Chạy lần lượt từng Work canary để không tranh điều khiển cùng Mac. Nếu công cụ hãng từ chối Terminal/Claude Code CLI hoặc Codex app, ghi NOT_AVAILABLE cùng lỗi thật cho đúng đích; không dùng shell/API/ứng dụng khác để vượt lệnh chặn, không lấy Codex do Dot tạo trực tiếp thay chuỗi Work→Codex. Quyền máy không bảo đảm mọi ứng dụng đều điều khiển được. T3/T4 cũng chỉ gửi câu cố định: “RUN09 CLI CANARY. Chỉ đáp ĐÃ NHẬN CLI.” / “RUN09 CODEX CANARY. Chỉ đáp ĐÃ NHẬN CODEX.”
+
 Thứ tự T1 trước. Nếu T1 không tạo được Work thật sự sử dụng Mac thì dừng T2–T4 và báo lý do, không lặp. Nếu đã có Work thật trên Mac nhưng một đích riêng bị chặn, ghi lỗi riêng và tiếp tục các đích khác trong quyền đã có.
 
 ## T5. NHẬN KQ VÀ DỪNG
 
 Mỗi đích ghi ba mốc OPENED_NEW, MESSAGE_SENT, ACK_RECEIVED (hoặc NOT_AVAILABLE/ERROR); Work task ID/Activity ref, local_device, app, new session ID/link nếu hãng lộ, timestamp. Không tự đoán ID, không gán Cloud-only là Mac PASS.
+Bằng chứng Mac phải là quan sát/thao tác từ công cụ trên máy được kết nối của chính Work, gắn với Work task/Activity; tên task có chữ Local hay câu tự báo không đủ. T1/T2 dùng browser thì đó phải là browser trên Mac, không phải browser cloud của Dot. Không cần tạo thêm phép thử, registry hoặc yêu cầu Owner cung cấp ID trước.
 
 Báo Owner 3 câu: Dot -> Work trên Mac có thật không? Bốn app đạt đến đâu? Còn đúng một thao tác gì nếu cần?
 
