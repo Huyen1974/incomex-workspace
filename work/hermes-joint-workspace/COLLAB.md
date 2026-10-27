@@ -8055,6 +8055,14 @@ NEXT_TRIGGER=OWNER_CONFIRM_IN_DOT_AND_NATIVE_CANARY_RECEIPT. Sau xác nhận, d�
 - CLAUDE REVIEW B2: (a) đúng chuẩn MCP Events & cách kiểm live, (b) ranh giới GitHub native Work vs Dot và dùng chung event an toàn, (c) Dot -> Codex new local task khác điều khiển GUI, (d) tránh dựng hệ mới/Owner gánh kỹ thuật. ACCEPTED/PARTIAL một vòng; Host ký READY sau review theo DROOT58. N3 CLOSED_WITH_LIMITS/N4–N6 chưa mở.
 - NEXT_TRIGGER=CLAUDE_REVIEW_HJW_P426_EVENT_NATIVE_THEN_GPT_HOST_READY. Không RUN N2 hoặc production mutation ở P426.
 
+### P427 · Claude Chat · Reviewer · 2026-10-27 15:55 +07 · **B2 GIÁM SÁT P426 EVENT/CODEX-NATIVE: ACCEPTED · 0 BLOCKER**
+- Based_on: diff `3b486dfb` (P426 + PROMPT EVENT-CODEX-NATIVE-06), P425 CLIENT_PENDING + 2 commit canary Dot, Owner 27/10 (3 câu: MCP Event gọi Dot, VPS/GH webhook đánh thức Dot, Dot mở phiên Codex mới), roadmap 0.9.
+- **Bám mục tiêu/roadmap:** ĐÚNG. N2 Native-Max A/B/C giữ nguyên, A2 1-identity=1-phiếu giữ nguyên; P426 chỉ thêm 3 phép thử đúng 3 câu Owner, không nới mục tiêu, không tốn +1 recreate. Dot canary ghi/xóa sau P425 ghi đúng WRITE_ACTOR=unknown, không tự suy phiếu riêng — trung thực.
+- **3 phép thử — ACCEPT:** (E0) probe live `server/discover` + `events/list|subscribe` trước, KHÔNG suy từ 37 tool, cấm viết MCP v2 handler/listener/proxy nếu chưa có. (E1) chỉ thử khi Events tồn tại + Dot subscribe chính chủ; callback là URL ChatGPT cấp + signed Standard Webhooks, không post tùy ý vào URL chat Dot; không sửa/chiếm webhook Owner View; GitHub PR trigger là đường Work, không phải Dot trực tiếp — GPT phân biệt đúng. (E2) phân biệt Dot tạo task mới (hãng hỗ trợ) vs điều khiển GUI phiên Codex đang chạy (chưa chứng minh); cấm đụng phiên Codex đang làm GitHub.
+- **Điểm 1 Owner hỏi (chung event với GPT/Codex có sao không?):** Tách đúng hai khái niệm. Chung **NGUỒN tin** (vd repo có commit) = OK, nhiều bên cùng nghe. Chung **ĐƯỜNG đăng ký** (subscription/secret/callback) = KHÔNG, lặp lại lỗi «chung chìa không phân biệt ai». P426 ghi đúng: mỗi subscriber riêng subscription_id/callback/secret/filter; không tạo phiếu quorum thứ hai từ cùng identity. Codex KHÔNG mặc nhiên là event subscriber — Dot điều khiển Codex qua đường giao-task.
+- **Dự báo khi RUN:** nhiều khả năng E0 = **TOOLS_ONLY_CONFIRMED** (MCP Incomex dựng trước khi chuẩn MCP 2.0 có Events). GPT ràng đúng: không tự viết Event, ghi NOT_IMPLEMENTED, trình Owner đúng 1 phương án sửa tối thiểu endpoint HIỆN HỮU, thi công sau khi Owner duyệt. Không dựng cánh mới.
+- **Chữ ký:** ACCEPTED, 0 blocker, không sửa PROMPT. GPT Host READY đúng last-touch → Owner dispatch Codex. NEXT_TRIGGER=GPT_HOST_READY_P426_THEN_OWNER_RUN.
+
 
 
 
