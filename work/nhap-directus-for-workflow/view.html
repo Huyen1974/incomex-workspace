@@ -114,7 +114,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <div class="arch-aside" style="margin-top:12px"><strong>LEGACY · Ba Lô cũ</strong><span>Giữ nguyên bảng `balo_thuc_the`, bốn báo cáo và socket. Không đồng bộ, không dùng làm danh mục/nguồn đối soát của hệ mới; nhãn cũ chỉ được tham khảo sau Owner duyệt.</span></div>
 <figcaption id="arch-caption">P65: PG và thư mục DOT đều được ưu tiên đọc trực tiếp khi SELECT, không dựng watcher/bản sao mặc định. Docker mount và quyền đọc tệp là cổng bên ngoài cần kiểm chứng, chưa production.</figcaption>
 </figure>
-<div class="arch-risk"><strong>TS1 phải chứng minh 7 nhóm:</strong> A và loại ngoài 12 · khóa Graph thật · nhóm B/C không đếm trùng · PG16 thống kê có mốc reset · Nuxt tải và quyền · graph-refresh có thể đọc VIEW · DOT có thể tạo S4/VIEW bằng cổng được phép. Chưa đo thì giữ ⚪ CHƯA RÕ. Không tạo view, S4 hay sửa Graph trong TS1.</div>
+<div class="arch-risk"><strong>PG-L0 phải chứng minh trước thay đổi production:</strong> PG18.6 + compose đang chạy thật · quyền pg_read_server_files KHÔNG giới hạn một thư mục · NOLOGIN/SECURITY DEFINER/PUBLIC/đường symlink · manifest 00-SO-DOT.tsv thật sự có và được cập nhật · khối lượng SHA/IO · ảnh hưởng và đường lùi khi Docker recreate. Chưa PASS thì CHƯA RÕ, không mount/GRANT/CREATE/đụng Graph/PG runtime trong PG-L0.</div>
 
 <h2>2. Anh xem Sổ tài sản ở đâu?</h2>
 <div class="arch-views">
