@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 13:00 +07 · Codex P76 STARTED
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 13:19 +07 · Codex P77 KQ
 - 🎯 Mục tiêu Owner 27/10: GitHub cho Codex viết song song sớm nhất, Claude Code CLI KST review/merge, release thực thi trên VPS; nợ C1B không bắt dev xếp hàng.
 - 🏁 F0 XONG khi 2 repo có PR thật + unit CI trên VPS đúng head/merge-test SHA, policy gate: AD GREEN, Web Health unit GREEN/policy RED chờ KST. F1 Web merge/deploy là RUN Claude Code CLI riêng.
 - 📍 Tiến độ: ✓ R0/R1/C1A → ✓ P66 Web release + P71 AD CI/canary → ◐ C1B-REMAINDER → ✓ Claude P73 → ✓ GPT P74 READY → ■ Owner RUN F0 → F1 KST/Web → C2 Pro (Owner quyết) → F2 ba agent → C4.
 - ✅ Đã xong: AD main5bc8a3f/CI14/canary0DDL; Web Nuxt4 parity166/166/CI/deploy–rollback; 2 audit VPS GREEN; P71 POST25/25/receipt309, VPS-GHI trả.
-- ■ Đang làm: Codex STARTED P76 · RUN_ID=GHM-FAST-PR-LANE-20261027-04 · hai worktree/ghế Codex cho AD pagination và Web Health/gate; Guard PRE22/22 PASS; không giữ VPS-GHI khi code.
-- ⬜ Còn lại: workflow CI main chưa có PR trigger; cần F0 pilot trusted-only; S4-B Web Health401 candidate d3b1ec8 chưa test, AD Compose hash + old rollback DDL vẫn là nợ riêng, C1B_SCOPED=FAIL.
-- ➡ Kế tiếp: Codex kiểm hai PR thật trên runner VPS, tách kết quả unit/policy và S4-B; KST review sau KQ. NEXT_TRIGGER=CODEX_KQ_GHM-FAST-PR-LANE-20261027-04.
+- ■ Đang làm: — · 0 RUN active. Codex P77 KQ F0 PASS trusted pilot: AD PR350 gate GREEN33; Web PR676 unit16 PASS/policy RED đúng yêu cầu. S4-B candidate13 CHECK đã xác minh, lỗi dữ liệu vẫn RED; [báo cáo](FAST-PR-LANE-REPORT.md).
+- ⬜ Còn lại: Host nghiệm thu F0; KST xét hai PR và F1 Web riêng. Web audit candidate đạt nhưng chưa merge, AD Compose/rollback DDL vẫn nợ riêng; C1B_SCOPED=FAIL. C2/F2/C4 chưa chạy.
+- ➡ Kế tiếp: Host/KST đọc P77 và hai PR; Owner giao KST F1 theo PROMPT riêng, không tự release từ F0. NEXT_TRIGGER=OWNER_KST_REVIEW_FIRST_WEB_PR_AND_MANUAL_RELEASE.
 - ⛔ Không coi 5 cổng là isolation tuyệt đối; không chạy fork/actor chưa duyệt trên persistent runner; không secret cho PR, không auto-CD/DDL/Pro tự mua, không báo C1B PASS giả.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1087,6 +1087,18 @@ STARTED@GHM-FAST-PR-LANE-20261027-04 2026-10-27T06:00:00Z · executor=Codex/open
 - S0: main AD5bc8a3f/Web728fa1d đúng; Mac gh=Huyen1974 quyềnadmin hiện có, cả2runner online/idle; branch protection private trả403 cầnPro, không tuyên hardlock. GuardPRE22/22 PASS, 0đỏ; khôngSTOP. PR cũ không phải việc được phép, không chạy chúng.
 - S1 hai ghế Codex/worktree riêng: dev/codex-ad/pagination-contract và dev/codex-web/health-audit. Chỉ bootstrap workflowCI tối thiểu lên main bằng quyềnngoạilệF0; PR app doKST quyết, khôngmerge/deploy. S4-B tốiđa2dispatch nhưng chỉ sửa Websecret khi đủnguồnGSM/HTTP200/đườnglùi; khônggiữF0 chờ lane này.
 - Không giữ VPS-GHI khi code; chỉ nhận CAS trướchostmutation nếu cần. NEXT_TRIGGER=CODEX_KQ_GHM-FAST-PR-LANE-20261027-04.
+
+## P77 · Codex · 27/10/2026 13:19 +07 — KQ XONG F0 FAST-PR-LANE
+KQ@GHM-FAST-PR-LANE-20261027-04 · STATUS=XONG · F0=PASS_TRUSTED_PILOT · executor=Codex/openai-codex.
+**Bảng: trạng thái executor đã cập nhật; ACCEPT/tiến độ nghiệm thu do Host chốt.** Báo cáo chuẩn: [FAST-PR-LANE-REPORT.md](FAST-PR-LANE-REPORT.md). Owner RUN/P74 READY@5f9bb019c6a2fba146d5b86d5debcdb3a34f9e93, PROMPT không đổi.
+- Hai worktree/ghế Codex làm song song; [AD PR350](https://github.com/Huyen1974/agent-data-test/pull/350) head `ce36577ff19026f7259e7092608b713498143afb`, merge-test `6c26a92dfac0082105d0359d8a373ad92edc8265`, [run40459074294](https://github.com/Huyen1974/agent-data-test/actions/runs/40459074294): 33 tests + policy + secret scan GREEN.
+- [Web PR676](https://github.com/Huyen1974/web-test/pull/676) head `4556635ca22ada5bacba26b681ef638ec6f566ff`, merge-test `a069ba6499eecfa490095da71ad8e563c6260413`, [run40459085757](https://github.com/Huyen1974/web-test/actions/runs/40459085757): unit16 PASS, scan PASS, policy/gate RED đúng KST_REVIEW_REQUIRED. Hai PR draft/open, không merge; bảng summary và evidence ở job/PR body.
+- Đã dùng ngoại lệ F0 đúng một workflow CI/main mỗi repo, CAS/non-force: AD `76db54ff8904164955e8977d2a8184fba9c51fbf`, Web `f8c51fe7a8d833cdee8156595d7d76e50621c66a`. Không push mã ứng dụng main. Trusted gate khớp main trước chạy mã, Mac kiểm blob độc lập; PR không secrets/root/socket; runner bounded/flock/cleanup kế thừa. Không gọi shared Owner identity/persistent runner là hard isolation; C2 chưa triển khai.
+- S4-B: GSM version2 khớp production API_KEY/nginx + đúng1 GET200/items array + đường khôi phục canonical đã chứng minh; chỉ cập nhật1 GitHub secret Web qua stdin, không xuất/lưu key. [Audit40459402138](https://github.com/Huyen1974/web-test/actions/runs/40459402138), candidate d3b1ec8, dùng1/2 lượt: 13/13 kết quả đáng tin, 11 PASS/2 FAIL dữ liệu thật (CHECK2 warning, CHECK7 5 thư mục ngoài allowed); giữ job RED. SQL read-only khớp9.604 ID/hash, gap9 WARN, search5 context,2 orphan WARN, page11,45s<15s. Ba file audit trong PR đúng candidate; không tự promote main.
+- S5: POST25/25 PASS, footprint host0,32/32đènUP, receipt310; GLOBAL_GUARD PARTIAL do3 vùngUNKNOWN kế thừa. 0 app restart/DDL/deploy/merge, không giữ VPS-GHI, root trống; không mở lease. Hai runner online/idle. Main app/runtime P66/P71 giữ nguyên, C1B_SCOPED vẫn FAIL do AD rollback/chưa promote audit.
+- PR→kết quả AD42s/Web62s; job36s/55s, audit83s; hosted của RUN0phút. Chưa đo baseline hàng đợi hoặc thời gian KST thật, không tuyên speedup. Evidence private15 tệp manifest SHA256 `57d48ef12baa8b393be282ba5e8f05feeffaa9f693a9cc53f935a5bd6a6589a8`.
+- 0 RUN active Codex. NEXT_TRIGGER=OWNER_KST_REVIEW_FIRST_WEB_PR_AND_MANUAL_RELEASE. Host nghiệm thu F0, KST đọc PR; F1 cần thêm PR ứng dụng Web riêng, không tự F1/C2/F2/C4.
+
 
 
 

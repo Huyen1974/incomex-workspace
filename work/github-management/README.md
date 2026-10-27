@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: GPT Host P74 ký READY@5f9bb019c6a2fba146d5b86d5debcdb3a34f9e93 cho GHM-FAST-PR-LANE-20261027-04, Owner chưa RUN. Ưu tiên 2 PR/CI native trên VPS qua Codex, Claude Code CLI KST nhận F1 Web merge/release; F0 trusted-only persistent runner với gate unit/policy, Web secret repair phải có chứng cứ GSM và đường lùi. Nợ AD rollout/Web Health còn C1B_SCOPED=FAIL. C2 Pro do Owner quyết sau pilot/trước F2. VPS-GHI trả P71.**
+**Trạng thái executor P77: F0 PASS trong pilot trusted-only — AD PR350 gate GREEN/33 tests, Web PR676 unit16 PASS/policy RED đúng KST_REVIEW_REQUIRED; hai PR chưa merge. S4-B sửa401 bằng nguồn GSM đã kiểm, candidate13 CHECK đáng tin (11 PASS/2 FAIL dữ liệu thật), chưa promote. POST25/25, receipt310, VPS-GHI không giữ/root trống. Báo cáo [FAST-PR-LANE-REPORT.md](FAST-PR-LANE-REPORT.md); Host nghiệm thu rồi giao KST F1 riêng. C1B rollback AD còn nợ; C2/F2/C4 chưa chạy.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -14,9 +14,10 @@
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
 9. [C1A-S3-CLOSE-REPORT.md](C1A-S3-CLOSE-REPORT.md) — báo cáo lịch sử P40. Kết quả mới nhất là **COLLAB P48**, có hash báo cáo riêng và manifest 47 tệp; giữ nợ/giới hạn toàn hệ tách khỏi C1A scoped.
 
-10. [C1B-FINALIZE-REPORT.md](C1B-FINALIZE-REPORT.md) — KQ mới nhất P71: AD source/CI/canary đạt; deploy và Web audit còn blocker; Guard/receipt/cờ đóng.
-11. [C1B-CLOSE-REPORT.md](C1B-CLOSE-REPORT.md) — KQ P66 C1B-CLOSE: Web đạt, 2/3 audit đạt; blocker AD/Web Health, bằng chứng và đường tiếp.
-12. [C1B-REPORT.md](C1B-REPORT.md) — KQ P61 kế thừa: phần đạt, blocker từng app/audit, CI/SHA, archive, bằng chứng riêng và đường tiếp.
+10. [FAST-PR-LANE-REPORT.md](FAST-PR-LANE-REPORT.md) — KQ hiện hành P77: F0 hai PR/gate thật đạt, S4-B sửa auth và candidate đáng tin; KST review/merge/release chưa thực hiện.
+11. [C1B-FINALIZE-REPORT.md](C1B-FINALIZE-REPORT.md) — lịch sử P71: AD source/CI/canary đạt; deploy và Web audit còn blocker; Guard/receipt/cờ đóng.
+12. [C1B-CLOSE-REPORT.md](C1B-CLOSE-REPORT.md) — KQ P66 C1B-CLOSE: Web đạt, 2/3 audit đạt; blocker AD/Web Health, bằng chứng và đường tiếp.
+13. [C1B-REPORT.md](C1B-REPORT.md) — KQ P61 kế thừa: phần đạt, blocker từng app/audit, CI/SHA, archive, bằng chứng riêng và đường tiếp.
 
 Mục tiêu duy nhất của việc này: nhiều AI nhận nhiều việc, **viết mã song song trên branch/workspace riêng**, Chief duyệt PR trên nền mới nhất, Owner xem bảng kết quả sáng. R1 dùng Actions trong hạn mức miễn phí với hard budget $0; Owner 25/10 15:18: mọi run đặt trên VPS bằng runner tự host; ưu tiên 1 là CI/CD chạy được.
 
