@@ -8176,6 +8176,16 @@ NEXT_TRIGGER=OWNER_DIRECT_CONFIRM_RUN08_IN_DOT_THEN_NATIVE_RECEIPTS. Khi có k�
 
 Chỉ sửa PROMPT DRAFT + ghi P436; KHÔNG READY, KHÔNG RUN, KHÔNG production mutation, không đổi A2/roster; +1 recreate UNUSED. Không có canary mới được gửi. NEXT_TRIGGER=GPT_HOST_REVIEW_P436_DRAFT_AND_RESOLVE_CLAUDE_SIGNATURE. Host nhận đúng nguồn Codex, không ghi đã có Claude ACCEPT nếu Claude chưa ký.
 
+### P437 · Dot · Báo cáo phép thử trực tiếp theo Owner voice · 2026-10-27 18:08 +07
+**KHÔNG ĐẠT yêu cầu mở/điều khiển giao diện GPT Work hoặc Codex trên Mac trong lượt này.** Owner yêu cầu ghi rõ giới hạn sau phép thử; không chạy thêm RUN09, không thay Host/READY/PROMPT/roster.
+- SOURCE_AUTHOR=Dot, nguồn Owner voice trực tiếp 27/10; WRITE_ACTOR=unknown vì receipt workspace chưa trả principal xác thực. NONVOTING, không thêm phiếu quorum.
+- Đã tạo đúng một native task `01a17cff-2a0b-75da-a44e-7dd0b68ef0ce`, tên do Dot đặt “Kiểm thử Codex trên Mac”. Turn `01a17cff-363a-72a2-9ffd-a8834c884bae` chạy hostname/date/pwd/uname lúc 10:54:32Z: `Nguyens-MacBook-Air.local`, Darwin, local cwd, exit 0. Đây là bằng chứng thực thi lệnh LOCAL, không chứng minh mở cửa sổ Codex CLI/app hay GPT Work.
+- Gửi chỉ dẫn tiếp cùng task và nhận `ACK_LUOT_2` tại turn `01a17d02-19ae-777e-b30a-38419ed37d34`; lượt hiển thị `01a17d07-a1d1-741a-b7ce-2b64bbb31ef4` trả đúng “hello user”, Owner xác nhận nhìn thấy trong ChatGPT app với nhãn “Dot is managing this task”. Nhãn quản lý/tên task không xác định loại executor.
+- Chưa tạo được phiên GPT Work LOCAL bằng công cụ hiện có; chưa điều khiển được GUI để bấm New Chat/chọn ứng dụng như yêu cầu. Đọc UI `com.openai.codex` bị công cụ từ chối an toàn; kiểm tra tiến trình bằng ps bị OS từ chối “operation not permitted”. Không đổi quyền, không thử đường vòng. Không đủ bằng chứng phân loại CLI/app/headless. Dot đính chính phát biểu trước đó “mở Codex app”: quá mức bằng chứng thực tế.
+- Phần việc ngắn đọc repo đã được gửi trước khi Owner ngắt; sau chỉ đạo dừng đã kết thúc, không ghi báo cáo đó. Child đọc AGENTS/PROMPT/HEAD `e176eae3c9dce6e812d8c53b137863ca50ed862e`, COLLAB child trả rỗng; Dot không nhận đã đọc hết mọi task. Báo cáo P437 này là yêu cầu GHI riêng sau đó của Owner.
+- Kết luận: đạt giao tác vụ local/gửi tiếp/nhận kết quả/hiển thị; KHÔNG ĐẠT điều khiển ứng dụng trên Mac. Không dùng kết quả này làm PASS Dot→GPT Work→các app hoặc cơ sở chạy RUN09 qua đường đã thử. Không kết luận toàn sản phẩm vĩnh viễn không hỗ trợ. Không production mutation, không lịch/keys/gateway, không tạo thêm task. Phép thử đã dừng; Host đối chiếu giới hạn trước quyết định tiếp.
+
+
 
 
 
