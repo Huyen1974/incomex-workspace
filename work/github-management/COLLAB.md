@@ -10,7 +10,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - 🏁 C1B XONG khi: Web P66 và AD canary/deploy/rollback đều PASS, 3 audit vận hành đúng trên runner VPS (kể cả phát hiện FAIL nghiệp vụ thật phải báo RED), Guard/receipt/cờ trả; không nhầm PASS kỹ thuật với sức khỏe nghiệp vụ.
 - 📍 Tiến độ: ✓ R0/R1/C1A → ◐ C1B P66: Web PASS, 2/3 audit GREEN → ✓ Claude P68 → ✓ GPT P69 READY → ■ Owner giao Codex C1B-FINALIZE → C3.0 → C3 → C2 → C4.
 - ✅ Đã xong: Web Nuxt4 parity 166/166, CI và deploy–rollback thật PASS; Agent Data effective config 17/17; Lifecycle và ops-smoke VPS GREEN; archive 4 repo; P66 POST 25/25, VPS-GHI và lease trả.
-- ■ Đang làm: — · 0 RUN active. GPT Host READY@88fbbda8c3da2043539d8e41701f21649b3ea64a, RUN_ID=GHM-C1B-FINALIZE-20261027-03; chưa OWNER RUN.
+- ■ Đang làm: Codex STARTED P70 · RUN_ID=GHM-C1B-FINALIZE-20261027-03 · 2026-10-27T03:30:17Z · Owner RUN/P69 READY đã xác minh; S0 kiểm runtime/Guard, chưa nhận VPS-GHI; giữ nguyên phần P66 đạt.
 - ⬜ Còn lại: Agent Data kiểm 6 tên bằng PG read-only, canary và deploy–rollback thật; Web Health kiểm 13/13 đúng contract, giữ FAIL thật và cảnh báo; GLOBAL_GUARD PARTIAL #11 ngoài scope.
 - ➡ Kế tiếp: 😊 Owner chuyển đúng một câu RUN cho Codex đọc PROMPT.md; executor tự thực thi từng nhánh, không dừng dây chuyền do blocker quyền ngoài scope. NEXT_TRIGGER=OWNER_RUN_GHM-C1B-FINALIZE-20261027-03.
 - ⛔ Không production DDL, không đổi ngưỡng dữ liệu/timeout, không ép xanh job thật RED, không làm lại phần đã đạt, không tự C3/C2/C4.
@@ -990,6 +990,12 @@ Based_on: P66/C1B-CLOSE-REPORT @c759ab61 · P67 · PROMPT @1e4e1504 · đọc th
 - **Roadmap giữ nguyên:** R0/R1/C1A đạt; C1B còn AD + Web Health. Web Nuxt4 P66 và Lifecycle/ops-smoke GREEN giữ nguyên. Sau C1B: C3.0 một gate test+runner trust boundary → C3 ba agent PR và KST xét → C2 GitHub Pro/ruleset → C4 ca đêm. Không khởi động các bước sau trong RUN này, không tự mua Pro, không tạo key.
 - **READY@88fbbda8c3da2043539d8e41701f21649b3ea64a** · signer=GPT Host/openai-main · EXECUTOR=Codex CLI/Desktop Mac · RUN_ID=GHM-C1B-FINALIZE-20261027-03 · scope=2 repo private, AD canary source/CI/deploy–rollback và Web Health 13 CHECK, receipt/Guard. **Chưa STARTED; Owner RUN đúng RUN_ID là cổng cuối.** Codex kiểm PRE/STOP/VPS-GHI và branch SHA trước mutation; thực thi phần độc lập nếu phần còn lại bị chặn; KQ XONG chỉ khi chứng cứ đủ, không claim audit đỏ là sức khỏe xanh. P64/P66 RUN đã kết thúc, không tái dùng READY cũ.
 - NEXT_TRIGGER=OWNER_RUN_GHM-C1B-FINALIZE-20261027-03.
+
+## P70 · Codex · 27/10/2026 — STARTED C1B-FINALIZE
+STARTED@GHM-C1B-FINALIZE-20261027-03 2026-10-27T03:30:17Z · executor=Codex Desktop/openai-codex
+- Owner RUN trực tiếp; P69 READY@88fbbda8c3da2043539d8e41701f21649b3ea64a, PROMPT SHA256 b6a9c6d10ba6ee890cfd3a264c9ad385fa495935a011f59a7ae8495a6c85824b đã đối chiếu GitHub last-touch. Hai main còn đúng P66, runner online/idle, không có STOP cho RUN.
+- Thực thi S0–S4: AD SELECT-only fast-path/canary/CI, S3 chỉ khi đúng mọi gate; Web Health 13 CHECK trả kết quả đúng, lỗi nghiệp vụ thật giữ RED. Không production DDL, không làm lại Web/hai audit đã đạt. Chưa nhận VPS-GHI, chỉ nhận CAS trước host mutation.
+- NEXT_TRIGGER=CODEX_KQ_GHM-C1B-FINALIZE-20261027-03.
 
 
 
