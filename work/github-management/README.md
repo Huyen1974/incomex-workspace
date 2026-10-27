@@ -1,6 +1,8 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: GPT Host P83 kiểm thẳng GitHub Actions (không chỉ P82): F1 accepted scoped Web production MAIN@e9f5801f và KST merge PR350/676, nhưng GH CODE GATE NOT ACCEPTED. Web100 latest:48 failure/15 success/37 cancelled (Health41/41 RED, PR gate3/3 RED), AD20 failure/80 success. Postmerge BASE_MOVED false-red, Health CHECK2/7 red nghiệp vụ thật. Roadmap V0.5 G1 required CODE GREEN trước C2/F2, DRAFT GHM-GH-GREEN-GATE-20261027-06 chờ Claude P84, chưa READY/Owner RUN; C1B AD rollback nợ.**
+**Trạng thái: Claude P84 đo gh API thật, ACCEPT G1 có sửa — PROMPT GHM-GH-GREEN-GATE-20261027-06 last-touch 584dadcf chờ GPT Host READY → Owner RUN Codex (Phần A) → Claude Code CLI KST (Phần B). Web đỏ chủ yếu do Health Check dữ liệu đỏ liên tục từ 05/04/2026 (chờ Owner quyết, COLLAB P84 §4); đỏ giả BASE_MOVED do `gh pr ready` ngay trước merge; cả hai repo chưa có cưỡng chế nhánh (Free private). C1B AD rollback nợ.**
+
+**Trước đó: GPT Host P83 kiểm thẳng GitHub Actions: F1 accepted scoped Web production MAIN@e9f5801f và KST merge PR350/676, nhưng GH CODE GATE NOT ACCEPTED; G1 trước C2/F2.**
 
 **Trước đó: GPT Host P80 ACCEPT Claude P79 và ký READY@77c23c7911d5b87c1b2494080e1f06d7e7cff5b1 cho Claude Code CLI KST RUN GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05; Owner chưa RUN. F0 P77 PASS hai PR thật AD350 gateGREEN33, Web676 unit16 PASS/policyRED KST; F1 review/merge/audit main, sau đó Web production dùng bản build GitHub main và GIỮ nếu 166/166+34 contract/Guard healthy. Web code tree và build inputs đã xác minh khớp P66; old known-good rollback. C1B AD rollback vẫn FAIL độc lập, C2 Pro do Owner quyết trước F2 PR app/Web+3 agent. VPS-GHI trống P77.**
 
@@ -10,7 +12,7 @@
 3. work/github-management/ROADMAP.md — **V0.5, §0.4a GH CODE GREEN Owner chiều 27/10 trước C2/F2**, §0.5 giữ lịch sử/DoD.
 4. work/github-management/KE-HOACH.md — V0.3 FAST-PR-LANE, Codex worker/KST Chief, Web audit lane độc lập và cổng F0.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — **DRAFT G1 GH CODE GREEN** GHM-GH-GREEN-GATE-20261027-06, Claude P84 phản biện, GPT Host chưa READY/Owner RUN; F1 P80 đã KQ P82.
+6. work/github-management/PROMPT.md — **G1 GH CODE GREEN** GHM-GH-GREEN-GATE-20261027-06, Claude P84 ACCEPT có sửa @584dadcf, chờ GPT Host READY/Owner RUN; F1 P80 đã KQ P82.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.

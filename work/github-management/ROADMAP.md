@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.5 · 27/10/2026
-**Trạng thái P83: F1 P82 ACCEPT_SCOPED Web main/KST nhưng GH CODE GATE NOT ACCEPTED (Web48 RED/15 GREEN/37 CANCEL; AD20 RED/80 GREEN). Owner đòi required CODE GREEN trước merge. Roadmap G1 trước C2/F2, Health data FAIL vẫn RED, AD rollback còn nợ. DRAFT GHM-GH-GREEN-GATE-20261027-06 cho Claude P84, chưa READY/RUN.**
+**Trạng thái P84: Claude đo gh API thật, ACCEPT G1 có sửa — PROMPT GHM-GH-GREEN-GATE-20261027-06 last-touch 584dadcf chờ Host READY → Owner RUN Codex (Phần A) → Claude Code CLI KST (Phần B). Web đỏ chủ yếu do Health Check dữ liệu đỏ liên tục từ 05/04/2026; đỏ giả BASE_MOVED do `gh pr ready` ngay trước merge. Cả hai repo chưa có cưỡng chế nhánh (Free private). Health dữ liệu chờ Owner quyết (COLLAB P84 §4); AD rollback còn nợ.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10 · **V0.4 = ưu tiên FAST-PR-LANE Owner 27/10, C1B DoD giữ nguyên (§0.4).**
 Ưu tiên 1 (Owner 25/10 15:18): hệ thống chạy được — mỗi repo đi được nhánh → PR → test → main → deploy VPS, máy chạy (runner) đặt trên VPS. Sau đó: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 
@@ -28,10 +28,11 @@
 Required CODE/PR gate phải GREEN thật theo latest SHA mới merge; Web production F1 P82 đã đạt nhưng GH Actions vẫn nhiều RED. Phân biệt lỗi CODE vs Health nghiệp vụ thật.
 | Nhóm | Kiểm tra GH 100 runs mới nhất | Cổng |
 |---|---|---|
-| Web | 48 RED/15 GREEN/37 CANCEL, Health41/41 RED, PR gate3/3 RED | Sửa postmerge false-red và gate required GREEN; Health fail data vẫn cảnh báo |
-| Agent Data | 20 RED/80 GREEN, postmerge BASE_MOVED RED | Stale merged neutral; PR open stale vẫn RED/rebase |
-| Branch protection | AD main unprotected; Web required 4 contexts cũ, thiếu gate mới | C2 Pro/negative tests Owner trước F2 |
+| Web | 48 đỏ/16 xanh/36 huỷ (P84); Health Check đỏ liên tục từ 05/04/2026, nay chỉ CHECK2/CHECK7 dữ liệu; PR gate 3 đỏ (2 policy #676, 1 đỏ giả) | G1 sửa gate + lượt push main xanh; Health đỏ đến khi Owner quyết dữ liệu (COLLAB P84 §4) |
+| Agent Data | 80 xanh/20 đỏ (lịch sử + 1 đỏ giả BASE_MOVED) | G1: bỏ trigger `ready_for_review`, huỷ lượt thừa khi PR đóng; PR mở base đổi vẫn đỏ ⇒ `gh pr update-branch` |
+| Bảo vệ nhánh | Cả hai `protected:false` (Free private, API đòi Pro); Web còn lưu 4 check cũ không hiệu lực | C2: thay 4 check cũ bằng `gate`, chặn merge khi skipped, base mới nhất, thử âm |
 **Đường găng:** G1 xác minh CODE gate xanh thực → C2 hardlock Owner GO → F2 3 agent/PR app thật → C4; nợ dữ liệu/AD rollback song song. Không task mới.
+**Luật merge KST (từ G1, mọi PR — P84):** chỉ merge khi lượt `gate` mới nhất cho đúng head SHA = success (skipped không tính), không lượt nào của PR đang chờ/chạy, base = main hiện tại (lệch ⇒ `gh pr update-branch` rồi chờ xanh); COMMENT `KST_ACCEPT@SHA` rồi `gh pr merge <số> --merge --match-head-commit <SHA>`; không đổi trạng thái PR ngay trước merge. Gate đỏ ⇒ không merge, kể cả có comment. Màu check = kết luận máy; duyệt của KST = comment (một danh tính GitHub, chưa cưỡng chế đến C2).
 
 ## 0.5 THỨ TỰ GỐC 25/10 (lịch sử và DoD; thứ tự thực thi HIỆN HÀNH theo §0.4 Owner 27/10)
 | Bước | Ai | Việc | Đạt khi |

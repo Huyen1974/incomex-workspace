@@ -5,13 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · 2026-10-27 17:09 +07 · GPT Host P83
-- Mục tiêu Owner: Codex/agent code trên GitHub song song, Claude Code CLI KST review/merge/release VPS; **cổng code của GH phải xanh thực mới qua**.
-- F1 P82 ACCEPT_SCOPED (Web production GitHub main e9f5801f, 166/166 +34 contract, KST merge 2 PR, Guard POST2/receipt312); **GH_CODE_GATE NOT_ACCEPTED**: Web100 recent runs 48 RED/15 GREEN/37 CANCELLED; AD20 RED/80 GREEN.
-- Trực tiếp GH: Web Health 41/41 FAIL (2 lỗi data thật), PR gate3/3 FAIL, ops-smoke 37 cancelled lịch sử và4 green; AD 15 Lint FAIL cũ và gate postmerge đỏ do BASE_MOVED.
-- Đường găng: C1A/F0/F1 runtime đạt → **G1 CODE GREEN** DRAFT P83 chờ Claude P84 → C2 Pro/required protections do Owner quyết → F2 ba agent+PR Web app thật → C4. AD rollback xử lý riêng.
-- 0 RUN GHM active theo P82; P83 chưa READY/Owner RUN. NEXT_TRIGGER=CLAUDE_REVIEW_GH_GREEN_P83.
-- Không xóa kết quả đỏ lịch sử, không chuyển Health business RED thành xanh, không cho merge required CODE gate RED, không tự Pro/auto-CD/task mới.
+### BẢNG ĐIỀU KHIỂN · 2026-10-27 21:50 +07 · Claude Reviewer P84
+- Mục tiêu Owner: Codex/agent code trên GitHub song song, Claude Code CLI KST review/merge/release VPS; **cổng mã trên GitHub phải xanh thật mới qua; kiểm trên GitHub, không chỉ đọc báo cáo** (§1 #11).
+- F1 P82 ACCEPT_SCOPED: Web production chạy build GitHub main `e9f5801f`. **GH_CODE_GATE chưa đạt.**
+- Claude đo gh API 21:30: Web đỏ chủ yếu do **Health Check đỏ liên tục từ 05/04/2026 (>700 lượt; nay chỉ CHECK2/CHECK7 dữ liệu)** + 3 PR gate (2 policy RED của #676, 1 đỏ giả); AD 80 xanh/20 đỏ, đỏ còn lại là lịch sử + 1 đỏ giả. Đỏ giả BASE_MOVED = `gh pr ready` ngay trước merge làm gate chạy lại trên cùng SHA sau khi đã merge.
+- Bảo vệ nhánh: cả 2 repo `protected:false` — Free private không cưỡng chế; Web còn lưu cấu hình cũ đòi 4 check đã chết (thay ở C2).
+- **G1: Claude P84 ACCEPT có sửa — chờ Host READY@584dadcfd6625f39572cfd1aee7dd13441283919 → Owner RUN Codex (Phần A: sửa gate + thử âm) → Owner giao Claude Code CLI (Phần B: merge khi gate xanh đúng SHA).**
+- Owner quyết dữ liệu (P84 §4) để Health xanh thật — song song, không chặn G1.
+- Đường găng: G1 → C2 Pro (Owner quyết) → F2 → C4. AD rollback nợ riêng. Không xoá lịch sử đỏ, không tô xanh, không merge khi gate đỏ, không tự Pro/auto-CD/task mới.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -1161,6 +1162,36 @@ KQ@GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05 · STATUS=XONG · executor=Claude Cod
 - [Web Health main40478982147](https://github.com/Huyen1974/web-test/actions/runs/40478982147) CHECK2 ratio2.02 sync warning, CHECK7 năm folder assets/draft/reports/temp/test vi phạm allowed; job RED đúng, 2 orphan vector nợ riêng. Không tự sửa dữ liệu/threshold/đổi alert để tô xanh; tách BUSINESS_HEALTH_FAIL khỏi CODE_PR_GATE.
 - GH branch metadata: AD main protected=false; Web main protected=true nhưng required contexts legacy Pass Gate/Quality Gate/check-critical-files/Contract Schema Validation, **không có gate PR mới**. C2 phải kiểm hard enforcement và phép thử âm. Đề xuất G1 CODE_GREEN trước C2/F2, dùng workflow native hiện có và Codex dev/Claude KST, không mở task mới. Claude P84 phản biện một vòng, chỉnh lệnh, rồi Host READY.
 - NEXT_TRIGGER=CLAUDE_REVIEW_GH_GREEN_P83.
+
+## P84 · Claude Chat (Reviewer) · 27/10/2026 21:50 +07 — ACCEPT G1 CÓ SỬA · cần Host READY@584dadcfd6625f39572cfd1aee7dd13441283919
+Based_on: P82 · P83 · PROMPT DRAFT @881ff114 · **đo trực tiếp gh API 27/10 21:30 +07** (100 run/repo theo từng workflow, check-runs HEAD main, job/step, timeline PR, metadata nhánh) — không dựa báo cáo. PROMPT sửa tại chỗ: 584dadcf. Bảng + ROADMAP/KE-HOACH/README sửa cùng lượt.
+
+**1. Đồng ý P83:** G1 trước C2/F2; Health dữ liệu giữ đỏ; không tô xanh, không xoá lịch sử, không task mới; gate đỏ thì không merge kể cả có comment.
+
+**2. Đo thật — điểm thêm/khác P83:**
+- 2.1 Web «đỏ gần 100%» chủ yếu là Health Check: 100/100 lượt gần nhất đỏ; **đỏ liên tục từ 05/04/2026** (trang 1–8 toàn đỏ, >700 lượt). Lượt nay 11 CHECK xanh, chỉ CHECK2 + CHECK7 đỏ. ops-smoke huỷ là trước 26/10 16:19; từ đó 5/5 xanh. Probe c1b 4 đỏ là 25–26/10, chỉ chạy trên nhánh c1b-*.
+- 2.2 Gốc đỏ giả BASE_MOVED (timeline PR): AD#350 comment KST 09:07:27Z → `ready_for_review` 09:07:29Z → merge 09:07:33Z → lượt gate cùng SHA `ce36577f` bắt đầu 09:07:34Z ⇒ đỏ. Web#676: ready 09:11:51Z → merge 09:11:54Z → chạy 09:11:56Z ⇒ đỏ. Không phải lỗi so base; là trigger thừa + merge không chờ.
+- 2.3 Đính chính P83: Web main `protected:false` (không phải true). Cấu hình 4 check cũ còn lưu nhưng không hiệu lực trên Free private (API trả «Upgrade to GitHub Pro»). Hôm nay không repo nào có cưỡng chế ⇒ G1 báo `GH_HARDLOCK_ENFORCED=NO`. C2 phải thay 4 check cũ bằng `gate`, nếu không thì mua Pro xong mọi merge kẹt chờ check không bao giờ chạy.
+- 2.4 GitHub tính job bị bỏ qua do điều kiện = Success với required check (docs «Troubleshooting required status checks») ⇒ KST không merge khi gate = skipped; C2 phải tính.
+- 2.5 Luật `secrets.` hiện bắt cả mã Python dùng thư viện chuẩn `secrets` (AD đã có) ⇒ đỏ oan; chỉ xét trong tệp workflow (rò khoá trong mã đã có gitleaks).
+
+**3. Bẫy dừng trong DRAFT P83 đã gỡ trong PROMPT:**
+- 3.1 Kẹt vòng: gate hiện đỏ cố định khi PR sửa workflow (`KST_REVIEW_REQUIRED`, `GATE_CHANGED_NO_PR_CODE_EXECUTION`) + luật «đỏ không merge» ⇒ chính PR G1 (sửa gate) không bao giờ merge được; DRAFT bảo «xin Owner GO riêng» ⇒ chờ. Sửa: màu check = kết luận máy (actionlint ghim + vài luật bất biến); «KST phải đọc diff CI» là annotation warning, không phải đỏ; Owner RUN = GO đúng 1 PR sửa gate/repo. JEV `gen-dec-1793111994-2RqKmGtTl2rtlT4JNreI`: phương án này 0,98 (độ tin 0,97); kẹt vòng xác nhận 0,90.
+- 3.2 «Không cho GREEN nếu Chief chưa duyệt bằng cơ chế GitHub-native»: trên Free private + một danh tính GitHub không có cơ chế như vậy (reviewer bắt buộc/CODEOWNERS cần Pro; tác giả không tự APPROVE) ⇒ Codex tìm không ra và dừng. Thay: check = máy, duyệt = COMMENT `KST_ACCEPT@SHA` (như P78–P80), cưỡng chế ở C2.
+- 3.3 «C2 Pro/Chief identity/ruleset cần thử âm» nằm trong G1 ⇒ không làm được khi chưa mua Pro ⇒ chuyển hẳn sang C2.
+- 3.4 Đỏ giả sau merge: bỏ trigger `ready_for_review`, thêm `closed` để concurrency huỷ lượt thừa (xám); KST chỉ merge khi không còn lượt chạy. JEV `gen-dec-1793112004-jusemaw848q6wZz0Likc`: 1,00; phương án «PR đã đóng thì exit 0» bị loại vì có thể tô xanh PR đã merge khi đỏ (0,93).
+- 3.5 Thêm lượt gate trên `push` main (dấu xanh của mã trên HEAD main); thử âm dùng `pull_request_target` không secret thay cho chèn secret vào workflow PR (tránh nạp secret thật lên runner).
+- 3.6 Hai người trong cùng RUN (A Codex → B KST) để không phải Host ký lại giữa chừng.
+
+**4. Owner quyết dữ liệu để Health xanh thật** (song song, không chặn G1; đo chỉ đọc qua Agent Data 21:40). CHECK7: 38 tài liệu ngoài 7 thư mục được phép:
+| Nhóm | Số | Nội dung | Đề xuất — Owner trả Có/Không |
+|---|---|---|---|
+| test + temp | 28 + 2 | tài liệu thử MCP tháng 5/2026; 2 cái tiêu đề «DELETE ME» | Xoá (hoặc chuyển kho lưu trữ) |
+| draft + reports + assets | 5 + 2 + 1 | ghi chú thiết kế; 2 báo cáo GPT về Lark; 1 thư viện icon | Chuyển vào thư mục hợp lệ (kiểm tham chiếu trước), không nới danh sách |
+CHECK2: Agent Data báo «warning» vì tỉ lệ vector/tài liệu 2,02 > 2,0 (mốc chuẩn ghi trong mã ~1,38; audit lại ghi ngưỡng 2,5–4,5 — hai luật mâu thuẫn). Đề xuất: làm xong 2 dòng trên + 2 vector mồ côi rồi đo lại; nếu vẫn > 2,0 thì chủ AD thống nhất ngưỡng bằng 1 PR. Thực hiện bằng lượt riêng do Host giao sau khi Owner gật; không tác tử nào tự xoá.
+
+**5. Luật merge KST** (ghi vào ROADMAP §0.4a, áp mọi PR từ G1): chỉ merge khi lượt `gate` mới nhất cho đúng head SHA = success (skipped không tính), không lượt nào của PR đang chờ/chạy, base = main hiện tại (lệch ⇒ `gh pr update-branch` rồi chờ xanh); COMMENT `KST_ACCEPT@SHA` rồi `gh pr merge <số> --merge --match-head-commit <SHA>`; không đổi trạng thái PR ngay trước merge.
+- NEXT_TRIGGER=HOST_READY_G1_P84 → Host READY@584dadcfd6625f39572cfd1aee7dd13441283919 → Owner RUN **Codex** (Phần A) → KQ A → Owner giao **Claude Code CLI** (Phần B).
 
 
 
