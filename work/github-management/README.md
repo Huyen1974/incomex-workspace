@@ -1,6 +1,8 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: GPT Host P80 ACCEPT Claude P79 và ký READY@77c23c7911d5b87c1b2494080e1f06d7e7cff5b1 cho Claude Code CLI KST RUN GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05; Owner chưa RUN. F0 P77 PASS hai PR thật AD350 gateGREEN33, Web676 unit16 PASS/policyRED KST; F1 review/merge/audit main, sau đó Web production dùng bản build GitHub main và GIỮ nếu 166/166+34 contract/Guard healthy. Web code tree và build inputs đã xác minh khớp P66; old known-good rollback. C1B AD rollback vẫn FAIL độc lập, C2 Pro do Owner quyết trước F2 PR app/Web+3 agent. VPS-GHI trống P77.**
+**Trạng thái P82 (27/10/2026 16:37 +07): F1 KQ XONG — Claude Code CLI KST merge PR350 (AD main `a03a3b8f`) và PR676 (Web main `e9f5801f`), audit Web Health chạy trên main/runner VPS (11 PASS/2 FAIL nghiệp vụ giữ RED), Web production nay chạy bản build từ GitHub main: `WEB_RUNTIME=MAIN@e9f5801f422f2ae452023386cb1ce66d96c1cbc4` (parity 166/166, giữ old để lùi); Guard POST PASS biên nhận 312; VPS-GHI trống. Chờ GPT Host nghiệm thu; C2/F2 theo Owner. Báo cáo: [F1-KST-WEB-MAIN-REPORT.md](F1-KST-WEB-MAIN-REPORT.md).**
+
+**Trước đó: GPT Host P80 ACCEPT Claude P79 và ký READY@77c23c7911d5b87c1b2494080e1f06d7e7cff5b1 cho Claude Code CLI KST RUN GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05; Owner chưa RUN. F0 P77 PASS hai PR thật AD350 gateGREEN33, Web676 unit16 PASS/policyRED KST; F1 review/merge/audit main, sau đó Web production dùng bản build GitHub main và GIỮ nếu 166/166+34 contract/Guard healthy. Web code tree và build inputs đã xác minh khớp P66; old known-good rollback. C1B AD rollback vẫn FAIL độc lập, C2 Pro do Owner quyết trước F2 PR app/Web+3 agent. VPS-GHI trống P77.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -14,7 +16,8 @@
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
 9. [C1A-S3-CLOSE-REPORT.md](C1A-S3-CLOSE-REPORT.md) — báo cáo lịch sử P40. Kết quả mới nhất là **COLLAB P48**, có hash báo cáo riêng và manifest 47 tệp; giữ nợ/giới hạn toàn hệ tách khỏi C1A scoped.
 
-10. [FAST-PR-LANE-REPORT.md](FAST-PR-LANE-REPORT.md) — KQ hiện hành P77: F0 hai PR/gate thật đạt, S4-B sửa auth và candidate đáng tin; KST review/merge/release chưa thực hiện.
+10a. [F1-KST-WEB-MAIN-REPORT.md](F1-KST-WEB-MAIN-REPORT.md) — **KQ hiện hành P82**: F1_A merge hai PR đúng SHA, audit main, F1_B Web production chạy build GitHub main và giữ.
+10. [FAST-PR-LANE-REPORT.md](FAST-PR-LANE-REPORT.md) — KQ P77: F0 hai PR/gate thật đạt, S4-B sửa auth và candidate đáng tin; KST review/merge/release chưa thực hiện.
 11. [C1B-FINALIZE-REPORT.md](C1B-FINALIZE-REPORT.md) — lịch sử P71: AD source/CI/canary đạt; deploy và Web audit còn blocker; Guard/receipt/cờ đóng.
 12. [C1B-CLOSE-REPORT.md](C1B-CLOSE-REPORT.md) — KQ P66 C1B-CLOSE: Web đạt, 2/3 audit đạt; blocker AD/Web Health, bằng chứng và đường tiếp.
 13. [C1B-REPORT.md](C1B-REPORT.md) — KQ P61 kế thừa: phần đạt, blocker từng app/audit, CI/SHA, archive, bằng chứng riêng và đường tiếp.

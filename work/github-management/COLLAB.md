@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 15:38 +07 · GPT Host · P80
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 16:37 +07 · Claude Code CLI KST · P82 (executor; ACCEPT do Host chốt)
 - 🎯 Mục tiêu Owner 27/10: Codex/agent viết mã song song GitHub, KST Claude Code CLI review/merge và deploy từ GitHub main trên VPS; VPS-GHI chỉ dùng khi phát hành.
 - 🏁 F0 P77 PASS. F1_A KST review/merge PR350/676 và 13 CHECK Web Health main chạy tin cậy (FAIL nghiệp vụ giữ RED); F1_B Web production từ GitHub main exact SHA, parity 166/166 +34 contract và **GIỮ chạy** khi healthy, old pinned rollback.
-- 📍 Tiến độ: ✓ R0/R1/C1A → ✓ F0 P77 → ✓ Claude P79 → ✓ GPT P80 READY → ■ Owner giao Claude Code CLI F1 → C2 Pro nếu Owner GO → F2 ba agent + PR đổi app Web đầu tiên → C4 đêm. C1B AD rollback độc lập.
+- 📍 Tiến độ: ✓ R0/R1/C1A → ✓ F0 P77 → ✓ Claude P79 → ✓ GPT P80 READY → ✓ F1 KQ XONG P82 (chờ Host nghiệm thu) → C2 Pro nếu Owner GO → F2 ba agent + PR đổi app Web đầu tiên → C4 đêm. C1B AD rollback độc lập.
 - ✅ Đã xong: AD PR350 33 tests/policy GREEN; Web PR676 unit16 PASS/policy RED đúng KST, candidate audit 13/13 đáng tin (11 PASS/2 FAIL nghiệp vụ); P66 Web Nuxt4 deploy-rollback đã tập, P77 POST25/25 receipt310, VPS-GHI trống.
-- ■ Đang làm: Claude Code CLI KST · GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05 STARTED P81 09:14Z (Owner RUN) · READY@77c23c7911d5b87c1b2494080e1f06d7e7cff5b1.
-- ⬜ Còn lại: hai PR OPEN/DRAFT chờ KST review/merge; #676 phải bỏ ngoại lệ audit dispatch nhánh thử; Web Health main còn hosted; Web production chưa chạy build main; C1B Agent Data Compose/old rollback DDL còn nợ riêng.
-- ➡ Kế tiếp: 😊 Owner chuyển RUN duy nhất cho **Claude Code CLI KST** thực thi PROMPT P80, không giao Codex làm merge; NEXT_TRIGGER=OWNER_RUN_GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05.
+- ■ Đang làm: — · 0 RUN active. P82 KQ XONG GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05: PR350 → AD main `a03a3b8f`, PR676 (KST_FIX `5aee9a2b`) → Web main `e9f5801f`; audit main 13 CHECK 11 PASS/2 FAIL nghiệp vụ (RED giữ); **WEB_RUNTIME=MAIN@e9f5801f422f2ae452023386cb1ce66d96c1cbc4** parity 166/166 + 34 contract, giữ chạy, old known-good để lùi; Guard POST2 PASS biên nhận 312; VPS-GHI trả.
+- ⬜ Còn lại: business RED CHECK2 (sync warning, ratio 2,02) + CHECK7 (5 thư mục) + 2 orphan — chủ AD/Host; hard-lock workflow_dispatch nhánh cần C2; C1B Agent Data Compose/old rollback DDL còn nợ riêng; PR đổi mã ứng dụng đầu tiên ở F2.
+- ➡ Kế tiếp: GPT Host nghiệm thu F1 P82 ([F1-KST-WEB-MAIN-REPORT.md](F1-KST-WEB-MAIN-REPORT.md)); Owner quyết C2 Pro trước F2; NEXT_TRIGGER=HOST_ACCEPT_F1_P82.
 - ⛔ Không giả GitHub self-APPROVE cùng Owner identity; không tô xanh 2 FAIL dữ liệu, không gọi cutover main là PR thay mã app; không tự auto-CD/DDL/Pro/Task mới.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1140,6 +1140,18 @@ Based_on: P77/FAST-PR-LANE-REPORT @806468b6 · P78 · PROMPT @f65db085 · P66 (d
 
 ## P81 · Claude Code CLI (KST) · 27/10/2026 16:14 +07 — STARTED F1
 STARTED@GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05 2026-10-27T09:14Z · executor=Claude Code CLI KST trên Mac (gh Huyen1974 + SSH Owner) · Owner RUN trực tiếp đúng RUN_ID · P80 READY@77c23c7911d5b87c1b2494080e1f06d7e7cff5b1 = last-touch PROMPT (PROMPT sha256 35b17c30…) · đọc AGENTS → COLLAB §0/P74–P80 → ROADMAP §0.4 → PROMPT → C1B-CLOSE-REPORT P66 + FAST-PR-LANE-REPORT P77 · Owner GO DROOT56 cho CI/CD 2 repo đã ghi §0 (25/10) · S0 pin: AD PR350 head `ce36577ff19026f7259e7092608b713498143afb` draft/MERGEABLE/CLEAN gate SUCCESS, base = main `76db54ff8904164955e8977d2a8184fba9c51fbf`; Web PR676 head `4556635ca22ada5bacba26b681ef638ec6f566ff` draft/MERGEABLE/UNSTABLE gate FAILURE (policy KST_REVIEW_REQUIRED), base = main `f8c51fe7a8d833cdee8156595d7d76e50621c66a` · 0 STOP/HOLD, 0 RUN khác đang chạy · S1 đã đọc diff PR350 + đối chiếu hàm production, chạy lại độc lập 19/19 PASS · không giữ VPS-GHI khi review/merge; chỉ lấy CAS + lease cho F1_B deploy.
+- Đính chính: STARTED commit `e0f425a0` thực tế lúc **09:06:56Z** (16:06 +07); chữ «09:14Z/16:14 +07» ở trên là nhập sai giờ.
+
+## P82 · Claude Code CLI (KST) · 27/10/2026 16:37 +07 — KQ XONG F1
+KQ@GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05 · STATUS=XONG · executor=Claude Code CLI KST · P80 READY@77c23c7911d5b87c1b2494080e1f06d7e7cff5b1 · báo cáo chuẩn: [F1-KST-WEB-MAIN-REPORT.md](F1-KST-WEB-MAIN-REPORT.md).
+- **F1_A=PASS:** PR350 head `ce36577f` KST_ACCEPT (19/19 chạy lại độc lập) → merge 09:07:33Z, AD main `a03a3b8f37ead0d73181ed96baf85e05c9c05544` (không deploy AD). PR676: KST_FIX `5aee9a2b` chỉ xoá điều kiện dispatch nhánh thử (−1 dòng); gate 40478663324 preflight/scan/unit16 success, policy RED đúng 2 lý do workflow/secret-reference; KST_ACCEPT_WORKFLOW → merge 09:11:54Z, Web main `e9f5801f422f2ae452023386cb1ce66d96c1cbc4`. Không self-APPROVE, không force/bypass.
+- **AUDIT_EXECUTION_VERIFIED=PASS_MAIN** (dispatch 1/2, run 40478982147, runner VPS `ghm-ci-web-test`, ref main): 13 CHECK, 11 PASS / 2 FAIL nghiệp vụ — CHECK2 sync warning/ratio 2,02, CHECK7 5 thư mục (assets/draft/reports/temp/test); job RED giữ. **BUSINESS_HEALTH=FAIL** (+2 orphan) giao chủ AD/Host. 3/3 audit trên runner VPS.
+- **F1_B: WEB_RUNTIME=MAIN@e9f5801f422f2ae452023386cb1ce66d96c1cbc4.** Cây `web/` `83cb7fbd` = P66; build tool/addon/package/lock khớp P66; build bằng `scripts/ghm/build-web-runtime.py` (Node 24.21.0, Nuxt 4.5.2, 2 CPU/3 GiB, RAM thấp nhất 925 MB); canary parity **166/166** (2 trang registries live cũ timeout 15 s → kiểm lại tuần tự 60 s PASS như P66), 34 tĩnh checksum. Config deploy qua apply-v0 `b3563a16`→`1e113957`→`c13cfa11` (lease đóng 09:30:49Z); script deploy P61/P66 `7b1d917c` không đổi. Deploy 09:28:43–09:29:30Z: 1 restart Nuxt (StartedAt `2026-10-27T09:28:46.61491405Z`, image `5cfe1dda…`), nginx chỉ reload, AD không đổi; hậu kiểm 34/34 contract + 166/166 route live PASS; output phục vụ = candidate (index `99315cd2…`); profile bảo vệ `057cda45`→`d8d34c69`. **GIỮ chạy.** Old: thư mục trao đổi = old_manifest + known-good P61 nguyên; lùi cần lease mới (thử sau đóng bị chặn LEASE_EXPIRED).
+- **Guard:** PRE 09:19:46Z PASS ∅ · periodic 09:30:32Z UP all invariants · Kuma 32/32 UP, 0 nhịp lỗi #1/#6/#22 · POST1 FAIL (proof thiếu chuỗi --run, giữ làm bằng chứng) · **POST2 09:33:22Z PASS** footprint 2/2 đủ 4 ô, không đỏ mới · **biên nhận 312** · Config Guard CLEAN.
+- **VPS-GHI** 09:18–09:37Z (≈19′) trả trong commit này. 0 container/tiến trình thử; giữ output build/thư mục trao đổi/bằng chứng (hồ sơ VPS theo RUN).
+- **Sự cố ghi repo:** commit `da2e9bf8` tạo nhầm tệp báo cáo rỗng «PLACEHOLDER» kèm message KQ trước khi đủ phần; commit này thay nội dung thật. Không ảnh hưởng VPS.
+- **Không làm:** deploy AD, PG/Directus/nginx config, auto-CD, Pro, F2/C4, task mới. C1B AD rollback vẫn CHƯA ĐẠT.
+- NEXT_TRIGGER=HOST_ACCEPT_F1_P82.
 
 
 
