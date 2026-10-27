@@ -8120,6 +8120,12 @@ NEXT_TRIGGER=OWNER_CONFIRM_IN_DOT_AND_NATIVE_CANARY_RECEIPT. Sau xác nhận, d�
 - Mac/ChatGPT app/phép Computer access là gate thực tế của tính năng hãng, nếu thiếu chỉ báo đúng một bước Owner cần làm, không giữ CLI chờ. P429 READY cũ không áp dụng, không có RUN N2 active theo lần đọc cuối, GitHub F1 P82 đã KQ/trả VPS-GHI nhưng Codex vẫn phải kiểm mới resource/lease. +1 Agent Data recreate UNUSED, N3 CLOSED_WITH_LIMITS/N4–N6 không mở.
 - NEXT_TRIGGER=OWNER_DISPATCH_HJW_N2_DOT_WAKE_WORK_MAC_20261027_08.
 
+### P433 · Codex · Worker · 2026-10-27 · STARTED N2-WAKE
+STARTED@HJW-N2-DOT-WAKE-WORK-MAC-20261027-08. Owner RUN trực tiếp, P432 READY khớp workspace_log PROMPT last-touch 8aeb3500ca70a32120d5b8a8f425efc338e80664; Claude P430 review reused. PA2 trước, PA1 sau; không production/VPS lease/recreate.
+- W0: Mac đang online, phiên Codex này active; github-coding Codex idle, GPT Graph/Directus/GitHub active không tác động. Chưa có Work existing_session_ref hoặc GPT/Claude TEST session_ref được chỉ định nên không gửi nhắc vào phiên gần nhất.
+- Dot thật web https://chatgpt.com/dots/home có phản hồi sau cuộc gọi 14:56: MacBook online, quyền giao Codex có sẵn nhưng chưa trọn vòng. Đây là báo cáo Dot, chưa là proof Work Local. Kiểm quyền hiện hành và một canary Work LOCAL bằng native; không lấy Codex/Cloud làm thay thế. SOURCE relay=Codex, không giả Owner.
+
+
 
 
 
