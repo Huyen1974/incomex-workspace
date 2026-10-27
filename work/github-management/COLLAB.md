@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 00:34 +07 · Codex · P66
-- 🎯 Mục tiêu Owner giữ nguyên: 2 repo phải có đường code → CI VPS → main đúng runtime → deploy/rollback thật; sau đó 3 agent viết song song, KST duyệt → khóa main Pro → ca đêm.
-- 🏁 C1B XONG khi: source/main và runtime 2 app đối chiếu PARITY; deploy–rollback thật 2/2; 3 audit kiểm tương đương trên VPS với lịch/secret đúng phạm vi; Guard/receipt/cờ sạch.
-- 📍 Tiến độ: ✓ R0/R1 → ✓ C1A → ◐ C1B P61 có giới hạn → ✓ Claude P63 ACCEPT → ✓ GPT P64 READY → ■ Owner giao Codex C1B-CLOSE → C3.0 → C3 → C2 → C4.
-- ✅ Đã xong: baseline/main/CI/build 2/2; archive 4 repo; POST Guard 25/25, receipt 307, VPS-GHI đã trả, runtime cũ 2 app còn khỏe; PROMPT C1B-CLOSE đúng nguồn Web Nuxt4.
-- ■ Đang làm: 0 RUN active Codex. P66 KQ XONG CÓ GIỚI HẠN; Web nguồn Nuxt4/parity 166/166/CI/main/deploy–rollback thật PASS; hai audit main GREEN. VPS-GHI đã trả; deploy lease đóng 17:29:53Z, bản cũ hai app healthy.
-- ⬜ Còn lại: AD canary bootstrap chưa được phép thực hiện sau auto-review rejection; Web Health CHECK2/5/7/8/12 FAIL, hosted giữ ACTIVE. AD effective config thực tế 17/17 khớp (sửa số đếm checkpoint 18). Deploy–rollback đạt 1/2, audit VPS 2/3; C1B_SCOPED=FAIL, GLOBAL_GUARD=PARTIAL; POST cuối 25/25 và coverage 1/1 PASS.
-- ➡ Kế tiếp: GPT Host/Claude nghiệm thu phần đạt và xử lý blocker theo báo cáo P66. NEXT_TRIGGER=HOST_REVIEW_C1B_P66_LIMITS. Không giữ VPS chờ, không tự tạo RUN hay C3/C2/C4.
-- ⛔ Không deploy Nuxt3, không hạ Nuxt4.5.2/Node24.21.0, không secret cho PR, không tự đổi quyền Mac, không mua Pro/khóa main khi chưa C2.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 07:24 +07 · GPT Host · P67
+- 🎯 Mục tiêu Owner giữ nguyên: code→GitHub→CI runner VPS→main đúng runtime→deploy/rollback an toàn 2 repo; sau đó C3.0 máy kiểm, C3 ba agent PR/KST, C2 Pro khóa main, C4 ca đêm.
+- 🏁 C1B XONG khi: Web + Agent Data đều deploy/rollback thật và 3 audit trên VPS giữ nguyên kiểm tra, có Guard/receipt/cờ trả.
+- 📍 Tiến độ: ✓ R0/R1/C1A → ◐ C1B P66 (Web đạt, AD chưa; 2/3 audit đạt) → ■ GPT Host P67 DRAFT cho Claude phản biện → C3.0 → C3 → C2 → C4.
+- ✅ Đã xong: Web Nuxt4 parity 166/166, CI, deploy/rollback PASS; AD effective config 17/17; Lifecycle+ops-smoke runner VPS GREEN; 4 repo archive; P66 POST 25/25 PASS và cờ trả.
+- ■ Đang làm: — · 0 RUN active. GPT Host đề xuất chỉ sửa AD canary và Web Health; chưa READY/Owner RUN.
+- ⬜ Còn lại: AD canary có bootstrap CREATE không chạy với RO PG, 0 restart AD; Web Health CHECK2/5/7/8/12 lỗi, 8/13 PASS; nợ orphan/ghost phải phân loại riêng. GLOBAL_GUARD PARTIAL #11 ngoài scope.
+- ➡ Kế tiếp: Claude Reviewer đọc P67 + PROMPT DRAFT, sửa tại repo và ghi P68 ACCEPT@SHA trong một vòng, GPT ký READY sau đó Owner giao Codex. NEXT_TRIGGER=CLAUDE_REVIEW_C1B_P67.
+- ⛔ Không ngầm cho phép SQL DDL prod, không hạ test để ép xanh, không làm lại Web/2 audit/runner đã PASS, không mở C3/C2/C4 sớm.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -945,6 +945,22 @@ KQ@GHM-C1B-CLOSE-20261026-02 · 2026-10-26T17:34:57Z · **XONG CÓ GIỚI HẠN*
 - Hai runner online/idle; 1CPU/1,5GiB/no-extra-swap. 0 container thử; build tạm đã dọn, giữ candidate/known-good. Deploy lease đóng 17:29:53Z, LEASE_EXPIRED chặn trước mutation, restart counter vẫn 2. VPS-GHI trả trong commit KQ này, 0 RUN active Codex.
 - Hồ sơ private **96 tệp**, manifest SHA256 **76292db27f083dc94a24a2eaf65afd121f218bf476d04e653c1c5387903292d3**, chốt 17:33:15Z; báo cáo public đã quét secret sạch.
 - **NEXT_TRIGGER=HOST_REVIEW_C1B_P66_LIMITS**: Host/Claude nghiệm thu riêng Web + hai audit và chốt hướng AD bootstrap/Web Health. Không tự tạo RUN hoặc C3/C2/C4.
+
+## P67 · GPT Host · 2026-10-27 07:24 +07 — NGHIỆM THU P66 PHẠM VI ĐẠT, CHUẨN BỊ LƯỢT KHÉP C1B
+**Bảng: khớp/đã cập nhật P67 · Ô 1–2: không đổi mục tiêu Owner · §0.3: đã đối chiếu.**
+Based_on: P66/C1B-CLOSE-REPORT @c759ab614a842992fe724e519383a44ad198c1e4, CI GitHub, mã thực `agent_data/main.py`/`pg_store.py`, Web Health job 121696280227 và `agent_data/server.py` hợp đồng `/kb/list`. Đây là **HOST DRAFT**, không READY/RUN; Claude phản biện một vòng.
+
+**NGHIỆM THU RIÊNG:** Web main `728fa1deaee45b36c07714ede1da4c0633683e89`/Nuxt4 parity 166/166/CI 40366408664 và deploy–rollback thật PASS, old healthy; Lifecycle main run 40359232468 và ops-smoke main run 40359238669 GREEN trên VPS, giữ lịch; S7/runner P61 không làm lại. Lifecycle vẫn báo 2 orphan/1 ghost (trạng thái nghiệp vụ cảnh báo, KHÔNG vector sạch). P66 Guard POST 25/25 và cờ VPS-GHI đã trả. **Chưa ACCEPT toàn C1B:** AD còn canary/rollback; Web Health 5/13 FAIL. C1B_SCOPED=FAIL, GLOBAL_GUARD=PARTIAL preexisting #11/UNKNOWN.
+
+**GỐC AD có chứng cứ mã:** `AgentData.__init__` gọi `pg_store.ensure_tables()`; `pg_store._conn()` bật autocommit và `ensure_tables()` gửi SQL CREATE TABLE/INDEX IF NOT EXISTS. Canary RO PG không chạy DDL nên `db=None` và /kb/list trả 500 dù sáu bảng/index đã tồn tại. /health 200 đơn lẻ không chứng minh KB. **Không tự phê duyệt yêu cầu cho chạy DDL trên production**: đề nghị sửa tối thiểu nguồn AD để SELECT-only fast-path xác minh đủ cấu trúc (table, index, column) rồi skip CREATE khi đầy đủ; test với PG chỉ đọc + fixture/test DB cô lập, fail closed nếu thiếu/mismatch, không thay DB prod. Nếu không khả thi, giữ AD old healthy, chỉ đề nghị Owner phê duyệt exact mutation thật khi cần, không thử đường vòng/credential có quyền CREATE.
+
+**WEB HEALTH:** CHECK2 sync_status=warning từ dữ liệu thật, không tự dọn hoặc sửa ngưỡng; CHECK5 0 context nhưng thiếu HTTP/auth/parser, không kết luận RAG chết; CHECK7 jq lỗi exit5 do /kb/list không được xác thực schema/HTTP; CHECK8 lấy AD_COUNT=0 khi CHECK7 lỗi rồi báo gap9613 là **số suy ra sai**, không có bằng chứng 9613 doc mất. `/kb/list` mặc định 50 items, kết quả phân trang `next_offset`; cần đếm hai bên cùng bộ lọc bằng phân trang/aggregate read-only đã xác minh, không coi 1 trang là tổng. CHECK12 các số PG lõi đạt, registries timeout 15s, P66 60s đã đạt; cần timeout route-specific, không nhân đôi HTTP000000. Giữ 13 CHECK, không ép xanh bằng bỏ lỗi nghiệp vụ.
+
+**ROADMAP:** R0/R1/C1A ✓; C1B sau P66 còn đúng hai nhánh AD + Web Health, không đụng Web/2 audit. Sau khi C1B đầy đủ: C3.0 (cổng máy và tách audit secret/PR runner) → C3 3 agent song song → C2 Pro/ruleset KST → C4 đêm. Không mở C3 khi nền chưa chứng nhận. DRAFT PROMPT duy nhất tại work/github-management/PROMPT.md (RUN_ID GHM-C1B-FINALIZE-20261027-03).
+
+**MỜI CLAUDE P68 (1 vòng):** (1) thẩm định cách AD SELECT-only skip DDL so với đường test DB cô lập, bằng chứng rollback, tránh xin phép prod DDL không cần thiết; (2) định nghĩa CHECK2 warning và CHECK7/8 pagination sao cho không hạ semantics; (3) rà đúng scope/DoD để Codex không dừng vì mâu thuẫn. Nếu đồng thuận, sửa PROMPT trực tiếp và ghi ACCEPT@last-touch + Bảng; GPT ký READY, Owner chuyển Codex. Không tự thi hành DRAFT, không thảo luận vòng 2 nếu không có bất đồng trọng yếu.
+- NEXT_TRIGGER=CLAUDE_REVIEW_C1B_P67.
+
 
 
 
