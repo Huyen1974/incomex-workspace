@@ -7967,6 +7967,15 @@ Nguồn đối chiếu: Directus/PG/UI server.py SHA256 d14c6a1278f6a587f6235957
 - **PROMPT hiện hành:** thay PROMPT P416 bằng HJW-N2-DOT-SEAT-IDENTITY-FIRST-20261027-04 (DRAFT_FOR_CLAUDE), không READY/STARTED/production. Claude phản biện THÊM MỘT VÒNG theo Owner: kiểm M1/M2 đủ chặt, chứng cứ native/provider vs server, actor/vote/quorum, phần hoãn có loại nhầm yêu cầu bắt buộc không, test end-to-end gọn và rào cản nào thừa. Nếu ACCEPT, Host mới READY đúng SHA; Owner giao RUN, mọi thay đổi hệ thống ngoài scope phải đề xuất Owner trước.
 - **Trạng thái:** N1 PASS; N2-A chờ Reviewer, N2-B Voice/điều phối sau; N3 CLOSED_WITH_LIMITS; N4–N6 chưa mở. NEXT_TRIGGER=CLAUDE_B2_REVIEW_P418_M1_M2_NATIVE_FIRST_NO_READY.
 
+### P419 · Claude Chat · Reviewer · 2026-10-27 10:30 +07 · **B5 RÀ P418 SEAT-IDENTITY-FIRST: ACCEPTED · 0 BLOCKER · 1 GHI NHẬN GỐC RỄ**
+- Based_on: diff `cdaac10c` (P418 + PROMPT SEAT-IDENTITY-FIRST-04), P415–P417, chỉ đạo Owner 27/10 (3 nguyên tắc), roadmap 0.9.
+- **Điểm 1 (M1/M2 đủ chặt?):** ĐỦ. M1 đòi máy xác định Dot là ghế khác GPT, không đếm trùng, chỉ vào roster sau PASS thật. M2 đòi chứng cứ nối đúng actor từ nhà cung cấp/công cụ thực thi, cấm lấy tên tự điền/nickname/client-actor — đúng trọng tâm «không vô hình» của Owner.
+- **Điểm 2 (có vô tình buộc tự xây gateway không?):** KHÔNG. Thứ tự native → cấu hình B1 sẵn có → chỉ khi cả hai không đủ mới trình Owner 2–3 phương án; cấm tự dựng gateway/proxy/MCP/SSH relay.
+- **Điểm 3 (phần hoãn có bị xóa/thành gate không?):** KHÔNG. Directus/PG/Graph/Lark/SSH/root/GSM/recreate/TQT/#11 giữ nợ có chủ; PROMPT ghi rõ không buộc triển khai để chứng minh M1/M2, không xóa mục tiêu. Voice/Codex = N2-B.
+- **🔴 GHI NHẬN GỐC RỄ (không blocker, Owner cần nắm):** M1 gần như chắc KHÔNG đạt chỉ bằng native. Hệ repo nhận ai ghi qua *chìa ghi* (nhãn cổng), KHÔNG qua tên hiển thị. Dot đang chung chìa GPT (`gpt-web`) nên máy thấy cùng actor, không tách phiếu. Ghế riêng cần chìa riêng `openai-dot` (khuôn B1 đã bàn P365) — chính là phần «tự dựng tối thiểu». Đây là mâu thuẫn tự nhiên giữa «ghế biểu quyết riêng» và «chỉ native», không phải lỗi GPT.
+- **Dự báo khi RUN:** nhiều khả năng rơi **B (DOT_NATIVE_COORDINATOR_ONLY)** — Dot đọc/ghi/báo cáo/điều phối được ngay, chưa có phiếu riêng; Codex trình Owner đúng 1 đề xuất cấp chìa `openai-dot` tối thiểu. PROMPT đã xử đúng (nhãn B, cấm đếm phiếu giả). Lý do ACCEPT: để Codex chứng minh bằng thực tế «native không đủ», Owner mới quyết cấp chìa, thay vì bàn lý thuyết. Cấp 1 chìa khác hẳn dựng gateway/connector — rủi ro và bảo trì thấp, đúng khung «tự dựng chỉ khi không còn đường».
+- **Chữ ký:** ACCEPTED, 0 blocker, không sửa PROMPT. GPT Host READY đúng last-touch → Owner dispatch Codex. NEXT_TRIGGER=GPT_HOST_READY_P418_THEN_OWNER_RUN.
+
 
 
 
