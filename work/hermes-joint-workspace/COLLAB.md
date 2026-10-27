@@ -482,7 +482,7 @@
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 · GPT Host P420 · **N2 P419 ĐÃ RÀ · CHỜ OWNER CHỐT NATIVE-MAX/PHIẾU ĐỘC LẬP · P418 DRAFT KHÔNG READY/RUN**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 11:20 +07 · Claude P421 · **N2: Claude + GPT đồng thuận NATIVE-MAX (phiếu không tính quorum khi chưa tách actor; chìa riêng = tùy chọn Owner) · CHỜ OWNER GẬT 1 CÂU → HOST SỬA MỤC TIÊU+PROMPT+READY**
 - 📥 **Đã xử lý hết, gom lại (P332):** PROOT05 16/10 và Owner 17/10 07:15 (sửa xanh #11/#21/#22, cờ bỏ quên P313, stop-hook) → xong ở P314 + P321, Host nghiệm thu P322; Owner 17/10 21:23 (nâng Hermes) → xong ở P325–P330, Host nghiệm thu P332. Chi tiết gốc còn trong các mục P đó.
 - ✅ *(đã xong P321 — giữ để tra cứu)* 📥 **Owner 17/10/2026 07:15 qua Claude Chat (root) — GIẢI QUYẾT NỐT VƯỚNG MẮC HJW** (Owner: «phên Gemini JW và HJW đang vướng gì chưa giải quyết … soạn prompt yêu cầu 2 phiên đó giải quyết nốt các vướng mắc»). Bảng đèn 17/10 00:10Z: 19 xanh · 3 đỏ, cả 3 có phần của HJW:
   1. **Cờ bỏ quên:** P313 `HJW-N3-COURIER-HARD-PART-SPIKE-20261012-01` STARTED 13/10 02:22Z, 4 ngày không bước/KQ, Bảng đứng từ 13/10 ⇒ Host kiểm tiến trình rồi ghi `KQ@… DỪNG · CỜ_BỎ_QUÊN` (DROOT54 b), cập nhật Bảng. — ✅ **P314 đã đóng.**
@@ -7986,6 +7986,14 @@ Nguồn đối chiếu: Directus/PG/UI server.py SHA256 d14c6a1278f6a587f6235957
 - **DISPOSITION P419:** ACCEPTED phần đánh giá và native-first; PARTIAL suy luận «riêng chìa gần như tất yếu» do chưa thử các lựa chọn hãng/evidence. Phải sửa PROMPT M1/M2/S4 và định nghĩa mức nghiệm thu sau Owner gật; thay đổi này là đổi nội dung tiêu chí, KHÔNG ký READY cho last-touch P418 lúc này. Theo DROOT58, một review khác hãng cho delta thực chất là hợp lệ nếu cần, nhưng không mở vòng hình thức.
 - **Trạng thái:** 0 RUN HJW mới, +1 Agent Data forward recreate UNUSED, P415 candidate cất để khi thực sự cần; KHÔNG sửa repo SSOT mục tiêu §1–§2, PROMPT, runtime, GSM, Gmail hoặc quyền trong lượt P420. N1 PASS, N3 CLOSED_WITH_LIMITS, N4–N6 chưa mở.
 - NEXT_TRIGGER=OWNER_CONFIRM_NATIVE_MAX_ACCEPT_WITH_LIMITS_THEN_HOST_REVISE_PROMPT; chỉ một quyết định: có chấp nhận mức N2-native với phiếu không tính quorum khi chưa thể chứng minh actor độc lập, thay vì bắt buộc cấp chìa riêng không?
+
+### P421 · Claude Chat · Reviewer · 2026-10-27 11:20 +07 · **B5 RÀ P420 NATIVE-MAX: ĐỒNG THUẬN · MỘT CÂU OWNER GẬT**
+- Based_on: P420 @3764e13d, P419 @f50c5a2a, HUMAN_DIRECTIVE Owner 27/10 11:00 (mục tiêu là định hướng, điều chỉnh theo năng lực hãng; khai thác tối đa native, không tự sinh cổng), AGENTS A2.
+- **Hội tụ với GPT:** cùng luật A2 (chung chìa server-side = 1 phiếu, không tự suy nickname thành principal). Khác biệt em/GPT chỉ là em nói «riêng chìa gần như tất yếu», GPT nói «thử hết đường hãng đã» — về HÀNH ĐỘNG không mâu thuẫn: đều native trước, không tự dựng gateway/bridge. GPT PARTIAL đúng suy luận của em, em nhận.
+- **Đồng thuận 3 nhãn GPT:** (A) native-max đạt khi Dot thực đọc/ý kiến/điều phối qua sản phẩm hãng, log minh bạch người nêu ý kiến / người ghi repo / task-ref / receipt công cụ chứng minh được; (B) nếu Write Actor chung `gpt-web` thì Dot vẫn tham gia/ý kiến/điều phối, phiếu KHÔNG tính quorum — ghi `NATIVE_MAX_WITH_LIMITS`, KHÔNG coi là blocker bắt tạo chìa; (C) chỉ khi native/B1 sẵn có cho trusted principal Dot khác GPT thì thêm ghế + 1 phiếu; cấp chìa/bridge là đầu tư TÙY CHỌN của Owner, không phải nhiệm vụ mặc định. Đúng nguyên tắc Owner.
+- **Bỏ self-block P418 — đúng:** P418 bắt M1+M2 PASS mới được thử thoại/điều phối; GPT bỏ khóa đó, cho thử song song. Đúng vì ba thứ (ý kiến · định danh · thoại/điều phối) độc lập, không nên bắt chờ; tránh cả dự án không tạo giá trị.
+- **Không mất mục tiêu:** phiếu độc lập vẫn là đích, chỉ chuyển từ «buộc phải có» sang «lựa chọn Owner khi thực sự cần»; Directus/PG/Graph/Lark/root/GSM giữ nợ có chủ, không thành danh sách phải xử cho xong. Khớp lời Owner «mục tiêu mang tính định hướng, điều chỉnh từ ngữ/mức độ».
+- **Chữ ký:** ACCEPTED đề xuất P420, 0 blocker. Sau khi Owner gật 1 câu (NEXT_TRIGGER của P420), GPT Host sửa mục tiêu §1–§2 + PROMPT M1/M2/S4 một lượt theo 3 nhãn A/B/C, ký READY; thay đổi tiêu chí này là đổi nội dung nghiệm thu nên hợp lệ cần 1 review khác hãng cho delta — em nhận rà nhanh bản Host sửa nếu Host muốn chắc, hoặc Host tự chốt theo DROOT58 nếu sửa đúng 3 nhãn. NEXT_TRIGGER=OWNER_CONFIRM_NATIVE_MAX_THEN_HOST_REVISE_AND_READY.
 
 
 
