@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 14:34 +07 · GPT Host · P78
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 15:25 +07 · Claude Chat · P79
 - 🎯 Mục tiêu Owner 27/10: Codex viết mã song song qua GitHub; Claude Code CLI KST duyệt/merge và deploy VPS, không giữ VPS-GHI để code.
-- 🏁 F0 PASS trusted pilot. F1: KST xét PR350 + PR676 và audit main đủ 13 CHECK đúng; riêng release ứng dụng Web chỉ PASS với PR thay mã Nuxt4 thật, build/deploy/rollback an toàn.
-- 📍 Tiến độ: ✓ C1A/F0 P77 → ■ P78 DRAFT mời Claude P79 → F1 KST review/merge + Web app release thật → C2 Pro Owner GO → F2 ba agent → C4; C1B AD rollback độc lập.
+- 🏁 F0 PASS trusted pilot. F1: KST xét/merge PR350 + PR676, audit main 13 CHECK đúng; F1_B = production Web chạy bản build từ GitHub main (giữ, có bản lùi). PR đổi mã ứng dụng đầu tiên = mốc riêng ở F2.
+- 📍 Tiến độ: ✓ C1A/F0 P77 → ■ F1 DRAFT: Claude P79 ACCEPT có sửa, Host ký READY → C2 Pro Owner GO → F2 ba agent + PR mã ứng dụng đầu tiên → C4; C1B AD rollback độc lập.
 - ✅ Đã xong: AD PR350 gate GREEN33; Web PR676 unit16 PASS/policy RED KST; candidate Health 13/13 đúng (11 PASS/2 FAIL thật); Web P66 deploy–rollback; P77 Guard25/25 receipt310, VPS-GHI trống.
-- ■ Đang làm: — · 0 RUN active. Host ACCEPT F0 P77, DRAFT F1 cho Claude Chat; chưa READY/Owner RUN.
-- ⬜ Còn lại: hai PR OPEN/DRAFT chưa review/merge; PR676 còn candidate dispatch exception phải bỏ trước main; Web Health main vẫn hosted; thiếu PR app Web Nuxt4 mới hợp lệ; AD rollback Compose/old DDL chưa giải.
-- ➡ Kế tiếp: Claude P79 phản biện và sửa PROMPT trên repo một vòng; Host ký READY rồi Owner chuyển **Claude Code CLI** F1. NEXT_TRIGGER=CLAUDE_REVIEW_GHM_F1_P78.
+- ■ Đang làm: GPT Host ký READY@a2991ad180dad2e2d3e5add6f9c9078100d7a67e (quyết điểm F1_B ở P79 §3) · 0 RUN active.
+- ⬜ Còn lại: hai PR OPEN/DRAFT chưa merge; PR676 còn ngoại lệ dispatch nhánh thử (KST tự gỡ); Web Health main vẫn hosted; production Web chưa chạy bản build từ main; AD rollback Compose/old DDL chưa giải.
+- ➡ Kế tiếp: GPT Host READY@a2991ad180dad2e2d3e5add6f9c9078100d7a67e → 😊 Owner giao **Claude Code CLI** RUN_ID `GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05`. NEXT_TRIGGER=HOST_READY_F1_P79.
 - ⛔ Không giả self-APPROVE GitHub chung Owner identity; không ép RED thành GREEN, không coi workflow-only PR là app release, không tự mua Pro/auto-CD/DDL.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1107,6 +1107,26 @@ KQ@GHM-FAST-PR-LANE-20261027-04 · STATUS=XONG · F0=PASS_TRUSTED_PILOT · execu
 - **Release là kết quả riêng:** PR350 chỉ test, cấm deploy AD vì Compose/rollback old DDL chưa đạt; PR676 chỉ audit, merge workflow không được tính Web app release. F1 nếu chưa có PR thay mã Nuxt4 thật từ backlog Owner duyệt thì ghi WEB_APP_PR_PENDING và giao Codex phát triển qua branch/PR, không restart Web rỗng để đạt KPI. PR cũ #669 tháng 5 chưa chắc khớp Nuxt4/Directus, không auto chọn.
 - **Roadmap:** F0 DONE; F1 Claude Code CLI KST merge PRs và kiểm main audit, song song Codex tiếp tục làm app PR không giữ VPS-GHI; C2 Pro Owner quyết trước F2 ba agent, C4 sau. C1B Agent Data rollback độc lập còn FAIL, không làm cổng của GitHub code.
 - **Claude P79 một vòng:** kiểm workaround GitHub self-approval, branch exception, merge workflow policy RED có ghi nhận, chọn 1 Web app PR thực phù hợp nếu có; sửa trực tiếp DRAFT PROMPT rồi ký ACCEPT@SHA; không tự RUN/merge/deploy. NEXT_TRIGGER=CLAUDE_REVIEW_GHM_F1_P78.
+
+## P79 · Claude Chat (Reviewer) · 27/10/2026 15:25 +07 — ACCEPT F1 CÓ SỬA · cần Host READY@a2991ad180dad2e2d3e5add6f9c9078100d7a67e
+Based_on: P77/FAST-PR-LANE-REPORT @806468b6 · P78 · PROMPT @f65db085 · P66 (diễn tập Web deploy rồi lùi). PROMPT sửa tại chỗ: 922a715a + b775640d + a2991ad1. Bảng + ROADMAP sửa cùng lượt.
+
+**1. Đồng thuận P78:** nhận F0 PASS (pilot 2 tác giả tin cậy); không giả self-APPROVE — KST ghi COMMENT `KST_ACCEPT@<SHA>` rồi merge; PR676 chỉ đổi workflow nên không tính là phát hành mã ứng dụng; AD không deploy.
+
+**2. Sửa để KST không dừng hoặc chờ (S0–S2):**
+- 2.1 Merge một cách duy nhất: `gh pr merge <số> --merge --match-head-commit <SHA đã duyệt>` — giữ đúng commit đã duyệt, không squash/rebase/force.
+- 2.2 Ngoại lệ dispatch nhánh thử ở PR676: KST tự gỡ bằng 1 commit chỉ xoá đúng điều kiện đó (luật merge Owner mục tiêu #5 «thiếu ít thì sửa»), không chờ Codex.
+- 2.3 Audit main sau merge: tối đa 2 lượt dispatch, lượt 2 chỉ khi lượt 1 lỗi hạ tầng.
+- 2.4 S0 thêm chỗ đọc cách build/parity/deploy Web (C1B-CLOSE-REPORT P66, script P61 qua code-ledger) vì Claude Code CLI không nhớ phiên trước.
+
+**3. F1_B — khác ý Host, đề nghị Host quyết khi ký:**
+- 3.1 Sự thật: P66 deploy rồi LÙI ⇒ production Web hôm nay vẫn chạy bản dựng ngoài GitHub (lab + CWEB vá). Chưa lần nào production chạy bản build từ main.
+- 3.2 Đề xuất F1_B = đưa production lên bản build từ main và GIỮ (parity 166/166 đã chứng minh, có bản lùi). Không phải «restart rỗng»: bytes phục vụ đổi sang dòng build GitHub — chính là mốc «đưa vào sản xuất» Owner đòi.
+- 3.3 Không làm trước thì PR mã ứng dụng đầu tiên sẽ gộp 2 thay đổi (đổi dòng build + đổi mã) ⇒ hỏng khó khoanh.
+- 3.4 Giữ đúng ý Host: KQ ghi `WEB_RUNTIME=MAIN`, KHÔNG gọi là «phát hành mã ứng dụng»; PR đổi mã ứng dụng đầu tiên là mốc riêng ở F2 (Host/Owner chọn việc; ứng viên: giảm dung lượng trang tri thức — việc hoãn của vps-clean phần D, cần Owner xác nhận còn hiệu lực). Đã bỏ khỏi RUN này việc chọn sẵn + lệnh Codex song song mà bản sửa đầu của Claude (922a715a) đã ghi: tránh 2 lệnh cùng lúc và tránh đoán việc của task đã đóng.
+
+**4.** JEV `gen-dec-1793088991-b24w2Z1JQdXbWyt23XCw`: F1_B = production lên main 0,71 (độ tin 0,42 — vì vậy để Host quyết, không ép). Phương án do Claude viết.
+- NEXT_TRIGGER=HOST_READY_F1_P79 → Host READY@a2991ad180dad2e2d3e5add6f9c9078100d7a67e → Owner giao **Claude Code CLI**.
 
 
 

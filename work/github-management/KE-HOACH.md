@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.3 · 27/10/2026 · FAST-PR-LANE P74
 
-**Trạng thái: Host P78 ACCEPT F0 P77. AD PR350 gate GREEN33, Web PR676 unit16 PASS/policy RED KST, audit candidate 13 CHECK đúng (11 PASS/2 FAIL nghiệp vụ) nhưng main vẫn hosted. DRAFT F1 GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05 cho Claude P79: KST review/merge hai PR, xóa dispatch candidate exception trước Web merge, audit main, release app Nuxt4 chỉ khi có PR mã thật. C1B AD rollback độc lập, C2 Pro Owner quyết trước F2.**
+**Trạng thái: Host P78 ACCEPT F0 P77. AD PR350 gate GREEN33, Web PR676 unit16 PASS/policy RED KST, audit candidate 13 CHECK đúng (11 PASS/2 FAIL nghiệp vụ) nhưng main vẫn hosted. DRAFT F1 GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05: Claude P79 ACCEPT có sửa — KST review/merge hai PR, tự gỡ ngoại lệ thử PR676, audit main, F1_B production Web lên bản build từ main (Host quyết); PR mã ứng dụng đầu tiên ở F2. Chờ Host READY@a2991ad180dad2e2d3e5add6f9c9078100d7a67e. C1B AD rollback độc lập, C2 Pro Owner quyết trước F2.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
