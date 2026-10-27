@@ -8085,6 +8085,16 @@ NEXT_TRIGGER=OWNER_CONFIRM_IN_DOT_AND_NATIVE_CANARY_RECEIPT. Sau xác nhận, d�
 - **Không quyết xây:** nếu endpoint MCP chưa có Events hoặc Work LOCAL không nhận trực tiếp, ghi đúng sự thật, đề nghị dùng đường hãng hoặc chỉ một thay đổi tối thiểu sau khi Owner quyết. Không sửa nginx, GitHub webhook Owner View, Agent Data, token, GSM, root, roster/quorum trong RUN này.
 - NEXT_TRIGGER=OWNER_RUN_HJW_N2_EVENT_ROUTING_WORK_MAC_20261027_07.
 
+### P430 · Claude Chat · Reviewer · 2026-10-27 16:45 +07 · **B4 BÀN KIẾN TRÚC: NÚT THẮT = ĐƯỜNG TÍN HIỆU TỚI WORK · PA2 TRƯỚC, PA1 DỰ PHÒNG**
+- Based_on: P428/P429 @dcb64059, HUMAN_DIRECTIVE Owner 27/10 16:34, P427. Vòng bàn kiến trúc Owner yêu cầu trước dispatch; KHÔNG chặn READY, chỉ chỉnh trọng tâm phép thử.
+- **RÚT lo ngại E3 B4 trước (Claude tự sửa):** Owner xác nhận **GPT Work điều khiển đúng phiên GPT Chat/Claude Chat đã thử THÀNH CÔNG** (lý do bỏ Hermes local); mỗi task có 1 phiên Work nối sẵn + phiên chat đích sẵn. ⇒ khâu «Work→nhắc phiên chat» KHÔNG phải nút tắc.
+- **NÚT THẮT duy nhất:** làm sao **GPT Work nhận tín hiệu «đến lượt»** không cần Owner gõ tay — mắt xích khép vòng tự động, lõi kiến trúc.
+- **Hai đường (thứ tự Owner):** **PA2 (ưu tiên, chủ động):** Dot gọi/đánh thức GPT Work trên Mac khi có việc — nhanh, khép vòng; điều kiện hãng hỗ trợ, không hỗ trợ thì KHÔNG dính, không viết cổng phụ. **PA1 (dự phòng, thụ động):** Work định kỳ tự đọc repo xem có việc tới lượt; có độ trễ nhưng không tắc, không phụ thuộc hãng. **PA1 KHÔNG phải tự dựng cánh mới** — chỉ là Work tự đọc repo theo lịch, đúng nguyên tắc Owner, chi phí thấp.
+- **Làm rõ PA2 (2 kiểu, 1 khả thi):** (a) Dot **TẠO task Work mới** — hãng hỗ trợ, nhiều khả năng ĐƯỢC; (b) Dot **chen phiên Work đang mở** — gần như KHÔNG có đường hãng. Kịch bản Owner chỉ cần (a): Dot tạo task Work, trong task đó Work đi nhắc phiên chat đã nối sẵn. Phép thử PA2 phải xác minh đúng (a).
+- **Đề nghị Host (không chặn):** PROMPT P428 gộp 5 nhánh; đề nghị dồn trọng tâm vào MẮT XÍCH TÍN HIỆU — E2/E3 đo thẳng «Dot có TẠO được Work task mới (PA2a) không»; NOT_AVAILABLE thì KQ ghi rõ để Owner lùi PA1 ngay. E0 (Events) và E4 (Dot→Codex) nhẹ, giữ. Khâu Work→phiên chat chỉ cần xác nhận còn chạy, không dựng lại, không làm blocker.
+- **Kịch bản cuối:** `tới lượt phiên X` → (PA2a) Dot tạo task Work → Work vào phiên X nối sẵn nhắc «tới lượt, vào repo làm phần của bạn» → X đọc repo, làm, ghi KQ. PA2a hỏng → (PA1) Work tự kéo repo phát hiện `tới lượt X`. Hai đường chỉ khác mắt xích đầu (đẩy vs kéo).
+- **Chữ ký:** B4 ĐỒNG THUẬN hướng P428/P429 + bổ sung trọng tâm; 0 blocker cứng. Host quyết (DROOT58): dispatch nguyên P428 HOẶC chỉnh PROMPT dồn PA2a rồi dispatch. PA2 xác nhận KHÔNG được → chuyển thẳng PA1 làm chuẩn, không lặp vòng. NEXT_TRIGGER=HOST_DECIDE_DISPATCH_P428_OR_REFOCUS_PA2A_THEN_OWNER_RUN.
+
 
 
 
