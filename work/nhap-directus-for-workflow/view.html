@@ -69,22 +69,31 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>P63: TS2R chuyển sang PG18-native, chờ Owner G1/G2 a,b,c</h2>
+<section class="owner-actions ok"><h2>P65 · Đặt PG đọc sống lên trước · 2 nhóm triển khai</h2>
 <p>✅ B0b XONG P27 · ✅ GPT Host ACCEPT kiến trúc P48, đã sửa an toàn ở P49.</p>
-<p>Claude P62 phát hiện đường cấp identity Directus cũ không phù hợp bản mới. GPT Host P63 đã chốt <strong>PG-FIRST</strong>: một PostgreSQL role chỉ cấp quyền CỘT của <code>dot_tools</code>, ba field máy <code>sha256/file_state/synced_at</code> trong PG qua công cụ Directus B0b, một cặp systemd <code>.path/.service</code>. Phải kiểm <strong>vai PG đăng nhập thật qua pg_hba/session</strong>, unique code/trigger và Directus metadata/cache trước khi chạy. <strong>Chưa Owner G1/G2 a,b,c nên chưa READY/RUN.</strong> Ưu tiên GitHub trước.</p>
-<p class="muted">Sau Đếm: anh gật cấu trúc + cột Sổ quyết định, kèm số thật.</p></section>
+<p>PG18 có hàm đọc trực tiếp tên tệp, kích thước, mốc sửa và mã băm trên filesystem nó nhìn thấy. GPT Host P65 ưu tiên thử cách <strong>đọc sống, không chép dữ liệu tệp rồi đồng bộ</strong>; trước production phải xác minh quyền file rất rộng của <code>pg_read_server_files</code>, symlink và Docker mount/recreate. <strong>L0 chỉ là khảo sát chỉ đọc, chưa READY/RUN; L1 chưa có G1/G2.</strong> Các phương án writer/3 cột/.path trước đây chỉ còn là phương án dự phòng sau khi có bằng chứng PG-live không đạt. GitHub vẫn ưu tiên.</p>
+<p class="muted">Mốc tiếp theo: chứng minh native PG-L0 an toàn/đủ dữ liệu → Owner duyệt riêng nếu cần mount/role/VIEW → PG-A triển khai trước, EXT-B chỉ khi không thể làm bằng PG an toàn.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
 <span class="flag">P55 · PG đọc sống + Census + Graph · Ba Lô LEGACY</span>
-<span class="flag">✅ B0b/TS1 · TS2 P60 DỪNG · ✅ P62/P63 chốt PG-FIRST · ■ TS2R chưa READY</span>
+<span class="flag">✅ B0b/TS1 · ✅ P64/P65 PG-live có điều kiện · ■ PG-L0 CHỈ ĐỌC chưa READY</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
+<section class="arch-figure" aria-label="P65 hai nhóm PG-first và ranh giới ngoài PG">
+<h2>Hai nhóm công việc · PG làm được phải làm trước</h2>
+<div class="arch-columns">
+<div class="arch-node arch-existing"><strong>PG-A · ƯU TIÊN</strong><span>pg_catalog + Census/SQL VIEW; file inventory sống nếu chứng minh quyền/mount an toàn; JOIN dot_tools; S4 giữ quyết định; NOTIFY/transaction/queue SKIP LOCKED cho biến động phát sinh từ DB. Không nhân bản dữ liệu máy.</span></div>
+<div class="arch-node arch-proposed"><strong>EXT-B · CHỈ KHI PG THIẾU THẬT</strong><span>Docker bind RO/recreate là ranh giới host–container; bắt event OS lúc không SELECT, gửi Telegram và giao diện web. Reuse hệ hãng sẵn có, chỉ làm phần có chứng cứ PG không tự làm được an toàn.</span></div>
+<div class="arch-node arch-proposed"><strong>RÀO TRƯỚC PRODUCTION</strong><span>NOLOGIN không thu hẹp pg_read_server_files theo path; chỉ cấp role và SECURITY DEFINER khi đã audit quyền, symlink/race, chi phí băm, Public EXECUTE và rollback. Hash hiện tại không phải bằng chứng đã thay đổi so với quá khứ nếu không có baseline.</span></div>
+</div>
+<p class="muted">Đây là định hướng thiết kế, không phải biên nhận PG-L1 đã chạy. Tài liệu và cổng G1/G2 ở COLLAB P65.</p>
+</section>
 <h2>1. Sơ đồ tổng thể — toàn bộ bức tranh PG Tự quản</h2>
-<section class="arch-figure" aria-label="Tự đồng bộ tài sản — yêu cầu P55, chưa nghiệm thu">
-<h3 style="margin:0 0 12px">P55 · Tự cập nhật đúng hai tập cần bản sao, không duy trì Ba Lô cũ</h3>
+<section class="arch-figure" aria-label="P65 đọc sống catalog PG và thư mục DOT, chưa nghiệm thu production">
+<h3 style="margin:0 0 12px">P65 · Đọc sống từ PG và tệp DOT (nếu an toàn), không mặc định bản chép</h3>
 <div class="arch-columns">
 <div class="arch-node arch-existing"><strong>A · Vật PG</strong><span><code>pg_catalog</code> → VIEW đọc sống. Tài sản mới thấy khi truy vấn, không chép dữ liệu máy.</span></div>
-<div class="arch-node arch-proposed"><strong>`dot_tools` + Graph</strong><span>Hai tập cần tự đồng bộ đúng ID/giấy/mốc; thử sửa có hạn, kiểm lại và báo lỗi khi trễ. Ba Lô cũ không thuộc luồng.</span></div>
-<div class="arch-node arch-proposed"><strong>Lỗi, tự sửa, cảnh báo</strong><span>Chênh trong nhịp: đang cập nhật; quá hạn: lỗi và báo. Tự xử lý trước, chỉ cần người thì mới tạo 1 vụ việc gộp.</span></div>
+<div class="arch-node arch-proposed"><strong>PG-LIVE · Tệp DOT</strong><span>PG đọc tên/size/mtime/sha khi SELECT, sau khi bin/ được mount RO và hàm được chứng minh an toàn. SQL JOIN `dot_tools` cho tệp thiếu/chưa khai. Graph là nguồn phụ tùy yêu cầu, không chặn danh mục PG.</span></div>
+<div class="arch-node arch-proposed"><strong>Không tô xanh giả</strong><span>Đọc sống ≠ lịch sử. Hash thay đổi từ lần trước cần baseline; không có thì UNKNOWN. Nếu cần tin báo khi không ai mở trang, hệ ngoài PG chỉ làm tín hiệu tối thiểu sau khi chứng minh PG không tự làm được.</span></div>
 </div>
 <p style="font-size:15px;margin:12px 0 0"><strong>Phân biệt:</strong> chưa có quyết định phân loại là “Chưa quyết”, không phải lỗi đồng bộ. Graph chỉ nhận “ĐỦ” khi có giấy nguồn/nhịp đúng; nếu quá tuổi thì “MỘT PHẦN”. <strong>Đây mới là yêu cầu thiết kế</strong>, chưa bật đồng bộ tự ghi trong sản xuất.</p>
 </section>
@@ -103,7 +112,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <div class="arch-funnel"><span>↘</span><span>↓</span><span>↙</span></div>
 <div class="arch-sink"><div class="arch-node arch-proposed"><strong>3 SQL VIEW dự kiến · vật / quan hệ / đối soát</strong><span>PG sống + Census + giấy Graph + DOT đăng ký + S4 (nếu có). Màu: 🟢 đo đủ/khớp · 🔴 sai thật · ⚪ chưa đo, lỗi đọc hoặc chưa phủ.</span></div><div class="arch-down">↓ <small>Chỉ công bố khi quyền truy cập được sửa và kiểm</small></div><div class="arch-node arch-proposed arch-final"><strong>Nuxt · Bảng đối soát trước</strong><span>API /api/reports/live hiện chưa kiểm đăng nhập; KHÔNG đưa metadata nội bộ ra ngoài. Graph chỉ được đổi reader trong việc Graph riêng.</span></div></div>
 <div class="arch-aside" style="margin-top:12px"><strong>LEGACY · Ba Lô cũ</strong><span>Giữ nguyên bảng `balo_thuc_the`, bốn báo cáo và socket. Không đồng bộ, không dùng làm danh mục/nguồn đối soát của hệ mới; nhãn cũ chỉ được tham khảo sau Owner duyệt.</span></div>
-<figcaption id="arch-caption">P55: danh mục máy đọc sống; hai tập có bản sao cần tự đồng bộ là `dot_tools` và Graph. Hình là mục tiêu triển khai, KHÔNG là bằng chứng các thành phần mới đã chạy.</figcaption>
+<figcaption id="arch-caption">P65: PG và thư mục DOT đều được ưu tiên đọc trực tiếp khi SELECT, không dựng watcher/bản sao mặc định. Docker mount và quyền đọc tệp là cổng bên ngoài cần kiểm chứng, chưa production.</figcaption>
 </figure>
 <div class="arch-risk"><strong>TS1 phải chứng minh 7 nhóm:</strong> A và loại ngoài 12 · khóa Graph thật · nhóm B/C không đếm trùng · PG16 thống kê có mốc reset · Nuxt tải và quyền · graph-refresh có thể đọc VIEW · DOT có thể tạo S4/VIEW bằng cổng được phép. Chưa đo thì giữ ⚪ CHƯA RÕ. Không tạo view, S4 hay sửa Graph trong TS1.</div>
 
@@ -129,12 +138,12 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <div class="milestone-path" aria-label="Thứ tự các mốc, kéo ngang để xem hết">
  <div class="milestone-node"><strong>✅ B0b</strong><span>🤖 XONG P27: hai công cụ đã được bảo vệ</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>✅ TS1 · ĐẾM</strong><span>XONG khảo sát P52; còn 3 DB + Graph/đăng nhập thiếu</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node is-current"><strong>■ TS2R · PG NATIVE</strong><span>PG role cột hẹp + 3 field máy + .path, xác minh auth/cache thật rồi chạy</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node is-current"><strong>■ PG-L0 · CHỈ ĐỌC</strong><span>Kiểm Docker mount, quyền file PG18, file_fdw, symlink/size/hash, không ghi</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS3 · SỔ</strong><span>😊 Duyệt cột → 🤖 tạo sổ quyết định + trang Nuxt</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS4–TS5</strong><span>🤖 Máy tự sửa lỗi được phép, cảnh báo có hạn; chỉ phát sinh 1 vụ khi cần người</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>B1–B5</strong><span>Công thức → Workflow</span></div>
 </div>
-<p class="muted">P55: TS1 đã XONG, TS2 chưa ký. Chỉ `dot_tools`/Graph cần tự cập nhật; PG đọc sống. Dự kiến tối đa 1 S4 + 3 VIEW, không tạo trigger/lịch tự tiện; giữ legacy nguyên trạng và phải bảo vệ API Nuxt trước công bố.</p>
+<p class="muted">P65: PG-L0 RO → PG-L1 live nếu an toàn và có G1/G2 → PG-A SQL VIEW/S4/4 DB → EXT-B chỉ phần PG không tự làm được an toàn. TS2R writer/3 cột/.path cũ là phương án dự phòng, không tự RUN. Nuxt API chưa auth nên không công bố metadata nội bộ.</p>
 
 <h2>4. Cách đếm · khai tối thiểu · bot kiểm soát</h2>
 <details>
@@ -172,7 +181,8 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
  <p>Chỉ nói «có cảnh báo» khi đã chứng minh lịch chạy, kết quả và người nhận. Chưa tạo lịch mới, DOT mới, trigger hoặc app mới.</p>
 </details>
 
-<h2>5. Điểm phải giải quyết sau TS2 DỪNG P60</h2>
+<h2>5. Quyết định P65 về PostgreSQL đọc sống</h2>
+<p><strong>Đã chốt:</strong> ưu tiên PG-LIVE; không đồng nghĩa PG có quyền chỉ một thư mục vì pg_read_server_files được phép đọc toàn filesystem nó thấy. L0 kiểm compose thật, manifest 00-SO-DOT.tsv, phương án file_fdw, quyền SECURITY DEFINER/PUBLIC/symlink, performance hashing và downtime khi recreate. Không có baseline hash thì V3 không thể kết luận “đã đổi từ lần trước”. Nhóm ngoài PG chỉ gồm ranh giới host/Docker, event khi không SELECT, sender/GUI cần thật. Chi tiết P65 đã ghi ở COLLAB; các P63/P61 bên dưới là lịch sử.</p>
 <p><strong>P63:</strong> Thực hiện nguyên tắc PG-FIRST ở 3 cửa thiết kế/READY/nghiệm thu. Chỉ cần một G1/G2 bổ sung cho PG role dot_tools_sync, ba cột máy và một cặp .path/service. Không cần Directus account/token mới hay JSON sidecar. PostgreSQL role LOGIN không mật khẩu và Directus schema cache phải được kiểm bằng phép thử thật; không bật track_functions hoặc sửa Graph/Nuxt/Ba Lô.</p>
 <p><strong>P61:</strong> Claude Chat rà một vòng lựa chọn writer quyền hẹp A, biên nhận root-only thay vì thêm cột PG ngay, systemd .path có test edit ngoài Git, Public Access chưa kiểm ẩn danh và đường lùi giữ nguyên worktree dirty. Sau đó chỉ cần Owner bổ sung G2 đúng 1 identity/policy/token; không bật track_functions hay sửa Ba Lô, Graph, Nuxt.</p>
 <p><strong>P57:</strong> Owner cần chốt G2 chỉ cho mục 1–3 (một DOT + cột kỹ thuật đã xác minh + một đường event/đèn có chứng cứ). Không bật track_functions, không tạo thêm bảng Nền; chỉ hiển thị nhãn suy ra với provenance đáng tin. Test commit rỗng không đủ nghiệm thu tự đồng bộ.</p>
