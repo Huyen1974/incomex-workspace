@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: GPT Host P78 ACCEPT Codex P77 F0 trusted pilot: AD PR350 GREEN33, Web PR676 unit16 PASS/policy RED, hai PR chưa merge; Web Health candidate 13 CHECK đúng (11 PASS/2 FAIL nghiệp vụ), main vẫn 2/3 audit. DRAFT F1 GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05: Claude P79 ACCEPT có sửa, chờ Host READY@a2991ad180dad2e2d3e5add6f9c9078100d7a67e. KST review/merge hai PR, Web app release chỉ tính nếu mã Nuxt4 thật qua GH→VPS/rollback; C1B AD rollout còn nợ, C2/F2/C4 chưa mở, VPS-GHI trống P77.**
+**Trạng thái: GPT Host P80 ACCEPT Claude P79 và ký READY@77c23c7911d5b87c1b2494080e1f06d7e7cff5b1 cho Claude Code CLI KST RUN GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05; Owner chưa RUN. F0 P77 PASS hai PR thật AD350 gateGREEN33, Web676 unit16 PASS/policyRED KST; F1 review/merge/audit main, sau đó Web production dùng bản build GitHub main và GIỮ nếu 166/166+34 contract/Guard healthy. Web code tree và build inputs đã xác minh khớp P66; old known-good rollback. C1B AD rollback vẫn FAIL độc lập, C2 Pro do Owner quyết trước F2 PR app/Web+3 agent. VPS-GHI trống P77.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — **V0.4, §0.4 Owner 27/10 là thứ tự thực thi hiện hành; §0.5 giữ DoD lịch sử.**
 4. work/github-management/KE-HOACH.md — V0.3 FAST-PR-LANE, Codex worker/KST Chief, Web audit lane độc lập và cổng F0.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — **DRAFT F1 KST** GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05; Claude Chat P79 đã sửa tại chỗ; GPT Host ký READY@a2991ad180dad2e2d3e5add6f9c9078100d7a67e rồi Owner giao Claude Code CLI. Lệnh F0 P74 đã KQ P77 và chỉ còn lịch sử.
+6. work/github-management/PROMPT.md — **CANONICAL RUN duy nhất** GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05 · Claude P79 ACCEPT, GPT Host P80 READY@77c23c7911d5b87c1b2494080e1f06d7e7cff5b1 (COLLAB P80). Owner giao **Claude Code CLI**, không phải Codex; P74 F0 đã KQ P77 và chỉ còn lịch sử.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.

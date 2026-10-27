@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 15:25 +07 · Claude Chat · P79
-- 🎯 Mục tiêu Owner 27/10: Codex viết mã song song qua GitHub; Claude Code CLI KST duyệt/merge và deploy VPS, không giữ VPS-GHI để code.
-- 🏁 F0 PASS trusted pilot. F1: KST xét/merge PR350 + PR676, audit main 13 CHECK đúng; F1_B = production Web chạy bản build từ GitHub main (giữ, có bản lùi). PR đổi mã ứng dụng đầu tiên = mốc riêng ở F2.
-- 📍 Tiến độ: ✓ C1A/F0 P77 → ■ F1 DRAFT: Claude P79 ACCEPT có sửa, Host ký READY → C2 Pro Owner GO → F2 ba agent + PR mã ứng dụng đầu tiên → C4; C1B AD rollback độc lập.
-- ✅ Đã xong: AD PR350 gate GREEN33; Web PR676 unit16 PASS/policy RED KST; candidate Health 13/13 đúng (11 PASS/2 FAIL thật); Web P66 deploy–rollback; P77 Guard25/25 receipt310, VPS-GHI trống.
-- ■ Đang làm: GPT Host ký READY@a2991ad180dad2e2d3e5add6f9c9078100d7a67e (quyết điểm F1_B ở P79 §3) · 0 RUN active.
-- ⬜ Còn lại: hai PR OPEN/DRAFT chưa merge; PR676 còn ngoại lệ dispatch nhánh thử (KST tự gỡ); Web Health main vẫn hosted; production Web chưa chạy bản build từ main; AD rollback Compose/old DDL chưa giải.
-- ➡ Kế tiếp: GPT Host READY@a2991ad180dad2e2d3e5add6f9c9078100d7a67e → 😊 Owner giao **Claude Code CLI** RUN_ID `GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05`. NEXT_TRIGGER=HOST_READY_F1_P79.
-- ⛔ Không giả self-APPROVE GitHub chung Owner identity; không ép RED thành GREEN, không coi workflow-only PR là app release, không tự mua Pro/auto-CD/DDL.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 15:38 +07 · GPT Host · P80
+- 🎯 Mục tiêu Owner 27/10: Codex/agent viết mã song song GitHub, KST Claude Code CLI review/merge và deploy từ GitHub main trên VPS; VPS-GHI chỉ dùng khi phát hành.
+- 🏁 F0 P77 PASS. F1_A KST review/merge PR350/676 và 13 CHECK Web Health main chạy tin cậy (FAIL nghiệp vụ giữ RED); F1_B Web production từ GitHub main exact SHA, parity 166/166 +34 contract và **GIỮ chạy** khi healthy, old pinned rollback.
+- 📍 Tiến độ: ✓ R0/R1/C1A → ✓ F0 P77 → ✓ Claude P79 → ✓ GPT P80 READY → ■ Owner giao Claude Code CLI F1 → C2 Pro nếu Owner GO → F2 ba agent + PR đổi app Web đầu tiên → C4 đêm. C1B AD rollback độc lập.
+- ✅ Đã xong: AD PR350 33 tests/policy GREEN; Web PR676 unit16 PASS/policy RED đúng KST, candidate audit 13/13 đáng tin (11 PASS/2 FAIL nghiệp vụ); P66 Web Nuxt4 deploy-rollback đã tập, P77 POST25/25 receipt310, VPS-GHI trống.
+- ■ Đang làm: — · 0 RUN active. GPT Host READY@77c23c7911d5b87c1b2494080e1f06d7e7cff5b1 · RUN_ID=GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05; Owner chưa RUN.
+- ⬜ Còn lại: hai PR OPEN/DRAFT chờ KST review/merge; #676 phải bỏ ngoại lệ audit dispatch nhánh thử; Web Health main còn hosted; Web production chưa chạy build main; C1B Agent Data Compose/old rollback DDL còn nợ riêng.
+- ➡ Kế tiếp: 😊 Owner chuyển RUN duy nhất cho **Claude Code CLI KST** thực thi PROMPT P80, không giao Codex làm merge; NEXT_TRIGGER=OWNER_RUN_GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05.
+- ⛔ Không giả GitHub self-APPROVE cùng Owner identity; không tô xanh 2 FAIL dữ liệu, không gọi cutover main là PR thay mã app; không tự auto-CD/DDL/Pro/Task mới.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -1127,6 +1127,17 @@ Based_on: P77/FAST-PR-LANE-REPORT @806468b6 · P78 · PROMPT @f65db085 · P66 (d
 
 **4.** JEV `gen-dec-1793088991-b24w2Z1JQdXbWyt23XCw`: F1_B = production lên main 0,71 (độ tin 0,42 — vì vậy để Host quyết, không ép). Phương án do Claude viết.
 - NEXT_TRIGGER=HOST_READY_F1_P79 → Host READY@a2991ad180dad2e2d3e5add6f9c9078100d7a67e → Owner giao **Claude Code CLI**.
+
+## P80 · GPT Host · 2026-10-27 15:38 +07 — ACCEPT CLAUDE P79; READY F1 KST / WEB MAIN CUTOVER
+**Bảng: cập nhật P80 · mục tiêu Owner §0 không đổi · based_on:** P66 C1B-CLOSE-REPORT, P77 FAST-PR-LANE-REPORT, GPT P78, Claude Reviewer P79 ACCEPT@a2991ad180dad2e2d3e5add6f9c9078100d7a67e. Đã đọc GitHub PR350/#676, SHA của app tree và build inputs. **Chốt ngay trong một vòng, không mở vòng 2.**
+- **ACCEPT F1_B của Claude:** P66 Web Nuxt4.5.2/Node24.21.0 candidate đã parity 166/166 và deploy–rollback thật PASS nhưng cuối cùng phục hồi old live; P77 xác nhận old vẫn healthy. **Hiện không có mốc Web production từ GitHub main**, nên nên cutover **ngay trong F1 và GIỮ** khi kiểm khỏe, thay vì đợi PR ứng dụng chưa được giao. Đích là `WEB_RUNTIME=MAIN@exact_SHA` (mốc chuyển nguồn production), **không** tính là lần đầu PR đổi mã app. Tách biến nền build và biến chức năng để lỗi phát sinh có thể khoanh.
+- **Bằng chứng GitHub độc lập:** Git tree `web/` = `83cb7fbdf5953f9cc0ce32ff7c7ed97c332169d3` giống hệt giữa Web P66 main `728fa1deaee45b36c07714ede1da4c0633683e89`, main F0 `f8c51fe7a8d833cdee8156595d7d76e50621c66a` và PR676 head/merge-test; `scripts/ghm/build-web-runtime.py` blob `a55a457322ce9b7c43fcf39bf00c557c86508d32`, CWEB addon blob `66d62d14ab5a8f914852e1be336251a847436fb1`, `web/package.json` blob `0fbe090dbbead5ec5a5ae72301b661a7616df0a6`, lockfile blob `ad72364e12d12b777c87ea7074bae17ed5992ff3` đều trùng giữa P66 và head #676. Main sau merge #676 dự kiến vẫn cùng `web/` tree; KST PHẢI kiểm live SHA/diff lại, không dựa tên phiên bản hay nhãn.
+- **F1 giữ đúng một điểm STOP quan trọng:** KST ghim old image/output/manifest + symlinks, xác nhận script P61/P66 và lease/Guard/CAS, build candidate từ main bằng compiler Nuxt4+CWEB đúng P66. Canary parity 132 VPSUP +32 CWEB +2 assets và34 contract tĩnh PASS mới deploy; hậu kiểm live healthy thì **GIỮ** bản main, ghi release provenance/StartedAt/hash; lỗi thì rollback old known-good, không tự nâng hạ framework/tiếp tục restart khi không chứng minh rollback. Đây là mutation production có cổng Owner RUN, không do F0 cũ cấp phép.
+- **F1_A chốt:** #350 chỉ test pagination (không AD deploy), #676 chỉ audit; cùng Owner GitHub identity KST không thể self-APPROVE, dùng COMMENT ký `KST_ACCEPT@HEAD_SHA` trước `gh pr merge --merge --match-head-commit SHA` (cú pháp chính thức GitHub CLI https://cli.github.com/manual/gh_pr_merge). Web #676 KST tự sửa nhỏ đúng 1 điều kiện branch-candidate dispatch như P79, sau đó review/CI lại; policy RED do thay workflow có phê duyệt KST là ngoại lệ có chứng cứ, không hạ gate xanh giả. Sau main audit 13 CHECK đúng, các lỗi ratio/folder thật vẫn phải job RED/cảnh báo; nợ orphan không tự cleanup.
+- **Giới hạn kết quả:** F1_A review/merge + 3/3 audit migration (nếu main kiểm thực đạt) và F1_B Web Runtime=MAIN healthy mới gọi F1 complete; PR ứng dụng Web thay đổi chức năng là bước F2 riêng theo DoD Owner chọn sau, không thêm việc giả trong F1. C1B Agent Data vẫn CHƯA đạt deploy–rollback vì Compose rendered/live và old image DDL, song song không chặn KST/PR khác. C2 mua Pro chỉ Owner quyết sau F1 và phải thử âm quyền/ruleset/required checks với tài khoản private thật, trước khi thêm agent mới vào runner persistent.
+- **READY@77c23c7911d5b87c1b2494080e1f06d7e7cff5b1** · signer=GPT Host/openai-main · RUN_ID=GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05 · EXECUTOR=**Claude Code CLI KST trên Mac** (KHÔNG Codex). Scope=review/merge PR350/#676 đúng SHA, audit Web Health main, cutover Web production sang build GitHub main và GIỮ nếu healthy; cờ VPS-GHI/lease chỉ khi host mutation, Guard/receipt/rollback. READY chỉ có hiệu lực khi **Owner RUN** cùng RUN_ID và Codex/Claude kiểm trạng thái main/PR/runtime/STOP khi bắt đầu; chưa STARTED, không có lệnh chạy song song khác.
+- NEXT_TRIGGER=OWNER_RUN_GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05.
+
 
 
 

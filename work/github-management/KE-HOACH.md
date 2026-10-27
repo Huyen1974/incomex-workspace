@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.3 · 27/10/2026 · FAST-PR-LANE P74
 
-**Trạng thái: Host P78 ACCEPT F0 P77. AD PR350 gate GREEN33, Web PR676 unit16 PASS/policy RED KST, audit candidate 13 CHECK đúng (11 PASS/2 FAIL nghiệp vụ) nhưng main vẫn hosted. DRAFT F1 GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05: Claude P79 ACCEPT có sửa — KST review/merge hai PR, tự gỡ ngoại lệ thử PR676, audit main, F1_B production Web lên bản build từ main (Host quyết); PR mã ứng dụng đầu tiên ở F2. Chờ Host READY@a2991ad180dad2e2d3e5add6f9c9078100d7a67e. C1B AD rollback độc lập, C2 Pro Owner quyết trước F2.**
+**Trạng thái: GPT Host P80 READY@77c23c7911d5b87c1b2494080e1f06d7e7cff5b1 sau Claude P79 cho RUN GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05 (Owner chưa RUN). F1_A KST Claude Code CLI review/merge PR350/676 và kiểm 13 CHECK Web Health main (lỗi nghiệp vụ giữ RED); F1_B Web production chạy build từ GitHub main, GIỮ sau parity 166/166 +34 contract/Guard, old pinned rollback. P66 xác minh app tree nguồn; C1B AD rollout nợ độc lập. C2 Pro Owner quyết rồi F2 3 agent và PR app Web đầu tiên; không viết giả mã để được nghiệm thu.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
@@ -8,7 +8,7 @@ Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code
 - Đường găng: F0 Code branch/PR CI an toàn hai repo (không VPS-GHI khi viết mã) → F1 KST xét/merge, Web deploy theo script/VPS-GHI → F2 nhân 3 ghế. C1B AD Compose old rollback DDL/Web Health 401 xử lý độc lập, không gộp cổng vào dev.
 - F0 P74 chỉ pilot PR từ Codex/Claude Code CLI trusted trên runner C1A persistent hiện có; KHÔNG coi là cách ly tuyệt đối khỏi audit secrets. Preflight policy từ nguồn tin cậy trước mã PR, không fork/actor ngoài scope; F2 thêm worker cần C2 kiểm thực quyền/secret/trust boundary. Chỉ mở trigger PR, không bật push dev trùng lần CI.
 - Sau F0/F1 Owner có thể mua GitHub Pro để bảo vệ main private/required checks sớm, không tự thanh toán. KST Claude Code CLI review/merge GitHub, release script thực thi trên VPS; người phát triển không tự merge/deploy.
-- Bằng chứng F0: ít nhất 1 PR/CI thật mỗi repo với SHA đúng và summary KST; F1: một Web PR KST duyệt và manual release/rollback thực sự; F2: 3 PR, ít nhất 2 KST nhận.
+- Bằng chứng F0: PR350/676 + CI head/merge SHA đã PASS P77. F1: Claude Code CLI KST review/merge đúng SHA + Web Health main 13 CHECK đáng tin (business RED vẫn RED); Web production lần đầu phục vụ build từ GitHub main và GIỮ sau parity 166/166+Guard, old pinned rollback. PR Web đổi mã ứng dụng đầu tiên là F2, không bịa trong F1. F2: 3 PR, ít nhất 2 KST nhận; C2 Pro do Owner quyết trước thêm worker.
 
 ## 1. Mục tiêu, vai trò và giới hạn
 
