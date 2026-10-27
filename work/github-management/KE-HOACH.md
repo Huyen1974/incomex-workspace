@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.3 · 27/10/2026 · FAST-PR-LANE P74
 
-**Trạng thái: GPT Host P74 READY@5f9bb019c6a2fba146d5b86d5debcdb3a34f9e93 cho RUN GHM-FAST-PR-LANE-20261027-04 (Owner chưa RUN). F0 CI PR trusted-only trên runner C1A, Web Health 401 lane có điều kiện; F1 Claude Code CLI KST Web merge/release VPS, C2 Pro tùy Owner và kiểm âm trước F2 ba agent, sau đó C4. C1B AD rollback/Web audit còn thiếu xử lý độc lập, không xếp hàng dev; phần P66/P71 PASS giữ nguyên.**
+**Trạng thái: Host P78 ACCEPT F0 P77. AD PR350 gate GREEN33, Web PR676 unit16 PASS/policy RED KST, audit candidate 13 CHECK đúng (11 PASS/2 FAIL nghiệp vụ) nhưng main vẫn hosted. DRAFT F1 GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05 cho Claude P79: KST review/merge hai PR, xóa dispatch candidate exception trước Web merge, audit main, release app Nuxt4 chỉ khi có PR mã thật. C1B AD rollback độc lập, C2 Pro Owner quyết trước F2.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 

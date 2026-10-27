@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 13:19 +07 · Codex P77 KQ
-- 🎯 Mục tiêu Owner 27/10: GitHub cho Codex viết song song sớm nhất, Claude Code CLI KST review/merge, release thực thi trên VPS; nợ C1B không bắt dev xếp hàng.
-- 🏁 F0 XONG khi 2 repo có PR thật + unit CI trên VPS đúng head/merge-test SHA, policy gate: AD GREEN, Web Health unit GREEN/policy RED chờ KST. F1 Web merge/deploy là RUN Claude Code CLI riêng.
-- 📍 Tiến độ: ✓ R0/R1/C1A → ✓ P66 Web release + P71 AD CI/canary → ◐ C1B-REMAINDER → ✓ Claude P73 → ✓ GPT P74 READY → ■ Owner RUN F0 → F1 KST/Web → C2 Pro (Owner quyết) → F2 ba agent → C4.
-- ✅ Đã xong: AD main5bc8a3f/CI14/canary0DDL; Web Nuxt4 parity166/166/CI/deploy–rollback; 2 audit VPS GREEN; P71 POST25/25/receipt309, VPS-GHI trả.
-- ■ Đang làm: — · 0 RUN active. Codex P77 KQ F0 PASS trusted pilot: AD PR350 gate GREEN33; Web PR676 unit16 PASS/policy RED đúng yêu cầu. S4-B candidate13 CHECK đã xác minh, lỗi dữ liệu vẫn RED; [báo cáo](FAST-PR-LANE-REPORT.md).
-- ⬜ Còn lại: Host nghiệm thu F0; KST xét hai PR và F1 Web riêng. Web audit candidate đạt nhưng chưa merge, AD Compose/rollback DDL vẫn nợ riêng; C1B_SCOPED=FAIL. C2/F2/C4 chưa chạy.
-- ➡ Kế tiếp: Host/KST đọc P77 và hai PR; Owner giao KST F1 theo PROMPT riêng, không tự release từ F0. NEXT_TRIGGER=OWNER_KST_REVIEW_FIRST_WEB_PR_AND_MANUAL_RELEASE.
-- ⛔ Không coi 5 cổng là isolation tuyệt đối; không chạy fork/actor chưa duyệt trên persistent runner; không secret cho PR, không auto-CD/DDL/Pro tự mua, không báo C1B PASS giả.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 14:34 +07 · GPT Host · P78
+- 🎯 Mục tiêu Owner 27/10: Codex viết mã song song qua GitHub; Claude Code CLI KST duyệt/merge và deploy VPS, không giữ VPS-GHI để code.
+- 🏁 F0 PASS trusted pilot. F1: KST xét PR350 + PR676 và audit main đủ 13 CHECK đúng; riêng release ứng dụng Web chỉ PASS với PR thay mã Nuxt4 thật, build/deploy/rollback an toàn.
+- 📍 Tiến độ: ✓ C1A/F0 P77 → ■ P78 DRAFT mời Claude P79 → F1 KST review/merge + Web app release thật → C2 Pro Owner GO → F2 ba agent → C4; C1B AD rollback độc lập.
+- ✅ Đã xong: AD PR350 gate GREEN33; Web PR676 unit16 PASS/policy RED KST; candidate Health 13/13 đúng (11 PASS/2 FAIL thật); Web P66 deploy–rollback; P77 Guard25/25 receipt310, VPS-GHI trống.
+- ■ Đang làm: — · 0 RUN active. Host ACCEPT F0 P77, DRAFT F1 cho Claude Chat; chưa READY/Owner RUN.
+- ⬜ Còn lại: hai PR OPEN/DRAFT chưa review/merge; PR676 còn candidate dispatch exception phải bỏ trước main; Web Health main vẫn hosted; thiếu PR app Web Nuxt4 mới hợp lệ; AD rollback Compose/old DDL chưa giải.
+- ➡ Kế tiếp: Claude P79 phản biện và sửa PROMPT trên repo một vòng; Host ký READY rồi Owner chuyển **Claude Code CLI** F1. NEXT_TRIGGER=CLAUDE_REVIEW_GHM_F1_P78.
+- ⛔ Không giả self-APPROVE GitHub chung Owner identity; không ép RED thành GREEN, không coi workflow-only PR là app release, không tự mua Pro/auto-CD/DDL.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -1098,6 +1098,16 @@ KQ@GHM-FAST-PR-LANE-20261027-04 · STATUS=XONG · F0=PASS_TRUSTED_PILOT · execu
 - S5: POST25/25 PASS, footprint host0,32/32đènUP, receipt310; GLOBAL_GUARD PARTIAL do3 vùngUNKNOWN kế thừa. 0 app restart/DDL/deploy/merge, không giữ VPS-GHI, root trống; không mở lease. Hai runner online/idle. Main app/runtime P66/P71 giữ nguyên, C1B_SCOPED vẫn FAIL do AD rollback/chưa promote audit.
 - PR→kết quả AD42s/Web62s; job36s/55s, audit83s; hosted của RUN0phút. Chưa đo baseline hàng đợi hoặc thời gian KST thật, không tuyên speedup. Evidence private15 tệp manifest SHA256 `57d48ef12baa8b393be282ba5e8f05feeffaa9f693a9cc53f935a5bd6a6589a8`.
 - 0 RUN active Codex. NEXT_TRIGGER=OWNER_KST_REVIEW_FIRST_WEB_PR_AND_MANUAL_RELEASE. Host nghiệm thu F0, KST đọc PR; F1 cần thêm PR ứng dụng Web riêng, không tự F1/C2/F2/C4.
+## P78 · GPT Host · 2026-10-27 14:34 +07 — NGHIỆM THU F0 P77 VÀ GIAO PHẢN BIỆN F1 KST
+**A0 Owner giữ nguyên; bảng/roadmap cập nhật. HOST_PROPOSAL / CHƯA READY.** Đối chiếu P77 report @806468b6f229642c745bd3af117bb3410cf31f60, hai PR/diff/reviews/CI và audit run trực tiếp:
+- **ACCEPT F0:** Agent Data PR #350 head ce36577ff19026f7259e7092608b713498143afb gate40459074294 GREEN 33 pytest, Web PR #676 head4556635ca22ada5bacba26b681ef638ec6f566ff gate40459085757 unit16 PASS/policy RED KST_REVIEW_REQUIRED. Hai PR OPEN+DRAFT, chưa review/merge. F0 chỉ PASS trong pilot trusted, không chứng minh release Web đã thông hoặc third-agent runner an toàn.
+- **Audit đã kiểm đúng:** Web candidate40459402138 13 CHECK (11 PASS/2 FAIL thật do sync-warning và folder ngoài allowlist); ba blob #676 bằng đúng candidate d3b1ec8 đã kiểm. Key Web được xác minh theo GSM trong P77; báo RED vẫn giữ, 2 orphan là nợ dữ liệu; main Web Health còn hosted, chuyển audit vẫn 2/3.
+- **F1 cần sửa trước merge Web PR676:** YAML có ngoại lệ dispatch nhánh c1b-audit-finalize-health còn sót. Trước promote phải giao Codex sửa cùng PR, làm chỉ schedule/dispatch main; đọc SHA mới và test lại. Policy RED do workflow/secrets-reference là cổng KST duyệt chủ động, không tự tô xanh; nếu có lỗi unit/secret-scan thật thì dừng PR.
+- **Danh tính GitHub:** hai PR đứng tên Huyen1974, Chief Claude Code CLI cũng dùng GitHub Owner đó. GitHub không cho tác giả tự APPROVE PR (https://docs.github.com/en/pull-requests/how-tos/review-pull-requests/approving-a-pull-request-with-required-reviews). Pilot dùng KST signed COMMENT@exact-head-SHA và biên nhận riêng rồi mới merge; không khẳng định có 2 Github identity. C2 phải kiểm thực mô hình Chief-only nếu bắt buộc approvals, chỉ mua Pro chưa tự giải quyết.
+- **Release là kết quả riêng:** PR350 chỉ test, cấm deploy AD vì Compose/rollback old DDL chưa đạt; PR676 chỉ audit, merge workflow không được tính Web app release. F1 nếu chưa có PR thay mã Nuxt4 thật từ backlog Owner duyệt thì ghi WEB_APP_PR_PENDING và giao Codex phát triển qua branch/PR, không restart Web rỗng để đạt KPI. PR cũ #669 tháng 5 chưa chắc khớp Nuxt4/Directus, không auto chọn.
+- **Roadmap:** F0 DONE; F1 Claude Code CLI KST merge PRs và kiểm main audit, song song Codex tiếp tục làm app PR không giữ VPS-GHI; C2 Pro Owner quyết trước F2 ba agent, C4 sau. C1B Agent Data rollback độc lập còn FAIL, không làm cổng của GitHub code.
+- **Claude P79 một vòng:** kiểm workaround GitHub self-approval, branch exception, merge workflow policy RED có ghi nhận, chọn 1 Web app PR thực phù hợp nếu có; sửa trực tiếp DRAFT PROMPT rồi ký ACCEPT@SHA; không tự RUN/merge/deploy. NEXT_TRIGGER=CLAUDE_REVIEW_GHM_F1_P78.
+
 
 
 

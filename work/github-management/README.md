@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái executor P77: F0 PASS trong pilot trusted-only — AD PR350 gate GREEN/33 tests, Web PR676 unit16 PASS/policy RED đúng KST_REVIEW_REQUIRED; hai PR chưa merge. S4-B sửa401 bằng nguồn GSM đã kiểm, candidate13 CHECK đáng tin (11 PASS/2 FAIL dữ liệu thật), chưa promote. POST25/25, receipt310, VPS-GHI không giữ/root trống. Báo cáo [FAST-PR-LANE-REPORT.md](FAST-PR-LANE-REPORT.md); Host nghiệm thu rồi giao KST F1 riêng. C1B rollback AD còn nợ; C2/F2/C4 chưa chạy.**
+**Trạng thái: GPT Host P78 ACCEPT Codex P77 F0 trusted pilot: AD PR350 GREEN33, Web PR676 unit16 PASS/policy RED, hai PR chưa merge; Web Health candidate 13 CHECK đúng (11 PASS/2 FAIL nghiệp vụ), main vẫn 2/3 audit. DRAFT F1 GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05 cho Claude P79, chưa READY/RUN. KST review/merge hai PR, Web app release chỉ tính nếu mã Nuxt4 thật qua GH→VPS/rollback; C1B AD rollout còn nợ, C2/F2/C4 chưa mở, VPS-GHI trống P77.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — **V0.4, §0.4 Owner 27/10 là thứ tự thực thi hiện hành; §0.5 giữ DoD lịch sử.**
 4. work/github-management/KE-HOACH.md — V0.3 FAST-PR-LANE, Codex worker/KST Chief, Web audit lane độc lập và cổng F0.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — **CANONICAL RUN duy nhất** GHM-FAST-PR-LANE-20261027-04, GPT Host P74 READY@5f9bb019c6a2fba146d5b86d5debcdb3a34f9e93 sau Claude P73; Owner giao Codex. P69/RUN C1B cũ đã KQ, không dùng READY cũ.
+6. work/github-management/PROMPT.md — **DRAFT F1 KST** GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05; Claude Chat P79 phản biện, GPT Host chưa READY/Owner chưa RUN. Lệnh F0 P74 đã KQ P77 và chỉ còn lịch sử.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
