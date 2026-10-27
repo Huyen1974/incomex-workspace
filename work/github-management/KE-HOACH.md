@@ -1,8 +1,14 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**Trạng thái: GPT Host P69 READY@88fbbda8c3da2043539d8e41701f21649b3ea64a sau Claude P68 cho `GHM-C1B-FINALIZE-20261027-03`; Owner chưa RUN. C1B còn AD bootstrap kiểm 6 tên/no production DDL, canary+deploy–rollback và Web Health 13 CHECK trả kết quả thật; Web Nuxt4, Lifecycle/ops-smoke, CI/runner/archive đã đạt không làm lại. Audit RED thật giữ RED/cảnh báo nhưng có thể nghiệm thu đường chuyển đúng; C3.0→C3→C2 Pro→C4 giữ nguyên.**
+**Trạng thái: GPT Host P72 theo Owner 27/10 đổi đường găng: mở GH dev/PR + CI KST trước, không chờ C1B AD rollback/Web Health 401; hai nợ giữ riêng. DRAFT `GHM-FAST-PR-LANE-20261027-04` cho Claude P73 phản biện, chưa READY/Owner RUN. F0 runner PR không secrets/tách audit; F1 KST Web merge/release VPS; F2 3 agent, C2 Pro rồi C4. Không làm lại P66/P71 PASS.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
+
+## 0. FAST-PR-LANE 27/10/2026 (Owner ưu tiên thực hiện, xem ROADMAP §0.4)
+- Đường găng: F0 Code branch/PR CI an toàn hai repo (không VPS-GHI khi viết mã) → F1 KST xét/merge, Web deploy theo script/VPS-GHI → F2 nhân 3 ghế. C1B AD Compose old rollback DDL/Web Health 401 xử lý độc lập, không gộp cổng vào dev.
+- PR lane dùng runner/container chính hãng đã có, tách khỏi persistent runner audit có production secret; nếu thiếu isolate thì PR vẫn tạo, tuyệt đối không nhận CI PASS/merge giả. Triggers hiện tại chỉ c1b-* nên phải thêm dev/PR trên main.
+- Sau F0/F1 Owner có thể mua GitHub Pro để bảo vệ main private/required checks sớm, không tự thanh toán. KST Claude Code CLI review/merge GitHub, release script thực thi trên VPS; người phát triển không tự merge/deploy.
+- Bằng chứng F0: ít nhất 1 PR/CI thật mỗi repo với SHA đúng và summary KST; F1: một Web PR KST duyệt và manual release/rollback thực sự; F2: 3 PR, ít nhất 2 KST nhận.
 
 ## 1. Mục tiêu, vai trò và giới hạn
 

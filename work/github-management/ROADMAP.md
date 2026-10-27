@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.3 · 24/10/2026
-**Trạng thái: P71 KQ XONG CÓ GIỚI HẠN C1B-FINALIZE. AD source/main5bc8a3f, CI14/canary0DDL PASS; deploy–rollback chưa đạt (Compose gate + exact old bootstrap DDL). Web Health candidate chạy13 CHECK nhưng auth401, bản sửa d3b1ec8 chưa được chạy do auto-review chặn lượt thứ hai; chưa promote, main728fa1d giữ nguyên. Web và2 audit P66 giữ đạt. POST25/25 footprint0, receipt309, VPS-GHI trả; C1B_SCOPED=FAIL, AUDIT_EXECUTION_VERIFIED=PARTIAL, GLOBAL_GUARD PARTIAL#24. Host xem P71/[C1B-FINALIZE-REPORT.md](C1B-FINALIZE-REPORT.md), xử lý blocker/cấp rõ lượt tiếp trước C3.0→C3→C2→C4.**
+**Trạng thái: P72 GPT Host đề xuất FAST-PR-LANE theo chỉ đạo Owner 27/10 ưu tiên CODE song song: F0 (PR CI runner an toàn) → F1 (KST merge + Web manual deploy) → F2 (3 agent) ; C1B-REMAINDER Agent Data rollout/Web Health auth vẫn FAIL nhưng độc lập không khóa dev. Claude phản biện DRAFT `GHM-FAST-PR-LANE-20261027-04`, chưa READY/RUN. P71 AD main5bc8a3f CI14/canary0DDL, Web Nuxt4/deploy rollback P66, audit2/3, Guard POST25/25 receipt309, VPS-GHI trả. C2 Pro/C4 sau pilot, không tự mua.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10.
 Ưu tiên 1 (Owner 25/10 15:18): hệ thống chạy được — mỗi repo đi được nhánh → PR → test → main → deploy VPS, máy chạy (runner) đặt trên VPS. Sau đó: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 
@@ -9,7 +9,22 @@
 - Không đổi VPS runtime, remote Git, deploy, secrets, cron, Guard ngoài RUN hợp lệ. GitHub Actions: không bắt buộc tắt; bắt buộc không phát sinh chi phí mất kiểm soát — ngân sách $0 + «Stop usage», chỉ giữ workflow cần (Owner 25/10, thay câu 23/10).
 - Kiểm thử unit trong sandbox riêng của từng ghế; pilot R4 chọn việc có unit test nên chưa cần staging. Owner 25/10 15:18: mọi run chạy trên VPS bằng runner tự host; VPS swap đầy ⇒ CI giới hạn 2 CPU/3 GB, 1 việc/lúc, quá tải thì dừng CI trước production.
 
-## 0.5 THỨ TỰ MỚI (Owner 25/10 15:18 — thay mọi thứ tự trước)
+## 0.4 ƯU TIÊN MỚI — OWNER 27/10/2026: GIẢI PHÓNG NGUỒN LỰC VIẾT MÃ
+
+**Chỉ đạo Owner trực tiếp ngày 27/10 có hiệu lực cao hơn thứ tự tuần tự ngày 25–26/10:** nhanh chóng code qua GitHub, Codex + agent viết song song; Claude Code CLI là kỹ sư trưởng xét PR/merge; deploy thực tế trên VPS. **C1B vẫn CHƯA ĐẠT** cho AD rollback/Web Health, nhưng KHÔNG làm cổng của branch/PR/dev. Chỉ app tương ứng bị cấm deploy khi rollback chưa PASS. §0.5 bên dưới giữ lịch sử tiêu chí, không được dùng làm điều kiện xếp hàng mới.
+
+| Đường ưu tiên | Chủ | Làm ngay / làm song song | Bằng chứng đủ |
+|---|---|---|---|
+| **F0 — GH-PR-LANE FAST** (ưu tiên 1, DRAFT P72) | Codex thực thi, KST giám sát | Hai repo `agent-data-test` và `web-test`: workspace/worktree độc lập; workflow CI `dev/*`/PR chạy đúng SHA; PR runner cách ly khỏi audit có key (ưu tiên C1A/official image đã dùng), không có key/host socket/root/auto CD. Không giữ VPS-GHI khi code. | CI thật cho 1 PR mỗi repo ở SHA đúng, có summary KST, 0 production mutation/secret exposure; thiếu runner cách ly → PR tạo được nhưng không tuyên CI PASS/không merge. |
+| **F1 — KST/WEB FIRST RELEASE** (ưu tiên 2) | Claude Code CLI KST · Owner GO theo PROMPT | KST xét một PR Web thật đã có CI, merge theo luật và chạy script release trên VPS, rollback known-good nếu cần. Các PR khác được viết song song, không xếp hàng theo VPS-GHI; AD có thể PR nhưng chưa deploy. | ≥1 PR Web được KST chấp nhận và 1 SHA mới đã thử deploy/rollback thật; 0 direct main push từ worker. |
+| **F2 — SCALE 3 AGENTS** | Codex/agent + KST | Nhân 3 ghế dev, 3 việc thật/PR độc lập, tiếp tục tăng quality gate bằng công cụ sẵn (gitleaks, lint, test, build, smoke). Không làm lớn hệ thống trước PR đầu tiên. | 3 PR, ≥2 KST NHẬN, đo thời gian xử lý/đợi CI; code không cần VPS-GHI. |
+| **C1B-REMAINDER** (song song, không khóa F0/F1) | Codex khi được RUN riêng / Host | AD Compose effective parity 17/17 nhưng gate hash và exact-old rollback CREATE chưa giải; Web Health cần giải HTTP401 bằng key sẵn có và candidate `d3b1ec8` chưa test, audit 2/3 đang chạy VPS. Giữ nợ đúng chủ, app cũ khỏe. | AD deploy–rollback đạt thì mới mở AD CD; Web audit đạt contract rồi mới promote; `C1B_SCOPED` chỉ PASS khi đủ, không ép xanh. |
+| **C2 — Pro/hard lock** (không chặn PR ban đầu) | Owner mua khi quyết định; Codex/KST triển khai | Sau F0/F1, ưu tiên mua Pro và thử ruleset main thật trước khi nhân rộng merge; 4 USD/tháng là chủ trương, chưa có quyền tự thanh toán; không tự hạ quyền phiên Mac Owner. | Negative tests worker không direct push `main`, Chief merge đã đủ check; budget Actions $0 + Stop. |
+| **C4 — PR overnight** | Owner/KST/DOT khi đường gọi thật | Mở chỉ sau F2 và quy tắc main có chứng cứ; tối giao batch, sáng kiểm PR, không auto deploy ứng dụng chưa có rollback. | ≥2/3 PR NHẬN, receipt và không Owner canh đêm. |
+
+Đích gần nhất: **F0 XONG thật và F1 Web PR→merge→deploy/rollback**; chỉ khi hai bước này chạy được mới coi đã gỡ nút nghẽn code song song. Giữ nguyên DoD sản xuất từng app, không đánh đồng code được với production green.
+
+## 0.5 THỨ TỰ GỐC 25/10 (lịch sử và DoD; thứ tự thực thi HIỆN HÀNH theo §0.4 Owner 27/10)
 | Bước | Ai | Việc | Đạt khi |
 |---|---|---|---|
 | **C1A — RUNNER CI TRÊN VPS** ✓ CI 2/2 GREEN (P35) · swap/INV25 ✓ (P40) · 2 volume ✓ (P48 scoped XONG; Host P49 ACCEPT) | 🤖 **Codex**, Claude giám sát | Cài runner official `actions/runner` trên VPS (mỗi repo một đăng ký) không-root/no docker.sock, giới hạn tài nguyên; workflow kiểm thử thật trên nhánh `dev/` của 2 repo. Không sửa main hay restart dịch vụ. | 2/2 GitHub CI runs thực chạy trên VPS có test PASS, SHA/log và Guard/health không đổi. |
