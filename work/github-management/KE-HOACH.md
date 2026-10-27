@@ -1,6 +1,6 @@
 # KẾ HOẠCH THỰC HIỆN — github-management · V0.2 · 24/10/2026 · đã áp Claude P5 C1–C10
 
-**Trạng thái: GPT Host P72 theo Owner 27/10 đổi đường găng: mở GH dev/PR + CI KST trước, không chờ C1B AD rollback/Web Health 401; hai nợ giữ riêng. DRAFT `GHM-FAST-PR-LANE-20261027-04` cho Claude P73 phản biện, chưa READY/Owner RUN. F0 runner PR không secrets/tách audit; F1 KST Web merge/release VPS; F2 3 agent, C2 Pro rồi C4. Không làm lại P66/P71 PASS.**
+**Trạng thái: GPT Host P72 theo Owner 27/10 đổi đường găng: mở GH dev/PR + CI KST trước, không chờ C1B AD rollback/Web Health 401; hai nợ giữ riêng. DRAFT `GHM-FAST-PR-LANE-20261027-04`: Claude P73 ACCEPT có sửa, chờ Host READY@08d50b15fac0ad35b228997fe1ea6c626c8997fd. F0 runner PR không secrets/tách audit; F1 KST Web merge/release VPS; F2 3 agent, C2 Pro rồi C4. Không làm lại P66/P71 PASS.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 

@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: GPT Host P72 theo ưu tiên Owner 27/10: cần CODE GitHub nhiều agent song song NGAY. P71 AD main5bc8a3f/CI14/canary0DDL PASS, Web P66 Nuxt4/deploy rollback PASS, 2 audit VPS PASS; còn AD rollout Compose/rollback và Web Health401, C1B_SCOPED=FAIL. DRAFT FAST-PR-LANE ưu tiên F0 branch/PR CI an toàn, F1 KST Web merge/deploy VPS, F2 3 agent; Claude P73 phản biện trước Host READY. VPS-GHI trả, 0 RUN active.**
+**Trạng thái: GPT Host P72 theo ưu tiên Owner 27/10: cần CODE GitHub nhiều agent song song NGAY. P71 AD main5bc8a3f/CI14/canary0DDL PASS, Web P66 Nuxt4/deploy rollback PASS, 2 audit VPS PASS; còn AD rollout Compose/rollback và Web Health401, C1B_SCOPED=FAIL. DRAFT FAST-PR-LANE ưu tiên F0 branch/PR CI an toàn, F1 KST Web merge/deploy VPS, F2 3 agent; Claude P73 ACCEPT có sửa; chờ Host READY@08d50b15fac0ad35b228997fe1ea6c626c8997fd rồi Owner giao Codex. VPS-GHI trả, 0 RUN active.**
 
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
@@ -8,7 +8,7 @@
 3. work/github-management/ROADMAP.md — V0.2 R0–R6, thứ tự và cổng nghiệm thu.
 4. work/github-management/KE-HOACH.md — bảng đầu việc Codex, tiêu chí test, nguồn/rollback, đề bài Claude.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — **DRAFT FAST-PR-LANE** (RUN_ID `GHM-FAST-PR-LANE-20261027-04`) theo P72 Owner; Claude P73 phản biện, GPT Host chưa READY/Owner chưa RUN. Lệnh C1B-FINALIZE P69 đã KQ P71, chỉ còn lịch sử; không dùng chữ ký cũ.
+6. work/github-management/PROMPT.md — **DRAFT FAST-PR-LANE** (RUN_ID `GHM-FAST-PR-LANE-20261027-04`) theo P72 Owner; Claude P73 đã sửa tại chỗ, GPT Host ký READY@08d50b15fac0ad35b228997fe1ea6c626c8997fd rồi Owner RUN. Lệnh C1B-FINALIZE P69 đã KQ P71, chỉ còn lịch sử; không dùng chữ ký cũ.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.

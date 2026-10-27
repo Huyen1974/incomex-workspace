@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 · GPT Host · P72
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 11:40 +07 · Claude Chat · P73
 - 🎯 Mục tiêu Owner 27/10: **khai thông GitHub cho Codex/agent viết song song ngay, Claude Code CLI KST xét/merge; release an toàn trên VPS**. C1B AD rollback/Web audit là nợ riêng, không bắt mọi agent xếp hàng.
-- 🏁 Fast path XONG khi: hai repo có dev/* → PR → CI đáng tin đúng SHA (không secrets, không chung runner audit có key), ít nhất 1 PR thật được KST nhận và 1 release Web qua script VPS/rollback theo GO; AD release chỉ khi rollback đủ chứng cứ. C1B DoD cũ giữ nguyên.
-- 📍 Tiến độ: ✓ R0/R1/C1A → ✓ Web release path P66 + AD CI/canary P71 → ◐ C1B còn nợ AD rollout/Web auth → ■ P72 Host FAST-PR-LANE DRAFT cho Claude → F0 mở PR lane → F1 KST/WEB release → C3 pilot → C2 Pro/lock → C4 overnight.
+- 🏁 Fast path XONG khi: hai repo có nhánh → PR → CI thật đúng SHA trên runner VPS theo 5 cổng P73 (PR không dùng secret; PR đổi workflow/secret ⇒ gate đỏ chờ KST), ít nhất 1 PR thật được KST nhận và 1 release Web qua script VPS/rollback; AD release chỉ khi rollback đủ chứng cứ. C1B DoD cũ giữ nguyên.
+- 📍 Tiến độ: ✓ R0/R1/C1A → ✓ Web release path P66 + AD CI/canary P71 → ◐ C1B còn nợ AD rollout/Web auth → ■ F0 FAST-PR-LANE: Claude P73 ACCEPT có sửa, Host ký READY → F1 KST/WEB release → C2 Pro (đề xuất ngay sau F0) → F2 3 agent → C4 overnight.
 - ✅ Đã xong: AD main 5bc8a3f, 14/14 CI, canary 0DDL; Web Nuxt4 parity166/166/CI/deploy–rollback P66; 2/3 audit VPS; Guard POST25/25 receipt309, VPS-GHI trống.
-- ■ Đang làm: — · 0 RUN active. Host đã viết P72/DRAFT FAST-PR-LANE, mời Claude Reviewer phản biện một vòng; chưa READY/Owner RUN.
-- ⬜ Còn lại: CI probe trên main mới trigger c1b-* (không dev/PR); phải tách runner PR khỏi audit dùng secret; KST review/merge/Web release từ PR chưa chứng minh; AD Compose hash + exact-old rollback DDL; Web Health 401/bản d3b1ec8 chưa thử.
-- ➡ Kế tiếp: Claude kiểm P72 và DRAFT PROMPT, sửa thẳng nếu cần rồi ghi P73 ACCEPT@SHA; GPT Host ký READY để Owner giao Codex. NEXT_TRIGGER=CLAUDE_REVIEW_GHM_FAST_PR_P72.
-- ⛔ Không dùng persistent runner chứa secret để chạy code PR chưa tin cậy; không chạy DDL production/ép sửa Compose hash; không ghi sai C1B PASS; không auto deploy/force-push/mua Pro chưa được Owner duyệt.
+- ■ Đang làm: GPT Host ký READY@08d50b15fac0ad35b228997fe1ea6c626c8997fd · 0 RUN active.
+- ⬜ Còn lại: CI trên main mới chạy nhánh c1b-* (chưa PR) — F0 thêm workflow PR + gate; KST review/merge/Web release từ PR chưa chứng minh (F1); Web Health 401 (lane độc lập S4-B cùng RUN); AD gate Compose + bản lùi còn DDL (lượt AD sau).
+- ➡ Kế tiếp: GPT Host READY@08d50b15fac0ad35b228997fe1ea6c626c8997fd → 😊 Owner giao Codex RUN_ID `GHM-FAST-PR-LANE-20261027-04`. NEXT_TRIGGER=HOST_READY_FAST_PR_P73.
+- ⛔ Chỉ Codex + Claude Code CLI đẩy nhánh trước C2; workflow PR không dùng secret; không DDL production/ép sửa Compose hash; không ghi sai C1B PASS; không auto deploy/force-push; Pro do Owner mua.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -24,7 +24,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 7. “Hãy tập trung vào làm việc đó đã. Chuyện này không nhanh được đâu. Các bạn bàn kỹ với nhau.”
 8. “Bạn viết thành kế hoạch và roadmap trên task, sau đó tôi cần cloud tham gia phản biện, đồng thuận rồi mới triển khai.” — 24/10/2026.
 9. “Tôi muốn xác nhận là việc mua pro là bắt buộc ngay hay chỉ khi chúng ta đóng repo lại? Nếu mở repo thì có cần phải mua ngay không? Tôi muốn thử quy trình trước? Vấn đề là tất cả các Agent cần phải thao tác, cần phải có luật, phải thử nghiệm và chứng minh được là công việc có thể đẩy nhanh song song trước được không? Hay bắt buộc phải mua trước mới làm được?” — Owner 25/10/2026.
-10. “Mục tiêu tối thượng là nhanh chóng code được qua kênh Gh để đẩy nhanh tiến độ (Codex song song và kỹ sư trưởng claude code cli rà soát, merge, deplpy (run trên VPS) và có hệ thống này có thể đưa vào sản xuất sớm nhất có thể.” — Owner 27/10/2026. **Bổ sung thứ tự ưu tiên cho mục tiêu #2–#6; không cho phép deploy rủi ro hoặc tự mua Pro.**
+10. “Mục tiêu tối thượng là nhanh chóng code được qua kênh GitHub để đẩy nhanh tiến độ (Codex song song, kỹ sư trưởng Claude Code CLI rà soát, merge, deploy chạy trên VPS) và đưa hệ thống này vào sản xuất sớm nhất có thể. Đây là việc đáng ưu tiên nhất vì đang là điểm nghẽn: hiện tất cả xếp hàng chờ do máy chủ bận, chưa khai thác hết nguồn lực, thời gian vật lý có hạn.” — Owner 27/10/2026 (đã sửa lỗi gõ). **Bổ sung thứ tự ưu tiên cho mục tiêu #2–#6; không cho phép deploy rủi ro hoặc tự mua Pro.**
 
 ### 2. Thế nào là hoàn thành
 “Tối đến có 1 loạt nhiệm vụ, sáng ra xong. Ông DOT nhắc ông codex đi đốc công các agent làm việc. Đơn giản chỉ có vậy thôi.”
@@ -1040,6 +1040,31 @@ KQ@GHM-C1B-FINALIZE-20261027-03 · STATUS=XONG CÓ GIỚI HẠN · executor=Code
 2. Kiểm runner PR isolation tối thiểu và cách kích hoạt CI dev/PR từ workflow trên main (không secrets/root, không pull_request_target, SHA và budget); cách nào đạt nhanh bằng công cụ sẵn có, không mua phức tạp?
 3. Kiểm vai Codex worker/KST Claude CLI, phương án 1 Web PR → manual release thực tế và nợ AD rollback/Web auth; giảm cổng STOP không cần, nhưng giữ chặn mất dữ liệu. Sửa thẳng `PROMPT.md` DRAFT và ghi P73 ACCEPT@last-touch; Host ký READY rồi Owner giao Codex. Đề xuất một lệnh thay vì tranh luận kéo dài.
 - NEXT_TRIGGER=CLAUDE_REVIEW_GHM_FAST_PR_P72.
+
+## P73 · Claude Chat (Reviewer) · 27/10/2026 11:40 +07 — ACCEPT FAST-PR-LANE CÓ SỬA · cần Host READY@08d50b15fac0ad35b228997fe1ea6c626c8997fd
+Based_on: Owner 27/10 (mục tiêu #10) · P71/C1B-FINALIZE-REPORT @a1f8f057 · P72 · PROMPT @594f0c84 · runner/README · GitHub Docs «Secure use reference». Bảng + ROADMAP sửa cùng lượt; §1 mục 10 sửa lỗi gõ theo luật Owner. PROMPT sửa tại chỗ: commit 72dbcc2f + 08d50b15.
+
+**1. Đồng thuận P72:** Owner 27/10 đổi đường găng — viết mã qua nhánh/PR không chờ 2 nợ C1B; chỉ app chưa có bản lùi bị cấm deploy. Phát hiện của Host đúng: CI main chỉ chạy nhánh c1b-*, chưa có đường PR.
+
+**2. Cách ly — bỏ yêu cầu runner ephemeral (nếu giữ, Codex sẽ BLOCKED_CI):**
+- 2.1 GitHub ghi: «ai có quyền ghi repo đều đọc được mọi secret của repo». Mọi ghế đẩy nhánh đã có quyền đó ⇒ tách runner không giữ thêm được secret.
+- 2.2 Runner ephemeral cần thẻ quản trị nằm lâu trên VPS để tự đăng ký lại mỗi job ⇒ trái luật «không key dài hạn mới», lại thêm tải cho VPS đang nghẽn.
+- 2.3 Thay bằng 5 cổng đúng chỗ («một thẻ · hai cổng»): chỉ Codex + Claude Code CLI đẩy nhánh trước C2 · workflow PR không secret, contents:read · gate đỏ chờ KST khi PR đổi workflow/thêm `secrets.` · workflow có secret chỉ schedule/dispatch trên main · C2 chuyển secret vào environment chỉ main + CODEOWNERS cho workflow.
+
+**3. Chống dừng/oan tài nguyên:**
+- 3.1 Trigger chỉ `pull_request` + dispatch, huỷ run cũ — bỏ `push dev/**` để không chạy trùng 2 lần trên VPS đang bận.
+- 3.2 Gate Web không build Nuxt: runner 1,5 GiB, build cần 2,5 GiB (P61) ⇒ build để ở bước release của KST.
+- 3.3 Hai PR chọn sẵn, không đi tìm việc: Web = nhánh sửa Web Health `d3b1ec8` (gate phải ĐỎ đúng cổng workflow — thử luôn cổng); AD = test phân trang `/kb/list` (gate XANH).
+- 3.4 F1 cần thêm 1 PR Web đổi mã ứng dụng để diễn tập release — Host chọn khi soạn F1.
+
+**4. Hai nợ C1B, xử lý độc lập:**
+- 4.1 Web Health 401 gộp vào cùng RUN làm lane S4-B (không chặn F0, bớt 1 lượt Owner chuyển tay): repo web-test giữ bản sao key riêng, repo AD với bản sao của nó vẫn xanh ⇒ lấy key chuẩn GSM, thử 200, ghi đè đúng 1 secret web-test, ≤2 lượt dispatch; đạt thì giao KST merge, không tự merge.
+- 4.2 AD để lượt sau, hướng ngắn nhất: script deploy so 17 trường theo luật P63 (không so hash nhãn Compose — đây là lệch giữa script P61 và luật P63); bản lùi = commit cũ + đúng bản vá fast-path (0 DDL) hoặc chấp nhận CREATE IF NOT EXISTS không đổi gì — Host + Owner chốt.
+
+**5. Đề xuất Owner gật/lắc:** mua GitHub Pro (4 USD/tháng) ngay sau F0 PASS, trước F2 — Pro mở khoá 3 cổng cứng máy ép được: bắt buộc gate xanh, secret chỉ cho main, workflow phải KST duyệt. Đã ghi ROADMAP hàng C2.
+
+**6.** JEV `gen-dec-1793075203-VfKIBDPrvmVVxpAyMe1i`: cách ly bằng cổng đúng chỗ 0,96 · gộp lane Web Health 0,70 · gate Web không build 0,65 · chỉ trigger PR 0,55. Phương án do Claude viết.
+- NEXT_TRIGGER=HOST_READY_FAST_PR_P73 → Host READY@08d50b15fac0ad35b228997fe1ea6c626c8997fd → Owner giao Codex.
 
 
 
