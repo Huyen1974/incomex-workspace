@@ -33,14 +33,14 @@ Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT 
 - 🔁 **Đồng bộ/cảnh báo P72:** `query_pg` READ ONLY/5s cho PG-A1. Kuma 2.2.1 PostgreSQL monitor SQL success là UP; cố ý SQL exception khi có RED là ý kiến P71 **CHƯA DUYỆT**, phải cân nhắc false alarm và biên nhận; Guard→Kuma Push / Directus Flow native là ứng viên khác. `file_fdw` đọc 1 TSV chỉ xét nếu RO mount/cập nhật manifest an toàn, không gọi live nếu Git 14/31 DOT ngoài commit và baseline chưa duyệt. Không code mới mặc định.
 - 🏁 **ĐẠT KHI:** PG catalog 4DB có key/nguồn/quan hệ chuẩn; DOT live chỉ khi file role/mount an toàn; S4 quyết định Owner và SQL VIEW trả KHỚP/LỖI/UNKNOWN đúng chứng cứ; Nuxt/API chưa bảo vệ thì chưa public, nginx phải chặn mọi route; Kuma + Telegram cảnh báo thực có receipt, các nguồn RAG/Qdrant/Graph bổ sung không SSOT. 0 mã mới mặc định, Ba Lô legacy giữ.
 - ✅ Đã làm: B0 MỘT PHẦN (P24); B0b ACCEPT/READY P26/P28; P29 kiểm PG Census 393 bảng và Ba Lô 385 tên (lệch 8 CHƯA ĐỐI SOÁT). P30 Claude đề xuất Sổ PG Tự quản và dữ liệu 29/07–01/08; **P31 GPT đồng ý hướng PG Tự quản nhưng chỉnh ba cơ chế**: chưa thay/xóa registry sống, không chép máy thành SSOT mới, không event trigger mặc định. P32–P37 chốt nguyên tắc; **P38 viết lại §3.TQ thành thẻ chốt duy nhất**, dọn chỗ mâu thuẫn, gắn ⛔ lệnh `--dry-run` cũ. P39 GPT thêm sơ đồ/nghiệm thu. **P40 vẽ lại theo Owner 15:25: 4 sổ, chỉ 1 bảng mới, bắt đầu bằng đếm; rà đọc lạnh 7/10 → đã sửa 12 điểm.** P41–P43 GPT: Census = báo cáo sống, Task dễ đọc. **P44 Claude: đồng thuận, B0b đủ điều kiện chạy.** P45 GPT: sơ đồ ở tab Nội dung. **P46 Claude: người xem trên khuôn Reports Nuxt có sẵn (Owner 21:07).** Chưa tạo/sửa PG/Directus.
-- 📍 Tiến độ: [✅ B0b + TS1] → [✅ TS2 P60 DỪNG sạch] → [✅ PG-L0 P69 MỘT PHẦN hợp lệ] → [✅ GPT Host P70 nghiệm thu] → [✅ Claude P71 ACCEPTED 5 sửa] → [✅ GPT Host P72 READY@0589e297] → [■ Owner chọn giờ sau GitHub, PG-A1 chưa STARTED] → [□ PG-A2 sau Owner G1/G2, S4 + tối đa 3 VIEW] → [□ SEC P0/E1 tách đúng chủ] → [□ Công thức/Workflow]. PG-L1 BLOCKED.
+- 📍 Tiến độ: [✅ B0b + TS1] → [✅ TS2 P60 DỪNG sạch] → [✅ PG-L0 P69 MỘT PHẦN hợp lệ] → [✅ GPT Host P70 nghiệm thu] → [✅ Claude P71 ACCEPTED 5 sửa] → [✅ GPT Host P72 READY@0589e297] → [✅ PG-A1 P73 KQ XONG_CÓ_GIỚI_HẠN, chờ Host nghiệm thu] → [□ PG-A2 sau Owner G1/G2, S4 + tối đa 3 VIEW] → [□ SEC P0/E1 tách đúng chủ] → [□ Công thức/Workflow]. PG-L1 BLOCKED.
 - ■ — · **0 RUN active trên task sau P69** · G0-L0 P69 08:10–08:18Z DỪNG·MỘT PHẦN đúng phạm vi, query_pg 3 DB RO PASS/0 mutation/0 VPS-GHI, E1 chưa có SQL-result→đèn đỏ. **BLOCKED PG-L1** vì `pg_read_server_files` đọc `/proc/1/environ` và PGDATA. P0 Nginx không auth, /reports và /api/reports/live ẩn danh; 24 SECURITY DEFINER callable rộng cần audit PG security riêng. PG-A1 PROMPT mới chưa READY/STARTED, chỉ SELECT catalog native.
 - 🗂 **P51 Host READY (đã ký trong COLLAB):** RUN_ID `NDW-TS1-12TYPE-INVENTORY-20261026-01`; PROMPT last-touch `4944d0de016921a57bf16e93e7b92c76beb7969e`, Reviewer ACCEPT P50 và Host READY P51 cùng SHA. Lệnh không sửa PG/Directus/Graph, chưa có STARTED/KQ. Ở thời điểm Host rà, Codex giữ VPS-GHI cho hai volume GitHub, VPS còn khoảng 2 MiB swap trống. **READY không tự chạy:** tránh giành tài nguyên, chỉ dispatch khi Codex đã KQ và trả cờ; executor phải tự kiểm gate và tải lại.
 - 😊 Owner: **PG-A1 đã được GPT Host ký READY P72**, không cần gửi Claude Chat vòng nữa hay phê duyệt G1/G2 cho lượt chỉ đọc. Khi ưu tiên GitHub xong, chuyển đúng một câu DROOT38 cho Claude Code; executor tự kiểm query_pg RO/5s/STOP/tài nguyên. PG-A1 chỉ lập SQL/DDL V1/V2, KHÔNG CREATE production. Sau KQ mới xét PG-A2; file_fdw và Kuma SQL-error chỉ là đề xuất có điều kiện.
 - ⬜ Còn: PG-A1 đo 3DB và quan hệ pg_depend/rewrite/constraint native, DB postgres UNKNOWN, lập hợp đồng V1/V2; P0 SEC/Web nginx 0 auth trên vps/giaoduc/apex và API /live, chưa cho public; PG SEC cần audit 24 hàm SECURITY DEFINER/PUBLIC mà không tự REVOKE; job_queue 7 dòng cũ gộp một nguyên nhân cần người sở hữu; E1 Directus native Flow/Guard→Kuma Push chưa kiểm, Kuma Postgres trả xanh theo SQL thành công; Graph/RAG/Qdrant chỉ phụ trợ. PG-L1 BLOCKED không chiếm tiến độ A1.
 - ✅ P17 · 24/10 · Owner bổ sung: chỉ sửa trong Directus không sửa HTML; làm MOW 001 xong làm tiếp 002–035, thêm MMOW 008/009; B0 rà các table PG hiện hữu để chọn bảng sẽ dùng; B4 đưa lên production **từng sổ/nhóm đã ổn định** chứ không chờ cả vùng NHÁP. Đã ghi vào roadmap; **chưa chạy kiểm kê PG/Directus, chưa tạo/sửa bảng**.
 - 📜 Lịch sử P16–P38 (chi tiết ở các khối P bên dưới): P16 collection-first · P20 bỏ chữ «thử/test», Host = GPT · P22–P23 B0 ACCEPT/READY · P26–P28 B0b ACCEPT/READY `13a936e4` · P30–P31 hướng PG Tự quản, giữ 4 sổ cũ · P32–P35 PG-native, Cách A/B, Trần · P36–P37 khai tối thiểu, «lần quét cuối» ≠ «lần dùng cuối», `mtime` ≠ lần chạy · P38 thẻ chốt duy nhất §3.TQ · P39 sơ đồ 2A/2B (GPT) · P40 vẽ lại 4 sổ (Owner 15:25).
-- ➡ NEXT_TRIGGER=OWNER_DISPATCH_PGA1_AFTER_GITHUB. P72 Host READY@0589e297e95f54183ece8053c031f8cff7eab468, REVIEW_REUSED=P71; PROMPT không sửa sau P71. Owner dán đúng một DROOT38 cho Claude Code khi tới lượt; S0 phải kiểm query_pg role context_pack_readonly/READ ONLY/5s, STOP, Gate/PSI, DB postgres denied, không lấy VPS-GHI khi 0 runtime mutation. Sau KQ HOST_NGHIEM_THU_PGA1; PG-A2 G1/G2/SEC riêng.
+- ➡ NEXT_TRIGGER=GPT_HOST_NGHIEM_THU_PG_A1 · P73 Claude Code KQ XONG_CÓ_GIỚI_HẠN 15:05–15:20Z (3 DB RO đo đủ, khớp Census; V1/V2 DDL `directus` soạn sẵn, CHƯA áp; `postgres` UNKNOWN). Trước đó: OWNER_DISPATCH_PGA1_AFTER_GITHUB. P72 Host READY@0589e297e95f54183ece8053c031f8cff7eab468, REVIEW_REUSED=P71; PROMPT không sửa sau P71. Owner dán đúng một DROOT38 cho Claude Code khi tới lượt; S0 phải kiểm query_pg role context_pack_readonly/READ ONLY/5s, STOP, Gate/PSI, DB postgres denied, không lấy VPS-GHI khi 0 runtime mutation. Sau KQ HOST_NGHIEM_THU_PGA1; PG-A2 G1/G2/SEC riêng.
 - ⛔ Không tự ghi Directus/PG, mở quyền, đổi tên/xóa collection trong lượt chỉnh tài liệu này.
 
 📜 **LỊCH SỬ 23/10 — từ đây tới hết khối «Chỉ đạo P06»** (giao diện trang chủ, HTML, vùng NHÁP, diễn tập): không làm theo. Việc hiện hành: BẢNG ĐIỀU KHIỂN + §3.TQ.
@@ -180,6 +180,180 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 - **Nguồn hãng thêm:** https://www.postgresql.org/docs/18/file-fdw.html ; https://www.postgresql.org/docs/18/postgres-fdw.html ; https://docs.docker.com/engine/storage/bind-mounts/ ; https://www.postgresql.org/docs/18/sql-notify.html ; https://www.postgresql.org/docs/18/sql-select.html . Nêu rõ lời giới thiệu của Claude 'PG đọc sống không đồng bộ trễ' đúng với dữ liệu **được truy vấn**, KHÔNG đồng nghĩa đã có detection/notification mọi thay đổi theo thời gian.
 **P73 · 27/10/2026 22:05 +07 · Claude Code · PG-A1 catalog/dependency native 3 DB · CHỈ ĐỌC · RUN `NDW-PGA1-CATALOG-DEPENDENCY-20261027-01`**
 - STARTED@NDW-PGA1-CATALOG-DEPENDENCY-20261027-01 2026-10-27T15:05Z · executor=Claude Code CLI · đọc tới `f7b17dd5` · Reviewer P71 REVIEW_ACCEPTED + Host READY (P72) @0589e297 = commit cuối chạm PROMPT (git log + `workspace_log`) · khối Owner mở đầu đúng `GỬI: Claude Code · VIỆC: work/nhap-directus-for-workflow`, không chép RUN_ID/SHA, thân khớp PROMPT · 0 STOP_REQUESTED/HOLD/COUNCIL_ALERT OPEN, 0 STARTED/KQ trùng RUN; phiên Claude Code khác đang mở là `work/github-management` (GHM-F1 KQ XONG 09:37Z), không phải RUN này · `query_pg` 15:02Z: `context_pack_readonly`, không super, `transaction_read_only=on`, `statement_timeout=5000`, PG 18.6 · VPS-GHI gốc trống (trả 09:37Z) — lượt chỉ đọc, KHÔNG lấy cờ · tải VPS 15:02Z: tải 3,5/6 CPU, RAM khả dụng 3,4/11,7 GiB, swap 2 GiB đầy sẵn, PSI bộ nhớ some 0,82/full 0,71 (avg10), si/so 0, PSI CPU some 5,4 ⇒ đủ cho SELECT catalog tuần tự (JEV `gen-dec-1793113386-RGEYGNmfVPuUGjtrbGT4` RUN 0,77) · Read_Path: chỉ `query_pg` SELECT catalog (từng câu tuần tự, ≤5 s) + `vps_status`/SSH chỉ đọc PSI · Write_Path: gateway `workspace_edit` chỉ COLLAB này · 0 CREATE/ALTER/GRANT, 0 tệp tạm VPS, 0 tiến trình nền · hard stop 35′ ⇒ KQ ≤ 15:40Z.
+- KQ@NDW-PGA1-CATALOG-DEPENDENCY-20261027-01 XONG_CÓ_GIỚI_HẠN · 2026-10-27T15:20Z · executor=Claude Code · cả 3 DB được phép đo được bằng `query_pg` RO, DB `postgres` = UNKNOWN/ACCESS_DENIED (gateway, không mở allowlist) · S1 catalog = Census sống từng loại ở cả 3 DB, khoá khác nhau = tổng, 0 thiếu cha · S2 cạnh native đủ 5 lớp, CTE đệ quy được cổng nhận · S3 hai thân SELECT V1/V2 đã chạy thật chỉ-đọc dưới 5 s trong `directus` (V1 16.514 dòng · V2 4.566 dòng, 0 trùng), DDL hoàn chỉnh + lùi bên dưới, **CHƯA áp** · 0 ghi PG/Directus/Docker/Graph/Nuxt/Kuma, 0 GRANT/CREATE, KHÔNG lấy VPS-GHI, 0 tệp tạm/0 tiến trình trên VPS (SQL nháp chỉ ở scratchpad Mac) · Guard POST: không chạy (footprint 0) · rollback: không cần · NEXT_TRIGGER=GPT_HOST_NGHIEM_THU_PG_A1 · JEV `gen-dec-1793113986-9L5kNWWSnwxglpo0zxLz` nghiêng DỪNG 0,59 (độ tin 0,38) vì coi `postgres` bị chặn là thiếu đường đọc; em chốt XONG_CÓ_GIỚI_HẠN theo đúng câu PROMPT §S4 «`postgres` UNKNOWN vẫn nêu», không câu nào timeout · 15′ (15:05–15:20Z), ~25 SELECT tuần tự.
+
+**S1 · 3 DB × loại · 15:05–15:08Z** (phạm vi = schema người dùng, bỏ `pg_*`/`information_schema`; khoá = `pg_identify_object` type+identity kèm tên DB; «cha» = schema/bảng/hàm trỏ tới còn trong catalog)
+| Loại | directus | Census directus | incomex_metadata | Census | workflow | Census |
+|---|---|---|---|---|---|---|
+| schema | 4 | 4 | 1 | 1 | 3 (kestra, prefect, public) | 3 |
+| table | 393 | 393 | 10 | 10 | 0 | 0 |
+| view | 699 | 699 | 1 | 1 | 0 | 0 |
+| matview | 1 | 1 | 0 | 0 | 0 | 0 |
+| sequence | 150 | 150 | 5 | 5 | 0 | 0 |
+| function | 679 (254 của extension) | 679 | 15 (5 của extension) | 15 | 0 | 0 |
+| procedure | 1 | 1 | 0 | 0 | 0 | 0 |
+| trigger | 410 | 410 | 7 | 7 | 0 | 0 |
+| constraint | 3.080 | 3.080 | 47 | 47 | 0 | 0 |
+| index | 996 | 996 | 22 | 22 | 0 | 0 |
+| foreign_table | 1 | 1 | 1 | 1 | 0 | 0 |
+| column | 10.099 | 10.099 | 69 | 69 | 0 | 0 |
+| composite_type (ngoài 12) | 1 | — | 0 | — | 0 | — |
+Mọi ô: khoá khác nhau = tổng, trùng 0, thiếu/sai cha 0. `directus` trùng TS1 P52 từng số (không đo lại chi tiết). Census = chạy nguyên văn `table_registry.view_sql` dòng `tbl_report_pg` trên từng DB cùng mốc 15:05:58–15:06:17Z. **Ngoài 12, 2 DB mới:** `incomex_metadata` extension 2 (plpgsql, postgres_fdw 1.2) · foreign server 1 + FDW 1 · event trigger 2 · default ACL 3 · rule/policy/enum/domain/publication 0; `workflow` chỉ plpgsql, 0 server/event trigger/policy/kiểu, 7,7 MB. **4 chỗ Census lệch cách đếm (hôm nay chênh 0, ghi để PG-A2 không chép lỗi):** (1) `NOT LIKE 'pg_%'` — `_` là ký tự đại diện ⇒ schema người tên `pgx…` sẽ bị bỏ (hiện 0 schema như vậy ở 3 DB); (2) trigger không lọc schema; (3) table chỉ relkind `r` (bỏ bảng phân vùng `p`, hiện 0); (4) index chỉ `i` (bỏ `I`, hiện 0). V1 dưới đã lọc đúng cả 4. **Phát hiện phụ:** `public.v_report_pg` là BẢNG (relkind r, có `_id_seq`/`_pkey`), không phải VIEW (đóng ô P42 «chưa kiểm đối tượng v_report_pg»); không đọc nội dung.
+
+**S2 · cạnh PG-native · 15:08–15:12Z** (lọc `objid ≥ 16384`, bỏ `deptype='p'` trước `pg_identify_object`; quan hệ đưa về mức vật, không tách cột)
+| Lớp | directus | incomex_metadata | Nguồn catalog | Nghĩa DROP |
+|---|---|---|---|---|
+| VIEW_REWRITE view→quan hệ | 1.738 (21 tới quan hệ hệ thống = TARGET_SYSTEM_OUT_OF_SCOPE) | 1 | `pg_depend` classid `pg_rewrite` + `ev_class` | NORMAL: chặn DROP đích nếu không CASCADE |
+| VIEW_REWRITE view→hàm | 143 | 0 | như trên | NORMAL |
+| FK | 175 (156 cặp bảng) | 0 | `pg_constraint` f | NORMAL |
+| TRIGGER_OWNER trigger→bảng / →hàm | 410 / 410 | 7 / 7 | `pg_trigger` | AUTO (mất theo bảng) / NORMAL (chặn DROP hàm) |
+| PG_DECLARED_DEP index→bảng | 996 | 22 | `pg_index` | AUTO |
+| PG_DECLARED_DEP sequence→cột (OWNED BY / identity) | 126 + 5 | 5 | `pg_depend` | AUTO / INTERNAL |
+| PG_DECLARED_DEP cột default→sequence/hàm | 131 + 6 (sau DISTINCT; 2 cặp `pg_depend` lặp) | — | `pg_attrdef` | NORMAL |
+| UNKNOWN_DYNAMIC_CODE | 426 hàm plpgsql/sql (không tính extension), 0 hàm dùng thân SQL chuẩn `BEGIN ATOMIC` | 10 | `pg_proc` | thân mã/SQL động PG KHÔNG ghi phụ thuộc ⇒ UNKNOWN |
+`pg_depend` dòng người dùng (sau lọc): directus 21.233 (53 nhóm lớp×deptype), incomex_metadata 253; thành viên extension 331/6 (V1 ghi ở cột `extension`, không thành cạnh). Event trigger→hàm 2/2 (ngoài V1/V2, xem S3). **CTE đệ quy:** cổng `query_pg` CHẤP NHẬN `WITH RECURSIVE` (có trần độ sâu): 890 cạnh view→view, 368 view phụ thuộc view khác, chuỗi sâu nhất **11 tầng** (trần 12 không chạm) ⇒ đổi/xoá một view gốc có thể kéo 11 tầng. **Ca đọc mẫu:** `public.v_trigger_universe_census` → 3 bảng (`dot_tools` 7 cột, `event_type_registry` 4, `job_queue` 1); nó có đọc `pg_trigger` nhưng PG **không ghi cạnh tới catalog hệ thống đã ghim** ⇒ «không có cạnh» ≠ «không dùng». Không crawl thân hàm, không EXPLAIN.
+
+**S3 · hợp đồng V1/V2 (giai đoạn 1 chỉ DB `directus`, trần ≤ 3 VIEW còn chỗ V3)**
+- **V1 `public.v_pg_asset_catalog`** cột: `db_scope, kind, namespace, canonical_key, native_identity, parent_key, oid_observed, subid_observed, source_catalog, extension, observed_at, status`. Khoá `pg:<db>:<type>:<identity>` lấy nguyên `pg_identify_object` (vd `pg:directus:table:public.dot_tools`, `pg:directus:table column:public.dot_tools.code`, `pg:directus:trigger:<t> on public.<bảng>`) ⇒ V1 và V2 sinh khoá cùng một hàm, không bảng ánh xạ tự viết; OID chỉ là dấu. Khoá có tên DB ⇒ khắc lỗi P52 (b) khoá Graph thiếu DB. Chạy thật 15:09Z: 16.514 dòng = Census 16.513 + 1 composite type, khoá khác nhau 16.514, `parent_key` rỗng 0, dưới 5 s.
+- **V2 `public.v_pg_dependency_edges`** cột: `source_key, target_key, relation_type, dependency_type, via_key, source_catalog, observed_at, completeness` (thêm `via_key` = khoá constraint FK/default để 175 FK không gộp thành 156). `dependency_type` ∈ NORMAL_BLOCKS_DROP | AUTO_DROPS_WITH_TARGET | INTERNAL_PART_OF_TARGET | UNKNOWN; `completeness` ∈ PG_TRACKED | TARGET_SYSTEM_OUT_OF_SCOPE | UNKNOWN_DYNAMIC_CODE. Quan hệ sở hữu cột/constraint nằm ở V1 `parent_key`, không nhân thành 13 nghìn cạnh. Chạy thật 15:16Z: 4.566 dòng = 4.119 PG_TRACKED + 21 ngoài phạm vi + 426 UNKNOWN, 0 trùng, dưới 5 s. Graph không là oracle.
+- **Điều kiện áp đã đo (cho PG-A2):** tên 2 VIEW chưa có · 2 event trigger mỗi DB chỉ bắt `CREATE TRIGGER, ALTER TABLE` (ddl_command_end) và `DROP TRIGGER` (sql_drop) ⇒ CREATE VIEW/COMMENT/GRANT **không kích** (đóng ô P52 (g) «chưa đo event trigger») · default ACL của `workflow_admin` trong `public` tự cấp `context_pack_readonly` SELECT và `directus` cả INSERT/UPDATE/DELETE/REFERENCES cho quan hệ mới ⇒ DDL thu về rồi chỉ cấp SELECT · `security_invoker = true` (PG15+) để view chủ superuser không chạy bằng quyền chủ · vai Nuxt đọc báo cáo KHÔNG được cấp (P0 nginx/API chưa đăng nhập, chưa công bố metadata) · `dot-pg-atomic-apply` tự mở giao dịch ⇒ khối không có BEGIN/COMMIT; Host đăng ký sha vào `approved-sql-manifest.tsv` ở PG-A2.
+- **Nhiều DB:** VIEW PG chỉ đọc catalog của DB chứa nó; không có VIEW tự đọc 3 DB. Đã CÓ sẵn `postgres_fdw` hai chiều: `directus.incomex_meta_srv` → DB `incomex_metadata` (1 foreign table, 2 user mapping) và `incomex_metadata.directus_srv` → DB `directus` (1 foreign table, 2 user mapping); vai `context_pack_readonly` KHÔNG có USAGE trên cả hai; `workflow` không có server. Gộp V1 của `incomex_metadata` vào `directus` = 1 foreign table trên server có sẵn + 1 user mapping chỉ đọc — quyết định sau, có phép riêng; 0 tạo FDW/SERVER trong lượt này. Hiện tại: 2 DB nhỏ đối soát bằng Census + chính thân SELECT V1/V2 chạy RO trên DB đó (thân không gắn cứng DB, đã chạy được trên `incomex_metadata`/`workflow` ở S1/S2).
+- **DDL PG-A2 (chạy nguyên văn, sha256 `947b71ffb99123e28c851e7bc8902a9dee4cf1e00bbf17e6175e2a9ecf987b44`, 9.902 B; lùi sha256 `c674fc8831628e52dd2d016f67010229a256b5ec1b354696a2b0ab4fad173044`):**
+```sql
+-- NDW PG-A1 DRAFT · DB directus · V1/V2 phase 1 · KHÔNG áp trong PG-A1 · áp ở PG-A2 qua dot-pg-atomic-apply (một giao dịch) sau Owner G1/G2
+-- Chủ sở hữu khi áp: workflow_admin (vai của dot-pg-atomic-apply). security_invoker: người đọc dùng quyền của chính mình.
+CREATE OR REPLACE VIEW public.v_pg_asset_catalog WITH (security_invoker = true) AS
+WITH n AS (
+  SELECT oid, nspname FROM pg_catalog.pg_namespace
+  WHERE nspname NOT LIKE 'pg\_%' AND nspname <> 'information_schema'
+), o(kind, classid, objid, objsubid, namespace, p_classid, p_objid) AS (
+  SELECT 'schema', 'pg_namespace'::regclass::oid, n.oid, 0, n.nspname,
+         'pg_database'::regclass::oid, (SELECT d.oid FROM pg_catalog.pg_database d WHERE d.datname = current_database())
+  FROM n
+  UNION ALL
+  SELECT CASE c.relkind WHEN 'r' THEN 'table' WHEN 'p' THEN 'table' WHEN 'v' THEN 'view' WHEN 'm' THEN 'matview'
+                        WHEN 'S' THEN 'sequence' WHEN 'f' THEN 'foreign_table' WHEN 'i' THEN 'index' WHEN 'I' THEN 'index'
+                        WHEN 'c' THEN 'composite_type' ELSE 'relkind_' || c.relkind::text END,
+         'pg_class'::regclass::oid, c.oid, 0, n.nspname,
+         CASE WHEN c.relkind IN ('i','I') THEN 'pg_class'::regclass::oid ELSE 'pg_namespace'::regclass::oid END,
+         CASE WHEN c.relkind IN ('i','I') THEN (SELECT x.indrelid FROM pg_catalog.pg_index x WHERE x.indexrelid = c.oid) ELSE n.oid END
+  FROM pg_catalog.pg_class c JOIN n ON n.oid = c.relnamespace
+  WHERE c.relkind <> 't'
+  UNION ALL
+  SELECT CASE p.prokind WHEN 'f' THEN 'function' WHEN 'p' THEN 'procedure' WHEN 'a' THEN 'aggregate' WHEN 'w' THEN 'window' END,
+         'pg_proc'::regclass::oid, p.oid, 0, n.nspname, 'pg_namespace'::regclass::oid, n.oid
+  FROM pg_catalog.pg_proc p JOIN n ON n.oid = p.pronamespace
+  UNION ALL
+  SELECT 'trigger', 'pg_trigger'::regclass::oid, t.oid, 0, n.nspname, 'pg_class'::regclass::oid, t.tgrelid
+  FROM pg_catalog.pg_trigger t JOIN pg_catalog.pg_class r ON r.oid = t.tgrelid JOIN n ON n.oid = r.relnamespace
+  WHERE NOT t.tgisinternal
+  UNION ALL
+  SELECT 'constraint', 'pg_constraint'::regclass::oid, k.oid, 0, n.nspname,
+         CASE WHEN k.conrelid <> 0 THEN 'pg_class'::regclass::oid ELSE 'pg_type'::regclass::oid END,
+         CASE WHEN k.conrelid <> 0 THEN k.conrelid ELSE k.contypid END
+  FROM pg_catalog.pg_constraint k JOIN n ON n.oid = k.connamespace
+  UNION ALL
+  SELECT 'column', 'pg_class'::regclass::oid, c.oid, a.attnum, n.nspname, 'pg_class'::regclass::oid, c.oid
+  FROM pg_catalog.pg_attribute a JOIN pg_catalog.pg_class c ON c.oid = a.attrelid JOIN n ON n.oid = c.relnamespace
+  WHERE a.attnum > 0 AND NOT a.attisdropped AND c.relkind IN ('r','p','v','m','f')
+)
+SELECT current_database()::text                               AS db_scope,
+       o.kind                                                 AS kind,
+       o.namespace                                            AS namespace,
+       'pg:' || current_database() || ':' || i.type || ':' || i.identity AS canonical_key,
+       i.identity                                             AS native_identity,
+       'pg:' || current_database() || ':' || pi.type || ':' || pi.identity AS parent_key,
+       o.objid                                                AS oid_observed,
+       o.objsubid                                             AS subid_observed,
+       o.classid::regclass::text                              AS source_catalog,
+       (SELECT e.extname::text FROM pg_catalog.pg_depend d JOIN pg_catalog.pg_extension e ON e.oid = d.refobjid
+         WHERE d.classid = o.classid AND d.objid = o.objid AND d.objsubid = 0 AND d.deptype = 'e' AND o.objsubid = 0) AS extension,
+       now()                                                  AS observed_at,
+       'PRESENT'::text                                        AS status
+FROM o
+CROSS JOIN LATERAL pg_catalog.pg_identify_object(o.classid, o.objid, o.objsubid) i
+CROSS JOIN LATERAL pg_catalog.pg_identify_object(o.p_classid, o.p_objid, 0) pi;
+
+CREATE OR REPLACE VIEW public.v_pg_dependency_edges WITH (security_invoker = true) AS
+WITH e(relation_type, s_classid, s_objid, s_subid, t_classid, t_objid, t_subid, deptype, via_classid, via_objid, source_catalog) AS (
+  SELECT DISTINCT 'VIEW_REWRITE', 'pg_class'::regclass::oid, r.ev_class, 0, d.refclassid, d.refobjid, 0, d.deptype::text,
+         NULL::oid, NULL::oid, 'pg_depend+pg_rewrite'
+  FROM pg_catalog.pg_depend d JOIN pg_catalog.pg_rewrite r ON r.oid = d.objid
+  WHERE d.classid = 'pg_rewrite'::regclass AND d.deptype = 'n' AND d.refobjid <> r.ev_class AND r.ev_class >= 16384
+    AND d.refclassid IN ('pg_class'::regclass, 'pg_proc'::regclass, 'pg_type'::regclass)
+  UNION ALL
+  SELECT 'FK', 'pg_class'::regclass::oid, k.conrelid, 0, 'pg_class'::regclass::oid, k.confrelid, 0, 'n',
+         'pg_constraint'::regclass::oid, k.oid, 'pg_constraint'
+  FROM pg_catalog.pg_constraint k WHERE k.contype = 'f' AND k.conrelid >= 16384
+  UNION ALL
+  SELECT 'TRIGGER_OWNER', 'pg_trigger'::regclass::oid, t.oid, 0, 'pg_class'::regclass::oid, t.tgrelid, 0, 'a',
+         NULL::oid, NULL::oid, 'pg_trigger'
+  FROM pg_catalog.pg_trigger t WHERE NOT t.tgisinternal
+  UNION ALL
+  SELECT 'TRIGGER_OWNER', 'pg_trigger'::regclass::oid, t.oid, 0, 'pg_proc'::regclass::oid, t.tgfoid, 0, 'n',
+         NULL::oid, NULL::oid, 'pg_trigger'
+  FROM pg_catalog.pg_trigger t WHERE NOT t.tgisinternal
+  UNION ALL
+  SELECT 'PG_DECLARED_DEP', 'pg_class'::regclass::oid, x.indexrelid, 0, 'pg_class'::regclass::oid, x.indrelid, 0, 'a',
+         NULL::oid, NULL::oid, 'pg_index'
+  FROM pg_catalog.pg_index x WHERE x.indexrelid >= 16384
+    AND x.indrelid IN (SELECT c.oid FROM pg_catalog.pg_class c JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+                       WHERE n.nspname NOT LIKE 'pg\_%' AND n.nspname <> 'information_schema')
+  UNION ALL
+  SELECT 'PG_DECLARED_DEP', 'pg_class'::regclass::oid, d.objid, 0, 'pg_class'::regclass::oid, d.refobjid, d.refobjsubid, d.deptype::text,
+         NULL::oid, NULL::oid, 'pg_depend'
+  FROM pg_catalog.pg_depend d JOIN pg_catalog.pg_class s ON s.oid = d.objid AND s.relkind = 'S'
+  WHERE d.classid = 'pg_class'::regclass AND d.refclassid = 'pg_class'::regclass AND d.deptype IN ('a','i') AND d.objid >= 16384
+  UNION ALL
+  SELECT DISTINCT 'PG_DECLARED_DEP', 'pg_class'::regclass::oid, ad.adrelid, ad.adnum, d.refclassid, d.refobjid, 0, d.deptype::text,
+         'pg_attrdef'::regclass::oid, ad.oid, 'pg_depend+pg_attrdef'
+  FROM pg_catalog.pg_depend d JOIN pg_catalog.pg_attrdef ad ON ad.oid = d.objid
+  WHERE d.classid = 'pg_attrdef'::regclass AND d.deptype = 'n' AND d.refclassid IN ('pg_class'::regclass, 'pg_proc'::regclass)
+  UNION ALL
+  SELECT 'UNKNOWN_DYNAMIC_CODE', 'pg_proc'::regclass::oid, p.oid, 0, NULL::oid, NULL::oid, 0, NULL::text,
+         NULL::oid, NULL::oid, 'pg_proc'
+  FROM pg_catalog.pg_proc p JOIN pg_catalog.pg_language l ON l.oid = p.prolang JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace
+  WHERE n.nspname NOT LIKE 'pg\_%' AND n.nspname <> 'information_schema' AND l.lanname IN ('plpgsql','sql') AND p.prosqlbody IS NULL
+    AND NOT EXISTS (SELECT 1 FROM pg_catalog.pg_depend x WHERE x.classid = 'pg_proc'::regclass AND x.objid = p.oid AND x.deptype = 'e')
+)
+SELECT 'pg:' || current_database() || ':' || si.type || ':' || si.identity                     AS source_key,
+       CASE WHEN e.t_objid IS NULL THEN NULL
+            ELSE 'pg:' || current_database() || ':' || ti.type || ':' || ti.identity END        AS target_key,
+       e.relation_type                                                                          AS relation_type,
+       CASE e.deptype WHEN 'n' THEN 'NORMAL_BLOCKS_DROP' WHEN 'a' THEN 'AUTO_DROPS_WITH_TARGET'
+                      WHEN 'i' THEN 'INTERNAL_PART_OF_TARGET' ELSE 'UNKNOWN' END               AS dependency_type,
+       CASE WHEN e.via_objid IS NULL THEN NULL
+            ELSE 'pg:' || current_database() || ':' || vi.type || ':' || vi.identity END        AS via_key,
+       e.source_catalog                                                                         AS source_catalog,
+       now()                                                                                    AS observed_at,
+       CASE WHEN e.t_objid IS NULL THEN 'UNKNOWN_DYNAMIC_CODE'
+            WHEN e.t_objid < 16384 THEN 'TARGET_SYSTEM_OUT_OF_SCOPE'
+            ELSE 'PG_TRACKED' END                                                               AS completeness
+FROM e
+CROSS JOIN LATERAL pg_catalog.pg_identify_object(e.s_classid, e.s_objid, e.s_subid) si
+LEFT JOIN LATERAL pg_catalog.pg_identify_object(e.t_classid, e.t_objid, e.t_subid) ti ON true
+LEFT JOIN LATERAL pg_catalog.pg_identify_object(e.via_classid, e.via_objid, 0) vi ON true;
+
+COMMENT ON VIEW public.v_pg_asset_catalog IS 'NDW V1 · Sổ PG Tự quản · mỗi vật PG người dùng của DB này một dòng, đọc sống từ pg_catalog lúc SELECT (không bản chép). Khoá canonical_key = pg:<db>:<pg_identify_object.type>:<identity>; oid_observed chỉ là dấu để phát hiện DROP+CREATE cùng tên. Nguồn: work/nhap-directus-for-workflow P73.';
+COMMENT ON VIEW public.v_pg_dependency_edges IS 'NDW V2 · quan hệ PG-native (pg_depend/pg_rewrite/pg_constraint/pg_trigger/pg_index/pg_attrdef). relation_type ∈ VIEW_REWRITE|FK|TRIGGER_OWNER|PG_DECLARED_DEP|UNKNOWN_DYNAMIC_CODE; thiếu cạnh KHÔNG chứng minh vật bỏ được. Nguồn: work/nhap-directus-for-workflow P73.';
+
+-- Default ACL của workflow_admin trong public đang cấp directus cả INSERT/UPDATE/DELETE cho quan hệ mới ⇒ thu về rồi chỉ cấp SELECT.
+REVOKE ALL ON public.v_pg_asset_catalog, public.v_pg_dependency_edges FROM PUBLIC;
+REVOKE ALL ON public.v_pg_asset_catalog, public.v_pg_dependency_edges FROM directus;
+GRANT SELECT ON public.v_pg_asset_catalog, public.v_pg_dependency_edges TO context_pack_readonly, directus;
+```
+```sql
+-- NDW PG-A2 ROLLBACK V1/V2 (một giao dịch)
+DROP VIEW IF EXISTS public.v_pg_dependency_edges;
+DROP VIEW IF EXISTS public.v_pg_asset_catalog;
+```
+- **SELECT kiểm sau khi áp (PG-A2 dùng lại, không khảo sát lại):** `SELECT kind, count(*), count(DISTINCT canonical_key) FROM public.v_pg_asset_catalog GROUP BY kind` phải bằng bảng S1 cột directus (± thay đổi thật giữa hai mốc); `SELECT relation_type, completeness, count(*) FROM public.v_pg_dependency_edges GROUP BY 1,2` phải bằng bảng S2; kiểm cha mồ côi: `SELECT count(*) FROM public.v_pg_asset_catalog c WHERE c.kind <> 'schema' AND NOT EXISTS (SELECT 1 FROM public.v_pg_asset_catalog p WHERE p.canonical_key = c.parent_key)` — **CHƯA chạy được trong PG-A1** (tự nối hai lần 16,5 nghìn dòng sẽ sát 5 s khi chưa có VIEW; S1 đã chứng minh 0 thiếu cha bằng EXISTS trên OID) ⇒ để PG-A2 chạy một lần sau khi áp.
+
+**S4 · giới hạn và đúng chủ (không làm trong lượt)**
+- Giới hạn còn lại: DB `postgres` UNKNOWN · 426+10 hàm thân động = UNKNOWN (không đọc thân) · cạnh tới catalog hệ thống đã ghim PG không ghi · event trigger, extension, FDW server/user mapping, default ACL, role (mức cụm) chưa là dòng V1 (đếm ở S1, ghi cột `extension`) — Host quyết có thêm vào V1 ở PG-A2 không · V1/V2 là ảnh lúc SELECT, chưa có lịch sử («lần quét cuối» ≠ «lần dùng cuối», §3.TQ Đọc-1).
+- Giữ nguyên, chuyển đúng chủ: P69 `BLOCKED_FOR_L1` (không cấp `pg_read_server_files`, không mount DOT) · 24 SECURITY DEFINER = RISK_NEEDS_PG_SEC_REVIEW (không gọi/đọc thân) · nginx/`/reports`/`/api/reports/live` chưa đăng nhập = P0 Host Web/SEC — V1/V2 KHÔNG công bố trước khi có cổng · `job_queue` 7 việc kẹt = một nợ chủ worker (bảng này có trong V2 qua `v_trigger_universe_census`) · 2 FDW server sẵn có + default ACL cấp DML cho `directus` trên quan hệ mới: thuộc PG SEC review cùng nhóm, không sửa.
+- E1 (đề xuất không-mã, chưa kiểm, không tạo flow/monitor): sau khi có V3 đối soát, hai đường tái dùng cần thử fail/recover/khử trùng/biên nhận: (a) Directus Flows 12.4.1 Schedule → Read Data → Condition → Request URL tới Kuma Push (https://docs.directus.io/app/flows/operations); (b) Guard push hiện hành; P71 «SELECT tự lỗi khi có 🔴» vẫn là ý kiến chưa duyệt (P72). Quyền/flow chạy thật/chống spam = UNKNOWN.
+- **Gợi ý G1/G2 cho Host (PG-A2):** G1 = 2 VIEW mới trong `directus.public` (không bảng, không cột, không đổi vật cũ); G2 = áp đúng khối trên bằng `dot-pg-atomic-apply` + manifest sha · lùi = khối DROP · không downtime (CREATE VIEW không khoá bảng nguồn) · Guard PRE/POST theo thường lệ vì đó là ghi production. Không tự mở PG-A2/S4, không sửa nginx/security/queue.
 
 **P72 · GPT Chat Host · 27/10/2026 · CHỐT P71 · PG-A1 ĐÃ KÝ READY TRƯỚC · REVIEW_REUSED=P71:**
 - **ACCEPTED P71 một vòng:** 5 sửa là đúng: STATUS chỉ là điều kiện, không tự chặn sau ký; không đo lại đầy đủ TS1 directus; lọc `pg_depend.objid>=16384`/`deptype!='p'` rồi mới `pg_identify_object` để dưới 5s; V1/V2 phase-1 chỉ DB `directus`, 2 DB nhỏ kiểm bằng SELECT RO; DDL V1/V2 nguyên văn chuẩn bị cho dot-pg-atomic-apply sau Owner G1/G2. Lọc OID/deptype là giới hạn USER-SCOPE, KHÔNG coi đủ mọi system edges; thân mã/dynamic SQL vẫn UNKNOWN.
