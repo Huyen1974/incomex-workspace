@@ -5,15 +5,13 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 16:37 +07 · Claude Code CLI KST · P82 (executor; ACCEPT do Host chốt)
-- 🎯 Mục tiêu Owner 27/10: Codex/agent viết mã song song GitHub, KST Claude Code CLI review/merge và deploy từ GitHub main trên VPS; VPS-GHI chỉ dùng khi phát hành.
-- 🏁 F0 P77 PASS. F1_A KST review/merge PR350/676 và 13 CHECK Web Health main chạy tin cậy (FAIL nghiệp vụ giữ RED); F1_B Web production từ GitHub main exact SHA, parity 166/166 +34 contract và **GIỮ chạy** khi healthy, old pinned rollback.
-- 📍 Tiến độ: ✓ R0/R1/C1A → ✓ F0 P77 → ✓ Claude P79 → ✓ GPT P80 READY → ✓ F1 KQ XONG P82 (chờ Host nghiệm thu) → C2 Pro nếu Owner GO → F2 ba agent + PR đổi app Web đầu tiên → C4 đêm. C1B AD rollback độc lập.
-- ✅ Đã xong: AD PR350 33 tests/policy GREEN; Web PR676 unit16 PASS/policy RED đúng KST, candidate audit 13/13 đáng tin (11 PASS/2 FAIL nghiệp vụ); P66 Web Nuxt4 deploy-rollback đã tập, P77 POST25/25 receipt310, VPS-GHI trống.
-- ■ Đang làm: — · 0 RUN active. P82 KQ XONG GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05: PR350 → AD main `a03a3b8f`, PR676 (KST_FIX `5aee9a2b`) → Web main `e9f5801f`; audit main 13 CHECK 11 PASS/2 FAIL nghiệp vụ (RED giữ); **WEB_RUNTIME=MAIN@e9f5801f422f2ae452023386cb1ce66d96c1cbc4** parity 166/166 + 34 contract, giữ chạy, old known-good để lùi; Guard POST2 PASS biên nhận 312; VPS-GHI trả.
-- ⬜ Còn lại: business RED CHECK2 (sync warning, ratio 2,02) + CHECK7 (5 thư mục) + 2 orphan — chủ AD/Host; hard-lock workflow_dispatch nhánh cần C2; C1B Agent Data Compose/old rollback DDL còn nợ riêng; PR đổi mã ứng dụng đầu tiên ở F2.
-- ➡ Kế tiếp: GPT Host nghiệm thu F1 P82 ([F1-KST-WEB-MAIN-REPORT.md](F1-KST-WEB-MAIN-REPORT.md)); Owner quyết C2 Pro trước F2; NEXT_TRIGGER=HOST_ACCEPT_F1_P82.
-- ⛔ Không giả GitHub self-APPROVE cùng Owner identity; không tô xanh 2 FAIL dữ liệu, không gọi cutover main là PR thay mã app; không tự auto-CD/DDL/Pro/Task mới.
+### BẢNG ĐIỀU KHIỂN · 2026-10-27 17:09 +07 · GPT Host P83
+- Mục tiêu Owner: Codex/agent code trên GitHub song song, Claude Code CLI KST review/merge/release VPS; **cổng code của GH phải xanh thực mới qua**.
+- F1 P82 ACCEPT_SCOPED (Web production GitHub main e9f5801f, 166/166 +34 contract, KST merge 2 PR, Guard POST2/receipt312); **GH_CODE_GATE NOT_ACCEPTED**: Web100 recent runs 48 RED/15 GREEN/37 CANCELLED; AD20 RED/80 GREEN.
+- Trực tiếp GH: Web Health 41/41 FAIL (2 lỗi data thật), PR gate3/3 FAIL, ops-smoke 37 cancelled lịch sử và4 green; AD 15 Lint FAIL cũ và gate postmerge đỏ do BASE_MOVED.
+- Đường găng: C1A/F0/F1 runtime đạt → **G1 CODE GREEN** DRAFT P83 chờ Claude P84 → C2 Pro/required protections do Owner quyết → F2 ba agent+PR Web app thật → C4. AD rollback xử lý riêng.
+- 0 RUN GHM active theo P82; P83 chưa READY/Owner RUN. NEXT_TRIGGER=CLAUDE_REVIEW_GH_GREEN_P83.
+- Không xóa kết quả đỏ lịch sử, không chuyển Health business RED thành xanh, không cho merge required CODE gate RED, không tự Pro/auto-CD/task mới.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -25,6 +23,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 8. “Bạn viết thành kế hoạch và roadmap trên task, sau đó tôi cần cloud tham gia phản biện, đồng thuận rồi mới triển khai.” — 24/10/2026.
 9. “Tôi muốn xác nhận là việc mua pro là bắt buộc ngay hay chỉ khi chúng ta đóng repo lại? Nếu mở repo thì có cần phải mua ngay không? Tôi muốn thử quy trình trước? Vấn đề là tất cả các Agent cần phải thao tác, cần phải có luật, phải thử nghiệm và chứng minh được là công việc có thể đẩy nhanh song song trước được không? Hay bắt buộc phải mua trước mới làm được?” — Owner 25/10/2026.
 10. “Mục tiêu tối thượng là nhanh chóng code được qua kênh GitHub để đẩy nhanh tiến độ (Codex song song, kỹ sư trưởng Claude Code CLI rà soát, merge, deploy chạy trên VPS) và đưa hệ thống này vào sản xuất sớm nhất có thể. Đây là việc đáng ưu tiên nhất vì đang là điểm nghẽn: hiện tất cả xếp hàng chờ do máy chủ bận, chưa khai thác hết nguồn lực, thời gian vật lý có hạn.” — Owner 27/10/2026 (đã sửa lỗi gõ). **Bổ sung thứ tự ưu tiên cho mục tiêu #2–#6; không cho phép deploy rủi ro hoặc tự mua Pro.**
+11. “GH là cơ chế kiểm soát trực quan và phải xanh thì mới qua cổng được; phải kiểm tra thực tế chứ không được đọc báo cáo không.” — Owner 27/10/2026. Required code gate GREEN; business Health FAIL vẫn báo thật.
 
 ### 2. Thế nào là hoàn thành
 “Tối đến có 1 loạt nhiệm vụ, sáng ra xong. Ông DOT nhắc ông codex đi đốc công các agent làm việc. Đơn giản chỉ có vậy thôi.”
@@ -1152,6 +1151,17 @@ KQ@GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05 · STATUS=XONG · executor=Claude Cod
 - **Sự cố ghi repo:** commit `da2e9bf8` tạo nhầm tệp báo cáo rỗng «PLACEHOLDER» kèm message KQ trước khi đủ phần; commit này thay nội dung thật. Không ảnh hưởng VPS.
 - **Không làm:** deploy AD, PG/Directus/nginx config, auto-CD, Pro, F2/C4, task mới. C1B AD rollback vẫn CHƯA ĐẠT.
 - NEXT_TRIGGER=HOST_ACCEPT_F1_P82.
+
+## P83 · GPT Host · 2026-10-27 17:09 +07 — NGHIỆM THU P82 PHẠM VI PRODUCTION; GH ACTIONS VẪN ĐỎ THẬT
+**Chỉ đạo Owner mới:** GitHub kiểm soát trực quan, required CODE gate phải GREEN trước merge/release; bắt buộc đọc CI thật không chỉ báo cáo XONG.
+- F1/Claude Code CLI P82: PR350 và Web676 merged, Web MAIN@e9f5801f được build/deploy giữ chạy theo manifest+166/166+34 contract, bản old pin rollback; POST1 thiếu chuỗi --run FAIL, POST2 PASS/receipt312 và VPS-GHI đã trả. Đây là ACCEPT_SCOPED của bằng chứng KST/production, KHÔNG phải tuyên GitHub toàn xanh. Không có Host live VPS read mới trong lượt P83. Agent Data deploy/rollback vẫn nợ.
+- API 100 GitHub Actions gần nhất: Web **48 failure/15 success/37 cancelled**; đỏ gồm 41 Health Check (41/41), 3 PR gate (3/3), 4 CI probe lịch sử. 37 cancelled là ops-smoke cũ; 4 ops mới GREEN. Ngày 27/10 Web 7 RED/1 GREEN. AD **20 failure/80 success**, 15 Lint Only đỏ cũ, Data Lifecycle4 fail cũ, AD PR gate 1 red postmerge; ngày 27/10 AD 1 RED/3 GREEN. Không nhầm lịch sử run với lỗi production mới.
+- Log trực tiếp: [AD run40478406281](https://github.com/Huyen1974/agent-data-test/actions/runs/40478406281) và [Web run40478954350](https://github.com/Huyen1974/web-test/actions/runs/40478954350) FAIL BASE_MOVED_REBASE_REQUIRED **sau khi PR đã merge**; unit/scan SKIPPED. Phải phân biệt stale postmerge verified (neutral/skipped, không giả unit PASS) với PR OPEN base đổi (FAIL/rebase).
+- [Web gate40478663324](https://github.com/Huyen1974/web-test/actions/runs/40478663324) unit16/scan/preflight PASS nhưng policy RED do đổi workflow/secret. KST đã merge theo ngoại lệ pilot P82; từ nay Owner yêu cầu required code gate RED không được merge, kể cả Chief có comment, nếu chưa có trạng thái được GitHub chấp nhận thật.
+- [Web Health main40478982147](https://github.com/Huyen1974/web-test/actions/runs/40478982147) CHECK2 ratio2.02 sync warning, CHECK7 năm folder assets/draft/reports/temp/test vi phạm allowed; job RED đúng, 2 orphan vector nợ riêng. Không tự sửa dữ liệu/threshold/đổi alert để tô xanh; tách BUSINESS_HEALTH_FAIL khỏi CODE_PR_GATE.
+- GH branch metadata: AD main protected=false; Web main protected=true nhưng required contexts legacy Pass Gate/Quality Gate/check-critical-files/Contract Schema Validation, **không có gate PR mới**. C2 phải kiểm hard enforcement và phép thử âm. Đề xuất G1 CODE_GREEN trước C2/F2, dùng workflow native hiện có và Codex dev/Claude KST, không mở task mới. Claude P84 phản biện một vòng, chỉnh lệnh, rồi Host READY.
+- NEXT_TRIGGER=CLAUDE_REVIEW_GH_GREEN_P83.
+
 
 
 
