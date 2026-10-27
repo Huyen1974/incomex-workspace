@@ -69,13 +69,13 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>P68 · PG-L0 G0 chỉ đọc đã có READY, Owner giao sau GitHub</h2>
+<section class="owner-actions ok"><h2>P70 · PG-L0 đã nghiệm thu, PG-A1 native là bước tiếp theo</h2>
 <p>✅ B0b XONG P27 · ✅ GPT Host ACCEPT kiến trúc P48, đã sửa an toàn ở P49.</p>
-<p>PG18.6/Directus12.4.1 và các hệ đã dựng được ưu tiên dùng lại, 0 mã mới mặc định. GPT Host P67 chốt P66: PG lo dữ liệu/quan hệ trong PG, S4/VIEW và queue; DOT-live nếu Docker/file-role an toàn. Ngoài PG chỉ 5 ranh giới Kuma/Guard tick, Telegram, Docker RO, Nginx auth Reports+API, Graph code dependency. <strong>PG-L0 G0 chỉ đọc, không sửa runtime, không cấp G1/G2.</strong> Cổng query_pg cũ từng chạy READ ONLY phải xác minh còn bind ở Claude Code; Kuma PostgreSQL monitor chưa chắc biết đọc kết quả SQL business sai, phải kiểm.</p>
+<p>PG-L0 P69 hoàn thành khảo sát với KQ DỪNG·MỘT PHẦN (0 ghi): <code>query_pg</code> vai READ ONLY đọc được 3 DB; Kuma 2.2.1 không đánh giá giá trị SQL nên E1 còn mở; role PG đọc tệp server lộ vùng chứa bí mật ⇒ <strong>PG-L1 BLOCKED</strong>. GPT Host P70 ưu tiên <strong>PG-A1 đọc native pg_catalog/pg_depend/pg_rewrite</strong> ở directus/incomex_metadata/workflow để chuẩn bị hợp đồng V1/V2. nginx Reports public P0 và 24 hàm SECURITY DEFINER quyền rộng giao chủ bảo mật; không chặn A1. PROMPT mới chỉ đọc chờ Claude Chat rà một vòng.</p>
 <p class="muted">Mốc tiếp theo: chứng minh native PG-L0 an toàn/đủ dữ liệu → Owner duyệt riêng nếu cần mount/role/VIEW → PG-A triển khai trước, EXT-B chỉ khi không thể làm bằng PG an toàn.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
 <span class="flag">P55 · PG đọc sống + Census + Graph · Ba Lô LEGACY</span>
-<span class="flag">✅ B0b/TS1 · ✅ P66/P67 Tiêu chí 0 · ✅ P68 READY G0 L0@6de72c45 · ■ Owner chọn giờ sau GitHub</span>
+<span class="flag">✅ B0b/TS1 · ✅ PG-L0 P69 MỘT PHẦN đúng rào · ■ PG-A1 DRAFT chờ review · PG-L1 BLOCKED</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <section class="arch-figure" aria-label="P65 hai nhóm PG-first và ranh giới ngoài PG">
@@ -138,7 +138,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <div class="milestone-path" aria-label="Thứ tự các mốc, kéo ngang để xem hết">
  <div class="milestone-node"><strong>✅ B0b</strong><span>🤖 XONG P27: hai công cụ đã được bảo vệ</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>✅ TS1 · ĐẾM</strong><span>XONG khảo sát P52; còn 3 DB + Graph/đăng nhập thiếu</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node is-current"><strong>■ PG-L0 · CHỈ ĐỌC</strong><span>Kiểm Docker mount, quyền file PG18, file_fdw, symlink/size/hash, không ghi</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node is-current"><strong>■ PG-A1 · 3 DB NATIVE</strong><span>Đọc RO catalog/pg_depend/pg_rewrite; chuẩn hợp đồng V1/V2, không CREATE</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS3 · SỔ</strong><span>😊 Duyệt cột → 🤖 tạo sổ quyết định + trang Nuxt</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS4–TS5</strong><span>🤖 Máy tự sửa lỗi được phép, cảnh báo có hạn; chỉ phát sinh 1 vụ khi cần người</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>B1–B5</strong><span>Công thức → Workflow</span></div>
@@ -181,7 +181,8 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
  <p>Chỉ nói «có cảnh báo» khi đã chứng minh lịch chạy, kết quả và người nhận. Chưa tạo lịch mới, DOT mới, trigger hoặc app mới.</p>
 </details>
 
-<h2>5. Quyết định P67 sau Claude P66 — dùng lại trước code</h2>
+<h2>5. PG-A1 tiếp theo và các cổng chưa mở</h2>
+<p>P70: G0-L0 đã xong khảo sát. PG-A1 lập SQL contract V1/V2 bằng dữ liệu 3 DB có quyền; DB postgres UNKNOWN. E1 chọn Native Directus Flow/Guard→Kuma Push khi chứng minh quyền/kết quả thật, không cài mới; nginx auth trên các tên miền chưa bật nên không được công bố; 24 SECURITY DEFINER quyền gọi rộng cần audit đúng Host PG bảo mật. L1 file-read phải giữ BLOCKED vì pg_read_server_files có thể đọc bí mật container. Chi tiết và lệnh DRAFT mới xem COLLAB/PROMPT.</p>
 <p>PG-L0 bổ sung kiểm lại cổng read-only query_pg (role context_pack_readonly, READ ONLY), phiên Kuma có so giá trị SQL trả về không (upstream #7728 báo không), nginx bảo vệ đủ /reports/API/origin, 7 Directus Flows/pg-boss lịch sử và RAG/Qdrant/Graph thực. Không khẳng định đã hoạt động chỉ vì có tên trong tài liệu. Git chỉ lưu thay đổi đã commit, hash thiếu baseline => UNKNOWN. Tiêu chí 0/kiến trúc P67 trên COLLAB là bản chốt.</p>
 <p><strong>Đã chốt:</strong> ưu tiên PG-LIVE; không đồng nghĩa PG có quyền chỉ một thư mục vì pg_read_server_files được phép đọc toàn filesystem nó thấy. L0 kiểm compose thật, manifest 00-SO-DOT.tsv, phương án file_fdw, quyền SECURITY DEFINER/PUBLIC/symlink, performance hashing và downtime khi recreate. Không có baseline hash thì V3 không thể kết luận “đã đổi từ lần trước”. Nhóm ngoài PG chỉ gồm ranh giới host/Docker, event khi không SELECT, sender/GUI cần thật. Chi tiết P65 đã ghi ở COLLAB; các P63/P61 bên dưới là lịch sử.</p>
 <p><strong>P63:</strong> Thực hiện nguyên tắc PG-FIRST ở 3 cửa thiết kế/READY/nghiệm thu. Chỉ cần một G1/G2 bổ sung cho PG role dot_tools_sync, ba cột máy và một cặp .path/service. Không cần Directus account/token mới hay JSON sidecar. PostgreSQL role LOGIN không mật khẩu và Directus schema cache phải được kiểm bằng phép thử thật; không bật track_functions hoặc sửa Graph/Nuxt/Ba Lô.</p>
