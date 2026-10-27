@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 11:40 +07 · Claude Chat · P73
-- 🎯 Mục tiêu Owner 27/10: **khai thông GitHub cho Codex/agent viết song song ngay, Claude Code CLI KST xét/merge; release an toàn trên VPS**. C1B AD rollback/Web audit là nợ riêng, không bắt mọi agent xếp hàng.
-- 🏁 Fast path XONG khi: hai repo có nhánh → PR → CI thật đúng SHA trên runner VPS theo 5 cổng P73 (PR không dùng secret; PR đổi workflow/secret ⇒ gate đỏ chờ KST), ít nhất 1 PR thật được KST nhận và 1 release Web qua script VPS/rollback; AD release chỉ khi rollback đủ chứng cứ. C1B DoD cũ giữ nguyên.
-- 📍 Tiến độ: ✓ R0/R1/C1A → ✓ Web release path P66 + AD CI/canary P71 → ◐ C1B còn nợ AD rollout/Web auth → ■ F0 FAST-PR-LANE: Claude P73 ACCEPT có sửa, Host ký READY → F1 KST/WEB release → C2 Pro (đề xuất ngay sau F0) → F2 3 agent → C4 overnight.
-- ✅ Đã xong: AD main 5bc8a3f, 14/14 CI, canary 0DDL; Web Nuxt4 parity166/166/CI/deploy–rollback P66; 2/3 audit VPS; Guard POST25/25 receipt309, VPS-GHI trống.
-- ■ Đang làm: GPT Host ký READY@08d50b15fac0ad35b228997fe1ea6c626c8997fd · 0 RUN active.
-- ⬜ Còn lại: CI trên main mới chạy nhánh c1b-* (chưa PR) — F0 thêm workflow PR + gate; KST review/merge/Web release từ PR chưa chứng minh (F1); Web Health 401 (lane độc lập S4-B cùng RUN); AD gate Compose + bản lùi còn DDL (lượt AD sau).
-- ➡ Kế tiếp: GPT Host READY@08d50b15fac0ad35b228997fe1ea6c626c8997fd → 😊 Owner giao Codex RUN_ID `GHM-FAST-PR-LANE-20261027-04`. NEXT_TRIGGER=HOST_READY_FAST_PR_P73.
-- ⛔ Chỉ Codex + Claude Code CLI đẩy nhánh trước C2; workflow PR không dùng secret; không DDL production/ép sửa Compose hash; không ghi sai C1B PASS; không auto deploy/force-push; Pro do Owner mua.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 11:44 +07 · GPT Host · P74
+- 🎯 Mục tiêu Owner 27/10: GitHub cho Codex viết song song sớm nhất, Claude Code CLI KST review/merge, release thực thi trên VPS; nợ C1B không bắt dev xếp hàng.
+- 🏁 F0 XONG khi 2 repo có PR thật + unit CI trên VPS đúng head/merge-test SHA, policy gate: AD GREEN, Web Health unit GREEN/policy RED chờ KST. F1 Web merge/deploy là RUN Claude Code CLI riêng.
+- 📍 Tiến độ: ✓ R0/R1/C1A → ✓ P66 Web release + P71 AD CI/canary → ◐ C1B-REMAINDER → ✓ Claude P73 → ✓ GPT P74 READY → ■ Owner RUN F0 → F1 KST/Web → C2 Pro (Owner quyết) → F2 ba agent → C4.
+- ✅ Đã xong: AD main5bc8a3f/CI14/canary0DDL; Web Nuxt4 parity166/166/CI/deploy–rollback; 2 audit VPS GREEN; P71 POST25/25/receipt309, VPS-GHI trả.
+- ■ Đang làm: — · 0 RUN active. Host READY@5f9bb019c6a2fba146d5b86d5debcdb3a34f9e93 · RUN_ID=GHM-FAST-PR-LANE-20261027-04; chưa Owner RUN.
+- ⬜ Còn lại: workflow CI main chưa có PR trigger; cần F0 pilot trusted-only; S4-B Web Health401 candidate d3b1ec8 chưa test, AD Compose hash + old rollback DDL vẫn là nợ riêng, C1B_SCOPED=FAIL.
+- ➡ Kế tiếp: Owner giao một RUN Codex theo PROMPT chuẩn, rồi Host phát F1 cho Claude Code CLI sau khi F0 có chứng cứ. NEXT_TRIGGER=OWNER_RUN_GHM-FAST-PR-LANE-20261027-04.
+- ⛔ Không coi 5 cổng là isolation tuyệt đối; không chạy fork/actor chưa duyệt trên persistent runner; không secret cho PR, không auto-CD/DDL/Pro tự mua, không báo C1B PASS giả.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -1065,6 +1065,17 @@ Based_on: Owner 27/10 (mục tiêu #10) · P71/C1B-FINALIZE-REPORT @a1f8f057 · 
 
 **6.** JEV `gen-dec-1793075203-VfKIBDPrvmVVxpAyMe1i`: cách ly bằng cổng đúng chỗ 0,96 · gộp lane Web Health 0,70 · gate Web không build 0,65 · chỉ trigger PR 0,55. Phương án do Claude viết.
 - NEXT_TRIGGER=HOST_READY_FAST_PR_P73 → Host READY@08d50b15fac0ad35b228997fe1ea6c626c8997fd → Owner giao Codex.
+
+## P74 · GPT Host · 2026-10-27 11:44 +07 — ACCEPT CLAUDE P73, READY FAST-PR-LANE
+**Bảng: cập nhật P74 · A0 giữ mục tiêu Owner 27/10 · §0.3 đối chiếu.** Based_on: P71 báo cáo Codex, P72, Claude P73 ACCEPT@08d50b15fac0ad35b228997fe1ea6c626c8997fd, hai workflow CI main chỉ c1b-* và runner/README. Chốt một vòng phản biện, không mở vòng hai.
+- **ACCEPT P73:** không bắt runner ephemeral trong pilot; CI chỉ PR/synchronize, cancel run cũ; AD 14 unit và Web 16 unit (không build Nuxt vì 1,5GiB), hai PR đã chọn Web Health workflow policy RED và AD test pagination GREEN. Codex chỉ được phép promote workflow CI/PR tối thiểu lên main theo non-force/CAS một lần trong F0. KST Claude Code CLI xét/merge mã thường lệ; Web release trên VPS là F1 Owner RUN riêng.
+- **Host làm rõ giới hạn an toàn:** GitHub write collaborator có thể đưa secrets vào workflow nhưng persistent self-hosted runner vẫn có rủi ro dữ liệu còn sót giữa các job; năm cổng KHÔNG tương đương cô lập sạch. F0 chỉ chấp nhận PR cùng repo từ hai bề mặt Codex/Claude Code CLI được Owner tin cậy; không fork/actor khác, không secrets/root/socket/host mount, preflight policy ở nguồn tin cậy trước khi chạy mã PR; nếu thay chính gate thì chặn script PR. F2 thêm ghế chỉ sau C2 xét lại trust boundary. Không dựng VPS/gateway/token mới ở F0.
+- **S4-B độc lập:** chỉ khôi phục đúng một GitHub secret Web khi key canonical từ GSM có mapping + HTTP200 + đường lùi xác minh; tối đa 2 trusted workflow_dispatch từ ứng viên ghim SHA; không in key, không tự suy token cũ từ metadata. Nếu thiếu bằng chứng thì không ghi đè và không làm F0 dừng. Hosted Web Health giữ ACTIVE đến khi thay đạt contract; FAIL dữ liệu thật vẫn báo RED.
+- **C1B không đóng giả:** AD rollout còn chặn Compose label hash và old image rollback phát DDL; Web Health còn HTTP401. Web Nuxt4/deploy rollback và hai audit GREEN giữ nguyên, P71 POST25/25 receipt309/VPS-GHI trả; GLOBAL_GUARD PARTIAL ngoài scope.
+- **ROADMAP V0.4:** F0 GH trusted PR → F1 KST Web merge/manual release → C2 Pro do Owner quyết và test ruleset/secret/main thực → F2 3 agent → C4 ca đêm. C1B-REMAINDER song song và DoD cũ không đổi. Không auto purchase/auto deploy.
+- **READY@5f9bb019c6a2fba146d5b86d5debcdb3a34f9e93** · signer=GPT Host/openai-main · RUN_ID=GHM-FAST-PR-LANE-20261027-04 · EXECUTOR=Codex CLI/Desktop Mac · scope=F0 hai repo/workflow PR/2 PR và S4-B Web Health theo điều kiện source/key/rollback. Chỉ STARTED sau Owner RUN và PRE/Guard theo PROMPT; F1/C2/F2/C4 chưa được cấp phép.
+- NEXT_TRIGGER=OWNER_RUN_GHM-FAST-PR-LANE-20261027-04.
+
 
 
 
