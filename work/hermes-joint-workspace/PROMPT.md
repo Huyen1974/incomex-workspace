@@ -1,97 +1,69 @@
-# CODEX — HJW-N2-EVENT-ROUTING-WORK-MAC-20261027-07
+# CODEX — HJW-N2-DOT-WAKE-WORK-MAC-20261027-08
 
-RUN_ID: HJW-N2-EVENT-ROUTING-WORK-MAC-20261027-07
-STATUS: Chỉ RUN khi Host READY đúng last-touch SHA + Owner chuyển lệnh. Không tự STARTED.
-Executor_Surface: Codex Mac; Dot/Work thật tại đúng tài khoản/bề mặt được phép.
-Task: work/hermes-joint-workspace · repo Huyen1974/incomex-workspace.
-Write_Path: đọc/ghi bằng chứng qua workspace_* / fs_* D12; khám phá MCP qua kết nối đang có; đường Dot/Work/Codex là sản phẩm hãng. KHÔNG mutation VPS/GitHub settings/production.
+RUN_ID: HJW-N2-DOT-WAKE-WORK-MAC-20261027-08
+STATUS: DRAFT until GPT Host READY exact last-touch SHA and Owner dispatch; do not self-start.
+Executor_Surface: Codex Mac for evidence; Dot and Work themselves execute native actions.
+Task: work/hermes-joint-workspace in Huyen1974/incomex-workspace.
+Write_Path: workspace_* / fs_* D12 for P/KQ. No VPS/GitHub production mutation or new gateway.
 
-## 0. MỤC TIÊU VÀ NGUYÊN TẮC NGƯỜI NHẬN
+## 0. ĐÍCH CUỐI CÙNG, HIỂU MỘT CÁCH
 
-Tiếp tục P425–P427, giữ N2 NATIVE-MAX, A2 một trusted server identity = một phiếu. P427 Claude ACCEPT cho E0–E4 cũ; Owner B3 bổ sung bắt buộc định tuyến chuẩn cả Dot và GPT Work trên Mac, kịch bản Dot → Work Mac → đúng GPT Chat/Claude Chat phiên XYZ. Tuyệt đối KHÔNG đánh đồng sự kiện nhận được với lệnh được giao đến đúng phiên và có kết quả.
+Đọc AGENTS, HJW COLLAB §1–§3/roadmap và P425–P431. Owner đã thử GPT Work LOCAL Mac điều khiển đúng các phiên GPT Chat/Claude Chat nhiều lần; đó là lý do bỏ Hermes Mac. KHÔNG kiểm lại cả chuỗi thao tác đã chứng minh.
 
-BỐN CÂU CẦN ĐO:
-1. MCP Incomex runtime có MCP Events 2.0 chưa? E0 live discovery, không suy từ tools/list.
-2. VPS/GitHub có thể phát một event CHÍNH THỨC và giao đến đúng Dot hoặc Work Cloud subscriber không? Chung event source được, mỗi subscription/callback/filter/secret riêng.
-3. Work trên Mac có nhận event không, rồi Dot có thể giao một Work Local task để NHẮC đúng GPT Chat/Claude Chat phiên cụ thể không? Đo hai chặng RIÊNG.
-4. Dot có thể mở một task/phiên Codex local MỚI, hoặc Cloud task MỚI, không động tới Codex đang làm việc không?
+ĐÍCH: Hội đồng/Host báo đến lượt ghế X tại task A → Dot đọc assignment hợp lệ → DOT ĐÁNH THỨC ĐÚNG WORK LOCAL trên MacBook/Mac mini → Work nhắc đúng phiên GPT/Claude X đã gắn với task A → phiên X ghi P/KQ vào đúng repo → Work/Dot nhận ACK.
 
-PHÂN BIỆT BẮT BUỘC TỪ TÀI LIỆU HÃNG:
-- Dots: hỗ trợ MCP Events subscription.
-- Work Cloud: hỗ trợ MCP Events ở web VÀ trong ứng dụng desktop Mac khi chọn Work + CLOUD. Work Cloud trên Mac không có nghĩa là Work Local.
-- Work Local trên Mac: KHÔNG có bằng chứng hãng hỗ trợ nhận TRỰC TIẾP MCP Events; phải đo đường native riêng, không tự khai event-direct PASS.
-- GPT Chat session / Claude Chat session: không phải MCP Events subscriber do mô tả của hãng. Muốn nhắc một phiên XYZ phải nhờ Work/Computer Use ở bề mặt đã được phép, định danh phiên chính xác; KHÔNG có public API tự động chọc vào phiên Chat bất kỳ.
-- Codex Local/Cloud: Dot dùng native tạo TASK MỚI, không mặc nhiên trực tiếp subscribe MCP Events hay điều khiển một phiên Codex Desktop đang mở.
+MẮT XÍCH DUY NHẤT CẦN CHỐT TRONG RUN: làm sao Dot đánh thức Work LOCAL đúng task, không Owner gõ tay. Không thay câu hỏi này bằng "MCP có Events?" hay "Dot tạo được Codex Cloud?" vì đó là hai vấn đề khác.
 
-Nguồn OpenAI:
-https://developers.openai.com/plugins/build/mcp-events
+PA2 PUSH (ưu tiên): Dot gửi native vào phiên Work đã gắn task nếu hãng có route; nếu không, Dot tạo NEW Work LOCAL task trên đúng máy và truyền đủ task_path, assignment, target_chat_session_ref. NEW task không phải Work chat cũ và không tự kế thừa context; Work CLOUD task không chứng minh Work LOCAL đã thức.
+PA1 PULL (dự phòng sau PA2 fail): Work/Dot native Scheduled Tasks tự đọc hàng chờ HJW COLLAB/ASSIGN_V1 khi Mac bật, rồi thực sự kích hoạt Work LOCAL. Work CLOUD chỉ tự đọc repo chưa đóng vòng; không tự viết cron/launchd/relay.
+
+MCP Events phục vụ Hội đồng/VPS/GitHub→Dot hoặc Work CLOUD nếu có, KHÔNG mặc nhiên là tín hiệu tới Work LOCAL. Mac offline thì WAITING_DEVICE, không tuyên chạy 24/7. Giữ Native-Max A/B/C và A2 1 trusted identity = 1 quorum vote.
+
+Nguồn hãng:
 https://help.openai.com/en/articles/20001530-getting-started-with-your-dot
 https://help.openai.com/en/articles/20001275-chatgpt-work-and-codex
+https://help.openai.com/en/articles/10291617-scheduled-tasks-in-chatgpt
+https://developers.openai.com/plugins/build/mcp-events
 
-## E0 — MỘT READ-GATE VÀ DISCOVERY LIVE
+## 1. HỢP ĐỒNG ĐÚNG ĐÍCH — DÙNG SỔ ĐANG CÓ
 
-Đọc AGENTS/roster/HJW §1–§3 P425–P428, HEAD/STOP/active RUN/lease. Không giữ VPS-GHI khi chỉ đọc. Không chen KST GitHub F1 hoặc phiên Codex đang xử lý task khác.
+Không tạo registry hay router mới. Mỗi yêu cầu tới lượt phải xác định: task_path/assignment/Host GO/HEAD; intended Work existing_session_ref hoặc NEW work_task_id; device_ref; đúng target GPT_CHAT hoặc CLAUDE_CHAT session_ref đã có nguồn hợp lệ; trigger_id, deadline, actual_receiver_ref, ACK và P/KQ receipt. Nếu thiếu đúng session_ref thì KHÔNG gửi vào tab gần nhất hoặc phiên cùng tên.
 
-Với endpoint MCP Incomex đang được Plugin dùng thật, đo server/discover supportedVersions = 2026-07-28 + capabilities.events, events/list catalog/pagination/schema, phương thức events/subscribe/unsubscribe và trạng thái Events hiển thị trong trang Plugin Dot/Work sau rescan nếu đã có. Ghi PROVEN / TOOLS_ONLY / UNKNOWN_NO_ACCESS. Repo thiếu chuỗi events/subscribe không chứng minh endpoint production thiếu Events. Không nêu token/secret/private URL trong repo; không đổi protocol trong E0.
+NEW Work task phải tự đọc đủ task_path, assignment, target_chat_session_ref; CONTEXT_NOT_BOUND nếu không có. Trạng thái độc lập: DOT_SIGNALLED; WORK_LOCAL_STARTED (đúng máy/task); CHAT_DELIVERED (đúng session với ACK); REPO_KQ_COMMITTED. Tạo Cloud task/HTTP 2xx KHÔNG thay được chứng cứ Work LOCAL. Không đổi Host/Owner authorization hay tự tính phiếu thứ hai.
 
-Tìm đường GH hiện hữu: webhook Owner View nhận push là chuông riêng, KHÔNG phải callback Dot. Kiểm liệu có event PR→Work Cloud native được hãng hiển thị; không suy webhook GitHub được phép đánh thức Dot hoặc Work Local mọi lúc.
+## W0. ĐỌC MỘT LẦN
 
-## E1 — HỢP ĐỒNG CHUYỂN ĐÚNG NGƯỜI, KHÔNG XÂY ROUTER MỚI
+Codex kiểm HEAD, READY đúng SHA, Owner RUN, STOP/active sessions, Mac online/ChatGPT app và quyền Dot Computers > Your computer > Allow access, Work task/session ref và một GPT/Claude TEST session-ref nếu có. Nếu thiếu quyền chính chủ, báo đúng một bước cần bấm; không giữ terminal/lease đợi.
 
-Trong ghi chú KQ/HJW (KHÔNG tạo database/router/service mới), mỗi phép chuyển theo đúng một biên nhận:
-source_event_id, correlation_id, issuer, task_path, intended_recipient_kind, recipient_ref/session_ref, delivery_channel, requested_action, expires_at, actual_receiver_ref, delivery_ack, execution_result_ref.
+Kiểm phụ MCP Incomex có server/discover 2026-07-28, events/list thật chưa nếu có quyền, ghi PROVEN/TOOLS_ONLY/UNKNOWN. Không để Events (Dot/Work CLOUD, không chứng minh Local) thành gate W1.
 
-recipient_kind chỉ được một trong:
-DOT; WORK_CLOUD_WEB; WORK_CLOUD_DESKTOP_MAC; WORK_LOCAL_MAC_NEW_TASK; CODEX_LOCAL_NEW_TASK; CODEX_CLOUD_NEW_TASK; GPT_CHAT_EXACT_SESSION; CLAUDE_CHAT_EXACT_SESSION.
+## W1. THỬ PA2 TRƯỚC — TỐI ĐA MỘT CANARY
 
-Một lệnh có HAI đích phải tách thành HAI bản chuyển riêng với correlation/subscription riêng cho từng đích. Không chọn đại phiên Chat gần nhất, tên cửa sổ giống nhau hoặc tab cuối. BẮT BUỘC so đúng nền tảng, session ID/URL do Owner hoặc hồ sơ hợp lệ cung cấp, đúng task_path và đúng intended_recipient trước mọi lần gửi. Nếu không có session_ref đáng tin: ROUTE_UNRESOLVED, KHÔNG GỬI. Session link riêng tư chỉ lưu tham chiếu phù hợp, không in cookie/token/private URL vào GitHub.
+Owner trực tiếp cho Dot một canary chỉ đọc hoặc Dot dùng quyền đã được hãng xác minh; Codex không giả Owner. Dot thử route chính thức tới existing Work chat đúng task (nếu có), hoặc tạo NEW Work LOCAL task ở đúng Mac đã cấp quyền. Ghi Work task ID/activation ref, device, start-time và Work đọc đúng assignment/session ref. NEW Work chỉ PASS khi đúng Mac/context; NEW Cloud task = CLOUD_ONLY_NOT_LOCAL.
 
-Phân biệt TRIGGERED (callback tới), DELIVERED (đúng người/phiên nhận có ack), EXECUTED (đúng task có KQ và commit/receipt). HTTP 2xx không phải DELIVERED/EXECUTED. Event payload là DỮ LIỆU, không thay lệnh Host READY/Owner GO và không cho phép thay đổi production.
+Nếu có phiên GPT/Claude TEST được Owner chỉ định, Work gửi một nhắc vô hại vào đúng session, kiểm ACK/P-KQ. Nếu chưa có session_ref, không gửi, chỉ đo Work LOCAL_STARTED. PA2_LOCAL_WAKE_PASS khi Work Local thực sự chạy đúng task, PA2_END_TO_END_PASS khi có thêm Chat ACK/KQ. PA2 không có native route → PA2_NO_NATIVE_ROUTE và chuyển W2, không chế gateway.
 
-## E2 — DOT/WORK CLOUD MCP EVENTS, THỬ TỐI ĐA 1 CANARY MỖI ĐÍCH
+## W2. PA1 CHỈ NẾU PA2 KHÔNG ĐẠT
 
-Chỉ khi E0 PROVEN có events + subscription hãng/Owner đã đồng ý, nhờ Dot hoặc Work CLOUD được chỉ định subscribe cùng MỘT nguồn event task HJW bằng hai subscription riêng. ChatGPT cung cấp callback HTTPS + secret riêng sau events/subscribe; server thực hiện challenge verification và ký Standard Webhooks, không tự POST vào chatgpt.com/dots URL. Filter phải khớp recipient/task; không phát toàn hệ thống.
+Xác minh Scheduled Tasks Work/Dot native có thể tự phát một lượt kiểm HJW COLLAB/ASSIGN_V1 không người gõ, VÀ khi Mac online thực sự làm Work LOCAL chạy. Chỉ thử một scheduled canary nếu tài khoản và Owner cho phép; không cài recurrence vô hạn. Ghi schedule ID, thời gian fire, Work LOCAL task ID và độ trễ.
 
-Nếu hai subs thật sự có sẵn, gửi tối đa 1 sự kiện vô hại và xác minh mỗi bên có eventId, receiver_ref và đọc đúng HJW HEAD rồi trả lời. Tránh duplicate loop, retry vô hạn. Nếu chỉ một subscriber có sẵn, test một bên và báo bên kia PENDING; KHÔNG tự tạo credential/subscription giả. Nếu chưa có Events: NOT_IMPLEMENTED hoặc UNKNOWN theo evidence, SKIP E2 nhưng E3/E4 vẫn thực hiện độc lập khi có khả năng native.
+Nếu chỉ Work CLOUD scheduled đọc repo = DISCOVERY_ONLY, không gọi fallback khép vòng. Không hứa 1–5 phút: lịch native hãng có giới hạn (công bố không quá một lần/giờ và có thể pause). Thiếu native Local wake thì PA1_NOT_PROVEN, báo thật; không viết cron/launchd.
 
-Work Cloud chọn trong desktop Mac có thể nhận event vì nó là Cloud chat. KHÔNG báo Work Local Mac đã được đánh thức chỉ vì Work Cloud hiện trong cùng ứng dụng.
+## W3. KHẢ NĂNG PHỤ KHÔNG CHẶN W1
 
-## E3 — DOT → GPT WORK MAC → GPT CHAT/CLAUDE CHAT PHIÊN XYZ
+MCP Events/GitHub nếu có báo tới Dot/Work CLOUD; không sửa Owner View webhook hay triển khai MCP 2.0 chỉ để thử. Dot tạo Codex LOCAL/CLOUD NEW task chỉ kiểm một ca đọc HEAD nếu đã sẵn có, không thay Work Local, không ảnh hưởng Codex đang làm việc. Work điều khiển phiên Chat đã Owner thử nhiều, không diễn tập dài.
 
-ĐƯỜNG NATIVE ĐỀ NGHỊ, PHẢI THỬ MỚI ĐƯỢC TÍNH:
-A. Dot được Owner cấp Computers > Your computer > Allow access; trên Mac app online, Dot được hãng cho tạo Work LOCAL task MỚI. Đây là đường giao Work Local chứ KHÔNG phải MCP Event tới Local. Cloud Work event có thể là nguồn thông báo, nhưng CHƯA có bằng chứng tự chuyển Work Cloud → Work Local bằng một API; ghi WORK_CLOUD_TO_LOCAL_UNVERIFIED nếu chưa đo.
-B. Work Local nếu có computer/browser control đã được cấp, mở ĐÚNG session URL/ID GPT Chat hoặc Claude Chat Owner chỉ định (test session ưu tiên). Kiểm app origin, session ID, task_path=work/hermes-joint-workspace, tên phiên và nội dung đầu trang trước khi dán bất kỳ lời nhắc. Không có ID đích thì KHÔNG tự tìm/click một chat ngẫu nhiên.
-C. Chỉ trên SESSION TEST ĐÃ ĐƯỢC OWNER CHỈ ĐỊNH và có quyền gửi, gửi một nhắc vô hại: đọc HEAD HJW, rà task, ghi P ý kiến đúng vai qua D12 nếu được giao, trả KQ/commit. Kiểm chính session đó nhận tin/ack và có KQ; nếu Work chỉ điều khiển browser mà không gửi được cho app, báo COMPUTER_USE_LIMIT/SESSION_NOT_DELIVERED. Không tự gọi GPT Chat/Claude Chat bằng HTTP private API, không paste vào phiên sản xuất đang làm nếu không được chỉ định.
-D. Mỗi target (GPT Chat session X, Claude Chat session Y) phải có recipient_ref và ack/result_ref RIÊNG. Mở được URL không là gửi thành công; gửi thành công không là đã ghi ý kiến repo. Nếu một khâu không hỗ trợ, ghi chính xác khâu bị thiếu, KHÔNG bắc cầu SDK/AppleScript/webhook tự dựng.
+## W4. BÁO BẰNG CHỨNG VÀ ĐÓNG
 
-Để tránh làm mất thời gian Owner: chỉ yêu cầu đúng một lần quyền máy nếu chưa bật; chỉ xin session URL/ID khi cần phép thử định tuyến phiên thật; nếu chưa có thì kết thúc PARTIAL sạch, không giữ phiên CLI chờ.
+Bảng sáu hàng: nguồn→Dot, Dot→Work existing, Dot→NEW Work LOCAL đúng Mac/context, Work→đúng GPT/Claude TEST session/ACK, PA1 scheduled repo pull→Work LOCAL, Dot→Codex phụ. Nhãn: PA2_END_TO_END_PASS; PA2_LOCAL_WAKE_PASS_WITH_LIMITS; PA2_NO_NATIVE_ROUTE_PA1_TESTED; PA1_NOT_PROVEN; CLIENT_PENDING. Không gọi full automation khi chỉ task Cloud. Ghi P/KQ/Bảng/roadmap/NEXT_TRIGGER duy nhất. 0 VPS mutation, không giữ job chờ Owner, +1 Agent Data recreate UNUSED.
 
-## E4 — DOT → CODEX LOCAL/CLOUD NEW TASK
-
-Thử từ Dot thật duy nhất một task chỉ đọc HEAD HJW và tóm tắt ba dòng.
-Local: Mac/ChatGPT desktop online + quyền máy Owner đã bật, Codex NEW task xuất hiện riêng trong sidebar với task ID; không hijack/mutate Codex CLI task GitHub đang chạy.
-Cloud: chỉ khi Codex Cloud environment đã publish; một Cloud task riêng, Mac không cần bật.
-Phân rõ NEW TASK SUCCESS khác với điều khiển chính xác Codex app session cũ. Không dựng app-server/terminal proxy/AppleScript.
-
-## E5 — KQ VÀ NEXT
-
-Báo 5 kết quả có chứng cứ (PROVEN / PARTIAL / NOT_AVAILABLE / UNKNOWN / CLIENT_PENDING):
-1. Incomex MCP Events live: catalog và subscription hay tools-only;
-2. GH/VPS event → Dot, event → Work Cloud (desktop Cloud đúng), callback/ack của từng đích;
-3. Work Local trên Mac: native task có thật không; không nhận direct MCP event thì ghi rõ;
-4. Work Local nhắc ĐÚNG GPT Chat/Claude Chat test session: target ID, delivered ack, report/commit (hoặc NOT_TESTED do thiếu phiên test);
-5. Dot tạo NEW Codex local/cloud task: task ID và kết quả.
-
-Đã làm/chưa làm trong N2, mới phát sinh, Owner cần bấm gì (một dòng). Giữ N2 NATIVE-MAX A/B/C và A2/roster, không cộng thêm phiếu, không Agent Data recreate/PG/Directus/Graph/Lark/GSM/root/nginx/GH webhook mutation. Ghi P/KQ, Bảng/roadmap và đúng một NEXT_TRIGGER, không background/giữ VPS-GHI/terminal chờ.
+CẤM thêm key/bridge/webhook/router/Hermes Mac/launchd/cron, chỉnh production/nginx/PG/Directus/Graph/Lark/root/GSM/Gmail/GitHub webhook, đổi A2/quorum hoặc gửi nhầm GPT/Claude phiên chat.
 
 STEP_WALK_V1:
-| Bước | Ai · trigger | Evidence | Thiếu thì |
+| Step | Executor/trigger | Evidence | If missing |
 |---|---|---|---|
-| E0 | Codex · Host READY+Owner RUN | endpoint live/events catalog | UNKNOWN/SKIP |
-| E1 | Codex · E0 | 1 routing contract/recipient | ROUTE_UNRESOLVED, KHÔNG gửi |
-| E2 | Dot/Work Cloud · đã có subscription & Owner approval | signed event, đúng receiver, ack | SKIP event; E3/E4 vẫn làm |
-| E3 | Dot→Work Local · máy và exact session test được Owner chỉ định | Work task ID, đúng session, ack, KQ | CLIENT_PENDING/LIMIT |
-| E4 | Dot→Codex · môi trường sẵn có | new task ID, read-only KQ | CLIENT_PENDING |
-| E5 | Codex | KQ 5 ô/commit/next, 0 prod writes | DỪNG có chứng cứ |
-
-CẤM: tự lập MCP Events server/webhook gateway/relay, sửa nguồn nhận GH Owner View, bịa subscription, chia token/callback, gửi nhầm chat, chọn session theo tiêu đề, chuyển event thành lệnh Host, tự mở phiếu quorum, đổi production, kéo Codex đang làm đi nơi khác.
+| W0 | Codex; Host READY/Owner GO | HEAD, rights, device, refs | CLIENT_PENDING |
+| W1 | Dot→Work LOCAL | task, Mac, context and ACK if possible | PA2_FAIL→W2 |
+| W2 | Native Work/Dot scheduler if W1 fails | scheduled fire AND Work Local start | PA1_NOT_PROVEN |
+| W3 | Codex optional RO | Events/Codex native result | SKIP |
+| W4 | Codex | six statuses, repo KQ, one NEXT | stop honestly |
