@@ -376,6 +376,11 @@ Tổng 16.513 vật (6.414 không kể cột). Constraint theo loại: n 2.060 (
 
 #### 3.TQ CẤU TRÚC «SỔ KIỂM ĐẾM TÀI SẢN» — PG quản PG · BẢN CHỐT DUY NHẤT (P40 · vẽ lại theo Owner 25/10 15:25; bản P38–P39 xem git `0e018723`)
 
+**§3.TQ-P67 · KIẾN TRÚC CANONICAL THEO TIÊU CHÍ 0 (THẮNG CÁC THẺ CŨ KHI XUNG ĐỘT):**
+- **PG-A:** A1 catalog/pg_depend/CTE/VIEW/4DB READ ONLY; A2 file DOT-live/TSV qua PG functions/file_fdw chỉ nếu an toàn; A3 S4 quyết định Owner + ≤3 View, không mirror máy; A4 queue/async native khi nghiệp vụ cần; A5 Directus Flow native và RAG/Vector/Qdrant/Graph sẵn có chỉ phụ trợ search/code dependencies. Không dùng Graph để thay pg_depend. Không tự tạo bản chép/registry/worker mới.
+- **EXT-B đúng năm biên thực sự bên ngoài SQL PG:** E1 nhịp Kuma/Guard khi không ai SELECT (*phải* test giá trị SQL lỗi làm RED, không chỉ query success); E2 Telegram via sender đã kết nối; E3 Docker RO mount host bin/manifest cho PG; E4 Nuxt Reports + nginx auth_basic kiểm tất cả route/API/đường origin; E5 Graph/Cognee giúp đọc thân code ↔ DB, ngoài năng lực pg_depend native. 0 code mới mặc định, mọi ngoại lệ cần WHY_NOT_PG/WHY_NOT_DIRECTUS/WHY_NOT_REUSE + hội đồng.
+- **Tiêu chí đáp ứng mới:** mở báo cáo là live; cảnh báo định kỳ chỉ khi monitor chứng minh được cả điều kiện hỏng và delivery; lịch sử Git chỉ đối với tệp COMMIT, thay đổi ngoài Git không có baseline phải UNKNOWN; không có định danh/mốc thì không tô xanh. Directus Flows bảy cái, pg-boss và `file_fdw/postgres_fdw/pg_cron` đều phải kiểm phiên bản và hiện trạng thật trước khi quyết sử dụng.
+- **G0:** query_pg qua Claude MCP role `context_pack_readonly` đã có chứng cứ GS-R6D, S0 kiểm lại bind/transaction/allowlist. Thiếu tool thì SQL UNKNOWN và tiếp tục các phép kiểm khác; không fallback root psql. G1/G2 Docker/PG file role/nginx/Kuma production tách về sau, không thuộc PG-L0.
 **PG-A — NHÓM PHẢI LÀM BẰNG PG TRƯỚC (định hướng P65, chưa tự triển khai):**
 | Nhu cầu | PG-native/đích | Trạng thái / gate |
 |---|---|---|
@@ -557,6 +562,8 @@ Ba Lô cũ = LEGACY lưu riêng, không nối vào pipeline mới
 - Chữ cũ không dùng (bản P30–P39): «Lớp-1/2/3» (nay S1–S4) · «Cách A/B» (nay: màn hình ghép là 1 view, chọn nơi hiện theo Đếm-5) · «Thử-View/Thử-Bot» (nay Đếm-5/Đếm-6) · «K1–K16», «Canh-1..4» (nay mục 4, Bot-1..4) · «kênh A/B» · «vùng NHÁP» · «dòng đỏ» (nay cờ ⚠). T1–T6 ở 3.01 là bảng «Thiếu gì» lịch sử.
 
 #### 3.KH — KẾ HOẠCH CHI TIẾT CÔNG VIỆC (P40 · roadmap duy nhất · bám §3.TQ)
+**P67 ROADMAP CANONICAL (THAY NHỮNG DÒNG CŨ TRÁI):** L0 G0 READ ONLY: query_pg controlled, PG18/Directus12 runtime, Docker/bin/manifest, Kuma PostgreSQL result predicate, nginx all Reports/API/origin, Flows/pg-boss/RAG/Qdrant/Graph reuse → PG-A1 catalog ba DB còn lại/pg_depend độc lập mount/Graph → PG-L1 file-live chỉ nếu L0 an toàn và Owner G1/G2 → PG-A3 S4 + ≤3 SQL VIEW/queue nếu cần → EXT-B 5 nhóm cấu hình native có proof, không code mới → Công thức/Workflow. Tiêu chí 0 ưu tiên trên §3.TQ và §3.KH cũ.
+
 **P65 ROADMAP CHIA HAI NHÓM:** Nhóm PG-A ưu tiên trước: L0 RO kiểm filesystem/PG18 quyền & FDW → L1 PG-live nếu an toàn → PG catalog bốn DB/V1-V3/S4 và công cụ PG queues/NOTIFY chỉ khi cần; Không coi Graph/Directus/Nuxt là dependency để làm backend PG-native. Nhóm EXT-B chỉ gồm hạ tầng mount/recreate bắt buộc, file event tự động khi không có SELECT, sender cảnh báo và UI/auth; mỗi việc ngoài PG cần NO_SAFE_PG + hội đồng xác nhận, tận dụng thứ có sẵn. P63 TS2R writer/3 cột/.path chuyển thành FALLBACK CHỈ SAU L0 FAIL + Host quyết lại; không chạy tự động. Tách lịch sử/mốc biến động nếu Owner cần: baseline trong PG phải được phê duyệt, không lắp sổ sao chép mặc định.
 
 **P63 roadmap PG-FIRST:** TS2R giữ một bước, đổi từ P61 Directus identity/sidecar sang PostgreSQL role/GRANT theo cột + Directus native 3 field và systemd.path, không tạo kho phụ/PG event trigger. Điều kiện thực: pg_hba/session hẹp và Directus metadata/cache/field public phải PASS. Chỉ Owner G1/G2 a,b,c còn thiếu. TS3 dùng cột máy từ PG trong V3, không viết lại, GitHub ưu tiên trước.
