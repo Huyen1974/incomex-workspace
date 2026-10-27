@@ -2,7 +2,7 @@
 RUN_ID: NDW-PGA1-CATALOG-DEPENDENCY-20261027-01
 TASK: work/nhap-directus-for-workflow
 EXECUTOR_SURFACE: Claude Code CLI
-READ_PATH: claude-mcp `query_pg` hiện tại, đúng `context_pack_readonly`, READ ONLY, `statement_timeout=5000`, chỉ template SELECT catalog/SHOW được validator chấp nhận; đọc repo qua workspace/Git, vps_status RO.
+READ_PATH: claude-mcp `query_pg` hiện tại, đúng `context_pack_readonly`, READ ONLY, `statement_timeout=5000`; **P69 đã chứng minh cổng chỉ nhận SELECT và CHẶN SHOW**. Chỉ dùng SELECT catalog trong đúng mẫu validator cho phép, không đổi allowlist/parser hay dùng lối admin; đọc repo qua workspace/Git, vps_status RO.
 WRITE_PATH: chỉ `workspace_edit` ghi STARTED/KQ và bảng điều khiển của task `COLLAB.md`; **không có PG/Directus/Docker/Graph/Nuxt runtime mutations**.
 STATUS: DRAFT_FOR_ONE_CLAUDE_CHAT_REVIEW — chưa có Host READY/STARTED cho RUN mới. P69 G0-L0 đã KQ DỪNG·MỘT PHẦN và P70 Host đã nghiệm thu; READY P68 áp cho RUN cũ không dùng. Claude Chat phản biện prompt PG-A1 một lượt, Host ký READY đúng last-touch mới, Owner dispatch một câu DROOT38 khi tới lượt (ưu tiên GitHub). Không cần G1/G2 vì đây là READ-ONLY.
 
@@ -21,7 +21,7 @@ STATUS: DRAFT_FOR_ONE_CLAUDE_CHAT_REVIEW — chưa có Host READY/STARTED cho RU
 
 ## S2 — Quan hệ PG-native và giới hạn thực tế
 - Đọc `pg_depend` + `pg_rewrite` (đúng cách map rule `ON SELECT` thành VIEW sở hữu) + `pg_constraint` cho FK + `pg_trigger` cho trigger, `pg_shdepend` cho object dùng chung khi quyền đọc đạt. Phân loại `PG_DECLARED_DEP | FK | VIEW_REWRITE | TRIGGER_OWNER | UNKNOWN_DYNAMIC_CODE`, phân biệt quan hệ sở hữu/tham chiếu/phụ thuộc DROP, không suy 'sử dụng lúc chạy' từ `pg_depend`.
-- Viết một **SELECT/CTE mẫu hai tầng** với depth cap để đo số cạnh duy nhất, số nguồn/đích chưa map, loại deptype, self-loop/cycle nếu có; tránh recursive vô hạn, không crawl body/dynamic SQL, không chạy EXPLAIN ANALYZE, không nhân toàn bộ Cartesian. Theo `pg_depend` hãng, một vật có nhiều dependency, không tự coi bảng thiếu cạnh là vật bỏ được.
+- Viết **SELECT bắt đầu bằng từ khóa SELECT** với subquery/aggregate cho quan hệ; chỉ dùng WITH/recursive CTE nếu chính `query_pg` validator đã xác minh CHẤP NHẬN ở vai RO (P69 đã chặn SHOW, không giả parser nhận mọi cú pháp SELECT). Nếu WITH bị từ chối, dùng SELECT lồng/giới hạn một tầng hoặc báo `CTE_UNKNOWN`, **không sửa validator/lách cổng**. Đo số cạnh unique, nguồn/đích chưa map, deptype và dependency qua pg_rewrite/FK; không crawl body/dynamic SQL, không EXPLAIN ANALYZE hay đệ quy vô hạn. Thiếu cạnh không chứng minh vật bỏ được.
 
 ## S3 — Chuẩn bị hợp đồng SQL View native có thể áp ngay ở PG-A2
 - Đề xuất **V1 asset_catalog**: `db_scope, kind, namespace, canonical_key, native_identity, parent_key, oid_observed, observed_at, source/status` với dữ liệu đọc catalog; V2 `dependency_edges`: `source_key, target_key, relation_type, dependency_type, source_catalog, observed_at, completeness`, không Graph làm oracle. Giữ ≤3 VIEW toàn bộ chương trình khi sau này thêm V3; ở RUN này 0 CREATE/ALTER/INSERT.
