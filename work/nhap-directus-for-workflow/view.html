@@ -69,13 +69,13 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>TS2 đã DỪNG an toàn · TS2R đã có phương án mới chờ Claude rà</h2>
+<section class="owner-actions ok"><h2>P63: TS2R chuyển sang PG18-native, chờ Owner G1/G2 a,b,c</h2>
 <p>✅ B0b XONG P27 · ✅ GPT Host ACCEPT kiến trúc P48, đã sửa an toàn ở P49.</p>
-<p>Claude Code P60 KQ DỪNG tại S1, 0 thay đổi production: writer chưa có quyền thực chỉ <code>dot_tools</code>; công cụ cũ ghi sai tên cột và nuốt lỗi HTTP; 14/31 thay đổi DOT không qua Git. GPT Host P61 chọn <strong>một machine account Directus/policy quyền hẹp</strong>, 1 receipt Guard root-only cho hash/giờ và 1 systemd <code>.path</code>+service. <strong>TS2R chỉ DRAFT, thiếu G2 bổ sung cấp user/policy/token</strong>. Ưu tiên GitHub trước, không chạy lại lệnh TS2 cũ.</p>
+<p>Claude P62 phát hiện đường cấp identity Directus cũ không phù hợp bản mới. GPT Host P63 đã chốt <strong>PG-FIRST</strong>: một PostgreSQL role chỉ cấp quyền CỘT của <code>dot_tools</code>, ba field máy <code>sha256/file_state/synced_at</code> trong PG qua công cụ Directus B0b, một cặp systemd <code>.path/.service</code>. Phải kiểm <strong>vai PG đăng nhập thật qua pg_hba/session</strong>, unique code/trigger và Directus metadata/cache trước khi chạy. <strong>Chưa Owner G1/G2 a,b,c nên chưa READY/RUN.</strong> Ưu tiên GitHub trước.</p>
 <p class="muted">Sau Đếm: anh gật cấu trúc + cột Sổ quyết định, kèm số thật.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
 <span class="flag">P55 · PG đọc sống + Census + Graph · Ba Lô LEGACY</span>
-<span class="flag">✅ B0b/TS1 XONG · TS2 DỪNG an toàn P60 · ■ TS2R DRAFT, chưa READY/RUN</span>
+<span class="flag">✅ B0b/TS1 · TS2 P60 DỪNG · ✅ P62/P63 chốt PG-FIRST · ■ TS2R chưa READY</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <h2>1. Sơ đồ tổng thể — toàn bộ bức tranh PG Tự quản</h2>
@@ -129,7 +129,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <div class="milestone-path" aria-label="Thứ tự các mốc, kéo ngang để xem hết">
  <div class="milestone-node"><strong>✅ B0b</strong><span>🤖 XONG P27: hai công cụ đã được bảo vệ</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>✅ TS1 · ĐẾM</strong><span>XONG khảo sát P52; còn 3 DB + Graph/đăng nhập thiếu</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node is-current"><strong>■ TS2R · DOT</strong><span>Dùng số S1 P60, một service identity + đúng schema/HTTP + .path theo dõi bin; chờ G2 bổ sung</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node is-current"><strong>■ TS2R · PG NATIVE</strong><span>PG role cột hẹp + 3 field máy + .path, xác minh auth/cache thật rồi chạy</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS3 · SỔ</strong><span>😊 Duyệt cột → 🤖 tạo sổ quyết định + trang Nuxt</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS4–TS5</strong><span>🤖 Máy tự sửa lỗi được phép, cảnh báo có hạn; chỉ phát sinh 1 vụ khi cần người</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>B1–B5</strong><span>Công thức → Workflow</span></div>
@@ -173,6 +173,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 </details>
 
 <h2>5. Điểm phải giải quyết sau TS2 DỪNG P60</h2>
+<p><strong>P63:</strong> Thực hiện nguyên tắc PG-FIRST ở 3 cửa thiết kế/READY/nghiệm thu. Chỉ cần một G1/G2 bổ sung cho PG role dot_tools_sync, ba cột máy và một cặp .path/service. Không cần Directus account/token mới hay JSON sidecar. PostgreSQL role LOGIN không mật khẩu và Directus schema cache phải được kiểm bằng phép thử thật; không bật track_functions hoặc sửa Graph/Nuxt/Ba Lô.</p>
 <p><strong>P61:</strong> Claude Chat rà một vòng lựa chọn writer quyền hẹp A, biên nhận root-only thay vì thêm cột PG ngay, systemd .path có test edit ngoài Git, Public Access chưa kiểm ẩn danh và đường lùi giữ nguyên worktree dirty. Sau đó chỉ cần Owner bổ sung G2 đúng 1 identity/policy/token; không bật track_functions hay sửa Ba Lô, Graph, Nuxt.</p>
 <p><strong>P57:</strong> Owner cần chốt G2 chỉ cho mục 1–3 (một DOT + cột kỹ thuật đã xác minh + một đường event/đèn có chứng cứ). Không bật track_functions, không tạo thêm bảng Nền; chỉ hiển thị nhãn suy ra với provenance đáng tin. Test commit rỗng không đủ nghiệm thu tự đồng bộ.</p>
 <p>Ưu tiên: (1) API Nuxt đang thiếu kiểm đăng nhập; (2) khóa Graph cần có DB và Graph Host xác nhận đường reader; (3) `dot_tools` cần ghép code/hash trước khi tự đăng ký; (4) 3 DB chưa đo. Không mở lại đồng bộ Ba Lô cũ. Lỗi `dot-report-publish` và giới hạn tài nguyên đo được đưa vào nợ an toàn.</p>
