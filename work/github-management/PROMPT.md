@@ -5,7 +5,7 @@ STATUS: DRAFT · Claude P79 ACCEPT có sửa (merge đúng SHA một cách duy n
 EXECUTOR: Claude Code CLI KST dùng quyền Mac gh/SSH Owner hiện có; Codex chỉ developer PR, không tự merge/deploy. Repo code chỉ private agent-data-test và web-test, ghi trạng thái trong incomex-workspace/work/github-management.
 
 ## S0 — READ và DoD
-Đọc AGENTS.md, COLLAB §0/P74–P78, ROADMAP §0.4, FAST-PR-LANE-REPORT, PR350/#676 và 3 runs 40459074294/40459085757/40459402138. Pin PR HEAD/base/merge-test SHA mới nhất, kiểm draft/mergeable/reviews/CI + runtime. Không giữ VPS-GHI khi đọc/review.
+Đọc AGENTS.md, COLLAB §0/P74–P79, ROADMAP §0.4, FAST-PR-LANE-REPORT, C1B-CLOSE-REPORT (P66: cách build/parity/deploy–lùi Web bằng script P61 — tra đường dẫn script trong code-ledger), PR350/#676 và 3 runs 40459074294/40459085757/40459402138. Pin PR HEAD/base/merge-test SHA mới nhất, kiểm draft/mergeable/reviews/CI + runtime. Không giữ VPS-GHI khi đọc/review.
 F1 chia F1_A=KST review/merge hai PR + Web audit main đáng tin; F1_B=production Web chạy đúng bản build từ GitHub main (phát hành thật đầu tiên, giữ lại). F1_A + F1_B = chuỗi PR → KST merge → main → build → production; PR đổi mã ứng dụng đầu tiên để F2.
 
 ## S1 — Review Agent Data PR350
