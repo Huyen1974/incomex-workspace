@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 11:55 +07 · GPT Host P74 READY · Claude P75 đồng thuận
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-27 13:00 +07 · Codex P76 STARTED
 - 🎯 Mục tiêu Owner 27/10: GitHub cho Codex viết song song sớm nhất, Claude Code CLI KST review/merge, release thực thi trên VPS; nợ C1B không bắt dev xếp hàng.
 - 🏁 F0 XONG khi 2 repo có PR thật + unit CI trên VPS đúng head/merge-test SHA, policy gate: AD GREEN, Web Health unit GREEN/policy RED chờ KST. F1 Web merge/deploy là RUN Claude Code CLI riêng.
 - 📍 Tiến độ: ✓ R0/R1/C1A → ✓ P66 Web release + P71 AD CI/canary → ◐ C1B-REMAINDER → ✓ Claude P73 → ✓ GPT P74 READY → ■ Owner RUN F0 → F1 KST/Web → C2 Pro (Owner quyết) → F2 ba agent → C4.
 - ✅ Đã xong: AD main5bc8a3f/CI14/canary0DDL; Web Nuxt4 parity166/166/CI/deploy–rollback; 2 audit VPS GREEN; P71 POST25/25/receipt309, VPS-GHI trả.
-- ■ Đang làm: — · 0 RUN active. Host READY@5f9bb019c6a2fba146d5b86d5debcdb3a34f9e93 · RUN_ID=GHM-FAST-PR-LANE-20261027-04; chưa Owner RUN.
+- ■ Đang làm: Codex STARTED P76 · RUN_ID=GHM-FAST-PR-LANE-20261027-04 · hai worktree/ghế Codex cho AD pagination và Web Health/gate; Guard PRE22/22 PASS; không giữ VPS-GHI khi code.
 - ⬜ Còn lại: workflow CI main chưa có PR trigger; cần F0 pilot trusted-only; S4-B Web Health401 candidate d3b1ec8 chưa test, AD Compose hash + old rollback DDL vẫn là nợ riêng, C1B_SCOPED=FAIL.
-- ➡ Kế tiếp: Owner giao một RUN Codex theo PROMPT chuẩn, rồi Host phát F1 cho Claude Code CLI sau khi F0 có chứng cứ. NEXT_TRIGGER=OWNER_RUN_GHM-FAST-PR-LANE-20261027-04.
+- ➡ Kế tiếp: Codex kiểm hai PR thật trên runner VPS, tách kết quả unit/policy và S4-B; KST review sau KQ. NEXT_TRIGGER=CODEX_KQ_GHM-FAST-PR-LANE-20261027-04.
 - ⛔ Không coi 5 cổng là isolation tuyệt đối; không chạy fork/actor chưa duyệt trên persistent runner; không secret cho PR, không auto-CD/DDL/Pro tự mua, không báo C1B PASS giả.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1081,6 +1081,12 @@ Based_on: Owner 27/10 (mục tiêu #10) · P71/C1B-FINALIZE-REPORT @a1f8f057 · 
 - Cách hiểu khớp PROMPT, không mở rộng, để Codex không dừng oan: (1) «preflight độc lập» chứng minh bằng: tệp workflow `gate` + script guard trong commit đang chạy trùng hash bản trên main ⇒ PR không sửa chúng ⇒ chạy unit; PR sửa chúng ⇒ policy ĐỎ, không chạy mã PR. (2) «CI execution scripts» = tệp workflow và script mà workflow gọi trực tiếp; tệp test mới (vd test phân trang AD) không thuộc nhóm này. (3) «đường khôi phục secret»: GitHub không cho đọc lại giá trị cũ; giá trị cũ của web-test đang trả 401 nên không cần giữ — đường khôi phục là ghi lại giá trị GSM chuẩn đã xác minh HTTP 200.
 - NEXT_TRIGGER=OWNER_RUN_GHM-FAST-PR-LANE-20261027-04.
 
+## P76 · Codex · 27/10/2026 13:00 +07 — STARTED FAST-PR-LANE
+STARTED@GHM-FAST-PR-LANE-20261027-04 2026-10-27T06:00:00Z · executor=Codex/openai-codex.
+- Owner RUN trực tiếp; P74 READY last-touch5f9bb019c6a2fba146d5b86d5debcdb3a34f9e93 đã đối chiếu GitHub; PROMPT SHA256 d15fceeca2169522192f986c208ab346400d6affb3c9baf3d76a4548c841c832. Đã đọc P75 làm rõ, ROADMAP0.4, runner README và P66/P71 kế thừa.
+- S0: main AD5bc8a3f/Web728fa1d đúng; Mac gh=Huyen1974 quyềnadmin hiện có, cả2runner online/idle; branch protection private trả403 cầnPro, không tuyên hardlock. GuardPRE22/22 PASS, 0đỏ; khôngSTOP. PR cũ không phải việc được phép, không chạy chúng.
+- S1 hai ghế Codex/worktree riêng: dev/codex-ad/pagination-contract và dev/codex-web/health-audit. Chỉ bootstrap workflowCI tối thiểu lên main bằng quyềnngoạilệF0; PR app doKST quyết, khôngmerge/deploy. S4-B tốiđa2dispatch nhưng chỉ sửa Websecret khi đủnguồnGSM/HTTP200/đườnglùi; khônggiữF0 chờ lane này.
+- Không giữ VPS-GHI khi code; chỉ nhận CAS trướchostmutation nếu cần. NEXT_TRIGGER=CODEX_KQ_GHM-FAST-PR-LANE-20261027-04.
 
 
 
