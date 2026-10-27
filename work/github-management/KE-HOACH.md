@@ -1,6 +1,6 @@
-# KẾ HOẠCH THỰC HIỆN — github-management · V0.3 · 27/10/2026 · FAST-PR-LANE P74
+# KẾ HOẠCH THỰC HIỆN — github-management · V0.4 · 27/10/2026 · GH GREEN CODE GATE P83
 
-**Trạng thái: GPT Host P80 READY@77c23c7911d5b87c1b2494080e1f06d7e7cff5b1 sau Claude P79 cho RUN GHM-F1-KST-REVIEW-MERGE-WEB-20261027-05 (Owner chưa RUN). F1_A KST Claude Code CLI review/merge PR350/676 và kiểm 13 CHECK Web Health main (lỗi nghiệp vụ giữ RED); F1_B Web production chạy build từ GitHub main, GIỮ sau parity 166/166 +34 contract/Guard, old pinned rollback. P66 xác minh app tree nguồn; C1B AD rollout nợ độc lập. C2 Pro Owner quyết rồi F2 3 agent và PR app Web đầu tiên; không viết giả mã để được nghiệm thu.**
+**Trạng thái P83: F1 P82 accepted scoped Web main/KST nhưng GH CODE required gate RED thật (Web100 runs 48 fail/15 success/37 cancel; AD20 fail/80 success); cổng required PR/CI phải GREEN mới qua theo Owner chiều 27/10. Roadmap V0.5 thêm G1 trước C2/F2, DRAFT GHM-GH-GREEN-GATE-20261027-06 mời Claude P84, chưa READY/RUN. Health 2 lỗi nghiệp vụ thật giữ cảnh báo RED, AD deploy rollback chưa đủ cổng.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 
