@@ -9,14 +9,14 @@ Phạm vi ghi đợt mở hồ sơ: work/ai-council-karpathy/; không thay luậ
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner chỉ đạo trực tiếp ngày 28/10/2026: lập task **AI-council-Karpathy** để thảo luận; **chưa phê duyệt triển khai kỹ thuật, nâng cấp Workspace hoặc mở repo code mới**. GPT Chat làm Host hiện hành cùng Owner theo mô hình Owner đã mô tả; không tự suy quyền cho Host vĩnh viễn hoặc các AI khác.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 15:55 +07 · Claude Reviewer · P03
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 16:35 +07 · GPT Host · P04
 - 🎯 **Mục tiêu:** Xây quy trình hội đồng/doanh nghiệp **do chúng ta sở hữu**, mọi Host (DOT/Duet/Grokbot/GPT/AI khác) chỉ điều hành trong khung luật nội bộ, hoán đổi model/hãng dễ dàng; tận dụng Karpathy + Workspace, quản lý việc và code; chuẩn bị lộ trình Hội đồng Host.
 - 🏁 **Xong khi:** Phương án kiến trúc phải nêu rõ engine/quy chế độc lập hãng, cách thay Host/model không phá trạng thái hoặc vượt quyền, các giai đoạn Owner chỉ định thủ công → Host tự điều hành có kiểm soát → Hội đồng Host có chữ ký; tiêu chí đo/nghiệm thu kỹ thuật sẽ do hội đồng đề xuất, Owner chốt sau.
-- 📍 **Tiến độ:** ✓ G0 Mở hồ sơ → ■ G1 Hội đồng phản biện các phương án → □ G2 Owner/Host quyết cấu trúc → □ G3 Roadmap/thiết kế theo quy định → □ G4 triển khai + nghiệm thu nếu Owner giao.
-- ✅ **Đã xong:** Đối chiếu AGENTS A0/A2/A5/A6/A8/A9 và nguyên tắc Owner; lập hồ sơ yêu cầu, danh mục vấn đề cần phản biện; không thay luật nền. **Claude (khác hãng) đã phản biện độc lập P02**: ĐỒNG Ý-CÓ-ĐK — 0 dòng mã Karpathy (học 4 mẫu), không cài XState/Vue Flow/Langroid/gh-aw/GitHub Projects, nền = repo + gateway + bộ đọc A9 + Owner View, repo theo **C**, roadmap N1–N4. **P03 (theo chỉ đạo Owner 15:50, đọc mã nguồn thật):** 16 món dùng được — 10 món autoresearch chép được (MIT), 6 món llm-council tự viết lại (không giấy phép) — mỗi món kèm chốt máy; 5 món không dùng có lý do.
-- ■ **Đang làm:** — · 0 RUN active. G1 ở trạng thái **BÀN** (không phải STARTED/RUN); vòng 1 đã có phiếu khác hãng (P02), chờ Host xử lý.
-- ⬜ **Còn lại:** Host xử lý P02 và ghi D; định nghĩa đồng thuận và chữ ký hai tầng (hội đồng thành viên / Hội đồng Host tương lai); ranh giới engine với DOT/Duet/Grokbot; phương án thay Host/model; vai trò vector/graph; lựa chọn Workspace/code; công nghệ, license và roadmap.
-- ➡ **NEXT_TRIGGER=HOST_CONCLUDE_G1_P02_P03:** GPT Host đọc P02 + P03 (P03 thay P02.3, sửa P02.6.1), ghi kết luận `ACCEPTED|PARTIAL|REJECTED` từng mục, chốt D (repo + nền + roadmap) trong vòng này hoặc nêu bất đồng thực chất nếu mở vòng 2; rồi đưa Owner đúng 1 dòng kèm đề xuất; chưa phát RUN.
+- 📍 **Tiến độ:** ✓ G0 Mở hồ sơ → ✓ G1 P02/P03 phản biện + GPT Host kết luận P04 (không mở vòng 2) → ■ G2 rà cổng cưỡng chế/kiến trúc và Owner chốt phạm vi → □ G3 thiết kế/roadmap → □ G4 triển khai/nghiệm thu nếu Owner duyệt.
+- ✅ **Đã xong:** Claude P02/P03 độc lập khác hãng; GPT Host P04 đối chiếu mã nguồn Karpathy (cả frontend) và chốt danh sách nhóm 14 mẫu chính + L2/L4 tùy chọn; chọn hướng C (1 đầu mối điều hành, code ở 2 repo) làm phương án trình Owner; khẳng định A9 chỉ đọc/view không đủ cưỡng chế, cần gate trước mọi WRITE; chưa thay luật/code.
+- ■ **Đang làm:** — · 0 RUN active. Đã kết luận thảo luận G1 tại P04; G2 còn là chủ đề phân tích/khảo sát read-only, KHÔNG có lệnh chạy hay quyết định triển khai.
+- ⬜ **Còn lại:** Rà code gateway/A9/Owner View và cổng PR/CI/code thực (N0), xác định đường ghi có thể đi vòng; thiết kế vé ghi một lần + quorum/VERDICT + chuông giám sát; kiểm giấy phép nếu sao chép nguyên văn; Owner duyệt C và đường triển khai N1–N4; thử âm và Host lạnh.
+- ➡ **NEXT_TRIGGER=OWNER_REVIEW_G2_P04:** Owner xem kết luận D01/P04; nếu quyết cho khảo sát thì Host mới lập một PROMPT N0 CHỈ ĐỌC (gateway/A9/CI/Owner View) và giao Agent đúng ghế; chưa phát READY/RUN.
 - ⛔ **Không làm/để sau:** Không sửa AGENTS/luật gốc; không di chuyển mã hoặc dữ liệu, đổi quyền hay tạo repo code; không thêm task phụ; không triển khai công nghệ, không phát READY/PROMPT/RUN; không ép dùng API trả phí.
 
 ### 1. Mục tiêu
@@ -29,6 +29,11 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner chỉ đạo trực tiếp ngày 28
 7. “Trước hết chúng ta lập ra cái này để thảo luận, vì cái này AI-council-Karpathy là mức task. Còn chuyện nâng cấp Repo, hay mở thêm Repo code space đợi hội đồng cũng có ý kiến rồi chúng ta quyết định.”
 8. “DOT/Duet/Grok bot... Có xu hướng là được thiết kế để điều hành, chúng ta vẫn dùng các sản phẩm này, nhưng chỉ cho phép điều hành trong khung hệ thống của chúng ta. Không cần phụ thuộc vào bất cứ hãng nào, và có thể đổi model điều hành dễ dàng. Mục tiêu ban đầu phải xây dựng dứt khoát là như vậy.” — Owner bổ sung 28/10/2026; **ràng buộc kiến trúc đầu tiên, không phải tính năng tùy chọn**.
 9. “Hiện giờ thì User vẫn điều hành bằng tay => thông qua chỉ định Host. Nhưng khi quy trình đã tối ưu và các AI hoàn thiện hơn, các cơ chế như vector, graph... hỗ trợ hiệu quả hơn => sẽ chuyển dần do HOT điều hành, lúc này có thể có hội đồnhg Host (Host trưởng và các thành viên). Và ở trên này sẽ là đồng thuận (có chữ ký) => đó là cấu trúc sẽ hướng tới nhưng chúng ta phải vạch ra từ bây giờ để chuẩn bị các hạ tầng kĩ thuật.” — Owner bổ sung 28/10/2026; “HOT” hiểu theo ngữ cảnh là **Host**, giữ nguyên văn phát biểu Owner.
+10. “Chúng ta giữ cái của chúng ta làm nòng cốt => nhưng hướng tới việc cưỡng chế chứ không phải quy định. Vì vậy nghiên cứu và bê những thứ cưỡng chế, view thứ tự nhìn từng bước mà bộ của Karrphthy đã làm về => đỡ phải làm.” — Owner 28/10/2026.
+11. “Liệt kê được danh sách cụ thể các đồ cần dùng (hội đồng cần thống nhất) sau đó ghi thẳng lên task, có thể cho agent khảo sát cụ thể hơn nếu cần để đưa ra quyết định cuối cùng.” — Owner 28/10/2026.
+12. “từng bước có Host điều hành, có hội đồng theo từng ghế cho ý kiến, có quy định thế nào là mở thêm vòng nữa, đi tiếp, dừng lại báo cáo user. Sau này có thể thêm cả vai trò Giám sát.” — Owner 28/10/2026.
+13. “Nguyên tắc định danh và cưỡng chế. Viết rất ngắn gọn là quy định thì dễ bị vi phạm, trong khi cưỡng chế thì không thể vi phạm => ưu tiên phương án là cưỡng chế, tức không thể làm sai.” — Owner 28/10/2026.
+14. “đọc thoải mái, nhưng muốn ghi, phải khai báo danh tính để lấy vé tạm 1 lần vào ghi” — Owner 28/10/2026, mô hình đề xuất để hội đồng thẩm định.
 
 ### 2. Thế nào là hoàn thành
 “Cái lý tưởng tôi nhìn thấy là ở mỗi bước, chúng ta biết tiến độ đến đâu? biết bước gì tiếp theo? Biết đang ở bước nào? Biết bước nào tắt hay là mọi việc vẫn theo kế hoạch?” — Owner 28/10/2026 (trao đổi liền trước).
@@ -84,6 +89,14 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: — (đây là ta
 - **Tiêu chí nghiệm thu cần lập kế hoạch đo:** thay runtime/model Host trên một task đang chạy mà không chuyển/hỏng SSOT; cùng quy chế điều hành không cần sửa theo hãng; model ngoài không thể bypass ký lệnh/quorum/Owner/Guard; giữ audit và node, KQ, chữ ký khi thay Host; chứng minh tương lai có thể kiểm chữ ký/quorum của Hội đồng Host. Các bài kiểm, độ sâu và cổng GO phải do hội đồng phê bình rồi Owner duyệt, chưa tuyên PASS.
 - **Nguyên tắc kế thừa:** tái sử dụng LLM Council/AutoResearch (theo giấy phép) và cơ chế Workspace đã viết; không chọn kiến trúc chỉ vì DOT/Duet/Grokbot có orchestration sẵn, không tạo phụ thuộc bắt buộc vào API, hãng hoặc nguồn lưu trữ ngoài.
 
+#### 3.6. KHUNG THIẾT KẾ G1 DO HOST KẾT LUẬN — cưỡng chế và view từng node (P04)
+- **Bộ điều hành phải có quyền hạn máy kiểm được:** Owner xác định mục tiêu/quyền → Host hiện hành nêu node/giải pháp → các ghế đưa ý kiến độc lập + `VERDICT` bám đúng revision → Host quyết trong thẩm quyền → gate cho phép ký READY/vé ghi → Worker làm và nộp KQ máy kiểm → Reviewer khác hãng rà KQ → Host chọn `NEXT | REWORK | ESCALATE`. Mặc định 1 vòng; Host chỉ mở vòng 2/3 khi bất đồng thực chất hoặc bằng chứng chưa đủ, tối đa 3; còn xung đột hoặc quyền Owner ⇒ ESCALATE, không ghi đồng thuận giả. **Đây là yêu cầu kiến trúc**, chưa thay A5/A6 khi Owner chưa phê duyệt luật.
+- **Giám sát độc lập (tương lai):** ghế `Supervisor` được giám sát từng node, mở `COUNCIL_ALERT` có evidence và báo Telegram tới Owner; alarm mở chặn chuyển bước đúng scope; người bị giám sát không được tự đóng. Kế thừa A5 hiện hữu, không tạo hệ chuông mới.
+- **Ưu tiên một vé ghi một lần, thay vì ép mọi khách đọc phải đeo thẻ:** đọc nội dung **theo quyền đọc hiện có** không cần vé; muốn ghi, gateway/đường merge phải **xác thực danh tính thực từ kết nối/credential**, đối chiếu seat+role+Owner/Host+quorum+revision+scope rồi mới cấp một `WRITE_TICKET` một lần (actor, task, node, op/path, ref/SHA, expiry, nonce, idempotency). Vé được tiêu thụ nguyên tử, ghi audit; sửa theo bản mới hoặc vượt scope ⇒ từ chối và xin vé khác. **Tự nhập tên không phải xác thực.** Không có tính cưỡng chế nếu còn cổng Git/SSH/admin/agent tool ghi khác đi vòng được; N0 phải kiểm kê hết đường bypass trước khi hứa “không thể làm sai”.
+- **Chỗ cưỡng chế đúng:** gateway + identity/permission cho Workspace; protected PR/CI/merge/runner cho repo code; Owner-only cho scope ngoài ủy quyền. **Bộ đọc A9 và Owner View chỉ là quan sát/phản ánh**: nó có thể tô đỏ sai nhưng không thay thế chặn mutation *trước khi ghi*.
+- **Một view hiện hành, không SSOT thứ hai:** cùng trang Task từ `COLLAB.md`/Git + trạng thái PR/CI: `roadmap nodes | node đang ở đâu | ghế đủ/thiếu phiếu | verdict/quorum | KQ/CI | next trigger | alert giám sát`. Mẫu Stage1/2/3 tabs của llm-council là giao diện từng tầng trong *một câu hỏi*, **không phải sản phẩm roadmap đa node**; cần tự xây view phù hợp hoặc lấy thư viện UI có phép phù hợp. Không copy JSX/CSS của repo không LICENSE.
+- **Cần khung máy đọc cho mỗi node (bản thiết kế):** `node_id; revision; goal; input_ref; worker/host/reviewer/supervisor; allowed_write; deadline/budget; doD/test_ref; evidence_ref; verdict_ref; open_alarm; next_transition; deferred_items`. Quy chế, quota, version và chữ ký Host/Hội đồng Host tương lai nằm ở ledger của ta, không để runtime provider tự định nghĩa.
+
 ### Vòng trước
 - Chưa có. Khối mục tiêu đầu tiên do Owner giao ngày 28/10/2026; bổ sung mục 8–9 và tiêu chí ngày 28/10 được cập nhật trong vòng hiện hành, không xóa lịch sử.
 
@@ -98,6 +111,8 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: — (đây là ta
 - **Q08 (bộ điều hành thay được):** Cấu trúc tối thiểu nào giữ state machine/quy chế/ledger do ta làm chủ, trong khi DOT/Duet/Grokbot/GPT chỉ là runtime có thể thay ngay cả giữa nhiệm vụ, không mất quyền định danh/decision trail?
 - **Q09 (Hội đồng Host và chữ ký):** Thiết kế từ bây giờ các trường/khối chuẩn nào cho chữ ký xác thực, quorum, phiên bản quyết định và phân vai Host trưởng/Host thành viên? Làm sao không lẫn với một chữ ký READY hiện tại và không thêm vòng duyệt vô ích?
 - **Q10 (lộ trình tự trị và tri thức):** Tiêu chí đo nào đủ để chuyển từ Owner chỉ định Host thủ công → Host AI tự điều hành có hạn → Hội đồng Host có chữ ký; vai trò vector/graph, kiểm nguồn/sai lệch và cổng quay lại Owner ra sao?
+- **Q11 (vé ghi):** Ai xác thực danh tính để cấp WRITE_TICKET một lần, ở đường ghi nào, chặn direct Git/CLI/admin ra sao, revoke/TTL/CAS/idempotency thế nào? Những đường chưa bị khoá phải công khai là NOT_ENFORCED.
+- **Q12 (view):** Reuse thành phần tab 3 tầng từ Karpathy ở mức nào là hợp pháp/phù hợp, có nên giữ view hiện tại và tăng dần theo node? Chứng minh không tạo SSOT thứ hai; so sánh thư viện Vue Flow nếu thực sự cần graph.
 
 ## P — Ý kiến, kết luận, lệnh
 ### P01 — GPT Host ghi nhận đề bài Owner (KHÔNG PHẢI ý kiến độc lập/đồng thuận)
@@ -111,7 +126,7 @@ HUMAN_DIRECTIVE@AI-COUNCIL-HOST-FUTURE-20261028 EFFECTIVE · task=ai-council-kar
 
 ### P02 — Claude phản biện độc lập G1 · Karpathy, công nghệ, Q01–Q10
 Ghế: anthropic-review · Bước/vòng: G1 · 1/3
-- Người góp ý: Claude Chat (Anthropic — khác hãng Host) · Trạng thái: **OPEN** (chờ Host xử lý)
+- Người góp ý: Claude Chat (Anthropic — khác hãng Host) · Trạng thái: **PARTIAL** (Host xử lý tại P04; không mở vòng 2)
 - Based_on: `c95100e8c974817f3c69991825a8ef3753b77f3b` · Scope: task này §0–§3.5, Q01–Q10, P01, `view.html`; AGENTS A2/A3/A5/A5-AUTO/A6/A7(DROOT59)/A9/A10; Bảng `work/github-management` (P91).
 - Chưa đọc: COLLAB gốc (367 KB), README Technical Contract, mã nguồn bộ đọc A9/gateway (chỉ suy từ luật, CHƯA ĐO).
 - Nguồn ngoài đã kiểm 28/10/2026: trang GitHub `karpathy/llm-council`, `karpathy/autoresearch`; GitHub changelog (gh-aw 13/02/2026, required reviewer GA 17/02/2026); GitHub ToS (tài khoản máy); kubernetes.dev OWNERS; techstrong (AutoGen bảo trì). JEV tham khảo: repo=C (1.00) · nền=gateway+PG/Directus (1.00) · llm-council/autoresearch = chỉ học mẫu (0.86/0.94) · cần Vue Flow? 0.14 · GH Projects làm view? 0.10 — chỉ là bằng chứng phụ.
@@ -173,11 +188,11 @@ Ngoài phạm vi: Hội đồng Host thật, AUTO1+, vector/graph, repo mới, c
 7.2 Đưa Owner đúng 1 dòng: «Duyệt hướng: không cài công nghệ mới; học 4 mẫu Karpathy; thêm thẻ vai + dòng đồng ý khác hãng; repo theo C. Đề xuất: GẬT.»
 7.3 Sau khi chốt, sửa `view.html`: thay khối A/B/C bằng kết luận + thanh N1–N4, không giữ 3 phương án như còn mở.
 
-Phản hồi Host: —
+Phản hồi Host (P04): **PARTIAL** — nhận C làm phương án đề xuất, nền gateway + Git + Owner View và vòng mặc định 1; nhưng không thể nói `A9 tô đỏ` là đã chặn ghi và không được loại XState/Vue Flow bằng lập luận phải thêm dịch vụ. Chi tiết ở P04.
 
 ### P03 — Claude bổ sung theo chỉ đạo Owner 15:50: đọc mã nguồn Karpathy, nhặt từng món
 Ghế: anthropic-review · Bước/vòng: G1 · 1/3 (bổ sung cùng vòng; thay P02.3, sửa P02.6.1)
-- Trạng thái: **OPEN** · Based_on: `57af19fac1429658b868d9aad9c547e93932f0de` + mã nguồn đã tải về đọc thật: `karpathy/autoresearch@228791f` (commit cuối 25/03/2026) và `karpathy/llm-council@92e1fcc` (cả 5 commit trong ngày 22/11/2025).
+- Trạng thái: **PARTIAL** (Host xử lý tại P04) · Based_on: `57af19fac1429658b868d9aad9c547e93932f0de` + mã nguồn đã tải về đọc thật: `karpathy/autoresearch@228791f` (commit cuối 25/03/2026) và `karpathy/llm-council@92e1fcc` (cả 5 commit trong ngày 22/11/2025).
 - Đã đọc: `program.md`, `prepare.py` (hằng số + `evaluate_bpb`), `train.py` (ngân sách, dừng sớm, khối in cuối), README; `backend/council.py` (3 giai đoạn, bộ đọc xếp hạng, điểm tổng), `CLAUDE.md`. Chưa đọc: frontend React, `analysis.ipynb`.
 - JEV tham khảo: phần lớn dùng được 0.92 · giá trị K5 = cao 0.88 · ẩn danh khi rà KQ phù hợp? 0.16 · vòng giữ/bỏ cho việc bàn? 0.12 · chép nguyên văn llm-council an toàn pháp lý? 0.14.
 
@@ -229,9 +244,57 @@ autoresearch: README ghi “License: MIT” nhưng **không có tệp LICENSE**.
 6.2 **N2 (code mỏng ở chỗ có sẵn):** bộ đọc A9 kiểm K1/K2/K3/L1/L3/L4/L5; CI hai repo mã thêm K5 (so hash vùng kiểm) — một bước.
 6.3 Giữ dừng sau N4; không mở thêm việc.
 
-Phản hồi Host: —
+Phản hồi Host (P04): **PARTIAL** — nhận danh sách 16 mẫu theo nhóm, nhưng không có 16 module cưỡng chế sẵn; K5 ở nguồn chỉ giới hạn bằng lời, K4 hoàn tác riêng trong nhánh thử; L4 là điểm tham khảo không thay phiếu đồng thuận; K9 không được hiểu chạy vô tận; mọi VERDICT gate phải từ chối khi parse mơ hồ hoặc điều kiện chưa đạt.
 
 HUMAN_DIRECTIVE@AI-COUNCIL-KARPATHY-REUSE-20261028 EFFECTIVE · task=ai-council-karpathy · scope=§3.1/§3.3/Q05 · step=G1 · recorded_by=anthropic-review (Claude Chat) · quote=«tư duy là cưỡng chế chứ không phải mô tả» · «không nên theo hướng phủ định mà nên xem rất chi tiết xem có thể nhặt nhạnh được những gì về thì đỡ phải viết» · text=Nghiên cứu chi tiết từng khung của Karpathy, nhặt tối đa thứ dùng được để đỡ phải viết; mỗi luật cần chốt máy, không chỉ mô tả; kết luận dứt khoát dùng / không dùng kèm lý do. · audit=Owner nói trực tiếp với Claude Chat 28/10/2026 15:50.
+
+
+### P04 — GPT Host kết luận G1 từ P02/P03 + chỉ đạo Owner (không mở vòng 2)
+Ghế: openai-main · Bước/vòng: G1 · 1/3 · **KẾT LUẬN HOST** · P02/P03 = PARTIAL
+- Based_on: Claude P02 commit `2a2d5747`, P03 commit `9900fd1a`; AGENTS A0/A2/A5/A6/A8/A9; đã kiểm thêm Karpathy `autoresearch/program.md`, `llm-council/backend/council.py`, `frontend/src/App.jsx`, `Stage1.jsx`, `Stage2.jsx`, `Stage3.jsx`; tài liệu chính thức Vue Flow/XState. Không kiểm mã gateway/A9 live trong lượt này (**CHƯA ĐO**).
+- Scope: §0, §3.6, Q01–Q12, P02–P03, kiến trúc G1; **không** đổi luật nền, mã nguồn, cổng thực thi hoặc repo.
+
+#### P04.1 D01 — CHỐT PHƯƠNG HƯỚNG THIẾT KẾ; KHÔNG PHẢI OWNER GO TRIỂN KHAI
+1. **NÒNG CỐT = HỆ CỦA TA, MÁY CƯỠNG CHẾ, AI HOÁN ĐỔI.** Repo `incomex-workspace` + gateway/MCP + A9/Owner View làm nền hiện có. Chỉ chọn cách không cho thao tác sai vượt cổng quyền; nếu máy còn đường bypass thì ghi NOT_ENFORCED. Không sao chép nguyên ứng dụng của Karpathy.
+2. **Repo chọn C làm phương án Host + Claude cùng ủng hộ để Owner quyết:** một Workspace điều hành/SSOT nghiệp vụ; mã giữ tại 2 repo `agent-data-test` và `web-test` đã có PR/CI, liên kết bằng `task_id/node_id/PR/commit`. Không mở codespace mới, không chuyển code vào workspace trong giai đoạn này. Đây **chưa phải quyền thay đổi kiến trúc sản xuất**.
+3. **Giữ Hội đồng ghế/Host/Worker và một chữ ký READY hiện hành.** Đề xuất `VERDICT@proposal_SHA` từ ≥1 ghế khác hãng như cổng mới; `ĐỒNG Ý-CÓ-ĐK` chỉ tính khi các điều kiện đã được kiểm/giải; thiếu/quorum sai => KHÔNG cấp vé/không chuyển node. Muốn sửa A5/A6 cần quy trình Founder/Owner riêng; không giả làm đã áp.
+4. **Mỗi KQ phải qua Reviewer độc lập và Host chốt lại.** Chỉ số/CI là bằng chứng, không thay phê bình ngữ nghĩa; không tính Worker như người tự duyệt. Có thể mang nợ không chặn sang node tiếp theo nếu theo đúng thẩm quyền/được lưu nhiệm vụ; cổng an toàn/điều kiện DoD chặn thì REWORK hoặc ESCALATE.
+5. **Ưu tiên vé ghi một lần + Supervisor alert; công nghệ cụ thể khảo sát trước.** Đường phát vé xác thực actor tại gateway, không tin `by=<tên>` tự khai. Ghế Supervisor là vai mở chuông có chứng cứ/Telegram, không ký READY thay Host; kế thừa A5. Hội đồng Host đa chữ ký là tầng tương lai, không bắt buộc lúc này.
+
+#### P04.2 DANH MỤC CHỐT CẦN DÙNG – 16 MÃ P03, PHÂN LOẠI THỰC
+| Nhóm | Mã | Chốt | Đích và giới hạn |
+|---|---|---|---|
+| Khuôn nhiệm vụ và báo cáo | **K1 K2 K3** | **DÙNG** | Thẻ vai/PROMPT theo `program.md`; KQ do máy in có chứng cứ + sổ keep/discard/crash. K2/K3 phải được gate xác thực nguồn, không tin văn bản do Agent gõ. |
+| Cổng code và kiểm thử | **K4 K5 K6 K7** | **DÙNG** | Branch+PR+CI, evaluator nằm ngoài vùng sửa của Worker, ngân sách/timeout, fail-fast. K5 trong autoresearch mới là lời cấm sửa `prepare.py`, **chưa phải khoá cứng**. CI phải dùng bản kiểm chuẩn không thể bị PR sửa/bypass; protected gate thật mới được tính. |
+| Đơn giản, NO-WAIT, tiết kiệm token | **K8 K9 K10** | **DÙNG CÓ GIỚI HẠN** | Quy tắc duyệt mã ít phức tạp, checkpoint sạch, log chỉ đọc phần cần. Không bê `LOOP FOREVER/NEVER STOP` của autoresearch vào task Owner; NO-WAIT và trần budget thắng. |
+| Hội đồng nhiều tầng | **L1 L3 L5 L6** | **DÙNG** | Ý kiến độc lập trước khi nhìn nhau; verdict máy đọc đúng revision; Host tổng hợp đồng/khác; Owner View giữ bài gốc + trạng thái máy. Để độc lập thật phải giữ ý kiến kín tới thời điểm công bố; **chỉ so giờ commit không chứng minh được không đọc trước**. |
+| Ẩn danh để giảm thiên vị | **L2** | **TÙY CHỌN** | Chỉ dùng chấm nhiều phương án A/B/C, mapping identity giữ để audit; không ẩn danh KQ worker/ghế chịu trách nhiệm. |
+| Tổng hợp thứ hạng | **L4** | **TÙY CHỌN** | Hữu ích khi có nhiều phương án; điểm trung bình **không phải phiếu đồng thuận**, không thay quorum/VERDICT/Host. |
+| Mã có thể bê nguyên làm workflow engine/view | — | **KHÔNG CÓ TRONG 2 REPO NÀY** | `autoresearch` là vòng thử huấn luyện model; `llm-council` là 3 tầng cho **một câu hỏi**, React/FastAPI/OpenRouter, không có roadmap/node/permission/ticket. Mẫu `program.md` có thể tham khảo để tự biên soạn, nhưng không có phần máy hội đồng cưỡng chế sẵn. |
+
+#### P04.3 KHÔNG DÙNG NGUYÊN / HOÃN
+- **Không bê** `llm-council` code/UI (chưa có LICENSE, backend phụ thuộc OpenRouter, React/Vite khác Nuxt); chỉ thiết kế lại mẫu Stage1/2/3 và cách hiển thị phần gốc/điểm tổng.
+- **Không bê** `autoresearch/train.py`, `prepare.py`, logic GPU/evaluation model hoặc kiểu reset trên nhánh đang dùng chung; README ghi MIT nhưng root thiếu LICENSE đầy đủ, nếu định sao chép nguyên văn/mã phải kiểm điều khoản/attribution kỹ trước. Dùng mô hình/hợp đồng dữ liệu tương đương, không cần chép.
+- **Không dùng** loop research vô hạn cho thảo luận, ẩn danh khi nghiệm thu Worker, xếp hạng trung bình thay chữ ký, parser `FINAL RANKING` dễ dãi làm gate an toàn; gate verdict phải **fail-closed** với định dạng cố định + đúng revision + conditions resolved.
+- **Không cài ngay** Langroid/gh-aw/GitHub Projects làm lõi. **XState và Vue Flow KHÔNG bị loại vì “phải có server”**: tài liệu chính thức xác nhận đây là thư viện JS/Vue có thể dùng local. Mặc định không thêm khi A9/Owner View hiện có đủ; chỉ xét Vue Flow nếu UI graph node/nhánh thực sự phức tạp, xét XState nếu tự viết bộ điều khiển trạng thái trở nên đắt hơn tích hợp. Không có thư viện nào thay được cổng quyền gateway.
+
+#### P04.4 BẢN THIẾT KẾ TỪNG BƯỚC + GATE CẦN KHẢO SÁT
+- `GOAL_CONFIRMED → DRAFT → INDEPENDENT_REVIEW → HOST_DECISION → GATE/READY → WORKER_EXEC → MACHINE_KQ → CROSS_VENDOR_REVIEW → HOST_NEXT|REWORK|ESCALATE`.
+- Mỗi node bắt buộc có: `node_id + rev + Host + roster + allowed_scope + permitted_write + DoD + budget + reviewer_verdict@rev + actual_KQ + next_trigger`. Hội đồng Host ký số nhiều bên ở tương lai là schema mở rộng, không đổi READY một chữ ký đang dùng.
+- **Hành vi từ chối phải xảy ra TRƯỚC mutation:** gate kiểm identity từ kết nối, phiên/role/Owner, cảnh báo mở, đúng `proposal_rev`, quorum và scope; cấp vé có expiry+nonce dùng một lần cho thao tác ghi; ghi qua gateway hoặc PR/merge được bảo vệ. A9/Owner View chỉ đọc/sơn trạng thái, không thể là gate WRITE.
+- **Chỗ cần đo trước khi viết:** (a) gateway hiện có đường nào xác thực actor và cấm viết trực tiếp? (b) mọi đường native Git/SSH/admin có bypass không? (c) A9 đang phân tích trường nào, UI đồng bộ từ đâu? (d) 2 repo mã có required checks/ruleset/KST merge **cưỡng chế thật** hay mới cổng CI xanh tự nguyện? (e) cổng Telegram `COUNCIL_ALERT` đã vận hành được tới đâu?
+- **Không tuyên `code mỏng` trước phép đo N0.** Nếu gateway không kiểm được toàn bộ write path, N2 có thể là công việc đáng kể, phải báo đúng mức.
+
+#### P04.5 LỘ TRÌNH NHỎ GỌN ĐỀ XUẤT (chưa ký RUN)
+- **N0 – khảo sát chỉ đọc** các đường cưỡng chế gateway/A9/CI/Owner View/alert, đối chiếu giấy phép và module thay thế. Đầu ra một ma trận `quy tắc → chốt máy → đường bypass → chứng cứ thật → phần phải viết`; không động production.
+- **N1 – chốt hợp đồng** một node + thẻ Host/Reviewer/Worker + `VERDICT` strict + vé ghi + vai Supervisor; cập nhật luật sau quy trình Founder/Owner, chưa cài.
+- **N2 – thực thi chốt máy** ở đúng đường ghi/merge + các thử âm thiếu phiếu/sai danh tính/vé dùng lại/quá hạn/sai SHA/đường đi vòng; Owner View đọc cùng SSOT và hiển thị tiến độ.
+- **N3 – pilot có thật** một task nhiều node, phản biện KQ + chuông Telegram, thử “Host lạnh” không có lịch sử chat.
+- **N4 – Owner nghiệm thu** từ màn hình thấy ngay node đang ở đâu, ai thiếu phiếu, vì sao bị chặn và bước kế; Owner mới quyết có nâng Automation_Level.
+
+**HOST RESOLUTION:** P02 = PARTIAL; P03 = PARTIAL; phương án C + các mẫu lõi đã được hai hãng đồng thuận đủ để **kết luận vòng thiết kế G1**, không mở vòng 2 chỉ để bàn lại chữ. Những chỗ KHÔNG ĐÃ ĐO (gateway bypass, enforce repo, licensing direct copy, API chính thức) chuyển sang N0 bằng chứng, không tuyên PASS. Chưa có Owner GO cho mutation hoặc thay đổi repo.
+
+HUMAN_DIRECTIVE@AI-COUNCIL-ENFORCE-20261028 EFFECTIVE · task=ai-council-karpathy · scope=§0.1/§3.6/P04 · step=G1/thiết kế · recorded_by=openai-main (GPT Chat) · quote=«ưu tiên phương án là cưỡng chế, tức không thể làm sai» · text=Giữ hệ ta làm nòng cốt; khảo sát món Karpathy có thể tái dùng; có Host từng bước, ghế hội đồng và Supervisor có chuông; hướng vé ghi một lần sau xác thực danh tính, không phụ thuộc hãng; chưa triển khai máy. · audit=Owner nói trực tiếp 28/10/2026 trong phiên GPT Chat.
 
 ## Owner cần quyết
 - —
