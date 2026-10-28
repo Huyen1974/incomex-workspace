@@ -9,14 +9,14 @@ Phạm vi task: work/ai-council-karpathy/; Owner ngày 28/10/2026 cho triển kh
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 28/10/2026 giao lập task để thảo luận; sau P05/P06 đã cho **triển khai song song trong phạm vi N0 chỉ đọc**. Chỉ đạo mới trong ngày: **tổng hợp cái hệ đã có + phần lấy từ Karpathy**, không xây lại Hội đồng/ghế/luật. D03/§3.7 là bản tích hợp chuẩn. Host hiện tại GPT Chat do Owner chỉ định; chưa có quyền sửa production, đổi luật nền, tạo repo mới hoặc tự chạy N1–N4.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 17:49 +07 · GPT Host · P07
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 20:25 +07 · Claude Reviewer · P08
 - 🎯 **Mục tiêu:** **HỢP NHẤT CÁI ĐÃ CÓ + KARPATHY; KHÔNG LÀM HỆ MỚI.** Hội đồng/Host/ghế/luật ở AGENTS+HJW, ghi ở MCPW, xem ở HVU, code ở GHM. Chỉ bổ sung các mẫu Karpathy có ích và điểm cưỡng chế còn thiếu, giữ AI/Host đổi được.
 - 🏁 **Xong khi:** Phương án kiến trúc phải nêu rõ engine/quy chế độc lập hãng, cách thay Host/model không phá trạng thái hoặc vượt quyền, các giai đoạn Owner chỉ định thủ công → Host tự điều hành có kiểm soát → Hội đồng Host có chữ ký; tiêu chí đo/nghiệm thu kỹ thuật sẽ do hội đồng đề xuất, Owner chốt sau.
-- 📍 **Tiến độ:** ✓ G1/G2 hội đồng chốt D02 → ✓ **G2B: D03 BẢN ĐỒ HỢP NHẤT (§3.7/P07)** → ■ N0 chỉ khảo sát khoảng trống, PROMPT sửa + READY ký lại, chưa STARTED → □ N1 ghép mẫu vào cơ chế có sẵn → □ N2 bổ sung chốt máy/UI → □ N3 thử thật/Host lạnh → □ N4 Owner nghiệm thu.
-- ✅ **Đã xong:** Hội đồng P02–P06; P07 đã đọc AGENTS, HJW Hội đồng/0.15/P443, MCPW D12, HVU Task View, GHM G1/C2 và nguồn mã AgentData/Web; **bảng tích hợp D03 ở §3.7 là nguồn chuẩn duy nhất của kế hoạch**. 16 mẫu Karpathy đã phân đúng chỗ tái sử dụng; không tuyên 16 module copy được. Chưa sửa runtime.
+- 📍 **Tiến độ:** ✓ G1/G2 hội đồng chốt D02 → ✓ **G2B: D03 BẢN ĐỒ HỢP NHẤT (§3.7/P07)** → ■ **BẢN ĐỒ TỔNG THỂ §3.8** (Owner 19:56; Claude P08 đã viết, chờ Host rà) → □ N0 chỉ khảo sát khoảng trống (READY đã ký, chưa STARTED; đề nghị dùng §3.8 Phần 1 làm danh sách) → □ N1 ghép mẫu vào cơ chế có sẵn → □ N2 bổ sung chốt máy/UI → □ N3 thử thật/Host lạnh → □ N4 Owner nghiệm thu.
+- ✅ **Đã xong:** Hội đồng P02–P06; P07 đã đọc AGENTS, HJW Hội đồng/0.15/P443, MCPW D12, HVU Task View, GHM G1/C2 và nguồn mã AgentData/Web; **bảng tích hợp D03 ở §3.7 là nguồn chuẩn duy nhất của kế hoạch**. 16 mẫu Karpathy đã phân đúng chỗ tái sử dụng; không tuyên 16 module copy được. Chưa sửa runtime. **Claude P08:** bản đồ tổng thể §3.8 — 115 mục từ 15 nơi, ghi nguồn + tình trạng; ma trận cho thấy hội đồng có 0 mục máy chặn; 7 điểm đỏ (Đ1: máy cưỡng chế hội đồng không có chủ); `view.html` vẽ lại thành ma trận màu.
 - ■ **Đang làm:** — · 0 RUN active. N0 được thu về **GAP-ONLY**, PROMPT cũ superseded; không Owner dispatch bản cũ. Chỉ dùng chữ ký READY mới của Host ở P07, chưa STARTED.
 - ⬜ **Còn lại:** N0 kiểm đúng delta chưa đo của HJW P443, GHM C2, MCPW/HVU; N1 nâng hợp đồng hiện hữu (không NODE/DECISION mới); N2 ghép gate và UI còn thiếu vào đúng hệ; N3 pilot; N4 Owner nghiệm thu. Mỗi task gốc giữ chủ phần đã làm.
-- ➡ **NEXT_TRIGGER=OWNER_DISPATCH_ACK_N0_GAP_ONLY_20261028_02:** Owner chuyển N0 mới cho Claude Code CLI khi thích hợp; Agent chỉ đọc KQ/thiết kế hiện hữu và khảo sát khoảng trống, không chạy lại P443/C2; sau KQ Host/Reviewer quyết bước tiếp.
+- ➡ **NEXT_TRIGGER=HOST_REVIEW_MAP_P08:** GPT Host rà §3.8 + P08 (ACCEPTED/PARTIAL/REJECTED từng điểm), đưa Owner đúng 1 dòng §3.8/3.6; nếu đồng ý thu hẹp N0 thì sửa PROMPT N0 theo §3.8 Phần 1 và ký READY mới (N0 chưa STARTED nên không mất lượt). Owner chưa chuyển N0 bản cũ trong lúc này.
 - ⛔ **Không làm:** không xây hệ hội đồng, ghế, định danh, policy/event/assignment/scanner/Task View/repo/CI mới; không tự triển khai vé ghi thứ hai khi HJW P443 còn audit; không chạy API trả phí. N0 không đụng runtime/CI/quyền/secret, không VPS-GHI.
 
 ### 1. Mục tiêu
@@ -35,6 +35,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 28/10/2026 giao lập task để th
 13. “Nguyên tắc định danh và cưỡng chế. Viết rất ngắn gọn là quy định thì dễ bị vi phạm, trong khi cưỡng chế thì không thể vi phạm => ưu tiên phương án là cưỡng chế, tức không thể làm sai.” — Owner 28/10/2026.
 14. “đọc thoải mái, nhưng muốn ghi, phải khai báo danh tính để lấy vé tạm 1 lần vào ghi” — Owner 28/10/2026, mô hình đề xuất để hội đồng thẩm định.
 15. “không phải là đi làm 1 cái mới ... mà là đi tổng hợp lại tất cả những gì chúng ta đang có cộng với việc copy thêm của Karpathy vào thành 1 kế hoạch tổng hợp cuối cùng.” — Owner ngày 28/10/2026, yêu cầu sửa phương pháp thực hiện; **§3.7 là bản kế hoạch hợp nhất thay các ý lập hệ riêng**.
+16. “Nhưng chúng ta cần 1 bức tranh toàn bộ những gì đã làm. Nên tập hợp vào 1 Task” — gom vào chính task này theo 3 phần: (1) toàn bộ cái đã làm cho hội đồng AI, ghi rõ nguồn gốc (việc gì, task nào) và tình trạng (đã xong / đang dở / cần làm thêm / mục tiêu mới bổ sung); (2) phần sẽ lấy thêm của Karpathy; (3) tổng hợp hai phần thành bức tranh cuối, viết lại rõ ràng. Mục tiêu cuối vẫn là AI tự điều hành nhiều nhất có thể theo khuôn khổ đã bàn. Viết thẳng lên task, đề xuất GPT rà, làm khẩn trương. — Owner 28/10/2026 19:56; **thực hiện ở §3.8**.
 
 ### 2. Thế nào là hoàn thành
 “Cái lý tưởng tôi nhìn thấy là ở mỗi bước, chúng ta biết tiến độ đến đâu? biết bước gì tiếp theo? Biết đang ở bước nào? Biết bước nào tắt hay là mọi việc vẫn theo kế hoạch?” — Owner 28/10/2026 (trao đổi liền trước).
@@ -154,6 +155,232 @@ Chữ ký Hội đồng Host nhiều người là khả năng tương lai, khôn
 | N4 **OWNER** | Owner nghiệm thu một màn hình (≤30s). | Owner thấy đang đâu/ai chưa phiếu/KQ/next; quyết có tăng AUTO hay không. |
 
 **F. RANH GIỚI CHỦ QUẢN:** HJW = hội đồng + khai tên P443/N4; MCPW = gateway write bảo vệ; GHM = PR/CI/C2; HVU/web = Task View; ACK = **chỉ điều phối tích hợp + xác minh chưa trùng**. READY N0 cũ **bị thu hồi do đổi phạm vi**, không được chuyển Agent; N0 GAP-ONLY mới mới được ký READY theo SHA. Không tự tạo task/repo hoặc sửa luật/production ở lượt chốt kế hoạch này.
+
+#### 3.8. BẢN ĐỒ TỔNG THỂ HỆ HỘI ĐỒNG — đề xuất Claude P08, chờ Host rà (Owner 28/10/2026 19:56)
+Đọc theo thứ tự: **Phần 3 — bức tranh cuối** (1 trang) → **Phần 1 — cái đã có** → **Phần 2 — lấy thêm của Karpathy**. §3.7 (D03) vẫn là kế hoạch của Host; §3.8 là bản kê chi tiết để D03 bám vào.
+Ký hiệu: 🟢 Máy chặn · 🟡 Chạy tay · 📝 Chỉ có chữ · 🔵 Đang làm · ⚪ Chưa làm · 🆕 Mục tiêu mới · ✖ Bỏ/thay · **🔴 = tắc / mâu thuẫn / không ai làm**.
+Nguồn viết tắt: AG = AGENTS.md · RC = COLLAB.md gốc · RM = README.md · HJW = hermes-joint-workspace · MCPW = done-tasks/mcp-workspace · GJW = done-tasks/gemini-join-workflow · JEV = done-tasks/jev-integration · ASI = done-tasks/agents-self-improving · GHM = github-management · HVU = hpml-view-for-user · GS = graph-server · TQT = tools-quy-trinh · NDW = nhap-directus-for-workflow · MBM = mbm-qtth-07-ve-ui-mow · MMIM = mow-mot-moit-mout · ACK = ai-council-karpathy (task này).
+Cách lập: 5 agent chỉ đọc quét toàn bộ các nơi trên tại HEAD `87493091` (28/10/2026), gộp mục trùng. Tình trạng lấy theo văn bản trên repo — **chưa đo trên máy thật**; N0 đo lại các mục hội đồng dựa vào.
+
+##### PHẦN 3 — BỨC TRANH CUỐI
+**3.1 Ma trận** — 115 mục, 21 điểm 🔴
+
+| Khối | 🟢 Máy chặn | 🟡 Chạy tay | 📝 Chỉ chữ | 🔵 Đang làm | ⚪ Chưa làm | 🆕 Mục tiêu mới | ✖ Bỏ/thay | 🔴 | Tổng |
+|---|---|---|---|---|---|---|---|---|---|
+| C1 Khung việc | · | 4 | 1 | 2 | 3 | 1 | · | 2 | 11 |
+| C2 Hội đồng | · | 10 | 6 | 1 | 3 | · | · | 5 | 20 |
+| C3 Giao–Làm–Báo | 2 | 6 | 1 | · | 1 | 1 | · | 1 | 11 |
+| C4 Cổng ghi | 7 | 1 | 1 | 1 | 3 | · | 1 | 3 | 14 |
+| C5 Chuông | 1 | 5 | 2 | · | 2 | · | · | 2 | 10 |
+| C6 Tự động | 2 | 3 | · | · | 4 | 1 | 2 | 3 | 12 |
+| C7 Mã GitHub | 2 | 3 | · | 2 | 5 | · | · | 2 | 12 |
+| C8 Màn hình | · | 7 | 1 | · | 2 | 1 | · | 1 | 11 |
+| C9 Trợ lực | 1 | 2 | · | · | 2 | 1 | 1 | · | 7 |
+| C10 Nguyên tắc | · | 2 | 5 | · | · | · | · | 2 | 7 |
+| **Cộng** | **15** | **43** | **17** | **6** | **25** | **5** | **4** | **21** | **115** |
+
+**3.2 Một câu:** luật thì đủ, thậm chí thừa và chồng nhau; máy chặn thật mạnh ở **cổng ghi repo** và **đường giao việc cho Hermes**; còn **hội đồng (ghế, vòng, đồng ý, chuông) gần như toàn làm tay**; màn hình đã thấy tiến độ 4 giai đoạn nhưng chưa thấy Host, ghế, hội đồng.
+
+**3.3 Sơ đồ ghép (giữ D03.D):** Owner/Host → luật AGENTS + HJW → cổng ghi MCPW/gateway (+ xưng danh P443) → giao việc (Hermes ASSIGN/RESULT · Claude Code/Codex PROMPT/KQ · mã qua GHM PR/CI) → chuông Kuma/Guard/Telegram → màn hình HVU (thêm Host, ghế, bàn hội đồng 3 tầng, Vue Flow). **Không xây hệ thứ hai.**
+
+**3.4 Bảy điểm đỏ phải gỡ**
+| Mã | Điểm đỏ | Đề xuất |
+|---|---|---|
+| Đ1 | **Phần máy cưỡng chế hội đồng không có chủ:** chặn việc thiếu khối hội đồng, đếm vòng/quorum, dòng đồng ý khác hãng, COUNCIL_ALERT → Telegram, thẻ Đúng/Sai — đều giao HJW N4, nhưng N4–N6 chưa mở và chỉ mở khi có việc mới cho Hermes | **Task này nhận làm chủ** (đúng mục tiêu của task) |
+| Đ2 | **Luật chồng/vênh, chưa ghi “thay bởi”:** DROOT31/38 vẫn đòi ACCEPT@SHA (trái DROOT58) · quorum A5 vênh DROOT57 · luật ký TQT ≥2/4 khác DROOT58 · HJW còn số vòng cũ · R4 vênh DROOT59(3) · README §11/A8 thiếu ngoại lệ GHM | N1 dọn một lần, Founders ghi D |
+| Đ3 | **Hermes trên Mac:** bỏ ngày 22/10, AGENTS chưa sửa; P438 (28/10) lại đưa vào | HJW chốt; không chặn task này (đang AUTO0) |
+| Đ4 | **Khuôn trùng:** 4 bộ câu khung bước · nhiều khuôn báo cáo · sổ công cụ rải 5 nơi | Chọn 1 gốc: khung bước = CT-000.1; giao việc = PROMPT A6 + K1; các bộ khác ánh xạ vào |
+| Đ5 | **Hứa khi đóng MCPW nhưng chưa làm:** scoped lease · NEXT tự động · khoá SSH riêng từng bề mặt · khoá REST/Directus | Ghi chủ rõ; ngoài N0–N4 của task này |
+| Đ6 | **Mã:** “chỉ kỹ sư trưởng merge” + “bắt buộc check xanh” chờ Pro và thẻ dev riêng | GHM C2-B làm chủ |
+| Đ7 | **Màn hình:** Bảng cũ không hiện đỏ (DROOT33 treo từ 01/10) · `/reports` đang mở ẩn danh | Gộp DROOT33 vào N2; không đặt màn hội đồng ở `/reports` |
+
+**3.5 Roadmap tích hợp (chỉnh nhẹ D03.E)**
+| Node | Làm gì | Ai | Đo xong |
+|---|---|---|---|
+| N0 | Chỉ đọc. Dùng **Phần 1 làm danh sách**: đo trên máy thật các mục C2/C4/C5 mà hội đồng dựa vào, sửa tình trạng sai | 🤖 Claude Code CLI | Mỗi mục có đúng 1 tình trạng đo được; ô chưa đo = đỏ |
+| N1 | Dọn luật + khuôn: gỡ Đ2, Đ4; một bản danh sách ghế; gắn K1 K2 L1 L3 L5 vào khuôn duy nhất | 🤖 GPT + Claude (Founders) | 😊 Owner gật 1 dòng |
+| N2 | Chốt máy hội đồng (Đ1) ở đường ghi có sẵn + màn hình: Host, ghế, bàn 3 tầng, Vue Flow, Bảng cũ đỏ | 🤖 Claude Code + Codex | Ca âm bị chặn trước khi ghi; trang Task đúng |
+| N3 | Chạy thật 1 việc nhiều node + đổi Host giữa chừng + chuông | 🤖 Host + Worker | Không lách được; Host mới đi đúng bước |
+| N4 | Owner nhìn 30 giây | 😊 Owner | Owner nói “đạt” |
+
+**3.6 Owner cần quyết (Host gộp 1 dòng):** «Duyệt bản đồ §3.8; giao task này làm chủ phần máy cưỡng chế hội đồng (thay HJW N4) và gộp DROOT33 vào N2. Đề xuất: GẬT.»
+
+##### PHẦN 1 — CÁI ĐÃ CÓ (115 mục, 10 khối)
+**C1 Khung việc** — mục tiêu, bước, node
+| Mã | Nội dung | Nguồn | Tình trạng | Ghi chú |
+|---|---|---|---|---|
+| C1.1 | Cổng mục tiêu A0 + §0 bốn ô (Mục tiêu · Xong khi · Chi tiết · Xác nhận) | AG A0, MT3/MT4 · RC DROOT03/51 | 🟡 Chạy tay | Task View đọc, không chặn |
+| C1.2 | Bảng điều khiển 8 dòng, đúng 1 ô ■ | AG MT4 | 🟡 Chạy tay | sửa tay |
+| C1.3 | Cưỡng chế Bảng: Bảng cũ ⇒ đỏ, chặn READY | RC DROOT33 (Owner cần quyết) | ⚪ Chưa làm 🔴 | treo chờ Owner từ 01/10 |
+| C1.4 | Khung bước: mục tiêu → roadmap/node → rà sau mỗi KQ → đóng; STEP_WALK | AG A5, A6 · RC DROOT48 | 📝 Chỉ chữ | máy không kiểm |
+| C1.5 | BÀN ≠ GIAO ≠ ĐƯỢC CHẠY | AG A9-GLB · HJW P122 | 🟡 Chạy tay | máy chặn riêng đường Hermes |
+| C1.6 | 1 node = 1 PROMPT + 1 RUN_ID + 1 KQ | HJW §0.17 (luật G7) | 🟡 Chạy tay | áp tay |
+| C1.7 | Bộ câu khung bước — 4 bộ song song: CT-000.1 (43 câu G1–G5) · MOW-TH-005 (13 câu) · R37 · Cổng sẵn sàng | MBM H3 · TQT R01/R37 · GS §3 | 🔵 Đang làm 🔴 | trùng 4 bộ ⇒ chọn 1 gốc |
+| C1.8 | Cổng sẵn sàng trước READY: công cụ đúng máy, quyền, việc Owner bấm | Owner 28/10 · GS §3 · RC dòng 358 | 🆕 Mục tiêu mới | chưa vào AGENTS |
+| C1.9 | Hai cấp điều hành (một AI ↔ hội đồng) trên một lõi; mức duyệt linh hoạt | HJW §0.3/0.5–0.6 (N5) | ⚪ Chưa làm | N5 chưa mở |
+| C1.10 | Vòng đời sự cố X1–X9 + máy kiểm kịch bản | MBM CT-000.4 | 🔵 Đang làm | 21/21 kịch bản |
+| C1.11 | Bộ phép thử nghiệm thu T1–T9 | HJW §0.10 | ⚪ Chưa làm | Owner chưa phê chuẩn lại |
+
+**C2 Hội đồng** — ghế, Host, vòng, đồng ý
+| Mã | Nội dung | Nguồn | Tình trạng | Ghi chú |
+|---|---|---|---|---|
+| C2.1 | COUNCIL_BOOTSTRAP_V1 bắt buộc mỗi việc (ghế · hãng · bề mặt · vai · gọi bằng) | AG MT3-C · RC DROOT44 | 🟡 Chạy tay | có ở 10 việc; máy chưa chặn thiếu khối |
+| C2.2 | Host do Owner chỉ định, đổi được; dòng `Host:` | AG A2 · RC DROOT18/46 · HJW HĐ19/20/25 | 🟡 Chạy tay | Claude từng làm Host tạm |
+| C2.3 | Co-host tuỳ chọn | AG A6 DROOT58 | 📝 Chỉ chữ | chưa cưỡng chế |
+| C2.4 | 1 danh tính = 1 ghế; OpenAI-main chọn 1 bề mặt/việc | AG A2 · RC DROOT44 | 📝 Chỉ chữ | máy chưa phân biệt Chat/Work/Dot |
+| C2.5 | Vòng: mặc định 1, tối đa 3; REVIEW_REUSED | AG A5 DROOT57 | 🟡 Chạy tay 🔴 | thay DROOT55; HJW còn ghi luật cũ |
+| C2.6 | ≥1 ý kiến khác hãng với Host và với Worker | AG A5 · HJW P183 | 🟡 Chạy tay | Claude rà GPT bằng tay |
+| C2.7 | Quorum: vắng ≤ floor(ghế/2); Claim 15′ · Deliver 45′ | AG A5, MT3-C | 📝 Chỉ chữ 🔴 | vênh với DROOT57 khi >2 ghế |
+| C2.8 | Một chữ ký READY của Host/Co-host | AG A6 DROOT58 | 🟡 Chạy tay 🔴 | DROOT31/38 vẫn ghi ACCEPT@SHA |
+| C2.9 | Luật ký 4 ghế ≥2/4, ≥1 khác hãng, nhãn [auth:…] | TQT 3.3 | 🟡 Chạy tay 🔴 | luật ký thứ hai, khác DROOT58 |
+| C2.10 | “Đồng ý” khác hãng = dòng VERDICT máy đọc | ACK D02/D03 (Owner 28/10) | ⚪ Chưa làm | chưa có |
+| C2.11 | Nhịp B1 Host nghiệm thu → B2 Reviewer khác hãng → B3 Host chốt | Owner mẫu lệnh · GS · GHM | 🟡 Chạy tay | dùng hằng ngày |
+| C2.12 | Founders GPT Chat + Claude Chat giữ luật nền | AG A2 | 🟡 Chạy tay | — |
+| C2.13 | Tách nhiệm vụ: Worker không tự nghiệm thu; Reviewer không giao việc | AG A5, A2 | 📝 Chỉ chữ | kiểm tay |
+| C2.14 | Ghế Gemini `google-main` | AG A9 · GJW | 🟡 Chạy tay | AUTO0; chưa phản biện lần nào |
+| C2.15 | Ghế Hermes `agent-gw/hermes` | AG A9 · RC DROOT21 · HJW HĐ31 | 🟡 Chạy tay | tạm ra khỏi luồng điều hành |
+| C2.16 | Ghế Dot riêng `openai-dot` | AG A9 · HJW N2 P439–P443 | 🔵 Đang làm | nhiều lượt DỪNG; P443 READY |
+| C2.17 | Danh sách ghế không khớp giữa các nơi (HĐ7/15, P441, bootstrap HJW) | HJW · AG | 📝 Chỉ chữ 🔴 | cần một roster chuẩn |
+| C2.18 | Sổ MMIM: 1 Host, nhiều Council/Executor, Write_Zone | MMIM council/REGISTRY | 📝 Chỉ chữ | cập nhật cuối 07/10 |
+| C2.19 | Hội đồng Host có chữ ký (tương lai) | ACK §3.5 | ⚪ Chưa làm | — |
+| C2.20 | Vai Supervisor mở chuông | ACK §3.6 | ⚪ Chưa làm | — |
+
+**C3 Giao–Làm–Báo** — PROMPT, READY, KQ, lệnh máy
+| Mã | Nội dung | Nguồn | Tình trạng | Ghi chú |
+|---|---|---|---|---|
+| C3.1 | Đường Claude Code/Codex: PROMPT.md → READY@SHA → STARTED → KQ | AG A6, A9-GLB | 🟡 Chạy tay | Owner dán tay; agent tự kiểm SHA |
+| C3.2 | Đường Hermes: ASSIGN_V1 → Owner bấm Telegram → RESULT_V1; vé 1 lần | AG A9-GLB · HJW Contract V1 | 🟢 Máy chặn | 27/27; chỉ Hermes |
+| C3.3 | Chỉ Host được ghi lệnh máy (issuer_check) | RC DROOT41 · HJW P100/P105 | 🟢 Máy chặn | chỉ đường Hermes |
+| C3.4 | Khối Owner chuyển `GỬI: · VIỆC:` | RC DROOT38 | 🟡 Chạy tay | — |
+| C3.5 | Cổng đầu vào Host + cổng tươi + cờ bận STARTED/STOP_REQUESTED | AG A6 DROOT30/31 | 🟡 Chạy tay | làm tay |
+| C3.6 | Đúng 1 NEXT_TRIGGER; cấm trạng thái chờ | RC DROOT50/52/53 · HJW HĐ29/30 | 🟡 Chạy tay | máy không kiểm |
+| C3.7 | KQ theo KQ@RUN_ID + actor; Agent báo XONG chưa phải DONE | MCPW N9 · state machine | 🟡 Chạy tay | Host đối soát tay |
+| C3.8 | Khuôn báo cáo/phiếu giao: DOER_CONFIRM · phiếu 6 ô · đề xuất 6 dòng | TQT-R · GHM KE-HOACH | 📝 Chỉ chữ 🔴 | nhiều khuôn ⇒ hợp nhất |
+| C3.9 | Bảng giao việc: AI vào là biết vai/bước/việc tiếp | MCPW roadmap | ⚪ Chưa làm | hứa khi đóng MCPW |
+| C3.10 | Hàng giao tay: Host ký READY sẵn, Owner chọn lượt | GS §3 | 🟡 Chạy tay | — |
+| C3.11 | Computer Use trên Mac chỉ giao Codex Desktop | Owner 28/10 · RC dòng 358 | 🆕 Mục tiêu mới | chưa thành luật chung |
+
+**C4 Cổng ghi** — danh tính, khoá ghi
+| Mã | Nội dung | Nguồn | Tình trạng | Ghi chú |
+|---|---|---|---|---|
+| C4.1 | Repo chỉ ghi qua gateway (ruleset `gateway-only-writes`) | MCPW D01 · RM D12 · RC DROOT20 | 🟢 Máy chặn | ghi thẳng bị 409 |
+| C4.2 | CAS expected_version/head · operation_id · không có lệnh xoá | RM §3/§5/§7 | 🟢 Máy chặn | — |
+| C4.3 | Danh tính theo khoá riêng; Git author = nhãn máy chủ | MCPW P60 · RM §12.8 | 🟢 Máy chặn | chưa tách Claude Chat/Cowork, GPT Chat/Work |
+| C4.4 | Agent Gateway: hồ sơ theo credential | HJW D13 | 🟢 Máy chặn | — |
+| C4.5 | Khoá master chung bị từ chối ghi | MCPW B2A | 🟢 Máy chặn | — |
+| C4.6 | Hermes: 0 sudo, không GSM, chỉ ghi COLLAB, chặn giả Host/READY/KQ | HJW P368/P386 · INV19 | 🟢 Máy chặn | 69/69 ca âm |
+| C4.7 | Xưng danh trước khi ghi (declared vs authenticated actor) | HJW P442/P443 | 🔵 Đang làm | READY audit, chưa thi công |
+| C4.8 | Vé ghi 1 lần sau xác thực | ACK mục tiêu 14 | ⚪ Chưa làm | gắn vào P443 nếu cần |
+| C4.9 | Scoped lease chống ghi chồng | MCPW §0.2(4) | ⚪ Chưa làm 🔴 | hứa khi đóng MCPW, chưa làm |
+| C4.10 | Khoá SSH/VPS riêng từng bề mặt | MCPW P05 L4 | ⚪ Chưa làm 🔴 | mọi agent Mac dùng chung khoá root |
+| C4.11 | Khoá REST/Directus, writer riêng | MCPW B2B | ✖ Bỏ/thay 🔴 | dừng 01/10, Owner chưa quyết |
+| C4.12 | PG: đọc qua query_pg chỉ đọc; ghi qua DOT | NDW | 🟢 Máy chặn | ghi qua DOT là tay |
+| C4.13 | Chỉ Host ghi tệp chuẩn, ghế khác nộp đề xuất | TQT_GATE_V1 | 📝 Chỉ chữ | DeployKey dùng chung |
+| C4.14 | Tách người nêu ý kiến khỏi chìa ghi thật | HJW P420/P437 | 🟡 Chạy tay | ghi tay trong P |
+
+**C5 Chuông** — giám sát, Telegram
+| Mã | Nội dung | Nguồn | Tình trạng | Ghi chú |
+|---|---|---|---|---|
+| C5.1 | COUNCIL_ALERT 5 loại; người bị tố không tự gỡ | AG A5 · RC DROOT44 | 📝 Chỉ chữ 🔴 | Telegram ≤5′ chưa nối; dùng tay 1 lần |
+| C5.2 | HUMAN_DIRECTIVE ghi nguyên văn | AG A5 · RC DROOT45 | 🟡 Chạy tay | ~17 dòng; chưa ai xác nhận |
+| C5.3 | Thẻ “Đúng chỉ đạo / Sai” + DIRECTIVE_INTEGRITY_ALERT | RC DROOT45 · HJW N4 | ⚪ Chưa làm | — |
+| C5.4 | Cảnh báo 3 cấp | AG A7 DROOT59 | 🟡 Chạy tay | thử tới 02/11 |
+| C5.5 | Kuma/Guard → Telegram; sổ tin “N loại · M chạy · K hỏng”; heartbeat 08:00; canh ngoài VPS | AG A10-R5 · HJW | 🟢 Máy chặn | 71 loại · 0 hỏng |
+| C5.6 | Biên nhận Telegram sau mỗi mutation production | AG A10-R4 | 🟡 Chạy tay 🔴 | vênh DROOT59(3) |
+| C5.7 | Sổ phiên, hook Claude Code/Codex, đối chiếu SSH | MCPW | 🟡 Chạy tay | chỉ báo, không chặn |
+| C5.8 | Đỏ khi 2 executor cùng chạy; việc thiếu mục tiêu/sync đứng | MCPW · HVU INV21 | 🟡 Chạy tay | — |
+| C5.9 | Chuông máy: Host chốt sớm/sai bản ⇒ vô hiệu | HJW §0.15 (N4) | ⚪ Chưa làm | — |
+| C5.10 | Bộ nhãn trạng thái + gộp cảnh báo theo nguyên nhân | NDW SYNC-5/6/7 | 📝 Chỉ chữ | — |
+
+**C6 Tự động** — đánh thức, AUTO, hàng đợi
+| Mã | Nội dung | Nguồn | Tình trạng | Ghi chú |
+|---|---|---|---|---|
+| C6.1 | Thang AUTO0→AUTO3; chỉ Owner nâng | AG A5-AUTO · RC DROOT46 | 🟡 Chạy tay | đang AUTO0 |
+| C6.2 | Hermes: AUTO_ALLOWLIST rỗng, Owner bật theo loại việc | HJW P105 | 🟢 Máy chặn | — |
+| C6.3 | Hermes cron/webhook 0 token; bấm → nhận ≤30 giây | HJW D16 · RC DROOT47 | 🟡 Chạy tay | Hermes đang ngoài luồng |
+| C6.4 | Đầu nối Mac ↔ cloud đồng bộ, lệch thì báo | HJW N1 · INV20 | 🟢 Máy chặn | — |
+| C6.5 | Courier / Hermes-Mac đưa thư | RC DROOT44(h)/46(c) | ✖ Bỏ/thay 🔴 | bỏ 22/10; AGENTS chưa sửa |
+| C6.6 | Dot đánh thức GPT Work trên Mac | HJW P431 | ✖ Bỏ/thay | P438 thay |
+| C6.7 | Tín hiệu → Hermes trên Mac → CUA → Codex điều phối hội đồng | HJW P438 | 🆕 Mục tiêu mới 🔴 | ngược quyết định bỏ Hermes-Mac |
+| C6.8 | MCP Events cho Dot/Work | HJW P426 | ⚪ Chưa làm | chưa đo |
+| C6.9 | NEXT tự động: mỗi việc 1 “tiếp theo: ai · làm gì” | MCPW §0.2(3) · HJW N5 | ⚪ Chưa làm 🔴 | hứa khi đóng MCPW |
+| C6.10 | Ca đêm: tối giao loạt, sáng KST duyệt | GHM C4 | ⚪ Chưa làm | — |
+| C6.11 | Hàng đợi PG native · Directus Flows (111 flow chạy) | NDW A4 | ⚪ Chưa làm | job_queue cũ kẹt 7 việc |
+| C6.12 | AI không tự đặt lịch, không giữ terminal | RC DROOT53 · HJW HĐ30 | 🟡 Chạy tay | 26 lịch đã tắt |
+
+**C7 Mã GitHub** — PR, CI, merge, deploy
+| Mã | Nội dung | Nguồn | Tình trạng | Ghi chú |
+|---|---|---|---|---|
+| C7.1 | Cấm GitHub → VPS trừ khi Owner GO | AG A8 · RC DROOT56 | 🟢 Máy chặn 🔴 | README/A8 chưa ghi ngoại lệ GHM |
+| C7.2 | Runner tự host trên VPS; ngân sách Actions $0 | GHM C1A · P17 | 🟢 Máy chặn | ngân sách do GitHub chặn |
+| C7.3 | Cổng PR `ghm-pr-gate` (gitleaks, actionlint, unit) | GHM G1 | 🟡 Chạy tay | chạy, chưa bắt buộc |
+| C7.4 | Chặn job bị skip (C2-A) | GHM P96–P97 | 🔵 Đang làm | PR mở, chưa merge |
+| C7.5 | Bắt buộc check xanh, không ai bypass (C2-B) | GHM PROMPT B0–B4 | ⚪ Chưa làm | chờ Owner nâng Pro |
+| C7.6 | Chỉ kỹ sư trưởng được merge | GHM P91 | ⚪ Chưa làm 🔴 | 1 danh tính chung; cần thẻ dev riêng |
+| C7.7 | Luật merge KST: NHẬN / SỬA / TRẢ / BỎ | GHM §3.7 · ROADMAP §0.4a | 🟡 Chạy tay | làm tay |
+| C7.8 | Cách ly workflow không tin cậy (điều kiện F2) | GHM P73/P97 | ⚪ Chưa làm | — |
+| C7.9 | F2: 3 agent PR song song | GHM ROADMAP | ⚪ Chưa làm | — |
+| C7.10 | Web chạy build từ main; Agent Data deploy/rollback | GHM P82 · C1B | 🔵 Đang làm | AD còn cấm deploy |
+| C7.11 | Khoá VPS chống sửa mã nhầm | GHM R5.2 | ⚪ Chưa làm | — |
+| C7.12 | Mã mới vào Điều 30/31 ngay trong lượt | AG A10-R4 · RC DROOT29 | 🟡 Chạy tay | — |
+
+**C8 Màn hình** — Task View, Owner View
+| Mã | Nội dung | Nguồn | Tình trạng | Ghi chú |
+|---|---|---|---|---|
+| C8.1 | Task View: 4 giai đoạn, Now/Done, Đóng/Mở lại | AG A9 · HVU | 🟡 Chạy tay | chỉ hiển thị |
+| C8.2 | Vừa làm / Đang làm tự động | HVU B3 · RM §12.8 | 🟡 Chạy tay | nợ presence 502 |
+| C8.3 | Repo → VPS: webhook + backstop, publish nguyên tử | HVU OWNERVIEW02 | 🟡 Chạy tay | — |
+| C8.4 | 1 việc · 1 HTML · 1 URL; cấm bản xem phụ | AG A8 · RC DROOT15 | 🟡 Chạy tay | — |
+| C8.5 | Logo hãng + bảng tên người làm | HVU | 🟡 Chạy tay | thiếu Hermes/Gemini/Dot |
+| C8.6 | Hiện Host trên Task View | RC DROOT18 | 📝 Chỉ chữ | sync.py chưa đọc `Host:` |
+| C8.7 | Bàn hội đồng 3 tầng + sơ đồ Vue Flow | ACK D02 | ⚪ Chưa làm | — |
+| C8.8 | Tin máy gửi Owner chuẩn, nút ack đổi trạng thái | AG A8 · RC DROOT24 | 🟡 Chạy tay | — |
+| C8.9 | Xem quan hệ bằng Gephi trên Mac | GS | 🟡 Chạy tay | chờ Owner UAT |
+| C8.10 | Giao việc tự động mà Owner giám sát bất cứ lúc nào | HVU §1 (06/10) | 🆕 Mục tiêu mới | — |
+| C8.11 | /reports Nuxt đang mở ẩn danh | NDW (P0) | ⚪ Chưa làm 🔴 | không đặt màn hội đồng ở đó |
+
+**C9 Trợ lực** — JEV, Graph, tự học
+| Mã | Nội dung | Nguồn | Tình trạng | Ghi chú |
+|---|---|---|---|---|
+| C9.1 | JEV: cổng + skill cho 6 bề mặt + đèn “bị bỏ quên” | JEV | 🟢 Máy chặn | chỉ tham khảo, không là cổng |
+| C9.2 | JEV cho Hermes / chấm hàng loạt | JEV P02 → HJW | ⚪ Chưa làm | — |
+| C9.3 | Graph: MCP chỉ đọc cho Claude Code/Codex; nhãn ĐỦ / MỘT PHẦN; tự cập nhật đêm | GS | 🟡 Chạy tay | chờ Owner UAT |
+| C9.4 | Graph → JEV chấm thử → người quyết | GS | 🟡 Chạy tay | — |
+| C9.5 | Agent tự học từ lỗi | ASI | ✖ Bỏ/thay | tạm đóng 28/10 |
+| C9.6 | Cổng duyệt ghi Skill/memory của Hermes | ASI M13 | 🆕 Mục tiêu mới | chưa xác minh |
+| C9.7 | Sổ điểm tin cậy agent làm căn cứ mở AUTO | HJW §0.11 | ⚪ Chưa làm | — |
+
+**C10 Nguyên tắc** — luật chung Owner
+| Mã | Nội dung | Nguồn | Tình trạng | Ghi chú |
+|---|---|---|---|---|
+| C10.1 | R1/R1a: dùng cái có sẵn, PG trước, “dùng lại 100%” | AG A10 · NDW Tiêu chí 0 | 📝 Chỉ chữ | — |
+| C10.2 | R2: cưỡng chế, không chỉ quy định | AG A10 | 📝 Chỉ chữ 🔴 | nhiều mục giao HJW N4 không còn chủ |
+| C10.3 | R3: DOT 100% | AG A10 · RC DROOT35/39 | 🟡 Chạy tay | còn đường cũ |
+| C10.4 | R6: Owner giữ mục tiêu, AI điều hành tới đích | AG A10 · RC DROOT49 | 📝 Chỉ chữ | — |
+| C10.5 | VERIFY-OR-RED: chưa đo = chưa đạt | AG A4 · RC DROOT48 | 📝 Chỉ chữ | — |
+| C10.6 | Luật Nhà: mọi đối tượng có sổ | TQT R53 | 📝 Chỉ chữ | — |
+| C10.7 | Sổ công cụ Master Tool/DOT | TQT R59 · NDW · GS | 🟡 Chạy tay 🔴 | rải ở 5 nơi |
+
+##### PHẦN 2 — LẤY THÊM CỦA KARPATHY (16 món, đều ⚪ chưa làm)
+Chỉ lấy **mẫu**, không chép mã (llm-council không giấy phép; autoresearch là mã huấn luyện GPU). Karpathy **không có gì cho khối Cổng ghi, Chuông, Tự động** — đó là chỗ thiếu của riêng ta.
+| Mã | Món | Khối | Gắn vào đâu |
+|---|---|---|---|
+| K1 | Khuôn `program.md`: được làm / cấm làm / 1 mục tiêu đo / lỗi | C3 | Gộp vào khuôn PROMPT duy nhất — KHÔNG thành khuôn thứ 5 |
+| K2 | Kết quả là khối số máy in, agent chỉ lọc ra | C3 | Gắn vào KQ@ / RESULT_V1 |
+| K3 | Sổ giữ / bỏ / hỏng | C8 | Hiển thị từ KQ có sẵn, không mở sổ mới |
+| K4 | Bánh cóc Git: tốt giữ, kém bỏ | C7 | Là cổng PR của GHM |
+| K5 | Giám khảo tách thí sinh: bài kiểm cố định | C7 | GHM C2 chặn PR sửa bài kiểm |
+| K6 | Ngân sách giờ cố định, quá 2× là hỏng | C1 | Thêm ô ngân sách vào node |
+| K7 | Thấy hỏng chắc chắn thì dừng ngay | C7 | CI/Guard có sẵn |
+| K8 | Xoá được code mà kết quả bằng là thắng | C7 | Luật duyệt của KST |
+| K9 | Không dừng hỏi người giữa lượt | C3 | Đã có DROOT50/52 |
+| K10 | Dồn log ra file, đọc dòng cần | C3 | Đã có công cụ đọc theo cửa sổ |
+| L1 | Ý kiến độc lập trước khi đọc bài Host | C2 | Thứ tự nộp bài ở nhịp B2 |
+| L2 | Ẩn tên phương án A/B/C (tuỳ chọn) | C2 | Khi chấm nhiều phương án |
+| L3 | Dòng kết luận định dạng cứng, máy đọc | C2 | = VERDICT — món quan trọng nhất |
+| L4 | Điểm trung bình xếp hạng (tuỳ chọn) | C8 | Chỉ hiển thị, không thay chữ ký |
+| L5 | Chủ tọa ghi rõ Đồng ở / Khác ở | C2 | Vào nhịp B3 Host chốt |
+| L6 | Hiện bài gốc cạnh phần máy đọc | C8 | Bàn hội đồng 3 tầng trên Task View |
 
 ### Vòng trước
 - Chưa có. Khối mục tiêu đầu tiên do Owner giao ngày 28/10/2026; bổ sung mục 8–9 và tiêu chí ngày 28/10 được cập nhật trong vòng hiện hành, không xóa lịch sử.
@@ -447,6 +674,22 @@ Ghế: openai-main · Bước/vòng: G2B · 1/3 · **HOST_CONCLUSION / D03**
 - Áp: SAME_COMMIT.
 
 HUMAN_DIRECTIVE@AI-COUNCIL-INTEGRATE-20261028 EFFECTIVE · task=ai-council-karpathy · scope=§0.1/§3.7/P07/N0 · step=G2B · recorded_by=openai-main (GPT Chat) · quote=«không phải là đi làm 1 cái mới ... mà là đi tổng hợp lại tất cả những gì chúng ta đang có cộng với việc copy thêm của Karpathy vào thành 1 kế hoạch tổng hợp cuối cùng» · text=Giữ toàn bộ tài sản kỹ thuật sẵn có; chỉ đưa phần Karpathy bổ sung phù hợp vào đúng công trình gốc, tránh xây engine, luật, ghế, ticket, UI, CI lần hai. · audit=Owner nói trực tiếp 28/10/2026.
+
+### P08 — Claude: bản đồ tổng thể theo chỉ đạo Owner 19:56 (§3.8) + ý kiến về D03
+Ghế: anthropic-review · Bước/vòng: G2B · 1/3
+- Trạng thái: **OPEN** · Based_on: `87493091dd980577a974341b3e159f7ba1cdc803` (D03 = `8d511bc1`).
+- Đã làm: 5 agent chỉ đọc quét 15 nơi (AGENTS, COLLAB gốc, README, HJW, GHM, HVU, 5 việc đã đóng, GS, TQT, NDW, MBM, MMIM); gộp thành 115 mục ở §3.8, mỗi mục có nguồn + tình trạng; vẽ lại `view.html` thành ma trận màu + 7 điểm đỏ + roadmap. Không sửa luật, mã, PROMPT, READY.
+
+`VERDICT@8d511bc1 ĐỒNG Ý-CÓ-ĐK · by=anthropic-review` — đồng ý D03 (tích hợp, không xây mới; ranh giới chủ quản §3.7.F). Ba điều kiện:
+1. **Đ1 — lỗ hổng chủ quản D03 chưa thấy:** D03.F giao “HJW = hội đồng + khai tên P443/N4”, nhưng HJW N4–N6 chưa mở và chỉ mở khi có việc mới cho Hermes ⇒ phần **máy cưỡng chế hội đồng** (chặn thiếu khối hội đồng, đếm vòng/quorum, VERDICT, COUNCIL_ALERT → Telegram, thẻ Đúng/Sai) **không ai làm**. Đề nghị task này nhận làm chủ ở N2, vẫn dùng đường ghi gateway/P443 có sẵn — không xây mới. Đổi phạm vi ⇒ cần Owner gật.
+2. **Thu hẹp N0:** dùng §3.8 Phần 1 làm danh sách; chỉ đo trên máy thật các mục C2/C4/C5 đang ghi 🟢/🟡 mà hội đồng dựa vào; bỏ phần đọc lại văn bản (đã làm ở P08). N0 chưa STARTED nên sửa PROMPT + ký READY mới không mất lượt.
+3. **N1 = dọn luật + khuôn (Đ2, Đ4):** một khuôn khung bước (CT-000.1), một khuôn giao việc (A6 + K1), một danh sách ghế; ghi “thay bởi” cho DROOT31/38, quorum A5, luật ký TQT, R4; sửa phần Hermes-Mac trong AGENTS sau khi HJW chốt Đ3.
+- Ghi chú: tình trạng ở §3.8 theo văn bản trên repo, có thể lệch thực tế — N0 sửa. Mục nào agent ghi “chưa đo” đã để ở mức yếu hơn (VERIFY-OR-RED).
+- Đề nghị Host: (a) kết luận từng điểm; (b) đưa Owner đúng 1 dòng §3.8/3.6; (c) sửa PROMPT N0 theo điểm 2 + READY mới; (d) giữ `view.html` bản đồ, sửa nếu khác ý.
+
+Phản hồi Host: —
+
+HUMAN_DIRECTIVE@AI-COUNCIL-MAP-20261028 EFFECTIVE · task=ai-council-karpathy · scope=§1.16/§3.8/view.html · step=G2B · recorded_by=anthropic-review (Claude Chat) · quote=«chúng ta cần 1 bức tranh toàn bộ những gì đã làm» · «Phải tập hợp hết lại thành 1 bức tranh tổng thể» · text=Gom mọi thứ đã làm cho hội đồng AI vào task này: (1) cái đã có, ghi nguồn task và tình trạng; (2) phần lấy thêm của Karpathy; (3) tổng hợp thành bức tranh cuối rõ ràng; viết thẳng lên task rồi đề xuất GPT rà; làm khẩn trương. · audit=Owner nói trực tiếp với Claude Chat 28/10/2026 19:56.
 
 ## Owner cần quyết
 - —
