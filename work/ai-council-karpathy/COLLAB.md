@@ -65,6 +65,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: N0 chỉ khảo s
 4. Viết cho người đọc: lời thường trước, mã viết tắt (DROOT, P, RUN_ID…) để trong ngoặc cho AI tra.
 5. Bảng điều khiển vẫn ghi đè theo AGENTS MT4, nhưng phải theo điểm 4.
 6. Ghế nào thấy vi phạm được mở chuông `COUNCIL_ALERT` loại PROCESS.
+7. Trong COLLAB, không để dòng nào bắt đầu bằng `## ` ngoài đầu mục thật, kể cả trong khối mã. Task View (`sync.py`) coi dòng đó là đầu mục mới và cắt §0 (đã xảy ra ở commit `cd5d1640`, sửa ngay ở commit kế).
 
 **Từ điển một phút** — mọi chữ tắt dùng bên dưới:
 | Chữ | Nghĩa |
@@ -451,19 +452,19 @@ Karpathy chỉ chặn bằng máy 4 chỗ: file chấm cố định, ngân sách
 
 **Mẫu K1 — khung `PROMPT.md`** (khớp AGENTS A6; PROMPT N0 hiện tại đã gần đúng):
 ```
-# PROMPT — <tên node>
-RUN_ID: <mã>            Trạng thái: CANONICAL
-Executor_Surface: <bề mặt>   Write_Path: <đường ghi>   Budget: <phút> (quá 2× ⇒ DỪNG)
-## 0. Chuẩn bị — read-gate: AGENTS → COLLAB → PROMPT; READY đúng SHA; không STOP
-## 1. ĐƯỢC LÀM
-## 2. KHÔNG ĐƯỢC LÀM
-## 3. MỤC TIÊU ĐO ĐƯỢC — một chỉ số chính + cách đo
-## 4. ĐẦU RA — khối KQ_V1 (Mẫu K2) + một mục P
-## 5. GHI SỔ — giữ / bỏ / hỏng
-## 6. QUÁ GIỜ / HỎNG — dừng sớm
-## 7. KHÔNG DỪNG HỎI GIỮA LƯỢT — gặp chặn ⇒ KQ DỪNG + NEXT_TRIGGER
-## 8. LOG — ghi ra file, chỉ đọc dòng cần
-## STEP_WALK_V1 — bảng bước
+  # PROMPT — <tên node>
+  RUN_ID: <mã>            Trạng thái: CANONICAL
+  Executor_Surface: <bề mặt>   Write_Path: <đường ghi>   Budget: <phút> (quá 2× ⇒ DỪNG)
+  ## 0. Chuẩn bị — read-gate: AGENTS → COLLAB → PROMPT; READY đúng SHA; không STOP
+  ## 1. ĐƯỢC LÀM
+  ## 2. KHÔNG ĐƯỢC LÀM
+  ## 3. MỤC TIÊU ĐO ĐƯỢC — một chỉ số chính + cách đo
+  ## 4. ĐẦU RA — khối KQ_V1 (Mẫu K2) + một mục P
+  ## 5. GHI SỔ — giữ / bỏ / hỏng
+  ## 6. QUÁ GIỜ / HỎNG — dừng sớm
+  ## 7. KHÔNG DỪNG HỎI GIỮA LƯỢT — gặp chặn ⇒ KQ DỪNG + NEXT_TRIGGER
+  ## 8. LOG — ghi ra file, chỉ đọc dòng cần
+  ## STEP_WALK_V1 — bảng bước
 ```
 **Mẫu K2 — khối `KQ_V1`** (đặt ngay dưới dòng KQ; trường nào máy/CI sinh được thì máy sinh):
 ```
