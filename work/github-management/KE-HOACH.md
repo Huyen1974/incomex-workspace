@@ -1,6 +1,6 @@
-# KẾ HOẠCH THỰC HIỆN — github-management · V0.5 · 28/10/2026 · C2 PRIVATE MAIN GH GATE P90
+# KẾ HOẠCH THỰC HIỆN — github-management · V0.5 · 28/10/2026 · C2 PRIVATE MAIN GH GATE P91
 
-**Trạng thái P90: Host ACCEPT G1 P89 trên GH thật; AD main a636ffe5 gate40623332810 SUCCESS, Web main4f8405a9 gate40623377993 SUCCESS; 2 PR âm có chặn đúng, G1 scoped PASS, HARDLOCK chưa có. Web Health sau merge 40629876815 11 PASS/2 FAIL data, CHECK12 hồi phục, ops-smoke/Lifecycle GREEN. C2 next: Owner quyết GitHub Pro, required `gate`/PR kiểm âm, Web legacy 4 context, KST role cùng Owner identity không cưỡng chế. DRAFT GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 cho Claude P91, chưa READY/RUN; C1B AD rollback riêng, F2/C4 chưa chạy.**
+**Trạng thái P91: G1 PASS (đã kiểm lại trên GitHub). C2 Claude ACCEPT có sửa @7f8539ae, chờ Host READY. Phần A Codex: PR-1 vá lỗ skipped (ngoài làn = RED, không chạy mã PR), PR-2 «Luật merge» trong AGENTS.md, PR-3 thử ngoài làn — không cần Pro. Phần B Claude Code CLI KST sau khi Owner nâng Pro: xoá bảo vệ cũ Web, 1 ruleset/repo bypass rỗng, thử âm không phá huỷ. KST_ONLY=NO đến F2. Health 2 lỗi dữ liệu chờ Owner; C1B AD rollback riêng.**
 
 Tài liệu này là *bảng đầu việc cụ thể* cho Codex và Claude Code CLI. [ROADMAP.md](ROADMAP.md) giữ các mốc và điều kiện chốt, [COLLAB.md](COLLAB.md) giữ duy nhất mục tiêu Owner, trạng thái và quyết định. Không tạo thêm hệ điều hành công việc; dùng lại hội đồng, luật AGENTS, Issue/PR và DOT/Codex hiện có.
 

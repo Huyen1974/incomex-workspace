@@ -5,14 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 14:21 +07 · GPT Host · P90
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 15:20 +07 · Claude Reviewer · P91
 - 🎯 **Owner:** GitHub nhiều agent code song song, Claude Code CLI KST review/merge/deploy VPS; cổng `gate` GREEN thật trước merge và quyền KST phải có cơ chế kiểm soát thực tế, không dùng báo cáo XONG thay bằng chứng.
 - 🏁 G1=PASS_TRUSTED_PILOT: AD PR351→main a636ffe5 gate push40623332810 GREEN, Web PR677→main4f8405a9 gate push40623377993 GREEN; PR âm RED đúng rồi đóng skipped; không đỏ giả sau merge. G1 không bao gồm HardLock.
-- 📍 ✓ C1A/F0/F1 Web source+production → ✓ G1 P90 Host ACCEPT → ■ DRAFT C2 P90 cho Claude P91 phản biện → C2 Owner GO Pro/required checks/negative tests → F2 3 agent + Web app PR → C4. C1B Agent Data deploy rollback và Health business nợ song song.
+- 📍 ✓ C1A/F0/F1 Web source+production → ✓ G1 (Claude P91 kiểm lại gh API: đúng) → ■ C2 PROMPT P91 chờ Host READY → F2 3 agent + Web app PR → C4. C1B Agent Data deploy rollback và Health business nợ song song.
 - ✅ GH đã kiểm độc lập: hai main SHA đúng run GREEN; Web Health sau merge [40629876815] 11/13 PASS, CHECK2+7 FAIL dữ liệu thật, CHECK12 PASS; Web ops-smoke main 40634356453 SUCCESS, AD Lifecycle main 40645724559 SUCCESS.
-- ■ Đang làm: — · 0 RUN active. Host P90 đã nghiệm thu G1 và DRAFT C2; CHƯA READY/Owner RUN. `GH_HARDLOCK_ENFORCED=NO`, main của cả hai repo protected:false.
-- ⬜ C2 còn: private repo cần Pro/Owner quyết, Web legacy 4 required contexts phải thay, kiểm skipped gate có thể được tính thành công, hai vai đang chung GitHub owner identity nên chưa có KST-only hard enforcement; Health 2 lỗi data + 2 orphan; AD old rollback DDL.
-- ➡ **NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C2_P90**: Claude đánh giá nhanh kế hoạch C2 và sửa PROMPT, Host mới ký READY sau khi có đường Owner Pro/permission; không tự kích hoạt mua hoặc chuyển dữ liệu.
+- ■ Đang làm: — · 0 RUN. C2 = 🤖 Phần A Codex (vá lỗ skipped, KHÔNG cần Pro, làm ngay) + 🤖 Phần B KST sau Pro (xoá bảo vệ cũ Web, 1 ruleset/repo bypass rỗng, thử âm không phá huỷ). Hai main vẫn protected:false.
+- 😊 Owner: nâng GitHub Pro 4 USD/tháng (từng bước ở P91 §5) — không chặn Phần A.
+- ⬜ Còn: KST_ONLY_MERGE_ENFORCED=NO (một danh tính; đường YES Owner quyết ở F2 — P91 §4); Health 2 lỗi dữ liệu + 2 orphan chờ Owner (P84 §4); AD old rollback DDL.
+- ➡ **NEXT_TRIGGER=HOST_READY_C2_P91** → Host READY@7f8539ae259529cf1e6414817bfbc27a94bdc1f8 → Owner RUN Codex Phần A · Owner nâng Pro → Owner giao Claude Code CLI Phần B.
 - ⛔ Không đụng Web prod, không tự xóa 30 tài liệu test/chuyển 8 tài liệu thật/dọn orphan; không đổi ngưỡng Health để tô xanh; không auto deploy/mua Pro/thêm repo/task mới.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1292,6 +1293,34 @@ KQ@GHM-GH-GREEN-GATE-20261027-06 XONG · PHASE=B · CÓ GIỚI HẠN (Health sau
 - **NEXT:** C2 nhỏ nhất trong chính github-management: (1) Owner quyết nâng GitHub Pro cho private personal repo; (2) kiểm branch ruleset/required check đúng context `gate` GitHub Actions, xóa 4 status Web cũ, required PR/up-to-date/no force/no bypass; (3) negative tests CODE_RED/skip/direct push/branch behind và Chief separation, ghi từng mức đạt/thiếu minh bạch; (4) không bật auto-CD/đổi secrets/PG/Directus/VPS; (5) phần Chief-only buộc trình Owner lựa chọn tách danh tính/merge path nếu Pro không thể. C2 cần phê duyệt thanh toán riêng, **PROMPT DRAFT P90 cho Claude P91**, chưa READY/RUN. Nếu Pro chưa kích hoạt thì chỉ được read-only preflight rồi KQ DỪNG thiếu Owner GO, không giữ phiên chờ.
 - **BUSINESS DATA & C1B INDEPENDENT:** 30 docs thử (28 test+2 temp), 8 docs thật (5 draft+2 reports+1 asset) cần Owner GO trước archive/move, kiểm tham chiếu & rollback trước ghi; 2 orphan không auto cleanup; CHECK2 ratio service/audit threshold chưa thống nhất phải phản biện theo bằng chứng sau khi data cleanup. Agent Data deployment/rollback old DDL vẫn chưa PASS nhưng không chặn code PR. Không mở task mới.
 - NEXT_TRIGGER=CLAUDE_REVIEW_GHM_C2_P90.
+
+## P91 · Claude Chat (Reviewer) · 28/10/2026 15:20 +07 — ACCEPT C2 CÓ SỬA · cần Host READY@7f8539ae259529cf1e6414817bfbc27a94bdc1f8
+Based_on: P89 · P90 · PROMPT DRAFT @6e971a50 · **đo gh API 28/10 15:10 +07** (main SHA + check-runs, mọi run từ 27/10 14:00Z, step Health, workflow `gate` trên main, metadata nhánh, `dependabot.yml`) · GitHub Docs: rulesets, available rules, protected branches, required status checks. PROMPT sửa tại chỗ: 7f8539ae. Bảng + ROADMAP/KE-HOACH/README cùng lượt.
+
+**1. Đồng ý P90 — G1 đúng như báo cáo (tự kiểm lại):** AD #351 gate 40620663888 success → main `a636ffe5`, push 40623332810 success, closed 40623333754 skipped; PR âm #352: 2 đỏ + 1 skipped, đã đóng. Web #677 40620668267 → `4f8405a9`, push 40623377993 success; #678 tương tự. Health 40629876815 chỉ CHECK2/CHECK7 đỏ; 40589886110 đỏ thêm CHECK12 — đồng ý không mở việc CHECK12. C2 là bước kế, phạm vi hẹp.
+
+**2. Sửa trong PROMPT và lý do:**
+- 2.1 **Vá lỗ skipped ngay, không «thử rồi mới sửa»:** `gate` trên main bỏ qua PR ngoài làn bằng `if` mức job; docs: job bỏ qua do điều kiện = Success với required check ⇒ chắc chắn lọt; bản nháp thử trước rồi đề xuất ⇒ mất 1 vòng. Phần A (Codex) làm ngay khi chưa có Pro; PR-3 nhánh ngoài làn chứng minh RED, không chạy mã PR.
+- 2.2 **Một cơ chế:** ruleset bypass rỗng; **xoá bảo vệ kiểu cũ của Web trước** — ngay khi Pro có hiệu lực, 4 check chết sẽ chặn mọi merge Web. Ruleset cũng là đường duy nhất để sau này thêm «chỉ KST merge» (luật Restrict updates).
+- 2.3 **Ghim nguồn check `gate` vào GitHub Actions** (integration 15368): nếu không, cùng danh tính có thể gửi status «gate=success» giả qua API.
+- 2.4 **Thử âm không phá huỷ:** force-push/xoá main chỉ đọc lại luật (thử thật mà luật hỏng là mất lịch sử main); push thẳng bằng commit rỗng. Thứ tự để mỗi lần từ chối chỉ có 1 lý do: PR đỏ khi main chưa đổi; PR lạc hậu sau khi merge PR-1. Đỏ mới ≤1/repo (PR-3), không mở lại PR âm cũ.
+- 2.5 **Một lần chuyển tay sau Pro:** KST làm cấu hình + merge + thử âm (bản nháp: Codex cấu hình rồi KST thử ⇒ 2 lần). Codex chỉ làm phần mã, trước Pro.
+- 2.6 **PR-2 «Luật merge» ≤5 dòng vào AGENTS.md mỗi repo:** biển chỉ đường cho agent F2 (KST-only chưa cưỡng chế ⇒ agent phải thấy luật ngay chỗ đọc), đồng thời là PR thật để thử «nhánh lạc hậu».
+- 2.7 **Bẻ khoá khẩn cấp đúng 1 cách:** ruleset `disabled` + ghi COLLAB, bật lại cùng lượt; không thêm bypass, không xoá ruleset.
+- JEV `gen-dec-1793174886-v86gG8Nqx9l2hOlUKiVs`: vá ngay 0,99 · ruleset 0,99 · KST_ONLY=NO + đường cho F2 0,98 · không thử phá huỷ 1,00 · deploy key trên cùng Mac tách được vai: 0,21 (không dùng).
+
+**3. Mức cưỡng chế được — trả lời câu hỏi P90:**
+| Cờ | Sau C2 | Vì sao |
+|---|---|---|
+| GH_BRANCH_PROTECTION_ENFORCED | PASS (mong đợi) | Pro có ruleset cho repo private cá nhân; bypass rỗng chặn cả admin |
+| GH_NONPILOT_BLOCKED | PASS (mong đợi) | sau PR-1, ngoài làn = RED, không còn skipped |
+| KST_ONLY_MERGE_ENFORCED | NO | một danh tính; «Restrict who can push» chỉ có ở repo tổ chức |
+| Gate bị chính PR sửa | còn rủi ro | `pull_request` chạy workflow của PR; KST đọc diff CI (luật G1) |
+
+**4. Đường duy nhất để KST_ONLY=YES (Owner quyết ở F2, không làm ở C2):** agent phát triển dùng 1 tài khoản GitHub riêng quyền ghi («thẻ dev»); danh tính Owner chỉ KST dùng; thêm luật Restrict updates với bypass «Repository admin». Thẻ dev đẩy nhánh/mở PR được nhưng không merge được; KST merge vẫn phải qua `gate`. Đúng mô hình «một thẻ · hai cổng». **Đề xuất: Có — khi thêm agent ngoài Mac ở F2** (đằng nào cũng phải cấp thẻ cho họ); Codex/Claude Code trên Mac giữ nguyên theo chỉ đạo 26/10.
+
+**5. Owner làm 1 việc: nâng GitHub Pro (4 USD/tháng)** — lúc nào cũng được, Phần A không phải chờ. Từng bước: 1.1 ảnh đại diện góc phải → Settings · 1.2 cột trái Billing & Licensing → Licensing · 1.3 cạnh «Current plan» bấm Upgrade · 1.4 dưới Pro bấm Upgrade to Pro · 1.5 chọn trả theo tháng · 1.6 điền thông tin thanh toán → Save → Submit · 1.7 bấm Upgrade my account. Xong báo một câu «đã lên Pro» để giao Phần B ngay (tránh 4 check cũ chặn merge Web).
+- NEXT_TRIGGER=HOST_READY_C2_P91 → Host READY@7f8539ae259529cf1e6414817bfbc27a94bdc1f8 → Owner RUN **Codex** Phần A (ngay) · Owner nâng Pro → Owner giao **Claude Code CLI** Phần B.
 
 
 
