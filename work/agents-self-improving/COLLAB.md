@@ -1,5 +1,6 @@
 # COLLAB — agents-self-improving
 Tên việc: Nghiên cứu cách AI học từ lỗi để hỗ trợ khai báo quy trình, UI, Field, hợp đồng thông tin và Config.
+**TẠM ĐÓNG THEO LỆNH OWNER 28/10/2026 · CHƯA HOÀN TẤT NGHIÊN CỨU · 0 RUN ACTIVE.**
 **CHỈ THẢO LUẬN / NGHIÊN CỨU PHƯƠNG ÁN · CHƯA TRIỂN KHAI · KHÔNG READY/RUN · 0 RUN ACTIVE.**
 **GIỚI HẠN:** Hồ sơ này không cấp quyền viết code, làm POC, cài công nghệ, tạo service/timer/collection, ghi PG/Directus/Graph/VPS, sửa Công thức hiện hành hay tự kích hoạt hội đồng. Có làm hay không do Owner quyết riêng sau thảo luận.
 
@@ -14,7 +15,7 @@ Host: GPT Chat — Owner trực tiếp 22/10/2026: «bạn làm host»; Host_ID:
 - ✅ Đã xong: Claude PA6; Hermes P03/P04 đo Skill/curator/ledger/Profile/Agent Data và đề xuất agent chuyên biệt; Host P05 tiếp nhận **có điều kiện**, thêm PA7 để so sánh chứ không quyết chọn.
 - ■ Đang làm: — · 0 RUN active · chỉ thảo luận, chưa lựa chọn hoặc thử nghiệm.
 - ⬜ Còn lại: Gemini phản biện độc lập; phân loại dữ kiện đã đo / chưa đủ kiểm; giải bài toán SSOT sổ lỗi, cổng ghi Skill/memory, phân vai HJW/Kanban, giá trị Graph/Vector và kiểm chứng học đúng.
-- ➡ Kế tiếp: Host chuyển P05 cho Gemini qua Owner; Gemini phải đặt thêm câu hỏi/phản chứng trước khi chọn phương án · NEXT_TRIGGER=Gemini góp ý. Không phát RUN.
+- ➡ Kế tiếp: NEXT_TRIGGER=OWNER_REOPEN_TASK. Theo lệnh Owner 28/10/2026 tạm cất vào danh sách Done để giảm việc đang làm; khi mở lại tiếp tục Gemini phản biện độc lập → Host tổng hợp → Owner quyết định. Không tự giao/READY/RUN.
 - 🧩 Hermes P03/P04: v0.22.2, curator ledger/backup, 12 lượt curator (consolidate OFF), background review, Profile/Project/Kanban là các chức năng hoặc số đo được báo; **chưa có bằng chứng đã tự cải tiến MOW đúng**.
 - ⛔ Không làm/để sau: tạo Profile/Skill/Kanban, thêm bảng PG/Directus, sửa Config/Agent Data/VPS/Graph, cài Harness²/LangGraph/Graphiti, viết mã/POC, READY/RUN.
  
@@ -303,6 +304,7 @@ Ghế: openai-main · Bước/vòng: Thảo luận phương án · 1/1 · Based_
 (Owner đã chỉ định GPT Chat Host trong chat 22/10. Chưa có quyết định công nghệ/triển khai cần Owner duyệt; hội đồng tiếp tục làm rõ mục tiêu và chờ ý kiến Gemini.)
 
 ## Quyết định Owner
+- CLOSED · 2026-10-28 · theo lệnh Owner · chưa hoàn tất; tạm cất tại work/done-tasks/agents-self-improving/, không coi đã nghiệm thu/thông qua phương án. Đã làm: Claude/GPT/Hermes trao đổi PA0–PA7, Host P05 tổng hợp có điều kiện; chưa làm: Gemini phản biện, tổng hợp hội đồng, Owner quyết có triển khai; 0 RUN. Chỉ tiếp tục nếu Owner yêu cầu MỞ LẠI.
 - 21/10/2026: tạo task để bàn với hội đồng; «đây chỉ thảo luận thôi chưa làm», quyết có làm hay không sau.
 - 22/10/2026: dùng chính xác đường dẫn `work/agents-self-improving`.
 - 22/10/2026: Owner chỉ định GPT Chat làm Host; chỉ THẢO LUẬN, trong lúc thảo luận bổ sung mục tiêu/câu hỏi còn thiếu, trọng số quan trọng là khai thác tối đa **năng lực hữu ích sẵn có trên VPS** (JEV, Vector, Graph, PG, Directus). Chưa chấp thuận bất kỳ thiết kế/POC/RUN nào.

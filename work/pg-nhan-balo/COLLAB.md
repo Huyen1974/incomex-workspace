@@ -10,10 +10,10 @@ Xác nhận User: **ĐÃ LÀM RÕ MỤC TIÊU 03/10/2026.** Phạm vi chỉ là 
 - 🏁 **Xong việc khi:** có **một quy định dán nhãn chuẩn bằng văn bản** kế thừa hợp lý từ cách làm cũ và sửa được các điểm cũ chưa hợp lý; quy định đủ rõ để người/AI nhìn nhãn là hiểu cách phân loại và tìm kiếm; các **Balo đã có** được chuẩn hoá theo quy định đó (đúng thì giữ · thiếu thì điền · sai/chưa hợp lý thì sửa). Mục tiêu vận hành cuối cùng: khi mỗi nhóm có vài nghìn đối tượng vẫn **phân loại nhanh, tìm nhanh và trả lời nhanh “đã có hay chưa?”**.
 - 📍 **Tiến độ:** `✅ mục tiêu đã làm rõ · ✅ P19 khảo sát cách cũ · ✅ P20 chốt bản đồ + hướng giữ/sửa · ✅ P21 Host soạn bản nháp quy tắc v0.1 · ■ Reviewer rà quy tắc một lượt cuối · ⬜ test exact/near-match/reuse trên mẫu cũ + Balo mới giả lập · ⬜ áp cho Balo đã có bằng DOT 100% · ⬜ verify tìm nhanh ở quy mô lớn`
 - ✅ **Đã xong:** mục tiêu D16 + 10 điều cần đạt (0.1) · **Host khảo sát chỉ đọc cách dán nhãn cũ + bản đồ hệ nhãn (P19 · `view.html#ban-do`)** · P20 Reviewer ACCEPT bản đồ + chốt 8 hướng · **Host soạn bản nháp quy tắc dài hạn v0.1 (P21 · `view.html#quy-tac`)**. _Phần sau chỉ còn là lịch sử 02/10, không còn hiệu lực:_ luật lõi 5 nhãn + vị trí luật đã đồng thuận · `PROMPT.md` v2 đã áp P03-F1–F6 (P04) · **P05 GPT đã rà ba delta F3 và đồng thuận, không cần prompt mới/không mở thêm vòng thiết kế**. Đây vẫn là thiết kế/review; chưa đặt biển, chưa dán nhãn, chưa nghiệm thu runtime.
-- ■ **Đang làm:** Reviewer rà **bản nháp quy tắc v0.1** (`view.html#quy-tac`, 12 mục; sáu điểm xin rà ở mục 12) một lượt cuối. Chưa thử mẫu, chưa sửa PROMPT, chưa dán nhãn runtime. VPSUP `G7-03` đã KQ DỪNG, VPS1 trả về như trước; trước khi runtime PGNB sau này vẫn phải re-read DOT thật và tránh mọi RUN VPSUP đang STARTED.
+- ■ **Đang làm:** — · 0 RUN active · TẠM ĐÓNG theo lệnh Owner 28/10/2026; không tiếp tục P22 hoặc runtime cho đến khi Owner mở lại.
 - ⬜ **Còn lại — đường chính:** sau khi Owner kiểm mục tiêu: trước hết **khôi phục/rà cách dán nhãn cũ đang dùng**, không sáng tác hệ mới. Từ đó chốt quy tắc chuẩn thành văn bản. Chỉ sau đó mới giao Codex chuẩn hoá nhãn trên Balo đã có: giữ nhãn đúng · điền nhãn thiếu · sửa nhãn cũ không còn phù hợp.
 - ⬜ **Ngoài scope:** đối tượng chưa có Balo · mở rộng Balo sang loại/object khác · tạo schema/report/hệ nhãn mới · đánh giá rác/thừa · xoá/dời · nội dung G7/HJW/Q10/T1/T2. **Phối hợp G7 chỉ là gate chống xung đột:** PGNB chờ G7 KQ trước mọi DOT/runtime write, không điều hành G7.
-- ➡ **Kế tiếp:** Reviewer ghi P22 (ACCEPT hoặc danh sách điểm phải sửa). Host sửa một lần theo P22 rồi làm lượt test mẫu exact/near-match/reuse (0.1 mục 7) trên Balo đã có + Balo mới giả lập. Chưa viết DOT/chưa dán runtime.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=OWNER_REOPEN_TASK; khi mở lại tiếp tục Reviewer P22 → Host chốt quy tắc → thử mẫu → DOT chuẩn hoá nhãn Balo đã có → nghiệm thu. PROMPT hiện HOLD, không READY/RUN.
 - ⛔ **Không làm:** mở rộng sang đối tượng chưa có Balo · sáng tác một hệ nhãn mới tinh bỏ qua cách cũ · đo SỐNG/DÍNH ngoài nhu cầu của quy tắc · đánh giá rác/thừa · tắt/xoá/dời · tạo schema/report/hạ tầng mới · điều hành G7/HJW/Q10/T1/T2. **DOT 100%:** mọi đọc/ghi PG/Directus khi tới giai đoạn thực thi đều phải qua DOT/script-wrapper. Sau G7 ưu tiên reuse/nâng DOT hiện hữu (`dot-balo-reconcile`, `dot-pg-atomic-apply`, `dot-pg-label-apply`); chỉ khi thiếu capability thật mới tạo đúng một DOT mới, không đường song song. **Được phép sửa nhãn đã có chỉ khi sau rà soát xác định nhãn cũ không còn phù hợp với quy tắc chuẩn mới.**
 
 - D14 · 2026-10-03 · **Owner: CHƯA CHỐT** — không suy rộng phạm vi Balo; không đoán.
@@ -123,6 +123,9 @@ Host ghi (kỹ thuật, chờ hội đồng chốt):
 
 ## Owner cần quyết
 - —
+
+## P22 — Owner tạm đóng, chưa thực hiện review · 2026-10-28
+CLOSED · 2026-10-28 · theo lệnh Owner · chưa hoàn tất. Đã hoàn thành bước P19 khảo sát dán nhãn cũ, P20 chốt hướng sửa, P21 phác thảo quy tắc v0.1; **chưa có phản biện P22**, chưa thử mẫu exact/near-match/reuse, chưa duyệt quy tắc cuối, chưa gắn/sửa nhãn Balo bằng DOT, chưa nghiệm thu. PROMPT cũ HOLD/NOT_READY, RUN hiện hành không có KQ XONG, **0 RUN active, 0 runtime mutation do việc tạm đóng này**. Chỉ mở lại khi Owner yêu cầu; khi đó đọc lại SSOT, đánh giá bản nháp và cổng quyền/DOT hiện hành trước khi phát RUN mới.
 
 ## Câu hỏi mở — Host mời Reviewer trả lời bằng P
 - Q01 · `view.html#C4` · Ngưỡng **Tự quay** (lượt ghi ≥ 10 lần số dòng) có đúng không; có bắt nhầm bảng hàng đợi/phiên đăng nhập không.

@@ -6,11 +6,11 @@ Xác nhận User: ĐÃ XÁC NHẬN — 20/10/2026. Owner yêu cầu trên repo c
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-20 14:55 +07 · GPT Chat · P02
 - Mục tiêu: hsmqt.
 - Xong khi: Owner xác nhận theo kênh riêng.
-- Tiến độ: ■ Khởi tạo → triển khai trong vùng được phân quyền → nghiệm thu.
+- Tiến độ: TẠM ĐÓNG theo lệnh Owner 28/10/2026; bước khởi tạo/giới hạn công khai đã xong, nghiệp vụ chưa nghiệm thu.
 - Đã xong: tạo mã công việc; thu gọn nội dung công khai theo chỉ đạo Owner.
 - Đang làm: — · 0 RUN active.
 - Còn lại: nội dung nghiệp vụ giữ ngoài repo công khai.
-- Kế tiếp: NEXT_TRIGGER=có kênh riêng đã được Owner chấp thuận và cấp quyền phù hợp.
+- Kế tiếp: NEXT_TRIGGER=OWNER_REOPEN_TASK; chỉ tiếp tục khi Owner yêu cầu và có kênh riêng đã được chấp thuận.
 - Không làm/để sau: không đưa danh mục hồ sơ, thông tin dự án, mốc nội bộ, dữ liệu doanh nghiệp, tài liệu hoặc thông tin tài khoản lên repo public.
 
 ### 1. Mục tiêu
@@ -39,3 +39,6 @@ Ghế: OpenAI-main · Bước/vòng: thu gọn nội dung · 1/1.
 Based_on: a2d9643eaf229f620c5b18cf22d9cb80f964587e.
 Scope: `work/hsmqt/COLLAB.md` và dòng tên tại root `COLLAB.md`.
 Kết luận: chỉ giữ tên `hsmqt` và điều phối tối thiểu; không đưa nội dung riêng tư vào repo công khai. Việc thu gọn nhánh hiện tại không xóa lịch sử commit đã công bố. Áp: SAME_COMMIT.
+## P03 — Owner tạm đóng · 2026-10-28
+CLOSED · 2026-10-28 · theo lệnh Owner · chưa hoàn tất. Chỉ hoàn tất khởi tạo và thu gọn nội dung công khai; nghiệp vụ còn chờ kênh được Owner chấp thuận và xác nhận riêng. Lưu toàn bộ lịch sử trong work/done-tasks/hsmqt/; không phát sinh RUN hoặc nội dung nghiệp vụ lên repo. Chỉ mở lại khi Owner yêu cầu.
+
