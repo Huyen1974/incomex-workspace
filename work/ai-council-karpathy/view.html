@@ -1,93 +1,684 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>AI-council-Karpathy · Bản đồ</title>
-  <style>
-    :root{color-scheme:light;font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:#f5f7fa;color:#1d2935;
-      --ok:#1f9d55;--okbg:#e8f6ee;--warn:#b7791f;--warnbg:#fff6e0;--bad:#c53030;--badbg:#fdecec;--gray:#8a97a6;--graybg:#eef1f5;--now:#2563eb;--nowbg:#e8f0fe;--line:#dce3ec}
-    *{box-sizing:border-box} body{margin:0;padding:24px;font-size:17px;line-height:1.5;background:#f5f7fa} main{max-width:1080px;margin:auto}
-    h1{font-size:30px;margin:4px 0 2px} h2{font-size:20px;margin:0 0 12px}
-    .flag{display:inline-block;border-radius:15px;padding:5px 12px;background:#e6edf9;font-size:14px;font-weight:700}
-    .sub{color:#506073;margin:0 0 16px;font-size:16px}
-    .panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0}
-    .ask{border:2px solid var(--warn);background:var(--warnbg)} .ask b{font-size:18px}
-    table.mx{border-collapse:collapse;width:100%;font-size:16px}
-    .mx th,.mx td{border:1px solid var(--line);padding:6px 6px;text-align:center}
-    .mx th:first-child{text-align:left;min-width:170px} .mx th.h{font-weight:600;background:#fafbfd}
-    .mx th small{display:block;font-size:13px;color:#6b7785;font-weight:400} .mx .nm{font-weight:700}
-    .mx td{font-weight:700;font-size:17px} .mx td.z{color:#c3cad3;font-weight:400}
-    .mx td.red{background:var(--badbg);color:var(--bad)} .mx td.tot{background:#f7f9fb} .mx tr.sum th{background:#f7f9fb}
-    .reds{list-style:none;margin:0;padding:0} .reds li{padding:7px 0;border-bottom:1px solid #f0f2f5} .reds b{color:var(--bad)}
-    .bar{display:flex;gap:6px;flex-wrap:nowrap}
-    .cell{flex:1 1 0;min-width:92px;border-radius:10px;padding:10px 8px;border:2px solid var(--line);background:var(--graybg);color:#4b5866}
-    .cell .t{font-weight:700;font-size:16px;color:#1d2935} .cell .w{font-size:15px;margin-top:4px}
-    .cell.done{background:var(--okbg);border-color:var(--ok)} .cell.now{background:var(--nowbg);border-color:var(--now);border-width:3px}
-    .tag{display:inline-block;font-size:13px;font-weight:700;padding:1px 8px;border-radius:9px;margin-bottom:4px}
-    .done .tag{background:var(--ok);color:#fff} .now .tag{background:var(--now);color:#fff} .todo .tag{background:var(--gray);color:#fff}
-    .one{font-size:18px;line-height:1.6}
-    small.f{color:#6b7785;font-size:13px}
-    @media(max-width:760px){body{padding:12px}.bar{flex-wrap:wrap}.cell{flex:1 1 45%}.mx{font-size:14px}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hội đồng AI · toàn cảnh</title>
+<style>
+:root{color-scheme:light;font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#1d2935;
+ --ok:#1f9d55;--okbg:#e8f6ee;--warn:#b7791f;--warnbg:#fff6e0;--bad:#c53030;--badbg:#fdecec;--gray:#8a97a6;--graybg:#eef1f5;--now:#2563eb;--nowbg:#e8f0fe;--line:#dce3ec;--pur:#6b46c1;--purbg:#f1eafe}
+*{box-sizing:border-box} body{margin:0;padding:24px;font-size:16.5px;line-height:1.55;background:#f5f7fa}
+main{max-width:1100px;margin:auto} h1{font-size:29px;margin:6px 0 2px} h2{font-size:21px;margin:0 0 12px} h3{font-size:17px;margin:14px 0 6px}
+.flag{display:inline-block;border-radius:15px;padding:5px 12px;background:#e6edf9;font-size:14px;font-weight:700}
+.sub{color:#506073;margin:0 0 14px;font-size:15.5px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0}
+.ask{border:2px solid var(--now);background:var(--nowbg)}
+.rule{border:2px solid var(--warn);background:var(--warnbg)}
+code{background:#eef2f7;border-radius:4px;padding:0 4px;font-size:.9em;word-break:break-word;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+pre{background:#0f1720;color:#e6edf3;border-radius:8px;padding:12px;overflow-x:auto;font-size:13.5px;line-height:1.45}
+.tw{overflow-x:auto} table{border-collapse:collapse;width:100%;font-size:15px;margin:8px 0}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top} th{background:#f7f9fb}
+ul,ol{margin:6px 0 6px 0;padding-left:22px} li{margin:3px 0} p{margin:6px 0} p.in{margin:4px 0}
+.bar{display:flex;gap:6px;flex-wrap:nowrap}
+.cell{flex:1 1 0;min-width:96px;border-radius:10px;padding:9px 8px;border:2px solid var(--line);background:var(--graybg);color:#4b5866}
+.cell .t{font-weight:700;font-size:15px;color:#1d2935} .cell .w{font-size:14px;margin-top:3px}
+.cell.done{background:var(--okbg);border-color:var(--ok)} .cell.now{background:var(--nowbg);border-color:var(--now);border-width:3px}
+.tag{display:inline-block;font-size:12.5px;font-weight:700;padding:1px 8px;border-radius:9px;margin-bottom:4px}
+.done .tag{background:var(--ok);color:#fff} .now .tag{background:var(--now);color:#fff} .todo .tag{background:var(--gray);color:#fff}
+details.blk,details.wp{background:#fff;border:1px solid var(--line);border-radius:12px;margin:10px 0}
+details.blk>summary,details.wp>summary{cursor:pointer;padding:12px 16px;list-style:none}
+details>summary::-webkit-details-marker{display:none}
+details.blk>summary::before,details.wp>summary::before{content:"▸ ";color:#6b7785} details[open].blk>summary::before,details[open].wp>summary::before{content:"▾ "}
+.bn{display:inline-block;min-width:26px;text-align:center;background:#1d2935;color:#fff;border-radius:7px;font-weight:700}
+.bt{font-weight:800;font-size:18px} .bs{color:#6b7785;font-size:14px} .bp{display:inline-block;color:#334155;margin:4px 0 0 30px}
+.chips{display:block;margin:6px 0 0 30px}
+.chip{display:inline-block;font-size:13px;border-radius:9px;padding:1px 8px;margin:2px 4px 0 0;background:#eef1f5}
+.chip.ENF{background:#cdeed8}.chip.RUN{background:#fff1b8}.chip.TXT{background:#ffe2c2}.chip.WIP{background:#d6e6ff}.chip.PLAN{background:#e9edf2}.chip.NEW{background:#eadcff}.chip.DROP{background:#f1f1f1}.chip.red{background:var(--badbg);color:var(--bad);font-weight:700}
+.bb{padding:2px 18px 14px 18px;border-top:1px solid #eef1f5}
+details.inv{margin-top:8px} details.inv summary{cursor:pointer;color:var(--now);font-size:14.5px}
+.wid{display:inline-block;min-width:38px;text-align:center;border-radius:7px;font-weight:800;color:#fff;background:var(--gray)}
+.wp.ready .wid{background:var(--now)} .wp.wip .wid{background:#3b82f6} .wm{color:#506073;font-size:14.5px;margin-left:44px}
+.dep{display:flex;flex-direction:column;gap:6px} .lane{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch}
+.box{flex:1 1 180px;border:2px solid var(--line);border-radius:10px;padding:8px 10px;background:#fff;font-weight:700;font-size:15px}
+.box small{display:block;font-weight:400;color:#506073;font-size:13px}
+.box.ready{border-color:var(--now);background:var(--nowbg)} .box.key{border-color:var(--bad);background:var(--badbg)} .box.wip{border-color:#3b82f6;background:#eef5ff}
+.note{flex:0 0 auto;align-self:center;font-size:14px;color:var(--warn);font-weight:700}
+.lane.side .box{flex:1 1 100%} .arr{color:#94a3b8;text-align:center;line-height:1}
+table.mx td,table.mx th{text-align:center} table.mx th:first-child{text-align:left}
+table.mx td.ENF{background:#cdeed8}table.mx td.RUN{background:#fff1b8}table.mx td.TXT{background:#ffe2c2}table.mx td.WIP{background:#d6e6ff}table.mx td.PLAN{background:#e9edf2}table.mx td.NEW{background:#eadcff}table.mx td.DROP{background:#f1f1f1}
+table.mx td.z{color:#c3cad3} table.mx td.red{background:var(--badbg);color:var(--bad);font-weight:700} table.mx tr.sum td,table.mx tr.sum th{font-weight:800;background:#f7f9fb}
+small.f{color:#6b7785;font-size:13px}
+@media(max-width:760px){body{padding:12px}.bar{flex-wrap:wrap}.cell{flex:1 1 45%}.bp,.chips,.wm{margin-left:0}}
+</style>
 </head>
 <body><main>
-  <span class="flag">BẢN ĐỒ TỔNG THỂ · GPT P09 ĐÃ RÀ P08 · N0 CHƯA STARTED</span>
-  <h1>Hệ hội đồng AI — đang có gì</h1>
-  <p class="sub">115 mục từ 15 nguồn — <strong>ảnh chụp theo hồ sơ P08, chưa phải đo live</strong>. Danh mục tại COLLAB §3.8; cập nhật P444/GHM P99 và quyết định Host ở §3.9/P09. Không dùng bảng màu này làm chốt cho phép ghi.</p>
+<span class="flag">HỒ SƠ ĐẦY ĐỦ · Claude P11 · chờ GPT Host rà · N0 chưa chạy</span>
+<h1>Hội đồng AI — toàn cảnh và kế hoạch</h1>
+<p class="sub">Trang này vẽ lại đúng nội dung <b>COLLAB §3.0</b> (đọc trước). Bảng 115 mục ở §3.8, quyết định Host ở §3.7 và §3.9. Tình trạng là ảnh chụp hồ sơ ngày 28/10/2026, <b>chưa đo máy thật</b> (N0 sẽ đo).</p>
 
-  <section class="panel ask">
-    <b>GPT Host đã chốt D04:</b> task này là đầu mối tích hợp và chịu trách nhiệm kết quả cưỡng chế hội đồng chung. N0 khảo sát phần thiếu đã sẵn đường ký READY mới; quyền sửa production/luật và việc gộp Bảng stale vào N2 sẽ xin Owner GO đúng phạm vi sau N0.
-  </section>
+<section class="panel ask">
+<h2>Anh cần biết</h2>
+<ol><li>Hệ hội đồng <b>đã có gần đủ luật</b>: ghế, Host, vòng, một chữ ký READY, ý kiến khác hãng, chuông, chỉ đạo Owner. Luật nằm ở <code>AGENTS.md</code> và HJW.
+</li><li><b>Máy chặn thật</b> mới có ở hai chỗ: cổng ghi repo (chỉ ghi qua gateway, chống ghi đè, danh tính theo chìa) và đường giao việc cho Hermes.
+</li><li><b>Hội đồng gần như toàn làm tay.</b> Chưa máy nào kiểm "người ký READY có phải Host", "đã có ý kiến khác hãng chưa", "chuông có đang mở không". Phần máy này trước giao HJW N4, nhưng N4 chưa mở nên không ai làm (điểm đỏ Đ1). Theo D04, task này (ACK) nhận làm đầu mối.
+</li><li><b>Xưng danh khi ghi</b> đã thiết kế xong và khảo sát mã xong. <b>Lệnh thi công đã ký sẵn</b> (HJW RUN11) nhưng chưa chạy.
+</li><li><b>Từ Karpathy lấy 16 món</b>: 14 dùng + 2 tuỳ chọn. Đều là <i>mẫu</i> (khuôn lệnh, khuôn báo cáo, dòng ý kiến máy đọc, màn hội đồng 3 tầng…), <b>không chép mã</b>.
+</li><li><b>Kế hoạch:</b>
+<ul><li>N0: đo khoảng trống.
+</li><li>N1: dọn luật chồng, chốt khuôn.
+</li><li>N2: gắn chốt máy vào đúng cổng ghi đã có, nâng Task View.
+</li><li>N3: chạy thử thật, đổi Host giữa chừng.
+</li><li>N4: Owner nghiệm thu.
+<p class="in">Không xây hệ mới.</p>
+</li></ul>
+</li></ol>
+<h3>Anh cần làm bây giờ</h3>
+<ul><li><b>Một việc:</b> khi tiện, chuyển lệnh <b>N0</b> (đã ký sẵn) cho Codex. Lệnh chỉ đọc, không đụng gì.</li>
+<li>Song song, ở phiên HJW: lệnh thi công <b>xưng danh khi ghi</b> (RUN11) cũng đã ký sẵn cho Codex Desktop.</li>
+<li>Chưa có quyết định nào phải gật lúc này. Hai lần anh sẽ cần quyết: <b>sau N1</b> (duyệt dọn luật + định nghĩa "đồng ý khác hãng") và <b>trước N2</b> (cho phép gắn chốt máy vào cổng ghi và sửa Task View).</li></ul>
+</section>
 
-  <section class="panel">
-    <h2>Ma trận: khối × tình trạng</h2>
-    <table class="mx">
-      <tr><th>Khối</th><th class="h">🟢<br><small>Máy chặn</small></th><th class="h">🟡<br><small>Chạy tay</small></th><th class="h">📝<br><small>Chỉ chữ</small></th><th class="h">🔵<br><small>Đang làm</small></th><th class="h">⚪<br><small>Chưa làm</small></th><th class="h">🆕<br><small>Mục tiêu mới</small></th><th class="h">✖<br><small>Bỏ/thay</small></th><th class="h">🔴<br><small>Tắc</small></th><th class="h">Σ</th></tr>
-      <tr><th><span class="nm">Khung việc</span><small>mục tiêu, bước, node</small></th><td class="z">·</td><td style="background:#fff1b8">4</td><td style="background:#ffe2c2">1</td><td style="background:#d6e6ff">2</td><td style="background:#e9edf2">3</td><td style="background:#eadcff">1</td><td class="z">·</td><td class="red">2</td><td class="tot">11</td></tr><tr><th><span class="nm">Hội đồng</span><small>ghế, Host, vòng, đồng ý</small></th><td class="z">·</td><td style="background:#fff1b8">10</td><td style="background:#ffe2c2">6</td><td style="background:#d6e6ff">1</td><td style="background:#e9edf2">3</td><td class="z">·</td><td class="z">·</td><td class="red">5</td><td class="tot">20</td></tr><tr><th><span class="nm">Giao–Làm–Báo</span><small>PROMPT, READY, KQ, lệnh máy</small></th><td style="background:#cdeed8">2</td><td style="background:#fff1b8">6</td><td style="background:#ffe2c2">1</td><td class="z">·</td><td style="background:#e9edf2">1</td><td style="background:#eadcff">1</td><td class="z">·</td><td class="red">1</td><td class="tot">11</td></tr><tr><th><span class="nm">Cổng ghi</span><small>danh tính, khoá ghi</small></th><td style="background:#cdeed8">7</td><td style="background:#fff1b8">1</td><td style="background:#ffe2c2">1</td><td style="background:#d6e6ff">1</td><td style="background:#e9edf2">3</td><td class="z">·</td><td style="background:#f1f1f1">1</td><td class="red">3</td><td class="tot">14</td></tr><tr><th><span class="nm">Chuông</span><small>giám sát, Telegram</small></th><td style="background:#cdeed8">1</td><td style="background:#fff1b8">5</td><td style="background:#ffe2c2">2</td><td class="z">·</td><td style="background:#e9edf2">2</td><td class="z">·</td><td class="z">·</td><td class="red">2</td><td class="tot">10</td></tr><tr><th><span class="nm">Tự động</span><small>đánh thức, AUTO, hàng đợi</small></th><td style="background:#cdeed8">2</td><td style="background:#fff1b8">3</td><td class="z">·</td><td class="z">·</td><td style="background:#e9edf2">4</td><td style="background:#eadcff">1</td><td style="background:#f1f1f1">2</td><td class="red">3</td><td class="tot">12</td></tr><tr><th><span class="nm">Mã GitHub</span><small>PR, CI, merge, deploy</small></th><td style="background:#cdeed8">2</td><td style="background:#fff1b8">3</td><td class="z">·</td><td style="background:#d6e6ff">2</td><td style="background:#e9edf2">5</td><td class="z">·</td><td class="z">·</td><td class="red">2</td><td class="tot">12</td></tr><tr><th><span class="nm">Màn hình</span><small>Task View, Owner View</small></th><td class="z">·</td><td style="background:#fff1b8">7</td><td style="background:#ffe2c2">1</td><td class="z">·</td><td style="background:#e9edf2">2</td><td style="background:#eadcff">1</td><td class="z">·</td><td class="red">1</td><td class="tot">11</td></tr><tr><th><span class="nm">Trợ lực</span><small>JEV, Graph, tự học</small></th><td style="background:#cdeed8">1</td><td style="background:#fff1b8">2</td><td class="z">·</td><td class="z">·</td><td style="background:#e9edf2">2</td><td style="background:#eadcff">1</td><td style="background:#f1f1f1">1</td><td class="z">·</td><td class="tot">7</td></tr><tr><th><span class="nm">Nguyên tắc</span><small>luật chung Owner</small></th><td class="z">·</td><td style="background:#fff1b8">2</td><td style="background:#ffe2c2">5</td><td class="z">·</td><td class="z">·</td><td class="z">·</td><td class="z">·</td><td class="red">2</td><td class="tot">7</td></tr>
-      <tr class="sum"><th>Cộng</th><td class="tot">15</td><td class="tot">43</td><td class="tot">17</td><td class="tot">6</td><td class="tot">25</td><td class="tot">5</td><td class="tot">4</td><td class="tot red">21</td><td class="tot">115</td></tr>
-    </table>
-  </section>
+<section class="panel"><h2>Roadmap</h2><div class="bar"><div class="cell done"><span class="tag">xong</span><div class="t">Bàn + kế hoạch</div><div class="w">🤖 D01–D03</div></div><div class="cell done"><span class="tag">xong</span><div class="t">Bản đồ + D04</div><div class="w">🤖 P08 · P09</div></div><div class="cell done"><span class="tag">xong</span><div class="t">Hồ sơ đầy đủ</div><div class="w">🤖 P11 · Host rà</div></div><div class="cell now"><span class="tag">N0 · đang ở đây</span><div class="t">Đo khoảng trống</div><div class="w">🤖 Codex · chưa chạy</div></div><div class="cell todo"><span class="tag">N1</span><div class="t">Dọn luật + khuôn</div><div class="w">🤖 W2 W3 W4</div></div><div class="cell todo"><span class="tag">N2</span><div class="t">Chốt máy + màn hình</div><div class="w">🤖 W5 W6 W7</div></div><div class="cell todo"><span class="tag">N3</span><div class="t">Chạy thử thật</div><div class="w">🤖 đổi Host</div></div><div class="cell todo"><span class="tag">N4</span><div class="t">Anh nghiệm thu</div><div class="w">😊 30 giây</div></div></div></section>
 
-  <section class="panel">
-    <h2>Một câu</h2>
-    <p class="one">Luật <b>đủ, còn thừa và chồng</b>. Máy chặn thật ở <b>cổng ghi repo</b> và <b>giao việc cho Hermes</b>. Còn <b>hội đồng gần như toàn làm tay</b>. Màn hình thấy tiến độ, chưa thấy Host và ghế.</p>
-  </section>
+<section class="panel"><h2>1 · Đã làm gì cho hội đồng — 10 khối</h2>
+<p class="sub">Bảng 115 mục chi tiết (mỗi mục một dòng) ở COLLAB §3.8. Bấm vào từng khối để xem: ✅ đã có (ở đâu, task nào) · 🔵 đang dở · ⚪ chưa làm · 🆕 mới thêm · 🔴 vướng · món Karpathy · gói việc. Chấm màu = số mục theo tình trạng: 🟢 máy chặn · 🟡 làm tay · 📝 chỉ chữ · 🔵 đang làm · ⚪ chưa làm · 🆕 mới · ✖ bỏ · 🔴 tắc.</p>
+<details class="blk"><summary><span class="bn">1</span> <span class="bt">1 — KHUNG VIỆC</span> <span class="bs">(mục tiêu, Bảng, bước/node · §3.8 C1.1–C1.11)</span><br><span class="bp">mỗi việc có mục tiêu rõ; mở ra là biết đang ở bước nào, bước kế là gì.</span><span class="chips"><span class="chip RUN">🟡 4</span><span class="chip TXT">📝 1</span><span class="chip WIP">🔵 2</span><span class="chip PLAN">⚪ 3</span><span class="chip NEW">🆕 1</span><span class="chip red">🔴 2</span></span></summary><div class="bb"><ul><li>✅ <b>Đã có:</b>
+<ul><li><b>Cổng mục tiêu (AGENTS A0/MT3):</b> mỗi COLLAB mở bằng §0 gồm mục tiêu Owner nguyên văn, "Thế nào là hoàn thành", "Chi tiết cần đạt" và dòng <code>Xác nhận User:</code>. Chưa xác nhận thì không lập kế hoạch, không RUN. 🟡 Làm tay; Task View đọc dòng xác nhận nhưng không chặn ghi.
+</li><li><b>Bảng điều khiển 8 dòng, đúng một ô ■</b> (AGENTS MT4, root DROOT33). Đổi trạng thái thì sửa Bảng trong cùng commit. 🟡 Làm tay; Task View tự rút Bảng lên đầu trang (HVU OWNERVIEW02, 06/10).
+</li><li><b>Khung bước 5 nhịp (AGENTS A5):</b>
+<ol><li>Chốt mục tiêu.
+</li><li>Chốt kế hoạch + PROMPT node đầu.
+</li><li>Sau mỗi KQ: Host nghiệm thu sơ bộ, một Reviewer khác hãng rà, Host chốt bước kế.
+</li><li>Nghiệm thu cuối.
+</li><li>Chạm quyền Owner thì ghi một dòng "Owner cần quyết".
+<p class="in">📝 Chỉ có chữ, máy không kiểm.</p>
+</li></ol>
+</li><li><b>Một node = một PROMPT + một RUN_ID + một KQ</b> (HJW §0.17 R1–R7). Bị ngắt thì chạy tiếp cùng node. Phần chuyển sang node sau phải ghi <code>MOVE_TO:&lt;node&gt;</code> kèm lý do. 🟡 Làm tay.
+</li><li><b>STEP_WALK_V1</b> (AGENTS A6, DROOT48): việc nhiều bước phải có bảng <code>bước · ai làm · trigger · hạn · bằng chứng · hỏng thì ai biết · bước kế</code>. 🟡 Làm tay; PROMPT N0 của ACK có bảng này.
+</li></ul>
+</li><li>🔵 <b>Đang dở:</b>
+<ul><li>Khung câu hỏi bước CT-000.1 (43 câu, G1 Khai báo → G5 Bàn giao) đang chờ Owner gật 5 điểm sửa (MBM).
+</li><li>Vòng đời sự cố CT-000.4 (X1–X9) có máy kiểm 21/21 kịch bản (MBM).
+</li></ul>
+</li><li>⚪ <b>Chưa làm:</b>
+<ul><li><b>Bảng cũ thì đỏ</b> (root DROOT33, treo từ 01/10): READY/KQ mới hơn Bảng thì Task View tô đỏ, cổng ghi chặn READY không kèm sửa Bảng. 🔴
+</li><li>Hai cấp điều hành (một AI ↔ hội đồng) trên một lõi, mức duyệt linh hoạt (HJW N5).
+</li><li>Bộ phép thử nghiệm thu T1–T9 (HJW §0.10, Owner chưa phê chuẩn lại).
+</li></ul>
+</li><li>🆕 <b>Mới bổ sung:</b>
+<ul><li><b>Cổng sẵn sàng trước READY</b> (Owner 28/10, ghi ở GS §3): kiểm công cụ trên đúng máy, quyền, việc Owner phải bấm; tách ĐÃ KIỂM khỏi GIẢ ĐỊNH. Chưa vào AGENTS.
+</li><li><b>Khung node máy đọc</b> (ACK §3.6): node · bản · mục tiêu · đầu vào · Host/Reviewer/Worker · được ghi gì · ngân sách · thế nào là xong · bằng chứng · VERDICT · chuông · bước kế · nợ chuyển. D03 quyết <b>không tạo <code>NODE_V1</code> mới</b>; các ô này đi vào PROMPT (khuôn K1) và <code>TASK_POLICY_V1</code> đã có của HJW.
+</li></ul>
+</li><li>🔴 <b>Vướng:</b> có 4 bộ câu khung bước song song: CT-000.1, MOW-TH-005 (13 câu, TQT), R37 (TQT) và Cổng sẵn sàng (GS) — đây là Đ4. D04 chốt: hội đồng dùng AGENTS A5/A6 + <code>TASK_POLICY_V1</code>; CT-000.1 để cho công thức/quy trình nghiệp vụ.
+</li><li><b>Karpathy:</b> K6 (ô ngân sách giờ trong PROMPT/node).
+</li><li><b>Gói việc:</b> W3 (khuôn), W7 (Bảng cũ thì đỏ).
+</li></ul></div></details>
+<details class="blk" open><summary><span class="bn">2</span> <span class="bt">2 — HỘI ĐỒNG</span> <span class="bs">(ghế, Host, vòng, đồng ý khác hãng, chữ ký · §3.8 C2.1–C2.20)</span><br><span class="bp">quyết định nào cũng có Host chủ trì và ít nhất một AI khác hãng xem lại; không AI nào tự quyết một mình.</span><span class="chips"><span class="chip RUN">🟡 10</span><span class="chip TXT">📝 6</span><span class="chip WIP">🔵 1</span><span class="chip PLAN">⚪ 3</span><span class="chip red">🔴 5</span></span></summary><div class="bb"><ul><li>✅ <b>Đã có</b> (🟡 làm tay):
+<ul><li><b>Khối <code>COUNCIL_BOOTSTRAP_V1</code></b> ở đầu §3 mỗi việc (AGENTS MT3-C, DROOT44):
+<ul><li>Bảng <code>Ghế · Hãng · Bề mặt · Vai · Gọi bằng</code>, kèm <code>Mode</code> và <code>Automation_Level</code>.
+</li><li>Mặc định toàn hệ chỉ ghi ở AGENTS: <code>Review_Rounds=1</code> (tối đa 3), <code>Claim_Timeout_Min=15</code>, <code>Deliver_Timeout_Min=45</code>, <code>Absent_Max=floor(non_host/2)</code>, <code>Cross_Vendor_Review=COMMENT_REQUIRED</code>, <code>Reviewer_Signature=NOT_REQUIRED</code>, <code>Final_Signatures_Required=1</code>.
+</li><li>Thiếu khối thì việc không được điều hành (luật fail-closed).
+</li><li>Có ở khoảng 10 việc; máy <b>chưa</b> chặn việc thiếu khối.
+</li></ul>
+</li><li><b>Host do Owner chỉ định</b> (AGENTS A2, DROOT18/46; HJW HĐ19/20/25). Host ghi bằng dòng <code>Host:</code> ngay dưới tên việc.
+<ul><li>Đổi Host: Host mới ghi <code>Host:</code>/<code>Host_ID</code> và sửa khối hội đồng; Host cũ ghi một mục P bàn giao rồi thành thành viên thường.
+</li><li>Claude từng làm Host tạm HJW (P314–P340).
+</li></ul>
+</li><li><b>Một danh tính máy = một ghế = một phiếu</b> (AGENTS A2/MT3-C). GPT Chat/Work/Dot dùng chung danh tính <code>openai-main</code>, nên mỗi việc chỉ chọn một bề mặt. 📝 Máy chưa phân biệt được.
+</li><li><b>Vòng hội đồng</b> (AGENTS A5, DROOT57, từ 26/10):
+<ul><li>Host đề xuất → ít nhất một ghế khác hãng nhận xét có bằng chứng → Host kết luận <code>ACCEPTED|PARTIAL|REJECTED</code>.
+</li><li>Mặc định 1 vòng. Host tự quyết mở vòng 2/3 khi còn bất đồng thực chất; <b>không bao giờ có vòng 4</b>.
+</li><li>Chỉ đổi chữ/SHA hành chính thì ghi <code>REVIEW_REUSED</code>, không gọi lại Reviewer.
+</li><li>Đang dùng hằng ngày theo nhịp B1 Host nghiệm thu → B2 Reviewer khác hãng → B3 Host chốt.
+</li></ul>
+</li><li><b>Một chữ ký</b> (AGENTS A6, DROOT58): chỉ Host (hoặc Co-host có uỷ quyền) ký <code>READY@&lt;SHA đầy đủ của commit cuối chạm PROMPT.md&gt;</code>. Reviewer không ký ACCEPT. Sửa PROMPT sau READY thì chữ ký cũ mất hiệu lực.
+</li><li><b>Sau mỗi KQ</b> (AGENTS A5): phải có ít nhất một ý kiến khác hãng với Host và khác hãng với Worker. Worker không tự nghiệm thu.
+</li><li><b>Founders</b> = GPT Chat + Claude Chat giữ luật nền. Đổi luật nền phải ghi D ở COLLAB gốc + một dòng "Owner cần quyết".
+</li><li><b>Ghế đã có danh tính:</b>
+<ul><li><code>openai-main</code> (GPT)
+</li><li>Claude (Chat/Code)
+</li><li><code>codex</code>
+</li><li><code>google-main</code> (Gemini; GJW xong 17/10, chưa phản biện lần nào)
+</li><li>Hermes <code>agent-gw/hermes</code> (tạm ra khỏi luồng điều hành từ HĐ31, 08/10)
+</li></ul>
+</li></ul>
+</li><li>🔵 <b>Đang dở:</b> ghế Dot riêng <code>openai-dot</code> (HJW N2): nhiều lượt DỪNG, chìa riêng chưa cấp.
+</li><li>⚪ <b>Chưa làm:</b>
+<ul><li><b>Dòng "đồng ý khác hãng" máy đọc được</b> (VERDICT), xem 3.0-B L3.
+</li><li><b>Máy đếm vòng/quorum</b>, máy chặn việc thiếu khối hội đồng. Trước giao HJW N4/N5, N4 chưa mở → 🔴 <b>Đ1</b>.
+</li><li>Vai <b>Supervisor</b>: giám sát, mở chuông, không ký (ACK §3.6).
+</li><li><b>Hội đồng Host có chữ ký nhiều bên</b>: tầng tương lai, giai đoạn này chỉ chuẩn bị chỗ trong dữ liệu (ACK §3.5).
+</li></ul>
+</li><li>🆕 <b>Mới bổ sung:</b>
+<ul><li>Owner 28/10: «ý kiến cũng phải có sự đồng ý của ít nhất 1 ai khác hãng, bên cạnh Host (Host quyết)» (ACK §1.3). AGENTS A5 hiện chỉ đòi <i>nhận xét</i> (<code>COMMENT_REQUIRED</code>), không đòi <i>đồng ý</i>.
+</li><li>ACK §3.1 đã ghi xung đột này, chưa sửa luật. N1 phải định nghĩa "đồng ý" (đề xuất ở W2-i) và <b>Owner duyệt</b>, vì đây là sửa luật nền.
+</li></ul>
+</li><li>🔴 <b>Vướng (Đ2):</b>
+<ul><li>Số vòng có 3 nguồn: HJW §0.2/HĐ4/§0.15 theo DROOT55 "1 + đúng 1"; AGENTS DROOT57 "mặc định 1, tối đa 3".
+</li><li>Root DROOT31/DROOT38(c) vẫn đòi Reviewer ACCEPT, trái DROOT58.
+</li><li>TQT 3.3 có luật ký riêng "≥2/4 ghế".
+</li><li>Danh sách ghế không khớp giữa các nơi: HĐ7/HĐ15 tách Claude Chat với Claude Code; P441 gộp lại; Hermes lúc được tính, lúc không.
+</li></ul>
+</li><li><b>Karpathy:</b> L1, L3, L5 (dùng); L2 (tuỳ chọn).
+</li><li><b>Gói việc:</b> W2, W4, W5, W9.
+</li></ul></div></details>
+<details class="blk"><summary><span class="bn">3</span> <span class="bt">3 — GIAO–LÀM–BÁO</span> <span class="bs">(lệnh, chữ ký, báo cáo · §3.8 C3.1–C3.11)</span><br><span class="bp">Host giao đúng một lệnh rõ ràng; Worker làm đúng lệnh; kết quả báo theo một khuôn.</span><span class="chips"><span class="chip ENF">🟢 2</span><span class="chip RUN">🟡 6</span><span class="chip TXT">📝 1</span><span class="chip PLAN">⚪ 1</span><span class="chip NEW">🆕 1</span><span class="chip red">🔴 1</span></span></summary><div class="bb"><ul><li>✅ <b>Đã có:</b>
+<ul><li><b>Đường Claude Code/Codex (ba nhịp)</b> (AGENTS A6/A9-GLB, DROOT30/31/58). 🟡 Làm tay. Thứ tự:
+<ol><li>Host viết <code>PROMPT.md</code> (mỗi việc một file).
+</li><li>Host ký <code>READY@&lt;SHA&gt;</code> trong COLLAB.
+</li><li>Owner dán lệnh cho Worker (AUTO0).
+</li><li>Worker qua read-gate: đọc <code>AGENTS.md</code> → COLLAB → PROMPT, kiểm READY đúng SHA commit cuối chạm PROMPT, kiểm không có STOP.
+</li><li>Worker ghi <code>STARTED@&lt;RUN_ID&gt; &lt;UTC&gt; · executor=&lt;bề mặt&gt;</code> (cờ bận).
+</li><li>Worker làm việc.
+</li><li>Worker ghi dòng KQ (<code>KQ@</code> + RUN_ID + <code>XONG|DỪNG</code>), một mục P và một <code>NEXT_TRIGGER</code>.
+<p class="in">Task View đọc READY/KQ để vẽ 4 ô tiến độ. Agent đã tự dừng đúng khi SHA lệch (GHM P93–P94).</p>
+</li></ol>
+</li><li><b>Đường Hermes</b> (AGENTS A9-GLB; HJW Contract V1, RUN-05/06). 🟢 <b>Máy chặn</b>: hồi quy 27/27, chỉ cho Hermes; danh sách tự động <code>AUTO_ALLOWLIST</code> rỗng. Thứ tự:
+<ol><li>Host ghi <code>ASSIGN_V1 {json}</code> trong vùng <code>&lt;!-- MACHINE_ASSIGNMENTS_V1:BEGIN/END --&gt;</code> + khối <code>SPEC_V1</code>.
+</li><li>Scanner <code>hjw_gate.py</code> phát thẻ Telegram.
+</li><li>Owner bấm "Cho chạy" (vé một lần, gắn <code>generation</code>).
+</li><li>Hermes ghi <code>claimed</code>, làm, rồi trả <code>RESULT_V1</code>.
+<p class="in">Chỉ Host hiện hành được phát lệnh: máy kiểm dòng <code>Host:</code> ở commit <b>trước</b> commit ghi lệnh.</p>
+</li></ol>
+</li><li><b>Không chờ (NO-WAIT)</b> (DROOT50/52): chỉ 4 trạng thái <code>READY · STARTED · XONG · DỪNG</code>; mỗi KQ kết bằng đúng một <code>NEXT_TRIGGER</code>; muốn giữ phiên chờ phải xin <code>WAIT_EXCEPTION</code> Owner. 📝/🟡.
+</li><li><b>Cổng đầu vào Host + cổng tươi trước thay đổi đầu tiên</b> (DROOT30), <b>cờ VPS-GHI</b> lấy bằng CAS (DROOT54), <b>khối Owner chuyển</b> <code>GỬI: · VIỆC:</code> (DROOT38). 🟡.
+</li></ul>
+</li><li>⚪ <b>Chưa làm:</b>
+<ul><li><b>Máy kiểm READY</b> trước khi ghi: người ký có đúng Host không, đã có ý kiến khác hãng chưa, SHA có đúng không. Hiện Worker tự kiểm, máy không chặn → 🔴 Đ1.
+</li><li><b>KQ do máy in</b>, không do agent tự kể (K2).
+</li><li><b>Bảng giao việc</b> "AI vào là biết vai/bước/việc kế" (MCPW roadmap, Đ5).
+</li></ul>
+</li><li>🆕 <b>Mới bổ sung:</b> Computer Use trên Mac chỉ giao Codex Desktop (Owner 28/10, root COLLAB). Cổng sẵn sàng (xem khối 1).
+</li><li>🔴 <b>Vướng:</b> PROOT12/13 ở COLLAB gốc chạy bằng khối dán, không có PROMPT.md/READY, nên Task View không thấy.
+</li><li><b>Karpathy:</b> K1, K2, K3, K9, K10.
+</li><li><b>Gói việc:</b> W3, W4, W5.
+</li></ul></div></details>
+<details class="blk" open><summary><span class="bn">4</span> <span class="bt">4 — CỔNG GHI VÀ XƯNG DANH</span> <span class="bs">(ai được ghi, ghi qua đâu, để lại dấu vết gì · §3.8 C4.1–C4.14)</span><br><span class="bp">không ai ghi lén. Ghi gì cũng biết <i>ai ghi</i> và <i>ghi qua cổng nào</i>; đọc thì thoải mái.</span><span class="chips"><span class="chip ENF">🟢 7</span><span class="chip RUN">🟡 1</span><span class="chip TXT">📝 1</span><span class="chip WIP">🔵 1</span><span class="chip PLAN">⚪ 3</span><span class="chip DROP">✖ 1</span><span class="chip red">🔴 3</span></span></summary><div class="bb"><ul><li>✅ <b>Đã có</b> (🟢 máy chặn):
+<ul><li><b>Chỉ ghi qua gateway</b> (README D12, MCPW, DROOT20):
+<ul><li>Ruleset GitHub <code>gateway-only-writes</code> (id 23976991) chặn mọi nhánh của <code>incomex-workspace</code>, chỉ miễn deploy key của 2 cổng.
+</li><li>Ghi trực tiếp, kể cả Owner hay GPT Live, đều bị lỗi 409.
+</li></ul>
+</li><li><b>Chống ghi đè</b> (README §3/§5, AGENTS A4): lệnh ghi mang <code>expected_version</code>/<code>expected_head</code>; lệch thì bị từ chối <code>VERSION_CONFLICT</code>. <code>operation_id</code> là khoá chống ghi trùng khi gọi lại, <b>không phải vé hay giấy tờ danh tính</b> (HJW P443).
+</li><li><b>Danh tính theo chìa (B1)</b> (MCPW P60/P75, README §12.8):
+<ul><li>Mỗi chìa ứng với một nhãn phía máy chủ: <code>gpt-web</code>, <code>claude-chat</code>, <code>claude-code</code>, <code>codex</code>, <code>hermes</code>…
+</li><li>Máy bỏ qua tên client tự xưng; Git author = nhãn máy chủ.
+</li><li>Chìa master chung bị từ chối ghi (B2A: 20/20).
+</li><li>Hở: <code>claude-chat</code> dùng chung cho mọi phiên Claude.ai; GPT Chat/Work/Dot dùng chung <code>gpt-web</code>.
+</li></ul>
+</li><li><b>Không có lệnh xoá</b> qua gateway; dọn dẹp = chuyển vào lưu trữ (README §7).
+</li><li><b>Hermes bị khoá phạm vi</b> (HJW P368/P386; Guard INV19):
+<ul><li>Chỉ được ghi <code>work/*/COLLAB.md</code>.
+</li><li><b>Bộ kiểm hậu ảnh <code>post_guard</code></b> soi văn bản cuối trước khi commit, chặn Hermes giả <code>Host:</code>/<code>READY@</code>/<code>KQ@</code>/<code>ASSIGN</code> (thử âm 69/69).
+</li><li>0 sudo, không có đường tới GSM.
+</li><li>Mã: <code>agent_data/workspace_tools.py</code> (bản checkout, quanh dòng 153–345). Probe bảo vệ: <code>scripts/mcpw-protection-guard</code>.
+</li></ul>
+</li><li><b>Đọc bản VPS có nhãn tươi/cũ</b> (MCPW P02).
+</li></ul>
+</li><li>🔵 <b>Đang dở — XƯNG DANH KHI GHI</b> (chủ: HJW; mới hơn §3.7/§3.9):
+<ul><li><b>Mục tiêu Owner</b> (ACK §1.14; HJW 28/10): «đọc thoải mái, nhưng muốn ghi, phải khai báo danh tính». Quên khai thì AI phải hiểu ngay vì sao không ghi được và phải làm gì. Thêm AI mới (Duet, Grok…) không phải làm thẻ riêng mất nhiều ngày.
+</li><li><b>Chuỗi đã chốt:</b>
+<ol><li>HJW P442: Claude đề xuất.
+</li><li>P443: GPT Host chốt.
+</li><li>P444: Codex khảo sát mã, KQ XONG.
+</li><li>P445: Host nghiệm thu khảo sát.
+</li><li>P446: Claude rà, thêm điều kiện C1/C2.
+</li><li>P447: Host chốt.
+</li><li><b>P447-R: ký READY thi công</b> — <code>READY@88954d87…</code>, RUN <code>HJW-DECLARATION-GATE-ONE-PASS-20261028-11</code>, Worker Codex Desktop. <b>Chưa STARTED.</b>
+</li></ol>
+</li><li><b>Thiết kế (thi công đúng như sau):</b>
+<ol><li><b>Hai khái niệm tách hẳn:</b>
+<ul><li><code>declared_actor</code> = tên AI tự khai mỗi lượt ghi; dùng để biết ai nhận/làm/báo và điều phối.
+</li><li><code>authenticated_actor</code> = danh tính lấy từ chìa máy (<code>auth:…</code>); dùng để đếm phiếu theo AGENTS A2.
+</li><li>Tên khai <b>không tăng quyền, không thêm phiếu</b>. Chung chìa = chung một phiếu.
+</li></ul>
+</li><li><b>Một trường <code>declared_actor</code> nằm ngay trong lệnh ghi.</b>
+<ul><li>Không xin vé, không thêm lượt gọi mạng.
+</li><li>Mô tả của mỗi công cụ ghi (tools/list) phải nói: "Trước khi ghi, thêm declared_actor là tên AI đang thực hiện, ví dụ codex/gpt-live/openai-dot. Không cần xin vé; tên khai không tăng quyền hay phiếu."
+</li><li>Tên hợp lệ: chuỗi không rỗng, đã cắt khoảng trắng, giới hạn độ dài, không ký tự điều khiển.
+</li><li>Không lập danh sách tên theo hãng; không suy tên từ model hay tên client.
+</li></ul>
+</li><li><b>Thiếu hoặc sai tên</b> → trả lỗi máy đọc được: <code>{"error":"DECLARATION_REQUIRED","required_field":"declared_actor","example":"gpt-live","instruction":"Gọi lại chính công cụ này, thêm declared_actor là tên AI của bạn; giữ nguyên nội dung và operation_id nếu đã có. Không xin vé hay hỏi Owner.","mutation":"none"}</code>.
+<ul><li>Không tạo stage/job/giao dịch.
+</li><li>Không "đốt" <code>operation_id</code>: thêm tên rồi gọi lại cùng id vẫn ghi được.
+</li></ul>
+</li><li><b>Ghi thành công</b> → biên nhận lưu cả <code>declared_actor</code> và <code>authenticated_actor</code>, cùng công cụ/root/đường dẫn, <code>operation_id</code>/<code>upload_id</code>/<code>task_id</code>, commit.
+<ul><li>Git author vẫn theo chìa thật.
+</li><li>Khai một đằng, chìa một nẻo → lộ ngay trên biên nhận.
+</li></ul>
+</li><li><b>Phạm vi</b> — mọi đường ghi mã nguồn qua 2 cổng:
+<ul><li>Agent Data: <code>workspace_write_new/edit/copy/move/transaction</code> (gồm restore), <code>workspace_upload_begin/append/commit</code>, <code>workspace_import_file</code>, <code>workspace_task_start</code> → worker.
+</li><li>Claude MCP: <code>fs_write/edit/copy/move/transaction</code>, helper chạy nền, <code>write_file</code>.
+</li><li><b>Ngoài phạm vi:</b> GitHub native (ruleset đã chặn), Gmail, PG/Directus/Lark ghi trực tiếp, shell/SSH.
+</li></ul>
+</li><li><b>Chỗ sửa</b> (P444 ước lượng tối đa; bản vá nhỏ nhất thắng): <b>2 adapter + 1 bộ kiểm tên dùng chung</b>.
+<ul><li>Agent Data:
+<ul><li><code>agent_data/workspace_tools.py</code>: schema, mô tả, kiểm tại hàm <code>call</code> <i>trước</i> bước kiểm schema.
+</li><li><code>workspace_transfer.py</code>, <code>workspace_tasks.py</code>, <code>workspace_idempotency.py</code>, <code>hvu_signals.py</code>.
+</li></ul>
+</li><li>Claude MCP:
+<ul><li><code>app/server.py</code>: hàm <code>_finalize</code>.
+</li><li><code>app/fsroots.py</code>, <code>app/tools.py</code>, <code>app/hvu_signals.py</code>, <code>helper/mcp_host_helper.py</code>, <code>helper/hvu_signals.py</code>.
+</li></ul>
+</li></ul>
+</li><li><b>Chặn đã biết:</b> mã đang chạy trong container <b>khác</b> bản checkout trên GitHub/VPS (Agent Data <code>workspace_tools.py</code>, Claude <code>server.py</code>).
+<ul><li>Phải ghi digest image + hash file của bản đang chạy, vá trên đúng bản đó, giữ đường lùi.
+</li><li>Không xác minh được bản đang chạy thì DỪNG trước khi sửa.
+</li></ul>
+</li><li><b>Nghiệm thu:</b>
+<ul><li><b>C1:</b> ít nhất một AI thật đi trọn vòng: thiếu tên → nhận <code>DECLARATION_REQUIRED</code> → tự khai lại → có commit/biên nhận.
+</li><li><b>C2:</b> client nào còn giữ schema cũ thì ghi riêng <code>CLIENT_SCHEMA_STALE</code>, không tính PASS thay.
+</li><li>Thử trên fixture trước; Guard PRE/POST; có rollback.
+</li></ul>
+</li></ol>
+</li><li><b>ACK dùng thế nào:</b>
+<ul><li>(a) Không làm lại.
+</li><li>(b) Sau RUN11, 2 cổng có sẵn điểm chặn chung → <b>cổng hội đồng W5 gắn vào đúng chỗ đó</b>.
+</li><li>(c) Đếm phiếu/VERDICT phải dùng <code>authenticated_actor</code>; <code>declared_actor</code> chỉ để hiển thị "ai làm".
+</li></ul>
+</li></ul>
+</li><li>⚪ <b>Chưa làm</b> (🔴 Đ5 — nợ khi đóng MCPW, ngoài phạm vi N0–N4 của ACK):
+<ul><li>Khoá chống hai agent ghi chồng (scoped lease, thiết kế MCPW P05 L1–L5).
+</li><li>Khoá SSH/VPS riêng từng bề mặt: hiện mọi agent trên Mac dùng chung khoá root của Owner.
+</li><li>Khoá REST/Directus (B2B dừng 01/10).
+</li></ul>
+</li><li>✖ <b>Đã bỏ/thay:</b>
+<ul><li><b>Vé ghi một lần <code>WRITE_TICKET</code></b> (ACK §3.6/D01) → thay bằng xưng danh một trường + <code>operation_id</code> (HJW P442–P447).
+</li><li><b>"Master thẻ nhân viên / ba lô năng lực"</b> (HJW P440) → thay như trên.
+</li></ul>
+</li><li><b>Karpathy:</b> không có. Karpathy không có cổng ghi; đây là phần riêng của ta.
+</li><li><b>Gói việc:</b> W1, W5.
+</li></ul></div></details>
+<details class="blk"><summary><span class="bn">5</span> <span class="bt">5 — CHUÔNG</span> <span class="bs">(ai biết khi có sai, trong bao lâu · §3.8 C5.1–C5.10)</span><br><span class="bp">làm sai quyền hoặc máy hỏng thì Owner biết ngay; không ai im lặng giấu được.</span><span class="chips"><span class="chip ENF">🟢 1</span><span class="chip RUN">🟡 5</span><span class="chip TXT">📝 2</span><span class="chip PLAN">⚪ 2</span><span class="chip red">🔴 2</span></span></summary><div class="bb"><ul><li>✅ <b>Đã có:</b>
+<ul><li><b>Hạ tầng chuông máy</b> (HJW 02/10; MCPW R6; AGENTS A10). 🟢 Phát hiện và báo ≤5 phút; <b>chỉ báo, không chặn</b>.
+<ul><li>Guard (Điều 30/31, Config Guard, Protection Guard INV11–INV24…) → Kuma push → Telegram của Owner; khoảng 32 đèn.
+</li><li>Người canh ngoài VPS (UptimeEye).
+</li><li>Sổ tin báo "N loại · M chạy · K hỏng".
+</li></ul>
+</li><li><b>Cảnh báo 3 cấp</b> (AGENTS A7, DROOT59; root PROOT13): Cấp 1 Telegram ngay (danh sách đóng), Cấp 2 bản tin 08:00, Cấp 3 chỉ ghi log. Chạy từ 27/10, đo tới 02/11.
+</li><li><b>Biên nhận Telegram</b> sau mỗi thay đổi production (AGENTS A10-R4). 🟡
+</li><li><b><code>HUMAN_DIRECTIVE@…</code></b> ghi nguyên văn lời Owner (AGENTS A5, DROOT45). Bắt buộc: <code>task · scope · step · recorded_by · quote</code>. Ghế nghe trực tiếp ghi thì hiệu lực ngay. 🟡 HJW có khoảng 17 dòng; ACK có 9 dòng (gồm P11).
+</li><li><b><code>COUNCIL_ALERT</code></b> (AGENTS A5):
+<ul><li>Loại: <code>AUTHORITY|SCOPE|PROCESS|EVIDENCE|SAFETY</code>.
+</li><li>Mọi vai được mở.
+</li><li>Chuông mở thì chặn chuyển bước trong phạm vi đó; người bị tố không tự gỡ.
+</li><li>📝 Mới dùng tay một lần (GJW, 17/10).
+</li></ul>
+</li></ul>
+</li><li>⚪ <b>Chưa làm</b> (🔴 Đ1):
+<ul><li>Chuông hội đồng tới Telegram trong ≤5 phút (AGENTS A5 ghi "N4 phải…").
+</li><li><b>Máy tự bấm chuông</b> khi Host chốt sai (sai Host, sai bản <code>content_ref</code>, chốt sớm) → quyết định vô hiệu + Telegram. AI bấm thì giữ <code>BELL_HOLD</code> tới khi người có quyền gỡ (HJW §0.15, M1).
+</li><li><b>Thẻ "Đúng chỉ đạo / Sai"</b> để Owner xác nhận <code>HUMAN_DIRECTIVE</code> (HJW HĐ17, N4).
+</li></ul>
+</li><li>🔴 <b>Vướng:</b> AGENTS A10-R4 ("không gửi được biên nhận thì PARTIAL") vênh với DROOT59(3) ("kiểm xanh là cấp 3, chỉ ghi log").
+</li><li><b>Karpathy:</b> không có.
+</li><li><b>Gói việc:</b> W6.
+</li></ul></div></details>
+<details class="blk"><summary><span class="bn">6</span> <span class="bt">6 — TỰ ĐỘNG</span> <span class="bs">(đến đâu máy tự gọi AI, tự chuyển bước · §3.8 C6.1–C6.12)</span><br><span class="bp">giảm dần việc Owner phải chuyển tay, nhưng không mất quyền kiểm soát.</span><span class="chips"><span class="chip ENF">🟢 2</span><span class="chip RUN">🟡 3</span><span class="chip PLAN">⚪ 4</span><span class="chip NEW">🆕 1</span><span class="chip DROP">✖ 2</span><span class="chip red">🔴 3</span></span></summary><div class="bb"><ul><li>✅ <b>Đã có:</b>
+<ul><li><b>Lộ trình AUTO0 → AUTO3</b> (AGENTS A5-AUTO, DROOT46). 🟡
+<ul><li>Chỉ Owner nâng mức.
+</li><li>Tự hạ mức khi Guard đỏ, chuông mở hoặc danh tính mơ hồ.
+</li><li>Hiện mọi việc ở <b>AUTO0</b> (Owner chuyển tay).
+</li></ul>
+</li><li><b>Hermes:</b> Owner bấm Telegram từng lệnh; <code>AUTO_ALLOWLIST</code> rỗng, mã từ chối nếu danh sách khác rỗng. 🟢
+</li><li><b>Không lịch hẹn AI, không polling chỉ để nhớ việc</b> (DROOT53/25). Quan sát dài giao Guard/Kuma/timer trên VPS; đã tắt 26 lịch. 🟡
+</li></ul>
+</li><li>⚪ <b>Chưa làm:</b>
+<ul><li><b>NEXT tự động</b> ("mỗi việc đúng một <i>tiếp theo: ai · làm gì</i>") — tiêu chí 3 của MCPW chưa đạt, 🔴 Đ5.
+</li><li>Đánh thức AI bằng đường chính thức của hãng (AGENTS A5-AUTO).
+</li><li>Duyệt → nhận việc ≤30 giây (DROOT47).
+</li><li>MCP Events cho Dot: chưa đo.
+</li></ul>
+</li><li>✖ <b>Đã bỏ/thay:</b>
+<ul><li>Hermes-Mac làm người đưa thư (Owner bỏ 22/10).
+</li><li>Dot đánh thức GPT Work local (P438 thay).
+</li><li>Antigravity đưa thư (GJW bỏ).
+</li></ul>
+</li><li>🆕/🔴 <b>Đ3:</b> HJW P438 (28/10) đề xuất: tín hiệu → Hermes trên Mac → CUA điều khiển Codex → Codex điều phối. Đề xuất này trái lệnh bỏ Hermes-Mac ngày 22/10; HJW chưa chốt. <b>Không chặn ACK</b> (đang AUTO0).
+</li><li><b>Karpathy:</b> K9 (không dừng hỏi giữa lượt = NO-WAIT đã có), K6 (giới hạn giờ).
+</li><li><b>Gói việc:</b> ngoài N0–N4. Chỉ nâng AUTO sau N4 và do Owner quyết.
+</li></ul></div></details>
+<details class="blk"><summary><span class="bn">7</span> <span class="bt">7 — MÃ TRÊN GITHUB</span> <span class="bs">(viết song song, chỉ kỹ sư trưởng nhận vào main, CI phải xanh · §3.8 C7.1–C7.12 · chủ: GHM)</span><br><span class="bp">nhiều agent viết mã cùng lúc mà không ai đẩy mã hỏng vào nhánh chính.</span><span class="chips"><span class="chip ENF">🟢 2</span><span class="chip RUN">🟡 3</span><span class="chip WIP">🔵 2</span><span class="chip PLAN">⚪ 5</span><span class="chip red">🔴 2</span></span></summary><div class="bb"><ul><li>✅ <b>Đã có:</b>
+<ul><li>3 repo thật: <code>incomex-workspace</code>, <code>agent-data-test</code>, <code>web-test</code>. Đã archive 4 repo thừa (GHM S7).
+</li><li><b>Chi phí:</b> budget Actions của tài khoản $0 + Stop + cảnh báo; tắt 15 workflow thừa (GHM R1). 🟢
+<ul><li>Sau khi nâng Pro (28/10): Codex chạy COST S0–S2 <b>PASS</b> (GHM P103, mới hơn §3.9). Host GHM chưa nghiệm thu.
+</li></ul>
+</li><li><b>2 runner tự host trên VPS</b>: không root, 1 CPU/1,5 GiB (GHM C1A). 🟡
+</li><li><b>Cổng CI <code>ghm-pr-gate</code></b> (GHM G1, P87–P90): preflight · gitleaks · actionlint 1.7.12 · policy · unit · đúng SHA. Đã xanh trên AD #351, Web #677 và main. 🟡 Pilot.
+</li><li><b>Luật merge của kỹ sư trưởng (KST)</b> (GHM ROADMAP §0.4a). 🟡 Làm tay.
+<ul><li>Gate xanh đúng head, base mới, <code>KST_ACCEPT@SHA</code>, merge với <code>--match-head-commit</code>.
+</li><li>KST kết luận NHẬN / SỬA / TRẢ LẠI / BỎ.
+</li></ul>
+</li><li><b>Web production</b> chạy bản build từ main <code>e9f5801f</code>, có bản lùi (GHM F1).
+</li><li><b>C2-A:</b> chặn <code>OUT_OF_PILOT</code>; 6 PR thử đã nghiệm thu (GHM P96–P99, PASS_TRUSTED_PILOT).
+</li></ul>
+</li><li>🔵 <b>Đang dở:</b>
+<ul><li><b>C2-B:</b> ruleset <code>main-code-gate</code> (bypass rỗng, <code>gate</code> bắt buộc, strict). Pro đã có từ 28/10 → Host GHM nghiệm thu COST → Owner giao Claude Code CLI (KST) chạy phần B theo READY P92.
+</li><li>Deploy/rollback Agent Data (C1B-REMAINDER). Cấm deploy Agent Data tới khi xong.
+</li></ul>
+</li><li>⚪ <b>Chưa làm:</b>
+<ul><li><b>"Chỉ KST merge" thật.</b> Hiện <code>KST_ONLY_MERGE=NO</code> vì dev và KST dùng chung tài khoản <code>Huyen1974</code>; cần thẻ dev riêng (GHM P91 §4). 🔴 Đ6
+</li><li>Cách ly workflow/runner trước PR không tin cậy: điều kiện để mở F2.
+</li><li>F2: 3 agent / 3 PR song song.
+</li><li>C4 ca đêm: tối giao việc, sáng KST duyệt.
+</li><li>R5.2: khoá VPS chống sửa mã nhầm.
+</li></ul>
+</li><li>🔴 <b>Vướng:</b> README §11 và AGENTS A8 vẫn ghi "cấm đưa mã GitHub→VPS", chưa ghi ngoại lệ GHM (Owner GO DROOT56 ngày 25/10).
+</li><li><b>Karpathy:</b> K4, K5, K7, K8 — làm trong GHM; ACK chỉ nhận kết quả.
+</li><li><b>Gói việc:</b> W8.
+</li></ul></div></details>
+<details class="blk"><summary><span class="bn">8</span> <span class="bt">8 — MÀN HÌNH</span> <span class="bs">(Owner mở một trang là biết · §3.8 C8.1–C8.11 · chủ: HVU)</span><br><span class="bp">Owner nhìn khoảng 30 giây là biết việc đang ở đâu, ai đang làm, bước kế là gì, có gì đỏ.</span><span class="chips"><span class="chip RUN">🟡 7</span><span class="chip TXT">📝 1</span><span class="chip PLAN">⚪ 2</span><span class="chip NEW">🆕 1</span><span class="chip red">🔴 1</span></span></summary><div class="bb"><ul><li>✅ <b>Đã có:</b>
+<ul><li><b>Trang Task</b> <code>…/knowledge/modules?task=&lt;id&gt;</code>: danh sách việc (Đang làm / Đã xong), sao ưu tiên, tìm theo tên/mục tiêu, lệnh Đóng/Mở lại. 🟡
+</li><li><b>Tab "Kiểm soát":</b>
+<ul><li>Bảng điều khiển (tự rút), Mục tiêu, Hoàn thành, Chi tiết.
+</li><li>Thanh 4 giai đoạn đọc từ dấu A9: <code>Xác nhận User:</code>, <code>READY@</code> đúng SHA PROMPT, dòng KQ của RUN_ID, "Owner cần quyết".
+</li><li>Bảng người làm có logo hãng: "Vừa làm" lấy từ Git author do gateway đóng; "Đang làm" lấy từ presence, giữ 10 phút.
+</li><li>Sổ phiên; cảnh báo "2 PHIÊN" / "SSH không rõ ai".
+</li></ul>
+</li><li><b>Tab "Nội dung":</b> iframe hiện <code>view.html</code> của việc (một việc = một HTML = một URL).
+</li><li><b>Đường dữ liệu:</b>
+<ul><li>Webhook push + quét bù định kỳ; publish nguyên tử; giữ bản tốt cuối.
+</li><li>Đèn INV21/#22 báo khi đồng bộ đứng &gt;35 phút.
+</li></ul>
+</li><li><b>Mã chạy thật (nguồn chuẩn):</b> <code>/opt/incomex/docker/nuxt-repo/scripts/hvu-b2/</code> gồm <code>sync.py</code> (hàm <code>parse_task</code>, <code>parse_board</code>), <code>presence.py</code>, <code>ui/app.vue</code>.
+<ul><li>Build bằng <code>nuxt generate</code> + <code>node pack.mjs</code> → <code>/ui-preview/hpml-view-for-user/view.html</code>.
+</li><li>Bản trên GitHub <code>web-test</code> chỉ để tham chiếu.
+</li></ul>
+</li></ul>
+</li><li>⚪ <b>Chưa làm:</b>
+<ul><li>Hiện <b>Host</b> của việc: <code>sync.py</code>/<code>app.vue</code> chưa đọc dòng <code>Host:</code> (DROOT18).
+</li><li>Hàng <b>ghế hội đồng</b>: ai đã/thiếu ý kiến.
+</li><li><b>Màn hội đồng 3 tầng.</b>
+</li><li><b>Sơ đồ roadmap Vue Flow.</b>
+</li><li><b>Bảng cũ thì đỏ</b> (DROOT33) 🔴 Đ7.
+</li><li>Logo Hermes/Gemini.
+</li></ul>
+</li><li>🔴 <b>Vướng:</b>
+<ul><li><code>/reports</code> và API Nuxt đang mở cho người chưa đăng nhập (NDW P0). Không đặt màn hội đồng ở đó.
+</li><li>Close-check HVU treo từ 06/10.
+</li></ul>
+</li><li><b>Karpathy:</b> L6, K3 (hiện sổ giữ/bỏ/hỏng), L4 (tuỳ chọn).
+</li><li><b>Gói việc:</b> W7.
+</li></ul></div></details>
+<details class="blk"><summary><span class="bn">9</span> <span class="bt">9 — TRỢ LỰC</span> <span class="bs">(JEV, Graph · §3.8 C9.1–C9.7)</span><br><span class="bp"></span><span class="chips"><span class="chip ENF">🟢 1</span><span class="chip RUN">🟡 2</span><span class="chip PLAN">⚪ 2</span><span class="chip NEW">🆕 1</span><span class="chip DROP">✖ 1</span></span></summary><div class="bb"><ul><li>✅ <b>Đã có:</b>
+<ul><li><b>JEV</b> (<code>evaluate</code>, skill <code>jev-reference</code>, có ở 6 bề mặt, đèn Kuma #19/#20). Chỉ là <b>tham khảo</b>, không thay quyết định (JEV xong 22/09). 🟡
+</li><li><b>Graph Server:</b> MCP <code>graph-v1</code> chỉ đọc cho Claude Code/Codex; có giấy "ĐỦ / MỘT PHẦN"; khoảng 8.968 nút (GS; Owner UAT còn mở). 🟡
+</li></ul>
+</li><li>⚪ <b>Chưa làm:</b>
+<ul><li>Vector/graph phục vụ hội đồng lập kế hoạch: để sau (ACK §3.5).
+</li><li>Agent tự học (ASI tạm đóng 28/10).
+</li></ul>
+</li><li><b>Karpathy:</b> không có.
+</li></ul></div></details>
+<details class="blk"><summary><span class="bn">10</span> <span class="bt">10 — NGUYÊN TẮC CHUNG</span> <span class="bs">(AGENTS A10 · §3.8 C10.1–C10.7)</span><br><span class="bp"></span><span class="chips"><span class="chip RUN">🟡 2</span><span class="chip TXT">📝 5</span><span class="chip red">🔴 2</span></span></summary><div class="bb"><ul><li>✅ <b>Đã có</b> (📝/🟡):
+<ul><li><b>R1</b> dùng cái có sẵn.
+</li><li><b>R2</b> cưỡng chế, không chỉ quy định; luật chưa có chốt máy phải ghi "CHƯA CƯỠNG CHẾ".
+</li><li><b>R3</b> mọi thay đổi hệ thống qua DOT.
+</li><li><b>R6</b> Owner giữ mục tiêu, AI điều hành tới đích.
+</li><li><b>VERIFY-OR-RED:</b> chưa đo = chưa đạt.
+</li><li>Bảo vệ Điều 30/31 ngay trong cùng RUN.
+</li><li><b>Tiêu chí 0 (NDW):</b> PG? → Directus? → công cụ đang chạy? → rồi mới viết mã.
+</li></ul>
+</li><li>🔴 <b>Vướng:</b> R2 bị vi phạm nặng nhất ở chính hội đồng: luật có, nhưng không có chốt máy và không có chủ (Đ1).
+</li><li><b>Karpathy:</b> K8 (đơn giản hơn mà kết quả bằng là thắng).
+</li></ul></div></details>
+</section>
 
-  <section class="panel">
-    <h2>🔴 Bảy điểm tắc</h2>
-    <ul class="reds">
-      <li><b>Đ1</b> ACK là chủ tích hợp; máy triển khai đúng gateway/scanner hiện có sau Owner GO N2</li>
-      <li><b>Đ2</b> Luật chồng nhau chưa ghi “thay bởi” → dọn ở N1</li>
-      <li><b>Đ3</b> Hermes trên Mac: đã bỏ rồi lại đưa vào → HJW chốt</li>
-      <li><b>Đ4</b> 4 bộ câu khung bước, nhiều khuôn báo cáo → chọn 1</li>
-      <li><b>Đ5</b> Hứa khi đóng MCPW chưa làm (lease, NEXT tự động…)</li>
-      <li><b>Đ6</b> Chỉ kỹ sư trưởng merge: chờ Pro + thẻ riêng → GHM</li>
-      <li><b>Đ7</b> Bảng cũ không hiện đỏ (treo từ 01/10) → N2</li>
-    </ul>
-  </section>
+<section class="panel"><h2>2 · Lấy gì từ Karpathy — danh sách chốt</h2>
+<p><b>Nguồn đã đọc thật:</b></p>
+<ul><li><code>karpathy/autoresearch@228791f</code>: README ghi MIT nhưng <b>không có file LICENSE</b>. Chép văn bản thì giữ dòng ghi nguồn <code>karpathy/autoresearch@228791f · MIT theo README</code>.
+</li><li><code>karpathy/llm-council@92e1fcc</code>: <b>không có giấy phép</b> → chỉ viết lại ý, <b>không chép chữ/mã</b>.
+</li></ul>
+<p>Karpathy chỉ chặn bằng máy 4 chỗ: file chấm cố định, ngân sách giờ, dừng sớm khi hỏng, khối số cuối do máy in. Còn lại là lời dặn. Vì vậy mỗi món dưới đây phải có <b>chốt máy của ta</b> ở cổng đã có.</p>
+<p><b>Các dạng dưới đây là MẪU ĐỀ XUẤT cho N1. Chưa là luật</b> cho tới khi Host/Founders chốt (và Owner duyệt phần chạm luật nền).</p>
+<div class="tw"><table><tr><th>Mã</th><th>Món (lời thường)</th><th>Lấy thế nào</th><th>Đặt vào đâu</th><th>Dạng cụ thể</th><th>Chốt máy</th><th>Gói</th></tr><tr><td><b>K1</b></td><td>Khuôn lệnh theo <code>program.md</code>: được làm / cấm làm / một mục tiêu đo được / đầu ra / lỗi</td><td>Biên soạn lại cấu trúc, ghi nguồn</td><td>Khuôn <code>PROMPT.md</code> duy nhất ở AGENTS A6 (không thành khuôn thứ 5)</td><td>Khung 9 mục, xem <b>Mẫu K1</b> dưới bảng</td><td>W5: cổng từ chối READY nếu PROMPT thiếu mục bắt buộc</td><td>W3</td></tr><tr><td><b>K2</b></td><td>Kết quả là khối số do máy/script in ra; agent chỉ chép, không tự kể</td><td>Biên soạn lại</td><td>Dòng KQ trong COLLAB; <code>RESULT_V1</code> của Hermes</td><td>Khối <code>KQ_V1</code>, xem <b>Mẫu K2</b></td><td>W5: cổng từ chối dòng KQ thiếu khối hợp lệ</td><td>W3</td></tr><tr><td><b>K3</b></td><td>Sổ giữ / bỏ / hỏng mỗi lượt</td><td>Ý tưởng</td><td><b>Không tạo file sổ mới</b>: dẫn xuất từ các khối <code>KQ_V1</code></td><td>Cột: commit · số đo · tài nguyên · giữ/bỏ/hỏng · mô tả</td><td>Task View tô xanh/xám/đỏ</td><td>W7</td></tr><tr><td><b>K4</b></td><td>Bánh cóc Git: tốt thì giữ, kém thì bỏ</td><td>Ý tưởng</td><td>Nhánh/PR của GHM</td><td>Nhánh <code>&lt;task&gt;/&lt;node&gt;</code>; gate xanh → KST NHẬN; đỏ → đóng nhánh; không reset nhánh chung</td><td>Ruleset + gate (GHM C2-B)</td><td>W8</td></tr><tr><td><b>K5</b></td><td>Giám khảo tách thí sinh: bài kiểm cố định, Worker không được sửa</td><td>Ý tưởng</td><td>CI 2 repo mã (GHM)</td><td>Thư mục kiểm cố định; CI so hash vùng kiểm với <code>main</code>; PR sửa vùng kiểm → đỏ trừ khi KST duyệt riêng</td><td>CI bắt buộc (GHM C2-B/F2)</td><td>W8</td></tr><tr><td><b>K6</b></td><td>Ngân sách giờ cố định; quá 2 lần là hỏng</td><td>Chép ý</td><td>Dòng <code>Budget:</code> đầu PROMPT (đã có) + <code>timeout</code> của runner</td><td><code>Budget: &lt;phút&gt;</code> ; quá 2× ⇒ DỪNG</td><td><code>timeout</code> runner/script</td><td>W3</td></tr><tr><td><b>K7</b></td><td>Thấy hỏng chắc chắn thì dừng ngay</td><td>Chép ý</td><td>Script kiểm/DOT/CI</td><td>Lỗi chắc chắn ⇒ thoát mã ≠ 0 ngay, KQ DỪNG</td><td>Trong script</td><td>W3/W8</td></tr><tr><td><b>K8</b></td><td>Đơn giản: cải thiện nhỏ mà thêm rối thì bỏ; xoá code mà kết quả bằng thì thắng</td><td>Chép ý</td><td>Thẻ duyệt của KST/Reviewer</td><td>Một câu luật duyệt; CI in số dòng thêm/bớt</td><td>📝 + CI in số</td><td>W8</td></tr><tr><td><b>K9</b></td><td>Không dừng hỏi người giữa lượt</td><td>Đã có (NO-WAIT, DROOT50/52)</td><td>Khuôn PROMPT mục 7</td><td>Gặp chặn ⇒ KQ DỪNG + NEXT_TRIGGER. <b>Không chép "NEVER STOP / LOOP FOREVER"</b></td><td>📝</td><td>W3</td></tr><tr><td><b>K10</b></td><td>Dồn log ra file, chỉ đọc dòng cần</td><td>Chép ý</td><td>Khuôn PROMPT mục 8</td><td><code>lệnh &gt; log.txt</code>; đọc bằng tìm/cửa sổ nhỏ</td><td>📝</td><td>W3</td></tr><tr><td><b>L1</b></td><td>Ý kiến độc lập: các ghế trả lời trước khi thấy bài Host</td><td>Viết lại ý</td><td>Nhịp B1→B2</td><td>Host đăng <b>ĐỀ</b> trước; phương án của Host chỉ đăng <b>sau khi</b> ≥1 ghế khác hãng đã nộp ý kiến</td><td>Kiểm thứ tự commit. Đây là kiểm tối thiểu, không chứng minh tuyệt đối (D02)</td><td>W4/W5</td></tr><tr><td><b>L2</b></td><td><i>(tuỳ chọn)</i> Ẩn tên phương án A/B/C khi chấm nhiều phương án</td><td>Viết lại ý</td><td>P của Host</td><td>Bảng giải mã giữ trong P; chỉ dùng khi chấm ≥2 phương án; <b>không</b> ẩn danh khi rà KQ Worker</td><td>📝</td><td>W4</td></tr><tr><td><b>L3</b></td><td><b>Dòng kết luận định dạng cứng, máy đọc</b> — món quan trọng nhất</td><td>Viết lại ý</td><td>Là <b>dạng dòng của <code>FLOW_EVENT_V1</code> kind=opinion</b> (HJW §0.15). Không tạo record mới</td><td>Xem <b>Mẫu L3</b></td><td>W5: không có VERDICT khác hãng hợp lệ ⇒ không ký READY được</td><td>W4</td></tr><tr><td><b>L4</b></td><td><i>(tuỳ chọn)</i> Điểm trung bình xếp hạng</td><td>Viết lại ý</td><td>Task View</td><td>Chỉ hiển thị; <b>không</b> thay phiếu/chữ ký</td><td>—</td><td>W7</td></tr><tr><td><b>L5</b></td><td>Chủ toạ ghi rõ "Đồng ở / Khác ở"</td><td>Viết lại ý</td><td>Là <b>dạng dòng của <code>FLOW_EVENT_V1</code> kind=decision</b></td><td>Xem <b>Mẫu L5</b></td><td>W5: kết luận thiếu 2 vế ⇒ từ chối</td><td>W4</td></tr><tr><td><b>L6</b></td><td>Hiện bài gốc cạnh phần máy đọc được</td><td>Viết lại ý</td><td>Task View: màn hội đồng 3 tầng</td><td>Tầng 1 ý kiến từng ghế (link P) · Tầng 2 dòng VERDICT đã đọc · Tầng 3 kết luận Host</td><td>Hiển thị</td><td>W7</td></tr></table></div>
+<p><b>Mẫu K1 — khung <code>PROMPT.md</code></b> (khớp AGENTS A6; PROMPT N0 hiện tại đã gần đúng):</p>
+<pre>  # PROMPT — &lt;tên node&gt;
+  RUN_ID: &lt;mã&gt;            Trạng thái: CANONICAL
+  Executor_Surface: &lt;bề mặt&gt;   Write_Path: &lt;đường ghi&gt;   Budget: &lt;phút&gt; (quá 2× ⇒ DỪNG)
+  ## 0. Chuẩn bị — read-gate: AGENTS → COLLAB → PROMPT; READY đúng SHA; không STOP
+  ## 1. ĐƯỢC LÀM
+  ## 2. KHÔNG ĐƯỢC LÀM
+  ## 3. MỤC TIÊU ĐO ĐƯỢC — một chỉ số chính + cách đo
+  ## 4. ĐẦU RA — khối KQ_V1 (Mẫu K2) + một mục P
+  ## 5. GHI SỔ — giữ / bỏ / hỏng
+  ## 6. QUÁ GIỜ / HỎNG — dừng sớm
+  ## 7. KHÔNG DỪNG HỎI GIỮA LƯỢT — gặp chặn ⇒ KQ DỪNG + NEXT_TRIGGER
+  ## 8. LOG — ghi ra file, chỉ đọc dòng cần
+  ## STEP_WALK_V1 — bảng bước</pre>
+<p><b>Mẫu K2 — khối <code>KQ_V1</code></b> (đặt ngay dưới dòng KQ; trường nào máy/CI sinh được thì máy sinh):</p>
+<pre>---
+KQ_V1
+run_id: &lt;RUN_ID&gt;
+status: XONG | DỪNG
+head_read: &lt;sha đọc lúc read-gate&gt;
+commits: &lt;sha,…&gt;
+checks: &lt;đạt&gt;/&lt;tổng&gt;
+metric: &lt;tên&gt;=&lt;giá trị&gt;
+budget_used_min: &lt;phút&gt;
+next_trigger: &lt;TÊN&gt;
+---</pre>
+<p><b>Mẫu L3 — dòng ý kiến</b> (đã dùng tay ở P05/P08):</p>
+<p><code>VERDICT@&lt;sha bản được rà, ≥8 ký tự&gt; &lt;ĐỒNG Ý | ĐỒNG Ý-CÓ-ĐK | CHẶN&gt; · by=&lt;ghế&gt; · đk=&lt;điều kiện, nếu có&gt;</code></p>
+<ul><li>Máy lấy ghế từ <code>authenticated_actor</code>; <code>by=</code> chỉ để người đọc, lệch thì từ chối.
+</li><li>Bộ đọc <b>đóng khi mơ hồ</b>: sai dạng = không tính.
+</li><li><code>ĐỒNG Ý-CÓ-ĐK</code> chỉ tính là đồng ý khi Host ghi đã giải từng điều kiện.
+</li></ul>
+<p><b>Mẫu L5 — dòng kết luận Host:</b></p>
+<p><code>HOST_DECISION@&lt;sha&gt; &lt;ACCEPTED | PARTIAL | REJECTED&gt; · Đồng ở: &lt;…&gt; · Khác ở: &lt;…&gt; · Quyết: &lt;ĐI_TIẾP | LÀM_LẠI | LÊN_OWNER&gt;</code></p>
+<p><b>KHÔNG LẤY (dứt khoát):</b></p>
+<ul><li><b>X1</b> — mã chạy của llm-council (React/FastAPI/OpenRouter): không giấy phép, bắt buộc API trả phí, khác Nuxt.
+</li><li><b>X2</b> — <code>train.py</code>, <code>prepare.py</code> và 6 repo học AI: mã huấn luyện model.
+</li><li><b>X3</b> — vòng giữ/bỏ tự chạy suốt đêm cho việc bàn: việc bàn không có con số máy tự đo.
+</li><li><b>X4</b> — ẩn danh khi rà KQ Worker: cần biết ai làm để giữ trách nhiệm.
+</li><li><b>X5</b> — <code>LOOP FOREVER / NEVER STOP</code>.
+</li><li>Giao diện Stately: chạy trên web của hãng.
+</li></ul>
+<p>XState: <b>hoãn</b>.</p>
+<p><b>UI cho người (D02):</b></p>
+<ul><li><b>U1</b> — dựng lại thiết kế llm-council thành <b>màn hội đồng 3 tầng</b> của mỗi node, viết bằng Nuxt, không chép mã.
+</li><li><b>U3</b> — <b>Vue Flow</b> (MIT) cho sơ đồ roadmap toàn cảnh: khoá phiên bản; dữ liệu node là của ta; dự phòng Mermaid.
+</li><li><b>U4</b> — giữ thanh bước + logo hãng đang có trên trang Task.
+</li></ul>
+</section>
 
-  <section class="panel">
-    <h2>Roadmap</h2>
-    <div class="bar">
-      <div class="cell done"><span class="tag">xong</span><div class="t">Bàn + kế hoạch</div><div class="w">🤖 GPT + Claude</div></div>
-      <div class="cell done"><span class="tag">xong</span><div class="t">Bản đồ tổng thể</div><div class="w">🤖 P08/P09 chốt</div></div>
-      <div class="cell now"><span class="tag">N0</span><div class="t">VERIFY-GAPS</div><div class="w">🤖 Codex · chưa STARTED</div></div>
-      <div class="cell todo"><span class="tag">N1</span><div class="t">Dọn luật</div><div class="w">🤖 1 khuôn, 1 roster</div></div>
-      <div class="cell todo"><span class="tag">N2</span><div class="t">Chốt máy + UI</div><div class="w">🤖 hội đồng, Host</div></div>
-      <div class="cell todo"><span class="tag">N3</span><div class="t">Chạy thật</div><div class="w">🤖 + đổi Host</div></div>
-      <div class="cell todo"><span class="tag">N4</span><div class="t">Anh nghiệm thu</div><div class="w">😊 30 giây</div></div>
-    </div>
-  </section>
-  <section class="panel">
-    <h2>Đã thống nhất (D02 · D03)</h2>
-    <ul class="reds">
-      <li>✔ Không xây hội đồng mới — ghép cái đã có + mẫu Karpathy</li>
-      <li>✔ Repo: workspace điều hành, mã ở 2 repo hiện có</li>
-      <li>✔ Muốn ghi phải xưng danh; vé 1 lần nếu P443 chứng minh cần</li>
-      <li>✔ UI: bàn hội đồng 3 tầng + Vue Flow, trên đúng trang Task</li>
-      <li>✖ Không: repo mới · engine mới · API trả phí · giao diện Stately</li>
-    </ul>
-  </section>
-  <small class="f">Tình trạng theo văn bản trên repo, chưa đo trên máy thật — N0 đo lại. Karpathy: 16 món đều “chưa làm”, gắn vào khối có sẵn (COLLAB §3.8 Phần 2).</small>
+<section class="panel"><h2>3 · Kế hoạch hợp nhất — gói việc W0–W10</h2>
+<p><b>Các quyết định đã chốt, không bàn lại:</b></p>
+<ul><li>Không xây hội đồng/engine/repo/DB/Task View mới (D03).
+</li><li>Repo theo phương án C: Workspace điều hành; mã ở <code>agent-data-test</code>/<code>web-test</code> (D02).
+</li><li>Một chữ ký READY của Host (DROOT58).
+</li><li>14 món Karpathy dùng + L2/L4 tuỳ chọn; không chép mã (D02/D03).
+</li><li>UI: màn 3 tầng + Vue Flow trong đúng Task View hiện có (D02).
+</li><li>Vé ghi một lần → thay bằng xưng danh một trường (HJW P447).
+</li><li>ACK là đầu mối tích hợp và nghiệm thu cưỡng chế hội đồng chung; mã nằm ở đâu thì chủ ở đó (D04).
+</li><li>Worker N0 = Codex, để Reviewer Claude khác hãng với cả Host lẫn Worker (D04).
+</li><li>Hội đồng Host nhiều chữ ký: chỉ chuẩn bị chỗ trong dữ liệu (D01/D04).
+</li></ul>
+<h3>Thứ tự và phụ thuộc</h3>
+
+<div class="dep">
+ <div class="lane"><div class="box ready">W0 · Đo khoảng trống<small>N0 · READY · Codex</small></div><div class="box ready">W1 · Xưng danh khi ghi<small>HJW RUN11 · READY · Codex Desktop</small></div></div>
+ <div class="arr">▼</div>
+ <div class="lane"><div class="box">W2 · Dọn luật chồng</div><div class="box">W3 · Một khuôn lệnh + báo cáo</div><div class="box">W4 · Dòng ý kiến / kết luận máy đọc</div><div class="note">N1 · 😊 Owner duyệt luật</div></div>
+ <div class="arr">▼</div>
+ <div class="lane"><div class="box key">W5 · Cổng hội đồng trước khi ghi<small>sau W1 + W4</small></div><div class="box">W6 · Chuông Telegram</div><div class="box">W7 · Task View hội đồng</div><div class="note">N2 · 😊 Owner GO</div></div>
+ <div class="lane side"><div class="box wip">W8 · GitHub (GHM làm song song: C2-B, F2)</div></div>
+ <div class="arr">▼</div>
+ <div class="lane"><div class="box">W9 · Chạy thử thật + đổi Host giữa chừng<small>N3</small></div><div class="box">W10 · Anh nghiệm thu 30 giây<small>N4</small></div></div>
+</div>
+<h3>Từng gói việc (bấm để xem đủ: đã có · phải làm · không được làm · đầu vào · đầu ra · kiểm xong)</h3>
+<details class="wp ready" open><summary><span class="wid">W0</span> <b>Đo khoảng trống (N0)</b><br><span class="wm">⬜ READY, chưa STARTED · Worker Codex · Reviewer Claude · Host GPT</span></summary><div class="bb"><ul><li><b>Đã có:</b>
+<ul><li>PROMPT <code>ACK-N0-VERIFY-GAPS-20261028-03</code>.
+</li><li>READY do Host ký ở P09.
+</li></ul>
+</li><li><b>Phải làm</b> (chỉ đọc):
+<ul><li>Đo 7 nhóm: hội đồng (C2), cổng/danh tính (C4), chuông (C5), Bảng cũ (C1.3), GitHub (C7), Task View (C8), chủ quyền (Đ1).
+</li><li>Trả bảng ≤12 hàng: <code>ID | chủ/nguồn | chặn thật ở đâu | ENFORCED/PARTIAL/NOT_ENFORCED/UNKNOWN | bằng chứng | việc tối thiểu còn thiếu</code>.
+</li><li><b>Đo thêm các ẩn số U1–U8 ở 3.0-D.</b>
+</li></ul>
+</li><li><b>Không được làm:</b> không sửa mã, luật, runtime; không đo lại khảo sát P444 hay C2-A; không quét lại cả 115 mục.
+</li><li><b>Đầu ra:</b> một mục P + dòng KQ trong COLLAB này.
+</li><li><b>Kiểm xong:</b> mỗi hàng có bằng chứng; hàng chưa đo ghi UNKNOWN.
+</li><li><b>Owner cần làm:</b> chuyển PROMPT N0 cho Codex.
+</li></ul></div></details>
+<details class="wp ready"><summary><span class="wid">W1</span> <b>Xưng danh khi ghi</b><br><span class="wm">⬜ READY (HJW P447-R), chưa STARTED · chủ HJW · Worker Codex Desktop</span></summary><div class="bb"><ul><li>Nội dung đầy đủ ở <b>Khối 4</b>.
+</li><li>ACK <b>không làm, không rà lại</b>; chỉ nhận kết quả.
+</li><li><b>Kiểm xong (của HJW):</b> C1/C2 đạt, 2 cổng cùng một hợp đồng, Git author và quyền nghiệp vụ không đổi.
+</li><li><b>Owner cần làm:</b> chuyển lệnh RUN11 cho Codex Desktop.
+</li></ul></div></details>
+<details class="wp todo"><summary><span class="wid">W2</span> <b>Dọn luật chồng (N1, gỡ Đ2)</b><br><span class="wm">⚪ · Founders (GPT + Claude) soạn → Owner duyệt</span></summary><div class="bb"><ul><li><b>Phải làm:</b> viết <b>một D ở COLLAB gốc</b> gồm các dòng "thay bởi". <b>Không xoá lịch sử</b>, không biên soạn lại 88 KB AGENTS.
+<ul><li><b>a.</b> DROOT31 và DROOT38(c) (đòi Reviewer ACCEPT) → <i>thay bởi DROOT58</i>.
+</li><li><b>b.</b> HJW §0.2/HĐ4/§0.15 số vòng theo DROOT55 → <i>thay bởi DROOT57</i>.
+</li><li><b>c.</b> Quorum: ghi rõ hai điều kiện <b>cùng áp</b>, không loại nhau:
+<ul><li>Ít nhất 1 ý kiến khác hãng (DROOT57).
+</li><li>Ghế có đường gọi máy + biên nhận thì vắng ≤ <code>floor(non_host/2)</code> (A5); ghế Owner chuyển tay không bị tính vắng.
+</li></ul>
+</li><li><b>d.</b> Luật ký TQT 3.3 "≥2/4": Founders quyết giữ làm luật riêng của TQT, hay <i>thay bởi DROOT58</i>.
+</li><li><b>e.</b> AGENTS A10-R4 và DROOT59(3) về biên nhận Telegram: Founders quyết; có 5 nơi đang dựa vào.
+</li><li><b>f.</b> README §11 + AGENTS A8: thêm ngoại lệ GHM (DROOT56).
+</li><li><b>g.</b> Hermes-Mac trong AGENTS A2, A5-AUTO, DROOT44(h), DROOT46(c) → <i>bỏ theo HUMAN_DIRECTIVE@HJW-OWNER-20261022-02</i>. Chỉ làm <b>sau khi</b> HJW chốt P438 (Đ3).
+</li><li><b>h.</b> <b>Một danh sách ghế chuẩn</b> ở AGENTS A9 (bảng nhãn), có thêm <b>cột hãng máy đọc được</b>: <code>nhãn chìa → ghế → hãng</code>. Các task chỉ trỏ tới. Cột này là đầu vào của W5 để kiểm "khác hãng".
+</li><li><b>i.</b> Định nghĩa <b>"đồng ý khác hãng"</b> (ACK §1.3) — <b>đề xuất của Claude, Owner quyết:</b>
+<ul><li>"Đồng ý" = ít nhất một dòng VERDICT <code>ĐỒNG Ý</code>, hoặc <code>ĐỒNG Ý-CÓ-ĐK</code> đã giải điều kiện, của ghế khác hãng với Host, gắn đúng bản.
+</li><li>Có <code>CHẶN</code> chưa giải thì Host <b>không ký READY</b> trong vòng đó: mở vòng tiếp (tối đa 3) hoặc đưa Owner.
+</li><li>Host vẫn là người quyết. Reviewer vẫn <b>không ký READY</b>.
+</li></ul>
+</li></ul>
+</li><li><b>Đầu ra:</b> 1 D + 1 dòng "Owner cần quyết".
+</li><li><b>Kiểm xong:</b> mỗi xung đột a–i có đúng một dòng hiệu lực; tìm trong repo không còn hai luật trái nhau cùng hiệu lực.
+</li></ul></div></details>
+<details class="wp todo"><summary><span class="wid">W3</span> <b>Một khuôn PROMPT + một khuôn KQ (N1)</b><br><span class="wm">⚪ · Host soạn, Claude rà</span></summary><div class="bb"><ul><li><b>Phải làm:</b>
+<ul><li>Đưa Mẫu K1 + K2 (kèm K6, K7, K9, K10) vào AGENTS A6 thành <b>khuôn duy nhất</b>. Ánh xạ: CT-000.1, MOW-TH-005, R37 và Cổng sẵn sàng <b>trỏ vào</b> khuôn này, không thành khuôn thứ 5 (Đ4).
+</li><li>Dùng chính PROMPT N1 của ACK làm bản đầu tiên.
+</li></ul>
+</li><li><b>Không được làm:</b> tạo <code>NODE_V1</code>; tạo file mẫu riêng.
+</li><li><b>Kiểm xong:</b> PROMPT N1 theo đúng khuôn; một AI khác hãng đọc khuôn và viết được một PROMPT đúng mà không hỏi lại.
+</li></ul></div></details>
+<details class="wp todo"><summary><span class="wid">W4</span> <b>Dòng ý kiến và kết luận máy đọc (N1 hợp đồng)</b><br><span class="wm">⚪ · Host + Claude soạn → Founders/Owner</span></summary><div class="bb"><ul><li><b>Phải làm:</b>
+<ul><li>Chốt Mẫu L3 (VERDICT) và L5 (HOST_DECISION) làm <b>dạng dòng của <code>FLOW_EVENT_V1</code></b> (kind = opinion/decision) và L1 (thứ tự đề → ý kiến → phương án Host).
+</li><li><code>TASK_POLICY_V1.required_members</code> <b>lấy từ khối COUNCIL_BOOTSTRAP_V1</b>, không khai lần hai.
+</li><li>Máy tự suy trạng thái (<code>ĐANG_BÀN · CHỜ_HOST_CHỐT · ĐÃ_CHỐT · BELL_HOLD</code>) từ các dòng, <b>không ghi tay <code>state=</code></b> (HJW §0.15).
+</li></ul>
+</li><li><b>Không được làm:</b> tạo <code>DECISION_V1</code>, sổ ghế hay DB mới.
+</li><li><b>Kiểm xong:</b> bộ đọc mẫu chạy trên COLLAB thật của ACK đọc đúng các dòng VERDICT ở P05/P08/P11; một dòng sai dạng bị loại.
+</li></ul></div></details>
+<details class="wp todo" open><summary><span class="wid">W5</span> <b>Cổng hội đồng TRƯỚC KHI GHI (N2, gỡ Đ1)</b><br><span class="wm">⚪ · chủ mã: cổng Agent Data + cổng Claude MCP · ACK đầu mối và nghiệm thu · <b>cần Owner GO N2</b></span></summary><div class="bb"><ul><li><b>Dùng lại cái có</b> (JEV chọn P1, 1,00):
+<ul><li>Mở rộng <code>post_guard</code> (đang chặn Hermes giả <code>Host:</code>/<code>READY@</code>/<code>KQ@</code>) thành <b>"council guard"</b> áp cho <b>mọi</b> danh tính.
+</li><li>Đặt ở <b>đúng 2 điểm chặn mà W1 dựng xong</b>, dùng một bộ kiểm chung cho 2 cổng.
+</li><li>Scanner chỉ dùng để <b>báo chuông</b>, không thay cổng. Task View chỉ hiển thị.
+</li></ul>
+</li><li><b>Phải làm</b> — khi một lần ghi <b>thêm</b> các dòng sau thì kiểm trên văn bản cuối, trước commit:
+<ol><li><b>Thêm dòng READY</b> (<code>READY@</code> + SHA):
+<ul><li>(i) Việc có khối bootstrap hợp lệ.
+</li><li>(ii) Người ghi (<code>authenticated_actor</code>) là ghế Host/Co-host của việc.
+</li><li>(iii) SHA = commit cuối chạm <code>PROMPT.md</code>.
+</li><li>(iv) Có ≥1 VERDICT <code>ĐỒNG Ý</code>/<code>ĐỒNG Ý-CÓ-ĐK đã giải</code> của ghế khác hãng với Host, gắn bản PROMPT đó hoặc gắn chuỗi <code>REVIEW_REUSED</code> hợp lệ.
+</li><li>(v) Không có <code>CHẶN</code> chưa giải.
+</li><li>(vi) Không có <code>COUNCIL_ALERT</code> đang mở trong việc.
+</li><li>(vii) Số vòng ≤3.
+</li></ul>
+</li><li><b>Thêm <code>HOST_DECISION@</code>:</b> người ghi là Host; có ≥1 VERDICT khác hãng cho bản đó; đủ 2 vế "Đồng ở / Khác ở".
+</li><li><b>Thêm <code>VERDICT@</code>:</b> người ghi là ghế trong danh sách hội đồng, không phải Host. Nếu đang rà KQ thì không phải Worker của KQ đó.
+</li><li><b>Thêm dòng KQ</b> (<code>KQ@</code> + RUN_ID): người ghi là Worker của RUN đó; đã có <code>STARTED@</code> của RUN; có khối <code>KQ_V1</code>.
+</li><li><b>Mở/gỡ <code>COUNCIL_ALERT</code>:</b> người gỡ không phải người bị tố. Host bị tố thì chỉ Owner gỡ.
+</li><li><b>Đổi dòng <code>Host:</code>:</b> vẫn cho ghi (Owner có thể chỉ định qua lời), nhưng <b>báo chuông Cấp 1</b> để Owner thấy ngay.
+</li></ol>
+</li><li><b>Lỗi khi bị từ chối:</b> tự hướng dẫn như <code>DECLARATION_REQUIRED</code>. Ví dụ: <code>{"error":"COUNCIL_RULE_DENIED","rule":"A6/DROOT58","missing":"VERDICT khác hãng cho &lt;sha&gt;","how_to_fix":"…","mutation":"none"}</code>.
+</li><li><b>Bật dần:</b>
+<ol><li>Chế độ "chỉ báo" (ghi log + Telegram, không chặn) trên 1 việc thật.
+</li><li>Chặn cho các việc tự đăng ký qua <code>TASK_POLICY_V1</code>.
+</li><li>Chặn toàn hệ.
+</li></ol>
+</li><li><b>Bảo vệ:</b> thêm các ca âm vào probe INV19 (<code>scripts/mcpw-protection-guard</code>).
+</li><li><b>Không được làm:</b>
+<ul><li>Dựng dịch vụ/DB/engine mới.
+</li><li>Chặn việc đọc.
+</li><li>Đổi AGENTS A2.
+</li><li>Sửa bản checkout rồi đè lên container (xem U1).
+</li></ul>
+</li><li><b>Đầu vào:</b> KQ W0 (U1–U4), hợp đồng W4 đã duyệt, W1 đã xong.
+</li><li><b>Đầu ra:</b> bản vá nhỏ nhất; ca thử; tài liệu lỗi; đường lùi.
+</li><li><b>Kiểm xong:</b> phép thử 1–8 và 10 ở 3.0-E bị từ chối <b>trước khi ghi</b>, có lỗi tự hướng dẫn, 0 thay đổi; lần ghi hợp lệ vẫn qua; đã chạy "chỉ báo" ≥1 việc thật.
+</li></ul></div></details>
+<details class="wp todo"><summary><span class="wid">W6</span> <b>Chuông hội đồng tới Telegram (N2)</b><br><span class="wm">⚪ · cần Owner GO N2</span></summary><div class="bb"><ul><li><b>Phải làm:</b>
+<ul><li>Mỗi lần W5 từ chối và mỗi dòng <code>COUNCIL_ALERT@… OPEN</code> → báo <b>Cấp 1 Telegram ≤5 phút</b>, đi qua đường Guard → Kuma → Telegram đã có (DROOT59).
+</li><li>Thêm thẻ <b>"Đúng chỉ đạo / Sai"</b> cho <code>HUMAN_DIRECTIVE</code>.
+</li></ul>
+</li><li><b>Không được làm:</b> dựng bot/notifier mới; dùng monitor Kuma kiểu PostgreSQL (lỗi #7728).
+</li><li><b>Kiểm xong:</b> phép thử 11.
+</li></ul></div></details>
+<details class="wp todo"><summary><span class="wid">W7</span> <b>Task View cho hội đồng (N2)</b><br><span class="wm">⚪ · chủ HVU · Worker đề xuất Codex · cần Owner GO N2</span></summary><div class="bb"><ul><li><b>Phải làm</b> — sửa đúng mã chạy thật <code>hvu-b2/sync.py</code> (đọc thêm dòng <code>Host:</code>, khối bootstrap, VERDICT, HOST_DECISION, KQ_V1, COUNCIL_ALERT vào <code>tasks.json</code>) và <code>ui/app.vue</code>:
+<ul><li><b>(a)</b> hiện Host;
+</li><li><b>(b)</b> hàng ghế: ai đã/thiếu ý kiến;
+</li><li><b>(c)</b> màn hội đồng 3 tầng (U1/L6);
+</li><li><b>(d)</b> sơ đồ roadmap Vue Flow (U3, khoá phiên bản);
+</li><li><b>(e)</b> <b>Bảng cũ thì đỏ</b> (DROOT33: READY/KQ mới hơn ngày "cập nhật" của Bảng);
+</li><li><b>(f)</b> sổ giữ/bỏ/hỏng (K3);
+</li><li><b>(g)</b> <i>(tuỳ chọn)</i> điểm xếp hạng (L4).
+</li></ul>
+</li><li><b>Không được làm:</b>
+<ul><li>Tạo trang/app/đường dữ liệu thứ hai.
+</li><li>Đặt ở <code>/reports</code> (đang mở ẩn danh).
+</li><li>Sửa bản GitHub thay cho bản chạy thật.
+</li></ul>
+</li><li><b>Kiểm xong:</b> phép thử 12 + ảnh trang Task; số liệu trên trang khớp COLLAB; <code>view.html</code> của ACK không còn phải vẽ tay.
+</li></ul></div></details>
+<details class="wp wip"><summary><span class="wid">W8</span> <b>Phần mã GitHub (GHM)</b><br><span class="wm">🔵 · chủ GHM · ACK chỉ nhận kết quả</span></summary><div class="bb"><ul><li>C2-B (K4, K5): ruleset + check bắt buộc.
+</li><li>Thẻ dev riêng để "chỉ KST merge" (Đ6).
+</li><li>K7/K8 vào luật duyệt KST.
+</li><li>F2 (3 agent song song).
+</li></ul></div></details>
+<details class="wp todo"><summary><span class="wid">W9</span> <b>Chạy thử thật (N3)</b><br><span class="wm">⚪</span></summary><div class="bb"><ul><li><b>Việc chạy thử:</b> một việc thật có ≥3 node (đề xuất: một node của GHM F2 hoặc chính N1 của ACK).
+</li><li><b>Thứ tự:</b> Host → Reviewer → Worker → KQ → Reviewer → Host, có máy W5/W6 bật.
+</li><li><b>Giữa chừng đổi Host sang hãng khác</b> ("Host lạnh", không có lịch sử chat; chỉ đọc repo).
+</li><li>Cố tình làm 3 việc sai để xem chuông kêu.
+</li><li><b>Kiểm xong:</b> phép thử 13 + 3 chuông tới Telegram + Host mới đi đúng bước kế.
+</li></ul></div></details>
+<details class="wp todo"><summary><span class="wid">W10</span> <b>Owner nghiệm thu (N4)</b><br><span class="wm">⚪</span></summary><div class="bb"><ul><li>Owner mở một trang, khoảng 30 giây thấy: mục tiêu · đang ở node nào · ai thiếu ý kiến · VERDICT · KQ · bước kế · có gì đỏ.
+</li><li>Owner nói "đạt" thì mới bàn nâng AUTO.
+</li></ul></div></details><p><b>Ngoài phạm vi N0–N4</b> (ghi chủ, không bỏ quên):</p>
+<ul><li>Hội đồng Host nhiều chữ ký (ACK, sau N4).
+</li><li>AUTO1+ (Owner).
+</li><li>Ghế Dot đầy đủ / GPT Live (HJW).
+</li><li>Hermes-Mac (HJW, Đ3).
+</li><li>Nợ MCPW: lease, NEXT tự động, SSH riêng, REST/Directus (Đ5, chưa có chủ — Host cần chỉ định).
+</li><li>Vector/Graph cho hội đồng (GS, sau N4).
+</li><li>CT-000.1 cho quy trình nghiệp vụ (MBM).
+</li></ul>
+</section>
+
+<section class="panel"><h2>4 · Những điều chưa biết — phải đo, không được đoán</h2>
+<div class="tw"><table><tr><th>Mã</th><th>Chưa biết</th><th>Vì sao quan trọng</th><th>Đo thế nào</th></tr><tr><td>U1</td><td>Bản mã đang chạy của 2 cổng (Agent Data, Claude MCP) khác bản checkout (P444)</td><td>W1/W5 phải vá đúng bản đang chạy</td><td>Digest image + hash file trong container; so với Git</td></tr><tr><td>U2</td><td><code>post_guard</code> có trong <b>bản đang chạy</b> không; cổng <code>fs_*</code> có gì tương đương không</td><td>Quyết W5 là "mở rộng" hay "thêm mới ở fs_*"</td><td>Đọc mã trong container + probe INV19</td></tr><tr><td>U3</td><td><code>hjw_gate.py</code> đang chạy ở đâu, chu kỳ bao lâu, đọc được dòng ngoài vùng máy không</td><td>W6 dùng lại scanner hay Guard</td><td>Tìm service/timer + đường dẫn file</td></tr><tr><td>U4</td><td>Mã Task View đang chạy có khớp <code>hvu-b2/</code> không; <code>tasks.json</code> có trường gì</td><td>W7 sửa đúng chỗ</td><td>Hash + đọc <code>parse_task</code></td></tr><tr><td>U5</td><td>Nhãn chìa → hãng: đã có bảng máy đọc được chưa</td><td>W5 kiểm "khác hãng"</td><td>Đọc cấu hình profile cổng + AGENTS A9</td></tr><tr><td>U6</td><td><code>COUNCIL_ALERT</code> đi tới Telegram bằng đường nào sẵn có</td><td>W6</td><td>Guard → Kuma push → Telegram: thử ở fixture</td></tr><tr><td>U7</td><td>GHM C2-B đã chạy chưa; main đã thật sự khoá chưa</td><td>W8</td><td>Đọc ruleset qua API (Pro đã có)</td></tr><tr><td>U8</td><td>Có đường ghi nào vào repo <b>đi vòng</b> 2 cổng (SSH root, deploy key, git trên VPS…)</td><td>Nếu có thì "không thể làm sai" chưa đúng</td><td>Kiểm kê đường ghi + ruleset</td></tr></table></div>
+</section>
+
+<section class="panel"><h2>5 · Thế nào là xong cả dự án — 14 phép thử</h2>
+<p>Mỗi phép thử chạy trên fixture trước, rồi trên một việc thật. <b>Bị từ chối nghĩa là bị chặn trước khi ghi</b>, có lỗi tự hướng dẫn, 0 thay đổi.</p>
+<ol><li>Ghế không phải Host ghi READY → bị từ chối.
+</li><li>READY khi chưa có ý kiến khác hãng → bị từ chối.
+</li><li>READY khi còn VERDICT <code>CHẶN</code> chưa giải → bị từ chối.
+</li><li>READY sai SHA (không phải commit cuối chạm PROMPT) → bị từ chối.
+</li><li>READY khi chuông đang mở → bị từ chối.
+</li><li>Mở vòng thứ 4 → bị từ chối.
+</li><li>Dòng KQ ghi bởi ghế không phải Worker, hoặc chưa có STARTED → bị từ chối.
+</li><li>Worker tự VERDICT cho KQ của mình → không được tính.
+</li><li>Ghi thiếu <code>declared_actor</code> → <code>DECLARATION_REQUIRED</code>, 0 thay đổi (W1).
+</li><li>Việc thiếu khối hội đồng → không ký READY được.
+</li><li>Chuông mở → Owner nhận Telegram ≤5 phút.
+</li><li>Bảng cũ hơn READY/KQ → Task View hiện đỏ.
+</li><li>Đổi Host sang hãng khác giữa chừng → Host mới chỉ đọc repo vẫn đi đúng bước kế; quyền ký chuyển theo dòng <code>Host:</code>.
+</li><li>Ghi thẳng vào GitHub không qua cổng → bị 409 (đã có, chạy lại để giữ).
+</li></ol>
+</section>
+
+<section class="panel"><details class="inv"><summary><b>Đếm 115 mục theo khối × tình trạng</b> (ma trận P08)</summary><div class="tw"><table class="mx"><tr><th>Khối</th><th>🟢<br><small>Máy chặn</small></th><th>🟡<br><small>Chạy tay</small></th><th>📝<br><small>Chỉ chữ</small></th><th>🔵<br><small>Đang làm</small></th><th>⚪<br><small>Chưa làm</small></th><th>🆕<br><small>Mục tiêu mới</small></th><th>✖<br><small>Bỏ/thay</small></th><th>🔴</th><th>Σ</th></tr><tr><th>Khung việc</th><td class="z">·</td><td class="RUN">4</td><td class="TXT">1</td><td class="WIP">2</td><td class="PLAN">3</td><td class="NEW">1</td><td class="z">·</td><td class="red">2</td><td>11</td></tr><tr><th>Hội đồng</th><td class="z">·</td><td class="RUN">10</td><td class="TXT">6</td><td class="WIP">1</td><td class="PLAN">3</td><td class="z">·</td><td class="z">·</td><td class="red">5</td><td>20</td></tr><tr><th>Giao–Làm–Báo</th><td class="ENF">2</td><td class="RUN">6</td><td class="TXT">1</td><td class="z">·</td><td class="PLAN">1</td><td class="NEW">1</td><td class="z">·</td><td class="red">1</td><td>11</td></tr><tr><th>Cổng ghi</th><td class="ENF">7</td><td class="RUN">1</td><td class="TXT">1</td><td class="WIP">1</td><td class="PLAN">3</td><td class="z">·</td><td class="DROP">1</td><td class="red">3</td><td>14</td></tr><tr><th>Chuông</th><td class="ENF">1</td><td class="RUN">5</td><td class="TXT">2</td><td class="z">·</td><td class="PLAN">2</td><td class="z">·</td><td class="z">·</td><td class="red">2</td><td>10</td></tr><tr><th>Tự động</th><td class="ENF">2</td><td class="RUN">3</td><td class="z">·</td><td class="z">·</td><td class="PLAN">4</td><td class="NEW">1</td><td class="DROP">2</td><td class="red">3</td><td>12</td></tr><tr><th>Mã GitHub</th><td class="ENF">2</td><td class="RUN">3</td><td class="z">·</td><td class="WIP">2</td><td class="PLAN">5</td><td class="z">·</td><td class="z">·</td><td class="red">2</td><td>12</td></tr><tr><th>Màn hình</th><td class="z">·</td><td class="RUN">7</td><td class="TXT">1</td><td class="z">·</td><td class="PLAN">2</td><td class="NEW">1</td><td class="z">·</td><td class="red">1</td><td>11</td></tr><tr><th>Trợ lực</th><td class="ENF">1</td><td class="RUN">2</td><td class="z">·</td><td class="z">·</td><td class="PLAN">2</td><td class="NEW">1</td><td class="DROP">1</td><td class="z">·</td><td>7</td></tr><tr><th>Nguyên tắc</th><td class="z">·</td><td class="RUN">2</td><td class="TXT">5</td><td class="z">·</td><td class="z">·</td><td class="z">·</td><td class="z">·</td><td class="red">2</td><td>7</td></tr><tr class="sum"><th>Cộng</th><td>15</td><td>43</td><td>17</td><td>6</td><td>25</td><td>5</td><td>4</td><td class="red">21</td><td>115</td></tr></table></div></details>
+<details class="inv"><summary><b>Từ điển một phút</b></summary><div class="tw"><table><tr><th>Chữ</th><th>Nghĩa</th></tr><tr><td>Owner</td><td>Anh Huyền: đặt mục tiêu, quyết cuối, chỉ định Host</td></tr><tr><td>Host</td><td>AI chủ trì một việc (task này: GPT Chat). Owner chỉ định, đổi được</td></tr><tr><td>Ghế</td><td>Một chỗ trong hội đồng của một việc. Một danh tính máy = một ghế = một phiếu</td></tr><tr><td>Reviewer</td><td>Ghế phản biện. Phải khác hãng với Host, và khác hãng với Worker khi rà kết quả</td></tr><tr><td>Worker</td><td>AI làm việc cụ thể (Codex, Claude Code…). Không tự nghiệm thu việc mình</td></tr><tr><td>Founders</td><td>GPT Chat + Claude Chat: giữ và diễn giải luật nền <code>AGENTS.md</code></td></tr><tr><td>COLLAB.md</td><td>Sổ của một việc trên repo: nguồn sự thật duy nhất của việc đó</td></tr><tr><td>Bảng</td><td>Bảng điều khiển 8 dòng đầu COLLAB: mục tiêu · xong khi · tiến độ · đã xong · đang làm · còn lại · bước kế · không làm</td></tr><tr><td>PROMPT.md</td><td>Lệnh giao cho Worker. Mỗi việc một file, sửa tại chỗ</td></tr><tr><td>READY@‹mã commit›</td><td>Chữ ký duy nhất của Host: "lệnh này được chạy", gắn đúng bản PROMPT</td></tr><tr><td>STARTED@ / KQ@</td><td>Worker báo "đang làm" / "xong hoặc dừng"</td></tr><tr><td>NEXT_TRIGGER</td><td>Một dòng: việc kế tiếp là gì, ai làm</td></tr><tr><td>P01, P02… / D01…</td><td>Mục ý kiến/kết luận trong COLLAB / quyết định Host đã chốt</td></tr><tr><td>Gateway (cổng ghi)</td><td>Repo chỉ ghi được qua 2 cổng: <code>workspace_*</code> (Agent Data) và <code>fs_*</code> (Claude MCP)</td></tr><tr><td>Xưng danh</td><td>Khi ghi phải tự khai tên (<code>declared_actor</code>); danh tính thật lấy từ chìa máy (<code>authenticated_actor</code>)</td></tr><tr><td>VERDICT</td><td>Dòng ý kiến máy đọc được: ĐỒNG Ý / ĐỒNG Ý-CÓ-ĐK / CHẶN (đang đề xuất, xem 3.0-B L3)</td></tr><tr><td>Chuông (<code>COUNCIL_ALERT</code>)</td><td>Ai thấy làm sai quyền/quy trình thì mở; chuông mở thì chặn bước kế</td></tr><tr><td>HUMAN_DIRECTIVE</td><td>Dòng ghi nguyên văn chỉ đạo của Owner</td></tr><tr><td>AUTO0…AUTO3</td><td>Mức tự động. Hiện mọi việc ở AUTO0 = Owner chuyển lệnh tay</td></tr><tr><td>🟢 Máy chặn · 🟡 Làm tay · 📝 Chỉ chữ</td><td>Máy từ chối được việc sai · có làm nhưng người tự giữ · mới có luật</td></tr><tr><td>Task View</td><td>Trang Owner xem: <code>vps.incomexsaigoncorp.vn/knowledge/modules?task=&lt;tên việc&gt;</code></td></tr><tr><td>Task gốc</td><td>HJW = hermes-joint-workspace · MCPW = done-tasks/mcp-workspace · GHM = github-management · HVU = hpml-view-for-user · GS = graph-server · TQT = tools-quy-trinh · NDW = nhap-directus-for-workflow · MBM = mbm-qtth-07-ve-ui-mow · GJW = done-tasks/gemini-join-workflow · JEV = done-tasks/jev-integration · ASI = done-tasks/agents-self-improving · ACK = task này</td></tr></table></div></details></section>
+
+<section class="panel rule"><b>Quy tắc giữ nội dung (chỉ đạo Owner 21:45):</b><ol><li>Không ai, kể cả Host, được xoá, rút gọn hay viết lại câu trong mục 3.0.
+</li><li>Muốn đổi: thêm một dòng <code>↳ CẬP NHẬT &lt;ngày&gt; · &lt;ghế&gt; · P&lt;số&gt;: &lt;nội dung mới&gt;</code> ngay dưới dòng cần đổi. Dòng cũ sai hẳn thì gạch <code>~~…~~</code>, giữ nguyên chữ cũ. Lý do ghi ở mục P.
+</li><li>Số liệu đo lại: viết thêm <code>đo lại &lt;ngày&gt;: …</code>, không xoá số cũ.
+</li><li>Viết cho người đọc: lời thường trước, mã viết tắt (DROOT, P, RUN_ID…) để trong ngoặc cho AI tra.
+</li><li>Bảng điều khiển vẫn ghi đè theo AGENTS MT4, nhưng phải theo điểm 4.
+</li><li>Ghế nào thấy vi phạm được mở chuông <code>COUNCIL_ALERT</code> loại PROCESS.
+</li><li>Trong COLLAB, không để dòng nào bắt đầu bằng <code>## </code> ngoài đầu mục thật, kể cả trong khối mã. Task View (<code>sync.py</code>) coi dòng đó là đầu mục mới và cắt §0 (đã xảy ra ở commit <code>cd5d1640</code>, sửa ngay ở commit kế).
+</li></ol></section>
+<small class="f">Sinh từ COLLAB §3.0 + §3.8 (Claude P11, 28/10/2026). Khi Task View làm xong W7, trang này sẽ do máy dẫn xuất, không vẽ tay.</small>
 </main></body></html>
