@@ -69,13 +69,13 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>P82 · Phương án D: quyền đọc catalog và rào công bố</h2>
+<section class="owner-actions ok"><h2>P84 · PG-A2b đã READY, chờ lệnh chuyển Claude Code CLI</h2>
 <p>Cấu trúc PG Tự quản giữ nguyên: PG catalog đọc sống, 2 VIEW V1/V2 native, S4 quyết định khi được duyệt. Nguồn trạng thái RUN duy nhất: Bảng điều khiển trong COLLAB.md.</p>
-<p>Claude P81 đã đo trên PG thật: vai <code>directus</code> kế thừa <code>context_pack_readonly</code>; đổi membership có thể tác động 12 quan hệ ở DB <code>incomex_metadata</code> và FDW. Host P82 chọn D: giữ nguyên role và SQL P75, chấp nhận quyền gián tiếp khi Owner duyệt G1/G2 mới. VIEW <code>security_invoker</code> dùng catalog PUBLIC nhưng không thay thế bảo vệ cổng HTTP.</p>
-<p class="muted">Điều kiện công bố: không thêm Directus collection/permission hay <code>table_registry</code>, không đưa hai VIEW lên Nuxt Reports khi API chưa có xác thực Owner-only. PG-A2b chỉ chạy sau Owner G1/G2 trực tiếp, Host READY đúng SHA và Owner dispatch; STARTED/KQ cập nhật ở COLLAB.</p></section>
+<p>Claude P81 đã đo PG thật. Owner 28/10 giao Host tự quyết phương án; Host P83 chốt D/G1G2 trong phạm vi 2 VIEW và ưu tiên DOT để các AI không thao tác PG/Collection tuỳ tiện. Giữ nguyên role/SQL P75, không có API hay collection mới trong lượt này.</p>
+<p class="muted">Host P84 ký READY trên đúng SHA PROMPT mới; đây chỉ là lệnh sẵn sàng, chưa có Agent STARTED và chưa tạo VIEW. Owner chuyển lệnh DROOT38 cho Claude Code CLI. Hai VIEW không được đưa lên Nuxt/Directus Reports trước khi Owner-only auth đạt; đây là rào công bố dài hạn, không cản bước dựng sổ.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
 <span class="flag">P55 · PG đọc sống + Census + Graph · Ba Lô LEGACY</span>
-<span class="flag">Lộ trình: P81 đo thật → Owner G1/G2 → PG-A2b 2 VIEW → S4/V3/Reports có đăng nhập → TS4–TS5</span>
+<span class="flag">P81 đo thật → P83 Owner giao quyết/Host chốt D → P84 READY → Claude Code CLI S0–S5 → S4/V3/Reports auth</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <section class="arch-figure" aria-label="P65 hai nhóm PG-first và ranh giới ngoài PG">
@@ -138,7 +138,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <div class="milestone-path" aria-label="Thứ tự các mốc, kéo ngang để xem hết">
  <div class="milestone-node"><strong>✅ B0b</strong><span>🤖 XONG P27: hai công cụ đã được bảo vệ</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>✅ TS1 · ĐẾM</strong><span>XONG khảo sát P52; còn 3 DB + Graph/đăng nhập thiếu</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node"><strong>PG-A2b · 2 VIEW</strong><span>Phương án D đã được Host chốt; chỉ chạy sau Owner G1/G2 + READY, không đổi role hay công bố Report</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>PG-A2b · 2 VIEW</strong><span>READY P84 đã ký; chờ Owner chuyển lệnh → Claude Code CLI chạy bằng DOT, không đổi role/không công bố Report</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS3 · SỔ</strong><span>😊 Duyệt cột → 🤖 tạo sổ quyết định + trang Nuxt</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS4–TS5</strong><span>🤖 Máy tự sửa lỗi được phép, cảnh báo có hạn; chỉ phát sinh 1 vụ khi cần người</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>B1–B5</strong><span>Công thức → Workflow</span></div>
@@ -185,7 +185,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <p>Hai VIEW chỉ đọc V1 <code>public.v_pg_asset_catalog</code> và V2 <code>public.v_pg_dependency_edges</code> đều tạo trong database <code>directus</code> bằng DOT. Phương án D giữ <code>directus→context_pack_readonly</code> như hiện hữu, tránh thu quyền có thể làm gãy consumer; không biến VIEW thành điểm công bố Internet.</p>
 <p>Phạm vi đã kiểm P81: 1 cạnh membership, 12 quan hệ bị ảnh hưởng khi đổi vai tại <code>incomex_metadata</code>, 14 catalog PUBLIC. Nuxt <code>/api/reports/live</code> chỉ chạy SQL đã đăng ký, hiện hai VIEW chưa có dòng đăng ký theo phép đo P81. Đây không phải bằng chứng tất cả đường HTTP đã an toàn: cổng Reports Owner-only P0 vẫn phải khép trước khi công bố.</p>
 <p>Hai SQL từ P75 giữ nguyên SHA: áp <code>b5910340…d31d</code> và lùi <code>bd19885f…30e3</code>. Config Guard quản lý 2 tệp SQL/2 hàng registry/2 dòng manifest qua <code>incomex-config-apply-v0</code>, cổng DOT phải tự thử trước ghi. Đường lùi REVOKE + COMMENT là lùi chức năng, VIEW còn trong PG; không DROP tự động.</p>
-<p>Owner G1/G2 trực tiếp phê duyệt quyền đọc gián tiếp trước Host READY; câu Claude đề xuất không tính là Owner duyệt. Không sửa Nginx, Kuma, Graph, PG roles, hoặc tạo S4/V3 trong lượt PG-A2b.</p>
+<p>Phạm vi Host được Owner giao quyết ở P83 chỉ cho đúng hai VIEW SQL P75. P84 đã READY, Owner chuyển lệnh để Agent bắt đầu; không tự động sửa Nginx, Kuma, Graph, PG roles hoặc S4/V3. Tương lai công bố qua API phải đánh giá auth/least privilege ở lượt riêng.</p>
 <p>Các phần tiếp theo theo §3.KH: quyết định S4, V3 đối soát, khóa Graph có DB, đồng bộ <code>dot_tools</code>, bảo vệ Nuxt Reports Owner-only, TS4 phân loại, TS5 cảnh báo. Nợ PG-L1, FDW mapping, 24 SECURITY DEFINER, 7 queue jobs, Kuma E1 để đúng Host/phạm vi.</p>
 <p>Không lấy trạng thái dự đoán trong hình làm chứng cứ sản xuất. KQ thật và cổng tiếp theo đọc tại COLLAB/PROMPT; P79 và P80 lưu lịch sử dừng đúng, không chạy lại lệnh cũ.</p>
 <p>PG-L0 bổ sung kiểm lại cổng read-only query_pg (role context_pack_readonly, READ ONLY), phiên Kuma có so giá trị SQL trả về không (upstream #7728 báo không), nginx bảo vệ đủ /reports/API/origin, 7 Directus Flows/pg-boss lịch sử và RAG/Qdrant/Graph thực. Không khẳng định đã hoạt động chỉ vì có tên trong tài liệu. Git chỉ lưu thay đổi đã commit, hash thiếu baseline => UNKNOWN. Tiêu chí 0/kiến trúc P67 trên COLLAB là bản chốt.</p>
