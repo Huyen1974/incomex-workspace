@@ -9,13 +9,13 @@ Phạm vi task: work/ai-council-karpathy/; Owner ngày 28/10/2026 cho triển kh
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 28/10/2026 giao lập task để thảo luận; sau P05/P06 đã cho **triển khai song song trong phạm vi N0 chỉ đọc**. Chỉ đạo mới trong ngày: **tổng hợp cái hệ đã có + phần lấy từ Karpathy**, không xây lại Hội đồng/ghế/luật. D03/§3.7 là bản tích hợp chuẩn. Host hiện tại GPT Chat do Owner chỉ định; chưa có quyền sửa production, đổi luật nền, tạo repo mới hoặc tự chạy N1–N4.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 20:58 +07 · GPT Host · P09
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 21:10 +07 · GPT Host · P10
 - 🎯 **Mục tiêu:** **HỢP NHẤT CÁI ĐÃ CÓ + KARPATHY; KHÔNG LÀM HỆ MỚI.** Hội đồng/Host/ghế/luật ở AGENTS+HJW, ghi ở MCPW, xem ở HVU, code ở GHM. Chỉ bổ sung các mẫu Karpathy có ích và điểm cưỡng chế còn thiếu, giữ AI/Host đổi được.
 - 🏁 **Xong khi:** MỘT bản đồ 115 mục có nguồn/chủ/tình trạng kiểm chứng; giữ nguyên các phần đã có, lấp đúng cổng cưỡng chế hội đồng còn thiếu trên gateway/scanner hiện hữu; một Task View có roadmap/ghế/VERDICT/KQ/NEXT; thử âm và thử đổi Host/model theo quyền, Owner nghiệm thu. Hội đồng Host đa chữ ký chuẩn bị schema, không xây trước.
 - 📍 **Tiến độ:** ✓ D02/D03 kế hoạch tích hợp → ✓ P08 bản đồ 115 mục/10 khối/16 mẫu Karpathy → ✓ **P09/D04 Host xử lý P08, kết thúc hội đồng 1 vòng** → ■ **N0 VERIFY-GAPS** (PROMPT/READY mới, chưa STARTED) → □ N1 hòa giải luật/khuôn đang dùng → □ N2 cưỡng chế hội đồng và nâng Task View trên nguồn hiện hữu → □ N3 pilot/Host lạnh → □ N4 Owner nghiệm thu.
-- ✅ **Đã xong:** P02–P08 hội đồng; P09 chấp nhận bản đồ §3.8 (115 mục/10 khối/21 ô đỏ gắn cờ/7 nhóm vấn đề) và chốt D04. Ghi rõ **các số là SNAPSHOT từ repo, không là PASS runtime**; 16 mẫu Karpathy đã map vào AGENTS/HJW/MCPW/GHM/HVU. HJW P444 audit khai danh tính XONG *chưa thi công*; GHM P99 nghiệm thu C2-A PR, C2-B còn CHƯA RUN do Pro.
+- ✅ **Đã xong:** P02–P08 hội đồng; P09 chấp nhận bản đồ §3.8 (115 mục/10 khối/21 ô đỏ gắn cờ/7 nhóm vấn đề) và chốt D04. Ghi rõ **các số là SNAPSHOT từ repo, không là PASS runtime**; 16 mẫu Karpathy đã map vào AGENTS/HJW/MCPW/GHM/HVU. HJW P444 audit khai danh tính XONG *chưa thi công*; GHM P99 C2-A đạt; **GHM P100/P101 đã xác minh Pro active, COST_LOCK_POSTPRO còn CHƯA ĐO sau nâng cấp và Codex đã READY**; chỉ sau COST PASS mới giao Claude KST C2-B.
 - ■ **Đang làm:** — · 0 RUN active. **N0 đang chuẩn bị/đã ký READY mới tại P09**; chỉ nhận lệnh Owner dispatch với PROMPT N0 VERIFY-GAPS, Worker Codex, Reviewer Claude Chat; không STARTED hay chiếm VPS-GHI.
-- ⬜ **Còn lại:** N0 đo giới hạn C2/C4/C5 và Đ1/Đ2/Đ7, đối chiếu P444 và GHM P99, xác định source UI; N1 Founders xử lý CHỈ xung đột luật thực tế (A5/A6/CT áp đúng miền); N2 ghép cổng hội đồng chung + DROOT33 theo Owner GO vào gateway/Task View hiện hữu; N3 pilot; N4 Owner. Đ3/Đ5/Đ6 do task gốc xử lý, ACK theo dõi kết quả.
+- ⬜ **Còn lại:** N0 đo C2/C4/C5/Đ1/Đ2/Đ7, đối chiếu P444/GHM P99–P101 và UI; N1 xử lý xung đột luật thực tế; N2 cưỡng chế hội đồng chung + DROOT33 theo Owner GO; N3 pilot; N4 Owner. **GHM độc lập:** Codex COST_POSTPRO → Host nghiệm thu → Claude KST C2-B, ACK chỉ nhận kết quả.
 - ➡ **NEXT_TRIGGER=OWNER_DISPATCH_ACK_N0_VERIFY_20261028_03:** Owner chuyển PROMPT N0 **mới** cho Codex Desktop/CLI (AUTO0), khi Agent rảnh; Worker read-gate → STARTED/KQ; GPT Host + Claude Chat phản biện KQ rồi chốt N1. Không tự dispatch/không cần Pro để khảo sát.
 - ⛔ **Không làm:** không xây engine, bảng ghế, policy/event/scanner/DB/Task View/repo/CI thứ hai; không chạy lại audit P444/C2-A hay can thiệp HJW/GHM; N0 CHỈ ĐỌC (ngoài ghi trạng thái/KQ vào đúng COLLAB qua gateway), 0 VPS-GHI/API trả phí. Không tự triển khai N1–N4 hoặc vượt thẩm quyền Owner.
 
@@ -404,12 +404,12 @@ Chỉ lấy **mẫu**, không chép mã (llm-council không giấy phép; autore
 | Đ3 | **GIỮ HJW** – Hermes-Mac/vai courier không phải việc ACK | HJW chốt thiết kế và cập nhật câu cũ theo quyền; ACK chỉ trỏ kết quả, AUTO0 không bị chặn |
 | Đ4 | **PARTIAL** – một khuôn hội đồng, không ép khuôn xây máy thành khung của mọi loại việc | Hội đồng dùng **AGENTS A5/A6 + TASK_POLICY hiện có**; CT-000.1 của MBM/TQT là khuôn tham khảo riêng cho công thức/quy trình, chỉ mapping khi hợp nghĩa |
 | Đ5 | **GIAO LẠI ĐÚNG CHỦ** – lease/NEXT/REST/Directus là backlog MCPW/HJW ngoài phạm vi N0 | ACK nêu dependency khi thật sự chặn hội đồng, không tự ôm lại mọi nợ cũ |
-| Đ6 | **GIỮ GHM** – mã main/KST-only cần Pro/danh tính riêng | GHM P99 C2-A xong trên PR, **C2-B chưa chạy** vì GitHub Pro chưa active; không chặn N0 và N1 của ACK |
+| Đ6 | **GIỮ GHM** – khóa main/KST-only, phí trước Code C2-B | GHM P101: Pro active; Codex kiểm hard-stop usage-based đã READY, chưa STARTED; C2-B cần COST PASS rồi Owner giao Claude KST, không chặn ACK N0/N1 |
 | Đ7 | **ĐƯA VÀO N2 CÓ ĐIỀU KIỆN** – Bảng cũ báo đỏ theo DROOT33 | HVU + gateway hiện hữu, Owner GO N2 cho phần cưỡng chế/UX, không dựng thêm Dashboard |
 
 **3.9.3. Bằng chứng mới hơn snapshot P08 — KHÔNG tô xanh giả**
 - **HJW P444:** Codex `KQ@HJW-DECLARATION-GATE-AUDIT-20261028-10 XONG` = **khảo sát xưng danh đã xong**, đề xuất một trường `declared_actor` ngay trong lệnh ghi và lỗi hướng dẫn tự sửa, **không cần vé/token riêng**; cần 2 adapter. **CHƯA THI CÔNG/CHƯA NGHIỆM THU**, runtime khác checkout. C4.7 của P08 không được giữ nghĩa “P443 mới READY” cho hiện tại. ACK không mở vòng khảo sát trùng P444.
-- **GHM P99:** C2-A 6 PR/pilot đã được nghiệm thu đúng phạm vi; **C2-B main private cần GitHub Pro**, API rulesets còn 403, protected=false. C7.4 trong P08 là ảnh cũ, không coi PR test = main được cưỡng chế.
+- **GHM P99–P101 mới hơn snapshot P08:** C2-A 6 PR/pilot đã nghiệm thu, **Owner nâng GitHub Pro, ruleset API của hai repo private đã có thể đọc**; kiểm Account budget Actions $0 + Stop và các phí usage-based **CHƯA PASS sau Pro**, Codex có READY GHM-R1-COST-POSTPRO-20261028-08; C2-B chưa RUN, chỉ Claude KST được giao phần B sau COST PASS và Owner dispatch. Không gọi PR test là main được cưỡng chế.
 - **Ma trận §3.8:** 15 mục 🟢 là **phân loại từ hồ sơ**, không phải 15 phép thử live toàn vẹn; 20 mục C2 chưa có bằng chứng **cổng quorum/VERDICT chung đa hãng**, dù đường Hermes có chốt riêng. Các mục C9/JEV hoặc budget runner không tự được coi là cổng thẩm quyền hội đồng.
 - **UI snapshot:** `view.html` đang hardcode ma trận/roadmap, không tự tính lại từ COLLAB; giữ như ảnh minh họa P08. Tại N2 dữ liệu UI phải được dẫn xuất từ đúng nguồn §3.8/ledger và bản trạng thái mới, không bảo trì song song hai nơi.
 
@@ -748,6 +748,13 @@ Ghế: openai-main · Bước/vòng: B5/G2B · 1/3 · **P08 PARTIAL (đã tiếp
 - Áp: SAME_COMMIT.
 
 HUMAN_DIRECTIVE@ACK-B5-MAP-20261028 EFFECTIVE · task=ai-council-karpathy · scope=§3.8/§3.9/N0 · step=B5 · recorded_by=openai-main (GPT Chat) · quote=«nên tập hợp tất cả những gì chúng ta đang làm đối với Hội đồng AI và tiến tới quy trình để AI điều hành công việc tự động theo khung» · text=GPT Host chốt bản đồ hội đồng tổng thể + các mảnh Karpathy tại một Task, phân việc đã có/chưa có/chủ nguồn, điều hành N0 chỉ đo phần thiếu; các thay đổi quyền/code N2 chưa được Owner cấp phép. · audit=Owner trực tiếp yêu cầu trong phiên 28/10/2026.
+
+### P10 — GPT Host · tiếp nhận GitHub Pro và điều hành tuyến chi phí trước C2-B
+Ghế: openai-main · Bước/vòng: N0/0 RUN · chỉ cập nhật dependency, không đổi PROMPT/READY N0.
+- Owner trực tiếp thông báo đã nâng GitHub Pro, yêu cầu GPT Host soạn prompt ngắn để Owner chỉ copy/paste cho Codex.
+- Dựa trên GHM P100/P101 đã ghi Pro active: lệnh `GHM-R1-COST-POSTPRO-20261028-08` cho Codex **đã có READY**; check Billing hậu nâng Pro, Actions Account $0 + Stop, usage-based services, self-hosted CI. GHM chưa có STARTED/KQ RUN này lúc kiểm.
+- **Quyết định điều hành:** Owner copy một dòng cho Codex để làm đúng GHM COST trước. Sau KQ, Host/Reviewer nghiệm thu, chỉ khi COST_LOCK_POSTPRO=PASS mới chuyển Claude Code CLI KST xử lý C2-B đúng canonical P92. ACK N0-VERIFY-GAPS-03 READY độc lập, không bị thay hay tự chạy. Không mở task/run mới và không nhầm phí gross với phí billable.
+- Áp: SAME_COMMIT; mục tiêu/các quy định khác không đổi.
 
 ## Owner cần quyết
 - —
