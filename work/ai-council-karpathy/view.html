@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AI-council-Karpathy · Sơ đồ thảo luận</title>
+  <style>
+    :root { font-family: system-ui,-apple-system,"Segoe UI",Arial,sans-serif; color-scheme:light; background:#f5f7fa; color:#1d2935; }
+    * { box-sizing:border-box; } body { margin:0; padding:24px; } main { max-width:1050px; margin:auto; }
+    h1{font-size:28px;margin:0 0 6px} h2{font-size:19px;margin:0 0 12px} p{line-height:1.55}
+    .sub{color:#506073;margin:0 0 18px}.flag{display:inline-block;border-radius:15px;padding:5px 11px;background:#e6edf9;font-size:12px;font-weight:700}
+    .panel{background:#fff;border:1px solid #dce3ec;border-radius:14px;padding:20px;margin:16px 0}
+    .nodes {display:flex; flex-wrap:wrap; gap:10px;align-items:center}
+    .node {flex:1 1 140px;text-align:center;border:1px solid #bdcdda;border-radius:10px;padding:15px 10px;font-weight:600;background:#fbfcfe}
+    .node small {display:block;font-size:12px;font-weight:400;color:#5f7082;margin-top:6px}
+    .arrow {color:#75889b;font-weight:bold}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .item{border-left:3px solid #8da1b9;background:#f8fafc;padding:12px;border-radius:6px}
+    .item b{display:block;margin-bottom:7px}
+    .note {background:#fff8e5;border:1px solid #ead8a8;border-radius:10px;padding:15px;line-height:1.5}
+    code{font-size:90%;overflow-wrap:anywhere}
+    @media(max-width:680px){body{padding:12px}.two{grid-template-columns:1fr}.nodes{display:block}.node{margin:8px 0}.arrow{display:block;text-align:center;transform:rotate(90deg)}}
+  </style>
+</head>
+<body><main>
+  <span class="flag">BẢN MINH HỌA · CHƯA PHẢI THIẾT KẾ ĐƯỢC DUYỆT</span>
+  <h1>AI-council-Karpathy</h1>
+  <p class="sub">Sơ đồ luồng đề xuất cho hội đồng phản biện. Mục tiêu, trạng thái chính thức và quy định chỉ đọc từ <code>COLLAB.md</code> của task, không duy trì bản thứ hai ở HTML.</p>
+  <section class="panel"><h2>Chu trình điều hành theo node</h2>
+    <div class="nodes">
+      <div class="node">Owner + Host<small>Đầu vào · mục tiêu</small></div><span class="arrow">→</span>
+      <div class="node">Hội đồng<small>Ý kiến các ghế · khác hãng</small></div><span class="arrow">→</span>
+      <div class="node">Host<small>Kết luận · ký lệnh</small></div><span class="arrow">→</span>
+      <div class="node">Worker<small>Thực thi · bằng chứng KQ</small></div><span class="arrow">→</span>
+      <div class="node">Hội đồng + Host<small>Rà lại KQ · bước kế</small></div>
+    </div>
+    <p class="sub" style="margin:13px 0 0">Tại cổng KQ: quyết sửa ngay, tiếp theo roadmap, mang tồn dư không chặn sang bước sau hoặc dừng/xin Owner. Quy chế chi tiết sẽ do hội đồng đề xuất.</p>
+  </section>
+  <section class="panel"><h2>Những lựa chọn kiến trúc cần phản biện</h2><div class="two">
+    <div class="item"><b>A · Một repo Workspace</b>Phần công việc và phần viết code trong cùng repo, phân tách luồng và quyền rõ ràng.</div>
+    <div class="item"><b>B · Repo Codespace riêng</b>Workspace điều hành, repo Codespace riêng kết nối bằng id task/node/PR.</div>
+    <div class="item"><b>C · Một Workspace quản lý, nhiều repo mã</b>Giữ các repo code hiện hữu và liên kết từ nhiệm vụ đến branch/PR.</div>
+    <div class="item"><b>Tái sử dụng</b>Karpathy LLM Council, AutoResearch, máy trạng thái và giao diện đồ thị: phải kiểm license, tính tương thích, chi phí trước chọn.</div>
+  </div></section>
+  <div class="note"><strong>Chưa có quyết định A/B/C, chưa triển khai kỹ thuật.</strong> Các phiếu hội đồng, phản biện và kết luận Host phải ghi vào chính task. Đặc biệt cần giải quyết yêu cầu “ít nhất một AI khác hãng đồng ý”, khác với quy định hiện tại về nhận xét độc lập.</div>
+</main></body></html>
