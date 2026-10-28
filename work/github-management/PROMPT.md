@@ -1,26 +1,39 @@
-# PROMPT — C2 BẢO VỆ MAIN PRIVATE: REQUIRED GREEN GATE + QUYỀN KST (DRAFT)
+# PROMPT — C2 KHOÁ MAIN HAI REPO PRIVATE BẰNG CỔNG `gate` (Claude P91 đã sửa · chờ Host READY)
 
 RUN_ID: GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07
-STATUS: HOST_P90_DRAFT_FOR_CLAUDE_P91 · NOT_READY/NO_RUN. Claude Reviewer đọc P89/P90, rà phương án ít việc nhất rồi sửa trong một vòng; Host ký READY@last-touch nếu điều kiện Owner Pro/role đủ rõ. Không tự mua Pro hoặc tạo account/token; không RUN trước Owner GO.
-EXECUTOR dự kiến: Codex CLI/Desktop thực hiện cấu hình GitHub khi Pro có hiệu lực và Owner RUN C2; Claude Code CLI KST phản biện/kiểm âm độc lập; GPT Host nghiệm thu. Hai repo private Huyen1974/agent-data-test và Huyen1974/web-test; sổ duy nhất work/github-management, không task mới.
+STATUS: P91_CLAUDE_ACCEPT_WITH_EDITS · NOT_READY/NO_RUN đến khi GPT Host ký READY@last-touch SHA của tệp này và Owner RUN từng phần.
+Hai phần, cùng RUN_ID: **Phần A — Codex** (không cần Pro, làm ngay). **Phần B — Claude Code CLI (KST)**, chỉ sau khi Owner đã nâng GitHub Pro và giao B. Không cần Host ký lại giữa A và B nếu A đạt DoD A. Không F2/C4/deploy/sửa dữ liệu; không tạo tài khoản/token/bot/deploy key; không đổi visibility, ngân sách Actions, secret.
+Repo private: `Huyen1974/agent-data-test`, `Huyen1974/web-test`. Sổ chung: `work/github-management` (repo public — không ghi tên/giá trị secret).
 
-## MỤC TIÊU
-C2_CODE_BRANCH_ENFORCED thật trên `main` của cả 2 repo: mọi PR cần `gate=success` đúng SHA và base, không direct push/force-bypass; status `skipped`/cancelled không được biến thành hợp lệ. `KST_ONLY_MERGE_ENFORCED` báo riêng, tuyệt đối không tuyên PASS khi Codex và Claude CLI dùng cùng GH identity Huyen1974. Không auto-deploy/đổi runtime. Giữ F0/F1/G1 PASS.
+## Mục tiêu (đo bằng gh API, không dựa báo cáo)
+1. `GH_BRANCH_PROTECTION_ENFORCED`: trên `main` hai repo, không ai — kể cả Owner/admin — push thẳng, force-push, xoá nhánh; chỉ merge qua PR khi check `gate` của GitHub Actions = success trên head mới nhất và nhánh đã cập nhật theo main.
+2. `GH_NONPILOT_BLOCKED`: PR ngoài làn pilot ra **RED**, không còn «skipped» (GitHub tính job bỏ qua do điều kiện = Success với required check — docs «Troubleshooting required status checks»).
+3. `KST_ONLY_MERGE_ENFORCED=NO` báo trung thực: Codex và Claude Code CLI dùng chung danh tính `Huyen1974`; repo cá nhân không có «chỉ người X được push» theo danh tính. Đường duy nhất để thành YES ghi ở COLLAB P91 §4 — Owner quyết ở F2, không làm trong C2.
 
-## S0 đọc chứng cứ hiện tại trước mọi thao tác
-AGENTS.md → COLLAB §0/P85–P90 → ROADMAP §0.4a/0.4b → P89/G1 actions main success. Ghim AD main a636ffe57d23f3716cb016082dba1867882d5454 (run40623332810 SUCCESS), Web main 4f8405a900170106fdb2b2a60ad10c1785ad6f91 (run40623377993 SUCCESS). Health Web sau merge run40629876815 (11 PASS, CHECK2/7 FAIL, CHECK12 PASS), ops-smoke Web40634356453 SUCCESS, Data Lifecycle AD40645724559 SUCCESS. Re-read newest main/plan/branch protection/rulesets/required statuses/GH user permission before change; repo private currently protected:false both, Web stale 4 contexts legacy. Không lấy VPS-GHI cho chỉ GH.
+## Sự thật đã đo (Claude P91, gh API 28/10 15:10 +07) — S0 đo lại, lệch nhỏ thì ghi, không dừng
+- main AD `a636ffe57d23f3716cb016082dba1867882d5454`, Web `4f8405a900170106fdb2b2a60ad10c1785ad6f91`, `gate` push main success (40623332810, 40623377993). Cả hai `protected:false`.
+- Web còn lưu bảo vệ nhánh kiểu cũ đòi 4 check của workflow đã tắt (Pass Gate, Quality Gate, check-critical-files, Contract Schema Validation). **Khi Pro có hiệu lực, cấu hình này bắt đầu chặn ⇒ mọi merge Web kẹt** cho tới khi B1 xoá.
+- `gate` hiện bỏ qua (skipped) PR ngoài làn bằng `if` mức job ⇒ lỗ hổng khi bật required check. PR mở cũ: AD 11 Dependabot (#325–#334, #349), Web #117/#327/#669 — không đụng; Dependabot đã tắt tạo PR mới (`updates: []`).
 
-## S1 preflight và Owner GO
-GitHub Pro for private personal repos may enable branch protection/rulesets; Owner trực tiếp nâng cấp và cấp phạm vi GitHub config. Nếu chưa có Pro hoặc không có Owner RUN phạm vi đó, chỉ điều tra READ-ONLY và KQ DỪNG: NEEDS_OWNER_PRO_GO, không mở terminal/RUN chờ. Không tự thanh toán, đổi visibility repo, chuyển org, tạo PAT/App, hoặc chọn separate KST identity. Kiểm Doc chính thức: personal repos không có 'restrict who can push' theo danh tính như org rules, GitHub không cho tác giả tự APPROVE PR.
+## Phần A — Codex (mỗi repo 3 PR nhỏ; không merge)
+**S0** Đọc AGENTS.md → COLLAB P89–P91 → ROADMAP §0.4b → PROMPT. Đo lại main/runner/workflow. Không VPS-GHI.
+**A1 · PR-1 `dev/codex-<ad|web>/c2-fail-closed`** — sửa `.github/workflows/ghm-pr-gate.yml` + `scripts/ghm/gate_policy.py` + test:
+- `if` mức job chỉ còn bỏ qua sự kiện `closed`. Mọi PR khác: job chạy; **bước đầu tiên** kiểm làn (tác giả/actor `Huyen1974`, nhánh `dev/codex*` hoặc `dev/claude-code/*`, không fork) **trước mọi fetch/checkout mã PR, trước setup-node**; sai ⇒ RED `OUT_OF_PILOT`, không chạy mã PR.
+- Giữ nguyên byte các bước quét secret, unit, actionlint và luật G1; push/dispatch main không đổi. Thêm ca hồi quy cho `OUT_OF_PILOT`.
+**A2 · PR-2 `dev/codex-<ad|web>/c2-merge-rule`** — từ main hiện tại, độc lập PR-1: thêm vào `AGENTS.md` của repo mục «Luật merge» ≤5 dòng, giống nhau hai repo: chỉ KST merge; điều kiện `gate` success đúng head + nhánh mới nhất; lệnh `gh pr merge <số> --merge --match-head-commit <SHA>`; agent phát triển không merge, không push main. (Biển chỉ đường cho agent F2; dùng luôn để thử «nhánh lạc hậu» ở B.)
+**A3 · PR-3 `c2-neg/out-of-lane`** — nhánh ngoài làn, tách từ nhánh PR-1, thêm 1 dòng chú thích vô hại; mở PR vào main ⇒ phải RED `OUT_OF_PILOT`, log cho thấy không có bước fetch/checkout mã PR. Để OPEN cho B, không merge.
+**DoD A:** PR-1, PR-2 GREEN đúng head; PR-3 RED đúng lý do; bảng run ID từ gh API; 0 merge. Ghi KQ_A vào COLLAB + bảng. NEXT_TRIGGER=OWNER_NANG_PRO_VA_GIAO_KST_PHAN_B.
 
-## S2 áp cổng native tối thiểu, không làm khóa main chết
-Sau Owner GO và Pro đã ACTIVE: chọn một cơ chế GH-native phù hợp (branch protection hoặc ruleset, không hai bản cạnh tranh) trên nhánh `main` hai repo. Enforce require PR, required exact Actions check `gate` nguồn GitHub Actions verified, up-to-date base, restrict direct/non-PR push/force/deletion, require no bypass including admin nếu khả dụng. Xóa/bỏ hiệu lực bốn context cũ Web 'Pass Gate, Quality Gate, check-critical-files, Contract Schema Validation' trước khi bật rule bắt buộc, không cài lại workflow cũ. Kiểm tên check chỉ một `gate` unique, đã chạy trên main từ G1, tránh ghim source app sai. Chuyển từng repo có readback + rollback cấu hình; không sửa CI hay runner trừ fix tối thiểu có chứng cứ.
-**Rủi ro quan trọng:** `.github/workflows/ghm-pr-gate.yml` hiện dùng job-level `if` skip PR ngoài pilot. GitHub có thể tính skipped required job là hợp lệ. Phải test âm thật; nếu gate skip vẫn cho merge, KHÔNG coi CODE hardlock đạt, báo cách sửa fail-closed tối thiểu không chạy PR code không tin trên runner persistent. Không dùng `pull_request_target` vô kiểm hoặc cấp secrets cho PR để giải quyết.
-
-## S3 KST review identity & negative tests
-Thử qua GH thật: PR hợp lệ/green được phép merge đúng SHA; PR unit/policy RED không thể merge; PR skipped/unknown actor không thể merge; push trực tiếp main bị chặn; base behind cần mới; admin bypass không được; force-push/delete bị chặn. Mỗi lượt thử có receipt, commit/source SHA và rollback; tránh bắn hàng loạt PR âm làm Actions đỏ dày đặc: tối đa một bộ negative test nhỏ đã Owner cấp phép, dùng history/fixture khi đủ. Không chạm prod code, Web runtime vẫn e9f5801f đã build; G1 main 4f8405a9 chỉ đổi CI scripts.
-**KST-only:** nếu cùng một account Owner, Pro không phân biệt Codex với Claude; yêu cầu approval khác tác giả sẽ deadlock. Không bật required review mà chưa có identity/Reviewer hợp lệ. Nếu owner cần KST-only machine-enforced, trình một lựa chọn tối thiểu về tách GH identity/merge path phù hợp repo personal, với quyền và hậu quả rõ, chờ Owner quyết, không tạo tài khoản/bot/token mới. Code required green và Chief-only hardlock là hai tiêu chí khác nhau.
-
-## S4 nghiệm thu
-Báo riêng `GH_CODE_GATE=PASS_TRUSTED_PILOT` (P90), `GH_BRANCH_PROTECTION_ENFORCED` PASS/FAIL, `GH_NONPILOT_SKIPPED_BLOCKED` PASS/FAIL, `KST_ONLY_MERGE_ENFORCED` PASS/NO, `BUSINESS_HEALTH=FAIL` (hai data checks), `CHECK12_RECOVERED_ON_LAST_RUN`, `AD_DEPLOY_ROLLBACK=NOT_READY`. Có link runs, SHA, protected/state, exact context source; ghi KQ/board/roadmap đồng bộ cùng commit. Không tự F2/C4/auto-CD, không sửa Health data/threshold, không tạo task con. Nếu thiếu Owner GO hoặc không đủ hard protection thì trả KQ DỪNG/BLOCKER đúng phạm vi, không treo phiên.
-NEXT_TRIGGER=HOST_REVIEW_C2_AND_OWNER_DECISION_IF_REQUIRED.
+## Phần B — Claude Code CLI (KST), sau DoD A và Owner đã nâng Pro
+**B0** `gh api user --jq .plan.name` phải là `pro`; khác ⇒ KQ DỪNG `NEEDS_PRO`, không chờ. Đọc PROMPT/KQ_A; PROMPT last-touch = READY.
+**B1 Web trước:** đọc rồi lưu JSON bảo vệ kiểu cũ (bằng chứng private), xoá nó (`DELETE /repos/Huyen1974/web-test/branches/main/protection`). Không giữ song song hai cơ chế.
+**B2 Mỗi repo một ruleset `main-code-gate`**, đích `main`, enforcement `active`, **bypass rỗng**, đúng 4 luật: `deletion` · `non_fast_forward` · `pull_request` (0 approval — một danh tính không tự duyệt được) · `required_status_checks` strict=true, 1 check `gate` ghim nguồn GitHub Actions (integration_id 15368). Đọc lại `GET /repos/<repo>/rules/branches/main`: đúng 4 luật, bypass rỗng; lưu JSON.
+**B3 Thử thật, mỗi repo, đúng thứ tự:**
+1. PR-3 (RED, nhánh vẫn mới nhất nên chỉ vì đỏ) ⇒ `gh pr merge` bằng chính tài khoản admin phải bị từ chối (chứng minh không bypass) ⇒ đóng PR.
+2. PR-1 (GREEN, nhánh mới nhất) ⇒ KST_ACCEPT@head rồi merge ⇒ được phép; `gate` push main success.
+3. PR-2 lúc này lạc hậu ⇒ `gh pr merge` phải bị từ chối ⇒ `gh pr update-branch` ⇒ chờ `gate` GREEN trên head mới ⇒ KST_ACCEPT@head mới rồi merge được.
+4. Push thẳng: từ bản clone KST, `git commit --allow-empty` rồi push lên main ⇒ phải bị từ chối. Lỡ lọt ⇒ DỪNG, mở PR revert ngay, báo FAIL.
+5. Force-push và xoá nhánh: chỉ chứng minh bằng đọc lại luật ở B2, **không thử thật** (thử hỏng là mất lịch sử main).
+**Bẻ khoá khẩn cấp (chỉ khi gate hỏng làm kẹt mọi merge):** đặt ruleset `disabled`, ghi lý do vào COLLAB, sửa xong bật lại cùng lượt. Không xoá ruleset, không thêm bypass.
+**B4 KQ:** `GH_BRANCH_PROTECTION_ENFORCED` · `GH_NONPILOT_BLOCKED` · `KST_ONLY_MERGE_ENFORCED=NO` · `GH_CODE_GATE=PASS` giữ · ngân sách Actions sau Pro: đọc bằng API nếu được, không được thì ghi `BUDGET_CHECK=OWNER_UI` · bảng run ID/từ chối (thông báo lỗi nguyên văn) · Bảng/ROADMAP/README. 0 deploy, 0 VPS-GHI.
+NEXT_TRIGGER=HOST_ACCEPT_C2 — Host và Claude tự đối chiếu bằng gh API trước khi ACCEPT.
