@@ -23,7 +23,7 @@ STATUS: RUN chỉ khi (1) Host chốt Claude P81 phương án D; (2) Owner duy�
 ## S2 · Ghi đúng thứ tự (≤15′) — chỉ sau S1 PASS, lấy VPS-GHI (CAS) + Guard PRE như B0b P27
 2.1 Đặt 2 tệp vào `/opt/incomex/dot/sql/directus/` (tệp thường, cùng chủ/quyền với `directus-system-defaults-12.4.1.sql`) ⇒ sha trên VPS đúng.
 2.2 Đăng ký 2 đích mới theo trình tự đã chạy thật (vps-clean BAO-CAO §4 L2A): baseline `{content,sha256,meta}` cho 2 id theo đúng định dạng triplet có sẵn → `incomex-config-apply-v0 --mutation-id <M> --agent claude-code-cli --target-id guard-registry --candidate /root/incomex-config-changes/<M>/registry.tsv --expected-baseline <sha sống>`, ứng viên = registry sống + đúng 2 hàng chép hàng mẫu (đổi id/đường) ⇒ APPLIED; drift-check 2 id mới = MATCH.
-2.3 `incomex-config-apply-v0 --target-id dot-sql-approved-manifest`, ứng viên = manifest sống **giữ nguyên 16 dòng** + đúng 2 dòng `<sha>\t directus/ndw-pga2-v1v2.sql` và `<sha>\t directus/ndw-pga2-v1v2-lui.sql` (một TAB, không dấu cách; LF) ⇒ APPLIED.
+2.3 `incomex-config-apply-v0 --target-id dot-sql-approved-manifest`, ứng viên = manifest sống **giữ nguyên 16 dòng** + đúng 2 dòng dạng `<sha256><TAB>directus/ndw-pga2-v1v2.sql` và `<sha256><TAB>directus/ndw-pga2-v1v2-lui.sql` (đúng một ký tự TAB, không dấu cách; LF cuối dòng) ⇒ APPLIED.
 2.4 `dot-pg-atomic-apply directus/ndw-pga2-v1v2.sql` **một lần**, không retry.
 Hỏng ở 2.1–2.3 ⇒ DỪNG (tệp/hàng đã thêm vô hại, giữ nguyên; gỡ chỉ khi Host quyết, qua `.pre` của apply-v0). Hỏng ở 2.4 ⇒ PG tự huỷ giao dịch ⇒ KQ DỪNG.
 
