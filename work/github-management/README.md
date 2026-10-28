@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**P102: Codex hoàn tất readback cost sau Pro trong phạm vi hiện tại; chờ GPT Host nghiệm thu. CI thiết yếu giữ trên VPS; còn rủi ro chi phí ngoài giới hạn sản phẩm và Web Health lỗi. Xem COLLAB P102; C2-B chưa RUN.**
+**P103: Codex XONG S0–S2 cost sau Pro bằng readback UI + API; khóa hiện có đủ phạm vi, không đổi Billing/CI. Actions Account $0 + Stop/alerts ON; net metered hiện tại 0; All AI Credit SKUs có hard-stop, Models paid usage chưa bật. Bằng chứng riêng và giới hạn tại COLLAB P103. GPT Host nghiệm thu trước Owner giao C2-B riêng; chưa RUN C2-B.**
 
 **P100: GH Pro đã active (rulesets [] ở hai repo private), Web protected:true legacy, AD protected:false. C2-A 4 GREEN/2 RED, 6 PR OPEN. Owner yêu cầu khóa phí trước: Codex kiểm lại Actions Account budget $0 + Stop và workflow hosted theo COST-LOCK-POSTPRO-20261028.md; sau PASS mới giao Claude Code CLI C2-B theo PROMPT P92 (READY không đổi).**
 
