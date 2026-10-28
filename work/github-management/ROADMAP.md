@@ -1,4 +1,5 @@
 # ROADMAP — github-management V0.6 · 28/10/2026
+**Trạng thái P104 (Claude, 28/10 22:05): Pro có hiệu lực, khoá chi phí $0 PASS. Web main đang bị bảo vệ cũ chặn merge ⇒ C2-B ngay. Mã AD trên VPS = GitHub main; Web production từ GitHub. Thứ tự: C2-B → SSOT-CUTOVER → AD release → F2 → C4 (§0.4c).**
 **P103: Codex XONG S0–S2 cost sau Pro bằng readback UI + API; khóa hiện có đủ phạm vi, không đổi Billing/CI. Actions Account $0 + Stop/alerts ON; net metered hiện tại 0; All AI Credit SKUs có hard-stop, Models paid usage chưa bật. Bằng chứng riêng và giới hạn tại COLLAB P103. GPT Host nghiệm thu trước Owner giao C2-B riêng; chưa RUN C2-B.**
 **P100: Owner nâng GH Pro, rulesets API hai private repo trả [] (Pro feature active), Web protected:true legacy checks, AD protected:false; 6 PR C2-A vẫn OPEN (4 GREEN/2 RED). Bước kế tiếp Codex COST-LOCK-POSTPRO kiểm account Actions budget $0 + Stop sau upgrade và chặn các metered workflows thừa (chỉ giữ 3 nhóm CI selfhosted cần). Khi cost PASS → Claude KST C2-B đúng PROMPT P92 (Web B1 legacy4 → B2 ruleset + B3 negative tests). F2/C3.0 runner trust separation rồi C4; không làm lại A/đổi PROMPT; Health/AD rollback nợ riêng.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10 · **V0.4 = ưu tiên FAST-PR-LANE Owner 27/10, C1B DoD giữ nguyên (§0.4).**
@@ -35,6 +36,15 @@ Required CODE/PR gate phải GREEN thật theo latest SHA mới merge; Web produ
 | Bảo vệ nhánh | Cả hai `protected:false` (Free private, API đòi Pro); Web còn lưu 4 check cũ không hiệu lực | C2: thay 4 check cũ bằng `gate`, chặn merge khi skipped, base mới nhất, thử âm |
 **Đường găng:** G1 xác minh CODE gate xanh thực → C2 hardlock Owner GO → F2 3 agent/PR app thật → C4; nợ dữ liệu/AD rollback song song. Không task mới.
 **Luật merge KST (từ G1, mọi PR — P84):** chỉ merge khi lượt `gate` mới nhất cho đúng head SHA = success (skipped không tính), không lượt nào của PR đang chờ/chạy, base = main hiện tại (lệch ⇒ `gh pr update-branch` rồi chờ xanh); COMMENT `KST_ACCEPT@SHA` rồi `gh pr merge <số> --merge --match-head-commit <SHA>`; không đổi trạng thái PR ngay trước merge. Gate đỏ ⇒ không merge, kể cả có comment. Màu check = kết luận máy; duyệt của KST = comment (một danh tính GitHub, chưa cưỡng chế đến C2).
+
+## 0.4c ĐIỂM DANH 4 MỤC TIÊU OWNER — 28/10/2026 sau Pro (COLLAB §1 #12, P104)
+| Mục tiêu | Đã đạt | Còn thiếu | Bước đóng | Màu |
+|---|---|---|---|---|
+| 1 Song song | 2 ghế Codex + Claude Code mở PR, CI trên VPS, gate xanh thật (F0/G1/C2-A) | chưa có 3+ agent thật; chưa tách runner có secret (C3.0) | F2 | 🟡 |
+| 2 VPS → GitHub SSOT | AD: mã trên VPS = main (so hash); Web: production từ GitHub, VPS Web là bản cũ | biên bản so toàn cây bằng máy; nguồn image AD đang chạy; đóng băng thư mục mã VPS; task khác còn sửa AD trên VPS | SSOT-CUTOVER (Web ngay sau C2-B; AD sau AD release) | 🟡 |
+| 3 Chỉ KST merge/chạy | luật + gate + KST_ACCEPT; Pro đã bật | chưa ruleset (C2-B); máy chưa phân biệt dev/KST (chung tài khoản) | C2-B; thẻ dev ở F2 | 🔴 |
+| 4 100% trên VPS | CI 100% runner VPS, chi phí $0+Stop (P103); Web deploy từ GitHub (F1) | AD deploy từ GitHub + rollback; Health đỏ CHECK2/7/10/12 (làn dữ liệu) | AD release (nợ C1B) | 🟡 |
+**Thứ tự:** ■ C2-B khoá main (+ sửa tên làn `dev/claude-code-<repo>/`) → SSOT-CUTOVER → AD release + rollback → F2 (thẻ dev + C3.0 + 3 agent, PR Web đầu tiên) → C4. **Viết mã:** Web ngay sau C2-B; AD viết/PR ngay, merge sau C2-B, deploy sau AD release; agent ngoài Mac sau F2. Bảng phân vai + thẻ: COLLAB P104 §5.
 
 ## 0.4b C2 — PRIVATE MAIN CODE GATE ENFORCEMENT (Owner GO GitHub Pro, sau G1; trước F2)
 

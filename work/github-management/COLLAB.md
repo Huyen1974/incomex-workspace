@@ -5,13 +5,13 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 21:41 +07 · Codex · P103
-- 🎯 Owner: duy trì ba repo được chỉ định, CI thiết yếu chạy trên VPS và kiểm soát chi phí.
-- ✅ Cost S0–S2 P103: PASS scoped readback; Actions Account $0 + Stop/alerts ON, net metered hiện tại 0; giới hạn hóa đơn ghi tại P103.
-- ✅ Workflow tự quản đang bật trên main của hai repo ứng dụng dùng VPS; Dependabot do GitHub quản lý là ngoại lệ. Web Health gần nhất có lỗi, cần xử lý riêng.
-- ■ Đang làm: — · 0 RUN cost active. KQ XONG, GPT Host chưa nghiệm thu; C2-B chưa RUN.
-- ➡ NEXT_TRIGGER=HOST_ACCEPT_COST_THEN_CLAUDE_C2_B: GPT Host nghiệm thu P103/evidence; Owner giao riêng Claude KST C2-B.
-- ⛔ Không chạy lại workflow để kiểm tra, không merge/deploy, không tuyên bố C1B hoặc Web Health đạt.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 22:05 +07 · Claude Reviewer · P104
+- 🎯 Owner (§1 #12): agent viết mã song song · mã VPS lên GitHub rồi GitHub là SSOT · chỉ KST merge/chạy · 100% chạy trên VPS.
+- 📍 ✓ F0/F1/G1 · ✓ C2-A · ✓ Pro + khoá chi phí $0 (P103) → ■ **C2-B khoá main (KST) — làm ngay** → SSOT-CUTOVER → AD release → F2 (thẻ dev + tách runner + 3 agent) → C4.
+- 🔴 Web main đang `protected:true` bởi bảo vệ cũ đòi 4 check đã chết ⇒ **Web hiện không merge được** cho tới C2-B. AD chưa có bảo vệ; PR #353 (task khác) nhánh ngoài làn ⇒ gate skipped.
+- ✅ Mã AD trên VPS = GitHub main (so hash); Web production chạy build từ GitHub, thư mục Web trên VPS là bản Nuxt 3 cũ ⇒ không còn mã nào «chưa lên GitHub», còn việc đóng băng VPS (P104).
+- ➡ **NEXT_TRIGGER=HOST_DISPATCH_KST_C2_B**: Host giao Claude Code CLI Phần B (READY@664f06e0d2c8d7839d35241f0d93a0995cda70f0) + 1 sửa tên làn theo P104 §3.1; 😊 Owner gật thẻ dev (P104 §5).
+- ⛔ Không merge khi gate đỏ/skipped, không sửa dữ liệu Health, không deploy AD trước khi có đường release + rollback.
 
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -25,6 +25,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 9. “Tôi muốn xác nhận là việc mua pro là bắt buộc ngay hay chỉ khi chúng ta đóng repo lại? Nếu mở repo thì có cần phải mua ngay không? Tôi muốn thử quy trình trước? Vấn đề là tất cả các Agent cần phải thao tác, cần phải có luật, phải thử nghiệm và chứng minh được là công việc có thể đẩy nhanh song song trước được không? Hay bắt buộc phải mua trước mới làm được?” — Owner 25/10/2026.
 10. “Mục tiêu tối thượng là nhanh chóng code được qua kênh GitHub để đẩy nhanh tiến độ (Codex song song, kỹ sư trưởng Claude Code CLI rà soát, merge, deploy chạy trên VPS) và đưa hệ thống này vào sản xuất sớm nhất có thể. Đây là việc đáng ưu tiên nhất vì đang là điểm nghẽn: hiện tất cả xếp hàng chờ do máy chủ bận, chưa khai thác hết nguồn lực, thời gian vật lý có hạn.” — Owner 27/10/2026 (đã sửa lỗi gõ). **Bổ sung thứ tự ưu tiên cho mục tiêu #2–#6; không cho phép deploy rủi ro hoặc tự mua Pro.**
 11. “GH là cơ chế kiểm soát trực quan và phải xanh thì mới qua cổng được; phải kiểm tra thực tế chứ không được đọc báo cáo không.” — Owner 27/10/2026. Required code gate GREEN; business Health FAIL vẫn báo thật.
+12. Owner 28/10/2026 (sau khi lên GitHub Pro, đã sửa lỗi gõ) — bản chất chỉ là: (1) các agent viết mã song song; (2) mã mới nhất từ VPS phải lên GitHub trước khi coi GitHub là SSOT về mã (hiện VPS là SSOT); (3) agent vai kỹ sư phát triển chỉ viết mã theo kế hoạch/mục tiêu/prompt, chỉ kỹ sư trưởng (Claude Code CLI, đôi khi Codex) được merge và chạy; (4) chạy thành công trên VPS (100% chạy trên VPS). Rà lại khi nào chuyển được mã lên và bắt đầu viết mã; chuẩn bị khai danh tính / bảng phân công hoàn thiện. ⇒ Điểm danh ở ROADMAP §0.4c + COLLAB P104.
 
 ### 2. Thế nào là hoàn thành
 “Tối đến có 1 loạt nhiệm vụ, sáng ra xong. Ông DOT nhắc ông codex đi đốc công các agent làm việc. Đơn giản chỉ có vậy thôi.”
@@ -1480,6 +1481,40 @@ KQ@GHM-R1-COST-POSTPRO-20261028-08 XONG · 2026-10-28T14:41:00Z · executor=Code
 - incomex-workspace không thấy workflow trên main, API 0 run; tại thời điểm kiểm tra ba repo 0 queued/in_progress. Mười repo khác đã archive; trước RUN này theo chỉ đạo Owner, sáu repo đã được tắt Actions và archive, bốn repo đã archive trước đó chưa xác minh riêng cài đặt Actions. Archive không chứng minh dịch vụ ngoài GitHub đã dừng.
 - Không thay đổi budget hay workflow trong RUN này; chỉ ghi bàn giao. Không phát workflow run, rerun, dispatch, merge, deploy, thay ruleset, secret, CI YAML, VPS hay production. Hai API rulesets trả [].
 - NEXT_TRIGGER=HOST_ACCEPT_COST_THEN_CLAUDE_C2_B. Claude C2-B chưa RUN; Owner giao riêng sau Host nghiệm thu. Áp: SAME_COMMIT.
+
+## P104 · Claude Chat (Reviewer) · 28/10/2026 22:05 +07 — ĐIỂM DANH 4 MỤC TIÊU OWNER SAU PRO · C2-B NGAY · THỨ TỰ ĐẾN F2
+Based_on: §1 #12 · P99–P103 · bản tổng hợp của GPT phiên mới (chưa ghi được repo vì PATH_NOT_ALLOWED) · **tự đo 28/10 21:58–22:02**: gh API (rulesets, branch, PR, run, check-run annotations), compare commit VPS↔main, kích thước + sha256 tệp trên VPS (đọc chỉ đọc) so với GitHub main. JEV `gen-dec-1793199703-uZrwtq2z0hRjkLB1VIlP`.
+
+**1. Phát hiện mới:**
+- 1.1 Pro có hiệu lực: `/rulesets` hai repo trả `[]` (chưa tạo). **Web main nay `protected:true` bởi bảo vệ kiểu cũ đòi 4 check của workflow đã tắt ⇒ mọi merge Web đang bị chặn** (đúng dự báo P91). AD main không bảo vệ.
+- 1.2 **Mã AD:** commit VPS `bfe86c8` là tổ tiên của main (behind_by=0). So tệp đang nằm trên VPS: `server.py`, `workspace_tools.py`, `lifecycle.py`, `workspace_transfer.py` trùng sha256 với main; mọi tệp `agent_data/` và các test/script mới sửa trùng kích thước; khác duy nhất `pg_store.py` — bản GitHub mới hơn (bỏ DDL, P71) **chưa deploy**. ⇒ Không có mã VPS nào thiếu trên GitHub; chiều còn thiếu là GitHub → VPS (deploy). Khác GPT phiên mới: không cần bước «đưa phần mã thiếu lên qua PR», chỉ cần biên bản so toàn cây bằng máy + đóng băng.
+- 1.3 **Mã Web:** production chạy build từ GitHub `e9f5801f` (F1); `docker/nuxt-repo` trên VPS là dòng Nuxt 3 cũ (`web/package.json` khác hẳn bản Nuxt 4.5.2 trên main, sửa lần cuối 05–10/2026) ⇒ GitHub đã là nguồn thật của Web; thư mục VPS cần biển «không sửa ở đây».
+- 1.4 **Task khác vẫn sửa AD trên VPS** (CONN-REPAIR/PROOT12: image production `conn03a`), đồng thời đã mở PR #353 trên GitHub nhưng nhánh `dev/claude-code-ad/…` nằm ngoài làn ⇒ gate **skipped**, AD chưa khoá ⇒ merge được mà chưa test.
+- 1.5 Health Web lượt 28/10 12:06Z đỏ CHECK2, 7, **10 (mới), 12 (lặp 2/3 lượt)** ⇒ không còn gọi CHECK12 là lần lẻ; thuộc làn dữ liệu/vận hành, giao đúng chủ, không là cổng mã.
+
+**2. Điểm danh 4 mục tiêu:** bảng ma trận ghi ở ROADMAP §0.4c (một chỗ duy nhất).
+
+**3. Thứ tự đề nghị Host điều hành (mỗi bước một lệnh):**
+- 3.1 **C2-B ngay** (đã READY P92, khoá chi phí P103 đã PASS). Thêm đúng 1 sửa nhỏ KST làm trước khi merge PR-1 (tiền lệ KST_FIX F1): biểu thức làn chấp nhận `dev/claude-code-<repo>/` đối xứng `dev/codex-<repo>/` + 1 ca test; sau C2-B chạy lại gate cho #353. Nếu Host coi đây là đổi PROMPT thì ký lại READY một lần, không mở vòng phản biện.
+- 3.2 **SSOT-CUTOVER (1 lệnh KST, sau C2-B):** so toàn cây VPS↔GitHub bằng máy cho 2 repo (báo cáo khác biệt = 0 hoặc danh sách); xác minh image AD đang chạy dựng từ cây nào; ghi luật vào AGENTS gốc «mã AD/Web chỉ sửa qua PR GitHub» + biển ở 2 thư mục mã trên VPS; Web khoá chỉ-đọc ngay (bảo vệ Điều 30/31 cùng lượt); AD chỉ biển, khoá khi 3.3 xong.
+- 3.3 **AD release từ GitHub + rollback** (nợ C1B): lên đường găng vì là điều kiện của mục tiêu 2 và 4 với AD (viết mã AD không cần chờ).
+- 3.4 **F2:** thẻ dev (§5) + C3.0 tách runner chạy audit có secret khỏi runner nhận mã PR + 3 agent; PR mã ứng dụng Web đầu tiên chứng minh vòng sửa → deploy.
+- 3.5 C4 ca đêm sau F2.
+
+**4. Khi nào viết mã được:** Web — ngay sau C2-B (Codex + Claude Code, PR → gate → KST merge → deploy theo F1). AD — viết và mở PR ngay; merge sau C2-B; deploy sau 3.3. Agent ngoài Mac (Hermes…) — sau 3.4.
+
+**5. Bảng phân vai + thẻ (đề xuất, Owner gật phần thẻ dev):**
+| Ghế | Vai | Thẻ GitHub | Được | Không được |
+|---|---|---|---|---|
+| GPT Host | điều hành | — | chốt prompt, ghi sổ | merge/deploy |
+| Claude Code CLI | KST mặc định | Owner `Huyen1974` (admin) | review, merge qua PR + `gate`, deploy bằng script VPS | merge khi gate đỏ/skipped |
+| Codex | dev; KST dự phòng khi lệnh ghi rõ | thẻ dev (khi là dev) · Owner (khi là KST) | nhánh `dev/codex-<repo>/…`, PR | merge/push main khi là dev |
+| Claude Code phiên khác, Hermes, agent khác | dev | thẻ dev | nhánh `dev/<ghế>-<repo>/…`, PR | merge, deploy, sửa mã trên VPS |
+| DOT | theo dõi | — | nhắc, tổng hợp | cấp quyền |
+- Cưỡng chế: «chỉ qua PR + gate xanh» = C2-B (máy chặn mọi người). «Chỉ KST merge» chỉ máy chặn được khi dev dùng **thẻ dev riêng** (1 tài khoản GitHub miễn phí, quyền ghi) + luật Restrict updates bypass admin — phải thử thật lúc mở F2 rằng admin vẫn phải qua gate (P92/P98). **Đề xuất Owner: Có**; tạo tài khoàn khi mở F2, sẽ có hướng dẫn từng bước.
+
+**6. Nhắc Host:** GPT phiên mới ghi repo bị PATH_NOT_ALLOWED ⇒ dùng cổng Workspace gateway với đường `work/github-management/...` như các phiên trước; Claude đã ghi điểm danh (ROADMAP §0.4c) để Host chỉ cần xác nhận/sửa.
+- NEXT_TRIGGER=HOST_DISPATCH_KST_C2_B.
 
 
 
