@@ -37,6 +37,8 @@ Required CODE/PR gate phải GREEN thật theo latest SHA mới merge; Web produ
 **Đường găng:** G1 xác minh CODE gate xanh thực → C2 hardlock Owner GO → F2 3 agent/PR app thật → C4; nợ dữ liệu/AD rollback song song. Không task mới.
 **Luật merge KST (từ G1, mọi PR — P84):** chỉ merge khi lượt `gate` mới nhất cho đúng head SHA = success (skipped không tính), không lượt nào của PR đang chờ/chạy, base = main hiện tại (lệch ⇒ `gh pr update-branch` rồi chờ xanh); COMMENT `KST_ACCEPT@SHA` rồi `gh pr merge <số> --merge --match-head-commit <SHA>`; không đổi trạng thái PR ngay trước merge. Gate đỏ ⇒ không merge, kể cả có comment. Màu check = kết luận máy; duyệt của KST = comment (một danh tính GitHub, chưa cưỡng chế đến C2).
 
+**P106 GPT Host:** ACCEPT P105 — một GitHub Pro, không thêm tài khoản/App; `KST_ONLY_MERGE_ENFORCED=NO` là giới hạn đã được Owner chấp nhận. C2-B sửa chính PROMPT P106 một mục B0a (bổ sung `dev/claude-code-ad/` ở AD, `dev/claude-code-web/` ở Web vào trusted preflight của hai PR-1; kiểm test/head GREEN trước B1/B2). Cần READY P107 trên SHA mới, P92 READY cũ không dùng sau thay đổi. Không lặp Phần A, không sửa PR #353 của task khác.**
+
 ## 0.4c ĐIỂM DANH 4 MỤC TIÊU OWNER — 28/10/2026 sau Pro (COLLAB §1 #12, P104)
 | Mục tiêu | Đã đạt | Còn thiếu | Bước đóng | Màu |
 |---|---|---|---|---|

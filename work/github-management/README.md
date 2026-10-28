@@ -1,5 +1,7 @@
 # github-management — cửa vào công việc
 
+**P106 Host chốt P105:** một GH Pro, KHÔNG account thứ hai/GitHub App; hai lớp là required gate+PR (máy) và KST-only merge/release (luật). Đã soạn gia cố B0a trong PROMPT C2 cho nhánh `dev/claude-code-<repo>/` đúng repo, trước khi B1 Web legacy/B2 rulesets; chữ ký READY P92 cũ cần thay bằng P107@new last-touch PROMPT. C2-B CHƯA RUN; không làm lại A.**
+
 **Trạng thái P104 (Claude): điểm danh 4 mục tiêu Owner ở ROADMAP §0.4c. Việc ngay: C2-B khoá main (Web đang bị bảo vệ cũ chặn merge) → SSOT-CUTOVER → AD release → F2.**
 
 **P103: Codex XONG S0–S2 cost sau Pro bằng readback UI + API; khóa hiện có đủ phạm vi, không đổi Billing/CI. Actions Account $0 + Stop/alerts ON; net metered hiện tại 0; All AI Credit SKUs có hard-stop, Models paid usage chưa bật. Bằng chứng riêng và giới hạn tại COLLAB P103. GPT Host nghiệm thu trước Owner giao C2-B riêng; chưa RUN C2-B.**

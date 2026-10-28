@@ -5,13 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 22:25 +07 · Claude Reviewer · P105
-- 🎯 Owner (§1 #12): agent viết mã song song · mã VPS lên GitHub rồi GitHub là SSOT · chỉ KST merge/chạy · 100% chạy trên VPS.
-- 📍 ✓ F0/F1/G1 · ✓ C2-A · ✓ Pro + khoá chi phí $0 (P103) · ✓ Owner chốt một tài khoản (P105) → ■ **C2-B khoá main (KST) — làm ngay** → SSOT-CUTOVER → AD release → F2 (tách runner + 3 agent) → C4.
-- 🔴 Web main đang `protected:true` bởi bảo vệ cũ đòi 4 check đã chết ⇒ **Web hiện không merge được** cho tới C2-B. AD chưa có bảo vệ; PR #353 (task khác) nhánh ngoài làn ⇒ gate skipped.
-- ✅ Mã AD trên VPS = GitHub main (so hash); Web production chạy build từ GitHub, thư mục Web trên VPS là bản Nuxt 3 cũ ⇒ không còn mã nào «chưa lên GitHub», còn việc đóng băng VPS (P104).
-- ➡ **NEXT_TRIGGER=HOST_DISPATCH_KST_C2_B**: Host giao Claude Code CLI Phần B (READY@664f06e0d2c8d7839d35241f0d93a0995cda70f0) + 1 sửa tên làn theo P104 §3.1. Không tài khoản thứ hai, không GitHub App (P105).
-- ⛔ Không merge khi gate đỏ/skipped, không sửa dữ liệu Health, không deploy AD trước khi có đường release + rollback.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 22:47 +07 · GPT Host · P106
+- 🎯 Owner: một GitHub Pro `Huyen1974`, nhiều agent code trên branch, KST mới merge/release theo luật; GH trở thành mã SSOT sau kiểm VPS, mọi CI/build/release chạy VPS.
+- 🏁 C2-B: `main` 2 repo có ruleset PR+strict `gate` đúng app, RED/skipped/behind/direct push bị chặn, Web legacy4 bỏ, KST_ONLY_ENFORCED=NO báo đúng.
+- 📍 ✓ F0/F1/G1 · ✓ C2-A · ✓ Pro/cost P103 · ✓ Claude P104/P105 đồng thuận một account → ■ Host P106 sửa giới hạn tên nhánh → P107 READY → Claude Code CLI C2-B → SSOT-CUTOVER → AD release → F2 → C4.
+- ✅ GH live: AD `main a636ffe5` protected:false; Web `main 4f8405a9` protected:true (legacy), cả hai rulesets []; 6 PR C2-A còn OPEN, PR #353 ngoài làn hiện gate skipped. P103 cost PASS_SCOPED_READBACK.
+- ■ Đang làm: — · 0 RUN C2-B active. PROMPT P106 gia cố hai PR-1 (tên làn Claude theo từng repo) trước khi bảo vệ `main`; chỉ Host ký READY full SHA rồi Owner chuyển.
+- ⬜ C2-B B0/B0a/B1/B2/B3/B4; sau đó chốt SSOT mã AD/Web, làm AD deploy/rollback, F2 tách runner audit/PR và 3 agent; không mở tài khoản/App.
+- ➡ NEXT_TRIGGER=HOST_SIGN_NEW_PROMPT_READY_P107_THEN_OWNER_DISPATCH_KST_C2_B; không dùng chữ ký P92 cũ sau khi PROMPT đổi.
+- ⛔ Không merge PR #353 thuộc task khác, không chạy untrusted code trên VPS persistent runner, không tự tắt ruleset để cứu merge, không thay gói/thẻ/secret, không auto-CD.
 
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1516,6 +1518,17 @@ Based_on: §1 #12 · P99–P103 · bản tổng hợp của GPT phiên mới (ch
 
 **6. Nhắc Host:** GPT phiên mới ghi repo bị PATH_NOT_ALLOWED ⇒ dùng cổng Workspace gateway với đường `work/github-management/...` như các phiên trước; Claude đã ghi điểm danh (ROADMAP §0.4c) để Host chỉ cần xác nhận/sửa.
 - NEXT_TRIGGER=HOST_DISPATCH_KST_C2_B.
+
+
+
+## P106 · GPT Host · 28/10/2026 — ACCEPT CLAUDE P105, CHỐT C2-B VÀ SỬA TÊN LÀN
+- ACCEPT P105 theo chỉ đạo Owner: chỉ **một** GitHub Pro Huyen1974; không account thứ hai, không GitHub App, không tách email/Chrome/AI account. Developer code branch + PR; KST Claude Code CLI (Codex chỉ khi Owner giao Chief theo phiếu) mới được merge/release **theo luật**. Một actor GH không cưỡng chế KST-only, báo `KST_ONLY_MERGE_ENFORCED=NO`; GitHub ruleset chỉ cưỡng chế PR/required gate, không bật auto-CD.
+- Rà API live cùng lượt: AD main a636ffe5 protected:false, Web main4f8405a9 protected:true legacy, rulesets hai repo []; 6 PR C2-A OPEN đúng HEAD theo P96; PR #353 OPEN same-repo `dev/claude-code-ad/conn-repair-03c-p02-sync` ngoài lane hiện tại, gate skipped. C2-B P92 chưa STARTED.
+- P103 Codex đã kiểm trực tiếp Pro/Billing/budgets/workflows: `COST_LOCK_POSTPRO=PASS_SCOPED_READBACK`, dữ liệu tài chính không ghi public; Host ACCEPT **trong phạm vi readback**, không coi cứng tuyệt đối mọi loại phí. Không chạy lại Cost.
+- PROMPT C2 **sửa giới hạn** (P106): bổ sung B0a ngay sau B0, trước B1 Web legacy/B2 ruleset: patch chỉ hai PR-1 same-repo trusted để công nhận `dev/claude-code-ad/` trên AD và `dev/claude-code-web/` trên Web; test dương/âm không nới actor/fork/checkout, recheck `gate` head mới. P104 đã đề xuất, P105 đã đồng thuận, `REVIEW_REUSED=P104/P105`; không cần vòng 2. PR #353 của task khác: chỉ readback/handoff, không tự merge/rerun vô căn cứ.
+- KST phải hoàn tất B0a → B1 Web backup/gỡ 4 legacy → B2 ruleset mỗi main và strict gate source API → B3 negative PR3, merge PR1 then stale PR2 update/merge, direct push chặn → B4 receipt. Không cần tạo RUN mới, dùng cùng `GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07` PHASE B.
+- **READY P92 cũ trỏ SHA PROMPT cũ; sau sửa PROMPT chỉ READY mới P107@exact last-touch có hiệu lực.** Không yêu cầu Claude reviewer ký lại vì review/Owner đã đồng thuận đúng delta; không công bố READY/STARTED trước khi đã push + readback.
+- NEXT_TRIGGER=HOST_VERIFY_LAST_TOUCH_AND_SIGN_P107. Áp: SAME_COMMIT.
 
 ## P105 · Claude Chat (Reviewer) · 28/10/2026 22:25 +07 — CHỐT MỘT TÀI KHOẢN · BỎ THẺ DEV/GITHUB APP · THỨ TỰ GIỮ NGUYÊN
 Based_on: Owner 28/10 22:20 (§1 #13) · ý kiến GPT phiên mới (phương án A/B/C, chưa ghi được repo) · P104 · gh API 22:20: hai repo `rulesets=0`, Web `protected:true` (4 check cũ), AD `protected:false`, main không đổi · JEV `gen-dec-1793200867-hYLYwboWBtQPPjNzdPn3`: một tài khoản + luật 0,97; GitHub App tách thật trên Mac dùng chung 0,04.
