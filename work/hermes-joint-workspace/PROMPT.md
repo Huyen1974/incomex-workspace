@@ -1,50 +1,41 @@
-# DOT + CODEX — HJW-N2-FOUR-FRESH-SESSIONS-20261027-09
+# HJW — Codex rà mã Gateway: "xưng danh mới được ghi" (CHỈ ĐỌC)
 
-RUN_ID: HJW-N2-FOUR-FRESH-SESSIONS-20261027-09
-STATUS: SUPERSEDED_BY_OWNER_DIRECTION_P438; NOT_READY; CHƯA RUN; KHÔNG PHÁT LỆNH RUN09. Owner đổi hướng sang Hermes trên MacBook → CUA → Codex; xem COLLAB P438. Giữ phần dưới làm lịch sử phép thử cũ.
-Repo/task: Huyen1974/incomex-workspace · work/hermes-joint-workspace.
-Executor_Surface: Dot thật -> tối đa 4 Work tasks MỚI trên MacBook -> 4 ứng dụng/phiên MỚI. Codex chỉ giám sát bằng chứng và ghi P/KQ qua workspace_* D12.
-Write_Path: Native desktop/browser/CLI được hãng và Owner đã cấp; không mutation production, không gateway/script mới.
+RUN_ID: HJW-DECLARATION-GATE-AUDIT-20261028-10
+STATUS: READ_ONLY_AUDIT_ONLY · KHÔNG THI CÔNG · chỉ chạy sau khi Host có READY đúng SHA và Owner giao trực tiếp
+Executor_Surface: Codex trong ChatGPT/Codex Desktop/Work (KHÔNG bắt buộc Codex CLI)
+Read_Path: GitHub Huyen1974/incomex-workspace + repo mã Huyen1974/agent-data-test và các nguồn Gateway hiện hữu được phép đọc
+Write_Path: chỉ `workspace_*`/capability D12 đã bind để ghi báo cáo P/KQ vào `work/hermes-joint-workspace/COLLAB.md`; cấm GitHub native write
+Scope: duy nhất HJW · xem AGENTS A2/A5/A6, README D12, HJW COLLAB §0, Bảng, P439–P443. Không mở task mới.
 
-## ĐỀ BÀI CỰC NGẮN
+## Mục tiêu — đúng hai câu hỏi
+1. **AI đến cửa ghi có tự biết phải khai tên không?** Nếu không khai, có thể trả `DECLARATION_REQUIRED` rõ từng trường, ví dụ và cách gọi lại ngay trong **một** lượt trả lỗi, tuyệt đối không sửa dữ liệu?
+2. **Có thể làm điều đó một lần về chính sách** cho mọi đường ghi repo hiện có (Workspace/FS/upload/import/async) mà không dựng server/DB/đường quyền mới? Cần sửa những file/choke point nào, mất công sức ở mức nào?
 
-B1 Owner: Dot gọi GPT Work trên MacBook để mở phiên Work mới; Work mở phiên MỚI cho GPT Chat, Claude Chat, Claude Code CLI và Codex app; gửi mỗi nơi đúng một tin CANARY đơn giản. **Mỗi đích dùng một Work task MỚI riêng** (tối đa 4). Không cần phiên Work cũ, không cần session_ref đích trước khi mở; mã phiên chỉ ghi SAU khi đã tạo.
+## S0 · Đọc mã hiện hành, không giả một gateway vật lý
+- Kiểm tra nguồn đang thật sự phục vụ và phiên bản được pin; chỉ đọc: `agent_data/workspace_tools.py` (master_profiles, auth, tools/call, tool schemas), `agent_data/hvu_signals.py`, `agent_data/workspace_idempotency.py`, schema/adapter của `workspace_upload_*`, `workspace_import_file`, `workspace_task_*`, phần `fs_*` thuộc Claude/Incomex VPS. Nguồn nào chưa có quyền đọc ghi **UNKNOWN + cách tìm đúng chủ**, không bịa.
+- Đối chiếu GitHub native direct write với Gateway D12 (ruleset bảo vệ main), không sửa ruleset.
+- Lập bảng NGẮN: `đường ghi | server/entrypoint | schema tools/list | chung pre-write hook? | có operation_id? | actor đã xác thực? | lỗi khi thiếu khai báo | GAP`.
+- Kiểm mọi biến thể source mutation: create/edit/copy/move/transaction, upload/import/commit, async/background, và mọi đường có thể gọi ghi dù tên không bắt đầu `write`. Chỉ rà tính phủ, không chạy phép thử live.
 
-RUN08 P434 đã DỪNG vì Dot không chấp nhận Codex relay như xác nhận Owner. Chưa có bằng chứng Dot -> Work không được. **Không lặp Codex relay**, Owner tự gửi scope một lần vào Your dot.
+## S1 · Đề xuất hợp đồng tối thiểu
+- Ưu tiên **xưng danh NGAY TRONG lệnh ghi**, không có bước gọi xin token trước. Mỗi lệnh chỉ thêm **một tên AI tự khai** `declared_actor` (task/path và idempotency giữ theo tham số đã có nếu phù hợp).
+- Không coi `operation_id` là authentication token. Kiểm xem có dùng mã hiện hữu làm vé giao dịch/receipt một lần được không, những tool nào còn thiếu.
+- Bắt buộc làm cho AI tự hiểu từ cả **mô tả tool** và **lỗi**. Ví dụ contract:
+  `error=DECLARATION_REQUIRED; required_field=declared_actor; example=gpt-live; instruction="Gọi lại đúng công cụ ghi này, thêm declared_actor, giữ nguyên nội dung và operation_id phù hợp"; mutation=none`.
+- Nếu schema validation chặn trước khi vào handler, chỉ ra chỗ phải thay schema/dispatcher để lỗi vẫn hữu dụng; đừng để một AI phải tự đọc AGENTS hoặc hỏi Owner mới biết cách sửa.
+- Với khai báo hợp lệ: trả `declared_actor` + `authenticated_actor` (theo credential thực) + transaction/commit receipt; actor Git đã xác thực phải được giữ, không thay bằng tên tự khai.
+- Phân biệt rõ **ghế làm việc** và **phiếu/quorum A2**. Tất cả AI đã qua cửa xác thực có thể xưng tên làm việc; không cộng phiếu cứng vì khai tên.
 
-Chấp nhận Work Local hoặc Work Cloud dùng local computer execution theo khả năng chính thức. Đích chứng minh là **Work thật sự thao tác được MacBook**, không phải chỉ tạo Work task ở máy Cloud. MacBook online, ChatGPT desktop app mở và Dot Computers > Your computer > Allow access đã được Owner chấp thuận khi cần.
+## S2 · Chọn một cách ngắn nhất, chỉ trên giấy
+- So sánh tối đa 2 cách tận dụng code hiện hành: (A) thêm/chuẩn hóa một field khai báo cho mọi tool ghi qua schema+dispatcher; (B) dùng một envelope/metadata chung đã có nếu chứng minh đủ an toàn và phổ quát.
+- Chọn cách ít nơi chứa logic nhất, không đặt biệt lệ mỗi AI, không tạo "Master thẻ" lớn, DB, listener, cron hoặc API mới. Nếu `fs_*` và `workspace_*` là hai server, nói rõ có cần 2 điểm móc mỏng theo một hợp đồng chung không.
+- Nêu danh sách **file dự kiến chạm, số điểm sửa, các suite/test sẵn có, một kế hoạch lùi, độ khó nhỏ/vừa/lớn**, không hứa số ngày chưa có cơ sở. Thử mô phỏng lỗi bằng test plan, **chưa chạy test mutation**.
+- Bộ nghiệm thu phải gồm: tool mô tả trước; thiếu tên → lỗi tự hướng dẫn, 0 ghi; tên đúng → 1 write/receipt; retry không ghi đôi; `fs_*` và `workspace_*` giống nhau; tool mới về sau không đi vòng; giữ nguyên key/profile, D12, A2; code/commit không leak secrets.
+- Riêng GPT Live 409: xác minh đủ bằng chứng trực tiếp hay chỉ suy luận từ ruleset; nêu **đường đúng qua Workspace** cho Live khi tool thật có bind, không tự gọi Live từ Codex hay mở khoá main.
 
-Nguồn: https://help.openai.com/en/articles/20001530-getting-started-with-your-dot ; https://learn.chatgpt.com/docs/dots/computers-and-apps ; https://learn.chatgpt.com/docs/enterprise/cloud-local-access .
+## Kết quả và điểm dừng
+- Ghi đúng một mục `P444 · Codex · Audit xưng danh Gateway` trong HJW COLLAB qua D12 và `KQ@HJW-DECLARATION-GATE-AUDIT-20261028-10 XONG|DỪNG` theo bằng chứng; nêu rõ `SOURCE_HEAD`, commit, 1 phương án ưu tiên, chỗ sửa, còn UNKNOWN và ONE NEXT_TRIGGER cho Owner/Host quyết thi công.
+- **CẤM trong RUN này:** sửa mã, cấu hình, tool schema thực, MCP, env, keys, Cloud plugin permission, production, nginx, VPS, Gemini, GitHub ruleset, AGENTS/A2, cấp phiếu/vote, RUN nền, thí nghiệm ghi thử ngoài một P/KQ report SSOT. Không giữ terminal/job chờ.
+- Báo Owner 3 câu ngắn: phương án đơn giản nhất là gì, có mấy nơi thực sự phải sửa, điều gì còn cần chốt trước thi công.
 
-## T0. MỘT LỆNH OWNER GỬI TRỰC TIẾP DOT
-
-Sau Host READY, Owner gửi chính Your dot:
-"Tôi trực tiếp cho phép RUN09: tạo tối đa 4 GPT Work task MỚI trên MacBook đã kết nối. Mỗi Work task mở một phiên MỚI ở đúng một đích: GPT Chat, Claude Chat, Claude Code CLI, Codex app; gửi một câu kiểm tra đơn giản. Không nhắn phiên cũ, không làm nghiệp vụ, không thay quyền/cấu hình. Cho tôi biết Work task ID, ứng dụng/phiên mới, tin đã gửi/ACK hoặc lỗi. Nếu Work đầu tiên không vào được máy Mac thì dừng."
-
-Dot cần thêm xác nhận quyền máy thì hỏi trực tiếp Owner trong app; Codex không giả danh Owner. Không giữ terminal chờ.
-
-## T1–T4. BỐN CANARY RỜI NHAU
-
-| Thử | Work task mới | Thao tác trên Mac | Bằng chứng |
-|---|---|---|---|
-| T1 | W-GPT | ChatGPT app/browser -> New Chat GPT -> gửi "RUN09 GPT CANARY. Chỉ đáp ĐÃ NHẬN GPT." | Work task ID, GPT chat mới, SENT/ACK |
-| T2 | W-CLAUDE | Claude app/browser -> New Chat -> gửi "RUN09 CLAUDE CANARY. Chỉ đáp ĐÃ NHẬN CLAUDE." | Work task ID, Claude chat mới, SENT/ACK |
-| T3 | W-CLAUDE-CLI | Terminal mới -> khởi động Claude Code CLI đã cài sẵn -> gửi một lời nhắn CANARY không code/không lệnh nghiệp vụ | Work task ID, terminal/CLI mới, SENT/ACK |
-| T4 | W-CODEX | ChatGPT/Codex desktop app -> Codex New Task/New Chat -> gửi CANARY chỉ xác nhận đã nhận, không chạy tool/code | Work task ID, Codex task mới, SENT/ACK |
-
-Mỗi Work task chỉ mở MỘT đích, không cần gắn vào phiên hội đồng hiện hữu. Claude/Terminal/Codex có thể là các ứng dụng riêng, không được ép tất cả nằm trong một cửa sổ ChatGPT. Không tự cài đặt hay sửa môi trường để ép xanh; không tác động các phiên sản xuất đang mở.
-
-Chạy lần lượt từng Work canary để không tranh điều khiển cùng Mac. Nếu công cụ hãng từ chối Terminal/Claude Code CLI hoặc Codex app, ghi NOT_AVAILABLE cùng lỗi thật cho đúng đích; không dùng shell/API/ứng dụng khác để vượt lệnh chặn, không lấy Codex do Dot tạo trực tiếp thay chuỗi Work→Codex. Quyền máy không bảo đảm mọi ứng dụng đều điều khiển được. T3/T4 cũng chỉ gửi câu cố định: “RUN09 CLI CANARY. Chỉ đáp ĐÃ NHẬN CLI.” / “RUN09 CODEX CANARY. Chỉ đáp ĐÃ NHẬN CODEX.”
-
-Thứ tự T1 trước. Nếu T1 không tạo được Work thật sự sử dụng Mac thì dừng T2–T4 và báo lý do, không lặp. Nếu đã có Work thật trên Mac nhưng một đích riêng bị chặn, ghi lỗi riêng và tiếp tục các đích khác trong quyền đã có.
-
-## T5. NHẬN KQ VÀ DỪNG
-
-Mỗi đích ghi ba mốc OPENED_NEW, MESSAGE_SENT, ACK_RECEIVED (hoặc NOT_AVAILABLE/ERROR); Work task ID/Activity ref, local_device, app, new session ID/link nếu hãng lộ, timestamp. Không tự đoán ID, không gán Cloud-only là Mac PASS.
-Bằng chứng Mac phải là quan sát/thao tác từ công cụ trên máy được kết nối của chính Work, gắn với Work task/Activity; tên task có chữ Local hay câu tự báo không đủ. T1/T2 dùng browser thì đó phải là browser trên Mac, không phải browser cloud của Dot. Không cần tạo thêm phép thử, registry hoặc yêu cầu Owner cung cấp ID trước.
-
-Báo Owner 3 câu: Dot -> Work trên Mac có thật không? Bốn app đạt đến đâu? Còn đúng một thao tác gì nếu cần?
-
-Chỉ là **native capability canary**, chưa chứng minh Hội đồng tự phát tín hiệu hay tự động khép vòng. PA1 Schedule/MCP Events/GitHub webhook giữ làm việc sau, KHÔNG thêm vào RUN09. Không thêm key/gateway/cron/bridge, không sửa VPS, production, Gmail, PG, Directus, Graph, Lark, root/GSM, AGENTS A2/roster/quorum. +1 Agent Data recreate vẫn UNUSED.
-
-STEP_WALK_V1: T0 Owner->Dot DIRECT; T1 Dot->Work NEW->GPT NEW; T2->Claude NEW; T3->Claude Code CLI NEW; T4->Codex NEW; T5 Codex/Host ghi P/KQ/Bảng/NEXT_TRIGGER theo bằng chứng. Không giữ job chờ, không tự RUN khi còn DRAFT.
+STEP_WALK_V1: S0 Codex đọc source đúng HEAD → S1 đối chiếu entrypoint/error/schema → S2 chọn minimal delta + test plan → S3 ghi P444/KQ vào repo & trả cờ; lỗi bất kỳ điểm nào thì ghi UNKNOWN/DỪNG, không tự sửa.
