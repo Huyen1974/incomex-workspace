@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 09:32 +07 · Codex · P87
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 09:45 +07 · Claude Code CLI · P88
 - 🎯 **Mục tiêu Owner:** Codex/agent code song song GitHub, KST Claude Code CLI review/merge/release VPS; GH `gate` CODE phải GREEN thật trước merge, không chỉ báo cáo XONG.
 - 🏁 G1 XONG khi hai repo có PR G1 unit/scan/policy `gate` thực SUCCESS trên head/merge-test SHA, test âm RED đúng, KST độc lập xét workflow rồi merge, `push main` có gate SUCCESS trên chính main SHA; Health business thật vẫn RED.
 - 📍 ✓ C1A/F0/F1 production Web → ✓ Claude P84 → ✓ GPT Host P85 READY → ■ Owner RUN Codex Phần A → Owner giao Claude Code CLI Phần B sau KQ_A → C2 Pro/nhánh protected theo Owner → F2 ba agent + PR app thật → C4.
 - ✅ Đã đạt: F1 P82 Web production main e9f5801f + 2 PR merge, audit 3/3 VPS; GH dữ liệu đo thật Web48FAIL/16PASS/36CANCEL và AD20FAIL/80PASS mỗi mẫu 100, PR gate postmerge false-red; Web ops-smoke 5/5 gần nhất PASS.
-- ■ Đang làm: — · 0 RUN active GHM. P87 KQ_A XONG/DoD_A PASS: PR G1 AD351/Web677 GREEN, hai PR âm closed với đỏ đúng + closed skipped. Phần B chưa RUN; G1 toàn bộ chưa nghiệm thu.
+- ■ Đang làm: Claude Code CLI KST — STARTED@GHM-GH-GREEN-GATE-20261027-06 Phần B (P88, 02:45Z): kiểm độc lập diff CI AD351/Web677 + gh API đúng SHA → KST_ACCEPT → merge → đo push-main gate. P87 KQ_A XONG/DoD_A PASS.
 - ⬜ Còn: CODE gate sửa false-red/self-edit trust và main green; C2 còn chưa có hard enforcement (hai main `protected:false` trên Free private); Health CHECK2/7 và 2 orphan dữ liệu thật; Agent Data deploy rollback còn vướng Compose+old DDL.
-- ➡ **NEXT_TRIGGER=OWNER_GIAO_KST_PHAN_B_GHM-GH-GREEN-GATE-20261027-06**: Owner chuyển Claude Code CLI; KST kiểm độc lập CI diff/SHA và merge theo B; Host nghiệm thu G1 sau bằng chứng main. Codex đã kết thúc A, không giữ cờ/phiên.
+- ➡ Kế tiếp: KQ Phần B của Claude Code CLI (P89) → NEXT_TRIGGER=HOST_ACCEPT_G1 (Host tự đối chiếu run ID bằng gh API).
 - ⛔ Không xóa/chuyển 30+8 tài liệu hay dọn vector trước Owner GO riêng; không tô xanh Health dữ liệu sai, không ghép Chief review vào máy gate giả hardlock, không tạo task/Pro/deploy/F2 tự động.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1247,6 +1247,10 @@ KQ@GHM-GH-GREEN-GATE-20261027-06 XONG · PHASE=A · KQ_A=PASS · DoD_A=PASS · e
 - GH_CODE_GATE_A=PASS_TRUSTED_PILOT · GH_CODE_GATE_MAIN=CHƯA_ĐO_PHẦN_B · GH_HARDLOCK_ENFORCED=NO. BUSINESS_HEALTH giữ FAIL theo P82–P85, không chạy lại audit/đổi ngưỡng/sửa dữ liệu trong A. Nợ AD rollback và C2 giữ nguyên.
 - Đường lùi A: đóng PR dương chưa merge, main không đổi. Sau merge chỉ KST được revert commit G1 theo B/ủy quyền. Nhánh âm giữ lịch sử làm bằng chứng, không merge. Hai checkout Mac về nhánh G1 dương; cache test tạm đã dọn. Không có lease/terminal chờ; cờ STARTED A kết thúc bằng KQ này; VPS-GHI không lấy, không chiếm, không sửa cờ của việc khác.
 - **NEXT_TRIGGER=OWNER_GIAO_KST_PHAN_B_GHM-GH-GREEN-GATE-20261027-06**. Owner chuyển riêng Claude Code CLI; cùng RUN_ID/P85 nếu PROMPT không đổi. KST kiểm độc lập toàn diff + gh API đúng SHA, không pending, COMMENT KST_ACCEPT@SHA rồi mới merge; kiểm push-main success/không đỏ giả sau merge và audit Health thật theo B2. Codex kết thúc Phần A, không tự B/C2/F2/C4.
+
+## P88 · Claude Code CLI (KST) · 28/10/2026 09:45 +07 — STARTED G1 Phần B
+Ghế: claude-code · Bước/vòng: thực thi B / sau P87 · Based_on: P85 READY@f4a21b2d7789e09245098d846c7fc483cd026b74; KQ_A P87 `e1a2f723`.
+STARTED@GHM-GH-GREEN-GATE-20261027-06 2026-10-28T02:45Z · executor=Claude Code CLI Mac · PHASE=B · Owner RUN «OWNER RUN — GHM-GH-GREEN-GATE-20261027-06 · PHẦN B» chuyển trực tiếp cho Claude Code CLI (khối có RUN_ID + thư mục việc có PROMPT — tiền lệ F1 P81). Read-gate PASS: gh identity Huyen1974; PROMPT last-touch `f4a21b2d` = READY P85; KQ_A có, 0 STARTED/STOP_REQUESTED/HOLD mới; main AD `a03a3b8f`, Web `e9f5801f` = base P87; AGENTS `5ca50aba` đã đọc → COLLAB §0/P84–P87 → README → ROADMAP §0.4a → PROMPT. Write_Path = gh CLI (comment + merge đúng 2 PR G1) + Workspace gateway cho hồ sơ. Không VPS-GHI, không deploy, không Pro, không F2, không sửa dữ liệu/Health.
 
 
 
