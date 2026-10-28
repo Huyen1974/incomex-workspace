@@ -7,7 +7,7 @@ HTML chính: view.html
 Phạm vi task: work/ai-council-karpathy/; Owner ngày 28/10/2026 cho triển khai song song; chỉ N0 khảo sát read-only được chuyển giao AUTO0. N1–N4 phải qua nghiệm thu/duyệt theo node; không tự đổi luật gốc hay tạo repo.
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
-Xác nhận User: ĐÃ XÁC NHẬN — Owner chỉ đạo trực tiếp ngày 28/10/2026: lập task **AI-council-Karpathy** để thảo luận; **chưa phê duyệt triển khai kỹ thuật, nâng cấp Workspace hoặc mở repo code mới**. GPT Chat làm Host hiện hành cùng Owner theo mô hình Owner đã mô tả; không tự suy quyền cho Host vĩnh viễn hoặc các AI khác.
+Xác nhận User: ĐÃ XÁC NHẬN — Owner 28/10/2026 giao lập task để thảo luận; sau P05/P06 đã cho **triển khai song song trong phạm vi N0 chỉ đọc**. Chỉ đạo mới trong ngày: **tổng hợp cái hệ đã có + phần lấy từ Karpathy**, không xây lại Hội đồng/ghế/luật. D03/§3.7 là bản tích hợp chuẩn. Host hiện tại GPT Chat do Owner chỉ định; chưa có quyền sửa production, đổi luật nền, tạo repo mới hoặc tự chạy N1–N4.
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 17:49 +07 · GPT Host · P07
 - 🎯 **Mục tiêu:** **HỢP NHẤT CÁI ĐÃ CÓ + KARPATHY; KHÔNG LÀM HỆ MỚI.** Hội đồng/Host/ghế/luật ở AGENTS+HJW, ghi ở MCPW, xem ở HVU, code ở GHM. Chỉ bổ sung các mẫu Karpathy có ích và điểm cưỡng chế còn thiếu, giữ AI/Host đổi được.
