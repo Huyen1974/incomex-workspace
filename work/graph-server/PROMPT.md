@@ -1,7 +1,7 @@
 # PROMPT — GS-MAC-CODEX-INAPP-UAT-20261028-18
 RUN_ID: GS-MAC-CODEX-INAPP-UAT-20261028-18
 TASK: work/graph-server · UAT độc lập một lượt, chỉ đọc Graph PRIVATE trên Mac.
-STATUS: DRAFT. Không STARTED/READY tới khi GPT Host B3 ký last-touch SHA40 + PROMPT_SHA256 vào task COLLAB sau Claude B2 P287. Owner chuyển một lần bằng tay.
+STATUS: SUPERSEDED_NOT_SIGNED · DO_NOT_DISPATCH · GPT Host P288 (28/10/2026). Bản nháp UAT dùng Codex built-in browser chưa qua cổng sẵn sàng của Owner: Browser Use enablement/host approval/WebGL canvas/CDP network chưa có chứng cứ trên đúng Mac, không ký READY và không retry. Giữ file PROMPT duy nhất làm lịch sử theo A6, không mở RUN mới.
 EXECUTOR_SURFACE: Codex Desktop trong ứng dụng ChatGPT Mac, KHÔNG Codex CLI. Native Computer Use được ưu tiên CHỈ khi chọn được đúng cửa sổ thử không chứa Chrome Owner. Đường thay thế có điều kiện là built-in browser của chính Codex Desktop qua Browser Use, tách trạng thái khỏi Chrome Owner; ghi rõ tool nào được dùng, không giả Browser Use là native Computer Use click.
 WRITE_PATH: CHỈ evidence mới PRIVATE tại ~/Incomex-Graph-View/ux16/evidence-codex-inapp/ và một KQ vào work/graph-server/COLLAB.md + thẻ view.html qua workspace Git-CAS. Không sửa GEXF, viewer, README, launcher, PG, Directus, Lark, Graph VPS hoặc dữ liệu.
 READ: AGENTS, root/task COLLAB P280–P287, GS-RM1, P285 DỪNG, GPT P286, Claude B2 P287; Mac serve.py, OPEN-GRAPH.command, Gephi Lite và manifest. Official doc https://help.openai.com/en/articles/20001277-using-the-built-in-browser-in-the-chatgpt-desktop-app .
