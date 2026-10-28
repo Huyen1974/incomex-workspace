@@ -9,14 +9,14 @@ Phạm vi ghi đợt mở hồ sơ: work/ai-council-karpathy/; không thay luậ
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner chỉ đạo trực tiếp ngày 28/10/2026: lập task **AI-council-Karpathy** để thảo luận; **chưa phê duyệt triển khai kỹ thuật, nâng cấp Workspace hoặc mở repo code mới**. GPT Chat làm Host hiện hành cùng Owner theo mô hình Owner đã mô tả; không tự suy quyền cho Host vĩnh viễn hoặc các AI khác.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 15:00 +07 · GPT Host · P01
-- 🎯 **Mục tiêu:** Task thảo luận AI-council-Karpathy: hội đồng AI không phụ thuộc hãng, Host điều hành theo bước có quy định; tận dụng dự án Karpathy kết hợp Workspace hiện có, quản lý được cả việc và code.
-- 🏁 **Xong khi:** Giai đoạn mở hồ sơ: ghi đầy đủ chỉ đạo, câu hỏi và roster; kết thúc *toàn task* cần hội đồng thảo luận/Owner chốt tiêu chí kỹ thuật sau, chưa được tự nhận hoàn tất.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 15:20 +07 · GPT Host · P01
+- 🎯 **Mục tiêu:** Xây quy trình hội đồng/doanh nghiệp **do chúng ta sở hữu**, mọi Host (DOT/Duet/Grokbot/GPT/AI khác) chỉ điều hành trong khung luật nội bộ, hoán đổi model/hãng dễ dàng; tận dụng Karpathy + Workspace, quản lý việc và code; chuẩn bị lộ trình Hội đồng Host.
+- 🏁 **Xong khi:** Phương án kiến trúc phải nêu rõ engine/quy chế độc lập hãng, cách thay Host/model không phá trạng thái hoặc vượt quyền, các giai đoạn Owner chỉ định thủ công → Host tự điều hành có kiểm soát → Hội đồng Host có chữ ký; tiêu chí đo/nghiệm thu kỹ thuật sẽ do hội đồng đề xuất, Owner chốt sau.
 - 📍 **Tiến độ:** ✓ G0 Mở hồ sơ → ■ G1 Hội đồng phản biện các phương án → □ G2 Owner/Host quyết cấu trúc → □ G3 Roadmap/thiết kế theo quy định → □ G4 triển khai + nghiệm thu nếu Owner giao.
 - ✅ **Đã xong:** Đối chiếu AGENTS A0/A2/A5/A6/A8/A9 và nguyên tắc Owner; lập hồ sơ yêu cầu, danh mục vấn đề cần phản biện; không thay luật nền.
 - ■ **Đang làm:** — · 0 RUN active. G1 ở trạng thái **BÀN** (không phải STARTED/RUN); vòng hội đồng chưa có phiếu phản biện.
-- ⬜ **Còn lại:** Ý kiến độc lập khác hãng; phân biệt “đồng ý” với “đã bình luận”; chọn ranh giới Workspace/code; chốt khả năng tái dùng và giấy phép; tiêu chí nghiệm thu; quyết định kỹ thuật/roadmap về sau.
-- ➡ **NEXT_TRIGGER=INDEPENDENT_COUNCIL_REVIEW_AI_COUNCIL_KARPATHY:** Owner chuyển nội dung task cho Claude Chat (ghế khác hãng) nhận xét; GPT Host đối chiếu và chốt kết luận bước thảo luận theo quy chế, chưa phát RUN.
+- ⬜ **Còn lại:** Ý kiến độc lập khác hãng; định nghĩa đồng thuận và chữ ký hai tầng (hội đồng thành viên / Hội đồng Host tương lai); ranh giới engine với DOT/Duet/Grokbot; phương án thay Host/model; vai trò vector/graph; lựa chọn Workspace/code; công nghệ, license và roadmap.
+- ➡ **NEXT_TRIGGER=INDEPENDENT_COUNCIL_REVIEW_AI_COUNCIL_KARPATHY:** Owner chuyển task **đã bổ sung §3.5, Q08–Q10** cho Claude Chat (khác hãng) phản biện; GPT Host đối chiếu toàn bộ tiêu chí/ý kiến và chốt bước thảo luận; chưa phát RUN.
 - ⛔ **Không làm/để sau:** Không sửa AGENTS/luật gốc; không di chuyển mã hoặc dữ liệu, đổi quyền hay tạo repo code; không thêm task phụ; không triển khai công nghệ, không phát READY/PROMPT/RUN; không ép dùng API trả phí.
 
 ### 1. Mục tiêu
@@ -27,10 +27,15 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner chỉ đạo trực tiếp ngày 28
 5. “Không chỉ ý kiến là cần hội đồng theo nguyên tắc, mỗi lần agent báo cáo kết quả, Host cũng cần đọc báo cáo, soạn prompt tiếp theo (theo roadmap) và cần ý kiến hội đồng (ít nhất 1 ý kiến của ai khác hãng) Host cân nhắc, nếu cần thiết sẽ mở thêm vòng thảo luận, hoặc quyết định soạn prompt tiếp theo và chỉ định agent thực hiện.”
 6. “Tôi thì muốn là đồng bộ kể cả công việc lẫn việc viết code, quản lý cho đơn giản. Nhưng vì tính chất công việc hơi khác nhau => cái này cứ đưa lên rồi hội đồng cho ý kiến.”
 7. “Trước hết chúng ta lập ra cái này để thảo luận, vì cái này AI-council-Karpathy là mức task. Còn chuyện nâng cấp Repo, hay mở thêm Repo code space đợi hội đồng cũng có ý kiến rồi chúng ta quyết định.”
+8. “DOT/Duet/Grok bot... Có xu hướng là được thiết kế để điều hành, chúng ta vẫn dùng các sản phẩm này, nhưng chỉ cho phép điều hành trong khung hệ thống của chúng ta. Không cần phụ thuộc vào bất cứ hãng nào, và có thể đổi model điều hành dễ dàng. Mục tiêu ban đầu phải xây dựng dứt khoát là như vậy.” — Owner bổ sung 28/10/2026; **ràng buộc kiến trúc đầu tiên, không phải tính năng tùy chọn**.
+9. “Hiện giờ thì User vẫn điều hành bằng tay => thông qua chỉ định Host. Nhưng khi quy trình đã tối ưu và các AI hoàn thiện hơn, các cơ chế như vector, graph... hỗ trợ hiệu quả hơn => sẽ chuyển dần do HOT điều hành, lúc này có thể có hội đồnhg Host (Host trưởng và các thành viên). Và ở trên này sẽ là đồng thuận (có chữ ký) => đó là cấu trúc sẽ hướng tới nhưng chúng ta phải vạch ra từ bây giờ để chuẩn bị các hạ tầng kĩ thuật.” — Owner bổ sung 28/10/2026; “HOT” hiểu theo ngữ cảnh là **Host**, giữ nguyên văn phát biểu Owner.
 
 ### 2. Thế nào là hoàn thành
 “Cái lý tưởng tôi nhìn thấy là ở mỗi bước, chúng ta biết tiến độ đến đâu? biết bước gì tiếp theo? Biết đang ở bước nào? Biết bước nào tắt hay là mọi việc vẫn theo kế hoạch?” — Owner 28/10/2026 (trao đổi liền trước).
 “Trước hết chúng ta lập ra cái này để thảo luận [...] đợi hội đồng cũng có ý kiến rồi chúng ta quyết định.” — Owner 28/10/2026.
+“Không cần phụ thuộc vào bất cứ hãng nào, và có thể đổi model điều hành dễ dàng. Mục tiêu ban đầu phải xây dựng dứt khoát là như vậy.” — **tiêu chí kiến trúc bắt buộc** do Owner bổ sung 28/10/2026.
+“Và ở trên này sẽ là đồng thuận (có chữ ký) => đó là cấu trúc sẽ hướng tới nhưng chúng ta phải vạch ra từ bây giờ để chuẩn bị các hạ tầng kĩ thuật.” — **tiêu chí thiết kế hướng tới Hội đồng Host**, chưa phải phép bật cơ chế nhiều người ký ở hiện tại.
+**Đòi hỏi trong phương án trước khi trình Owner:** chỉ ra được cách hoán đổi Host/model/hãng mà không phải đổi quy chế, không mất trạng thái/nhật ký, không vượt quyền; lộ trình tăng tự động hóa từng cổng và hợp đồng chữ ký/đồng thuận của Hội đồng Host tương lai. Phép thử và chuẩn nghiệm thu chi tiết phải được hội đồng đề nghị rồi Owner duyệt.
 **Chưa có nghiệm thu kỹ thuật/hệ thống cuối do Owner chốt**: việc mở hồ sơ không đồng nghĩa công nghệ được chọn hay task hoàn thành.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
@@ -68,8 +73,18 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: — (đây là ta
 - **C — Một đầu mối điều hành ở Workspace, code tiếp tục ở các repo mã hiện hữu** (`agent-data-test`, `web-test`), liên kết task ↔ branch/PR/KQ; không tạo kho mới nếu không cần.
 - Đánh giá theo: một SSOT nghiệp vụ, tránh trùng dữ liệu, khác nhau giữa vòng đời thảo luận và vòng đời mã, kiểm soát quyền ghi/merge/CI/deploy, độ đơn giản trong Owner View, tốc độ agent chạy song song, chi phí vận hành. **Chưa chọn A/B/C; chưa tạo repo, nhánh, runner, script, rule hay migration nào.**
 
+#### 3.5. TIÊU CHÍ KIẾN TRÚC BẮT BUỘC — HOST THAY ĐƯỢC, QUY CHẾ DO CHÚNG TA SỞ HỮU (Owner 28/10/2026)
+- **Phân lớp không phụ thuộc hãng:** `Workflow Engine / State Machine + Council Governance + SSOT/Decision Ledger` là **hệ thống của chúng ta**; DOT, Duet, Grokbot, GPT hay bất kỳ model/AI điều hành nào chỉ là **Host Runtime/Adapter** được cấp ghế, định danh, quyền và phạm vi; sản phẩm ngoài không tự áp luật, tự đổi roadmap, tự chốt hay vượt quy trình.
+- **Host có thể thay:** phân biệt `Host_Seat / Host_ID / quyền được ủy nhiệm` với `Model/Provider/Surface/Adapter`; khi đổi model hoặc hãng, nhiệm vụ, node, P/KQ, chữ ký cũ, trạng thái, bằng chứng, NEXT_TRIGGER vẫn đọc và kiểm chứng được. Đổi **người/ghế giữ quyền Host** hiện vẫn do Owner quyết theo A2; đổi model kỹ thuật không được là cách lách quyền Host.
+- **Giai đoạn 0 — hiện tại:** User chọn Host và chuyển lệnh thủ công; GPT Chat + Owner điều hành task này, phản biện khác hãng theo A5; chỉ **một chữ ký READY của Host/Co-host hợp lệ** theo A6/DROOT58. Không giả định DOT/Duet/Grokbot đã có quyền hoặc đang chạy tự động.
+- **Giai đoạn 1 — từng phần tự động:** Host AI nhận quyền điều hành theo lớp nhiệm vụ và cổng Owner phê duyệt, thực thi đúng state machine, có receipt, bằng chứng, rollback/dừng, danh tính và audit. Quyền Owner và cổng an toàn giữ nguyên, chỉ bỏ thao tác tay sau khi thử nghiệm/duyệt.
+- **Giai đoạn 2 — Hội đồng Host:** hướng tới **Host trưởng + các Host thành viên** (có thể khác hãng/model) tại tầng điều hành phía trên Hội đồng AI nghiệp vụ; quyết định ở tầng Host theo cơ chế **đồng thuận có chữ ký xác thực**, chứng minh được ai ký, cho phương án/phiên bản/nút nào, điều kiện quorum và kiểm tra chống ký trùng hoặc giả. Phân vai ai đề xuất, ai duyệt, ai có quyền quyết khi bất đồng và khi nào Owner can thiệp phải đưa ra hội đồng/Owner chốt sau. **Không áp quy tắc đa chữ ký này vào READY hiện tại khi AGENTS chưa sửa hợp lệ.**
+- **Vector/graph/tri thức:** thiết kế cổng dữ liệu và truy vết nguồn phục vụ lập kế hoạch, đối chiếu quyết định, tìm phụ thuộc và kiểm nghiệm; dữ liệu truy hồi **không được tự biến thành mệnh lệnh/quyền**, không buộc một nhà cung cấp vector/graph/model nào. Không triển khai trước khi hội đồng thống nhất nhu cầu, độ tin cậy và bảo mật.
+- **Tiêu chí nghiệm thu cần lập kế hoạch đo:** thay runtime/model Host trên một task đang chạy mà không chuyển/hỏng SSOT; cùng quy chế điều hành không cần sửa theo hãng; model ngoài không thể bypass ký lệnh/quorum/Owner/Guard; giữ audit và node, KQ, chữ ký khi thay Host; chứng minh tương lai có thể kiểm chữ ký/quorum của Hội đồng Host. Các bài kiểm, độ sâu và cổng GO phải do hội đồng phê bình rồi Owner duyệt, chưa tuyên PASS.
+- **Nguyên tắc kế thừa:** tái sử dụng LLM Council/AutoResearch (theo giấy phép) và cơ chế Workspace đã viết; không chọn kiến trúc chỉ vì DOT/Duet/Grokbot có orchestration sẵn, không tạo phụ thuộc bắt buộc vào API, hãng hoặc nguồn lưu trữ ngoài.
+
 ### Vòng trước
-- Chưa có. Khối mục tiêu đầu tiên do Owner giao ngày 28/10/2026.
+- Chưa có. Khối mục tiêu đầu tiên do Owner giao ngày 28/10/2026; bổ sung mục 8–9 và tiêu chí ngày 28/10 được cập nhật trong vòng hiện hành, không xóa lịch sử.
 
 ## Q — Câu hỏi xin Hội đồng phản biện vòng đầu
 - **Q01 (quorum):** “Đồng ý của ≥1 AI khác hãng” khác “đã nhận xét” ra sao? Khi reviewer bất đồng, ai quyết mở vòng tiếp/xin Owner, giữ tối đa 3 vòng thế nào? Một chữ ký READY của Host vẫn giữ hay cần bổ sung gate machine-readable?
@@ -79,6 +94,9 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: — (đây là ta
 - **Q05 (reuse):** Chính xác file/module nào từ LLM Council/AutoResearch được học hoặc tái dùng hợp pháp, không đem theo OpenRouter API/GPU hoặc bản chất nghiên cứu model? Cân nhắc state machine/UI có sẵn.
 - **Q06 (adapter):** Cơ chế chung để bất kỳ AI/agent qua Chat/CLI/MCP/app/API đều nhận cùng một phiếu, có receipt/identity rõ, bảo đảm từng ghế/khác hãng, thay nhà cung cấp dễ?
 - **Q07 (chi phí):** Phân ranh giới phần nào phải tự động, phần nào Owner chuyển tay trước; chứng minh không phát sinh API/Actions ngoài ý muốn và không tạo dependency bắt buộc?
+- **Q08 (bộ điều hành thay được):** Cấu trúc tối thiểu nào giữ state machine/quy chế/ledger do ta làm chủ, trong khi DOT/Duet/Grokbot/GPT chỉ là runtime có thể thay ngay cả giữa nhiệm vụ, không mất quyền định danh/decision trail?
+- **Q09 (Hội đồng Host và chữ ký):** Thiết kế từ bây giờ các trường/khối chuẩn nào cho chữ ký xác thực, quorum, phiên bản quyết định và phân vai Host trưởng/Host thành viên? Làm sao không lẫn với một chữ ký READY hiện tại và không thêm vòng duyệt vô ích?
+- **Q10 (lộ trình tự trị và tri thức):** Tiêu chí đo nào đủ để chuyển từ Owner chỉ định Host thủ công → Host AI tự điều hành có hạn → Hội đồng Host có chữ ký; vai trò vector/graph, kiểm nguồn/sai lệch và cổng quay lại Owner ra sao?
 
 ## P — Ý kiến, kết luận, lệnh
 ### P01 — GPT Host ghi nhận đề bài Owner (KHÔNG PHẢI ý kiến độc lập/đồng thuận)
@@ -86,7 +104,9 @@ Ghế: openai-main · Bước/vòng: G0/mở hồ sơ · 0/1
 - Based_on: chỉ đạo trực tiếp Owner ngày 28/10/2026; AGENTS A0/A2/A5/A6/A8/A9; HEAD đọc khi lập hồ sơ `1cef5dff4d33882615467e450639a4489a4074fd`.
 - Scope: `work/ai-council-karpathy/COLLAB.md` (A0, Bảng, §3, Q) và `view.html` (sơ đồ phương án).
 - Đã ghi đủ phạm vi và câu hỏi cho hội đồng; **chưa có ý kiến của Claude/các ghế khác**; **chưa phải đạt quorum**; không lập PROMPT hay phát READY.
-- Host đề xuất chuyển câu hỏi Q01–Q07 cho ghế Anthropic qua Owner; ghi P02 thật khi đã có phản biện, Host mới quyết vòng tiếp theo.
+- Host đề xuất chuyển câu hỏi Q01–Q10 (gồm chỉ đạo Owner mới về Host hoán đổi và Hội đồng Host) cho ghế Anthropic qua Owner; ghi P02 thật khi đã có phản biện, Host mới quyết vòng tiếp theo.
+
+HUMAN_DIRECTIVE@AI-COUNCIL-HOST-FUTURE-20261028 EFFECTIVE · task=ai-council-karpathy · scope=§0.1/§0.2/§3.5/Q08–Q10 · step=G1/phạm vi thảo luận · recorded_by=openai-main (GPT Chat) · quote=«Không cần phụ thuộc vào bất cứ hãng nào, và có thể đổi model điều hành dễ dàng. Mục tiêu ban đầu phải xây dựng dứt khoát là như vậy.» · text=Luật/quy chế thuộc hệ thống ta; dùng DOT/Duet/Grokbot như bộ điều hành thay thế được; hiện Owner chọn Host thủ công; chuẩn bị chuyển dần sang Host AI và Hội đồng Host có chữ ký; chưa đổi luật nền hay quyền RUN. · audit=Owner trực tiếp bổ sung 28/10/2026; chờ phản biện độc lập.
 
 ## Owner cần quyết
 - —
