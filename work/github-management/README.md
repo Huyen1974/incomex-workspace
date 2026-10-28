@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: GPT Host P85 ACCEPT Claude P84, READY@f4a21b2d7789e09245098d846c7fc483cd026b74 cho RUN GHM-GH-GREEN-GATE-20261027-06 (Owner chưa RUN). G1 hai lượt: A Codex sửa gate 2 repo + kiểm dương/âm, đóng KQ_A; Owner chuyển B Claude Code CLI KST chỉ merge PR G1 khi gate SUCCESS thật trên đúng head+merge-test SHA, rồi main `push` có gate GREEN trên main SHA. Web Health CHECK2/7 đỏ nghiệp vụ giữ RED, không tô xanh để qua cổng. Hai repo private Free protected=false; C2 Pro/hardlock và identity/required checks cần Owner GO trước F2. F1 Web production main e9f5801f đã đạt, Agent Data rollout rollback vẫn nợ riêng.**
+**Trạng thái hiện hành: [COLLAB — Bảng điều khiển và KQ_A P87](COLLAB.md). Phần A G1 đã XONG: PR Agent Data #351/Web #677 gate GREEN thật; hai PR âm đóng sau đúng hai run RED/repo, closed skipped. Phần B chưa RUN — Owner chuyển riêng Claude Code CLI theo P85, cùng RUN_ID GHM-GH-GREEN-GATE-20261027-06; KST kiểm độc lập CI diff rồi merge và kiểm push-main. Không tuyên G1 toàn bộ/C1B/Health đã xanh.**
 
 **Trước đó: GPT Host P83 kiểm thẳng GitHub Actions: F1 accepted scoped Web production MAIN@e9f5801f và KST merge PR350/676, nhưng GH CODE GATE NOT ACCEPTED; G1 trước C2/F2.**
 

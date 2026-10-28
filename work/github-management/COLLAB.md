@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 · Codex · P86
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 09:32 +07 · Codex · P87
 - 🎯 **Mục tiêu Owner:** Codex/agent code song song GitHub, KST Claude Code CLI review/merge/release VPS; GH `gate` CODE phải GREEN thật trước merge, không chỉ báo cáo XONG.
 - 🏁 G1 XONG khi hai repo có PR G1 unit/scan/policy `gate` thực SUCCESS trên head/merge-test SHA, test âm RED đúng, KST độc lập xét workflow rồi merge, `push main` có gate SUCCESS trên chính main SHA; Health business thật vẫn RED.
 - 📍 ✓ C1A/F0/F1 production Web → ✓ Claude P84 → ✓ GPT Host P85 READY → ■ Owner RUN Codex Phần A → Owner giao Claude Code CLI Phần B sau KQ_A → C2 Pro/nhánh protected theo Owner → F2 ba agent + PR app thật → C4.
 - ✅ Đã đạt: F1 P82 Web production main e9f5801f + 2 PR merge, audit 3/3 VPS; GH dữ liệu đo thật Web48FAIL/16PASS/36CANCEL và AD20FAIL/80PASS mỗi mẫu 100, PR gate postmerge false-red; Web ops-smoke 5/5 gần nhất PASS.
-- ■ Đang làm: STARTED Phần A · Codex CLI/Desktop · RUN_ID=GHM-GH-GREEN-GATE-20261027-06 · Owner RUN trực tiếp; P85 READY đúng PROMPT last-touch. Không giữ VPS-GHI.
+- ■ Đang làm: — · 0 RUN active GHM. P87 KQ_A XONG/DoD_A PASS: PR G1 AD351/Web677 GREEN, hai PR âm closed với đỏ đúng + closed skipped. Phần B chưa RUN; G1 toàn bộ chưa nghiệm thu.
 - ⬜ Còn: CODE gate sửa false-red/self-edit trust và main green; C2 còn chưa có hard enforcement (hai main `protected:false` trên Free private); Health CHECK2/7 và 2 orphan dữ liệu thật; Agent Data deploy rollback còn vướng Compose+old DDL.
-- ➡ **Kế tiếp:** Codex thực hiện S0–S2, ghi KQ_A và trả cờ; Owner chuyển Phần B riêng cho KST khi DoD_A đạt. Không giữ phiên để chờ.
+- ➡ **NEXT_TRIGGER=OWNER_GIAO_KST_PHAN_B_GHM-GH-GREEN-GATE-20261027-06**: Owner chuyển Claude Code CLI; KST kiểm độc lập CI diff/SHA và merge theo B; Host nghiệm thu G1 sau bằng chứng main. Codex đã kết thúc A, không giữ cờ/phiên.
 - ⛔ Không xóa/chuyển 30+8 tài liệu hay dọn vector trước Owner GO riêng; không tô xanh Health dữ liệu sai, không ghép Chief review vào máy gate giả hardlock, không tạo task/Pro/deploy/F2 tự động.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1206,6 +1206,48 @@ CHECK2: Agent Data báo «warning» vì tỉ lệ vector/tài liệu 2,02 > 2,0 
 ## P86 · Codex · 28/10/2026 — STARTED G1 Phần A
 Ghế: codex · Bước/vòng: thực thi A / sau P85 · Based_on: P85 READY@f4a21b2d7789e09245098d846c7fc483cd026b74.
 STARTED@GHM-GH-GREEN-GATE-20261027-06 2026-10-28 02:15:28 UTC · executor=Codex CLI/Desktop Mac · PHASE=A · Owner RUN trực tiếp đúng phạm vi A. Read-gate gh API PASS: identity đúng Owner; PROMPT last-touch khớp READY. Đã đọc AGENTS → COLLAB §0/P82–P85 → README → ROADMAP §0.4a → toàn PROMPT. Write_Path=git/gh API trên hai nhánh dev và Workspace gateway cho hồ sơ (direct GitHub write bị gateway-only-writes chặn; không đổi ruleset); không mượn khóa KST, không merge/main/deploy. S0 đo refs/runners/workflows/100 runs rồi S1 sửa và S2 thử dương/âm; không giữ VPS-GHI, không đổi host. Kết thúc KQ_A/nhả cờ; dữ liệu/Health giữ nguyên.
+
+## P87 · Codex · 28/10/2026 09:32 +07 — KQ_A XONG G1
+Ghế: openai-codex · Bước/vòng: thực thi Phần A / sau P85 · Based_on: READY@f4a21b2d7789e09245098d846c7fc483cd026b74; STARTED commit d3122815edd8375ce40e17854e8e38918ebf477e.
+KQ@GHM-GH-GREEN-GATE-20261027-06 XONG · PHASE=A · KQ_A=PASS · DoD_A=PASS · executor=Codex CLI/Desktop Mac · 2026-10-28T02:32Z. **Chỉ Phần A đã xong; G1 toàn bộ chưa nghiệm thu, Phần B chưa RUN.** Áp: SAME_COMMIT (hồ sơ).
+
+### S0 — cổng và hiện trạng
+- Owner giao riêng Phần A; PROMPT last-touch gh API khớp P85, không STOP mới. Roster/A0/README/ROADMAP §0.4a đã đọc. S0 main AD `a03a3b8f37ead0d73181ed96baf85e05c9c05544`, Web `e9f5801f422f2ae452023386cb1ce66d96c1cbc4` đúng nguồn P82; hai runner online/idle, PR gate active. Mẫu 100 run: AD 80 success/20 failure; Web 18 success/48 failure/34 cancelled (khác P84 do thời điểm, không sửa lịch sử).
+- Hồ sơ incomex-workspace qua Workspace gateway + expected_version/HEAD. GitHub connector/gh contents trực tiếp trả 409 gateway-only-writes trước STARTED: 0 thay đổi từ hai lệnh bị từ chối; dùng gateway sẵn có, không sửa/bỏ ruleset. Commit STARTED thành công mới bắt đầu S0/S1.
+- Không giữ VPS-GHI, không gọi SSH/runtime/DB/secret, không thay host. PROMPT P85 và mục tiêu gốc giữ nguyên.
+
+### S1 — đúng ba tệp mỗi PR, không sửa main
+`.github/workflows/ghm-pr-gate.yml` + `scripts/ghm/gate_policy.py` + `scripts/ghm/test_gate_policy.py`.
+- Bỏ ready_for_review; closed cùng concurrency của PR để hủy lượt đang chạy rồi job skipped; push main kiểm đúng event SHA và parent, không so main live. PR mở base cũ vẫn lỗi BASE_MOVED_REBASE_REQUIRED. Ngoài pilot giữ skipped, không chạy mã PR.
+- Giữ nguyên **byte-for-byte các lệnh quét secret và unit** khi đối chiếu từ Mac với main, giữ runner/flock/token contents:read/no persisted credential/no root/socket. Gitleaks vẫn ghim phiên/checksum, quét delta thật với config/ignore cố định; không continue-on-error, không rỗng hóa bước kiểm.
+- CI thay đổi: actionlint **1.7.12** ghim SHA256 Linux archive `8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8`; kiểm YAML/expressions bằng actionlint, các bất biến bằng script nhỏ. Kiểm gate + workflow thay đổi, không kéo workflow legacy bị tắt vào scope. Tham chiếu secret chỉ xét workflow; gitleaks vẫn quét mã khác. CI hợp lệ có annotation CI_CHANGE_KST_REVIEW, không tự đỏ chỉ vì sửa CI.
+- Gate không còn buộc blob head=main; vẫn kiểm executing workflow=merge-test, base/head là parents thật. **KST bắt buộc kiểm độc lập toàn diff workflow/script tại SHA ghim ngoài job trước merge**. Bằng chứng Codex dưới đây không thay vai KST, không tuyên chống sửa gate tuyệt đối.
+- Bậc: dùng GitHub event/concurrency + actionlint/gitleaks sẵn có; code mỏng chỉ giữ bất biến pilot. PG/Directus không liên quan kiểm workflow GitHub. Không dựng gateway/runner/dịch vụ mới.
+
+### S2 — kết quả thật từ GitHub API và log
+| Repo / PR | Head SHA dương | Base SHA | Merge-test SHA | Gate |
+|---|---|---|---|---|
+| [Agent Data #351](https://github.com/Huyen1974/agent-data-test/pull/351) | `67b42542f90ba71f631dc32a75d2448ecf1aea9f` | `a03a3b8f37ead0d73181ed96baf85e05c9c05544` | `f71337bd2c1435cf03ab50dd4a936d57921f5f5b` | success, 33 unit +14 policy regression PASS |
+| [Web #677](https://github.com/Huyen1974/web-test/pull/677) | `1dcf49b02b45b3738daf23438bc6804c4e9de959` | `e9f5801f422f2ae452023386cb1ce66d96c1cbc4` | `a92894814494c9bb1a970aef5f5d641bbe3b500e` | success, 16 unit +14 policy regression PASS |
+
+| Phép thử | Agent Data | Web | Kết luận đo |
+|---|---|---|---|
+| PR G1 dương | [40620663888](https://github.com/Huyen1974/agent-data-test/actions/runs/40620663888) | [40620668267](https://github.com/Huyen1974/web-test/actions/runs/40620668267) | preflight/scan/actionlint/policy/unit/summary success; commits/head/check-runs trả gate=success đúng head SHA |
+| PR âm commit 1 — sai đúng một unit | [40620866836](https://github.com/Huyen1974/agent-data-test/actions/runs/40620866836) | [40620872340](https://github.com/Huyen1974/web-test/actions/runs/40620872340) | RED: AD 1 failed/32 passed, Web 1 failed/15 passed; scan/policy/preflight PASS |
+| PR âm commit 2 — khôi phục unit, thêm trigger cấm | [40621008132](https://github.com/Huyen1974/agent-data-test/actions/runs/40621008132) | [40621038887](https://github.com/Huyen1974/web-test/actions/runs/40621038887) | RED: PULL_REQUEST_TARGET_FORBIDDEN + EVENT_OUTSIDE_PILOT; unit AD33/Web16 và scan PASS |
+| Đóng PR âm | [40621128506](https://github.com/Huyen1974/agent-data-test/actions/runs/40621128506) | [40621186397](https://github.com/Huyen1974/web-test/actions/runs/40621186397) | gate/workflow skipped; runner=null, 0 đỏ mới. SKIPPED không phải test PASS |
+
+- PR âm [AD #352](https://github.com/Huyen1974/agent-data-test/pull/352) và [Web #678](https://github.com/Huyen1974/web-test/pull/678) đã CLOSED, merged=false; đúng 2 run đỏ/repo, không rerun/xóa lịch sử. Gate/script của nhánh âm byte-identical với PR dương; commit 2 phục hồi unit byte-for-byte. Fixture không có secret/checkout, job vô hiệu để không thực thi. **Actionlint còn bắt điều kiện constant false của fixture (ACTIONLINT_FAILED); log giữ đủ, không giấu lỗi phụ.** Policy vẫn tự chạy và ghi rõ trigger bị cấm; 14 ca hồi quy cũng kiểm riêng trigger này.
+- Kiểm local bổ sung chạy chính preflight với transport fixture: 8/8 gồm PR base đúng/đã đổi và push/dispatch khi main tiến tiếp. Đây là kiểm local, **không thay chứng cứ push main/post-merge của Phần B**. Không tạo commit main để thử. Bỏ ready_for_review và close skipped đã có code/live evidence; sau merge chỉ KST mới kiểm được.
+- Summary trên GitHub có head/base/merge-test/executing workflow SHA, policy/unit/scan/actionlint, runner và CI_CHANGE_KST_REVIEW. PR body cập nhật các run ID; log gốc ở private Actions. Manifest bằng chứng Mac 12 tệp SHA256 `098c1088d06ec2cf77e073b8ed17eb344719fcbc89fd84252c4afc022a3d1dc5`; không đẩy raw log/nội dung bí mật lên repo public.
+- SHA256 tệp workflow ứng viên: AD `8c4e0625ba5fb65f38d5b7caa186d1341f30292f4a08e008bb957bc9d0b5d374`; Web `8832a45afbc950a2ef38d870142f07d5815a87fc88f7202cc29b469863e914af`. Hai script policy giống nhau giữa repo; nguồn/checksum actionlint lấy từ [release chính thức](https://github.com/rhysd/actionlint/releases/tag/v1.7.12). Hành vi event theo [GitHub Docs](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#pull_request).
+
+### Kết thúc và bàn giao
+- Hậu kiểm gh API: hai PR dương OPEN, không draft, merged=false, gate success đúng head; base vẫn=current main; không run G1 pending/running. Hai runner online/idle; PR âm closed, close skipped. **0 merge, 0 main write, 0 deploy, 0 mua Pro, 0 xử lý/xóa dữ liệu, 0 host mutation.** Chỉ thay source nhánh và hồ sơ; không có POST production/receipt mới để tuyên.
+- GH_CODE_GATE_A=PASS_TRUSTED_PILOT · GH_CODE_GATE_MAIN=CHƯA_ĐO_PHẦN_B · GH_HARDLOCK_ENFORCED=NO. BUSINESS_HEALTH giữ FAIL theo P82–P85, không chạy lại audit/đổi ngưỡng/sửa dữ liệu trong A. Nợ AD rollback và C2 giữ nguyên.
+- Đường lùi A: đóng PR dương chưa merge, main không đổi. Sau merge chỉ KST được revert commit G1 theo B/ủy quyền. Nhánh âm giữ lịch sử làm bằng chứng, không merge. Hai checkout Mac về nhánh G1 dương; cache test tạm đã dọn. Không có lease/terminal chờ; cờ STARTED A kết thúc bằng KQ này; VPS-GHI không lấy, không chiếm, không sửa cờ của việc khác.
+- **NEXT_TRIGGER=OWNER_GIAO_KST_PHAN_B_GHM-GH-GREEN-GATE-20261027-06**. Owner chuyển riêng Claude Code CLI; cùng RUN_ID/P85 nếu PROMPT không đổi. KST kiểm độc lập toàn diff + gh API đúng SHA, không pending, COMMENT KST_ACCEPT@SHA rồi mới merge; kiểm push-main success/không đỏ giả sau merge và audit Health thật theo B2. Codex kết thúc Phần A, không tự B/C2/F2/C4.
+
 
 
 

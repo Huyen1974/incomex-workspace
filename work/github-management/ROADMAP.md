@@ -1,5 +1,5 @@
 # ROADMAP — github-management V0.5 · 27/10/2026
-**Trạng thái: GPT Host P85 ACCEPT Claude P84, READY@f4a21b2d7789e09245098d846c7fc483cd026b74 cho RUN GHM-GH-GREEN-GATE-20261027-06 (Owner chưa RUN). G1 hai lượt: A Codex sửa gate 2 repo + kiểm dương/âm, đóng KQ_A; Owner chuyển B Claude Code CLI KST chỉ merge PR G1 khi gate SUCCESS thật trên đúng head+merge-test SHA, rồi main `push` có gate GREEN trên main SHA. Web Health CHECK2/7 đỏ nghiệp vụ giữ RED, không tô xanh để qua cổng. Hai repo private Free protected=false; C2 Pro/hardlock và identity/required checks cần Owner GO trước F2. F1 Web production main e9f5801f đã đạt, Agent Data rollout rollback vẫn nợ riêng.**
+**Trạng thái hiện hành: [COLLAB — Bảng điều khiển và KQ_A P87](COLLAB.md). Phần A G1 đã XONG: PR Agent Data #351/Web #677 gate GREEN thật; hai PR âm đóng sau đúng hai run RED/repo, closed skipped. Phần B chưa RUN — Owner chuyển riêng Claude Code CLI theo P85, cùng RUN_ID GHM-GH-GREEN-GATE-20261027-06; KST kiểm độc lập CI diff rồi merge và kiểm push-main. Không tuyên G1 toàn bộ/C1B/Health đã xanh.**
 Đầu việc chi tiết cùng mã ở [KE-HOACH.md](KE-HOACH.md) §2; lý do từng sửa ở [COLLAB.md](COLLAB.md) P5 (C1–C10). V0.1 = P3 · V0.2 = P4 · V0.3 = V0.2 + C1–C10 · **V0.4 = ưu tiên FAST-PR-LANE Owner 27/10, C1B DoD giữ nguyên (§0.4).**
 Ưu tiên 1 (Owner 25/10 15:18): hệ thống chạy được — mỗi repo đi được nhánh → PR → test → main → deploy VPS, máy chạy (runner) đặt trên VPS. Sau đó: nhân không gian làm việc để 3–5 agent viết mã song song trên hai repo hiện hữu; Claude Code CLI làm kỹ sư trưởng (KST) — người duy nhất ghi `main`; sau đó tự động giao batch ban đêm. Không dựng thêm repo hay máy chủ chỉ để được code song song.
 
@@ -25,6 +25,7 @@
 Đích gần nhất: **F0 đã PASS; F1 KST merge PR350/676 + audit main và Web production chuyển lên GitHub main, GIỮ chạy nếu parity/Guard khỏe (có known-good rollback)**. F2 sau C2: thử PR thay mã ứng dụng Nuxt4 thật rồi release theo KST. C1B Agent Data rollback vẫn độc lập chưa đạt; không đánh đồng có nguồn Web main với dữ liệu dịch vụ đã xanh.
 
 ## 0.4a G1 — GH CODE GATE GREEN TRƯỚC C2/F2 (Owner 27/10 chiều)
+**Checkpoint thực thi A: P87 KQ_A PASS; bảng run/SHA tại COLLAB P87. B chưa RUN. NEXT_TRIGGER=OWNER_GIAO_KST_PHAN_B_GHM-GH-GREEN-GATE-20261027-06. Không đổi đích/DoD G1: main GREEN sau KST merge vẫn phải đo ở B.**
 Required CODE/PR gate phải GREEN thật theo latest SHA mới merge; Web production F1 P82 đã đạt nhưng GH Actions vẫn nhiều RED. Phân biệt lỗi CODE vs Health nghiệp vụ thật.
 | Nhóm | Kiểm tra GH 100 runs mới nhất | Cổng |
 |---|---|---|
