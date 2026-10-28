@@ -9,15 +9,15 @@ Phạm vi task: work/ai-council-karpathy/; Owner ngày 28/10/2026 cho triển kh
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner chỉ đạo trực tiếp ngày 28/10/2026: lập task **AI-council-Karpathy** để thảo luận; **chưa phê duyệt triển khai kỹ thuật, nâng cấp Workspace hoặc mở repo code mới**. GPT Chat làm Host hiện hành cùng Owner theo mô hình Owner đã mô tả; không tự suy quyền cho Host vĩnh viễn hoặc các AI khác.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 17:12 +07 · GPT Host · P06
-- 🎯 **Mục tiêu:** Xây quy trình hội đồng/doanh nghiệp **do chúng ta sở hữu**, mọi Host (DOT/Duet/Grokbot/GPT/AI khác) chỉ điều hành trong khung luật nội bộ, hoán đổi model/hãng dễ dàng; tận dụng Karpathy + Workspace, quản lý việc và code; chuẩn bị lộ trình Hội đồng Host.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 17:49 +07 · GPT Host · P07
+- 🎯 **Mục tiêu:** **HỢP NHẤT CÁI ĐÃ CÓ + KARPATHY; KHÔNG LÀM HỆ MỚI.** Hội đồng/Host/ghế/luật ở AGENTS+HJW, ghi ở MCPW, xem ở HVU, code ở GHM. Chỉ bổ sung các mẫu Karpathy có ích và điểm cưỡng chế còn thiếu, giữ AI/Host đổi được.
 - 🏁 **Xong khi:** Phương án kiến trúc phải nêu rõ engine/quy chế độc lập hãng, cách thay Host/model không phá trạng thái hoặc vượt quyền, các giai đoạn Owner chỉ định thủ công → Host tự điều hành có kiểm soát → Hội đồng Host có chữ ký; tiêu chí đo/nghiệm thu kỹ thuật sẽ do hội đồng đề xuất, Owner chốt sau.
-- 📍 **Tiến độ:** ✓ G1 thảo luận/đồng thuận → ✓ G2 P05/P06/D02 chốt kế hoạch, Owner GO song song → ■ N0 khảo sát read-only (READY, chưa STARTED) → □ N1 hợp đồng → □ N2 chốt máy + UI → □ N3 thử thật + Host lạnh → □ N4 Owner nghiệm thu.
-- ✅ **Đã xong:** Claude P02/P03 độc lập khác hãng; GPT Host P04 đối chiếu mã nguồn Karpathy (cả frontend) và chốt danh sách nhóm 14 mẫu chính + L2/L4 tùy chọn; chọn hướng C (1 đầu mối điều hành, code ở 2 repo) làm phương án trình Owner; khẳng định A9 chỉ đọc/view không đủ cưỡng chế, cần gate trước mọi WRITE; chưa thay luật/code. **Claude P05:** đồng ý P04 (VERDICT có điều kiện, 3 chỉnh nhỏ); UI theo chỉ đạo Owner 16:48: dựng lại màn hội đồng 3 tầng kiểu llm-council + Vue Flow cho toàn cảnh, không dùng giao diện Stately; kế hoạch + roadmap N0–N4 đủ ô từng node; `view.html` vẽ roadmap + màn hội đồng mẫu.
-- ■ **Đang làm:** — · 0 RUN active. Node N0 được chọn, PROMPT đang/đã được Host ký READY (kiểm dòng READY@SHA ở P06). Chỉ STARTED khi Owner thực sự dispatch và worker read-gate PASS.
-- ⬜ **Còn lại:** N0 đo 8 cổng/bypass và code UI; N1 ký hợp đồng NODE/VERDICT/vé ghi/thẻ vai; N2 gateway+merge cưỡng chế + giao diện hội đồng 3 tầng/Vue Flow; N3 thử âm/chuông/Host lạnh; N4 Owner nghiệm thu. Không tự thực thi N1–N4.
-- ➡ **NEXT_TRIGGER=OWNER_DISPATCH_ACK_N0_20261028_01:** Owner chuyển lệnh N0 đã ký READY cho Claude Code CLI qua app trên Mac khi bố trí lượt. Worker read-gate → STARTED/KQ; Host + Reviewer rà KQ → quyết N1 hoặc kiểm bổ sung; không chiếm VPS-GHI.
-- ⛔ **Không làm/để sau:** N0 không sửa production/mã/runner/ruleset/CI/AGENTS hay secret; không tự RUN, không bắt VPS-GHI hoặc khóa máy; không lập repo/task mới, không API trả phí. N1–N4 chưa ký READY.
+- 📍 **Tiến độ:** ✓ G1/G2 hội đồng chốt D02 → ✓ **G2B: D03 BẢN ĐỒ HỢP NHẤT (§3.7/P07)** → ■ N0 chỉ khảo sát khoảng trống, PROMPT sửa + READY ký lại, chưa STARTED → □ N1 ghép mẫu vào cơ chế có sẵn → □ N2 bổ sung chốt máy/UI → □ N3 thử thật/Host lạnh → □ N4 Owner nghiệm thu.
+- ✅ **Đã xong:** Hội đồng P02–P06; P07 đã đọc AGENTS, HJW Hội đồng/0.15/P443, MCPW D12, HVU Task View, GHM G1/C2 và nguồn mã AgentData/Web; **bảng tích hợp D03 ở §3.7 là nguồn chuẩn duy nhất của kế hoạch**. 16 mẫu Karpathy đã phân đúng chỗ tái sử dụng; không tuyên 16 module copy được. Chưa sửa runtime.
+- ■ **Đang làm:** — · 0 RUN active. N0 được thu về **GAP-ONLY**, PROMPT cũ superseded; không Owner dispatch bản cũ. Chỉ dùng chữ ký READY mới của Host ở P07, chưa STARTED.
+- ⬜ **Còn lại:** N0 kiểm đúng delta chưa đo của HJW P443, GHM C2, MCPW/HVU; N1 nâng hợp đồng hiện hữu (không NODE/DECISION mới); N2 ghép gate và UI còn thiếu vào đúng hệ; N3 pilot; N4 Owner nghiệm thu. Mỗi task gốc giữ chủ phần đã làm.
+- ➡ **NEXT_TRIGGER=OWNER_DISPATCH_ACK_N0_GAP_ONLY_20261028_02:** Owner chuyển N0 mới cho Claude Code CLI khi thích hợp; Agent chỉ đọc KQ/thiết kế hiện hữu và khảo sát khoảng trống, không chạy lại P443/C2; sau KQ Host/Reviewer quyết bước tiếp.
+- ⛔ **Không làm:** không xây hệ hội đồng, ghế, định danh, policy/event/assignment/scanner/Task View/repo/CI mới; không tự triển khai vé ghi thứ hai khi HJW P443 còn audit; không chạy API trả phí. N0 không đụng runtime/CI/quyền/secret, không VPS-GHI.
 
 ### 1. Mục tiêu
 1. “Chúng ta hướng tới những tính năng tự động cao, nhưng hội đồng của chúng ta tổ chức theo 1 nguyên tắc là không bị phụ thuộc vào bất cứ nhà cung cấp nào. Tức là bất cứ ai cũng có thể tham gia.”
@@ -34,6 +34,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner chỉ đạo trực tiếp ngày 28
 12. “từng bước có Host điều hành, có hội đồng theo từng ghế cho ý kiến, có quy định thế nào là mở thêm vòng nữa, đi tiếp, dừng lại báo cáo user. Sau này có thể thêm cả vai trò Giám sát.” — Owner 28/10/2026.
 13. “Nguyên tắc định danh và cưỡng chế. Viết rất ngắn gọn là quy định thì dễ bị vi phạm, trong khi cưỡng chế thì không thể vi phạm => ưu tiên phương án là cưỡng chế, tức không thể làm sai.” — Owner 28/10/2026.
 14. “đọc thoải mái, nhưng muốn ghi, phải khai báo danh tính để lấy vé tạm 1 lần vào ghi” — Owner 28/10/2026, mô hình đề xuất để hội đồng thẩm định.
+15. “không phải là đi làm 1 cái mới ... mà là đi tổng hợp lại tất cả những gì chúng ta đang có cộng với việc copy thêm của Karpathy vào thành 1 kế hoạch tổng hợp cuối cùng.” — Owner ngày 28/10/2026, yêu cầu sửa phương pháp thực hiện; **§3.7 là bản kế hoạch hợp nhất thay các ý lập hệ riêng**.
 
 ### 2. Thế nào là hoàn thành
 “Cái lý tưởng tôi nhìn thấy là ở mỗi bước, chúng ta biết tiến độ đến đâu? biết bước gì tiếp theo? Biết đang ở bước nào? Biết bước nào tắt hay là mọi việc vẫn theo kế hoạch?” — Owner 28/10/2026 (trao đổi liền trước).
@@ -98,6 +99,61 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: — (đây là ta
 - **Chỗ cưỡng chế đúng:** gateway + identity/permission cho Workspace; protected PR/CI/merge/runner cho repo code; Owner-only cho scope ngoài ủy quyền. **Bộ đọc A9 và Owner View chỉ là quan sát/phản ánh**: nó có thể tô đỏ sai nhưng không thay thế chặn mutation *trước khi ghi*.
 - **Một view hiện hành, không SSOT thứ hai:** cùng trang Task từ `COLLAB.md`/Git + trạng thái PR/CI: `roadmap nodes | node đang ở đâu | ghế đủ/thiếu phiếu | verdict/quorum | KQ/CI | next trigger | alert giám sát`. Mẫu Stage1/2/3 tabs của llm-council là giao diện từng tầng trong *một câu hỏi*, **không phải sản phẩm roadmap đa node**; cần tự xây view phù hợp hoặc lấy thư viện UI có phép phù hợp. Không copy JSX/CSS của repo không LICENSE.
 - **Cần khung máy đọc cho mỗi node (bản thiết kế):** `node_id; revision; goal; input_ref; worker/host/reviewer/supervisor; allowed_write; deadline/budget; doD/test_ref; evidence_ref; verdict_ref; open_alarm; next_transition; deferred_items`. Quy chế, quota, version và chữ ký Host/Hội đồng Host tương lai nằm ở ledger của ta, không để runtime provider tự định nghĩa.
+
+#### 3.7. D03 — BẢN KẾ HOẠCH TÍCH HỢP CUỐI CÙNG (hệ của ta + mẫu Karpathy, Host P07)
+**Kết luận một câu:** Không xây Hội đồng AI mới. Chúng ta **đã có** quy chế/ghế/Host, đường ghi có bảo vệ, scanner giao–làm–báo, trang Task, code Git/PR/CI. Task này chỉ **nối các thứ đã có với 16 mẫu Karpathy**, chỉ bổ sung chốt máy/giao diện còn thiếu, **không tạo SSOT/engine/repo/identity thứ hai**. Mọi P02–P06 là lịch sử; bản §3.7 này là tài liệu kế hoạch đang có hiệu lực; từng task gốc vẫn là SSOT kỹ thuật của phần nó làm chủ.
+
+**A. BẢNG TÀI SẢN ĐÃ CÓ — KHÔNG VIẾT LẠI**
+
+| Đang có | Nguồn chuẩn và kết quả đã đọc | Chỉ còn phần tích hợp/còn thiếu |
+|---|---|---|
+| **Quy chế, ghế, Host, vòng, ký READY, rà sau KQ** | [AGENTS A0–A9](../../AGENTS.md); [HJW HĐ1–HĐ29 + 0.15/M1/N4](../hermes-joint-workspace/COLLAB.md). **Luật đã có**; phần Council Core tự cưỡng chế N4 chưa FULL_PASS. | Nối mẫu phản biện Karpathy vào **`TASK_POLICY_V1` + `FLOW_EVENT_V1` hiện có**; không tạo `NODE_V1`, `DECISION_V1`, bảng ghế hay council-engine mới. |
+| **Cổng ghi, định danh kỹ thuật, khoá repo Workspace** | [MCPW đã đóng](../done-tasks/mcp-workspace/COLLAB.md), [README D12](../../README.md), [agent-data workspace_tools.py](https://github.com/Huyen1974/agent-data-test/blob/main/agent_data/workspace_tools.py): gateway-only ruleset, CAS/expected HEAD, operation_id, read snapshot, audit. | Reuse, không làm lại. Cần xác minh các gate còn thiếu dựa code live trước khi tuyên ENFORCED. |
+| **Xưng danh trước khi ghi** | [HJW P439–P443](../hermes-joint-workspace/COLLAB.md): tách `declared_actor`/ `authenticated_actor`, **P443 đã READY audit Codex, chưa KQ/thi công**. | Đây là **task chủ**. Không phát minh ticket/danh tính mới ở ACK; chỉ nhận kết quả P443, nếu cần vé một lần thì gắn vào cùng gateway và `operation_id`. |
+| **Giao–làm–báo, scanner và Telegram/chuông** | [AGENTS A9-GLB](../../AGENTS.md); [HJW](../hermes-joint-workspace/COLLAB.md): `ASSIGN_V1/RESULT_V1` và lifecycle MANUAL đã chạy; scanner có thật. M1/N4 hội đồng tự động còn kế hoạch/giới hạn. | Ghép `VERDICT` và alert vào **event/scanner hiện có**; không dựng dispatcher/ledger/Telegram bot mới. |
+| **Task View và tình trạng từng việc** | [HVU](../hpml-view-for-user/COLLAB.md), [AGENTS A8/A9](../../AGENTS.md), [UI source tham chiếu](https://github.com/Huyen1974/web-test/blob/main/scripts/hvu-b2/ui/app.vue), [Nuxt shell](https://github.com/Huyen1974/web-test/blob/main/web/pages/knowledge/modules/index.vue). Hiện đã có tiến độ/actor/HTML và pipeline một nguồn. | Mở rộng đúng Task View hiện hữu: thêm bàn hội đồng 3 tầng và Vue Flow; **không làm app/trang/pipeline thứ hai**. Runtime web trên VPS mới là SSOT code; GitHub web-test là bản tham khảo, phải kiểm source live. |
+| **Code PR/CI/merge** | [GHM](../github-management/COLLAB.md): pilot G1 chạy, **C2-A tested trên PR**; main protection/KST-only **chưa cưỡng chế** ở bản kiểm vừa đọc, C2-B phụ thuộc Owner Pro/GO. | Phần code gate do **GHM** xử lý; ACK chỉ dùng KQ/CI từ đó, không tạo rule/CI trùng hoặc tự coi đã PASS. |
+| **Graph/Vector/JEV** | [Graph](../graph-server/COLLAB.md), [JEV](../done-tasks/jev-integration/COLLAB.md). | Công cụ tham khảo tương lai, không là engine hội đồng/nguồn quyền hay lý do tạo subsystem mới. |
+
+**B. 16 MÓN KARPATHY: DÙNG CỤ THỂ Ở ĐÂU?** — 14 dùng, L2/L4 tùy chọn. 16 mã là **mẫu/ý tưởng kỹ thuật**, không phải 16 module phần mềm đã sẵn chạy được.
+| Mã | Lấy từ Karpathy | Ghép đúng phần sẵn có; delta mới (nếu có) |
+|---|---|---|
+| K1 | `autoresearch/program.md` khung được/cấm làm, mục tiêu đo, lỗi | **PROMPT hiện có/A6**: cải thiện format, không tạo luật hoặc thẻ vai ngoài hệ |
+| K2 | Khối KQ do máy in, đo được | **RESULT_V1/KQ + CI logs**: thêm xác thực provenance nếu thiếu, không tin Agent tự kể |
+| K3 | Sổ 5 cột `keep/discard/crash` | **P/KQ/commit/CI hiện có**: trình bày trong Task View, **không tạo `results.tsv` thứ hai** |
+| K4 | Git giữ bản tốt/bỏ bản kém | **GHM branch/PR/check/merge** đang làm, không tự reset code dùng chung |
+| K5 | Giám khảo tách thí sinh; test cố định | **GHM C2** phải chặn sửa/bypass evaluator, không làm nhánh CI riêng ở ACK |
+| K6 | Giới hạn thời gian/chi phí | **A5/A6/runner/NO-WAIT** đã có; chỉ thêm trường budget vào node đang dùng |
+| K7 | Fail-fast khi lỗi chắc chắn | **CI/Guard/KQ DỪNG** có sẵn, chỉ bổ sung ca âm nếu thiếu |
+| K8 | Đơn giản hơn với chất lượng không giảm | **Reviewer/KST** dùng làm tiêu chí; đây là đánh giá, không giả gọi chốt máy |
+| K9 | Không treo chờ người giữa lượt | **DROOT50/52** đã có; KHÔNG sao chép `LOOP FOREVER` |
+| K10 | Log ra file, đọc cửa sổ nhỏ | **workspace_search/read/result_read + CI logs** đã có |
+| L1 | Ghế trả ý kiến độc lập | **HJW `FLOW_EVENT_V1`/P review**; kiểm thứ tự đề/bài, nhưng không giả định hoàn toàn bí mật |
+| L2 | Ẩn tên phương án A/B/C | **TÙY CHỌN** khi chấm nhiều phương án; audit vẫn giữ actor |
+| L3 | Verdict định dạng máy đọc được | **HJW policy/event + A5/A6**: **delta quan trọng** nếu chưa có `agree/conditional/block` gắn `content_ref`, Host vẫn ký READY một lần |
+| L4 | Xếp hạng trung bình | **TÙY CHỌN** trên UI, không thay chữ ký/quorum |
+| L5 | Chairman tổng hợp đồng/khác | **Host P/decision sẵn có**: 2 trường/nhãn hiển thị, không dựng Host mới |
+| L6 | Hiển thị ý kiến gốc và phần máy đọc | **HVU Task View**: panel 3 tầng trong đúng trang hiện hành |
+
+**C. CÁI GÌ THẬT SỰ COPY ĐƯỢC?**
+- [`autoresearch/program.md`](https://github.com/karpathy/autoresearch/blob/master/program.md): **copy/kế thừa cấu trúc hướng dẫn** để chuẩn hoá A6/PROMPT, không bê nguyên chương trình train. README ghi MIT nhưng repo thiếu tệp LICENSE riêng: khi định sao chép nguyên văn, kiểm và giữ notice/ghi nguồn; tiện nhất là biên soạn lại cho hợp đồng hiện có.
+- [`llm-council` Stage1–3](https://github.com/karpathy/llm-council/tree/master/frontend/src/components) + [`backend/council.py`](https://github.com/karpathy/llm-council/blob/master/backend/council.py): **học bố cục/phân tầng và cách phân tích**, **không copy mã React/FastAPI** vì chưa thấy license và dùng OpenRouter; không có sẵn engine quyền hoặc roadmap nhiều node.
+- [Vue Flow](https://github.com/bcakmakoglu/vue-flow): **thư viện MIT có thể tích hợp trực tiếp** vào Task/Nuxt hiện hành ở N2, pin version; **không phải sản phẩm Karpathy**. Bản UI `view.html` hiện tại chỉ là minh họa, chưa phải Vue Flow sống.
+- **Không copy:** GPU `train.py/prepare.py`, API OpenRouter, loop `NEVER STOP`, JSX/CSS unlicensed, Stately SaaS, trạng thái/engine/DB mới trùng phần đã có.
+
+**D. SƠ ĐỒ GHÉP DUY NHẤT:** `Owner/Host → AGENTS + HJW TASK_POLICY/FLOW_EVENT → MCPW gateway/identity/CAS (+ vé một lần nếu P443 chứng minh cần) → HJW ASSIGN/RESULT hoặc GHM PR/CI → HJW scanner/COUNCIL_ALERT → HVU Task View (bước + hội đồng Stage1–3 + Vue Flow)`.
+Chữ ký Hội đồng Host nhiều người là khả năng tương lai, không khởi động engine ký riêng. Bất kỳ chốt nào chưa nằm tại **đường WRITE/merge trước mutation** thì phải ghi `PARTIAL/NOT_ENFORCED`, tô đỏ UI không thay quyền từ chối.
+
+**E. ROADMAP N0–N4 ĐÃ CHỈNH — KHÔNG TRIỂN KHAI TRÙNG TASK KHÁC**
+| Node | Phạm vi thật sự còn thiếu | DoD/đầu ra |
+|---|---|---|
+| N0 **GAP-ONLY** | Đọc KQ hiện hành **HJW P443, GHM C2, MCPW, HVU**; chỉ đo thiếu khác có chủ/đường UI live. Không chạy lại audit P443/C2; còn READY chưa KQ ⇒ `DEPENDENCY_PENDING`. | Ma trận `đã có / bằng chứng / còn thiếu / chủ task / delta`, không code, không schema mới. |
+| N1 **GHÉP** | Áp K1/K2/L3/L5 vào **A6/PROMPT, HJW TASK_POLICY/FLOW_EVENT/ASSIGN/RESULT** đang có sau review/Owner; không tạo `NODE_V1`, `DECISION_V1` hay bộ luật ghế mới. | Diff tối thiểu, dữ liệu verdict gắn actor thật + SHA/content_ref và điều kiện; no duplicate SSOT. |
+| N2 **BÙ CHỐT + VIEW** | Chỉ những lỗ hổng HJW/MCPW/GHM chưa khép, phối hợp Host đúng task gốc; HVU thêm Stage1–3 + Vue Flow vào Task hiện hữu. | Ca âm từ chối trước WRITE/merge, hiện đúng node/ghế/KQ/next trên một UI; không tạo đường tắt. |
+| N3 **PILOT** | Một task thật nhiều node, review sau mỗi KQ và thử Host lạnh/chuông. | Giữ quyết định, bằng chứng, không bypass chốt thực, Host mới đi tiếp đúng. |
+| N4 **OWNER** | Owner nghiệm thu một màn hình (≤30s). | Owner thấy đang đâu/ai chưa phiếu/KQ/next; quyết có tăng AUTO hay không. |
+
+**F. RANH GIỚI CHỦ QUẢN:** HJW = hội đồng + khai tên P443/N4; MCPW = gateway write bảo vệ; GHM = PR/CI/C2; HVU/web = Task View; ACK = **chỉ điều phối tích hợp + xác minh chưa trùng**. READY N0 cũ **bị thu hồi do đổi phạm vi**, không được chuyển Agent; N0 GAP-ONLY mới mới được ký READY theo SHA. Không tự tạo task/repo hoặc sửa luật/production ở lượt chốt kế hoạch này.
 
 ### Vòng trước
 - Chưa có. Khối mục tiêu đầu tiên do Owner giao ngày 28/10/2026; bổ sung mục 8–9 và tiêu chí ngày 28/10 được cập nhật trong vòng hiện hành, không xóa lịch sử.
@@ -374,10 +430,21 @@ Ghế: openai-main · Bước/vòng: G2 · 1/3 · **P05 ACCEPTED · KHÔNG MỞ 
 - **D02 — ROADMAP P05.5:** N0 chỉ đọc (Claude Code CLI; 8 luật + nguồn UI, ≤1 lượt 2 giờ) → N1 khuôn máy đọc/ghế/VERDICT/WRITE_TICKET (GPT+Claude; Owner duyệt luật) → N2 gate ghi+CI/merge+Task UI Vue Flow/hội đồng (Claude Code + Codex trong các nhánh riêng) → N3 một task thật + thử đổi Host + Telegram → N4 Owner xem 30 giây, quyết nghiệm thu/tăng AUTO. Mọi N1–N4 vẫn tuân review/KQ/gate và cần phát lệnh riêng.
 - **GO đúng phạm vi:** lời Owner hôm nay là phê duyệt chốt kế hoạch và mở **N0 khảo sát chỉ đọc song song với các việc khác**, không phải GO sửa hạ tầng/production hay phát RUN tự động. AUTO0 Owner chuyển lệnh cho Claude Code CLI, READY không đồng nghĩa STARTED. Không VPS-GHI, không chiếm shared runner, không thêm một vòng “anh gật” lặp lại.
 - **Báo cáo/DoD N0:** 8 dòng `luật → chốt máy → đường bypass → bằng chứng thật → phần phải viết`, mỗi dòng ENFORCED/PARTIAL/NOT_ENFORCED/CHƯA ĐO; đường UI chính xác và kế hoạch N1/N2 rút từ source. Agent viết P/KQ duy nhất vào task, Host/ghế hợp lệ rà sau KQ. Nếu thiếu bằng chứng phải ghi đỏ và rõ trigger bổ sung.
-- **READY@8365d7d2139e15086e87c41138705293894b5bab** · RUN_ID=ACK-N0-READONLY-20261028-01 · signer=openai-main (GPT Chat Host) · Executor_Surface=Claude Code CLI Mac · Write_Path=audited fs_*/workspace_* chỉ cho COLLAB · REVIEW_REUSED=anthropic-review/P05@add6c00ae8ae0fcca8e14d29077a963f598daa05 · N0_READ_ONLY_SCOPED=YES · 0 RUN active. READY này ghim commit cuối chạm PROMPT.md N0, **không tự dispatch/STARTED**.
+- **~~READY@8365d7d2139e15086e87c41138705293894b5bab~~ SUPERSEDED_D03** · RUN_ID=ACK-N0-READONLY-20261028-01 · signer=openai-main (GPT Chat Host) · Executor_Surface=Claude Code CLI Mac · Write_Path=audited fs_*/workspace_* chỉ cho COLLAB · REVIEW_REUSED=anthropic-review/P05@add6c00ae8ae0fcca8e14d29077a963f598daa05 · N0_READ_ONLY_SCOPED=YES · 0 RUN active. READY này ghim commit cuối chạm PROMPT.md N0, **không tự dispatch/STARTED**.
 - **NEXT_TRIGGER=OWNER_DISPATCH_ACK_N0_20261028_01**. Owner chuyển PROMPT thủ công qua Claude Code CLI; trước STARTED Worker kiểm READY/SHA/STOP/đường ghi. Không phát RUN tự động. Áp: SAME_COMMIT.
 
 HUMAN_DIRECTIVE@AI-COUNCIL-GO-PARALLEL-20261028 EFFECTIVE · task=ai-council-karpathy · scope=D02/N0/read-only · step=G2→N0 · recorded_by=openai-main (GPT Chat) · quote=«chốt lại trên repo và chúng ta coi đây là 1 việc cần triển khai song song» · text=Phê duyệt chốt roadmap, bắt đầu N0 dạng khảo sát và điều hành song song; không tự chạy N1–N4, không sửa production. · audit=Owner trực tiếp ngày 28/10/2026.
+
+### P07 — GPT Host sửa lại kế hoạch: TÍCH HỢP, không lập hội đồng mới (Owner 28/10/2026)
+Ghế: openai-main · Bước/vòng: G2B · 1/3 · **HOST_CONCLUSION / D03**
+- Based_on: Owner trực tiếp «không phải là đi làm 1 cái mới ... tổng hợp lại tất cả những gì ... đang có cộng với việc copy thêm của Karpathy»; P02–P06; đọc AGENTS A0–A9; HJW HĐ/M1/P443; MCPW D12; HVU/Task Web; GHM G1/C2; AgentData workspace_tools.py; nguồn Karpathy đã khảo sát ở P03/P04.
+- **D03:** §3.7 là **kế hoạch hợp nhất duy nhất**; P02–P06 còn làm lịch sử. Trình bày rõ 7 tài sản đã có, 16 mẫu K/L đặt đúng vị trí, copy được mẫu nào/thư viện nào và phần cấm copy. Nòng cốt hoàn toàn là hệ đã có, không xây bộ luật/ghế/engine/gateway/Task View mới.
+- **Gỡ trùng cụ thể:** HJW P443 đã có Codex audit khai tên trước ghi; GHM C2 có chủ kiểm CI/merge. ACK không mở audit/ticket/CI cạnh tranh. M1/HJW có sẵn `TASK_POLICY_V1/FLOW_EVENT_V1/ASSIGN_V1/RESULT_V1`; khung `NODE_V1`/`DECISION_V1` trong P04/P05 bị thay bằng mở rộng phần thiếu của cơ chế có sẵn.
+- N0 cũ **chưa STARTED/KQ** theo sổ task khi Host kiểm; do khác phạm vi nên Host supersede READY cũ, sửa PROMPT N0 thành GAP-ONLY với RUN_ID mới và sẽ ký SHA mới. Không tự dispatch. N1–N4 chỉ chọn phần delta sau khi KQ upstream có thật; không tuyên done kỹ thuật.
+- **Không cần vòng 2** chỉ để sửa phương pháp theo chỉ đạo Owner; tới lúc sửa rule/code thật, giữ Review/Owner/Guard/quorum gốc.
+- Áp: SAME_COMMIT.
+
+HUMAN_DIRECTIVE@AI-COUNCIL-INTEGRATE-20261028 EFFECTIVE · task=ai-council-karpathy · scope=§0.1/§3.7/P07/N0 · step=G2B · recorded_by=openai-main (GPT Chat) · quote=«không phải là đi làm 1 cái mới ... mà là đi tổng hợp lại tất cả những gì chúng ta đang có cộng với việc copy thêm của Karpathy vào thành 1 kế hoạch tổng hợp cuối cùng» · text=Giữ toàn bộ tài sản kỹ thuật sẵn có; chỉ đưa phần Karpathy bổ sung phù hợp vào đúng công trình gốc, tránh xây engine, luật, ghế, ticket, UI, CI lần hai. · audit=Owner nói trực tiếp 28/10/2026.
 
 ## Owner cần quyết
 - —

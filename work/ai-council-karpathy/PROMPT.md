@@ -1,37 +1,35 @@
-# PROMPT — AI-COUNCIL-KARPATHY N0 · KHẢO SÁT CỔNG CƯỠNG CHẾ & UI, CHỈ ĐỌC
-RUN_ID: ACK-N0-READONLY-20261028-01
-Status: bản canonical; chỉ chạy khi COLLAB có READY@full last-touch PROMPT SHA do GPT Host ký và Owner chuyển lệnh thủ công (AUTO0).
-Executor_Surface: Claude Code CLI trên Mac của Owner · Worker anthropic-cc-worker.
-Read scope: Huyen1974/incomex-workspace; Huyen1974/agent-data-test; Huyen1974/web-test; source/config VPS liên quan bằng quyền chỉ đọc đã có.
-Write_Path: duy nhất `work/ai-council-karpathy/COLLAB.md` qua `fs_*` hoặc `workspace_*` đã audit để ghi STARTED/P/KQ. Direct GitHub/API/CLI **chỉ đọc** đối với Workspace. Không ghi repo mã hay VPS.
-Ngân sách: 1 lượt, tối đa 2 giờ; không lấy VPS-GHI, không giữ shell/terminal để chờ. Quá hạn hoặc blocker ⇒ KQ DỪNG sạch.
+# PROMPT — ACK N0 GAP-ONLY: ĐỐI CHIẾU KHOẢNG TRỐNG SAU TÍCH HỢP
+RUN_ID: ACK-N0-GAP-ONLY-20261028-02
+Status: canonical; thay `ACK-N0-READONLY-20261028-01`. Chỉ chạy khi Host ký READY@full last-touch SHA mới trong COLLAB và Owner dispatch AUTO0.
+Executor_Surface: Claude Code CLI trên Mac; Worker N0, không là Reviewer độc lập của chính KQ.
+Read scope: incomex-workspace, agent-data-test, web-test; VPS source/config **chỉ đọc** theo quyền đã có.
+Write_Path: **chỉ** `work/ai-council-karpathy/COLLAB.md` qua `fs_*`/`workspace_*` đã audit, để ghi STARTED/P/KQ; cấm direct Github write ở Workspace.
+Budget ≤2 giờ một lượt; không VPS-GHI/runner lease, không treo để chờ, không tự chạy N1.
 
-## Mục tiêu và điều kiện XONG
-Tìm **tình trạng CƯỠNG CHẾ THẬT** của 8 cổng hiện có, đường nào còn đi vòng, việc phải viết thêm, và đúng nguồn mã UI Task đang chạy. N0 chỉ khảo sát; KHÔNG cài Vue Flow, sửa gateway, luật, CI, permission hay production. Đầu ra 1 P báo cáo trong COLLAB task (không file report mới), bảng 8 luật, link nguồn/căn cứ an toàn, trạng thái ENFORCED/PARTIAL/NOT_ENFORCED/CHƯA ĐO; xong chỉ nghĩa khảo sát đủ, không có code mới PASS.
+## S0 — Chỉ bắt đầu sau Owner dispatch
+Đọc AGENTS → Bảng task ACK/§3.7 D03/P07 → PROMPT canonical; kiểm RUN_ID, Host, đúng READY@SHA last-touch, STOP/COUNCIL_ALERT, capability ghi báo cáo đã audit; thiếu ⇒ DỪNG trước mutation. Sau PASS ghi STARTED vào COLLAB qua gateway và sửa Bảng trong cùng lượt.
 
-## Cổng S0 bắt buộc
-1. Đọc `AGENTS.md` Workspace → §0/Bảng + P04/P05/P06 `work/ai-council-karpathy/COLLAB.md` → PROMPT canonical. Xác minh Owner đã thực sự dispatch, đúng `RUN_ID`, `Host_ID`, roster, READY full SHA trùng commit cuối chạm PROMPT, không STOP/STARTED trùng, không COUNCIL_ALERT mở.
-2. Kiểm binding `fs_*` hoặc `workspace_*` đã audit và khả năng ghi COLLAB theo phép đọc/gate, không sử dụng GitHub native để ghi. Nếu sai quyền hoặc phiên điều hành không rõ ⇒ DỪNG trước mọi mutation.
-3. Chỉ sau read-gate PASS, qua đường được audit ghi `STARTED@ACK-N0-READONLY-20261028-01 <UTC> · executor=Claude Code CLI` trong COLLAB task; cập nhật Bảng theo A6. Mọi phép khám sát VPS/GitHub khác chỉ đọc.
+## S1 — CHỈ KHAI THÁC THỨ ĐÃ CÓ, KHÔNG LÀM LẠI
+1. AGENTS A0–A9, HJW HĐ/M1/N4: `TASK_POLICY_V1` / `FLOW_EVENT_V1` / `ASSIGN_V1/RESULT_V1` / scanner / chuông và N4 chưa đạt. **Không đề nghị xây Council Engine riêng**.
+2. HJW P443: một cửa xưng danh, `declared_actor` vs `authenticated_actor`; **đã có lệnh audit Codex riêng**. Đọc KQ hiện hành; nếu chưa KQ ⇒ `DEPENDENCY_PENDING`, không làm lại audit P443 hay viết `WRITE_TICKET` song song.
+3. MCPW D12: đã nghiệm thu gateway-only + CAS/version/operation_id/presence. Ghi nhận bằng chứng, chỉ phát hiện delta chưa kiểm.
+4. GHM C2: chỉ đọc kết quả đã đo, yêu cầu bảo vệ main/merge và tình trạng Pro. **Không chạy lại PR test/C2, không thay ruleset**; chưa hoàn tất ⇒ `DEPENDENCY_PENDING`.
+5. HVU: kiểm source Task View thực (VPS code SSOT) và dữ liệu từ COLLAB/cache; chỉ xác định nơi thêm Stage1–3 (học từ Karpathy) + Vue Flow (MIT riêng). Không tạo app/trang mới.
+6. D03.B 16 mã K1–K10/L1–L6: đối chiếu từng phần với các mục trên, không chụp lại 16 phép thử mới; ghi **đã có / có thể copy khung / cần adapter / không copy**.
 
-## S1 — Ma trận 8 luật
-Lập 8 hàng sau với cột `Luật | cổng kiểm thật + source/path | đường bypass | bằng chứng đo/giới hạn | còn phải làm + mức`:
-1) Định danh seat/Host/worker và server-side actor; 2) READY/signature gắn SHA và đổi phiên bản; 3) VERDICT/quorum khác hãng; 4) vé ghi một lần/scope/replay; 5) KQ/bằng chứng máy; 6) COUNCIL_ALERT/Supervisor và Telegram; 7) các đường ghi Workspace `workspace_*`, `fs_*`, GitHub/SSH/admin và ruleset; 8) merge/required check/CI/ruleset của `agent-data-test`, `web-test`.
-Chỉ dựa code/config/GET API read-only có chứng cứ; nếu chỉ có quy định trên giấy thì PARTIAL/NOT_ENFORCED, không viết ENFORCED. Không chạy thử âm có mutation.
-
-## S2 — UI và phương án nhỏ nhất
-Truy `https://vps.incomexsaigoncorp.vn/knowledge/modules?task=ai-council-karpathy` → đúng code server/UI của Task/Owner View và `view.html` trong Workspace. Chỉ ra đoạn đang hiển thị thanh bước, seat, từ đâu nhận COLLAB, chỗ nào có thể nhúng màn 3 tầng và Vue Flow (nếu phù hợp); kiểm bản quyền và nhu cầu pin version, không cài/chạy code nguồn ngoài, không thêm bản xem khác.
-Đề nghị N1/N2 với khối lượng dự kiến theo bằng chứng, nêu tác động phụ thuộc GHM/HJW/MCPW; không tự sửa task khác hay giữ tài nguyên chung.
+## S2 — Một bảng delta (không báo cáo rời)
+Trả một mục P mới trong đúng COLLAB:
+`Thành phần | code/path hoặc task chủ | hiện có & evidence | delta thật | chịu trách nhiệm | BLOCK/CHƯA ĐO`; số hàng <=12; tách rõ “đã là luật”, “đã cưỡng chế”, “đang được task khác làm”. Các nơi đã có chủ HJW P443/GHM C2/MCPW/HVU chỉ **link**, không nhận việc.
+Đề xuất N1–N2 tối thiểu chỉ bằng các thay đổi thực sự thiếu trong hợp đồng hiện có; không tự đề nghị `NODE_V1`/`DECISION_V1` hay DB/dispatcher/sổ ghế mới. Ghi các mẫu Karpathy chỉ tham khảo mã nguồn, không chép React/FPGA/GPU/OpenRouter không phù hợp. Nếu nguồn live khác GitHub, dùng live làm đúng và ghi sai lệch.
 
 ## STEP_WALK_V1
-| Bước | Ai | Trigger | Deadline / budget | Evidence | Lỗi thì ai nhận | Bước kế |
+| Bước | Ai | Trigger | Ngân sách | Evidence | Lỗi | Kế |
 |---|---|---|---|---|---|---|
-| S0 | Claude Code CLI | Owner dispatch + READY đúng | N0 ≤2 giờ | quyền đọc và đường ghi task đã audit | KQ DỪNG → Host | S1 |
-| S1 | Claude Code CLI | S0 PASS | N0 ≤2 giờ | đủ 8 hàng gắn source, trạng thái | CHƯA ĐO, Host nhận | S2 |
-| S2 | Claude Code CLI | S1 đủ phạm vi | N0 ≤2 giờ | source UI thật, điểm tái dùng và rủi ro | UNKNOWN, Host nhận | S3 |
-| S3 | Claude Code CLI | đủ bằng chứng/hết budget | N0 ≤2 giờ | P báo cáo + KQ cùng Bảng qua gateway | Host nhận KQ DỪNG nếu không thể ghi | Host review |
+| S0 gate/STARTED | Claude Code CLI | Owner dispatch + READY SHA mới | ≤2h | read-gate và write-path audit | KQ DỪNG, Host biết | S1 |
+| S1 inventory delta | Claude Code CLI | S0 PASS | ≤2h | task chủ và source chính xác | CHƯA ĐO/DEPENDENCY_PENDING | S2 |
+| S2 map Karpathy | Claude Code CLI | S1 đủ | ≤2h | mỗi delta đúng source/hợp đồng | không tạo hệ mới | S3 |
+| S3 P/KQ | Claude Code CLI | đủ/đến trần | ≤2h | một P + Bảng + KQ@RUN_ID XONG/DỪNG trong COLLAB | dừng, nhả mọi lease | Host review |
 
-## S3 — Kết thúc
-Một P tại COLLAB nêu 8 hàng + tình trạng UI + phần code cần làm và giới hạn đo; cùng commit ghi `KQ@ACK-N0-READONLY-20261028-01 XONG|DỪNG` và Bảng. Nếu không có đường ghi hợp lệ, báo Owner/Host trong chat, KHÔNG dùng direct GitHub write để lách D12.
-**CẤM:** sửa runtime, code, AGENTS, secrets/keys, GSM, Directus/PG, workflow, CI, runner, quyền, branch/PR/merge, tạo repo/task/file khác, cài dependency, SSH sudo, tạo session nền hoặc tự khởi chạy N1–N4.
-Sau KQ: Host GPT đọc bằng chứng, Reviewer khác hãng có ý kiến, Host quyết node tiếp theo hoặc DỪNG. NEXT_TRIGGER=HOST_REVIEW_N0.
+## DoD
+XONG N0 chỉ khi có ma trận delta và vị trí UI thật, **không đòi 8 cổng phải PASS**; thiếu chứng cứ phải ghi CHƯA ĐO, task khác chưa KQ phải ghi DEPENDENCY_PENDING. Không tạo file báo cáo, không sửa code/CI/AGENTS/runtime/keys/gateway/PG/Directus; không cài Vue Flow, không động tài nguyên đang bận, không tự làm N1–N4. Kết thúc Host GPT + Reviewer khác hãng rà KQ trước bước kế.
+NEXT_TRIGGER_AFTER_N0=HOST_REVIEW_ACK_N0_GAP_ONLY
