@@ -54,7 +54,7 @@ small.f{color:#6b7785;font-size:13px}
 <body><main>
 <span class="flag">HỒ SƠ ĐẦY ĐỦ · GPT Host P12 đã rà · N0 chưa STARTED</span>
 <h1>Hội đồng AI — toàn cảnh và kế hoạch</h1>
-<p class="sub">Trang này vẽ lại đúng nội dung <b>COLLAB §3.0</b> (đọc trước). Bảng 115 mục ở §3.8, quyết định Host ở §3.7 và §3.9. Tình trạng là ảnh chụp hồ sơ ngày 28/10/2026, <b>chưa đo máy thật</b> (N0 sẽ đo).</p>
+<p class="sub">Trang này là bản xem dựng từ hồ sơ <b>COLLAB §3.0</b> (P11). GPT Host P12 đã bổ sung trạng thái và các rào an toàn ngay tại §3.0; <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-karpathy/COLLAB.md">đọc nguồn chuẩn và cập nhật P12</a>. Ma trận 115 mục vẫn là <b>ảnh chụp hồ sơ, chưa kiểm nghiệm máy live</b> (N0 sẽ đo).</p>
 
 <section class="panel ask">
 <h2>Anh cần biết</h2>
@@ -356,7 +356,7 @@ small.f{color:#6b7785;font-size:13px}
 </li><li>Deploy/rollback Agent Data (C1B-REMAINDER). Cấm deploy Agent Data tới khi xong.
 </li></ul>
 </li><li>⚪ <b>Chưa làm:</b>
-<ul><li><b>"Chỉ KST merge" thật.</b> Hiện <code>KST_ONLY_MERGE=NO</code> vì dev và KST dùng chung tài khoản <code>Huyen1974</code>; cần thẻ dev riêng (GHM P91 §4). 🔴 Đ6
+<ul><li><b>"Chỉ KST merge" thật.</b> Hiện <code>KST_ONLY_MERGE=NO</code> vì dev và KST dùng chung tài khoản <code>Huyen1974</code>; GHM P105 đã chốt không thêm thẻ dev; trạng thái KST_ONLY_MERGE=NO phải công khai. 🔴 Đ6
 </li><li>Cách ly workflow/runner trước PR không tin cậy: điều kiện để mở F2.
 </li><li>F2: 3 agent / 3 PR song song.
 </li><li>C4 ca đêm: tối giao việc, sáng KST duyệt.
@@ -496,7 +496,7 @@ next_trigger: &lt;TÊN&gt;
 <h3>Thứ tự và phụ thuộc</h3>
 
 <div class="dep">
- <div class="lane"><div class="box ready">W0 · Đo khoảng trống<small>N0 · READY · Codex</small></div><div class="box ready">W1 · Xưng danh khi ghi<small>HJW RUN11 · READY · Codex Desktop</small></div></div>
+ <div class="lane"><div class="box ready">W0 · Đo khoảng trống<small>N0 · READY · Codex</small></div><div class="box ready">W1 · Xưng danh khi ghi<small>HJW RUN11 · DỪNG S0 · chưa thi công</small></div></div>
  <div class="arr">▼</div>
  <div class="lane"><div class="box">W2 · Dọn luật chồng</div><div class="box">W3 · Một khuôn lệnh + báo cáo</div><div class="box">W4 · Dòng ý kiến / kết luận máy đọc</div><div class="note">N1 · 😊 Owner duyệt luật</div></div>
  <div class="arr">▼</div>
@@ -520,10 +520,10 @@ next_trigger: &lt;TÊN&gt;
 </li><li><b>Kiểm xong:</b> mỗi hàng có bằng chứng; hàng chưa đo ghi UNKNOWN.
 </li><li><b>Owner cần làm:</b> chuyển PROMPT N0 cho Codex.
 </li></ul></div></details>
-<details class="wp ready"><summary><span class="wid">W1</span> <b>Xưng danh khi ghi</b><br><span class="wm">⬜ READY (HJW P447-R), chưa STARTED · chủ HJW · Worker Codex Desktop</span></summary><div class="bb"><ul><li>Nội dung đầy đủ ở <b>Khối 4</b>.
+<details class="wp todo"><summary><span class="wid">W1</span> <b>Xưng danh khi ghi</b><br><span class="wm">HJW P448: RUN11 DỪNG ở S0 do CLIENT_REFRESH_PATH_UNVERIFIED · chưa thi công · HJW xử lý</span></summary><div class="bb"><ul><li>Nội dung đầy đủ ở <b>Khối 4</b>.
 </li><li>ACK <b>không làm, không rà lại</b>; chỉ nhận kết quả.
 </li><li><b>Kiểm xong (của HJW):</b> C1/C2 đạt, 2 cổng cùng một hợp đồng, Git author và quyền nghiệp vụ không đổi.
-</li><li><b>Owner cần làm:</b> chuyển lệnh RUN11 cho Codex Desktop.
+</li><li><b>Owner cần làm:</b> không gửi lại RUN11 đã DỪNG; HJW Host kiểm client refresh và ký lệnh mới sau khi xử lý blocker.
 </li></ul></div></details>
 <details class="wp todo"><summary><span class="wid">W2</span> <b>Dọn luật chồng (N1, gỡ Đ2)</b><br><span class="wm">⚪ · Founders (GPT + Claude) soạn → Owner duyệt</span></summary><div class="bb"><ul><li><b>Phải làm:</b> viết <b>một D ở COLLAB gốc</b> gồm các dòng "thay bởi". <b>Không xoá lịch sử</b>, không biên soạn lại 88 KB AGENTS.
 <ul><li><b>a.</b> DROOT31 và DROOT38(c) (đòi Reviewer ACCEPT) → <i>thay bởi DROOT58</i>.
@@ -580,7 +580,7 @@ next_trigger: &lt;TÊN&gt;
 </li><li><b>Thêm <code>VERDICT@</code>:</b> người ghi là ghế trong danh sách hội đồng, không phải Host. Nếu đang rà KQ thì không phải Worker của KQ đó.
 </li><li><b>Thêm dòng KQ</b> (<code>KQ@</code> + RUN_ID): người ghi là Worker của RUN đó; đã có <code>STARTED@</code> của RUN; có khối <code>KQ_V1</code>.
 </li><li><b>Mở/gỡ <code>COUNCIL_ALERT</code>:</b> người gỡ không phải người bị tố. Host bị tố thì chỉ Owner gỡ.
-</li><li><b>Đổi dòng <code>Host:</code>:</b> vẫn cho ghi (Owner có thể chỉ định qua lời), nhưng <b>báo chuông Cấp 1</b> để Owner thấy ngay.
+</li><li><b>Đổi dòng <code>Host:</code>:</b> P12 chưa cho phép triển khai kiểu “sửa rồi bấm chuông”: phải có xác minh Owner độc lập trước khi đổi quyền; cấm tự đổi Host/roster rồi ký READY trong cùng transaction.
 </li></ol>
 </li><li><b>Lỗi khi bị từ chối:</b> tự hướng dẫn như <code>DECLARATION_REQUIRED</code>. Ví dụ: <code>{"error":"COUNCIL_RULE_DENIED","rule":"A6/DROOT58","missing":"VERDICT khác hãng cho &lt;sha&gt;","how_to_fix":"…","mutation":"none"}</code>.
 </li><li><b>Bật dần:</b>
@@ -600,7 +600,7 @@ next_trigger: &lt;TÊN&gt;
 </li><li><b>Kiểm xong:</b> phép thử 1–8 và 10 ở 3.0-E bị từ chối <b>trước khi ghi</b>, có lỗi tự hướng dẫn, 0 thay đổi; lần ghi hợp lệ vẫn qua; đã chạy "chỉ báo" ≥1 việc thật.
 </li></ul></div></details>
 <details class="wp todo"><summary><span class="wid">W6</span> <b>Chuông hội đồng tới Telegram (N2)</b><br><span class="wm">⚪ · cần Owner GO N2</span></summary><div class="bb"><ul><li><b>Phải làm:</b>
-<ul><li>Mỗi lần W5 từ chối và mỗi dòng <code>COUNCIL_ALERT@… OPEN</code> → báo <b>Cấp 1 Telegram ≤5 phút</b>, đi qua đường Guard → Kuma → Telegram đã có (DROOT59).
+<ul><li>P12: lỗi W5 thông thường trả thông báo tự sửa + audit; <b>không báo Telegram Cấp 1 mọi lỗi</b>. Chỉ chuông/sự cố quyền hoặc an toàn đúng DROOT59 và Owner GO mới báo khẩn, gộp tránh nhiễu.
 </li><li>Thêm thẻ <b>"Đúng chỉ đạo / Sai"</b> cho <code>HUMAN_DIRECTIVE</code>.
 </li></ul>
 </li><li><b>Không được làm:</b> dựng bot/notifier mới; dùng monitor Kuma kiểu PostgreSQL (lỗi #7728).
@@ -623,14 +623,14 @@ next_trigger: &lt;TÊN&gt;
 </li><li><b>Kiểm xong:</b> phép thử 12 + ảnh trang Task; số liệu trên trang khớp COLLAB; <code>view.html</code> của ACK không còn phải vẽ tay.
 </li></ul></div></details>
 <details class="wp wip"><summary><span class="wid">W8</span> <b>Phần mã GitHub (GHM)</b><br><span class="wm">🔵 · chủ GHM · ACK chỉ nhận kết quả</span></summary><div class="bb"><ul><li>C2-B (K4, K5): ruleset + check bắt buộc.
-</li><li>Thẻ dev riêng để "chỉ KST merge" (Đ6).
+</li><li>GHM P105: Owner giữ một tài khoản GitHub; không tạo thẻ dev/GitHub App. Quy tắc chỉ KST merge vẫn là luật vai/audit, chưa thể cưỡng chế người bấm bằng máy khi chung credential.
 </li><li>K7/K8 vào luật duyệt KST.
 </li><li>F2 (3 agent song song).
 </li></ul></div></details>
 <details class="wp todo"><summary><span class="wid">W9</span> <b>Chạy thử thật (N3)</b><br><span class="wm">⚪</span></summary><div class="bb"><ul><li><b>Việc chạy thử:</b> một việc thật có ≥3 node (đề xuất: một node của GHM F2 hoặc chính N1 của ACK).
 </li><li><b>Thứ tự:</b> Host → Reviewer → Worker → KQ → Reviewer → Host, có máy W5/W6 bật.
 </li><li><b>Giữa chừng đổi Host sang hãng khác</b> ("Host lạnh", không có lịch sử chat; chỉ đọc repo).
-</li><li>Cố tình làm 3 việc sai để xem chuông kêu.
+</li><li>Chỉ tạo lỗi có kiểm soát trên fixture/task thử có rollback, không cố tình ghi sai vào production.
 </li><li><b>Kiểm xong:</b> phép thử 13 + 3 chuông tới Telegram + Host mới đi đúng bước kế.
 </li></ul></div></details>
 <details class="wp todo"><summary><span class="wid">W10</span> <b>Owner nghiệm thu (N4)</b><br><span class="wm">⚪</span></summary><div class="bb"><ul><li>Owner mở một trang, khoảng 30 giây thấy: mục tiêu · đang ở node nào · ai thiếu ý kiến · VERDICT · KQ · bước kế · có gì đỏ.
@@ -651,7 +651,7 @@ next_trigger: &lt;TÊN&gt;
 </section>
 
 <section class="panel"><h2>5 · Thế nào là xong cả dự án — 14 phép thử</h2>
-<p>Mỗi phép thử chạy trên fixture trước, rồi trên một việc thật. <b>Bị từ chối nghĩa là bị chặn trước khi ghi</b>, có lỗi tự hướng dẫn, 0 thay đổi.</p>
+<p>14 phép thử gốc của P11, chưa phải PASS. P12 bổ sung 4 nhóm kiểm an toàn (giả Host/Owner, giả phiếu/credential chung, đường bypass, stale revision). <b>Thử âm trên fixture</b>; nghiệm thu live chỉ sau Owner GO cho scope đã khoanh, không cố tình phá dữ liệu đang dùng.</p>
 <ol><li>Ghế không phải Host ghi READY → bị từ chối.
 </li><li>READY khi chưa có ý kiến khác hãng → bị từ chối.
 </li><li>READY khi còn VERDICT <code>CHẶN</code> chưa giải → bị từ chối.
