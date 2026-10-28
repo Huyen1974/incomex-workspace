@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 21:06 +07 · GPT Host · P100
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 21:11 +07 · GPT Host · P101
 - 🎯 Owner: GitHub multi-agent code qua PR + gate, KST Claude Code CLI duyệt/merge; GH Pro chỉ $4/tháng, không phát sinh Actions.
 - 🏁 C2-B: hai main có ruleset required gate + negative tests; trước đó Codex readback Actions Account budget $0 hard-stop sau Pro.
 - 📍 ✓ F0/F1/G1 → ✓ C2-A P96–P99 (4 GREEN/2 RED) → ✓ Pro active → ■ Codex COST-POSTPRO → Claude C2-B P92 → F2/C3.0 → C4.
 - ✅ GH live: AD main a636ffe5 protected:false, Web main4f8405a9 protected:true (legacy); rulesets [] cả hai (không còn 403). Sáu PR còn OPEN exact SHA; R1 P17 đã tạo $0+Stop 25/10, 15 workflow disabled, nhưng chưa kiểm lại sau Pro.
 - ■ Đang làm: — · 0 RUN active; COST_LOCK_POSTPRO=CHƯA ĐO qua Billing sau upgrade; screenshot $8.28 gross = $8.28 included không chứng minh bill thêm.
 - ⬜ Codex kiểm Account budgets và mọi metered service/hosted Actions, chỉ giữ CI selfhosted cần; Claude C2-B dọn Web legacy4, bật ruleset và thử âm; F2 tách runner PR/audit secret.
-- ➡ NEXT_TRIGGER=HOST_SIGN_COST_READY_THEN_OWNER_RUN_CODEX; khi COST_LOCK_POSTPRO PASS mới Owner giao Claude KST RUN GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 Phần B theo P92.
+- ➡ NEXT_TRIGGER=OWNER_RUN_CODEX_COST_POSTPRO; khi COST_LOCK_POSTPRO PASS mới Owner giao Claude KST RUN GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 Phần B theo P92.
 - ⛔ Không làm lại C2-A, không chạy hosted job, không tắt gate selfhosted chỉ để đạt 0 run, không mua/thêm key/deploy, không đổi P92 canonical.
 
 ### 1. Mục tiêu
@@ -1452,6 +1452,14 @@ Based_on: P92–P97 · **tự đo gh API 28/10 20:05 +07**: 6 PR (state/head/bas
 - GH Docs hiện tại: self-hosted runner free và Pro có 3.000 hosted-minutes/tháng, nhưng quota không thay hard budget; Stop $0 cho metered overage có giới hạn, phí Pro/thuế FX ngoài guard. REVIEW_REUSED=P18/P19 (không đổi mục tiêu hay kỹ thuật R1, chỉ kiểm lại sau Pro), không mở vòng hai.
 - Host tạo file COST-LOCK-POSTPRO-20261028.md trong cùng task cho Codex kiểm/khôi phục hard-stop, không chạy CI trả phí; Host ký READY@last-touch commit file sau khi ghi. C2-B PROMPT.md P92 READY 664f06e0d2c8d7839d35241f0d93a0995cda70f0, RUN_ID GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07, giữ nguyên; chỉ KST Claude Code CLI chạy B sau COST_LOCK_POSTPRO=PASS.
 - NEXT_TRIGGER=HOST_READY_COST_THEN_OWNER_DISPATCH_CODEX. Áp: SAME_COMMIT.
+
+## P101 · GPT Host · 28/10/2026 21:11 +07 — READY COST LOCK POSTPRO CHO CODEX
+- Xác minh trực tiếp GitHub commits?path=COST-LOCK-POSTPRO-20261028.md: last-touch PROMPT đúng full 40hex 717ca8ddeec2ec1f747a8a375b618a9caff71fac; file blob 1013e7bae70f794e6fb0ded05dac10c96678ae69; commit đã pushed, Bảng/README/ROADMAP và P100 đã ghi cùng commit.
+- REVIEW_REUSED=P18/P19: tái kiểm sau nâng Pro của R1 đã được Claude độc lập đồng thuận; không mở vòng hai chỉ để xác nhận hard budget cũ. Checkpoint COST mới do Owner yêu cầu; không đổi kỷ luật C2-B/P92.
+- READY@717ca8ddeec2ec1f747a8a375b618a9caff71fac · signer=GPT Host/openai-main · RUN_ID=GHM-R1-COST-POSTPRO-20261028-08 · executor=Codex Desktop/CLI · scope=cost recheck/restore $0 hard-stop + stop hosted paid Actions, NO run/merge/deploy.
+- Owner chuyển lệnh cho Codex; chỉ khi KQ COST_LOCK_POSTPRO=PASS Host mới phát bước Claude Code CLI C2-B đã có READY P92. Chưa STARTED, 0 RUN active; không tự gọi Codex hay tuyên đã khóa lại xong.
+- NEXT_TRIGGER=OWNER_RUN_CODEX_COST_POSTPRO. Áp: SAME_COMMIT.
+
 
 
 
