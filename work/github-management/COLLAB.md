@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 17:20 +07 · GPT Host · P94
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 17:29 +07 · Codex · P95
 - 🎯 Owner: nhiều agent viết code qua GitHub, KST Claude Code CLI duyệt/merge, `gate` GREEN thật, bảo vệ `main` trước F2.
 - 🏁 C2-A là Codex vá skipped→RED, 3 PR/repo đúng phép thử, không merge; C2-B KST thực thi sau KQ_A PASS + GitHub Pro + Owner RUN riêng.
 - 📍 ✓ F0/F1/G1 đạt → ✓ P92 READY → P93 DỪNG S0 vì SHA 48 ký tự trong lời nhắn GPT → ✓ P94 Host kiểm commit đúng 40 ký tự → ■ Codex tiếp tục C2-A cùng RUN → C2-B → F2 → C4.
 - ✅ SHA cuối chạm PROMPT `664f06e0d2c8d7839d35241f0d93a0995cda70f0` có thật trên GitHub và đúng P92 READY, PROMPT không đổi; AD main a636ffe5/Web main4f8405a9 chưa có C2 PR; P93 0 mutation.
-- ■ Đang làm: — · 0 RUN active ở thời điểm P94. Host **RESTART AUTHORIZED cùng RUN/Phần A**, không thay PROMPT/READY; Codex tự ghi STARTED khi tiếp nhận.
+- ■ Đang làm: C2 Phần A · Codex · STARTED@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 · PR-1/2/3 trên hai repo; S0 PASS theo P94; không VPS-GHI.
 - ⬜ C2-A vẫn chưa chạy; C2-B cần Pro/ruleset; Health dữ liệu và AD rollback nợ độc lập.
-- ➡ NEXT_TRIGGER=CODEX_RESUME_C2_A_P94: Codex đọc PROMPT hiện hành + P92 READY đúng SHA, kiểm fresh main/STOP rồi làm Phần A; không xin xác nhận lại SHA nhầm. KQ_A mới sau đó; B Owner giao riêng.
+- ➡ NEXT_TRIGGER=CODEX_KQ_A_C2: Codex hoàn thành 2 PR GREEN + 1 PR RED OUT_OF_PILOT mỗi repo, ghi bằng chứng và đóng phiên; B chỉ sau Owner Pro + Owner RUN riêng.
 - ⛔ Không bỏ SHA gate A6, không so PROMPT last-touch với workspace global HEAD thay đổi bởi task khác; không Pro/merge/deploy/đổi dữ liệu trong A.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1349,6 +1349,14 @@ KQ@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 DỪNG · PHASE=A · KQ_A=DỪNG · b
 - **HOST DISPATCH CORRECTED:** Owner đã yêu cầu làm tiếp ngay; Codex tiếp tục **cùng RUN_ID `GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07`, PHASE=A, PROMPT P92 và READY@664f06e0d2c8d7839d35241f0d93a0995cda70f0**. Không mở task/RUN mới, không sửa PROMPT, không ký lại. Codex phải thực hiện lại S0 ngắn từ GitHub live và chỉ DỪNG nếu PROMPT last-touch/STOP/cổng an toàn thực sự thay đổi; không hỏi Owner xác nhận lại vì lỗi chép SHA đã được Host xác minh, không cần Claude phản biện lần hai.
 - **Ranh giới giữ nguyên:** A làm PR-1/2/3, PR dương GREEN, PR âm same-repo tin cậy RED, tuyệt đối không merge/deploy/Pro/xóa dữ liệu. Codex ghi STARTED rồi KQ_A XONG/DỪNG mới, trả cờ. B vẫn phải có A PASS, Pro active và Owner giao Claude Code CLI riêng.
 - NEXT_TRIGGER=CODEX_RESUME_C2_A_P94.
+
+## P95 · Codex · 28/10/2026 17:29 +07 — STARTED C2 PHẦN A THEO P94
+Ghế: openai-codex · Based_on: P90–P94, Owner RUN TIẾP trực tiếp, PROMPT canonical.
+STARTED@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 · PHASE=A · 2026-10-28T10:29Z.
+- S0 PASS: đọc AGENTS (blob fa5419f606ed930c4f7b7f8d4fe39b1628620811), root COLLAB, task COLLAB/P94, ROADMAP §0.4b và toàn PROMPT. GitHub API last-touch PROMPT = 664f06e0d2c8d7839d35241f0d93a0995cda70f0, blob 68bc1e822571de40566da410ba933da6f566b7f8; khớp READY P92. P94 khép lỗi chuyển tay P93; không có STOP mới trong scope.
+- Live S0 10:28Z: main AD a636ffe57d23f3716cb016082dba1867882d5454, Web 4f8405a900170106fdb2b2a60ad10c1785ad6f91, protected=false; runner ghm-ci-agent-data-test và ghm-ci-web-test online/idle, đúng label riêng; ghm-pr-gate active cả hai; 0 PR C2 có sẵn. Hai checkout sạch, origin/main đã cập nhật; quyền gh đọc/ghi nhánh hiện có, không tạo key.
+- Phạm vi: PR-1 fail-closed, PR-2 chỉ dẫn SSOT ≤5 dòng độc lập main, PR-3 same-repo trusted thử âm; không merge/deploy/Pro/secret/data/production. Không lấy VPS-GHI hoặc lease, không RUN mới. Đường lùi: giữ main nguyên trạng, đóng PR chưa merge nếu cần; bằng chứng âm giữ OPEN cho B.
+- Giữ nguyên scan/unit/actionlint và luật G1. Không chứng nhận an toàn trước workflow không tin cậy; KST_ONLY_MERGE_ENFORCED=NO. NEXT_TRIGGER=CODEX_KQ_A_C2.
 
 
 
