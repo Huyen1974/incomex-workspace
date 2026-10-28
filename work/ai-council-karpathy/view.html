@@ -52,7 +52,7 @@ small.f{color:#6b7785;font-size:13px}
 </style>
 </head>
 <body><main>
-<span class="flag">HỒ SƠ ĐẦY ĐỦ · Claude P11 · chờ GPT Host rà · N0 chưa chạy</span>
+<span class="flag">HỒ SƠ ĐẦY ĐỦ · GPT Host P12 đã rà · N0 chưa STARTED</span>
 <h1>Hội đồng AI — toàn cảnh và kế hoạch</h1>
 <p class="sub">Trang này vẽ lại đúng nội dung <b>COLLAB §3.0</b> (đọc trước). Bảng 115 mục ở §3.8, quyết định Host ở §3.7 và §3.9. Tình trạng là ảnh chụp hồ sơ ngày 28/10/2026, <b>chưa đo máy thật</b> (N0 sẽ đo).</p>
 
@@ -61,7 +61,7 @@ small.f{color:#6b7785;font-size:13px}
 <ol><li>Hệ hội đồng <b>đã có gần đủ luật</b>: ghế, Host, vòng, một chữ ký READY, ý kiến khác hãng, chuông, chỉ đạo Owner. Luật nằm ở <code>AGENTS.md</code> và HJW.
 </li><li><b>Máy chặn thật</b> mới có ở hai chỗ: cổng ghi repo (chỉ ghi qua gateway, chống ghi đè, danh tính theo chìa) và đường giao việc cho Hermes.
 </li><li><b>Hội đồng gần như toàn làm tay.</b> Chưa máy nào kiểm "người ký READY có phải Host", "đã có ý kiến khác hãng chưa", "chuông có đang mở không". Phần máy này trước giao HJW N4, nhưng N4 chưa mở nên không ai làm (điểm đỏ Đ1). Theo D04, task này (ACK) nhận làm đầu mối.
-</li><li><b>Xưng danh khi ghi</b> đã thiết kế xong và khảo sát mã xong. <b>Lệnh thi công đã ký sẵn</b> (HJW RUN11) nhưng chưa chạy.
+</li><li><b>Xưng danh khi ghi</b> đã thiết kế và khảo sát mã xong. <b>HJW RUN11 đã KQ DỪNG S0</b> vì CLIENT_REFRESH_PATH_UNVERIFIED, chưa thi công; HJW phải xử lý rồi ký lệnh hợp lệ mới.
 </li><li><b>Từ Karpathy lấy 16 món</b>: 14 dùng + 2 tuỳ chọn. Đều là <i>mẫu</i> (khuôn lệnh, khuôn báo cáo, dòng ý kiến máy đọc, màn hội đồng 3 tầng…), <b>không chép mã</b>.
 </li><li><b>Kế hoạch:</b>
 <ul><li>N0: đo khoảng trống.
@@ -74,7 +74,7 @@ small.f{color:#6b7785;font-size:13px}
 </li></ol>
 <h3>Anh cần làm bây giờ</h3>
 <ul><li><b>Một việc:</b> khi tiện, chuyển lệnh <b>N0</b> (đã ký sẵn) cho Codex. Lệnh chỉ đọc, không đụng gì.</li>
-<li>Song song, ở phiên HJW: lệnh thi công <b>xưng danh khi ghi</b> (RUN11) cũng đã ký sẵn cho Codex Desktop.</li>
+<li>Song song, ở HJW: <b>không gửi lại RUN11 đã DỪNG</b>; Host HJW phải xử lý blocker và ký lệnh mới.</li>
 <li>Chưa có quyết định nào phải gật lúc này. Hai lần anh sẽ cần quyết: <b>sau N1</b> (duyệt dọn luật + định nghĩa "đồng ý khác hãng") và <b>trước N2</b> (cho phép gắn chốt máy vào cổng ghi và sửa Task View).</li></ul>
 </section>
 
