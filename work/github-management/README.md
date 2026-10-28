@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái hiện hành: [COLLAB — Bảng điều khiển và KQ Phần B P89](COLLAB.md). Phần B G1 XONG có giới hạn: Claude Code CLI KST kiểm độc lập diff CI, KST_ACCEPT rồi merge AD #351 (main `a636ffe5`) và Web #677 (main `4f8405a9`); `gate` push main success trên đúng SHA main mới cả hai repo. GH_CODE_GATE=PASS · GH_HARDLOCK_ENFORCED=NO (Free private, cưỡng chế ở C2) · Health dữ liệu Web vẫn đỏ. Chờ Host nghiệm thu G1.**
+**Trạng thái P90 Host: G1 PASS trên GitHub thực (PR351 AD/main a636ffe5 gate40623332810 SUCCESS; PR677 Web/main4f8405a9 gate40623377993 SUCCESS), không postmerge false-red. GH_HARDLOCK_ENFORCED=NO vì main private protected:false; C2 Pro/required `gate`/Chief identity tiếp theo. Web Health sau merge run40629876815 có 11 PASS/2 business FAIL, CHECK12 trở lại PASS; Web ops-smoke/AD Lifecycle GREEN. DRAFT GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 cho Claude P91, chưa READY/RUN, không tự mua Pro. F2/C4 chưa mở, AD rollout nợ riêng.**
 
 **Trước đó: Phần A G1 đã XONG (P87): PR Agent Data #351/Web #677 gate GREEN thật; hai PR âm đóng sau đúng hai run RED/repo, closed skipped. Phần B chưa RUN — Owner chuyển riêng Claude Code CLI theo P85, cùng RUN_ID GHM-GH-GREEN-GATE-20261027-06; KST kiểm độc lập CI diff rồi merge và kiểm push-main. Không tuyên G1 toàn bộ/C1B/Health đã xanh.**
 
@@ -11,10 +11,10 @@
 Đọc theo đúng thứ tự:
 1. AGENTS.md ở root repo (luật hội đồng, vai trò, cổng Owner).
 2. work/github-management/COLLAB.md — §0 mục tiêu Owner, Bảng điều khiển, danh sách ghế, câu hỏi quyết định.
-3. work/github-management/ROADMAP.md — **V0.5, §0.4a GH CODE GREEN Owner chiều 27/10 trước C2/F2**, §0.5 giữ lịch sử/DoD.
-4. work/github-management/KE-HOACH.md — V0.4 G1 code gate Green, Phần A Codex/Phần B KST, C2 hardlock/Owner GO, Health data red không che.
+3. work/github-management/ROADMAP.md — **V0.6, §0.4a G1 đã PASS, §0.4b C2 GH private main/required gate/Chief identity next, §0.5 DoD lịch sử.**
+4. work/github-management/KE-HOACH.md — V0.5 C2 private main protection, Owner Pro/required gate/negative tests và giới hạn cùng Github identity.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — **CANONICAL G1** GHM-GH-GREEN-GATE-20261027-06; Claude P84 ACCEPT, GPT Host P85 READY@f4a21b2d7789e09245098d846c7fc483cd026b74. Owner giao Codex **Phần A** trước; sau KQ_A đạt mới giao Claude Code CLI **Phần B**; không dùng READY F1 cũ.
+6. work/github-management/PROMPT.md — **DRAFT C2** GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 cho Claude P91 phản biện; chưa Host READY/Owner RUN; G1 P85 đã KQ P89, không dùng READY cũ.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
