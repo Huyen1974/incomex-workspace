@@ -1,11 +1,11 @@
 # HJW — RUN12: Candidate offline trước, refresh client đúng thời điểm
 
 RUN_ID: HJW-DECLARATION-GATE-PHASED-20261028-12
-STATUS: HOST_FINAL_PENDING_READY · NO_RUN
+STATUS: HOST_P451_FINAL_PENDING_EXACT_SHA_READY · NO_RUN
 Executor_Surface: Codex Desktop/Work (Owner giao tay SAU Host READY đúng SHA)
 Task: Huyen1974/incomex-workspace · work/hermes-joint-workspace
 Write_Path: repo báo cáo qua `workspace_*` D12; mã Gateway chỉ qua repo source/operator/apply đã audit, VPS-GHI CAS và Guard khi thực sự mutation production.
-Read_First: AGENTS.md A0/A2/A5/A6/A9/A10 → HJW COLLAB §0, Bảng, P442–P449 → PROMPT này. **RUN11 KQ DỪNG tại P448, không tiếp tục READY cũ.**
+Read_First: AGENTS.md A0/A2/A5/A6/A9/A10 → HJW COLLAB §0, Bảng, P442–P451 → PROMPT này. **RUN11 KQ DỪNG tại P448, không tiếp tục READY cũ.**
 Scope: một contract `declared_actor` tại hai Gateway AD/workspace + Claude/fs hiện hữu; giữ quyền, profile, D12 GitHub protected main, A2 quorum; không mở task, server, DB, bridge, endpoint, cron, account hoặc cấp secret mới.
 
 ## Mục tiêu và C1/C2 không đổi
@@ -39,5 +39,5 @@ AI có quyền ghi phải được tools/list hướng dẫn ngay về `declared
 
 ## Kết quả
 - KQ@HJW-DECLARATION-GATE-PHASED-20261028-12 **XONG** chỉ khi feature hai Gateway thật sự enforce + C1 client thực + C2 đã phân loại + Guard/rollback không lỗi. Nếu mới có patch candidate/fixture PASS nhưng refresh blocked, ghi **DỪNG có kết quả**: source commit/digest, test, blocker duy nhất, next action thật, 0 lease/job tạm. Không ghi FEATURE PASS hay xin Owner bấm UI khi chưa cần.
-- Ghi một P450/KQ vào duy nhất HJW COLLAB qua D12, cập nhật Bảng/NEXT_TRIGGER và giữ evidence ở nguồn, không tạo task khác. Báo Owner 3 câu: đã làm, còn thiếu gì, có cần một thao tác Owner-only không.
+- Ghi một **P452/KQ** vào duy nhất HJW COLLAB qua D12 (P450 đã là Claude reviewer; P451 là Host), cập nhật Bảng/NEXT_TRIGGER và giữ evidence ở nguồn, không tạo task khác. Báo Owner 3 câu: đã làm, còn thiếu gì, có cần một thao tác Owner-only không.
 STEP_WALK_V1: S0 preflight+pin runtime → S1 candidate+fixture → S2 đúng loại plugin/advertise-safe rồi refresh/canary nếu khả thi → S3 enforce+Guard+C1/C2 → KQ/return. **STOP trước bất kỳ bước production thiếu Guard/lease/rollback/client safe.**
