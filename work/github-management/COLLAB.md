@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 16 +07 · GPT Host · P92
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 17:17 +07 · Codex · P93
 - 🎯 Mục tiêu Owner: Codex/agent viết mã song song GitHub, Claude Code CLI KST review/merge, cổng `gate` GREEN thực trước merge; không cho mã xấu/sai qua main khi mở nhiều agent.
 - 🏁 C2 đạt nếu cả hai `main` private có **ruleset active**, PR + `gate` yêu cầu source GitHub Actions đúng, RED/ngoài làn/direct push/behind bị từ chối theo bằng chứng; phân biệt `BRANCH_ENFORCED` và `KST_ONLY_ENFORCED=NO` khi một danh tính.
 - 📍 ✓ C1A/F0/F1 Web source → ✓ G1 P90 PASS pilot → ✓ Claude P91 → ✓ GPT Host P92 READY A → ■ Owner giao Codex **Phần A** không cần Pro → Owner mua Pro + giao Claude Code CLI **Phần B** sau KQ_A → F2 ba agent chỉ khi actor/runner boundary đạt → C4.
 - ✅ Đã kiểm GitHub: AD main `a636ffe5` gate40623332810 GREEN, Web main `4f8405a9` gate40623377993 GREEN; Web Health main sau merge CHECK2/7 business RED, CHECK12 PASS; cả 2 main protected=false, API rulesets 403 Upgrade Pro (chưa khả dụng).
-- ■ Đang làm: — · 0 RUN active. Host P92 READY@664f06e0d2c8d7839d35241f0d93a0995cda70f0 cho RUN_ID=GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07; **chưa Owner RUN**. Phần A Codex là lượt có thể bắt đầu ngay; B không STARTED nếu thiếu KQ_A/Pro/Owner RUN.
+- ■ Đang làm: — · 0 RUN active. P93 KQ_A DỪNG tại S0: SHA Owner dispatch không tồn tại/khác READY P92; chưa sửa code hoặc tạo PR. P92/PROMPT giữ nguyên.
 - ⬜ Còn lại: A vá job skipped ⇒ OUT_OF_PILOT RED trên bài thử same-repo Owner tin cậy, không mở fork/agent mới vào runner persistent; B xoá Web protection cũ và activate ruleset không bypass; Pro/billing Owner; Chief-only danh tính chưa giải; 2 lỗi Health+2 orphan và AD rollback riêng.
-- ➡ NEXT_TRIGGER=OWNER_RUN_C2_PART_A: Owner chuyển Codex RUN Phần A; sau KQ_A PASS & Pro active, Owner giao Claude Code CLI B riêng. READY không cấp phép auto-Pro hoặc background chờ.
+- ➡ NEXT_TRIGGER=OWNER_XAC_NHAN_SHA_P92_664F06E0: xác nhận SHA `664f06e0d2c8d7839d35241f0d93a0995cda70f0` để Codex tiếp tục cùng RUN/Phần A. B vẫn cần A PASS + Pro active + Owner giao riêng; không giữ phiên chờ.
 - ⛔ Không tạo key/account/máy mới, không đụng Web/AD production, không tự disable ruleset khi hỏng (phải Owner GO), không cleanup 30+8 docs/vectors, không mở F2/C4 khi isolation/rights chưa đủ.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1331,6 +1331,17 @@ Based_on: P89 · P90 · PROMPT DRAFT @6e971a50 · **đo gh API 28/10 15:10 +07**
 - **DÓD chia rõ:** A có thể RUN ngay trên Free khi Owner chuyển cho Codex, KQ_A/P93 (hoặc lượt kế) ghi bằng chứng, đóng phiên. B chỉ sau A PASS + Owner trực tiếp nâng Pro + Owner RUN B, KST tự làm config/merge/test, không giữ phiên chờ. Owner mua Pro khoảng 4USD/tháng chỉ do Owner quyết, tốt nhất ngay trước B để tránh protection cũ Web hoạt động khi A còn chạy; không có Pro B không STARTED. 0 production mutation, 0 auto-CD, 0 mua Pro.
 - **Nợ độc lập:** Web Health CHECK2 ratio/sync warning + CHECK7 5 folder ngoài allowlist vẫn RED; 30 docs thử/8 thật/2 orphan cần Owner GO mới mutation, CHECK12 đang PASS. Agent Data C1B rollback old DDL chưa đạt; không lấy làm gate code trên branch.
 - **READY@664f06e0d2c8d7839d35241f0d93a0995cda70f0** · signer=GPT Host/openai-main · RUN_ID=GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 · PHASE_A=Codex Mac trusted pilot · PHASE_B=Claude Code CLI KST, conditioned Owner Pro+KQ_A+Owner RUN riêng. PROMPT last-touch có commit trên repo `664f06e0d2c8d7839d35241f0d93a0995cda70f0`; không dùng READY P85/G1 cũ. NEXT_TRIGGER=OWNER_RUN_C2_PART_A.
+
+## P93 · Codex · 28/10/2026 17:17 +07 — KQ_A DỪNG tại S0
+Ghế: openai-codex · Bước/vòng: Phần A / sau P92 · Based_on: P90–P92, PROMPT hiện hành và Owner RUN trực tiếp.
+KQ@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 DỪNG · PHASE=A · KQ_A=DỪNG · blocker=OWNER_DISPATCH_SHA_MISMATCH · 2026-10-28T10:17Z. Chưa STARTED thực thi; không giữ cờ/phiên chờ.
+- Đã đọc AGENTS → COLLAB §0/P90–P92 → README → ROADMAP §0.4b → toàn PROMPT. AGENTS không đổi so với lượt G1 đã đọc.
+- Lệnh Owner ghim `664f06e0d2c8d7839d35241f0e6414817bfbc27a94bdc1f8` (**48 ký tự**). gh API GET commit trả **HTTP 422**, nguyên văn: `No commit found for SHA: 664f06e0d2c8d7839d35241f0e6414817bfbc27a94bdc1f8`.
+- P92 READY và gh API `commits?path=work/github-management/PROMPT.md&per_page=1` cùng xác nhận last-touch thực **`664f06e0d2c8d7839d35241f0d93a0995cda70f0`**; commit message bắt đầu `[GPT Host] P92 C2 canonical`.
+- Áp AGENTS A6: «Agent vẫn phải lấy bản mới, kiểm full SHA READY rồi mới chạy; lệch thì DỪNG.» Không tự thay SHA ghim trong dispatch; không sửa P92/PROMPT hoặc tạo READY/RUN mới. Đây là sai khác tham chiếu, không phải thiếu Pro hay lỗi code.
+- **Chưa làm PR-1/2/3; 0 branch/PR/CI run mới, 0 sửa hai repo mã, 0 merge/deploy/secret/data/production, 0 mua Pro.** Chỉ ghi hồ sơ qua Workspace gateway với expected_version. Lần ghi đầu bị VERSION_CONFLICT vì commit HJW chen ngang; không có file thay đổi, đã đọc lại xác nhận task GHM không đổi trước ghi lại.
+- Không lấy VPS-GHI/lease, 0 RUN active. **NEXT_TRIGGER=OWNER_XAC_NHAN_SHA_P92_664F06E0**: xác nhận dùng SHA thực trên để tiếp tục **cùng RUN_ID/cùng Phần A/cùng PROMPT P92**, kiểm freshness/S0 lại; không cần sửa kế hoạch hoặc mở vòng phản biện. B vẫn chỉ sau A PASS + Pro active + Owner giao riêng.
+
 
 
 
