@@ -1,7 +1,7 @@
 # PG-A2R · XÁC MINH QUYỀN PG18 + DOT/CONFIG GUARD TRƯỚC OWNER G2 MỚI — CHỈ ĐỌC
 RUN_ID: NDW-PGA2R-ROLE-GUARD-RO-20261028-02
 TASK: work/nhap-directus-for-workflow
-EXECUTOR_SURFACE: Claude Code CLI (nếu Claude Chat không có quyền query_pg thực theo cổng hiện hữu)
+EXECUTOR_SURFACE: Claude Code CLI
 READ_PATH: chỉ `query_pg` của claude-mcp theo `context_pack_readonly`, READ ONLY timeout 5 giây trên 3 DB đang cho phép; repo/workspace read; `vps_status`; RO inspect SOURCE/metadata đúng cổng đã audit. Không mở DB postgres allowlist, không lấy secret, không gọi psql/docker exec tài khoản admin.
 WRITE_PATH: **chỉ** gateway `workspace_edit` để ghi STARTED/KQ và bảng điều khiển của cùng task COLLAB. Không động PG, Directus, Docker, SQL manifest, Guard, Git index, bất kỳ config hoặc runtime khác.
 STATUS: chỉ RUN khi Claude Chat review phạm vi read-only theo P80 được Host chốt, có Host READY@SHA last-touch của RUN NÀY và Owner dispatch DROOT38, không STOP/HOLD/council alert/lease xung đột; thiếu => không RUN. Dòng STATUS là điều kiện không thay khi ký. RUN cũ `NDW-PGA2-TWO-NATIVE-VIEWS-20261028-01` đã có KQ DỪNG P79 nên P78 READY cũ **KHÔNG** còn là lệnh cho phép chạy lại.
