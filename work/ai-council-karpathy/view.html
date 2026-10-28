@@ -13,8 +13,8 @@
     .sub{color:#506073;margin:0 0 16px;font-size:16px}
     .panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0}
     .ask{border:2px solid var(--warn);background:var(--warnbg)} .ask b{font-size:18px}
-    .bar{display:flex;gap:8px;flex-wrap:wrap}
-    .cell{flex:1 1 120px;min-width:120px;border-radius:10px;padding:12px 10px;border:2px solid var(--line);background:var(--graybg);color:#4b5866}
+    .bar{display:flex;gap:6px;flex-wrap:nowrap}
+    .cell{flex:1 1 0;min-width:92px;border-radius:10px;padding:10px 8px;border:2px solid var(--line);background:var(--graybg);color:#4b5866}
     .cell .t{font-weight:700;font-size:16px;color:#1d2935} .cell .w{font-size:15px;margin-top:4px}
     .cell.done{background:var(--okbg);border-color:var(--ok)} .cell.now{background:var(--nowbg);border-color:var(--now);border-width:3px}
     .tag{display:inline-block;font-size:13px;font-weight:700;padding:1px 8px;border-radius:9px;margin-bottom:4px}
@@ -30,7 +30,7 @@
     ul.clean{list-style:none;margin:0;padding:0} ul.clean li{padding:5px 0}
     .yes{color:var(--ok);font-weight:700} .no{color:var(--bad);font-weight:700}
     small{color:#6b7785;font-size:13px}
-    @media(max-width:760px){body{padding:12px}.tiers{grid-template-columns:1fr}.cell{flex:1 1 45%}}
+    @media(max-width:760px){body{padding:12px}.tiers{grid-template-columns:1fr}.bar{flex-wrap:wrap}.cell{flex:1 1 45%}}
   </style>
 </head>
 <body><main>
