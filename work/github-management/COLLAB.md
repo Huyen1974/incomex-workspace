@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 17:29 +07 · Codex · P95
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 17:38 +07 · Codex · P96
 - 🎯 Owner: nhiều agent viết code qua GitHub, KST Claude Code CLI duyệt/merge, `gate` GREEN thật, bảo vệ `main` trước F2.
 - 🏁 C2-A là Codex vá skipped→RED, 3 PR/repo đúng phép thử, không merge; C2-B KST thực thi sau KQ_A PASS + GitHub Pro + Owner RUN riêng.
 - 📍 ✓ F0/F1/G1 đạt → ✓ P92 READY → P93 DỪNG S0 vì SHA 48 ký tự trong lời nhắn GPT → ✓ P94 Host kiểm commit đúng 40 ký tự → ■ Codex tiếp tục C2-A cùng RUN → C2-B → F2 → C4.
 - ✅ SHA cuối chạm PROMPT `664f06e0d2c8d7839d35241f0d93a0995cda70f0` có thật trên GitHub và đúng P92 READY, PROMPT không đổi; AD main a636ffe5/Web main4f8405a9 chưa có C2 PR; P93 0 mutation.
-- ■ Đang làm: C2 Phần A · Codex · STARTED@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 · PR-1/2/3 trên hai repo; S0 PASS theo P94; không VPS-GHI.
-- ⬜ C2-A vẫn chưa chạy; C2-B cần Pro/ruleset; Health dữ liệu và AD rollback nợ độc lập.
-- ➡ NEXT_TRIGGER=CODEX_KQ_A_C2: Codex hoàn thành 2 PR GREEN + 1 PR RED OUT_OF_PILOT mỗi repo, ghi bằng chứng và đóng phiên; B chỉ sau Owner Pro + Owner RUN riêng.
+- ■ Đang làm: — · 0 RUN active · Codex đã KQ_A XONG tại P96: 4 PR GREEN + 2 PR RED OUT_OF_PILOT đúng SHA; 6 PR OPEN cho KST, chưa merge/triển khai main.
+- ⬜ Host/KST nghiệm thu P96 bằng GitHub API; C2-B cần Owner Pro active + Owner RUN riêng; Health dữ liệu và AD rollback nợ độc lập.
+- ➡ NEXT_TRIGGER=OWNER_NANG_PRO_VA_GIAO_KST_PHAN_B: Owner nâng Pro và giao Claude Code CLI Phần B riêng sau KQ_A; KST kiểm lại SHA/base và thực thi B0–B4 theo PROMPT P92.
 - ⛔ Không bỏ SHA gate A6, không so PROMPT last-touch với workspace global HEAD thay đổi bởi task khác; không Pro/merge/deploy/đổi dữ liệu trong A.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1357,6 +1357,36 @@ STARTED@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 2026-10-28T10:29Z · executor=Co
 - Live S0 10:28Z: main AD a636ffe57d23f3716cb016082dba1867882d5454, Web 4f8405a900170106fdb2b2a60ad10c1785ad6f91, protected=false; runner ghm-ci-agent-data-test và ghm-ci-web-test online/idle, đúng label riêng; ghm-pr-gate active cả hai; 0 PR C2 có sẵn. Hai checkout sạch, origin/main đã cập nhật; quyền gh đọc/ghi nhánh hiện có, không tạo key.
 - Phạm vi: PR-1 fail-closed, PR-2 chỉ dẫn SSOT ≤5 dòng độc lập main, PR-3 same-repo trusted thử âm; không merge/deploy/Pro/secret/data/production. Không lấy VPS-GHI hoặc lease, không RUN mới. Đường lùi: giữ main nguyên trạng, đóng PR chưa merge nếu cần; bằng chứng âm giữ OPEN cho B.
 - Giữ nguyên scan/unit/actionlint và luật G1. Không chứng nhận an toàn trước workflow không tin cậy; KST_ONLY_MERGE_ENFORCED=NO. NEXT_TRIGGER=CODEX_KQ_A_C2.
+
+## P96 · Codex · 28/10/2026 17:38 +07 — KQ_A XONG C2 PHẦN A
+Ghế: openai-codex · Based_on: P92 READY/P94 sửa dispatch/P95 STARTED và Owner RUN TIẾP. Chỉ kết luận Phần A; Host/KST nghiệm thu độc lập.
+KQ@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 XONG · 2026-10-28T10:38Z · executor=Codex Desktop/openai-codex · PHASE=A · KQ_A=PASS_TRUSTED_PILOT.
+- **DoD A đạt 2/2 repo:** mỗi repo PR-1 và PR-2 gate SUCCESS đúng head/current base, PR-3 FAILURE đúng OUT_OF_PILOT. 6 PR OPEN, 0 merged; mỗi PR đúng 1 Actions run, run_attempt=1, không rerun để ép xanh. API pulls/commits-check-runs/actions-runs/jobs và log đã đối chiếu; check nguồn GitHub Actions, runner riêng ghm-ci-agent-data-test/ghm-ci-web-test, không GitHub-hosted.
+- **S0/authority:** PROMPT last-touch đo lại cuối phiên 10:37Z vẫn 664f06e0d2c8d7839d35241f0d93a0995cda70f0; P94/P95 hiện hành, không STOP mới. STARTED commit a25a810728a67e38d312c1db5ff73c2ac4d8df26; chuẩn hóa trường máy executor/UTC tại b060f13d225afdb4f36cd08582471f36c0d5746b. Không đổi PROMPT/READY hoặc tạo RUN mới.
+- **PR-1:** job chỉ skip closed; preflight inline xét author/actor/triggering_actor, branch và same-repo trước subprocess/fetch/checkout/setup-node. Sai làn ghi OUT_OF_PILOT và exit 1, summary giữ RED. Chỉ 3 file workflow/policy/test thay đổi. Tất cả step ngoài preflight giữ nguyên byte so với main: scan, policy/actionlint, policy_tests, unit, setup-node Web và summary. Triggers/permissions/concurrency nguyên trạng. Chính sách G1 giữ; thêm chặn job-level filter và yêu cầu preflight đứng đầu.
+- **Kiểm hồi quy:** PR-1 28/28 policy tests/repo (14 cũ + 14 mới), chạy chính inline preflight/summary với mock chặn subprocess; local actionlint PASS. 8 ca G1 preflight local (PR base đứng yên/đã đổi, push/dispatch exact event SHA khi main đã dịch) PASS. GitHub PR-1 và PR-2: secret scan/actionlint/policy/unit đều SUCCESS; unit AD 33, Web 16. PR-2 dùng policy G1 14 test vì tách độc lập từ main.
+- **PR-2:** mỗi repo chỉ thêm 3 dòng chỉ dẫn + 1 dòng trống vào AGENTS hiện có (4 insertions, 0 deletions), trỏ AGENTS/COLLAB SSOT trung tâm; không tạo luật song song. Parent commit là main S0, không chứa PR-1.
+- **PR-3:** same-repo, Codex/Owner kiểm soát; parent đúng head PR-1, chỉ thêm 1 dòng comment vô hại ở test. Không mở fork/tác giả/agent mới. Giữ OPEN cho phép thử B.
+
+| Repo / PR | Head SHA đã kiểm | Actions run / kết quả |
+|---|---|---|
+| AD [PR-1 #354](https://github.com/Huyen1974/agent-data-test/pull/354) | 77feb8a7e370e91ac4bcd3e6b1489faeef7c8341 | [40672864342](https://github.com/Huyen1974/agent-data-test/actions/runs/40672864342) SUCCESS |
+| AD [PR-2 #355](https://github.com/Huyen1974/agent-data-test/pull/355) | ce4f62b9f1e8d6cbad1f5e17b1614fe5fe650d0a | [40672944046](https://github.com/Huyen1974/agent-data-test/actions/runs/40672944046) SUCCESS |
+| AD [PR-3 #356](https://github.com/Huyen1974/agent-data-test/pull/356) | 32272a734db59822914bdfcee12a50c43eadc2b3 | [40673027440](https://github.com/Huyen1974/agent-data-test/actions/runs/40673027440) FAILURE — OUT_OF_PILOT |
+| Web [PR-1 #679](https://github.com/Huyen1974/web-test/pull/679) | b99eb362bbd1cf153a97ff53907f01df671e297a | [40672871326](https://github.com/Huyen1974/web-test/actions/runs/40672871326) SUCCESS |
+| Web [PR-2 #680](https://github.com/Huyen1974/web-test/pull/680) | 548481b48c152069e73df8f3c1616ad38cac1ec8 | [40672958439](https://github.com/Huyen1974/web-test/actions/runs/40672958439) SUCCESS |
+| Web [PR-3 #681](https://github.com/Huyen1974/web-test/pull/681) | 17eaf3ab9b354bc924c8cd279b626f007fe41899 | [40673046142](https://github.com/Huyen1974/web-test/actions/runs/40673046142) FAILURE — OUT_OF_PILOT |
+
+**Bằng chứng âm từ output thực (không tính phần log echo source):**
+- Hai run âm hoàn tất 10:35:39Z / 10:35:44Z: preflight=failure, summary=failure; scan/policy/policy_tests/unit=skipped; Web setup-node=skipped. Summary: `policy=RED; policy_reasons=["OUT_OF_PILOT"]; checkout_performed=false; gate=RED`.
+- Annotation thực: `OUT_OF_PILOT: trusted same-repo author/actor/branch required; no PR code fetched or checked out.` Không có output thực `Initialized empty Git repository`, `From https://github.com/`, `HEAD is now at` hoặc Python traceback trong hai log âm. Gate job là FAILURE, không skipped; summary chỉ mã inline workflow, không nạp script từ checkout.
+- SHA256 log lưu riêng (không đưa raw log/thông tin nhạy cảm lên repo public): AD PR1 `24710baf18835efa1331e4f405f406f5a4f2d0b6853e7c8aef16933de8690e61`; AD PR2 `606990ee17899de4d491d496965fce6077b4b7f68618ff033c931c440b199b5e`; AD PR3 `b4a26d45e04f6ee792d1ce665f03e343132d1eea503d7482e4861b0112093a9a`; Web PR1 `21243c4e118e2322743d9010a5b725e6448b1a48a1a12ef7dbd09d4fdf99e5bf`; Web PR2 `05cad900557260beab1a1649b5eec802d8b4687c6cfc838131cefd939c9b4c62`; Web PR3 `86e503f5cf9fae99af2b228c88cad9972aa4a0d924e74d35567924771c0466cb`. Bằng chứng API/log trên Mac: `work/ghm-c2-a/final-evidence.json` cùng 6 log, trong workspace phiên Codex; URL run là nguồn kiểm độc lập.
+
+**Giới hạn và bàn giao:**
+- `GH_NONPILOT_BLOCKED=PASS_TRUSTED_TEST` trên các head PR-1/PR-3; **chưa triển khai lên main**. `GH_BRANCH_PROTECTION_ENFORCED=NO` (API main protected=false); `KST_ONLY_MERGE_ENFORCED=NO`; `UNTRUSTED_WORKFLOW_ISOLATED=NOT_PROVEN`. Workflow pull_request vẫn lấy từ PR merge-test; tác giả không tin cậy có thể sửa chính preflight. KST phải review diff workflow/script độc lập đúng SHA trước merge; không gọi kết quả này là chống tác giả độc hại hoặc chứng nhận runner isolation.
+- Main giữ nguyên AD a636ffe57d23f3716cb016082dba1867882d5454 / Web 4f8405a900170106fdb2b2a60ad10c1785ad6f91. 0 merge/push-main/deploy/Pro/ruleset/secret/data/production mutation, 0 restart, không thay protection cũ Web. Health business/AD rollback vẫn nợ độc lập, không chạy lại hay ép xanh.
+- Đường lùi A: các thay đổi chỉ ở branch/PR chưa merge, main chưa cần phục hồi; giữ 6 PR OPEN cho B, không xóa nhánh/volume/mã. Nếu B làm sau khi main/head thay đổi, KST phải đo lại SHA/base/gate theo PROMPT, không dùng snapshot này thay readback.
+- `VPS-GHI=NOT_ACQUIRED`, không lease; 0 RUN active sau KQ, không tiến trình CI còn chạy của 6 PR; checkout Mac sạch, cache test đã dọn. Đóng phiên Phần A; không thực thi B/F2/C4. **NEXT_TRIGGER=OWNER_NANG_PRO_VA_GIAO_KST_PHAN_B**: chỉ sau Owner Pro active và Owner giao riêng Claude Code CLI/KST mới B0–B4 cùng RUN. Host/KST nghiệm thu bằng API bảng trên.
 
 
 
