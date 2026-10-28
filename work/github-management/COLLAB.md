@@ -5,12 +5,12 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 · Codex · P102
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 21:30 +07 · Codex · P103
 - 🎯 Owner: duy trì ba repo được chỉ định, CI thiết yếu chạy trên VPS và kiểm soát chi phí.
 - ✅ Kiểm tra cost sau Pro: KQ=PASS trong phạm vi readback tại thời điểm kiểm tra; chờ GPT Host nghiệm thu. Không bảo đảm trần tổng hóa đơn tuyệt đối.
 - ✅ Workflow tự quản đang bật trên main của hai repo ứng dụng dùng VPS; Dependabot do GitHub quản lý là ngoại lệ. Web Health gần nhất có lỗi, cần xử lý riêng.
-- ■ Đang làm: — · 0 RUN cost active. C2-B chưa RUN; không thay đổi ruleset, PR, CI YAML, VPS hay production.
-- ➡ NEXT_TRIGGER=HOST_ACCEPT_COST_THEN_CLAUDE_C2_B: GPT Host nghiệm thu KQ; sau đó Owner giao Claude KST C2-B theo P92 nếu đồng ý.
+- ■ Đang làm: Codex STARTED readback S0–S2 theo Owner giao trực tiếp; kiểm lại evidence P102, không chạy Actions thử.
+- ➡ Kế tiếp: Codex ghi KQ/bằng chứng qua gateway; GPT Host nghiệm thu; C2-B chưa RUN.
 - ⛔ Không chạy lại workflow để kiểm tra, không merge/deploy, không tuyên bố C1B hoặc Web Health đạt.
 
 ### 1. Mục tiêu
@@ -1457,6 +1457,12 @@ Based_on: P92–P97 · **tự đo gh API 28/10 20:05 +07**: 6 PR (state/head/bas
 - READY@717ca8ddeec2ec1f747a8a375b618a9caff71fac · signer=GPT Host/openai-main · RUN_ID=GHM-R1-COST-POSTPRO-20261028-08 · executor=Codex Desktop/CLI · scope=cost recheck/restore $0 hard-stop + stop hosted paid Actions, NO run/merge/deploy.
 - Owner chuyển lệnh cho Codex; chỉ khi KQ COST_LOCK_POSTPRO=PASS Host mới phát bước Claude Code CLI C2-B đã có READY P92. Chưa STARTED, 0 RUN active; không tự gọi Codex hay tuyên đã khóa lại xong.
 - NEXT_TRIGGER=OWNER_RUN_CODEX_COST_POSTPRO. Áp: SAME_COMMIT.
+
+## P103 · Codex · 28/10/2026 21:30 +07 — OWNER DISPATCH, READBACK S0–S2
+Ghế: openai-codex · Bước/vòng: COST execution / 1 · Based_on=d535d3edc2ab4e78b231611648aa1be070b35675 · Scope=cost readback/restore + COLLAB/README/ROADMAP, không C2-B.
+STARTED@GHM-R1-COST-POSTPRO-20261028-08 2026-10-28T14:30:31Z · executor=Codex Desktop/CLI
+- Owner giao trực tiếp RUN trong phiên này. Read-gate gateway PASS; COST file last-touch 717ca8ddeec2ec1f747a8a375b618a9caff71fac khớp READY P101; không thấy STOP/cờ bận cùng scope. P102 tại commit 0b9ae0e3cae99b997856eac22334c9712d617c82 đã báo PASS nhưng chưa có bảng chi tiết/readback trong hồ sơ này; lượt hiện tại kiểm chứng sống, không suy PASS từ báo cáo.
+- Write_Path=GitHub Billing UI/native settings trong scope Owner; GitHub API chỉ đọc; Workspace gateway expected_version cho hồ sơ. Không Actions thử, PR/main/ruleset/merge/deploy/C2-B.
 
 ## P102 · Codex · 28/10/2026 — KQ COST LOCK POSTPRO
 - RUN_ID=GHM-R1-COST-POSTPRO-20261028-08 · READY@717ca8ddeec2ec1f747a8a375b618a9caff71fac · KQ COST_LOCK_POSTPRO=PASS trong phạm vi readback tại thời điểm kiểm tra; chờ GPT Host nghiệm thu. Chi tiết tài chính gửi trực tiếp cho Owner, không ghi vào repo công khai.
