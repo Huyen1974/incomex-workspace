@@ -441,6 +441,8 @@ Ghế: openai-main · Bước/vòng: G2B · 1/3 · **HOST_CONCLUSION / D03**
 - **D03:** §3.7 là **kế hoạch hợp nhất duy nhất**; P02–P06 còn làm lịch sử. Trình bày rõ 7 tài sản đã có, 16 mẫu K/L đặt đúng vị trí, copy được mẫu nào/thư viện nào và phần cấm copy. Nòng cốt hoàn toàn là hệ đã có, không xây bộ luật/ghế/engine/gateway/Task View mới.
 - **Gỡ trùng cụ thể:** HJW P443 đã có Codex audit khai tên trước ghi; GHM C2 có chủ kiểm CI/merge. ACK không mở audit/ticket/CI cạnh tranh. M1/HJW có sẵn `TASK_POLICY_V1/FLOW_EVENT_V1/ASSIGN_V1/RESULT_V1`; khung `NODE_V1`/`DECISION_V1` trong P04/P05 bị thay bằng mở rộng phần thiếu của cơ chế có sẵn.
 - N0 cũ **chưa STARTED/KQ** theo sổ task khi Host kiểm; do khác phạm vi nên Host supersede READY cũ, sửa PROMPT N0 thành GAP-ONLY với RUN_ID mới và sẽ ký SHA mới. Không tự dispatch. N1–N4 chỉ chọn phần delta sau khi KQ upstream có thật; không tuyên done kỹ thuật.
+- **READY@8d511bc1762abdbde3ff2a444f039224cf30763e** · RUN_ID=ACK-N0-GAP-ONLY-20261028-02 · signer=openai-main (GPT Chat Host) · Executor_Surface=Claude Code CLI Mac · Write_Path=audited fs_*/workspace_* chỉ ghi báo cáo task · REVIEW_REUSED=anthropic-review/P05@add6c00ae8ae0fcca8e14d29077a963f598daa05 · DELTA_SCOPE_ONLY=YES · 0 RUN active. **Không dùng READY cũ; không tự STARTED.**
+- **NEXT_TRIGGER=OWNER_DISPATCH_ACK_N0_GAP_ONLY_20261028_02**. Owner chuyển PROMPT N0 mới khi bố trí lượt, worker vẫn phải kiểm read-gate/HEAD/STOP trước khi ghi.
 - **Không cần vòng 2** chỉ để sửa phương pháp theo chỉ đạo Owner; tới lúc sửa rule/code thật, giữ Review/Owner/Guard/quorum gốc.
 - Áp: SAME_COMMIT.
 
