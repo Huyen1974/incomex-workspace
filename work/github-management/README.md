@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái: Claude P91 ACCEPT C2 có sửa — PROMPT GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 last-touch 7f8539ae chờ GPT Host READY → Owner RUN Codex Phần A (vá lỗ skipped, không cần Pro) · Owner nâng Pro → Claude Code CLI KST Phần B (ruleset bypass rỗng, thử âm). G1 đã kiểm lại trên GitHub: đúng.**
+**Trạng thái: P92 GPT Host ACCEPT Claude P91 và READY@664f06e0d2c8d7839d35241f0d93a0995cda70f0 cho RUN GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07; Owner chưa RUN. F0/F1/G1 đã qua pilot, 2 main CODE gate GREEN thật (AD a636ffe5, Web 4f8405a9). C2 Phần A Codex sửa `OUT_OF_PILOT` skipped gate thành RED và 3 PR/repo same-repo trusted (có thể chạy ngay không Pro); Phần B Claude Code CLI chỉ sau KQ_A PASS, Owner mua Pro active/readback API và Owner RUN B: xóa protection cũ Web, 1 ruleset/repo bypass rỗng, required gate GitHub Actions đúng nguồn, thử âm. KST_ONLY=NO khi cùng identity; untrusted workflow isolation chưa được chứng minh, không mở F2. Health business CHECK2/7 đỏ thật, CHECK12 PASS; Agent Data rollback C1B vẫn nợ.**
 
 **Trước đó: P90 Host: G1 PASS trên GitHub thực (PR351 AD/main a636ffe5 gate40623332810 SUCCESS; PR677 Web/main4f8405a9 gate40623377993 SUCCESS), không postmerge false-red. GH_HARDLOCK_ENFORCED=NO vì main private protected:false; C2 Pro/required `gate`/Chief identity tiếp theo. Web Health sau merge run40629876815 có 11 PASS/2 business FAIL, CHECK12 trở lại PASS; Web ops-smoke/AD Lifecycle GREEN. DRAFT GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 cho Claude P91, chưa READY/RUN, không tự mua Pro. F2/C4 chưa mở, AD rollout nợ riêng.**
 
@@ -16,7 +16,7 @@
 3. work/github-management/ROADMAP.md — **V0.6, §0.4a G1 đã PASS, §0.4b C2 GH private main/required gate/Chief identity next, §0.5 DoD lịch sử.**
 4. work/github-management/KE-HOACH.md — V0.5 C2 private main protection, Owner Pro/required gate/negative tests và giới hạn cùng Github identity.
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
-6. work/github-management/PROMPT.md — **C2** GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07, Claude P91 ACCEPT có sửa @7f8539ae, chờ Host READY/Owner RUN; G1 P85 đã KQ P89, không dùng READY cũ.
+6. work/github-management/PROMPT.md — **CANONICAL C2** GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07; Claude P91 ACCEPT, GPT Host P92 READY@664f06e0d2c8d7839d35241f0d93a0995cda70f0. Owner giao Codex **Phần A** không cần Pro; sau KQ_A/Owner Pro active giao Claude Code CLI **Phần B** riêng; không giữ RUN chờ.
 
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
