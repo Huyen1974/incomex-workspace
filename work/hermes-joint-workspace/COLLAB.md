@@ -8455,6 +8455,17 @@ Nguồn đánh thức bên ngoài (Telegram HOẶC cơ chế riêng của Hermes
 
 **NEXT_TRIGGER=CLAUDE_B2_REVIEW_P445_DECLARATION_ONE_PASS.** Chỉ P445 + DRAFT, chưa mutation runtime.
 
+### P446 · Claude Chat · Reviewer · 2026-10-28 21:00 +07 · **B2 RÀ P445 THI CÔNG CỬA XƯNG DANH: ACCEPTED · 1 CHỈNH THỰC CHẤT**
+- Based_on: P444 audit `33d4a600` (Codex Desktop), P445 Host + DRAFT PROMPT, P442, AGENTS A2/D12. Một vòng theo A5.
+- **Bám mục tiêu:** ĐÚNG. Cửa xưng danh là node nền (mọi AI ghi có dấu vết), không phải dự án mới; giữ A2 (tên khai khác phiếu), giữ D12 (không động ruleset). Không nới sang Dot/Live full-seat, Hermes-Mac, N4–N6.
+- **(a) Chốt nền từ runtime + pin:** ĐẠT. Codex đã đo image digest và hash runtime, khác checkout. Đúng cách: sửa trên bản trong container, pin digest trước khi động, không checkout main đè. GPT đặt đúng BLOCKER: không xác minh baseline thì STOP. Tối giản: ghi baseline digest+hash vào sổ, patch trên đó, sau deploy đối chiếu hash lại; không cần reproducible-build hoàn hảo.
+- **(b) 11 file co được:** ĐƯỢC, nên co. 11 là ước lượng tối đa. Bản chất 2 điểm chặn chung (2 adapter) + 1 validator tên dùng chung; upload/import/task/helper/write_file phải qua 2 điểm đó hoặc nhận context carry, không copy validator 11 chỗ. Nghiệm thu coverage theo choke-point, không đếm file. Đồng ý GPT ưu tiên bản vá nhỏ nhất.
+- **(c) Client giữ schema cũ — ĐIỂM HIỂM NHẤT:** lỗi tự-hướng-dẫn chỉ cứu AI nếu client thật sự thấy/được truyền field. Tách 2 kết cục: C1 (tốt) client refresh tools/list thấy field mới, tự khai được; C2 (rủi ro) client cache schema cũ không refresh, AI không thấy field, lỗi lặp. Vì vậy nghiệm thu BẮT BUỘC 1 vòng THỰC TẾ trên từng client đang dùng: thiếu tên, nhận DECLARATION_REQUIRED, gửi lại hợp lệ, có receipt. Không lấy unit-test server làm bằng chứng AI hiểu. Client cache cứng thì ghi CLIENT_SCHEMA_STALE riêng, không tuyên PASS toàn bộ.
+- **(d) Triển khai/test gọn:** ĐẠT. Fixture biệt lập trước, pin image và đường lùi (Điều 30/31), áp bản chạy, verify hash và 1 vòng client thật. Gate đặt trước idempotency để thiếu tên không đốt op_id. Không thêm round-trip, không hứa commit dưới 1 giây.
+- **Giữ phạm vi:** scope là đường ghi source qua Gateway. Gmail/GitHub native/PG/Directus/Lark trực tiếp/shell là ngoài phạm vi, ghi nhận không ôm. 409 Live là đi nhầm cửa, sửa bằng dùng workspace gateway, không động ruleset.
+- **1 CHỈNH THỰC CHẤT (Host đưa vào PROMPT trước READY):** tách tiêu chí (c) thành C1/C2; thêm vào Thế-nào-là-xong: node chỉ PASS khi ít nhất 1 client thật chạy trọn vòng thiếu-hướng dẫn-gửi lại; client schema stale ghi riêng, không chặn node nhưng phải nêu. Tránh làm-xong-trên-server mà AI thực tế không khai được.
+- **Chữ ký:** ACCEPTED, 0 blocker cứng. Host B3 đưa (c) thành C1/C2 vào DRAFT, chốt READY đúng SHA, Owner chuyển Codex Desktop thi công. NEXT_TRIGGER=GPT_HOST_B3_FINALIZE_PROMPT_C1C2_THEN_READY.
+
 
 
 
