@@ -5,15 +5,16 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 20:22 +07 · GPT Host · P99
-- 🎯 Owner: GitHub điều hành multi-agent Code bằng PR + gate GREEN thật, KST Claude Code CLI review/merge, private `main` được bảo vệ trước F2; Owner không canh lỗi vặt.
-- 🏁 C2-B hoàn tất khi hai main có ruleset active/required `gate` đúng GitHub Actions source, PR RED/skipped/direct push/behind bị chặn thực tế; CHIEF_ONLY=NO rõ ràng với cùng danh tính.
-- 📍 ✓ F0/F1/G1 → ✓ C2-A P96/P97 → ✓ Claude P98 REVIEW_ACCEPTED → ✓ Host P99 ACCEPT → ■ NEXT_TRIGGER=OWNER_PRO_ACTIVE_THEN_KST_B (chưa RUN) → C2-B → F2 C3.0 runner trust separation + agent scale → C4.
-- ✅ GH live: AD main a636ffe5/Web main4f8405a9; AD354/355, Web679/680 GREEN; AD356/Web681 RED OUT_OF_PILOT; 6 PR OPEN exact HEAD; PROMPT last-touch READY P92@664f06e0d2c8d7839d35241f0d93a0995cda70f0 nguyên; không cần tạo lệnh mới.
-- ■ Đang làm: — · 0 RUN active. **GitHub Pro NOT ACTIVE/NOT VERIFIED:** cả hai private `/rulesets` trả 403 Upgrade Pro; main protected=false. Không gửi B cho KST trước khi kiểm điều kiện Pro.
-- ⬜ Human owner nâng GitHub Pro trên đúng account Huyen1974; Web legacy4 required checks có thể thành active sau upgrade, cần KST B1 backup/xóa rồi ruleset B2; check app source P98 15368 phải readback quyền Mac; F2 untrusted PR YAML/runners vẫn NOT_PROVEN.
-- ➡ NEXT_TRIGGER=OWNER_PRO_ACTIVATED: Owner nâng Pro và báo Host, Host kiểm ruleset API + last-touch + PR SHA bằng 1 lượt read-only; khi hợp lệ giao KST B cùng RUN_ID/READY P92, B0 check quyền và chạy B1–B4. Không hỏi lại điều đã có.
-- ⛔ Không bắt KST STARTED để rồi DỪNG tại B0 vì chưa Pro; không sửa PROMPT/READY, không tự mua/chuyển repo public/auto-CD, không tự disable ruleset khi lỗi, không sửa Health data/AD production.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 21:06 +07 · GPT Host · P100
+- 🎯 Owner: GitHub multi-agent code qua PR + gate, KST Claude Code CLI duyệt/merge; GH Pro chỉ $4/tháng, không phát sinh Actions.
+- 🏁 C2-B: hai main có ruleset required gate + negative tests; trước đó Codex readback Actions Account budget $0 hard-stop sau Pro.
+- 📍 ✓ F0/F1/G1 → ✓ C2-A P96–P99 (4 GREEN/2 RED) → ✓ Pro active → ■ Codex COST-POSTPRO → Claude C2-B P92 → F2/C3.0 → C4.
+- ✅ GH live: AD main a636ffe5 protected:false, Web main4f8405a9 protected:true (legacy); rulesets [] cả hai (không còn 403). Sáu PR còn OPEN exact SHA; R1 P17 đã tạo $0+Stop 25/10, 15 workflow disabled, nhưng chưa kiểm lại sau Pro.
+- ■ Đang làm: — · 0 RUN active; COST_LOCK_POSTPRO=CHƯA ĐO qua Billing sau upgrade; screenshot $8.28 gross = $8.28 included không chứng minh bill thêm.
+- ⬜ Codex kiểm Account budgets và mọi metered service/hosted Actions, chỉ giữ CI selfhosted cần; Claude C2-B dọn Web legacy4, bật ruleset và thử âm; F2 tách runner PR/audit secret.
+- ➡ NEXT_TRIGGER=HOST_SIGN_COST_READY_THEN_OWNER_RUN_CODEX; khi COST_LOCK_POSTPRO PASS mới Owner giao Claude KST RUN GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 Phần B theo P92.
+- ⛔ Không làm lại C2-A, không chạy hosted job, không tắt gate selfhosted chỉ để đạt 0 run, không mua/thêm key/deploy, không đổi P92 canonical.
+
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
 2. “Thống nhất xem cần làm những việc, cấu trúc về quy định, luật viết thế nào, cách giao việc thế nào đẻ các AI có thể làm được nhiều việc tôi muốn tân dung ban đêm để viết mã, trong khi ban ngày bàn nhiều hơn về các kế hoạch. và có nhiều agent tham gia viết mã.”
@@ -1442,6 +1443,16 @@ Based_on: P92–P97 · **tự đo gh API 28/10 20:05 +07**: 6 PR (state/head/bas
 ### 3. Host disposition / Owner next
 - **ACCEPT P98 REVIEW_ACCEPTED**. Existing P92 READY@664f06e0d2c8d7839d35241f0d93a0995cda70f0 / RUN_ID=GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 remains valid; P99 chỉ cập nhật COLLAB/ROADMAP/README, không chạm PROMPT/ready, không cần chữ ký thứ hai hay vòng Claude mới. Nếu Owner chưa nâng Pro, trả lời khẳng định không giao KST B, không gọi read-only gate STARTED chỉ để đạt KQ DỪNG.
 - **NEXT_TRIGGER=OWNER_PRO_ACTIVATED_AND_API_VERIFIED**: Sau Owner bấm Pro và báo Host, đọc lại `/rulesets` + quyền qua connector. Nếu API đủ quyền, Host gửi 1 prompt ngắn OWNER RUN B đúng SHA; nếu API không đủ nhưng tài khoản KST Owner có, phải có kết quả đọc quyền bằng KST B0 read-only từ surface đó trước mutation (không nới quyền hay tắt gate giả). Không giữ phiên/lease/timer chờ.
+
+## P100 · GPT Host · 28/10/2026 21:06 +07 — PRO ACTIVE; COST GUARD TRƯỚC C2-B
+- Owner báo đã nâng GitHub personal Pro $4/tháng; yêu cầu Codex dừng Actions có thể phát sinh tiền và khóa usage, sau đó tiếp tục task, không mở task mới.
+- GH connector live: GET /rulesets của cả hai repo private trả [] thay vì 403 Upgrade Pro; AD main a636ffe5 protected:false, Web main4f8405a9 protected:true. Branch protection chi tiết connector 403 do integration permission, không coi đã đọc B1; Web legacy 4 checks phải để KST xử lý trong C2-B. Hai rulesets chưa tạo.
+- Kiểm lại GET 6 PR: AD #354/#355/#356 và Web #679/#680/#681 vẫn open/unmerged, head/base như P96–P99. C2-A PASS trusted pilot không cần làm lại.
+- R1 P17/P18 đã chứng minh 25/10 có ngân sách Actions Account $0 + Stop usage và tắt 15 workflow, chỉ 3 CI selfhosted thiết yếu + Dependabot managed; sau nâng Pro chưa có readback Billing. Ảnh Owner 28/10 gross $8.28 = included $8.28 không phải phí overage đã chứng minh.
+- GH Docs hiện tại: self-hosted runner free và Pro có 3.000 hosted-minutes/tháng, nhưng quota không thay hard budget; Stop $0 cho metered overage có giới hạn, phí Pro/thuế FX ngoài guard. REVIEW_REUSED=P18/P19 (không đổi mục tiêu hay kỹ thuật R1, chỉ kiểm lại sau Pro), không mở vòng hai.
+- Host tạo file COST-LOCK-POSTPRO-20261028.md trong cùng task cho Codex kiểm/khôi phục hard-stop, không chạy CI trả phí; Host ký READY@last-touch commit file sau khi ghi. C2-B PROMPT.md P92 READY 664f06e0d2c8d7839d35241f0d93a0995cda70f0, RUN_ID GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07, giữ nguyên; chỉ KST Claude Code CLI chạy B sau COST_LOCK_POSTPRO=PASS.
+- NEXT_TRIGGER=HOST_READY_COST_THEN_OWNER_DISPATCH_CODEX. Áp: SAME_COMMIT.
+
 
 
 

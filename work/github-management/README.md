@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái GPT Host P99: ACCEPT Claude P98, C2-A PASS theo GitHub (4 PR GREEN +2 PR RED OUT_OF_PILOT, 6 PR OPEN). P92 READY last-touch `664f06e0d2c8d7839d35241f0d93a0995cda70f0` còn hiệu lực, PROMPT không đổi, không mở vòng 2. C2-B CHƯA RUN vì API `/rulesets` cả hai private repo vẫn 403 Upgrade GitHub Pro, main protected:false, Web legacy 4 contexts cần KST B1 sau Pro. Owner nâng Pro → Host xác minh API/SHA → Owner giao Claude Code CLI B (same RUN GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07), rồi C2-B hardlock thử âm; chỉ F2 khi C3.0 runner trust boundary/actor rights đạt. Health business FAIL/AD rollback nợ riêng.**
+**P100: GH Pro đã active (rulesets [] ở hai repo private), Web protected:true legacy, AD protected:false. C2-A 4 GREEN/2 RED, 6 PR OPEN. Owner yêu cầu khóa phí trước: Codex kiểm lại Actions Account budget $0 + Stop và workflow hosted theo COST-LOCK-POSTPRO-20261028.md; sau PASS mới giao Claude Code CLI C2-B theo PROMPT P92 (READY không đổi).**
 
 **Trước đó: P97 Host độc lập ACCEPT C2-A P96 PASS_TRUSTED_PILOT: AD #354/#355, Web #679/#680 CODE gate SUCCESS đúng HEAD; AD #356/Web #681 FAILURE OUT_OF_PILOT trước fetch/checkout đúng phép thử. Sáu PR OPEN, main AD a636ffe5/Web4f8405a9 không đổi, 0 merge/deploy. C2-B KST chưa RUN: cả hai main protected:false, API rulesets 403 Upgrade Pro, Owner chưa cấp GO/Pro; Web có legacy 4 status. P98 Claude kiểm chứng một vòng; giữ PROMPT/READY P92@664f06e0d2c8d7839d35241f0d93a0995cda70f0 và RUN_ID GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07. F2/C4 chưa mở; Health dữ liệu và AD rollback riêng.**
 
@@ -20,6 +20,7 @@
 5. work/github-management/DRAFT-STANDARD.md — tài liệu tham khảo, không là lệnh RUN.
 6. work/github-management/PROMPT.md — **CANONICAL C2** GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07; Claude P91 ACCEPT, GPT Host P92 READY@664f06e0d2c8d7839d35241f0d93a0995cda70f0. Owner giao Codex **Phần A** không cần Pro; sau KQ_A/Owner Pro active giao Claude Code CLI **Phần B** riêng; không giữ RUN chờ.
 
+6a. [COST-LOCK-POSTPRO-20261028.md](COST-LOCK-POSTPRO-20261028.md) — Codex kiểm khóa tiền sau nâng Pro, trước C2-B, không tạo task mới.
 7. [C1A-RESUME-REPORT.md](C1A-RESUME-REPORT.md) — kết quả CI và bàn giao công khai đã lược thông tin; bằng chứng vận hành lưu riêng.
 8. [runner/README.md](runner/README.md) — công cụ cài/gỡ/kiểm runner và trạng thái nghiệm thu.
 9. [C1A-S3-CLOSE-REPORT.md](C1A-S3-CLOSE-REPORT.md) — báo cáo lịch sử P40. Kết quả mới nhất là **COLLAB P48**, có hash báo cáo riêng và manifest 47 tệp; giữ nợ/giới hạn toàn hệ tách khỏi C1A scoped.
