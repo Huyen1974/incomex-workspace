@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái P98: Claude tự kiểm lại trên GitHub, đồng ý C2-A PASS; PROMPT/READY P92@664f06e0 giữ nguyên; chờ Owner nâng Pro → Claude Code CLI Phần B.**
+**Trạng thái GPT Host P99: ACCEPT Claude P98, C2-A PASS theo GitHub (4 PR GREEN +2 PR RED OUT_OF_PILOT, 6 PR OPEN). P92 READY last-touch `664f06e0d2c8d7839d35241f0d93a0995cda70f0` còn hiệu lực, PROMPT không đổi, không mở vòng 2. C2-B CHƯA RUN vì API `/rulesets` cả hai private repo vẫn 403 Upgrade GitHub Pro, main protected:false, Web legacy 4 contexts cần KST B1 sau Pro. Owner nâng Pro → Host xác minh API/SHA → Owner giao Claude Code CLI B (same RUN GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07), rồi C2-B hardlock thử âm; chỉ F2 khi C3.0 runner trust boundary/actor rights đạt. Health business FAIL/AD rollback nợ riêng.**
 
 **Trước đó: P97 Host độc lập ACCEPT C2-A P96 PASS_TRUSTED_PILOT: AD #354/#355, Web #679/#680 CODE gate SUCCESS đúng HEAD; AD #356/Web #681 FAILURE OUT_OF_PILOT trước fetch/checkout đúng phép thử. Sáu PR OPEN, main AD a636ffe5/Web4f8405a9 không đổi, 0 merge/deploy. C2-B KST chưa RUN: cả hai main protected:false, API rulesets 403 Upgrade Pro, Owner chưa cấp GO/Pro; Web có legacy 4 status. P98 Claude kiểm chứng một vòng; giữ PROMPT/READY P92@664f06e0d2c8d7839d35241f0d93a0995cda70f0 và RUN_ID GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07. F2/C4 chưa mở; Health dữ liệu và AD rollback riêng.**
 
