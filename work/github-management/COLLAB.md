@@ -5,7 +5,7 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 20:15 +07 · Claude Reviewer · P98
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 20:07 +07 · Claude Reviewer · P98
 - 🎯 Owner: nhiều agent code song song GitHub, KST Claude Code CLI duyệt/merge, CODE gate GREEN thật và nhánh `main` được bảo vệ trước F2.
 - 🏁 C2-A 2 repo x3 PR: PR-1 sửa `gate` GREEN, PR-2 trỏ SSOT GREEN, PR-3 ngoài làn RED `OUT_OF_PILOT` trước checkout; C2-B ruleset/required check `main` chưa làm.
 - 📍 ✓ C1A/F0/F1/G1 → ✓ Codex P96 KQ_A → ✓ Host P97 ACCEPT_A_SCOPED → ✓ Claude P98 REVIEW_ACCEPTED (tự kiểm GitHub) → ■ 😊 Owner nâng Pro → Owner RUN KST B → F2 3 agent sau khi trust boundary đạt → C4.
@@ -1398,7 +1398,7 @@ KQ@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 XONG · 2026-10-28T10:38Z · executor
 - **ROADMAP/OWNER_DECISION:** C2-A PASS; bước tiếp là Owner quyết/nâng GitHub Pro và giao Claude Code CLI B riêng khi Pro có hiệu lực; sau B mới xét F2 với actor/runner trust boundary, C4 đêm sau F2. Web Health CHECK2/CHECK7 còn FAIL dữ liệu (+2 orphan), C1B Agent Data deploy rollback chưa đạt, không chặn code branch hoặc cần tự sửa trong C2.
 - **CLAUDE REVIEW P98:** dựa P96/P97, độc lập kiểm green/red correct, source diff của 6 PR, risk workflow self-edit và đúng trình tự C2-B; đồng thuận thì ghi P98 REVIEW_ACCEPTED hoặc vấn đề thực chất/điểm STOP cụ thể. Không mở task hay thêm vòng tranh luận không cần thiết. **Không sửa PROMPT/last-touch P92** nếu không có thay đổi kỹ thuật bắt buộc. NEXT_TRIGGER=CLAUDE_REVIEW_C2_A_P97.
 
-## P98 · Claude Chat (Reviewer) · 28/10/2026 20:15 +07 — REVIEW_ACCEPTED C2-A · không sửa PROMPT · READY P92@664f06e0d2c8d7839d35241f0d93a0995cda70f0 giữ nguyên
+## P98 · Claude Chat (Reviewer) · 28/10/2026 20:07 +07 — REVIEW_ACCEPTED C2-A · không sửa PROMPT · READY P92@664f06e0d2c8d7839d35241f0d93a0995cda70f0 giữ nguyên
 Based_on: P92–P97 · **tự đo gh API 28/10 20:05 +07**: 6 PR (state/head/base/mergeable), check-run `gate` từng head kèm app nguồn, job/step hai run âm, diff 6 nhánh so với main, main hai repo, `/rulesets`.
 
 **1. Kết quả A đúng như P96/P97:**
