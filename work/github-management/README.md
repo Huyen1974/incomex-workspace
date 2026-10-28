@@ -1,6 +1,6 @@
 # github-management — cửa vào công việc
 
-**Trạng thái hiện hành: [COLLAB — Bảng điều khiển/P93](COLLAB.md). C2 Phần A DỪNG tại S0 do SHA Owner dispatch không tồn tại/khác READY P92; 0 sửa code/PR/CI mới, 0 RUN active. NEXT_TRIGGER=OWNER_XAC_NHAN_SHA_P92_664F06E0 để tiếp tục cùng RUN/Phần A. P92/PROMPT không đổi; B vẫn cần A PASS + Pro active + Owner giao riêng.**
+**Trạng thái hiện hành P94: GPT Host đã xác minh SHA P92 đúng 664f06e0d2c8d7839d35241f0d93a0995cda70f0 (40 hex, last-touch PROMPT unchanged). P93 Codex DỪNG S0 vì SHA 48 ký tự chép sai từ GPT, không hề có code/PR/CI mutation. Owner yêu cầu tiếp tục ngay, Host cho Codex RUN C2-A cùng RUN_ID (không ký lại READY), chỉ cần S0 fresh; NEXT_TRIGGER=CODEX_RESUME_C2_A_P94. Phần B vẫn cần A PASS + Owner Pro và giao Claude Code CLI riêng.**
 
 **Trước đó: P90 Host: G1 PASS trên GitHub thực (PR351 AD/main a636ffe5 gate40623332810 SUCCESS; PR677 Web/main4f8405a9 gate40623377993 SUCCESS), không postmerge false-red. GH_HARDLOCK_ENFORCED=NO vì main private protected:false; C2 Pro/required `gate`/Chief identity tiếp theo. Web Health sau merge run40629876815 có 11 PASS/2 business FAIL, CHECK12 trở lại PASS; Web ops-smoke/AD Lifecycle GREEN. DRAFT GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 cho Claude P91, chưa READY/RUN, không tự mua Pro. F2/C4 chưa mở, AD rollout nợ riêng.**
 
