@@ -5,15 +5,13 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 21:11 +07 · GPT Host · P101
-- 🎯 Owner: GitHub multi-agent code qua PR + gate, KST Claude Code CLI duyệt/merge; GH Pro chỉ $4/tháng, không phát sinh Actions.
-- 🏁 C2-B: hai main có ruleset required gate + negative tests; trước đó Codex readback Actions Account budget $0 hard-stop sau Pro.
-- 📍 ✓ F0/F1/G1 → ✓ C2-A P96–P99 (4 GREEN/2 RED) → ✓ Pro active → ■ Codex COST-POSTPRO → Claude C2-B P92 → F2/C3.0 → C4.
-- ✅ GH live: AD main a636ffe5 protected:false, Web main4f8405a9 protected:true (legacy); rulesets [] cả hai (không còn 403). Sáu PR còn OPEN exact SHA; R1 P17 đã tạo $0+Stop 25/10, 15 workflow disabled, nhưng chưa kiểm lại sau Pro.
-- ■ Đang làm: — · 0 RUN active; COST_LOCK_POSTPRO=CHƯA ĐO qua Billing sau upgrade; screenshot $8.28 gross = $8.28 included không chứng minh bill thêm.
-- ⬜ Codex kiểm Account budgets và mọi metered service/hosted Actions, chỉ giữ CI selfhosted cần; Claude C2-B dọn Web legacy4, bật ruleset và thử âm; F2 tách runner PR/audit secret.
-- ➡ NEXT_TRIGGER=OWNER_RUN_CODEX_COST_POSTPRO; khi COST_LOCK_POSTPRO PASS mới Owner giao Claude KST RUN GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 Phần B theo P92.
-- ⛔ Không làm lại C2-A, không chạy hosted job, không tắt gate selfhosted chỉ để đạt 0 run, không mua/thêm key/deploy, không đổi P92 canonical.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 · Codex · P102
+- 🎯 Owner: duy trì ba repo được chỉ định, CI thiết yếu chạy trên VPS và kiểm soát chi phí.
+- ✅ Kiểm tra cost sau Pro: KQ=PASS trong phạm vi readback tại thời điểm kiểm tra; chờ GPT Host nghiệm thu. Không bảo đảm trần tổng hóa đơn tuyệt đối.
+- ✅ Workflow tự quản đang bật trên main của hai repo ứng dụng dùng VPS; Dependabot do GitHub quản lý là ngoại lệ. Web Health gần nhất có lỗi, cần xử lý riêng.
+- ■ Đang làm: — · 0 RUN cost active. C2-B chưa RUN; không thay đổi ruleset, PR, CI YAML, VPS hay production.
+- ➡ NEXT_TRIGGER=HOST_ACCEPT_COST_THEN_CLAUDE_C2_B: GPT Host nghiệm thu KQ; sau đó Owner giao Claude KST C2-B theo P92 nếu đồng ý.
+- ⛔ Không chạy lại workflow để kiểm tra, không merge/deploy, không tuyên bố C1B hoặc Web Health đạt.
 
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1459,6 +1457,15 @@ Based_on: P92–P97 · **tự đo gh API 28/10 20:05 +07**: 6 PR (state/head/bas
 - READY@717ca8ddeec2ec1f747a8a375b618a9caff71fac · signer=GPT Host/openai-main · RUN_ID=GHM-R1-COST-POSTPRO-20261028-08 · executor=Codex Desktop/CLI · scope=cost recheck/restore $0 hard-stop + stop hosted paid Actions, NO run/merge/deploy.
 - Owner chuyển lệnh cho Codex; chỉ khi KQ COST_LOCK_POSTPRO=PASS Host mới phát bước Claude Code CLI C2-B đã có READY P92. Chưa STARTED, 0 RUN active; không tự gọi Codex hay tuyên đã khóa lại xong.
 - NEXT_TRIGGER=OWNER_RUN_CODEX_COST_POSTPRO. Áp: SAME_COMMIT.
+
+## P102 · Codex · 28/10/2026 — KQ COST LOCK POSTPRO
+- RUN_ID=GHM-R1-COST-POSTPRO-20261028-08 · READY@717ca8ddeec2ec1f747a8a375b618a9caff71fac · KQ COST_LOCK_POSTPRO=PASS trong phạm vi readback tại thời điểm kiểm tra; chờ GPT Host nghiệm thu. Chi tiết tài chính gửi trực tiếp cho Owner, không ghi vào repo công khai.
+- Đã kiểm tra trạng thái khóa chi phí Actions, các giới hạn sản phẩm, báo cáo usage hiện tại và gói đang sử dụng; các giới hạn sản phẩm không tạo trần tuyệt đối cho tổng hóa đơn. Một số loại phí và usage trước khi đặt giới hạn có thể nằm ngoài khóa; số liệu chưa phải hóa đơn chốt.
+- [agent-data-test](https://github.com/Huyen1974/agent-data-test/actions): 3 workflow tự quản đang bật trên main dùng self-hosted, 18 mục Disabled; Dependabot dynamic do GitHub quản lý còn bật. [Run Dependabot lịch sử](https://github.com/Huyen1974/agent-data-test/actions/runs/27941690554) dùng standard runner, không chứng minh cấu hình tương lai; [quy tắc tính phí Dependabot](https://docs.github.com/en/code-security/concepts/supply-chain-security/dependabot-on-actions) có ngoại lệ larger runner.
+- [web-test](https://github.com/Huyen1974/web-test/actions): 4 workflow tự quản đang bật trên main dùng self-hosted, 11 mục Disabled. [Health Check gần nhất](https://github.com/Huyen1974/web-test/actions/runs/40685156706) thất bại ở kiểm tra 2, 7, 10, 12; chưa xác định nguyên nhân, không kết luận production healthy.
+- incomex-workspace không thấy workflow trên main, API 0 run; tại thời điểm kiểm tra ba repo 0 queued/in_progress. Mười repo khác đã archive; trước RUN này theo chỉ đạo Owner, sáu repo đã được tắt Actions và archive, bốn repo đã archive trước đó chưa xác minh riêng cài đặt Actions. Archive không chứng minh dịch vụ ngoài GitHub đã dừng.
+- Không thay đổi budget hay workflow trong RUN này; chỉ ghi bàn giao. Không phát workflow run, rerun, dispatch, merge, deploy, thay ruleset, secret, CI YAML, VPS hay production. Hai API rulesets trả [].
+- NEXT_TRIGGER=HOST_ACCEPT_COST_THEN_CLAUDE_C2_B. Claude C2-B chưa RUN; Owner giao riêng sau Host nghiệm thu. Áp: SAME_COMMIT.
 
 
 

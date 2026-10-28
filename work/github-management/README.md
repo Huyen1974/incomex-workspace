@@ -1,5 +1,7 @@
 # github-management — cửa vào công việc
 
+**P102: Codex hoàn tất readback cost sau Pro trong phạm vi hiện tại; chờ GPT Host nghiệm thu. CI thiết yếu giữ trên VPS; còn rủi ro chi phí ngoài giới hạn sản phẩm và Web Health lỗi. Xem COLLAB P102; C2-B chưa RUN.**
+
 **P100: GH Pro đã active (rulesets [] ở hai repo private), Web protected:true legacy, AD protected:false. C2-A 4 GREEN/2 RED, 6 PR OPEN. Owner yêu cầu khóa phí trước: Codex kiểm lại Actions Account budget $0 + Stop và workflow hosted theo COST-LOCK-POSTPRO-20261028.md; sau PASS mới giao Claude Code CLI C2-B theo PROMPT P92 (READY không đổi).**
 
 **Trước đó: P97 Host độc lập ACCEPT C2-A P96 PASS_TRUSTED_PILOT: AD #354/#355, Web #679/#680 CODE gate SUCCESS đúng HEAD; AD #356/Web #681 FAILURE OUT_OF_PILOT trước fetch/checkout đúng phép thử. Sáu PR OPEN, main AD a636ffe5/Web4f8405a9 không đổi, 0 merge/deploy. C2-B KST chưa RUN: cả hai main protected:false, API rulesets 403 Upgrade Pro, Owner chưa cấp GO/Pro; Web có legacy 4 status. P98 Claude kiểm chứng một vòng; giữ PROMPT/READY P92@664f06e0d2c8d7839d35241f0d93a0995cda70f0 và RUN_ID GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07. F2/C4 chưa mở; Health dữ liệu và AD rollback riêng.**
