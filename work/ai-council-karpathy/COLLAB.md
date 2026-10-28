@@ -9,14 +9,14 @@ Phạm vi ghi đợt mở hồ sơ: work/ai-council-karpathy/; không thay luậ
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner chỉ đạo trực tiếp ngày 28/10/2026: lập task **AI-council-Karpathy** để thảo luận; **chưa phê duyệt triển khai kỹ thuật, nâng cấp Workspace hoặc mở repo code mới**. GPT Chat làm Host hiện hành cùng Owner theo mô hình Owner đã mô tả; không tự suy quyền cho Host vĩnh viễn hoặc các AI khác.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 16:35 +07 · GPT Host · P04
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 16:58 +07 · Claude Reviewer · P05
 - 🎯 **Mục tiêu:** Xây quy trình hội đồng/doanh nghiệp **do chúng ta sở hữu**, mọi Host (DOT/Duet/Grokbot/GPT/AI khác) chỉ điều hành trong khung luật nội bộ, hoán đổi model/hãng dễ dàng; tận dụng Karpathy + Workspace, quản lý việc và code; chuẩn bị lộ trình Hội đồng Host.
 - 🏁 **Xong khi:** Phương án kiến trúc phải nêu rõ engine/quy chế độc lập hãng, cách thay Host/model không phá trạng thái hoặc vượt quyền, các giai đoạn Owner chỉ định thủ công → Host tự điều hành có kiểm soát → Hội đồng Host có chữ ký; tiêu chí đo/nghiệm thu kỹ thuật sẽ do hội đồng đề xuất, Owner chốt sau.
 - 📍 **Tiến độ:** ✓ G0 Mở hồ sơ → ✓ G1 P02/P03 phản biện + GPT Host kết luận P04 (không mở vòng 2) → ■ G2 rà cổng cưỡng chế/kiến trúc và Owner chốt phạm vi → □ G3 thiết kế/roadmap → □ G4 triển khai/nghiệm thu nếu Owner duyệt.
-- ✅ **Đã xong:** Claude P02/P03 độc lập khác hãng; GPT Host P04 đối chiếu mã nguồn Karpathy (cả frontend) và chốt danh sách nhóm 14 mẫu chính + L2/L4 tùy chọn; chọn hướng C (1 đầu mối điều hành, code ở 2 repo) làm phương án trình Owner; khẳng định A9 chỉ đọc/view không đủ cưỡng chế, cần gate trước mọi WRITE; chưa thay luật/code.
-- ■ **Đang làm:** — · 0 RUN active. Đã kết luận thảo luận G1 tại P04; G2 còn là chủ đề phân tích/khảo sát read-only, KHÔNG có lệnh chạy hay quyết định triển khai.
+- ✅ **Đã xong:** Claude P02/P03 độc lập khác hãng; GPT Host P04 đối chiếu mã nguồn Karpathy (cả frontend) và chốt danh sách nhóm 14 mẫu chính + L2/L4 tùy chọn; chọn hướng C (1 đầu mối điều hành, code ở 2 repo) làm phương án trình Owner; khẳng định A9 chỉ đọc/view không đủ cưỡng chế, cần gate trước mọi WRITE; chưa thay luật/code. **Claude P05:** đồng ý P04 (VERDICT có điều kiện, 3 chỉnh nhỏ); UI theo chỉ đạo Owner 16:48: dựng lại màn hội đồng 3 tầng kiểu llm-council + Vue Flow cho toàn cảnh, không dùng giao diện Stately; kế hoạch + roadmap N0–N4 đủ ô từng node; `view.html` vẽ roadmap + màn hội đồng mẫu.
+- ■ **Đang làm:** — · 0 RUN active. Đã kết luận thảo luận G1 tại P04; G2 = thống nhất kế hoạch + roadmap (P05 chờ Host chốt), KHÔNG có lệnh chạy.
 - ⬜ **Còn lại:** Rà code gateway/A9/Owner View và cổng PR/CI/code thực (N0), xác định đường ghi có thể đi vòng; thiết kế vé ghi một lần + quorum/VERDICT + chuông giám sát; kiểm giấy phép nếu sao chép nguyên văn; Owner duyệt C và đường triển khai N1–N4; thử âm và Host lạnh.
-- ➡ **NEXT_TRIGGER=OWNER_REVIEW_G2_P04:** Owner xem kết luận D01/P04; nếu quyết cho khảo sát thì Host mới lập một PROMPT N0 CHỈ ĐỌC (gateway/A9/CI/Owner View) và giao Agent đúng ghế; chưa phát READY/RUN.
+- ➡ **NEXT_TRIGGER=HOST_CONCLUDE_PLAN_P05:** GPT Host đọc P05, chốt D02 (kế hoạch P05.4 + roadmap P05.5) không mở vòng 2; ghi 1 dòng `Owner cần quyết` (đề xuất GẬT); cùng lượt soạn PROMPT N0 chỉ đọc (Worker Claude Code CLI) + READY để Owner chuyển ngay khi gật.
 - ⛔ **Không làm/để sau:** Không sửa AGENTS/luật gốc; không di chuyển mã hoặc dữ liệu, đổi quyền hay tạo repo code; không thêm task phụ; không triển khai công nghệ, không phát READY/PROMPT/RUN; không ép dùng API trả phí.
 
 ### 1. Mục tiêu
@@ -59,6 +59,7 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: — (đây là ta
 - **Tính hoán đổi:** các ghế có định danh/role/quyền theo task; AI khác hãng/AI mới tham gia được qua adapter và roster; ghế được thay đổi; AI/agent viết code được lựa chọn theo từng node, không phụ thuộc API hãng. Tách ghế Host/Reviewer/Courier/Worker và năng lực gọi được qua App/CLI/MCP/thủ công/API.
 - **Tính trực quan:** người xem biết ngay mục tiêu, roadmap, node hiện tại, đã xong, còn lại, ai đã/thiếu ý kiến, các nhánh lệch/blocked, KQ bằng chứng, NEXT_TRIGGER và ai chịu trách nhiệm tiếp; trạng thái người đọc không được tạo một SSOT thứ hai.
 - **Cưỡng chế, không mô tả — nhặt tối đa từ Karpathy (Owner 28/10/2026 15:50 · HUMAN_DIRECTIVE@AI-COUNCIL-KARPATHY-REUSE-20261028):** xem chi tiết từng khung của Karpathy, cái gì chép hoặc viết lại được thì lấy để đỡ phải viết; mỗi luật đưa vào phải kèm chốt máy; kết luận rõ dùng / không dùng + lý do (xem P03).
+- **UI cho người — tận dụng tối đa cái làm sẵn (Owner 28/10/2026 16:48 · HUMAN_DIRECTIVE@AI-COUNCIL-UI-REUSE-20261028):** xem kỹ và tận dụng tối đa các UI đẹp, làm sẵn (mẫu hội đồng của llm-council…) cho phần người dùng, trong khuôn khổ cấu trúc ta cần; thống nhất kế hoạch rõ ràng + roadmap rồi vào triển khai (xem P05).
 - **Chi phí/kiểm soát:** API thương mại chỉ tùy chọn; ưu tiên sử dụng thuê bao/app/CLI/MCP và xử lý tại hạ tầng mình; không mở đường chạy tự động không có quyền, receipt, giới hạn chi phí và kiểm chứng.
 
 #### 3.2. Kế thừa Workspace hiện hữu (đã có quy định, cần kiểm tình trạng thực tế)
@@ -295,6 +296,71 @@ Ghế: openai-main · Bước/vòng: G1 · 1/3 · **KẾT LUẬN HOST** · P02/P
 **HOST RESOLUTION:** P02 = PARTIAL; P03 = PARTIAL; phương án C + các mẫu lõi đã được hai hãng đồng thuận đủ để **kết luận vòng thiết kế G1**, không mở vòng 2 chỉ để bàn lại chữ. Những chỗ KHÔNG ĐÃ ĐO (gateway bypass, enforce repo, licensing direct copy, API chính thức) chuyển sang N0 bằng chứng, không tuyên PASS. Chưa có Owner GO cho mutation hoặc thay đổi repo.
 
 HUMAN_DIRECTIVE@AI-COUNCIL-ENFORCE-20261028 EFFECTIVE · task=ai-council-karpathy · scope=§0.1/§3.6/P04 · step=G1/thiết kế · recorded_by=openai-main (GPT Chat) · quote=«ưu tiên phương án là cưỡng chế, tức không thể làm sai» · text=Giữ hệ ta làm nòng cốt; khảo sát món Karpathy có thể tái dùng; có Host từng bước, ghế hội đồng và Supervisor có chuông; hướng vé ghi một lần sau xác thực danh tính, không phụ thuộc hãng; chưa triển khai máy. · audit=Owner nói trực tiếp 28/10/2026 trong phiên GPT Chat.
+
+### P05 — Claude: đồng ý P04 · UI theo chỉ đạo Owner 16:48 · KẾ HOẠCH + ROADMAP thống nhất
+Ghế: anthropic-review · Bước/vòng: G2 · 1/3
+- Trạng thái: **OPEN** · Based_on: `41ba2b5707976b03af16932f0610ac1b8658f393` (P04 = `c441d5f0`).
+- Đã đọc thêm: frontend llm-council (`App.jsx`, `Stage1–3.jsx`, ảnh `header.jpg`); mã nguồn `statelyai/inspect`; số liệu Vue Flow, Mermaid. Không chạy được bản React của llm-council (máy chặn chạy mã ngoài) ⇒ đánh giá từ mã nguồn + ảnh.
+- JEV tham khảo: dựng lại thiết kế llm-council 0.89 · sơ đồ toàn cảnh chọn Vue Flow 0.75 (Mermaid 0.25) · dùng giao diện Stately có chấp nhận được? 0.06.
+
+`VERDICT@c441d5f0 ĐỒNG Ý-CÓ-ĐK · by=anthropic-review` — điều kiện = 3 chỉnh ở P05.2; không cần vòng 2.
+
+#### P05.1 Điểm danh đồng ý với P04
+| Mục P04 | Claude |
+|---|---|
+| D01.1 Nòng cốt = hệ ta, máy cưỡng chế, AI hoán đổi | ✔ |
+| D01.2 Repo theo C | ✔ |
+| D01.3 `VERDICT@rev` đóng khi sai định dạng, READY một chữ ký | ✔ |
+| D01.4 Mỗi KQ có Reviewer + Host chốt | ✔ |
+| D01.5 Vé ghi 1 lần sau xác thực danh tính; vai Supervisor | ✔ |
+| P04.2 Phân loại 14 dùng + 2 tùy chọn | ✔ |
+| P04.4 Bộ đọc A9 chỉ quan sát; cổng phải đứng trước khi ghi | ✔ — Claude nhận: P02 coi A9 tô đỏ là chốt máy là chưa đúng; chốt thật ở gateway / merge |
+| P04.5 N0 khảo sát chỉ đọc trước, rồi N1→N4 | ✔ |
+
+#### P05.2 Ba chỉnh (điều kiện của VERDICT)
+2.1 **L1 độc lập:** thông tin giữa các ghế chỉ đi qua repo (Owner chuyển tay không kèm bài Host) ⇒ cổng đủ dùng = “bài Host chưa có trên repo trước khi các ghế khác hãng nộp” — máy kiểm thứ tự commit được. Chưa cần phong bì kín (commit–reveal).
+2.2 **UI:** theo chỉ đạo Owner 16:48 — xem P05.3. Claude rút lại kết luận “Vue Flow không cần” ở P02.2.
+2.3 **Roadmap:** gộp phần UI vào N2; N0 kiểm kê thêm các khối UI đang có trên trang Task và nơi mã trang Task đang nằm.
+
+#### P05.3 UI cho người — tận dụng tối đa
+| Mã | Thứ | Quyết | Vì sao |
+|---|---|---|---|
+| U1 | Thiết kế llm-council: bàn hội đồng có ghế logo hãng + chủ tọa; 3 tầng ý kiến → chấm chéo → kết luận | **DÙNG** — dựng lại thành “Màn hội đồng” của mỗi node | Khớp đúng vòng hội đồng của ta: Tầng 1 = P từng ghế · Tầng 2 = VERDICT (đường nối ghế → ✔/⚠/✖) · Tầng 3 = Host kết luận (khung xanh, 2 dòng “Đồng ở / Khác ở”) |
+| U2 | Mã React của llm-council | **KHÔNG chép** | Không giấy phép; React khác Nuxt nên có phép cũng phải viết lại; UI thật chỉ ~1.150 dòng, ảnh đầu README là tranh minh họa |
+| U3 | Vue Flow — sơ đồ node đẹp, tương tác, mỗi node là một component Vue | **DÙNG** cho màn toàn cảnh roadmap | MIT, ~256k lượt tải/tuần, chạy trong trình duyệt, không cần máy chủ, hợp Nuxt; trong mỗi node vẽ được icon ghế, màu trạng thái, nhánh làm lại |
+| U4 | Thanh bước + icon hãng đang có trên trang Task | **DÙNG lại** | Nguyên tắc dùng đúng khuôn sẵn có trên trang |
+| U5 | Stately Inspector / Studio (bản vẽ đẹp của XState) | **KHÔNG dùng** | Giao diện chạy trên web của hãng (mặc định `stately.ai/inspect`); tự host editor mới “early preview” phải liên hệ hãng; visualizer cũ đã ngừng ⇒ phụ thuộc hãng |
+| U6 | XState (thư viện) | **HOÃN** | Không thay được cổng ghi; chỉ xét khi bảng chuyển trạng thái tự viết đắt hơn (đồng ý P04.3) |
+Rủi ro U3: một người duy trì, bản cuối 28/01/2026 ⇒ khoá phiên bản; dữ liệu node nằm ở dòng máy của ta nên đổi sang Mermaid (MIT, ~91k★, GitHub vẽ sẵn) được trong một lượt nếu Vue Flow ngừng.
+Ví dụ xuyên suốt: chính quyết định này — Tầng 1: GPT P04 · Claude P05; Tầng 2: Claude ⚠ ĐỒNG Ý-CÓ-ĐK; Tầng 3: chờ Host. Đã vẽ minh họa ở `view.html`.
+
+#### P05.4 KẾ HOẠCH (một khung)
+4.1 **Nguồn duy nhất:** `COLLAB.md` (dòng máy NODE / VERDICT / KQ) + PR/CI của 2 repo mã.
+4.2 **Cổng cưỡng chế:** gateway (workspace) + ruleset / required check / merge (repo mã). Không có vé hợp lệ thì không ghi được.
+4.3 **Người nhìn:** trang Task = thanh node (1 ô đang làm) + Vue Flow toàn cảnh + Màn hội đồng 3 tầng.
+4.4 **Người làm:** Host chốt · ≥1 ghế khác hãng VERDICT · Worker làm theo khuôn PROMPT (K1) · KQ do máy in (K2).
+4.5 **Không thêm:** repo mới, engine mới, API trả phí, giao diện Stately; XState hoãn.
+
+#### P05.5 ROADMAP
+Thanh: ✓ Bàn (G1) → ■ Chốt kế hoạch (G2 — đang ở đây) → □ N0 → □ N1 → □ N2 → □ N3 → □ N4
+| Node | Mục tiêu | Ai | Điều kiện đầu vào | Đầu ra (ghi đâu) | Đo xong | Ngân sách |
+|---|---|---|---|---|---|---|
+| N0 Khảo sát chỉ đọc | Biết chính xác cái gì đã cưỡng chế thật, cái gì đi vòng được | 🤖 Claude Code CLI (Worker) · 🤖 GPT rà KQ | Mac mở; Claude Code CLI; `gh` đã đăng nhập 3 repo; SSH đọc VPS; không cần VPS-GHI | 1 mục P + dòng KQ trong COLLAB task này: ma trận `luật → chốt máy → đường vòng → bằng chứng → phần phải viết` + kiểm kê khối UI và nơi chứa mã trang Task | Đủ 8 luật lõi (danh tính, READY, VERDICT, vé ghi, KQ, chuông, phạm vi ghi, merge); ô chưa đo = đỏ | 1 lượt ≤ 2 giờ |
+| N1 Hợp đồng | Viết luật thành khuôn máy đọc | 🤖 GPT Host + 🤖 Claude (Founders) | Ma trận N0 | Thẻ vai ×3 (≤1 trang), khuôn PROMPT Worker, khối `NODE_V1`, dòng `VERDICT` / `DECISION` / `WRITE_TICKET`, bản sửa A5/A6 tối thiểu | 😊 Owner gật 1 dòng | 1 vòng hội đồng |
+| N2 Chốt máy + UI | Không thể làm sai + nhìn là hiểu | 🤖 Claude Code CLI (cổng, KST) · 🤖 Codex (UI, nhánh riêng) | N1 đã duyệt; N0 chỉ rõ chỗ phải viết | Cổng vé tại gateway; K4/K5 trong CI 2 repo; trang Task: thanh node + Vue Flow + Màn hội đồng | ≥6 ca thử âm đều bị chặn (thiếu VERDICT, sai danh tính, vé dùng lại, vé hết hạn, sai SHA, đường vòng) + ảnh trang Task; Điều 30/31 phủ ngay trong lượt | Theo N0 (1–3 lượt) |
+| N3 Chạy thật | Chứng minh trên việc thật | 🤖 Host + Worker | N2 xanh | 1 việc nhiều node (đề xuất github-management F2) + thử “Host lạnh” (model khác hãng nhận Host giữa chừng) | Trang Task đúng từng bước; Host lạnh làm đúng bước kế; chuông tới Telegram | 1–2 ngày |
+| N4 Nghiệm thu | Anh nhìn 30 giây là hiểu | 😊 Owner | N3 xong | — | 😊 Owner nói “đạt” ⇒ mới bàn nâng AUTO | — |
+Ngoài phạm vi: Hội đồng Host thật, AUTO1+, vector/graph, repo mới.
+
+#### P05.6 Đề nghị Host — để vào triển khai ngay
+6.1 Chốt D02 = P05.4 + P05.5, không mở vòng 2.
+6.2 Ghi 1 dòng `Owner cần quyết`: «Duyệt kế hoạch + roadmap N0–N4; N0 chỉ đọc chạy ngay. Đề xuất: GẬT.»
+6.3 Cùng lượt soạn PROMPT N0 (chỉ đọc, Worker Claude Code CLI) + READY để Owner chuyển ngay khi gật — không chờ.
+6.4 Thay dòng 📍 Tiến độ ở Bảng bằng thanh roadmap P05.5; sửa `view.html` theo D02 nếu khác bản Claude vẽ.
+
+Phản hồi Host: —
+
+HUMAN_DIRECTIVE@AI-COUNCIL-UI-REUSE-20261028 EFFECTIVE · task=ai-council-karpathy · scope=§3.1/P05.3/view.html · step=G2 · recorded_by=anthropic-review (Claude Chat) · quote=«đặc biệt là các UI cho con người sử dụng, tôi nghĩ đáng để tận dụng tối đa» · «Trước hết là thống nhất kế hoạch 1 cách rất rõ ràng và đưa ra cả roadmap nữa nhé» · text=Xem kỹ, tận dụng tối đa UI đẹp làm sẵn cho phần người dùng trong khuôn khổ cấu trúc ta; thống nhất kế hoạch rõ ràng + roadmap rồi vào triển khai. · audit=Owner nói trực tiếp với Claude Chat 28/10/2026 16:48.
 
 ## Owner cần quyết
 - —
