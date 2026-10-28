@@ -483,7 +483,7 @@
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 · GPT Host P447 · **CLAUDE P446 ACCEPT · C1/C2 CHỐT · CHỜ HOST READY**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 · GPT Host P447-R · **CLAUDE P446 ACCEPT · RUN11 READY · OWNER GIAO CODEX**
 - 📥 **Đã xử lý hết, gom lại (P332):** PROOT05 16/10 và Owner 17/10 07:15 (sửa xanh #11/#21/#22, cờ bỏ quên P313, stop-hook) → xong ở P314 + P321, Host nghiệm thu P322; Owner 17/10 21:23 (nâng Hermes) → xong ở P325–P330, Host nghiệm thu P332. Chi tiết gốc còn trong các mục P đó.
 - ✅ *(đã xong P321 — giữ để tra cứu)* 📥 **Owner 17/10/2026 07:15 qua Claude Chat (root) — GIẢI QUYẾT NỐT VƯỚNG MẮC HJW** (Owner: «phên Gemini JW và HJW đang vướng gì chưa giải quyết … soạn prompt yêu cầu 2 phiên đó giải quyết nốt các vướng mắc»). Bảng đèn 17/10 00:10Z: 19 xanh · 3 đỏ, cả 3 có phần của HJW:
   1. **Cờ bỏ quên:** P313 `HJW-N3-COURIER-HARD-PART-SPIKE-20261012-01` STARTED 13/10 02:22Z, 4 ngày không bước/KQ, Bảng đứng từ 13/10 ⇒ Host kiểm tiến trình rồi ghi `KQ@… DỪNG · CỜ_BỎ_QUÊN` (DROOT54 b), cập nhật Bảng. — ✅ **P314 đã đóng.**
@@ -500,7 +500,7 @@
 - ✅ **Đã xong:** Hermes VPS Owner-chat + Workspace hoạt động; N1 PASS/N2 PASS_WITH_RESIDUAL. P347 F updater/A1 read PASS; P353 ACL 5 file/postimage Guard PASS; P359 cron/V1 read-only PASS; P362 dừng đúng cổng, 0 mutation, VPS-GHI trống. Lịch sử Mac và các KQ giữ nguyên để audit.
 - ■ **Trạng thái hiện hành:** P434 đóng RUN08 CLIENT_PENDING: Dot thật nhận relay nhưng yêu cầu Owner xác nhận trực tiếp trước tạo Work/lịch. Chưa existing Work wake, chưa NEW Work LOCAL, chưa CLOUD canary; PA1_NOT_PROVEN, chưa fire tự động. Work→GPT/Claude giữ bằng chứng Owner đã thử; không nhắc nhầm phiên. +1 AD recreate UNUSED; N3–N6 giữ nguyên.
 - ⬜ **Còn lại:** **Số dư có chủ, KHÔNG phải RUN chờ:** B/C/E server helper+image agent-data chưa deploy → KEEP_DORMANT, không expose/rollback mới; D10 PG và 38 SECURITY DEFINER theo chủ PG/Owner; identity/A9 PARTIAL; canary Owner-direct UNTESTED; Guard POST #21 rollback FAIL (bản reconstructed SHA khớp PRE nhưng không là original backup); ACC15 baseline flake, TQT placeholders. Kiểm kê dọn phần unused trong bảo trì đã được duyệt nếu cần.
-- ➡ **Kế tiếp — Host P447 B3:** NEXT_TRIGGER=HOST_CHECK_PROMPT_LAST_TOUCH_THEN_READY_AND_OWNER_RUN11. Claude P446 ACCEPTED/0 blocker; Host chốt C1 ít nhất một AI/client thật tự khai lại/receipt, C2 schema cũ phải ghi riêng, không khoá client active; cả hai Gateway + đường nội bộ vẫn phải test. RUN11 PROMPT final chờ Host ký đúng SHA sau kiểm Git. Pin runtime AD/Claude khác checkout trước sửa; 11 file chỉ là ước lượng, không tự phát triển server. P444 chỉ khảo sát XONG, tính năng CHƯA triển khai; N2 Dot/Live Cloud và N4–N6 còn mở. Xem P444–P447.
+- ➡ **Kế tiếp — Host P447-R đã ký READY RUN11:** NEXT_TRIGGER=OWNER_DISPATCH_HJW_DECLARATION_GATE_ONE_PASS_20261028_11. REVIEW P446 ACCEPT/0 blocker, B3 chốt C1 client thật tự sửa lỗi + C2 stale báo riêng; đã xác minh Git last-touch PROMPT `88954d87dd18f96a7882573c0cb2de52325d90fe`, ký READY tương ứng. Owner chuyển Codex Desktop/Work chạy RUN11 theo PROMPT hiện hành, không cần thảo luận vòng nữa. S0 phải pin nguồn container live và đường lùi trước mọi mutation, giải quyết stale active client trước cưỡng chế, fixture+Guard/test thật; chỉ báo XONG có C1 thật và cả hai gateway đủ coverage. P444 chỉ là audit; N2 Dot/Live Cloud và các nhánh khác giữ roadmap.
 - ⛔ **Cấm:** không gọi API thuê bao GPT/Claude; không thêm Routine/Anthropic/OpenAI keys; không bấm/update Hermes Desktop fan-out hoặc hermes update không kiểm soát; không sửa Hermes VPS khi Graph/VPSC còn shared mutation/#11 đỏ/Guard FAIL; không bật update một máy rồi báo đồng bộ; không phá snapshot/data/rollback; không đổi N4–N6/T1–T9; không phát RUN từ READY cũ. Không đổi gì trong Settings của Hermes Desktop khi đang ở kết nối VPS; không ghi "VPS không đổi" khi đèn #21/#22 còn đỏ. **Ngoại lệ Owner 17/10 07:15:** luật «không sửa Hermes VPS khi #11 đỏ/Guard FAIL» không chặn lượt sửa làm xanh chính #11/#21/#22-phần-HJW (vẫn VPS-GHI, Điều 30/31, đường lùi, không rebaseline che lỗi, không đụng GJW).
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -8475,6 +8475,14 @@ Nguồn đánh thức bên ngoài (Telegram HOẶC cơ chế riêng của Hermes
 - **Phạm vi:** chỉ source writes qua Gateway hiện có. Không thay Gmail/GitHub native main protected, PG/Directus/Lark trực tiếp, GSM/root hay các connector khác. Dot/Live tách định danh cứng vẫn thuộc roadmap sau.
 - **Quyết định B3:** GPT Host chốt RUN_ID `HJW-DECLARATION-GATE-ONE-PASS-20261028-11` trong PROMPT, chưa chạy, sẽ xác minh commit cuối chạm PROMPT rồi ký READY. Owner chuyển Codex Desktop/Work đúng một lần. Không yêu cầu Claude phản biện tiếp.
 - **NEXT_TRIGGER=HOST_CHECK_PROMPT_LAST_TOUCH_THEN_READY_AND_OWNER_RUN11.**
+
+#### P447-R · GPT Chat Host ký READY RUN11 · 2026-10-28
+- **REVIEW_REUSED=P446** · Claude Chat ACCEPTED/0 blocker (commit `ab6de91bd2eb6066183207663abd471f1004caba`); Host chấp nhận C1/C2, không có bất đồng kỹ thuật thực chất; A5/DROOT57–58 = 1 vòng đủ, không chờ chữ ký Reviewer khác.
+- **Đã kiểm Git `workspace_log`**: last-touch của `work/hermes-joint-workspace/PROMPT.md` là commit `88954d87dd18f96a7882573c0cb2de52325d90fe` (chứa C1/C2, status HOST_FINAL, RUN_ID `HJW-DECLARATION-GATE-ONE-PASS-20261028-11`); HEAD lúc kiểm `88954d87dd18f96a7882573c0cb2de52325d90fe`. Không có STARTED hay STOP_REQUESTED của RUN11 lúc ký; Codex phải kiểm lại trước chạy.
+- **READY@88954d87dd18f96a7882573c0cb2de52325d90fe** · RUN_ID=`HJW-DECLARATION-GATE-ONE-PASS-20261028-11` · Executor_Surface=Codex Desktop/Work · Write_Path=Workspace gateway D12 cho Git/KQ; kỹ thuật production chỉ qua đường apply/Guard đã audit và VPS-GHI CAS nếu được cấp.
+- Phạm vi ký: pin baseline runtime (2 images + helper) + patch nhỏ nhất một contract hai adapter + fixture tests + rollback, C1 client thật tự phục hồi lỗi, C2 schema-stale audit; **không** mở task/cổng/DB mới, không sửa A2/GSM/root/GitHub main ruleset. Thử có kiểm soát mới là RUN, READY không phải đã thi công.
+- **NEXT_TRIGGER=OWNER_DISPATCH_HJW_DECLARATION_GATE_ONE_PASS_20261028_11.**
+
 
 
 
