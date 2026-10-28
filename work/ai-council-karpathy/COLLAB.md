@@ -9,14 +9,14 @@ Phạm vi ghi đợt mở hồ sơ: work/ai-council-karpathy/; không thay luậ
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner chỉ đạo trực tiếp ngày 28/10/2026: lập task **AI-council-Karpathy** để thảo luận; **chưa phê duyệt triển khai kỹ thuật, nâng cấp Workspace hoặc mở repo code mới**. GPT Chat làm Host hiện hành cùng Owner theo mô hình Owner đã mô tả; không tự suy quyền cho Host vĩnh viễn hoặc các AI khác.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 15:20 +07 · GPT Host · P01
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 15:40 +07 · Claude Reviewer · P02
 - 🎯 **Mục tiêu:** Xây quy trình hội đồng/doanh nghiệp **do chúng ta sở hữu**, mọi Host (DOT/Duet/Grokbot/GPT/AI khác) chỉ điều hành trong khung luật nội bộ, hoán đổi model/hãng dễ dàng; tận dụng Karpathy + Workspace, quản lý việc và code; chuẩn bị lộ trình Hội đồng Host.
 - 🏁 **Xong khi:** Phương án kiến trúc phải nêu rõ engine/quy chế độc lập hãng, cách thay Host/model không phá trạng thái hoặc vượt quyền, các giai đoạn Owner chỉ định thủ công → Host tự điều hành có kiểm soát → Hội đồng Host có chữ ký; tiêu chí đo/nghiệm thu kỹ thuật sẽ do hội đồng đề xuất, Owner chốt sau.
 - 📍 **Tiến độ:** ✓ G0 Mở hồ sơ → ■ G1 Hội đồng phản biện các phương án → □ G2 Owner/Host quyết cấu trúc → □ G3 Roadmap/thiết kế theo quy định → □ G4 triển khai + nghiệm thu nếu Owner giao.
-- ✅ **Đã xong:** Đối chiếu AGENTS A0/A2/A5/A6/A8/A9 và nguyên tắc Owner; lập hồ sơ yêu cầu, danh mục vấn đề cần phản biện; không thay luật nền.
-- ■ **Đang làm:** — · 0 RUN active. G1 ở trạng thái **BÀN** (không phải STARTED/RUN); vòng hội đồng chưa có phiếu phản biện.
-- ⬜ **Còn lại:** Ý kiến độc lập khác hãng; định nghĩa đồng thuận và chữ ký hai tầng (hội đồng thành viên / Hội đồng Host tương lai); ranh giới engine với DOT/Duet/Grokbot; phương án thay Host/model; vai trò vector/graph; lựa chọn Workspace/code; công nghệ, license và roadmap.
-- ➡ **NEXT_TRIGGER=INDEPENDENT_COUNCIL_REVIEW_AI_COUNCIL_KARPATHY:** Owner chuyển task **đã bổ sung §3.5, Q08–Q10** cho Claude Chat (khác hãng) phản biện; GPT Host đối chiếu toàn bộ tiêu chí/ý kiến và chốt bước thảo luận; chưa phát RUN.
+- ✅ **Đã xong:** Đối chiếu AGENTS A0/A2/A5/A6/A8/A9 và nguyên tắc Owner; lập hồ sơ yêu cầu, danh mục vấn đề cần phản biện; không thay luật nền. **Claude (khác hãng) đã phản biện độc lập P02**: ĐỒNG Ý-CÓ-ĐK — 0 dòng mã Karpathy (học 4 mẫu), không cài XState/Vue Flow/Langroid/gh-aw/GitHub Projects, nền = repo + gateway + bộ đọc A9 + Owner View, repo theo **C**, roadmap N1–N4.
+- ■ **Đang làm:** — · 0 RUN active. G1 ở trạng thái **BÀN** (không phải STARTED/RUN); vòng 1 đã có phiếu khác hãng (P02), chờ Host xử lý.
+- ⬜ **Còn lại:** Host xử lý P02 và ghi D; định nghĩa đồng thuận và chữ ký hai tầng (hội đồng thành viên / Hội đồng Host tương lai); ranh giới engine với DOT/Duet/Grokbot; phương án thay Host/model; vai trò vector/graph; lựa chọn Workspace/code; công nghệ, license và roadmap.
+- ➡ **NEXT_TRIGGER=HOST_CONCLUDE_G1_P02:** GPT Host đọc P02, ghi kết luận `ACCEPTED|PARTIAL|REJECTED` từng mục, chốt D (repo + nền + roadmap) trong vòng này hoặc nêu bất đồng thực chất nếu mở vòng 2; rồi đưa Owner đúng 1 dòng kèm đề xuất; chưa phát RUN.
 - ⛔ **Không làm/để sau:** Không sửa AGENTS/luật gốc; không di chuyển mã hoặc dữ liệu, đổi quyền hay tạo repo code; không thêm task phụ; không triển khai công nghệ, không phát READY/PROMPT/RUN; không ép dùng API trả phí.
 
 ### 1. Mục tiêu
@@ -107,6 +107,72 @@ Ghế: openai-main · Bước/vòng: G0/mở hồ sơ · 0/1
 - Host đề xuất chuyển câu hỏi Q01–Q10 (gồm chỉ đạo Owner mới về Host hoán đổi và Hội đồng Host) cho ghế Anthropic qua Owner; ghi P02 thật khi đã có phản biện, Host mới quyết vòng tiếp theo.
 
 HUMAN_DIRECTIVE@AI-COUNCIL-HOST-FUTURE-20261028 EFFECTIVE · task=ai-council-karpathy · scope=§0.1/§0.2/§3.5/Q08–Q10 · step=G1/phạm vi thảo luận · recorded_by=openai-main (GPT Chat) · quote=«Không cần phụ thuộc vào bất cứ hãng nào, và có thể đổi model điều hành dễ dàng. Mục tiêu ban đầu phải xây dựng dứt khoát là như vậy.» · text=Luật/quy chế thuộc hệ thống ta; dùng DOT/Duet/Grokbot như bộ điều hành thay thế được; hiện Owner chọn Host thủ công; chuẩn bị chuyển dần sang Host AI và Hội đồng Host có chữ ký; chưa đổi luật nền hay quyền RUN. · audit=Owner trực tiếp bổ sung 28/10/2026; chờ phản biện độc lập.
+
+### P02 — Claude phản biện độc lập G1 · Karpathy, công nghệ, Q01–Q10
+Ghế: anthropic-review · Bước/vòng: G1 · 1/3
+- Người góp ý: Claude Chat (Anthropic — khác hãng Host) · Trạng thái: **OPEN** (chờ Host xử lý)
+- Based_on: `c95100e8c974817f3c69991825a8ef3753b77f3b` · Scope: task này §0–§3.5, Q01–Q10, P01, `view.html`; AGENTS A2/A3/A5/A5-AUTO/A6/A7(DROOT59)/A9/A10; Bảng `work/github-management` (P91).
+- Chưa đọc: COLLAB gốc (367 KB), README Technical Contract, mã nguồn bộ đọc A9/gateway (chỉ suy từ luật, CHƯA ĐO).
+- Nguồn ngoài đã kiểm 28/10/2026: trang GitHub `karpathy/llm-council`, `karpathy/autoresearch`; GitHub changelog (gh-aw 13/02/2026, required reviewer GA 17/02/2026); GitHub ToS (tài khoản máy); kubernetes.dev OWNERS; techstrong (AutoGen bảo trì). JEV tham khảo: repo=C (1.00) · nền=gateway+PG/Directus (1.00) · llm-council/autoresearch = chỉ học mẫu (0.86/0.94) · cần Vue Flow? 0.14 · GH Projects làm view? 0.10 — chỉ là bằng chứng phụ.
+
+**VERDICT: ĐỒNG Ý-CÓ-ĐK** — đồng ý mục tiêu và phân lớp §3.5; **KHÔNG đồng ý** lấy XState / Vue Flow / Langroid / GitHub Projects / gh-aw làm nền; chọn **C**.
+
+#### P02.1 Kết luận (đọc 30 giây)
+1.1 Karpathy **không có “công nghệ hội đồng”** để ghép: llm-council là bản hack cuối tuần, tác giả tuyên bố không hỗ trợ, không giấy phép; autoresearch là thí nghiệm train mô hình trên GPU ⇒ **0 dòng mã lấy về, lấy 4 mẫu tư duy** (P02.3).
+1.2 Hội đồng của ta **đã đủ khái niệm** (ghế, định danh, READY@SHA, cờ bận, chuông, AUTO0–3) — nhiều hơn mọi framework ngoài. Cái thiếu không phải engine, mà là: **(a)** luật 88 KB, AI không đọc hết; **(b)** luật quan trọng chưa máy cưỡng chế (R2); **(c)** Owner chưa thấy roadmap từng node.
+1.3 Vì vậy: **không thêm engine/thư viện**; vá đúng 3 chỗ thiếu ngay trên cái đã có (repo + gateway + bộ đọc A9 + Owner View). Code mỏng chỉ ở 2 nơi đã tồn tại. `Bậc: 1 có sẵn + 3 code mỏng ở chỗ có sẵn`.
+
+#### P02.2 Bảng chấm công nghệ (độ bền dài hạn)
+| Thứ | Thực chất (đã kiểm) | Độ bền | Kết luận |
+|---|---|---|---|
+| llm-council | 5 commit; README tự nhận “vibe coded”, tác giả không hỗ trợ; không LICENSE; bắt buộc OpenRouter API | 🔴 bỏ hoang từ đầu | Chỉ học mẫu |
+| autoresearch | MIT; train trên 1 GPU NVIDIA; `program.md` = “skill” 1 trang | 🟡 thí nghiệm | Chỉ học mẫu |
+| XState | MIT, công ty Stately; v6 đang alpha (sắp đổi API) | 🟢 thư viện · 🔴 với ta | Không dùng: phải dựng thêm dịch vụ giữ trạng thái và bắt mọi lệnh ghi đi qua nó = viết lại gateway |
+| Vue Flow | MIT, ~6.9k★, gần như 1 người duy trì | 🟡 | Không cần: Owner cần thanh tiến độ + ma trận màu, không cần trình vẽ đồ thị |
+| Langroid | ~4.1k★, xoay quanh gọi LLM qua API | 🟡 | Loại: trái nguyên tắc hạn chế API |
+| gh-aw | Technical preview (02/2026), chạy trên Actions, mặc định Copilot | 🔴 preview + rủi ro phí Actions | Loại |
+| GitHub Projects | Kanban miễn phí | 🟢 | Loại cho task: là bản xem thứ 2 (A8 cấm) |
+| **Repo + gateway + bộ đọc A9 + Owner View** | Đã chạy, đã nghiệm thu | 🟢 Git/GitHub + của ta | **Nền** |
+Bài học độ bền: AutoGen của Microsoft đã vào chế độ bảo trì (04/2026, thay bằng Agent Framework) — framework đa agent thay đời rất nhanh; thứ sống lâu là Git, PR, CI, PG.
+
+#### P02.3 Lấy gì từ Karpathy — 4 mẫu, 0 dòng mã
+3.1 **`program.md` → Thẻ vai 1 trang:** mỗi vai (Host / Reviewer / Worker) một thẻ ≤1 trang rút từ AGENTS; AI vào ghế chỉ cần đọc thẻ + Bảng. Đánh thẳng lỗi “luật dài AI không đọc hết”.
+3.2 **Một thước đo (val_bpb) → mỗi node 1 phép đo xong:** một lệnh/kiểm trả xanh/đỏ; task mã dùng luôn cổng CI `gate` GREEN đã có ở github-management.
+3.3 **Ngân sách cố định + giữ/bỏ:** mỗi node có trần giờ/lượt; hết trần mà chưa đạt ⇒ bỏ hoặc tách node, không kéo dài.
+3.4 **Ý kiến độc lập trước khi đọc nhau (llm-council giai đoạn 1):** với quyết định lớn (roadmap/kiến trúc), ghế khác hãng viết phương án riêng *trước* khi đọc đề xuất Host để tránh “hùa theo”. Không lấy phần ẩn danh — ta cần định danh để chịu trách nhiệm.
+
+#### P02.4 Trả lời Q01–Q10
+- **Q01:** “Đồng ý” = **một dòng máy đọc trong P vốn phải viết**, không phải chữ ký thứ hai: `VERDICT@<sha bản nháp> ĐỒNG Ý|ĐỒNG Ý-CÓ-ĐK|KHÔNG ĐỒNG Ý · by=<ghế>`. Host vẫn ký READY duy nhất (giữ DROOT58). READY hợp lệ khi có ≥1 VERDICT ĐỒNG Ý/CÓ-ĐK của ghế khác hãng Host, sau thay đổi kỹ thuật cuối (`REVIEW_REUSED` giữ nguyên cho sửa hành chính). KHÔNG ĐỒNG Ý ⇒ Host sửa và mở vòng 2/3, hoặc gọi thêm một ghế khác hãng; hết vòng 3 ⇒ Owner quyết một dòng. Không có “Host vượt”. Cần sửa A5/A6 (Founders đề xuất, Owner gật).
+- **Q02:** Node 7 ô: mục tiêu · người làm · đọc gì · ghi gì · phép đo xong (đúng 1) · ngân sách giờ/lượt · phần chừa sang node sau. Đặt trong vùng máy sẵn có của COLLAB, không thêm file.
+- **Q03:** Sau mỗi KQ: 1 VERDICT của ghế khác hãng Host, người rà ≠ chính Worker. Với 2 hãng chính, điều kiện “khác hãng Worker” của A5 tự thỏa (Host hoặc Reviewer luôn khác hãng Worker) ⇒ không cần ghế thứ ba. KQ là bằng chứng mới nên luôn cần VERDICT mới, nhưng chỉ rà phần chênh.
+- **Q04:** **C.** Workspace public, không CI, chỉ ghi qua cổng — đem mã vào (A) phá cả ba; repo mới (B) đẻ thêm nơi thứ ba. Hai repo mã đã có PR + cổng CI GREEN (G1 PASS ở github-management). Nối bằng mã việc trong tên nhánh/PR `<task-id>/<node>-…`; Owner View đọc trạng thái PR/CI ⇒ Owner thấy chung một chỗ. “Một hệ thống điều hành ≠ một kho Git.”
+- **Q05:** 0 mã từ hai repo (llm-council không giấy phép + không hỗ trợ; autoresearch là train GPU). Lấy 4 mẫu P02.3.
+- **Q06:** Bộ chuyển **đã có** = gateway MCP + nhãn định danh phía máy chủ (bảng A9) + thẻ vai. AI mới = 1 hồ sơ + 1 dòng mapping + đọc thẻ vai. AI chưa có MCP ⇒ Owner chuyển tay (AUTO0). Không cần framework.
+- **Q07:** Không dùng API, không Actions ở workspace; CI mã đã chạy runner trên VPS. Code mỏng chỉ ở bộ đọc A9/Owner View (tùy chọn thêm: gateway từ chối dòng READY thiếu VERDICT — mức cưỡng chế R2 đầy đủ).
+- **Q08:** Cấu trúc tối thiểu đã đủ: luật + trạng thái + sổ quyết định ở repo, định danh ở gateway, Host = dòng `Host:` do Owner chỉ định. Thiếu đúng 2 thứ: thẻ vai Host + **phép thử “Host lạnh”**: một model khác hãng, không lịch sử chat, nhận Host giữa chừng và làm đúng bước kế chỉ từ repo. Đạt phép thử này = “đổi Host dễ” đã chứng minh. DOT/Duet/Grokbot chỉ hành động qua repo/gateway; tính năng tự điều phối riêng của sản phẩm không có hiệu lực với hội đồng.
+- **Q09:** Chuẩn bị ngay, không xây: dòng `DECISION@<id> rev<n> · on=<sha> · by=<ghế>`. Commit qua gateway đã mang định danh ⇒ là chữ ký mức truy vết. Hội đồng Host sau này = đủ N ghế (≥2 hãng) ký cùng rev; nâng lên chữ ký mật mã bằng ký commit SSH chuẩn Git (GitHub hiện “Verified”) cho từng ghế tại gateway. Mẫu đã kiểm chứng ngoài đời: Kubernetes tách reviewer `/lgtm` và approver `/approve`. READY tách riêng: DECISION = chốt phương án, READY = cho chạy.
+- **Q10:** Thang AUTO0–3 (DROOT46) đã đủ; chỉ thêm cổng đo: (a) đạt “Host lạnh”; (b) một loại việc chạy liền N node không có chuông vượt quyền, không vi phạm VERIFY-OR-RED ⇒ Owner nâng mức cho loại đó. Vector/graph chỉ là gợi ý có nguồn, không bao giờ là quyền; ngoài phạm vi N1–N4.
+
+#### P02.5 Roadmap đề xuất (Host chốt; dừng sau N4)
+| Node | Làm gì | Ai | Đo xong |
+|---|---|---|---|
+| N1 | Thẻ vai ×3 (≤1 trang), mẫu node 7 ô, dòng VERDICT/DECISION; bản sửa A5/A6 | Founders (GPT + Claude) | Owner gật 1 dòng |
+| N2 | Bộ đọc A9 hiểu NODE/VERDICT; READY thiếu VERDICT khác hãng ⇒ đỏ; Owner View: thanh node (đúng 1 ô đang làm) + ô màu ghế đã/thiếu ý kiến + PR/CI của repo mã | Claude Code CLI | Thử âm: READY thiếu VERDICT hiện đỏ |
+| N3 | Chạy thật 1 node (vd github-management F2) + thử “Host lạnh” | Host + Worker | Owner View đúng từng bước; Host mới làm đúng bước kế |
+| N4 | Owner nhìn 30 giây | Owner | Owner nói “đạt” |
+Ngoài phạm vi: Hội đồng Host thật, AUTO1+, vector/graph, repo mới, cài thư viện mới.
+
+#### P02.6 Sửa dữ kiện trong §3.3 / P01
+6.1 autoresearch **có giấy phép MIT** (trang GitHub ghi rõ); §3.3 ghi “chưa tìm thấy LICENSE” là chưa đúng — dù vậy vẫn không có mã nào hợp để dùng.
+6.2 llm-council: ngoài thiếu giấy phép, README **tự tuyên bố không hỗ trợ** — rủi ro bỏ hoang là chắc chắn, nên ghi rõ.
+6.3 Đếm đồng ý bằng phê duyệt GitHub PR theo từng ghế là **chưa khả thi**: ToS GitHub chỉ cho 1 tài khoản máy miễn phí/người; repo mã hiện chỉ một danh tính (P91: `KST_ONLY_MERGE_ENFORCED=NO`); phê duyệt của bot có thể không được tính. ⇒ Cổng đồng thuận đặt ở gateway (đã biết định danh từng ghế) — đúng mô hình «một thẻ · hai cổng» của Owner.
+
+#### P02.7 Đề nghị Host
+7.1 Chốt G1 **ngay vòng này** (không thấy bất đồng thực chất cần vòng 2): ghi D chọn C + nền “repo + gateway + A9”, loại 5 công nghệ ở P02.2, ghi lại 4 mẫu P02.3.
+7.2 Đưa Owner đúng 1 dòng: «Duyệt hướng: không cài công nghệ mới; học 4 mẫu Karpathy; thêm thẻ vai + dòng đồng ý khác hãng; repo theo C. Đề xuất: GẬT.»
+7.3 Sau khi chốt, sửa `view.html`: thay khối A/B/C bằng kết luận + thanh N1–N4, không giữ 3 phương án như còn mở.
+
+Phản hồi Host: —
 
 ## Owner cần quyết
 - —
