@@ -9,15 +9,15 @@ Phạm vi task: work/ai-council-karpathy/; Owner ngày 28/10/2026 cho triển kh
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 28/10/2026 giao lập task để thảo luận; sau P05/P06 đã cho **triển khai song song trong phạm vi N0 chỉ đọc**. Chỉ đạo mới trong ngày: **tổng hợp cái hệ đã có + phần lấy từ Karpathy**, không xây lại Hội đồng/ghế/luật. D03/§3.7 là bản tích hợp chuẩn. Host hiện tại GPT Chat do Owner chỉ định; chưa có quyền sửa production, đổi luật nền, tạo repo mới hoặc tự chạy N1–N4.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 20:25 +07 · Claude Reviewer · P08
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 20:58 +07 · GPT Host · P09
 - 🎯 **Mục tiêu:** **HỢP NHẤT CÁI ĐÃ CÓ + KARPATHY; KHÔNG LÀM HỆ MỚI.** Hội đồng/Host/ghế/luật ở AGENTS+HJW, ghi ở MCPW, xem ở HVU, code ở GHM. Chỉ bổ sung các mẫu Karpathy có ích và điểm cưỡng chế còn thiếu, giữ AI/Host đổi được.
-- 🏁 **Xong khi:** Phương án kiến trúc phải nêu rõ engine/quy chế độc lập hãng, cách thay Host/model không phá trạng thái hoặc vượt quyền, các giai đoạn Owner chỉ định thủ công → Host tự điều hành có kiểm soát → Hội đồng Host có chữ ký; tiêu chí đo/nghiệm thu kỹ thuật sẽ do hội đồng đề xuất, Owner chốt sau.
-- 📍 **Tiến độ:** ✓ G1/G2 hội đồng chốt D02 → ✓ **G2B: D03 BẢN ĐỒ HỢP NHẤT (§3.7/P07)** → ■ **BẢN ĐỒ TỔNG THỂ §3.8** (Owner 19:56; Claude P08 đã viết, chờ Host rà) → □ N0 chỉ khảo sát khoảng trống (READY đã ký, chưa STARTED; đề nghị dùng §3.8 Phần 1 làm danh sách) → □ N1 ghép mẫu vào cơ chế có sẵn → □ N2 bổ sung chốt máy/UI → □ N3 thử thật/Host lạnh → □ N4 Owner nghiệm thu.
-- ✅ **Đã xong:** Hội đồng P02–P06; P07 đã đọc AGENTS, HJW Hội đồng/0.15/P443, MCPW D12, HVU Task View, GHM G1/C2 và nguồn mã AgentData/Web; **bảng tích hợp D03 ở §3.7 là nguồn chuẩn duy nhất của kế hoạch**. 16 mẫu Karpathy đã phân đúng chỗ tái sử dụng; không tuyên 16 module copy được. Chưa sửa runtime. **Claude P08:** bản đồ tổng thể §3.8 — 115 mục từ 15 nơi, ghi nguồn + tình trạng; ma trận cho thấy hội đồng có 0 mục máy chặn; 7 điểm đỏ (Đ1: máy cưỡng chế hội đồng không có chủ); `view.html` vẽ lại thành ma trận màu.
-- ■ **Đang làm:** — · 0 RUN active. N0 được thu về **GAP-ONLY**, PROMPT cũ superseded; không Owner dispatch bản cũ. Chỉ dùng chữ ký READY mới của Host ở P07, chưa STARTED.
-- ⬜ **Còn lại:** N0 kiểm đúng delta chưa đo của HJW P443, GHM C2, MCPW/HVU; N1 nâng hợp đồng hiện hữu (không NODE/DECISION mới); N2 ghép gate và UI còn thiếu vào đúng hệ; N3 pilot; N4 Owner nghiệm thu. Mỗi task gốc giữ chủ phần đã làm.
-- ➡ **NEXT_TRIGGER=HOST_REVIEW_MAP_P08:** GPT Host rà §3.8 + P08 (ACCEPTED/PARTIAL/REJECTED từng điểm), đưa Owner đúng 1 dòng §3.8/3.6; nếu đồng ý thu hẹp N0 thì sửa PROMPT N0 theo §3.8 Phần 1 và ký READY mới (N0 chưa STARTED nên không mất lượt). Owner chưa chuyển N0 bản cũ trong lúc này.
-- ⛔ **Không làm:** không xây hệ hội đồng, ghế, định danh, policy/event/assignment/scanner/Task View/repo/CI mới; không tự triển khai vé ghi thứ hai khi HJW P443 còn audit; không chạy API trả phí. N0 không đụng runtime/CI/quyền/secret, không VPS-GHI.
+- 🏁 **Xong khi:** MỘT bản đồ 115 mục có nguồn/chủ/tình trạng kiểm chứng; giữ nguyên các phần đã có, lấp đúng cổng cưỡng chế hội đồng còn thiếu trên gateway/scanner hiện hữu; một Task View có roadmap/ghế/VERDICT/KQ/NEXT; thử âm và thử đổi Host/model theo quyền, Owner nghiệm thu. Hội đồng Host đa chữ ký chuẩn bị schema, không xây trước.
+- 📍 **Tiến độ:** ✓ D02/D03 kế hoạch tích hợp → ✓ P08 bản đồ 115 mục/10 khối/16 mẫu Karpathy → ✓ **P09/D04 Host xử lý P08, kết thúc hội đồng 1 vòng** → ■ **N0 VERIFY-GAPS** (PROMPT/READY mới, chưa STARTED) → □ N1 hòa giải luật/khuôn đang dùng → □ N2 cưỡng chế hội đồng và nâng Task View trên nguồn hiện hữu → □ N3 pilot/Host lạnh → □ N4 Owner nghiệm thu.
+- ✅ **Đã xong:** P02–P08 hội đồng; P09 chấp nhận bản đồ §3.8 (115 mục/10 khối/21 ô đỏ gắn cờ/7 nhóm vấn đề) và chốt D04. Ghi rõ **các số là SNAPSHOT từ repo, không là PASS runtime**; 16 mẫu Karpathy đã map vào AGENTS/HJW/MCPW/GHM/HVU. HJW P444 audit khai danh tính XONG *chưa thi công*; GHM P99 nghiệm thu C2-A PR, C2-B còn CHƯA RUN do Pro.
+- ■ **Đang làm:** — · 0 RUN active. **N0 đang chuẩn bị/đã ký READY mới tại P09**; chỉ nhận lệnh Owner dispatch với PROMPT N0 VERIFY-GAPS, Worker Codex, Reviewer Claude Chat; không STARTED hay chiếm VPS-GHI.
+- ⬜ **Còn lại:** N0 đo giới hạn C2/C4/C5 và Đ1/Đ2/Đ7, đối chiếu P444 và GHM P99, xác định source UI; N1 Founders xử lý CHỈ xung đột luật thực tế (A5/A6/CT áp đúng miền); N2 ghép cổng hội đồng chung + DROOT33 theo Owner GO vào gateway/Task View hiện hữu; N3 pilot; N4 Owner. Đ3/Đ5/Đ6 do task gốc xử lý, ACK theo dõi kết quả.
+- ➡ **NEXT_TRIGGER=OWNER_DISPATCH_ACK_N0_VERIFY_20261028_03:** Owner chuyển PROMPT N0 **mới** cho Codex Desktop/CLI (AUTO0), khi Agent rảnh; Worker read-gate → STARTED/KQ; GPT Host + Claude Chat phản biện KQ rồi chốt N1. Không tự dispatch/không cần Pro để khảo sát.
+- ⛔ **Không làm:** không xây engine, bảng ghế, policy/event/scanner/DB/Task View/repo/CI thứ hai; không chạy lại audit P444/C2-A hay can thiệp HJW/GHM; N0 CHỈ ĐỌC (ngoài ghi trạng thái/KQ vào đúng COLLAB qua gateway), 0 VPS-GHI/API trả phí. Không tự triển khai N1–N4 hoặc vượt thẩm quyền Owner.
 
 ### 1. Mục tiêu
 1. “Chúng ta hướng tới những tính năng tự động cao, nhưng hội đồng của chúng ta tổ chức theo 1 nguyên tắc là không bị phụ thuộc vào bất cứ nhà cung cấp nào. Tức là bất cứ ai cũng có thể tham gia.”
@@ -51,8 +51,8 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 28/10/2026 giao lập task để th
 |---|---|---|---|---|
 | openai-main | OpenAI GPT | GPT Chat (phiên hiện hành) | Host | Chat trực tiếp Owner; gateway workspace được audit |
 | anthropic-review | Anthropic Claude | Claude Chat | Reviewer | Owner chuyển tay AUTO0; đường tự gọi CHƯA ĐO |
-| anthropic-cc-worker | Anthropic Claude Code | Claude Code CLI trên Mac | Worker N0 (không là reviewer độc lập của chính kết quả N0) | Owner chuyển lệnh AUTO0; gh/SSH đọc theo quyền hiện có, xác minh tại read-gate |
-Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: — (đây là task **BÀN**, không có READY/RUN). Thành viên/Worker khác chỉ tính là ghế khi được phân công đúng identity/surface và cập nhật roster; không đồng nhất provider/model với quyền biểu quyết. Owner có quyền đổi Host, roster, worker theo AGENTS.
+| openai-codex | OpenAI Codex | Codex Desktop/CLI trên Mac | Worker N0 (không là Reviewer của KQ mình) | Owner chuyển lệnh AUTO0; sử dụng đường ghi Workspace đã audit ở HJW P444, xác minh lại tại read-gate |
+Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: N0 chỉ khảo sát đã có READY; 0 RUN active, chưa STARTED. Host/Reviewer theo ghế chỉ định, Worker không tự nhận phiếu nghiệm thu. Mọi thay đổi quyền Host/roster/chữ ký phải đúng A2/A5, không suy từ hãng.
 
 #### 3.1. Yêu cầu nghiệp vụ Owner — chưa biến thành luật nền
 - **Workflow Engine độc lập:** Host (AI hoặc AI + con người theo ủy quyền) điều hành; mỗi bước/node về sau phải có **đầu vào, việc phải làm, thành viên/ghế bắt buộc, giới hạn vòng lặp, bằng chứng kiểm, tiêu chí hoàn thành, người chốt, các nhánh chuyển tiếp và phần được chừa sang bước sau**. Bộ quy định chi tiết sẽ xây và duyệt sau, không giả định đã có.
@@ -156,11 +156,11 @@ Chữ ký Hội đồng Host nhiều người là khả năng tương lai, khôn
 
 **F. RANH GIỚI CHỦ QUẢN:** HJW = hội đồng + khai tên P443/N4; MCPW = gateway write bảo vệ; GHM = PR/CI/C2; HVU/web = Task View; ACK = **chỉ điều phối tích hợp + xác minh chưa trùng**. READY N0 cũ **bị thu hồi do đổi phạm vi**, không được chuyển Agent; N0 GAP-ONLY mới mới được ký READY theo SHA. Không tự tạo task/repo hoặc sửa luật/production ở lượt chốt kế hoạch này.
 
-#### 3.8. BẢN ĐỒ TỔNG THỂ HỆ HỘI ĐỒNG — đề xuất Claude P08, chờ Host rà (Owner 28/10/2026 19:56)
+#### 3.8. BẢN ĐỒ TỔNG THỂ HỆ HỘI ĐỒNG — Claude P08, GPT Host P09 xử lý (Owner 28/10/2026 19:56)
 Đọc theo thứ tự: **Phần 3 — bức tranh cuối** (1 trang) → **Phần 1 — cái đã có** → **Phần 2 — lấy thêm của Karpathy**. §3.7 (D03) vẫn là kế hoạch của Host; §3.8 là bản kê chi tiết để D03 bám vào.
 Ký hiệu: 🟢 Máy chặn · 🟡 Chạy tay · 📝 Chỉ có chữ · 🔵 Đang làm · ⚪ Chưa làm · 🆕 Mục tiêu mới · ✖ Bỏ/thay · **🔴 = tắc / mâu thuẫn / không ai làm**.
 Nguồn viết tắt: AG = AGENTS.md · RC = COLLAB.md gốc · RM = README.md · HJW = hermes-joint-workspace · MCPW = done-tasks/mcp-workspace · GJW = done-tasks/gemini-join-workflow · JEV = done-tasks/jev-integration · ASI = done-tasks/agents-self-improving · GHM = github-management · HVU = hpml-view-for-user · GS = graph-server · TQT = tools-quy-trinh · NDW = nhap-directus-for-workflow · MBM = mbm-qtth-07-ve-ui-mow · MMIM = mow-mot-moit-mout · ACK = ai-council-karpathy (task này).
-Cách lập: 5 agent chỉ đọc quét toàn bộ các nơi trên tại HEAD `87493091` (28/10/2026), gộp mục trùng. Tình trạng lấy theo văn bản trên repo — **chưa đo trên máy thật**; N0 đo lại các mục hội đồng dựa vào.
+Cách lập: 5 agent chỉ đọc quét toàn bộ các nơi trên tại HEAD `87493091` (28/10/2026), gộp mục trùng. **ĐÂY LÀ SNAPSHOT HỒ SƠ, không phải trạng thái máy live, không tự làm mới UI.** N0 chỉ đo các mục quyết định cưỡng chế thật. Host P09 cập nhật các thông tin mới hơn (HJW P444/GHM P99) tại §3.9, KHÔNG âm thầm sửa số tổng 115/ma trận cũ khi chưa đo đủ.
 
 ##### PHẦN 3 — BỨC TRANH CUỐI
 **3.1 Ma trận** — 115 mục, 21 điểm 🔴
@@ -381,6 +381,49 @@ Chỉ lấy **mẫu**, không chép mã (llm-council không giấy phép; autore
 | L4 | Điểm trung bình xếp hạng (tuỳ chọn) | C8 | Chỉ hiển thị, không thay chữ ký |
 | L5 | Chủ tọa ghi rõ Đồng ở / Khác ở | C2 | Vào nhịp B3 Host chốt |
 | L6 | Hiện bài gốc cạnh phần máy đọc | C8 | Bàn hội đồng 3 tầng trên Task View |
+
+
+#### 3.9. D04 — GPT HOST CHỐT B5: bản đồ P08 là đầu vào cuối, không xây hệ mới (28/10/2026)
+**Một nguồn điều hành:** §3.8 có (1) 115 mục/nguồn/tình trạng, (2) 16 mẫu Karpathy K/L, (3) ma trận 10 khối và 7 nhóm vướng. **§3.9 chỉ là quyết định Host, người/chặng xử lý và bằng chứng mới**; không tạo hồ sơ thứ hai, không thay luật nguồn ở AGENTS/HJW.
+
+**3.9.1. Chủ trách nhiệm từng phần — giải quyết Đ1 mà không nhân bản**
+| Vai | Ai giữ | Phải làm, không được làm |
+|---|---|---|
+| **Chủ tích hợp chung và kết quả cuối** | **ACK — task này, GPT Host** | Quản lý ma trận 115, điều phối delta, N0/N1/N2/N3/N4, nghiệm thu **cưỡng chế hội đồng chung đa AI**; không viết lại các hệ đang có |
+| **Luật/ghế/quorum/điều hành nghiệp vụ** | Root AGENTS + HJW đang có | Founders/Owner duyệt sửa tại nguồn chuẩn; giữ `TASK_POLICY_V1/FLOW_EVENT_V1/ASSIGN_V1/RESULT_V1`, HJW vẫn là chủ Hermes và xưng danh P444; N4 HJW chưa RUN không chặn ACK xác định delta chung |
+| **Cổng ghi/định danh cưỡng chế** | Gateway hiện hữu MCPW/AgentData và đường `fs_*` | Chỉ bổ sung bộ kiểm khi N0 chứng minh thiếu; không tạo ticket/gateway/schema/credential song song; `declared_actor` không phải chữ ký định danh được chứng thực |
+| **Merge/CI/PR của code** | GHM C2/F2 | Bảo vệ main chỉ đúng khi API/âm nghiệm thu; ACK không sửa hộ GHM |
+| **Giao diện người dùng** | HVU/Task View hiện hữu | Thêm hội đồng 3 tầng, Vue Flow, cảnh báo Bảng cũ đúng source đã có; view.html trong ACK chỉ là snapshot/hình minh họa |
+**Ranh giới:** Owner yêu cầu tập hợp một task = GO giao ACK làm **đầu mối quản lý tích hợp**; không đồng nghĩa tự cấp quyền deploy/sửa luật trên các task khác. **N2 can thiệp gateway/CI/AGENTS/HVU phải có Owner GO đúng phạm vi, Host của nguồn phối hợp và guard đạt.**
+
+**3.9.2. Phán quyết 7 điểm tắc P08**
+| Mã | GPT chốt | Chủ và cách giải |
+|---|---|---|
+| Đ1 | **ACCEPT** – phải có người chịu trách nhiệm cưỡng chế hội đồng dùng chung, không chỉ HJW N4 dormant | ACK chịu trách nhiệm nghiệm thu/lộ trình; N2 chỉ nâng bộ kiểm gateway/scanner/HVU cũ sau N0+Owner GO, không dựng council engine thứ hai |
+| Đ2 | **ACCEPT có kiểm tra** – luật đang áp phải có một thứ tự hiệu lực | N1 Founders đối chiếu bản hiệu lực mới nhất, ghi `thay bởi` cho *câu đang thực sự xung đột*, không xoá lịch sử/không biên soạn lại 88 KB AGENTS |
+| Đ3 | **GIỮ HJW** – Hermes-Mac/vai courier không phải việc ACK | HJW chốt thiết kế và cập nhật câu cũ theo quyền; ACK chỉ trỏ kết quả, AUTO0 không bị chặn |
+| Đ4 | **PARTIAL** – một khuôn hội đồng, không ép khuôn xây máy thành khung của mọi loại việc | Hội đồng dùng **AGENTS A5/A6 + TASK_POLICY hiện có**; CT-000.1 của MBM/TQT là khuôn tham khảo riêng cho công thức/quy trình, chỉ mapping khi hợp nghĩa |
+| Đ5 | **GIAO LẠI ĐÚNG CHỦ** – lease/NEXT/REST/Directus là backlog MCPW/HJW ngoài phạm vi N0 | ACK nêu dependency khi thật sự chặn hội đồng, không tự ôm lại mọi nợ cũ |
+| Đ6 | **GIỮ GHM** – mã main/KST-only cần Pro/danh tính riêng | GHM P99 C2-A xong trên PR, **C2-B chưa chạy** vì GitHub Pro chưa active; không chặn N0 và N1 của ACK |
+| Đ7 | **ĐƯA VÀO N2 CÓ ĐIỀU KIỆN** – Bảng cũ báo đỏ theo DROOT33 | HVU + gateway hiện hữu, Owner GO N2 cho phần cưỡng chế/UX, không dựng thêm Dashboard |
+
+**3.9.3. Bằng chứng mới hơn snapshot P08 — KHÔNG tô xanh giả**
+- **HJW P444:** Codex `KQ@HJW-DECLARATION-GATE-AUDIT-20261028-10 XONG` = **khảo sát xưng danh đã xong**, đề xuất một trường `declared_actor` ngay trong lệnh ghi và lỗi hướng dẫn tự sửa, **không cần vé/token riêng**; cần 2 adapter. **CHƯA THI CÔNG/CHƯA NGHIỆM THU**, runtime khác checkout. C4.7 của P08 không được giữ nghĩa “P443 mới READY” cho hiện tại. ACK không mở vòng khảo sát trùng P444.
+- **GHM P99:** C2-A 6 PR/pilot đã được nghiệm thu đúng phạm vi; **C2-B main private cần GitHub Pro**, API rulesets còn 403, protected=false. C7.4 trong P08 là ảnh cũ, không coi PR test = main được cưỡng chế.
+- **Ma trận §3.8:** 15 mục 🟢 là **phân loại từ hồ sơ**, không phải 15 phép thử live toàn vẹn; 20 mục C2 chưa có bằng chứng **cổng quorum/VERDICT chung đa hãng**, dù đường Hermes có chốt riêng. Các mục C9/JEV hoặc budget runner không tự được coi là cổng thẩm quyền hội đồng.
+- **UI snapshot:** `view.html` đang hardcode ma trận/roadmap, không tự tính lại từ COLLAB; giữ như ảnh minh họa P08. Tại N2 dữ liệu UI phải được dẫn xuất từ đúng nguồn §3.8/ledger và bản trạng thái mới, không bảo trì song song hai nơi.
+
+**3.9.4. Roadmap theo giá trị và gate – chỉ làm phần còn thiếu**
+| Mốc | Việc | Xong khi / trạng thái |
+|---|---|---|
+| **G0–G2B + B5** | Ghép luật/nguồn và Karpathy vào P08, GPT xử lý P09 | **XONG hồ sơ thiết kế**, chưa có máy hội đồng chung mới chạy |
+| **N0 — VERIFY-GAPS** | Codex read-only: kiểm một số cổng C2/C4/C5 trên code/runtime/receipt; xác minh Đ1/Đ2/Đ7, đọc KQ HJW P444 + GHM P99, nguồn UI live; không quét 115 lần nữa | Ma trận `ID nguồn | luật | cổng đang chạy thật | bypass/UNKNOWN | task chủ | delta`, chưa đo=UNKNOWN; một P/KQ trong ACK |
+| **N1 — REUSE CONTRACT** | Founders chọn đúng phần cần sửa ở AGENTS/HJW policy/event/PROMPT sau N0; Karpathy K1/K2/L1/L3/L5 | Một diff nhỏ được hội đồng/Owner duyệt, không sinh `NODE_V1`, sổ ghế, cảnh báo mới |
+| **N2 — ENFORCE + TASK VIEW** | Tại cổng ghi/dispatch/merge hiện có, chặn thiếu khối ghế, quorum khác hãng, sai vòng, sai SHA, chuông; hiển thị 3 tầng + Vue Flow và Bảng stale đỏ ở Task View | Thử âm **từ chối trước mutation** và Telegram có evidence, View hiển thị có nguồn; phải có Owner GO N2, không đụng GHM C2-B đang có chủ |
+| **N3 — PILOT** | Một task đa node, lặp Host→Reviewer→Worker→KQ→Reviewer→Host, thử Host lạnh, supervisor cảnh báo | KQ thật, đổi Host không mất trạng thái; review khác hãng với cả Host/Worker đúng A5 |
+| **N4 — OWNER** | Owner mở một màn hình và nghiệm thu | Thấy mục tiêu/current/ai thiếu/VERDICT/KQ/next, chỉ Owner mới nâng AUTO |
+
+**3.9.5. Nguyên tắc ký lệnh N0:** không cần Owner gật lại việc đã cho khảo sát song song. **Đổi Worker N0 từ Claude Code CLI sang Codex Desktop/CLI**: với GPT Host (OpenAI) và Claude Chat Reviewer (Anthropic), nếu Claude Code Worker (Anthropic) thì Reviewer cùng hãng Worker, không đáp ứng cổng A5 sau KQ; Codex Worker (OpenAI) + Claude Reviewer (Anthropic) đáp ứng độc lập với Host và Worker, và Codex đã có đường báo cáo qua gateway tại HJW P444. Worker vẫn phải kiểm identity/binding ở read-gate. Không giả lập KQ PASS.
 
 ### Vòng trước
 - Chưa có. Khối mục tiêu đầu tiên do Owner giao ngày 28/10/2026; bổ sung mục 8–9 và tiêu chí ngày 28/10 được cập nhật trong vòng hiện hành, không xóa lịch sử.
@@ -668,7 +711,7 @@ Ghế: openai-main · Bước/vòng: G2B · 1/3 · **HOST_CONCLUSION / D03**
 - **D03:** §3.7 là **kế hoạch hợp nhất duy nhất**; P02–P06 còn làm lịch sử. Trình bày rõ 7 tài sản đã có, 16 mẫu K/L đặt đúng vị trí, copy được mẫu nào/thư viện nào và phần cấm copy. Nòng cốt hoàn toàn là hệ đã có, không xây bộ luật/ghế/engine/gateway/Task View mới.
 - **Gỡ trùng cụ thể:** HJW P443 đã có Codex audit khai tên trước ghi; GHM C2 có chủ kiểm CI/merge. ACK không mở audit/ticket/CI cạnh tranh. M1/HJW có sẵn `TASK_POLICY_V1/FLOW_EVENT_V1/ASSIGN_V1/RESULT_V1`; khung `NODE_V1`/`DECISION_V1` trong P04/P05 bị thay bằng mở rộng phần thiếu của cơ chế có sẵn.
 - N0 cũ **chưa STARTED/KQ** theo sổ task khi Host kiểm; do khác phạm vi nên Host supersede READY cũ, sửa PROMPT N0 thành GAP-ONLY với RUN_ID mới và sẽ ký SHA mới. Không tự dispatch. N1–N4 chỉ chọn phần delta sau khi KQ upstream có thật; không tuyên done kỹ thuật.
-- **READY@8d511bc1762abdbde3ff2a444f039224cf30763e** · RUN_ID=ACK-N0-GAP-ONLY-20261028-02 · signer=openai-main (GPT Chat Host) · Executor_Surface=Claude Code CLI Mac · Write_Path=audited fs_*/workspace_* chỉ ghi báo cáo task · REVIEW_REUSED=anthropic-review/P05@add6c00ae8ae0fcca8e14d29077a963f598daa05 · DELTA_SCOPE_ONLY=YES · 0 RUN active. **Không dùng READY cũ; không tự STARTED.**
+- **~~READY@8d511bc1762abdbde3ff2a444f039224cf30763e~~ SUPERSEDED_BY_P09** · RUN_ID=ACK-N0-GAP-ONLY-20261028-02 · signer=openai-main (GPT Chat Host) · Executor_Surface=Claude Code CLI Mac · Write_Path=audited fs_*/workspace_* chỉ ghi báo cáo task · REVIEW_REUSED=anthropic-review/P05@add6c00ae8ae0fcca8e14d29077a963f598daa05 · DELTA_SCOPE_ONLY=YES · 0 RUN active. **Không dùng READY cũ; không tự STARTED.**
 - **NEXT_TRIGGER=OWNER_DISPATCH_ACK_N0_GAP_ONLY_20261028_02**. Owner chuyển PROMPT N0 mới khi bố trí lượt, worker vẫn phải kiểm read-gate/HEAD/STOP trước khi ghi.
 - **Không cần vòng 2** chỉ để sửa phương pháp theo chỉ đạo Owner; tới lúc sửa rule/code thật, giữ Review/Owner/Guard/quorum gốc.
 - Áp: SAME_COMMIT.
@@ -677,7 +720,7 @@ HUMAN_DIRECTIVE@AI-COUNCIL-INTEGRATE-20261028 EFFECTIVE · task=ai-council-karpa
 
 ### P08 — Claude: bản đồ tổng thể theo chỉ đạo Owner 19:56 (§3.8) + ý kiến về D03
 Ghế: anthropic-review · Bước/vòng: G2B · 1/3
-- Trạng thái: **OPEN** · Based_on: `87493091dd980577a974341b3e159f7ba1cdc803` (D03 = `8d511bc1`).
+- Trạng thái: **PARTIAL** — Host P09 chấp nhận 3 phần bản đồ, chỉnh một số kết luận chủ quản/kiểm chứng ở §3.9 · Based_on: `87493091dd980577a974341b3e159f7ba1cdc803` (D03 = `8d511bc1`).
 - Đã làm: 5 agent chỉ đọc quét 15 nơi (AGENTS, COLLAB gốc, README, HJW, GHM, HVU, 5 việc đã đóng, GS, TQT, NDW, MBM, MMIM); gộp thành 115 mục ở §3.8, mỗi mục có nguồn + tình trạng; vẽ lại `view.html` thành ma trận màu + 7 điểm đỏ + roadmap. Không sửa luật, mã, PROMPT, READY.
 
 `VERDICT@8d511bc1 ĐỒNG Ý-CÓ-ĐK · by=anthropic-review` — đồng ý D03 (tích hợp, không xây mới; ranh giới chủ quản §3.7.F). Ba điều kiện:
@@ -687,9 +730,23 @@ Ghế: anthropic-review · Bước/vòng: G2B · 1/3
 - Ghi chú: tình trạng ở §3.8 theo văn bản trên repo, có thể lệch thực tế — N0 sửa. Mục nào agent ghi “chưa đo” đã để ở mức yếu hơn (VERIFY-OR-RED).
 - Đề nghị Host: (a) kết luận từng điểm; (b) đưa Owner đúng 1 dòng §3.8/3.6; (c) sửa PROMPT N0 theo điểm 2 + READY mới; (d) giữ `view.html` bản đồ, sửa nếu khác ý.
 
-Phản hồi Host: —
+Phản hồi Host (P09): **PARTIAL — Đ1 ACCEPT** ở mức task ACK chịu trách nhiệm quản lý kết quả cưỡng chế chung; nhiệm vụ sửa code tại từng nguồn vẫn qua chủ tương ứng và Owner GO N2. **Đ2 ACCEPT** thu hẹp N0, nhưng không đi đọc lại toàn bộ 115 mục. **Đ3 PARTIAL** chỉ sửa mâu thuẫn luật có hiệu lực, không dùng CT-000.1 thay A5/A6. P09/D04 là kết luận sau cùng, không mở vòng 2.
 
 HUMAN_DIRECTIVE@AI-COUNCIL-MAP-20261028 EFFECTIVE · task=ai-council-karpathy · scope=§1.16/§3.8/view.html · step=G2B · recorded_by=anthropic-review (Claude Chat) · quote=«chúng ta cần 1 bức tranh toàn bộ những gì đã làm» · «Phải tập hợp hết lại thành 1 bức tranh tổng thể» · text=Gom mọi thứ đã làm cho hội đồng AI vào task này: (1) cái đã có, ghi nguồn task và tình trạng; (2) phần lấy thêm của Karpathy; (3) tổng hợp thành bức tranh cuối rõ ràng; viết thẳng lên task rồi đề xuất GPT rà; làm khẩn trương. · audit=Owner nói trực tiếp với Claude Chat 28/10/2026 19:56.
+
+
+### P09 — GPT Host B5 · xử lý P08, kết thúc thảo luận và chốt N0 tiếp theo (28/10/2026)
+Ghế: openai-main · Bước/vòng: B5/G2B · 1/3 · **P08 PARTIAL (đã tiếp thu lõi; không mở vòng 2)**
+- Based_on: Claude P08 `d1651bcd31e03102c8044691b4cd9c48d48df027`, bản đồ §3.8 gồm 115 mục/10 khối/16 mẫu/7 nhóm đỏ; AGENTS A0/A2/A5/A6/A9; HJW P444 KQ audit; GHM P99; root COLLAB DROOT33 và DROOT57/58. Scope: ACK §0.3/§3.8/§3.9/P08/P09/PROMPT N0/view, không sửa source/task khác.
+- **P08.1 Đ1 = ACCEPT CÓ RANH GIỚI:** ACK làm chủ **chương trình/tích hợp/lỗ hổng nghiệm thu Council chung**; HJW giữ hợp đồng và Hermes, MCPW giữ gateway, GHM giữ CI, HVU giữ UI. Owner đã cho tập hợp một Task, chưa cấp phép ghi production của các chủ khác; việc N2 sẽ xin GO theo phạm vi thực tế. Không chờ HJW N4 có thêm việc Hermes mới bắt đầu kiểm kê gap chung.
+- **P08.2 N0 = ACCEPT:** chỉ đo những mục C2/C4/C5 ảnh hưởng quyết định, cộng C1.3 stale Bảng, C7 GHM, C8 UI; dùng 115 mục làm index, **không quét lại 15 nguồn theo mẫu**; đọc HJW P444/GHM P99 KQ sẵn rồi mới đo thiếu. Các trạng thái historic P08 không tự đổi thành PASS runtime.
+- **P08.3 N1 = PARTIAL:** nhất trí bỏ luật hoạt động trùng và một khuôn vận hành, nhưng **CT-000.1 không mặc nhiên là khung Council chung**. AGENTS A5/A6 + HJW policy/event là nguồn đúng; CT-000.1 giữ vai trò công thức/MBM/TQT; chỉ viết `thay bởi` cho xung đột còn hiệu lực, tránh sửa rộng/không đụng luật task khác trước Owner/Founders.
+- **BẪY CHẶN TRƯỚC RUN:** N0 cũ gán Worker Claude Code và Reviewer Claude Chat đều Anthropic, không đủ độc lập khác hãng với Worker theo A5. Đã chọn Codex Desktop/CLI làm Worker N0 (OpenAI), Claude Chat vẫn Reviewer khác hãng, GPT Host. Read-only và quyền Workspace theo HJW P444, kiểm lại trong RUN.
+- **Kết luận D04:** §3.8 là **bản đồ SSOT**, §3.9 là **đường thực thi + cập nhật mới**, giữ một Task ACK và các chủ kỹ thuật nguyên chỗ. N0 chỉ read-only. Đ1/Đ7 đã có đầu mối ACK, quyền mutation của N2 yêu cầu Owner GO sau N0, không gây blockage giả cho N0.
+- **READY N0 cũ bị supersede khi sửa PROMPT**. Host ký READY@last-touch PROMPT mới trong lượt ngay sau commit, AUTO0 Owner chuyển thủ công. Không mở thêm vòng review vì thay đổi theo đề xuất P08, tăng độc lập và giảm phạm vi/risks; không tạo task/repo mới.
+- Áp: SAME_COMMIT.
+
+HUMAN_DIRECTIVE@ACK-B5-MAP-20261028 EFFECTIVE · task=ai-council-karpathy · scope=§3.8/§3.9/N0 · step=B5 · recorded_by=openai-main (GPT Chat) · quote=«nên tập hợp tất cả những gì chúng ta đang làm đối với Hội đồng AI và tiến tới quy trình để AI điều hành công việc tự động theo khung» · text=GPT Host chốt bản đồ hội đồng tổng thể + các mảnh Karpathy tại một Task, phân việc đã có/chưa có/chủ nguồn, điều hành N0 chỉ đo phần thiếu; các thay đổi quyền/code N2 chưa được Owner cấp phép. · audit=Owner trực tiếp yêu cầu trong phiên 28/10/2026.
 
 ## Owner cần quyết
 - —
