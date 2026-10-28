@@ -1,41 +1,39 @@
-# HJW — Codex rà mã Gateway: "xưng danh mới được ghi" (CHỈ ĐỌC)
+# HJW — DRAFT thực thi nhỏ nhất: khai danh ngay tại cửa ghi
 
-RUN_ID: HJW-DECLARATION-GATE-AUDIT-20261028-10
-STATUS: READ_ONLY_AUDIT_ONLY · KHÔNG THI CÔNG · chỉ chạy sau khi Host có READY đúng SHA và Owner giao trực tiếp
-Executor_Surface: Codex trong ChatGPT/Codex Desktop/Work (KHÔNG bắt buộc Codex CLI)
-Read_Path: GitHub Huyen1974/incomex-workspace + repo mã Huyen1974/agent-data-test và các nguồn Gateway hiện hữu được phép đọc
-Write_Path: chỉ `workspace_*`/capability D12 đã bind để ghi báo cáo P/KQ vào `work/hermes-joint-workspace/COLLAB.md`; cấm GitHub native write
-Scope: duy nhất HJW · xem AGENTS A2/A5/A6, README D12, HJW COLLAB §0, Bảng, P439–P443. Không mở task mới.
+RUN_ID: HJW-DECLARATION-GATE-ONE-PASS-20261028-11
+STATUS: DRAFT_FOR_CLAUDE_B2 · NOT_READY · NO_RUN
+Executor_Surface: Codex Desktop/Work (Owner giao tay sau GPT Host READY đúng SHA)
+Task: Huyen1974/incomex-workspace · work/hermes-joint-workspace
+Write_Path: repo báo cáo qua `workspace_*` D12; mã Gateway chỉ qua đường repo + operator/apply đã được kiểm toán và VPS-GHI khi Host/Owner giao RUN.
+Read_First: `AGENTS.md` A0/A2/A5/A6/A9/A10 → HJW COLLAB §0/§1–3 + P442–P445 → PROMPT này; nguồn code AgentData/Claude Gateway theo hash P444.
+Phạm vi: HJW declaration gate CHỈ trong các Gateway đã có; không mở task/server/DB; không đổi quyền/quorum, Gmail, PG/Directus trực tiếp, GSM/root hay GitHub ruleset.
 
-## Mục tiêu — đúng hai câu hỏi
-1. **AI đến cửa ghi có tự biết phải khai tên không?** Nếu không khai, có thể trả `DECLARATION_REQUIRED` rõ từng trường, ví dụ và cách gọi lại ngay trong **một** lượt trả lỗi, tuyệt đối không sửa dữ liệu?
-2. **Có thể làm điều đó một lần về chính sách** cho mọi đường ghi repo hiện có (Workspace/FS/upload/import/async) mà không dựng server/DB/đường quyền mới? Cần sửa những file/choke point nào, mất công sức ở mức nào?
+## Mục tiêu nghiệm thu duy nhất
+**AI qua cửa đã được cấp quyền nhìn ngay cách khai danh khi muốn ghi; AI quên khai nhận `DECLARATION_REQUIRED` rõ cách tự sửa, không tạo side effect; gửi lại có `declared_actor` thì ghi thành công trong một lượt, receipt lưu cả tên khai và actor credential.**
+Một hợp đồng chung áp cho `workspace_*`, `fs_*`, upload/import/async/helper/`write_file`. Không xin token/vé riêng; `operation_id` chỉ chống ghi trùng. Tên khai không cấp phiếu A2.
 
-## S0 · Đọc mã hiện hành, không giả một gateway vật lý
-- Kiểm tra nguồn đang thật sự phục vụ và phiên bản được pin; chỉ đọc: `agent_data/workspace_tools.py` (master_profiles, auth, tools/call, tool schemas), `agent_data/hvu_signals.py`, `agent_data/workspace_idempotency.py`, schema/adapter của `workspace_upload_*`, `workspace_import_file`, `workspace_task_*`, phần `fs_*` thuộc Claude/Incomex VPS. Nguồn nào chưa có quyền đọc ghi **UNKNOWN + cách tìm đúng chủ**, không bịa.
-- Đối chiếu GitHub native direct write với Gateway D12 (ruleset bảo vệ main), không sửa ruleset.
-- Lập bảng NGẮN: `đường ghi | server/entrypoint | schema tools/list | chung pre-write hook? | có operation_id? | actor đã xác thực? | lỗi khi thiếu khai báo | GAP`.
-- Kiểm mọi biến thể source mutation: create/edit/copy/move/transaction, upload/import/commit, async/background, và mọi đường có thể gọi ghi dù tên không bắt đầu `write`. Chỉ rà tính phủ, không chạy phép thử live.
+## S0 · Nguồn mã thật và điểm dừng trước ghi
+- Đọc mới HEAD/STOP/READY, VPS-GHI/Guard và hiện trạng công việc khác. Không giữ lệnh chờ.
+- Đối chiếu **đúng runtime** hai image và helper P444 với Git source/commit/manifest; chốt một bản build có thể tái tạo và đường lùi byte/hash đúng. Nếu đang chạy ≠ checkout: không sửa mù/khôi phục tùy tiện; dùng lại quy trình image/source đã có để pin baseline tối thiểu tại SSOT. Không chứng minh được baseline/rollback ⇒ `KQ DỪNG` trước source/runtime mutation, nêu đúng một blocker.
+- Kiểm client current tools/list: liệu `declared_actor` mới có hiện trong schema của GPT/Claude/Live hiện tại, đường refresh hợp lệ nếu stale. **Không cưỡng chế khi client chưa thể gửi trường**; nhưng không coi release không enforce là hoàn tất.
 
-## S1 · Đề xuất hợp đồng tối thiểu
-- Ưu tiên **xưng danh NGAY TRONG lệnh ghi**, không có bước gọi xin token trước. Mỗi lệnh chỉ thêm **một tên AI tự khai** `declared_actor` (task/path và idempotency giữ theo tham số đã có nếu phù hợp).
-- Không coi `operation_id` là authentication token. Kiểm xem có dùng mã hiện hữu làm vé giao dịch/receipt một lần được không, những tool nào còn thiếu.
-- Bắt buộc làm cho AI tự hiểu từ cả **mô tả tool** và **lỗi**. Ví dụ contract:
-  `error=DECLARATION_REQUIRED; required_field=declared_actor; example=gpt-live; instruction="Gọi lại đúng công cụ ghi này, thêm declared_actor, giữ nguyên nội dung và operation_id phù hợp"; mutation=none`.
-- Nếu schema validation chặn trước khi vào handler, chỉ ra chỗ phải thay schema/dispatcher để lỗi vẫn hữu dụng; đừng để một AI phải tự đọc AGENTS hoặc hỏi Owner mới biết cách sửa.
-- Với khai báo hợp lệ: trả `declared_actor` + `authenticated_actor` (theo credential thực) + transaction/commit receipt; actor Git đã xác thực phải được giữ, không thay bằng tên tự khai.
-- Phân biệt rõ **ghế làm việc** và **phiếu/quorum A2**. Tất cả AI đã qua cửa xác thực có thể xưng tên làm việc; không cộng phiếu cứng vì khai tên.
+## S1 · Patch tối thiểu, không nhân chính sách
+- Ưu tiên đúng 2 adapter entrypoint của AD (`workspace_*`) và Claude (`fs_*`), dùng cùng contract validator/mô tả/lỗi. Tool thuộc nhóm source-write/stage/queue phải được phân loại đầy đủ; unknown tool không tự bypass. Chỉ sửa file cần thiết trong danh sách P444, không lấy «11 file» làm chỉ tiêu.
+- Tên công khai: `declared_actor` (một chuỗi hợp lệ), yêu cầu tại lời gọi ghi; gate sau auth/scope, trước staging/queue/idempotency/commit. Invalid/missing trả:
+  `error=DECLARATION_REQUIRED; field=declared_actor; example=gpt-live; instruction="Gọi lại chính tool này với tên AI của bạn; giữ nội dung và operation_id nếu phù hợp"; mutation=none`.
+- tools/list/description báo trước cách khai, client/schema mới/cũ có đường tiếp cận thực; nếu client không chuyển được argument vì stale schema, bảo toàn khả năng khôi phục bằng hỗ trợ native/discovery, không giả kết quả.
+- Kết quả thành công: `declared_actor` và `authenticated_actor` (credential server), tool/task/path, hash/transaction ID, Git SHA, `replayed`; giữ Git author hiện hữu, giữ D12 và A2. Upload/import giữ actor từ begin; task/helper mang context server qua queue, không buộc AI khai lại ở mỗi bước nội bộ.
+- Giữ retry/legacy journal: missing actor không "đốt" operation_id; same id + same signed/declared payload không ghi đôi; actor khác không mượn receipt; job cũ không được nâng phiếu/sửa dấu vết. Không cần service lưu vé.
 
-## S2 · Chọn một cách ngắn nhất, chỉ trên giấy
-- So sánh tối đa 2 cách tận dụng code hiện hành: (A) thêm/chuẩn hóa một field khai báo cho mọi tool ghi qua schema+dispatcher; (B) dùng một envelope/metadata chung đã có nếu chứng minh đủ an toàn và phổ quát.
-- Chọn cách ít nơi chứa logic nhất, không đặt biệt lệ mỗi AI, không tạo "Master thẻ" lớn, DB, listener, cron hoặc API mới. Nếu `fs_*` và `workspace_*` là hai server, nói rõ có cần 2 điểm móc mỏng theo một hợp đồng chung không.
-- Nêu danh sách **file dự kiến chạm, số điểm sửa, các suite/test sẵn có, một kế hoạch lùi, độ khó nhỏ/vừa/lớn**, không hứa số ngày chưa có cơ sở. Thử mô phỏng lỗi bằng test plan, **chưa chạy test mutation**.
-- Bộ nghiệm thu phải gồm: tool mô tả trước; thiếu tên → lỗi tự hướng dẫn, 0 ghi; tên đúng → 1 write/receipt; retry không ghi đôi; `fs_*` và `workspace_*` giống nhau; tool mới về sau không đi vòng; giữ nguyên key/profile, D12, A2; code/commit không leak secrets.
-- Riêng GPT Live 409: xác minh đủ bằng chứng trực tiếp hay chỉ suy luận từ ruleset; nêu **đường đúng qua Workspace** cho Live khi tool thật có bind, không tự gọi Live từ Codex hay mở khoá main.
+## S2 · Test và triển khai có kiểm soát, chỉ sau READY/Owner RUN
+- Test fixture cho từng lớp: tool description; thiếu/null/rỗng/sai kiểu nhận hướng dẫn; deny trước mọi side effect; tên đúng ghi 1 lần; retry/replay đúng; upload/import/async/helper/`write_file` phủ đủ; stale client; read-only không đổi, profile/key/quorum giữ. Có test cho tool mới không phân loại; test âm và đường lùi.
+- Đề xuất triển khai tương thích: advertize schema + canary client trước, sau đó enforce khi đường refresh hoạt động; không giữ hai cơ chế lâu dài, không thêm lịch/monitor/service mới. Chốt Guard PRE, image/source pin, rollback; deploy qua apply hiện hữu, kiểm POST, dừng/rollback khi regression; không thử bằng production data.
+- Nghiệm thu **thực**: một GPT/OpenAI Cloud và một Claude/FS hiện hữu thực hiện vòng `missing → instruction → retry → receipt`; owner không gõ tên thay AI. Nếu Live chưa có tool hợp lệ, ghi `LIVE_NOT_TESTED` không chặn nghiệm thu Gateway, nhưng không nói Live PASS.
+- Giữ các nhóm connector ngoài scope và Hermes-Mac P438 không đổi.
 
-## Kết quả và điểm dừng
-- Ghi đúng một mục `P444 · Codex · Audit xưng danh Gateway` trong HJW COLLAB qua D12 và `KQ@HJW-DECLARATION-GATE-AUDIT-20261028-10 XONG|DỪNG` theo bằng chứng; nêu rõ `SOURCE_HEAD`, commit, 1 phương án ưu tiên, chỗ sửa, còn UNKNOWN và ONE NEXT_TRIGGER cho Owner/Host quyết thi công.
-- **CẤM trong RUN này:** sửa mã, cấu hình, tool schema thực, MCP, env, keys, Cloud plugin permission, production, nginx, VPS, Gemini, GitHub ruleset, AGENTS/A2, cấp phiếu/vote, RUN nền, thí nghiệm ghi thử ngoài một P/KQ report SSOT. Không giữ terminal/job chờ.
-- Báo Owner 3 câu ngắn: phương án đơn giản nhất là gì, có mấy nơi thực sự phải sửa, điều gì còn cần chốt trước thi công.
+## S3 · Kết quả & dừng sạch
+- Ghi P/KQ vào duy nhất HJW COLLAB qua đường D12 (hợp đồng giao dịch hiện hành); cung cấp image/source commit, SHA, diff, test/ca âm, tool discovery, actor proof, rollback/Guard, trạng thái từng adapter và các client.
+- KQ=XONG chỉ khi cả hai gateway writer và đường internal đã có gate, các client tiêu biểu tự khắc phục lỗi; thiếu một điều kiện → DỪNG có giới hạn, không báo FULL_PASS. 0 job/lease tạm khi kết thúc.
+- Không tự chạy phần việc khác, không tự đổi roadmap/roster/Host; Host B3 sẽ nghiệm thu và ra bước tiếp theo.
 
-STEP_WALK_V1: S0 Codex đọc source đúng HEAD → S1 đối chiếu entrypoint/error/schema → S2 chọn minimal delta + test plan → S3 ghi P444/KQ vào repo & trả cờ; lỗi bất kỳ điểm nào thì ghi UNKNOWN/DỪNG, không tự sửa.
+STEP_WALK_V1: S0 Codex preflight + pin baseline → S1 Codex patch/test trên nguồn được pin → S2 deploy có Guard + client acceptance → S3 ghi P/KQ/commit và trả Owner; bất kỳ guard fail: rollback/stop và báo DỪNG. **DRAFT — không có authority thi hành trước READY + Owner RUN.**
