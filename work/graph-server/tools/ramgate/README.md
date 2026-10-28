@@ -17,5 +17,5 @@ Các script khác nằm trong thư mục bằng chứng VPS `evidence/GS-RAM-GAT
 | `ramgate_cov.py` | `17c456c9effdf9384b243ba25b8a4f75189d2274f18bccc842fc28d78a44905f` | coverage Guard POST (4 ô/mục) |
 | `s0_probe.py` | `46770c3495caadad6ad66eb2b5c5a43630ca5b94f9d5ac3866db26b213c37dbd` | đo S0/POST chỉ đọc |
 
-Màn hình Mac (E3, chỉ trên máy Owner `~/Incomex-Graph-View/tools/build/`): `build_view_c1e.py` sha256 `eac5c80eb530661246d6f0cc9380e01332d6dbe8b477d4b2cff0ca27957a5201`,
+Màn hình Mac (E3, bản chạy trên máy Owner `~/Incomex-Graph-View/tools/build/`; từ 28/10 có bản sao byte-exact ở `../view-mac/build/`): `build_view_c1e.py` sha256 `eac5c80eb530661246d6f0cc9380e01332d6dbe8b477d4b2cff0ca27957a5201`,
 `layout_c1e.mjs` sha256 `e32e2feea943cf890f177c229748faffaafaafb2ab46543a235a8b9a00db3614`.
