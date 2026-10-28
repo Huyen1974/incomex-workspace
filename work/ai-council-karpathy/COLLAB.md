@@ -9,14 +9,14 @@ Phạm vi task: work/ai-council-karpathy/; Owner ngày 28/10/2026 cho triển kh
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 28/10/2026 giao lập task để thảo luận; sau P05/P06 đã cho **triển khai song song trong phạm vi N0 chỉ đọc**. Chỉ đạo mới trong ngày: **tổng hợp cái hệ đã có + phần lấy từ Karpathy**, không xây lại Hội đồng/ghế/luật. D03/§3.7 là bản tích hợp chuẩn. Host hiện tại GPT Chat do Owner chỉ định; chưa có quyền sửa production, đổi luật nền, tạo repo mới hoặc tự chạy N1–N4.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 22:41 +07 · GPT Host · P12
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 22:52 +07 · Codex Worker · P13
 - 🎯 **Mục tiêu:** gom MỌI THỨ đã làm cho hội đồng AI (gồm xưng danh khi ghi) + các món lấy từ Karpathy thành **một kế hoạch rõ, đủ chi tiết để AI làm đúng**; **không xây hệ mới** — luật/ghế ở AGENTS + HJW, cổng ghi ở MCPW, màn hình ở HVU, mã ở GHM; chỉ thêm chốt máy còn thiếu, Host/AI đổi được. **Đọc trước: §3.0.**
 - 🏁 **Xong khi:** máy chặn được lỗi hội đồng TRƯỚC khi ghi (người ký READY không phải Host, thiếu ý kiến khác hãng, chuông đang mở, sai bản) ngay trên cổng ghi sẵn có; một trang Task thấy Host · ghế · ý kiến · KQ · bước kế · Bảng cũ đỏ; chạy thử thật + đổi Host giữa chừng; Owner nghiệm thu theo 14 phép thử §3.0-E. Hội đồng Host nhiều chữ ký: chỉ chuẩn bị, chưa xây.
-- 📍 **Tiến độ:** ✓ Bàn + kế hoạch (D01–D03) → ✓ Bản đồ 115 mục (P08) + Host chốt D04 (P09) → ✓ §3.0 đầy đủ + GPT Host P12 ACCEPT có rào an toàn → ■ **N0 Đo khoảng trống** (READY, chưa chạy) → □ N1 Dọn luật + chốt khuôn → □ N2 Chốt máy + Task View → □ N3 Chạy thử thật, đổi Host → □ N4 Owner nghiệm thu.
+- 📍 **Tiến độ:** ✓ Bàn + kế hoạch (D01–D03) → ✓ Bản đồ 115 mục (P08) + Host chốt D04 (P09) → ✓ §3.0 đầy đủ + GPT Host P12 ACCEPT có rào an toàn → ■ **N0 Đo khoảng trống** (STARTED P13, chỉ đọc) → □ N1 Dọn luật + chốt khuôn → □ N2 Chốt máy + Task View → □ N3 Chạy thử thật, đổi Host → □ N4 Owner nghiệm thu.
 - ✅ **Đã xong:** hội đồng bàn P02–P09 (GPT Host + Claude), chốt D01–D04; bản đồ 115 mục từ 15 nơi (§3.8 — ảnh chụp hồ sơ, chưa đo máy thật; 16 món Karpathy đã gắn vào AGENTS/HJW/MCPW/GHM/HVU); **§3.0 gom đủ 10 khối + 16 món Karpathy có mẫu cụ thể + 11 gói việc W0–W10 + 8 điều chưa biết + 14 phép thử** (P11). Bên ngoài ACK: xưng danh khi ghi đã thiết kế + khảo sát mã xong, **HJW P448 RUN11 đã KQ DỪNG S0, 0 thi công**; GitHub: C2-A đạt, Pro đã bật, kiểm chi phí sau Pro **GHM P103 COST PASS, P105 Owner giữ 1 tài khoản; C2-B chưa có KQ**; sau đó Owner mới giao Claude KST chạy C2-B.
-- ■ **Đang làm:** — · 0 lượt máy đang chạy. Lệnh N0 (Codex làm, Claude rà, GPT chốt) đã ký READY ở P09, chờ Owner chuyển; chưa STARTED, không giữ VPS-GHI.
+- ■ **Đang làm:** Codex Desktop/CLI · N0 `ACK-N0-VERIFY-GAPS-20261028-03` STARTED P13 · 1 lượt khảo sát chỉ đọc; không giữ VPS-GHI.
 - ⬜ **Còn lại:** N0 đo 7 nhóm + 8 điều chưa biết (§3.0-D); N1 dọn luật chồng (W2), một khuôn lệnh/báo cáo (W3), dòng ý kiến/kết luận máy đọc (W4); N2 cổng hội đồng mở rộng `post_guard` sau RUN11 (W5), chuông Telegram (W6), Task View (W7) — cần Owner GO; N3 chạy thử (W9); N4 Owner (W10). GitHub (W8) do GHM làm song song, ACK chỉ nhận kết quả.
-- ➡ **NEXT_TRIGGER=OWNER_DISPATCH_ACK_N0_VERIFY_20261028_03:** Owner chuyển PROMPT N0 cho Codex Desktop/CLI (AUTO0) khi rảnh; Codex kiểm read-gate → STARTED → KQ; GPT Host + Claude rà KQ rồi chốt N1. Song song, không chặn N0: GPT Host rà §3.0/P11 (2 điều kiện). Không tự dispatch; khảo sát không cần Pro.
+- ➡ **NEXT_TRIGGER=CODEX_KQ_ACK_N0_VERIFY_GAPS:** Codex đo phần thiếu theo PROMPT P12; ghi KQ tại P13, sau đó GPT Host + Claude rà. Không tự chạy N1–N4.
 - ⛔ **Không làm:** không xây engine, sổ ghế, policy/event/scanner/DB/Task View/repo/CI thứ hai; không chạy lại khảo sát P444 hay C2-A, không can thiệp HJW/GHM; N0 CHỈ ĐỌC (chỉ ghi trạng thái/KQ vào đúng COLLAB này qua gateway), 0 VPS-GHI, 0 API trả phí; không tự làm N1–N4 hay vượt quyền Owner; **không xoá/rút gọn §3.0** (chỉ thêm dòng ↳ CẬP NHẬT), không giao lại HJW RUN11 đã DỪNG.
 
 ### 1. Mục tiêu
@@ -1478,6 +1478,13 @@ Ghế: openai-main · Bước/vòng: B5→N0 · 1/3 · **P11 ACCEPTED; KHÔNG m�
 - **READY@445f459584046269ae364996eaa55b9db6a38fec** · RUN_ID=ACK-N0-VERIFY-GAPS-20261028-03 · signer=openai-main (GPT Chat Host) · Worker=openai-codex (Codex Desktop/CLI) · Reviewer=anthropic-review (Claude Chat) · Executor_Surface=Codex Desktop/CLI Mac · Write_Path=workspace_*/fs_* đã audit CHỈ để ghi COLLAB ACK · READ_ONLY_AUDIT=YES · REVIEW_REUSED=anthropic-review/P11@d7267b7bfd53 (giảm phạm vi, bổ sung kiểm an toàn) · 0 RUN active. **P09 READY@ea64292f… đã bị supersede** bởi bản PROMPT sửa P12; N0 hiện chưa STARTED, Owner mới là người dispatch AUTO0. Không tự STARTED, không thêm task.
 - **Kết luận:** bản kế hoạch đã **đủ để chạy N0 khảo sát**, N1–N2 là thiết kế/thi công có điều kiện, **không tuyên hội đồng chung đã cưỡng chế**. HJW khắc phục RUN11 riêng, GHM xử lý C2-B riêng; ACK làm đầu mối tổng hợp, không giành quyền các task đó.
 - NEXT_TRIGGER=OWNER_DISPATCH_ACK_N0_VERIFY_20261028_03; Owner chỉ copy prompt ngắn sau khi READY mới được xác minh. Áp: SAME_COMMIT.
+
+### P13 — Codex Worker · N0 khảo sát bằng chứng và khoảng trống
+Ghế: openai-codex · Surface: Codex Desktop/CLI Mac · Bước/vòng: N0 · 1/3.
+- **STARTED@445f459584046269ae364996eaa55b9db6a38fec** · RUN_ID=ACK-N0-VERIFY-GAPS-20261028-03 · 2026-10-28 22:52 +07 · Owner dispatch trực tiếp trong phiên Codex; READY P12 khớp last-touch PROMPT. Based_on=AGENTS, Bảng, toàn bộ §3.0/W0/U1–U8/P12, PROMPT version `8ca9b585fd45fc65b9a7fff51cd3b3153587e2440feddb19c7f8ac487ea213c6`; kế thừa HJW P444/P448 và GHM P103/P105/P106.
+- Read-gate: Host=openai-main, Worker=openai-codex, Reviewer=anthropic-review; không thấy STOP/COUNCIL_ALERT OPEN hoặc RUN đang chiếm N0. Gateway cùng phiên đã xác thực commit `319b535edf0c3b97dae6d0f15fea841421fc12a0` author=`codex [auth:codex]`; chỉ ghi COLLAB ACK, expected_version/head. Không lấy by=/declared_actor làm chứng cứ quyền.
+- Phạm vi: chỉ đọc mã/cấu hình/bằng chứng; không chạy RUN11, không probe ghi sai, không sửa code/luật/VPS/gateway/CI/production; 0 VPS-GHI, 0 API trả phí. Chưa đọc sâu runtime mới, chưa có KQ, không tự nghiệm thu. Ngân sách tối đa 2 giờ.
+- NEXT_TRIGGER=CODEX_KQ_ACK_N0_VERIFY_GAPS.
 
 ## Owner cần quyết
 - —
