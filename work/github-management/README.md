@@ -1,5 +1,7 @@
 # github-management — cửa vào công việc
 
+**P107 READY C2-B:** GPT Host ký READY@`5fdee2217271d6c263f980fed14863fdcfde7e42` (PROMPT last-touch mới, P92 cũ không dùng). Owner chuyển Claude Code CLI PHASE=B RUN_ID `GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07`. B0a thêm làn Claude đúng repo rồi B1–B4 hardlock; chưa RUN. Một GH Pro, không account/App mới, không merge PR #353/deploy.**
+
 **P106 Host chốt P105:** một GH Pro, KHÔNG account thứ hai/GitHub App; hai lớp là required gate+PR (máy) và KST-only merge/release (luật). Đã soạn gia cố B0a trong PROMPT C2 cho nhánh `dev/claude-code-<repo>/` đúng repo, trước khi B1 Web legacy/B2 rulesets; chữ ký READY P92 cũ cần thay bằng P107@new last-touch PROMPT. C2-B CHƯA RUN; không làm lại A.**
 
 **Trạng thái P104 (Claude): điểm danh 4 mục tiêu Owner ở ROADMAP §0.4c. Việc ngay: C2-B khoá main (Web đang bị bảo vệ cũ chặn merge) → SSOT-CUTOVER → AD release → F2.**
