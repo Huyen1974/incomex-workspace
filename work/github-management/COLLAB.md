@@ -1352,7 +1352,7 @@ KQ@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 DỪNG · PHASE=A · KQ_A=DỪNG · b
 
 ## P95 · Codex · 28/10/2026 17:29 +07 — STARTED C2 PHẦN A THEO P94
 Ghế: openai-codex · Based_on: P90–P94, Owner RUN TIẾP trực tiếp, PROMPT canonical.
-STARTED@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 · PHASE=A · 2026-10-28T10:29Z.
+STARTED@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 2026-10-28T10:29Z · executor=Codex Desktop/openai-codex · PHASE=A.
 - S0 PASS: đọc AGENTS (blob fa5419f606ed930c4f7b7f8d4fe39b1628620811), root COLLAB, task COLLAB/P94, ROADMAP §0.4b và toàn PROMPT. GitHub API last-touch PROMPT = 664f06e0d2c8d7839d35241f0d93a0995cda70f0, blob 68bc1e822571de40566da410ba933da6f566b7f8; khớp READY P92. P94 khép lỗi chuyển tay P93; không có STOP mới trong scope.
 - Live S0 10:28Z: main AD a636ffe57d23f3716cb016082dba1867882d5454, Web 4f8405a900170106fdb2b2a60ad10c1785ad6f91, protected=false; runner ghm-ci-agent-data-test và ghm-ci-web-test online/idle, đúng label riêng; ghm-pr-gate active cả hai; 0 PR C2 có sẵn. Hai checkout sạch, origin/main đã cập nhật; quyền gh đọc/ghi nhánh hiện có, không tạo key.
 - Phạm vi: PR-1 fail-closed, PR-2 chỉ dẫn SSOT ≤5 dòng độc lập main, PR-3 same-repo trusted thử âm; không merge/deploy/Pro/secret/data/production. Không lấy VPS-GHI hoặc lease, không RUN mới. Đường lùi: giữ main nguyên trạng, đóng PR chưa merge nếu cần; bằng chứng âm giữ OPEN cho B.
