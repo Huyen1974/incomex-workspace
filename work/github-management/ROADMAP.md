@@ -25,7 +25,7 @@
 Đích gần nhất: **F0 đã PASS; F1 KST merge PR350/676 + audit main và Web production chuyển lên GitHub main, GIỮ chạy nếu parity/Guard khỏe (có known-good rollback)**. F2 sau C2: thử PR thay mã ứng dụng Nuxt4 thật rồi release theo KST. C1B Agent Data rollback vẫn độc lập chưa đạt; không đánh đồng có nguồn Web main với dữ liệu dịch vụ đã xanh.
 
 ## 0.4a G1 — GH CODE GATE GREEN TRƯỚC C2/F2 (Owner 27/10 chiều)
-**Checkpoint thực thi A: P87 KQ_A PASS; bảng run/SHA tại COLLAB P87. B chưa RUN. NEXT_TRIGGER=OWNER_GIAO_KST_PHAN_B_GHM-GH-GREEN-GATE-20261027-06. Không đổi đích/DoD G1: main GREEN sau KST merge vẫn phải đo ở B.**
+**Checkpoint thực thi B: P89 KQ XONG có giới hạn — KST merge AD351→main `a636ffe5`, Web677→main `4f8405a9`; `gate` push main success cả hai repo (40623332810 / 40623377993), 0 đỏ mới; GH_CODE_GATE=PASS · GH_HARDLOCK_ENFORCED=NO (C2). Health Web chưa có lượt sau merge; lượt 21:48Z 27/10 thêm CHECK12 đỏ (trước G1). NEXT_TRIGGER=HOST_ACCEPT_G1. (Trước đó: P87 KQ_A PASS.)**
 Required CODE/PR gate phải GREEN thật theo latest SHA mới merge; Web production F1 P82 đã đạt nhưng GH Actions vẫn nhiều RED. Phân biệt lỗi CODE vs Health nghiệp vụ thật.
 | Nhóm | Kiểm tra GH 100 runs mới nhất | Cổng |
 |---|---|---|
