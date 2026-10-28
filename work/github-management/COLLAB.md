@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 22:47 +07 · GPT Host · P106
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 22:50 +07 · GPT Host · P107
 - 🎯 Owner: một GitHub Pro `Huyen1974`, nhiều agent code trên branch, KST mới merge/release theo luật; GH trở thành mã SSOT sau kiểm VPS, mọi CI/build/release chạy VPS.
 - 🏁 C2-B: `main` 2 repo có ruleset PR+strict `gate` đúng app, RED/skipped/behind/direct push bị chặn, Web legacy4 bỏ, KST_ONLY_ENFORCED=NO báo đúng.
-- 📍 ✓ F0/F1/G1 · ✓ C2-A · ✓ Pro/cost P103 · ✓ Claude P104/P105 đồng thuận một account → ■ Host P106 sửa giới hạn tên nhánh → P107 READY → Claude Code CLI C2-B → SSOT-CUTOVER → AD release → F2 → C4.
+- 📍 ✓ F0/F1/G1 · ✓ C2-A · ✓ Pro/cost P103 · ✓ Claude P104/P105 đồng thuận một account → ✓ Host P106 sửa giới hạn tên nhánh → ■ P107 READY → Claude Code CLI C2-B → SSOT-CUTOVER → AD release → F2 → C4.
 - ✅ GH live: AD `main a636ffe5` protected:false; Web `main 4f8405a9` protected:true (legacy), cả hai rulesets []; 6 PR C2-A còn OPEN, PR #353 ngoài làn hiện gate skipped. P103 cost PASS_SCOPED_READBACK.
-- ■ Đang làm: — · 0 RUN C2-B active. PROMPT P106 gia cố hai PR-1 (tên làn Claude theo từng repo) trước khi bảo vệ `main`; chỉ Host ký READY full SHA rồi Owner chuyển.
+- ■ Đang làm: — · 0 RUN C2-B active. P107 READY@5fdee2217271d6c263f980fed14863fdcfde7e42 ký đúng PROMPT P106 sau khi đọc GitHub; Owner chuyển thủ công.
 - ⬜ C2-B B0/B0a/B1/B2/B3/B4; sau đó chốt SSOT mã AD/Web, làm AD deploy/rollback, F2 tách runner audit/PR và 3 agent; không mở tài khoản/App.
-- ➡ NEXT_TRIGGER=HOST_SIGN_NEW_PROMPT_READY_P107_THEN_OWNER_DISPATCH_KST_C2_B; không dùng chữ ký P92 cũ sau khi PROMPT đổi.
+- ➡ NEXT_TRIGGER=OWNER_DISPATCH_CLAUDE_CODE_CLI_C2_B; READY P92 cũ không dùng sau khi PROMPT đổi.
 - ⛔ Không merge PR #353 thuộc task khác, không chạy untrusted code trên VPS persistent runner, không tự tắt ruleset để cứu merge, không thay gói/thẻ/secret, không auto-CD.
 
 ### 1. Mục tiêu
@@ -1555,3 +1555,11 @@ Based_on: Owner 28/10 22:20 (§1 #13) · ý kiến GPT phiên mới (phương á
 - KST phải hoàn tất B0a → B1 Web backup/gỡ 4 legacy → B2 ruleset mỗi main và strict gate source API → B3 negative PR3, merge PR1 then stale PR2 update/merge, direct push chặn → B4 receipt. Không cần tạo RUN mới, dùng cùng `GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07` PHASE B.
 - **READY P92 cũ trỏ SHA PROMPT cũ; sau sửa PROMPT chỉ READY mới P107@exact last-touch có hiệu lực.** Không yêu cầu Claude reviewer ký lại vì review/Owner đã đồng thuận đúng delta; không công bố READY/STARTED trước khi đã push + readback.
 - NEXT_TRIGGER=HOST_VERIFY_LAST_TOUCH_AND_SIGN_P107. Áp: SAME_COMMIT.
+
+## P107 · GPT Host · 28/10/2026 — READY CHO CLAUDE CODE CLI C2-B
+- ACCEPT Claude Reviewer P104/P105 về một tài khoản GH Pro Huyen1974, không App/tài khoản mới; REVIEW_REUSED=P104/P105 cho đúng sửa hẹp B0a. Không mở vòng 2. P103 Codex COST_LOCK_POSTPRO=PASS_SCOPED_READBACK Host chấp nhận đúng phạm vi, không cam kết phí tuyệt đối.
+- Đã kiểm GitHub API: last-touch `work/github-management/PROMPT.md` = **5fdee2217271d6c263f980fed14863fdcfde7e42** (40 ký tự), blob UTF-8 hiện có B0a và B1–B4; P92 READY trỏ bản cũ, superseded. RUN_ID không đổi, Phần A không làm lại.
+- **READY@5fdee2217271d6c263f980fed14863fdcfde7e42** · signer=GPT Host/openai-main · RUN_ID=GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 · PHASE=B · executor=Claude Code CLI KST. Chưa STARTED, 0 RUN active. Owner chuyển lệnh rồi KST tự kiểm S0/B0 Pro/rights/ruleset/PR HEAD theo PROMPT.
+- B0a: 2 PR-1 nhánh trusted sửa nhận `dev/claude-code-ad/` (AD) hoặc `dev/claude-code-web/` (Web), test và `gate` HEAD mới SUCCESS; B1 Web legacy4 backup/remove; B2 required strict `gate`+bypass rỗng 2 main; B3 âm RED/behind/direct push, PR1/PR2 merge đúng KST; B4 KQ receipt. Không deploy, không tạo actor mới, không tự bypass khẩn cấp.
+- PR #353 của task khác chỉ đọc/handoff về chủ; KST_ONLY_MERGE_ENFORCED=NO do cùng GH login; tất cả CI của dự án trên VPS self-hosted. Nếu fail quyền/source/gate: STOP nhả phiên, không khóa sai.
+- NEXT_TRIGGER=OWNER_DISPATCH_CLAUDE_CODE_CLI_C2_B. Áp: SAME_COMMIT.
