@@ -499,7 +499,7 @@
 - ✅ **Đã xong:** Hermes VPS Owner-chat + Workspace hoạt động; N1 PASS/N2 PASS_WITH_RESIDUAL. P347 F updater/A1 read PASS; P353 ACL 5 file/postimage Guard PASS; P359 cron/V1 read-only PASS; P362 dừng đúng cổng, 0 mutation, VPS-GHI trống. Lịch sử Mac và các KQ giữ nguyên để audit.
 - ■ **Trạng thái hiện hành:** P434 đóng RUN08 CLIENT_PENDING: Dot thật nhận relay nhưng yêu cầu Owner xác nhận trực tiếp trước tạo Work/lịch. Chưa existing Work wake, chưa NEW Work LOCAL, chưa CLOUD canary; PA1_NOT_PROVEN, chưa fire tự động. Work→GPT/Claude giữ bằng chứng Owner đã thử; không nhắc nhầm phiên. +1 AD recreate UNUSED; N3–N6 giữ nguyên.
 - ⬜ **Còn lại:** **Số dư có chủ, KHÔNG phải RUN chờ:** B/C/E server helper+image agent-data chưa deploy → KEEP_DORMANT, không expose/rollback mới; D10 PG và 38 SECURITY DEFINER theo chủ PG/Owner; identity/A9 PARTIAL; canary Owner-direct UNTESTED; Guard POST #21 rollback FAIL (bản reconstructed SHA khớp PRE nhưng không là original backup); ACC15 baseline flake, TQT placeholders. Kiểm kê dọn phần unused trong bảo trì đã được duyệt nếu cần.
-- ➡ **Kế tiếp:** NEXT_TRIGGER=CLAUDE_REVIEW_P435_FRESH_WORK_APPS_THEN_HOST_READY. P434 dừng vì Dot yêu cầu Owner xác nhận, chưa có phép thử Work. Owner B1 giản lược: Dot mở tối đa 4 Work task mới trên Mac, mỗi Work mở đúng 1 phiên mới GPT Chat/Claude Chat/Claude Code CLI/Codex và gửi 1 canary. P435 PROMPT đang DRAFT cho Claude, Host READY mới giao Owner gửi TRỰC TIẾP Dot, không Codex relay. Không đòi existing session_ref, không test PA1/Events trong lượt này, N3–N6 không đổi.
+- ➡ **Kế tiếp — quyết định Owner P438 (28/10):** NEXT_TRIGGER=OWNER_CHOT_HERMES_MAC_TRIGGER_THEN_COUNCIL_REVIEW. Dừng đường thử Dot→Work→Codex do phép thử thực tế P437 chưa điều khiển được Codex trên Mac; không dùng Codex tự gọi định kỳ vì độ trễ không phù hợp (tần suất dưới 60 phút CHƯA xác minh). Owner chọn hướng Hermes trên MacBook nhận tín hiệu (Telegram hoặc cơ chế native khác CHƯA CHỐT) → CUA điều khiển Codex → Codex đọc repo/task và điều phối các AI trong đúng phiên, tự thực hiện phần việc của Codex. P435/RUN09 không READY/không chạy. CHỈ GHI QUYẾT ĐỊNH, chờ Owner chốt với Hermes rồi Hội đồng phản biện; không triển khai kỹ thuật. Chi tiết tại P438.
 - ⛔ **Cấm:** không gọi API thuê bao GPT/Claude; không thêm Routine/Anthropic/OpenAI keys; không bấm/update Hermes Desktop fan-out hoặc hermes update không kiểm soát; không sửa Hermes VPS khi Graph/VPSC còn shared mutation/#11 đỏ/Guard FAIL; không bật update một máy rồi báo đồng bộ; không phá snapshot/data/rollback; không đổi N4–N6/T1–T9; không phát RUN từ READY cũ. Không đổi gì trong Settings của Hermes Desktop khi đang ở kết nối VPS; không ghi "VPS không đổi" khi đèn #21/#22 còn đỏ. **Ngoại lệ Owner 17/10 07:15:** luật «không sửa Hermes VPS khi #11 đỏ/Guard FAIL» không chặn lượt sửa làm xanh chính #11/#21/#22-phần-HJW (vẫn VPS-GHI, Điều 30/31, đường lùi, không rebaseline che lỗi, không đụng GJW).
 #### Vùng máy giao Hermes (Contract V1 · DROOT40 / AGENTS A9-GLB · máy đọc; người không sửa tay dòng trong vùng)
 <!-- MACHINE_ASSIGNMENTS_V1:BEGIN -->
@@ -8184,6 +8184,35 @@ Chỉ sửa PROMPT DRAFT + ghi P436; KHÔNG READY, KHÔNG RUN, KHÔNG production
 - Chưa tạo được phiên GPT Work LOCAL bằng công cụ hiện có; chưa điều khiển được GUI để bấm New Chat/chọn ứng dụng như yêu cầu. Đọc UI `com.openai.codex` bị công cụ từ chối an toàn; kiểm tra tiến trình bằng ps bị OS từ chối “operation not permitted”. Không đổi quyền, không thử đường vòng. Không đủ bằng chứng phân loại CLI/app/headless. Dot đính chính phát biểu trước đó “mở Codex app”: quá mức bằng chứng thực tế.
 - Phần việc ngắn đọc repo đã được gửi trước khi Owner ngắt; sau chỉ đạo dừng đã kết thúc, không ghi báo cáo đó. Child đọc AGENTS/PROMPT/HEAD `e176eae3c9dce6e812d8c53b137863ca50ed862e`, COLLAB child trả rỗng; Dot không nhận đã đọc hết mọi task. Báo cáo P437 này là yêu cầu GHI riêng sau đó của Owner.
 - Kết luận: đạt giao tác vụ local/gửi tiếp/nhận kết quả/hiển thị; KHÔNG ĐẠT điều khiển ứng dụng trên Mac. Không dùng kết quả này làm PASS Dot→GPT Work→các app hoặc cơ sở chạy RUN09 qua đường đã thử. Không kết luận toàn sản phẩm vĩnh viễn không hỗ trợ. Không production mutation, không lịch/keys/gateway, không tạo thêm task. Phép thử đã dừng; Host đối chiếu giới hạn trước quyết định tiếp.
+
+### P438 · Owner quyết định đổi hướng / GPT Host ghi nhận · 2026-10-28 (+07)
+**OWNER_DIRECTION_CONFIRMED · TECHNICAL_TRIGGER_UNRESOLVED · COUNCIL_REVIEW_PENDING · NO_RUN.**
+
+**1. Lý do đổi hướng (nguồn: Owner trực tiếp, 28/10).**
+- Đường A Dot → GPT Work/Codex trên MacBook: thử thực tế không điều khiển được Codex theo mục tiêu (đối chiếu P437). Không dùng đường này làm cơ sở thực thi tiếp; không suy diễn mọi tính năng Dot vĩnh viễn không hỗ trợ.
+- Đường B Codex tự chủ động gọi ra Hội đồng/poll: giới hạn tần suất dưới 60 phút **chưa xác minh**. Ngay cả khi ngắn hơn, độ trễ chờ vẫn quá lớn cho mục tiêu điều hành gần thời gian thực. Không chọn làm đường đánh thức chính.
+- Owner đã tự thử lại Hermes trên MacBook và đánh giá **tương đối ổn** ở bước thử sơ bộ; chưa có nghiệm thu chuỗi đầu-cuối.
+
+**2. Cấu trúc Owner chốt để tiếp tục nghiên cứu.**
+```text
+Nguồn đánh thức bên ngoài (Telegram HOẶC cơ chế riêng của Hermes — CHƯA CHỐT)
+    → Hermes chạy trên MacBook, nhận việc
+    → Hermes sử dụng CUA thao tác Codex trên MacBook
+    → Codex vào GitHub repo SSOT, đọc ĐÚNG task/roadmap/quy định/phiên được giao
+    → Codex điều phối trong ĐÚNG phiên: nhắc các AI khác mở/đọc cùng task trên repo và tham gia xử lý
+    → Việc thuộc Codex: Codex tự thực hiện theo phạm vi và quyền của task
+    → Kết quả/ý kiến/bằng chứng trở về task repo; tuân thủ quy trình Host/Hội đồng đã thống nhất
+```
+- **Repo là SSOT:** mỗi lượt được Hermes đánh thức, Codex phải đọc lại chỉ dẫn và trạng thái mới nhất trên repo trước khi hành động; không tin vào nội dung cũ được nhúng sẵn ở chat.
+- **CUA là cơ chế điều khiển được chọn để thử với Codex**, chưa được tuyên đã PASS tự động hóa/điều phối nhiều ứng dụng. Codex có nhiệm vụ phối hợp và làm việc, không tự ý bỏ qua các cổng duyệt của Owner/Host.
+
+**3. Điểm gãy duy nhất đang cần chốt:** cách tín hiệu bên ngoài **đến Hermes trên MacBook** đủ tin cậy/độ trễ chấp nhận được. Telegram hay cơ chế Hermes khác là ứng viên, chưa có quyết định cuối; cần phân biệt rõ runtime Hermes local với app Hermes trên Mac vốn từng kết nối Hermes-VPS, tránh giả định đường thực thi.
+
+**4. Trạng thái và bước sau.**
+- **Owner đang trực tiếp bàn cơ chế trigger với Hermes.** Sau khi Owner chốt, mới đưa cấu trúc cùng phương án trigger ra Hội đồng xem xét/đồng thuận và lập bước thực thi.
+- Prompt P435 RUN09 chỉ giữ làm lịch sử thử nghiệm: **SUPERSEDED / NOT_READY / NO_RUN**. Không tự chạy lại Dot→Work, không mở task mới, không đổi roster, không triển khai CUA/gateway/bot/scheduler/quyền truy cập hoặc production trong lượt ghi nhận này.
+- **NEXT_TRIGGER=OWNER_CHOT_HERMES_MAC_TRIGGER_THEN_COUNCIL_REVIEW.** Ghi nhận quyết định hướng kiến trúc, **không** coi là hội đồng đã chốt chi tiết hoặc là nghiệm thu kỹ thuật.
+
 
 
 

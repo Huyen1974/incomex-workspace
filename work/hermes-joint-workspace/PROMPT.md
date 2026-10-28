@@ -1,7 +1,7 @@
 # DOT + CODEX — HJW-N2-FOUR-FRESH-SESSIONS-20261027-09
 
 RUN_ID: HJW-N2-FOUR-FRESH-SESSIONS-20261027-09
-STATUS: DRAFT_NOT_READY; CHƯA RUN. Chờ Claude review, Host READY đúng SHA và Owner nhắn TRỰC TIẾP Your dot.
+STATUS: SUPERSEDED_BY_OWNER_DIRECTION_P438; NOT_READY; CHƯA RUN; KHÔNG PHÁT LỆNH RUN09. Owner đổi hướng sang Hermes trên MacBook → CUA → Codex; xem COLLAB P438. Giữ phần dưới làm lịch sử phép thử cũ.
 Repo/task: Huyen1974/incomex-workspace · work/hermes-joint-workspace.
 Executor_Surface: Dot thật -> tối đa 4 Work tasks MỚI trên MacBook -> 4 ứng dụng/phiên MỚI. Codex chỉ giám sát bằng chứng và ghi P/KQ qua workspace_* D12.
 Write_Path: Native desktop/browser/CLI được hãng và Owner đã cấp; không mutation production, không gateway/script mới.
