@@ -69,13 +69,13 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>P74 · PG-A1 đã nghiệm thu, PG-A2 chuẩn bị đúng 2 SQL VIEW native</h2>
+<section class="owner-actions ok"><h2>P76 · PG-A2 đã chốt kỹ thuật P75, chờ Owner G1/G2 để ký READY</h2>
 <p>✅ B0b XONG P27 · ✅ GPT Host ACCEPT kiến trúc P48, đã sửa an toàn ở P49.</p>
-<p>PG-A1 P73 đã XONG_CÓ_GIỚI_HẠN với 0 ghi production. PostgreSQL directus V1 SELECT có 16.514 vật, V2 có 4.566 quan hệ, Census đúng, ba DB RO đã đo; postgres DB vẫn UNKNOWN. GPT Host P74 cho chuẩn bị PG-A2 <strong>chỉ hai VIEW V1/V2 trong directus</strong>, Claude Chat rà SQL DDL/hash/collision/quyền trước Owner G1/G2 rồi mới Host READY. PG VIEW mới tự được đếm trong catalog; số sau CREATE không thể ép bằng số đo trước. P0 báo cáo Nuxt/nginx công khai nên không mặc định cấp SELECT backend `directus`; PG-L1 đọc file rộng vẫn BLOCKED, E1 Kuma/Graph không cản PG-native.</p>
+<p>PG-A1 P73 đã nghiệm thu XONG_CÓ_GIỚI_HẠN. Claude P75 và GPT Host P76 thống nhất hai SQL VIEW native V1/V2 trong DB directus. <strong>Đã xác minh lại độc lập SHA-256 cả tệp áp 9.980B và lùi 902B</strong>. Chỉ vai AI <code>context_pack_readonly</code> được SELECT, không mở cho Directus/Nuxt khi API báo cáo còn công khai. <strong>Lùi = REVOKE + COMMENT, hai VIEW vẫn tồn tại</strong>, muốn xóa/kích hoạt lại cần Owner quyết riêng. Đã kết thúc phản biện; còn một phê duyệt G1/G2 trực tiếp của Owner trước READY/RUN. PostgreSQL là nguồn dữ liệu, không xây thêm sổ bản sao.</p>
 <p class="muted">Mốc tiếp theo: chứng minh native PG-L0 an toàn/đủ dữ liệu → Owner duyệt riêng nếu cần mount/role/VIEW → PG-A triển khai trước, EXT-B chỉ khi không thể làm bằng PG an toàn.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
 <span class="flag">P55 · PG đọc sống + Census + Graph · Ba Lô LEGACY</span>
-<span class="flag">✅ B0b/TS1/L0 · ✅ PG-A1 P73/P74 ACCEPT · ■ PG-A2 2 VIEW DRAFT, chưa Owner G1G2/READY</span>
+<span class="flag">✅ B0b/TS1/L0/PG-A1 · ✅ P75 review / P76 Host ACCEPT · ■ PG-A2 chờ Owner G1G2, chưa READY/RUN</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <section class="arch-figure" aria-label="P65 hai nhóm PG-first và ranh giới ngoài PG">
@@ -138,7 +138,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <div class="milestone-path" aria-label="Thứ tự các mốc, kéo ngang để xem hết">
  <div class="milestone-node"><strong>✅ B0b</strong><span>🤖 XONG P27: hai công cụ đã được bảo vệ</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>✅ TS1 · ĐẾM</strong><span>XONG khảo sát P52; còn 3 DB + Graph/đăng nhập thiếu</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node is-current"><strong>■ PG-A2 · 2 VIEW NATIVE</strong><span>V1 vật + V2 quan hệ trong directus; Claude rà ACL/collision, Owner G1/G2 trước chạy</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node is-current"><strong>■ PG-A2 · G1/G2</strong><span>2 SQL VIEW đã khóa SHA; Owner duyệt quyền áp và lùi chức năng rồi Host ký READY</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS3 · SỔ</strong><span>😊 Duyệt cột → 🤖 tạo sổ quyết định + trang Nuxt</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS4–TS5</strong><span>🤖 Máy tự sửa lỗi được phép, cảnh báo có hạn; chỉ phát sinh 1 vụ khi cần người</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>B1–B5</strong><span>Công thức → Workflow</span></div>
@@ -181,7 +181,8 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
  <p>Chỉ nói «có cảnh báo» khi đã chứng minh lịch chạy, kết quả và người nhận. Chưa tạo lịch mới, DOT mới, trigger hoặc app mới.</p>
 </details>
 
-<h2>5. PG-A2 — Hai View, có rào trước khi triển khai</h2>
+<h2>5. PG-A2 — Hai VIEW đã chốt, chờ một phê duyệt</h2>
+<p>P76: chốt đúng hai SQL file P75, 9.980B SHA b5910340…d31d và 902B SHA bd19885f…30e3; cổng tạo VIEW chỉ từ SQL manifest được duyệt, cấp đọc riêng context_pack_readonly. Lùi có giới hạn: hai VIEW vẫn còn trong catalog nhưng bị thu hồi quyền và đánh nhãn. Không tự cấp G1/G2 từ lời đề nghị trong báo cáo Claude; Owner duyệt một lần, sau đó Host ký READY và Owner chuyển Claude Code khi đến lượt. Nuxt auth P0, 24 SECURITY DEFINER và E1 Kuma đúng chủ khác.</p>
 <p>P73 có SQL và SHA, chưa tạo View. Host P74 yêu cầu reviewer kiểm `CREATE OR REPLACE` có nguy cơ đè tên mới, `security_invoker`, default ACL tự cấp DML cho `directus`, việc GRANT SELECT khi API chưa auth, và SQL manifest/rollback RESTRICT. Sau tạo hai View sẽ xuất hiện trong chính danh mục, cần so Census sống cùng mốc. Không tạo S4/V3, không chạm Nginx/Kuma/Graph trong PG-A2. Đề nghị owner G1/G2 chỉ sau Claude review một vòng.</p>
 <p>Chỉ chạy PG-A1 đọc native pg_catalog/pg_depend/pg_rewrite, chuẩn bị SQL V1/V2 trong DB directus; KHÔNG tạo VIEW trước Owner G1/G2 PG-A2. Kuma SQL-error là đề xuất chưa duyệt (phải tránh báo sai), file_fdw TSV một tệp vẫn cần kiểm quyền/mount và độ mới; không cấp pg_read_server_files chung. Các vấn đề Nginx auth P0, 24 SECURITY DEFINER và 7 job_queue kẹt chuyển đúng chủ hiện hữu, không tạo nhiệm vụ mới.</p>
 <p>P70: G0-L0 đã xong khảo sát. PG-A1 lập SQL contract V1/V2 bằng dữ liệu 3 DB có quyền; DB postgres UNKNOWN. E1 chọn Native Directus Flow/Guard→Kuma Push khi chứng minh quyền/kết quả thật, không cài mới; nginx auth trên các tên miền chưa bật nên không được công bố; 24 SECURITY DEFINER quyền gọi rộng cần audit đúng Host PG bảo mật. L1 file-read phải giữ BLOCKED vì pg_read_server_files có thể đọc bí mật container. Chi tiết và lệnh DRAFT mới xem COLLAB/PROMPT.</p>
