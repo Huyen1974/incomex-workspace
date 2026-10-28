@@ -34,9 +34,14 @@
 ## Ở lại Mac, KHÔNG đưa lên repo
 
 - Dữ liệu `data*/`, `c1e/out/`, `evidence*/` — dữ liệu nghiệp vụ thật, PRIVATE.
-- `README.txt` hướng dẫn Owner (sha256 `024de3d94074c69fb2cd536bf6e17570bd219c5464207e160713f230cf560b53`) — có mã đơn thật làm ví dụ.
+- `README.txt` hướng dẫn Owner (sha256 `024de3d94074c69fb2cd536bf6e17570bd219c5464207e160713f230cf560b53`) — bản repo là `README-mac.txt` (sha256 `83c5dcf75ae1204a2912b96df187851e6a4c1bceeedb93a1e484ad21dfdbe87c`), khác đúng 1 dòng: bỏ mã đơn thật trong ví dụ ô tìm. Sửa README trên Mac thì cùng lượt cập nhật bản này.
 - `app/gephi-lite/v1.0.2/` — bản phát hành Gephi Lite; bundle đã vá dựng lại bằng `../ux16/build.py`.
 - `ux16/tests/` — có mã đơn/record id thật.
+
+## Kiểm khi lưu (28/10)
+
+- 10 tệp mã tải lại từ GitHub raw = sha256 bản Mac 10/10; quét secret/token/IP/email/mã đơn/record id: 0.
+- JEV (tư vấn): chép byte-exact bản đang dùng 0,74 · giữ bản lịch sử có đánh dấu 0,48 (độ tin thấp) · README.txt làm bản bỏ mã rồi chép 0,76 ⇒ đã làm theo cả ba.
 
 ## Nợ
 
