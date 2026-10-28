@@ -1,6 +1,8 @@
 # github-management — cửa vào công việc
 
-**Trạng thái P97 Host độc lập ACCEPT C2-A P96 PASS_TRUSTED_PILOT: AD #354/#355, Web #679/#680 CODE gate SUCCESS đúng HEAD; AD #356/Web #681 FAILURE OUT_OF_PILOT trước fetch/checkout đúng phép thử. Sáu PR OPEN, main AD a636ffe5/Web4f8405a9 không đổi, 0 merge/deploy. C2-B KST chưa RUN: cả hai main protected:false, API rulesets 403 Upgrade Pro, Owner chưa cấp GO/Pro; Web có legacy 4 status. P98 Claude kiểm chứng một vòng; giữ PROMPT/READY P92@664f06e0d2c8d7839d35241f0d93a0995cda70f0 và RUN_ID GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07. F2/C4 chưa mở; Health dữ liệu và AD rollback riêng.**
+**Trạng thái P98: Claude tự kiểm lại trên GitHub, đồng ý C2-A PASS; PROMPT/READY P92@664f06e0 giữ nguyên; chờ Owner nâng Pro → Claude Code CLI Phần B.**
+
+**Trước đó: P97 Host độc lập ACCEPT C2-A P96 PASS_TRUSTED_PILOT: AD #354/#355, Web #679/#680 CODE gate SUCCESS đúng HEAD; AD #356/Web #681 FAILURE OUT_OF_PILOT trước fetch/checkout đúng phép thử. Sáu PR OPEN, main AD a636ffe5/Web4f8405a9 không đổi, 0 merge/deploy. C2-B KST chưa RUN: cả hai main protected:false, API rulesets 403 Upgrade Pro, Owner chưa cấp GO/Pro; Web có legacy 4 status. P98 Claude kiểm chứng một vòng; giữ PROMPT/READY P92@664f06e0d2c8d7839d35241f0d93a0995cda70f0 và RUN_ID GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07. F2/C4 chưa mở; Health dữ liệu và AD rollback riêng.**
 
 **Trước đó: P90 Host: G1 PASS trên GitHub thực (PR351 AD/main a636ffe5 gate40623332810 SUCCESS; PR677 Web/main4f8405a9 gate40623377993 SUCCESS), không postmerge false-red. GH_HARDLOCK_ENFORCED=NO vì main private protected:false; C2 Pro/required `gate`/Chief identity tiếp theo. Web Health sau merge run40629876815 có 11 PASS/2 business FAIL, CHECK12 trở lại PASS; Web ops-smoke/AD Lifecycle GREEN. DRAFT GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 cho Claude P91, chưa READY/RUN, không tự mua Pro. F2/C4 chưa mở, AD rollout nợ riêng.**
 

@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 17:47 +07 · GPT Host · P97
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 20:15 +07 · Claude Reviewer · P98
 - 🎯 Owner: nhiều agent code song song GitHub, KST Claude Code CLI duyệt/merge, CODE gate GREEN thật và nhánh `main` được bảo vệ trước F2.
 - 🏁 C2-A 2 repo x3 PR: PR-1 sửa `gate` GREEN, PR-2 trỏ SSOT GREEN, PR-3 ngoài làn RED `OUT_OF_PILOT` trước checkout; C2-B ruleset/required check `main` chưa làm.
-- 📍 ✓ C1A/F0/F1/G1 → ✓ Codex P96 KQ_A → ✓ Host P97 ACCEPT_A_SCOPED → ■ Claude P98 phản biện bằng chứng/đường B → Owner Pro+RUN KST B → F2 3 agent sau khi trust boundary đạt → C4.
+- 📍 ✓ C1A/F0/F1/G1 → ✓ Codex P96 KQ_A → ✓ Host P97 ACCEPT_A_SCOPED → ✓ Claude P98 REVIEW_ACCEPTED (tự kiểm GitHub) → ■ 😊 Owner nâng Pro → Owner RUN KST B → F2 3 agent sau khi trust boundary đạt → C4.
 - ✅ GH API 6 PR/head/base/Actions/log/diff: AD #354/#355 GREEN run40672864342/40672944046, Web #679/#680 GREEN run40672871326/40672958439; AD #356/Web #681 RED run40673027440/40673046142 đúng `OUT_OF_PILOT`. Cả 6 OPEN, chưa merge.
 - ■ Đang làm: — · 0 RUN active. P97 Host ACCEPT C2-A=PASS_TRUSTED_PILOT; `PROMPT.md` chưa sửa, READY P92@664f06e0d2c8d7839d35241f0d93a0995cda70f0 giữ nguyên. Chưa Owner RUN B.
 - ⬜ C2-B: private main đều protected:false, GitHub `/rulesets` API 403 Upgrade Pro, Web lưu 4 contexts cũ; KST_ONLY_MERGE=NO cùng identity, UNTRUSTED_WORKFLOW_ISOLATED=NOT_PROVEN. Web Health CHECK2/7 business FAIL và AD rollback độc lập.
-- ➡ NEXT_TRIGGER=CLAUDE_REVIEW_C2_A_P97: Claude đối chiếu 6 PR/Actions và điều kiện KST B, góp ý một vòng ngắn; sau đó Owner nâng Pro/giao KST B riêng theo RUN hiện hành, không ký READY lại nếu PROMPT không đổi.
+- ➡ **NEXT_TRIGGER=OWNER_NANG_PRO_VA_RUN_KST_PHAN_B**: 😊 Owner nâng GitHub Pro (P91 §5) → Host chuyển Claude Code CLI Phần B cùng RUN_ID, READY@664f06e0d2c8d7839d35241f0d93a0995cda70f0 (không ký lại, PROMPT không đổi).
 - ⛔ Không merge/chỉnh ruleset khi chưa Pro+Owner RUN B, không chạy fork/worker mới trên VPS runner, không auto-deploy hay cleanup 30+8 docs/orphan/đổi ngưỡng.
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1397,6 +1397,36 @@ KQ@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 XONG · 2026-10-28T10:38Z · executor
 - **C2-B preflight thực:** cả hai repo `main protected:false`, API GET rulesets trả 403 `Upgrade to GitHub Pro`, Web vẫn lưu 4 legacy checks. **Không đủ điều kiện chạy KST B lúc này**; B0 trong PROMPT P92 phải xác minh quyền quản trị và Pro active, Web B1 backup/xóa legacy, B2 tạo 1 ruleset/repo strict `gate` source verified, B3 thử RED PR-3 trước merge, PR-1 merge rồi thử PR-2 behind cập nhật, push main chặn, force/delete kiểm luật chỉ đọc. Tình huống gate hỏng không tự disable ruleset, phải STOP+Owner GO.
 - **ROADMAP/OWNER_DECISION:** C2-A PASS; bước tiếp là Owner quyết/nâng GitHub Pro và giao Claude Code CLI B riêng khi Pro có hiệu lực; sau B mới xét F2 với actor/runner trust boundary, C4 đêm sau F2. Web Health CHECK2/CHECK7 còn FAIL dữ liệu (+2 orphan), C1B Agent Data deploy rollback chưa đạt, không chặn code branch hoặc cần tự sửa trong C2.
 - **CLAUDE REVIEW P98:** dựa P96/P97, độc lập kiểm green/red correct, source diff của 6 PR, risk workflow self-edit và đúng trình tự C2-B; đồng thuận thì ghi P98 REVIEW_ACCEPTED hoặc vấn đề thực chất/điểm STOP cụ thể. Không mở task hay thêm vòng tranh luận không cần thiết. **Không sửa PROMPT/last-touch P92** nếu không có thay đổi kỹ thuật bắt buộc. NEXT_TRIGGER=CLAUDE_REVIEW_C2_A_P97.
+
+## P98 · Claude Chat (Reviewer) · 28/10/2026 20:15 +07 — REVIEW_ACCEPTED C2-A · không sửa PROMPT · READY P92@664f06e0d2c8d7839d35241f0d93a0995cda70f0 giữ nguyên
+Based_on: P92–P97 · **tự đo gh API 28/10 20:05 +07**: 6 PR (state/head/base/mergeable), check-run `gate` từng head kèm app nguồn, job/step hai run âm, diff 6 nhánh so với main, main hai repo, `/rulesets`.
+
+**1. Kết quả A đúng như P96/P97:**
+| Repo | PR-1 sửa gate | PR-2 chỉ dẫn | PR-3 âm | main |
+|---|---|---|---|---|
+| AD | #354 `77feb8a7` gate success | #355 `ce4f62b9` success (AGENTS.md +4 dòng) | #356 `32272a73` failure | `a636ffe5` không đổi |
+| Web | #679 `b99eb362` success | #680 `548481b4` success (AGENTS.md +4 dòng) | #681 `17eaf3ab` failure | `4f8405a9` không đổi |
+- Cả 6 PR OPEN, 0 merge; base = main hiện tại. Check `gate` mọi head do app **github-actions (id 15368)** tạo ⇒ điều kiện STOP «nguồn check chưa xác minh» ở B2 đã có sẵn bằng chứng, KST chỉ cần đọc lại.
+- Hai run âm (40673027440, 40673046142): bước đầu preflight = failure; scan/actionlint/policy/unit (+ setup-node Web) = skipped; summary = failure ⇒ job RED, không phải skipped.
+- Diff: PR-1 đúng 3 tệp/repo; `if` mức job chỉ còn bỏ qua `closed`; khối kiểm làn inline đặt trước mọi subprocess/fetch, giống hệt AD↔Web; policy thêm `GATE_MUST_RUN_OUTSIDE_PILOT` + `PREFLIGHT_MUST_BE_FIRST`. PR-2 chỉ 3 dòng chỉ dẫn trỏ SSOT, không tạo luật song song. PR-3 = PR-1 + 1 dòng chú thích.
+
+**2. Giới hạn — đồng ý P92/P97, chỉ rõ cách đóng cho F2:** `pull_request` chạy workflow của chính PR ⇒ PR có thể tự sửa preflight; `UNTRUSTED_WORKFLOW_ISOLATED=NOT_PROVEN` là đúng. Rủi ro thật là mã PR chạy cùng runner với các audit có secret (Health/Lifecycle). Roadmap đã có sẵn cách đóng: **mục C3.0 (Owner 26/10 21:32) — tách runner chạy audit có secret khỏi runner nhận mã PR**. Đề nghị dùng đúng mục này làm cổng F2, không thiết kế mới (đã ghi vào ROADMAP §0.4b).
+
+**3. Điều kiện đầu vào Phần B (đã rà để KST không dừng giữa chừng):**
+| Điều kiện | Trạng thái |
+|---|---|
+| GitHub Pro có hiệu lực | 🔴 chưa — `/rulesets` hai repo vẫn 403 lúc 20:05; chỉ Owner làm được |
+| `gh` trên Mac = Huyen1974 quyền admin, merge được PR đổi workflow | 🟢 đã chứng minh ở G1 P89 (merge #351/#677 đổi workflow) |
+| Nguồn check `gate` | 🟢 github-actions 15368 (mục 1) |
+| Bản clone để thử push thẳng | 🟢 KST đã có clone hai repo từ G1 |
+| PR-1/2/3 còn đúng head, base = main | 🟢 lúc 20:05; B0 đo lại |
+| Cần Computer Use / máy khác | ⚪ không cần — toàn bộ bằng gh API/git |
+- Lưu ý thời điểm: ngay khi Pro có hiệu lực, bảo vệ cũ của Web (4 check đã chết) bắt đầu chặn ⇒ giao Phần B ngay sau khi nâng Pro; từ lúc nâng tới B1 không ai merge gì vào Web.
+
+**4. KST-only — đồng ý thận trọng của P92:** tài liệu GitHub không nói rõ bypass kết hợp thế nào khi nhiều ruleset cùng áp ⇒ đường «thẻ dev riêng + Restrict updates bypass admin» (P91 §4) phải thử thật ở F2 trước khi tuyên, không coi là đã đúng.
+
+**5. Không sửa PROMPT:** last-touch vẫn `664f06e0d2c8d7839d35241f0d93a0995cda70f0` = READY P92. Không mở vòng hai.
+- NEXT_TRIGGER=OWNER_NANG_PRO_VA_RUN_KST_PHAN_B → 😊 Owner nâng Pro → Host chuyển **Claude Code CLI** Phần B cùng RUN_ID, READY@664f06e0d2c8d7839d35241f0d93a0995cda70f0.
 
 
 
