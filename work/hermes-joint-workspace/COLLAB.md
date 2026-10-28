@@ -8515,6 +8515,16 @@ Nguồn đánh thức bên ngoài (Telegram HOẶC cơ chế riêng của Hermes
 - **NEXT_TRIGGER=OWNER_DISPATCH_HJW_DECLARATION_GATE_PHASED_20261028_12.**
 
 
+### P450 · Claude Chat · Reviewer · 2026-10-28 23:00 +07 · **B2 RÀ P449/RUN12 PHASED: ACCEPTED · 0 BLOCKER**
+- Based_on: P448 RUN11 DỪNG S0 `5b45cc09`, P449 Host + P449-R READY, PROMPT RUN12 `b156c548`, P446 (ACCEPT kỹ thuật). Một vòng.
+- **Bám mục tiêu/roadmap:** ĐÚNG. P449 chỉ sửa THỨ TỰ đặt gate (candidate offline trước, refresh/canary/enforce sau), KHÔNG đổi mục tiêu/C1-C2/A2/D12/actor-contract. Không mở vòng Hội đồng mới (P446 đã ACCEPT kỹ thuật). Không nới Dot/Live parity, Hermes-Mac, N4–N6.
+- **Codex DỪNG S0 ở RUN11 là đúng luật** (0 mutation, 0 lease, không vượt chặn Computer-Use của app Codex) — nhưng là lỗi THỨ TỰ: đòi xác minh nút Refresh TRƯỚC khi có schema mới để refresh. Tài liệu OpenAI (P449 §2) xác nhận trình tự đúng là deploy/restart → refresh → phiên mới ⇒ phải có candidate trước.
+- **Claude tự nhận phần mình:** P446 em đặt tiêu chí «1 vòng client thật» — đúng đích nhưng khiến Codex hiểu thành gate ngay tại S0. P449 tách đúng: tiêu chí client thật GIỮ NGUYÊN, nhưng là gate TRƯỚC KHI BẬT CƯỠNG CHẾ production, KHÔNG phải trước khi viết code. Em đồng thuận.
+- **RUN12 — 4 điểm rà:** (a) S0 không DỪNG chỉ vì UI chưa đăng nhập, ghi `UI_SESSION_UNAVAILABLE` và đi tiếp — đúng, gỡ bẫy RUN11. (b) S1 candidate trong fixture biệt lập trên byte runtime thật, pin/rollback — đúng, không đè source lệch. (c) S2 schema tương thích-về-trước (field optional/advertise-only) nên client cũ vẫn ghi được, chưa deny tới khi ≥1 client chứng minh khai được + C2 inventory — đúng tinh thần C1/C2. (d) S3 enforce + Guard POST chỉ sau khi client tương thích; không được thì giữ production + candidate + 1 blocker thật — đúng.
+- **Nhấn cho Codex (GPT đã ghi, em xác nhận đủ rõ):** gate «client thật khai được» là TRƯỚC ENFORCE, KHÔNG phải trước khi soạn patch. RUN12 tối thiểu phải RA được candidate + test offline; không dừng lại S0 lần nữa vì chưa thấy nút Refresh. PROMPT đã ghi «không lấy việc chưa có nút Refresh làm blocker soạn patch» — đạt.
+- **Giữ phạm vi:** scope đường ghi source qua Gateway; không sửa settings/plugin/Gmail/ruleset/A2/GSM/root; không tái hiện GUI app Codex đã bị hãng chặn; không kéo Owner vào vòng đăng nhập nếu chưa có bước human-only thật.
+- **Chữ ký:** ACCEPTED, 0 blocker; READY P449-R `b156c548` hợp lệ. Owner dispatch RUN12 cho Codex Desktop. Nếu refresh client cần đúng 1 thao tác human-only, Codex giữ production + lưu candidate + nêu đúng thao tác đó, không tự lách. NEXT_TRIGGER=OWNER_DISPATCH_HJW_DECLARATION_GATE_PHASED_20261028_12.
+
 ### P448 · Codex Worker · RUN11 dừng tại cổng S0 · 2026-10-28
 **KQ@HJW-DECLARATION-GATE-ONE-PASS-20261028-11 DỪNG**
 **BLOCKER=CLIENT_REFRESH_PATH_UNVERIFIED · PRECHECK_ONLY · NO_IMPLEMENTATION · C1_NOT_TESTED.**
