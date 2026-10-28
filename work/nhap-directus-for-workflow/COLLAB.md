@@ -27,7 +27,7 @@ Nguyên văn Owner: «Duyệt G2·TS2 theo P57 cho mục 1, 2, 3: sửa một c�
 **TIÊU CHÍ 0 · DÙNG LẠI 100% (Owner 27/10 10:53 — có hiệu lực, đứng trên mọi kế hoạch của việc này):** mọi thành phần = tính năng có sẵn của **PG 18.6 / Directus 12.4 đang chạy**, hoặc công cụ **đang chạy** (Docker, nginx, Kuma, Git, Graph, khuôn Reports Nuxt). Trình tự bắt buộc: (1) PG làm được? (2) Directus làm được? (3) công cụ đang chạy làm được? (4) chưa được ⇒ **sửa yêu cầu cho vừa** PG/Directus rồi hỏi lại (1)–(3); (5) chỉ khi (4) vẫn không được mới trình Owner viết mã / đưa ra ngoài, kèm dòng «Vì sao không phải PG». **Mặc định: 0 dòng mã mới.** Khung thành hình rồi muốn vẽ thêm gì mới bàn tiếp.
 Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT đang làm host». Codex: thành viên (Host vòng P06–P15). Claude Chat: rà. Các lệnh RUN/production theo quyền Host và Owner.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 22:49 +07 · GPT Host P86 · PG-A2b ACCEPT KQ P85 / 0 RUN active · CLAUDE REVIEW S4
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-28 23:20 +07 · Claude P87 · PG-A2b đã nghiệm thu · S4 = 2 bảng nhỏ, SQL + SHA đã thử · CHỜ HOST SOẠN PROMPT + OWNER G1/G2
 - 🗂 **Host P86:** PG-A2b P85 đã tạo đúng V1/V2 tại `directus` qua DOT, Host ACCEPT đúng footprint và đóng RUN; không đổi vai/collection/report. Mục tiêu **PG Tự quản toàn hệ** chưa xong vì chưa có S4 quyết định, V3/Graph/`dot_tools` đồng bộ/Reports auth. Đi tiếp TS3 native, không viết code hay mở sổ sao chép mới.
 - 🔢 **P85 đã đo sau áp:** V1 16.536 khóa duy nhất (= P73 16.514 +2 view +20 column), V2 4.566 cạnh; 0 cha mồ côi trong phạm vi, ACL chủ+reader, directus đọc kế thừa. Gốc 12 loại Census và 1 composite, 426 UNKNOWN_DYNAMIC_CODE +21 out-of-scope vẫn phải hiện giới hạn, không giả tất cả PG/Graph đã đủ.
 - 🗃 **Ba Lô = LEGACY không phải SSOT:** chênh 37 dòng (35 thêm + 2 mất, gồm table lệch ròng 8), có socket nhưng không lịch chạy đạt. Không bật `--sync` trong hệ mới, không OFF/xóa legacy. Tám loại PG ngoài Ba Lô cũ đã có nguồn catalog sống; không cần 8 bảng mới.
@@ -38,15 +38,15 @@ Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT 
 - 🔁 **Bảo vệ sau PG-A2b:** Guard POST 554/554 PASS cho phạm vi tệp/config, biên nhận Owner 316, không tự chứng minh POSIX ACL nguyên vẹn. F1 apply-v0 làm rơi ACE `hvu-view` (quyền đọc hiệu dụng lúc đo không đổi); F2 DOT git lệch 6 dòng (4 nợ cũ +2 PG-A2b), 2 SQL untracked. Không setfacl/git add/reset tay; chủ Guard/DOT chịu reconcile đúng footprint. Khi tạo S4 mới, kiểm role/DDL parser, schema/khóa, rollback và POST trước READY; không khảo sát lặp V1/V2.
 - 🏁 **KQ PG-A2b đã nghiệm thu theo P85/P86:** 2 VIEW `security_invoker=true`, số/khóa/quan hệ khớp trong phạm vi DB directus, DOT SQL SHA P75 + Config Guard + Điều 30/31 có chứng cứ, 0 thay đổi PG roles/Directus/HTTP. **Chưa hoàn thành đích toàn hệ:** S4 chưa có quyết định Owner, V3 chưa tạo, Graph/`dot_tools` auto-sync chưa chứng minh, Nuxt Owner-only chưa đạt. Không rollback 2 VIEW đang tốt.
 - ✅ Đã xong: B0b P27 (DOT schema), TS1 P52 (audit 12 loại có giới hạn), PG-L0 P69 và PG-A1 P73 (RO có giới hạn), P79 dừng đúng 0 ghi, P81 đo role thật, P83/P84 G1G2/READY, **PG-A2b P85 2 VIEW được tạo** và Host P86 chấp nhận. Thiết kế gốc §3.TQ vẫn là chuẩn; 0 S4/V3/Report mới, không đánh dấu toàn bộ TS3/Workflow hoàn thành.
-- 📍 Tiến độ: [✅ B0b/TS1/PG-L0/PG-A1] → [✅ PG-A2b V1/V2 P85+Host P86] → [■ 0 RUN · Claude Chat REVIEW P86 một vòng] → [□ S4 SQL/Identity/G1G2 mới/READY/Owner dispatch] → [□ V3 data proof + Graph/dot_tools] → [□ Nuxt Reports auth → TS4/TS5 → Công thức/Workflow].
+- 📍 Tiến độ: [✅ B0b/TS1/PG-L0/PG-A1] → [✅ PG-A2b V1/V2 P85+Host P86] → [✅ Claude P87 review: S4 = từ điển hệ + sổ quyết định, SQL/SHA/lùi đã thử] → [■ Host soạn PROMPT S4 theo khuôn PG-A2b + Owner gật câu G1/G2 P87 + READY] → [□ RUN S4] → [□ V3 data proof + Graph/dot_tools] → [□ Nuxt Reports auth → TS4/TS5 → Công thức/Workflow].
 - ■ — · **0 RUN active.** RUN `NDW-PGA2B-TWO-VIEWS-20261028-03` đã KQ XONG P85 (commit `c65d094c`), Host nghiệm thu P86, đã trả VPS-GHI. PROMPT PG-A2b CLOSED, không dispatch lại. Vòng tiếp theo chỉ là Claude Chat review P86 bằng đọc repo/dữ liệu RO hợp lệ, không tạo PG object.
 - 🗂 **Lịch sử lệnh:** TS1 P52 XONG; P78 PG-A2 DỪNG P79; PG-A2R đã được P81 review thay; PG-A2b P84 READY **đã tiêu thụ, KQ XONG P85**. Không còn lệnh READY chờ người chuyển trong NDW. S4/V3 cần prompt/G1G2 mới.
-- 😊 **Owner:** không cần quyết/kiểm kỹ thuật thêm trong lượt review P86. P83 chỉ ủy quyền Host G1/G2 **đúng hai VIEW đã làm**, không tự kéo sang S4/V3. Sau Claude review, Host trình đúng quyền G1/G2 S4 nếu có mutation, ký READY rồi anh chuyển Agent theo AUTO0.
+- 😊 **Owner (P87):** cần gật **một câu G1/G2 S4 ở P87** — tạo 2 bảng rỗng (từ điển hệ + sổ quyết định), chưa ghi quyết định nào; mỗi lô quyết định sau này duyệt riêng. · Cũ P86: không cần quyết/kiểm kỹ thuật thêm trong lượt review P86. P83 chỉ ủy quyền Host G1/G2 **đúng hai VIEW đã làm**, không tự kéo sang S4/V3. Sau Claude review, Host trình đúng quyền G1/G2 S4 nếu có mutation, ký READY rồi anh chuyển Agent theo AUTO0.
 - ⬜ **Còn & thứ tự:** (1) Claude Chat review P86 về schema S4/khóa/vòng đời DOT và hai nợ ACL+Git; (2) Host chốt đúng một RUN S4 native có SQL/lùi/preflight trên runtime thật, G1/G2 mới; (3) V3 sau khi có nguồn Graph/dot_tools xác minh, Nuxt Owner-only auth trước công bố; (4) TS4 phân loại Owner duyệt và TS5 đồng bộ/cảnh báo; (5) B1–B5 Công thức→Workflow. DB postgres, PG-L1 file-read, 24 SECURITY DEFINER, 7 queue giữ đúng chủ, không tự mở task.
 - ✅ P17 · 24/10 · Owner bổ sung: chỉ sửa trong Directus không sửa HTML; làm MOW 001 xong làm tiếp 002–035, thêm MMOW 008/009; B0 rà các table PG hiện hữu để chọn bảng sẽ dùng; B4 đưa lên production **từng sổ/nhóm đã ổn định** chứ không chờ cả vùng NHÁP. Đã ghi vào roadmap; **chưa chạy kiểm kê PG/Directus, chưa tạo/sửa bảng**.
 - 📜 Lịch sử P16–P38 (chi tiết ở các khối P bên dưới): P16 collection-first · P20 bỏ chữ «thử/test», Host = GPT · P22–P23 B0 ACCEPT/READY · P26–P28 B0b ACCEPT/READY `13a936e4` · P30–P31 hướng PG Tự quản, giữ 4 sổ cũ · P32–P35 PG-native, Cách A/B, Trần · P36–P37 khai tối thiểu, «lần quét cuối» ≠ «lần dùng cuối», `mtime` ≠ lần chạy · P38 thẻ chốt duy nhất §3.TQ · P39 sơ đồ 2A/2B (GPT) · P40 vẽ lại 4 sổ (Owner 15:25).
 - ✅ **P85 KQ Claude Code (nguồn báo cáo):** 2 VIEW OID 296348/296353, V1 16.536, V2 4.566, Guard 554/554, message_id 316; chi tiết/giới hạn tại P85, Host ACCEPT tại P86. Không sử dụng lại READY P84.
-- ➡ NEXT_TRIGGER=CLAUDE_CHAT_REVIEW_P86_ONE_ROUND · Reviewer đọc P85/P86, §0.3/§3.TQ/§3.KH, rà schema S4+đường DOT+rollback+phát sinh ACL/Git; ghi P87 ngay trong COLLAB. **Không mutation, không chạm PROMPT CLOSED.**
+- ➡ NEXT_TRIGGER=GPT_HOST_CHOT_P87_PROMPT_S4_OWNER_G1G2 · Claude P87: đồng ý nghiệm thu PG-A2b; F1/F2 không chặn; S4 = `tai_san_he` + `tai_san_quyet_dinh`, SQL sha `87d01b5f…f84c`, lùi `eb72e625…d3`; Host soạn PROMPT theo khuôn PG-A2b (git `748d6b79`) với các mục thay ở P87, trình Owner câu G1/G2 P87, ký READY; không cần vòng 2 nếu chỉ thay đúng các mục đó. · Cũ: CLAUDE_CHAT_REVIEW_P86_ONE_ROUND (đã xong).
 - ⛔ Không tự ghi Directus/PG, mở quyền, đổi tên/xóa collection trong lượt chỉnh tài liệu này.
 
 📜 **LỊCH SỬ 23/10 — từ đây tới hết khối «Chỉ đạo P06»** (giao diện trang chủ, HTML, vùng NHÁP, diễn tập): không làm theo. Việc hiện hành: BẢNG ĐIỀU KHIỂN + §3.TQ.
@@ -184,6 +184,105 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 - **Không lẫn PG async/queue với OS filesystem:** PostgreSQL có NOTIFY/LISTEN cho **transaction DB** (client lắng nghe), `SELECT .. FOR UPDATE SKIP LOCKED` cho queue bền trong PG, `postgres_fdw` cho dữ liệu DB khác; NOTIFY không tự xảy ra khi tệp host đổi, không tự gọi Telegram. Scheduler `pg_cron` là extension phải đo đã cài/preload trước khi đề xuất; không tự cài. Nếu Owner chỉ cần **mở ra nhìn đúng tức thời** thì không cần watcher/baseline; nếu cần **tự báo thay đổi lúc không ai đọc** thì phải có nhịp kiểm nhỏ hoặc nguồn sự kiện OS; mục tiêu phải phân loại, không giả PG đã làm ngoài quyền.
 - **Scope/Gate:** TS2 cũ P60 KQ DỪNG; TS2R P63 DRAFT writer/3 cột/.path được GIỮ LÀ PHƯƠNG ÁN DỰ PHÒNG TRONG LỊCH SỬ, không áp khi PG-L chưa được đánh giá. Không chạy TS2R a,b,c, không tự chuyển sang fallback trong cùng RUN; nếu PG-L trượt, Host báo lý do thuộc quyền/an toàn/thiếu chức năng và xin một quyết định riêng. PG-A ưu tiên tuyệt đối; GitHub các RUN Owner ưu tiên còn trước.
 - **Nguồn hãng thêm:** https://www.postgresql.org/docs/18/file-fdw.html ; https://www.postgresql.org/docs/18/postgres-fdw.html ; https://docs.docker.com/engine/storage/bind-mounts/ ; https://www.postgresql.org/docs/18/sql-notify.html ; https://www.postgresql.org/docs/18/sql-select.html . Nêu rõ lời giới thiệu của Claude 'PG đọc sống không đồng bộ trễ' đúng với dữ liệu **được truy vấn**, KHÔNG đồng nghĩa đã có detection/notification mọi thay đổi theo thời gian.
+**P87 · 28/10/2026 23:20 +07 · Claude Chat (Reviewer) · B2 rà P85/P86 · ĐỒNG Ý nghiệm thu PG-A2b · S4 = 2 bảng nhỏ (từ điển hệ + sổ quyết định), SQL + SHA + lùi đã thử · Host soạn PROMPT theo khuôn PG-A2b**
+- **Nghiệm thu P85: đồng ý P86.** Số P85 khớp đúng dự kiến P75/P81 (V1 +2 view +20 column, V2 +0, mồ côi 0, âm tính 0, directus đọc kế thừa theo D). Không có gì phải lùi.
+- **F1 (ACL manifest), F2 (Git DOT): đồng ý không chặn.** Thêm lý do F2 ít rủi ro: Config Guard giữ bản `content` trong baseline + `.pre` ⇒ nếu ai triển khai lại DOT từ HEAD, drift-check báo đỏ và khôi phục được đúng bytes. F1: quyền đọc thực tế không đổi; việc giữ ACL trong apply-v0 thuộc chủ Config Guard. Lượt S4 ghi manifest lần nữa: ACL đã mất từ trước, không mất thêm.
+- **R1 khoá:** dùng đúng `canonical_key` của V1 (`pg:<db>:<loại>:<định danh>`, sinh bằng `pg_identify_object`) — có DB nên không đụng giữa DB. Graph theo khoá này là việc Graph Host; S4 không chờ Graph. Đổi tên ⇒ khoá mới, dòng cũ thành «mất khoá» (V3 báo sau); xoá rồi tạo lại cùng tên ⇒ OID khác ⇒ cần duyệt lại. DOT dùng `dot:<code>`, chỉ ghi khi `dot_tools` đã chuẩn hoá code (SYNC-2).
+- **R2:** đưa thật vào schema: `oid_luc_quyet` + `subid_luc_quyet` (cột: OID bảng + số cột) + `lo_ghi` (lô/sha đã ghi). CHECK: vật `pg:` bắt buộc có OID, `dot:` không có.
+- **Phát hiện chặn thiết kế 2B:** «23 hệ» chưa có danh sách ở đâu (đã tìm COLLAB và PG; Ba Lô cũ chỉ có 16 `nhom` gán tháng 7). Khoá cột `he` bằng CHECK cố định thì thêm hệ sau này phải bỏ CHECK cũ — cổng chặn `DROP CONSTRAINT`. ⇒ **Đề xuất 2 bảng nhỏ (chuẩn ngành: bảng từ điển + khoá ngoại):** `tai_san_he` (mã · tên tiếng Việt · mô tả) và `tai_san_quyet_dinh` có `he` → từ điển. Thêm hệ = INSERT trong cùng lô duyệt; hệ đang dùng không đổi mã được; Nuxt hiện tên tiếng Việt. Lệch trần K3 «1 bảng» ⇒ Owner duyệt.
+- **Lệch 2B nhỏ khác (Owner duyệt cùng):** thêm `chua_quyet` cho `quyet_dinh` (phân loại hệ/Workflow trước, giữ/bỏ sau, không để ô trống); `can_cu` bắt buộc trừ khi mọi ô đều «chưa rõ».
+- **R3 quyền/ghi:** chủ `workflow_admin`; REVOKE PUBLIC/directus (default ACL đang cho directus INSERT/UPDATE/DELETE); GRANT SELECT `context_pack_readonly` (directus đọc kế thừa như D). Chỉ cổng DOT ghi: mỗi lô quyết định = 1 tệp SQL Owner duyệt (`INSERT … ON CONFLICT (khoa) DO UPDATE`), khoá sha trong manifest ⇒ chính các tệp lô là lịch sử, không cần bảng lịch sử. Cổng chặn xóa dòng ⇒ quyết định chỉ được cập nhật.
+- **R4 preflight từ mã thật:** đường y hệt PG-A2b vừa XONG (P85): 2 tệp vào `sql/directus/` → baseline + `guard-registry` + manifest qua apply-v0 → cổng 1 lần. Event trigger `evt_trigger_guard_ddl` (ALTER TABLE/CREATE TRIGGER): em đọc thân `fn_evt_trigger_guard` (chỉ ghi `trigger_guard_alerts` khi đối tượng là trigger) và thử: CREATE TABLE có khoá ngoại **không kích**. Hai tên bảng đang trống (`to_regclass` 23:10); `public.trigger_guard_alerts` có trong DB directus.
+- **R5:** chưa cần Directus metadata — Nuxt đọc PG qua `view_sql`, DOT ghi PG. Đăng ký collection chỉ khi có màn cần. **R6:** V3 tách hẳn, làm khi Graph/`dot_tools` có nguồn + tuổi thật; S4 không phụ thuộc.
+
+| Thử thật (PG16 cục bộ, vai/ACL mặc định/membership/event trigger giả lập như prod) | Kết quả |
+|---|---|
+| Áp kiểu cổng `psql -1` | CREATE TABLE×2 · INSERT 1 · COMMENT · REVOKE×2 · GRANT · rc=0; event trigger 0 lần; `trigger_guard_alerts` +0 |
+| Lô hợp lệ (thêm hệ + 1 quyết định, upsert), đổi quyết định cùng khoá | OK |
+| Hệ ngoài từ điển · gõ nhầm `giữ` · khoá sai mẫu · vật PG thiếu OID · đã phân loại mà thiếu căn cứ · đổi mã hệ đang dùng | **từ chối** cả 6 |
+| Dòng «chưa rõ hết» không căn cứ · DOT `dot:` không OID | OK |
+| directus đọc / ghi / sửa · context_pack_readonly ghi · vai khác đọc | đọc OK / từ chối / từ chối · từ chối · từ chối |
+| Tệp lùi sau áp · chạy lại tệp áp khi tên đã có | mọi vai mất quyền đọc · «already exists», cả giao dịch huỷ |
+| Mô phỏng nguyên văn guardrail cổng (bản `e1307be7`) | 2 tệp PASS |
+
+| Tệp (đặt trong `/opt/incomex/dot/sql/directus/`) | Byte (gồm LF cuối) | sha256 |
+|---|---|---|
+| `directus/ndw-s4-tai-san.sql` (áp) | 4.866 | `87d01b5fa4e1b4727adc331165c78a9dad527d88abd5420df95cef7a3430f84c` |
+| `directus/ndw-s4-tai-san-lui.sql` (lùi) | 833 | `eb72e62559a871de4ce83bd6adec8864fde6260f719805818b7fad405cca50d3` |
+
+Tệp áp (nguyên văn 54 dòng, LF cuối):
+```sql
+-- NDW TS3 · S4 · DB directus · bản P87 · 2 bảng: từ điển hệ + sổ quyết định · áp qua dot-pg-atomic-apply sau Owner G1/G2
+-- Chủ: workflow_admin. Chỉ DOT ghi (từng lô SQL Owner duyệt, khoá sha). AI đọc qua context_pack_readonly. Đổi quyết định = cập nhật dòng, không bỏ dòng.
+CREATE TABLE public.tai_san_he (
+  ma        text        PRIMARY KEY CHECK (ma ~ '^[a-z][a-z0-9_]{1,39}$'),
+  ten       text        NOT NULL CHECK (length(ten) BETWEEN 2 AND 80),
+  mo_ta     text        CHECK (length(mo_ta) <= 300),
+  lo_ghi    text        NOT NULL,
+  ngay_ghi  timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE public.tai_san_quyet_dinh (
+  khoa             text        PRIMARY KEY CHECK (khoa ~ '^(pg:[a-z0-9_]+:.+|dot:[a-z0-9][a-z0-9_.-]*)$'),
+  oid_luc_quyet    oid,
+  subid_luc_quyet  integer     NOT NULL DEFAULT 0,
+  he               text        NOT NULL DEFAULT 'chua_ro' REFERENCES public.tai_san_he (ma),
+  workflow         text        NOT NULL CHECK (workflow IN ('co', 'dung_chung', 'khong', 'chua_ro')),
+  vung             text        NOT NULL CHECK (vung IN ('xanh', 'vang', 'do', 'xam')),
+  quyet_dinh       text        NOT NULL CHECK (quyet_dinh IN ('giu', 'sua', 'gop', 'tat', 'bo', 'chua_quyet')),
+  cong_dung        text        CHECK (length(cong_dung) <= 300),
+  can_cu           text,
+  nguoi_duyet      text        NOT NULL,
+  ngay_duyet       timestamptz NOT NULL DEFAULT now(),
+  lo_ghi           text        NOT NULL,
+  CHECK ((khoa LIKE 'pg:%') = (oid_luc_quyet IS NOT NULL)),
+  CHECK (can_cu IS NOT NULL OR (he = 'chua_ro' AND workflow = 'chua_ro' AND vung = 'xam' AND quyet_dinh = 'chua_quyet'))
+);
+
+INSERT INTO public.tai_san_he (ma, ten, mo_ta, lo_ghi)
+VALUES ('chua_ro', 'Chưa rõ', 'Chưa xác định vật thuộc hệ nào', 'NDW-S4-P87');
+
+COMMENT ON TABLE public.tai_san_he IS 'NDW S4 · Từ điển hệ: mỗi hệ một mã. Thêm hệ = một lô SQL Owner duyệt qua dot-pg-atomic-apply. Nguồn: work/nhap-directus-for-workflow P87.';
+COMMENT ON COLUMN public.tai_san_he.ma IS '? Mã hệ (chữ thường, số, gạch dưới). Dùng làm giá trị cột he của tai_san_quyet_dinh.';
+COMMENT ON COLUMN public.tai_san_he.ten IS '? Tên hệ cho người đọc (tiếng Việt).';
+COMMENT ON COLUMN public.tai_san_he.mo_ta IS '? Một câu: hệ này gồm những gì.';
+COMMENT ON COLUMN public.tai_san_he.lo_ghi IS '? Lô ghi (RUN_ID hoặc sha tệp SQL) đã thêm/sửa dòng này.';
+COMMENT ON COLUMN public.tai_san_he.ngay_ghi IS '? Lúc ghi dòng này.';
+COMMENT ON TABLE public.tai_san_quyet_dinh IS 'NDW S4 · Sổ quyết định tài sản: chỉ phần người quyết (hệ, Workflow, vùng, giữ/bỏ). Không có dòng = chưa quyết. Khoá = canonical_key của v_pg_asset_catalog (pg:<db>:<loại>:<định danh>) hoặc dot:<code>. Chỉ DOT ghi. Nguồn: work/nhap-directus-for-workflow P87.';
+COMMENT ON COLUMN public.tai_san_quyet_dinh.khoa IS '? Khoá vật: canonical_key của v_pg_asset_catalog, hoặc dot:<code> cho DOT ngoài PG.';
+COMMENT ON COLUMN public.tai_san_quyet_dinh.oid_luc_quyet IS '? OID của vật lúc quyết (chỉ vật PG). Khác OID hiện tại cùng khoá = vật đã bị tạo lại, cần duyệt lại.';
+COMMENT ON COLUMN public.tai_san_quyet_dinh.subid_luc_quyet IS '? Số thứ tự cột lúc quyết (0 nếu không phải cột).';
+COMMENT ON COLUMN public.tai_san_quyet_dinh.he IS '? Thuộc hệ nào (mã trong tai_san_he).';
+COMMENT ON COLUMN public.tai_san_quyet_dinh.workflow IS '? Có dùng cho Workflow không: co, dung_chung, khong, chua_ro.';
+COMMENT ON COLUMN public.tai_san_quyet_dinh.vung IS '? Bỏ đi có hỏng gì không: xanh (không), vang (có thể), do (hỏng), xam (chưa rõ).';
+COMMENT ON COLUMN public.tai_san_quyet_dinh.quyet_dinh IS '? Quyết định: giu, sua, gop, tat, bo, chua_quyet.';
+COMMENT ON COLUMN public.tai_san_quyet_dinh.cong_dung IS '? Một câu làm gì, chỉ khi nguồn chưa có mô tả.';
+COMMENT ON COLUMN public.tai_san_quyet_dinh.can_cu IS '? Dựa vào đâu (nhãn cũ, Graph, log...). Bắt buộc khi đã phân loại.';
+COMMENT ON COLUMN public.tai_san_quyet_dinh.nguoi_duyet IS '? Ai duyệt (Owner hoặc người được Owner uỷ quyền).';
+COMMENT ON COLUMN public.tai_san_quyet_dinh.ngay_duyet IS '? Lúc duyệt.';
+COMMENT ON COLUMN public.tai_san_quyet_dinh.lo_ghi IS '? Lô ghi (RUN_ID hoặc sha tệp SQL) đã ghi dòng này.';
+
+-- Default ACL của workflow_admin trong public cấp directus INSERT/UPDATE/DELETE cho bảng mới ⇒ thu về; chỉ DOT ghi, context_pack_readonly đọc.
+REVOKE ALL ON public.tai_san_he, public.tai_san_quyet_dinh FROM PUBLIC;
+REVOKE ALL ON public.tai_san_he, public.tai_san_quyet_dinh FROM directus;
+GRANT SELECT ON public.tai_san_he, public.tai_san_quyet_dinh TO context_pack_readonly;
+```
+Tệp lùi (nguyên văn 7 dòng, LF cuối):
+```sql
+-- NDW TS3 · S4 LÙI · bản P87 · DB directus · chỉ dùng khi S4 đã COMMIT mà kiểm sau áp hỏng · chỉ 2 bảng do RUN S4 tạo
+-- Tắt mọi quyền đọc + dán nhãn ĐÃ LÙI. Bảng rỗng (1 dòng từ điển), không ai ghi được ngoài DOT. Xoá hẳn = quyết định Owner riêng (cổng chặn lệnh xoá).
+REVOKE ALL ON public.tai_san_he, public.tai_san_quyet_dinh FROM PUBLIC;
+REVOKE ALL ON public.tai_san_he, public.tai_san_quyet_dinh FROM directus;
+REVOKE ALL ON public.tai_san_he, public.tai_san_quyet_dinh FROM context_pack_readonly;
+COMMENT ON TABLE public.tai_san_he IS 'NDW S4 · ĐÃ LÙI (P87) · không dùng · chờ Owner quyết xoá hay áp lại';
+COMMENT ON TABLE public.tai_san_quyet_dinh IS 'NDW S4 · ĐÃ LÙI (P87) · không dùng · chờ Owner quyết xoá hay áp lại';
+```
+- **Kiểm sau áp (cho PROMPT):** V1 = Census cùng mốc; chênh hợp lệ: +2 table, +17 column, +2 index, constraint tăng (PG18 tính cả NOT NULL ⇒ không ghi cứng, chỉ đòi V1 = Census); V2 dự kiến +3 (1 FK + 2 index→bảng); `trigger_guard_alerts` +0; `tai_san_he` 1 dòng, `tai_san_quyet_dinh` 0 dòng; relacl = chủ + `context_pack_readonly=r`; câu âm tính như PG-A2b (đổi tên bảng) ⇒ 0; directus ghi bị từ chối (`has_table_privilege` INSERT/UPDATE = false).
+- **Khuôn PROMPT cho Host (không cần review lại nếu chỉ thay đúng các mục này):** chép PROMPT PG-A2b (git `748d6b79`, đã chạy XONG P85) và thay: RUN_ID mới; 2 tệp + sha trên (dựng nguyên văn từ P87); 2 id registry `dot-sql-ndw-s4-tai-san`, `dot-sql-ndw-s4-tai-san-lui`; manifest sống dự kiến `18ae52f1…` 18 dòng (P85) — khác thì đọc lại, chỉ đi tiếp nếu drift-check MATCH; S1.1 kiểm 2 tên bảng trống + đếm `trigger_guard_alerts`; S3 như mục trên; mốc Điều 30/31 = OID + relacl + sha256 của `pg_get_tabledef`-tương đương (danh sách cột+ràng buộc từ catalog); câu Owner bên dưới.
+- **Câu duyệt Owner:** «Duyệt G1/G2·S4 theo P87: tạo 2 bảng trong DB directus — `tai_san_he` (từ điển hệ, sẵn 1 dòng «chưa rõ») và `tai_san_quyet_dinh` (sổ quyết định, cột như P87, thêm `chua_quyet`) — bằng SQL sha `87d01b5f…f84c` qua `dot-pg-atomic-apply` + Config Guard; chỉ DOT ghi, AI đọc (directus đọc kế thừa như PG-A2b); hỏng thì tắt quyền đọc, không xoá; chưa ghi quyết định nào — mỗi lô quyết định sau này Owner duyệt riêng.»
+- **Roadmap — thiếu cần Host ghi rõ:** (1) **P0 đăng nhập Reports là điều kiện để Owner nhìn thấy sổ trên Nuxt** (Đích 0 «người nhìn hiểu ngay») nhưng đang treo «chủ bảo mật», chưa có việc/người làm cụ thể ⇒ Host ghi rõ việc nào giữ P0 và mốc, không mở việc mới trong NDW. (2) TS4 sau S4: AI đề xuất danh sách hệ + **luật phân loại theo nhóm** (theo schema/extension/tiền tố; mức bảng/hàm/view, cột/index/ràng buộc theo vật cha) để Owner gật vài chục luật thay vì 16 nghìn dòng; mỗi lô = 1 SQL.
+- **JEV:** `gen-dec-1793203429-SaIF6lFpcXHD2QGs6Ww0` chọn 2 bảng (từ điển + khoá ngoại) 0,99; «đủ điều kiện chạy một lượt» 0,50 — phần chưa chắc là em thử trên PG16 (prod PG18); CREATE TABLE/CHECK/FK không đổi ngữ nghĩa giữa hai bản, S1 của RUN vẫn chạy selftest cổng trên PG18 trước khi ghi. NEXT_TRIGGER=GPT_HOST_CHOT_P87_PROMPT_S4_OWNER_G1G2.
+
 **P86 · GPT Chat Host · 28/10/2026 · B1 NGHIỆM THU P85/PG-A2b VÀ ĐIỀU HÀNH HƯỚNG TS3 · CLAUDE REVIEW MỘT VÒNG · 0 RUN**
 - **Đọc mục tiêu/§0.3/§3.TQ/§3.KH trước khi xét KQ:** đích là PG tự quản toàn tài sản, nguồn catalog đọc sống + quyết định Owner S4 + Graph/DOT tự đối soát, người xem Nuxt khi auth an toàn, rồi mới Công thức → MBM/MMOW/MOW/MOT/MOIT/MOUT/Field. **PG-A2b chỉ hoàn thành V1/V2 trong DB `directus`, KHÔNG có nghĩa Đích 0/TS3/Graph/Workflow xong**. Cấm biến 2 VIEW thành bản sao catalog, thêm worker/trigger/code/đèn mới.
 - **Host ACCEPT KQ P85: `NDW-PGA2B-TWO-VIEWS-20261028-03 XONG` đúng footprint (bằng chứng do agent báo và commit repo; Host không giả tự query PG):** STARTED commit riêng `3996fc3b`; SQL áp/lùi SHA P75 `b5910340…d31d`/`bd19885f…30e3`, DOT selftest và `dot-pg-atomic-apply` COMMIT rc=0 một lần; hai VIEW OID 296348/296353, `security_invoker=true`, chỉ chủ và nhóm reader trong relacl, directus kế thừa theo D đã duyệt; V1 16.536 unique/census khớp, V2 4.566 cạnh, 0 cha mồ côi, 0 role/collection/permission/report mới. Config Guard 552→554, POST 554/554 MATCH, Guard POST PASS (footprint 4/4, PREEXISTING_SAME #24), receipt `message_id=316`; KQ commit `c65d094c`, VPS-GHI đã trả `515787c7`, không còn process/tệp tạm. **Không rollback, không RUN lại P84/P85; RUN đã đóng.**
