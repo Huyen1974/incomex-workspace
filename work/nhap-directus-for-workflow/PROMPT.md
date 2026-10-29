@@ -1,47 +1,46 @@
-# PG-A2b · TẠO ĐÚNG 2 VIEW V1/V2 (SQL P75 GIỮ NGUYÊN, KHÔNG ĐỔI VAI) + BẢO VỆ CONFIG GUARD
-RUN_ID: NDW-PGA2B-TWO-VIEWS-20261028-03
+# TS3-S4 · HAI BẢNG PG NATIVE · CHỈ 1 MÃ HỆ + 0 QUYẾT ĐỊNH
+RUN_ID: NDW-TS3-S4-TWO-TABLES-20261029-01
 TASK: work/nhap-directus-for-workflow
 EXECUTOR_SURFACE: Claude Code CLI
-READ_PATH: AGENTS (R1a, R1b, R3) → root COLLAB lease → task COLLAB §0/Bảng/P73/P75/P79/P80/P81/P82/**P83 ủy quyền Owner và Host G1/G2** → PROMPT này; `query_pg` RO; SSH chỉ đọc cho S1.
-WRITE_PATH (chỉ ở S2, đúng thứ tự): 2 tệp SQL mới trong `/opt/incomex/dot/sql/directus/`; baseline + hàng registry cho 2 đích mới; `incomex-config-apply-v0` cho `guard-registry` và `dot-sql-approved-manifest`; `dot-pg-atomic-apply directus/ndw-pga2-v1v2.sql` một lần; `workspace_edit` cho STARTED/KQ. KHÔNG psql/docker exec tay, KHÔNG git add/commit trong `/opt/incomex/dot`, KHÔNG GRANT/REVOKE vai hay membership.
-STATUS: CLOSED_AFTER_KQ_P85 · `NDW-PGA2B-TWO-VIEWS-20261028-03` đã KQ XONG tại P85 (`c65d094c`), Host ACCEPT P86; READY P84 đã tiêu thụ. **KHÔNG chạy lại PROMPT này.** Đây là bản lưu vận hành P85; RUN tiếp S4/V3 cần PROMPT mới, phản biện và G1/G2 riêng. Các bước S0–S5 bên dưới là lịch sử của RUN đã đóng.
+STATUS: **DRAFT — KHÔNG READY/RUN.** Chỉ chạy khi (1) Owner trực tiếp duyệt G1/G2 S4 theo P88: 2 bảng (vượt trần 1), một seed và SHA áp mới; (2) Host ký READY@full last-touch PROMPT SHA sau duyệt (REVIEW_REUSED=P87); (3) Owner chuyển lệnh chuẩn DROOT38; (4) S0 PASS. Thiếu ⇒ DỪNG 0 PG mutation. Owner P83/READY P84 chỉ dành 2 VIEW cũ, KHÔNG kế thừa.
+READ_PATH: AGENTS.md (A0/A6/R1a/R1b/R3/R4/DROOT30/31/48/58) → root COLLAB VPS-GHI → task COLLAB §0/Bảng, §3.TQ/§3.KH và P85–P88 (SQL P87 nguyên văn, fix P88) → PROMPT này; `query_pg` RO; SSH VPS chỉ đọc trong S1.
+WRITE_PATH: chỉ 2 SQL mới dưới `/opt/incomex/dot/sql/directus/`; 2 baseline + 2 registry rows và 2 manifest rows qua `incomex-config-apply-v0`; một `dot-pg-atomic-apply`; `workspace_edit` ghi STARTED/KQ. KHÔNG psql/docker exec/REST/Directus Studio tay, không đổi role, không tạo collection/report/Nuxt/Graph/V3/trigger, không git add/commit tại `/opt/incomex/dot`.
 
-## Đích và chứng cứ đã đo (P81 — không đo lại toàn bộ)
-- Tạo đúng 2 VIEW `directus.public.v_pg_asset_catalog` (V1), `directus.public.v_pg_dependency_edges` (V2). SQL **giữ nguyên P75**: tệp áp `directus/ndw-pga2-v1v2.sql` 9.980 B sha256 `b59103401ef4e1666b1a5671c37d914b6029bf3d5c315d0f197882d251e7d31d`; tệp lùi `directus/ndw-pga2-v1v2-lui.sql` 902 B sha256 `bd19885f96b5020bc833e04747f31b191f5532db2d655a6d5e06eb92796830e3`. Dựng theo công thức P75 (khối SQL đầu của P73 + thay đúng 5 dòng; tệp lùi nguyên văn P75). Sha khác ⇒ DỪNG, không tự sửa.
-- Quyền (phương án D, P81): `directus` là thành viên `context_pack_readonly` (inherit/set true) nên đọc 2 VIEW gián tiếp — **đã chấp nhận**, vì VIEW `security_invoker` chỉ đọc 14 catalog vốn mở cho PUBLIC, không thêm dữ liệu. KHÔNG đổi/thu membership (12 quan hệ ở `incomex_metadata` + FDW đang dựa vào nó). Cổng chặn lộ = không đăng ký collection/permission Directus, không thêm dòng `table_registry`.
-- Không tạo S4/V3/bảng/cột/index/role/extension; không sửa Nuxt/nginx/Kuma/Graph/cấu hình PG. `public.v_report_pg` là TABLE, không đụng. Bốn dòng manifest chưa commit git (c2b1xv×2, directus-system-defaults×2) là nợ cũ của việc khác: giữ nguyên, không git.
+## Đích & SQL đúng byte
+- Đúng 2 TABLE trong DB `directus.public`: `tai_san_he` từ điển mã hệ riêng cho S4 và `tai_san_quyet_dinh` sổ phân loại/quyết định FK `he`→`tai_san_he.ma`. Seed đúng **1 dòng `tai_san_he.ma='chua_ro'`**, **0 dòng quyết định**. Không nạp 23 hệ hay 16.536 tài sản. Quyền chủ `workflow_admin`, `context_pack_readonly` SELECT, `directus` kế thừa SELECT nhưng **không DML**. `chua_quyet` nghĩa chưa có quyết định giữ/bỏ dù hàng phân loại đã được duyệt.
+- Tệp áp `directus/ndw-s4-tai-san.sql` lấy **nguyên SQL P87** (54 dòng + LF cuối; **4.866 B SHA256 `87d01b5fa4e1b4727adc331165c78a9dad527d88abd5420df95cef7a3430f84c`**) và chỉ thay đúng một dòng:
+  CŨ `CHECK (can_cu IS NOT NULL OR (he = 'chua_ro' AND workflow = 'chua_ro' AND vung = 'xam' AND quyet_dinh = 'chua_quyet'))`
+  MỚI `CHECK (NULLIF(btrim(can_cu), '') IS NOT NULL OR (he = 'chua_ro' AND workflow = 'chua_ro' AND vung = 'xam' AND quyet_dinh = 'chua_quyet'))`
+  ⇒ tệp áp phải **4.885 B**, SHA256 `52b9a820a8b3bba3de883328c902df434544f6902671b61cb0b9b918a51884a3`. Chỉ thay một chỗ, SHA lệch ⇒ DỪNG, không tự sửa SQL.
+- Tệp lùi `directus/ndw-s4-tai-san-lui.sql` = nguyên P87 **833 B** SHA256 `eb72e62559a871de4ce83bd6adec8864fde6260f719805818b7fad405cca50d3`, REVOKE + COMMENT, KHÔNG DROP. Sau COMMIT hỏng thì lùi CHỨC NĂNG, schema vẫn có. Chưa tạo business rows, từng lô tương lai phải có Owner duyệt, DOT kiểm `canonical_key` V1 + DB + OID/subid và căn cứ nonblank theo snapshot, không tự gán quyết định.
+- Evidence từ P87: 17 ca PG16 mô phỏng PASS & guardrail cổng; PG18 production chưa thử DDL mới. P85 đã chứng minh đường DOT/Config Guard. S1 dưới đây kiểm PG18 thật và selftest an toàn, S2 dùng transaction atomic; không cho phép test CREATE TABLE tay.
 
-## S0 · Gate + STARTED riêng (≤5′)
-Đọc theo READ_PATH; READY đúng last-touch; **Owner delegation và Host quyết G1/G2 P83** trong COLLAB; 0 STOP_REQUESTED/COUNCIL_ALERT OPEN/STARTED trùng RUN; PSI/RAM ổn. PASS ⇒ ghi `STARTED@NDW-PGA2B-TWO-VIEWS-20261028-03 <UTC> · executor=Claude Code CLI` thành commit riêng, đọc lại thấy rồi mới sang S1. Không ghi được ⇒ DỪNG.
+## S0 · Kiểm READY rồi STARTED commit RIÊNG
+Owner G1/G2 P88, Host READY đúng last-touch SHA, Owner dispatch DROOT38, không STOP_REQUESTED/COUNCIL_ALERT OPEN/STARTED trùng, VPS-GHI trống và PSI/RAM đủ. PASS ⇒ ghi `STARTED@NDW-TS3-S4-TWO-TABLES-20261029-01 <UTC> · executor=Claude Code CLI` thành commit riêng và đọc lại xác nhận trước S1. Không ghi được ⇒ DỪNG.
 
-## S1 · Kiểm trước khi ghi — chỉ đọc + selftest 0 dấu vết (≤10′). Một mục lệch ⇒ KQ DỪNG, 0 ghi, nêu đúng mục lệch
-1.1 PG (`query_pg`): 18.6; hai tên trống trong `pg_class` và `pg_type`; `v_report_pg` relkind `r`; `pg_auth_members` (bỏ vai `pg_*`) đúng **1 cạnh** directus→context_pack_readonly như P81 (thêm cạnh/vai mới ⇒ DỪNG); default ACL `workflow_admin/public/r` chỉ có grantee `context_pack_readonly`, `directus`; 0 dòng `directus_collections`/`directus_permissions`/`table_registry` nhắc 2 tên VIEW.
-1.2 Tệp: dựng 2 tệp trên Mac ⇒ đúng byte/sha; trên VPS 2 đường đích chưa tồn tại.
-1.3 Cổng ghi: sha `/opt/incomex/dot/bin/dot-pg-atomic-apply` = `e1307be7ab06b1c4c705294ff03fdd8678410621d856c9b383a1496c278e962e`; chạy **selftest của chính cổng** `dot-pg-atomic-apply _selftest/atomic_happy.sql` (bảng TEMP ON COMMIT DROP, 0 dấu vết; sha tệp `79cce6fb…` đã khớp manifest ở P81) ⇒ phải `COMMIT thành công`, rc=0.
-1.4 Config Guard: `incomex-config-apply-v0 --help` có `--mutation-id --agent --target-id --candidate --expected-baseline`; `incomex-config-drift-check` cho `guard-registry` và `dot-sql-approved-manifest` = MATCH; manifest sống dự kiến sha `d4caa0d05350cad7b7af165edc5de960bdc6b5a6e04d9c62da0cafc971547d3c` (16 dòng) — khác thì chỉ đi tiếp nếu drift-check MATCH và ghi sha mới; registry có hàng mẫu `dot-sql-directus-defaults-1241` đủ 9 cột; 2 id mới `dot-sql-ndw-pga2-v1v2`, `dot-sql-ndw-pga2-v1v2-lui` chưa có.
+## S1 · PRE trước mutation: chỉ đọc + DOT selftest
+1. **PG18.6 thật:** `query_pg` xác nhận hai bảng/tên composite type chưa tồn tại (`pg_class` + `pg_type`), V1/V2 P85 vẫn đọc được, `trigger_guard_alerts` tồn tại và có baseline count, event trigger `evt_trigger_guard_ddl` không đổi hành vi gây ghi khi CREATE TABLE như P87; membership `directus→context_pack_readonly`, default ACL và quyền hiệu dụng đúng hiện hành; 0 `directus_collections`/`directus_permissions`/`table_registry` nhắc 2 bảng. Bất ngờ gây thay đổi quyền/trigger ⇒ DỪNG.
+2. **Tệp/cổng:** dựng Mac 2 SQL như trên, byte/SHA đúng; VPS 2 đường tệp chưa có; hai registry ID `dot-sql-ndw-s4-tai-san`/`dot-sql-ndw-s4-tai-san-lui` chưa tồn tại. `dot-pg-atomic-apply` sống SHA `e1307be7ab06b1c4c705294ff03fdd8678410621d856c9b383a1496c278e962e`; 2 SQL qua guardrail PASS, chạy selftest có manifest `_selftest/atomic_happy.sql` (TEMP ON COMMIT DROP) rc=0/COMMIT, không tạo bảng thật ở S1.
+3. **Config Guard:** `guard-registry` + `dot-sql-approved-manifest` drift-check MATCH. Manifest P85 dự kiến 18 dòng SHA `18ae52f1…faedf`; nếu live hợp lệ đã thay thì phải đọc baseline sống và bảo toàn TOÀN BỘ dòng (không áp 18 cứng), ghi trước/sau. Registry hàng mẫu 9 cột; `incomex-config-apply-v0 --help` đủ `--mutation-id --agent --target-id --candidate --expected-baseline`. F1: chụp ACL/mode hiện tại, không setfacl tay; F2: không stage hoặc commit 6 dòng lệch Git DOT đang có.
+4. Đủ tất cả mới lấy cờ VPS-GHI CAS + Guard PRE; nếu thiếu khả năng ghi/lùi, SHA sai hoặc quyền sai ⇒ DỪNG 0 PG mutation, đúng một blocker. Không tự tạo kế hoạch khác.
 
-## S2 · Ghi đúng thứ tự (≤15′) — chỉ sau S1 PASS, lấy VPS-GHI (CAS) + Guard PRE như B0b P27
-2.1 Đặt 2 tệp vào `/opt/incomex/dot/sql/directus/` (tệp thường, cùng chủ/quyền với `directus-system-defaults-12.4.1.sql`) ⇒ sha trên VPS đúng.
-2.2 Đăng ký 2 đích mới theo trình tự đã chạy thật (vps-clean BAO-CAO §4 L2A): baseline `{content,sha256,meta}` cho 2 id theo đúng định dạng triplet có sẵn → `incomex-config-apply-v0 --mutation-id <M> --agent claude-code-cli --target-id guard-registry --candidate /root/incomex-config-changes/<M>/registry.tsv --expected-baseline <sha sống>`, ứng viên = registry sống + đúng 2 hàng chép hàng mẫu (đổi id/đường) ⇒ APPLIED; drift-check 2 id mới = MATCH.
-2.3 `incomex-config-apply-v0 --target-id dot-sql-approved-manifest`, ứng viên = manifest sống **giữ nguyên 16 dòng** + đúng 2 dòng dạng `<sha256><TAB>directus/ndw-pga2-v1v2.sql` và `<sha256><TAB>directus/ndw-pga2-v1v2-lui.sql` (đúng một ký tự TAB, không dấu cách; LF cuối dòng) ⇒ APPLIED.
-2.4 `dot-pg-atomic-apply directus/ndw-pga2-v1v2.sql` **một lần**, không retry.
-Hỏng ở 2.1–2.3 ⇒ DỪNG (tệp/hàng đã thêm vô hại, giữ nguyên; gỡ chỉ khi Host quyết, qua `.pre` của apply-v0). Hỏng ở 2.4 ⇒ PG tự huỷ giao dịch ⇒ KQ DỪNG.
+## S2 · Chỉ sau S1 PASS + VPS-GHI/Guard PRE
+2.1 Đặt đúng 2 SQL trong `/opt/incomex/dot/sql/directus/` theo owner/mode mẫu P85 và hash trên VPS phải khớp.
+2.2 Thêm đúng 2 baseline triplet `{content,sha256,meta}` + hai hàng registry giống cấu trúc 9 cột hiện có qua `incomex-config-apply-v0 --target-id guard-registry`; APPLIED và MATCH.
+2.3 Manifest ứng viên = manifest sống + đúng 2 dòng `<sha256><TAB>directus/ndw-s4-tai-san.sql` và `<sha256><TAB>directus/ndw-s4-tai-san-lui.sql`, LF cuối; qua `incomex-config-apply-v0 --target-id dot-sql-approved-manifest`; APPLIED/MATCH, giữ mọi byte/dòng cũ. Đo ACL before/after, không sửa tay, không git commit DOT.
+2.4 `dot-pg-atomic-apply directus/ndw-s4-tai-san.sql` **một lần**; nếu lỗi thì PG tự rollback giao dịch, không retry. KQ DỪNG/MỘT PHẦN phản ánh đúng SQL/manifest/registry đã chạm, không DROP.
 
-## S3 · Kiểm sau áp (`query_pg` RO, ≤10′)
-(a) V1 `kind,count,count(DISTINCT canonical_key)`, V2 `relation_type,completeness,count`; so Census sống cùng mốc — chênh hợp lệ so với P73 = **+2 view, +20 column, V2 ≈ +0**; khác ⇒ liệt kê tên đổi, không tô đỏ giả. (b) Cha mồ côi bằng câu CTE MATERIALIZED ở P75 (constraint DOMAIN = UNKNOWN; quá 5 s = CHƯA KIỂM, không lùi). (c) `relacl` = chủ + `context_pack_readonly=r`; câu âm tính P75 sửa thành `rolname NOT IN ('workflow_admin','context_pack_readonly','directus')` ⇒ 0 dòng; `reloptions` có `security_invoker=true`; `context_pack_readonly` đọc được.
+## S3 · Kiểm sau áp qua `query_pg` RO
+Hai bảng tồn tại, owner `workflow_admin`, đúng 5+12 cột, PK/FK/CHECK/COMMENT, `pg_get_constraintdef` căn cứ chứa `NULLIF(btrim(can_cu), '')`; `tai_san_he` đúng 1 mã chua_ro, `tai_san_quyet_dinh` **0 dòng**. `relacl` chủ+context_pack_readonly=r; directus SELECT hiệu dụng (đã biết, không phải quyền public qua Web) và DML false; reader group DML false, login lạ SELECT false; `trigger_guard_alerts` delta 0. 0 collection/permission/`table_registry` hoặc role mới. Đối chiếu Census/V1 cùng mốc: dự kiến +2 table/+17 column/+2 index, V2 ~+3 cạnh FK/index; khác vì dữ liệu sống biến động thì liệt kê, không đỏ giả. Chụp OID/ACL và catalog columns/constraints/index/comments (PG core không có `pg_get_tabledef`) làm mốc Điều 30/31.
 
-## S4 · Guard POST + bảo vệ Điều 30/31 (≤5′)
-drift-check: `guard-registry`, `dot-sql-approved-manifest`, 2 id mới = MATCH. KQ ghi OID + sha256(`pg_get_viewdef`) + `relacl` của 2 VIEW làm mốc. Xác nhận 0 collection/permission/`table_registry` mới. Hỏng sau COMMIT ⇒ `dot-pg-atomic-apply directus/ndw-pga2-v1v2-lui.sql` một lần ⇒ KQ MỘT PHẦN + Host.
-
-## S5 · KQ + trả cờ
-KQ trong COLLAB: mutation-id + sha trước/sau của từng đích apply-v0, OID/viewdef-sha/relacl, số V1/V2 sau áp, Guard, cờ VPS-GHI đã trả, 0 tệp tạm/tiến trình. Cập nhật Bảng điều khiển + `NEXT_TRIGGER=GPT_HOST_NGHIEM_THU_PGA2B`. Không mở S4/V3/E1, không git commit dot, không đăng ký collection/report.
+## S4–S5 · Guard, lùi, KQ
+Config Guard 2 SQL ID/manifest/registry MATCH, Guard POST đúng footprint 4 mục, so PRE_RED_SET và giữ Điều 30/31, receipt Owner có message_id. Regression thật sau COMMIT thuộc S4 ⇒ chạy qua DOT tệp lùi 1 lần (REVOKE+COMMENT, 2 bảng còn), KQ MỘT PHẦN/Host; đỏ cũ ngoài scope không rollback. Ghi KQ mutation-id/hash before/after, SQL SHA, 2 OID/ACL/schema fingerprint, 1 hệ/0 quyết định, trigger alerts, Guard receipt, cờ VPS-GHI đã trả/0 process-tmp và `NEXT_TRIGGER=GPT_HOST_NGHIEM_THU_S4`. Không tự khởi động V3/Graph/Nuxt hay viết quyết định. Hard stop 55 phút, không chạy nền.
 
 ## DROOT48
-| Bước | Ai | Trigger/hạn | Chứng cứ | Hỏng thì |
+| Bước | Ai | Trigger/hạn | Evidence | Hỏng |
 |---|---|---|---|---|
-| S0 | Claude Code | Owner dispatch sau Host READY, ≤5′ | READY@SHA + Owner ủy quyền/Host G1G2@P83 + PSI · STARTED commit riêng | DỪNG |
-| S1 | Claude Code | S0, ≤10′ | 4 nhóm kiểm + selftest cổng | DỪNG 0 ghi |
-| S2 | Claude Code | S1 + VPS-GHI + Guard PRE, ≤15′ | 2 tệp sha · registry/manifest APPLIED · apply 1 lần | DỪNG / PG tự huỷ |
-| S3 | Claude Code | S2, ≤10′ | +2 view/+20 column, mồ côi, ACL | tệp lùi ⇒ MỘT PHẦN |
-| S4–S5 | Claude Code | S3, ≤8′ | Guard POST, KQ, trả cờ | Host nghiệm thu |
-Hard stop 55′; không chạy nền, không giữ terminal chờ.
+| S0 | Claude Code CLI | Owner chuyển sau READY, ≤5′ | G1G2 P88/READY SHA + STARTED commit riêng | DỪNG |
+| S1 | Claude Code CLI | S0, ≤10′ | PG18 role/trigger + SQL SHA/selftest + Config Guard MATCH | DỪNG 0 PG |
+| S2 | Claude Code CLI | S1 + VPS-GHI/PRE, ≤15′ | 2 SQL + 2 registry + 2 manifest, 1 atomic apply | DỪNG/MỘT PHẦN |
+| S3 | Claude Code CLI | S2, ≤10′ | 2 TABLE + 1 hệ/0 quyết định, schema/ACL/trigger | lùi mềm nếu lỗi thật |
+| S4–S5 | Claude Code CLI | S3, ≤10′ | Guard POST/receipt, KQ, cờ trả | Host nghiệm thu |
