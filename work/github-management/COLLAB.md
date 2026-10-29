@@ -14,7 +14,8 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - ■ Đang làm: — · 0 RUN active. **KQ@GHM-T2-WEB-KST-RELEASE-20261029-11 DỪNG 10:07Z tại B0 (trước merge)** — VPS thiếu RAM cho một lượt build (khả dụng 2,2–2,4 GiB, swap 2/2 GiB đầy; build F1 tốn ~2,9 GB). 0 merge/0 ghi VPS/0 restart; PR #682 OPEN nguyên, prod F1 nguyên; Owner GO 3 việc đã ghi P124.
 - ⚠ Telegram 15:57 không phải Codex T2-A: HJW assignment 22/10 `HJW-HERMES-CAP-WRITE-CANARY-20261022-01` dòng 512, generation=1, state=blocked, đòi write qua hpml-view-for-user, 0 model; trùng thời điểm CI nhưng khác task/RUN. Nguyên nhân scan/phát thông báo lại chưa xác minh; handoff HJW Host đúng task, không sửa rule chung.
 - ⬜ Web T2-B KST replay test + merge đúng SHA, guard tại `/opt/incomex/scripts/phai-cu/dung-va-trien-khai.sh` + rollback **qua P61 ghm-manual-deploy.py**, Owner GO đúng 3 việc, GH→VPS build+canary+health, kiểm sẵn sàng lùi chỉ-đọc (P121; lùi thật chỉ khi lỗi); AD HJW P460 đang DỪNG G8, C1B rollback chưa PASS; worktree web-rp-current/HVU/vps-daily chỉ chặn T3.
-- ➡ **NEXT_TRIGGER=VPS_RAM_AVAILABLE_GE_3_5GIB_THEN_OWNER_REDISPATCH_T2B_11:** 🤖 Host chọn cách có RAM (đề xuất: lượt GS RAM-K4 agent-data workers 6→4 đã có đề xuất P301, hoặc chạy khung đêm khi RAM rảnh) → 😊 Owner chuyển lại đúng khối T2-B (cùng RUN_ID, READY@8a528cdf vẫn hiệu lực vì ROADMAP không bị chạm) → KST chạy lại từ B0. Ngưỡng: MemAvailable ≥ 3,5 GiB và swap không đầy, đo 2 lần cách ≥ 5′. Không vòng review 2.
+- ➡ **P125 (Claude, 19:58):** thay việc chờ RAM rảnh bằng bước **B0-RAM** theo §1 #14: 🤖 KST đo từng container → dừng tạm đúng danh sách ngoài lõi 😊 Owner gật (P125 §2) → build/deploy → bật lại cùng lượt. Host thêm B0-RAM vào §0.4h + ký lại READY. NEXT_TRIGGER=HOST_ADD_B0RAM_AND_RESIGN_T2B.
+- ➡ (cũ) **NEXT_TRIGGER=VPS_RAM_AVAILABLE_GE_3_5GIB_THEN_OWNER_REDISPATCH_T2B_11:** 🤖 Host chọn cách có RAM (đề xuất: lượt GS RAM-K4 agent-data workers 6→4 đã có đề xuất P301, hoặc chạy khung đêm khi RAM rảnh) → 😊 Owner chuyển lại đúng khối T2-B (cùng RUN_ID, READY@8a528cdf vẫn hiệu lực vì ROADMAP không bị chạm) → KST chạy lại từ B0. Ngưỡng: MemAvailable ≥ 3,5 GiB và swap không đầy, đo 2 lần cách ≥ 5′. Không vòng review 2.
 - ⛔ Chưa merge PR #682, chưa sửa VPS/Guard, không sửa HJW cross-task, không tắt Telegram guard, không gọi `GH_SSOT=YES` trước release/rollback/T3.
 
 ### 1. Mục tiêu
@@ -31,6 +32,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 11. “GH là cơ chế kiểm soát trực quan và phải xanh thì mới qua cổng được; phải kiểm tra thực tế chứ không được đọc báo cáo không.” — Owner 27/10/2026. Required code gate GREEN; business Health FAIL vẫn báo thật.
 12. Owner 28/10/2026 (sau khi lên GitHub Pro, đã sửa lỗi gõ) — bản chất chỉ là: (1) các agent viết mã song song; (2) mã mới nhất từ VPS phải lên GitHub trước khi coi GitHub là SSOT về mã (hiện VPS là SSOT); (3) agent vai kỹ sư phát triển chỉ viết mã theo kế hoạch/mục tiêu/prompt, chỉ kỹ sư trưởng (Claude Code CLI, đôi khi Codex) được merge và chạy; (4) chạy thành công trên VPS (100% chạy trên VPS). Rà lại khi nào chuyển được mã lên và bắt đầu viết mã; chuẩn bị khai danh tính / bảng phân công hoàn thiện. ⇒ Điểm danh ở ROADMAP §0.4c + COLLAB P104.
 13. Owner 28/10/2026 22:20 (đã sửa lỗi gõ): không mở tài khoản GitHub thứ hai vì phức tạp quản lý; agent tạo nhánh/PR, không merge; ghi luật là đủ, nhầm lẫn sẽ ít. Sau việc này còn harness, skill của các AI sẽ viết cứng luật vào đó. Kế hoạch đúng thì bám, không lan man; sai/thiếu thì thống nhất hiệu chỉnh rồi bám; không làm bừa. ⇒ COLLAB P105.
+14. Owner 29/10/2026 19:53 (đã sửa lỗi gõ): nếu thiếu RAM mà chưa có cách khác thì cắt bớt dịch vụ để làm cho xong trước, xong rồi dọn dẹp; hệ thống chưa vào sản xuất nên vài dịch vụ dừng một lúc không sao. Ưu tiên dọn những thứ chưa cần, rồi tắt bớt các thứ để tập trung vào thứ đang cần. ⇒ COLLAB P125.
 
 ### 2. Thế nào là hoàn thành
 “Tối đến có 1 loạt nhiệm vụ, sáng ra xong. Ông DOT nhắc ông codex đi đốc công các agent làm việc. Đơn giản chỉ có vậy thôi.”
@@ -1796,4 +1798,23 @@ Based_on: P119 · P120 · ROADMAP §0.4h · **tự kiểm 29/10 16:05–16:30 +0
 
 **3. Telegram HJW 15:57 — đồng ý không liên quan T2:** dòng 512 HJW COLLAB là việc giao 22/10 `blocked`, gen 1, ghi sang `work/hpml-view-for-user` (ngoài phạm vi) — và **không có dòng RESULT_V1 đóng** (khác dòng 510, 513 đều có) ⇒ nhiều khả năng bộ điều phối coi nó còn mở nên quét lại và báo. Bàn giao Host HJW: (a) đóng việc này theo đúng đường máy của HJW (RESULT_V1 do dispatcher tin cậy ghi), (b) kiểm vì sao «chỉ báo một lần» lại báo lại. GHM không sửa HJW, không nới quyền ghi.
 - NEXT_TRIGGER=HOST_READY_T2B.
+
+## P125 · Claude Chat (Reviewer) · 29/10/2026 19:58 +07 — RAM CHO LƯỢT CHẠY LẠI T2-B: DỪNG TẠM DỊB VỤ NGOÀI LÕI THEO OWNER
+Based_on: P124 (KST DỪNG ở B0: RAM khả dụng 2,2–2,4 GiB, swap đầy; build cần ~2,9 GB, container build giới hạn 3 GiB) · Owner §1 #14 · **đo 29/10 19:5x**: RAM tổng 11,96 GB, khả dụng 2,41 GB, swap 0 trống, tải 2,4/6 CPU; 16 container chạy, 0 lỗi. JEV `gen-dec-1793278596-Fvs19vevr4mnQYRc298Z`.
+
+**1. Thay «chờ RAM rảnh» bằng một bước trong chính lượt T2-B** (đúng Owner: chưa vào sản xuất, dừng một lúc không sao, làm cho xong trước rồi dọn). Chờ đêm hoặc đợi việc giảm worker Agent Data (đề xuất của việc khác) đều không chắc có RAM và kéo dài.
+
+**2. Bước B0-RAM (Host thêm vào §0.4h trước B1; thêm 1 việc vào Owner GO):**
+| | Container | Xử lý |
+|---|---|---|
+| Lõi — không bao giờ đụng | postgres, incomex-directus, incomex-nuxt, incomex-nginx, incomex-agent-data, incomex-qdrant, incomex-claude-mcp, uptime-kuma, ghm-ci-web-test | giữ chạy |
+| Ngoài lõi — dừng tạm khi thiếu RAM (Owner gật) | incomex-graph-neo4j (~1,07 GiB), incomex-gemini-mcp, incomex-cowork-mcp, incomex-cowork-runner, incomex-claude-kb, ghm-ci-agent-data-test | `docker stop` → build/deploy → `docker start` cùng lượt |
+| Chưa rõ vai | incomex-agent-api-executor | giữ chạy (không đụng khi chưa chứng minh ngoài lõi) |
+- Thứ tự: 2.1 đo RAM từng container + MemAvailable 2 lần; ≥ 3,5 GiB và swap không đầy thì **không dừng gì**. 2.2 Thiếu ⇒ dừng lần lượt theo bảng, lớn trước, đến khi đủ thì thôi; chỉ `docker stop` — không rm, không xoá image/volume/cấu hình. 2.3 Build + deploy theo §0.4h. 2.4 `docker start` đúng danh sách đã dừng (kể cả khi build lỗi), kiểm healthy; Guard PRE/POST ghi rõ danh sách dừng tạm là thay đổi dự kiến; Owner có thể nhận cảnh báo Kuma trong lúc dừng. 2.5 Dừng hết bảng vẫn thiếu ⇒ DỪNG trước merge, bật lại, báo số đo; không đụng lõi.
+- Owner GO thêm đúng một câu: «cho phép dừng tạm danh sách ngoài lõi P125 trong lúc build và bật lại ngay sau».
+
+**3. Dọn hẳn (dịch vụ không còn dùng, giảm worker Agent Data…):** làm sau, lượt riêng có bằng chứng từng dịch vụ và Owner gật danh sách — không gộp vào T2-B, không thuộc phạm vi GHM nếu đã có việc dọn VPS riêng.
+
+**4.** Sửa §0.4h làm đổi last-touch ROADMAP ⇒ READY@8a528cdf hết hiệu lực; Host ký lại một lần, không cần vòng phản biện mới. Phần B0 đã kiểm ở P124 dùng lại được.
+- NEXT_TRIGGER=HOST_ADD_B0RAM_AND_RESIGN_T2B.
 
