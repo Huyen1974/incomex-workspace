@@ -69,13 +69,13 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>P86 · Hai VIEW đã chạy; tiếp theo S4 quyết định</h2>
+<section class="owner-actions ok"><h2>P88 · Hai VIEW đã chạy; S4 hai bảng nhỏ chờ G1/G2</h2>
 <p>PG-A2b P85 đã tạo hai VIEW native tại database <code>directus</code> bằng DOT; Host P86 chấp nhận kết quả đúng phạm vi. PG tự liệt kê vật và quan hệ khi đọc; chưa có sổ quyết định S4, chưa có đối soát V3, chưa công bố lên Nuxt.</p>
 <p>KQ P85: V1 có <strong>16.536</strong> vật, V2 có <strong>4.566</strong> quan hệ; Config Guard <strong>554/554</strong> khớp, Guard POST PASS và receipt 316. Chưa tạo Directus collection/report hay thay role. Hai phát hiện về ACL file manifest và Git DOT đã được giao rà theo đúng chủ, không cần lùi VIEW.</p>
-<p class="muted">Bước tiếp theo: Claude Chat phản biện P86 một vòng về bảng S4, khóa định danh, DOT và rollback; Host sau đó mới chốt RUN/G1G2 riêng. V3 cần Graph/dot_tools có dữ liệu kiểm chứng; trang Nuxt chỉ được công bố sau Owner-only auth. Trạng thái chuẩn nằm trong COLLAB.</p></section>
+<p class="muted">Claude P87 đã phản biện, GPT Host P88 chốt S4 từ điển hệ + bảng quyết định, siết căn cứ không để rỗng. PROMPT mới đang DRAFT; chưa có Owner G1/G2, chưa READY hay RUN. P0 đăng nhập Reports do GPT Host NDW phụ trách qua làn Web hiện có; chỉ sau auth mới hiện V1/V2/S4, không cần chờ Graph/V3.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
 <span class="flag">P55 · PG đọc sống + Census + Graph · Ba Lô LEGACY</span>
-<span class="flag">✅ V1/V2 P85 · ■ P86 chờ Claude rà S4 · □ V3 + Graph/dot_tools · □ Reports auth · □ Công thức/Workflow</span>
+<span class="flag">✅ V1/V2 P85 · ✅ P87/P88 chốt S4 · ■ S4 DRAFT chờ Owner G1/G2 · □ P0 Reports auth · □ V3 Graph/dot_tools · □ Workflow</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <section class="arch-figure" aria-label="P65 hai nhóm PG-first và ranh giới ngoài PG">
@@ -101,7 +101,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <div class="has"><b>A · Vật PG</b><small>Mọi loại trong PG (12 loại Census + loại khác nếu có). 🤖 PG tự kể, không khai tay.</small></div>
 <div class="has"><b>B · Khai báo trong PG</b><small>Directus (collection, field, quan hệ, flow) + sổ DOT + các sổ đăng ký. 🤖 đọc thẳng.</small></div>
 <div class="new"><b>C · Ngoài PG</b><small>Tệp DOT trên máy chủ: khai 1 lần vào sổ DOT; 🤖 máy so đĩa ↔ sổ.</small></div></div>
-<p><strong>Trần thiết kế P49:</strong> tối đa <strong>1 bảng S4</strong> và <strong>3 SQL VIEW</strong>. Hai VIEW V1/V2 <strong>đã tạo P85</strong>, còn bảng S4 và V3 chưa tạo. VIEW đọc dữ liệu trực tiếp khi truy vấn, không sao chép; Graph và <code>dot_tools</code> phải có chứng cứ đồng bộ trước khi dùng V3. Nuxt chưa công bố vì API chưa xác thực Owner-only.</p></section>
+<p><strong>Trần hiện hành P49:</strong> 1 bảng S4 + 3 VIEW. P88 đề xuất Owner duyệt <strong>2 bảng nhỏ S4</strong>: từ điển mã hệ riêng S4 và sổ quyết định dùng khóa ngoại, tránh CHECK mã hệ cứng. Chưa được duyệt/chưa tạo; hai VIEW V1/V2 đã tạo P85, V3 chưa tạo. Nuxt chỉ công bố sau auth Owner-only.</p></section>
 <figure class="arch-figure" aria-labelledby="arch-caption">
 <div class="arch-legend"><span><i class="legend-existing"></i> Đọc được hiện tại</span><span><i class="legend-proposed"></i> Dự kiến, chưa tạo</span><span><i class="legend-unknown"></i> Cần kiểm chứng</span></div>
 <div class="arch-columns">
@@ -139,7 +139,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
  <div class="milestone-node"><strong>✅ B0b</strong><span>🤖 XONG P27: hai công cụ đã được bảo vệ</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>✅ TS1 · ĐẾM</strong><span>XONG khảo sát P52; còn 3 DB + Graph/đăng nhập thiếu</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>✅ PG-A2b · V1/V2</strong><span>KQ P85: SQL/Guard PASS, V1 16.536 và V2 4.566, không thay role/report</span></div><div class="milestone-arr" aria-hidden="true">→</div>
- <div class="milestone-node"><strong>TS3 · S4 KẾ TIẾP</strong><span>Claude phản biện schema/khóa; rồi Host chốt G1G2 và DOT tạo đúng 1 bảng quyết định, không seed hàng</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+ <div class="milestone-node"><strong>TS3 · S4 KẾ TIẾP</strong><span>P88 đề xuất 2 bảng, một dòng mã chua_ro và 0 quyết định; cần Owner G1/G2, mọi ghi qua DOT</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>TS4–TS5</strong><span>🤖 Máy tự sửa lỗi được phép, cảnh báo có hạn; chỉ phát sinh 1 vụ khi cần người</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>B1–B5</strong><span>Công thức → Workflow</span></div>
 </div>
@@ -186,7 +186,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <p>Phạm vi đã kiểm P81: 1 cạnh membership, 12 quan hệ bị ảnh hưởng khi đổi vai tại <code>incomex_metadata</code>, 14 catalog PUBLIC. Nuxt <code>/api/reports/live</code> chỉ chạy SQL đã đăng ký, hiện hai VIEW chưa có dòng đăng ký theo phép đo P81. Đây không phải bằng chứng tất cả đường HTTP đã an toàn: cổng Reports Owner-only P0 vẫn phải khép trước khi công bố.</p>
 <p>Hai SQL từ P75 giữ nguyên SHA: áp <code>b5910340…d31d</code> và lùi <code>bd19885f…30e3</code>. Config Guard quản lý 2 tệp SQL/2 hàng registry/2 dòng manifest qua <code>incomex-config-apply-v0</code>, cổng DOT phải tự thử trước ghi. Đường lùi REVOKE + COMMENT là lùi chức năng, VIEW còn trong PG; không DROP tự động.</p>
 <p>P83 chỉ cấp quyền tạo hai VIEW; P85 đã thực hiện và P86 Host nghiệm thu. Không tái sử dụng READY P84. S4 là thay đổi schema mới phải có SQL/rollback, phản biện và G1/G2 riêng; không kéo Nginx/Kuma/Graph/PG role vào cùng RUN.</p>
-<p>Hai nợ quản trị: apply-v0 làm mất ACL mở rộng trên manifest (quyền đọc hiệu dụng lúc đo không đổi), và Git DOT lệch 6 dòng với manifest live, SQL files chưa tracked. Đây là nợ của chủ Guard/DOT để reconciliate bảo toàn, không setfacl/git reset tay. Kế tiếp §3.KH: S4 → V3 khi có nguồn Graph/dot_tools → Nuxt Owner-only auth trước public → TS4/TS5 → Công thức/Workflow.</p>
+<p>Hai nợ quản trị: apply-v0 mất ACL mở rộng trên manifest, Git DOT lệch 6 dòng; chủ Guard/DOT xử lý riêng, không chặn S4. Roadmap P88: S4 → P0 đăng nhập Reports (Owner GPT Host NDW, thực thi qua code/PR/KST Web <code>work/github-management</code>) → xem V1/V2/S4 → V3 khi Graph/dot_tools có nguồn+tuổi thật → TS4/TS5 → Công thức/Workflow.</p>
 <p>Những phép đo V1/V2 là evidence P85 do Agent báo và Host xét từ repo; không thay kiểm runtime độc lập về sau. KQ ở COLLAB/P85/P86; P79/P80 giữ lịch sử lần dừng và lỗi đầu vào. Không lấy mục tiêu Graph/auto-sync/đăng nhập làm đã hoàn thành chỉ vì VIEW tồn tại.</p>
 <p>PG-L0 bổ sung kiểm lại cổng read-only query_pg (role context_pack_readonly, READ ONLY), phiên Kuma có so giá trị SQL trả về không (upstream #7728 báo không), nginx bảo vệ đủ /reports/API/origin, 7 Directus Flows/pg-boss lịch sử và RAG/Qdrant/Graph thực. Không khẳng định đã hoạt động chỉ vì có tên trong tài liệu. Git chỉ lưu thay đổi đã commit, hash thiếu baseline => UNKNOWN. Tiêu chí 0/kiến trúc P67 trên COLLAB là bản chốt.</p>
 <p><strong>Đã chốt:</strong> ưu tiên PG-LIVE; không đồng nghĩa PG có quyền chỉ một thư mục vì pg_read_server_files được phép đọc toàn filesystem nó thấy. L0 kiểm compose thật, manifest 00-SO-DOT.tsv, phương án file_fdw, quyền SECURITY DEFINER/PUBLIC/symlink, performance hashing và downtime khi recreate. Không có baseline hash thì V3 không thể kết luận “đã đổi từ lần trước”. Nhóm ngoài PG chỉ gồm ranh giới host/Docker, event khi không SELECT, sender/GUI cần thật. Chi tiết P65 đã ghi ở COLLAB; các P63/P61 bên dưới là lịch sử.</p>
