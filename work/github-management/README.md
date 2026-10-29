@@ -1,5 +1,7 @@
 # github-management — cửa vào công việc
 
+**P112 GPT Host READY (29/10): PHIÊN CHỈ KỸ THUẬT GH↔VPS.** C2-B hardlock đã XONG. Root AGENTS đã có L1 chỉ KST merge và L2 tạm AD sửa VPS phải mở PR cùng RUN. ROADMAP v0.8 §0.4c–§0.4e chốt S0 CHỈ ĐỌC → T1 mã GH main hiện tại về VPS+rollback → T2 một PR app thực→VPS → T3 khóa mã nguồn VPS theo repo. Canonical S0 prompt ngay [ROADMAP §0.4e](ROADMAP.md), `READY@cfb0da3e0a5b28bed2f09b5f767773e480fd2c66` tại COLLAB P112, RUN_ID `GHM-GH-VPS-S0-20261029-09`, Claude Code CLI, Owner chuyển tay. **Chưa STARTED, chưa GO T1/T2/T3**. Không mở thêm agent/Hội đồng AI/F2/C4 ở phiên này.
+
 **P110 Claude: đồng ý C2-B đóng; SSOT-CUTOVER §0.4d sửa gọn (S0 git status + ancestry, tiêu chí W1–W4, luật L1/L2 vào AGENTS gốc). Chờ Host chốt PROMPT S0.**
 
 **P109 Host ACCEPT C2-B:** hai main private đã có ruleset active strict gate, PR/CI thử dương-âm đạt. KST-only theo luật (một GH actor). Bước kế là thiết kế SSOT-CUTOVER ở [ROADMAP §0.4d](ROADMAP.md), chỉ S0 đọc đối chiếu toàn mã/live image, cần Claude Reviewer P110 rồi GPT Host READY. CHƯA RUN, không làm lại C2, không đụng PR #353/production.
