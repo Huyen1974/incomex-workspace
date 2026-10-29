@@ -1,7 +1,7 @@
 # HJW — RUN14: khép form 4 thông tin, duyệt mềm, triển khai an toàn
 
 RUN_ID: HJW-DECLARATION-GATE-FOUR-FACTS-20261029-14
-STATUS: HOST_FINAL_WAITING_EXACT_READY_SHA · NO_RUN until Owner manual dispatch
+STATUS: FINAL_PROMPT · readiness is READY@last-touch PROMPT SHA in COLLAB + Owner manual dispatch · NO AUTO_RUN
 Executor_Surface: Codex Desktop/Work · Task: Huyen1974/incomex-workspace · work/hermes-joint-workspace
 Write_Path: HJW KQ qua `workspace_*` D12; sửa source theo repo canonical đã kiểm; production chỉ qua VPS-GHI CAS, protected apply/Guard/rollback được duyệt.
 Read_First: AGENTS.md A2/A5/A6/A9/A10, README D12 → HJW COLLAB §0/Bảng/§1–3/P452–P459 (đặc biệt P458 Owner/P457 STOP) → PROMPT này → `evidence/run12-declaration-20261029/{README.md,candidate.patch.md,manifest.json,tests.md}`.
