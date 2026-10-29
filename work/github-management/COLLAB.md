@@ -10,7 +10,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - 🏁 XONG kỹ thuật khi hai repo có bằng chứng mã GH main→VPS chính xác, canary/health/rollback, vòng PR→merge→VPS chạy thành công và khóa nguồn VPS an toàn theo repo; quyền merge theo luật KST.
 - 📍 ✓ C2-B hardlock 2 main · ✓ snapshot vps-daily-20261028 nằm trong main · ✓ Web F1 release GH→VPS cũ → ■ S0 READ-ONLY P112 READY → T1 latest GH app→VPS → T2 PR code thật→VPS → T3 khóa source VPS, đóng GHM.
 - ✅ Root AGENTS đã thêm L1 KST merge/release, L2 tạm AD sửa VPS kèm PR; ROADMAP v0.8 §0.4c–e; main AD b4c9ea19/Web171c115a, strict gate app 15368, CI VPS PASS; AD production release+rollback còn blocker C1B.
-- ■ Đang làm: — · 0 RUN active; P112 READY@cfb0da3e0a5b28bed2f09b5f767773e480fd2c66 cho S0 CHỈ ĐỌC, chưa STARTED và chưa GO GitHub→VPS.
+- ■ Đang làm: Claude Code CLI · `GHM-GH-VPS-S0-20261029-09` STARTED 2026-10-29T04:47Z (P113) · S0 CHỈ ĐỌC, 0 VPS-GHI, chưa GO GitHub→VPS.
 - ⬜ S0 nguồn image AD, writer/backup VPS, legacy Web; T1 xác nhận current GH app code trên VPS (AD phải xử lý rollback), T2 PR ứng dụng nhỏ test round-trip, T3 khóa source VPS và chốt SSOT từng repo.
 - ➡ NEXT_TRIGGER=OWNER_DISPATCH_CLAUDE_CODE_CLI_GHM_GH_VPS_S0_20261029_09 theo ROADMAP §0.4e / READY P112; Host nghiệm thu KQ rồi ký T1 riêng đúng GO.
 - ⛔ Không mở thêm agent, Hội đồng AI/harness/Karpathy, F2/C4 trong phiên; không khóa Web/AD sau S0 nếu chưa test GH→VPS, không đụng PR #353, không tự đổi DROOT56 hoặc runtime trước Owner GO.
@@ -1594,6 +1594,10 @@ KQ@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 XONG · 2026-10-29T01:12Z · executor
 - **Không làm:** 0 deploy, 0 VPS-GHI, 0 tài khoản/App/token/secret mới, 0 bypass/disable ruleset, 0 đổi visibility/billing; không làm lại Phần A. KST_ONLY_MERGE_ENFORCED=NO: Codex và Claude Code cùng gh `Huyen1974`; «chỉ KST merge» = luật + KST_ACCEPT@SHA trong comment PR. Bằng chứng JSON riêng tư trên Mac `~/incomex-evidence/github-management/GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07-B/` (6 tệp, 600). Sự cố nhỏ: một lệnh đọc của KST lỡ kèm `PUT merge` #353 với SHA giả — auto-mode chặn, không gửi; #353 không đổi.
 - RESIDUAL: runner VPS persistent chưa cách ly trước mã không tin cậy (F2/C3.0); YAML `pull_request` vẫn có thể do PR sửa (KST rà CI_CHANGE); Web Health CHECK 2/7/10/12 đỏ nghiệp vụ, AD rollback C1B — nợ riêng.
 - NEXT_TRIGGER=HOST_ACCEPT_C2 → SSOT-CUTOVER. Áp: SAME_COMMIT.
+
+## P113 · Claude Code CLI · 29/10/2026 — S0 GH↔VPS CHỈ ĐỌC
+STARTED@GHM-GH-VPS-S0-20261029-09 2026-10-29T04:47Z · executor=Claude Code CLI trên Mac · scope READ_ONLY
+- Read-gate PASS: khối «OWNER RUN S0» Owner dán trực tiếp cho Claude Code (Task/RUN_ID/READY khớp repo — tiền lệ F1/G1/C2-B); last-touch ROADMAP.md = `cfb0da3e0a5b28bed2f09b5f767773e480fd2c66` khớp READY P112; sau READY chỉ COLLAB/README đổi (d0c2d4b5, cc75015b); không STOP/STARTED khác; AGENTS root L1/L2 có, DROOT56 chưa đổi. GH main 04:47Z: AD `b4c9ea19cf2e57594a231c2819e098fe0002c99a`, Web `171c115a9a00e12d57449768401d3ab5e7cc796c` = ghim, ruleset `main-code-gate` active cả hai. Không lấy VPS-GHI. Kết quả ghi tiếp dưới mục này.
 
 ## P112 · GPT Host · 29/10/2026 — READY S0 GH↔VPS ĐÚNG ROADMAP SHA
 - GitHub kiểm độc lập last-touch `work/github-management/ROADMAP.md` = `cfb0da3e0a5b28bed2f09b5f767773e480fd2c66` (40-hex); §0.4e chứa canonical PROMPT S0 và hai HEAD ghim AD b4c9ea19/Web 171c115a; AGENTS root L1/L2 đã ghi, DROOT56 chưa đổi.
