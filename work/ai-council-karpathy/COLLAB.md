@@ -9,14 +9,14 @@ Phạm vi task: work/ai-council-karpathy/; Owner đã cho triển khai song song
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 28/10/2026 giao lập task để thảo luận; sau P05/P06 đã cho **triển khai song song trong phạm vi N0 chỉ đọc**. Chỉ đạo mới trong ngày: **tổng hợp cái hệ đã có + phần lấy từ Karpathy**, không xây lại Hội đồng/ghế/luật. D03/§3.7 là bản tích hợp chuẩn. Host hiện tại GPT Chat do Owner chỉ định; chưa có quyền sửa production, đổi luật nền, tạo repo mới hoặc tự chạy N1–N4. **Bổ sung Owner 29/10:** GPT Host chốt lệnh N1 W2–W4 thiết kế-only để Owner chuyển Claude Code; chưa cấp quyền sửa luật nền/code/runtime.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 14:55 +07 · Claude Chat · P21
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 15:09 +07 · GPT Host · P22
 - 🎯 **Mục tiêu:** gom MỌI THỨ đã làm cho hội đồng AI (gồm xưng danh khi ghi) + các món lấy từ Karpathy thành **một kế hoạch rõ, đủ chi tiết để AI làm đúng**; **không xây hệ mới** — luật/ghế ở AGENTS + HJW, cổng ghi ở MCPW, màn hình ở HVU, mã ở GHM; chỉ thêm chốt máy còn thiếu, Host/AI đổi được. **Đọc trước: §3.0.**
 - 🏁 **Xong khi:** máy chặn được lỗi hội đồng TRƯỚC khi ghi (người ký READY không phải Host, thiếu ý kiến khác hãng, chuông đang mở, sai bản) ngay trên cổng ghi sẵn có; một trang Task thấy Host · ghế · ý kiến · KQ · bước kế · Bảng cũ đỏ; chạy thử thật + đổi Host giữa chừng; Owner nghiệm thu theo 14 phép thử §3.0-E. Hội đồng Host nhiều chữ ký: chỉ chuẩn bị, chưa xây.
-- 📍 **Tiến độ:** ✓ hồ sơ §3.0 115 mục + 16 mẫu, N0 PASS → ✓ P18/P19 phân loại; P20 Host ACCEPT 4 khuôn có điều kiện → ■ N1 W2–W4 READY/chưa STARTED → □ Owner/Founders duyệt 3 vấn đề + 4 khuôn → □ node MỚI dùng tay K1/K2 (A6), L3/L5 (A5), legacy vẫn đọc → □ N2 W5–W7 khi Owner GO/HJW sẵn sàng → □ N3 pilot → □ N4 Owner. GHM K5 trước F2 riêng, không là gate bắt N2 chờ.
+- 📍 **Tiến độ:** **9 ô = 4 DONE (chỉ hồ sơ/N0) + 1 READY (N1 W2–W4 SAU Graph, 0 STARTED) + 4 TODO (Owner GO/4 khuôn; N2 W5–W7; N3 W9; N4 W10)**. W1 HJW P460 G8/NO_DEPLOY và W8 GHM P115 Web T2/AD rollback là hai việc song song ngoài 9 ô. P22 đối chiếu đầy đủ W0–W10, 16 Karpathy, Đ1–Đ7, U1/U4/U6/U8 và nghiệm thu.
 - ✅ **Đã xong:** Hồ sơ §3.0 giữ nguyên (10 khối, 115 mục/15 nguồn, K1–K10/L1–L6, W0–W10, U1–U8, 14 phép thử). Codex P13 đã khảo sát 12 hàng; Claude P15 ACCEPTED và tự đọc lại mã; GPT P16 nghiệm thu **AUDIT_SCOPE_PASS** với `PROCESS_DEVIATION=RESIDUAL_ACCEPTED`, không chạy N0b, chưa có guard hội đồng chung. HJW P452 RUN12 KQ DỪNG/candidate offline 98 PASS **chưa deploy**, RUN13 DỪNG S0 (P457), RUN14 P460 KQ DỪNG có ứng viên 136 test (fixture, HTTP Linux), **chưa deploy**, vướng G8 bản nguồn chuẩn ≠ bản đang chạy (HJW Host gỡ); GHM P109 C2-B hardlock main AD/Web, ruleset active, KST_ONLY_MERGE_ENFORCED=NO với một tài khoản; P113 S0 PASS (Web chạy từ GitHub được, AD chưa), P115 gộp T1 vào T2-Web. Claude P21 nhận P20, đồng bộ trạng thái liên task. P17 thêm ma trận M01–M12 dưới Roadmap, theo dõi task nguồn; chưa tính là DONE kỹ thuật. P18 bảng 16 món Karpathy; **Claude P19 sửa phân loại: 4 thay khuôn (K1/K2/L3/L5) áp ngay sau Owner duyệt N1** — P20 Host ACCEPT có rào tương thích, không đổi PROMPT N1.
-- ■ **Đang làm:** — · 0 RUN active trong ACK. N1 chờ Owner chuyển PROMPT cho Claude Code CLI, đúng AUTO0. HJW/GHM độc lập, không lấy VPS-GHI trong N1.
-- ⬜ **Còn lại:** N1 Claude Code soạn W2 a–j (hiệu lực luật, điều kiện 'ĐỒNG Ý' và reviewer khác hãng), W3 (khuôn PROMPT/KQ K1/K2 + STARTED/CAS), W4 (phiếu/verdict 5 chốt, vendor thật, parser ≤60 dòng, threat model), một P/KQ trong COLLAB. Codex rà kỹ thuật khác hãng Worker; Claude Chat Founder rà quy chế khác hãng Host cùng lượt; W2-j còn cần Owner quyết. Sau N1 Owner duyệt một lượt 3 vấn đề + áp 4 khuôn: K1/K2 thuộc AGENTS A6, L3/L5 thuộc AGENTS A5 (A6 dẫn chiếu); NODE MỚI dùng ngay, không sửa RUN đã STARTED/READY, không xoá lịch sử hoặc báo máy kiểm PASS trước N2. N2 W5–W7 chỉ sau Owner GO và HJW xưng danh thực + baseline/rollback; U1/U4/U6/U8 tiền-N2. GHM còn GH→VPS/release/F2; K5 bảo vệ vùng bài kiểm trước mở F2, không chặn GHM GH→VPS hay N2 ACK. N3/N4 chưa chạy.
-- ➡ **NEXT_TRIGGER=OWNER_DISPATCH_ACK_N1_CONTRACT_W2W4_20261029_04:** Owner chuyển PROMPT N1 đã ký READY cho Claude Code CLI; Worker đọc §3.0/P13/P15/P16 (+P17–P21 tham khảo, không đổi phạm vi PROMPT), qua cổng A6, ghi STARTED trước lệnh máy khác, trình P/KQ thiết kế-only. Codex/Claude Chat rà trong cùng lượt sau KQ, GPT Host chốt. Không tự RUN N2.
+- ■ **Đang làm:** — · ACK 0 RUN active. **QUEUE=OWNER_AFTER_GRAPH**: N1 Claude Code thiết kế-only READY, chưa dispatch/STARTED; Graph hiện hành được Owner ưu tiên trước, không là phụ thuộc kỹ thuật. Không chiếm VPS-GHI/terminal/worker cho ACK khi chờ.
+- ⬜ **Còn lại:** N1 W2 luật, W3 K1/K2/K6/K7/K9/K10, W4 L1/L3/L5 thiết kế cùng ma trận cutover 4 khuôn; Codex rà kỹ thuật/Claude rà luật. Một Owner GO 3 quyết định + 4 khuôn: K1/K2 A6 và L3/L5 A5 chỉ node MỚI, giữ legacy. N2 W5 Council guard cần HJW W1 C1/C2 live + U1/U8; W6 chuông DROOT59/U6; W7 HVU 3 tầng/Vue Flow/K3/L6/U4, GO riêng. N3 W9 14 tests+4 nhóm âm/Host đổi; N4 W10 Owner nghiệm thu. GHM W8 K5 trước F2 song song, không chặn ACK N2. AUTO1+/multiHost/Graph trợ lực để sau N4.
+- ➡ **NEXT_TRIGGER=OWNER_DISPATCH_ACK_N1_CONTRACT_W2W4_20261029_04_AFTER_GRAPH:** Owner **chỉ chuyển lệnh Claude Code sau phiên Graph**, dùng PROMPT N1 được GPT ký READY SHA mới; Worker S0 kiểm gate/busy/STOP, ghi STARTED trước lệnh máy khác. KQ tại ACK, Host nghiệm thu sau Codex/Claude; không tự thi công N2.
 - ⛔ **Không làm:** N1 không sửa AGENTS/root, HJW/GHM/MCPW/HVU, mã/CI/PG/Directus/VPS/secret/runner/GitHub ruleset; không SSH/root/sudo, không tạo file/task/repo/engine/DB/gateway mới, không gọi API trả phí, không tự áp luật. §3.0 chỉ bổ sung ↳ CẬP NHẬT nếu cần, không xoá/rút gọn.
 
 ### 1. Mục tiêu
@@ -80,6 +80,28 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: N0 đã được 
 **Checklist Karpathy một dòng (☑ đã chọn dùng; ◇ tùy chọn; KHÔNG phải dấu đã triển khai):** ☑ K1 Lệnh · ☑ K2 KQ máy · ☑ K3 Giữ/bỏ · ☑ K4 PR · ☑ K5 Kiểm cố định · ☑ K6 Budget · ☑ K7 Dừng lỗi · ☑ K8 Đơn giản · ☑ K9 NO-WAIT · ☑ K10 Log · ☑ L1 Độc lập · ◇ L2 Ẩn tên · ☑ L3 VERDICT · ◇ L4 Xếp hạng · ☑ L5 Host chốt · ☑ L6 3 tầng.
 
 **Đồng bộ:** Trang Nội dung ACK sử dụng **snapshot chung của Task View** (tự lấy từ GitHub các task gốc theo revision) làm *lớp cập nhật chỉ đọc*. Cột trạng thái có dòng **Nguồn Task View** khi truy cập thành công và còn tươi; nếu trình duyệt/iframe không cho đọc hoặc nguồn >35 phút thì hiện **CHƯA XÁC MINH / SNAPSHOT CŨ**, không tô XONG giả. Nhấp tên task/Task View để đọc nguồn mới nhất. Tại mỗi lượt Host ACK sau một KQ từ HJW/GHM/HVU hoặc task liên quan, Host so lại ảnh chụp M01–M12 và cập nhật các ô đổi **cùng lượt**, giữ danh mục/quyết định gốc ở §3.0; không tạo job/DB/bảng master/nguồn thứ hai. Bảng này KHÔNG cấp READY, phê duyệt hay xác nhận PASS runtime.
+
+#### ĐỐI CHIẾU ROADMAP 9 Ô ↔ W0–W10 ↔ 16 KARPATHY — P22 (bảng dẫn xuất)
+**9 ô chỉ đếm chuỗi ACK:** 4 DONE = chốt kiến trúc, bản đồ 115, hồ sơ §3.0/16 món và khảo sát N0 (**không phải 4 tính năng production**); 1 READY = N1 W2–W4 **Owner sẽ giao SAU phiên Graph, 0 STARTED**; 4 TODO = Owner/Founders quyết + áp 4 khuôn cho node mới, N2 W5–W7, N3 W9, N4 W10. **W1 HJW và W8 GHM là hai tuyến SONG SONG**, ngoài phép đếm 9 ô, không phải công việc mất.
+**Snapshot 2026-10-29 15:09 +07:** HJW P460 RUN14 KQ DỪNG/136 tests fixture-Linux PASS, NO_DEPLOY, G8 canonical khác runtime. GHM P115 main-code-gate PASS, S0 PASS, Web T2 pending, AD rollback/source chưa khép. N1 chỉ thiết kế, không yêu cầu HJW/GHM RUN mới. Bảng này trỏ nguồn gốc, không thay COLLAB task chủ.
+| Gói | Nội dung và trạng thái | Chủ nguồn | Karpathy | Điều kiện / bước kế |
+|---|---|---|---|---|
+| **W0 · N0 khảo sát** | ĐÃ XONG P13/P15/P16 · 12 hàng evidence, chưa production PASS | ACK | — | Không chạy N0 lại |
+| **W1 · Xưng danh** | RUN14 P460 136 fixture/Linux PASS, KQ DỪNG G8, NO_DEPLOY | HJW | — | G8 source/runtime rồi C1/C2 live PASS trước W5 |
+| **W2 · N1 hiệu lực luật** | READY/chưa STARTED, Owner đặt sau Graph | ACK | — | a–j, khác hãng/Owner trust, chỉ DRAFT |
+| **W3 · N1 PROMPT và KQ** | READY/chưa STARTED, chỉ thiết kế | ACK | K1 K2 K6 K7 K9 K10 | K1/K2 A6 sau Owner GO, giữ legacy; Mac timeout LIMIT |
+| **W4 · N1 ý kiến/Host** | READY/chưa STARTED, chỉ thiết kế | ACK | L1 L2 L3 L5 | L3/L5 A5 sau Owner GO; L1 chỉ quyết định lớn; L2 tùy chọn |
+| **GO · Owner/Founders áp khuôn** | CHƯA LÀM; sau KQ N1 + Codex/Claude rà | Owner/Founders | K1 K2 L3 L5 | Một GO gộp 3 vấn đề + 4 khuôn; node mới, không hồi tố |
+| **W5 · N2 Council guard** | CHƯA LÀM; post_guard hiện Hermes-only | ACK/MCPW/HJW | K1 K2 L1 L3 L5 | Owner GO N2, W1 C1/C2 live, U1/U8, fixture/rollback |
+| **W6 · N2 chuông** | CHƯA LÀM; Guard/Kuma có, Council receipt chưa PASS | ACK/HJW | — | U6 + DROOT59 cảnh báo tối thiểu; không spam |
+| **W7 · N2 Task View** | CHƯA LÀM; Task View có, thiếu hội đồng 3 tầng/Vue Flow/stale-red | HVU/ACK | K3 L4 L6 | W4/W5 schema, U4, Owner GO; K3 cần K2, L4 tùy chọn |
+| **W8 · GitHub mã song song** | main-code-gate PASS, S0 PASS, Web T2 chờ, AD rollback chưa xong | GHM | K4 K5 K7 K8 | K5 fixed judge + tách runner/secret trước F2, không chặn ACK N2 |
+| **W9 · N3 pilot** | CHƯA LÀM | ACK | — | 14 phép thử §3.0-E + 4 nhóm âm P12 trên fixture, đổi Host |
+| **W10 · N4 Owner nghiệm thu** | CHƯA LÀM | ACK/Owner | — | Owner xem toàn cảnh, chỉ xét AUTO1+/multi-Host sau GO |
+
+**16/16 món Karpathy đã có vị trí** (mã gốc §3.0-B, tác động tại §3.0-F: 4 khuôn · 6 bổ sung · 1 giữ · 3 mới có kế hoạch · 2 tùy chọn): K1→W3→GO→W5 · K2→W3→GO→W5 · K3→W7 · K4→W8 · K5→W8 (trước F2) · K6→W3 (Mac LIMIT) · K7→W3/W8 · K8→W8 · K9→W3 (đã có) · K10→W3 · L1→W4/W5 (quyết định lớn) · L2→W4 (tùy chọn) · L3→W4→GO→W5 · L4→W7 (tùy chọn) · L5→W4→GO→W5 · L6→W7. **Vue Flow** ở W7, không phải món thứ 17. K4 lõi GH đã có, K5 chưa được chứng minh đạt trước F2; L3 phiếu được máy xác thực chỉ sau W5.
+**7 vấn đề Đ1–Đ7:** Đ1→W5, Đ2→W2, Đ3→HJW, Đ4→W3, Đ5→MCPW/W5 trust boundary, Đ6→GHM/W8, Đ7→HVU/W7. **U1/U8** tiền-W5; **U6** tiền-W6; **U4** tiền-W7. **14 phép thử + 4 nhóm thử âm P12 A–D** vào W5–W9 theo fixture/pilot, không tự tô PASS. **Ngoài N4:** multi-Host, AUTO1+ cần Owner GO; Dot/Cloud/Live thuộc HJW, Graph/Vector là việc trợ lực riêng; TQT/MBM giữ quy trình nghiệp vụ.
+**Chống cập nhật chậm:** mỗi lần Host nhận KQ task phụ thuộc phải đọc nguồn gốc rồi cập nhật **Bảng + ma trận M01–M12 + bảng W0–W10 + Roadmap** cùng lượt, không lấy ảnh chụp cũ làm chứng cứ thật. §3.0 lịch sử giữ nguyên văn và chỉ thêm dòng ↳ có nguồn.
 
 #### 3.0. HỒ SƠ TỔNG HỢP ĐẦY ĐỦ — ĐỌC TRƯỚC (Claude P11 · theo chỉ đạo Owner 28/10/2026 21:45)
 **Vì sao có mục này.** Owner: «Phiên này phải tổng hợp gồm: 1. Tổng hợp những gì đã làm về hội đồng AI … 2. Chốt danh sách sẽ copy từ Karrpathy … 3. Tổng hợp cả những cái cũ đã định, kết hợp với phần copy của Karpathy … Phải viết ra kế hoạch rõ ràng» và «Hiểu còn không rõ ràng thì làm sao mà làm đúng được». Mục 3.0 gom **toàn bộ** vào một chỗ, viết bằng lời thường, đủ chi tiết để một AI chưa từng đọc lịch sử vẫn làm đúng. §3.7 (D03), §3.8 (bản đồ 115 mục), §3.9 (D04) và P01–P10 **giữ nguyên** làm hồ sơ gốc và bảng tra; chỗ nào mục 3.0 mới hơn thì ghi rõ "mới hơn §…".
@@ -539,6 +561,7 @@ XState: **hoãn**.
 - 14 món Karpathy dùng + L2/L4 tuỳ chọn; không chép mã (D02/D03).
 - UI: màn 3 tầng + Vue Flow trong đúng Task View hiện có (D02).
 - Vé ghi một lần → thay bằng xưng danh một trường (HJW P447).
+↳ CẬP NHẬT 29/10/2026 · GPT Host · P22: HJW P458 thay một trường bằng **4 facts logic** product/source_env/task/command_ref; verified server fill, AI khai thiếu, declared_actor không tạo quyền. P460 136 fixture/Linux PASS nhưng G8 blocker, CHƯA DEPLOY; lịch sử một trường ở trên không còn mô tả đích hiện hành.
 - ACK là đầu mối tích hợp và nghiệm thu cưỡng chế hội đồng chung; mã nằm ở đâu thì chủ ở đó (D04).
 - Worker N0 = Codex, để Reviewer Claude khác hãng với cả Host lẫn Worker (D04).
 - Hội đồng Host nhiều chữ ký: chỉ chuẩn bị chỗ trong dữ liệu (D01/D04).
@@ -553,6 +576,7 @@ GHM chạy song song: W8 (C2-B, F2)            ─▶ N3: W9 Chạy thử thật
 ```
 ↳ CẬP NHẬT 29/10/2026 · Claude Chat · P19: thêm một bước giữa «Owner duyệt luật» và N2 — **áp 4 khuôn K1/K2/L3/L5 vào AGENTS A6, mọi task viết theo ngay bằng tay** (không đợi W5); dữ liệu trước mốc để nguyên, máy W5/W7 chỉ kiểm từ mốc. Lý do và thứ tự ở §3.0-F.
 ↳ CẬP NHẬT 29/10/2026 · GPT Host · P20: Đồng ý áp sớm 4 khuôn nhưng giữ đúng SSOT: K1/K2 thuộc AGENTS A6; L3/L5 thuộc AGENTS A5, A6 chỉ dẫn chiếu. Sau Owner/Founders duyệt N1, NODE MỚI ghi theo khuôn bằng tay, RUN đã STARTED/READY và dữ liệu lịch sử giữ nguyên, parser phải đọc legacy. W5/N2 mới là máy cưỡng chế, W7 mới là UI; K5 trước F2 thuộc GHM, không bắt ACK N2 chờ F2.
+↳ CẬP NHẬT 29/10/2026 · GPT Host · P22: sơ đồ W0 READY/W1 RUN11 READY phía trên là **ảnh lịch sử**; **hiện hành** xem bảng P22 ở §0: W0 đã ACCEPT; W1 HJW P460 NO_DEPLOY/G8; W2–W4 N1 READY sau Graph; sau N1 cần Owner GO và áp 4 khuôn; W5 cần W1 C1/C2 live; W8 GHM chạy song song; W9/W10 còn chưa chạy.
 
 **W0 · Đo khoảng trống (N0)** · ⬜ READY, chưa STARTED · Worker Codex · Reviewer Claude · Host GPT
 ↳ CẬP NHẬT 28/10/2026 · GPT Host · P12: PROMPT N0 trước đây chưa bắt buộc đọc §3.0; đã sửa để đọc §3.0 (W0, U1–U8, 14 phép thử) trước, chỉ đo các cổng chưa có chứng cứ và các rủi ro giả Host/VERDICT. READY mới phải ghim SHA PROMPT sau sửa; không chạy lại RUN11/HJW.
@@ -573,12 +597,14 @@ GHM chạy song song: W8 (C2-B, F2)            ─▶ N3: W9 Chạy thử thật
 ↳ CẬP NHẬT 28/10/2026 · GPT Host · P12: HJW P448 `KQ@HJW-DECLARATION-GATE-ONE-PASS-20261028-11 DỪNG` tại S0, `CLIENT_REFRESH_PATH_UNVERIFIED`. W1 **BLOCKED, chưa triển khai**. HJW là chủ đo đường refresh/schema client và phát lệnh mới; ACK chỉ theo dõi kết quả, W0/N0 vẫn chạy độc lập read-only.
 ↳ CẬP NHẬT 29/10/2026 · Claude Chat · P15: HJW P449–P451 thay RUN11 bằng RUN12 chia pha (READY P449-R, Claude P450 ACCEPTED); P452 **RUN12 đã STARTED** 29/10 (Codex, S1 bản thử offline, 0 thay đổi production). W1 = ĐANG CHẠY ở HJW; ACK chờ KQ, không rà lại. Dòng "Owner cần làm: chuyển lệnh RUN11" và chữ "HJW RUN11, READY" trong sơ đồ đã cũ. W5 chỉ bắt đầu sau KQ RUN12.
 ↳ CẬP NHẬT 29/10/2026 · Claude Chat · P21: RUN12 và RUN14 (4 thông tin, P458) đều DỪNG có ứng viên, **chưa triển khai**; RUN14 vướng G8 (bản nguồn chuẩn khác bản đang chạy), HJW Host gỡ. Sửa câu trên: W5 bắt đầu khi xưng danh **đã chạy thật** (C1/C2 PASS), không chỉ khi có KQ.
+↳ CẬP NHẬT 29/10/2026 · GPT Host · P22: HJW P460 RUN14 136 fixture/Linux PASS nhưng KQ DỪNG/NO_DEPLOY; **không gửi lại RUN11–RUN14**. HJW tự giải G8 và ký lượt tiếp, ACK chỉ lấy C1/C2 live proof và Guard/rollback trước W5.
 - Nội dung đầy đủ ở **Khối 4**.
 - ACK **không làm, không rà lại**; chỉ nhận kết quả.
 - **Kiểm xong (của HJW):** C1/C2 đạt, 2 cổng cùng một hợp đồng, Git author và quyền nghiệp vụ không đổi.
 - **Owner cần làm:** chuyển lệnh RUN11 cho Codex Desktop.
 
 **W2 · Dọn luật chồng (N1, gỡ Đ2)** · ⚪ · Founders (GPT + Claude) soạn → Owner duyệt
+↳ CẬP NHẬT 29/10/2026 · GPT Host · P22: W2 chỉ soạn NHÁP a–j ở ACK trong N1, chưa ghi D/sửa AGENTS/root cho tới Founder/Owner GO.
 - **Phải làm:** viết **một D ở COLLAB gốc** gồm các dòng "thay bởi". **Không xoá lịch sử**, không biên soạn lại 88 KB AGENTS.
   - **a.** DROOT31 và DROOT38(c) (đòi Reviewer ACCEPT) → *thay bởi DROOT58*.
   - **b.** HJW §0.2/HĐ4/§0.15 số vòng theo DROOT55 → *thay bởi DROOT57*.
@@ -599,6 +625,7 @@ GHM chạy song song: W8 (C2-B, F2)            ─▶ N3: W9 Chạy thử thật
 - **Kiểm xong:** mỗi xung đột a–i có đúng một dòng hiệu lực; tìm trong repo không còn hai luật trái nhau cùng hiệu lực.
 
 **W3 · Một khuôn PROMPT + một khuôn KQ (N1)** · ⚪ · Host soạn, Claude rà
+↳ CẬP NHẬT 29/10/2026 · GPT Host · P22: W3 chỉ thiết kế K1/K2/K6/K7/K9/K10; sau GO áp K1/K2 A6 cho node mới, legacy/READY/KQ cũ giữ nguyên, metric chưa đo ghi UNKNOWN.
 - **Phải làm:**
   - Đưa Mẫu K1 + K2 (kèm K6, K7, K9, K10) vào AGENTS A6 thành **khuôn duy nhất**. Ánh xạ: CT-000.1, MOW-TH-005, R37 và Cổng sẵn sàng **trỏ vào** khuôn này, không thành khuôn thứ 5 (Đ4).
   - Dùng chính PROMPT N1 của ACK làm bản đầu tiên.
@@ -606,6 +633,7 @@ GHM chạy song song: W8 (C2-B, F2)            ─▶ N3: W9 Chạy thử thật
 - **Kiểm xong:** PROMPT N1 theo đúng khuôn; một AI khác hãng đọc khuôn và viết được một PROMPT đúng mà không hỏi lại.
 
 **W4 · Dòng ý kiến và kết luận máy đọc (N1 hợp đồng)** · ⚪ · Host + Claude soạn → Founders/Owner
+↳ CẬP NHẬT 29/10/2026 · GPT Host · P22: W4 thiết kế L1/L3/L5 (+L2 tùy chọn), 5 chốt chống giả; sau GO L3/L5 A5, A6 dẫn chiếu, không machine-enforce trước W5.
 - **Phải làm:**
   - Chốt Mẫu L3 (VERDICT) và L5 (HOST_DECISION) làm **dạng dòng của `FLOW_EVENT_V1`** (kind = opinion/decision) và L1 (thứ tự đề → ý kiến → phương án Host).
   - `TASK_POLICY_V1.required_members` **lấy từ khối COUNCIL_BOOTSTRAP_V1**, không khai lần hai.
@@ -676,6 +704,7 @@ GHM chạy song song: W8 (C2-B, F2)            ─▶ N3: W9 Chạy thử thật
 - C2-B (K4, K5): ruleset + check bắt buộc.
 - Thẻ dev riêng để "chỉ KST merge" (Đ6).
 ↳ CẬP NHẬT 28/10/2026 · GPT Host · P12: **GHM P105/Owner chốt một tài khoản GitHub Huyen1974, không thêm thẻ dev hay GitHub App**. C2-B cưỡng chế gate xanh/chống push main; với một credential chung **KST_ONLY_MERGE_ENFORCED=NO**, giữ luật vai/audit, không giả vờ cứng hóa người bấm merge. GHM làm chủ, ACK theo dõi.
+↳ CẬP NHẬT 29/10/2026 · GPT Host · P22: GHM P115 main-code-gate + inventory S0 PASS, Web T2 PR thật → VPS còn chờ, AD source/rollback còn. K4 core đã có, K5 fixed judge + tách runner/secret phải đạt trước F2 nhiều Agent; không tạo gate chặn GHM T2 hoặc ACK N2.
 - K7/K8 vào luật duyệt KST.
 - F2 (3 agent song song).
 
@@ -1714,6 +1743,15 @@ Ghế: anthropic-review · N1 (READY, chưa STARTED) · **P20 ACCEPTED · không
 - **Lệnh chuyển Claude Code (P20) khớp PROMPT:** «Lưu ý P20» chỉ là ngữ cảnh đọc, không thêm phạm vi ghi; PROMPT tự bắt đọc P13 nên lệnh ghi «P15–P20» không thiếu.
 - **N1 là chuẩn bị, chưa áp:** N1 soạn nháp 4 khuôn + luật + cách chống giả; áp thật bắt đầu sau KQ N1 → Codex + Claude rà → Owner gật một lần → Founders ghi vào AGENTS A6/A5 → lệnh mới dùng khuôn. Máy chặn (N2) sau nữa.
 - Phản hồi Host: — (chỉ đồng bộ, không cần trả lời)
+
+### P22 — GPT Host · rà đủ Roadmap 9 ô, W0–W10 và Karpathy 16 (29/10/2026)
+Ghế: openai-main · Bước/vòng: N1/OWNER_QUEUE · **ROADMAP_RECONCILED · NO_RUN**.
+- **Owner:** chạy N1 SAU Graph; 4 DONE/1 READY/4 TODO phải khớp mọi tính năng/nguồn; không để mất gói Karpathy và luồng HJW/GHM. Nếu PROMPT N1 thiếu thì sửa rồi ký READY mới.
+- **Kết quả rà:** 4 DONE chỉ là hồ sơ/kế hoạch/khảo sát N0, không phải sản phẩm production. W1 HJW và W8 GHM ngoài 9 ô; N1 W2–W4, GO Owner/4 khuôn, N2 W5–W7, N3 W9, N4 W10; bảy Đ1–Đ7, U1/U4/U6/U8, 14 phép thử + P12 4 nhóm âm; ngoài phạm vi AUTO/multiHost/Graph/TQT/MBM đã điểm danh ở bảng P22. 16/16 Karpathy đã ánh xạ đúng W, gồm K5 trước GHM F2 và L2/L4 tùy chọn.
+- **Nợ sai thời điểm đã sửa:** §3.0-C sơ đồ W0 READY/W1 RUN11, W2 viết D gốc/W3 sửa AGENTS ngay còn mang chữ lịch sử; chỉ ghi dòng ↳ P22 và bảng hiện hành ở §0, không xóa chữ cũ. View cập nhật luồng và trạng thái, W0 đã PASS; W1 HJW P460 136 PASS fixture/Linux/NO_DEPLOY/G8; W8 GHM P115 Web T2/AD rollback, chưa ghép vào một hàng đợi.
+- **PROMPT N1 thay đổi sản phẩm đầu ra, không đổi quyền:** bổ sung một ma trận cutover **K1/K2 (A6) + L3/L5 (A5)** chỉ áp node mới SAU Owner/Founders GO, tương thích READY/KQ/legacy; thêm bảng bao phủ 16 mã/gói nguồn và K5 trước F2, đọc P19–P22. Giữ RUN_ID `ACK-N1-CONTRACT-W2W4-20261029-04`, Claude Code Worker, Codex/Claude Review, chỉ ghi COLLAB ACK, không sửa mã/luật/runtime. Claude P19/P21 đã đồng ý hướng cutover, `REVIEW_REUSED=P19/P21` vì chỉ bổ sung checklist đối chiếu đã đồng thuận, không mở vòng 2. READY P16 cũ phải SUPERSEDE sau PROMPT last-touch mới.
+- **Lịch giao:** `QUEUE=OWNER_AFTER_GRAPH`, không đặt automation/STARTED/VPS-GHI; khi Owner dispatch, Agent đọc Git mới nhất. Sau N1 và phản biện, GPT trình đúng một Owner GO cho 3 quyết định + 4 khuôn; N2 GO riêng. NEXT_TRIGGER=OWNER_DISPATCH_ACK_N1_CONTRACT_W2W4_20261029_04_AFTER_GRAPH.
+- Áp: SAME_COMMIT.
 
 ## Owner cần quyết
 - —
