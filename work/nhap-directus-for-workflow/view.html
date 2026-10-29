@@ -69,17 +69,17 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>P101 · Host đã sửa 5 điểm kiểm tra đầu vào, đang chờ phê duyệt lượt TS4</h2>
-<p><strong>P101 đã khép 5 điểm:</strong> kiểm grammar trực tiếp, manifest production chỉ một smoke, lùi qua Config Guard vẫn khớp, PostgreSQL khóa và kiểm trong cùng giao dịch, kiểm bảo vệ đúng công cụ hiện có. Chưa ghi luật, chưa có phê duyệt lượt mới.</p>
+<section class="owner-actions ok"><h2>P103 · G2 đã duyệt, Host READY — đến lượt Claude Code CLI</h2>
+<p><strong>Điều kiện đầu vào đã kiểm:</strong> P101 khép 5 lỗi P100; P102 Owner duyệt G2 đúng phạm vi; P103 Host ký READY trên PROMPT đã chốt. Chưa có Agent STARTED, chưa có thay đổi PostgreSQL, chưa ghi một dòng luật nào.</p>
 <p>V1/V2 đã chạy từ P85; P96 đã tạo thêm bảng luật <code>directus.public.tai_san_luat</code> qua DOT, Host P97 nghiệm thu đúng phạm vi. Bảng S4 có <strong>14 cột, 0 dòng luật</strong>. Chưa có V3 giải luật hay báo cáo Nuxt được xác thực.</p>
 <p><strong>KQ P96:</strong> V1 <strong>16.580 vật</strong> (+44 = 1 bảng +14 cột +2 index +27 ràng buộc PG18), V2 <strong>4.568 cạnh</strong> (+2). Config Guard <strong>556/556</strong> khớp, Guard POST PASS, biên nhận 322; VPS-GHI đã trả. Không có role, collection, permission hay luật mới ngoài bảng rỗng.</p>
 <p><strong>SSOT một nơi:</strong> PostgreSQL quản vật; V1/V2 là VIEW đọc sống, bảng <code>tai_san_luat</code> đã có để giữ luật Owner trong tương lai, nhưng chưa nạp luật. Nhãn cũ là chứng cứ, không phải nơi ghi quyết định thứ hai.</p>
 <p><strong>P92 chốt 3 điểm:</strong> C1 bốn ô hệ/Workflow/vùng/quyết định được để NULL để kế thừa <em>từng ô</em> từ luật chung hơn; C2 mẫu họ có tiền tố neo DB (khi nạp luật phải kiểm mọi nhánh regex, không chỉ tiền tố); C3 V3 là VIEW duy nhất giải luật để Nuxt/Graph/DOT dùng chung. Đối soát PG/Census/Graph/DOT chỉ là SELECT của báo cáo, không lập V4. SQL P91 <code>90424a18…7f86</code> đã được Host băm lại, bảng chưa tạo.</p>
-<p><strong>RUN tiếp theo:</strong> chỉ lắp cổng DOT hẹp và thử một thao tác không đổi dữ liệu. PROMPT đã sửa và vẫn ở trạng thái DRAFT; chưa có G2, READY hay STARTED. Người chuyển cho Claude Code CLI chỉ được dùng lệnh mới sau khi GPT Host ký READY và cờ ghi VPS trống.</p>
+<p><strong>RUN tiếp theo đã READY:</strong> <code>NDW-TS4-S4-LUAT-GATE-20261029-01</code>. Anh chỉ cần chuyển câu <code>GỬI: Claude Code · VIỆC: work/nhap-directus-for-workflow</code> cho Claude Code CLI trên Mac. Agent tự kiểm HEAD/STOP/VPS-GHI trống/Guard/PG S0–S1, khi PASS mới lắp cổng DOT hẹp và chạy một UPDATE 0; không nạp luật/V3/Web. Sau khi chạy gửi KQ để Host nghiệm thu.</p>
 <p class="muted"><strong>P0 bảo mật có chủ:</strong> `NDW-P0-REPORTS-OWNER-AUTH` do GPT Host NDW chịu trách nhiệm. Web main hiện không xác thực khi gọi <code>/api/reports/live</code>; Claude thấy 200+rows khi không cookie, Host cũng đã đọc route thiếu auth. Đã đưa hạng mục vào đường phối hợp <code>work/github-management</code> để đi Web PR/KST/release theo giấy riêng, KHÔNG trộn RUN TS4. Chỉ khi no-cookie và phiên không Owner bị 401/403, Owner 200, không hồi quy, mới công bố báo cáo. F1 ACL/F2 DOT git dirty giữ riêng.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
 <span class="flag">P55 · PG đọc sống + Census + Graph · Ba Lô LEGACY</span>
-<span class="flag">✅ V1/V2 + S4 · ✅ P101 sửa đầu vào · ■ TS4 DRAFT chờ Owner G2 · ■ P0 Web cần GO riêng · □ luật/V3 · □ TS5/Workflow</span>
+<span class="flag">✅ V1/V2 + S4 P96 · ✅ Owner G2 P102 + Host READY P103 · ■ Owner chuyển Claude Code (0 RUN active) · □ KQ/Host nghiệm thu · □ luật/V3/P0/TS5</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <section class="arch-figure" aria-label="P65 hai nhóm PG-first và ranh giới ngoài PG">
@@ -144,7 +144,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
  <div class="milestone-node"><strong>✅ TS1 · ĐẾM</strong><span>XONG khảo sát P52; còn 3 DB + Graph/đăng nhập thiếu</span></div><div class="milestone-arr" aria-hidden="true">→</div>
   <div class="milestone-node"><strong>✅ V1/V2</strong><span>P85 + P96: V1 16.580 vật, V2 4.568 cạnh (có cấu trúc S4)</span></div><div class="milestone-arr" aria-hidden="true">→</div>
   <div class="milestone-node"><strong>✅ S4 · tạo bảng</strong><span>P96/Host P97 nghiệm thu 1 bảng luật 14 cột/0 dòng; không phải đã phân loại tài sản</span></div><div class="milestone-arr" aria-hidden="true">→</div>
-  <div class="milestone-node is-current"><strong>TS4 · cổng ghi luật</strong><span>P101 đã sửa 5 điều kiện đầu vào, chờ G2/READY và VPS rảnh</span></div><div class="milestone-arr" aria-hidden="true">→</div>
+  <div class="milestone-node is-current"><strong>TS4 · DOT cổng hẹp READY</strong><span>P102 G2, P103 READY; chờ Claude Code S0–S5, 17+ test và một smoke UPDATE 0, chưa STARTED</span></div><div class="milestone-arr" aria-hidden="true">→</div>
  <div class="milestone-node"><strong>B1–B5</strong><span>Công thức → Workflow</span></div>
 </div>
 <p class="muted">P65: PG-L0 RO → PG-L1 live nếu an toàn và có G1/G2 → PG-A SQL VIEW/S4/4 DB → EXT-B chỉ phần PG không tự làm được an toàn. TS2R writer/3 cột/.path cũ là phương án dự phòng, không tự RUN. Nuxt API chưa auth nên không công bố metadata nội bộ.</p>
