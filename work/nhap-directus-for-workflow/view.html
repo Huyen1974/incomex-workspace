@@ -69,15 +69,16 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>P97 · S4 tạo bảng XONG; Claude rà cổng ghi luật TS4</h2>
+<section class="owner-actions ok"><h2>P98 · S4 tạo bảng XONG; Claude chọn cổng ghi luật hẹp · chờ Host soạn lệnh + Owner G2</h2>
 <p>V1/V2 đã chạy từ P85; P96 đã tạo thêm bảng luật <code>directus.public.tai_san_luat</code> qua DOT, Host P97 nghiệm thu đúng phạm vi. Bảng S4 có <strong>14 cột, 0 dòng luật</strong>. Chưa có V3 giải luật hay báo cáo Nuxt được xác thực.</p>
 <p><strong>KQ P96:</strong> V1 <strong>16.580 vật</strong> (+44 = 1 bảng +14 cột +2 index +27 ràng buộc PG18), V2 <strong>4.568 cạnh</strong> (+2). Config Guard <strong>556/556</strong> khớp, Guard POST PASS, biên nhận 322; VPS-GHI đã trả. Không có role, collection, permission hay luật mới ngoài bảng rỗng.</p>
 <p><strong>SSOT một nơi:</strong> PostgreSQL quản vật; V1/V2 là VIEW đọc sống, bảng <code>tai_san_luat</code> đã có để giữ luật Owner trong tương lai, nhưng chưa nạp luật. Nhãn cũ là chứng cứ, không phải nơi ghi quyết định thứ hai.</p>
 <p><strong>P92 chốt 3 điểm:</strong> C1 bốn ô hệ/Workflow/vùng/quyết định được để NULL để kế thừa <em>từng ô</em> từ luật chung hơn; C2 mẫu họ có tiền tố neo DB (khi nạp luật phải kiểm mọi nhánh regex, không chỉ tiền tố); C3 V3 là VIEW duy nhất giải luật để Nuxt/Graph/DOT dùng chung. Đối soát PG/Census/Graph/DOT chỉ là SELECT của báo cáo, không lập V4. SQL P91 <code>90424a18…7f86</code> đã được Host băm lại, bảng chưa tạo.</p>
-<p class="muted">Bước hiện tại: Claude Chat P98 rà đường ghi dữ liệu vào đúng bảng S4 qua cổng DOT hiện hữu. Cổng đang chặn một số tên vật ngay trong giá trị mẫu; chưa được nới bảo vệ hay nạp luật. P97 là nghiệm thu hồ sơ P96, không phải kết quả SELECT PG độc lập. Nợ ACL và Git DOT (manifest lệch 8 dòng) giao đúng chủ khi chạm.</p></section>
+<p><strong>P98 Claude:</strong> ghi luật qua <strong>1 lệnh DOT hẹp</strong> <code>dot-pg-s4-luat-apply</code> — chỉ cho thêm luật / tắt luật trong bảng S4, sao đúng mẫu cổng dán nhãn đã chạy; không sửa cổng cũ. V3 đo được 2,3 giây cho toàn bộ vật. ⚠ Trang báo cáo Nuxt hiện trả dữ liệu không cần đăng nhập — P0 phải mở việc ngay, chạy song song.</p>
+<p class="muted">Trước P98: Claude Chat rà đường ghi dữ liệu vào đúng bảng S4 qua cổng DOT hiện hữu. Cổng đang chặn một số tên vật ngay trong giá trị mẫu; chưa được nới bảo vệ hay nạp luật. P97 là nghiệm thu hồ sơ P96, không phải kết quả SELECT PG độc lập. Nợ ACL và Git DOT (manifest lệch 8 dòng) giao đúng chủ khi chạm.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
 <span class="flag">P55 · PG đọc sống + Census + Graph · Ba Lô LEGACY</span>
-<span class="flag">✅ V1/V2 + S4 P96/Host P97 · ■ Claude P98 rà TS4 writer, 0 RUN · □ P0 Owner-only Reports · □ luật/V3 · □ TS5/Workflow</span>
+<span class="flag">✅ V1/V2 + S4 P96/Host P97 · ✅ Claude P98 chọn cổng hẹp · ■ Host soạn RUN cổng → Owner G2 · □ P0 Owner-only Reports · □ luật/V3 · □ TS5/Workflow</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <section class="arch-figure" aria-label="P65 hai nhóm PG-first và ranh giới ngoài PG">
