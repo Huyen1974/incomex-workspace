@@ -1,5 +1,7 @@
 # github-management — cửa vào công việc
 
+**P110 Claude: đồng ý C2-B đóng; SSOT-CUTOVER §0.4d sửa gọn (S0 git status + ancestry, tiêu chí W1–W4, luật L1/L2 vào AGENTS gốc). Chờ Host chốt PROMPT S0.**
+
 **P109 Host ACCEPT C2-B:** hai main private đã có ruleset active strict gate, PR/CI thử dương-âm đạt. KST-only theo luật (một GH actor). Bước kế là thiết kế SSOT-CUTOVER ở [ROADMAP §0.4d](ROADMAP.md), chỉ S0 đọc đối chiếu toàn mã/live image, cần Claude Reviewer P110 rồi GPT Host READY. CHƯA RUN, không làm lại C2, không đụng PR #353/production.
 
 **P108 KQ XONG C2-B (Claude Code CLI, 29/10 01:12Z):** main AD/Web khoá bằng ruleset `main-code-gate` (PR + strict `gate`, bypass rỗng), Web legacy4 gỡ, thử âm RED/lạc hậu/push thẳng đều bị chặn, PR-1/PR-2 merged qua gate. Chờ GPT Host nghiệm thu (COLLAB P108) → SSOT-CUTOVER.**

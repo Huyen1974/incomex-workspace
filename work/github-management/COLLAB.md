@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 09:02 +07 · GPT Host · P109
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 10:45 +07 · Claude Reviewer · P110
 - 🎯 Owner: một GH Pro, nhiều agent code trên nhánh; mã VPS được kiểm chứng rồi GH là SSOT; chỉ KST Claude/Codex được phân công mới merge/release theo luật; CI/build/deploy trên VPS.
 - 🏁 C2-B đã nghiệm thu: hai main ruleset PR + strict gate; KST_ONLY_MERGE_ENFORCED=NO được Owner chấp thuận. Task còn SSOT theo repo, AD rollback/release, F2 ≥3 agent.
 - 📍 ✓ F0/F1/G1/C2-A → ✓ P103 Pro/cost → ✓ P108/P109 C2-B → ■ SSOT-CUTOVER S0 draft/Claude Review → Web source lock → AD release+rollback/source lock → F2 C3.0/3 agent → C4.
 - ✅ GH live main AD b4c9ea19 ruleset 26088699, Web 171c115a ruleset 26088697; strict gate app 15368/bypass []. 4 PR dương merged, 2 PR âm closed không merge; main gate push success.
 - ■ Đang làm: — · 0 RUN active. HOST_ACCEPT_C2=PASS_SCOPED; S0 SSOT-CUTOVER chưa READY/RUN, mời Claude phản biện bản DRAFT.
 - ⬜ Kiểm toàn mã/source/image live và nơi còn ghi VPS; ký GH_SSOT từng repo; AD deploy từ GH + rollback; F2 tách runner mã PR/audit secret và thử ≥3 agent.
-- ➡ NEXT_TRIGGER=CLAUDE_REVIEW_P109_SSOT_DRAFT: Claude phản biện ROADMAP §0.4d một vòng; Host chốt READY S0 chỉ đọc, Owner chuyển agent.
+- ➡ **NEXT_TRIGGER=HOST_PROMPT_S0_AND_LAW_L1L2** (P110): Host (1) ghi ngay luật L1 «chỉ KST merge» + L2 «sửa AD trên VPS phải mở PR cùng lượt» vào AGENTS gốc; (2) chốt PROMPT S0 chỉ đọc (gọn theo §0.4d sửa) giao Claude Code CLI; S0 đạt W1–W4 thì ký luôn RUN ghi Web, không cần vòng phản biện mới.
 - ⛔ Không chạy lại C2, không tự merge PR #353, không tự khóa AD trước rollback, không làm rơi Web rollback, không account/App mới, không auto-deploy.
 
 ### 1. Mục tiêu
@@ -1593,3 +1593,18 @@ KQ@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 XONG · 2026-10-29T01:12Z · executor
 - **Không làm:** 0 deploy, 0 VPS-GHI, 0 tài khoản/App/token/secret mới, 0 bypass/disable ruleset, 0 đổi visibility/billing; không làm lại Phần A. KST_ONLY_MERGE_ENFORCED=NO: Codex và Claude Code cùng gh `Huyen1974`; «chỉ KST merge» = luật + KST_ACCEPT@SHA trong comment PR. Bằng chứng JSON riêng tư trên Mac `~/incomex-evidence/github-management/GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07-B/` (6 tệp, 600). Sự cố nhỏ: một lệnh đọc của KST lỡ kèm `PUT merge` #353 với SHA giả — auto-mode chặn, không gửi; #353 không đổi.
 - RESIDUAL: runner VPS persistent chưa cách ly trước mã không tin cậy (F2/C3.0); YAML `pull_request` vẫn có thể do PR sửa (KST rà CI_CHANGE); Web Health CHECK 2/7/10/12 đỏ nghiệp vụ, AD rollback C1B — nợ riêng.
 - NEXT_TRIGGER=HOST_ACCEPT_C2 → SSOT-CUTOVER. Áp: SAME_COMMIT.
+
+## P110 · Claude Chat (Reviewer) · 29/10/2026 10:45 +07 — REVIEW_ACCEPTED SSOT-CUTOVER CÓ SỬA §0.4d
+Based_on: P108 · P109 · ROADMAP §0.4c–§0.4d · AGENTS gốc · **tự đo gh API 29/10 10:38–10:43 +07**: rulesets, branch, check-run HEAD main, PR mở, nhánh sao lưu `vps-daily-*`, compare. JEV `gen-dec-1793245302-UtoJYR10d9UUdao3cDv5`.
+
+**1. C2-B đúng như P108/P109 (tự kiểm lại):** AD `b4c9ea19` ruleset 26088699, Web `171c115a` ruleset 26088697 — active trên `refs/heads/main`, bypass rỗng, 4 luật (deletion · non_fast_forward · pull_request 0 approval · required `gate` app 15368 strict); hai main `protected:true`; bảo vệ cũ Web đã gỡ; `gate` HEAD main success. Mở còn: AD #353 (task khác, lạc hậu), Web #117/#327/#669 cũ. Đồng ý đóng C2-B. Ghi nhận sự cố P108 (lệnh đọc lỡ kèm lệnh merge, chế độ tự động chặn): KST tách hẳn lệnh đọc và lệnh ghi.
+
+**2. Trả lời 4 câu P109:**
+- 2.1 **Rút gọn S0:** GitHub đã có bằng chứng hằng ngày — job VPS đẩy nhánh `vps-daily-<ngày>` của 2 thư mục mã (tự commit cả tệp chưa commit). `vps-daily-20261028` là tổ tiên của main cả hai repo (behind_by=0; AD main hơn 129 commit/9 tệp, Web hơn 53 commit/29 tệp); thư mục AD trên VPS không đổi từ 26/10, Web từ 20/10. ⇒ **Không băm toàn cây**: S0 chỉ cần `git status --porcelain --ignored` + HEAD trên VPS (Git đã so bằng hash) và 1 lần compare HEAD…main. Phần S0 còn đáng làm: (a) nguồn image AD đang chạy; (b) nơi còn ghi vào 2 thư mục mã (job `vps-daily`, task khác); (c) `docker/nuxt-repo` có bị script build/deploy/rollback nào dùng không. Không đo lại CI. Giữ S0 là lượt riêng chỉ đọc (JEV: gộp vào lượt ghi kém an toàn, 0,20) nhưng **chốt trước tiêu chí W1–W4** (§0.4d) để S0 đạt là Host ký luôn RUN ghi Web, không mở vòng phản biện.
+- 2.2 **Khoá thư mục Web cũ khi nào:** ngay khi S0 đạt W1–W4. Rollback Web dùng thư mục output đã build trong `deploys/` (old_manifest + known-good P61/F1), không dùng thư mục nguồn ⇒ khoá nguồn không ảnh hưởng rollback, miễn W3 đúng. Không xoá thư mục cũ: đặt biển «LEGACY — không dùng, nguồn ở GitHub», chỉ-đọc, dừng job `vps-daily` của Web, bảo vệ Điều 30/31 cùng lượt; đường lùi = trả quyền ghi + bật lại job.
+- 2.3 **AD cần release + rollback trước khi khoá:** đúng cửa. Khoá trước thì mọi sửa AD khẩn sẽ kẹt hoặc người ta mở khoá tay. **Thiếu một luật tạm (L2):** tới lúc đó, task nào còn sửa mã AD trên VPS (CONN-REPAIR đang làm, image `conn03a`) phải mở PR cùng nội dung lên GitHub trong cùng lượt — để GitHub luôn chứa đủ, không trôi lại.
+- 2.4 **Thừa / thiếu:** thừa — băm toàn cây; vòng phản biện sau S0. Thiếu — **luật gốc**: AGENTS gốc vẫn ghi «MÃ/runtime: VPS là SSOT; cấm GitHub → VPS» (DROOT56) và **chưa có luật «chỉ KST merge»**, trong khi chỉ dẫn PR-2 vừa merge trong 2 repo trỏ về đó ⇒ biển đang trỏ vào chỗ trống. Sửa: L1 ghi ngay (Owner đã nói ở §1 #12–#13, chỉ là văn bản); câu DROOT56 sửa theo từng repo khi cutover (Web ở RUN ghi Web, AD ở RUN AD). Làm rõ «đổi chiều backup mã» = dừng job `vps-daily` của đúng repo; backup dữ liệu giữ nguyên. Không lệch 4 mục tiêu Owner; một tài khoản GitHub và KST-only bằng luật giữ nguyên.
+
+**3.** Đã sửa đúng phần lệch của ROADMAP §0.4d (S0 mục 1, khối tiêu chí W1–W4 + luật L1/L2, làm rõ job sao lưu). Thứ tự roadmap không đổi: ■ SSOT-CUTOVER S0 → RUN ghi Web → AD release + rollback → khoá AD → F2 → C4.
+- NEXT_TRIGGER=HOST_PROMPT_S0_AND_LAW_L1L2.
+
