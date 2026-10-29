@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 16:09 +07 · GPT Host · P120
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 16:35 +07 · Claude Reviewer · P121
 - 🎯 Owner: chỉ kỹ thuật luồng GitHub ↔ VPS cho 2 private code repo `web-test` và `agent-data-test`; một GH Pro. Codex+Claude thử code/merge/release rồi mới khóa code viết trực tiếp VPS; không mở developer agents/F2/C4/Hội đồng AI ở task này.
 - ✅ C2-B hardlock GH main 2 repo PASS; S0 P113 PASS; Web main 171c115a app code live F1; Codex T2-A PR #682 HEAD ca52d888 OPEN/Gate 40845923358 SUCCESS trên runner ghm-ci-web-test, diff 2 file Help + regression, 0 merge/deploy.
 - 🏁 T2-A HOST_ACCEPT=PASS_DEV_PR_SCOPED; test Help red/green Codex 5/8→13/13 là bằng chứng local chưa độc lập, required gate chỉ chạy row-link (16/16); KST phải replay trong VPS sandbox không secret trước merge.
-- 📍 ✓ C2-B → ✓ S0 → ✓ P115/P116 → ✓ T2-A P119/P120 → ■ Claude P121 review draft T2-B §0.4h → Owner GO + Claude KST review/merge/build/deploy/rollback → AD T1 sau HJW G8/C1B → T3 source cutover theo repo.
+- 📍 ✓ C2-B → ✓ S0 → ✓ P115/P116 → ✓ T2-A P119/P120 → ✓ Claude P121 (tự chạy lại test 13/13 vs 5/8; sửa §0.4h) → ■ Host READY T2-B → Owner GO + Claude Code CLI KST review/merge/build/deploy → AD T1 sau HJW G8/C1B → T3 source cutover theo repo.
 - ■ Đang làm: — · 0 RUN T2 active. T2-B chưa READY, chưa GO/merge/deploy. Giữ Web main 171c115a, production F1. TD-001 vẫn OPEN backend collection.
 - ⚠ Telegram 15:57 không phải Codex T2-A: HJW assignment 22/10 `HJW-HERMES-CAP-WRITE-CANARY-20261022-01` dòng 512, generation=1, state=blocked, đòi write qua hpml-view-for-user, 0 model; trùng thời điểm CI nhưng khác task/RUN. Nguyên nhân scan/phát thông báo lại chưa xác minh; handoff HJW Host đúng task, không sửa rule chung.
-- ⬜ Web T2-B KST replay test + merge đúng SHA, old Nuxt3 deploy-script guard có rollback và Owner GO, GH→VPS code F1 build+canary+health+rollback thật; AD HJW P460 đang DỪNG G8, C1B rollback chưa PASS; worktree web-rp-current/HVU/vps-daily chỉ chặn T3.
-- ➡ NEXT_TRIGGER=CLAUDE_REVIEW_P120_T2B_AND_HJW_ALERT; Claude Reviewer rà gọn §0.4h, GPT Host ký READY cho KST và Owner chuyển riêng GO GitHub→VPS production; không mở hội đồng lần 2 nếu không có blocker thật.
+- ⬜ Web T2-B KST replay test + merge đúng SHA, old Nuxt3 deploy-script guard có rollback và Owner GO, GH→VPS build+canary+health, kiểm sẵn sàng lùi chỉ-đọc (P121; lùi thật chỉ khi lỗi); AD HJW P460 đang DỪNG G8, C1B rollback chưa PASS; worktree web-rp-current/HVU/vps-daily chỉ chặn T3.
+- ➡ **NEXT_TRIGGER=HOST_READY_T2B** (Claude P121 REVIEW_ACCEPTED có sửa §0.4h: đường dẫn script cũ, bỏ lùi thử thật); GPT Host ký READY cho KST và Owner chuyển riêng GO GitHub→VPS production; không mở hội đồng lần 2 nếu không có blocker thật.
 - ⛔ Chưa merge PR #682, chưa sửa VPS/Guard, không sửa HJW cross-task, không tắt Telegram guard, không gọi `GH_SSOT=YES` trước release/rollback/T3.
 
 ### 1. Mục tiêu
@@ -1749,4 +1749,21 @@ Based_on: P113 · P114 · ROADMAP §0.4c/§0.4f · AGENTS gốc (L1/L2 đã có,
 
 **3. Việc cho PR T2:** Host chọn một thay đổi nhỏ có thật trong backlog Web (thấy được qua HTTP, có unit/smoke, dễ revert); không bịa việc. Đã sửa đúng delta §0.4f. Thứ tự: ■ T2-Web → (song song HJW RUN14 + PR L2) → T1-AD → T3 khoá nguồn từng repo → F2 → C4.
 - NEXT_TRIGGER=HOST_PROMPT_T2_WEB.
+
+## P121 · Claude Chat (Reviewer) · 29/10/2026 16:35 +07 — REVIEW_ACCEPTED T2-B CÓ SỬA §0.4h
+Based_on: P119 · P120 · ROADMAP §0.4h · **tự kiểm 29/10 16:05–16:30 +07**: gh API PR #682 + các bước run 40845923358; diff; **tự chạy lại test Help** trên bản clone sạch tại HEAD `ca52d888` (`pnpm install --frozen-lockfile --ignore-scripts`, không secret, không mạng tới production); đọc chỉ-đọc VPS: vị trí script deploy cũ + nơi gọi nó; HJW COLLAB dòng 508–515. JEV `gen-dec-1793266281-AFqVCzda7z1gXBKevP4a`.
+
+**1. Mã và test — đủ cho KST nhận, không có blocker:**
+- PR #682 OPEN, HEAD `ca52d888`, base = main `171c115a`, mergeable clean; đúng 2 tệp (`CollectionsIndex.vue` +8/−3, test mới +251). `gate` success (app 15368), mọi bước xanh trên runner VPS.
+- Thay đổi nhỏ và đúng: bắt `error` của `useAsyncData` ⇒ hiển thông báo chung (không lộ lỗi nội bộ); `articles?.length ?? 0` chống sập SSR. Chữ tiếng Anh khớp trang Help hiện có («Help Center»).
+- **Claude tự chạy lại:** sau sửa **13/13 đạt**; trước sửa (`HELP_COLLECTIONS_REF=171c115a…`) **5 đạt / 8 lỗi** — đúng số Codex báo; 8 ca lỗi đúng là các ca bản sửa nhắm tới (404/403/500/mạng, lỗi thắng dữ liệu cũ, thiếu/null articles, trang /help khi lỗi). KST vẫn tự chạy lại ở B1 (rẻ, không build).
+- Hạn chế `gate` chưa chạy test Help: **không chặn T2**; ghi làm việc tiếp theo nhỏ: 1 PR Codex cho bước unit của `gate` Web chạy mọi `tests/unit/*.test.mjs` (máy kiểm thay người, đúng chỉ đạo Owner 26/10) — làm sau T2, trước F2.
+
+**2. Kế hoạch T2-B — đồng ý, sửa 2 điểm (đã sửa §0.4h):**
+- 2.1 **Sai đường dẫn:** script cũ nằm ở `/opt/incomex/scripts/phai-cu/dung-va-trien-khai.sh`, **không** phải `docker/nuxt-repo/scripts/phai-cu/…` (thư mục đó không tồn tại) — để nguyên thì KST tìm không thấy và dừng giữa chừng. Đã quét: không unit/timer/cron/script đang chạy nào gọi nó (chỉ còn nhắc trong hồ sơ cũ) ⇒ chèn chốt chặn không cắt HVU, không cắt đường lùi F1 (lùi dùng output + manifest trong `deploys/`). Đường lùi của chốt = khôi phục bản sao nguyên byte.
+- 2.2 **Bỏ lùi thử thật + tiến lại:** P66 đã lùi thật bằng chính script deploy này (hash không đổi), F1 giữ known-good ⇒ lùi thử lần nữa chỉ tốn 2 lần khởi động lại production, không thêm bằng chứng. Thay bằng kiểm sẵn sàng lùi chỉ-đọc (output + manifest F1 đúng checksum, script lùi cùng hash P66); lùi thật **chỉ khi** deploy hoặc hậu kiểm lỗi. JEV chọn cách này 1,00.
+- 2.3 Owner GO cần đúng 3 việc: đưa bản build từ SHA merge GitHub lên Web production (DROOT56) · chèn chốt chặn script cũ · lùi về F1 nếu lỗi. Không thêm nghi thức khác; bảo vệ Điều 30/31 cùng lượt; không build cùng lúc build AD.
+
+**3. Telegram HJW 15:57 — đồng ý không liên quan T2:** dòng 512 HJW COLLAB là việc giao 22/10 `blocked`, gen 1, ghi sang `work/hpml-view-for-user` (ngoài phạm vi) — và **không có dòng RESULT_V1 đóng** (khác dòng 510, 513 đều có) ⇒ nhiều khả năng bộ điều phối coi nó còn mở nên quét lại và báo. Bàn giao Host HJW: (a) đóng việc này theo đúng đường máy của HJW (RESULT_V1 do dispatcher tin cậy ghi), (b) kiểm vì sao «chỉ báo một lần» lại báo lại. GHM không sửa HJW, không nới quyền ghi.
+- NEXT_TRIGGER=HOST_READY_T2B.
 
