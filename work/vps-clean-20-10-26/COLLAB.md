@@ -6,7 +6,7 @@ Nguồn chứng cứ: root COLLAB.md §PROOT11 ở commit d7fe6d6 (bản đã k�
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp GPT Chat ngày 20/10/2026, yêu cầu mở phiên work/vps-clean-20-10-26, cho phép lựa chọn tạo task mới và giao GPT tiếp tục làm Host.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 12:15 +07 · GPT Chat Host P18 · OWNER_APPROVED_WORKERS4 / QUEUE_CANDIDATE READY gate
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 12:20 +07 · GPT Chat Host P18 · OWNER_APPROVED_WORKERS4 / QUEUE_CANDIDATE READY@47469cb2302796e89ea3dd5f870a536584e8b8f1 (0 RUN active)
 - 🎯 Mục tiêu: dọn lỗi/rác phát sinh, giảm chi phí tính toán, rà lại kiến trúc và số lượng cổng kiểm soát để VPS an toàn nhưng không lãng phí tài nguyên.
 - 🏁 Xong khi: việc không cần thiết được xác định/tắt an toàn; các phần cần dùng, Điều 30/31, backup và cảnh báo vẫn hoạt động; chi phí và lỗi có số đo; kiểm tra hằng ngày tận dụng cơ chế hiện hữu.
 - 📍 Tiến độ: ✅ R2/P13 audit · ✅ P15 Claude RAG-A review / P16 READY lịch sử · ✅ Graph P303 Claude/P304 GPT 6→4 có cổng · ✅ Owner 29/10 duyệt 4 worker + giữ hàng đợi · ■ kiểm và chuẩn bị candidate queue tương thích (0 RUN active) → ⬜ Host nghiệm thu + reviewer nếu có thay đổi code/safety → ⬜ RUN bảo vệ giảm 6→4 → ⬜ K4 Graph → ⬜ RAG-A phục hồi/READY mới → ⬜ RAG-B/C theo phê duyệt riêng.
