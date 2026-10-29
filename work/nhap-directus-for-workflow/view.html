@@ -69,13 +69,14 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>P88 · Hai VIEW đã chạy; S4 hai bảng nhỏ chờ G1/G2</h2>
+<section class="owner-actions ok"><h2>P89 · Hai VIEW đã chạy; S4: Owner chọn sổ luật 1 bảng (Claude đề nghị) hay 2 bảng P88</h2>
 <p>PG-A2b P85 đã tạo hai VIEW native tại database <code>directus</code> bằng DOT; Host P86 chấp nhận kết quả đúng phạm vi. PG tự liệt kê vật và quan hệ khi đọc; chưa có sổ quyết định S4, chưa có đối soát V3, chưa công bố lên Nuxt.</p>
 <p>KQ P85: V1 có <strong>16.536</strong> vật, V2 có <strong>4.566</strong> quan hệ; Config Guard <strong>554/554</strong> khớp, Guard POST PASS và receipt 316. Chưa tạo Directus collection/report hay thay role. Hai phát hiện về ACL file manifest và Git DOT đã được giao rà theo đúng chủ, không cần lùi VIEW.</p>
+<p><strong>P89 Claude:</strong> S4 = nơi ghi điều PG không tự biết (thuộc hệ nào, Workflow có dùng, giữ hay bỏ). Bản P88 ghi <em>từng vật</em> nên vật mới phải chờ ghi tay và chép lại nhãn hệ/vùng tháng 7 đã có trong PG. Đề nghị <strong>sổ luật 1 bảng</strong>: một dòng cho cả họ vật (vd họ <code>birth</code> = 116 vật + 671 vật con), ngoại lệ ghi từng vật, vật con theo cha; Tắt/Bỏ chỉ được ghi từng vật. Thử trên PG thật: 158 luật phủ <strong>93,3%</strong> vật. Chưa tạo gì.</p>
 <p class="muted">Claude P87 đã phản biện, GPT Host P88 chốt S4 từ điển hệ + bảng quyết định, siết căn cứ không để rỗng. PROMPT mới đang DRAFT; chưa có Owner G1/G2, chưa READY hay RUN. P0 đăng nhập Reports do GPT Host NDW phụ trách qua làn Web hiện có; chỉ sau auth mới hiện V1/V2/S4, không cần chờ Graph/V3.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
 <span class="flag">P55 · PG đọc sống + Census + Graph · Ba Lô LEGACY</span>
-<span class="flag">✅ V1/V2 P85 · ✅ P87/P88 chốt S4 · ■ S4 DRAFT chờ Owner G1/G2 · □ P0 Reports auth · □ V3 Graph/dot_tools · □ Workflow</span>
+<span class="flag">✅ V1/V2 P85 · ✅ P87/P88 · P89 đề nghị sổ luật · ■ S4 chờ Owner chọn + G1/G2 · □ P0 Reports auth · □ V3 Graph/dot_tools · □ Workflow</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <section class="arch-figure" aria-label="P65 hai nhóm PG-first và ranh giới ngoài PG">
