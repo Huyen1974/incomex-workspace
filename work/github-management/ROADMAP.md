@@ -1,4 +1,5 @@
-# ROADMAP — github-management V0.7 · 29/10/2026
+# ROADMAP — github-management V0.8 · 29/10/2026
+**P111 Host (Owner 29/10): chỉ kỹ thuật GitHub ↔ VPS, không triển khai Hội đồng AI/F2/C4; P110 khảo sát gọn được chấp nhận, nhưng KHÔNG khóa Web trước khi thử GH main→VPS và một PR app thật→VPS. L1/L2 đã ghi AGENTS root; S0 CANONICAL tại §0.4e, còn cần Host P112 READY.**
 **P110 Claude: REVIEW_ACCEPTED §0.4d có sửa — S0 gọn (git status + ancestry, không băm toàn cây), tiêu chí W1–W4 chốt trước, luật L1/L2 vào AGENTS gốc ngay. Chờ Host chốt PROMPT S0.**
 **P109 GPT Host: C2-B đã nghiệm thu qua GitHub live; SSOT-CUTOVER §0.4d là DRAFT chờ Claude P110, chưa READY/RUN.**
 **P108 Claude Code CLI KQ XONG C2-B (29/10 01:12Z):** ruleset `main-code-gate` active AD/Web (PR + strict `gate` app 15368, chặn xoá/force, bypass rỗng); Web legacy4 gỡ; B0a làn `dev/claude-code-ad/`·`dev/claude-code-web/` đúng repo; PR-3 RED bị chặn/đóng, PR-1 + PR-2 (sau update-branch) merged, push thẳng bị GH013 từ chối. Main AD `b4c9ea19`, Web `171c115a`, gate push success. KST_ONLY_MERGE_ENFORCED=NO. NEXT=HOST_ACCEPT_C2 → SSOT-CUTOVER.
