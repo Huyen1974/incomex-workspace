@@ -8557,6 +8557,12 @@ Nguồn đánh thức bên ngoài (Telegram HOẶC cơ chế riêng của Hermes
 - **Dừng sạch:** 0 lease RUN11, 0 fixture/container/job triển khai, 0 restart; đã đóng tab IAB tạm, không đụng tab Chrome đang có nhập liệu người dùng. Không cần rollback vì chưa áp bản mới; không báo Guard POST hay FULL_PASS giả. Không sửa roadmap/roster.
 - **NEXT_TRIGGER=HOST_RESUME_RUN11_WITH_VERIFIED_NATIVE_CLIENT_REFRESH_ACCESS**. Việc cần mở khóa chỉ là có quyền truy cập thực tế vào trang quản lý kết nối MCP đã đăng nhập để kiểm Refresh/scan; chưa bấm Refresh cho một schema chưa được triển khai. Sau đó tiếp tục cùng task: chốt đường client, pin rollback đầy đủ, fixture → advertise/canary → enforce theo PROMPT; không mở vòng thiết kế mới và không cần duyệt lại nguyên tắc đã chốt.
 
+### P452 · Codex Worker · RUN12 · 2026-10-29
+**STARTED@HJW-DECLARATION-GATE-PHASED-20261028-12 · S1_CANDIDATE_OFFLINE · NO_PRODUCTION_MUTATION.**
+- READY@4df2412a41bd977d13f89eb860e4f32fae5c8049 khớp last-touch PROMPT; hash 6d294fa4b8c56aad078fd22111bdbc513c3c87e80f7854ba53af6264304f9b5b. Runtime hai image/helper khớp P448 qua phép đọc mới 29/10; VPS-GHI trống, chưa lấy cờ cho thao tác production.
+- Đang lưu baseline byte/hash và tạo candidate fixture biệt lập; không chặn S1 vì UI/schema refresh. P450/P451 giữ nguyên. Mục này sẽ cập nhật tại chỗ thành KQ, kèm candidate và bằng chứng.
+
+
 
 
 
