@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 15:53 +07 · Codex · P118
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 16:00 +07 · Codex · P119
 - 🎯 Owner: **chỉ kỹ thuật** GitHub ↔ VPS; code ở hai private repo `Huyen1974/web-test` / `Huyen1974/agent-data-test`, task/sổ ở `incomex-workspace`. Chỉ Codex+Claude Code thử, không mở agent mới.
 - 🏁 Kênh GH có protected main/gate PASS và S0 P113 xong. Web app GH main đã live từ F1; cần PR ứng dụng nhỏ thật, KST merge/release+rollback trước T3 khóa nguồn; AD chưa live từ GH main và rollback C1B chưa PASS.
 - 📍 ✓ C2-B P108/P109 → ✓ S0 P113/P114 → ✓ Claude P115 → ✓ Host P116 chốt T2-A TD-001 → ■ P117 READY chờ Owner RUN Codex PR-only → T2-B KST review/merge/guard old deploy/release VPS → T1-AD sau HJW G8/C1B → T3 per-repo.
 - ✅ Web main 171c115a protected; Web app tree = F1 live. P115 bỏ T1-Web riêng. Web backlog TD-001 OPEN có component Help thiếu fallback; Codex PR route `/help` sẽ chỉ sửa Web code/test, không DB.
-- ■ Đang làm: T2-Web PHASE A · Codex Desktop · STARTED@GHM-T2-WEB-APP-PR-20261029-10 · Help TD-001 code/regression/PR-only; A0 PASS, không VPS-GHI.
+- ■ Đang làm: — · 0 RUN T2 active · Codex KQ_A XONG P119: Web PR682 ca52d888 gate GREEN, Help regression 13/13 sau sửa; chưa merge/deploy.
 - ⬜ HJW P460 RUN14 ĐÃ DỪNG G8 source/runtime release divergence (136 test lab PASS, NO deploy): không giả RUN14 đã xong/AD chỉ còn 1 file; AD T1 phải chờ Host HJW reconcile+PR L2+Owner GO C1B. Nested web-rp-current/HVU/vps-daily chỉ chặn T3, không được xóa hay đẩy config bí mật.
-- ➡ NEXT_TRIGGER=CODEX_KQ_T2A: thực hiện fallback Help + regression FAIL-before/PASS-after và gate đúng HEAD; sau KQ Host nghiệm thu, Owner giao riêng Claude KST T2-B.
+- ➡ NEXT_TRIGGER=HOST_ACCEPT_T2A_THEN_OWNER_DISPATCH_CLAUDE_CODE_T2B: Host kiểm PR682/head ca52d888 và regression riêng; Owner giao KST B review/merge/guard deploy cũ/release+rollback sau GO riêng.
 - ⛔ Không dùng `incomex-workspace` để chứa mã Web/AD; không thêm GitHub App/tài khoản; Codex không merge/claim KST; chưa sửa script Web cũ trong phase A; không build Web/AD cùng lúc, không tạo job hosted, không T3 trước proof.
 
 ### 1. Mục tiêu
@@ -1673,6 +1673,49 @@ STARTED@GHM-T2-WEB-APP-PR-20261029-10 2026-10-29T08:53Z · executor=Codex Deskto
 - Đọc AGENTS Web và .claude/skills/incomex-rules.md; gọi search_knowledge OR/constitution theo repo. Legacy yêu cầu tự merge/deploy/report KB bị scope Owner/§0.4g thay thế: chỉ 1 PR Web + ghi task qua gateway, không DB/KB mutation. Đã xác minh TD-001 OPEN; CollectionsIndex chưa lấy error từ useAsyncData, articles.length thiếu guard; /help dùng component này, chưa có fallback tương đương.
 - Bậc 3 code hiển thị mỏng: PG/Directus không cần thay đổi cho trạng thái lỗi UI; dùng error/data state Vue/Nuxt sẵn có. Giải quyết nguồn lỗi render trong component và test thật trên fixture, không đóng TD-001 toàn bộ. Đường success giữ nguyên, thông báo lỗi cố định không lộ exception/credential.
 - Thực thi trên branch dev/codex-web/ghm-t2-help-td001 từ SHA ghim; chỉ component Help + regression. Lùi A bằng revert/đóng PR chưa merge; main/production nguyên. Không merge/deploy/old script/Guard/VPS-GHI/HJW/AD/Directus; không thêm dependency hoặc đổi workflow. NEXT_TRIGGER=CODEX_KQ_T2A.
+
+## P119 · Codex · 29/10/2026 16:00 +07 — KQ_A XONG T2-WEB HELP TD-001
+KQ@GHM-T2-WEB-APP-PR-20261029-10 XONG · 2026-10-29T09:00Z · executor=Codex Desktop/openai-codex · PHASE=A · KQ_A=PASS_DEV_PR_ONLY.
+Based_on: Owner RUN trực tiếp, P115/P116, READY P117@88ac8eb1088fc394db300544d30580d486936225 (canonical ROADMAP §0.4g); STARTED riêng P118 commit 7d991a57fdbdd96720d9af9c098029d8bb2fa48b. Host/KST nghiệm thu độc lập; chưa merge/release.
+
+| Bằng chứng | Kết quả trực tiếp |
+|---|---|
+| PR | [web-test #682](https://github.com/Huyen1974/web-test/pull/682), OPEN, merged=false |
+| Branch | dev/codex-web/ghm-t2-help-td001 |
+| HEAD | ca52d88813a0f0bd29da5f14afafd40e24fe1266 |
+| Base / main | 171c115a9a00e12d57449768401d3ab5e7cc796c, protected=true; không đổi sau A0 |
+| Phạm vi diff | web/components/help/CollectionsIndex.vue; web/tests/unit/help-collections.test.mjs — đúng 2 tệp |
+| Gate | [run 40845923358](https://github.com/Huyen1974/web-test/actions/runs/40845923358), SUCCESS; job 123353261775; runner ghm-ci-web-test |
+| SHA thực thi | merge-test/executing-workflow 5a3aef0e086b80e33e4ae3e3c9bc6bd135f20793; log head/base khớp PR; gate_matches_main=true |
+| Check | gate GitHub Actions success trên HEAD ca52d888; preflight/scan/policy/actionlint/policy_tests/unit đều success; policy 35 test, row-link 16 pass/0 fail |
+| Help regression riêng | baseline 5 pass/8 fail (exit 1 dự kiến) → patched 13 pass/0 fail (exit 0), cùng một test executable |
+| Scope reviewer / blocker | GPT Host nghiệm thu A; Claude Code CLI KST review/release ở B được giao riêng. Không blocker A. Release chưa có quyền trong lượt này. |
+
+**1. Thay đổi và giữ nguyên**
+- Component dùng error/data state có sẵn của useAsyncData. Khi lỗi, hiển thị câu cố định “Help topics are temporarily unavailable. Please try again later.” với role=status/aria-live=polite; không đưa raw exception/status/token lên UI. Error ưu tiên hơn dữ liệu cache cũ.
+- Giữ nguyên request/filter help_collections, đường render card/title/description/icon/link, baseUrl /portal, trang /help và search. articles thiếu/null dùng số đếm 0 thay vì ném TypeError.
+- Chỉ ứng dụng + test; không sửa page, workflow, package/lockfile, auth/API, Directus/schema, script deploy cũ hay AGENTS. **TD-001 vẫn OPEN:** chưa tạo collection hoặc sửa quyền backend; đây là fallback hiển thị theo đúng P116.
+- Bậc 3 code hiển thị mỏng: dùng Vue/Nuxt sẵn có; PG/Directus không cần mutation. Gốc lỗi render được xử lý một chỗ, tự phản ứng theo state; regression chặn tái xuất hiện nhưng **chưa nằm trong gate tự động**. Không coi điều đó là bảo vệ release đầy đủ; B phải chạy lại độc lập.
+
+**2. Regression trước/sau — chạy mã thật, không grep nguồn**
+- Bộ test biên dịch SFC CollectionsIndex.vue thực bằng compiler Vue và renderToString; hai ca render cả pages/help/index.vue hiện hữu. Chỉ mock Nuxt auto-import/useAsyncData settled refs, phản hồi Directus và child UI ngoài phạm vi. Không network/credential/DB, không build Nuxt server.
+- 13 ca: success card và icon/title/count/link; baseUrl portal; list rỗng hợp lệ; collection missing HTTP404; HTTP403; HTTP500; lỗi mạng; error+stale data; articles missing/null/empty; /help giữ heading/search khi lỗi; /help success. Baseline lỗi 8 ca: 4 loại failure, stale, articles missing/null, /help error; output lỗi articles là “Cannot read properties of undefined/null (reading 'length')”. Success baseline 5 ca vẫn PASS.
+- Lệnh KST tái lập từ web/ sau cài dependency đã khóa (không thêm dependency):
+```sh
+pnpm install --frozen-lockfile --ignore-scripts
+node --test tests/unit/help-collections.test.mjs
+HELP_COLLECTIONS_REF=171c115a9a00e12d57449768401d3ab5e7cc796c node --test tests/unit/help-collections.test.mjs
+```
+- Output sau sửa: `# tests 13; # pass 13; # fail 0`. Lệnh cuối cố ý chạy component baseline bằng git show, output `# tests 13; # pass 5; # fail 8`, exit 1. Dùng cùng test ở PR; cần giữ commit baseline trong clone KST.
+- Môi trường local: Node v20.19.6; pnpm theo packageManager 9.6.0; Nuxt 4.5.2, Vue/compiler/SSR 3.5.43 từ lock. ESLint hai tệp và Prettier PASS. Row-link local: `RESULT: 16 passed, 0 failed`; esbuild chỉ cảnh báo .nuxt/tsconfig.json chưa được generate vì install ignore-scripts, không lỗi test. Hook kiến trúc 4/4 PASS.
+- Phân biệt bằng chứng: **gate hiện không chạy test Help này**. Local Vue SSR fixture không phải full Nuxt HTTP/browser/production test. KST B phải chạy regression trên sandbox VPS tách biệt không secret trước merge/deploy; sau Owner GO mới full canary/smoke/rollback theo prompt B. Không tuyên live đã hết lỗi.
+
+**3. Readback, giới hạn và đường lùi**
+- GitHub API cuối 08:59Z: PR OPEN, merged=false, head/base đúng trên; main protected và required gate app15368 strict đọc tại A0. Run hoàn tất 08:58:47Z. Không sửa ruleset; metadata legacy hardlock_enforced=false trong summary workflow không thay phép đo ruleset/main API.
+- READY last-touch ROADMAP vẫn 88ac8eb1088fc394db300544d30580d486936225 ngay trước KQ, không STOP mới. Commit KQ cập nhật trạng thái ngoài canonical §0.4g theo A2; **không sửa nội dung PROMPT**. Global HEAD hồ sơ đổi do task khác không được coi là thay READY.
+- Evidence riêng trên Mac trong workspace phiên: work/ghm-t2-web/local-evidence.json, before.log, after.log, github-evidence.json, gate.log. SHA256 before `9d319494c6335b725704cdfb24cdaf9935939bc1074381b2358f162fbe0be826`; after `e67e82dc426372f8479f7f8734ba196b9ca997d210b4aba3c5fe0ff6f0cc3c9a`; gate `a04e6d74cf959bbb5697de48324957b2a8a52e96386ebbc38a334d31f0398d02`. Nguồn KST kiểm độc lập là PR/run URL và lệnh test; repo public chỉ hồ sơ đã lược, không raw secret/log.
+- 0 merge/push main/deploy/restart/VPS build/VPS-GHI/lease; không Agent Data/HJW/Directus DB/script Nuxt3 cũ/Guard/nested worktree. Main/production giữ nguyên; Phase B không thực hiện. Trước merge có thể đóng PR; nếu cần sửa thì bổ sung commit cùng PR, test lại đúng HEAD; rollback runtime thuộc B, không giả là đã thử.
+- Checkout sạch; CI của PR đã kết thúc, không server/process test nền, 0 RUN T2 active sau KQ. **NEXT_TRIGGER=HOST_ACCEPT_T2A_THEN_OWNER_DISPATCH_CLAUDE_CODE_T2B**. Host nghiệm thu ca52d888 và bằng chứng trước/sau; sau đó Owner giao riêng KST B review/merge, bảo vệ đường deploy cũ, release/rollback VPS.
 
 ## P116 · GPT Host · 29/10/2026 — ACCEPT P115 VÀ CHỌN VIỆC WEB THẬT TỪ BACKLOG
 - **ACCEPT Claude P115**, không mở vòng phản biện mới. T1-Web riêng bị bỏ vì S0 P113 đã có web/ tree F1/live parity; kiểm lại ngay đầu lượt T2-B KST trước build để không bị lệch source. Web không chờ Agent Data. Chỉ 2 code repos private Huyen1974/web-test và Huyen1974/agent-data-test; incomex-workspace chỉ task/điều hành.
