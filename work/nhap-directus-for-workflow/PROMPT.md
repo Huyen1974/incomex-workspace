@@ -61,8 +61,8 @@ Theo tài liệu PG18, `-1` gộp `-c` và `-f` vào một giao dịch; `LOCK` x
 | Bước | Surface | Trigger/deadline | Evidence | Hỏng |
 |---|---|---|---|---|
 | S0 | Claude Code CLI | Owner dispatch sau G2/READY; ≤5′ | G2 + PROMPT SHA/STOP/lease + STARTED commit riêng | DỪNG |
-| S1 | Claude Code CLI | S0, ≤12′ Mac candidate/RO VPS | importlib; direct validator 17+ âm/dương và wrapper keys 1–3 riêng, DISABLED apply-v0 plan | DỪNG trước production nếu thực sự fail |
-| S2 | Claude Code CLI | S1 PASS+lease/Guard PRE, ≤15′ | 3 Guard targets, manifest 1 smoke, test direct validator trên bản cài+key checks | DỪNG/MỘT PHẦN đúng footprint |
-| S3 | Claude Code CLI | S2 PASS, ≤5′ | một psql -1 -c lock/DO -f -, UPDATE 0/COMMIT, rowcount0→0 | disable qua apply-v0/Guard MATCH nếu regression |
+| S1 | Claude Code CLI | S0, ≤25′ Mac candidate/RO VPS | importlib; direct validator 17+ âm/dương và wrapper keys 1–3 riêng, DISABLED apply-v0 plan | DỪNG trước production nếu thực sự fail |
+| S2 | Claude Code CLI | S1 PASS+lease/Guard PRE, ≤20′ | 3 Guard targets, manifest 1 smoke, test direct validator trên bản cài+key checks | DỪNG/MỘT PHẦN đúng footprint |
+| S3 | Claude Code CLI | S2 PASS, ≤8′ | một psql -1 -c lock/DO -f -, UPDATE 0/COMMIT, rowcount0→0 | disable qua apply-v0/Guard MATCH nếu regression |
 | S4–S5 | Claude Code CLI | S3; ≤10′ | Guard POST/receipt, KQ, cờ trả | Host nghiệm thu |
-Hard stop 55′, không giữ terminal chờ hay chạy nền. Nếu có input/rollback chưa sẵn thì DỪNG **trước** thay đổi production; không sửa thêm quyền/Guard/code ngoài scope.
+Hard stop 75′ (đủ thời gian dựng strict validator + 17+ ca kiểm; không bị cắt ở phút 12 chỉ vì đang phát triển), không giữ terminal chờ hay chạy nền. Nếu có input/rollback chưa sẵn thì DỪNG **trước** thay đổi production; không sửa thêm quyền/Guard/code ngoài scope.
