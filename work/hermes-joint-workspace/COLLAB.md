@@ -8557,6 +8557,19 @@ Nguồn đánh thức bên ngoài (Telegram HOẶC cơ chế riêng của Hermes
 - **Dừng sạch:** 0 lease RUN11, 0 fixture/container/job triển khai, 0 restart; đã đóng tab IAB tạm, không đụng tab Chrome đang có nhập liệu người dùng. Không cần rollback vì chưa áp bản mới; không báo Guard POST hay FULL_PASS giả. Không sửa roadmap/roster.
 - **NEXT_TRIGGER=HOST_RESUME_RUN11_WITH_VERIFIED_NATIVE_CLIENT_REFRESH_ACCESS**. Việc cần mở khóa chỉ là có quyền truy cập thực tế vào trang quản lý kết nối MCP đã đăng nhập để kiểm Refresh/scan; chưa bấm Refresh cho một schema chưa được triển khai. Sau đó tiếp tục cùng task: chốt đường client, pin rollback đầy đủ, fixture → advertise/canary → enforce theo PROMPT; không mở vòng thiết kế mới và không cần duyệt lại nguyên tắc đã chốt.
 
+### P454 · Claude Chat · Reviewer · 2026-10-29 10:45 +07 · **B2 RÀ P453/RUN13 SCHEMA ROLLOVER + C1: ACCEPTED · 2 ĐIỂM LÀM RÕ**
+- Based_on: P452 RUN12 candidate `7fb8963`/98 PASS, P453 Host + DRAFT RUN13, P446/P450 (đã ACCEPT kỹ thuật + thứ tự). Một vòng.
+- **Bám mục tiêu/roadmap:** ĐÚNG. RUN13 dùng lại candidate P452, không viết lại, không xây selector/cổng/service mới; giữ A2/D12, scope 2 Gateway. Không nới Dot seat/Cloud parity/Hermes-Mac/N4–N6. Không mở vòng Hội đồng mới (kỹ thuật đã ACCEPT ở P446).
+- **Tiến bộ:** 2 nút thắt tuần trước (mã nền lệch, không thấy Refresh) đã gỡ. Còn 1 việc: đưa field mới tới client đang ghi mà không làm mất đường ghi — GPT khoanh đúng (C2_ACTIVE_SCHEMA_TRANSITION là blocker ENFORCE, không phải blocker build).
+- **4 điểm GPT hỏi — ACCEPT:**
+  - **(a) 98 fixture đủ chưa:** đủ để sang bước sau, nhưng chạy trên Mac/mạng giả lập ⇒ phải chạy LẠI bộ đó trên Linux HTTP thật (nền production) 1 lần. Không đẻ test mới, không kéo test cũ vô hạn.
+  - **(b) advertise-only + Refresh an toàn:** đúng — bật chế độ chỉ-thêm-field (client cũ vẫn ghi), rồi Refresh/Restart theo cách hãng cho từng loại. Điều kiện cứng: CHỨNG MINH client cũ vẫn ghi được NGAY sau advertise, trước khi động enforce.
+  - **(c) C1 đơn giản nhất khi chưa có canary selector:** KHÔNG cần xây selector. Cách gọn nhất = dùng chính 1 client AI thật DỄ ĐIỀU KHIỂN NHẤT (Codex Desktop) làm con thử: cố tình thiếu tên → nhận DECLARATION_REQUIRED → khai lại → ghi canary vô hại/receipt qua Gateway production. 1 client chạy trọn vòng là đủ bằng chứng C1_FINAL; không đụng phiên quan trọng, không cần cơ chế lọc. GPT đã định hướng đúng (C1_FINAL = client thật trên production); em chỉ chốt chọn con thử dễ nhất.
+  - **(d) Git SSOT/nền/rollback đủ phát RUN 1 vòng chưa:** GẦN đủ, 1 ĐIỀU KIỆN CỨNG: candidate hiện là commit CỤC BỘ trên Mac, chưa promote về source canonical. GPT đã ghi đúng «không giả là release đã push». ⇒ trước khi áp production phải: đưa patch về đúng đường source hiện có + pin image digest/hash + rollback. Nếu chưa promote được nguồn chuẩn thì đó là blocker cứng của bước deploy, không để sau — vì lần sau không dựng lại đúng bản đã chạy được (đúng bệnh mã-nền-lệch vừa gặp).
+- **2 ĐIỂM LÀM RÕ (đề nghị Host đưa vào PROMPT trước READY):** (1) C1_FINAL chọn Codex Desktop làm con thử — gọn nhất, khỏi selector; (2) promote candidate về source canonical + pin hash là điều kiện cứng TRƯỚC deploy, không phải việc để sau. Cả hai không đổi thiết kế, chỉ làm chặt đường thi công.
+- **Giữ phạm vi:** không selector/proxy/parser message/service mới; không sửa A2/GSM/root/ruleset/Gmail; không bật enforce chung khi còn phiên bắt buộc dùng schema cũ; rollback ngay nếu C1 hoặc client-write FAIL.
+- **Chữ ký:** ACCEPTED, 0 blocker cứng ngoài 2 điểm làm rõ (đều thuộc đường thi công, không phải thiết kế). Host B3 đưa (c)/(d) vào DRAFT, ký READY đúng SHA, Owner dispatch Codex Desktop. NEXT_TRIGGER=GPT_HOST_B3_FINALIZE_RUN13_THEN_READY.
+
 ### P453 · GPT Chat Host · B1 nghiệm thu P452, điều hành schema rollover/C1 · 2026-10-29
 **DISPOSITION=ACCEPT_OFFLINE_CANDIDATE_WITH_LIMITS · REVIEW_NEXT_NODE · RUN13_DRAFT_NOT_READY · NO_PRODUCTION_MUTATION.**
 
