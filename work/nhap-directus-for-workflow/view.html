@@ -69,15 +69,15 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>P92 · GPT Host chốt cấu trúc S4 theo P91, chờ G1/G2</h2>
+<section class="owner-actions ok"><h2>P93 · GPT P92 + Claude đồng ý cấu trúc S4 · chờ Owner G1/G2</h2>
 <p>PG-A2b P85 đã tạo hai VIEW native tại database <code>directus</code> bằng DOT; Host P86 chấp nhận kết quả đúng phạm vi. PG tự liệt kê vật và quan hệ khi đọc; chưa có sổ quyết định S4, chưa có đối soát V3, chưa công bố lên Nuxt.</p>
 <p>KQ P85: V1 có <strong>16.536</strong> vật, V2 có <strong>4.566</strong> quan hệ; Config Guard <strong>554/554</strong> khớp, Guard POST PASS và receipt 316. Chưa tạo Directus collection/report hay thay role. Hai phát hiện về ACL file manifest và Git DOT đã được giao rà theo đúng chủ, không cần lùi VIEW.</p>
 <p><strong>SSOT một nơi cho mỗi thuộc tính:</strong> PostgreSQL gốc tự kể vật và quan hệ qua V1/V2 (VIEW, không copy). Bảng S4 dự kiến <code>tai_san_luat</code> chỉ lưu luật phân loại/ngoại lệ đã được Owner duyệt, không chép từng vật. Nhãn 07/2026 trong COMMENT là bằng chứng cũ, không là nơi ghi thứ hai. Một luật họ chỉ gợi nhãn cho vật mới khi áp SELECT, không tự sửa hay xóa vật.</p>
 <p><strong>P92 chốt 3 điểm:</strong> C1 bốn ô hệ/Workflow/vùng/quyết định được để NULL để kế thừa <em>từng ô</em> từ luật chung hơn; C2 mẫu họ có tiền tố neo DB (khi nạp luật phải kiểm mọi nhánh regex, không chỉ tiền tố); C3 V3 là VIEW duy nhất giải luật để Nuxt/Graph/DOT dùng chung. Đối soát PG/Census/Graph/DOT chỉ là SELECT của báo cáo, không lập V4. SQL P91 <code>90424a18…7f86</code> đã được Host băm lại, bảng chưa tạo.</p>
-<p class="muted">P91 thử 22 ca trên PG16 và đọc PG18 qua CTE 4,8 giây; CHƯA CREATE DDL trên PG18. 158 luật ứng viên phủ 93,3% mẫu, không đồng nghĩa 93,3% đúng hay đã duyệt. Khi hai mẫu trùng ô, OID cũ, nhiều cha hoặc không có luật ⇒ CHƯA RÕ, không tự chọn. Tắt/Bỏ kế thừa xuống vật con chỉ hiển thị, không được coi là lệnh thực thi cho con. PROMPT S4 DRAFT/NO READY; sau G1/G2 Owner mới tạo 1 bảng rỗng qua DOT.</p></section>
+<p class="muted">P91 thử 22 ca trên PG16 và đọc PG18 qua CTE 4,8 giây; CHƯA CREATE DDL trên PG18. 158 luật ứng viên phủ 93,3% mẫu, không đồng nghĩa 93,3% đúng hay đã duyệt. Khi hai mẫu trùng ô, OID cũ, nhiều cha hoặc không có luật ⇒ CHƯA RÕ, không tự chọn. Tắt/Bỏ kế thừa xuống vật con chỉ hiển thị, không được coi là lệnh thực thi cho con. PROMPT S4 DRAFT/NO READY; sau G1/G2 Owner mới tạo 1 bảng rỗng qua DOT. P93 Claude: PROMPT đủ điều kiện; V3 thêm rào luật họ chỉ áp cho vật bắt đầu đúng tiền tố DB của mẫu.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
 <span class="flag">P55 · PG đọc sống + Census + Graph · Ba Lô LEGACY</span>
-<span class="flag">✅ V1/V2 P85 · ✅ Claude P91/Host P92 chốt C1/C2/C3 · ■ S4 DRAFT chờ Owner G1/G2 · □ P0 Reports auth + TS4 DOT writer · □ V3/TS5 · □ Công thức/Workflow</span>
+<span class="flag">✅ V1/V2 P85 · ✅ Claude P91/Host P92/Claude P93 chốt C1/C2/C3 · ■ S4 DRAFT chờ Owner G1/G2 · □ P0 Reports auth + TS4 DOT writer · □ V3/TS5 · □ Công thức/Workflow</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <section class="arch-figure" aria-label="P65 hai nhóm PG-first và ranh giới ngoài PG">
