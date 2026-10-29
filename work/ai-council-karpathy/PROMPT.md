@@ -7,6 +7,16 @@ Read_Path: AGENTS A0/A2/A5/A6; ACK §0/Bảng/bảng đối chiếu P22 và **§
 Host GPT Chat/openai-main. Sau KQ: Codex/OpenAI rà kỹ thuật (khác Worker), Claude Chat/Anthropic rà luật (khác Host) trong cùng một vòng; **W2-j chưa có Owner quyết cách hiểu một reviewer khác cả hai**, không giả nghiệm thu đã đạt hai vế chỉ với Codex.
 Ngân sách: một lượt ≤2 giờ, 0 VPS-GHI, NO-WAIT. **Chỉ STARTED sau khi Owner dispatch SAU Graph; không giữ Worker/VPS khi chờ**. Không mở task/file/repo mới, không sửa AGENTS/root COLLAB/HJW/GHM/HVU, code/CI/PG/Directus/UI/runtime, không cài dependency, không tự READY N2.
 
+### STEP_WALK_V1 — MỘT BẢNG BƯỚC THEO DROOT48
+| Bước | Ai làm | Trigger | Ngân sách bước / SLA | Evidence bắt buộc | Nếu lỗi, báo ai / bao lâu | Tiếp theo |
+|---|---|---|---|---|---|---|
+| S0 | Claude Code CLI | OWNER thực sự chuyển đúng DROOT38, Graph trước đã kết thúc theo lựa chọn Owner | Dự kiến ≤10 phút; ghi STARTED ngay sau read-gate PASS | HEAD/source, AGENTS/roster, READY last-touch, STOP/busy và commit STARTED@RUN_ID đúng | Host/Owner: KQ DỪNG trong lượt, 0 bước tiếp nếu gate FAIL/CAS conflict chưa giải | S1 |
+| S1 · W2 | Claude Code CLI | STARTED đã được commit | Dự kiến ≤30 phút | Bảng a–j đúng nguồn luật, xung đột, chủ duyệt và giới hạn quyền | Host/Owner: KQ DỪNG trong lượt khi thiếu nguồn trọng yếu | S2 |
+| S2 · W3 | Claude Code CLI | S1 đã có nháp | Dự kiến ≤25 phút | Mẫu K1/K2/K6/K7/K9/K10, STARTED/CAS và cutover legacy chỉ thiết kế | Host/Owner: KQ DỪNG trong lượt nếu vượt scope hoặc thiếu input | S3 |
+| S3 · W4 | Claude Code CLI | S2 đã có nháp | Dự kiến ≤45 phút | Mẫu L1/L3/L5, 5 chốt/threat model, parser ≤60 dòng + stdout hoặc UNKNOWN có lý do | Host/Owner: KQ DỪNG trong lượt nếu không có evidence thiết yếu | S4 |
+| S4 | Claude Code CLI | S1–S3 hoàn tất đủ để kết luận | Dự kiến ≤10 phút | Một P + KQ@RUN_ID XONG/DỪNG + Bảng cùng commit; ma trận 16 mẫu/W0–W10 và 4 khuôn, NEXT_TRIGGER | Host/Owner: báo XONG/DỪNG ngay khi commit, không giữ terminal | Host rà kết quả |
+Ngân sách bước chỉ là phân bổ tham chiếu, cộng ≤120 phút; **cổng cứng là tổng ≤2 giờ và STOP/fail-fast**, không tạo WAIT/HOLD ở giữa. Mỗi bước dùng cùng một Write_Path, không tạo file tiến độ.
+
 ## S0 — READ-GATE, STARTED TRƯỚC MỌI VIỆC KHÁC
 Owner đã dispatch → đọc AGENTS, Bảng/Bootstrap ACK, §3.0, P13/P15/P16, PROMPT; kiểm đúng role, `READY@full SHA` = commit cuối chạm PROMPT, STOP/alert/busy và Write_Path. **Ngay sau read-gate PASS phải commit `STARTED@ACK-N1-CONTRACT-W2W4-20261029-04 <UTC> · executor=Claude Code CLI` + cập nhật Bảng; trước khi commit STARTED không chạy lệnh/tool khảo sát trên máy khác**. CAS conflict ⇒ đọc lại COLLAB/PROMPT, kiểm gate và retry; fail/STOP ⇒ DỪNG sạch, không làm sai như N0.
 
