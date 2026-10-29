@@ -1,46 +1,29 @@
-# PROMPT — ACK N0 VERIFY-GAPS: XÁC MINH CỔNG HỘI ĐỒNG CHUNG TRÊN HỆ ĐÃ CÓ (CHỈ ĐỌC)
-RUN_ID: ACK-N0-VERIFY-GAPS-20261028-03
-Trạng thái: CANONICAL; thay N0 GAP-ONLY -02. Chỉ thi hành khi `COLLAB.md` có READY@full last-touch SHA của PROMPT này do GPT Host ký và Owner dispatch thủ công (AUTO0). Không tự gọi Agent hoặc giữ phiên chờ.
-Executor_Surface: **Codex Desktop/CLI trên Mac**, ghế `openai-codex` (Worker N0), KHÔNG phải Reviewer của KQ mình.
-Review_After_KQ: **Claude Chat (Anthropic)** độc lập khác hãng với Host GPT và Worker Codex; Host GPT nghiệm thu/chốt bước.
-Root: `Huyen1974/incomex-workspace`; **§3.0 của COLLAB là bản đọc chính** (10 khối, W0, U1–U8, 14 phép thử + cập nhật P12), rồi dùng §3.8/§3.9/P08–P12 làm nguồn tra. HJW P448, GHM P103/P105, MCPW D12, HVU UI và source/runtime/API chỉ đọc nếu quyền thực có. KHÔNG quét lại 115 mục.
-Write_Path: DUY NHẤT `work/ai-council-karpathy/COLLAB.md` để ghi STARTED/P/KQ/Bảng, **qua `workspace_*` hoặc `fs_*` đã audit**. Không direct GitHub/API/CLI write trong Workspace; không ghi mã, VPS, Directus/PG, root luật hay task khác.
-Budget: 1 lượt ≤2 giờ, read-only kỹ thuật; không VPS-GHI, không tạo process nền, không sửa service/secret/ruleset, không Pro, không chờ approval trong terminal. KQ DỪNG sạch nếu blocker.
+# PROMPT — ACK N1 W2–W4: CHỐT NHÁP LUẬT / KHUÔN PROMPT-KQ / DÒNG PHIẾU (CHỈ THIẾT KẾ)
+RUN_ID: ACK-N1-CONTRACT-W2W4-20261029-04
+STATUS: CANONICAL; chỉ Owner chuyển AUTO0 sau khi GPT Host ký READY@full last-touch SHA của PROMPT này trong COLLAB. READY không là STARTED.
+Executor_Surface: Claude Code CLI trên Mac, seat=anthropic-cc-worker, Worker N1; không tự nghiệm thu.
+Write_Path: DUY NHẤT `work/ai-council-karpathy/COLLAB.md` qua gateway đã audit `workspace_*`/`fs_*`, dùng expected_version/HEAD và một transaction cho STARTED/KQ/Bảng. Không dùng direct GitHub write.
+Read_Path: AGENTS A0/A2/A5/A6; ACK §0, **§3.0 đọc trước** (W2–W4, W0/U1–U8, 16 món Karpathy), P13/P14/P15/P16; root DROOT31/38/55/57–59, HJW §0.15/0.17/P452, TQT 3.3, GHM P109; nguồn mã hiện có `post_guard/issuer_check`, profile/registry chỉ đọc bằng công cụ repo nếu thực sự cần. Không SSH/root VPS, không đọc secrets, không chạy API thuê bao.
+Host GPT Chat/openai-main. Sau KQ: Codex/OpenAI rà kỹ thuật (khác Worker), Claude Chat/Anthropic rà luật (khác Host) trong cùng một vòng; **W2-j chưa có Owner quyết cách hiểu một reviewer khác cả hai**, không giả nghiệm thu đã đạt hai vế chỉ với Codex.
+Ngân sách: một lượt ≤2 giờ, 0 VPS-GHI, NO-WAIT. Không mở task/file/repo mới, không sửa AGENTS/root COLLAB/HJW/GHM/HVU, code/CI/PG/Directus/UI/runtime, không cài dependency, không tự READY N2.
 
-## 0. Cổng S0 (bắt buộc, không đoán)
-- Owner thực sự dispatch N0; đọc AGENTS A0/A2/A5/A6/A9 → Bảng + **§3.0 (W0/U1–U8, 14 thử và cập nhật P12)** → §3.8/§3.9 khi cần dẫn nguồn → PROMPT. Dùng search/cửa sổ, không tải toàn bộ lịch sử. Xác nhận RUN_ID/Host/roster/không STOP/alert/chưa STARTED; READY SHA phải khớp **commit cuối chạm PROMPT.md này**, không nhầm global HEAD khi task khác ghi.
-- Kiểm đúng identity và `Write_Path` tại surface Codex từ đường đã audit; nếu không có, KQ DỪNG qua đường hợp lệ hoặc báo trong chat, KHÔNG chuyển sang direct GitHub write.
-- Chỉ sau gate PASS mới ghi `STARTED@ACK-N0-VERIFY-GAPS-20261028-03 <UTC> · executor=Codex Desktop/CLI` và sửa Bảng trong cùng lượt. Sau đó mọi hoạt động với VPS/repos khác là CHỈ ĐỌC.
+## S0 — READ-GATE, STARTED TRƯỚC MỌI VIỆC KHÁC
+Owner đã dispatch → đọc AGENTS, Bảng/Bootstrap ACK, §3.0, P13/P15/P16, PROMPT; kiểm đúng role, `READY@full SHA` = commit cuối chạm PROMPT, STOP/alert/busy và Write_Path. **Ngay sau read-gate PASS phải commit `STARTED@ACK-N1-CONTRACT-W2W4-20261029-04 <UTC> · executor=Claude Code CLI` + cập nhật Bảng; trước khi commit STARTED không chạy lệnh/tool khảo sát trên máy khác**. CAS conflict ⇒ đọc lại COLLAB/PROMPT, kiểm gate và retry; fail/STOP ⇒ DỪNG sạch, không làm sai như N0.
 
-## 1. S1 — Dùng bản đồ §3.8 làm index, KHÔNG quét lại 115 mục
-Ưu tiên đúng 7 nhóm cần phân biệt thực tế:
-1. **C2 Hội đồng**: `C2.1–C2.10, C2.17, C2.20`: máy đã thật sự chặn thiếu roster, sai Host, sai vòng/quorum/VERDICT/cùng hãng, sai SHA và alert ở đường GHI/DISPATCH nào? Phân biệt cổng Hermes-only với cổng chung đa AI. Chỉ đọc code/live config và log đã có; không thử ghi sai.
-2. **C4 Gateway/identity**: `C4.1–C4.8`; đặc biệt **HJW P444** = Codex audit `declared_actor` xong nhưng chưa thi công; **HJW P448 RUN11 KQ DỪNG S0 `CLIENT_REFRESH_PATH_UNVERIFIED`**, 0 thay đổi. Không giao lại RUN11 cũ hay lặp audit; xưng danh không phải quyền. Đọc biên nhận P444 và nơi adapter sẽ thay; KHÔNG lặp audit/đưa thêm ticket cạnh tranh.
-3. **C5 Chuông**: `C5.1/C5.3/C5.5/C5.9`: COUNCIL_ALERT về Telegram, ai được đóng, alarm có chặn chuyển bước TRƯỚC mutation hay chỉ thông báo? Tách Kuma/Guard đã chạy khỏi Supervisor hội đồng mới có chữ.
-4. **C1.3 Bảng stale và Đ2/Đ4 luật**: đối chiếu DROOT33, AGENTS A5/A6/DROOT57–58, HJW policy/M1 và TQT CT-000.1. Đánh dấu chính xác câu nào thật sự đang áp mà xung đột; không đề xuất sửa toàn bộ luật/88 KB; CT-000.1 là công thức ngành, A5/A6 là Council chung.
-5. **C7 GitHub**: lấy kết quả **GHM P99 C2-A đã nghiệm thu ở các PR**, GHM P103 COST PASS và P105 Owner chọn một tài khoản GitHub; C2-B chưa có KQ tại lần đọc, phải đọc trạng thái mới nhất. Không lặp PR/CI/ruleset/thử âm; chung credential không chứng minh KST_ONLY bằng máy. Đ1 không phụ thuộc Pro để chạy N0.
-6. **C8 Task View**: lần theo **đúng runtime VPS source**/Nuxt shell/HVU từ URL Owner đang dùng, xác định bước sẵn có, dữ liệu/actor/HTML, nơi chèn 3 tầng Karpathy+Vue Flow. `view.html` ACK là **snapshot P08, không live**, không suy từ giao diện minh họa rằng Vue Flow đã cài.
-7. **Đ1 & quyền chủ**: kiểm HJW N4 dormant và vùng kiểm máy Council chung chưa Owner GO, các chỗ chặn có thật; trình đề xuất **một cửa code/owner mỗi delta**, không đưa ACK thành owner mã runtime khác hay tạo engine/scanner/policy song song.
+## S1 — W2: MỘT BẢNG ĐỀ NGHỊ LUẬT a–j, CHƯA SỬA LUẬT NỀN
+Lập tại P mới bảng `mục | nguồn/câu hiệu lực | xung đột thật? | đề xuất giữ/thay cho đúng scope | ai có quyền duyệt`: a DROOT31/38 vs 58; b DROOT55 vs 57; c ý kiến khác hãng và quorum/vắng; d TQT ≥2/4 chỉ phạm vi ngành; e Telegram biên nhận vs DROOT59; f GHM ngoại lệ DROOT56; g Hermes-Mac/Owner; h auth↔seat/vendor là cấu hình server, roster có hiệu lực theo bootstrap từng task (không sổ thứ hai); i `COMMENT_REQUIRED` hiện hành khác Owner đề xuất `ĐỒNG Ý` khác hãng, Host vẫn là người ký READY; **j** hậu KQ: một reviewer khác cả Host/Worker hay hai ý kiến từng vế — minh họa GPT Host + Claude Code Worker + Codex/Claude Chat Reviewer, đề xuất Google chỉ nếu được xác minh/Owner giao. i+j là **một câu Owner quyết**, không tự kích hoạt rule mới.
 
-## 2. S2 — Báo cáo duy nhất trong ACK
-Tạo **một P mới trong chính `work/ai-council-karpathy/COLLAB.md`**, bảng ≤12 hàng:
-`ID từ §3.8 | Owner/Source (task/file/commit) | Chặn thật ở đâu | Trạng thái LIVE: ENFORCED/PARTIAL/NOT_ENFORCED/UNKNOWN | Evidence/giới hạn | Delta tối thiểu/next trigger`.
-- Nếu nguồn chỉ báo có luật/chỉ thị hoặc bảng màu, **không ghi ENFORCED**; nếu HJW/GHM có KQ rồi thì dẫn nguồn không chạy lại; không biết ⇒ UNKNOWN.
-- Đối chiếu Đ1–Đ7 và U1–U8 của §3.0; **bắt buộc chỉ-đọc/đo chốt còn thiếu về tự đổi Host/roster/giả Owner directive rồi ký, giả VERDICT/REVIEW_REUSED hoặc cùng credential, upload/queue/helper và stale revision**. Các phần HJW/GHM có KQ thì chỉ dùng nguồn, không làm thay.
-- Sau N0, đề xuất N1/N2 **trên code/luật có sẵn**: AGENTS A5/A6, HJW policy/event/scanner/ASSIGN/RESULT, MCPW gateway, GHM PR/CI, HVU Task View. Không tạo `NODE_V1`, `DECISION_V1`, `WRITE_TICKET` mới nếu cơ chế hiện hữu đủ.
-- Không sửa ma trận P08/view.html trong N0 bằng tay khi chưa có full evidence; đề xuất cách derive UI từ một source cho N2. Ghi rõ phân loại cảnh báo DROOT59: không biến mọi lỗi thiếu tên/VERDICT thành Telegram Cấp 1.
+## S2 — W3: KHUÔN PROMPT/KQ DUY NHẤT
+Đề xuất phần bổ sung vào A6/PROMPT và KQ/RESULT_V1 hiện có; lấy mẫu Karpathy `K1` được làm/cấm/1 số đo/DoD, `K2` evidence máy in, `K6` ngân sách, `K7` fail-fast, `K9` NO-WAIT, `K10` log đọc cửa sổ. Giữ `STEP_WALK_V1` (bước, ai, trigger, hạn, evidence, lỗi ai nhận, bước tiếp), một RUN_ID một KQ. **Bắt buộc kỷ luật STARTED đúng RUN_ID trước PRE; CAS từ chối → đọc lại và retry**; W5 tương lai phải từ chối KQ không có STARTED/Worker đúng RUN. Không tạo file/khuôn thứ hai, không bê mã GPU Karpathy.
 
-## STEP_WALK_V1
-| Bước | Ai | Trigger | Budget | Evidence | Lỗi/ai nhận | Kế |
-|---|---|---|---|---|---|---|
-| S0 Gate/STARTED | Codex | Owner dispatch + READY đúng | ≤2h toàn N0 | identity, host, SHA, path ghi | DỪNG → GPT Host | S1 |
-| S1 Đo đúng delta | Codex | S0 PASS | ≤2h | source/code/log đã có của 7 nhóm, không mutation | UNKNOWN/DEPENDENCY → GPT Host | S2 |
-| S2 Báo delta | Codex | S1 đủ hoặc hết budget | ≤2h | ≤12 hàng, Đ1–Đ7, next/owner | sai scope ⇒ DỪNG | S3 |
-| S3 KQ | Codex | S2 | ≤2h | một P + `KQ@ACK-N0-VERIFY-GAPS-20261028-03 XONG|DỪNG` + Bảng cùng commit | Host/Claude tiếp nhận | Review KQ |
+## S3 — W4: DÒNG MÁY ĐỌC + NĂM CHỐT
+Chỉ đề xuất mở rộng `TASK_POLICY_V1/FLOW_EVENT_V1` có sẵn: `L1` ý kiến độc lập trước kết luận, `L3` VERDICT đúng mẫu, `L5` Host ghi `Đồng ở/Khác ở`, với auth actor, task roster, vendor, content_ref/sha, round, condition, evidence. Không tạo `NODE_V1/DECISION_V1` hay DB/engine.
+**Năm chốt P15 bắt buộc:** (a) quyền theo snapshot đã commit **trước** mutation, không thay Host + ký trong một lần ghi; (b) Owner phải xác nhận thay Host/roster/quorum/AUTO qua đường tin cậy AI không ghi được, nút Telegram Hermes chỉ là **ứng viên cần xác minh**, chưa có chứng cứ thì ghi UNKNOWN và giữ AUTO0; (c) HUMAN_DIRECTIVE không tự nới quyền; (d) vendor/ghế và phiếu từ credential server-side, một phiếu/credential/revision, `declared_actor/by=` không xác thực, dùng chung chìa báo LIMIT; (e) REVIEW_REUSED trỏ VERDICT thật commit+dòng+diff chỉ hành chính. Recheck quyền/STOP/alert/revision dưới lock trước commit là yêu cầu N2.
+**Threat model khoảng nửa trang:** bảo vệ AI hợp tác chỉ ghi qua `workspace_*`/`fs_*` bằng chính credential; root VPS/DeployKey/SSH/credential bị đánh cắp trên Mac cùng quyền và đường ghi ngoài cổng thuộc LIMIT/backlog MCPW, không nói “không thể sai” khi U8 chưa đủ.
+**Bộ đọc mẫu ≤60 dòng Python** để **nguyên ngay trong P/KQ COLLAB** (khối code thụt lề; không dòng ở đầu `## `), chạy read-only trên ACK COLLAB ghim SHA, phân biệt VERDICT thật P05/P08/P11/P15 và một dòng sai định dạng; báo exit/evidence. Không viết file mới/CI/runtime, không tự giả phiếu.
 
-## XONG/DỪNG
-- XONG = N0 **khảo sát có chứng cứ** theo 7 nhóm + U1–U8 và rủi ro P12 (có thể ghi UNKNOWN khi chưa đo), nêu nguồn/chủ/trigger; không có mã/luật/runtime nào bị đổi. Không đòi mọi chốt ENFORCED để kết thúc audit.
-- DỪNG = thiếu cổng đọc hoặc báo cáo, STOP, rủi ro cần Owner, quá ngân sách; ghi rõ blocker và nhả resource, không giữ session.
-- CẤM: đổi AGENTS/PG/Directus/Graph, gateway/CI/permission/secret/runners, sửa task HJW/GHM, tạo repo/task/file phụ, cài Vue Flow, gọi API trả phí, tự RUN N1/N2; không có phép thử âm mutation.
-- Sau KQ: **GPT Host đọc evidence → Claude Chat (khác hãng cả Host/Worker) nhận xét → GPT Host chốt prompt N1 hoặc đo bổ sung**, không thêm vòng nếu không còn bất đồng kỹ thuật.
-NEXT_TRIGGER_AFTER_N0=HOST_REVIEW_ACK_N0_VERIFY_GAPS
+## S4 — SỔ KẾT QUẢ VÀ GATE N2
+Trong **một P tiếp theo + KQ + cập nhật Bảng cùng commit** ở COLLAB ACK: (1) W2 a–j; (2) W3 khuôn; (3) W4 schema/5 chốt/Threat model/parser ≤60 dòng + evidence; (4) bảng `W5–W7: cổng thật → source live → bypass U1/U4/U6/U8 → fixture/thử âm P12 A–D & 14 tiêu chí → rollback/Owner GO`; (5) **đề xuất** một dòng Owner cần quyết gộp 3 việc: i+j khác hãng, cách Owner xác nhận đổi Host, phạm vi cưỡng chế. Không tự coi Owner đã gật.
+KQ@ACK-N1-CONTRACT-W2W4-20261029-04 XONG = **nháp hợp đồng thiết kế xong**, không luật/cổng/UI nào được triển khai. UNKNOWN ghi UNKNOWN, không suy PASS. Nếu không hoàn tất thì KQ DỪNG rõ blocker/next trigger, thả resource, không giữ terminal.
+`STEP_WALK_V1`: S0 Claude Code/read-gate+STARTED → S1 luật a–j → S2 khuôn K → S3 mẫu L/Threat/parser → S4 KQ/Bảng; mỗi bước trong ngân sách N1 ≤2 giờ, evidence theo mục tương ứng; hỏng thì ghi KQ DỪNG để GPT Host và Owner biết. Sau KQ, GPT Host điều hành phản biện Codex/Claude Chat theo A5 trước N2; không tự RUN N2.
+NEXT_TRIGGER_AFTER_N1=HOST_REVIEW_N1_AND_OWNER_SINGLE_DECISION
