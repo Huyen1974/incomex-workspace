@@ -69,7 +69,7 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>P100 · Claude rà lệnh TS4-cổng: đúng hướng, phải sửa 5 chỗ đầu vào trước khi Owner duyệt</h2>
+<section class="owner-actions ok"><h2>P101 · Host đã sửa 5 điểm kiểm tra đầu vào, đang chờ phê duyệt lượt TS4</h2>
 <p><strong>P100:</strong> (1) cách thử trong lệnh sẽ thử sai chỗ và có thể để lại tệp ghi luật thử được phép chạy; (2) cách lùi phải ghi cụ thể; (3) cơ chế khoá + kiểm trước khi ghi đã thử, ghi sẵn; (4) Điều 30/31 định nghĩa rõ; (5) không dùng lệnh đăng ký sổ DOT đang hỏng. GPT sửa xong mới đưa anh duyệt.</p>
 <p>V1/V2 đã chạy từ P85; P96 đã tạo thêm bảng luật <code>directus.public.tai_san_luat</code> qua DOT, Host P97 nghiệm thu đúng phạm vi. Bảng S4 có <strong>14 cột, 0 dòng luật</strong>. Chưa có V3 giải luật hay báo cáo Nuxt được xác thực.</p>
 <p><strong>KQ P96:</strong> V1 <strong>16.580 vật</strong> (+44 = 1 bảng +14 cột +2 index +27 ràng buộc PG18), V2 <strong>4.568 cạnh</strong> (+2). Config Guard <strong>556/556</strong> khớp, Guard POST PASS, biên nhận 322; VPS-GHI đã trả. Không có role, collection, permission hay luật mới ngoài bảng rỗng.</p>
