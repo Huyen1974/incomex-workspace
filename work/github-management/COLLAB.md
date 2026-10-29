@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 08:12 +07 · Claude Code CLI · P108
-- 🎯 Owner: một GitHub Pro `Huyen1974`, nhiều agent code trên branch, KST mới merge/release theo luật; GH trở thành mã SSOT sau kiểm VPS, mọi CI/build/release chạy VPS.
-- 🏁 C2-B: `main` 2 repo có ruleset PR+strict `gate` đúng app, RED/skipped/behind/direct push bị chặn, Web legacy4 bỏ, KST_ONLY_ENFORCED=NO báo đúng.
-- 📍 ✓ F0/F1/G1 · ✓ C2-A · ✓ Pro/cost P103 · ✓ Claude P104/P105 đồng thuận một account → ✓ Host P106 sửa giới hạn tên nhánh → ■ P107 READY → Claude Code CLI C2-B → SSOT-CUTOVER → AD release → F2 → C4.
-- ✅ GH live: AD `main a636ffe5` protected:false; Web `main 4f8405a9` protected:true (legacy), cả hai rulesets []; 6 PR C2-A còn OPEN, PR #353 ngoài làn hiện gate skipped. P103 cost PASS_SCOPED_READBACK.
-- ■ Đang làm: — · 0 RUN active. P108 KQ@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 XONG PHASE B 01:12Z: ruleset `main-code-gate` active hai repo (AD 26088699, Web 26088697), Web legacy4 đã gỡ; main AD `b4c9ea19`, Web `171c115a`, `gate` push main success; chờ Host nghiệm thu.
-- ⬜ C2-B B0/B0a/B1/B2/B3/B4; sau đó chốt SSOT mã AD/Web, làm AD deploy/rollback, F2 tách runner audit/PR và 3 agent; không mở tài khoản/App.
-- ➡ NEXT_TRIGGER=HOST_ACCEPT_C2 (Host + Claude tự đối chiếu gh API) → SSOT-CUTOVER. Handoff PR #353 cho chủ CONN-REPAIR-03C: cập nhật nhánh theo main, chờ `gate` GREEN head mới, xin KST_ACCEPT.
-- ⛔ Không merge PR #353 thuộc task khác, không chạy untrusted code trên VPS persistent runner, không tự tắt ruleset để cứu merge, không thay gói/thẻ/secret, không auto-CD.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 09:02 +07 · GPT Host · P109
+- 🎯 Owner: một GH Pro, nhiều agent code trên nhánh; mã VPS được kiểm chứng rồi GH là SSOT; chỉ KST Claude/Codex được phân công mới merge/release theo luật; CI/build/deploy trên VPS.
+- 🏁 C2-B đã nghiệm thu: hai main ruleset PR + strict gate; KST_ONLY_MERGE_ENFORCED=NO được Owner chấp thuận. Task còn SSOT theo repo, AD rollback/release, F2 ≥3 agent.
+- 📍 ✓ F0/F1/G1/C2-A → ✓ P103 Pro/cost → ✓ P108/P109 C2-B → ■ SSOT-CUTOVER S0 draft/Claude Review → Web source lock → AD release+rollback/source lock → F2 C3.0/3 agent → C4.
+- ✅ GH live main AD b4c9ea19 ruleset 26088699, Web 171c115a ruleset 26088697; strict gate app 15368/bypass []. 4 PR dương merged, 2 PR âm closed không merge; main gate push success.
+- ■ Đang làm: — · 0 RUN active. HOST_ACCEPT_C2=PASS_SCOPED; S0 SSOT-CUTOVER chưa READY/RUN, mời Claude phản biện bản DRAFT.
+- ⬜ Kiểm toàn mã/source/image live và nơi còn ghi VPS; ký GH_SSOT từng repo; AD deploy từ GH + rollback; F2 tách runner mã PR/audit secret và thử ≥3 agent.
+- ➡ NEXT_TRIGGER=CLAUDE_REVIEW_P109_SSOT_DRAFT: Claude kiểm draft 1 vòng; Host chốt READY S0 chỉ đọc, Owner chuyển agent.
+- ⛔ Không chạy lại C2, không tự merge PR #353, không tự khóa AD trước rollback, không làm rơi Web rollback, không account/App mới, không auto-deploy.
 
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1563,6 +1563,15 @@ Based_on: Owner 28/10 22:20 (§1 #13) · ý kiến GPT phiên mới (phương á
 - B0a: 2 PR-1 nhánh trusted sửa nhận `dev/claude-code-ad/` (AD) hoặc `dev/claude-code-web/` (Web), test và `gate` HEAD mới SUCCESS; B1 Web legacy4 backup/remove; B2 required strict `gate`+bypass rỗng 2 main; B3 âm RED/behind/direct push, PR1/PR2 merge đúng KST; B4 KQ receipt. Không deploy, không tạo actor mới, không tự bypass khẩn cấp.
 - PR #353 của task khác chỉ đọc/handoff về chủ; KST_ONLY_MERGE_ENFORCED=NO do cùng GH login; tất cả CI của dự án trên VPS self-hosted. Nếu fail quyền/source/gate: STOP nhả phiên, không khóa sai.
 - NEXT_TRIGGER=OWNER_DISPATCH_CLAUDE_CODE_CLI_C2_B. Áp: SAME_COMMIT.
+
+## P109 · GPT Host · 29/10/2026 — ACCEPT C2-B, CHUYỂN SANG SSOT-CUTOVER
+- **HOST_ACCEPT_C2=PASS_SCOPED.** Đọc độc lập GitHub API: AD main b4c9ea19cf2e57594a231c2819e098fe0002c99a, Web 171c115a9a00e12d57449768401d3ab5e7cc796c đều protected=true. Ruleset 26088699/26088697 active trên refs/heads/main, bypass_actors=[], 4 luật deletion/non_fast_forward/pull_request 0 approvals/required_status_checks strict gate integration_id 15368.
+- PR AD #354/#355, Web #679/#680 merged; PR âm AD #356/Web #681 closed unmerged. Runs push-main AD 40798411882, Web 40798424884 success (preflight, scan, policy, unit, summary); PR âm có preflight failure. HTTP405/GH013 do KST thử đã ghi P108/evidence private; Host không tái phát thử push/merge phá nhánh. Web legacy4 gỡ theo P108. Admin vẫn có thể sửa/disable ruleset.
+- `KST_ONLY_MERGE_ENFORCED=NO`: Codex/Claude chung GH login Huyen1974, Owner P105 chọn luật + KST_ACCEPT@SHA, không thêm account/App. C2 đủ scope nhưng chưa chứng minh tách người/runner untrusted.
+- Rà 4 đích: (1) 2 trusted ghế code+PR thành công, F2 3+ agent/C3.0 chưa; (2) AD VPS Git HEAD bfe86c8 clean là tổ tiên GH main (ahead 129 commit, diff 9 path, ứng dụng agent_data/pg_store.py mới ở GH); Web production F1 build GH e9f5801f, GH main mới hơn 8 commit nhưng chỉ CI/AGENTS/gate test, không khác web/; GH_SSOT chưa ký vì chưa so toàn source và live image; (3) main machine lock PASS, KST-only theo luật; (4) code gate VPS và Web release F1 PASS scoped, AD GitHub deploy+rollback C1B chưa PASS, Web Health business RED riêng.
+- Đường tiếp: SSOT-CUTOVER S0 CHỈ ĐỌC dùng lại bằng chứng P104/F1, kiểm machine hash toàn code, image/build provenance, nơi còn ghi VPS và backup ngược; Web chỉ khóa legacy nếu không còn phục vụ rollback/build; AD release GH+rollback đạt rồi khóa AD. Không chép cây VPS đè CI; không nhận GH_SSOT khi chưa đủ proof. Swap VPS gần cạn, tránh CI/build thử vô ích.
+- PR #353 task CONN-REPAIR-03C vẫn OPEN, stale/old skipped: chủ task update branch, gate GREEN mới xin KST_ACCEPT; GHM không sửa/merge.
+- Soạn SSOT-CUTOVER-DRAFT.md trong task, DRAFT_NOT_READY; giao Claude Reviewer phản biện một vòng P110. Chưa phát READY/RUN/production mutation; một GH Pro. NEXT_TRIGGER=CLAUDE_REVIEW_P109_SSOT_DRAFT. Áp: SAME_COMMIT.
 
 ## P108 · Claude Code CLI (KST) · 29/10/2026 — C2-B PHASE B
 Ghế: anthropic-claude-code · Based_on=66a8d4a55920982619b07b0047e30c2ba4330e35 · Write_Path=gh CLI Owner `Huyen1974` (GitHub API/PR/ruleset) + Workspace gateway cho hồ sơ · 0 VPS-GHI, 0 deploy.
