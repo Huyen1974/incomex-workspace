@@ -12,7 +12,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - ✅ GH live main AD b4c9ea19 ruleset 26088699, Web 171c115a ruleset 26088697; strict gate app 15368/bypass []. 4 PR dương merged, 2 PR âm closed không merge; main gate push success.
 - ■ Đang làm: — · 0 RUN active. HOST_ACCEPT_C2=PASS_SCOPED; S0 SSOT-CUTOVER chưa READY/RUN, mời Claude phản biện bản DRAFT.
 - ⬜ Kiểm toàn mã/source/image live và nơi còn ghi VPS; ký GH_SSOT từng repo; AD deploy từ GH + rollback; F2 tách runner mã PR/audit secret và thử ≥3 agent.
-- ➡ NEXT_TRIGGER=CLAUDE_REVIEW_P109_SSOT_DRAFT: Claude kiểm draft 1 vòng; Host chốt READY S0 chỉ đọc, Owner chuyển agent.
+- ➡ NEXT_TRIGGER=CLAUDE_REVIEW_P109_SSOT_DRAFT: Claude phản biện ROADMAP §0.4d một vòng; Host chốt READY S0 chỉ đọc, Owner chuyển agent.
 - ⛔ Không chạy lại C2, không tự merge PR #353, không tự khóa AD trước rollback, không làm rơi Web rollback, không account/App mới, không auto-deploy.
 
 ### 1. Mục tiêu
@@ -1571,7 +1571,7 @@ Based_on: Owner 28/10 22:20 (§1 #13) · ý kiến GPT phiên mới (phương á
 - Rà 4 đích: (1) 2 trusted ghế code+PR thành công, F2 3+ agent/C3.0 chưa; (2) AD VPS Git HEAD bfe86c8 clean là tổ tiên GH main (ahead 129 commit, diff 9 path, ứng dụng agent_data/pg_store.py mới ở GH); Web production F1 build GH e9f5801f, GH main mới hơn 8 commit nhưng chỉ CI/AGENTS/gate test, không khác web/; GH_SSOT chưa ký vì chưa so toàn source và live image; (3) main machine lock PASS, KST-only theo luật; (4) code gate VPS và Web release F1 PASS scoped, AD GitHub deploy+rollback C1B chưa PASS, Web Health business RED riêng.
 - Đường tiếp: SSOT-CUTOVER S0 CHỈ ĐỌC dùng lại bằng chứng P104/F1, kiểm machine hash toàn code, image/build provenance, nơi còn ghi VPS và backup ngược; Web chỉ khóa legacy nếu không còn phục vụ rollback/build; AD release GH+rollback đạt rồi khóa AD. Không chép cây VPS đè CI; không nhận GH_SSOT khi chưa đủ proof. Swap VPS gần cạn, tránh CI/build thử vô ích.
 - PR #353 task CONN-REPAIR-03C vẫn OPEN, stale/old skipped: chủ task update branch, gate GREEN mới xin KST_ACCEPT; GHM không sửa/merge.
-- Soạn SSOT-CUTOVER-DRAFT.md trong task, DRAFT_NOT_READY; giao Claude Reviewer phản biện một vòng P110. Chưa phát READY/RUN/production mutation; một GH Pro. NEXT_TRIGGER=CLAUDE_REVIEW_P109_SSOT_DRAFT. Áp: SAME_COMMIT.
+- Đã soạn thiết kế SSOT-CUTOVER tại ROADMAP §0.4d của cùng task, DESIGN_DRAFT/NOT_READY; giao Claude Reviewer phản biện một vòng P110 ngay tại đó (không tạo file/task bổ sung). Chưa phát READY/RUN/production mutation; một GH Pro. NEXT_TRIGGER=CLAUDE_REVIEW_P109_SSOT_DRAFT. Áp: SAME_COMMIT.
 
 ## P108 · Claude Code CLI (KST) · 29/10/2026 — C2-B PHASE B
 Ghế: anthropic-claude-code · Based_on=66a8d4a55920982619b07b0047e30c2ba4330e35 · Write_Path=gh CLI Owner `Huyen1974` (GitHub API/PR/ruleset) + Workspace gateway cho hồ sơ · 0 VPS-GHI, 0 deploy.
