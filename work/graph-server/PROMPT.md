@@ -1,25 +1,19 @@
-# PROMPT — GS-K4-READTIME-SOURCE-FENCE-20261028-21
-RUN_ID: GS-K4-READTIME-SOURCE-FENCE-20261028-21
-TASK: work/graph-server · K4 source fingerprint at graph-v1 read-time, not code/data ingestion.
-STATUS: DRAFT_BLOCKED_RESOURCE / NOT_READY / DO_NOT_DISPATCH. P297 Host accepts Claude P296 B2 but RAM <3GiB and runtime graph-v1 reload/Guard rollback unverified. Host later signs exact PROMPT last-touch SHA40 and SHA256; no READY now.
-EXECUTOR_SURFACE: Claude Code CLI Mac, Git-CAS + authorized Graph/VPS read; one CLI.
-WRITE_PATH: approved graph-v1 reader code only via apply-v0, VPS-GHI CAS, Config Guard PRE/POST, byte-exact rollback; task P/Board/GS-RM1/view/root KQ one Git-CAS commit. No Neo4j nodes/edges, Nuxt code or label, PG/Directus/Qdrant/Lark/GSM, Guard policy, timer, new monitor/CDC.
-READ: AGENTS A0/A5/A6/A8/A9/DROOT29/30/31/44/56/57/58/59, root/task COLLAB P194/P207/P221/P223/P236/P261/P272/P294–P297, GS-RM1, exact deployed graph-v1 wrapper, current cert-baselines and apply-v0/Guard rollback manifests. Historical repo tools require live hash check.
-REVIEW_REUSED: Claude P296 §7 and P236. No new B2 if scope identical.
-OWNER_CONSENT_EXACT (requires later READY): "Tôi giao Claude Code CLI chạy GS-K4-READTIME-SOURCE-FENCE-20261028-21 CHỈ SAU KHI GPT Host ký READY đủ RAM và đường lùi. Chỉ cập nhật lớp đọc graph-v1 để dấu nguồn thay đổi/mất quyền/thiếu baseline trả MỘT PHẦN/NOT_ACTION_SAFE. Không sửa Graph data, Nuxt, PG/Directus hay làm xanh #24; thiếu an toàn thì dừng trước ghi."
+# PROMPT — GS-RAM-K4-PREFLIGHT-READONLY-20261029-22
+RUN_ID: GS-RAM-K4-PREFLIGHT-READONLY-20261029-22
+TASK: work/graph-server · ONE read-only RAM attribution + K4 readiness audit. No new task, no production mutation.
+STATUS: DRAFT until GPT Host signs last-touch SHA40 and PROMPT_SHA256 at P299. Owner manually forwards once only after signed READY.
+HOST: GPT Chat. REVIEW_REUSED=Claude Chat P296 RAM/K4; this is only measurement, no new algorithm/write/permission. EXECUTOR_SURFACE: Claude Code CLI on Mac with authorized SSH contabo and Git-CAS used P293/P294; one CLI at a time.
+WRITE_PATH: only one KQ Git-CAS update to Graph COLLAB Board/GS-RM1/view and root COLLAB (same commit) and optional PRIVATE Mac evidence under ~/Incomex-Graph-View/evidence-private/ (0600). No VPS files, Graph/PG/Directus/Qdrant/Lark/Guard/Kuma edits, no VPS-GHI, no new service, cron, monitoring, permissions, sudo, GSM, Docker exec, environment-variable dumps, process kill/restart/reload, swap or paid upgrade. Do not send Telegram.
+READ: AGENTS.md, root and Graph COLLAB P294–P299, GS-RM1, P296 §7 five K4 conditions, P297, previous K4 draft in git commit b5d8d298eae3e0133d44185ced2564336f175a79, authorized VPS memory/reader manifests and available #24 receipt logs.
+OWNER_CONSENT_EXACT: "Tôi giao Claude Code CLI thực hiện duy nhất GS-RAM-K4-PREFLIGHT-READONLY-20261029-22 để kiểm RAM và điều kiện K4 cho GPT Host, hoàn toàn chỉ đọc. Không thay VPS, container, swap, PG/Directus, Graph, Guard, cảnh báo hay source; không mua thêm tài nguyên. Kết quả có bằng chứng và một phương án nhỏ nhất, gửi thẳng GPT Host."
 
-## FIVE HARD DoR before Host READY
-1. Source cheap fingerprints already available: Docker IDs, ports, unit hash, Git HEAD/worktree, DEPLOYED Nuxt server/index.mjs SHA+nitro build date (NOT current GitHub HEAD/generic Node image), cert/catalog; match baseline actually saved at certificate time T. Missing original baseline => SOURCE_VERSION_UNVERIFIED+NOT_ACTION_SAFE, not retroactive green. No new reader/CDC.
-2. subprocess rc, stderr, permission, bounded timeout checked; incomplete/error => UNKNOWN/NOT_ACTION_SAFE, not empty-success. If reusing native_live.py, fix silent failure first.
-3. Deployed graph-v1 code and narrow approved apply-v0 target, Guard PRE/POST, byte-exact backup and rollback verified. No new sudo/key, no graph/source write.
-4. Root VPS-GHI free plus fresh MemAvailable above 3GiB floor AND measured safe graph-v1 reader reload headroom; swap/service pressure safe. Current measured 2.67GiB => FAIL now. Code DELTA separate >=6GiB.
-5. Negative fixtures on isolated COPY: changed fingerprint => SOURCE_CHANGED_SINCE_CERT/NOT_ACTION_SAFE; read denied/failed/missing baseline => UNVERIFIED/NOT_ACTION_SAFE; unchanged may only preserve existing valid N4 label, never promote PARTIAL. No production source mutation to test.
+S0 — Cổng: P294 already used Mac CLI SSH/VPS, graph-v1 read, Git-CAS. Current live RAM Host sampled 29/10 MemAvailable=2,834,784kB (~2.70GiB), SwapFree=24kB; Graph floor 3GiB and Code DELTA 6GiB. Re-read current memory/STOP/CLI identity, no Owner extra clicks. If optional reader lacks access, UNKNOWN+owner, do not escalate. Core SSH/Git unavailable or wrong identity => DỪNG clean.
 
-## Only after signed READY
-S0 Read current STOP/READY/lease/RAM/Guard. Any hard failure => DỪNG before mutation, no WAIT.
-S1 Inspect live reader and cert fingerprint baseline; choose only supported cheap signals. Sources without baseline remain UNKNOWN.
-S2 Run isolated negative fixtures and rc/stderr/timeout checks, capped CPU/latency, no production impact.
-S3 One protected graph-v1 reader update via approved apply-v0/CAS lease/Guard/rollback and code ledger; no heavy Enola/Cognee/temporary Neo4j, no Nuxt relabel.
-S4 Cold graph-v1 N4 verified stable/stale/missing source; no false green, preserve #24 natural state; Guard failure => rollback and DỪNG.
-KQ@GS-K4-READTIME-SOURCE-FENCE-20261028-21 XONG|DỪNG: evidence hashes, negative matrix, Guard PRE/POST, source limits, all remaining G1/G2/G3 PARTIAL if not independently proven; DOCS_MATCH Board/GS-RM1/P/view/root one Git-CAS commit, no private raw data in public repo. Do not self-run next.
-STEP_WALK_V1: Owner manual dispatch AFTER READY -> S0 -> S1/S2 -> S3 guarded -> S4 cold N4 -> KQ.
+S1 — RAM cause: Gather free/meminfo, short vmstat and /proc/pressure/memory if permitted, top RSS processes sanitized, docker stats --no-stream + existing memory cgroup current/limits and active containers; two bounded timestamped snapshots if practical. Do not sum shared RSS as unique or interpret cache as guaranteed reclaim. Record actual biggest consumers and swap pressure, distinguish measured vs hypotheses. No shell that writes/restarts/drops cache.
+
+S2 — Five K4 readiness gates from Claude P296: (1) cheap live source fingerprints vs genuinely stored certificate baselines (Docker identities, TCP listeners, unit hashes, Git HEAD/worktree, DEPLOYED Nuxt output digest+nitro time, catalog); absent baseline => UNKNOWN, NEVER certify old graph. (2) rc/stderr/permission/timeout handling for source readers (dt19 currently swallows errors). (3) exact deployed graph-v1 wrapper, approved apply-v0/Guard backup+byte-exact rollback; read only. (4) measured graph-v1 reader reload peak/headroom and swap safe above 3GiB; if cannot establish without reload => UNKNOWN, do NOT run reload. (5) existing copy-based negative fixture harness, or note missing; do not modify production. Output five verdicts VERIFIED/FAIL/UNKNOWN, no fabricated PASS.
+
+S3 — Recommend at most TWO minimal reversible RAM options ranked by measured freed GiB IF verifiable, side effects and whether Owner approval is required. No change or price decision performed. If quick authorized existing #24 digest/receipt proof is readable, report whether message includes #24 reason or UNKNOWN; do not send/reclassify alerts.
+
+KQ — KQ@GS-RAM-K4-PREFLIGHT-READONLY-20261029-22 XONG|DỪNG, memory snapshot/memory consumers summary and root cause confidence, five K4 readiness gates and one smallest next proposed action, approval/Guard/rollback needs; G1/G2/G3 remain PARTIAL, DATA_ACTION_READY_VPS_WIDE=NO. One workspace Git-CAS transaction update Graph P/Board/GS-RM1/view/root, no raw private process args, credentials or IDs in public repo, no next RUN.
+STEP_WALK_V1: Owner copy one signed READY → S0 read gate → S1 memory proof → S2 K4 DoR proof → S3 bounded recommendations → KQ → GPT Host decides. No WAIT/background work.
