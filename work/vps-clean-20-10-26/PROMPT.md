@@ -1,47 +1,18 @@
-# PROMPT — VPSC2-RAG-A-TRUST-GATE-20261023-01
+# PROMPT — VPSC2-AGENTDATA-WORKERS4-QUEUE-CANDIDATE-20261029-05
+RUN_ID: VPSC2-AGENTDATA-WORKERS4-QUEUE-CANDIDATE-20261029-05
+TASK: work/vps-clean-20-10-26 (Graph work/graph-server P305 chỉ là consumer).
+STATUS: CANDIDATE_AND_ISOLATED_TEST_ONLY · NO_PRODUCTION_MUTATION.
+Executor_Surface: Claude Code CLI trên Mac Owner · một CLI; Owner dán sau GPT Host READY theo SHA last-touch.
+Write_Path: task COLLAB/Board qua Git-CAS workspace root=workspace; nếu cần code: branch+PR trên Huyen1974/agent-data-test theo GitHub gate, KHÔNG merge/deploy. VPS AgentData/compose/config/Guard/PG/Directus/Neo4j chỉ đọc. Không chạm PROMPT task khác.
+READ: AGENTS.md A0/A5/A6/A8/DROOT29–31/48/50/57–59; VPSC2 COLLAB §0/P15–P18; Graph COLLAB §0/P301–P305; MCPW-STAB 24/09 AFTER evidence; agent-data-test/main commit b4c9ea19 (recheck deployed image/commit, không suy runtime bằng repo).
+OWNER_DIRECTIVE: 29/10 Owner đã duyệt hạ 6→4 worker VÀ bắt buộc 10 yêu cầu hợp lệ đến thì 4 chạy, 6 xếp hàng không bị từ chối/rơi; tương lai tăng worker dễ bằng config. Chấp nhận gián đoạn dự kiến 30–60s CHỈ cho RUN production về sau, chưa cho phép ở RUN này.
+NON-NEGOTIABLE: không đồng nhất số process Uvicorn (AGENT_DATA_WORKERS) với direct_concurrency/task_concurrency/exec_concurrency. Không dùng tăng admission_wait_seconds đơn thuần để gọi là queue bền. Không có 'OVERLOADED/503 rồi lặng lẽ mất việc'. Chỉ ACK/queued sau khi request được commit bền vào queue; op_id retry phải không nhân bản. Nếu nguồn không đủ tài nguyên/disk để nhận mới, phải trả lỗi rõ+retryable; không được báo đã nhận rồi bỏ. Auth/ACL, write CAS, ordering và kết quả không được đổi ngầm.
 
-DRAFT — KHÔNG RUN. Chỉ chạy khi trong task COLLAB có Claude Chat `ACCEPT@<full SHA last-touch PROMPT.md>` + GPT Host `READY@<cùng SHA>`; Owner dán cho Claude Code CLI.
-RUN_ID: VPSC2-RAG-A-TRUST-GATE-20261023-01
-Executor_Surface: Claude Code CLI trên Mac Owner.
-Write_Path: Incomex workspace_* root=workspace cho STARTED/KQ/COLLAB; VPS1 qua đường mutation đã duyệt (`incomex-config-apply-v0`/Config Guard, DOT hợp lệ); không bypass gateway/Guard.
-Đọc: AGENTS.md → root COLLAB → `work/vps-clean-20-10-26/COLLAB.md` §0/Bảng/P13–P15 → PROMPT.md → `BAO-CAO-Agent-Data-RAG-2026-10-23.md` (commit 3ff49530). R3 cũ SUPERSEDED_UNRUN, không chạy.
+S0 — LIVE READ GATE (KHÔNG GHI VPS): xác minh A0/Owner/READY full SHA, STOP/STARTED, đúng repo/ref/rights, clean Git/PR gate; 1 CLI, không chiếm VPS-GHI cho đọc. Đọc config/runtime hiện hành qua đường được cấp, không lộ secret: exact 6 worker source+container image, queue.sqlite volume, task supervisor, các resource budgets, restart policy, MCP routes và thật sự có client nào dùng workspace_task_start/status hoặc workspace_exec/status. Nếu quyền đọc thiếu: UNKNOWN kèm chứng cứ, không đoán.
+S1 — PHÂN BIỆT 3 LỚP: (a) Uvicorn workers 6→4 chỉ giảm process/RAM; (b) workspace_runtime.admission direct_concurrency và admission_wait_seconds hiện có thể OVERLOADED; (c) workspace_tasks.Queue SQLite có durable enqueue, task_concurrency riêng, restart recovery. Lập bảng đường vào /mcp-gpt-full, /mcp-agent, clients GPT/Claude/Codex, tools direct vs queued, admission/response contract; chỉ ra route nào làm rơi/từ chối trong đỉnh 10. Kiểm op_id atomic uniqueness và 500-row lookup; kiểm result TTL/GC không xóa queued/running; kiểm write critical interrupted và disk pressure.
+S2 — TEST TRÊN BẢN CÔ LẬP: tái sử dụng harness MCPW-STAB, tạo 10 công việc thử có ID và input vô hại, cấu hình tối đa 4 logical active, đo tức thời 4 running + 6 queued và 10 terminal cuối (không lost/dupe); kiểm restart giữa lúc 6 đang đợi, 10 vẫn tồn tại; 2 request cùng op_id đồng thời chỉ nhận một job; một read dài, một write dùng fixture riêng đã được phép (không dùng root nghiệp vụ); test auth negative, backlog/timeout/disk warning và tăng cấu hình 4→6 trên bản test không sửa mã. Nếu 4 active không an toàn vì RAM thì ghi rõ FAIL, không ép.
+S3 — CHỈ NẾU THẤY LỖ HỔNG: sửa HẸP trên branch của agent-data-test để dùng lại đúng queue.sqlite/supervisor hiện hữu; pre-admission durable receipt+ticket/status/poll cho tác vụ đủ điều kiện, route/client contract tương thích; không tạo queue thứ hai, không đổi shape trả về của tool trực tiếp khi client chưa có contract hỗ trợ; không nhét auto-retry write sau timeout nếu chưa bảo đảm op_id. Viết test âm và unit/integration; mở PR để Host/Claude Chat review. KHÔNG MERGE/RELEASE; nếu không cần sửa mã, ghi bằng chứng vì sao tất cả client đã qua durable queue.
+S4 — KẾ HOẠCH RUN PRODUCTION (CHỈ ĐỀ XUẤT): chốt một delta 6→4 trong compose, điều chỉnh queue routing/budget chỉ nếu cần và tính RAM; PRE/POST Config Guard, VPS-GHI CAS, apply-v0 approved target, backup byte-đúng và rollback 4→6 kể cả Mac ngắt; bench /mcp-gpt-full 8+12 read, 8 stat, 6 read+1 authorized write; 15 search chỉ khi MemAvailable>=3.5GiB và PSI/swap an toàn; 0 mất/đúp job, 0 OVERLOADED/BUSY/503 trên 10 job queue đã nhận, auth/version đúng, p95 theo MCPW-STAB AFTER, MemAvailable>=3GiB + K4 measured headroom, recover health <=5m. Đừng hứa >=6GiB CodeGraph từ giảm worker. Dự kiến gián đoạn 30–60s chỉ ở RUN production.
+S5 — KQ trong task (không file báo cáo song song): nguồn runtime vs repo, ma trận route, bảng thử 10→4+6, restart/op_id negative, test logs safe/hash, link PR nếu có, RAM và queue capacity, đề nghị config-only hay code patch, điều kiện 4→6 rollback, phần UNKNOWN/blocked. Ghi KQ@VPSC2-AGENTDATA-WORKERS4-QUEUE-CANDIDATE-20261029-05 XONG|DỪNG; sửa Bảng cùng commit, không tự chạy bước production/Graph K4/RAG-A. Nếu không thể chứng minh cam kết '6 không bị đuổi', KQ DỪNG có candidate và NEXT_TRIGGER=HOST_REVIEW_QUEUE_PROOF; không báo 4 worker DONE.
 
-MỤC TIÊU RAG-A (sửa bởi Claude P15): làm cho phép đo RAG nói thật và lập danh sách sai lệch đầy đủ làm đầu vào RAG-B — CHỈ PHÍA HOST. KHÔNG build/restart/thay container Agent Data; KHÔNG sửa/xoá/reindex vector, KB PG, Qdrant. Mọi sửa mã Agent Data (health, log, classifier gốc, sync bền, payload revision) dồn vào MỘT bản phát hành RAG-B để chỉ thay container một lần. Không tuyên bố RAG_DATA_CLEAN hay GO_PRODUCTION.
-
-S0 READ GATE (≤10′): đúng ACCEPT + READY cùng SHA; không STOP/STARTED trùng; root VPS-GHI CAS (bận ⇒ KQ DỪNG sạch, không ngồi chờ). PRE: container/image/RestartCount Agent Data, số điểm 2 collection Qdrant, COUNT KB active, Guard 22 đèn theo ID, Config Guard baseline các đích sẽ chạm, đường lùi. Ghi STARTED + Bảng cùng commit.
-
-A1 · DOT audit nói thật (≤25′) — `dot-vector-audit` và wrapper đang chạy (đọc bản runtime, không dùng bản Git thay):
-1.1 Ba trạng thái: exit 0 = đo được, in rõ `STATUS=CLEAN` hoặc `STATUS=DRIFT` kèm số từng loại · exit 2 = `STATUS=ERROR` (sai xác thực, timeout, HTTP ≠ 200, JSON thiếu trường). Không còn «Orphans=0, Ghosts=0» khi gọi lỗi; bỏ đường fallback credential cũ. DRIFT đã biết (nằm trong manifest A2) không làm đỏ đèn; ERROR mới đỏ. Trước khi đổi, liệt kê mọi consumer của mã thoát/đầu ra (cron 04:30, Guard, bản tin); consumer nào đổi nghĩa thì ghi rõ hoặc SKIP A1.
-1.2 Đếm điểm `document_id` rỗng ở CẢ HAI collection bằng scroll Qdrant chỉ đọc (`with_vectors=false`), in vào kết quả audit.
-1.3 Mục bị classifier loại (`directory_like_path`…): wrapper đọc lại từng mục qua đường đọc hiện có; có body ⇒ báo GHOST thật. Sửa gốc classifier trong Agent Data để RAG-B.
-1.4 Phép thử âm trên BẢN SAO: sai khoá ⇒ exit 2; URL Qdrant/Agent Data hỏng ⇒ exit 2; chạy thật `auto_heal=false` ⇒ exit 0 + `STATUS=DRIFT` có đủ 2 orphan, 9 blank-ID, 1 missing, comment-2430. Thiếu một ca ⇒ không áp A1.
-1.5 Áp qua apply-v0/Config Guard; cập nhật sổ DOT (`dot_tools`) nếu đổi phiên bản; đủ 4 ô Điều 30/31.
-
-A2 · Manifest đầy đủ, CHỈ ĐỌC (≤20′) — ghi thành mục «Phụ lục M · manifest 23/10» cuối `BAO-CAO-Agent-Data-RAG-2026-10-23.md` (không tạo tệp mới; chỉ ID/đường dẫn/hash/số đếm, không chép nội dung tài liệu):
-2.1 Mỗi sai lệch một dòng: loại (orphan · blank-ID · missing · misclassified · noise · stale) · collection · ID/điểm · trạng thái nguồn PG (active/soft-deleted/không có) · luật áp dự kiến (L1–L4, P15) · rủi ro.
-2.2 IU: đối chiếu 2 chiều 141 mã nguồn với bảng nguồn IU qua đọc PG chỉ đọc; không đọc được ⇒ UNKNOWN kèm lý do, không PASS.
-2.3 Nhiễu: đếm tài liệu thử/sức khoẻ trong kho — đã biết `task_comments` 2393–2471 (79 bình luận «Health check: OPS write OK at undefined», flow «OPS Write Health Check» 6h tạo từ 03/10); liệt kê thêm mẫu thử khác nếu thấy.
-2.4 Độ cũ: payload hiện không có revision/hash ⇒ chỉ so được tài liệu 1 chunk; ghi số tài liệu so được/không so được (căn cứ cho RAG-B thêm revision vào payload).
-
-A3 · Sao lưu cấu hình hiện hành (≤15′): đưa `/opt/incomex/config` (và thư mục baseline Config Guard nếu dung lượng nhỏ) vào job sao lưu offsite mã hoá đang chạy phù hợp nhất — KHÔNG tạo job/cron mới. Qua apply-v0; `bash -n`; dry-run liệt kê thấy đường dẫn mới. Nếu một lượt thật < 10′ và không trùng lịch thì chạy 1 lần và kiểm Drive có tệp + hash; không thì ghi lượt lịch kế tiếp để S0 của RAG-B kiểm (không ngồi chờ).
-
-A4 · Tắt 2 flow sinh lỗi/rác — CHỈ khi task COLLAB có dòng `OWNER_GAT_A4` (thiếu ⇒ SKIP cả A4):
-4.1 Thêm lệnh `set-status <flow-id> active|inactive` cho DOT `dot-directus-flow` (hiện chỉ list/show/trigger — lý do R2-6 phải SKIP): có kiểm trước/sau, nhật ký, đăng ký sổ DOT; thử trên flow giả trước khi dùng thật.
-4.2 Đổi INACTIVE đúng 2 flow: «OPS Write Health Check» (6h; mỗi lượt tạo một bình luận thử lọt vào RAG) và «[DOT-REG] Count Refresh (6h)» (16 PATCH/ngày bị S129-A chặn). Không xoá flow; không xoá bình luận đã có (RAG-B xử theo luật L3). Cổng: không flow/route/monitor nào dùng kết quả của chúng — có ⇒ SKIP đúng flow đó.
-4.3 Ghi mốc lượt 6h kế tiếp để S0 RAG-B kiểm «không còn bình luận mới/PATCH lỗi» (không chờ).
-
-S3 POST (≤10′): Guard 22 đèn theo ID so PRE; Config Guard MATCH; Agent Data container/image/RestartCount KHÔNG đổi; số điểm 2 collection và COUNT KB không đổi do RUN; audit thật exit 0 + DRIFT đúng danh sách; lỗi mới ⇒ lùi đúng mục, ghi PARTIAL.
-
-S4 KQ (≤10′): ghi KQ + Bảng duy nhất trong task: A1–A4 APPLIED/SKIP + lý do + sha/đường lùi; manifest ở Phụ lục M; trả VPS-GHI; 0 tiến trình nền/tệp tạm. Lỗi thuộc chủ khác (503, snapshot lock, fsck exit 0, wait-online, OOM mapping, context-pack-verify) không sửa chéo.
-
-STEP_WALK_V1:
-| Bước | Ai | Trigger | SLA | Evidence | Hỏng thì ai biết, bao lâu | Bước kế |
-|---|---|---|---|---|---|---|
-| S0 | Claude Code | Owner dán sau READY | ≤10′ | ACCEPT/READY SHA, VPS-GHI, PRE | KQ DỪNG ngay trên task | A1 |
-| A1 | Claude Code | S0 PASS | ≤25′ | 4 ca thử âm, apply-v0, 4 ô Đ30/31 | Guard 5′ → Kuma → Telegram ≤10′ | A2 |
-| A2 | Claude Code | A1 xong/SKIP | ≤20′ | Phụ lục M đủ loại, IU 2 chiều/UNKNOWN | GPT + Claude đọc KQ | A3 |
-| A3 | Claude Code | A2 xong | ≤15′ | dry-run có đường dẫn mới, sha | Kuma backup sẵn có | A4 |
-| A4 | Claude Code | `OWNER_GAT_A4` có | ≤15′ | DOT set-status thử giả + 2 flow INACTIVE | RAG-B S0 kiểm lượt 6h kế | S3 |
-| S3→S4 | Claude Code | mục cuối xong | ≤20′ | POST 22 đèn, số dữ liệu không đổi, KQ, trả VPS-GHI | Host nhận KQ | GPT soạn RAG-B |
-
-Tổng ≤ 115′. Một dòng Owner: XONG|DỪNG · VPSC2-RAG-A · A1/A2/A3/A4=APPLIED|SKIP · prod_data_changes=0 · AgentData restart=0 · Guard/Kuma · VPS-GHI trả · commit.
+STEP_WALK_V1: Owner dispatch sau READY → S0 check → S1 map → S2 isolated 10 jobs → S3 patch PR nếu thiếu → S4 production design only → S5 KQ & trả quyền. Mọi lỗi tại bước nào => STOP sạch ngay, ghi được bằng chứng đến đó, không giữ terminal/CLI/VPS-GHI chờ.
