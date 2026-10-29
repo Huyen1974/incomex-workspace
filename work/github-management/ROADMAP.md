@@ -1,4 +1,5 @@
-# ROADMAP — github-management V0.6 · 28/10/2026
+# ROADMAP — github-management V0.7 · 29/10/2026
+**P109 GPT Host: C2-B đã nghiệm thu qua GitHub live; SSOT-CUTOVER §0.4d là DRAFT chờ Claude P110, chưa READY/RUN.**
 **P108 Claude Code CLI KQ XONG C2-B (29/10 01:12Z):** ruleset `main-code-gate` active AD/Web (PR + strict `gate` app 15368, chặn xoá/force, bypass rỗng); Web legacy4 gỡ; B0a làn `dev/claude-code-ad/`·`dev/claude-code-web/` đúng repo; PR-3 RED bị chặn/đóng, PR-1 + PR-2 (sau update-branch) merged, push thẳng bị GH013 từ chối. Main AD `b4c9ea19`, Web `171c115a`, gate push success. KST_ONLY_MERGE_ENFORCED=NO. NEXT=HOST_ACCEPT_C2 → SSOT-CUTOVER.
 **P107 GPT Host READY:** C2-B Claude Code CLI PHASE=B, same RUN_ID `GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07`, PROMPT last-touch `5fdee2217271d6c263f980fed14863fdcfde7e42` đã signed COLLAB P107. B0a sửa làn Claude trusted PR1; B1 Web legacy4 → B2 required strict gate → B3 negative/merge → B4 KQ. Owner chuyển tay, chưa RUN; không account/App mới, không động PR #353/deploy.**
 **Trạng thái P105 (Claude, 28/10 22:25): Owner chốt một tài khoản GitHub, không tài khoản thứ hai/GitHub App; «chỉ KST merge» = luật + harness/skill; máy chặn bằng ruleset C2-B. Thứ tự P104 giữ nguyên.** **P104 (Claude, 28/10 22:05): Pro có hiệu lực, khoá chi phí $0 PASS. Web main đang bị bảo vệ cũ chặn merge ⇒ C2-B ngay. Mã AD trên VPS = GitHub main; Web production từ GitHub. Thứ tự: C2-B → SSOT-CUTOVER → AD release → F2 → C4 (§0.4c).**
@@ -41,15 +42,25 @@ Required CODE/PR gate phải GREEN thật theo latest SHA mới merge; Web produ
 
 **P106 GPT Host:** ACCEPT P105 — một GitHub Pro, không thêm tài khoản/App; `KST_ONLY_MERGE_ENFORCED=NO` là giới hạn đã được Owner chấp nhận. C2-B sửa chính PROMPT P106 một mục B0a (bổ sung `dev/claude-code-ad/` ở AD, `dev/claude-code-web/` ở Web vào trusted preflight của hai PR-1; kiểm test/head GREEN trước B1/B2). Cần READY P107 trên SHA mới, P92 READY cũ không dùng sau thay đổi. Không lặp Phần A, không sửa PR #353 của task khác.**
 
-## 0.4c ĐIỂM DANH 4 MỤC TIÊU OWNER — 28/10/2026 sau Pro (COLLAB §1 #12, P104)
-| Mục tiêu | Đã đạt | Còn thiếu | Bước đóng | Màu |
-|---|---|---|---|---|
-| 1 Song song | 2 ghế Codex + Claude Code mở PR, CI trên VPS, gate xanh thật (F0/G1/C2-A) | chưa có 3+ agent thật; chưa tách runner có secret (C3.0) | F2 | 🟡 |
-| 2 VPS → GitHub SSOT | AD: mã trên VPS = main (so hash); Web: production từ GitHub, VPS Web là bản cũ | biên bản so toàn cây bằng máy; nguồn image AD đang chạy; đóng băng thư mục mã VPS; task khác còn sửa AD trên VPS | SSOT-CUTOVER (Web ngay sau C2-B; AD sau AD release) | 🟡 |
-| 3 Chỉ KST merge/chạy | luật + gate + KST_ACCEPT; Pro đã bật | ruleset C2-B active 29/10 (P108, chờ Host nghiệm thu); máy chưa phân biệt dev/KST (chung tài khoản) | C2-B (máy chặn mọi người); «chỉ KST merge» = luật + harness/skill, một tài khoản (Owner, P105) | 🔴 |
-| 4 100% trên VPS | CI 100% runner VPS, chi phí $0+Stop (P103); Web deploy từ GitHub (F1) | AD deploy từ GitHub + rollback; Health đỏ CHECK2/7/10/12 (làn dữ liệu) | AD release (nợ C1B) | 🟡 |
-**Thứ tự:** ■ C2-B khoá main (+ sửa tên làn `dev/claude-code-<repo>/`) → SSOT-CUTOVER → AD release + rollback → F2 (C3.0 + 3 agent, PR Web đầu tiên) → C4. **Viết mã:** Web ngay sau C2-B; AD viết/PR ngay, merge sau C2-B, deploy sau AD release; agent ngoài Mac sau F2. Bảng phân vai: COLLAB P105 §4 (một tài khoản).
+## 0.4c TIẾN ĐỘ 4 MỤC TIÊU OWNER — 29/10/2026 · P109 ACCEPT C2-B
+| Mục tiêu | Đã đạt | Còn thiếu |
+|---|---|---|
+| 1. Viết mã song song | Codex+Claude đã mở PR thật, code gate trên runner VPS, C2-B hardlock main PASS | F2: cách ly runner mã PR/audit secret, 3+ agent PR thật |
+| 2. GH thành SSOT mã | AD VPS HEAD bfe86c8 là tổ tiên GH main b4c9ea19 (GH ahead 129 commit, một thay đổi app pg_store.py); Web build production từ GH e9f5801f, main 171c115a chỉ thêm CI/AGENTS/test | S0 kiểm toàn source + live-image, đường ghi VPS; Web khóa source legacy đúng điều kiện, AD chỉ khóa sau release+rollback; ký SSOT từng repo |
+| 3. Chỉ KST merge/run | GH ruleset active 2 repo: PR+strict gate app 15368/bypass rỗng, RED/stale/direct push được kiểm P108/P109; KST_ACCEPT@SHA | KST_ONLY_MERGE_ENFORCED=NO do một GH login (Owner P105), chỉ được bảo vệ bằng luật và hồ sơ, không mở account/App |
+| 4. Run 100% VPS | Gate AD 40798411882 và Web 40798424884 success trên CI VPS; Web release F1 từ GH đã chạy | AD GitHub release+rollback chưa PASS C1B; Web Health FAIL nghiệp vụ làn riêng |
+**Thứ tự hiện hành:** ✓ C2-B P108/P109 → ■ SSOT S0 chỉ đọc (Claude P110 review trước READY) → Web GH_SSOT khi proof + rollback đủ → AD GH release+rollback → AD GH_SSOT → F2 C3.0 + 3 PR thật → C4. Trusted Codex/Claude có thể code branch/PR trước SSOT, không triển khai AD khi rollback chưa PASS.
 
+## 0.4d SSOT-CUTOVER — THIẾT KẾ CHO CLAUDE REVIEW P110, CHƯA READY/RUN
+**Chỉ trong task này.** Không mở task, repo, GitHub account/App/key mới. Không sửa PROMPT.md C2 đã XONG. Mục tiêu: xác minh mã GH không thiếu so với VPS, chuyển source of truth theo từng repo, giữ rollback và production.
+**S0 — một lượt CHỈ ĐỌC, executor đề nghị Claude Code CLI/KST khi Host ký READY và Owner giao:**
+1. AD: đo current VPS Git tracked/untracked, HEAD/tree, toàn code app bằng hash, GH main b4c9ea19 + diff, nguồn build/digest image Agent Data production đang chạy. Không đồng nhất Git HEAD với runtime; làm rõ code khác duy nhất ở GH và code VPS nào thực sự chưa có GH (nếu có). Không chạm secret/PG.
+2. Web: đối chiếu GH main 171c115a với manifest production F1 e9f5801f, kiểm nguồn Nuxt4 hiện phục vụ và thư mục Nuxt3 trên VPS có còn dùng build/rollback/backup không. Không đo lại CI đã xanh nếu nguồn chưa đổi.
+3. Rà các task/đường còn sửa source VPS, backup ngược, Guard/lease/Đ30-31 để khóa code directory mà không chặn runtime/data backup. Xuất bảng 2 repo: VPS source SHA+tree, GH main+tree, build/live image source, delta paths, caller còn ghi, khôi phục/rollback, GH_SSOT=READY/NO/UNKNOWN + bước chặn.
+4. KQ S0 XONG khi có bảng đầy đủ kể cả NO/UNKNOWN; 0 ghi Git/VPS, 0 CI rerun/build/restart, 0 VPS-GHI; không tự tuyên GH_SSOT YES. Trả cờ và NEXT_TRIGGER=HOST_ACCEPT_S0.
+**Các RUN ghi sau S0 — PHẢI Owner GO riêng, chưa nằm trong S0:** Web: nếu Nuxt3 legacy không cần cho rollback/build, pin known-good, cập nhật luật code qua GH-PR ở AGENTS gốc + biển chỉ dẫn, khóa đúng code directory Web qua Guard/Config Guard, test read-only và không ảnh hưởng runtime; ký GH_SSOT Web. AD: phải đạt deploy GH SHA + canary/health + rollback thật và giải lỗi C1B old DDL/Compose hash trước khi khóa code AD/đổi chiều backup mã, vẫn giữ backup dữ liệu; ký GH_SSOT AD sau PASS.
+**F2 sau đó:** tách runner PR code khỏi audit có secret trước mở Hermes/agent thứ ba; ≥3 PR thật, ≥2 KST NHẬN; không tự deploy, không thêm account/App. VPS swap gần đầy, không tranh tài nguyên production.
+**Claude P110 cần trả lời 4 điểm trong một vòng:** (1) có thể dùng evidence P104/F1 để rút gọn S0 tới đâu? (2) lúc nào khóa Nuxt3 legacy an toàn, rollback giữ ra sao? (3) AD release+rollback trước khóa source AD đã đúng cửa chưa? (4) có nghi lễ thừa hoặc sai giới hạn 1 GH/KST-only luật/100% VPS không? Đồng thuận ghi P110 REVIEW_ACCEPTED; nếu sửa thì thay đúng delta §0.4d theo expected_version. Host sẽ chốt PROMPT/READY sau phản biện, Owner chuyển tay.
 ## 0.4b C2 — PRIVATE MAIN CODE GATE ENFORCEMENT (Owner GO GitHub Pro, sau G1; trước F2)
 
 **Checkpoint P97 Host independently ACCEPT:** 4 positive PR GREEN and 2 same-repo negative PR RED `OUT_OF_PILOT` verified via GitHub run jobs/logs, 6 PR OPEN/0 merge. B blocked until Owner GitHub Pro and separate KST RUN; two repo protected:false, `/rulesets` 403 Upgrade Pro; untrusted workflow isolation not proven. Claude P98 review requested, PROMPT P92 unchanged.
