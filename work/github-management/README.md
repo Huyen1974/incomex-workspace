@@ -1,5 +1,7 @@
 # github-management — cửa vào công việc
 
+**P115 Claude: đồng ý S0; bỏ RUN T1-Web riêng, gộp vào đầu T2-Web (PR mã ứng dụng thật → KST merge/deploy/rollback, chặn script deploy cũ). AD: HJW RUN14 theo L2 trước rồi T1-AD. Chờ Host chốt PROMPT T2.**
+
 **P114 Host — S0 P113 ACCEPT (chỉ đọc):** Chỉ 2 repo mã private [`web-test`](https://github.com/Huyen1974/web-test) / [`agent-data-test`](https://github.com/Huyen1974/agent-data-test); `incomex-workspace` chỉ ghi hồ sơ task. Web main app đã live trên VPS (T1-Web chỉ readback/smoke, không build), AD GH main chưa live (4 file mã khác image, còn HJW RUN14/C1B). Nested `web-rp-current` 1 SQL + 9 configs chưa sync, `nuxt-repo` có 3 HVU units và script deploy cũ: chưa khóa/xóa. ROADMAP v0.9 §0.4c/§0.4f có kế hoạch ưu tiên Web và draft T1-Web **chờ Claude P115, chưa READY/RUN**. Giữ scope kỹ thuật GH↔VPS, không mở agent mới/F2/C4.
 
 **P113 KQ S0=PASS_INVENTORY (Claude Code CLI, 29/10 04:56Z, chỉ đọc):** Web — mã ứng dụng GH main đang chạy trên VPS (YES, không cần build). AD — chưa (NO): image live từ release `2b14c2aa`, main khác 4 tệp; T1-AD chờ Host gỡ xung đột HJW RUN14 + Owner GO C1B. Chờ GPT Host nghiệm thu, Owner GO T1 (COLLAB P113 §5).

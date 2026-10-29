@@ -5,14 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 12:08 +07 · GPT Host · P114
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 14:40 +07 · Claude Reviewer · P115
 - 🎯 Owner: kỹ thuật mã chỉ ở 2 repo private `Huyen1974/web-test` và `Huyen1974/agent-data-test`; `incomex-workspace` chỉ là task/SSOT điều hành. Mục tiêu: branch/PR/merge trên GH và app chạy+rollback trên VPS, rồi mới khóa nguồn ghi VPS.
 - 🏁 XONG khi Web và AD có chứng cứ GH main app live trên VPS, 1 PR thay mã ứng dụng thật quay về VPS/rollback, khóa riêng source VPS an toàn; không mở thêm agent hay hội đồng trong task này.
-- 📍 ✓ C2-B main locked · ✓ S0 P113 PASS_INVENTORY (Web live YES; AD live NO) → ■ T1-Web readback/smoke-only (Claude P115 review) → T2-Web Codex PR/KST merge+VPS deploy → T1-AD sau HJW/C1B → T3 khóa source từng repo khi đủ proof.
+- 📍 ✓ C2-B main locked · ✓ S0 P113 PASS_INVENTORY (Web live YES; AD live NO) → ✓ Claude P115 (gộp T1 vào T2) → ■ T2-Web: Codex PR mã ứng dụng thật → KST merge + deploy VPS + rollback (kiểm parity đầu RUN, chặn script deploy cũ) → T1-AD sau HJW/C1B → T3 khóa source từng repo khi đủ proof.
 - ✅ Web main 171c115a cây web/ = F1 e9f5801f, output live diff 0; AD main b4c9ea19 khác image 46e0ba15 build từ release 2b14c2aa ở 4 tệp runtime. GH main protected và gate xanh cả hai.
 - ■ Đang làm: — · 0 RUN active trong GHM. HOST_ACCEPT_S0=PASS_INVENTORY_SCOPED; đang xin Claude P115 phản biện quyết định T1-Web-first và ranh giới nested worktree/HJW; chưa READY/RUN T1.
 - ⬜ Web T1 receipt no rebuild; T2 một PR ứng dụng thật + rollback; AD bị xung đột HJW RUN14 READY và C1B rollback; `web-rp-current` SQL + 9 cấu hình chưa lên GH cần phân loại; 3 HVU units dùng scripts nuxt-repo, không khóa tràn lan.
-- ➡ NEXT_TRIGGER=CLAUDE_REVIEW_P114_T1_WEB_THEN_HOST_READY; chỉ xét T1-AD sau HJW RUN14 KQ/PR và Owner GO C1B, không cho hai lượt sửa cùng agent_data chạy chồng.
+- ➡ **NEXT_TRIGGER=HOST_PROMPT_T2_WEB** (P115): Host chọn 1 việc Web thật trong backlog + chốt PROMPT T2 (Codex PR → KST merge/deploy/rollback). AD: HJW RUN14 trước theo L2 (PR được KST merge) rồi mới T1-AD; không build AD cùng lúc build Web.
 - ⛔ Không dùng repo thứ ba để code ứng dụng, không build AD khi swap gần đầy; không xóa worktree lồng, không cắt job backup dữ liệu/code-to-GDrive, không làm T3 khi Web/HVU chưa an toàn.
 
 ### 1. Mục tiêu
@@ -1659,4 +1659,18 @@ Based_on: P108 · P109 · ROADMAP §0.4c–§0.4d · AGENTS gốc · **tự đo 
 
 **3.** Đã sửa đúng phần lệch của ROADMAP §0.4d (S0 mục 1, khối tiêu chí W1–W4 + luật L1/L2, làm rõ job sao lưu). Thứ tự roadmap không đổi: ■ SSOT-CUTOVER S0 → RUN ghi Web → AD release + rollback → khoá AD → F2 → C4.
 - NEXT_TRIGGER=HOST_PROMPT_S0_AND_LAW_L1L2.
+
+## P115 · Claude Chat (Reviewer) · 29/10/2026 14:40 +07 — REVIEW_ACCEPTED T1/T2 CÓ SỬA §0.4f
+Based_on: P113 · P114 · ROADMAP §0.4c/§0.4f · AGENTS gốc (L1/L2 đã có, dòng 139–140) · **tự kiểm 29/10 14:20–14:33 +07**: gh API cây `web/` main vs F1, compare AD `2b14c2aa`/`bfe86c8`/main, trang phái cử trên main; đọc chỉ-đọc trên VPS các script nhắc tới `docker/nuxt-repo`; PROMPT HJW RUN14. JEV `gen-dec-1793259240-BFOVVm58cL7lk6xizVdm`.
+
+**1. S0 đúng:** cây `web/` main = F1 = `83cb7fbd`; AD đang chạy = release `2b14c2aa` (có trên GitHub); đĩa VPS `bfe86c8` = `2b14c2aa` + 1 commit HJW S3 (3 tệp, chưa deploy); main = đĩa + `pg_store.py`. Chỉ hai repo mã `web-test`, `agent-data-test`; `incomex-workspace` chỉ là sổ việc — không có nhầm repo. **Đính chính P104:** «mã AD trên VPS = main, chỉ khác pg_store» là so với đĩa; so với image đang chạy thì khác 4 tệp — P113 đúng.
+
+**2. Trả lời 4 câu P114:**
+- 2.1 **Bỏ RUN T1-Web riêng**: chỉ lặp lại điều S0 vừa chứng minh. Các kiểm (a) cây, (b) manifest/output, (d) bản lùi F1 thành bước đầu của RUN T2 (lệch ⇒ DỪNG trước khi build); (c) smoke chạy trước và sau deploy T2. Vẫn đúng «từng bước», bớt một lượt chuyển tay.
+- 2.2 **Cái chặn T2:** `scripts/phai-cu/dung-va-trien-khai.sh` là **đường deploy thứ hai** — dựng từ thư mục Nuxt 3 cũ (`docker/nuxt-repo/web`) rồi restart Nuxt; các trang phái cử mà nó canh nay đã có trên main. Ai chạy nó sau T2 là đè mất bản phát hành từ GitHub ⇒ trong RUN T2 (Owner GO, Điều 30/31) chèn chốt chặn đầu script «Web chỉ deploy từ GitHub qua script GHM», giữ nguyên tệp, đường lùi = gỡ chốt. **Chỉ chặn T3 (khoá thư mục nguồn Web):** 3 HVU units chạy script trong `nuxt-repo/scripts/hvu-b2` (xác nhận chỉ đọc/chạy); job `vps-daily` Web commit vào thư mục (dừng khi khoá); `web-rp-current` (đưa tệp SQL sửa + các tệp chưa track lên một nhánh lưu trữ trên `web-test` trước khi khoá, không xoá; tệp nào chứa bí mật thì không đẩy, chỉ ghi tên); các script CWEB cũ trong `work/done-tasks` cũng dựng từ `nuxt-repo/web` — đưa vào danh sách cắm biển ở T3.
+- 2.3 **AD:** HJW RUN14 đi trước là đường đơn giản nhất. L2 đã có trong AGENTS gốc, nhưng PROMPT RUN14 chỉ nói «canonical Git SSOT có SHA», chưa nói rõ PR lên `agent-data-test` ⇒ Host nhắc trong lời giao RUN14: mở PR đúng nội dung (nhánh `dev/codex-ad/…`), `gate` xanh, KST merge. Sau đó T1-AD dựng từ main ⇒ khác bản đang chạy chỉ còn `pg_store.py` (bản sửa không DDL) ⇒ phép thử release + rollback gọn, dễ khoanh lỗi. T1-AD vẫn cần Owner GO gỡ cổng C1B trước khi động production.
+- 2.4 **Web không phải chờ AD** (chuyển nguồn theo từng repo). Ràng buộc duy nhất: không build Web cùng lúc build AD (RAM trống ~2,4 GiB, swap gần đầy) — một lượt build mỗi lúc, giữ lease.
+
+**3. Việc cho PR T2:** Host chọn một thay đổi nhỏ có thật trong backlog Web (thấy được qua HTTP, có unit/smoke, dễ revert); không bịa việc. Đã sửa đúng delta §0.4f. Thứ tự: ■ T2-Web → (song song HJW RUN14 + PR L2) → T1-AD → T3 khoá nguồn từng repo → F2 → C4.
+- NEXT_TRIGGER=HOST_PROMPT_T2_WEB.
 
