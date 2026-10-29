@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 20:51 +07 · GPT Host · P129
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 04:00 +07 · Codex Desktop · P130
 - 🎯 Owner: chỉ kỹ thuật GH↔VPS với 2 repo code `Huyen1974/web-test`/`Huyen1974/agent-data-test`, một GH account; **Owner ngoại lệ 29/10** cho Codex là tác giả PR682 đồng thời acting KST của đúng T2-B RUN -12, do Claude Code hết quota. Không thay luật L1 toàn hệ.
 - 📥 **Security intake từ NDW-P99 · `NDW-P0-REPORTS-OWNER-AUTH` (KHÔNG thuộc RUN T2/GHM):** Web main `171c115a` trong `web-test/web/server/api/reports/live.get.ts` chưa kiểm phiên/Owner trước `rpQuery`; Claude P98 đo GET không cookie 200+rows, E2E live đang trông đợi 200. Chủ nghiệp vụ **GPT Host `work/nhap-directus-for-workflow`**, dùng kênh Web **branch→PR→KST review→release/rollback** đã có ở GHM khi có lệnh GO riêng; không lẫn T2-B/không tự merge/deploy. DoD: no-cookie/session lỗi/non-Owner 401/403 cho mọi table_id trước PG query, Owner valid 200, UI /reports và fallback cũng an toàn, test sửa đồng bộ, public khác không regression. Chưa có GO/READY/RUN P0; đây chỉ là *handoff của một dependency bảo mật* để không bị treo, **không đổi scope GHM chỉ kỹ thuật GitHub**.
 - ✅ C2-B hai main protected; S0 P113; T2-A PR Web #682 OPEN HEAD ca52d888, gate 40845923358 SUCCESS; Claude Chat P121 review và replay Help 13/13 + baseline 5/8; P124 T2-B -11 đã KQ DỪNG trước merge do RAM, Web prod F1 nguyên; B0-RAM P125 đã chốt rào.
 - 🏁 Phạm vi Owner cho phép ngay: Codex acting KST **chỉ PR682/RUN -12**, 4 phạm vi T2-B giữ nguyên (merge GH→Web prod, chặn script Nuxt3, rollback F1 nếu lỗi, stop/start container noncore IDLE). Review độc lập Claude P121 đã có; **không bỏ strict GitHub gate hoặc Guard VPS**.
 - 📍 ✓ C2-B → ✓ S0 → ✓ Codex T2-A → ✓ P124 STOP RAM → ✓ Claude P125 RAM → ✓ Host P126/P127 bản Claude → ✓ P128 ngoại lệ Owner → ■ P129 READY@dfba7ff9f41df03713ed3d7c9919672d7741b206 cho Codex T2-B -12 → Web roundtrip → AD T1 khi HJW/C1B hợp lệ → T3 cutover riêng.
-- ■ Đang làm: — · 0 RUN active; RUN -11 đã đóng, RUN -12 **chưa STARTED**, PR682 chưa merge, F1 live chưa đổi. P127 READY giao Claude **SUPERSEDED** vì đổi executor, chỉ P129 READY ghim SHA ROADMAP có hiệu lực.
+- ■ Đang làm: B0 · RUN `GHM-T2-WEB-KST-RELEASE-20261029-12` STARTED · Codex Desktop acting KST theo ngoại lệ Owner P128/P129; kiểm PR/source/Guard/rollback/RAM trước mutation; dự kiến đóng 22:00Z.
 - ⬜ Codex T2-B: nhận 1 câu `GỬI: Codex · VIỆC: work/github-management`, tự đọc §0.4h + Owner HUMAN_DIRECTIVE P128/P129, recheck SHA/gate, replay Help trên VPS sandbox, RAM whitelist IDLE/Graph jobs fail-safe, merge acting KST, build/release P61 một lần, POST/restore các container, rollback F1 nếu lỗi. Không chờ Claude quota/không lặp vòng phản biện.
-- ➡ **NEXT_TRIGGER=OWNER_DISPATCH_CODEX_T2B_RUN12_ONE_SENTENCE**; lần chuyển này chính là kích hoạt đúng ngoại lệ Owner đã cho. Không cần sao chép 4 GO hoặc READY SHA sang câu giao; Codex phải đọc quyết định trên repo và báo STARTED/KQ.
+- ➡ Codex thực hiện B0–B4 theo §0.4h; ghi KQ và trả cờ. NEXT_TRIGGER=HOST_ACCEPT_T2B_AND_PLAN_T3_WEB_OR_AD_T1.
 - ⛔ Không thêm PR code/đụng AD/PG/Directus/HJW/Graph core, không stop container bận/Graph queue/runner CI, không tắt Kuma, không bypass GH ruleset/Guard, không T3/F2/C4; ngoại lệ tự hết khi RUN -12 KQ.
 
 ### 1. Mục tiêu
@@ -1796,6 +1796,12 @@ Based_on: P119 · P120 · ROADMAP §0.4h · **tự kiểm 29/10 16:05–16:30 +0
 
 **3. Telegram HJW 15:57 — đồng ý không liên quan T2:** dòng 512 HJW COLLAB là việc giao 22/10 `blocked`, gen 1, ghi sang `work/hpml-view-for-user` (ngoài phạm vi) — và **không có dòng RESULT_V1 đóng** (khác dòng 510, 513 đều có) ⇒ nhiều khả năng bộ điều phối coi nó còn mở nên quét lại và báo. Bàn giao Host HJW: (a) đóng việc này theo đúng đường máy của HJW (RESULT_V1 do dispatcher tin cậy ghi), (b) kiểm vì sao «chỉ báo một lần» lại báo lại. GHM không sửa HJW, không nới quyền ghi.
 - NEXT_TRIGGER=HOST_READY_T2B.
+
+## P130 · Codex Desktop · 30/10/2026 — STARTED T2-B RUN -12
+- STARTED@GHM-T2-WEB-KST-RELEASE-20261029-12 2026-10-29T21:00:05Z · executor=Codex Desktop/acting KST.
+- Owner trực tiếp gửi `GỬI: Codex · VIỆC: work/github-management`; dispatch đúng P128/P129. READ_GATE workspace gateway fresh/clean; READY@dfba7ff9f41df03713ed3d7c9919672d7741b206 khớp last-touch ROADMAP; PR682 OPEN, 2 files, head ca52d88813a0f0bd29da5f14afafd40e24fe1266/base 171c115a9a00e12d57449768401d3ab5e7cc796c không đổi; không STOP/cờ RUN -12 có trước. VPS-GHI trống, chưa nhận.
+- PR_AUTHOR=Codex; ACTING_KST=Codex; EXCEPTION_OWNER=P128; EXTERNAL_REVIEW=Claude_Chat_P121. Bốn phạm vi GO giữ đúng canonical §0.4h; không bypass gate/Guard.
+- B0 đang kiểm mới quyền, RAM/queue, rollback và cơ chế phục hồi. Chưa merge/ghi VPS/stop container. Dự kiến B0 xong 21:15Z; toàn lượt 22:00Z. Đồ tạm nếu qua gate: sandbox/test/build/canary và hồ sơ lease/backup theo P61/F1; dọn mọi tiến trình/container thử trước KQ, giữ bằng chứng/known-good cần truy nguồn.
 
 ## P129 · GPT Host · 29/10/2026 — READY CODEX KST T2-B RUN -12, OWNER EXCEPTION EFFECTIVE
 - **READBACK SOURCE:** GitHub `commits?path=work/github-management/ROADMAP.md&per_page=1` xác nhận full last-touch SHA **dfba7ff9f41df03713ed3d7c9919672d7741b206**; canonical v1.4 §0.4h ghi executor Codex acting KST, exception P128, PR682 head/base ghim, B0-RAM + whitelist/restore/Graph queue, P61 script/legacy guard/rollback và 4 scope không đổi. Source Web GitHub PR682 OPEN/head ca52d888/base 171c115a; main vẫn protected; không mutation prod.
