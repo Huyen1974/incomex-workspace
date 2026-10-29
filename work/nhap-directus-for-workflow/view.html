@@ -69,14 +69,15 @@ a{color:#2158a5;text-decoration:underline;text-underline-offset:2px}footer{margi
 <body>
 <main>
 <h1>Sổ tài sản PG — cấu trúc và lộ trình</h1>
-<section class="owner-actions ok"><h2>P90 · Host chọn một bảng luật S4 · chưa G1/G2</h2>
+<section class="owner-actions ok"><h2>P91 · Claude đồng thuận sổ luật 1 bảng + 3 chỉnh cấu trúc · Host sửa PROMPT → Owner G1/G2</h2>
 <p>PG-A2b P85 đã tạo hai VIEW native tại database <code>directus</code> bằng DOT; Host P86 chấp nhận kết quả đúng phạm vi. PG tự liệt kê vật và quan hệ khi đọc; chưa có sổ quyết định S4, chưa có đối soát V3, chưa công bố lên Nuxt.</p>
 <p>KQ P85: V1 có <strong>16.536</strong> vật, V2 có <strong>4.566</strong> quan hệ; Config Guard <strong>554/554</strong> khớp, Guard POST PASS và receipt 316. Chưa tạo Directus collection/report hay thay role. Hai phát hiện về ACL file manifest và Git DOT đã được giao rà theo đúng chủ, không cần lùi VIEW.</p>
 <p><strong>SSOT một nơi cho mỗi thuộc tính:</strong> PostgreSQL gốc tự kể vật và quan hệ qua V1/V2 (VIEW, không copy). Bảng S4 dự kiến <code>tai_san_luat</code> chỉ lưu luật phân loại/ngoại lệ đã được Owner duyệt, không chép từng vật. Nhãn 07/2026 trong COMMENT là bằng chứng cũ, không là nơi ghi thứ hai. Một luật họ chỉ gợi nhãn cho vật mới khi áp SELECT, không tự sửa hay xóa vật.</p>
+<p><strong>P91 (vòng cấu trúc):</strong> ô để trống = theo luật chung hơn — vd tắt riêng 1 view trong họ <code>birth</code> chỉ ghi «tắt», hệ vẫn lấy từ họ, sửa họ là mọi nơi theo; mẫu họ phải neo đúng DB; cách đọc luật sống ở đúng 1 VIEW (V3). SQL mới <code>90424a18…</code> đã thử 22 ca. Chưa tạo gì.</p>
 <p class="muted">Thử RO P89: 158 luật ứng viên khớp 15.422/16.536 vật (93,3% ĐỘ PHỦ MẪU, không phải độ đúng/đã duyệt); 1.114 chưa rõ, 190 khác nhãn đa số và 476 nhãn cũ mâu thuẫn. Hai regex cùng khớp hoặc OID/cha không chắc ⇒ XUNG ĐỘT/CHƯA RÕ, không tự chọn. Host P90 đã đổi PROMPT S4 một bảng rỗng, đang DRAFT; DOT TS4 còn cần cho phép giá trị tên vật đúng scope, P0 Reports phải auth trước khi hiện dữ liệu.</p></section>
 <p class="lead">Mục tiêu trước mắt: biết PG đang có gì, đủ chưa, cái gì cần quyết. Dùng đồ có sẵn; không dựng hệ danh mục song song.</p>
 <span class="flag">P55 · PG đọc sống + Census + Graph · Ba Lô LEGACY</span>
-<span class="flag">✅ V1/V2 P85 · ✅ P89/P90 chốt S4 một bảng luật · ■ chờ Owner G1/G2 · □ P0 Owner-only Reports + DOT TS4 writer · □ V3/TS5 · □ Công thức/Workflow</span>
+<span class="flag">✅ V1/V2 P85 · ✅ P89/P90/P91 chốt S4 một bảng luật · ■ Host sửa PROMPT P91 → Owner G1/G2 · □ P0 Owner-only Reports + DOT TS4 writer · □ V3/TS5 · □ Công thức/Workflow</span>
 <span class="flag">Nguồn quyết định: COLLAB §3.TQ · §3.KH</span>
 
 <section class="arch-figure" aria-label="P65 hai nhóm PG-first và ranh giới ngoài PG">
