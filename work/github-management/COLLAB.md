@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 04:21 +07 · Codex Desktop · P130
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 04:26 +07 · Codex Desktop · P131
 - 🎯 Owner: chỉ kỹ thuật GH↔VPS với 2 repo code `Huyen1974/web-test`/`Huyen1974/agent-data-test`, một GH account; **Owner ngoại lệ 29/10** cho Codex là tác giả PR682 đồng thời acting KST của đúng T2-B RUN -12, do Claude Code hết quota. Không thay luật L1 toàn hệ.
 - 📥 **Security intake từ NDW-P99 · `NDW-P0-REPORTS-OWNER-AUTH` (KHÔNG thuộc RUN T2/GHM):** Web main `171c115a` trong `web-test/web/server/api/reports/live.get.ts` chưa kiểm phiên/Owner trước `rpQuery`; Claude P98 đo GET không cookie 200+rows, E2E live đang trông đợi 200. Chủ nghiệp vụ **GPT Host `work/nhap-directus-for-workflow`**, dùng kênh Web **branch→PR→KST review→release/rollback** đã có ở GHM khi có lệnh GO riêng; không lẫn T2-B/không tự merge/deploy. DoD: no-cookie/session lỗi/non-Owner 401/403 cho mọi table_id trước PG query, Owner valid 200, UI /reports và fallback cũng an toàn, test sửa đồng bộ, public khác không regression. Chưa có GO/READY/RUN P0; đây chỉ là *handoff của một dependency bảo mật* để không bị treo, **không đổi scope GHM chỉ kỹ thuật GitHub**.
 - ✅ C2-B hai main protected; S0 P113; T2-A PR Web #682 OPEN HEAD ca52d888, gate 40845923358 SUCCESS; Claude Chat P121 review và replay Help 13/13 + baseline 5/8; P124 T2-B -11 đã KQ DỪNG trước merge do RAM, Web prod F1 nguyên; B0-RAM P125 đã chốt rào.
 - 🏁 Phạm vi Owner cho phép ngay: Codex acting KST **chỉ PR682/RUN -12**, 4 phạm vi T2-B giữ nguyên (merge GH→Web prod, chặn script Nuxt3, rollback F1 nếu lỗi, stop/start container noncore IDLE). Review độc lập Claude P121 đã có; **không bỏ strict GitHub gate hoặc Guard VPS**.
 - 📍 ✓ C2-B → ✓ S0 → ✓ Codex T2-A → ✓ P124 STOP RAM → ✓ Claude P125 RAM → ✓ Host P126/P127 bản Claude → ✓ P128 ngoại lệ Owner → ■ P129 READY@dfba7ff9f41df03713ed3d7c9919672d7741b206 cho Codex T2-B -12 → Web roundtrip → AD T1 khi HJW/C1B hợp lệ → T3 cutover riêng.
-- ■ Đang làm: B4 POST/đóng · RUN `GHM-T2-WEB-KST-RELEASE-20261029-12` STARTED · Web main 7c526588 đã live, 166/166+Help PASS, 1 restart Nuxt; lease đã đóng, 0 stop noncore/0 container thử; đang POST trước KQ/trả VPS-GHI, dự kiến 21:30Z.
-- ⬜ Codex T2-B: nhận 1 câu `GỬI: Codex · VIỆC: work/github-management`, tự đọc §0.4h + Owner HUMAN_DIRECTIVE P128/P129, recheck SHA/gate, replay Help trên VPS sandbox, RAM whitelist IDLE/Graph jobs fail-safe, merge acting KST, build/release P61 một lần, POST/restore các container, rollback F1 nếu lỗi. Không chờ Claude quota/không lặp vòng phản biện.
-- ➡ Codex thực hiện B0–B4 theo §0.4h; ghi KQ và trả cờ. NEXT_TRIGGER=HOST_ACCEPT_T2B_AND_PLAN_T3_WEB_OR_AD_T1.
+- ■ Đang làm: — · 0 RUN active · P131 KQ T2-B XONG scoped: PR682 merged/main 7c526588 live, 166/166+Help PASS, Guard POST5/5 PASS; lease đóng, VPS-GHI trả. GLOBAL_GUARD=PARTIAL do nợ từ PRE; chưa thay nghiệm thu của Host.
+- ⬜ GPT Host nghiệm thu P131; sau đó chốt T3-Web hoặc AD T1 theo blocker hiện hành. Nợ Graph/storage có từ PRE giữ đúng owner; không tự mở RUN kế tiếp.
+- ➡ GPT Host kiểm KQ P131 và quyết định bước tiếp. NEXT_TRIGGER=HOST_ACCEPT_T2B_AND_PLAN_T3_WEB_OR_AD_T1. Ngoại lệ Codex acting KST hết hiệu lực; KST mặc định trở về Claude Code CLI.
 - ⛔ Không thêm PR code/đụng AD/PG/Directus/HJW/Graph core, không stop container bận/Graph queue/runner CI, không tắt Kuma, không bypass GH ruleset/Guard, không T3/F2/C4; ngoại lệ tự hết khi RUN -12 KQ.
 
 ### 1. Mục tiêu
@@ -1796,6 +1796,43 @@ Based_on: P119 · P120 · ROADMAP §0.4h · **tự kiểm 29/10 16:05–16:30 +0
 
 **3. Telegram HJW 15:57 — đồng ý không liên quan T2:** dòng 512 HJW COLLAB là việc giao 22/10 `blocked`, gen 1, ghi sang `work/hpml-view-for-user` (ngoài phạm vi) — và **không có dòng RESULT_V1 đóng** (khác dòng 510, 513 đều có) ⇒ nhiều khả năng bộ điều phối coi nó còn mở nên quét lại và báo. Bàn giao Host HJW: (a) đóng việc này theo đúng đường máy của HJW (RESULT_V1 do dispatcher tin cậy ghi), (b) kiểm vì sao «chỉ báo một lần» lại báo lại. GHM không sửa HJW, không nới quyền ghi.
 - NEXT_TRIGGER=HOST_READY_T2B.
+
+## P131 · Codex Desktop acting KST · 30/10/2026 — KQ T2-B RUN -12
+- KQ@GHM-T2-WEB-KST-RELEASE-20261029-12 XONG · 2026-10-29T21:26:42Z · **PASS_WEB_ROUNDTRIP; SCOPED_GUARD=PASS; GLOBAL_GUARD=PARTIAL.** Đây là kết quả executor, chưa thay chữ ký nghiệm thu của GPT Host. VPS-GHI trả cùng commit; 0 RUN active.
+- Authority: Owner chuyển đúng câu GỬI/VIỆC; P128 ngoại lệ một lần và P129 READY@`dfba7ff9f41df03713ed3d7c9919672d7741b206` khớp canonical ROADMAP §0.4h khi STARTED và trước merge/deploy. STARTED `1cf00c217259347e16796385d86a31d5d2200f74`; nhận VPS-GHI CAS `9fa57c4c` 21:02Z. **PR_AUTHOR=Codex; ACTING_KST=Codex; EXCEPTION_OWNER=P128; EXTERNAL_REVIEW=Claude_Chat_P121.** Không giả chữ ký Claude. Ngoại lệ kết thúc tại KQ này; KST mặc định trở về Claude Code CLI.
+
+### B0–B1 · Nguồn, quyền và kiểm thử thật
+| Mốc | Bằng chứng |
+|---|---|
+| PR/base/head | [Web #682](https://github.com/Huyen1974/web-test/pull/682), base `171c115a9a00e12d57449768401d3ab5e7cc796c`, head `ca52d88813a0f0bd29da5f14afafd40e24fe1266`; đúng 2 tệp Help, không workflow/DB/auth. |
+| KST/merge | [KST_ACCEPT Codex](https://github.com/Huyen1974/web-test/pull/682#issuecomment-6508325474); merge strict `--match-head-commit`, không admin/bypass → `7c52658815746a67776e12d582a6cf04c14acc8a`. Tree merge = PR head; so F1 chỉ đổi component Help + test. |
+| GitHub gate | [PR run 40845923358](https://github.com/Huyen1974/web-test/actions/runs/40845923358) SUCCESS; [main run 40954885600](https://github.com/Huyen1974/web-test/actions/runs/40954885600) SUCCESS đúng merge SHA, runner `ghm-ci-web-test`. Ruleset active/strict gate app15368/bypass=[] giữ nguyên. |
+| VPS regression | `cd web && node --test tests/unit/help-collections.test.mjs` → **13 PASS/0 FAIL**; thêm `HELP_COLLECTIONS_REF=171c115a9a00e12d57449768401d3ab5e7cc796c` → **5 PASS/8 FAIL**, exit1 kỳ vọng. Sandbox riêng không production secret/socket; Git baseline đúng object. |
+| RAM/stop | PRE 4,19/4,34 GiB khả dụng, swap gần đầy; khi build bắt đầu ~4,46 GiB. Build thấp nhất 2.087.968 KiB (~1,99 GiB), PSI full avg10 cao nhất3,29, OOM10→10. **stopped_ids=[]; restored_ids=[]; 0 core/noncore stop**, không cần kích hoạt phục hồi stop-list. 16 container gốc giữ running/health; ngoài Nuxt, StartedAt giữ nguyên. |
+
+### B2 · Khóa đúng đường legacy
+- `/opt/incomex/scripts/phai-cu/dung-va-trien-khai.sh`: đã kiểm không caller service/cron/script vận hành; giữ nguyên ba unit HVU đọc `nuxt-repo/scripts/hvu-b2`. Backup nguyên byte, đăng ký 1 đích Config Guard + 1 dòng sổ mã qua apply-v0, rồi thêm thông báo/exit64 ngay sau shebang, trước mọi build/restart.
+- SHA old `0a6e83f97d2ed44689cf59af30180e8c62478f9ea9386080a945d37551c293a0` → new `d7cb48526df570b8121b847d93eb8c20633e182ecf9a47a55c7b739b68ada98b`. Syntax/static/readback PASS; UID501:GID0/mode755 giữ nguyên. **Không thực thi script legacy để thử.**
+- Config Guard + INV23 canh đường này; backup tại hồ sơ RUN/`legacy-rollback/dung-va-trien-khai.sh`. Không sửa Guard để vượt kiểm.
+
+### B3 · Một build, canary và Web đang phục vụ
+- Build **một lần** 21:07:52–21:13:26Z từ archive merge SHA, SHA256 tar `91216990eea43313a63b551472c18074ab2931d8ea488f238e1198a47d0b3717` khớp Mac/VPS. Cây web `0bc47577cd4681eb4114d6da0d7e2a6c81885cda`; Nuxt4.5.2/Node24.21.0/pnpm9.6.0, lock7b6e11c0/compilerc2b4dcce giữ nguyên; 2CPU/3GiB/0 extra swap. Wrapper giới hạn20′, canh OOM/RAM/PSI/core; không safety-stop.
+- Canary theo F1: **166/166** + **34 checksum tĩnh**. Lượt đầu164/166 do live cũ timeout15s ở registries và registries/health (candidate200); recheck3 tuyến tuần tự60s **3/3 PASS**, giữ log đầu. Không bỏ route/hạ chuẩn.
+- Help thực tế đang hiện hai nhóm `getting-started`/`ai-features`; candidate giữ heading/Search/link, HTTP200. **Fault fixture dùng nguyên output F1 và output mới trong container network-none**, chỉ env Directus của fixture trỏ cổng local đóng: cả hai200/heading/Search; F1 không thông báo, bản mới có thông báo dự phòng + role=status, không diagnostic hiển thị. Không làm lỗi Directus production.
+- Deploy21:18:50–21:19:33Z qua đúng utility P61; dry-run PASS, SHA sai bị chặn. **Một restart Nuxt 21:18:54.201378463Z**, image `5cfe1dda…` giữ nguyên, output thay theo manifest1876 mục; nginx chỉ reload qua utility, container không restart. Live **166/166 + 34 checksum + Help PASS**, giữ bản mới. Chunk Help đang mount hash `28aaf8ce0f9384e63797e77be4935393294a66240ba17cd9b17fbd1b9b98afe6` = output build; không dựa riêng index.mjs vì entry hash có thể không đổi.
+- `ROLLBACK_READY=YES; ROLLBACK_EXECUTED=NO` vì release khỏe, đúng yêu cầu không diễn tập lùi khỏe. Utility SHA256 `7b1d917c18090d26b8700c2b0d0f37655228f89ade2668fe92605d0b2ef10ea6` nguyên; known-good F1 + profile + manifest1876 và thư mục exchange đã kiểm khớp. Lease đóng21:20:10Z; thử cổng sau đóng trả `STOP: LEASE_EXPIRED`, không đổi runtime.
+- 0 DDL/ghi dữ liệu/AD restart/đổi HVU; không sửa source live Nuxt3, không tạo PR khác hoặc build lần hai.
+
+### B4 · Bảo vệ, đèn, dọn và giới hạn
+- Guard PRE PASS; POST21:21:45Z **PASS, footprint5/5 đủ Đ30/31**, biên nhận332; POST cuối sau taxonomy storage mới **21:24:50Z PASS, footprint5/5, PREEXISTING_SAME #24, change_event PASS**. Năm đích: registry, code-ledger, legacy script, config deploy, profile Web. Trên bản sao cô lập, cả5 đích bắt được mutant và missing, restore CLEAN; production drift CLEAN. Không sửa detector.
+- **ĐÈN: 31 xanh · 1 đỏ**, #24 Graph Certificate có từ PRE, chủ `work/graph-server`; #20/#24 không gắn Telegram là cấu hình Cấp2 hiện hữu, không bị RUN đổi. GLOBAL_GUARD không tuyên sạch: ledger còn3 vùng UNKNOWN và bảng tin còn2 loại chưa xác định.
+- Storage đo cuối: đĩa65,8%, trống32,73GiB; EVIDENCE tăng **167.198.720 B**, nhóm1.763.377.152/5.368.709.120 B, khai512MiB ⇒ event-post PASS. Ba cảnh báo có ngay PRE và còn sau đo: UNKNOWN_CLASS ci-runner103h; /root STATIC +187→189MiB/24h; SLOPE7D -9,19→-9,44GiB thiếu taxonomy cùng mốc. RUN ghi1.392.548B vào thư mục config-change riêng để rollback; không xóa ngoài phạm vi/đổi trần/che cảnh báo. Giao Host `work/vps-clean-20-10-26` cùng Host Graph phần tương ứng; không lấy các cảnh báo này làm chứng cứ VPS sạch.
+- Dọn: container test/canary/fault đều đã rm; 0 container thử/tiến trình RUN còn sống; src/dependency cache/merge-source/tmp, archive head trùng, baseline pack, proxy configs thử đã gỡ. Giữ khoảng160MiB hồ sơ/known-good/output/source archive cần truy nguồn; exchange F1 để lùi. Không xóa image/volume sẵn có. VPS-GHI trả cùng KQ.
+- **Lỗi phép đo đã sửa, không che:** baseline đầu ENOENT vì container thiếu Git; bổ sung Git chỉ container thử rồi chạy đúng5/8. Smoke đầu giả định collection thiếu và Search là input placeholder; HTML thật có dữ liệu/nút Search nên assertion sai. Đã giữ log, sửa phép đo theo nguồn/HTML thật và thêm fault HTTP bằng output nguyên bản; không đổi mã/ép xanh. Event-post đầu chạy trước daily hoàn tất báo0B không dùng làm số cuối; số167.198.720B là sau refresh thật.
+- Hồ sơ VPS: `/opt/incomex/work/github-management/GHM-T2-WEB-KST-RELEASE-20261029-12/`: evidence (PRE/POST + test logs), known-good.json, web-parity-final.json, help-fault.json, web-release.json, protection-proof.json, coverage.tsv, cleanup-proof.json, build-pressure.jsonl; backup tại known-good/ và legacy-rollback/. Báo cáo này chỉ ghi trạng thái/hash, không secret.
+- Chưa tuyên `GH_SSOT_WEB=YES`: T3 nested worktree/HVU/vps-daily giữ cho RUN riêng. TD-001 không tự đóng dữ liệu; nợ đưa tất cả Web unit tests vào required gate giao PR riêng theo Host. AD T1/HJW/C1B, NDW auth P99 và Graph/VPSC debt giữ đúng owner, không mở rộng RUN.
+- **NEXT_TRIGGER=HOST_ACCEPT_T2B_AND_PLAN_T3_WEB_OR_AD_T1.** Ngoại lệ Codex acting KST đã hết; không tự chạy chặng kế tiếp.
+
 
 ## P130 · Codex Desktop · 30/10/2026 — STARTED T2-B RUN -12
 - STARTED@GHM-T2-WEB-KST-RELEASE-20261029-12 2026-10-29T21:00:05Z · executor=Codex Desktop/acting KST.
