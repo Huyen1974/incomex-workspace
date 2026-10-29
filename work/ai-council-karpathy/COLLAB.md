@@ -9,14 +9,14 @@ Phạm vi task: work/ai-council-karpathy/; Owner đã cho triển khai song song
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 28/10/2026 giao lập task để thảo luận; sau P05/P06 đã cho **triển khai song song trong phạm vi N0 chỉ đọc**. Chỉ đạo mới trong ngày: **tổng hợp cái hệ đã có + phần lấy từ Karpathy**, không xây lại Hội đồng/ghế/luật. D03/§3.7 là bản tích hợp chuẩn. Host hiện tại GPT Chat do Owner chỉ định; chưa có quyền sửa production, đổi luật nền, tạo repo mới hoặc tự chạy N1–N4. **Bổ sung Owner 29/10:** GPT Host chốt lệnh N1 W2–W4 thiết kế-only để Owner chuyển Claude Code; chưa cấp quyền sửa luật nền/code/runtime.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 16:10 +07 · Claude Code (Worker) · STARTED N1
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 16:25 +07 · Claude Code (Worker) · P24 KQ N1
 - 🎯 **Mục tiêu:** gom MỌI THỨ đã làm cho hội đồng AI (gồm xưng danh khi ghi) + các món lấy từ Karpathy thành **một kế hoạch rõ, đủ chi tiết để AI làm đúng**; **không xây hệ mới** — luật/ghế ở AGENTS + HJW, cổng ghi ở MCPW, màn hình ở HVU, mã ở GHM; chỉ thêm chốt máy còn thiếu, Host/AI đổi được. **Đọc trước: §3.0.**
 - 🏁 **Xong khi:** máy chặn được lỗi hội đồng TRƯỚC khi ghi (người ký READY không phải Host, thiếu ý kiến khác hãng, chuông đang mở, sai bản) ngay trên cổng ghi sẵn có; một trang Task thấy Host · ghế · ý kiến · KQ · bước kế · Bảng cũ đỏ; chạy thử thật + đổi Host giữa chừng; Owner nghiệm thu theo 14 phép thử §3.0-E. Hội đồng Host nhiều chữ ký: chỉ chuẩn bị, chưa xây.
 - 📍 **Tiến độ:** **9 ô = 4 DONE (chỉ hồ sơ/N0) + 1 READY (N1 W2–W4 SAU Graph, 0 STARTED) + 4 TODO (Owner GO/4 khuôn; N2 W5–W7; N3 W9; N4 W10)**. W1 HJW P460 G8/NO_DEPLOY và W8 GHM P115 Web T2/AD rollback là hai việc song song ngoài 9 ô. P22 đối chiếu đầy đủ W0–W10, 16 Karpathy, Đ1–Đ7, U1/U4/U6/U8 và nghiệm thu.
 - ✅ **Đã xong:** Hồ sơ §3.0 giữ nguyên (10 khối, 115 mục/15 nguồn, K1–K10/L1–L6, W0–W10, U1–U8, 14 phép thử). Codex P13 đã khảo sát 12 hàng; Claude P15 ACCEPTED và tự đọc lại mã; GPT P16 nghiệm thu **AUDIT_SCOPE_PASS** với `PROCESS_DEVIATION=RESIDUAL_ACCEPTED`, không chạy N0b, chưa có guard hội đồng chung. HJW P452 RUN12 KQ DỪNG/candidate offline 98 PASS **chưa deploy**, RUN13 DỪNG S0 (P457), RUN14 P460 KQ DỪNG có ứng viên 136 test (fixture, HTTP Linux), **chưa deploy**, vướng G8 bản nguồn chuẩn ≠ bản đang chạy (HJW Host gỡ); GHM P109 C2-B hardlock main AD/Web, ruleset active, KST_ONLY_MERGE_ENFORCED=NO với một tài khoản; P113 S0 PASS (Web chạy từ GitHub được, AD chưa), P115 gộp T1 vào T2-Web. Claude P21 nhận P20, đồng bộ trạng thái liên task. P17 thêm ma trận M01–M12 dưới Roadmap, theo dõi task nguồn; chưa tính là DONE kỹ thuật. P18 bảng 16 món Karpathy; **Claude P19 sửa phân loại: 4 thay khuôn (K1/K2/L3/L5) áp ngay sau Owner duyệt N1** — P20 Host ACCEPT có rào tương thích, không đổi PROMPT N1.
-- ■ **Đang làm:** Bước N1 W2–W4 thiết kế-only · vòng 1/3 · gọi: anthropic-cc-worker · executor=Claude Code CLI Mac · `STARTED@ACK-N1-CONTRACT-W2W4-20261029-04` 2026-10-29T09:10Z (Owner dispatch DROOT38 GỬI/VIỆC) · 0 VPS-GHI · ngân sách ≤2 giờ.
+- ■ **Đang làm:** — · 0 RUN active. N1 Claude Code đã có KQ XONG (P24, nháp thiết kế, chưa áp luật/cổng/UI); chờ Host nghiệm thu theo NEXT_TRIGGER, không giữ terminal/VPS.
 - ⬜ **Còn lại:** N1 W2 luật, W3 K1/K2/K6/K7/K9/K10, W4 L1/L3/L5 thiết kế cùng ma trận cutover 4 khuôn; Codex rà kỹ thuật/Claude rà luật. Một Owner GO 3 quyết định + 4 khuôn: K1/K2 A6 và L3/L5 A5 chỉ node MỚI, giữ legacy. N2 W5 Council guard cần HJW W1 C1/C2 live + U1/U8; W6 chuông DROOT59/U6; W7 HVU 3 tầng/Vue Flow/K3/L6/U4, GO riêng. N3 W9 14 tests+4 nhóm âm/Host đổi; N4 W10 Owner nghiệm thu. GHM W8 K5 trước F2 song song, không chặn ACK N2. AUTO1+/multiHost/Graph trợ lực để sau N4.
-- ➡ 🤖 Claude Code làm S1–S4, ghi một P + `KQ@ACK-N1-CONTRACT-W2W4-20261029-04` tại ACK COLLAB → NEXT_TRIGGER=HOST_REVIEW_N1_AND_OWNER_SINGLE_DECISION. (Lịch sử dispatch:) **NEXT_TRIGGER=OWNER_DISPATCH_ACK_N1_CONTRACT_W2W4_20261029_04_AFTER_GRAPH:** Owner **chỉ chuyển lệnh Claude Code sau phiên Graph**, dùng PROMPT N1 được GPT ký READY SHA mới tại P23; Courier DROOT38 chỉ `GỬI/VIỆC` không RUN_ID/SHA; Worker S0 kiểm gate/busy/STOP, ghi STARTED trước lệnh máy khác. KQ tại ACK, Host nghiệm thu sau Codex/Claude; không tự thi công N2.
+- ➡ **NEXT_TRIGGER=HOST_REVIEW_N1_AND_OWNER_SINGLE_DECISION:** GPT Host đọc P24 → Codex rà kỹ thuật + Claude Chat rà luật (một vòng) → Host trình Owner **một** câu gộp (đề xuất ở P24 mục 7) → Founders ghi 4 khuôn/D gốc sau GO; không tự thi công N2. (Lịch sử dispatch:) **NEXT_TRIGGER=OWNER_DISPATCH_ACK_N1_CONTRACT_W2W4_20261029_04_AFTER_GRAPH:** Owner **chỉ chuyển lệnh Claude Code sau phiên Graph**, dùng PROMPT N1 được GPT ký READY SHA mới tại P23; Courier DROOT38 chỉ `GỬI/VIỆC` không RUN_ID/SHA; Worker S0 kiểm gate/busy/STOP, ghi STARTED trước lệnh máy khác. KQ tại ACK, Host nghiệm thu sau Codex/Claude; không tự thi công N2.
 - ⛔ **Không làm:** N1 không sửa AGENTS/root, HJW/GHM/MCPW/HVU, mã/CI/PG/Directus/VPS/secret/runner/GitHub ruleset; không SSH/root/sudo, không tạo file/task/repo/engine/DB/gateway mới, không gọi API trả phí, không tự áp luật. §3.0 chỉ bổ sung ↳ CẬP NHẬT nếu cần, không xoá/rút gọn.
 
 ### 1. Mục tiêu
@@ -1764,6 +1764,224 @@ Ghế: openai-main · Bước/vòng: N1 read-gate preflight · **INPUT_VERIFIED 
 - **NEXT_TRIGGER=OWNER_DISPATCH_ACK_N1_CONTRACT_W2W4_20261029_04_AFTER_GRAPH** · **READY@90131afccba902b5618e3ac677113a5af7baf02d** · RUN_ID=ACK-N1-CONTRACT-W2W4-20261029-04 · signer=openai-main/GPT Host · Worker=anthropic-cc-worker/Claude Code CLI Mac · Reviewer=anthropic-review/P19,P21 (REVIEW_REUSED_SCOPE_OK) · Write_Path=audited workspace_*/fs_* CHỈ `work/ai-council-karpathy/COLLAB.md` · N1_DESIGN_ONLY=YES · STEP_WALK_V1=5_STEPS_COMPLETE · 0 STARTED/0 KQ/0 STOP/0 ALERT khi ký. **READY P22 `7fa65346...` đã SUPERSEDED, KHÔNG dùng để dispatch**; SHA mới là last-touch của PROMPT N1 và được verify bằng GitHub. DROOT38 Courier duy nhất `GỬI/VIỆC` không sao chép RUN_ID/SHA; Reviewer ACCEPT@SHA không cần theo DROOT58; Owner tự chọn thời điểm dispatch SAU Graph, không tự STARTED. Áp: SAME_COMMIT.
 
 - **STARTED@ACK-N1-CONTRACT-W2W4-20261029-04 2026-10-29T09:10Z · executor=Claude Code CLI** · seat=anthropic-cc-worker · Owner dispatch đúng câu DROOT38 `GỬI: Claude Code · VIỆC: work/ai-council-karpathy`. Read-gate PASS (chỉ đọc clone Mac + gateway `workspace_*` root `workspace`): source_head `2d06dbcb`, PROMPT last-touch `90131afccba902b5618e3ac677113a5af7baf02d` = READY P23; 0 STARTED/KQ/STOP_REQUESTED/COUNCIL_ALERT OPEN trên N1; Reviewer ACCEPT@SHA không đòi theo DROOT58 (REVIEW_REUSED P19/P21). Graph = thứ tự Owner chọn, Owner dispatch ⇒ đã qua. Chưa chạy lệnh máy khác trước dòng này.
+
+### P24 — Claude Code Worker · KQ N1 W2–W4: nháp luật · khuôn PROMPT/KQ · dòng phiếu máy đọc (CHỈ THIẾT KẾ)
+Ghế: anthropic-cc-worker · Bước/vòng: N1 · 1/3 · Worker, **không tự nghiệm thu**.
+- **Based_on:** PROMPT last-touch `90131afc` = READY P23 (kiểm lại lúc S0 và trước KQ, không đổi); STARTED commit `cef77b1f` (09:09:47Z, server). Đã đọc: AGENTS A0–A10 + GHM_CODE_CHANNEL (bản 29/10); ACK §0/Bảng/Bootstrap, §3.0-B/C/D/E/F, P13–P23; root DROOT31/38/44/55/56; HJW dòng 3 (HUMAN_DIRECTIVE 22/10), §0.15 dòng 165–182, Bảng P460/P461; TQT §3.3 dòng 188–195; GHM Bảng (đã tới P121, T2-B). **Chưa đọc:** mã `post_guard`/`issuer_check`/profile (dùng P13 E1–E4, không cần đo lại), VPS (cấm theo PROMPT). 0 VPS-GHI, 0 SSH, 0 API trả phí, chỉ ghi COLLAB này.
+- **Scope:** `work/ai-council-karpathy/COLLAB.md` mục P24 + Bảng (■/➡/cập nhật). Không sửa AGENTS/root/HJW/GHM/HVU/§3.0/PROMPT.
+
+#### (1) W2 — BẢNG ĐỀ NGHỊ LUẬT a–j (nháp, chưa ghi D gốc)
+| Mục | Nguồn / câu đang hiệu lực | Xung đột thật? | Đề xuất giữ/thay đúng scope | Ai duyệt |
+|---|---|---|---|---|
+| a | root DROOT31 câu cuối «PROMPT đổi sau Reviewer ACCEPT… Reviewer phải xác nhận lại delta»; DROOT38(c) câu dán «chạy đúng RUN có đủ Reviewer ACCEPT + Host READY» ↔ AGENTS A6 DROOT58 + A6 DROOT31 (đã viết lại: Host tự kiểm diff, không cần Reviewer) | **CÓ** — chữ gốc còn sống, chính lượt này Owner dán câu có «Reviewer ACCEPT» và P23 phải giải tay | D gốc «thay bởi»: DROOT31 câu cuối → AGENTS A6 bản DROOT58; DROOT38(c) đổi câu dán thành «…chạy đúng RUN có Host READY hợp lệ trên đúng bản PROMPT (DROOT58); có STOP_REQUESTED hoặc cờ bận thì dừng và báo». Giữ nguyên phần ROUTE GỬI/VIỆC | Founders (căn chữ theo DROOT58 Owner đã quyết) |
+| b | root DROOT55 (một vòng + **đúng một** vòng thêm); DROOT44(c) «sửa theo DROOT55»; HJW §0.15 dòng 175 «còn CHẶN thì thêm đúng một vòng, vẫn CHẶN ⇒ Owner (DROOT55)» ↔ AGENTS DROOT57 (mặc định 1, tối đa 3, Host tự quyết) | **CÓ** ở HJW §0.15 + DROOT44(c); AGENTS đã đúng | D gốc: phần số vòng của DROOT55/DROOT44(c) thay bởi DROOT57. HJW §0.15 thêm ↳ trỏ DROOT57 — HJW Host sửa trong task HJW, ACK không sửa | Founders + HJW Host |
+| c | AGENTS MT3-C/A5: «số vắng ≤ floor(non_host/2) **và** ≥1 ý kiến khác hãng với Host; sau KQ ≥1 khác hãng Worker»; ghế Owner chuyển tay không tính vắng | **KHÔNG** — hai điều kiện đã cùng một câu, cùng áp (P13 hàng C2.5 xác nhận) | Giữ. D chỉ thêm một dòng làm rõ: W5 tính đồng thời cả hai; ghế tay ở AUTO0 không bao giờ bị đánh vắng ⇒ quorum chỉ có nghĩa từ AUTO1 | Founders (làm rõ, không đổi luật) |
+| d | TQT §3.3 dòng 195: luật ký MBM CT-008 «≥2/4 ghế đồng ý, ≥1 khác hãng người đề xuất, 0 phản đối» ↔ DROOT58 một chữ ký | **MỘT PHẦN** — CT-008 duyệt *sản phẩm quy trình ngành*, DROOT58 ký *READY lệnh agent*; chỉ vênh nếu ai dùng CT-008 cho READY | Giữ CT-008 là luật riêng phạm vi MBM/TQT; ghi một câu «không áp cho READY/RUN; READY theo DROOT58». Không xoá ≥2/4 | TQT Host + Founders; bỏ ≥2/4 chỉ Owner |
+| e | AGENTS A10-R4 «POST-PROTECT PASS phải chủ động gửi Telegram receipt dù vẫn xanh» ↔ DROOT59(1)(3) «không có việc phải làm thì không phải cảnh báo; kiểm xanh = Cấp 3 chỉ log» | **CÓ** | Tách «biên nhận» khỏi «cảnh báo»: receipt R4 vẫn bắt buộc nhưng là bằng chứng giao (message_id/log), chuyển vào bản tin 08:00 hoặc system_issues, không đẩy Telegram từng lượt. Chốt ở mốc thử DROOT59(9) 02/11 | Host gốc PROOT13 đề xuất; **Owner gật** (chạm R4 + danh sách Cấp 1). Không gộp vào câu Owner của ACK |
+| f | AGENTS A8 + README §11 «cấm GitHub→VPS»; DROOT56; AGENTS **GHM_CODE_CHANNEL (Owner 29/10)** «Cổng chuyển SSOT: DROOT56 vẫn hiệu lực tới khi từng repo nghiệm thu + Owner cho phép» | **KHÔNG (hiện tại)** — ngoại lệ GHM đã có chỗ trong AGENTS; §3.0-C W2-f viết trước khi có GHM_CODE_CHANNEL nên đã cũ. Sẽ vênh lúc repo đầu tiên cutover | Không sửa bây giờ. Ngày Owner GO cutover một repo: **cùng commit** sửa README §11 + A8 «trừ repo đã cutover theo GHM_CODE_CHANNEL, kèm lời Owner nguyên văn» | Owner (DROOT56 Owner-only) + GHM Host thi hành |
+| g | AGENTS A2 Courier «Hermes-Mac là fallback local»; A5-AUTO «Hermes-Mac/Mac mini là fallback local»; DROOT44(h)/DROOT46(c) ↔ HUMAN_DIRECTIVE@HJW-OWNER-20261022-02 (dừng hẳn Hermes trên MacBook; computer-use dùng Codex); HJW P438 đã chốt 28/10 (Dot điều phối, Codex computer-use) | **CÓ** — điều kiện «sau P438» đã đạt | D gốc: thay «Hermes-Mac/Mac mini» bằng «Codex computer-use theo việc Owner giao (P438)» ở 4 chỗ. Đây là **làm chặt** (bỏ một đường) nên ghế không nghe trực tiếp vẫn làm được theo A5 chống-lách; directive ghi scope HJW N3–N6, Founders ghi rõ là áp sang AGENTS | Founders |
+| h | §3.0-C W2-h «một danh sách ghế chuẩn ở AGENTS A9 có cột hãng… đầu vào W5» ↔ P12 + P15(d) «cổng không đọc A9 vì AI sửa được; hãng lấy từ cấu hình chìa phía server» | **CÓ** (giữa hai bản nháp, chưa giữa hai luật) | Thay W2-h: `vendor` = trường mới trong cấu hình profile master phía server (5 profile gpt-web/codex/claude-code/claude-chat-web/google-main, P13: hiện chưa có trường hãng); A9 chỉ hiển thị; roster biểu quyết = `COUNCIL_BOOTSTRAP_V1` của từng task; không sổ thứ hai. Chìa dùng chung (gpt-web: Chat/Work/Dot) = 1 phiếu + LIMIT | Founders (thiết kế); thêm trường vào profile = thay cấu hình production ⇒ N2 GO |
+| i | AGENTS mặc định `Cross_Vendor_Review=COMMENT_REQUIRED` ↔ Owner §1.3 «ý kiến cũng phải có **sự đồng ý** của ít nhất 1 ai khác hãng, bên cạnh Host (Host quyết)» | **CÓ** | Từ node mới sau GO: `Cross_Vendor_Review=AGREE_REQUIRED` = ≥1 VERDICT `ĐỒNG Ý` (hoặc `ĐỒNG Ý-CÓ-ĐK` đã được Host giải từng ĐK) của ghế khác hãng Host, gắn đúng bản; còn `CHẶN` chưa giải ⇒ Host không ký READY vòng đó (mở vòng ≤3 hoặc LÊN_OWNER). Host vẫn là người ký duy nhất; Reviewer không ký | **Owner** (đổi mặc định toàn hệ) → Founders ghi |
+| j | AGENTS A5 «sau KQ ≥1 ghế khác hãng với Worker» + ACK D04/§3.1 đọc chặt «một reviewer khác cả Host lẫn Worker» ↔ GHM P107 (Claude Code làm + Claude Chat rà) | **CÓ** — hai cách đọc đang cùng chạy | Hai cách: **R-chặt** = một reviewer khác hãng cả Host lẫn Worker; **R-hai-vế** = ≥1 ý kiến khác hãng Host **và** ≥1 khác hãng Worker, được là hai người. Minh hoạ N1 này: Host OpenAI, Worker Anthropic ⇒ R-chặt cần hãng thứ ba (Google `google-main`, chưa có trong bootstrap ACK, đường gọi CHƯA ĐO); R-hai-vế = Codex (khác Worker) + Claude Chat (khác Host) là đủ. **Đề xuất R-hai-vế làm mặc định**, R-chặt tuỳ task khi bootstrap có hãng thứ ba đã xác minh. Không tự coi Codex đạt cả hai vế | **Owner**, cùng một câu với i |
+- **Kiểm xong W2 (theo §3.0-C):** mỗi mục a–j có đúng một dòng hiệu lực đề xuất; còn vênh sống sau khi Founders ghi D: e (chờ 02/11) và f (chờ cutover) — có chủ, có mốc.
+
+#### (2) W3 — MỘT KHUÔN PROMPT (K1) + MỘT KHUÔN KQ (K2), kèm K6/K7/K9/K10
+**Đặt ở:** AGENTS A6 (một khuôn duy nhất). CT-000.1, MOW-TH-005, R37 và Cổng sẵn sàng **trỏ vào** khuôn này cho phần lệnh agent; nội dung nghiệp vụ của chúng giữ nguyên. Không tạo file mẫu.
+```
+# PROMPT — <tên node>
+RUN_ID: <mã>   STATUS: CANONICAL
+Executor_Surface: <bề mặt + ghế>   Write_Path: <capability>   Read_Path: <đúng mục/cửa sổ>
+Budget: <phút> (quá 2× ⇒ KQ DỪNG)   Metric: <một chỉ số chính> = <cách đo> (chưa máy đo ⇒ UNKNOWN + nguồn)
+§0 READ-GATE + CỜ BẬN: AGENTS → COLLAB → PROMPT; READY@<full last-touch SHA>; không STOP/alert/cờ bận.
+   Việc ĐẦU TIÊN sau gate PASS: commit `STARTED@<RUN_ID> <UTC> · executor=<bề mặt>` + Bảng.
+   CAS từ chối ⇒ đọc lại COLLAB/PROMPT, kiểm gate, ghi lại. Chưa có STARTED trên repo ⇒ không chạy lệnh nào trên máy khác.
+§1 ĐƯỢC LÀM   §2 KHÔNG ĐƯỢC LÀM (liệt kê đích cấm: file/repo/runtime/secret)
+§3 MỤC TIÊU ĐO ĐƯỢC — DoD + Metric ở đầu
+§4 ĐẦU RA — một mục P + dòng KQ@<RUN_ID> + khối KQ_V1, cùng commit với Bảng
+§5 GHI SỔ — outcome GIỮ/BỎ/HỎNG trong KQ_V1 (K3 dẫn xuất, không sổ riêng)
+§6 QUÁ GIỜ / HỎNG CHẮC CHẮN ⇒ dừng ngay, KQ DỪNG (K6/K7)
+§7 KHÔNG DỪNG HỎI GIỮA LƯỢT — gặp chặn ⇒ KQ DỪNG + NEXT_TRIGGER (K9 = DROOT50/52, không chép LOOP FOREVER)
+§8 LOG — lệnh dài ghi ra tệp log trong vùng tạm của phiên, đọc bằng tìm/cửa sổ; không dán cả log (K10)
+STEP_WALK_V1 — bảng bước (DROOT48)
+```
+**Khuôn KQ (K2)** — đặt ngay dưới dòng `KQ@<RUN_ID> XONG|DỪNG`, **trong khối rào ba dấu huyền** (không dùng `---`: trong Markdown dòng `---` ngay dưới chữ biến dòng trên thành tiêu đề):
+```
+KQ_V1
+run_id: <RUN_ID>
+status: XONG | DỪNG
+prompt_ready: <full SHA READY đã kiểm>
+started_commit: <sha>        head_read: <sha lúc gate>
+commits: <sha,…>
+checks: <đạt>/<tổng> | UNKNOWN(<nguồn>)
+metric: <tên>=<giá trị> | UNKNOWN(<vì sao chưa máy đo>)
+outcome: GIỮ | BỎ | HỎNG
+budget_used_min: <giờ commit KQ − giờ commit STARTED, giờ máy chủ Git>
+evidence: <lệnh/stdout/exit hoặc ref>
+next_trigger: <TÊN>
+limits: <điều chưa đo / LIMIT>
+```
+- **K2 ↔ RESULT_V1 (Hermes) 1–1, không khuôn thứ hai:** run_id↔`id` · status XONG/DỪNG↔`done`/`blocked` · next_trigger↔`next` · ref P↔`report_ref` · commits do máy điền; RESULT_V1 giữ JSON, chỉ thêm trường tuỳ chọn `checks/metric/outcome`.
+- **K6 ngân sách:** đo **sau sự việc** bằng giờ commit STARTED→KQ (giờ máy chủ, AI không tự kể) — W5 so `budget_used_min` với Git. **Cắt giờ thật** chỉ có ở runner/CI/Hermes; phiên Claude Code/Codex chạy tay trên Mac **không có máy cắt** ⇒ LIMIT, không hứa cưỡng chế.
+- **K7 dừng sớm — danh sách «hỏng chắc chắn»:** read-gate FAIL · CAS xung đột còn sau một lần đọc lại · gặp STOP_REQUESTED/alert ở freshness gate · thiếu đầu vào trọng yếu · quá 2× Budget · script kiểm thoát ≠0. Mọi cái ⇒ KQ DỪNG ngay, không làm tiếp để «lấy xanh».
+- **K9/K10:** đã có (DROOT50/52), khuôn chỉ trỏ tới; K10 chỉ là quy tắc đọc, không bắt tạo file log trong repo.
+- **Đối chiếu PROMPT N1 hiện hành với khuôn:** có RUN_ID · Executor · Write/Read_Path · ngân sách · STEP_WALK · kỷ luật STARTED · NEXT_TRIGGER; **thiếu** Metric một-chỉ-số và mục ĐƯỢC/KHÔNG tách riêng (đang viết lẫn). Theo P20 không sửa lại PROMPT N1; node sau GO dùng khuôn. Phép thử «một AI khác hãng đọc khuôn viết được PROMPT không hỏi lại» = việc của Codex khi rà.
+
+#### (3) W4 — DÒNG MÁY ĐỌC L1/L3/L5 + NĂM CHỐT + THREAT MODEL + BỘ ĐỌC
+**Đặt ở:** AGENTS A5 (L3/L5), A6 dẫn chiếu. Là **dạng dòng của `FLOW_EVENT_V1`** (HJW §0.15) — không tạo `NODE_V1`/`DECISION_V1`, DB hay engine. `TASK_POLICY_V1.required_members` = đọc từ bảng `COUNCIL_BOOTSTRAP_V1`, không khai lần hai.
+```
+VERDICT@<content_ref ≥8 hex> <ĐỒNG Ý | ĐỒNG Ý-CÓ-ĐK | CHẶN> · by=<ghế> [· đk=<điều kiện>]
+HOST_DECISION@<content_ref> <ACCEPTED | PARTIAL | REJECTED> · Đồng ở: <…> · Khác ở: <…> · Quyết: <ĐI_TIẾP | LÀM_LẠI | LÊN_OWNER> [· giải_đk=<P/dòng VERDICT>] [· REVIEW_REUSED=<commit>:<dòng>]
+```
+| Trường máy dùng | Lấy từ đâu | Tin dòng chữ? |
+|---|---|---|
+| actor | nhãn xác thực phía server của commit thêm dòng (vd `Anthropic/ClaudeAI [auth:claude-chat]`) | **không** — `by=` chỉ để người đọc, lệch actor ⇒ từ chối |
+| vendor | trường `vendor` của profile chìa (W2-h) | không |
+| seat/vai | map actor → hàng bootstrap của **chính task** | không |
+| content_ref | phải resolve thành commit; với READY phải = bản PROMPT được ký hoặc chuỗi REVIEW_REUSED hợp lệ | — |
+| round | máy đếm theo chuỗi content_ref khác nhau (không ghi tay) | — |
+| state | suy ra: ĐANG_BÀN · CHỜ_HOST_CHỐT · ĐÃ_CHỐT · BELL_HOLD (không ghi `state=`) | — |
+| điều kiện | `ĐỒNG Ý-CÓ-ĐK` chỉ thành đồng ý khi HOST_DECISION có `giải_đk=` trỏ đúng dòng | — |
+- **L1 (chỉ quyết định LỚN: mục tiêu/roadmap/kiến trúc/quyền):** Host đăng P «ĐỀ» (đề bài + bằng chứng, chưa có phương án); phương án Host chỉ commit **sau** ≥1 VERDICT khác hãng Host trên ĐỀ. Máy kiểm bằng thứ tự commit — kiểm tối thiểu, không chứng minh tuyệt đối (D02). Rà KQ giữ nhịp B1→B2→B3; **không thêm lượt Owner chuyển tay** (Host đăng ĐỀ ở B1, phương án ở B3). L2 (ẩn A/B/C) tuỳ chọn, bảng giải mã ở cùng P sau khi có VERDICT; không áp khi rà KQ Worker.
+- **Năm chốt P15 — trạng thái N1 = DESIGN_READY, NOT_ENFORCED; W5 cưỡng chế:**
+| Chốt | Quy tắc | W5 kiểm gì (dưới lock, trên văn bản cuối, trước commit) |
+|---|---|---|
+| (a) quyền theo snapshot trước | Quyền của người ghi tính từ HEAD **đã commit trước** lần ghi, không từ văn bản đang ghi | Một lần ghi vừa đổi `Host:`/bootstrap vừa thêm READY/HOST_DECISION/ASSIGN ⇒ từ chối (mở rộng `issuer_check` Hermes đã cấm stamp+lệnh cùng commit) |
+| (b) Owner xác nhận ngoài kênh AI | Đổi Host/Host_ID/roster/quorum/AUTO chỉ là ĐỀ NGHỊ cho tới khi Owner xác nhận qua kênh AI không ghi được; trong lúc chờ Host cũ vẫn hiệu lực | Ứng viên: nút Telegram thẻ Hermes (A9-GLB đã yêu cầu kiểm identity/chat/generation) — **UNKNOWN: N1 không được đo live** ⇒ giữ AUTO0; ở AUTO0 việc Owner tự tay chuyển từng lệnh chính là cổng (P15). Chưa xác minh ⇒ W5 ghi `OWNER_AUTH_NOT_ENFORCED` |
+| (c) HUMAN_DIRECTIVE không tự nới quyền | Dòng directive nới quyền (Host/roster/quorum/AUTO/bỏ guard) phải qua (b); phần làm chặt có hiệu lực ngay | Directive có từ khoá nới quyền mà thiếu biên nhận (b) ⇒ không làm thay đổi tính quyền |
+| (d) phiếu theo chìa | Hãng/ghế từ credential server-side; **một phiếu / credential / content_ref**; bỏ qua `by=`/`declared_actor`; chìa dùng chung = 1 phiếu + `LIMIT` | Đếm phiếu theo actor; actor không thuộc bootstrap hoặc là Host ⇒ không tính; Worker không VERDICT cho KQ của mình |
+| (e) REVIEW_REUSED thật | Chỉ hợp lệ khi trỏ commit+dòng của một VERDICT thật khác hãng, và diff bản cũ→mới chỉ hành chính (STATUS/SHA/chữ) | Diff chạm dòng lệnh/quyền/Write_Path/rollback ⇒ REUSE vô hiệu; Task View tô vàng «phiếu cũ» |
+- **Recheck dưới lock** (quyền, STOP, alert, revision, thu hồi) **trước commit** ở mọi đường upload/import/queue/helper/restore/batch = yêu cầu N2, không thuộc N1.
+- **THREAT MODEL (nửa trang).** *Bảo vệ:* các AI hợp tác ghi qua hai cổng `workspace_*` (Agent Data) và `fs_*` (Claude MCP) **bằng chính credential của mình** — chặn đi tắt/nhầm vai/giả Host-READY-VERDICT trong phạm vi đó, fail-closed khi mơ hồ. *Không bảo vệ (LIMIT, chủ MCPW backlog Đ5):* người giữ root VPS, DeployKey của ruleset `gateway-only-writes`, SSH root (P13 hàng U8: phiên Codex đọc được bằng `~/.ssh/contabo_vps`), credential bị lấy trên Mac dùng chung, REST/Directus đi vòng. Git author/email **không phải chữ ký mật mã**: ai có DeployKey/root viết được author bất kỳ. Chìa dùng chung (gpt-web) không phân biệt Chat/Work/Dot ⇒ 1 ghế. *Hệ quả:* không được viết «không thể làm sai» cho tới khi U8 kiểm kê đủ mọi đường ghi và từng đường có chốt; mọi báo cáo W5 phải ghi rõ phạm vi «cưỡng chế với AI hợp tác qua 2 cổng». *Ngoài phạm vi ACK:* đổi khoá theo bề mặt, lease, ký mật mã commit.
+- **Bộ đọc mẫu (55 dòng Python, chỉ đọc, ghim `cef77b1f`)** — đọc khối bootstrap lấy roster/Host, kiểm dạng L3/L5, content_ref phải là commit, `by=` trong roster và không phải Host, lấy actor bằng `git blame` (nhãn server của gateway, **không phải** xác thực mật mã — đúng giới hạn threat model), thêm 2 fixture sai dạng. Chạy: tách khối dưới, bỏ 2 dấu cách đầu dòng, `python3 -I verdict_reader.py <clone incomex-workspace> cef77b1faed6d4a453862583ec450ead09a77ed1 work/ai-council-karpathy/COLLAB.md`.
+```python
+  import re, subprocess, sys
+  # Bo doc mau L3/L5 (N1, chi doc). Doi so: <repo> <sha ghim> <duong COLLAB>
+  REPO, PIN, PATH = sys.argv[1], sys.argv[2], sys.argv[3]
+  def git(*a):
+      return subprocess.run(["git", "-C", REPO, *a], capture_output=True, text=True)
+  text = git("show", f"{PIN}:{PATH}").stdout
+  if not text:
+      sys.exit("PIN_UNREADABLE")
+  roster, host = {}, None
+  boot = text.split("COUNCIL_BOOTSTRAP_V1\n", 1)[-1].split("\nMode=", 1)[0]
+  for m in re.finditer(r"^\| ([a-z0-9-]+) \| ([^|]+?) \| [^|]+ \| ([^|]+?) \|", boot, re.M):
+      roster[m[1]] = (m[2].split()[0], m[3])
+      if m[3].startswith("Host"):
+          host = m[1]
+  V = re.compile(r"^`?VERDICT@([0-9a-f]{8,40}) (ĐỒNG Ý-CÓ-ĐK|ĐỒNG Ý|CHẶN) · by=([a-z0-9-]+)(?: · đk=([^`]+))?`?(?:\s|$)")
+  D = re.compile(r"^`?HOST_DECISION@([0-9a-f]{8,40}) (ACCEPTED|PARTIAL|REJECTED) · Đồng ở: .+ · Khác ở: .+ · Quyết: (ĐI_TIẾP|LÀM_LẠI|LÊN_OWNER)`?\s*$")
+  FIX = ["VERDICT@zz12 OK · by=someone", "VERDICT@8a8d3f95 ĐỒNG Ý by=anthropic-review"]
+  ok = bad = 0
+  p_id = "-"
+  lines = text.splitlines()
+  for n, line in enumerate(lines + FIX, 1):
+      h = re.match(r"^### (P\d+)", line)
+      src = f"L{n}" if n <= len(lines) else f"FIXTURE{n - len(lines)}"
+      p_id = h[1] if h else (p_id if src[0] == "L" else "-")
+      s = line.strip()
+      if not re.match(r"^`?(VERDICT|HOST_DECISION)@", s):
+          continue
+      m = V.match(s) or D.match(s)
+      if not m:
+          bad += 1
+          print(f"REJECT {src} {p_id}: sai dạng -> không tính | {s[:70]}")
+          continue
+      sha, kind = m[1], m[2]
+      ref_ok = git("rev-parse", "-q", "--verify", f"{sha}^{{commit}}").returncode == 0
+      if m.re is D:
+          print(f"DECISION {src} {p_id}: {kind} @{sha} ref={'OK' if ref_ok else 'MISSING'}")
+          ok += 1
+          continue
+      by = m[3]
+      seat = roster.get(by)
+      why = []
+      if not ref_ok: why.append("content_ref không phải commit")
+      if not seat: why.append("by= ngoài roster")
+      elif by == host: why.append("Host tự VERDICT")
+      if kind == "ĐỒNG Ý-CÓ-ĐK": why.append("cần Host giải ĐK")
+      blame = git("blame", "--porcelain", "-L", f"{n},{n}", PIN, "--", PATH).stdout if src[0] == "L" else ""
+      author = re.search(r"^author (.*)$", blame, re.M)
+      auth = author[1] if author else "UNKNOWN"
+      vend = seat[0] if seat else "?"
+      tag = "COUNT" if ref_ok and seat and by != host else "REJECT"
+      ok += tag == "COUNT"
+      bad += tag == "REJECT"
+      print(f"{tag} {src} {p_id}: {kind} @{sha} by={by}({vend}) git_author={auth} | {'; '.join(why) or '-'}")
+  print(f"SUMMARY pin={PIN[:8]} host={host} roster={sorted(roster)} hợp_lệ={ok} loại={bad}")
+  sys.exit(0 if ok and bad else 1)
+```
+**Evidence (chạy 29/10 09:12Z trên clone Mac, exit=0, script sha256 `2fd7244373d3c862…`):**
+```
+REJECT L533 -: sai dạng -> không tính | `VERDICT@<sha bản được rà, ≥8 ký tự> <ĐỒNG Ý | ĐỒNG Ý-CÓ-ĐK | CHẶN> · 
+REJECT L539 -: sai dạng -> không tính | `HOST_DECISION@<sha> <ACCEPTED | PARTIAL | REJECTED> · Đồng ở: <…> · K
+COUNT L1370 P05: ĐỒNG Ý-CÓ-ĐK @c441d5f0 by=anthropic-review(Anthropic) git_author=Anthropic/ClaudeAI [auth:claude-chat] | cần Host giải ĐK
+COUNT L1463 P08: ĐỒNG Ý-CÓ-ĐK @8d511bc1 by=anthropic-review(Anthropic) git_author=Anthropic/ClaudeAI [auth:claude-chat] | cần Host giải ĐK
+COUNT L1541 P11: ĐỒNG Ý-CÓ-ĐK @ea64292f by=anthropic-review(Anthropic) git_author=Anthropic/ClaudeAI [auth:claude-chat] | cần Host giải ĐK
+COUNT L1666 P15: ĐỒNG Ý-CÓ-ĐK @e043c238 by=anthropic-review(Anthropic) git_author=Anthropic/ClaudeAI [auth:claude-chat] | cần Host giải ĐK
+COUNT L1725 P19: ĐỒNG Ý-CÓ-ĐK @8a8d3f95 by=anthropic-review(Anthropic) git_author=Anthropic/ClaudeAI [auth:claude-chat] | cần Host giải ĐK
+REJECT FIXTURE1 -: sai dạng -> không tính | VERDICT@zz12 OK · by=someone
+REJECT FIXTURE2 -: sai dạng -> không tính | VERDICT@8a8d3f95 ĐỒNG Ý by=anthropic-review
+SUMMARY pin=cef77b1f host=openai-main roster=['anthropic-cc-worker', 'anthropic-review', 'openai-codex', 'openai-main'] hợp_lệ=5 loại=4
+```
+- **Đọc kết quả:** đọc đúng VERDICT thật P05/P08/P11/P15 (+P19); 2 dòng **khuôn mẫu** §3.0-B và 2 fixture bị loại (đóng khi mơ hồ). Lần chạy đầu bắt được lỗi roster lẫn bảng khác (autoresearch/gh-aw/llm-council) ⇒ đã giới hạn đọc đúng khối bootstrap — đúng loại lỗi W5 phải có fixture. Cả 5 phiếu là `ĐỒNG Ý-CÓ-ĐK` ⇒ theo mục i chỉ tính đồng ý khi có `giải_đk=`; hiện Host giải bằng văn xuôi (P06/P09/P12/P16/P20) ⇒ máy **không đếm được** — đúng lý do cần khuôn L5. `git_author` là nhãn gateway, đồng nhất với `by=` ở cả 5 dòng, nhưng không phải chữ ký mật mã. Các khối khuôn mẫu ở chính P24 này cũng sẽ bị REJECT khi chạy lại — là hành vi đúng.
+
+#### (4) W5–W7 — TỪ HỢP ĐỒNG TỚI CỔNG THẬT (N2, cần Owner GO riêng)
+| Gói | Cổng thật (dùng lại) | Source live phải ghim trước | Bypass phải kiểm kê | Fixture / thử âm | Rollback · Owner GO |
+|---|---|---|---|---|---|
+| W5 council guard | `post_guard` AD mở rộng cho mọi danh tính + bộ kiểm chung ở `fs_*` Claude MCP; hai điểm chặn do HJW W1 dựng | U1: digest image + hash file trong container 2 cổng (HJW RUN14 ghim; G8 nguồn chuẩn ≠ bản chạy còn mở) | U8: SSH root, DeployKey, git trên VPS, REST/Directus, upload/import/queue/helper/restore/batch | 14 phép thử §3.0-E (1–8, 10, 14) + nhóm âm P12 A–D, **chỉ trên fixture**; chế độ «chỉ báo» ≥1 việc thật trước khi chặn | Cờ bật/tắt guard + image trước; Owner GO N2; đi sau HJW C1/C2 **live** (không chỉ KQ fixture) |
+| W6 chuông | Guard → Kuma push → Telegram sẵn có (DROOT59); thẻ «Đúng chỉ đạo / Sai» cho HUMAN_DIRECTIVE | Guard hash E2 hiện hành | U6 end-to-end UNKNOWN; không dùng monitor Kuma kiểu PG (#7728) | Phép thử 11 trên fixture; sai cú pháp/thiếu VERDICT = audit-only, chỉ thẩm quyền/an toàn mới Cấp 1 | Tắt đèn mới về trạng thái cũ; Owner gật thêm đèn Cấp 1 (danh sách đóng DROOT59(2)) |
+| W7 Task View | `hvu-b2/sync.py` + `ui/app.vue` đang chạy (HVU chủ): Host, hàng ghế, 3 tầng L6, Bảng cũ đỏ, K3, Vue Flow khoá bản | U4: hash E3/E4 ↔ bản phục vụ; ghim lúc bắt đầu W7 | Không trang/đường dữ liệu thứ hai, không `/reports`, không sửa bản GitHub thay bản chạy | Phép thử 12 + ảnh trang thật; parser đọc **cả legacy** và khuôn mới | Giữ build trước; HVU Host + Owner GO N2 |
+
+#### (5) MA TRẬN CUTOVER 4 KHUÔN (chỉ node MỚI sau Owner/Founders GO)
+| Khuôn | SSOT luật | Trường bắt buộc từ mốc | Mốc áp | Giữ legacy thế nào | Parser W5/W7 |
+|---|---|---|---|---|---|
+| K1 PROMPT | AGENTS A6 | RUN_ID · STATUS · Executor_Surface · Write_Path · Read_Path · Budget · Metric · §0–§8 · STEP_WALK_V1 | PROMPT có **READY ký sau commit GO** (`GO_COMMIT` ghi ở D gốc) | PROMPT/READY/STARTED trước mốc giữ nguyên, không viết lại; RUN đang STARTED chạy hết theo luật lúc STARTED (A5-AUTO) | READY trước mốc: chỉ kiểm SHA như hiện nay; sau mốc: thiếu mục bắt buộc ⇒ từ chối READY |
+| K2 KQ_V1 | AGENTS A6 (RESULT_V1 ánh xạ 1–1) | run_id · status · prompt_ready · started_commit · checks · metric · outcome · budget_used_min · next_trigger · limits | KQ của RUN có READY sau mốc | Dòng `KQ@<RUN_ID> XONG/DỪNG` giữ nguyên là dấu A9; KQ cũ không có khối vẫn hợp lệ | Thiếu khối ⇒ từ chối chỉ với RUN sau mốc; số chưa đo = `UNKNOWN(nguồn)` hợp lệ, không bịa |
+| L3 VERDICT | AGENTS A5 (A6 trỏ A5) | content_ref · kết luận · by · đk (nếu có) | Ý kiến commit sau mốc | P/ACCEPTED/PARTIAL văn xuôi trước mốc là lịch sử, không đếm phiếu ngược | Sau mốc: phiếu = dòng hợp lệ + actor server; văn xuôi không phải phiếu |
+| L5 HOST_DECISION | AGENTS A5 | content_ref · ACCEPTED/PARTIAL/REJECTED · Đồng ở · Khác ở · Quyết · giải_đk (khi có ĐK) | Kết luận Host commit sau mốc | Kết luận văn xuôi trước mốc giữ nguyên | Sau mốc: READY chỉ hợp lệ khi có HOST_DECISION ĐI_TIẾP trên đúng bản (từ W5; trước W5 chỉ là khuôn ghi tay) |
+- **Trước W5 máy chưa đếm phiếu**: từ mốc GO, mọi AI ghi tay theo 4 khuôn (P19 ưu tiên ①); máy chặn đến sau ở N2. Không di trú dữ liệu cũ.
+
+#### (6) BẢNG PHỦ — 16 MÃ KARPATHY VÀ W0–W10
+| Mã | Gói | N1 đã làm ở P24 | Còn lại / chủ |
+|---|---|---|---|
+| K1 · K2 | W3 | Khuôn + ánh xạ RESULT_V1 + cutover (mục 2, 5) | Owner GO → Founders ghi A6 |
+| K3 | W7 | Trường `outcome` trong KQ_V1 để dẫn xuất | HVU, sau K2 |
+| K4 | W8 | — | GHM: lõi đã chạy (P109); quy tắc đóng nhánh đỏ |
+| K5 | W8 | — | GHM: **trước F2**, không chặn ACK N2 / GHM T2 |
+| K6 · K7 | W3 (+W8) | Đo giờ bằng commit; danh sách «hỏng chắc chắn» | Cắt giờ thật ở runner/CI; Mac tay = LIMIT |
+| K8 | W8 | — | GHM luật duyệt KST |
+| K9 · K10 | W3 | Trỏ DROOT50/52; quy tắc đọc log cửa sổ | Đã có, chỉ ghi vào khuôn |
+| L1 | W4 | Nhịp ĐỀ→ý kiến→phương án cho quyết định LỚN | Founders/Owner GO; W5 kiểm thứ tự commit |
+| L2 · L4 | W4 / W7 | Tuỳ chọn, ghi cách dùng | Không là điều kiện N2 |
+| L3 · L5 | W4 | Dạng dòng + bảng trường máy + bộ đọc | Owner GO → A5; W5 đếm |
+| L6 | W7 | — | HVU 3 tầng |
+| W0 | N0 | Đã XONG (P13/P16) | — |
+| W1 | HJW | — | HJW: P460 DỪNG/G8, P461 B1; ACK chỉ nhận C1/C2 live |
+| W2 · W3 · W4 | N1 | **Nháp xong ở P24** | Codex + Claude rà → Owner GO |
+| W5 · W6 · W7 | N2 | Bảng mục 4 | Owner GO N2 + U1/U4/U6/U8 |
+| W8 | GHM | — | GHM chủ (đang T2-B P121) |
+| W9 · W10 | N3 · N4 | — | Sau N2 |
+
+#### (7) ĐỀ XUẤT một dòng «Owner cần quyết» (Host trình sau phản biện — **chưa ghi vào mục Owner cần quyết, không coi Owner đã gật**)
+> Anh/chị gật một lần cho 4 điều: (1) «đồng ý khác hãng» nghĩa là có ít nhất một phiếu ĐỒNG Ý của ghế khác hãng Host trên đúng bản, còn CHẶN thì Host chưa ký; sau KQ cần một ý kiến khác hãng Host và một ý kiến khác hãng Worker, được là hai người (mục i+j); (2) đổi Host, ghế, quorum hay mức tự động chỉ có hiệu lực khi chính anh/chị xác nhận qua kênh AI không ghi được — chưa có kênh đã kiểm thì giữ AUTO0 như hiện nay; (3) máy chặn chỉ cam kết với AI ghi qua hai cổng bằng chìa của mình, người giữ root/DeployKey nằm ngoài (theo dõi ở MCPW); (4) cho Founders ghi 4 khuôn K1/K2 vào A6 và L3/L5 vào A5, áp cho lệnh mới từ ngày gật, việc cũ giữ nguyên.
+
+**KQ@ACK-N1-CONTRACT-W2W4-20261029-04 XONG** · nháp hợp đồng thiết kế xong; **không luật/cổng/UI nào được triển khai**.
+```
+KQ_V1
+run_id: ACK-N1-CONTRACT-W2W4-20261029-04
+status: XONG
+prompt_ready: 90131afccba902b5618e3ac677113a5af7baf02d (P23, kiểm lại trước KQ: không đổi, 0 STOP/alert)
+started_commit: cef77b1f        head_read: 2d06dbcb (gateway lúc gate)
+commits: cef77b1f (STARTED), commit này (P24+KQ+Bảng)
+checks: 7/7 đầu ra S4 có mặt (W2 a–j · W3 · W4 + 5 chốt + threat + parser · W5–W7 · cutover 4 khuôn · phủ 16+W0–W10 · đề xuất Owner) — tự kiểm, chưa có Reviewer
+metric: parser hợp_lệ=5 loại=4 exit=0 trên pin cef77b1f
+outcome: GIỮ
+budget_used_min: giờ commit này − 09:09:47Z (giờ máy chủ Git); ngân sách 120
+evidence: stdout parser ở mục 3; nguồn đọc ở Based_on
+next_trigger: HOST_REVIEW_N1_AND_OWNER_SINGLE_DECISION
+limits: (b) kênh Owner chưa đo live; U1/U4/U6/U8 UNKNOWN (tiền-N2); git author không phải chữ ký mật mã; vendor chưa có trong profile
+```
+- **Sau KQ (A5):** Codex rà kỹ thuật (khác hãng Worker), Claude Chat rà luật (khác hãng Host) trong một vòng; Worker không VERDICT cho KQ này. W2-j chưa có Owner quyết ⇒ không coi một reviewer đạt cả hai vế. Không tự RUN N2, 0 RUN active, terminal không giữ. Áp: SAME_COMMIT.
 
 ## Owner cần quyết
 - —
