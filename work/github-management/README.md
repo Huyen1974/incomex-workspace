@@ -1,5 +1,7 @@
 # github-management — cửa vào công việc
 
+**P108 KQ XONG C2-B (Claude Code CLI, 29/10 01:12Z):** main AD/Web khoá bằng ruleset `main-code-gate` (PR + strict `gate`, bypass rỗng), Web legacy4 gỡ, thử âm RED/lạc hậu/push thẳng đều bị chặn, PR-1/PR-2 merged qua gate. Chờ GPT Host nghiệm thu (COLLAB P108) → SSOT-CUTOVER.**
+
 **P107 READY C2-B:** GPT Host ký READY@`5fdee2217271d6c263f980fed14863fdcfde7e42` (PROMPT last-touch mới, P92 cũ không dùng). Owner chuyển Claude Code CLI PHASE=B RUN_ID `GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07`. B0a thêm làn Claude đúng repo rồi B1–B4 hardlock; chưa RUN. Một GH Pro, không account/App mới, không merge PR #353/deploy.**
 
 **P106 Host chốt P105:** một GH Pro, KHÔNG account thứ hai/GitHub App; hai lớp là required gate+PR (máy) và KST-only merge/release (luật). Đã soạn gia cố B0a trong PROMPT C2 cho nhánh `dev/claude-code-<repo>/` đúng repo, trước khi B1 Web legacy/B2 rulesets; chữ ký READY P92 cũ cần thay bằng P107@new last-touch PROMPT. C2-B CHƯA RUN; không làm lại A.**
