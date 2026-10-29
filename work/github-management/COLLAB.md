@@ -10,7 +10,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - 🏁 C2-B: `main` 2 repo có ruleset PR+strict `gate` đúng app, RED/skipped/behind/direct push bị chặn, Web legacy4 bỏ, KST_ONLY_ENFORCED=NO báo đúng.
 - 📍 ✓ F0/F1/G1 · ✓ C2-A · ✓ Pro/cost P103 · ✓ Claude P104/P105 đồng thuận một account → ✓ Host P106 sửa giới hạn tên nhánh → ■ P107 READY → Claude Code CLI C2-B → SSOT-CUTOVER → AD release → F2 → C4.
 - ✅ GH live: AD `main a636ffe5` protected:false; Web `main 4f8405a9` protected:true (legacy), cả hai rulesets []; 6 PR C2-A còn OPEN, PR #353 ngoài làn hiện gate skipped. P103 cost PASS_SCOPED_READBACK.
-- ■ Đang làm: — · 0 RUN C2-B active. P107 READY@5fdee2217271d6c263f980fed14863fdcfde7e42 ký đúng PROMPT P106 sau khi đọc GitHub; Owner chuyển thủ công.
+- ■ Đang làm: Claude Code CLI KST · GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 PHASE B STARTED 2026-10-29T00:56Z (P108) · B0→B0a→B1→B2→B3→B4. P107 READY@5fdee2217271d6c263f980fed14863fdcfde7e42.
 - ⬜ C2-B B0/B0a/B1/B2/B3/B4; sau đó chốt SSOT mã AD/Web, làm AD deploy/rollback, F2 tách runner audit/PR và 3 agent; không mở tài khoản/App.
 - ➡ NEXT_TRIGGER=OWNER_DISPATCH_CLAUDE_CODE_CLI_C2_B; READY P92 cũ không dùng sau khi PROMPT đổi.
 - ⛔ Không merge PR #353 thuộc task khác, không chạy untrusted code trên VPS persistent runner, không tự tắt ruleset để cứu merge, không thay gói/thẻ/secret, không auto-CD.
@@ -1563,3 +1563,8 @@ Based_on: Owner 28/10 22:20 (§1 #13) · ý kiến GPT phiên mới (phương á
 - B0a: 2 PR-1 nhánh trusted sửa nhận `dev/claude-code-ad/` (AD) hoặc `dev/claude-code-web/` (Web), test và `gate` HEAD mới SUCCESS; B1 Web legacy4 backup/remove; B2 required strict `gate`+bypass rỗng 2 main; B3 âm RED/behind/direct push, PR1/PR2 merge đúng KST; B4 KQ receipt. Không deploy, không tạo actor mới, không tự bypass khẩn cấp.
 - PR #353 của task khác chỉ đọc/handoff về chủ; KST_ONLY_MERGE_ENFORCED=NO do cùng GH login; tất cả CI của dự án trên VPS self-hosted. Nếu fail quyền/source/gate: STOP nhả phiên, không khóa sai.
 - NEXT_TRIGGER=OWNER_DISPATCH_CLAUDE_CODE_CLI_C2_B. Áp: SAME_COMMIT.
+
+## P108 · Claude Code CLI (KST) · 29/10/2026 — C2-B PHASE B
+Ghế: anthropic-claude-code · Based_on=66a8d4a55920982619b07b0047e30c2ba4330e35 · Write_Path=gh CLI Owner `Huyen1974` (GitHub API/PR/ruleset) + Workspace gateway cho hồ sơ · 0 VPS-GHI, 0 deploy.
+STARTED@GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07 2026-10-29T00:56Z · executor=Claude Code CLI/KST · PHASE=B
+- Read-gate PASS: Owner RUN C2-B dán trực tiếp cho Claude Code (RUN_ID/PHASE/READY khớp repo — tiền lệ F1/G1 Phần B); last-touch PROMPT.md = 5fdee2217271d6c263f980fed14863fdcfde7e42 (gateway git_log) khớp READY P107; sau READY chỉ COLLAB/README/ROADMAP đổi; không STOP_REQUESTED/STARTED B khác. Kết quả ghi tiếp dưới mục này.
