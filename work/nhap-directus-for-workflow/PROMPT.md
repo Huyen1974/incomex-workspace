@@ -2,7 +2,7 @@
 RUN_ID: NDW-TS3-S4-ONE-RULE-TABLE-20261029-02
 TASK: work/nhap-directus-for-workflow
 EXECUTOR_SURFACE: Claude Code CLI
-STATUS: OWNER_APPROVED_G1G2@P94 · CONDITIONAL_READY. Executable ONLY when task COLLAB contains Host READY@the exact full last-touch commit SHA of this PROMPT, Owner manually dispatches, and S0 PASS; otherwise BLOCKED. This authorizes one empty S4 rules table only, not rule insertion, report publication, role changes or DROP. REVIEW_REUSED=P91/P93.
+STATUS: CLOSED_AFTER_KQ_P96 · HOST_ACCEPT_SCOPED_P97 · READY_P95_CONSUMED. RUN NDW-TS3-S4-ONE-RULE-TABLE-20261029-02 đã XONG qua DOT (P96 commit 7274e5d5; trả VPS-GHI 96eef170), 1 bảng tai_san_luat 14 cột/0 luật. **CẤM chạy lại PROMPT này**; các bước S0–S5 bên dưới là hồ sơ lịch sử. TS4 DOT data writer/lô luật/V3/Reports cần scope + PROMPT/Owner approval mới; Claude Chat P98 đang phản biện RO. G1/G2 P94 chỉ cho một bảng rỗng, không cho nạp luật hoặc sửa Guard/Web.
 
 READ_PATH: AGENTS.md A0/A6/R1a/R1b/R3/R4/DROOT30/31/48/58 → root COLLAB VPS-GHI → task COLLAB §0/Bảng/§3.TQ/§3.KH, P73/P75/P81/P85/P86/P88/P89/P90/**P91/P92** (SQL P91 và giới hạn triển khai TS4/V3) → PROMPT này. PG qua `query_pg` READ ONLY; VPS S1 chỉ SSH đọc. Không lôi P0 Nuxt, Graph, TS4 data writer/V3 vào RUN CREATE S4 này.
 WRITE_PATH: hai SQL file mới `/opt/incomex/dot/sql/directus/`, baseline+2 registry IDs, 2 approved SQL manifest lines qua `incomex-config-apply-v0`, đúng một `dot-pg-atomic-apply`, STARTED/KQ task COLLAB qua `workspace_edit`. KHÔNG psql/docker exec/Directus REST/Studio tay, không thay role/ACL của bảng cũ, không `git add/commit` trong `/opt/incomex/dot`, không tạo collection/report/Flow/job/index ngoài SQL đã duyệt, không viết một luật nào.
