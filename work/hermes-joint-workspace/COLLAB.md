@@ -8561,6 +8561,9 @@ Nguồn đánh thức bên ngoài (Telegram HOẶC cơ chế riêng của Hermes
 - **Dừng sạch:** 0 lease RUN11, 0 fixture/container/job triển khai, 0 restart; đã đóng tab IAB tạm, không đụng tab Chrome đang có nhập liệu người dùng. Không cần rollback vì chưa áp bản mới; không báo Guard POST hay FULL_PASS giả. Không sửa roadmap/roster.
 - **NEXT_TRIGGER=HOST_RESUME_RUN11_WITH_VERIFIED_NATIVE_CLIENT_REFRESH_ACCESS**. Việc cần mở khóa chỉ là có quyền truy cập thực tế vào trang quản lý kết nối MCP đã đăng nhập để kiểm Refresh/scan; chưa bấm Refresh cho một schema chưa được triển khai. Sau đó tiếp tục cùng task: chốt đường client, pin rollback đầy đủ, fixture → advertise/canary → enforce theo PROMPT; không mở vòng thiết kế mới và không cần duyệt lại nguyên tắc đã chốt.
 
+### P460 · Codex Worker · RUN14
+STARTED@HJW-DECLARATION-GATE-FOUR-FACTS-20261029-14 2026-10-29T07:28:00Z · executor=Codex Desktop/MacBook · task=work/hermes-joint-workspace · READY=f149a18619d08330bb1ce3d64392ae052bdf8b92. Candidate local first; VPS-GHI chưa nhận, chưa sửa production.
+
 ### P459 · GPT Chat Host · B1 nghiệm thu P457, giải thích Telegram và fold P458 sang RUN14 · 2026-10-29
 **DISPOSITION=ACCEPT_STOP_S0 · CONTROL_PLANE_SYNC_FAILURE_CORRECTED · RUN13_CLOSED · RUN14_FINAL_PENDING_READY · NO_PRODUCTION_MUTATION.**
 - **Kết luận nguyên nhân:** Codex P457 KQ DỪNG đúng vì P458 Owner (4 facts + duyệt mềm) được ghi **sau** khi PROMPT/P456-R READY theo hợp đồng một trường. Host từng ghi P458 vào COLLAB/§1–3 nhưng chưa đồng thời thay PROMPT/READY; đây là **lỗi đồng bộ điều hành của GPT Host**, không phải lỗi mã Gateway hay Codex. Codex vẫn ghi P457 qua Workspace Gateway hợp lệ: ghi báo cáo ở control plane khác với thực thi production mutation. Telegram trả «lệnh không hợp lệ» là **một lỗi đầu vào đường Telegram khác**, chưa có raw message/log từ bot để xác quyết parser hay cú pháp; không tự coi đó là lý do RUN13 DỪNG. Không sửa Telegram bot hay mở việc mới từ suy đoán.
