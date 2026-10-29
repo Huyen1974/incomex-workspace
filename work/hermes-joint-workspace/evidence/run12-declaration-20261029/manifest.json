@@ -1,0 +1,85 @@
+{
+  "run_id": "HJW-DECLARATION-GATE-PHASED-20261028-12",
+  "status": "OFFLINE_CANDIDATE_NOT_DEPLOYED",
+  "ready_sha": "4df2412a41bd977d13f89eb860e4f32fae5c8049",
+  "prompt_sha256": "6d294fa4b8c56aad078fd22111bdbc513c3c87e80f7854ba53af6264304f9b5b",
+  "local_baseline_commit": "9e1935fd62631b4bc5344f67c5c120ecb1618228",
+  "local_candidate_commit": "0ca9577fe7cf115f4501ffbcdb199fa211cb6c6d",
+  "patch_sha256": "53f9c88836763a0ae613d0ecc0a4f7b17d8723b57f7ab8f2f540a0444374162c",
+  "candidate_image": null,
+  "production_images": {
+    "incomex-agent-data": "sha256:46e0ba15f18f2c4241a6a704eaa7c3f209432453a78e04dff626187ec1f50c8c",
+    "incomex-claude-mcp": "sha256:bacd21605a06825d0a725bcaefecdf55abbe85e075ab7be8fe93da3e04b5f961"
+  },
+  "changed_files": {
+    "agent_data/declaration_contract.py": {
+      "baseline_sha256": null,
+      "candidate_sha256": "0e16afd8f041ce3d1c2ca7e0aaba290b90c2fd29746eb5c52164cadfb0c85343"
+    },
+    "agent_data/workspace_declaration.py": {
+      "baseline_sha256": null,
+      "candidate_sha256": "3d6fd7d6a65f2e1e4960506f87181a3ae2daa04f710bea0acd00ef296d74d91b"
+    },
+    "agent_data/workspace_idempotency.py": {
+      "baseline_sha256": "90d5e3f936fa027dff4f40c080bd63f9eb41ab2a3d671177391527d9964d1a66",
+      "candidate_sha256": "643e515e21d0baa2b5a3b902b5924b6cd13fbc6a5d65f51298227a7ad1003652"
+    },
+    "agent_data/workspace_tasks.py": {
+      "baseline_sha256": "292142cacd2f832569a66c288b668971667b13b76c8ae11f40b604052692e930",
+      "candidate_sha256": "e15e2d8cb4a67436aee114a768563cf63181c3ef19534d9e5f52b10e22fd7f05"
+    },
+    "agent_data/workspace_tools.py": {
+      "baseline_sha256": "d3f22b9285f5e7a2b14cb737c7cb1cb6d3f16640a3c412bfcc53c7016c6ec55b",
+      "candidate_sha256": "6eebfe26123a3f341e43b3257b52963511b3302420bf933ada71ff9d5bfd75c9"
+    },
+    "agent_data/workspace_transfer.py": {
+      "baseline_sha256": "d2863b7d381a8b71b1e600baa118e94e589ece7c8107b0c25cca8479d164e97b",
+      "candidate_sha256": "ef79fed44727ff68f478476b776fc7088d2e482a905bc407042257ba034cf781"
+    },
+    "claude/app/declaration_contract.py": {
+      "baseline_sha256": null,
+      "candidate_sha256": "0e16afd8f041ce3d1c2ca7e0aaba290b90c2fd29746eb5c52164cadfb0c85343"
+    },
+    "claude/app/fsroots.py": {
+      "baseline_sha256": "46975a735b3d54206aaef2172fd2bd9ee5add090cf1cc969ab14c4a8754b5612",
+      "candidate_sha256": "392cee632d28174166a8d798f2a4ddc8f181d3610d83ecb561b79bb3a85d9197"
+    },
+    "claude/app/hostq.py": {
+      "baseline_sha256": "4c34e0ffe2d39310b00a6f9f8d3e2d214f5ea25309d8c848e68a3799e11484d1",
+      "candidate_sha256": "4eab7af3436dde7277a762728b554c7dd067f26387f6276b5c9f1d49a9b5ffcd"
+    },
+    "claude/app/server.py": {
+      "baseline_sha256": "422dd29578daac04d626509c556a6f981d90665d0ae598d4499eb5703faa28d9",
+      "candidate_sha256": "b7b9d4f50198d5a3ef2fb866383f665bf97e7f345936cbec450f6d1be1dd0eff"
+    },
+    "claude/helper/declaration_contract.py": {
+      "baseline_sha256": null,
+      "candidate_sha256": "0e16afd8f041ce3d1c2ca7e0aaba290b90c2fd29746eb5c52164cadfb0c85343"
+    },
+    "claude/helper/mcp_host_helper.py": {
+      "baseline_sha256": "e5790c74edbb24575c5015982953d98aa8165657574b4782df18a49382710f11",
+      "candidate_sha256": "7ab59d5a843c0625b1500da54e212849b16d816e70984f86718a446edbc8f643"
+    },
+    "shared/declaration_contract.py": {
+      "baseline_sha256": null,
+      "candidate_sha256": "0e16afd8f041ce3d1c2ca7e0aaba290b90c2fd29746eb5c52164cadfb0c85343"
+    }
+  },
+  "rollback": "Retain both pinned images and original helper bytes. Reverse patch verified offline against every runtime Python baseline byte; remove new modules. Production deployment/rollback and Guard PRE/POST NOT RUN. Future apply requires fresh lease/Guard and complete protected-file footprint before mutation.",
+  "dependencies": {
+    "local_python": "3.11",
+    "tested_claude_sdk": "mcp 1.27.1; pydantic 2.13.4; starlette 1.0.0; sqlglot 25.34.0",
+    "ad_dispatch_tests": "jsonschema 4.26.0; AD HTTP server/SDK 1.12.0 not booted locally"
+  },
+  "test_result": {
+    "passed": 98,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 1,
+    "c1_real_client": "LIVE_NOT_TESTED"
+  },
+  "artifacts": {
+    "candidate.patch.md": "ed35bd4ccb99e428d3b0b8d38bc36fe6f2b458bdd1a37d71d046477f85327a3e",
+    "tests.md": "47e5854f5391dc8a24549a2f792b82d7e0e9158b3617799ab6a85f6c5e699553"
+  }
+}
