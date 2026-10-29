@@ -9,14 +9,14 @@ Phạm vi task: work/ai-council-karpathy/; Owner đã cho triển khai song song
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 28/10/2026 giao lập task để thảo luận; sau P05/P06 đã cho **triển khai song song trong phạm vi N0 chỉ đọc**. Chỉ đạo mới trong ngày: **tổng hợp cái hệ đã có + phần lấy từ Karpathy**, không xây lại Hội đồng/ghế/luật. D03/§3.7 là bản tích hợp chuẩn. Host hiện tại GPT Chat do Owner chỉ định; chưa có quyền sửa production, đổi luật nền, tạo repo mới hoặc tự chạy N1–N4. **Bổ sung Owner 29/10:** GPT Host chốt lệnh N1 W2–W4 thiết kế-only để Owner chuyển Claude Code; chưa cấp quyền sửa luật nền/code/runtime.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 16:30 +07 · GPT Host · P25 / B1 N1
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 17:05 +07 · Claude Chat · P26 / B2 N1
 - 🎯 **Mục tiêu:** gom MỌI THỨ đã làm cho hội đồng AI (gồm xưng danh khi ghi) + các món lấy từ Karpathy thành **một kế hoạch rõ, đủ chi tiết để AI làm đúng**; **không xây hệ mới** — luật/ghế ở AGENTS + HJW, cổng ghi ở MCPW, màn hình ở HVU, mã ở GHM; chỉ thêm chốt máy còn thiếu, Host/AI đổi được. **Đọc trước: §3.0.**
 - 🏁 **Xong khi:** máy chặn được lỗi hội đồng TRƯỚC khi ghi (người ký READY không phải Host, thiếu ý kiến khác hãng, chuông đang mở, sai bản) ngay trên cổng ghi sẵn có; một trang Task thấy Host · ghế · ý kiến · KQ · bước kế · Bảng cũ đỏ; chạy thử thật + đổi Host giữa chừng; Owner nghiệm thu theo 14 phép thử §3.0-E. Hội đồng Host nhiều chữ ký: chỉ chuẩn bị, chưa xây.
-- 📍 **Tiến độ:** 9 ô = **4 DONE hồ sơ/N0 + 1 N1 KQ XONG P24 (nháp, B2 REVIEW_PENDING, KHÔNG còn READY/chưa STARTED) + 4 TODO: Owner GO 4 khuôn, N2 W5–W7, N3 W9, N4 W10**. HJW P461 G8/136 fixture PASS chưa deploy (W1) và GHM P120 main gate PASS/Web T2-A PR #682 OPEN chưa merge/deploy (W8) thuộc task gốc song song. P25 B1 chưa nghiệm thu máy Hội đồng; 16 Karpathy vẫn đủ theo ma trận P22.
+- 📍 **Tiến độ:** 9 ô = **4 DONE hồ sơ/N0 + 1 N1 KQ XONG P24 (nháp; B2: Claude P26 ĐỒNG Ý-CÓ-ĐK, chờ Codex; không còn READY) + 4 TODO: Owner GO 4 khuôn, N2 W5–W7, N3 W9, N4 W10**. HJW P461 G8/136 fixture PASS chưa deploy (W1) và GHM P120 main gate PASS/Web T2-A PR #682 OPEN chưa merge/deploy (W8) thuộc task gốc song song. P25 B1 chưa nghiệm thu máy Hội đồng; 16 Karpathy vẫn đủ theo ma trận P22.
 - ✅ **Đã xong:** N0 audit đã nghiệm thu P16; 115 mục/10 khối/16 Karpathy và W0–W10 đủ hồ sơ §3.0. **Claude Code N1 P24 KQ XONG bản nháp W2 a–j, W3 K1/K2, W4 L1/L3/L5 + 5 chốt, 55 dòng parser thử, tiền-N2 W5–W7, cutover 4 khuôn, ma trận phủ 16 mã, đề xuất Owner**. STARTED cef77b1f/KQ 16ebb997; chỉ COLLAB ACK thay trong hai commit, 0 code/runtime/PROMPT change. Worker tự báo 7/7 DoD có mặt; Host P25 tạm ACCEPT CONTENT/SCOPE, **chưa ACCEPT kỹ thuật N1 trước Claude/Codex**. HJW/GHM sản phẩm live không vì N1 KQ mà thay đổi.
-- ■ **Đang làm:** — · **0 RUN active trong ACK**. N1 Worker đã KQ XONG/nhả busy. Hiện B2 là **nhận xét Hội đồng, không phải RUN**: Claude Chat rà luật/Owner/cutover; Codex rà kỹ thuật parser/chốt máy (hai ý kiến cùng một vòng để thỏa khác hãng Host/Worker theo A5 hiện hành).
+- ■ **Đang làm:** — · **0 RUN active trong ACK**. Claude P26 đã rà phần luật (ĐỒNG Ý-CÓ-ĐK, 5 chỉnh Host tự áp, không N1b); **còn Codex rà kỹ thuật**. N1 Worker đã KQ XONG/nhả busy. Hiện B2 là **nhận xét Hội đồng, không phải RUN**: Claude Chat rà luật/Owner/cutover; Codex rà kỹ thuật parser/chốt máy (hai ý kiến cùng một vòng để thỏa khác hãng Host/Worker theo A5 hiện hành).
 - ⬜ **Còn lại:** B2 Claude/ Codex đọc P24/P25 và nêu đúng phần chặn → GPT Host B3 chốt N1 hoặc delta sửa nhỏ; chỉ sau khi đủ review mới trình **một Owner GO** gồm i+j cách hiểu đồng ý khác hãng, kênh Owner đổi Host, phạm vi bảo vệ, quyền ban hành 4 khuôn K1/K2→A6 & L3/L5→A5 cho NODE MỚI (không hồi tố). Chưa sửa luật gốc. N2 W5 guard cần HJW W1 C1/C2 live + U1/U8, W6 Telegram U6/DROOT59, W7 HVU 3 tầng/Vue Flow/K3 U4/legacy, Owner GO riêng; N3 14 test + 4 nhóm âm fixture/đổi Host, N4 Owner nghiệm thu. GHM K5 trước F2 là việc song song.
-- ➡ **NEXT_TRIGGER=CLAUDE_CHAT_REVIEW_ACK_N1_P24_P25_B2:** Owner chỉ chuyển **một câu GỬI/VIỆC cho Claude Chat** đọc P24/P25 phản biện W2/Owner/4 khuôn, ghi P tiếp theo/VERDICT. **Codex cũng phải rà kỹ thuật** trong cùng vòng B2 (khác hãng Worker Claude Code); Claude Chat khác hãng Host GPT nhưng cùng hãng Worker, không được thay Codex. Sau đủ hai ý kiến GPT chốt B3, chưa xin GO N2/không chạy lại N1; P24 KQ đã đóng.
+- ➡ **NEXT_TRIGGER=CODEX_TECH_REVIEW_ACK_N1_P24_B2:** Claude P26 xong. Owner chuyển **một câu cho Codex** `GỬI: Codex · VIỆC: work/ai-council-karpathy` — Codex rà kỹ thuật P24 theo mục «Codex B2» ở P25 (+P26), ghi một P + VERDICT, chỉ đọc. Rồi GPT Host B3 áp 5 chỉnh P26 + ý Codex, trình một lần gật Owner. **Codex cũng phải rà kỹ thuật** trong cùng vòng B2 (khác hãng Worker Claude Code); Claude Chat khác hãng Host GPT nhưng cùng hãng Worker, không được thay Codex. Sau đủ hai ý kiến GPT chốt B3, chưa xin GO N2/không chạy lại N1; P24 KQ đã đóng.
 - ⛔ **Không làm:** N1 không sửa AGENTS/root, HJW/GHM/MCPW/HVU, mã/CI/PG/Directus/VPS/secret/runner/GitHub ruleset; không SSH/root/sudo, không tạo file/task/repo/engine/DB/gateway mới, không gọi API trả phí, không tự áp luật. §3.0 chỉ bổ sung ↳ CẬP NHẬT nếu cần, không xoá/rút gọn.
 
 ### 1. Mục tiêu
@@ -1996,6 +1996,41 @@ Ghế: openai-main · Bước/vòng: N1-REVIEW · 1/3 · **PRELIM_ACCEPT_DELIVER
 - **Claude Chat B2 (quy chế):** kiểm (1) W2 a–j và phạm vi Owner; (2) AGREE_REQUIRED + R-hai-vế/quorum và cách tính conditional; (3) cutover bốn khuôn/legacy, không làm chậm Owner; (4) Owner GO §7 có gộp đúng 4 vế và tách e/Owner R4, GHM?; (5) dependency HJW/GHM, UNKNOWN nào chặn N1 design vs trước N2. Phản biện một P tiếp theo + VERDICT có bằng chứng, không sửa PROMPT/root/runtime.
 - **Codex B2 (kỹ thuật, cùng vòng):** độc lập rà script 55 dòng/exit/5 vs 0 phiếu eligible, prefix suffix/multiline/code fence/roster/hard SHA; actor spoof/shared credential/target/version/quorum; nháp K1/K2+KQ_V1, bốn khuôn/legacy; nguồn U1/U4/U6/U8 và test N2. Nếu thấy lỗi chỉ đề nghị sửa nháp nhỏ nhất, không bắt RUN N1b trừ blocker thật. Codex OpenAI khác Worker Anthropic; Claude Chat Anthropic khác Host GPT nhưng cùng Worker; không giả một reviewer đạt cả hai, W2-j Owner sẽ chốt.
 - **B1 decision:** `N1_WORKER_KQ=XONG_DESIGN`, `HOST_PRELIM=ACCEPT_DELIVERABLES_PENDING_REVIEW`, `FINAL_N1_ACCEPT=AFTER_CLAUDE_AND_CODEX`, `NEXT_TRIGGER=CLAUDE_CHAT_REVIEW_ACK_N1_P24_P25_B2`. Không vòng 2 nếu chỉ chỉnh cú pháp/parsing thử; Host B3 chốt khi đủ hai ý kiến cùng một vòng, sau đó trình một Owner GO và kế N2 có lệnh riêng. **Owner chưa cần quyết lúc này.** Áp: SAME_COMMIT.
+
+### P26 — Claude Chat · B2 rà KQ N1 (P24) + Host B1 (P25) · phần luật · 29/10/2026
+Ghế: anthropic-review · N1-REVIEW · 1/3 · **ĐỒNG Ý-CÓ-ĐK — nhận N1, 5 chỉnh Host tự áp ở B3, không chạy N1b · 0 blocker**
+- **Based_on:** P24 (STARTED `cef77b1f`, KQ `16ebb997`), P25 `3b94138a`, PROMPT READY P23 `90131afc`, §1/§3.0/§3.1, P15/P19–P21, AGENTS A5/A6 (MT3-C, DROOT58, `COMMENT_REQUIRED`), luật đứng Owner về CT-008. Phần kỹ thuật (regex, actor, mã chạy) để Codex, không làm thay. JEV: j R-hai-vế 0,89; g gộp vào lần gật Owner 0,53; kết luận ĐỒNG Ý-CÓ-ĐK 0,42 (N1b 0,39); d JEV chọn ghi ở CT-008 0,89 — **Claude không theo**, lý do ở mục 1.
+- **Bám mục tiêu → roadmap:** P24 đúng phạm vi N1 thiết kế-only (chỉ COLLAB, ~6,5 phút/120, STARTED đúng kỷ luật, đủ 7/7 đầu ra). P25 không mở rộng; Bảng/roadmap khớp, không cần sửa roadmap.
+
+**(1) W2 a–j và quyền Owner — nhận bảng P24, chỉnh 4 chỗ:**
+- a, b, g là **dọn chữ cũ** theo luật Owner đã quyết (DROOT58, DROOT57, chỉ đạo dừng Hermes-Mac 22/10), không phải luật mới. Vì chạm root/AGENTS toàn hệ (P25 nêu đúng ở g) ⇒ **gộp vào cùng một lần gật Owner** (vế 4), không thêm bước.
+- c: đồng ý P25 — câu làm rõ là «ở AUTO0 điều kiện vắng không thể bị vi phạm (ghế tay không tính vắng), **nhưng ≥1 ý kiến khác hãng vẫn bắt buộc**»; không viết «quorum chỉ có nghĩa từ AUTO1» kẻo đọc thành quorum = 0.
+- d: giữ CT-008 ≥2/4 cho MBM/TQT. Câu phân tách **ghi ở AGENTS A6 phía READY** («READY chỉ theo DROOT58; luật ký nghiệp vụ như CT-008 không áp cho READY»), **không chạm CT-008/MBM** — luật đứng Owner: không tự viết vào CT-008 khi Owner chưa yêu cầu.
+- e, f để **ngoài** lần gật của ACK (e: chủ PROOT13, mốc thử 02/11, không tự tắt tin; f: GHM cutover từng repo, Owner-only). h đúng là vênh giữa hai bản nháp; thêm trường vendor = N2.
+
+**(2) i + j và phiếu có điều kiện:**
+- j: đề xuất **R-hai-vế** làm mặc định (≥1 ý kiến khác hãng Host + ≥1 khác hãng Worker, được hai người); R-chặt chỉ khi task có hãng thứ ba đã xác minh. Hiện chỉ OpenAI/Anthropic gọi được ổn định.
+- i: `ĐỒNG Ý-CÓ-ĐK` chỉ thành đồng ý khi `HOST_DECISION … giải_đk=` trỏ **cả** dòng VERDICT **và** chỗ đã áp (commit/dòng). Reviewer mở lại bằng `CHẶN` trong cùng vòng nếu thấy giải sai. Máy chỉ kiểm con trỏ có thật và đi sau VERDICT, **không kiểm nghĩa** ⇒ ghi LIMIT.
+- Đồng ý P25: bộ đọc tách `PARSED · CONDITION_PENDING · VOTE_ELIGIBLE · AUTH_VERIFIED`; in `COUNT` cho phiếu chưa giải ĐK là sai nhãn. Sửa trong đặc tả W5, không cần N1b; chi tiết mã do Codex.
+
+**(3) Cutover 4 khuôn — nhận, thêm 3 câu để không thành thủ tục:**
+- «Node mới» = PROMPT có READY ký sau `GO_COMMIT`, **ở mọi task** (HJW/GHM cũng vậy); Host mỗi task nhận một dòng báo; RUN đang chạy giữ luật cũ.
+- `Metric` của việc thiết kế/tài liệu ghi `không áp` hoặc `UNKNOWN(nguồn)` — cấm bịa số; khuôn không thêm lượt Owner chuyển tay.
+- Sau lần gật: GPT Host soạn sửa A5/A6, Claude rà cùng lượt — **không cần agent chạy dài**.
+
+**(4) Câu Owner §7 — đúng 4 vế, sửa 2 chỗ:**
+- Vế (2) đổi thành: «Hiện nay (AUTO0) anh nói trực tiếp với Host như bây giờ là đủ; chỉ khi nâng tự động (AUTO1 trở lên) mới bắt buộc kênh xác nhận AI không ghi được.» — bản P24 dễ đọc thành «hiện không đổi Host được».
+- Vế (4) thêm: «và dọn chữ luật cũ đã bị thay: a (Reviewer ACCEPT), b (số vòng), g (Hermes-Mac)». e, f, h không vào câu này.
+- Host trình dạng 4 dòng có sẵn đề xuất, Owner chỉ gật/lắc.
+
+**(5) Phụ thuộc:**
+- N1 thiết kế: không UNKNOWN nào chặn.
+- Trước N2: W5 cần HJW xưng danh **chạy thật** (C1/C2) — hiện P461 vướng G8; U1 theo HJW; U8 kiểm kê đường ghi + câu phạm vi (vế 3). Kênh Owner (b) **không chặn N2** (N2 ghi `OWNER_AUTH_NOT_ENFORCED` ở AUTO0), chỉ chặn việc nâng AUTO.
+- Mới: repo `incomex-workspace` đang public, Owner 29/10 15:46 đã chỉ đạo đóng (GHM chủ). Đóng repo đổi đường đọc của HVU sync và Guard ⇒ **ghim U4/U6 sau khi GHM đóng repo**. P13/P24 mô tả đường root/SSH trên repo công khai — thêm lý do đóng sớm. GHM K4/K5/K8 không chặn N2.
+
+`VERDICT@16ebb997 ĐỒNG Ý-CÓ-ĐK · by=anthropic-review · đk=Host B3 áp 5 chỉnh P26: a/b/g vào lần gật; c; d ghi A6 không chạm CT-008; i giải_đk trỏ VERDICT và chỗ áp; §7 vế 2 và 4`
+- Một vòng: Codex rà kỹ thuật song song (khác hãng Worker); Host B3 chốt khi có Codex, rồi trình **một** lần gật Owner. Không N1b.
+- Phản hồi Host: —
 
 ## Owner cần quyết
 - —
