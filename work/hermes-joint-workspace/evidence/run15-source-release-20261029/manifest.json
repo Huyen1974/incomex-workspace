@@ -1,0 +1,69 @@
+{
+  "run_id": "HJW-G8-FOUR-FACTS-SOURCE-20261029-15",
+  "phase": "S0",
+  "result": "STOP",
+  "blocker": "CLAUDE_HELPER_RELEASE_REPOSITORY_WRITE_PATH_UNVERIFIED",
+  "observed_at": "2026-10-29T09:43:22Z",
+  "ready_commit": "39429656d45c1c5f1e0a6b5a001942de74d105e5",
+  "prompt_sha256": "9bcf22cad0381ae9c5e21b41a92d5101233db1714351c5119ddfaa9daf7c4730",
+  "workspace_head_before_report": "15cf0e673551da4259b6761b92801d551c8bfef9",
+  "source_observations": [
+    {
+      "path": "/opt/incomex",
+      "head": "00452246b1ac499d2e62cba8ea12be2aee919f2b",
+      "remote_urls": [],
+      "tracked": [
+        "claude-mcp/app/server.py",
+        "claude-mcp/helper/mcp_host_helper.py"
+      ],
+      "release_destination": "UNVERIFIED"
+    },
+    {
+      "path": "/opt/incomex/docker/agent-data-repo",
+      "head": "bfe86c8ce1c0c1d16ca860fedf6aa324b1ec196f",
+      "origin": "DROOT56-CAM-KEO-MA-TU-GITHUB--XIN-PHEP-OWNER",
+      "github_repository": "Huyen1974/agent-data-test",
+      "github_repository_private": true,
+      "github_repository_archived": false,
+      "github_api_permission_push": true,
+      "notes": "Connector write capability verified; no remote repair/push/branch creation attempted. This is not permission to put unrelated Claude/helper source in this repo."
+    }
+  ],
+  "search_evidence": {
+    "github_owner": "Huyen1974",
+    "query": "mcp_host_helper.py",
+    "returned": "HJW/AI-council documentation and patch evidence, no verified source repo mapping",
+    "agent_data_test_query": "mcp_host_helper",
+    "agent_data_test_results": 0,
+    "limitation": "Search is default-branch/index based; no-result is not proof that source does not exist anywhere."
+  },
+  "runtime_images": {
+    "incomex-agent-data": "sha256:46e0ba15f18f2c4241a6a704eaa7c3f209432453a78e04dff626187ec1f50c8c",
+    "incomex-claude-mcp": "sha256:bacd21605a06825d0a725bcaefecdf55abbe85e075ab7be8fe93da3e04b5f961",
+    "incomex-gemini-mcp": "sha256:083d7f590886e89c189208279590cb7c1ed68abee5a51e40290014941ff179ad"
+  },
+  "helper_sha256": "e5790c74edbb24575c5015982953d98aa8165657574b4782df18a49382710f11",
+  "patch_sha256": "a9cccdbcdd4f543cbb073e276fd88b79e5e48b71d82341c4067c8d5adad205d4",
+  "preserved_local_candidate": "f13f01d94916dc4078168f36824dae68e60c3877",
+  "tests": {
+    "hermes_tool_acl": "NOT_RUN",
+    "claude_gemini_binding_catalog": "NOT_RUN",
+    "shared_helper": "NOT_RUN",
+    "functional_regression": "NOT_RUN",
+    "git_ref_rebuild": "NOT_RUN",
+    "rollback": "NOT_RUN",
+    "old_136_tests": "RUN14 evidence only, not RUN15 PASS"
+  },
+  "mutation": {
+    "source": false,
+    "runtime": false,
+    "git_ref": false,
+    "production_deploy": false,
+    "advertise": false,
+    "production_restart": false,
+    "vps_write_lease": "NOT_ACQUIRED",
+    "guard_pre_post": "NOT_RUN_READ_ONLY",
+    "temporary_processes": 0
+  },
+  "next_trigger": "GPT_HOST_IDENTIFY_EXISTING_CLAUDE_HELPER_SOURCE_REPO_AND_ALLOWED_RELEASE_WRITE_PATH"
+}
