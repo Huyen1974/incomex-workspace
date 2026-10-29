@@ -483,7 +483,8 @@
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 · GPT Host P467-R · **RUN16 CLAUDE/HELPER G8 CANDIDATE READY · 0 RUN ACTIVE · NO DEPLOY**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 · Codex Desktop P468 · **RUN16 STARTED · CANDIDATE ONLY · NO DEPLOY**
+- STARTED@HJW-G8-FS-HELPER-LOCAL-GIT-20261029-16 2026-10-29T10:28Z · executor=Codex Desktop/MacBook · READY@806230863ae5a26f0cd8ecade4317d32c083a593 verified; pins unchanged; VPS-GHI CAS; Guard PRE rồi Git local ref/lab.
 - **P467/B3:** Claude P466 ACCEPT_WITH_CHANGES, Host input table 8/8 có bằng chứng hoặc N/A, DROOT60 áp toàn workspace; READY@806230863ae5a26f0cd8ecade4317d32c083a593 cho RUN16 chỉ Claude/helper Git local G8 candidate, 0 production mutation.
 - **P464:** READY đúng SHA; chưa chứng minh đường Git release cho Claude/helper. AD GitHub có quyền push, không tự chuyển source khác vào đó. Candidate P460 giữ nguyên; ba test/rebuild/rollback RUN15 chưa chạy, không mutation.
 - **P463/B3:** Claude P462 ACCEPT_WITH_CHANGES, GPT Host đã fold 3 điểm, ký READY RUN15 G8 candidate-only trên PROMPT SHA `9bcf22cad...`; chưa triển khai. P460 an toàn, G8 production chưa nghiệm thu.
