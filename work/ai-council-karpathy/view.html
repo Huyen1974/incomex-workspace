@@ -83,6 +83,14 @@ small.f{color:#6b7785;font-size:13px}
 .kd-visual,.kd-order{margin-top:13px;font-size:15px;line-height:1.7}
 .kd-note{font-size:14px;color:#556274}
 
+
+/* P22 UX: five cards first row (4 closed + 1 ready), four pending below; not squeezed into nine narrow columns */
+#roadmap-master .bar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;align-items:stretch}
+#roadmap-master .cell{flex:none;min-width:0;min-height:150px;overflow-wrap:anywhere;white-space:normal}
+#roadmap-master .cell .t{line-height:1.38}
+#roadmap-master .cell .w{font-size:13px;line-height:1.48}
+@media(max-width:1000px){#roadmap-master .bar{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){#roadmap-master .bar{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* P22 — read-only roadmap coverage, not a second status source */
 #roadmap-master .sub{font-size:14.5px;line-height:1.65}
 .rm-side{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-top:12px;font-size:14px}
