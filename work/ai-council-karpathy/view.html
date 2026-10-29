@@ -52,16 +52,16 @@ small.f{color:#6b7785;font-size:13px}
 </style>
 </head>
 <body><main>
-<span class="flag">HỒ SƠ §3.0 · N0 KQ XONG P13 · GPT P14 chờ Claude phản biện</span>
+<span class="flag">HỒ SƠ §3.0 · N0 ĐẠT (Claude P15) · chờ GPT Host chốt PROMPT N1</span>
 <h1>Hội đồng AI — toàn cảnh và kế hoạch</h1>
-<p class="sub">Trang này là bản xem dựng từ hồ sơ <b>COLLAB §3.0</b> (P11). GPT Host P12 đã bổ sung trạng thái và các rào an toàn ngay tại §3.0; <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-karpathy/COLLAB.md">đọc nguồn chuẩn và cập nhật P12</a>. Ma trận 115 mục vẫn là <b>ảnh chụp hồ sơ, chưa kiểm nghiệm máy live</b> (N0 sẽ đo).</p>
+<p class="sub">Trang này là bản xem dựng từ hồ sơ <b>COLLAB §3.0</b> (P11). GPT Host P12 đã bổ sung trạng thái và các rào an toàn ngay tại §3.0; <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-karpathy/COLLAB.md">đọc nguồn chuẩn, cập nhật mới nhất P15</a>. Ma trận 115 mục vẫn là <b>ảnh chụp hồ sơ, chưa kiểm nghiệm máy live</b> (N0 đã đo phần thiếu: xem P13).</p>
 
 <section class="panel ask">
 <h2>Anh cần biết</h2>
 <ol><li>Hệ hội đồng <b>đã có gần đủ luật</b>: ghế, Host, vòng, một chữ ký READY, ý kiến khác hãng, chuông, chỉ đạo Owner. Luật nằm ở <code>AGENTS.md</code> và HJW.
 </li><li><b>Máy chặn thật</b> mới có ở hai chỗ: cổng ghi repo (chỉ ghi qua gateway, chống ghi đè, danh tính theo chìa) và đường giao việc cho Hermes.
 </li><li><b>Hội đồng gần như toàn làm tay.</b> Chưa máy nào kiểm "người ký READY có phải Host", "đã có ý kiến khác hãng chưa", "chuông có đang mở không". Phần máy này trước giao HJW N4, nhưng N4 chưa mở nên không ai làm (điểm đỏ Đ1). Theo D04, task này (ACK) nhận làm đầu mối.
-</li><li><b>Xưng danh khi ghi</b> đã thiết kế và khảo sát mã xong. <b>HJW RUN11 đã KQ DỪNG S0</b> vì CLIENT_REFRESH_PATH_UNVERIFIED, chưa thi công; HJW phải xử lý rồi ký lệnh hợp lệ mới.
+</li><li><b>Xưng danh khi ghi</b> đã thiết kế và khảo sát mã xong. RUN11 dừng ở S0; <b>RUN12 chia pha đã bắt đầu 29/10</b> (Codex, đang làm bản thử offline, chưa đụng production).
 </li><li><b>Từ Karpathy lấy 16 món</b>: 14 dùng + 2 tuỳ chọn. Đều là <i>mẫu</i> (khuôn lệnh, khuôn báo cáo, dòng ý kiến máy đọc, màn hội đồng 3 tầng…), <b>không chép mã</b>.
 </li><li><b>Kế hoạch:</b>
 <ul><li>N0: đo khoảng trống.
@@ -73,12 +73,12 @@ small.f{color:#6b7785;font-size:13px}
 </li></ul>
 </li></ol>
 <h3>Anh cần làm bây giờ</h3>
-<ul><li><b>Một việc:</b> chuyển P13/P14 cho Claude Chat phản biện B2. N0 đã KQ XONG, <b>không gửi lại Codex</b>; chưa có N1 READY.</li>
-<li>Song song, ở HJW: <b>không gửi lại RUN11 đã DỪNG</b>; Host HJW phải xử lý blocker và ký lệnh mới.</li>
-<li>Chưa có quyết định nào phải gật lúc này. Hai lần anh sẽ cần quyết: <b>sau N1</b> (duyệt dọn luật + định nghĩa "đồng ý khác hãng") và <b>trước N2</b> (cho phép gắn chốt máy vào cổng ghi và sửa Task View).</li></ul>
+<ul><li><b>Một việc:</b> chuyển P15 cho GPT Host làm B3: nghiệm thu N0 và ký PROMPT N1. Có PROMPT N1 thì anh chuyển cho <b>Claude Code</b>; xong, đưa KQ cho <b>Codex</b> rà.</li>
+<li>Song song, ở HJW: RUN12 đang chạy — <b>không gửi lại</b>, chờ KQ.</li>
+<li>Chưa có quyết định nào phải gật lúc này. Hai lần anh sẽ cần quyết: <b>sau N1</b> (một lần gật cho 3 việc: định nghĩa "đồng ý khác hãng", cách anh xác nhận khi đổi Host, phạm vi máy chặn) và <b>trước N2</b> (cho phép gắn chốt máy vào cổng ghi và sửa Task View).</li></ul>
 </section>
 
-<section class="panel"><h2>Roadmap</h2><div class="bar"><div class="cell done"><span class="tag">xong</span><div class="t">Bàn + kế hoạch</div><div class="w">🤖 D01–D03</div></div><div class="cell done"><span class="tag">xong</span><div class="t">Bản đồ + D04</div><div class="w">🤖 P08 · P09</div></div><div class="cell done"><span class="tag">xong</span><div class="t">Hồ sơ đầy đủ</div><div class="w">🤖 P11 · Host rà</div></div><div class="cell now"><span class="tag">B2 · đang ở đây</span><div class="t">Rà N0</div><div class="w">Claude review P13/P14 · 0 RUN</div></div><div class="cell todo"><span class="tag">N1</span><div class="t">Dọn luật + khuôn</div><div class="w">🤖 W2 W3 W4</div></div><div class="cell todo"><span class="tag">N2</span><div class="t">Chốt máy + màn hình</div><div class="w">🤖 W5 W6 W7</div></div><div class="cell todo"><span class="tag">N3</span><div class="t">Chạy thử thật</div><div class="w">🤖 đổi Host</div></div><div class="cell todo"><span class="tag">N4</span><div class="t">Anh nghiệm thu</div><div class="w">😊 30 giây</div></div></div></section>
+<section class="panel"><h2>Roadmap</h2><div class="bar"><div class="cell done"><span class="tag">xong</span><div class="t">Bàn + kế hoạch</div><div class="w">🤖 D01–D03</div></div><div class="cell done"><span class="tag">xong</span><div class="t">Bản đồ + D04</div><div class="w">🤖 P08 · P09</div></div><div class="cell done"><span class="tag">xong</span><div class="t">Hồ sơ đầy đủ</div><div class="w">🤖 P11 · Host rà</div></div><div class="cell now"><span class="tag">B3 · đang ở đây</span><div class="t">Chốt N1</div><div class="w">Claude P15 nhận N0 · GPT ký PROMPT N1</div></div><div class="cell todo"><span class="tag">N1</span><div class="t">Dọn luật + khuôn</div><div class="w">🤖 W2 W3 W4 · Claude Code làm, Codex rà</div></div><div class="cell todo"><span class="tag">N2</span><div class="t">Chốt máy + màn hình</div><div class="w">🤖 W5 W6 W7</div></div><div class="cell todo"><span class="tag">N3</span><div class="t">Chạy thử thật</div><div class="w">🤖 đổi Host</div></div><div class="cell todo"><span class="tag">N4</span><div class="t">Anh nghiệm thu</div><div class="w">😊 30 giây</div></div></div></section>
 
 <section class="panel"><h2>1 · Đã làm gì cho hội đồng — 10 khối</h2>
 <p class="sub">Bảng 115 mục chi tiết (mỗi mục một dòng) ở COLLAB §3.8. Bấm vào từng khối để xem: ✅ đã có (ở đâu, task nào) · 🔵 đang dở · ⚪ chưa làm · 🆕 mới thêm · 🔴 vướng · món Karpathy · gói việc. Chấm màu = số mục theo tình trạng: 🟢 máy chặn · 🟡 làm tay · 📝 chỉ chữ · 🔵 đang làm · ⚪ chưa làm · 🆕 mới · ✖ bỏ · 🔴 tắc.</p>
@@ -496,7 +496,7 @@ next_trigger: &lt;TÊN&gt;
 <h3>Thứ tự và phụ thuộc</h3>
 
 <div class="dep">
- <div class="lane"><div class="box ready">W0 · Đo khoảng trống<small>N0 · KQ XONG P13 · chờ review</small></div><div class="box ready">W1 · Xưng danh khi ghi<small>HJW RUN11 · DỪNG S0 · chưa thi công</small></div></div>
+ <div class="lane"><div class="box ready">W0 · Đo khoảng trống<small>N0 · KQ XONG P13 · Claude P15 nhận · chờ Host chốt</small></div><div class="box ready">W1 · Xưng danh khi ghi<small>HJW RUN12 · đang chạy · bản thử offline</small></div></div>
  <div class="arr">▼</div>
  <div class="lane"><div class="box">W2 · Dọn luật chồng</div><div class="box">W3 · Một khuôn lệnh + báo cáo</div><div class="box">W4 · Dòng ý kiến / kết luận máy đọc</div><div class="note">N1 · 😊 Owner duyệt luật</div></div>
  <div class="arr">▼</div>
@@ -506,7 +506,7 @@ next_trigger: &lt;TÊN&gt;
  <div class="lane"><div class="box">W9 · Chạy thử thật + đổi Host giữa chừng<small>N3</small></div><div class="box">W10 · Anh nghiệm thu 30 giây<small>N4</small></div></div>
 </div>
 <h3>Từng gói việc (bấm để xem đủ: đã có · phải làm · không được làm · đầu vào · đầu ra · kiểm xong)</h3>
-<details class="wp wip" open><summary><span class="wid">W0</span> <b>Đo khoảng trống (N0)</b><br><span class="wm">KQ XONG P13 (Codex) · Claude review/B2 · GPT Host chốt sau</span></summary><div class="bb"><ul><li><b>Đã có:</b>
+<details class="wp wip" open><summary><span class="wid">W0</span> <b>Đo khoảng trống (N0)</b><br><span class="wm">KQ XONG P13 (Codex) · Claude P15 ACCEPTED · chờ GPT Host chốt B3</span></summary><div class="bb"><ul><li><b>Đã có:</b>
 <ul><li>PROMPT <code>ACK-N0-VERIFY-GAPS-20261028-03</code>.
 </li><li>READY do Host ký ở P09.
 </li></ul>
@@ -518,12 +518,12 @@ next_trigger: &lt;TÊN&gt;
 </li><li><b>Không được làm:</b> không sửa mã, luật, runtime; không đo lại khảo sát P444 hay C2-A; không quét lại cả 115 mục.
 </li><li><b>Đầu ra:</b> một mục P + dòng KQ trong COLLAB này.
 </li><li><b>Kiểm xong:</b> mỗi hàng có bằng chứng; hàng chưa đo ghi UNKNOWN.
-</li><li><b>Owner cần làm:</b> chỉ chuyển P13/P14 cho Claude Chat, không chạy lại N0.
+</li><li><b>Owner cần làm:</b> chuyển P15 cho GPT Host (B3); không chạy lại N0.
 </li></ul></div></details>
-<details class="wp todo"><summary><span class="wid">W1</span> <b>Xưng danh khi ghi</b><br><span class="wm">HJW P448: RUN11 DỪNG ở S0 do CLIENT_REFRESH_PATH_UNVERIFIED · chưa thi công · HJW xử lý</span></summary><div class="bb"><ul><li>Nội dung đầy đủ ở <b>Khối 4</b>.
+<details class="wp todo"><summary><span class="wid">W1</span> <b>Xưng danh khi ghi</b><br><span class="wm">HJW: RUN11 DỪNG ở S0 → RUN12 chia pha đã bắt đầu 29/10 (P452, Codex) · bản thử offline · ACK chờ KQ</span></summary><div class="bb"><ul><li>Nội dung đầy đủ ở <b>Khối 4</b>.
 </li><li>ACK <b>không làm, không rà lại</b>; chỉ nhận kết quả.
 </li><li><b>Kiểm xong (của HJW):</b> C1/C2 đạt, 2 cổng cùng một hợp đồng, Git author và quyền nghiệp vụ không đổi.
-</li><li><b>Owner cần làm:</b> không gửi lại RUN11 đã DỪNG; HJW Host kiểm client refresh và ký lệnh mới sau khi xử lý blocker.
+</li><li><b>Owner cần làm:</b> không gửi lại RUN11; RUN12 đang chạy ở HJW — chờ KQ.
 </li></ul></div></details>
 <details class="wp todo"><summary><span class="wid">W2</span> <b>Dọn luật chồng (N1, gỡ Đ2)</b><br><span class="wm">⚪ · Founders (GPT + Claude) soạn → Owner duyệt</span></summary><div class="bb"><ul><li><b>Phải làm:</b> viết <b>một D ở COLLAB gốc</b> gồm các dòng "thay bởi". <b>Không xoá lịch sử</b>, không biên soạn lại 88 KB AGENTS.
 <ul><li><b>a.</b> DROOT31 và DROOT38(c) (đòi Reviewer ACCEPT) → <i>thay bởi DROOT58</i>.
