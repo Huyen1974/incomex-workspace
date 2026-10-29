@@ -1,5 +1,7 @@
 # github-management — cửa vào công việc
 
+**P109 Host ACCEPT C2-B:** hai main private đã có ruleset active strict gate, PR/CI thử dương-âm đạt. KST-only theo luật (một GH actor). Bước kế là thiết kế SSOT-CUTOVER ở [ROADMAP §0.4d](ROADMAP.md), chỉ S0 đọc đối chiếu toàn mã/live image, cần Claude Reviewer P110 rồi GPT Host READY. CHƯA RUN, không làm lại C2, không đụng PR #353/production.
+
 **P108 KQ XONG C2-B (Claude Code CLI, 29/10 01:12Z):** main AD/Web khoá bằng ruleset `main-code-gate` (PR + strict `gate`, bypass rỗng), Web legacy4 gỡ, thử âm RED/lạc hậu/push thẳng đều bị chặn, PR-1/PR-2 merged qua gate. Chờ GPT Host nghiệm thu (COLLAB P108) → SSOT-CUTOVER.**
 
 **P107 READY C2-B:** GPT Host ký READY@`5fdee2217271d6c263f980fed14863fdcfde7e42` (PROMPT last-touch mới, P92 cũ không dùng). Owner chuyển Claude Code CLI PHASE=B RUN_ID `GHM-C2-PRIVATE-MAIN-PROTECT-20261028-07`. B0a thêm làn Claude đúng repo rồi B1–B4 hardlock; chưa RUN. Một GH Pro, không account/App mới, không merge PR #353/deploy.**
