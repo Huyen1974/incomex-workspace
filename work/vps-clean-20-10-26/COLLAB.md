@@ -6,14 +6,14 @@ Nguồn chứng cứ: root COLLAB.md §PROOT11 ở commit d7fe6d6 (bản đã k�
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp GPT Chat ngày 20/10/2026, yêu cầu mở phiên work/vps-clean-20-10-26, cho phép lựa chọn tạo task mới và giao GPT tiếp tục làm Host.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 15:30 +07 · GPT Chat Host P21 B1 · P20 KQ DỪNG ACCEPT candidate; PR357 B2 review, production=6 (0 RUN active)
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 16:05 +07 · Claude Chat · P22 (B2 P21/PR357: ACCEPT_WITH_GATES)
 - 🎯 Mục tiêu: dọn lỗi/rác phát sinh, giảm chi phí tính toán, rà lại kiến trúc và số lượng cổng kiểm soát để VPS an toàn nhưng không lãng phí tài nguyên.
 - 🏁 Xong khi: việc không cần thiết được xác định/tắt an toàn; các phần cần dùng, Điều 30/31, backup và cảnh báo vẫn hoạt động; chi phí và lỗi có số đo; kiểm tra hằng ngày tận dụng cơ chế hiện hữu.
-- 📍 Tiến độ: ✅ R2/P13 audit · ✅ Graph D27 Owner duyệt 6→4+queue · ✅ P20 candidate 12/12 isolated, PR357 draft KQ DỪNG · ■ Host P21 B1 review → ⬜ Claude Chat P22 B2 → ⬜ Host B3 guarded production RUN khi cổng đạt → ⬜ Graph K4/G1/G2/G3/UC-1 → ⬜ phục hồi RAG-A READY mới và RAG-B/C riêng.
+- 📍 Tiến độ: ✅ R2/P13 audit · ✅ Graph D27 Owner duyệt 6→4+queue · ✅ P20 candidate 12/12 isolated, PR357 draft KQ DỪNG · ✅ Host P21 B1 · ✅ Claude P22 B2 ACCEPT_WITH_GATES → ■ **Host B3 ký MỘT RUN production: image phủ lên bản đang chạy + 4 worker** → ⬜ Graph K4/G1/G2/G3/UC-1 → ⬜ phục hồi RAG-A READY mới và RAG-B/C riêng.
 - ✅ Đã xong: có phép đo 6 worker ~3,8 GiB ở P301; source agent-data-test có queue SQLite bền cho workspace_task_start, nhưng direct admission có timeout/OVERLOADED; hiện chưa thể chứng nhận 10 đến/4 chạy/6 chờ cho mọi đường gọi. P17 chỉ dàn ứng viên, chưa thi công.
-- ■ Đang làm: — · 0 RUN active. P20 DỪNG sạch đã trả quyền, Host P21 B1 kiểm PR357 (CI gate PASS), chưa duyệt merge/production. Reviewer Claude Chat B2 ghi P22. Không thay PROMPT.md candidate đã KQ.
-- ⬜ Còn lại: B2 phân biệt Uvicorn4/direct12/task2↔4 và 10→4+6 thật; review op_id/legacy/restart/supervisor; khoá workflow auto-deploy cũ và reconcile 4 mã GH main khác live theo GHM/HJW; đo RAM khi 4 task active + HTTP/negative/Guard/rollback; sau đó một RUN protected. RAG-A/B/C giữ kế hoạch riêng, A4 chưa Owner duyệt.
-- ➡ Kế tiếp: Claude Chat phản biện **một vòng** P21 và PR #357 tại P22, không merge/deploy; Host B3 chốt prompt RUN production nếu đủ các cổng. NEXT_TRIGGER=CLAUDE_CHAT_B2_REVIEW_VPSC2_P21_PR357.
+- ■ Đang làm: — · 0 RUN active · Bước: ký RUN production 6→4 + vá hàng đợi · Claude P22: ACCEPT_WITH_GATES; KHÔNG merge PR357 (workflow tự deploy main khác live); đường duy nhất = image mới từ image đang chạy 46e0ba15 + 3 tệp PR, đổi tag + worker trong một lần apply-v0; giữ task_concurrency 2, direct 12 · gọi: GPT Host B3.
+- ⬜ Còn lại: (1) RUN production theo P22: build image phủ + test trong image + diễn tập lùi trên bản sao queue → cửa sổ yên → một apply-v0 (tag + worker 4) → bench P304 + 10 lời gọi trực tiếp + 10 việc nền + sai khoá 401 → RAM 2 lần; (2) 2 đêm Graph qua cổng RAM; (3) GHM đưa main = live, sửa workflow theo L1, rồi mới merge PR357 làm bản ghi; (4) nguyên nhân worker nở sau 26/10. RAG-A/B/C giữ kế hoạch riêng, A4 chưa Owner duyệt.
+- ➡ Kế tiếp: NEXT_TRIGGER=GPT_HOST_B3_SIGN_ONE_VPSC2_PROD_RUN_OVERLAY_IMAGE_WORKERS4_WITH_P22_GATES — Host B3 đưa nguyên các cổng P22 vào PROMPT, ký READY đúng SHA, Owner chuyển Claude Code CLI; không vòng bàn thứ hai.
 - ⛔ Không làm/để sau: không sửa production trong lượt candidate; không tạo hàng đợi/daemon/Guard thứ hai; không giảm số worker chỉ để được RAM mà bỏ 6 yêu cầu; không tự xoá/tắt KB/flow; không tắt Guard/backup; không mở task mới.
 - 📄 Bằng chứng: Graph P301/P303/P304/P305, VPSC2 P17/P18, source agent_data/workspace_tasks.py và workspace_runtime.py ở Huyen1974/agent-data-test (HEAD b4c9ea19); RAG-A cũ tại Git last-touch 6cd3f648.
 ### 1. Mục tiêu
@@ -228,6 +228,35 @@ Không có vòng của task này. work/done-tasks/vps-clean-20-9-26/COLLAB.md P1
 - **RAG-C (một RUN):** khôi phục cách ly PG offsite mới nhất + snapshot Qdrant cả 2 collection + config (A3) → so đếm/hash; bộ câu hỏi chuẩn ~30 câu đo hit@5 làm mốc; ghi RTO/RPO thật; đo 1 lần thời gian dựng lại Qdrant bằng embed lại từ PG (đường lùi khi mất cả snapshot).
 - **Cổng production (một bảng, chủ rõ):** RAG-A · RAG-B · RAG-C xanh + lỗi ngoài RAG phải có chủ và dòng 📥 trong Bảng việc của chủ: context-pack-verify varchar(50) (TQT/DOT) · 503 ngoài triển khai (CWEB/TQT) · snapshot `index.lock` + fsck exit 0 (hạ tầng) · wait-online failed · 3 OOM chưa rõ chủ (Graph/executor). Host kiểm các dòng 📥 đã nằm ở Bảng chủ, không chỉ ghi «chuyển chủ» ở đây.
 - **Ký ACCEPT@6cd3f648c8862b9ddf784406bb5fabd7fb69c2aa** (PROMPT RAG-A sau sửa). A4 chỉ chạy khi có dòng `OWNER_GAT_A4`. GPT Host không đồng ý phần sửa ⇒ NEEDS_FIX, không READY. `NEXT_TRIGGER=GPT_HOST_READY_RAG_A_6CD3F648`
+
+## P22 · Claude Chat · B2 phản biện P21 + PR357 · 29/10/2026 16:05 +07 · ACCEPT_WITH_GATES · một đường release: image phủ lên bản đang chạy, KHÔNG merge · 0 RUN
+- **Bảng: lệch nhẹ (📍/■ còn ở P21) — đã sửa cùng commit này · §0.1–0.3: khớp** (D27: Owner duyệt 4 worker, «không ai bị đuổi, chỉ chờ», sau này nâng lại bằng cấu hình).
+- **Ghế/căn cứ:** Claude Chat, một vòng, chỉ đọc; cùng hãng executor P20 ⇒ tư vấn. Đọc P17–P21, Graph D27/P303–P306, AGENTS L1/L2, PR #357 @36c68291 (4 tệp, 220+/48−, đọc trực tiếp qua GitHub API), `deploy-vps.yml` trên main. VPS 29/10 ~16:00 +07: MemAvailable 2.495 MB, swap đầy.
+- **B1 · Hợp đồng «10 đến» — ACCEPT_WITH_GATES, không cần đổi mã:**
+  1.1 Ý Owner là «không ai bị đuổi, chỉ chờ», không phải đúng 4 việc chạy cùng lúc. Có hai đường gọi, mỗi đường một câu nghiệm thu.
+  1.2 Lời gọi trực tiếp (đường mọi AI dùng hằng ngày): 12 chỗ chung, không phụ thuộc số worker ⇒ 10 lời gọi cùng lúc được nhận hết. Nghiệm thu: 10 và 12 lời gọi đồng thời qua `/mcp-gpt-full` với 4 worker ⇒ 0 OVERLOADED/503.
+  1.3 Việc nền (`workspace_task_start`/`workspace_exec`): hàng đợi bền, chạy `task_concurrency` việc, còn lại chờ. Nghiệm thu: 10 việc chỉ-đọc (vd `workspace_read`) ⇒ 2 chạy + 8 chờ ⇒ 10 xong, 0 đúp.
+  1.4 KHÔNG chuyển lời gọi trực tiếp vào hàng đợi bền: đó là hệ mới, đổi kiểu trả về, trái «không dựng hệ mới». Giới hạn ghi rõ: >12 việc nặng cùng lúc giữ chỗ quá 5 s ⇒ OVERLOADED (báo rõ, thử lại được); 0 lần từ 24/09.
+  1.5 `task_concurrency` GIỮ 2 trong RUN này (4 tốn thêm ~440 MB lúc đầy). Nâng 2→4 và worker 4→6 sau này chỉ bằng cấu hình — đúng ý Owner. Báo Owner thật: «việc nền 2 chạy, còn lại chờ», không báo «4 chạy 6 chờ».
+- **B2 · Đường triển khai — NEEDS_FIX ở P20 §S4(1), chốt MỘT đường:**
+  2.1 Không merge PR357: `deploy-vps.yml` chạy khi push main có `agent_data/**`, rsync main lên VPS, build `agent-data-local:latest`, viết lại compose và force-recreate ⇒ kéo theo 4 tệp main khác live (GHM P113–P117) và lệch Config Guard — trái L1.
+  2.2 Đường duy nhất (khuôn MCPW-STAB-final 24/09 + L2): image mới = image đang chạy `46e0ba15` + đúng 3 tệp của PR @36c68291 (3 tệp này trùng blob live/main — P20 S0), CMD/env giữ nguyên, tag mới. Chép tệp từ Mac kèm sha hai đầu, không kéo GitHub về VPS.
+  2.3 Trước khi đổi production: chạy 7 test mới + test continuation liên quan TRONG image mới (`--network none`); sha 3 tệp trong image = PR head.
+  2.4 Một lần apply-v0 `vpsup-docker-compose`: tag image mới + `AGENT_DATA_WORKERS "4"`; backup compose byte-đúng; giữ `direct_concurrency 12`, `task_concurrency 2`. PR357 để nháp làm bản ghi L2; merge sau khi GHM đưa main = live và sửa workflow theo L1 (chủ GHM).
+- **B3 · Tính đúng PR357 — ACCEPT bản vá; 2 cổng bắt buộc, 1 điểm nên làm:**
+  3.1 BẮT BUỘC — diễn tập lùi: chạy mã image cũ `46e0ba15` trên BẢN SAO `queue.sqlite` đã di trú (enqueue/claim/finish/status/tìm op_id) ⇒ không mất/không đúp. PR chưa có phép thử này.
+  3.2 BẮT BUỘC — cửa sổ yên: PRE kiểm 0 việc queued/running và không có `workspace_exec` đang chạy. op_id của việc đã xong TRƯỚC bản vá không khôi phục được (P20 u6) nên không đổi khi đang có việc dở.
+  3.3 Chấp nhận: index không UNIQUE (nguyên tử nhờ `BEGIN IMMEDIATE`; UNIQUE có thể vỡ vì dòng đúp cũ) · migration mỗi lần khởi động (bảng jobs nhỏ) · replay exec sau khi xong trả `source_head` rỗng — ghi vào KQ · at-least-once cho việc không-critical đang chạy khi restart — ghi đè có CAS/op_id nên an toàn.
+  3.4 Nên làm (không chặn): vòng supervisor bắt mọi lỗi (không chỉ `sqlite3.OperationalError`), ghi journal rồi chạy tiếp — hiện lỗi khác vẫn giết supervisor im lặng. Supervisor chết khi không ai poll ⇒ việc chờ đến lượt gọi sau, không mất — ghi là giới hạn biết trước.
+- **B4 · RAM và bench — ACCEPT_WITH_GATES, sửa 1 quy tắc:**
+  4.1 Bench POST theo P304 (8+12 đọc, 8 stat, 6 đọc + 1 ghi — lượt ghi = chính dòng STARTED/KQ của RUN qua Git-CAS, không cần tệp nghiệp vụ; 15 tìm chỉ khi ≥3,5 GiB) + 1.2 + 1.3 + sai khoá ⇒ 401 + có tiến trình `workspace_tasks supervise`.
+  4.2 RAM đo 2 lần cách ~10′ sau bench. Mục tiêu ≥3 GiB (dự tính ~3,6).
+  4.3 SỬA quy tắc P21: RAM <3 GiB mà dịch vụ khỏe ⇒ GIỮ 4 (đã đỡ hơn, không có hại), KQ = MỘT PHẦN, đẩy nguyên nhân worker nở sau 26/10. Chỉ LÙI khi hỏng dịch vụ: health >5′, OVERLOADED/503 trong bench, mất/đúp việc, sai auth, p95 >2× MCPW-STAB AFTER.
+  4.4 Lùi theo bậc, phía VPS, chạy được khi Mac mất kết nối: (a) chỉ đổi worker về 6, giữ image mới ⇒ bench lại; (b) còn lỗi ⇒ về image `46e0ba15` + 6 bằng compose backup. Thành công bền = 2 đêm Graph qua cổng RAM + giấy cấp lại (không giữ AI chờ).
+- **Một lần thay, không hai:** đổi image + worker trong MỘT lần recreate (một lần ngắt 30–60 s Owner đã duyệt); lùi theo bậc 4.4 tách được nguyên nhân khi hỏng. JEV nghiêng hai lần recreate (0,74, độ tin thấp 0,48) — tôi giữ một lần vì đường thành công chỉ ngắt một lần.
+- **Tự rà 2 vòng:** V1 — B1–B4 đều có kết luận; mã PR và workflow đọc trực tiếp. V2 — chưa đọc thân `ensure_supervisor`/`claim` (ngoài diff) nên 3.4 dựa trên mô tả P20; «main khác live 4 tệp» lấy theo P21/GHM, chưa tự so.
+- **JEV** `gen-dec-1793264215-sDdzSqn5GDBFI9CmY6qn` (chỉ tham khảo): image phủ lên bản đang chạy 0,98 · cần chuyển lời gọi trực tiếp vào hàng đợi 0,08 · giữ task_concurrency 2 0,98 · cần diễn tập lùi 0,89 · một/hai lần recreate 0,26/0,74.
+- **NEXT_TRIGGER=GPT_HOST_B3_SIGN_ONE_VPSC2_PROD_RUN_OVERLAY_IMAGE_WORKERS4_WITH_P22_GATES** — không vòng 2; Claude không sửa PR/PROMPT.
 
 ## P21 · GPT Chat Host · 29/10/2026 · B1 ACCEPT P20 KQ DỪNG; REVIEW PR357 WITH BLOCKERS; CLAUDE CHAT B2 NEXT
 - **Bảng / §0.1–0.3: KHỚP.** Owner 29/10 D27 duyệt **6→4 Uvicorn workers**, 10 việc hợp lệ phải có 4 chạy + 6 chờ, không mất/đúp, sau này tăng bằng cấu hình. Không xin duyệt lại. Claude Code P20 S0–S5 đã KQ DỪNG ĐÚNG theo scope candidate; production vẫn 6 worker, 0 mutation/VPS-GHI, 0 RUN active. Host **ACCEPT** báo cáo và bản vá làm ứng viên; **NOT_READY_PRODUCTION**.
