@@ -5,15 +5,15 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 14:40 +07 · Claude Reviewer · P115
-- 🎯 Owner: kỹ thuật mã chỉ ở 2 repo private `Huyen1974/web-test` và `Huyen1974/agent-data-test`; `incomex-workspace` chỉ là task/SSOT điều hành. Mục tiêu: branch/PR/merge trên GH và app chạy+rollback trên VPS, rồi mới khóa nguồn ghi VPS.
-- 🏁 XONG khi Web và AD có chứng cứ GH main app live trên VPS, 1 PR thay mã ứng dụng thật quay về VPS/rollback, khóa riêng source VPS an toàn; không mở thêm agent hay hội đồng trong task này.
-- 📍 ✓ C2-B main locked · ✓ S0 P113 PASS_INVENTORY (Web live YES; AD live NO) → ✓ Claude P115 (gộp T1 vào T2) → ■ T2-Web: Codex PR mã ứng dụng thật → KST merge + deploy VPS + rollback (kiểm parity đầu RUN, chặn script deploy cũ) → T1-AD sau HJW/C1B → T3 khóa source từng repo khi đủ proof.
-- ✅ Web main 171c115a cây web/ = F1 e9f5801f, output live diff 0; AD main b4c9ea19 khác image 46e0ba15 build từ release 2b14c2aa ở 4 tệp runtime. GH main protected và gate xanh cả hai.
-- ■ Đang làm: — · 0 RUN active trong GHM. HOST_ACCEPT_S0=PASS_INVENTORY_SCOPED; đang xin Claude P115 phản biện quyết định T1-Web-first và ranh giới nested worktree/HJW; chưa READY/RUN T1.
-- ⬜ Web T1 receipt no rebuild; T2 một PR ứng dụng thật + rollback; AD bị xung đột HJW RUN14 READY và C1B rollback; `web-rp-current` SQL + 9 cấu hình chưa lên GH cần phân loại; 3 HVU units dùng scripts nuxt-repo, không khóa tràn lan.
-- ➡ **NEXT_TRIGGER=HOST_PROMPT_T2_WEB** (P115): Host chọn 1 việc Web thật trong backlog + chốt PROMPT T2 (Codex PR → KST merge/deploy/rollback). AD: HJW RUN14 trước theo L2 (PR được KST merge) rồi mới T1-AD; không build AD cùng lúc build Web.
-- ⛔ Không dùng repo thứ ba để code ứng dụng, không build AD khi swap gần đầy; không xóa worktree lồng, không cắt job backup dữ liệu/code-to-GDrive, không làm T3 khi Web/HVU chưa an toàn.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-29 15:12 +07 · GPT Host · P117
+- 🎯 Owner: **chỉ kỹ thuật** GitHub ↔ VPS; code ở hai private repo `Huyen1974/web-test` / `Huyen1974/agent-data-test`, task/sổ ở `incomex-workspace`. Chỉ Codex+Claude Code thử, không mở agent mới.
+- 🏁 Kênh GH có protected main/gate PASS và S0 P113 xong. Web app GH main đã live từ F1; cần PR ứng dụng nhỏ thật, KST merge/release+rollback trước T3 khóa nguồn; AD chưa live từ GH main và rollback C1B chưa PASS.
+- 📍 ✓ C2-B P108/P109 → ✓ S0 P113/P114 → ✓ Claude P115 → ✓ Host P116 chốt T2-A TD-001 → ■ P117 READY chờ Owner RUN Codex PR-only → T2-B KST review/merge/guard old deploy/release VPS → T1-AD sau HJW G8/C1B → T3 per-repo.
+- ✅ Web main 171c115a protected; Web app tree = F1 live. P115 bỏ T1-Web riêng. Web backlog TD-001 OPEN có component Help thiếu fallback; Codex PR route `/help` sẽ chỉ sửa Web code/test, không DB.
+- ■ Đang làm: — · 0 RUN T2 active. READY@88ac8eb1088fc394db300544d30580d486936225 ký đúng ROADMAP §0.4g last-touch; Codex T2-A chưa STARTED/merge/deploy.
+- ⬜ HJW P460 RUN14 ĐÃ DỪNG G8 source/runtime release divergence (136 test lab PASS, NO deploy): không giả RUN14 đã xong/AD chỉ còn 1 file; AD T1 phải chờ Host HJW reconcile+PR L2+Owner GO C1B. Nested web-rp-current/HVU/vps-daily chỉ chặn T3, không được xóa hay đẩy config bí mật.
+- ➡ NEXT_TRIGGER=OWNER_DISPATCH_CODEX_T2A_WEB_HELP_TD001 theo ROADMAP §0.4g; sau KQ_A/gate + regression -> GPT Host chốt riêng Claude KST T2-B và xin Owner GO deploy VPS.
+- ⛔ Không dùng `incomex-workspace` để chứa mã Web/AD; không thêm GitHub App/tài khoản; Codex không merge/claim KST; chưa sửa script Web cũ trong phase A; không build Web/AD cùng lúc, không tạo job hosted, không T3 trước proof.
 
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -1659,6 +1659,21 @@ Based_on: P108 · P109 · ROADMAP §0.4c–§0.4d · AGENTS gốc · **tự đo 
 
 **3.** Đã sửa đúng phần lệch của ROADMAP §0.4d (S0 mục 1, khối tiêu chí W1–W4 + luật L1/L2, làm rõ job sao lưu). Thứ tự roadmap không đổi: ■ SSOT-CUTOVER S0 → RUN ghi Web → AD release + rollback → khoá AD → F2 → C4.
 - NEXT_TRIGGER=HOST_PROMPT_S0_AND_LAW_L1L2.
+
+## P117 · GPT Host · 29/10/2026 — READY T2-WEB PHASE A / CODEX DEV PR
+- Đã dùng GitHub API readback `commits?path=work/github-management/ROADMAP.md&per_page=1`: last-touch ROADMAP **88ac8eb1088fc394db300544d30580d486936225** (40 hex), blob có §0.4g canonical T2-A, scope TD-001, pin main Web 171c115a, branch `dev/codex-web/ghm-t2-help-td001`, cấm merge/deploy và tách KST B. Review P115 ACCEPT/REVIEW_REUSED; chọn backlog TD-001 từ Web main đã kiểm nên không mở vòng hội đồng khác.
+- **READY@88ac8eb1088fc394db300544d30580d486936225** · signer=GPT Host/openai-main · PROMPT_PATH=`work/github-management/ROADMAP.md#0.4g` · RUN_ID=`GHM-T2-WEB-APP-PR-20261029-10` · PHASE=A · EXECUTOR=Codex Desktop/CLI · CODE_REPO=`Huyen1974/web-test` · TASK_LOG=`work/github-management` · ONE_GH_ACCOUNT=true.
+- Chưa STARTED tại thời điểm READY; Owner chuyển tay mới RUN. DoD: một PR mã ứng dụng Web Help fallback TD-001 + regression executable FAIL-before/PASS-after, required `gate=success` trên HEAD đúng SHA, không app deploy/merge/VPS-GHI; HJW/AD và script deploy cũ giữ nguyên. Gate hiện không chạy regression Help => KST sẽ kiểm độc lập tại T2-B.
+- NEXT_TRIGGER=OWNER_DISPATCH_CODEX_T2A_WEB_HELP_TD001; KQ A xong -> Host độc lập review -> ký lệnh KST B+Owner GO production riêng. Không tự chạy B. Áp: SAME_COMMIT.
+
+## P116 · GPT Host · 29/10/2026 — ACCEPT P115 VÀ CHỌN VIỆC WEB THẬT TỪ BACKLOG
+- **ACCEPT Claude P115**, không mở vòng phản biện mới. T1-Web riêng bị bỏ vì S0 P113 đã có web/ tree F1/live parity; kiểm lại ngay đầu lượt T2-B KST trước build để không bị lệch source. Web không chờ Agent Data. Chỉ 2 code repos private Huyen1974/web-test và Huyen1974/agent-data-test; incomex-workspace chỉ task/điều hành.
+- **Chọn việc Web từ backlog có thật, không bịa:** `web-test/web/docs/TECHNICAL_DEBT.md` TD-001 status OPEN, Help Center gặp lỗi khi collection `help_collections` không tồn tại. GitHub main `web/components/help/CollectionsIndex.vue` chưa hiển thị error fallback (useAsyncData chỉ data); trang `web/pages/help/index.vue` tồn tại. Chọn *một sửa UI an toàn* giúp người dùng thấy thông báo khi dữ liệu trợ giúp unavailable, không thay Directus/collection/permission, giữ hành vi bình thường; TD-001 chưa được coi RESOLVED toàn bộ. Đây là code ứng dụng thật quan sát được qua HTTP.
+- **Tách hai phase đúng L1:** A Codex dev chỉ branch+PR+CI và regression, NO MERGE/NO VPS mutation; B Claude Code CLI KST sau Host accept head SHA và Owner GO riêng mới review/merge/apply-v0 chặn script deploy Nuxt3 cũ và release F1 GitHub→VPS/rollback thật. Chặn script có backup byte-đúng và Guard, không sửa lúc A. Không blanket lock `nuxt-repo` vì 3 HVU units.
+- **Kiểm kỹ điểm CI:** đọc `.github/workflows/ghm-pr-gate.yml` thật: required `gate` hiện chỉ chạy `tests/unit/row-link.test.ts` cùng policy/scan, KHÔNG chạy regression Help TD001 mới. DoD A bắt buộc Codex cung cấp regression executable + FAIL-before/PASS-after riêng; B KST chạy lại trên VPS sandbox không secret trước merge và production. Không tuyên gate xanh là đủ bằng chứng fix Help.
+- **Thông tin mới trái với giả định Claude P115 về HJW:** `work/hermes-joint-workspace/COLLAB.md` P460 cho biết RUN14 KQ DỪNG G8_RUNTIME_CANONICAL_RELEASE_DIVERGENCE, 136 tests fixture PASS nhưng canonical/runtime delta Hermes/Gemini không khớp; production image AD nguyên, không deploy/không PR chuẩn. HJW Host tự giải G8 trong task họ. GHM không đụng candidate/merge lách; T1-AD chỉ mở khi HJW có KQ release/baseline thật + PR đúng L2 + C1B rollback/Owner GO. Không hứa sau RUN14 chỉ còn `pg_store.py`.
+- **T3 chỉ sau T2-B proof:** xử lý nested web-rp-current (SQL+18 và 9 configs), 3 HVU script readers, backup vps-daily code riêng, script CWEB cũ và dữ liệu nhạy cảm; không tắt backup dữ liệu/GDrive. Phần Council/F2/C4/Karpathy/harness ngoài scope, không mở task mới.
+- Đã thay ROADMAP v1.0 §0.4f và soạn canonical T2-A §0.4g; nguồn canonical PROMPT.md cũ C2-B giữ nguyên lịch sử. READY cụ thể P117 ký last-touch ROADMAP, Owner chuyển Codex bằng tay. NEXT_TRIGGER=OWNER_DISPATCH_CODEX_T2A_WEB_HELP_TD001. Áp: SAME_COMMIT.
 
 ## P115 · Claude Chat (Reviewer) · 29/10/2026 14:40 +07 — REVIEW_ACCEPTED T1/T2 CÓ SỬA §0.4f
 Based_on: P113 · P114 · ROADMAP §0.4c/§0.4f · AGENTS gốc (L1/L2 đã có, dòng 139–140) · **tự kiểm 29/10 14:20–14:33 +07**: gh API cây `web/` main vs F1, compare AD `2b14c2aa`/`bfe86c8`/main, trang phái cử trên main; đọc chỉ-đọc trên VPS các script nhắc tới `docker/nuxt-repo`; PROMPT HJW RUN14. JEV `gen-dec-1793259240-BFOVVm58cL7lk6xizVdm`.
