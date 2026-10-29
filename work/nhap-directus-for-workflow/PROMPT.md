@@ -2,9 +2,9 @@
 RUN_ID: NDW-TS4-S4-LUAT-GATE-20261029-01
 TASK: work/nhap-directus-for-workflow
 EXECUTOR_SURFACE: Claude Code CLI
-STATUS: **DRAFT · CHƯA OWNER G2 TS4 · CHƯA HOST READY · CHƯA OWNER DISPATCH. CẤM STARTED/MUTATION.** P101 Host đã sửa đúng 5 chỗ P100: fixture test trực tiếp validator, manifest chỉ 1 smoke, lùi apply-v0 thay wrapper bằng DISABLED, psql -1 lock+DO+file atomic, Điều 30/31 rõ, không dot-dot-register. Reviewer REUSED=P98/P100; không vòng Claude mới. Owner phải duyệt G2 đúng phạm vi 1 DOT hẹp + 3 Guard targets + 1 UPDATE 0, Host ký READY@full last-touch PROMPT SHA **sau đó**, rồi Owner chuyển Claude Code CLI khi VPS-GHI trống. P94 không cấp quyền này; cấm nạp luật/V3/Reports.
+STATUS: **OWNER_G2_APPROVED@P102 · HOST_READY_CHƯA_KÝ · CHƯA_OWNER_DISPATCH · KHÔNG_STARTED.** Owner đã duyệt đúng một DOT hẹp/3 Guard targets/1 manifest smoke và UPDATE 0 theo P100/P101. REVIEW_REUSED=P98/P100; không cần vòng Claude khác. Chỉ được chạy khi task COLLAB có Host `READY@<full last-touch PROMPT commit SHA>` ở P103 trong commit riêng, Owner chuyển DROOT38 và S0/S1 PASS. Không ghi luật thật/V3/Web/PG schema-role, không lách cổng cũ, không được dùng READY P95.
 
-READ_PATH: AGENTS.md A0/A6/R1a/R1b/R3/R4/DROOT30/31/48/58 → root COLLAB đọc lease → task COLLAB §0/P96–P101/§3.TQ/§3.KH → P98 R2/R3 và P100 T1–T5 → PROMPT này. VPS runtime DOT là SSOT; không lấy Git cũ ghi đè. P0 Web thuộc RUN khác, không đụng.
+READ_PATH: AGENTS.md A0/A6/R1a/R1b/R3/R4/**DROOT60**/DROOT30/31/48/58 → root COLLAB VPS-GHI → task COLLAB §0/P96–P102/§3.TQ/§3.KH (HUMAN_DIRECTIVE P102 + Host READY P103) → P98 R2/R3, P100 T1–T5 → PROMPT này, gồm INPUT READY TABLE. Runtime DOT ở VPS1 là SSOT; không checkout Git DOT cũ; P0 Web chạy phạm vi khác.
 WRITE_PATH: chỉ tạo mới trên VPS1 `/opt/incomex/dot/bin/dot-pg-s4-luat-apply` (root:root 755), `/opt/incomex/dot/lib/dot-pg-s4-luat-validate.py` (644), `/opt/incomex/dot/sql/s4-luat/approved-s4-luat-manifest.tsv` (644), một smoke SQL UPDATE 0 (644) trong `sql/s4-luat/`. **Manifest production đúng 1 dòng smoke**, không fixture khác. Registry thêm 3 target Config Guard qua `incomex-config-apply-v0`; Guard PRE/POST. Fixture kiểm tra chỉ trong RUN temp **ngoài** thư mục sản xuất. Disable wrapper bằng `apply-v0` cập nhật nội dung + baseline Guard, không đổi tên. Không sửa `dot-pg-atomic-apply`, label-apply, Guard core, PG schema/role, `dot-sql-approved-manifest`, Web/Graph/Directus; không gọi dot-dot-register/không Git add/reset/checkout.
 
 ## Đích nghiệm thu (một DOT thật, KHÔNG nạp luật)
@@ -35,8 +35,21 @@ Theo tài liệu PG18, `-1` gộp `-c` và `-f` vào một giao dịch; `LOCK` x
 **T5 · KHÔNG DÙNG LEGACY:** Không gọi `dot-dot-register` (TS2 P60 đã dừng). Ghi purpose ở đầu wrapper theo mẫu label-apply. S5 chỉ kiểm `dot-dot-catalog --check` nếu đã xác nhận read-only; thiếu tên mới không chặn/không tự sync.
 **Các cổng độc lập:** S0 xác minh G2 mới + READY đúng PROMPT + 0 STOP và VPS-GHI TRỐNG; nguồn DOT runtime VPS là chuẩn. Nhận thấy HJW đang giữ VPS-GHI tại lúc P100, **Owner không dispatch vào CLI khi lease còn bận**. Bảo toàn Git DOT dirty (P98 226 modified/34 untracked), manifest S4 trước đó vẫn ở baseline, không checkout/reset/add-A.
 
+## INPUT READY TABLE · DROOT60 · Host P102 (trước READY, không mở precheck RUN)
+| Nguồn đầu vào | HOST_VERIFIED và bằng chứng | EXECUTOR_FRESHNESS ở S0/S1 của cùng RUN |
+|---|---|---|
+| Quyền Owner/G2 và scope | P102 `HUMAN_DIRECTIVE@NDW-TS4-S4-LUAT-GATE-OWNER-G2-20261029`; 1 DOT hẹp + 3 Guard targets + 1 smoke UPDATE 0, không INSERT luật | đọc lại G2, READY full SHA, STOP/HOLD/STARTED |
+| Hội đồng/vai | COLLAB `COUNCIL_BOOTSTRAP_V1` có GPT Chat Host, Claude Chat Reviewer P98/P100, Claude Code CLI Worker/AUTO0; P101 đã chốt 5 sửa | kiểm council alert mới/role executor trong RUN |
+| Đường ghi & parser nguồn | P96 sử dụng DOT/Config Guard/live manifest+apply-v0 thành công, P100 đọc `dot-pg-label-apply` dòng 139–157 và importlib `tach_cau_lenh`; P101 đã đóng các lỗ. Không dùng Git DOT bẩn để deploy | S1 đọc code live, path/mode/khả năng psql, 3 path chưa tồn tại, --help, import, 17+ fixture; chỉ tạo sau PASS |
+| PG & tiêu chí kết quả | P96 S4 OID296646 14 cột/0 dòng, role workflow_admin, P98 PG18 đọc RO xác nhận; PG16 lock + DO + psql -1 đã thử 3 ca P100 | S1 PG18 thực tế đúng container/role/metadata, row 0; S3 UPDATE 0/PG metadata không đổi |
+| Config Guard & rollback | P96 Config Guard 556/556, apply-v0 quản registry/manifest + .pre, P100 đường lùi DISABLED trên cùng Guard target, không đổi tên/xóa | S1 drift-check baseline sống/--help và đường lùi, Guard PRE; S5 drift MATCH/POST; nếu lỗi dùng apply-v0 đúng phạm vi |
+| VPS-GHI/nguồn lực | Root COLLAB lần Host đọc: VPS-GHI trống sau HJW P468 trả cờ 10:47Z; đây chỉ là mốc | S0/S2 CAS/PSI/RAM/STOP/Guard/HEAD tươi, fail thực ⇒ dừng an toàn; không chờ ở terminal |
+| Code mới và âm/dương | N/A trước khi xây: chưa có wrapper/validator TS4 nên không giả test PASS; mục tiêu ≤2MiB/2000 statements, 1 smoke duy nhất được Owner duyệt | S1 candidate test, S2 installed direct validator test + wrapper key tests; S3 đúng 1 UPDATE 0 |
+
+**Chỉ EXECUTOR_FRESHNESS và kiểm thử chính sản phẩm được tạo trong RUN mới được để Agent đo khi chạy; phần nguồn/danh tính/permission/scope đã được Host đối chiếu P96/P98/P100/P101 và G2 P102.**
+
 ## S0 — Gates, STARTED riêng, không tranh cờ
-(1) Owner G2 TS4 cổng theo P100/P101 được ghi trực tiếp trong COLLAB, (2) Host READY@full last-touch PROMPT SHA trong commit riêng (REVIEW_REUSED=P98/P100), (3) Owner chuyển chuẩn DROOT38 khi VPS-GHI trống, (4) 0 STOP/HOLD/COUNCIL_ALERT OPEN/STARTED trùng; resources VPS sống đủ, (5) workspace read/write binding PASS. Khi PASS mới ghi STARTED@NDW-TS4-S4-LUAT-GATE-20261029-01 commit RIÊNG trước S1. Thiếu gate ⇒ DỪNG, không giữ terminal chờ lease.
+(1) Owner `HUMAN_DIRECTIVE@NDW-TS4-S4-LUAT-GATE-OWNER-G2-20261029` P102 đã có, (2) Host P103 `READY@full last-touch PROMPT SHA` trong COLLAB, (3) Owner chuyển đúng câu DROOT38, (4) 0 STOP/HOLD/COUNCIL_ALERT OPEN/STARTED trùng, VPS-GHI trống và resources/PSI tươi, (5) WRITE_PATH workspace+VPS binding và code/runtime/Guard S1 theo INPUT READY TABLE. PASS ⇒ `STARTED@NDW-TS4-S4-LUAT-GATE-20261029-01 <UTC> · executor=Claude Code CLI` ghi task COLLAB commit RIÊNG trước S1; nếu fail chính xác thì STOP 0 mutation, không hỏi lại G2.
 
 ## S1 — PRE (Mac candidate / VPS read-only, chưa lấy quyền ghi)
 - S1 đọc-only đúng file runtime `dot-pg-label-apply`/`dot-pg-label-validate.py` (`tach_cau_lenh`, `importlib`), `dot-pg-atomic-apply` để đối chiếu (không sửa), registry/config apply-v0 --help + mẫu P96 rollback. **Không gọi `dot-dot-register`**; không khảo sát legacy ngoài footprint.
