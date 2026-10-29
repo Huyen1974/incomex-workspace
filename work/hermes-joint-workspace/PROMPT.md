@@ -1,43 +1,37 @@
-# HJW — RUN12: Candidate offline trước, refresh client đúng thời điểm
+# HJW — RUN13 DRAFT: triển khai candidate xưng danh an toàn, C1/C2 thật
 
-RUN_ID: HJW-DECLARATION-GATE-PHASED-20261028-12
-STATUS: HOST_P451_FINAL_PENDING_EXACT_SHA_READY · NO_RUN
-Executor_Surface: Codex Desktop/Work (Owner giao tay SAU Host READY đúng SHA)
+RUN_ID: HJW-DECLARATION-GATE-COMPAT-20261029-13
+STATUS: DRAFT_FOR_CLAUDE_B2 · NOT_READY · NO_RUN
+Executor_Surface: Codex Desktop/Work (Owner chuyển tay chỉ SAU Host READY đúng last-touch SHA)
 Task: Huyen1974/incomex-workspace · work/hermes-joint-workspace
-Write_Path: repo báo cáo qua `workspace_*` D12; mã Gateway chỉ qua repo source/operator/apply đã audit, VPS-GHI CAS và Guard khi thực sự mutation production.
-Read_First: AGENTS.md A0/A2/A5/A6/A9/A10 → HJW COLLAB §0, Bảng, P442–P451 → PROMPT này. **RUN11 KQ DỪNG tại P448, không tiếp tục READY cũ.**
-Scope: một contract `declared_actor` tại hai Gateway AD/workspace + Claude/fs hiện hữu; giữ quyền, profile, D12 GitHub protected main, A2 quorum; không mở task, server, DB, bridge, endpoint, cron, account hoặc cấp secret mới.
+Write_Path: Git/KQ theo `workspace_*` D12; source code theo đường repo/operator đã duyệt; production duy nhất qua VPS-GHI CAS + apply/Config Guard/rollback.
+Read_First: AGENTS.md A2/A5/A6/D12 → HJW COLLAB §0, Bảng, P442–P454 → PROMPT này → `work/hermes-joint-workspace/evidence/run12-declaration-20261029/{README.md,candidate.patch.md,manifest.json,tests.md}`.
+Supersedes: RUN12 P452 KQ DỪNG CÓ KẾT QUẢ; **KHÔNG chạy lại RUN12, không sửa lại candidate vô cớ**.
 
-## Mục tiêu và C1/C2 không đổi
-AI có quyền ghi phải được tools/list hướng dẫn ngay về `declared_actor`; thiếu/sai tên trả `DECLARATION_REQUIRED` có field, ví dụ và cách tự gọi lại, 0 side effect; lần gọi hợp lệ ghi đúng một lần với receipt cả `declared_actor` (AI tự khai) và `authenticated_actor` (credential thật). Không có bước xin vé/token.
-- **C1:** ít nhất một AI/client thật tự thực hiện **thiếu tên → lỗi có hướng dẫn → gửi lại đúng schema → commit/receipt** không Owner điền hộ. Unit tests không thay thế.
-- **C2:** mọi client còn schema cũ/stale cần xác định rõ; ghi cách refresh thực tế, ảnh hưởng client active; không gắn PASS cho surface chưa được thử. Không bật enforcement nếu client đang ghi quan trọng chưa thể khai.
-- Cả AD và FS, upload/import/queue/helper/`write_file` phải được test phủ; không coi 11 file là KPI.
+## Kết quả bắt buộc và phạm vi
+1. `declared_actor` tự khai ngay lời gọi ghi. AI quên khai gặp lỗi `DECLARATION_REQUIRED` chỉ cách tự sửa, 0 mutation, retry 1 write/receipt chứa declared + authenticated actor. Không có token/vé bên ngoài, không thay quorum A2.
+2. Một contract tại hai Gateway AD/workspace + Claude/fs, bao gồm import/upload/task/helper/write_file; không đụng GitHub ruleset, GSM/root, PG/Directus/Lark hay kết nối hãng ngoài phạm vi.
+3. **C1:** ít nhất một client AI thật (không phải unit test) gọi thiếu → nhận hướng dẫn → tự gọi lại → SHA/receipt. **C2:** đánh giá phiên đang ghi/schema cache, phân loại `CLIENT_SCHEMA_STALE`, không khóa hoạt động của chúng. **Chưa C1 thì chưa feature XONG**.
 
-## B0 — S0 chỉ preflight các điều kiện thực sự chặn sửa source
-- Đọc HEAD/task/prompts và READY chính xác, STOP/VPS-GHI/Guard/diff; trả cờ sạch nếu S0 không đủ. P448 Guard PRE đã PASS nhưng phải đo mới trước **mutation production**, không dùng log cũ để hợp thức hóa.
-- Recheck image/digest và runtime hashes của AD/Claude/helper P448, pin baseline, bảo toàn source Git, phục hồi/rollback byte đúng. Checkout không bằng runtime: **lấy byte runtime làm gốc patch**, không dùng latest checkout để ghi đè dịch vụ. Thiếu baseline/source/rollback ⇒ dừng trước ghi code/runtime; không tự reset/hủy môi trường live.
-- Đọc tài liệu hãng: custom MCP direct, plugin published/marketplace và Codex local là ba đường khác nhau. Xác định từ manifest/config hiện hữu đường Incomex của client là loại nào, không suy từ tên plugin. **Không cần đăng nhập UI/kiểm nút Refresh lúc này** vì server chưa có schema mới để refresh. Trang chưa có phiên đăng nhập là `UI_SESSION_UNAVAILABLE`, không phải blocker để tạo candidate offline. Không thao tác GUI Codex bị công cụ cấm.
-- Có quyền thì chỉ dùng native `codex mcp list`/`/mcp` hoặc app-server `mcpServerStatus/list` (read-only) để hiểu Codex local; `config/mcpServer/reload` chỉ trên bề mặt thật sự hỗ trợ và khi đến pha refresh, không dùng thay cho nút plugin Cloud. Không đặt chìa mới/đổi kết nối đang phục vụ.
+## S0 · Tiếp nhận candidate đã có, không yêu cầu Owner UI trước
+- Recheck HEAD/READY/STOP, shared mutation/VPS-GHI và Guard theo mức bước. Đọc P452 evidence patch SHA256 `53f9c88836763a0ae613d0ecc0a4f7b17d8723b57f7ab8f2f540a0444374162c`, manifest/pins hai image live và helper. Patch lấy byte runtime, không lấy GitHub checkout khác hash để ghi đè.
+- Kiểm source canonical, baseline, ảnh rollback và khả năng build từ patch; nếu vướng SSOT canonical, ghi chính xác nguồn commit/branch/diff theo đường đã duyệt, không `git push` trực tiếp vào protected main. Không lấy commit Mac-local `0ca9577f` làm source remote đã phát hành.
+- **Không dừng chỉ vì chưa Refresh tools:** nút custom MCP đã được xác nhận trong Chrome. Chỉ dùng sau server quảng bá metadata mới. Không bấm cho bản schema đang cũ, không qua GUI Codex bị hãng chặn.
 
-## B1 — S1 patch candidate biệt lập, có sản phẩm dù chưa có UI refresh
-- Dùng hai runtime/code baselines đã pin để soạn **patch nhỏ nhất** vào source repo hiện hữu có quyền, giữ nguồn và diff/hash + manifest build/rollback. Không sửa production tại bước này, không tạo service/cổng mới. Có thể dùng môi trường fixture/snapshot hiện hữu, không truy cập secret từ model.
-- Một validator/schema/error contract dùng ở hai adapter, không copy chính sách vào mọi tool. Chặn source write ngay sau auth/scope, **trước staging, enqueue, idempotency preparing, commit**. Trường optional ở giai đoạn **advertise-only tương thích** nếu chọn staging; chỉ enforce sau C1/C2 readiness.
-- Phủ create/edit/copy/move/transaction/restore, upload begin/append/commit, import, queue/task, helper và `write_file`; context AI khai khi bắt đầu logical write, server carry qua chunk/background. Chưa có trường trong schema cũ không được đưa client vào vòng lỗi không thể tự sửa.
-- Test fixture: tools/list descriptions, empty/null/type-invalid, deny=0 mutation, retry same id, actor swap không reuse receipt, legacy journal/queued jobs, read-only unchanged, fail closed với writer chưa phân loại, rollback/Guard procedure. Ghi candidate commit/digest và checklist test PASS/FAIL vào P/KQ; test chỉ trên nguồn thử, không canary production giả.
+## S1 · Build/test Linux biệt lập từ patch, không làm lại nghiên cứu
+- Dựng candidate image/runner trong môi trường biệt lập đã có từ đúng baseline/runtime và patch đã lưu, test Linux HTTP MCP tools/list, schema/dispatcher/receipt và các đường writer liên quan; tận dụng 98 fixture, chỉ bổ sung những ca khác biệt môi trường thật. Không chỉnh quyền/container production ở bước này; không xây gateway/proxy/service thường trú.
+- Đối chiếu file/image hash, phân loại warning hay lỗi thật, chứng minh rollback image/helper/Config Guard và liệt kê footprint trước apply. Nếu build/rollback thiếu bằng chứng thì KQ DỪNG có source candidate, không mutation production.
 
-## B2 — S2 phân loại plugin và quyết định thời điểm Refresh thực tế
-- Tài liệu chính thức: https://developers.openai.com/plugins/deploy/connect-chatgpt#refresh-metadata (MCP trực tiếp **deploy/restart rồi Refresh**, chat mới); https://help.openai.com/en/articles/12584461-connecting-custom-mcp-servers-in-chatgpt (workspace-approved snapshot/tools list có thể cần admin review); https://learn.chatgpt.com/docs/plugins (plugin published/new session), https://learn.chatgpt.com/docs/extend/mcp (Codex local).
-- Nếu có cửa **advertise-only** trên runtime production mà tương thích client cũ, phải kiểm Guard PRE, VPS-GHI và rollback trước đưa lên; chứng minh tool cũ còn ghi được. Để hoàn thành C1 mà vẫn giữ client cũ an toàn, cần bước **canary enforcement giới hạn đúng một actor/task ghi HJW đã duyệt** sau khi client canary đã nhận schema; test missing→error→retry trên canary rồi mới mở rộng. **Không giả luôn có feature flag/canary scope**: Codex phải kiểm khả năng này trong mã hiện hữu; nếu không phân lập được, chỉ bật enforcement chung sau khi mọi client đang ghi bắt buộc đã có đường truyền trường mới, áp trong cửa sổ Guard/rollback rồi chạy C1 ngay; FAIL thì rollback. Tuyệt đối không bật sớm làm active clients mất đường ghi.
-- Nếu UI native Refresh cần Owner, **chỉ lúc này** nêu **một thao tác UI chính xác**, không yêu cầu user đăng nhập/chia mật khẩu từ trước, không bảo Owner bấm Refresh cho schema chưa có. Nếu thiếu quyền truy cập/bề mặt, báo `CLIENT_REFRESH_HUMAN_ONLY`, giữ candidate + production nguyên trạng hoặc đang advertise-safe với đường lùi, dừng sạch. Đừng viết app/browser automation lách hạn chế `com.openai.codex`.
-- Có thể **đánh giá trên giấy** phương án tương thích schema cũ bằng field `message` của tools đã có nếu không Refresh được, nhưng **không tự thay** contract `declared_actor` hay triển khai parser legacy nếu Host chưa quyết; ghi gọn tính khả thi và phần tool không có message.
+## S2 · Quảng bá schema tương thích rồi nhận metadata trên client
+- Nếu S1 PASS, không có production conflicts và đã có lease/Guard PRE/rollback, apply bản **advertise-only** theo Config Guard hiện hữu. `declared_actor` xuất hiện trong tools/list nhưng **chưa bắt buộc**; thử lại một lệnh ghi cũ vô hại qua cả AD và FS để chứng minh các client schema cũ không mất đường ghi.
+- Sau server quảng bá schema mới, dùng **Refresh tools** của hosted Incomex MCP custom (Chrome đã đăng nhập) và native Codex local Restart/new session; kiểm Claude/fs theo connector hỗ trợ, không tự đoán tất cả cùng cách. C2 gồm client/route, thấy schema, ghi được field, trạng thái stale, kế hoạch/điều kiện chuyển; không đòi Owner tự đăng nhập khi agent làm được. Nếu một bước thật human-only thì nêu đúng thao tác đó SAU khi candidate đã quảng bá, không giữ job chờ.
+- **Không bật enforce** khi một client ghi active bắt buộc chưa có cách gửi field mới. Nếu chưa hoàn tất C2, giữ/rollback advertise-safe theo kế hoạch, báo KQ DỪNG có kết quả — không biến thành RUN vô hạn.
 
-## B3 — S3 enforce/kiểm client nếu hội đủ gate
-- Client thật đã nhận metadata và **canary gate đã bật trong scope hẹp** (hoặc enforcement chung chỉ sau xác minh tương thích client active và rollback sẵn sàng): chạy C1 thật `missing → DECLARATION_REQUIRED → tự khai lại → receipt/Git SHA`. Không dùng unit tests thay C1; canary viết đúng một phiếu vô hại trong HJW. C2 báo riêng từng client chưa refresh, không khóa nhầm client active; chỉ sau C1 PASS mới mở rộng enforce ra các đường ghi thuộc scope, Guard POST kiểm đủ.
-- Chỉ sau C1 readiness, suite/fixtures đủ hai Gateway và Guard/rollback/vps lease PASS mới bật enforce đúng scope qua đường apply hiện hữu. Guard POST kiểm theo footprint. Bất kỳ lỗi: dừng/rollback bản áp mới (không lùi sản phẩm khác) và KQ DỪNG, giữ evidence.
-- C1 thử production chỉ với một ghi canary vô hại trong HJW task đã duyệt, tránh đụng dữ liệu kinh doanh. Giữ các trạng thái `LIVE_NOT_TESTED`/`CLIENT_SCHEMA_STALE` trung thực, không suy Dot/Live đã có ghế/quorum riêng.
+## S3 · Kiểm C1 rồi bật cưỡng chế, không làm rơi phiên khác
+- Ưu tiên **client AI thật thử gate trong lab MCP biệt lập** nếu client kết nối được theo native mà không cần endpoint thường trú mới; nếu thành công ghi client/tool/request/response và receipt, không gọi 98 fixture là C1. Nếu lab không thể nhận client thật, chỉ triển khai enforce chung khi đã chứng minh các writer active bắt buộc có schema mới, có cửa sổ kiểm soát ngắn, image/rollback sẵn và thực hiện C1 ngay. Không tự mở selector canary actor/task, parser `message` hay máy chủ mới; nếu cách này không an toàn, STOP với advertise-only/candidate.
+- C1 phải là *thiếu declared_actor → DECLARATION_REQUIRED kèm ví dụ + hướng dẫn → AI tự gọi lại → 1 ghi thành công có SHA*; đối chiếu 0 side effect cho call thiếu, retry/idempotency, actor khai vs actor credential. Guard POST và client write regression PASS sau enforce. Nếu fail, rollback đúng footprint, giữ bằng chứng và KQ DỪNG sạch.
 
-## Kết quả
-- KQ@HJW-DECLARATION-GATE-PHASED-20261028-12 **XONG** chỉ khi feature hai Gateway thật sự enforce + C1 client thực + C2 đã phân loại + Guard/rollback không lỗi. Nếu mới có patch candidate/fixture PASS nhưng refresh blocked, ghi **DỪNG có kết quả**: source commit/digest, test, blocker duy nhất, next action thật, 0 lease/job tạm. Không ghi FEATURE PASS hay xin Owner bấm UI khi chưa cần.
-- Ghi một **P452/KQ** vào duy nhất HJW COLLAB qua D12 (P450 đã là Claude reviewer; P451 là Host), cập nhật Bảng/NEXT_TRIGGER và giữ evidence ở nguồn, không tạo task khác. Báo Owner 3 câu: đã làm, còn thiếu gì, có cần một thao tác Owner-only không.
-STEP_WALK_V1: S0 preflight+pin runtime → S1 candidate+fixture → S2 đúng loại plugin/advertise-safe rồi refresh/canary nếu khả thi → S3 enforce+Guard+C1/C2 → KQ/return. **STOP trước bất kỳ bước production thiếu Guard/lease/rollback/client safe.**
+## KQ
+- Đưa một `P455 · Codex Worker · KQ RUN13` trong HJW COLLAB; update Bảng/NEXT_TRIGGER, commit/diff Linux build và results/receipt tại các nguồn sẵn có. **KQ XONG** chỉ khi hai Gateway enforce thật an toàn, C1 real-client PASS, C2 active không làm hỏng việc đang ghi, Guard POST + rollback evidence đúng. Trường hợp chỉ có candidate+advertise-safe vẫn báo **DỪNG CÓ KẾT QUẢ**, không giả feature PASS.
+- Không hỏi Owner kiểm login/Refresh trước khi có bước human-only thật; không tự lập tác vụ mới, kéo dài bảo trì/đèn đỏ ngoài scope hoặc cấp quyền/chìa mới.
+STEP_WALK_V1: S0 read-gate/pin + canonical source → S1 Linux candidate/fixture → S2 apply advertise-safe + Refresh client + C2 → S3 C1 real client/enforce guarded → P455/KQ. STOP đúng điểm có rủi ro thực, không tự hứa background.
