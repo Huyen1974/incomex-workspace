@@ -82,12 +82,29 @@ small.f{color:#6b7785;font-size:13px}
 .kd-sources a{color:#1d4ed8;text-decoration:underline;text-underline-offset:2px;display:inline-block;margin-right:5px}
 .kd-visual,.kd-order{margin-top:13px;font-size:15px;line-height:1.7}
 .kd-note{font-size:14px;color:#556274}
+
+/* P22 — read-only roadmap coverage, not a second status source */
+#roadmap-master .sub{font-size:14.5px;line-height:1.65}
+.rm-side{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-top:12px;font-size:14px}
+.rm-side>div{border:1px solid #dde3eb;border-radius:8px;padding:11px;line-height:1.5}
+.rm-side p{margin:5px 0 0}
+.rm-side a,.rm-table a{color:#1d4ed8;text-decoration:underline;text-underline-offset:2px}
+.rm-scroll{overflow-x:auto}
+.rm-table{min-width:1060px;font-size:14px;line-height:1.5}
+.rm-table th,.rm-table td{padding:10px 9px;vertical-align:top}
+.rm-table th:nth-child(1){width:14%}
+.rm-table th:nth-child(2){width:32%}
+.rm-table th:nth-child(3){width:10%}
+.rm-table th:nth-child(4){width:17%}
+.rm-table th:nth-child(5){width:27%}
+.rm-table .rm-t{display:block;font-weight:400;font-size:12.5px;margin-top:2px}
+.rm-note{font-size:13.5px;line-height:1.65;margin-top:11px}
 </style>
 </head>
 <body><main>
 <span class="flag">HỒ SƠ §3.0 · N0 nghiệm thu P16 · N1 thiết kế-only READY, chưa STARTED</span>
 <h1>Hội đồng AI — toàn cảnh và kế hoạch</h1>
-<p class="sub">Trang này là bản xem dựng từ hồ sơ <b>COLLAB §3.0</b> (P11). GPT Host P12 đã bổ sung trạng thái và các rào an toàn ngay tại §3.0; <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-karpathy/COLLAB.md">đọc nguồn chuẩn, cập nhật mới nhất P21</a>. Ma trận 115 mục vẫn là <b>ảnh chụp hồ sơ, chưa kiểm nghiệm máy live</b> (N0 đã đo phần thiếu: xem P13).</p>
+<p class="sub">Trang này là bản xem dựng từ hồ sơ <b>COLLAB §3.0</b> (P11). GPT Host P12 đã bổ sung trạng thái và các rào an toàn ngay tại §3.0; <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-karpathy/COLLAB.md">đọc nguồn chuẩn, cập nhật mới nhất P22</a>. Ma trận 115 mục vẫn là <b>ảnh chụp hồ sơ, chưa kiểm nghiệm máy live</b> (N0 đã đo phần thiếu: xem P13).</p>
 
 <section class="panel ask">
 <h2>Anh cần biết</h2>
@@ -106,12 +123,45 @@ small.f{color:#6b7785;font-size:13px}
 </li></ul>
 </li></ol>
 <h3>Anh cần làm bây giờ</h3>
-<ul><li><b>Một việc:</b> N0 đã chốt. Anh chuyển <b>PROMPT N1</b> đã READY cho Claude Code CLI; đây chỉ là thiết kế W2–W4, không code/production. Sau KQ, Codex rà kỹ thuật, Claude Chat rà hiệu lực luật trước khi GPT chốt.</li>
+<ul><li><b>Một việc:</b> N0 đã chốt. N1 được <b>đưa vào hàng chờ SAU Graph</b> theo Owner; sau khi Graph xong mới chuyển PROMPT N1 <b>READY mới</b> cho Claude Code CLI. Đây chỉ là thiết kế W2–W4, không code/production. Sau KQ, Codex rà kỹ thuật, Claude Chat rà hiệu lực luật trước khi GPT chốt.</li>
 <li>Song song: HJW RUN14 có bản ứng viên 136 test đạt, chưa triển khai (HJW gỡ G8); GHM đã khóa 2 main, S0 đạt, đang chọn T2-Web. Không tự chạy lại hoặc làm thay.</li>
 <li>Chưa cần gật ngay. <b>Sau N1</b>: một lần duyệt ba vấn đề + bốn khuôn mới K1/K2 (A6) và L3/L5 (A5) cho <b>node mới</b>; giữ RUN/READY cũ. <b>Trước N2</b>: GO máy chặn/chuông/Task View có Guard và rollback.</li></ul>
 </section>
 
-<section class="panel"><h2>Roadmap</h2><div class="bar"><div class="cell done"><span class="tag">xong</span><div class="t">Bàn + kế hoạch</div><div class="w">🤖 D01–D03</div></div><div class="cell done"><span class="tag">xong</span><div class="t">Bản đồ + D04</div><div class="w">🤖 P08 · P09</div></div><div class="cell done"><span class="tag">xong</span><div class="t">Hồ sơ đầy đủ</div><div class="w">🤖 P11 · Host rà</div></div><div class="cell done"><span class="tag">xong</span><div class="t">B3 nghiệm thu N0</div><div class="w">GPT P16 · residual accepted</div></div><div class="cell now"><span class="tag">N1 · READY</span><div class="t">Thiết kế W2–W4</div><div class="w">Claude Code làm · Codex rà kỹ thuật · chưa STARTED</div></div><div class="cell todo"><span class="tag">sau Owner GO</span><div class="t">Chuẩn hóa 4 khuôn</div><div class="w">Node mới dùng tay · A5/A6 · không hồi tố</div></div><div class="cell todo"><span class="tag">N2</span><div class="t">Chốt máy + màn hình</div><div class="w">🤖 W5 W6 W7</div></div><div class="cell todo"><span class="tag">N3</span><div class="t">Chạy thử thật</div><div class="w">🤖 đổi Host</div></div><div class="cell todo"><span class="tag">N4</span><div class="t">Anh nghiệm thu</div><div class="w">😊 30 giây</div></div></div></section>
+<section class="panel" id="roadmap-master"><h2>Roadmap — 9 ô chính, W1/W8 song song</h2>
+<p class="sub"><b>4 đã xong = chốt kế hoạch / kiểm kê / khảo sát N0, chưa phải 4 tính năng production</b>. <b>1 READY = N1 chỉ thiết kế, Owner cho chạy SAU Graph.</b> <b>4 chưa làm = Owner GO + 4 khuôn · N2 · N3 · N4.</b></p>
+<div class="bar">
+<div class="cell done"><span class="tag">xong · kế hoạch</span><div class="t">Mục tiêu &amp; kiến trúc</div><div class="w">D01–D03, không xây lại</div></div>
+<div class="cell done"><span class="tag">xong · bản đồ</span><div class="t">115 mục, D04</div><div class="w">10 khối · 15 nguồn</div></div>
+<div class="cell done"><span class="tag">xong · hồ sơ</span><div class="t">§3.0 + 16 Karpathy</div><div class="w">4 mẫu ghi · 6 thêm · 1 giữ · 3 mới · 2 chọn</div></div>
+<div class="cell done"><span class="tag">xong · khảo sát</span><div class="t">N0: W0</div><div class="w">P13/P15/P16, 12 hàng</div></div>
+<div class="cell now"><span class="tag">READY sau Graph</span><div class="t">N1: W2 + W3 + W4</div><div class="w">Claude Code · chưa STARTED · chỉ thiết kế</div></div>
+<div class="cell todo"><span class="tag">chờ N1/Owner</span><div class="t">Chốt và áp 4 khuôn</div><div class="w">K1/K2 ở A6 · L3/L5 ở A5 · chỉ node mới</div></div>
+<div class="cell todo"><span class="tag">N2 · chưa làm</span><div class="t">W5 + W6 + W7</div><div class="w">Máy chặn · chuông · UI, cần Owner GO + W1</div></div>
+<div class="cell todo"><span class="tag">N3 · chưa làm</span><div class="t">W9: pilot</div><div class="w">14 test + 4 nhóm âm · đổi Host</div></div>
+<div class="cell todo"><span class="tag">N4 · chưa làm</span><div class="t">W10: Owner nghiệm thu</div><div class="w">Sau đó mới xét AUTO1+/multi-Host</div></div></div>
+<div class="rm-side">
+<div><strong>W1 · HJW xưng danh (song song)</strong><p>RUN14 136 kiểm thử fixture/Linux đạt nhưng <b>NO_DEPLOY</b>; G8 source canonical lệch runtime. Phải C1/C2 AI live PASS trước W5. <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/hermes-joint-workspace/COLLAB.md" target="_blank" rel="noopener noreferrer">HJW</a></p></div>
+<div><strong>W8 · GHM viết mã (song song)</strong><p>Hai main gate PASS, Web T2 chưa chạy, AD rollback/source còn mở. <b>K5 trước F2</b> nhiều Agent; không chặn ACK N2. <a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/github-management/COLLAB.md" target="_blank" rel="noopener noreferrer">GHM</a></p></div>
+</div></section>
+<section class="panel" id="roadmap-coverage"><h2>Đối chiếu đủ W0–W10 với 16 món Karpathy</h2>
+<p class="sub">Bảng này là <b>chú giải roadmap</b>, không thêm task hay hệ thống. Ô GO là cổng Owner/Founders, không phải gói W mới. Trạng thái HJW/GHM lấy ở nguồn gốc; ma trận liên task ngay dưới tiếp tục hiển thị tiến độ snapshot.</p>
+<div class="tw rm-scroll"><table class="rm-table" aria-label="Phủ các gói W0 đến W10 và các món Karpathy"><thead><tr><th>Gói</th><th>Thực tế</th><th>Task chủ</th><th>Karpathy</th><th>Điều kiện tiếp</th></tr></thead><tbody><tr><td><b>W0</b><span class="rm-t">N0: khảo sát</span></td><td>Đã nghiệm thu P16, 12 hàng; không production PASS</td><td><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-karpathy/COLLAB.md" target="_blank" rel="noopener noreferrer">ACK</a></td><td>—</td><td>Không chạy lại N0.</td></tr>
+<tr><td><b>W1</b><span class="rm-t">Xưng danh / HJW</span></td><td>RUN14 P460 136 thử fixture/Linux PASS, NO_DEPLOY, G8 block</td><td><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/hermes-joint-workspace/COLLAB.md" target="_blank" rel="noopener noreferrer">HJW</a></td><td>—</td><td>Chủ HJW giải G8, C1/C2 live trước W5.</td></tr>
+<tr><td><b>W2</b><span class="rm-t">Luật/ghế/Owner</span></td><td>N1 design READY, Owner chờ sau Graph</td><td><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-karpathy/COLLAB.md" target="_blank" rel="noopener noreferrer">ACK</a></td><td>—</td><td>a–j, nguồn Owner và khác hãng, chỉ draft.</td></tr>
+<tr><td><b>W3</b><span class="rm-t">PROMPT và KQ</span></td><td>N1 design READY, chưa áp khuôn</td><td><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-karpathy/COLLAB.md" target="_blank" rel="noopener noreferrer">ACK</a></td><td>K1 K2 K6 K7 K9 K10</td><td>K1/K2 A6 sau GO; phiên Mac timeout LIMIT; legacy vẫn đọc.</td></tr>
+<tr><td><b>W4</b><span class="rm-t">Ý kiến/Host</span></td><td>N1 design READY, chưa machine-enforced</td><td><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-karpathy/COLLAB.md" target="_blank" rel="noopener noreferrer">ACK</a></td><td>L1 L2 L3 L5</td><td>L3/L5 A5 sau GO; L1 chỉ việc lớn, L2 tùy chọn.</td></tr>
+<tr><td><b>GO</b><span class="rm-t">Owner/Founders</span></td><td>Chưa duyệt: 3 vấn đề + 4 khuôn</td><td><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-karpathy/COLLAB.md" target="_blank" rel="noopener noreferrer">ACK</a></td><td>K1 K2 L3 L5</td><td>Một GO sau N1+Reviewer; áp node mới, giữ RUN cũ.</td></tr>
+<tr><td><b>W5</b><span class="rm-t">Council guard</span></td><td>Chưa có chốt chung, post_guard chỉ Hermes</td><td><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-karpathy/COLLAB.md" target="_blank" rel="noopener noreferrer">ACK</a></td><td>K1 K2 L1 L3 L5</td><td>N2 GO + HJW C1/C2 live + U1/U8 + rollback.</td></tr>
+<tr><td><b>W6</b><span class="rm-t">Chuông Council</span></td><td>Chưa nghiệm thu Council Alert→Telegram</td><td><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-karpathy/COLLAB.md" target="_blank" rel="noopener noreferrer">ACK</a></td><td>—</td><td>U6, DROOT59, chỉ khẩn khi Owner cần xử lý.</td></tr>
+<tr><td><b>W7</b><span class="rm-t">Task View Hội đồng</span></td><td>Chưa có 3 tầng/Vue Flow/stale-red/K3</td><td><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/hpml-view-for-user/COLLAB.md" target="_blank" rel="noopener noreferrer">HVU</a></td><td>K3 L4 L6</td><td>N2, U4, dữ liệu W4/W5, L4 tùy chọn.</td></tr>
+<tr><td><b>W8</b><span class="rm-t">GHM song song</span></td><td>2 main protected; S0 pass; Web T2 chờ, AD source/rollback</td><td><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/github-management/COLLAB.md" target="_blank" rel="noopener noreferrer">GHM</a></td><td>K4 K5 K7 K8</td><td>K5 trước F2 nhiều Agent; không cản ACK N2.</td></tr>
+<tr><td><b>W9</b><span class="rm-t">N3 pilot</span></td><td>Chưa chạy</td><td><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-karpathy/COLLAB.md" target="_blank" rel="noopener noreferrer">ACK</a></td><td>—</td><td>14 tiêu chí + 4 nhóm thử âm fixture, đổi Host.</td></tr>
+<tr><td><b>W10</b><span class="rm-t">N4 Owner</span></td><td>Chưa nghiệm thu</td><td><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-karpathy/COLLAB.md" target="_blank" rel="noopener noreferrer">ACK</a></td><td>—</td><td>Owner GO trước AUTO1+/multi-host sau N4.</td></tr></tbody></table></div>
+<p class="rm-note"><b>Đã phủ đủ 16/16:</b> K1→W3/GO/W5 · K2→W3/GO/W5 · K3→W7 · K4→W8 · K5→W8/trước F2 · K6→W3 · K7→W3/W8 · K8→W8 · K9→W3 (đã có) · K10→W3 · L1→W4/W5 (quyết định lớn) · L2→W4 (tùy chọn) · L3→W4/GO/W5 · L4→W7 (tùy chọn) · L5→W4/GO/W5 · L6→W7. <b>Vue Flow ở W7, không phải món thứ 17.</b></p>
+<p class="rm-note"><b>Vấn đề khác cũng có địa chỉ:</b> Đ1→W5 · Đ2→W2 · Đ3→HJW · Đ4→W3 · Đ5→MCPW/W5 · Đ6→GHM · Đ7→HVU/W7. U1/U8 tiền-W5, U6 tiền-W6, U4 tiền-W7. N3 kiểm 14 test và P12 bốn nhóm âm. Multi-Host, AUTO1+, Graph/Vector trợ lực chỉ sau N4 và Owner GO.</p>
+<p class="rm-note"><b>Snapshot 2026-10-29 15:10 +07.</b> Nếu dữ liệu nguồn đã thay đổi, xem <a href="#cross-task-matrix">ma trận liên task</a> và COLLAB gốc, không lấy dòng cũ làm PASS.</p>
+</section>
 
 <section class="panel" id="cross-task-matrix"><h2>Ma trận tiến trình tổng — theo dõi các task liên quan</h2>
 <p class="sub">Chỉ cần nhìn bảng này: <b>đã chốt gì · thực tế ra sao · task nào làm · bước nào tiếp</b>. Cột nguồn có link COLLAB và Task View. Ma trận là bản đồ, không phải thêm 12 task mới.</p>
@@ -540,7 +590,7 @@ next_trigger: &lt;TÊN&gt;
 </li><li>Một chữ ký READY của Host (DROOT58).
 </li><li>14 món Karpathy dùng + L2/L4 tuỳ chọn; không chép mã (D02/D03).
 </li><li>UI: màn 3 tầng + Vue Flow trong đúng Task View hiện có (D02).
-</li><li>Vé ghi một lần → thay bằng xưng danh một trường (HJW P447).
+</li><li>Vé ghi một lần → thay bằng xưng danh một trường (HJW P447). <b>Cập nhật P22:</b> HJW dùng 4 facts logic P458, RUN14 P460 candidate chưa deploy/G8.
 </li><li>ACK là đầu mối tích hợp và nghiệm thu cưỡng chế hội đồng chung; mã nằm ở đâu thì chủ ở đó (D04).
 </li><li>Worker N0 = Codex, để Reviewer Claude khác hãng với cả Host lẫn Worker (D04).
 </li><li>Hội đồng Host nhiều chữ ký: chỉ chuẩn bị chỗ trong dữ liệu (D01/D04).
@@ -548,17 +598,19 @@ next_trigger: &lt;TÊN&gt;
 <h3>Thứ tự và phụ thuộc</h3>
 
 <div class="dep">
- <div class="lane"><div class="box ready">W0 · Đo khoảng trống<small>N0 · Host P16 nghiệm thu, STARTED residual</small></div><div class="box ready">W1 · Xưng danh khi ghi<small>HJW RUN12 · KQ DỪNG, candidate offline 98 PASS, chưa deploy</small></div></div>
- <div class="arr">▼</div>
- <div class="lane"><div class="box">W2 · Dọn luật chồng</div><div class="box">W3 · Một khuôn lệnh + báo cáo</div><div class="box">W4 · Dòng ý kiến / kết luận máy đọc</div><div class="note">N1 · 😊 Owner duyệt luật</div></div>
- <div class="arr">▼</div>
- <div class="lane"><div class="box key">W5 · Cổng hội đồng trước khi ghi<small>sau W1 + W4</small></div><div class="box">W6 · Chuông Telegram</div><div class="box">W7 · Task View hội đồng</div><div class="note">N2 · 😊 Owner GO</div></div>
- <div class="lane side"><div class="box wip">W8 · GitHub (C2-B main gate PASS; còn SSOT/release/F2)</div></div>
- <div class="arr">▼</div>
- <div class="lane"><div class="box">W9 · Chạy thử thật + đổi Host giữa chừng<small>N3</small></div><div class="box">W10 · Anh nghiệm thu 30 giây<small>N4</small></div></div>
+<div class="lane"><div class="box">W0 · N0 đã nghiệm thu<small>P13/P15/P16, không có Council production PASS</small></div><div class="box wip">W1 · HJW song song<small>P460 RUN14 136 PASS fixture/Linux, G8, CHƯA DEPLOY</small></div></div>
+<div class="arr">▼ Owner chuyển N1 sau Graph, không chờ W1 để soạn</div>
+<div class="lane"><div class="box ready">W2 · Dọn luật a–j</div><div class="box ready">W3 · K1/K2/K6/K7/K9/K10</div><div class="box ready">W4 · L1/L3/L5</div></div>
+<div class="arr">▼ Owner/Founders duyệt 3 vấn đề + 4 khuôn, áp node mới</div>
+<div class="lane"><div class="box">K1/K2 AGENTS A6 · L3/L5 AGENTS A5<small>Giữ READY/RUN/legacy lịch sử</small></div></div>
+<div class="arr">▼ N2 Owner GO, W5 phải chờ W1 C1/C2 live</div>
+<div class="lane"><div class="box key">W5 · Council guard<small>U1/U8 + fixture</small></div><div class="box">W6 · Chuông<small>U6 / DROOT59</small></div><div class="box">W7 · Task View 3 tầng/Vue Flow<small>K3/L6, L4 tùy chọn, U4</small></div></div>
+<div class="lane side"><div class="box wip">W8 · GitHub song song<small>main gate PASS, Web T2/AD rollback; K5 trước F2</small></div></div>
+<div class="arr">▼</div><div class="lane"><div class="box">W9 · N3 pilot + đổi Host<small>14 tests + 4 nhóm âm fixture</small></div><div class="box">W10 · N4 Owner nghiệm thu</div></div>
 </div>
+
 <h3>Từng gói việc (bấm để xem đủ: đã có · phải làm · không được làm · đầu vào · đầu ra · kiểm xong)</h3>
-<details class="wp wip" open><summary><span class="wid">W0</span> <b>Đo khoảng trống (N0)</b><br><span class="wm">KQ XONG P13 (Codex) · Claude P15 ACCEPTED · chờ GPT Host chốt B3</span></summary><div class="bb"><ul><li><b>Đã có:</b>
+<details class="wp wip" open><summary><span class="wid">W0</span> <b>Đo khoảng trống (N0)</b><br><span class="wm">NGHIỆM THU P16 · 12 hàng evidence · không chạy lại N0</span></summary><div class="bb"><ul><li><b>Đã có:</b>
 <ul><li>PROMPT <code>ACK-N0-VERIFY-GAPS-20261028-03</code>.
 </li><li>READY do Host ký ở P09.
 </li></ul>
@@ -572,10 +624,10 @@ next_trigger: &lt;TÊN&gt;
 </li><li><b>Kiểm xong:</b> mỗi hàng có bằng chứng; hàng chưa đo ghi UNKNOWN.
 </li><li><b>Owner cần làm:</b> chuyển P15 cho GPT Host (B3); không chạy lại N0.
 </li></ul></div></details>
-<details class="wp todo"><summary><span class="wid">W1</span> <b>Xưng danh khi ghi</b><br><span class="wm">HJW: RUN11 DỪNG ở S0 → RUN12 chia pha đã bắt đầu 29/10 (P452, Codex) · bản thử offline · ACK chờ KQ</span></summary><div class="bb"><ul><li>Nội dung đầy đủ ở <b>Khối 4</b>.
+<details class="wp todo"><summary><span class="wid">W1</span> <b>Xưng danh khi ghi</b><br><span class="wm">HJW RUN14 P460 KQ DỪNG, 136 fixture/Linux PASS, NO_DEPLOY/G8, chờ C1/C2 live</span></summary><div class="bb"><ul><li>Nội dung đầy đủ ở <b>Khối 4</b>.
 </li><li>ACK <b>không làm, không rà lại</b>; chỉ nhận kết quả.
 </li><li><b>Kiểm xong (của HJW):</b> C1/C2 đạt, 2 cổng cùng một hợp đồng, Git author và quyền nghiệp vụ không đổi.
-</li><li><b>Owner cần làm:</b> không gửi lại RUN11; RUN12 đang chạy ở HJW — chờ KQ.
+</li><li><b>Owner cần làm:</b> không gửi lại RUN11–RUN14 đã kết thúc; HJW Host xử lý G8 và ký lượt hợp lệ mới. ACK chỉ đọc KQ.
 </li></ul></div></details>
 <details class="wp todo"><summary><span class="wid">W2</span> <b>Dọn luật chồng (N1, gỡ Đ2)</b><br><span class="wm">⚪ · Founders (GPT + Claude) soạn → Owner duyệt</span></summary><div class="bb"><ul><li><b>Phải làm:</b> viết <b>một D ở COLLAB gốc</b> gồm các dòng "thay bởi". <b>Không xoá lịch sử</b>, không biên soạn lại 88 KB AGENTS.
 <ul><li><b>a.</b> DROOT31 và DROOT38(c) (đòi Reviewer ACCEPT) → <i>thay bởi DROOT58</i>.
@@ -674,7 +726,7 @@ next_trigger: &lt;TÊN&gt;
 </li></ul>
 </li><li><b>Kiểm xong:</b> phép thử 12 + ảnh trang Task; số liệu trên trang khớp COLLAB; <code>view.html</code> của ACK không còn phải vẽ tay.
 </li></ul></div></details>
-<details class="wp wip"><summary><span class="wid">W8</span> <b>Phần mã GitHub (GHM)</b><br><span class="wm">🔵 · chủ GHM · ACK chỉ nhận kết quả</span></summary><div class="bb"><ul><li>C2-B (K4, K5): ruleset + check bắt buộc.
+<details class="wp wip"><summary><span class="wid">W8</span> <b>Phần mã GitHub (GHM)</b><br><span class="wm">P115: main gate + S0 PASS; Web T2, AD rollback còn; K5 trước F2</span></summary><div class="bb"><ul><li>C2-B (K4, K5): ruleset + check bắt buộc.
 </li><li>GHM P105: Owner giữ một tài khoản GitHub; không tạo thẻ dev/GitHub App. Quy tắc chỉ KST merge vẫn là luật vai/audit, chưa thể cưỡng chế người bấm bằng máy khi chung credential.
 </li><li>K7/K8 vào luật duyệt KST.
 </li><li>F2 (3 agent song song).
