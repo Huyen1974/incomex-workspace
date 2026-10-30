@@ -1,0 +1,487 @@
+........................................................................ [ 61%]
+..................FFFFFFF....F..FF.FFFFFFF.FFF                           [100%]
+=================================== FAILURES ===================================
+_______________ test_f1_active_and_archived_identity[work/alpha] _______________
+
+path = 'work/alpha'
+
+    @pytest.mark.parametrize('path', [
+        'work/alpha/COLLAB.md', 'work/alpha',
+        'work/done-tasks/alpha/COLLAB.md', 'work/done-tasks/alpha',
+    ])
+    def test_f1_active_and_archived_identity(path):
+>       assert d.target_task({'path': path}) == 'alpha'
+E       AssertionError: assert None == 'alpha'
+E        +  where None = <function target_task at 0x103ee58a0>({'path': 'work/alpha'})
+E        +    where <function target_task at 0x103ee58a0> = d.target_task
+
+tests/unit/test_hjw_four_facts.py:252: AssertionError
+____ test_f1_active_and_archived_identity[work/done-tasks/alpha/COLLAB.md] _____
+
+path = 'work/done-tasks/alpha/COLLAB.md'
+
+    @pytest.mark.parametrize('path', [
+        'work/alpha/COLLAB.md', 'work/alpha',
+        'work/done-tasks/alpha/COLLAB.md', 'work/done-tasks/alpha',
+    ])
+    def test_f1_active_and_archived_identity(path):
+>       assert d.target_task({'path': path}) == 'alpha'
+E       AssertionError: assert 'done-tasks' == 'alpha'
+E         
+E         - alpha
+E         + done-tasks
+
+tests/unit/test_hjw_four_facts.py:252: AssertionError
+_________ test_f1_active_and_archived_identity[work/done-tasks/alpha] __________
+
+path = 'work/done-tasks/alpha'
+
+    @pytest.mark.parametrize('path', [
+        'work/alpha/COLLAB.md', 'work/alpha',
+        'work/done-tasks/alpha/COLLAB.md', 'work/done-tasks/alpha',
+    ])
+    def test_f1_active_and_archived_identity(path):
+>       assert d.target_task({'path': path}) == 'alpha'
+E       AssertionError: assert 'done-tasks' == 'alpha'
+E         
+E         - alpha
+E         + done-tasks
+
+tests/unit/test_hjw_four_facts.py:252: AssertionError
+_______ test_f1_close_reopen_same_task[work/alpha-work/done-tasks/alpha] _______
+
+source = 'work/alpha', destination = 'work/done-tasks/alpha'
+
+    @pytest.mark.parametrize('source,destination', [
+        ('work/alpha', 'work/done-tasks/alpha'),
+        ('work/done-tasks/alpha', 'work/alpha'),
+        ('work/alpha/COLLAB.md', 'work/done-tasks/alpha/COLLAB.md'),
+        ('work/done-tasks/alpha/COLLAB.md', 'work/alpha/COLLAB.md'),
+    ])
+    def test_f1_close_reopen_same_task(source, destination):
+>       assert d.target_task({'from': source, 'to': destination}) == 'alpha'
+E       AssertionError: assert 'done-tasks' == 'alpha'
+E         
+E         - alpha
+E         + done-tasks
+
+tests/unit/test_hjw_four_facts.py:261: AssertionError
+_______ test_f1_close_reopen_same_task[work/done-tasks/alpha-work/alpha] _______
+
+source = 'work/done-tasks/alpha', destination = 'work/alpha'
+
+    @pytest.mark.parametrize('source,destination', [
+        ('work/alpha', 'work/done-tasks/alpha'),
+        ('work/done-tasks/alpha', 'work/alpha'),
+        ('work/alpha/COLLAB.md', 'work/done-tasks/alpha/COLLAB.md'),
+        ('work/done-tasks/alpha/COLLAB.md', 'work/alpha/COLLAB.md'),
+    ])
+    def test_f1_close_reopen_same_task(source, destination):
+>       assert d.target_task({'from': source, 'to': destination}) == 'alpha'
+E       AssertionError: assert 'done-tasks' == 'alpha'
+E         
+E         - alpha
+E         + done-tasks
+
+tests/unit/test_hjw_four_facts.py:261: AssertionError
+_ test_f1_close_reopen_same_task[work/alpha/COLLAB.md-work/done-tasks/alpha/COLLAB.md] _
+
+source = 'work/alpha/COLLAB.md', destination = 'work/done-tasks/alpha/COLLAB.md'
+
+    @pytest.mark.parametrize('source,destination', [
+        ('work/alpha', 'work/done-tasks/alpha'),
+        ('work/done-tasks/alpha', 'work/alpha'),
+        ('work/alpha/COLLAB.md', 'work/done-tasks/alpha/COLLAB.md'),
+        ('work/done-tasks/alpha/COLLAB.md', 'work/alpha/COLLAB.md'),
+    ])
+    def test_f1_close_reopen_same_task(source, destination):
+>       assert d.target_task({'from': source, 'to': destination}) == 'alpha'
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_hjw_four_facts.py:261: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = {'from': 'work/alpha/COLLAB.md', 'to': 'work/done-tasks/alpha/COLLAB.md'}
+
+    def target_task(args):
+        """Derive only a unique explicit work/<task> target; never from free text."""
+        paths = []
+        def collect(a):
+            for k in ('path', 'from', 'to'):
+                if isinstance(a.get(k), str): paths.append(a[k])
+            for k in ('operations', 'ops'):
+                for op in a.get(k, []) if isinstance(a.get(k, []), list) else []:
+                    if isinstance(op, dict): collect(op)
+            if isinstance(a.get('arguments'), dict): collect(a['arguments'])
+        collect(args)
+        tasks = set()
+        for path in paths:
+            parts = path.split('/')
+            if '..' in parts or path.startswith('/'):
+                continue
+            if len(parts) > 2 and parts[0] == 'work': tasks.add(parts[1])
+        if len(tasks) > 1:
+>           raise Denied('CONTEXT_CLARIFICATION_REQUIRED', 'Targets span multiple tasks; split the logical write by task.', ['task_id'])
+E           agent_data.declaration_contract.Denied: Targets span multiple tasks; split the logical write by task.
+
+agent_data/declaration_contract.py:95: Denied
+_ test_f1_close_reopen_same_task[work/done-tasks/alpha/COLLAB.md-work/alpha/COLLAB.md] _
+
+source = 'work/done-tasks/alpha/COLLAB.md', destination = 'work/alpha/COLLAB.md'
+
+    @pytest.mark.parametrize('source,destination', [
+        ('work/alpha', 'work/done-tasks/alpha'),
+        ('work/done-tasks/alpha', 'work/alpha'),
+        ('work/alpha/COLLAB.md', 'work/done-tasks/alpha/COLLAB.md'),
+        ('work/done-tasks/alpha/COLLAB.md', 'work/alpha/COLLAB.md'),
+    ])
+    def test_f1_close_reopen_same_task(source, destination):
+>       assert d.target_task({'from': source, 'to': destination}) == 'alpha'
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/unit/test_hjw_four_facts.py:261: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = {'from': 'work/done-tasks/alpha/COLLAB.md', 'to': 'work/alpha/COLLAB.md'}
+
+    def target_task(args):
+        """Derive only a unique explicit work/<task> target; never from free text."""
+        paths = []
+        def collect(a):
+            for k in ('path', 'from', 'to'):
+                if isinstance(a.get(k), str): paths.append(a[k])
+            for k in ('operations', 'ops'):
+                for op in a.get(k, []) if isinstance(a.get(k, []), list) else []:
+                    if isinstance(op, dict): collect(op)
+            if isinstance(a.get('arguments'), dict): collect(a['arguments'])
+        collect(args)
+        tasks = set()
+        for path in paths:
+            parts = path.split('/')
+            if '..' in parts or path.startswith('/'):
+                continue
+            if len(parts) > 2 and parts[0] == 'work': tasks.add(parts[1])
+        if len(tasks) > 1:
+>           raise Denied('CONTEXT_CLARIFICATION_REQUIRED', 'Targets span multiple tasks; split the logical write by task.', ['task_id'])
+E           agent_data.declaration_contract.Denied: Targets span multiple tasks; split the logical write by task.
+
+agent_data/declaration_contract.py:95: Denied
+________ test_f1_missing_or_unsafe_path_not_inferred[work/done-tasks/] _________
+
+path = 'work/done-tasks/'
+
+    @pytest.mark.parametrize('path', [
+        '', 'work', 'work/', 'work/done-tasks', 'work/done-tasks/',
+        '/work/alpha/file', 'work/../alpha/file', 'work/./file',
+        'work//alpha/file', 'work/done-tasks/../file',
+        'work/done-tasks//file', 'work/done-tasks/./file',
+        'work/alpha\\other/file', 'work/alpha\x00/file',
+    ])
+    def test_f1_missing_or_unsafe_path_not_inferred(path):
+>       assert d.target_task({'path': path}) is None
+E       AssertionError: assert 'done-tasks' is None
+E        +  where 'done-tasks' = <function target_task at 0x103ee58a0>({'path': 'work/done-tasks/'})
+E        +    where <function target_task at 0x103ee58a0> = d.target_task
+
+tests/unit/test_hjw_four_facts.py:271: AssertionError
+___________ test_f1_missing_or_unsafe_path_not_inferred[work/./file] ___________
+
+path = 'work/./file'
+
+    @pytest.mark.parametrize('path', [
+        '', 'work', 'work/', 'work/done-tasks', 'work/done-tasks/',
+        '/work/alpha/file', 'work/../alpha/file', 'work/./file',
+        'work//alpha/file', 'work/done-tasks/../file',
+        'work/done-tasks//file', 'work/done-tasks/./file',
+        'work/alpha\\other/file', 'work/alpha\x00/file',
+    ])
+    def test_f1_missing_or_unsafe_path_not_inferred(path):
+>       assert d.target_task({'path': path}) is None
+E       AssertionError: assert '.' is None
+E        +  where '.' = <function target_task at 0x103ee58a0>({'path': 'work/./file'})
+E        +    where <function target_task at 0x103ee58a0> = d.target_task
+
+tests/unit/test_hjw_four_facts.py:271: AssertionError
+________ test_f1_missing_or_unsafe_path_not_inferred[work//alpha/file] _________
+
+path = 'work//alpha/file'
+
+    @pytest.mark.parametrize('path', [
+        '', 'work', 'work/', 'work/done-tasks', 'work/done-tasks/',
+        '/work/alpha/file', 'work/../alpha/file', 'work/./file',
+        'work//alpha/file', 'work/done-tasks/../file',
+        'work/done-tasks//file', 'work/done-tasks/./file',
+        'work/alpha\\other/file', 'work/alpha\x00/file',
+    ])
+    def test_f1_missing_or_unsafe_path_not_inferred(path):
+>       assert d.target_task({'path': path}) is None
+E       AssertionError: assert '' is None
+E        +  where '' = <function target_task at 0x103ee58a0>({'path': 'work//alpha/file'})
+E        +    where <function target_task at 0x103ee58a0> = d.target_task
+
+tests/unit/test_hjw_four_facts.py:271: AssertionError
+______ test_f1_missing_or_unsafe_path_not_inferred[work/done-tasks//file] ______
+
+path = 'work/done-tasks//file'
+
+    @pytest.mark.parametrize('path', [
+        '', 'work', 'work/', 'work/done-tasks', 'work/done-tasks/',
+        '/work/alpha/file', 'work/../alpha/file', 'work/./file',
+        'work//alpha/file', 'work/done-tasks/../file',
+        'work/done-tasks//file', 'work/done-tasks/./file',
+        'work/alpha\\other/file', 'work/alpha\x00/file',
+    ])
+    def test_f1_missing_or_unsafe_path_not_inferred(path):
+>       assert d.target_task({'path': path}) is None
+E       AssertionError: assert 'done-tasks' is None
+E        +  where 'done-tasks' = <function target_task at 0x103ee58a0>({'path': 'work/done-tasks//file'})
+E        +    where <function target_task at 0x103ee58a0> = d.target_task
+
+tests/unit/test_hjw_four_facts.py:271: AssertionError
+_____ test_f1_missing_or_unsafe_path_not_inferred[work/done-tasks/./file] ______
+
+path = 'work/done-tasks/./file'
+
+    @pytest.mark.parametrize('path', [
+        '', 'work', 'work/', 'work/done-tasks', 'work/done-tasks/',
+        '/work/alpha/file', 'work/../alpha/file', 'work/./file',
+        'work//alpha/file', 'work/done-tasks/../file',
+        'work/done-tasks//file', 'work/done-tasks/./file',
+        'work/alpha\\other/file', 'work/alpha\x00/file',
+    ])
+    def test_f1_missing_or_unsafe_path_not_inferred(path):
+>       assert d.target_task({'path': path}) is None
+E       AssertionError: assert 'done-tasks' is None
+E        +  where 'done-tasks' = <function target_task at 0x103ee58a0>({'path': 'work/done-tasks/./file'})
+E        +    where <function target_task at 0x103ee58a0> = d.target_task
+
+tests/unit/test_hjw_four_facts.py:271: AssertionError
+_____ test_f1_missing_or_unsafe_path_not_inferred[work/alpha\\other/file] ______
+
+path = 'work/alpha\\other/file'
+
+    @pytest.mark.parametrize('path', [
+        '', 'work', 'work/', 'work/done-tasks', 'work/done-tasks/',
+        '/work/alpha/file', 'work/../alpha/file', 'work/./file',
+        'work//alpha/file', 'work/done-tasks/../file',
+        'work/done-tasks//file', 'work/done-tasks/./file',
+        'work/alpha\\other/file', 'work/alpha\x00/file',
+    ])
+    def test_f1_missing_or_unsafe_path_not_inferred(path):
+>       assert d.target_task({'path': path}) is None
+E       AssertionError: assert 'alpha\\other' is None
+E        +  where 'alpha\\other' = <function target_task at 0x103ee58a0>({'path': 'work/alpha\\other/file'})
+E        +    where <function target_task at 0x103ee58a0> = d.target_task
+
+tests/unit/test_hjw_four_facts.py:271: AssertionError
+_______ test_f1_missing_or_unsafe_path_not_inferred[work/alpha\x00/file] _______
+
+path = 'work/alpha\x00/file'
+
+    @pytest.mark.parametrize('path', [
+        '', 'work', 'work/', 'work/done-tasks', 'work/done-tasks/',
+        '/work/alpha/file', 'work/../alpha/file', 'work/./file',
+        'work//alpha/file', 'work/done-tasks/../file',
+        'work/done-tasks//file', 'work/done-tasks/./file',
+        'work/alpha\\other/file', 'work/alpha\x00/file',
+    ])
+    def test_f1_missing_or_unsafe_path_not_inferred(path):
+>       assert d.target_task({'path': path}) is None
+E       AssertionError: assert 'alpha\x00' is None
+E        +  where 'alpha\x00' = <function target_task at 0x103ee58a0>({'path': 'work/alpha\x00/file'})
+E        +    where <function target_task at 0x103ee58a0> = d.target_task
+
+tests/unit/test_hjw_four_facts.py:271: AssertionError
+____________________ test_f1_multiple_operations_same_task _____________________
+
+    def test_f1_multiple_operations_same_task():
+>       assert d.target_task({'operations': [
+            {'path': 'work/alpha/a.md'}, {'from': 'work/alpha', 'to': 'work/done-tasks/alpha'},
+            {'path': 'work/done-tasks/alpha/b.md'},
+        ]}) == 'alpha'
+
+tests/unit/test_hjw_four_facts.py:274: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = {'operations': [{'path': 'work/alpha/a.md'}, {'from': 'work/alpha', 'to': 'work/done-tasks/alpha'}, {'path': 'work/done-tasks/alpha/b.md'}]}
+
+    def target_task(args):
+        """Derive only a unique explicit work/<task> target; never from free text."""
+        paths = []
+        def collect(a):
+            for k in ('path', 'from', 'to'):
+                if isinstance(a.get(k), str): paths.append(a[k])
+            for k in ('operations', 'ops'):
+                for op in a.get(k, []) if isinstance(a.get(k, []), list) else []:
+                    if isinstance(op, dict): collect(op)
+            if isinstance(a.get('arguments'), dict): collect(a['arguments'])
+        collect(args)
+        tasks = set()
+        for path in paths:
+            parts = path.split('/')
+            if '..' in parts or path.startswith('/'):
+                continue
+            if len(parts) > 2 and parts[0] == 'work': tasks.add(parts[1])
+        if len(tasks) > 1:
+>           raise Denied('CONTEXT_CLARIFICATION_REQUIRED', 'Targets span multiple tasks; split the logical write by task.', ['task_id'])
+E           agent_data.declaration_contract.Denied: Targets span multiple tasks; split the logical write by task.
+
+agent_data/declaration_contract.py:95: Denied
+______ test_f1_cross_task_move_rejected[work/alpha-work/done-tasks/beta] _______
+
+source = 'work/alpha', destination = 'work/done-tasks/beta'
+
+    @pytest.mark.parametrize('source,destination', [
+        ('work/alpha', 'work/done-tasks/beta'),
+        ('work/done-tasks/alpha/a.md', 'work/done-tasks/beta/a.md'),
+    ])
+    def test_f1_cross_task_move_rejected(source, destination):
+>       with pytest.raises(d.Denied): d.target_task({'from': source, 'to': destination})
+E       Failed: DID NOT RAISE <class 'agent_data.declaration_contract.Denied'>
+
+tests/unit/test_hjw_four_facts.py:284: Failed
+_ test_f1_cross_task_move_rejected[work/done-tasks/alpha/a.md-work/done-tasks/beta/a.md] _
+
+source = 'work/done-tasks/alpha/a.md', destination = 'work/done-tasks/beta/a.md'
+
+    @pytest.mark.parametrize('source,destination', [
+        ('work/alpha', 'work/done-tasks/beta'),
+        ('work/done-tasks/alpha/a.md', 'work/done-tasks/beta/a.md'),
+    ])
+    def test_f1_cross_task_move_rejected(source, destination):
+>       with pytest.raises(d.Denied): d.target_task({'from': source, 'to': destination})
+E       Failed: DID NOT RAISE <class 'agent_data.declaration_contract.Denied'>
+
+tests/unit/test_hjw_four_facts.py:284: Failed
+_ test_f1_exact_declared_id_and_derived_provenance[work/done-tasks/alpha/COLLAB.md] _
+
+path = 'work/done-tasks/alpha/COLLAB.md'
+
+    @pytest.mark.parametrize('path', ['work/alpha/COLLAB.md', 'work/done-tasks/alpha/COLLAB.md'])
+    def test_f1_exact_declared_id_and_derived_provenance(path):
+        a=args(path=path);a['declaration_context']['task_id']='alpha'
+>       value=d.resolve(a,WHO)
+              ^^^^^^^^^^^^^^^^
+
+tests/unit/test_hjw_four_facts.py:289: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = {'declaration_context': {'command_ref': 'HJW-DECLARATION-GATE-FOUR-FACTS-20261029-14', 'origin_environment': 'Macbok', 'task_id': 'alpha'}, 'declared_actor': 'GPT Live', 'path': 'work/done-tasks/alpha/COLLAB.md'}
+who = {'authenticated': True, 'label': 'shared-gpt'}, carried = None
+verified = {'task_id': 'done-tasks'}
+
+    def resolve(args, who, carried=None, verified=None):
+        """carried and verified must originate only from trusted server adapters."""
+        value = args.get('declared_actor')
+        context = args.get('declaration_context')
+        if carried is None and not enforced() and value is None and context is None:
+            return None
+        auth = authenticate(who)
+        if context is None: context = {}
+        if not isinstance(context, dict) or set(context) - {'origin_environment','task_id','command_ref'}:
+            raise Denied('CONTEXT_CLARIFICATION_REQUIRED', DESCRIPTION, ['origin_environment','task_id','command_ref'])
+        supplied = dict(context)
+        if value is not None: supplied['declared_actor'] = value
+        if carried is not None:
+            if isinstance(carried, dict) and carried.get('authenticated_actor') != auth:
+                raise Denied('DECLARATION_ACTOR_MISMATCH', 'Retry with the original credential.')
+            if not isinstance(carried, dict) or carried.get('contract_version') != VERSION or carried.get('authenticated_actor') != auth or not all(k in carried.get('facts', {}) for k in EXAMPLES):
+                raise Denied('DECLARATION_CONTEXT_INVALID', 'Use the original credential and four-fact logical write; reconcile legacy metadata before enforce.')
+            # Carry the original receipt byte values; do not re-normalize using a newer alias table.
+            for field, raw in supplied.items():
+                if raw != carried['facts'][field]['raw']:
+                    raise Denied('DECLARATION_ACTOR_MISMATCH', 'Retry with the original four facts and credential.', [field])
+            return json.loads(json.dumps(carried))
+        verified = verified or {}
+        derived_task = target_task(args)
+        if derived_task:
+            if verified.get('task_id') and canonical(verified['task_id'],'task_id') != derived_task:
+                raise Denied('CONTEXT_CLARIFICATION_REQUIRED', 'Target task conflicts with verified task.', ['task_id'])
+            verified = dict(verified, task_id=derived_task)
+        facts, missing = {}, []
+        for field in EXAMPLES:
+            raw = verified.get(field, supplied.get(field))
+            provenance = 'verified' if field in verified else 'self_declared'
+            if field == 'task_id' and derived_task: provenance = 'derived'
+            if raw is None and field == 'command_ref' and args.get('operation_id'):
+                raw, provenance = args['operation_id'], 'derived'
+            if raw is None:
+                missing.append(field); continue
+            normalized = canonical(raw, field)
+            if field in verified and field in supplied and canonical(supplied[field],field) != normalized:
+>               raise Denied('CONTEXT_CLARIFICATION_REQUIRED', 'Declared context conflicts with verified context; retry with the exact task/assignment.', [field])
+E               agent_data.declaration_contract.Denied: Declared context conflicts with verified context; retry with the exact task/assignment.
+
+agent_data/declaration_contract.py:137: Denied
+_____ test_f1_close_reopen_transaction_and_cross_task_zero_mutation[False] _____
+
+env = (PosixPath('/private/var/folders/z3/_hp1c7kn24nd1vt3jp7yhlh40000gn/T/pytest-of-nmhuyen/pytest-21/test_f1_close_reopen_...te/var/folders/z3/_hp1c7kn24nd1vt3jp7yhlh40000gn/T/pytest-of-nmhuyen/pytest-21/test_f1_close_reopen_transacti0/state'))
+reverse = False
+
+    @pytest.mark.parametrize('reverse', [False, True])
+    def test_f1_close_reopen_transaction_and_cross_task_zero_mutation(env,reverse):
+        root,state=env
+        source='work/done-tasks/alpha' if reverse else 'work/alpha'
+        dest='work/alpha' if reverse else 'work/done-tasks/alpha'
+        (root/source).mkdir(parents=True);(root/source/'note.md').write_text('keep')
+        version=w.call('workspace_stat',{'root':'fixture','path':source})['version']
+        ctx={'origin_environment':'macbook','task_id':'alpha','command_ref':'RUN-F1'}
+        payload={'root':'fixture','message':'close/reopen fixture','operations':[{'op':'move','from':source,'to':dest,'expected_version':version}],'declared_actor':'Codex','declaration_context':ctx}
+        before={str(p.relative_to(root)):p.read_bytes() for p in root.rglob('*') if p.is_file()}
+        bad=dict(payload,operations=[{'op':'move','from':source,'to':'work/done-tasks/beta','expected_version':version}])
+        result=w.call('workspace_transaction',bad)
+        assert result['error']=='CONTEXT_CLARIFICATION_REQUIRED' and result['mutation']=='none',result
+        assert before=={str(p.relative_to(root)):p.read_bytes() for p in root.rglob('*') if p.is_file()}
+        result=w.call('workspace_transaction',payload)
+>       assert 'error' not in result,result
+E       AssertionError: {'detail': 'Declared context conflicts with verified context; retry with the exact task/assignment.', 'error': 'CONTEX...in_environment': 'cloud', 'task_id': 'hermes-joint-workspace'}, 'declared_actor': 'GPT Live'}, 'field': 'task_id', ...}
+E       assert 'error' not in {'detail': 'Declared context conflicts with verified context; retry with the exact task/assignment.', 'error': 'CONTEX...in_environment': 'cloud', 'task_id': 'hermes-joint-workspace'}, 'declared_actor': 'GPT Live'}, 'field': 'task_id', ...}
+
+tests/unit/test_hjw_four_facts.py:309: AssertionError
+_____ test_f1_close_reopen_transaction_and_cross_task_zero_mutation[True] ______
+
+env = (PosixPath('/private/var/folders/z3/_hp1c7kn24nd1vt3jp7yhlh40000gn/T/pytest-of-nmhuyen/pytest-21/test_f1_close_reopen_...te/var/folders/z3/_hp1c7kn24nd1vt3jp7yhlh40000gn/T/pytest-of-nmhuyen/pytest-21/test_f1_close_reopen_transacti1/state'))
+reverse = True
+
+    @pytest.mark.parametrize('reverse', [False, True])
+    def test_f1_close_reopen_transaction_and_cross_task_zero_mutation(env,reverse):
+        root,state=env
+        source='work/done-tasks/alpha' if reverse else 'work/alpha'
+        dest='work/alpha' if reverse else 'work/done-tasks/alpha'
+        (root/source).mkdir(parents=True);(root/source/'note.md').write_text('keep')
+        version=w.call('workspace_stat',{'root':'fixture','path':source})['version']
+        ctx={'origin_environment':'macbook','task_id':'alpha','command_ref':'RUN-F1'}
+        payload={'root':'fixture','message':'close/reopen fixture','operations':[{'op':'move','from':source,'to':dest,'expected_version':version}],'declared_actor':'Codex','declaration_context':ctx}
+        before={str(p.relative_to(root)):p.read_bytes() for p in root.rglob('*') if p.is_file()}
+        bad=dict(payload,operations=[{'op':'move','from':source,'to':'work/done-tasks/beta','expected_version':version}])
+        result=w.call('workspace_transaction',bad)
+        assert result['error']=='CONTEXT_CLARIFICATION_REQUIRED' and result['mutation']=='none',result
+        assert before=={str(p.relative_to(root)):p.read_bytes() for p in root.rglob('*') if p.is_file()}
+        result=w.call('workspace_transaction',payload)
+>       assert 'error' not in result,result
+E       AssertionError: {'detail': 'Declared context conflicts with verified context; retry with the exact task/assignment.', 'error': 'CONTEX...in_environment': 'cloud', 'task_id': 'hermes-joint-workspace'}, 'declared_actor': 'GPT Live'}, 'field': 'task_id', ...}
+E       assert 'error' not in {'detail': 'Declared context conflicts with verified context; retry with the exact task/assignment.', 'error': 'CONTEX...in_environment': 'cloud', 'task_id': 'hermes-joint-workspace'}, 'declared_actor': 'GPT Live'}, 'field': 'task_id', ...}
+
+tests/unit/test_hjw_four_facts.py:309: AssertionError
+=========================== short test summary info ============================
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_active_and_archived_identity[work/alpha]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_active_and_archived_identity[work/done-tasks/alpha/COLLAB.md]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_active_and_archived_identity[work/done-tasks/alpha]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_close_reopen_same_task[work/alpha-work/done-tasks/alpha]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_close_reopen_same_task[work/done-tasks/alpha-work/alpha]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_close_reopen_same_task[work/alpha/COLLAB.md-work/done-tasks/alpha/COLLAB.md]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_close_reopen_same_task[work/done-tasks/alpha/COLLAB.md-work/alpha/COLLAB.md]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_missing_or_unsafe_path_not_inferred[work/done-tasks/]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_missing_or_unsafe_path_not_inferred[work/./file]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_missing_or_unsafe_path_not_inferred[work//alpha/file]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_missing_or_unsafe_path_not_inferred[work/done-tasks//file]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_missing_or_unsafe_path_not_inferred[work/done-tasks/./file]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_missing_or_unsafe_path_not_inferred[work/alpha\\other/file]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_missing_or_unsafe_path_not_inferred[work/alpha\x00/file]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_multiple_operations_same_task
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_cross_task_move_rejected[work/alpha-work/done-tasks/beta]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_cross_task_move_rejected[work/done-tasks/alpha/a.md-work/done-tasks/beta/a.md]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_exact_declared_id_and_derived_provenance[work/done-tasks/alpha/COLLAB.md]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_close_reopen_transaction_and_cross_task_zero_mutation[False]
+FAILED tests/unit/test_hjw_four_facts.py::test_f1_close_reopen_transaction_and_cross_task_zero_mutation[True]
+20 failed, 98 passed in 0.30s

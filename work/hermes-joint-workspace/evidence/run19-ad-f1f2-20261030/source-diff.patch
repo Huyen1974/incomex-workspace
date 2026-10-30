@@ -1,0 +1,362 @@
+commit 58a44c0559bfd42e7e62f5faf8df49ebd2259e78
+Author:     Nguyễn Minh Huyên <nmhuyen@gmail.com>
+AuthorDate: Fri Oct 30 15:14:10 2026 +0700
+Commit:     Nguyễn Minh Huyên <nmhuyen@gmail.com>
+CommitDate: Fri Oct 30 15:14:10 2026 +0700
+
+    fix: resolve archived task identity and gate four-facts regressions
+
+diff --git a/.github/workflows/ghm-pr-gate.yml b/.github/workflows/ghm-pr-gate.yml
+index 91e196c..6839526 100644
+--- a/.github/workflows/ghm-pr-gate.yml
++++ b/.github/workflows/ghm-pr-gate.yml
+@@ -157,7 +157,7 @@ jobs:
+         python3 -m venv "$RUNNER_TEMP/ghm-pr-venv"
+         . "$RUNNER_TEMP/ghm-pr-venv/bin/activate"
+         python -m pip install --disable-pip-version-check pytest==8.4.2 PyYAML==6.0.3 jsonschema==4.25.1 psycopg2-binary==2.9.10
+-        TESTS=(tests/unit/test_extractor_tool.py tests/unit/test_speclint_tool.py tests/unit/test_specrunner_unit.py tests/unit/test_pg_store_bootstrap.py)
++        TESTS=(tests/unit/test_extractor_tool.py tests/unit/test_speclint_tool.py tests/unit/test_specrunner_unit.py tests/unit/test_pg_store_bootstrap.py tests/unit/test_hjw_four_facts.py)
+         if test -f tests/unit/test_kb_list_pagination.py; then TESTS+=(tests/unit/test_kb_list_pagination.py); fi
+         python -m pytest -o addopts='' -q "${TESTS[@]}"
+       if: ${{ !cancelled() && steps.preflight.outcome == 'success' && steps.scan.outcome == 'success' }}
+diff --git a/agent_data/declaration_contract.py b/agent_data/declaration_contract.py
+index 33906ae..af1c738 100644
+--- a/agent_data/declaration_contract.py
++++ b/agent_data/declaration_contract.py
+@@ -87,10 +87,16 @@ def target_task(args):
+     collect(args)
+     tasks = set()
+     for path in paths:
+-        parts = path.split('/')
+-        if '..' in parts or path.startswith('/'):
++        parts = path.rstrip('/').split('/')
++        if (path.startswith('/') or '\\' in path
++                or any(p in ('', '.', '..') for p in parts)
++                or any(unicodedata.category(c).startswith('C') for c in path)):
+             continue
+-        if len(parts) > 2 and parts[0] == 'work': tasks.add(parts[1])
++        if len(parts) < 2 or parts[0] != 'work':
++            continue
++        index = 2 if parts[1] == 'done-tasks' else 1
++        if len(parts) > index and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]*', parts[index]):
++            tasks.add(parts[index])
+     if len(tasks) > 1:
+         raise Denied('CONTEXT_CLARIFICATION_REQUIRED', 'Targets span multiple tasks; split the logical write by task.', ['task_id'])
+     return next(iter(tasks), None)
+diff --git a/tests/unit/test_hjw_four_facts.py b/tests/unit/test_hjw_four_facts.py
+new file mode 100644
+index 0000000..8974c68
+--- /dev/null
++++ b/tests/unit/test_hjw_four_facts.py
+@@ -0,0 +1,311 @@
++"""HJW RUN19: four-facts regression, including archived task close/reopen.
++Uses temporary files/SQLite and mocked network/supervisor only; no FastAPI/PG/Docker.
++Run: python -m pytest -o addopts='' tests/unit/test_hjw_four_facts.py
++"""
++import sys
++from pathlib import Path
++sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
++
++
++import base64,hashlib,json
++from pathlib import Path
++import pytest
++from agent_data import workspace_tools as w, hvu_signals as hvu, declaration_contract as d, workspace_declaration as adapter
++
++@pytest.fixture
++def env(tmp_path,monkeypatch):
++    root=tmp_path/'root';root.mkdir();state=tmp_path/'state'
++    config=tmp_path/'config.json';config.write_text(json.dumps({'state_dir':str(state),'roots':{'fixture':{'path':str(root),'mode':'filesystem','writable':True}},'resources':{}}))
++    monkeypatch.setenv('WORKSPACE_CONFIG',str(config));monkeypatch.setenv('WORKSPACE_DECLARATION_MODE','enforce')
++    hvu.bind('credential:fixture');hvu._agent=None
++    yield root,state
++    hvu.identity.set(None);hvu.agent.set(None);hvu._agent=None
++
++def write(**extra):return dict(root='fixture',path='a.md',content='hello',message='fixture',operation_id='fixture-01',**extra)
++
++@pytest.mark.parametrize('name',sorted(adapter.WRITES|{'workspace_task_start'}))
++@pytest.mark.parametrize('value',[None,'',15])
++def test_all_source_routes_deny_before_state(env,name,value):
++    root,state=env
++    args=write(declared_actor=value)
++    if name=='workspace_task_start':args={'tool':'workspace_write_new','arguments':write(),'declared_actor':value}
++    if name in ('workspace_upload_append','workspace_upload_commit'):
++        uid='a'*32;state.mkdir();(state/'uploads').mkdir();(state/'uploads'/f'{uid}.json').write_text('{}');args={'upload_id':uid,'declared_actor':value}
++    before={str(p):p.read_bytes() for p in root.parent.rglob('*') if p.is_file()}
++    result=w.call(name,args)
++    assert result.get('mutation')=='none',result
++    after={str(p):p.read_bytes() for p in root.parent.rglob('*') if p.is_file()}
++    assert before==after
++
++def test_real_write_retry_actor_swap(env):
++    root,state=env;a=write(declared_actor='Codex Worker',declaration_context={'origin_environment':'macbook','task_id':'fixture','command_ref':'RUN-FIXTURE'})
++    result=w.call('workspace_write_new',a);assert 'error' not in result,result
++    assert (root/'a.md').read_text()=='hello'
++    assert result['declaration_receipt']['facts']['declared_actor']['raw']=='Codex Worker'
++    assert w.call('workspace_write_new',a)['replayed'] is True
++    swapped=w.call('workspace_write_new',dict(a,declared_actor='Other'))
++    assert swapped['error']=='OPERATION_ID_REUSED',swapped
++    hvu.bind('credential:other')
++    swapped=w.call('workspace_write_new',a);assert swapped['error']=='OPERATION_ID_REUSED'
++
++def test_missing_then_same_id_allowed(env):
++    denied=w.call('workspace_write_new',write());assert denied['error']=='DECLARATION_REQUIRED'
++    accepted=w.call('workspace_write_new',write(declared_actor='Worker',declaration_context={'origin_environment':'macbook','task_id':'fixture','command_ref':'RUN-FIXTURE'}));assert 'error' not in accepted,accepted
++
++def test_legacy_journal_not_relabelled(env,monkeypatch):
++    monkeypatch.setenv('WORKSPACE_DECLARATION_MODE','advertise')
++    old=w.call('workspace_write_new',write());assert 'error' not in old,old
++    assert 'declaration_receipt' not in old
++    monkeypatch.setenv('WORKSPACE_DECLARATION_MODE','enforce')
++    result=w.call('workspace_write_new',write(declared_actor='Worker',declaration_context={'origin_environment':'macbook','task_id':'fixture','command_ref':'RUN-FIXTURE'}))
++    assert result['error']=='OPERATION_ID_REUSED'
++
++def test_upload_carried_once_and_swaps(env):
++    root,state=env;data=b'upload';sha=hashlib.sha256(data).hexdigest()
++    first=w.call('workspace_upload_begin',{'root':'fixture','path':'upload.md','message':'fixture','total_bytes':len(data),'sha256':sha,'declared_actor':'Worker','declaration_context':{'origin_environment':'macbook','task_id':'fixture','command_ref':'RUN-FIXTURE'}})
++    assert 'error' not in first,first
++    uid=first['upload_id'];args={'upload_id':uid,'offset':0,'data_base64':base64.b64encode(data).decode(),'sha256':sha}
++    assert w.call('workspace_upload_append',dict(args,declared_actor='Other'))['error']=='DECLARATION_ACTOR_MISMATCH'
++    assert 'error' not in w.call('workspace_upload_append',args)
++    result=w.call('workspace_upload_commit',{'upload_id':uid});assert 'error' not in result,result
++    assert result['declaration_receipt']['declared_actor']=='worker'
++    assert (root/'upload.md').read_bytes()==data
++    assert w.call('workspace_upload_commit',{'upload_id':uid})['declaration_receipt']==result['declaration_receipt']
++
++def test_schema_and_unknown_writer(env):
++    for definition in w.TOOL_SCHEMAS:
++        name=definition['name']
++        if name in adapter.WRITES|{'workspace_task_start'}:
++            assert 'declared_actor' in definition['inputSchema']['properties']
++            assert 'DECLARATION_REQUIRED' in definition['description']
++            assert 'declared_actor' not in definition['inputSchema'].get('required',[])
++        else:assert name in adapter.NON_SOURCE
++    assert w.call('workspace_future_write',{})['error']=='UNCLASSIFIED_TOOL'
++
++def test_read_no_declaration(env):
++    root,_=env;(root/'read.md').write_text('read works')
++    result=w.call('workspace_read',{'root':'fixture','path':'read.md'})
++    assert result.get('content')=='read works',result
++    assert 'declaration_receipt' not in result
++
++def test_queue_worker_and_legacy(env,monkeypatch):
++    from agent_data import workspace_tasks as tasks
++    monkeypatch.setattr(tasks,'ensure_supervisor',lambda:None)
++    monkeypatch.setattr(tasks.os,'nice',lambda n:0)
++    args={'tool':'workspace_write_new','arguments':write(),'operation_id':'queue-01','declared_actor':'Worker','declaration_context':{'origin_environment':'macbook','task_id':'fixture','command_ref':'RUN-FIXTURE'}}
++    result=w.call('workspace_task_start',args);assert 'error' not in result,result
++    q=tasks.queue(w);key=result['task_id'];row=q.get(key,'tasks');request=json.loads(row['request'])
++    assert request['_declaration']['declared_actor']=='worker'
++    assert w.call('workspace_task_start',args)['task_id']==key
++    assert w.call('workspace_task_start',dict(args,declared_actor='Other'))['error']=='OPERATION_ID_REUSED'
++    assert q.claim('tasks','fixture',1)
++    tasks.run(key)
++    finished=q.status(key,'tasks');assert finished['status']=='completed',finished
++    assert finished['result']['declaration_receipt']['declared_actor']=='worker'
++    old=q.enqueue('tasks',{'_hvu':hvu.hidden(),'tool':'workspace_write_new','arguments':dict(write(),path='legacy.md',operation_id='old-01')})
++    assert q.claim('tasks','fixture',1)
++    tasks.run(old)
++    assert q.status(old,'tasks')['result']['error']=='LEGACY_JOB_UNATTRIBUTED'
++    assert not (env[0]/'legacy.md').exists()
++    assert d.current.get() is None
++
++def test_import_carries_declaration(env,monkeypatch):
++    import io,socket,urllib.request
++    from types import SimpleNamespace
++    monkeypatch.setattr(socket,'getaddrinfo',lambda *a,**k:[(2,1,6,'',('8.8.8.8',443))])
++    monkeypatch.setattr(urllib.request,'build_opener',lambda *a:SimpleNamespace(open=lambda *a,**k:io.BytesIO(b'imported')))
++    result=w.call('workspace_import_file',{'root':'fixture','path':'import.md','message':'fixture','file':{'file_id':'fixture-file','download_url':'https://files.oaiusercontent.com/fixture'},'declared_actor':'Worker','declaration_context':{'origin_environment':'macbook','task_id':'fixture','command_ref':'RUN-FIXTURE'}})
++    assert 'error' not in result,result
++    assert result['declaration_receipt']['declared_actor']=='worker'
++    assert (env[0]/'import.md').read_text()=='imported'
++
++def test_edit_copy_move_transaction(env):
++    root,state=env
++    made=w.call('workspace_write_new',write(declared_actor='Worker',declaration_context={'origin_environment':'macbook','task_id':'fixture','command_ref':'RUN-FIXTURE'}));assert 'error' not in made,made
++    edit=w.call('workspace_edit',{'root':'fixture','path':'a.md','edits':[{'old_str':'hello','new_str':'changed'}],'expected_version':made['version'],'message':'fixture','declared_actor':'Worker','declaration_context':{'origin_environment':'macbook','task_id':'fixture','command_ref':'RUN-FIXTURE'}})
++    assert 'error' not in edit,edit
++    for name,source,dest in [('workspace_copy','a.md','b.md'),('workspace_move','b.md','c.md')]:
++        result=w.call(name,{'root':'fixture','from':source,'to':dest,'expected_version':w.call('workspace_stat',{'root':'fixture','path':source})['version'],'message':'fixture','declared_actor':'Worker','declaration_context':{'origin_environment':'macbook','task_id':'fixture','command_ref':'RUN-FIXTURE'}})
++        assert 'error' not in result,result
++    txn=w.call('workspace_transaction',{'root':'fixture','message':'fixture','operations':[{'op':'create','path':'d.md','content':'txn'}],'declared_actor':'Worker','declaration_context':{'origin_environment':'macbook','task_id':'fixture','command_ref':'RUN-FIXTURE'}})
++    assert 'error' not in txn,txn
++    assert (root/'d.md').read_text()=='txn'
++
++
++import pytest
++from agent_data import declaration_contract as d
++WHO={'label':'credential:test','authenticated':True}
++@pytest.mark.parametrize('value',[None,'','  ',42,False,[],{},'bad\nname'])
++def test_contract_invalid_actionable(value,monkeypatch):
++    monkeypatch.setenv('WORKSPACE_DECLARATION_MODE','enforce')
++    with pytest.raises(d.Denied) as error:d.resolve({'declared_actor':value},WHO)
++    result=error.value.result()
++    assert result['error']=='DECLARATION_REQUIRED' and result['mutation']=='none'
++    assert result['example']['declared_actor'] and 'repeat' in result['detail']
++def test_contract_unknown_credential_never_promoted(monkeypatch):
++    monkeypatch.setenv('WORKSPACE_DECLARATION_MODE','enforce')
++    with pytest.raises(d.Denied,match='trusted'):d.resolve({'declared_actor':'Codex'}, {'label':'clientInfo'})
++def test_contract_advertise_preserves_old_payload(monkeypatch):
++    monkeypatch.delenv('WORKSPACE_DECLARATION_MODE',raising=False)
++    assert d.resolve({},None) is None
++    with d.scope(None):assert d.bind_hash({'content':'x'})=={'content':'x'}
++def test_contract_swap_and_context_cleanup(monkeypatch):
++    monkeypatch.setenv('WORKSPACE_DECLARATION_MODE','enforce')
++    pair=d.resolve({'declared_actor':' Worker ','declaration_context':{'origin_environment':'macbook','task_id':'fixture','command_ref':'RUN-FIXTURE'}},WHO)
++    assert d.resolve({},WHO,pair)==pair
++    for args,who in [({'declared_actor':'Other'},WHO),({},dict(WHO,label='other'))]:
++        with pytest.raises(d.Denied):d.resolve(args,who,pair)
++    with d.scope(pair):assert d.receipt({'changed':True})['declaration_receipt']==pair
++    assert d.current.get() is None
++    with d.scope(pair):assert 'declaration_receipt' not in d.receipt({'replayed':True})
++
++
++import asyncio, json
++import pytest
++from agent_data import declaration_contract as d
++WHO={'authenticated':True,'label':'shared-gpt'}
++CTX={'origin_environment':'Macbok','task_id':'fixture','command_ref':'HJW-DECLARATION-GATE-FOUR-FACTS-20261029-14'}
++def args(**extra):return dict(declared_actor='GPT Live', declaration_context=dict(CTX), **extra)
++@pytest.fixture(autouse=True)
++def mode(monkeypatch):monkeypatch.setenv('WORKSPACE_DECLARATION_MODE','enforce')
++@pytest.mark.parametrize('name',['GPT Live','gpt_live','gptlive','ＧＰＴ　Ｌｉｖｅ'])
++def test_alias(name):
++    a=args();a['declared_actor']=name;v=d.resolve(a,WHO)
++    assert v['declared_actor']=='gpt-live' and v['facts']['declared_actor']['raw']==name
++    assert v['facts']['origin_environment']['canonical']=='macbook'
++    assert v['command_kind']=='RUN'
++@pytest.mark.parametrize('bad',[None,'',33,{},[],True,'x\nname','x\x00name','x'*129,'../Owner','\u200b'])
++def test_bad_product(bad):
++    a=args();a['declared_actor']=bad
++    with pytest.raises(d.Denied) as e:d.resolve(a,WHO)
++    assert e.value.result()['mutation']=='none'
++def test_unknown_valid_name():
++    a=args();a['declared_actor']='New AI 2030';v=d.resolve(a,WHO)
++    assert v['declared_actor']=='new-ai-2030' and v['flags']==['UNREGISTERED_ALIAS']
++@pytest.mark.parametrize('field',['declared_actor','origin_environment','task_id','command_ref'])
++def test_missing_field(field):
++    a=args()
++    if field=='declared_actor':a.pop(field)
++    else:a['declaration_context'].pop(field)
++    with pytest.raises(d.Denied) as e:d.resolve(a,WHO)
++    assert e.value.result()['missing_fields']==[field]
++@pytest.mark.parametrize('env',['Mac Book','macos','mac','macbook','macbok','CLOUD','vps'])
++def test_environment(env):
++    a=args();a['declaration_context']['origin_environment']=env
++    assert d.resolve(a,WHO)['facts']['origin_environment']['canonical'] in ('macbook','cloud','vps')
++def test_shared_credential_not_environment():
++    a=args();a['declaration_context'].pop('origin_environment')
++    with pytest.raises(d.Denied) as e:d.resolve(a,dict(WHO,gateway='vps'))
++    assert 'origin_environment' in e.value.fields
++def test_task_derive_and_conflict():
++    a=args(path='work/fixture/COLLAB.md');a['declaration_context'].pop('task_id')
++    v=d.resolve(a,WHO);assert v['facts']['task_id']['canonical']=='fixture' and v['facts']['task_id']['provenance']=='derived'
++    a['declaration_context']['task_id']='fixtur'
++    with pytest.raises(d.Denied):d.resolve(a,WHO)
++def test_multitask_and_traversal():
++    with pytest.raises(d.Denied):d.resolve(args(operations=[{'path':'work/a/file'},{'path':'work/b/file'}]),WHO)
++    a=args();a['declaration_context']['task_id']='../other'
++    with pytest.raises(d.Denied):d.resolve(a,WHO)
++def test_verified_context_conflict():
++    with pytest.raises(d.Denied):d.resolve(args(),WHO,verified={'command_ref':'OTHER-RUN'})
++def test_ad_hoc_not_run():
++    a=args(operation_id='real-operation');a['declaration_context'].pop('command_ref')
++    v=d.resolve(a,WHO);assert v['command_kind']=='ad-hoc' and v['facts']['command_ref']['canonical']=='real-operation'
++def test_alias_upgrade_replay_hash(monkeypatch):
++    a=args();a['declared_actor']='gptlive';old=d.resolve(a,WHO)
++    with d.scope(old):h=d.bind_hash(a)
++    monkeypatch.setitem(d.ALIASES,'gptlive','new-canonical')
++    with d.scope(d.resolve(a,WHO)):assert d.bind_hash(a)==h
++    assert d.resolve({},WHO,old)==old
++@pytest.mark.parametrize('field',['origin_environment','task_id','command_ref'])
++def test_carried_cannot_swap(field):
++    old=d.resolve(args(),WHO)
++    with pytest.raises(d.Denied):d.resolve({'declaration_context':{field:'other'}},WHO,old)
++def test_forged_metadata_dispatch(tmp_path,monkeypatch):
++    from agent_data import workspace_tools as w,hvu_signals as hvu
++    hvu.bind('credential:fixture');hvu._agent=None
++    r=w.call('workspace_write_new',dict(args(),_hvu={'label':'Owner'}))
++    assert r['error']=='CLIENT_METADATA_FORBIDDEN'
++    hvu.identity.set(None)
++
++
++from agent_data import workspace_tools as w,hvu_signals as hvu,workspace_declaration as acl_adapter
++
++def test_declaration_does_not_grant_hermes_tools_or_paths(env,monkeypatch):
++    hvu.agent.set('hermes')
++    monkeypatch.setattr(w,'agent_profiles',lambda:{'hermes':{'tools':frozenset({'workspace_read','workspace_edit'}),'roots':frozenset({'fixture'}),'read':{'fixture':['']},'write':{'fixture':['work/allowed']}}})
++    a=write(declared_actor='Owner Root',declaration_context={'origin_environment':'vps','task_id':'fixture','command_ref':'RUN-OWNER'})
++    assert w.call('workspace_write_new',a)['error']=='TOOL_NOT_ALLOWED'
++    assert w.call('workspace_edit',dict(a,path='work/other/a.md',edits=[]))['error']=='SCOPE_DENIED'
++    assert w.call('workspace_task_start',{'tool':'workspace_write_new','arguments':a})['error']=='TOOL_NOT_ALLOWED'
++    assert not list(env[0].iterdir())
++
++def test_existing_infra_classification_is_non_source():
++    for name in ('infra_graph','infra_logs','infra_ops_plan'):assert acl_adapter.target(name,{}) is False
++
++# F1 regressions: a task keeps its ID when moving into/out of done-tasks.
++@pytest.mark.parametrize('path', [
++    'work/alpha/COLLAB.md', 'work/alpha',
++    'work/done-tasks/alpha/COLLAB.md', 'work/done-tasks/alpha',
++])
++def test_f1_active_and_archived_identity(path):
++    assert d.target_task({'path': path}) == 'alpha'
++
++@pytest.mark.parametrize('source,destination', [
++    ('work/alpha', 'work/done-tasks/alpha'),
++    ('work/done-tasks/alpha', 'work/alpha'),
++    ('work/alpha/COLLAB.md', 'work/done-tasks/alpha/COLLAB.md'),
++    ('work/done-tasks/alpha/COLLAB.md', 'work/alpha/COLLAB.md'),
++])
++def test_f1_close_reopen_same_task(source, destination):
++    assert d.target_task({'from': source, 'to': destination}) == 'alpha'
++
++@pytest.mark.parametrize('path', [
++    '', 'work', 'work/', 'work/done-tasks', 'work/done-tasks/',
++    '/work/alpha/file', 'work/../alpha/file', 'work/./file',
++    'work//alpha/file', 'work/done-tasks/../file',
++    'work/done-tasks//file', 'work/done-tasks/./file',
++    'work/alpha\\other/file', 'work/alpha\x00/file',
++])
++def test_f1_missing_or_unsafe_path_not_inferred(path):
++    assert d.target_task({'path': path}) is None
++
++def test_f1_multiple_operations_same_task():
++    assert d.target_task({'operations': [
++        {'path': 'work/alpha/a.md'}, {'from': 'work/alpha', 'to': 'work/done-tasks/alpha'},
++        {'path': 'work/done-tasks/alpha/b.md'},
++    ]}) == 'alpha'
++
++@pytest.mark.parametrize('source,destination', [
++    ('work/alpha', 'work/done-tasks/beta'),
++    ('work/done-tasks/alpha/a.md', 'work/done-tasks/beta/a.md'),
++])
++def test_f1_cross_task_move_rejected(source, destination):
++    with pytest.raises(d.Denied): d.target_task({'from': source, 'to': destination})
++
++@pytest.mark.parametrize('path', ['work/alpha/COLLAB.md', 'work/done-tasks/alpha/COLLAB.md'])
++def test_f1_exact_declared_id_and_derived_provenance(path):
++    a=args(path=path);a['declaration_context']['task_id']='alpha'
++    value=d.resolve(a,WHO)
++    assert value['facts']['task_id']=={'raw':'alpha','canonical':'alpha','provenance':'derived'}
++    a['declaration_context']['task_id']='beta'
++    with pytest.raises(d.Denied):d.resolve(a,WHO)
++
++@pytest.mark.parametrize('reverse', [False, True])
++def test_f1_close_reopen_transaction_and_cross_task_zero_mutation(env,reverse):
++    root,state=env
++    source='work/done-tasks/alpha' if reverse else 'work/alpha'
++    dest='work/alpha' if reverse else 'work/done-tasks/alpha'
++    (root/source).mkdir(parents=True);(root/source/'note.md').write_text('keep')
++    version=w.call('workspace_stat',{'root':'fixture','path':source})['version']
++    ctx={'origin_environment':'macbook','task_id':'alpha','command_ref':'RUN-F1'}
++    payload={'root':'fixture','message':'close/reopen fixture','operations':[{'op':'move','from':source,'to':dest,'expected_version':version}],'declared_actor':'Codex','declaration_context':ctx}
++    before={str(p.relative_to(root)):p.read_bytes() for p in root.rglob('*') if p.is_file()}
++    bad=dict(payload,operations=[{'op':'move','from':source,'to':'work/done-tasks/beta','expected_version':version}])
++    result=w.call('workspace_transaction',bad)
++    assert result['error']=='CONTEXT_CLARIFICATION_REQUIRED' and result['mutation']=='none',result
++    assert before=={str(p.relative_to(root)):p.read_bytes() for p in root.rglob('*') if p.is_file()}
++    result=w.call('workspace_transaction',payload)
++    assert 'error' not in result,result
++    assert (root/dest/'note.md').read_text()=='keep' and not (root/source).exists()
++    assert result['declaration_receipt']['facts']['task_id']['canonical']=='alpha'

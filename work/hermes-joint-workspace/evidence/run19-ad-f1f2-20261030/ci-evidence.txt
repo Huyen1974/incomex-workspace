@@ -1,0 +1,51 @@
+gate	Pilot preflight and exact tested checkout (no persisted credentials)	2026-10-30T08:14:35.8747272Z {"pr": 358, "actor": "Huyen1974", "branch": "dev/codex-ad/hjw-g8-four-facts-20261030", "head_sha": "58a44c0559bfd42e7e62f5faf8df49ebd2259e78", "base_sha": "b4c9ea19cf2e57594a231c2819e098fe0002c99a", "merge_test_sha": "c22c9192d5f68588db89d6c2d00949b4b95da35a", "event": "pull_request", "executing_workflow_sha": "c22c9192d5f68588db89d6c2d00949b4b95da35a", "trusted_gate_sha256": "4a6be5f266cbb43a2c606bc3dad46fae4f85845589c14a030d9bd5e054cc2962", "gate_matches_main": false, "tested_gate_sha256": "4a821e580995eca1ce0d68c33cdaddbdfdcfd1c7589e5d8a34092de19d3b61ee", "hardlock_enforced": false, "persist_credentials": false, "files": [".github/workflows/ghm-pr-gate.yml", "agent_data/declaration_contract.py", "agent_data/workspace_declaration.py", "agent_data/workspace_idempotency.py", "agent_data/workspace_tasks.py", "agent_data/workspace_tools.py", "agent_data/workspace_transfer.py", "tests/unit/test_hjw_four_facts.py"], "changed_lines": 590, "policy": "GREEN", "policy_reasons": [], "runner": "ghm-ci-agent-data-test"}
+gate	Unit tests (independent of policy verdict)	﻿2026-10-30T08:14:48.2932094Z ##[group]Run set -euo pipefail
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.2934617Z set -euo pipefail
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.2936656Z test "$(id -u)" -ne 0
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.2938768Z test ! -S /var/run/docker.sock
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.2941535Z exec 9>/ci-lock/build.lock
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.2943681Z flock -w 900 9
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.2946002Z python3 -m venv "$RUNNER_TEMP/ghm-pr-venv"
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.2950987Z . "$RUNNER_TEMP/ghm-pr-venv/bin/activate"
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.2955304Z python -m pip install --disable-pip-version-check pytest==8.4.2 PyYAML==6.0.3 jsonschema==4.25.1 psycopg2-binary==2.9.10
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.2962781Z TESTS=(tests/unit/test_extractor_tool.py tests/unit/test_speclint_tool.py tests/unit/test_specrunner_unit.py tests/unit/test_pg_store_bootstrap.py tests/unit/test_hjw_four_facts.py)
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.2969856Z if test -f tests/unit/test_kb_list_pagination.py; then TESTS+=(tests/unit/test_kb_list_pagination.py); fi
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.2974746Z python -m pytest -o addopts='' -q "${TESTS[@]}"
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.3002520Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.3005068Z env:
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.3006687Z   NODE_OPTIONS: --max-old-space-size=768
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.3008776Z   NUXT_TELEMETRY_DISABLED: 1
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:48.3011027Z ##[endgroup]
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:56.3268770Z Collecting pytest==8.4.2
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:56.3507148Z   Using cached pytest-8.4.2-py3-none-any.whl (365 kB)
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:56.4949158Z Collecting PyYAML==6.0.3
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:56.4986142Z   Using cached pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:56.5805759Z Collecting jsonschema==4.25.1
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:56.5917122Z   Using cached jsonschema-4.25.1-py3-none-any.whl (90 kB)
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:56.8507635Z Collecting psycopg2-binary==2.9.10
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:56.8900268Z   Using cached psycopg2_binary-2.9.10-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.0 MB)
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:56.9527081Z Collecting iniconfig>=1
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:56.9591481Z   Using cached iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:57.0256447Z Collecting packaging>=20
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:57.0372478Z   Using cached packaging-26.3-py3-none-any.whl (129 kB)
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:57.0836889Z Collecting pluggy<2,>=1.5
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:57.0942923Z   Using cached pluggy-1.7.0-py3-none-any.whl (27 kB)
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:57.1705638Z Collecting pygments>=2.7.2
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:57.1874695Z   Using cached pygments-2.21.0-py3-none-any.whl (1.3 MB)
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:57.2757404Z Collecting attrs>=22.2.0
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:57.2844140Z   Using cached attrs-26.1.0-py3-none-any.whl (67 kB)
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:57.3319152Z Collecting jsonschema-specifications>=2023.03.6
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:57.3396634Z   Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:57.4183014Z Collecting referencing>=0.28.4
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:57.4241822Z   Using cached referencing-0.37.0-py3-none-any.whl (26 kB)
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:58.5833563Z Collecting rpds-py>=0.7.1
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:58.5922049Z   Using cached rpds_py-2026.9.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (375 kB)
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:58.6988739Z Collecting typing-extensions>=4.4.0
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:58.7046229Z   Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:14:58.8367601Z Installing collected packages: typing-extensions, rpds-py, PyYAML, pygments, psycopg2-binary, pluggy, packaging, iniconfig, attrs, referencing, pytest, jsonschema-specifications, jsonschema
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:15:03.5085305Z Successfully installed PyYAML-6.0.3 attrs-26.1.0 iniconfig-2.3.1 jsonschema-4.25.1 jsonschema-specifications-2025.9.1 packaging-26.3 pluggy-1.7.0 psycopg2-binary-2.9.10 pygments-2.21.0 pytest-8.4.2 referencing-0.37.0 rpds-py-2026.9.1 typing-extensions-4.16.0
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:15:11.5632752Z ........................................................................ [ 47%]
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:15:12.8907308Z ........................................................................ [ 95%]
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:15:13.6495186Z .......                                                                  [100%]
+gate	Unit tests (independent of policy verdict)	2026-10-30T08:15:13.6498583Z 151 passed in 8.94s
+gate	gate summary for KST	2026-10-30T08:15:13.9425736Z {"pr": 358, "actor": "Huyen1974", "branch": "dev/codex-ad/hjw-g8-four-facts-20261030", "head_sha": "58a44c0559bfd42e7e62f5faf8df49ebd2259e78", "base_sha": "b4c9ea19cf2e57594a231c2819e098fe0002c99a", "merge_test_sha": "c22c9192d5f68588db89d6c2d00949b4b95da35a", "event": "pull_request", "executing_workflow_sha": "c22c9192d5f68588db89d6c2d00949b4b95da35a", "trusted_gate_sha256": "4a6be5f266cbb43a2c606bc3dad46fae4f85845589c14a030d9bd5e054cc2962", "gate_matches_main": false, "tested_gate_sha256": "4a821e580995eca1ce0d68c33cdaddbdfdcfd1c7589e5d8a34092de19d3b61ee", "hardlock_enforced": false, "persist_credentials": false, "files": [".github/workflows/ghm-pr-gate.yml", "agent_data/declaration_contract.py", "agent_data/workspace_declaration.py", "agent_data/workspace_idempotency.py", "agent_data/workspace_tasks.py", "agent_data/workspace_tools.py", "agent_data/workspace_transfer.py", "tests/unit/test_hjw_four_facts.py"], "changed_lines": 590, "policy": "GREEN", "policy_reasons": [], "runner": "ghm-ci-agent-data-test", "actionlint_result": "success", "ci_change_kst_review": true, "unit_result": "success", "scan_result": "success", "preflight_result": "success", "policy_result": "success", "policy_test_result": "success", "gate": "GREEN"}
