@@ -5,11 +5,11 @@ HTML chính: view.html
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ đạo «không bàn nữa mà làm»: chốt 5 việc Owner quyết + quy trình Mục tiêu lớn → Mục tiêu nhỏ → Checkpoint (§1 mục 9), sửa thẳng bản thiết kế, GPT góp thêm rồi chạy thử. Host: GPT Chat (đề xuất, Owner chưa chỉ định riêng). Chưa đổi AGENTS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 15:40 +07 · Claude Chat · N1 XONG (bản V2 + Từ điển), N2 giao GPT
-- 🎯 Mục tiêu: Owner chỉ quyết 5 việc; còn lại AI chạy theo Mục tiêu lớn (L) → Mục tiêu nhỏ (N) → Checkpoint (C) với form khai chung, agent khảo sát và đề xuất nhiều nhất, hội đồng tập trung giám sát.
-- 🏁 Xong khi: form + 15 thao tác ở [view.html](view.html) chạy thử đạt trên ≥ 1 việc thật, đo 4 chỉ số ([mục 7](view.html#muc-7)); lỗ gặp khi thử đã vá vào form.
-- 📍 Tiến độ: [✅ N1 bản V2] → [■ N2 GPT rà, sửa thẳng] → [□ N3 thử trên Sổ PG] → [□ Sửa AGENTS theo kết quả thử].
-- ✅ Đã xong: N1 — [view.html](view.html) bản V2: **Từ điển 23 từ (là gì / không phải)**, 3 form L/N/C, 15 thao tác (ai · ghi đâu · làm thế nào), lượt agent 8 bước, khi nào hỏi Owner, 9 lỗ hở đã rà, 4 chỉ số đo. Gộp V1 GPT + C1 Claude (bản cũ: commit c309bb96). §4 bên dưới đã viết theo form.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 16:00 +07 · Claude Chat · N1 XONG (V2.1 giữ đủ V1 + form + thao tác), N2 giao GPT
+- 🎯 Mục tiêu: Owner chỉ quyết 5 việc; còn lại AI chạy theo Mục tiêu lớn (L) → Đầu vào chung (Đ) → Mục tiêu nhỏ (N) → Checkpoint (C) với từ điển + form khai chung, agent khảo sát và đề xuất nhiều nhất, hội đồng tập trung giám sát.
+- 🏁 Xong khi: từ điển + form + thao tác ở [view.html](view.html) chạy thử đạt trên ≥ 1 việc thật, đo chỉ số ([mục 8](view.html#muc-8)); lỗ gặp khi thử đã vá vào form.
+- 📍 Tiến độ: [✅ N1 bản V2.1] → [■ N2 GPT rà, sửa thẳng] → [□ N3 thử trên Sổ PG] → [□ Sửa AGENTS theo kết quả thử].
+- ✅ Đã xong: N1 — [view.html](view.html) V2.1: **giữ đủ định nghĩa, vai, cấu trúc, quy trình V1 của GPT** (nhãn V1) + bổ sung: từ điển có cột «không phải», form L/Đ/N/C/Báo cáo, 17 thao tác (ai · ghi đâu · làm thế nào), lượt agent 8 bước, khi nào hỏi Owner, 10 lỗ hở, bảng V2 khác V1. §4 bên dưới đã viết theo form.
 - ■ Đang làm: — · 0 RUN active.
 - ⬜ Còn lại: N2 GPT rà từ ghế agent, sửa thẳng; N3 thử trên Sổ PG; sửa AGENTS sau khi thử đạt.
 - ➡ Kế tiếp: **gpt-chat làm N2** theo §4 (sửa thẳng view.html, ghi chú mỗi chỗ đổi). NEXT_TRIGGER=GPT_N2_REVIEW_V2_DIRECT_EDIT.
@@ -27,14 +27,15 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ 
 8. Owner 30/10/2026 14:43 (gửi Claude Chat, viết lại đúng ý): công việc tiến triển quá lâu — thời gian thực sự viết mã thấp, gần hết thời gian dành cho hội đồng đánh giá; thiếu vai agent như Claude Code đánh giá từ đầu (agent có công cụ đọc nhanh nhất, hiểu việc nhất). Bằng chứng: các sổ ghi «PG đang có gì» loanh quanh cả tuần không xong; cứ thế thì 10 năm mới xong cỗ máy chế tạo quy trình. Tỷ lệ prompt thất bại vẫn cao. Owner muốn **thay đổi cách tiếp cận**.
 9. Owner 30/10/2026 14:57 (viết lại đúng ý): **Không bàn nữa, phải làm.** Owner chỉ quyết 5 việc: (1) mục tiêu lớn; (2) bổ sung, hiệu chỉnh mục tiêu lớn; (3) việc hội đồng không dám quyết; (4) việc luẩn quẩn 2–3 vòng không thoát — hoàn thiện dần quy tắc khi nào phải hỏi Owner; (5) giám sát qua GPT live/DOT/Duet…, thấy không ổn thì chỉ đạo bổ sung qua các bề mặt đó. Nguyên tắc: có mục tiêu lớn + hiểu sơ bộ đầu vào thì mọi AI đều đưa ra được mục tiêu nhỏ, rồi checkpoint. Cần: (a) **form khai** cho mục tiêu lớn, mục tiêu nhỏ, checkpoint — hướng dẫn ngắn, mọi AI hiểu và làm giống nhau; (b) chỉ rõ từng thao tác **làm thế nào, ghi vào đâu**: thêm mục tiêu lớn, thêm mục tiêu nhỏ, đổi thứ tự mục tiêu nhỏ, thêm checkpoint, đổi thứ tự checkpoint; (c) **đứng ở vị trí agent phải làm** để kiểm hướng dẫn có làm được không; (d) rà kỹ quy trình cho ít hở rồi chạy thử, hoàn thiện dần, làm nhanh; (e) sửa thẳng vào tài liệu, GPT góp thêm, rồi đưa vào thử nghiệm.
 10. Owner 30/10/2026 15:02: phải giữ các định nghĩa để bất cứ AI nào vào cũng hiểu nó là cái gì và hiểu thống nhất — không định nghĩa từ ngữ thì mỗi AI hiểu một kiểu.
+11. Owner 30/10/2026 15:07: định nghĩa viết trước đó (V1) có lý của nó — khái niệm lạ như mục tiêu lớn, mục tiêu nhỏ, checkpoint… không làm rõ thì AI không hiểu để làm. **Không xóa sạch; phải đọc cái cũ đang làm gì trước khi sửa; không hiểu mà sửa của người khác là rất tệ.**
 
 ### 2. Thế nào là hoàn thành
 “Định nghĩa từng việc khái niệm. Cần làm gì với từng khái niệm, quy trình tạo 1 task mới thế nào? Quy trình cập nhật kế hoạch thế nào? Ai làm gì? Cùng nhau làm việc này cho rõ ràng để thay đổi cách làm với hy vọng là tiến độ nhanh hơn” — Owner 30/10/2026.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 **Bản thiết kế:** [view.html](view.html) — V2, sửa thẳng tại đó; COLLAB chỉ giữ mục tiêu, trạng thái, kế hoạch (§4) và con trỏ.
-- [0. Từ điển](view.html#muc-0) · [1. Ba form khai L/N/C](view.html#muc-1) · [2. 15 thao tác](view.html#muc-2) · [3. Một lượt của agent](view.html#muc-3)
-- [4. Khi nào hỏi Owner](view.html#muc-4) · [5. Giám sát](view.html#muc-5) · [6. Lỗ hở đã rà](view.html#muc-6) · [7. Chạy thử và đo](view.html#muc-7)
+- [0. Từ điển](view.html#muc-0) · [1. Cấu trúc và quy trình (V1)](view.html#muc-1) · [2. Form khai](view.html#muc-2) · [3. 17 thao tác](view.html#muc-3) · [4. Một lượt của agent](view.html#muc-4)
+- [5. Khi nào hỏi Owner](view.html#muc-5) · [6. Giám sát](view.html#muc-6) · [7. Lỗ hở đã rà](view.html#muc-7) · [8. Chạy thử và đo](view.html#muc-8) · [9. V2 khác V1](view.html#muc-9)
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
@@ -47,9 +48,14 @@ Mode=COUNCIL · Automation_Level=AUTO0 · Khác mặc định: —
 Giữ GitHub làm SSOT; đối chiếu AGENTS.md và ai-council-karpathy để không xây trùng. Chưa tạo file, task con, prompt hay RUN khác. Chỉ chuyển bước sau khi Owner chốt phạm vi.
 
 ### 4. Kế hoạch — mục tiêu nhỏ (N) và checkpoint (C)
-> 🤖 Biển: từ ngữ theo [Từ điển](view.html#muc-0); form và thao tác ở [view.html mục 1–3](view.html#muc-1). Thứ tự làm = từ trên xuống. Agent chọn N đầu tiên có DUYỆT đúng ghế mình; tích C ngay khi xong, mỗi C một commit. Không sửa N người khác đang làm — ghi vào «Ghi chú».
+> 🤖 Biển: từ ngữ theo [Từ điển](view.html#muc-0); form và thao tác ở [view.html mục 2–4](view.html#muc-2). Thứ tự làm = từ trên xuống. Agent chọn N đầu tiên có DUYỆT đúng ghế mình; tích C ngay khi xong, mỗi C một commit. Không sửa N người khác đang làm — ghi vào «Ghi chú».
 
 L1 = §1 + §2 ở trên (Owner).
+
+#### Đầu vào chung
+- Đ1 · Số đo 15–30/10: máy làm 2–11% thời gian, lượt agent trung vị 17 phút, chờ giữa lượt 7–11 giờ, DỪNG 18/63 · nguồn: git log repo (Claude Chat đếm 30/10) · chắc: vừa (phân loại lý do DỪNG là ước lượng)
+- Đ2 · Trang Task hiện mọi thứ từ §3 đến trước `### Vòng trước` trong ô «Chi tiết cần đạt» ⇒ §4 Kế hoạch hiện được, không cần sửa mã · nguồn: docker/nuxt-repo/scripts/hvu-b2/sync.py parse_objective_parts · chắc: cao
+- Đ3 · Cổng ghi repo từ chối ghi khi sai expected_version ⇒ dùng làm khoá chống ghi đè · nguồn: mô tả công cụ fs_edit · chắc: cao
 
 #### N1 · Viết bản V2: form L/N/C + thao tác + lượt agent · XONG
 - Thuộc: L1 · Người làm: claude-chat · Ước: 1h
@@ -61,6 +67,14 @@ L1 = §1 + §2 ở trên (Owner).
 - C3 🟢 Lượt agent 8 bước từ ghế người làm · bằng chứng: view.html mục 3 · 30/10 15:20 · claude-chat
 - C4 🟢 9 lỗ hở → xử lý · bằng chứng: view.html Bảng 6 · 30/10 15:20 · claude-chat
 - C5 🟢 Từ điển: mỗi từ dùng trong form/thao tác có «là gì» + «không phải» (Owner 15:02) · bằng chứng: view.html mục 0, commit 7a4c8ac9 · 30/10 15:40 · claude-chat
+- C6 🟢 Khôi phục đủ V1 (Owner 15:07): 10 định nghĩa, 6 vai, 3 luồng, quy trình 6 bước, 3 mức thay đổi, cơ chế ghi, rào thực thi — gắn nhãn V1; bổ sung Đầu vào chung (Đ), Báo cáo, KHÔNG CHỌN; chỗ khác V1 liệt kê Bảng 9 · bằng chứng: view.html commit 4be69bf2 · 30/10 16:00 · claude-chat
+- Báo cáo · 30/10 16:00 · claude-chat
+  - Đạt: C1–C6 🟢
+  - Chứng cứ: view.html commit 4be69bf2
+  - Còn thiếu: chưa thử thật (N3)
+  - Đầu vào đã cập nhật: Đ1–Đ3 (mới)
+  - Đề xuất tiếp: N2, N3 (đã ghi)
+- Lỗi đã sửa trong N1: bản V2 lần đầu (e5e755d1) xoá phần V1 khi chưa đọc kỹ — Owner nhắc 15:07, đã khôi phục ở C6.
 - Nghiệm thu: (GPT làm ở N2)
 
 #### N2 · GPT rà V2 từ ghế agent, sửa thẳng, chốt bản thử · DUYỆT
@@ -68,21 +82,23 @@ L1 = §1 + §2 ở trên (Owner).
 - Xong khi: view.html là bản Host chốt để thử; mỗi chỗ GPT sửa có 1 dòng «Ghi chú» dưới đây; không còn điểm bất đồng mở với Claude.
 - Được làm: 👁 · ✍ work/ai-council-newarchitecture/
 - Đề xuất: claude-chat 30/10 · Duyệt: Owner 30/10 14:57 («GPT đóng góp thêm rồi đưa vào thử nghiệm»)
-- C1 ⬜ Rà Từ điển + 15 thao tác + 8 bước lượt agent: mỗi từ một nghĩa, mỗi bước agent làm được mà không phải hỏi · Đạt khi: không còn từ/bước mơ hồ
-- C2 ⬜ Sửa thẳng view.html chỗ chưa ổn · Đạt khi: mỗi chỗ đổi có 1 dòng Ghi chú
-- C3 ⬜ Nghiệm thu N1 (2.14) · Đạt khi: dòng «Nghiệm thu» của N1 đã điền
+- C1 ⬜ Đối chiếu phần nhãn V1 với bản V1 gốc (commit d79a12af): đủ ý, không bị hiểu sai; rà 5 dòng Bảng 9 (V2 khác V1) · Đạt khi: mỗi dòng Bảng 9 có «đồng ý» hoặc đã sửa
+- C2 ⬜ Rà Từ điển + 17 thao tác + 8 bước lượt agent: mỗi từ một nghĩa, mỗi bước agent làm được mà không phải hỏi · Đạt khi: không còn từ/bước mơ hồ
+- C3 ⬜ Sửa thẳng view.html chỗ chưa ổn · Đạt khi: mỗi chỗ đổi có 1 dòng Ghi chú
+- C4 ⬜ Nghiệm thu N1 (thao tác 3.16) · Đạt khi: dòng «Nghiệm thu» của N1 đã điền
 - Ghi chú:
 
 #### N3 · Thử trên phần còn lại của Sổ PG · ĐỀ XUẤT
 - Thuộc: L1 · Cần trước: N2 · Người làm: claude-code (agent) · gpt-chat (Host Sổ PG) · Ước: 3h
-- Xong khi: §4 Kế hoạch của work/nhap-directus-for-workflow viết theo form; ≥ 1 lượt agent ≥ 2 giờ chạy bằng lệnh một dòng; đo 4 chỉ số ([view.html mục 7](view.html#muc-7)) so với số cũ.
+- Xong khi: §4 Kế hoạch của work/nhap-directus-for-workflow viết theo form; ≥ 1 lượt agent ≥ 2 giờ chạy bằng lệnh một dòng; đo chỉ số ([view.html mục 8](view.html#muc-8)) so với số cũ.
 - Được làm: 👁 · ✍ work/nhap-directus-for-workflow/ (§4) · ⚙ chỉ theo từng N đã DUYỆT bên Sổ PG
 - Đề xuất: claude-chat 30/10 · Duyệt: —
 - C1 ⬜ Host Sổ PG chuyển việc còn lại thành L1 + N theo form · Đạt khi: §4 bên Sổ PG có ≥ 2 N DUYỆT
 - C2 ⬜ Lượt agent đầu tiên bằng lệnh một dòng · Đạt khi: ≥ 1 N XONG, C tích đủ bằng chứng
-- C3 ⬜ Đo 4 chỉ số, ghi lỗ mới vào view.html Bảng 6 · Đạt khi: Bảng 7 có cột kết quả thử
+- C3 ⬜ Đo chỉ số, ghi lỗ mới vào view.html Bảng 7 · Đạt khi: Bảng 8 có cột kết quả thử
 - Ghi chú:
 
 ### Vòng trước
+- C3 · 30/10 16:00 · Claude Chat · Owner 15:07 nhắc: bản V2 lần đầu đã xoá định nghĩa/quy trình V1 của GPT khi chưa đọc kỹ. Đã khôi phục đủ V1 (nhãn V1) và ghi mọi chỗ V2 khác V1 vào [Bảng 9](view.html#muc-9) để GPT rà.
 - C2 · 30/10 15:25 · Claude Chat · theo Owner 14:57 bỏ phần bàn, viết thẳng V2 (N1 XONG). Khái niệm «Giấy phép» của C1 đã nhập vào trường «Được làm» của N — không còn là khái niệm riêng.
 - C1 · 30/10 15:10 · Claude Chat (khác hãng Host) · phản biện V1 tại [view.html#muc-v](view.html#muc-v). Kết luận: V1 đúng hướng nhưng còn giữ «Host duyệt từng mục tiêu nhỏ/READY từng lượt» là chỗ tắc đo được; đề xuất thêm **Giấy phép**, 5 khái niệm (Mục tiêu · Giấy phép · Lượt · Checkpoint · Cổng). Chưa có hiệu lực; Host chốt.
