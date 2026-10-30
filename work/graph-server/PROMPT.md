@@ -1,25 +1,32 @@
-# PROMPT — GS-K4-READTIME-SOURCE-FENCE-20261028-21
-RUN_ID: GS-K4-READTIME-SOURCE-FENCE-20261028-21
-TASK: work/graph-server · K4 source fingerprint at graph-v1 read-time, not code/data ingestion.
-STATUS: DRAFT_BLOCKED_RESOURCE / NOT_READY / DO_NOT_DISPATCH. P297 Host accepts Claude P296 B2 but RAM <3GiB and runtime graph-v1 reload/Guard rollback unverified. Host later signs exact PROMPT last-touch SHA40 and SHA256; no READY now.
-EXECUTOR_SURFACE: Claude Code CLI Mac, Git-CAS + authorized Graph/VPS read; one CLI.
-WRITE_PATH: approved graph-v1 reader code only via apply-v0, VPS-GHI CAS, Config Guard PRE/POST, byte-exact rollback; task P/Board/GS-RM1/view/root KQ one Git-CAS commit. No Neo4j nodes/edges, Nuxt code or label, PG/Directus/Qdrant/Lark/GSM, Guard policy, timer, new monitor/CDC.
-READ: AGENTS A0/A5/A6/A8/A9/DROOT29/30/31/44/56/57/58/59, root/task COLLAB P194/P207/P221/P223/P236/P261/P272/P294–P297, GS-RM1, exact deployed graph-v1 wrapper, current cert-baselines and apply-v0/Guard rollback manifests. Historical repo tools require live hash check.
-REVIEW_REUSED: Claude P296 §7 and P236. No new B2 if scope identical.
-OWNER_CONSENT_EXACT (requires later READY): "Tôi giao Claude Code CLI chạy GS-K4-READTIME-SOURCE-FENCE-20261028-21 CHỈ SAU KHI GPT Host ký READY đủ RAM và đường lùi. Chỉ cập nhật lớp đọc graph-v1 để dấu nguồn thay đổi/mất quyền/thiếu baseline trả MỘT PHẦN/NOT_ACTION_SAFE. Không sửa Graph data, Nuxt, PG/Directus hay làm xanh #24; thiếu an toàn thì dừng trước ghi."
+# PROMPT — GS-COV2-SYNC-CORE-20261031-02
+RUN_ID: GS-COV2-SYNC-CORE-20261031-02
+TASK: work/graph-server · đúng dài hạn theo Owner 31/10, không khớp một snapshot.
+STATUS: CANDIDATE/SANDBOX ONLY. READY chỉ khi Host ký READY@ đúng commit SHA cuối chạm PROMPT.md ở COLLAB; Owner chuyển lệnh thủ công.
+EXECUTOR_SURFACE: Claude Code CLI trên MacBook, một CLI tại một thời điểm.
+WRITE_PATH: gateway workspace_* / Git-CAS tới đúng Huyen1974/incomex-workspace, sửa những FILE ỨNG VIÊN hiện hữu được phép trong work/graph-server/tools/; Mac sandbox tạm, nguồn VPS/PG/Directus/Graph chỉ đọc. KHÔNG Git→VPS.
+REVIEW_REUSED: Claude P-ONEPASS-CLAUDE-B8 @afa97461456bfb0383770e140827c2f79e484aa3, Host P-ONEPASS-HOST-B9. B0 -01 CHƯA CHẠY và được thay thế; K4 NOT_READY không thuộc RUN này.
+READ FIRST: AGENTS A0/A1/A4/A5/A6/A8/DROOT30/31/44/56/57/58/60; root + task COLLAB §0/§3/P-ONEPASS-HOST-B9/GS-RM1; tools/onepass/README.md + matrix.tsv (83 dòng) + 11 fixtures (5 PASS/6 GAP); tools/c1d/graph_autocover.py, c1d_make_cells.py, graph-refresh.c1dfix.diff, tools/c1b/c1b_l1.py; KQ P 4ab0f006, K0 f7a38c05/f69a870d. Đọc và pin SHA của graph-refresh/graph_cert/graph-v1 đang chạy, không coi bản sao Git là runtime.
 
-## FIVE HARD DoR before Host READY
-1. Source cheap fingerprints already available: Docker IDs, ports, unit hash, Git HEAD/worktree, DEPLOYED Nuxt server/index.mjs SHA+nitro build date (NOT current GitHub HEAD/generic Node image), cert/catalog; match baseline actually saved at certificate time T. Missing original baseline => SOURCE_VERSION_UNVERIFIED+NOT_ACTION_SAFE, not retroactive green. No new reader/CDC.
-2. subprocess rc, stderr, permission, bounded timeout checked; incomplete/error => UNKNOWN/NOT_ACTION_SAFE, not empty-success. If reusing native_live.py, fix silent failure first.
-3. Deployed graph-v1 code and narrow approved apply-v0 target, Guard PRE/POST, byte-exact backup and rollback verified. No new sudo/key, no graph/source write.
-4. Root VPS-GHI free plus fresh MemAvailable above 3GiB floor AND measured safe graph-v1 reader reload headroom; swap/service pressure safe. Current measured 2.67GiB => FAIL now. Code DELTA separate >=6GiB.
-5. Negative fixtures on isolated COPY: changed fingerprint => SOURCE_CHANGED_SINCE_CERT/NOT_ACTION_SAFE; read denied/failed/missing baseline => UNVERIFIED/NOT_ACTION_SAFE; unchanged may only preserve existing valid N4 label, never promote PARTIAL. No production source mutation to test.
+## MỤC TIÊU & THỰC TẾ PHẢI KHẮC PHỤC
+Khi nguồn PG/Directus/host nở/co/đổi, Graph phải tự hòa giải trạng thái và tự kiểm chứng theo từng nhịp; thiếu, lỗi hoặc quá tuổi thì MỘT PHẦN/NOT_ACTION_SAFE, không trả ĐỦ giả. Gỡ năm thiết kế lỗi K1–K5: (K1) hardcoded pilot 11+≤16 bảng, 7 unit, cert cells, quét Git hẹp; (K2) trần TỔNG 600/1200, 1000/3000; (K3) add-only hoặc gỡ ≤2%/chỉ loại cũ; (K4) global Guard + tạm/restore/Drive nặng làm skip từ 25/10; (K5) khóa gs_key thiếu instance/DB/kind. Rà lane pgdot. KHÔNG chỉ nâng trần/thêm mẫu/tên riêng Pivot.
 
-## Only after signed READY
-S0 Read current STOP/READY/lease/RAM/Guard. Any hard failure => DỪNG before mutation, no WAIT.
-S1 Inspect live reader and cert fingerprint baseline; choose only supported cheap signals. Sources without baseline remain UNKNOWN.
-S2 Run isolated negative fixtures and rc/stderr/timeout checks, capped CPU/latency, no production impact.
-S3 One protected graph-v1 reader update via approved apply-v0/CAS lease/Guard/rollback and code ledger; no heavy Enola/Cognee/temporary Neo4j, no Nuxt relabel.
-S4 Cold graph-v1 N4 verified stable/stale/missing source; no false green, preserve #24 natural state; Guard failure => rollback and DỪNG.
-KQ@GS-K4-READTIME-SOURCE-FENCE-20261028-21 XONG|DỪNG: evidence hashes, negative matrix, Guard PRE/POST, source limits, all remaining G1/G2/G3 PARTIAL if not independently proven; DOCS_MATCH Board/GS-RM1/P/view/root one Git-CAS commit, no private raw data in public repo. Do not self-run next.
-STEP_WALK_V1: Owner manual dispatch AFTER READY -> S0 -> S1/S2 -> S3 guarded -> S4 cold N4 -> KQ.
+## R1–R6 · STATEFUL RECONCILIATION, KHÔNG ONE-SHOT
+R1 SOURCE UNIVERSE: đọc native catalogs tất cả DB/schema/loại/cạnh trong quyền (PostgreSQL pg_class/pg_proc/pg_constraint/pg_depend/pg_trigger; Directus collection/field/relation/flow/operation/permission; cron/systemd/nginx/Docker/Git và các họ ONEPASS). Tập nguồn được phép và loại trừ vì privacy/ACL phải khai rõ; không đóng phạm vi bằng danh sách tên vật/cells. Loại chưa có reader/adapter ⇒ NEW_CLASS_UNHANDLED + GAP/PARTIAL, không âm thầm mất.
+R2 ID/SNAPSHOT: ID gồm hệ-instance/DB/schema/kind/native-id/chữ ký hàm; edge có hướng/đích/type/provenance; map khóa cũ→mới, 1→n là AMBIGUOUS_NO_MERGE; snapshot nguồn consistent hoặc đánh dấu READ_INCONSISTENT, phân trang/đếm/băm đủ, không nhầm kết quả lỗi/0 hàng với nguồn rỗng. Mỗi nguồn có generation/checkpoint; Graph chỉ được cấp giấy cho thế hệ đã apply và reconcile xong.
+R3 ADD/CHANGE/RETIRED: so hai tập native↔Graph theo object VÀ edge identity, không chỉ count; thay A→B bằng A→C phải retire cạnh cũ. Chỉ đánh dấu retired (không hard delete) trên dữ liệu thuộc nguồn/loader khi native full-read thành công và được oracle độc lập xác nhận. Reader 503/403/timeout/truncated/partial/lỗi quyền => không retire, PARTIAL. Giảm 30% có thể là thật, phải kiểm độc lập/thêm confirm an toàn rồi tiến hành, không dùng ngưỡng 2% để bỏ mặc; không tự retire human-approved/JEV decisions, giữ provenance/backup.
+R4 AUTO-EXPAND: object/edge mới thuộc loại đã hỗ trợ tự vào trong nhịp sau mà không sửa code. Loại thực sự mới chưa có adapter => UNKNOWN CLASS + owner + cảnh báo; không tuyên FULL.
+R5 CONTINUITY + COST: source-level cheap fingerprint/validator đúng phạm vi; diff/reconcile với quota per-batch, checkpoint tiếp tục không trần tổng; full independent reconciliation định kỳ, không tự gia hạn nhãn do dấu yếu. Nếu skip/lỗi/không đủ RAM thì nhịp sau bắt kịp và phần chưa kiểm PARTIAL. SLA 15 phút là MỤC TIÊU ĐỀ XUẤT cần đo trên VPS/timer sẵn có; KHÔNG cài timer/daemon mới, không hứa realtime. Catalog hash chỉ chứng minh DDL/schema, không chứng minh hàng/usage.
+R6 INDEPENDENT ORACLE: K0 reader dùng công cụ native độc lập parser/logic loader; sau MỖI cycle so ID/edge/hướng/type/provenance + count/hash hai chiều trên full supported scoped universe. No-change replay = 0 mutation. Nếu fail sau Graph tx mà trước cert/manifest hoặc skip nguyên cycle => generation cũ không được xanh giả, replay đến khi hội tụ. Mọi chứng chỉ có time/TTL/source scope; hết hạn/cảm biến chết => PARTIAL.
+
+## S0–S4 · CHỈ SANDBOX
+S0 Pin repo HEAD/README/AGENTS/PROMPT last-touch SHA và READY/STOP/STARTED. Kiểm workspace_* đúng quyền và file code hiện hữu; Mac private K0/P2 evidence có KQ trước nhưng phải kiểm tồn tại/đúng SHA lúc chạy (EXECUTOR_FRESHNESS), live Graph/VPS chỉ đọc để đối chiếu. Không cần VPS-GHI vì 0 production write. C1: tạo FILE mới K0/P2 chỉ sau khi xác minh rõ A1 có Owner phê duyệt đúng phạm vi; thiếu thì C1_NOT_ARCHIVED, dùng tệp hiện hữu/ghi SHA vào COLLAB, tiếp tục.
+S1 Pin nguồn thực K1–K5 và full native catalog metadata, xác định adapter/ownership/cell loại bỏ; đề xuất nhất quán nguồn/chứng chỉ và mapping old→new/inverse.
+S2 Sửa mã ứng viên trong tệp đã tồn tại, bỏ giới hạn scope/cumulative hardcaps, thay bằng batch+resume; xử lý new class/retire/edge change, kiểm độc lập, fault handling và atomic publish generation. Không sửa VPS/runtime.
+S3 Sandbox ưu tiên Mac từ toàn bộ catalog nguồn đã được phép (PG 18.6 schema-only không TABLE DATA, Directus config loại trừ PII/secret, host fixtures). Tận dụng PG/Directus sandbox engine nếu có sẵn; không tự cài server. Ít nhất BA CHU KỲ trạng thái sandbox gồm: thêm bảng/collection/flow + edges; xóa/retire 30% có full read; đổi cạnh A→B thành A→C dù count bằng; loại mới; 503/403/timeout/truncate và quyền thiếu; bỏ một nhịp rồi bắt kịp; re-run no-change; lỗi giữa Graph commit/checkpoint. Oracle K0 kiểm hai chiều từng nhịp; ghi thiếu fixture thật nếu chưa kiểm engine và KHÔNG gọi FULL_PASS.
+S4 R7 CHỈ THIẾT KẾ: đề xuất diff cổng nguồn/Graph không chặn vì đèn ngoài phạm vi, nhưng vẫn Guard/lease/POST/D23 theo an toàn; phân ranh derived index có thể rebuild và human-approved/PROPOSED/receipts cần backup. Bỏ recovery/Drive mỗi lượt CHƯA được phép: phải có restore proof/rollback generation, chi phí/benchmark, xin Owner quyết cho SYNC-LIVE. Không đổi policy/Guard/timer/K4/runtime hoặc ghi đè diff lịch sử. Nếu không có path diff được phép, ghi diff đề nghị vào mục P của COLLAB.
+
+## KQ / ACCEPT
+XONG CHỈ khi candidate chứng minh FULL NATIVE SCOPE mà đã nhận, 0 collision/mismatch type, 0 silent read failure, ≥3 cycle diff test, ADD/CHANGE/RETIRED (30% có proof), reader fail không xóa nhầm, unknown→GAP, no-change 0 mutation, crash/replay/skip recovery và R6 two-way independent PASS MỖI cycle. Nếu không đủ ⇒ DỪNG nêu checkpoint/cause/NEXT_TRIGGER rõ, không tô GREEN/production. K4 NOT_READY/PR683 Draft giữ nguyên.
+KQ một lần vào task COLLAB, Board, GS-RM1, view và root bằng workspace Git-CAS; ghi hash/diff/số liệu/cost CPU/RAM/IO thời gian, coverage thực và tồn tại; không raw PII/token. Checkpoint mỗi lượt ≤15 phút; đóng RUN sạch, không tự chạy SYNC-LIVE.
+CẤM: Graph/Neo4j/PG/Directus/Qdrant/KB production write; Git→VPS; sửa Config Guard/VPS-GHI/D23/timer/policy, K4 code, merge PR683; mở task/file mới không Owner duyệt; dùng JEV score như bằng chứng dữ liệu.
+STEP_WALK_V1: Owner dispatch sau READY → S0 pin và check file/rights → S1 map K1–K5 → S2 candidate → S3 ba chu kỳ/negative → S4 R7 diff un-applied → KQ Host nghiệm thu rồi mới xin LIVE.

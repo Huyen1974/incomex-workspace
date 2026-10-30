@@ -13,6 +13,8 @@ Tên việc: Graph Server — Business × JEV × Code
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 
 ### 0.0 · MỤC TIÊU NỀN TẢNG — Owner chốt 22/10/2026; ƯU TIÊN PRODUCTION TRUST bổ sung 23/10/2026 (căn cứ xây dựng; thắng mọi mục bên dưới khi trái nghĩa)
+**OWNER 31/10 · NGUYÊN TẮC ĐÚNG DÀI HẠN:** Graph phải tự hội tụ khi nguồn thêm/xóa/đổi qua nhiều chu kỳ hoặc tự hạ nhãn; một snapshot ĐỦ không phải nghiệm thu. Triển khai ở P-ONEPASS-HOST-B9/R1–R6, không thay lời Owner/§3.
+
 **D25 đã được D26 Owner 24/10 làm rõ (Host P237):** hai khả năng là bảo đảm HIỆN TRẠNG Graph tự nạp + biết khi thiếu/chưa mới; không bắt ghi lịch sử mọi sự kiện. Chỉ đối soát đúng nguồn/cạnh và validate freshness đúng loại dữ liệu (K4); validator thiếu thì báo «ĐỦ tại T»/MỘT PHẦN đúng hạn, không giả realtime. Mọi mục D25 cũ trái cách hiểu này do P237/§3 thay thế; không cài CDC hoặc đổi PG/D20.
 
 > Owner: «Đây mới là những yêu cầu nền tảng để căn cứ vào đó xây dựng. Nếu chỉ xây dựng một phần thì vô nghĩa — một nửa sự thật không phải là sự thật.»
@@ -94,6 +96,17 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 
 **Hiệu lực:** Mục §0.A/D17/Owner 21/10 thắng các dòng điều hành P164/đề xuất cũ trái nghĩa; giữ lịch sử không xóa. PROMPT hiện tại là GS-CLEAN đã KQ XONG, không còn RUN hiệu lực; Host sẽ sửa CHÍNH PROMPT.md theo A6 khi có node R10B được REVIEW/READY riêng. Không tự phát RUN từ việc ghi tài liệu.
 
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-31 · GPT Host · P-ONEPASS-HOST-B9 · SYNC-CORE
+- 🎯 **Mục tiêu Owner:** Graph đúng dài hạn khi PG/Directus/VPS nở/co/đổi, chưa theo kịp thì tự MỘT PHẦN; không nghiệm thu một snapshot.
+- 🏁 **Xong khi:** candidate ≥3 nhịp add/change/retire + oracle độc lập hai chiều từng nhịp, không xóa nhầm, re-run 0 thay đổi; sau LIVE ≥3 chu kỳ nguồn thực + Z1–Z6.
+- 📍 **Tiến độ:** ✅ ONEPASS/P/K0/Claude B8 tìm K1–K5 → ■ SYNC-CORE -02 → ⬜ SYNC-LIVE guarded → ⬜ 3 chu kỳ thật → ⬜ F/G/H/Z.
+- ✅ **Đã xong:** kết luận lỗi nằm ở bộ nạp/refresh, 83 dòng native inventory, C1-A–D scoped, B0 -01 chưa chạy.
+- ■ **Đang làm:** — · 0 RUN active. Host đã soạn PROMPT SYNC-CORE candidate, chưa có production.
+- ⬜ **Còn lại:** R1–R6 code+multi-cycle sandbox; LIVE cần Owner quyết R7 sau benchmark/restore; F usage ≥13/11, G Git/runtime, H KB/Qdrant, Z.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=HOST_SIGN_READY_SHA_THEN_OWNER_DISPATCH_SYNC_CORE_02; Claude Code CLI Mac, one-CLI.
+- ⛔ **Không:** nới hardcode/giới hạn để đủ một lần; tự bỏ Guard/D23, RUN B0 -01/K4, merge PR683, thêm task/file không phép.
+- 📄 **Nguồn:** Claude B8 @afa97461; Host B9; GS-RM1; PROMPT SYNC-CORE.
+#### Lịch sử Board Claude B8
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-31 06:00 +07 · Claude Chat · P-ONEPASS-CLAUDE-B8 (gốc rễ «Graph không theo kịp nguồn» + đúng dài hạn)
 - 🎯 **Mục tiêu (N1–N4, Owner 31/10):** Graph ĐÚNG DÀI HẠN — PG/Directus/host thêm, xoá, đổi thì Graph tự theo trong hạn công bố; không theo kịp thì tự hạ nhãn. Đúng một lần để báo cáo không có giá trị.
 - 🏁 **Xong khi:** qua ≥3 nhịp thay đổi THẬT, mỗi nhịp tập khoá nguồn = tập khoá Graph theo từng loại (hai chiều) hoặc đúng nguồn lỗi bị MỘT PHẦN; 0 gỡ nhầm; nạp lại 0 đổi; cùng Z1–Z6.
@@ -423,6 +436,7 @@ Bối cảnh nguyên văn User: “Gốc rễ nhất là chúng ta đã dọn VP
 **Làm rõ mới nhất — nguyên văn Owner 28/09/2026:** “Các con số là tôi lấy ví dụ thôi chứ không phải chốt tỷ lệ xác suất từng đó.”
 
 ### 2. Thế nào là hoàn thành
+**Làm rõ Owner 31/10:** XONG chỉ khi Graph theo kịp thêm/sửa/xóa đối tượng và cạnh qua nhiều nhịp theo hạn đã kiểm nghiệm hoặc tự PARTIAL, không xóa nhầm khi source lỗi; cần ≥3 nhịp biến động thật sau LIVE, không phải 1 snapshot đúng.
 **Làm rõ Owner D26 24/10 (§1 mục 6–7):** Graph vận hành như bản đồ quan hệ phản ánh HIỆN TRẠNG của những nguồn/lớp đối tượng và quan hệ được phép thu nhận; tự kiểm kê thêm nguồn, đồng bộ thêm/sửa/xóa/đổi cạnh và đối soát chính xác tại thời điểm T. Khi trả lời, phải kiểm được nguồn liên quan có còn đúng phiên bản/thời hạn hợp lệ không; không đủ bằng chứng hoặc ngoài phạm vi thì dán «MỘT PHẦN» + tuổi/nguồn thiếu, cảnh báo, không tự tin khẳng định «không có quan hệ» hoặc phát quyết định. Không đòi lưu tất cả biến động trung gian. Chỉ nói «ĐỦ hiện tại» khi có dấu xác nhận bao phủ đúng loại nội dung của câu hỏi; nếu chỉ có snapshot, phải nói «đã kiểm tại T» và giới hạn độ mới. Phải có nghiệm thu cụ thể cả thao tác đổi cạnh nhưng số lượng không đổi, xóa đối tượng/cạnh và phát hiện nguồn mới. 49/100 ô là scoped, không là % tổng coverage; nội dung kỹ thuật tối giản ở §3/P237.
 **Bổ sung D26 08:19 (tiêu chí tài nguyên để được coi XONG):** Chỉ dùng timer graph-refresh và Guard/Kuma đang có; không quét thường trực, không dựng Neo4j tạm theo thói quen. Có số đo PRE/POST cho duration, CPU, RAM đỉnh, đĩa phát sinh và số ô/cạnh cập nhật; nguồn không đổi thì ít việc, nguồn đổi thì làm trong trần theo tải đo thật; thiếu tài nguyên ⇒ SKIP/PARTIAL + báo, không để đèn xanh giả. Không cần thêm máy canh hay bộ sổ quản trị.
 **Tiêu chí D17 mới nhất (Owner):** Bản thật phải cho Owner/AI chọn một đối tượng, xem mối liên hệ trực tiếp/đa hop có nguồn/trust/privacy, lọc và nhìn coverage GAP/UNKNOWN; kiểm được thực tế ít nhất demo Thực tập sinh và truy phụ thuộc một tính năng mã cũ như Khai sinh (nếu source chưa admitted thì báo gap, không bịa demo). Hoàn thành không đồng nghĩa chỉ chọn 12 quan hệ SQL; các quan hệ suy đoán vẫn chờ human approval lúc chính thức promote. Giữ bốn mục tiêu gốc, source consent, backup/Guard.
@@ -1514,6 +1528,13 @@ Hệ quả: các vòng sửa trước đây đều là «nới danh sách / nân
 - **Nhắc GPT:** cập nhật GS-RM1 (gộp B0/B/A/C/D/E → SYNC-CORE, SYNC-LIVE; Z3/Z4 trên thay đổi thật ≥3 nhịp), §0 ghi rõ «đúng dài hạn», Bảng.
 - `NEXT_TRIGGER=GPT_HOST_B3_SIGN_SYNC_CORE_RUN02` — không vòng B2 nữa. Owner gật R7 được ghi §3 khi có.
 
+#### P-ONEPASS-HOST-B9 · GPT Chat Host · 31/10/2026 · CHỐT SYNC-CORE THAY B0 -01
+**DISPOSITION:** ACCEPT Claude B8 về K1–K5 và R1–R6; B0 -01 chưa STARTED và bỏ trước chạy; REVIEW_REUSED=P-ONEPASS-CLAUDE-B8 @afa97461, không vòng B2 mới. Chủ đích Owner là trạng thái luôn đổi, Graph phải hội tụ tự động hoặc tự PARTIAL. KQ P/K0 48/48 scoped chưa chứng minh cơ chế. Host ký lượt candidate, không cấp runtime write.
+**Sáu sửa của Claude áp vào PROMPT:** (S1) K1 pilot/hardcoded scope, K2 cumulative caps, K3 add-only/2% retire, K4 global heavy gates, K5 namespace thiếu + kiểm lane pgdot; (S2) R7 chỉ thiết kế diff vì Guard/D23/Drive là quyền Owner, không áp; (S3) sandbox full admitted native catalog PG/Directus/host, ≥3 nhịp thêm/xóa/đổi count giữ nguyên, xóa 30%, loại lạ, source 503/ACL, skip/recover; (S4) R6 độc lập sau MỖI nhịp và re-run 0 change; (S5) gộp thành SYNC-CORE (candidate) → SYNC-LIVE (protected) → 3 nhịp thật → F/G/H/Z, adapter C/D/E không biến mất; (S6) file K0/P2 chỉ lưu nếu A1 đã duyệt đúng tên/phạm vi, nếu chưa thì C1_NOT_ARCHIVED, không block phần code đang được phép.
+**Chuẩn ngành / bảo vệ:** stateful source inventory + idempotent reconciliation + checkpoint + independent oracle + soft-retire sau đọc đủ; R1 full universe theo quyền, R2 epoch/source identity, R3 tự co cả edge, R4 unknown class GAP, R5 source-scoped refresh/bounded batch, R6 independent native↔Graph. Đề xuất 15 phút cần đo, không bật lịch mới hoặc hứa realtime. Giảm 30% không bị khóa cứng 2% nhưng bắt buộc proof độc lập/guard tránh xóa nhầm. Giữa Graph tx và chứng nhận phải có generation atomic publish/rollback. Derived index có thể dựng lại, human-approved/JEV artifacts không xóa/rebuild tuỳ tiện.
+**INPUT READY (DROOT60):** root/task/AGENTS/Claude B8, KQ P/K0, tools c1d/c1b/onepass qua Git = HOST_VERIFIED; connector workspace writable = HOST_VERIFIED; nguồn Mac K0 private + source VPS live SHA phải đọc tại S0 là EXECUTOR_FRESHNESS (KQ K0 có biên nhận, không gán latest giả); Guard/VPS-GHI for production = N/A vì RUN này không ghi production; 0 STARTED B0 -01/SYNC-CORE trên SSOT. PROMPT K4 NOT_READY lịch sử giữ qua Git (blob 66b79f09), thay một PROMPT theo A6 không triển khai K4.
+**STEP_WALK_V1:** Owner dispatch sau READY → Claude S0 gate → S1 pin K1–K5 → S2 candidate R1–R6 → S3 ít nhất 3 cycle + lỗi giả → S4 R7 diff thiết kế không áp → KQ 1 lần. Mỗi checkpoint ≤15′, không tự chạy LIVE.
+
 #### ROADMAP GS-RM1 — nguồn điều hành duy nhất
 | Mốc | Nội dung | Trạng thái / gate |
 |---|---|---|
@@ -1557,12 +1578,15 @@ Hệ quả: các vòng sửa trước đây đều là «nới danh sách / nân
 | K4 · Read-time source version | live cheap fingerprint vs cert baseline, changed/missing => NOT_ACTION_SAFE | ■ P304 DRAFT_BLOCKED_RESOURCE: P301 dấu gốc 6 lớp + Nuxt có sẵn, wrapper/rollback/fixture sẵn; còn FAIL bộ đọc nuốt lỗi 2 chỗ + RAM <3GiB; no READY |
 | GS-COV2-K0-LIVE · NATIVE→GRAPH THỰC + GH SSOT | Dữ liệu thật đọc-only qua DOT đúng quyền, host runtime native; candidate Graph cô lập; so object+edge ID/hash, sửa detection và trả Pivot 23 nhóm có bằng chứng usage; stale/read-error phải báo MỘT PHẦN | 🟡 Lịch sử lệnh B6; hiện P đã XONG có giới hạn, K0 DỪNG, GPT Host B7 nghiệm thu; next B0 canonical ID+fail-closed rồi mới nạp dữ liệu |
 | GS-FULL-ONEPASS · TỔNG KIỂM KÊ COVERAGE | Một Claude CLI chỉ đọc: ngoài G1–G9, native class/edge nội bộ mỗi nguồn, scope discovery/usage/lineage, độc lập source↔Graph và negative-tests; chốt toàn bộ GAP & kế hoạch sửa thống nhất | ✅ **KQ XONG 30/10 08:25Z (Claude Code, chỉ đọc, 0 ghi)**: ma trận 83 dòng (79 trong phạm vi) — ĐỦ 6 (≈8%), kiểm kê native có số 77/79; 32 lớp ngoài danh mục, 24 lớp đọc được chưa nạp, 11 fixture 5 PASS/6 GAP (1 xanh giả tiềm ẩn F6), làm mới đêm 4 đêm không áp; roadmap GS-COV2 A∥B→C→D→E→F→G→H→Z; công cụ `tools/onepass/`; NEXT GPT Host nghiệm thu + ký A1+B |
-| GS-COV2-B0 · CANONICAL ID + FAIL-CLOSED | Kiểm ID + cạnh đầy đủ native universe, candidate old→new mapping/rollback; K0 độc lập chứng nhận; lưu source theo C1 khi AGENTS cho phép | ⬜ NEXT_TRIGGER=OWNER_DISPATCH_GS_COV2_B0_CANONICAL_FAILCLOSED · GPT B8 ACCEPT Claude C1–C5 có 2 rào (FILE MỚI, Guard/D23), CHƯA RUN; no production write · **Claude B8 31/10: KHÔNG chạy bản -01 (Owner 31/10 đòi đúng dài hạn); gốc rễ K-1…K-5 trong mã; gộp B0/B/A/C/D/E thành SYNC-CORE (sandbox nhiều nhịp) → SYNC-LIVE** |
-| GS-COV2-B · FIX READER GAP | Sửa 6 fixture ONEPASS còn GAP bằng native catalogs, cron comment, nginx -T, systemd unit/drop-in, git roots, docker fail-closed và limit | ⬜ SAU B0; mục tiêu 11/11 PASS trên code thật + oracle source, không lấy mock làm N4 FULL |
-| GS-COV2-A · SOURCE REFRESH + SAFETY | Reconcile từng nguồn, source T/TTL/NO_CHANGE, nguồn lỗi PARTIAL, nguồn khác có thể đọc; Guard/VPS-GHI/D23 restore/memory vẫn buộc đối với Graph writes | ⬜ SAU B; C4 DESIGN ONLY trong B0, không tự nới Guard hay bỏ recovery/Drive |
-| GS-COV2-C/D/E · NẠP RUNTIME/DIRECTUS/PG | Nạp theo một contract native→Graph, so ID+cạnh độc lập, bounded lanes và điểm lùi, chú ý 5 collision/law_registry | ⬜ SAU A PROOF; gộp điều phối chỉ khi có benchmark + lùi riêng, không một giant mutation |
-| GS-COV2-F/G/H · USAGE/GITHUB/KB | F cửa sổ PL/nginx đủ và lưu qua recreate; G repo SHA→artifact→runtime; H KB/Qdrant/Lark native↔Graph | ⬜ CÒN, GHM code GH source có scope nhưng Graph mapping UNKNOWN, KB K0 chưa đo lại |
-| GS-COV2-Z · FINAL Z1–Z6 (N1–N4) | Z1 native object/edge two-way; Z2 idempotent+tombstone; Z3 live auto-refresh; Z4 reader fail PARTIAL; Z5 Pivot+usage; Z6 Git/runtime provenance | ⬜ 6/6 chứng minh bằng nguồn sống, không PASS nếu sai/thiếu; sau các gói trước |
+| GS-SYNC-CORE · RUN02 | R1–R6 code candidate khắc phục K1–K5; full vendor catalog, oracle độc lập, ≥3 sandbox cycle (add/retire/change/skip/error/replay), R7 diff chưa áp | ■ PROMPT mới soạn, ký READY sau full-SHA; KHÔNG production |
+| GS-SYNC-LIVE · sau CORE | triển khai các adapter host/Directus/PG bằng contract chung, source-level refresh + Guard/D23/backup/rollback/generation, benchmark SLA; Owner quyết R7 riêng | ⬜ NOT_READY; không giant mutation |
+| GS-SYNC-LIVE-3CYCLE | ≥3 nhịp nguồn thực add/retire/change edge, oracle độc lập mỗi lần, 0 false-green và thực đo chi phí | ⬜ NOT_READY; sandbox không thay live evidence |
+| GS-COV2-B0 · CANONICAL ID + FAIL-CLOSED (lịch sử) | B0 -01 không chạy; nội dung vào R1–R3 của SYNC-CORE | ⛔ SUPERSEDED_BEFORE_START 31/10 |
+| GS-COV2-B · FIX READER GAP | 6 fixture ONEPASS còn GAP, native readers/mọi loại mới | ↪ Thành phần của SYNC-CORE/SYNC-LIVE; không báo 11/11 nếu chưa thử |
+| GS-COV2-A · SOURCE REFRESH | R5/R6 source-level reconcile + cert PARTIAL khi skip, giữ Guard/D23 | ↪ CORE candidate → LIVE có cổng Owner R7 riêng |
+| GS-COV2-C/D/E · PG/DIRECTUS/HOST ADAPTERS | một hợp đồng reconcile, từng nguồn có full catalog/edge và rollback riêng | ↪ CORE→LIVE, không bỏ adapter và không nạp big-bang |
+| GS-COV2-F/G/H · USAGE/GITHUB/KB | F đủ cửa sổ ≥13/11, G Git commit→artifact→runtime, H Qdrant/KB/Lark | ⬜ sau LIVE; chưa hoàn tất |
+| GS-COV2-Z · FINAL Z1–Z6 | Z1 two-way per cycle; Z2 idempotent+soft-retire; Z3 3 live cycles; Z4 reader fail PARTIAL; Z5 Pivot+usage; Z6 Git runtime identity | ⬜ không nghiệm thu chỉ vì một snapshot |
 | GS-COV2-P · DOT SCHEMA-ONLY + ĐỒNG HỒ ĐO | P1 source-dump schema-only · P2 track_functions=pl · P3 khảo sát nginx | ✅ KQ XONG CÓ GIỚI HẠN 30/10 14:15Z: Guard receipt356, PL đếm từ 14:05:25Z, nginx 6,9–10,4 ngày chưa đủ 14; postgresql.auto.conf chưa trong Guard |
 | GS-COV2-K0-LIVE · ORACLE NGUỒN THẬT | Đối chiếu PG/Directus/runtime/GitHub ↔ Graph, ứng viên Mac, dùng/độ mới (B6) | 🟡 **KQ DỪNG · PARTIAL · NOT_ACTION_SAFE 30/10 14:34Z**: oracle PG 48/48, docker 16/16, cổng 21/21 PASS_SCOPED; Graph thiếu phần lớn (bảng 219/403, view 47/703, hàm 122/434, cron 0/69, flow 0/128); AUTO_REFRESH chưa chứng minh; GPT Host B7 ACCEPT_DUNG_DUNG, không chạy lại; kế tiếp GS-COV2-B0 |
 | GS-D28-A1 · PIVOT NATIVE SOURCE COVERAGE | Kết nối bộ đọc hiện hữu→ingestion/cert cho PG function/view_dep, cron disabled, Directus collection/flow/operation; native↔Graph, nhãn nguồn DOT pending | ⏸ HOLD — chưa RUN; thay bằng GS-FULL-ONEPASS trước khi vá; chỉ mở A1 lại nếu ma trận tổng chứng minh cần, K4/PR683 tách riêng |
