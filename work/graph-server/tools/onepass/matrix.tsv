@@ -1,0 +1,84 @@
+#src	class_or_edge	native_count	native_proof	graph_count	status	cause	package
+PG	database	4	cert 29/10 22:40Z	0 (khoá trong gs_key)	NOT_MODELED	chỉ dùng làm tiền tố	E
+PG	schema	directus 4 · im 1 · wf 3	C0 22/10	0	OUT_OF_CATALOG	không có ô	E
+PG	table (r,p,f) directus	395	cert	220	PARTIAL_LOADED	lane pgdot/pgl1 chỉ phần đã duyệt	E
+PG	table incomex_metadata	10+1 ngoại	cert/C0	0	NOT_LOADED	ô có, lane không	E
+PG	table postgres/workflow	0	cert	0	VERIFIED_EMPTY	ĐỦ rỗng	-
+PG	view+matview directus	700	cert/C0	47	PARTIAL_LOADED	chỉ L1 pilot 27 bảng	E
+PG	view_dep (DEPENDS_ON) directus	1738	cert	52	PARTIAL_LOADED	GRAPH_CLASS_NOT_LOADED	E
+PG	function directus	426	cert	122	PARTIAL_LOADED	chỉ hàm của trigger	E
+PG	function incomex_metadata	10	cert	0	NOT_LOADED	ô có, lane không	E
+PG	function body → table đọc/ghi	426 hàm · 48 EXECUTE động	cert NO_READER	0 (L2 ứng viên tệp)	NO_READER	chỉ ứng viên văn bản	F
+PG	function → function	?	-	0	OUT_OF_CATALOG	không có ô	F
+PG	trigger directus (ON_TABLE/EXECUTES)	410	cert	410	VERIFIED_ĐỦ	-	-
+PG	trigger incomex_metadata	7	cert	0	NOT_LOADED	ô có, lane không	E
+PG	FK directus	175	cert/C0	46	PARTIAL_LOADED	chỉ L1 pilot	E
+PG	FK incomex_metadata	0	cert	0	VERIFIED_EMPTY	-	-
+PG	column	10099+69	C0	0	OUT_OF_CATALOG	nên là thuộc tính băm/bảng, không nút	E
+PG	index	996+22	C0	0	OUT_OF_CATALOG	như trên	E
+PG	sequence (+OWNED BY)	150+5	C0	0	OUT_OF_CATALOG	không có ô	E
+PG	constraint PK/UK/CHECK/EXCL	383/96/364/1	C0	0	OUT_OF_CATALOG	thuộc tính bảng	E
+PG	event trigger	2+2	C0	0	OUT_OF_CATALOG	chỉ đếm trong cdc_caps	E
+PG	FDW server + foreign table (cạnh liên DB)	2 cặp directus↔incomex_metadata	C0	0	OUT_OF_CATALOG	cạnh liên DB không mô hình	E
+PG	extension	4/2/1/1	C0	0	OUT_OF_CATALOG	thấp	E
+PG	role · GRANT · RLS · default privileges	?	không có bộ đọc	0	NO_AUTHORIZED_READER	cần đường đọc DOT + ranh giới quyền	A/E
+PG	NOTIFY kênh	1+2 hàm	C0	0	OUT_OF_CATALOG	không có ô	F
+PG	sổ registry (collection/table/trigger_registry, meta_catalog, species…)	168/28/107/169/164…	C0	dot_tools 314 ĐỦ, còn lại 0	OUT_OF_CATALOG	chỉ dot_tools nạp; đối soát sổ↔catalog không có cạnh	E
+PG	outbox/hàng đợi (event_outbox, event_read)	có	pg_stat mẫu	0	OUT_OF_CATALOG	họ job/queue	C
+PG	hoạt động (n_tup, idx_scan, autovacuum)	395 bảng	cert signals	0 trên nút	SIGNAL_ONLY	chưa có lớp usage	F
+Directus	collection	170	cert/C0	20	PARTIAL_LOADED	GRAPH_CLASS_NOT_LOADED	D
+Directus	field	1521	C0	0	OUT_OF_CATALOG	không có ô	D
+Directus	relation	205	cert/C0	6	PARTIAL_LOADED	GRAPH_CLASS_NOT_LOADED	D
+Directus	flow	128 (event 121 · schedule 5 · webhook 2)	cert 448 obj	0	NOT_LOADED	GRAPH_CLASS_NOT_LOADED	D
+Directus	operation (IN_FLOW)	320 (request 50 · exec 15)	cert 320 cạnh	0	NOT_LOADED	GRAPH_CLASS_NOT_LOADED	D
+Directus	operation/flow → collection	137 + 121 cặp	C0	0	OUT_OF_CATALOG	bộ đọc chưa lấy options (nhạy cảm) — cần trích khoá collection	D
+Directus	permission	1243	cert/C0	77	PARTIAL_LOADED	chỉ L1 pilot	D
+Directus	role · policy · access	10/9/10	C0	0	OUT_OF_CATALOG	không có ô	D
+Directus	user	14	C0	0	OUT_OF_SCOPE_PRIVACY	chỉ đếm	-
+Directus	extension/hook	1 (l2-checkpoint-guard)	census 30/10	0	OUT_OF_CATALOG	mã chạy trong Directus, không lane	G
+Directus	dashboard/panel/preset	1/6/1	C0	0	OUT_OF_CATALOG	thấp	D
+Directus	activity/revision	đếm	cert signals	0	SIGNAL_ONLY	lớp usage	F
+Qdrant	collection + alias + payload index	2 coll	cert	0	NOT_LOADED	GRAPH_CLASS_NOT_LOADED	H
+Qdrant	point production_documents	20307 exact	cert scroll 21 trang	0	NOT_MODELED_BY_DESIGN	chỉ ô parity	H
+KB	PG kb_documents ↔ Qdrant document_id	PG live 10053 · ready 10039 · Qdrant 10048	cert M-b	ô MỘT PHẦN	PARITY_MISMATCH	1 ready thiếu · 8 chưa ready · 2 xoá mềm còn vector · 9 điểm không document_id	H
+Qdrant	iu_core_iu_chunks parity	149 điểm	C0	0	NO_READER	chỉ meta	H
+KB	tài liệu KB (nút) + phạm vi luật active	10053	cert	0	OUT_OF_CATALOG	chờ RAG-B	H
+Host	container	16	cert+census 30/10	16	STALE	Id agent-data đổi 29/10 21:28Z, Graph chưa làm mới	A
+Host	container→image/volume/port (USES_IMAGE/MOUNTS/PUBLISHES)	cert có	cert	PUBLISHED_BY 9	PARTIAL_LOADED	ô docker:container chưa nạp	C
+Host	image	74 (118 kể trung gian)	cert/census	0	NOT_LOADED	GRAPH_CLASS_NOT_LOADED	C
+Host	volume	7	census	0	OUT_OF_CATALOG	chỉ chuỗi mount	C
+Host	network	8	census	0	OUT_OF_CATALOG	không có ô	C
+Host	compose project/file	9 project	census	0	OUT_OF_CATALOG	danh tính triển khai	C
+Host	systemd .service/.timer (/etc)	47	cert = census	21 (infra:unit khai báo)	PARTIAL_LOADED	ô systemd:unit chưa nạp	C
+Host	systemd .socket/.path/.mount + drop-in	8 tệp + drop-in	census	một phần qua infra:unit	READER_GAP	F5: bộ đọc bỏ hậu tố khác + drop-in	B
+Host	timer (32 gồm graph-refresh, wf-universal-scanner, hvu, mcpw, lark backup)	32	census	0 nút .timer	NOT_LOADED	như trên	C
+Host	user/transient unit	0 user · 0 linger · transient = scope docker/ssh	census	-	VERIFIED_EMPTY	đường thứ hai	-
+Host	cron dòng hoạt động (RUNS)	51	cert 51 = census 51	0	NOT_LOADED	GRAPH_CLASS_NOT_LOADED	C
+Host	cron dòng tắt bằng comment	26 (root 25 · incomex 1; thẻ L1-OFF 21 · R2-OFF 3 · R6-OFF 1 · L2A-OFF 1)	census	0	READER_GAP	F1: tắt = xoá	B
+Host	lịch ngoài cron (Hermes jobs 3 · Directus schedule flow 5)	8	census/C0	0	OUT_OF_CATALOG	họ scheduler thiếu	C
+Host	hàng đợi cục bộ (workspace queue.sqlite/events.sqlite · HJW ledger/state)	4 kho	census	0	OUT_OF_CATALOG	họ job/queue	C
+Host	tiến trình ↔ chủ (cgroup)	31 service · 121 docker · 0 mồ côi	census	0	OUT_OF_CATALOG	0 tiến trình mồ côi = VERIFIED	C
+Host	cổng nghe TCP	21	census 08:05Z	22	STALE	cổng tạm hermes 45551 còn trong Graph	A
+Host	cổng UDP	2 (resolver)	census	0	OUT_OF_SCOPE	khai báo	-
+Host	nginx server	7	cert = census	0	NOT_LOADED	GRAPH_CLASS_NOT_LOADED	C
+Host	nginx route PROXIES	96 proxy_pass (84 default + 12 include)	census	0 (bộ đọc 83)	READER_GAP	F4: mất ngữ cảnh include ⇒ 12 tuyến connector	B
+Host	nginx route return/alias/root	148 chỉ thị	census	0	OUT_OF_CATALOG	tuyến tĩnh/chuyển hướng	C
+Host	lượt truy cập route (log container ~10 ngày)	có	UC-1A	0	OUT_OF_CATALOG	lớp usage	F
+Host	Kuma monitor	32 (push 23)	census	0	OUT_OF_CATALOG	họ giám sát	C
+Host	/opt mục cấp 1	cert	cert	0	NOT_LOADED	ô opt:entries	C
+Host	code-ledger dòng	616	cert	0	NOT_LOADED	ô opt:code-ledger	C
+Host	tệp chạy ngoài sổ	/usr/local 15 · /root 17	census	0	REGISTRY_GAP	ngoài code-ledger	C
+Code	5 cây mã đã nạp (AD 33 · claude-mcp 28 · claude-kb 3 · lark 61 · nuxt 316 map)	cert	cert	CodeSymbol 3837…	READER_GAP	READER_NOT_ID_COMPARABLE (ngữ nghĩa, không so ID)	G
+Code	điểm vào chạy thật (cron+ExecStart)	75	census	5 trỏ vào lane mã	OUT_OF_CATALOG	70/75 không có nút mã (scripts 22 · DOT 11 · /usr/local 12 · cowork/jev/hermes/hvu/mow…)	G
+Code	kho git	10 (+ ui-preview symlink)	census	9	READER_GAP	F10: chỉ quét /opt/incomex ⇒ thiếu /opt/incomex-cowork, -cowork-mcp	B
+Code	danh tính build (Nuxt .output SHA, image↔Git)	Nuxt không SHA	UC-1A/GHM	0	SOURCE_IDENTITY_MISSING	dữ liệu nguồn không có	G
+Code	cây làm việc bẩn (HEAD ≠ mã chạy)	/opt/incomex 1129 · dot 227 tệp đổi	census	0	OUT_OF_CATALOG	HEAD không phải bằng chứng	G
+DOT	lệnh dot/bin	254	cert	253	STALE	DOT mới 29/10 chưa nạp	A
+DOT	dot_tools (REGISTERS/PAIRED_WITH)	314	cert	314	VERIFIED_ĐỦ	-	-
+DOT	CHAM (DOT→bảng)	239 khai	cert	0	NO_READER	chưa có cạnh máy đọc	F
+Guard	Config Guard đích · Protection Guard INV	≈561 đích	hồ sơ VPSC2	0	OUT_OF_CATALOG	họ bảo vệ	C
+Lark	b88 (bản ghi + 4 cạnh)	cert	cert	ĐỦ	VERIFIED_ĐỦ	-	-
+Lark	schema 19 base (bảng + trường liên kết)	19 base	cert	0	NOT_LOADED	GRAPH_CLASS_NOT_LOADED	H
+Git	workspace work/*	cert	cert	0	NOT_LOADED	ô git:workspace:work	C
+Ngoài	dịch vụ ngoài (GitHub · GSM · Drive · Lark · Telegram · OpenRouter · Gemini · 50 op request)	7+	census/C0	0 (ExternalDependency 1266 = gói thư viện)	OUT_OF_CATALOG	chỉ nạp khi có dấu vết	H
+Graph	nhịp làm mới	lần áp cuối 25/10 22:40Z	journal	4 đêm không áp (26 FAIL · 27 SKIP_RESOURCE · 28 SKIP resources · 29 SKIP guard)	STALE	Guard/RAM	A
