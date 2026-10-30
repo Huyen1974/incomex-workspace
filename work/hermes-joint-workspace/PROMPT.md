@@ -12,10 +12,10 @@ Write_Path: nhánh dev đang có của DRAFT PR #358 tại Huyen1974/agent-data-
 - Reuse FastAPI auth hiện hữu, kb_declaration.writer hoặc helper nhỏ cùng contract; không mở gateway mới, secret mới, quyền mới, bảng mới hoặc dịch vụ mới. Hợp lệ trả receipt với raw/canonical/provenance/auth; thiếu/sai trả chỉ dẫn, 0 mutation; ghi Qdrant thất bại chỉ báo kết quả partial/unconfirmed, không giả atomic. Giữ API/legacy advertise, dry-run, audit read-only, limits và lỗi cũ.
 
 ## Host DROOT60 INPUT READY
-H1 Source/refs: GH PR358/head/main và PR357 pin phía trên, 14 paths, Codex push branch đã chứng minh thực. 
-H2 Code: Host đã đọc server.py bốn routes, _run_reindex/_run_cleanup và audit-sync auto_heal; kb_declaration có sẵn PRIMARY, ADMIN_UNCOVERED, writer, parse, profile_facts. 
-H3 CI: GitHub run41075696274 preflight/scan/policy/unit SUCCESS 271 đúng head; test file HJW đã bắt buộc trong Unit tests; thêm ca vào file đó, không sửa workflow. 
-H4 Safety: chỉ dev PR, 0 VPS write; no GH main merge/PR357 edits; rollback nhánh nháp chưa merge. 
+H1 Source/refs: GH PR358/head/main và PR357 pin phía trên, 14 paths, Codex push branch đã chứng minh thực.
+H2 Code: Host đã đọc server.py bốn routes, _run_reindex/_run_cleanup và audit-sync auto_heal; kb_declaration có sẵn PRIMARY, ADMIN_UNCOVERED, writer, parse, profile_facts.
+H3 CI: GitHub run41075696274 preflight/scan/policy/unit SUCCESS 271 đúng head; test file HJW đã bắt buộc trong Unit tests; thêm ca vào file đó, không sửa workflow.
+H4 Safety: chỉ dev PR, 0 VPS write; no GH main merge/PR357 edits; rollback nhánh nháp chưa merge.
 H5 Runtime: Host không yêu cầu Docker/live DB; Mac/CI fixture, credentials/head freshness và tests lúc chạy là EXECUTOR_FRESHNESS. HOST_UNVERIFIED=0 cho scope source-only.
 
 ## STEP_WALK
