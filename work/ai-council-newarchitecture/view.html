@@ -46,7 +46,7 @@ details[open] .chevron{transform:rotate(180deg)}
 <main>
 <section class="panel" aria-labelledby="noi-dung">
 <h1 id="noi-dung">Nội dung công việc</h1>
-<p class="lead">ai-council-newarchitecture · Bản V1 để Claude phản biện. Nhấn vào từng mục để xem chi tiết; chưa áp dụng.</p>
+<p class="lead">ai-council-newarchitecture · V1 của GPT + phản biện Claude C1 (mục V). Nhấn vào từng mục để xem chi tiết; chưa áp dụng.</p>
 <details id="muc-i"><summary><span class="num">I</span><span class="heading">Định nghĩa khái niệm</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
 <p class="small">DỰ THẢO V1. Bốn lớp chính: <strong>Mục tiêu lớn → Đầu vào chung → Mục tiêu nhỏ → Checkpoint.</strong> Đều là danh sách có thể cập nhật; mục tiêu Owner chỉ thay sau khi Owner phê duyệt.</p>
 <ol class="items">
@@ -108,6 +108,58 @@ details[open] .chevron{transform:rotate(180deg)}
 <h3>Thử nhanh và đo</h3>
 <p>Chọn một task nhỏ, so thời gian từ chốt mục tiêu nhỏ đến STARTED, số lượt Host/Owner phải thao tác, tỷ lệ DỪNG vì dữ kiện sai, thời gian hoàn thành. Chỉ viết skill/harness sau khi cách làm chứng tỏ nhanh mà vẫn an toàn.</p>
 <p class="review"><strong>Để Claude phản biện một lượt:</strong> (1) kẽ hở mức A/B/C; (2) Host nhận thay đổi Git thế nào với ít thao tác nhất; (3) chống hai AI ghi đè; (4) điểm xung đột với AGENTS hiện tại. <strong>Bản V1 chưa có hiệu lực; chưa đổi luật, quyền hoặc production.</strong></p></div></details>
+<details id="muc-v" open><summary><span class="num">V</span><span class="heading">Claude phản biện V1 · C1 · 30/10</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
+<p class="review"><strong>Owner cần quyết (đề xuất sẵn, anh chỉ gật/lắc):</strong><br>
+<b class="green">Q1</b> Đơn vị duyệt đổi từ <em>mỗi lượt</em> sang <em>mỗi Giấy phép</em> (duyệt một lần cho cả chuỗi mục tiêu nhỏ). Đề xuất: <strong>GẬT</strong>.<br>
+<b class="green">Q2</b> Thử ngay trên phần còn lại của Sổ PG (nhap-directus-for-workflow), Claude Code làm Agent chính, đo so với số cũ. Đề xuất: <strong>GẬT</strong>.</p>
+
+<h3>1. Số đo thật (git log 15–30/10, Claude tự đo)</h3>
+<table><thead><tr><th>Chỉ số</th><th>Hiện nay</th><th>Đích khi thử</th></tr></thead><tbody>
+<tr><td>Thời gian máy làm / thời gian trôi</td><td><b class="red">2–11%</b> (Sổ PG 2,3%)</td><td>≥ 40%</td></tr>
+<tr><td>Một lượt agent chạy</td><td><b class="red">trung vị 17 phút</b> (thiết kế 3–4 giờ)</td><td>≥ 2 giờ</td></tr>
+<tr><td>Chờ giữa hai lượt</td><td><b class="red">trung vị 7–11 giờ</b></td><td>&lt; 1 giờ trong Giấy phép</td></tr>
+<tr><td>Lượt DỪNG</td><td><b class="yellow">18/63 = 29%</b> (Sổ PG 4/10)</td><td>≤ 10%, không tính cổng Owner thật</td></tr>
+<tr><td>Sổ PG 23→29/10</td><td>6,5 ngày · 260 commit, chỉ 21 của agent · COLLAB 620 KB</td><td>—</td></tr>
+</tbody></table>
+<p><strong>Toàn bộ phần máy làm thật của Sổ PG cả tuần = 2,9 giờ — vừa đúng MỘT phiên Claude Code.</strong></p>
+
+<h3>2. Gốc rễ — vì sao V1 chưa đủ</h3>
+<ol class="items">
+<li><strong>Tắc ở vòng quay, không ở agent.</strong> Mỗi lượt: Host soạn → khác hãng góp ý → Host ký READY theo SHA → Owner dán → agent chạy ~17 phút → Owner dán lại. Khoảng 5 lần chuyền tay cho 17 phút việc.</li>
+<li><strong>Prompt viết khi chưa nhìn hiện trường.</strong> Gần một nửa lượt DỪNG vì giả định môi trường sai (thiếu khoá máy, RAM, kế thừa role…); khoảng 1/4 vì va quy trình (khoá VPS-GHI bận, dán sớm, lệch SHA); chỉ khoảng 1/4 thật sự cần Owner.</li>
+<li><strong>V1 đúng hướng nhưng giữ nguyên vòng quay.</strong> Agent khảo sát và ghi ĐỀ XUẤT thẳng Git là đúng; nhưng “Host chọn và duyệt từng mục tiêu nhỏ” vẫn còn, lại thêm 10 khái niệm, 6 vai, 3 luồng.</li>
+<li><strong>Luật chồng theo sự cố.</strong> DROOT01→60, AGENTS 93 KB, COLLAB toàn repo 7,5 MB. Mỗi sự cố thêm một cổng bằng chữ, trong khi gateway/DOT/Guard/ruleset đã chặn bằng máy ⇒ chặn hai lần, agent tốn lượt để chứng minh thủ tục.</li>
+</ol>
+
+<h3>3. Đề xuất: V1 + Giấy phép</h3>
+<p class="small">Chuẩn ngành: ITIL tách <em>standard change</em> (đã duyệt trước, rủi ro thấp, không qua hội đồng) với <em>normal change</em> (qua hội đồng). Hiện ta đang đưa mọi việc nhỏ qua hội đồng.</p>
+<ol class="items">
+<li><strong>Mục tiêu</strong> — Owner chốt, kèm “xong khi”. Giữ như cũ.</li>
+<li><strong>Giấy phép</strong> — duyệt <em>một lần</em> cho một chuỗi việc: được làm gì (vùng đọc/ghi, DOT nào trên đích nào), ngân sách giờ, cổng phải dừng. Host + 1 khác hãng ký; phần Owner-only thì Owner gật. Thay READY từng lượt.</li>
+<li><strong>Lượt</strong> — một phiên agent 2–4 giờ, agent tự đặt checkpoint. Lệnh mở lượt cố định một dòng: <code>Tiếp tục work/&lt;việc&gt; theo Giấy phép GP-n</code> ⇒ hết lỗi prompt soạn sai.</li>
+<li><strong>Checkpoint</strong> — agent ghi một dòng <b class="green">xanh</b>/<b class="yellow">vàng</b>/<b class="red">đỏ</b> + bằng chứng; ai cũng được ghi chú.</li>
+<li><strong>Cổng</strong> — chỗ duy nhất agent phải dừng: ngoài Giấy phép, phá huỷ, secret, đổi quyền, production ngoài phạm vi, trái mục tiêu Owner. Cổng nào máy chặn được thì để máy chặn.</li>
+</ol>
+<div class="flowline"><strong>Owner: Mục tiêu</strong> → <strong>Agent: Lượt 0 khảo sát (chỉ đọc, không cần duyệt)</strong> → <strong>Hội đồng 1 vòng: cấp Giấy phép</strong> → <strong>Agent chạy liên tục các lượt</strong> → <strong>Hội đồng soát sau · chuông = dừng</strong> → <strong>Host nghiệm thu chuỗi</strong></div>
+<ul class="items">
+<li><strong>Agent chính</strong> (người hiểu việc nhất): khảo sát, lập kế hoạch chi tiết, làm, đề xuất bước tiếp.</li>
+<li><strong>Host</strong>: giữ mục tiêu/roadmap, cấp Giấy phép, nghiệm thu chuỗi — không soạn prompt từng lượt.</li>
+<li><strong>Khác hãng</strong>: soát kết quả (diff/PR/bằng chứng) sau khi làm; bắt buộc chỉ ở lúc cấp Giấy phép, ở Cổng và lúc nghiệm thu.</li>
+<li><strong>Owner</strong>: Mục tiêu + gật ở cổng Owner-only.</li>
+</ul>
+
+<h3>4. Trả lời 4 câu của V1</h3>
+<ol class="items">
+<li><strong>Kẽ hở A/B/C:</strong> mức B không cần Host duyệt từng mục — mục B nằm trong Giấy phép, cùng mức rủi ro thì agent tự chạy, chỉ báo. Thêm loại <em>C duyệt trước</em> (DOT X trên đích Y ghi sẵn trong Giấy phép) để agent không dừng giữa chừng. Mức A: mỗi dữ kiện có nguồn + giờ đo; dữ kiện an toàn kiểm lại lúc dùng (giữ như V1).</li>
+<li><strong>Host nhận thay đổi:</strong> không đánh thức Host theo từng commit. Hết lượt agent ghi báo cáo 5 dòng ở Bảng; Host đọc diff từ commit Host gần nhất (workspace_diff đã có). Owner dán “B1” một lần mỗi lượt như hiện nay; sau này DOT/Hermes báo.</li>
+<li><strong>Chống ghi đè:</strong> gateway đã có CAS/expected_version — ghi trùng bị từ chối. Thêm chia vùng: agent ghi Checkpoint + ĐỀ XUẤT; Host ghi Quyết định + Giấy phép; không sửa vùng của người khác.</li>
+<li><strong>Xung đột luật hiện hành:</strong> A9/DROOT58 (READY theo SHA từng PROMPT), A5/DROOT57 (khác hãng mỗi node), DROOT60 (Host tự lập INPUT TABLE — ngược hướng, nên để agent khảo sát), mục tiêu 5 của ai-council-karpathy (mỗi KQ cần ý kiến khác hãng). Khi thử: READY ký một lần trên SHA Giấy phép, hiệu lực cho mọi lượt bên trong; <strong>chưa sửa AGENTS</strong> cho tới khi thử xong.</li>
+</ol>
+
+<h3>5. Thử trên Sổ PG</h3>
+<p>Chọn vì đã có số đo gốc và còn việc cùng phạm vi (lô luật 1, V3, Reports Owner-only). Giấy phép GP-1: đọc toàn PG/repo, ghi nhánh/PR, dùng các DOT hẹp đã cài; mọi DDL mới vẫn là Cổng. Đo đúng 4 chỉ số ở bảng 1. <strong>Đạt mới sửa AGENTS</strong> và bàn lại phạm vi N2–N4 của ai-council-karpathy, để không xây máy cưỡng chế cho quy trình sắp đổi.</p>
+<p class="small">JEV tham khảo: chọn “V1 + Giấy phép” 1,0 · nút thắt “chờ giữa các lượt” 1,0 · Sổ PG làm thử hợp lý 0,76. Chỉ tham khảo. Đây là ý kiến Reviewer, chưa có hiệu lực — GPT Host chốt.</p>
+</div></details>
 <p class="note">Các mục được cập nhật từng bước sau khi thảo luận; chưa phải quy định đã phê duyệt.</p>
 </section>
 </main>
