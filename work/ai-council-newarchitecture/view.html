@@ -159,7 +159,7 @@ code{font-size:14px;background:#f1f4f8;border-radius:4px;padding:1px 4px}
 .mx-s.prop{background:#fff;border:2px solid #aeaeb2;box-shadow:none}.mx-s.ap{background:#aeaeb2}
 .mx-s.done{background:#fff;border:2px solid #34c759;box-shadow:none}
 /* Owner 16:32 → 17:23: Báo cáo + Tiến trình mờ · «?» giải thích cột (cùng khuôn t1-mapping-table__help của ban-duyet) · bỏ 3 cột ký */
-.mx-row{grid-template-columns:56px minmax(200px,1.4fr) minmax(160px,1.25fr) 88px 80px 92px}.mx-row>.mx-c:nth-child(n+4){padding:0 6px}
+.mx-row{grid-template-columns:52px minmax(220px,1.3fr) minmax(190px,1.1fr) 84px 70px 72px}.mx-row>.mx-c:nth-child(n+4){padding:0 6px}
 .mx-row:not(.mx-head)>.mx-c:nth-child(n+5),.mx-row>.mx-c:nth-child(n+5) a{color:#aeaeb2;font-weight:400;font-size:12.5px;text-decoration:none}.mx-row>.mx-c:nth-child(n+5) a:hover{color:#6e6e73;text-decoration:underline}
 .mx .t1-mapping-table__head{position:relative;display:inline-flex;align-items:center;gap:5px}
 .mx .t1-mapping-table__help{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;flex:0 0 16px;box-sizing:border-box;border:1px solid #c7c7cc;border-radius:50%;color:#6e6e73;background:#fff;font:700 11px/1 -apple-system,"Segoe UI",sans-serif;opacity:0;transition:opacity .12s ease;cursor:help}
@@ -168,6 +168,20 @@ code{font-size:14px;background:#f1f4f8;border-radius:4px;padding:1px 4px}
 .mx-head .mx-c:hover .t1-mapping-table__help,.mx-head .mx-c:focus-within .t1-mapping-table__help,.mx-title:hover .t1-mapping-table__help,.mx-title:focus-within .t1-mapping-table__help{opacity:1}
 .mx-head .mx-c:hover .t1-mapping-table__tip,.mx-head .mx-c:focus-within .t1-mapping-table__tip,.mx-title:hover .t1-mapping-table__tip,.mx-title:focus-within .t1-mapping-table__tip{opacity:1;visibility:visible;transform:translateY(0)}
 .mx-head .mx-mid .t1-mapping-table__head{justify-content:center}
+/* Owner 20:32: «?» ở tên cột thành huy hiệu nhỏ góc trên phải — không chiếm bề ngang; cột phụ hẹp, dành chỗ cho 2 cột chữ */
+.mx-head .t1-mapping-table__help{position:absolute;top:-6px;right:-13px;width:14px;height:14px;flex:none;font-size:9.5px}
+.mx-head .mx-c:last-child .t1-mapping-table__help{right:-8px}
+/* Owner 20:32: mỗi bảng là một «miếng» riêng */
+.mx-card{border:1px solid #e5e5ea;border-radius:14px;padding:12px 16px 6px;margin:12px 0 18px;background:#fff}
+.mx-card>h3:first-child{margin-top:0 !important}
+.dv .mx-row{grid-template-columns:52px 96px minmax(240px,1.7fr) minmax(170px,1fr) 104px 76px}
+.dv .mx-row:not(.mx-head){min-height:36px;font-size:13.5px;color:#1d1d1f;padding:5px 0}
+.dv .dv-k{font-size:12px;color:#6e6e73}.dv .dv-src{font-size:12.5px;color:#6e6e73}
+.dv .mx-row>.mx-c:nth-child(n+5){color:#8e8e93}
+.dv-rule{font-size:13px;color:#3a3a3c;line-height:1.55;margin:2px 0 10px}.dv-rule b{color:#1d1d1f}
+.dv-rule p{margin:0 0 6px}
+.mx-head .mx-c:nth-child(n+4) .t1-mapping-table__tip{left:auto;right:0}
+@media(max-width:700px){.dv .mx-row{grid-template-columns:36px 1fr 44px}.dv .mx-row>.mx-c:nth-child(2),.dv .mx-row>.mx-c:nth-child(4),.dv .mx-row>.mx-c:nth-child(5){display:none}}
 .mx-pm{width:12px;height:12px;flex:0 0 12px;min-width:12px;box-sizing:border-box;box-shadow:none !important;border:1.5px solid;font-size:10px;line-height:1;font-weight:600}
 .mx-pm.add{border-color:#34c759}.mx-pm.del{border-color:#ff3b30}
 .mx-leg .to{color:#c7c7cc}
@@ -234,7 +248,28 @@ code{font-size:14px;background:#f1f4f8;border-radius:4px;padding:1px 4px}
 </div></details>
 
 <details id="muc-1" open><summary><span class="num">1</span><span class="heading">Cấu trúc và quy trình</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
-<div class="mx" id="ma-tran-muc-tieu">
+<div class="mx mx-card dv" id="dau-vao">
+<h3><span class="mx-title t1-mapping-table__head"><span class="t1-mapping-table__head-label">Thông tin đầu vào</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Thông tin đầu vào">?</span><span class="t1-mapping-table__tip" role="tooltip">Sự thật mà kế hoạch dựa vào. Phép thử: nếu dòng này sai thì kế hoạch hoặc lệnh làm sai → phải ghi. Đọc bảng này trước khi đề xuất, duyệt hoặc làm. Nguồn: COLLAB §4 «Đầu vào chung».</span></span> <span class="src">MẪU · dữ liệu thật của việc này</span></h3>
+<details class="mx-help"><summary>▸ Cách ghi</summary><div class="dv-rule">
+<p><b>1 Ghi gì.</b> Chỉ ghi điều mà nếu sai thì làm sai. Bốn loại: <b>Hiện trạng</b> — hệ thống đang chạy thế nào (phiên bản, nơi chạy, dữ liệu ở đâu, công cụ dùng được) · <b>Ràng buộc</b> — điều cấm, giới hạn (luật, quyền, tiền) · <b>Quyết định</b> — điều Owner hoặc hội đồng đã chốt · <b>Giả định</b> — điều đang tin nhưng chưa kiểm. Không ghi nhật ký việc làm (git đã có), ý kiến, kế hoạch (§4).</p>
+<p><b>2 Mở việc.</b> Host ghi Quyết định, Ràng buộc từ lời Owner. Agent khảo sát hiện trường ghi Hiện trạng, kèm cách kiểm lại (lệnh, đường dẫn).</p>
+<p><b>3 Trước khi đề xuất, duyệt, soạn lệnh.</b> Host và hội đồng đọc bảng. Chỉ dựa vào dòng <span class="mx-s ok" tabindex="0" data-t="Đã kiểm · còn đúng" title="Đã kiểm · còn đúng"></span> đã kiểm. Phải dựa vào dòng <span class="mx-s prop" tabindex="0" data-t="Chưa kiểm · giả định" title="Chưa kiểm · giả định"></span> chưa kiểm thì việc đầu tiên là kiểm nó.</p>
+<p><b>4 Trong khi làm.</b> Agent thấy hiện trường khác bảng → thêm dòng mới, dòng cũ chuyển <span class="mx-s stop" tabindex="0" data-t="Sai / hết hiệu lực" title="Sai / hết hiệu lực"></span> đỏ «sai, thay bằng Đx». Kiểm xong một giả định → <span class="mx-s prop" tabindex="0" data-t="Chưa kiểm · giả định" title="Chưa kiểm · giả định"></span> thành <span class="mx-s ok" tabindex="0" data-t="Đã kiểm · còn đúng" title="Đã kiểm · còn đúng"></span>. Gặp điều AI sau cần biết để khỏi làm sai → thêm dòng.</p>
+<p><b>5 Hết hạn.</b> Hiện trạng kiểm cách đây hơn 7 ngày, hoặc hệ thống vừa nâng cấp/đổi → <span class="mx-s part" tabindex="0" data-t="Cần kiểm lại" title="Cần kiểm lại"></span> vàng, kiểm lại trước khi dựa vào.</p>
+<p><b>6 Ai ghi.</b> Mọi AI được thêm dòng; chỉ Host ghi Quyết định. Không ai xoá dòng. Ghi kèm mã dòng trong lời nhắn commit (vd «· Đ6 ·»).</p>
+</div>
+<div class="mx-leg"><span><span class="mx-s ok" tabindex="0" data-t="Đã kiểm · còn đúng" title="Đã kiểm · còn đúng"></span>Đã kiểm · còn đúng</span><span><span class="mx-s prop" tabindex="0" data-t="Chưa kiểm · giả định" title="Chưa kiểm · giả định"></span>Chưa kiểm · giả định</span><span><span class="mx-s part" tabindex="0" data-t="Cần kiểm lại" title="Cần kiểm lại"></span>Cần kiểm lại</span><span><span class="mx-s stop" tabindex="0" data-t="Sai / hết hiệu lực" title="Sai / hết hiệu lực"></span>Sai / hết hiệu lực</span></div>
+</details>
+<div class="mx-row mx-head"><span class="mx-c"><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">STT</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột STT">?</span><span class="t1-mapping-table__tip" role="tooltip">Mã dòng: Đ + số. Số tăng dần, không dùng lại.</span></span></span><span class="mx-c"><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Loại</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Loại">?</span><span class="t1-mapping-table__tip" role="tooltip">Hiện trạng · Ràng buộc · Quyết định · Giả định. Không chắc loại nào → Giả định.</span></span></span><span class="mx-c"><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Thông tin</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Thông tin">?</span><span class="t1-mapping-table__tip" role="tooltip">Một câu cụ thể, có số, phiên bản, tên thật — ai đọc cũng hiểu như nhau. Sai thì không sửa: thêm dòng mới.</span></span></span><span class="mx-c"><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Nguồn</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Nguồn">?</span><span class="t1-mapping-table__tip" role="tooltip">Cách kiểm lại: lệnh, đường dẫn, hoặc lời Owner kèm giờ. Không có nguồn → là Giả định.</span></span></span><span class="mx-c"><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Kiểm lúc</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Kiểm lúc">?</span><span class="t1-mapping-table__tip" role="tooltip">Ngày kiểm gần nhất · ai kiểm. Hiện trạng quá 7 ngày → kiểm lại trước khi dùng.</span></span></span><span class="mx-c mx-mid"><span class="t1-mapping-table__head"><span class="t1-mapping-table__head-label">Tình trạng</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn cột Tình trạng">?</span><span class="t1-mapping-table__tip" role="tooltip">○ chưa kiểm · ● xanh đã kiểm · ● vàng cần kiểm lại · ● đỏ sai/hết hiệu lực. Rê chuột vào chấm để xem chữ.</span></span></span></div>
+<div class="mx-row"><span class="mx-c mx-stt">Đ1</span><span class="mx-c dv-k">Hiện trạng</span><span class="mx-c">15–30/10: máy làm 2–11% thời gian; lượt agent trung vị 17 phút; chờ giữa lượt 7–11 giờ; 18/63 lượt DỪNG</span><span class="mx-c dv-src">git log repo (đếm lại được)</span><span class="mx-c">30/10 · Claude</span><span class="mx-c mx-mid"><span class="mx-s ok" tabindex="0" data-t="Đã kiểm · còn đúng" title="Đã kiểm · còn đúng"></span></span></div>
+<div class="mx-row"><span class="mx-c mx-stt">Đ2</span><span class="mx-c dv-k">Hiện trạng</span><span class="mx-c">Trang Task hiện từ §3 đến trước «Vòng trước» trong ô «Chi tiết cần đạt» ⇒ §4 Kế hoạch hiện được, không sửa mã</span><span class="mx-c dv-src">sync.py · parse_objective_parts</span><span class="mx-c">30/10 · Claude</span><span class="mx-c mx-mid"><span class="mx-s ok" tabindex="0" data-t="Đã kiểm · còn đúng" title="Đã kiểm · còn đúng"></span></span></div>
+<div class="mx-row"><span class="mx-c mx-stt">Đ3</span><span class="mx-c dv-k">Hiện trạng</span><span class="mx-c">Cổng ghi repo từ chối khi sai phiên bản (expected_version) ⇒ dùng làm khoá chống ghi đè</span><span class="mx-c dv-src">công cụ fs_edit · đã dùng thật</span><span class="mx-c">30/10 · Claude</span><span class="mx-c mx-mid"><span class="mx-s ok" tabindex="0" data-t="Đã kiểm · còn đúng" title="Đã kiểm · còn đúng"></span></span></div>
+<div class="mx-row"><span class="mx-c mx-stt">Đ4</span><span class="mx-c dv-k">Quyết định</span><span class="mx-c">Hội đồng và kế hoạch ở GitHub; trang Task chỉ đọc lại; PG không tham gia</span><span class="mx-c dv-src">Owner 30/10 15:29, 17:23 · AGENTS.md</span><span class="mx-c">30/10 · Owner</span><span class="mx-c mx-mid"><span class="mx-s ok" tabindex="0" data-t="Đã kiểm · còn đúng" title="Đã kiểm · còn đúng"></span></span></div>
+<div class="mx-row"><span class="mx-c mx-stt">Đ5</span><span class="mx-c dv-k">Quyết định</span><span class="mx-c">Ký = ghi danh khi ghi lên repo; chưa ghi = chưa có</span><span class="mx-c dv-src">Owner 30/10 17:23</span><span class="mx-c">30/10 · Owner</span><span class="mx-c mx-mid"><span class="mx-s ok" tabindex="0" data-t="Đã kiểm · còn đúng" title="Đã kiểm · còn đúng"></span></span></div>
+<div class="mx-row"><span class="mx-c mx-stt">Đ6</span><span class="mx-c dv-k">Giả định</span><span class="mx-c">Cơ chế ghi danh (vé tạm khi ghi) do phiên khác làm, sẽ dùng được cho việc này</span><span class="mx-c dv-src">Owner 30/10 17:23 · chưa thấy chạy</span><span class="mx-c">—</span><span class="mx-c mx-mid"><span class="mx-s prop" tabindex="0" data-t="Chưa kiểm · giả định" title="Chưa kiểm · giả định"></span></span></div>
+<p class="small">Dữ liệu sống ở COLLAB §4 «Đầu vào chung»; bảng này vẽ lại.</p>
+</div>
+<div class="mx mx-card" id="ma-tran-muc-tieu">
 <h3 style="margin-top:10px"><span class="mx-title t1-mapping-table__head"><span class="t1-mapping-table__head-label">Ma trận mục tiêu</span><span class="t1-mapping-table__help" tabindex="0" role="button" aria-label="Hướng dẫn Ma trận mục tiêu">?</span><span class="t1-mapping-table__tip" role="tooltip">Mỗi dòng là một việc: 1 = mục tiêu lớn · 1.1 = mục tiêu nhỏ · 1.1.1 = checkpoint. Dữ liệu lấy từ COLLAB.md §1 và §4 — sửa ở đó, không sửa ở bảng. Bấm › để xổ.</span></span> <span class="src">MẪU · dữ liệu thật của việc này</span></h3>
 <details class="mx-help"><summary>▸ Cách đọc bảng</summary>
 <div class="mx-leg"><span><b class="lv1">1</b> mục tiêu lớn</span><span><b class="lv2">1.1</b> mục tiêu nhỏ</span><span><b class="lv3">1.1.1</b> checkpoint</span></div>
@@ -402,9 +437,9 @@ code{font-size:14px;background:#f1f4f8;border-radius:4px;padding:1px 4px}
 
 <h3>2.2 Đầu vào chung (Đ) — đầu §4, trước các N</h3>
 <pre class="form">#### Đầu vào chung
-- Đ1 · PG 18.6, Directus 12.4.1 dùng chung DB directus · nguồn: query_pg 27/10 (KQ P69) · chắc: cao
-- Đ2 · Khoá máy duy nhất ghi được dot_tools là Owner-admin · nguồn: KQ P60 · chắc: cao · ⚠ kiểm lại lúc dùng</pre>
-<p class="small">Mỗi dòng: nội dung · nguồn · chắc: cao/vừa/thấp · thêm <strong>⚠ kiểm lại lúc dùng</strong> nếu dữ kiện biến động hoặc ảnh hưởng an toàn. Sửa: gạch dòng cũ, ghi «→ mới · nguồn · ngày»; không xoá.</p>
+- Đ1 · Hiện trạng · PG 18.6, Directus 12.4.1 dùng chung DB directus · nguồn: query_pg (KQ P69) · kiểm: 27/10 claude-code · ●
+- Đ2 · Ràng buộc · Khoá máy duy nhất ghi được dot_tools là Owner-admin · nguồn: KQ P60 · kiểm: theo KQ P60 · ● · cần kiểm lại lúc dùng</pre>
+<p class="small">Mỗi dòng: mã · loại · thông tin · nguồn (cách kiểm lại) · kiểm: ngày + ai · tình trạng (○ chưa kiểm · ● đã kiểm · ● vàng cần kiểm lại · ● đỏ sai). Ghi gì, khi nào, ai ghi: xem <a href="#dau-vao">Thông tin đầu vào › Cách ghi</a>. Sai thì không xoá: dòng cũ chuyển đỏ «sai, thay bằng Đx», thêm dòng mới. <span class="src">V2.1 · 30/10 20:32 thay «chắc: cao/vừa/thấp»</span></p>
 
 <h3>2.3 Mục tiêu nhỏ (N)</h3>
 <pre class="form">#### N4 · Lô luật nhãn đầu tiên · DUYỆT
