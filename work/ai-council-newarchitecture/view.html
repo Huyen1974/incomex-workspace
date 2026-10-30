@@ -103,31 +103,45 @@ code{font-size:14px;background:#f1f4f8;border-radius:4px;padding:1px 4px}
 .bm .num2{font-weight:700;white-space:nowrap}
 .bm .tot td{background:#f7f9fa;font-weight:700}
 /* Ma trận mục tiêu — 3 tầng xổ */
-.mx{margin:6px 0 22px}
+.mx{margin:6px 0 22px;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;color:#1d1d1f}
 .mx details{border:0;border-radius:0;margin:0;overflow:visible}
 .mx summary{display:grid;min-height:0;padding:0;cursor:pointer;list-style:none}
 .mx summary::-webkit-details-marker{display:none}
-.mx-row{display:grid;grid-template-columns:64px minmax(150px,1.3fr) minmax(150px,1.5fr) 92px 96px;align-items:center;border-bottom:1px solid #e3e8ec;font-size:14px}
-.mx-head{background:#f1f4f8;font-weight:700;font-size:13px;border-top:1px solid #dce3eb}
-.mx-c{padding:9px 8px}
-.mx-mid{text-align:center}
-.mx-stt{font-weight:700;color:#536171;white-space:nowrap}
-.mx-L>summary{background:#fff;font-weight:700;font-size:15px}
-.mx-N>summary{background:#fbfcfd}
-.mx-C{background:#f6f8fa;font-size:13.5px;color:#3b4652}
-.mx summary:hover{background:#f2f7ff}
-.mx-name.l1:before,.mx-name.l2:before{content:"▸ ";color:#7d8c83;display:inline-block;transition:transform .15s}
+.mx-row{display:grid;grid-template-columns:56px minmax(190px,1.35fr) minmax(170px,1.5fr) 72px 92px;align-items:center;border-bottom:1px solid #ececf0}
+.mx-c{padding:0 10px;line-height:1.35}
+.mx-head{height:30px;font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#8e8e93;border-bottom:1px solid #d1d1d6}
+.mx-mid{text-align:center;position:relative}
+.mx-stt{font-variant-numeric:tabular-nums;font-size:12.5px;color:#8e8e93}
+.mx-name{display:flex;align-items:center}
+.mx-name:before{content:"";flex:0 0 16px}
+.mx-name.l1:before,.mx-name.l2:before{content:"›";font-size:19px;line-height:1;color:#8e8e93;text-align:center;transition:transform .15s}
 .mx details[open]>summary .mx-name:before{transform:rotate(90deg)}
-.mx-name.l2{padding-left:24px}.mx-name.l3{padding-left:44px}
-.mx-s{display:inline-block;width:46px;height:18px;border-radius:9px;vertical-align:middle;position:relative;outline:none}
-.mx-s.g{background:#1e8e3e}.mx-s.b{background:#1a73e8}.mx-s.r{background:#d93025}.mx-s.o{background:#c9cfd4}
-.mx-s:hover:after,.mx-s:focus:after{content:attr(data-t);position:absolute;left:50%;top:-30px;transform:translateX(-50%);background:#1d2939;color:#fff;font-size:12px;padding:3px 8px;border-radius:6px;white-space:nowrap;z-index:5}
-.mx-leg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:#4b5a52;margin:8px 0 10px}
+/* Tầng 1 · Mục tiêu lớn: chữ to nhất, nền xám nhạt, vạch trái */
+.mx-L>summary{min-height:50px;background:#f5f5f7;box-shadow:inset 4px 0 0 #1f4d3a;font-size:17px;font-weight:700}
+.mx-L>summary .mx-stt{font-size:14px;font-weight:700;color:#1d1d1f}
+.mx-L>summary .mx-c:nth-child(3){font-size:14px;font-weight:500;color:#3a3a3c}
+/* Tầng 2 · Mục tiêu nhỏ: chữ vừa, thụt 1 nấc */
+.mx-N>summary{min-height:42px;font-size:15px;font-weight:600}
+.mx-N>summary .mx-c:nth-child(3){font-size:13.5px;font-weight:400;color:#48484a}
+.mx-name.l2{padding-left:30px}
+/* Tầng 3 · Checkpoint: chữ nhỏ, mờ, đường cây */
+.mx-C{min-height:34px;font-size:13px;color:#48484a}
+.mx-C .mx-c:nth-child(3){color:#6e6e73}
+.mx-name.l3{padding-left:48px;position:relative;align-self:stretch}
+.mx-name.l3:after{content:"";position:absolute;left:52px;top:0;bottom:0;border-left:1px solid #d1d1d6}
+.mx-name.l3:before{flex:0 0 12px;height:0;border-top:1px solid #d1d1d6;margin:0 8px 0 4px}
+.mx summary:hover{background:#eef4ff}
+.mx-L>summary:hover{background:#e9eef6}
+/* Tình trạng: chấm nhỏ màu hệ Apple, rê ô thì hiện chữ */
+.mx-s{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;outline:none}
+.mx-s.g{background:#34c759}.mx-s.b{background:#007aff}.mx-s.r{background:#ff3b30}.mx-s.o{background:#c7c7cc}
+.mx-mid:hover .mx-s:after,.mx-s:focus:after{content:attr(data-t);position:absolute;left:50%;top:-24px;transform:translateX(-50%);background:#1d1d1f;color:#fff;font-size:12px;font-weight:400;padding:3px 8px;border-radius:6px;white-space:nowrap;z-index:5}
+.mx-leg{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:#6e6e73;margin:8px 0 12px;align-items:center}
 .mx-leg span{display:inline-flex;align-items:center;gap:6px}
-.mx-leg .mx-s{width:26px;height:12px}
-.mx-na{color:#b5bdc3}
-.mx a{color:#1f4f8f}
-@media(max-width:700px){.mx-row{grid-template-columns:44px 1fr 72px}.mx-row>.mx-c:nth-child(3),.mx-row>.mx-c:nth-child(5){display:none}}
+.mx-leg .lv1{font-size:15px;font-weight:700;color:#1d1d1f}.mx-leg .lv2{font-size:14px;font-weight:600;color:#1d1d1f}.mx-leg .lv3{font-size:12.5px;color:#48484a}
+.mx-na{color:#c7c7cc}
+.mx a{color:#007aff;font-size:13px;text-decoration:none}.mx a:hover{text-decoration:underline}
+@media(max-width:700px){.mx-row{grid-template-columns:40px 1fr 48px}.mx-row>.mx-c:nth-child(3),.mx-row>.mx-c:nth-child(5){display:none}}
 @media(max-width:600px){body{padding:12px}.panel{padding:16px}summary{padding:13px}.heading{font-size:16px}.body{padding:4px 13px 15px 16px}}
 </style>
 </head>
@@ -192,7 +206,7 @@ code{font-size:14px;background:#f1f4f8;border-radius:4px;padding:1px 4px}
 <details id="muc-1" open><summary><span class="num">1</span><span class="heading">Cấu trúc và quy trình</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
 <div class="mx" id="ma-tran-muc-tieu">
 <h3 style="margin-top:10px">Ma trận mục tiêu <span class="src">MẪU · dữ liệu thật của việc này</span></h3>
-<div class="mx-leg"><span><span class="mx-s g" tabindex="0" data-t="Xong" title="Xong"></span>Xong</span><span><span class="mx-s b" tabindex="0" data-t="Đang làm" title="Đang làm"></span>Đang làm</span><span><span class="mx-s r" tabindex="0" data-t="Dừng" title="Dừng"></span>Dừng</span><span><span class="mx-s o" tabindex="0" data-t="Chưa làm" title="Chưa làm"></span>Chưa làm</span><span>▸ bấm để xổ</span></div>
+<div class="mx-leg"><span class="lv1">Mục tiêu lớn</span><span>›</span><span class="lv2">Mục tiêu nhỏ</span><span>›</span><span class="lv3">Checkpoint</span><span style="width:14px"></span><span><i class="mx-s g"></i>Xong</span><span><i class="mx-s b"></i>Đang làm</span><span><i class="mx-s r"></i>Dừng</span><span><i class="mx-s o"></i>Chưa làm</span></div>
 <div class="mx-row mx-head"><span class="mx-c">STT</span><span class="mx-c">Mục tiêu</span><span class="mx-c">Thế nào là hoàn thành</span><span class="mx-c mx-mid">Tình trạng</span><span class="mx-c">Báo cáo</span></div>
 <details class="mx-L" open><summary class="mx-row"><span class="mx-c mx-stt">1</span><span class="mx-c mx-name l1" title="mã: L1">Hội đồng AI — cách làm mới</span><span class="mx-c">Cách làm mới chạy thử đạt trên ≥ 1 việc thật</span><span class="mx-c mx-mid"><span class="mx-s b" tabindex="0" data-t="Đang làm" title="Đang làm"></span></span><span class="mx-c"><span class="mx-na">—</span></span></summary>
 <details class="mx-N"><summary class="mx-row"><span class="mx-c mx-stt">1.1</span><span class="mx-c mx-name l2" title="mã: N1">Bản V2: từ điển, form, thao tác</span><span class="mx-c">Có từ điển, form, thao tác, lượt agent</span><span class="mx-c mx-mid"><span class="mx-s g" tabindex="0" data-t="Xong" title="Xong"></span></span><span class="mx-c"><a href="https://github.com/Huyen1974/incomex-workspace/blob/main/work/ai-council-newarchitecture/COLLAB.md" target="_blank" rel="noopener">Báo cáo</a></span></summary>
