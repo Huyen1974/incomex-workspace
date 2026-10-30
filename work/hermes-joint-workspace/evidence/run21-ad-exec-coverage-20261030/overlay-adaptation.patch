@@ -1,0 +1,41 @@
+--- ../../run17/runtime-candidate/agent_data/workspace_execution.py
++++ overlay/agent_data/workspace_execution.py
+@@ -3,6 +3,7 @@
+ from pathlib import Path
+ import codecs
+ from agent_data.workspace_runtime import Queue,disk_state
++from agent_data import declaration_contract as declaration
+ 
+ def install(w):
+     def execute(a):
+@@ -18,7 +19,7 @@
+         # H14 (2026-09-19): answer a retry BEFORE doing anything else, so a lost
+         # response can neither queue the work twice nor leave an orphan running.
+         if a.get('operation_id') is not None:
+-            op_id=w.check_operation_id(a['operation_id']);args_hash=w.payload_hash(a)
++            op_id=w.check_operation_id(a['operation_id']);args_hash=w.payload_hash(declaration.bind_hash(a))
+             key,prior=q.find_by_operation('jobs',op_id)
+             if key:
+                 if prior.get('args_hash')!=args_hash:
+@@ -33,7 +34,7 @@
+         if spec.get('mode')=='git':
+             with w.locked(a['root']):source_head=w.prepare_git(spec)
+         from agent_data import hvu_signals
+-        request=dict(a,_hvu=hvu_signals.hidden(),timeout_seconds=timeout,source_head=source_head,args_hash=args_hash)
++        request=dict(a,_hvu=hvu_signals.hidden(),_declaration=declaration.current.get(),timeout_seconds=timeout,source_head=source_head,args_hash=args_hash)
+         if args_hash is None:key=q.enqueue('jobs',request)
+         else:
+             # VPSC2-W4Q-05: the check above is a fast path; this one is atomic against a concurrent retry.
+--- tests/unit/test_hjw_four_facts.py
++++ overlay/tests/unit/test_hjw_four_facts.py
+@@ -385,6 +385,10 @@
+     if fail:cfg['roots']={}
+     worker.run_job(row,cfg,q)
+     assert q.get(row['id'],'jobs')['request'] is None
++    if not legacy:
++        replay=w.call('workspace_exec',a)
++        assert replay['job_id']==row['id'] and replay['replayed'],replay
++        assert w.call('workspace_exec',dict(a,declared_actor='Other'))['error']=='OPERATION_ID_REUSED'
+     hvu.bind('credential:status-reader')
+     result=w.call('workspace_exec_status',{'job_id':row['id']})
+     assert result['status']==('failed' if fail else 'completed'),result

@@ -1,0 +1,208 @@
+diff --git a/agent_data/declaration_contract.py b/agent_data/declaration_contract.py
+index af1c738..c03d846 100644
+--- a/agent_data/declaration_contract.py
++++ b/agent_data/declaration_contract.py
+@@ -65,6 +65,10 @@ def canonical(value, field):
+             raise Denied('CONTEXT_CLARIFICATION_REQUIRED', 'Set origin_environment to the AI source: cloud, macbook or vps; not the Gateway host.', [field])
+     if field == 'task_id':
+         value = value.removeprefix('work/').rstrip('/')
++        if value == 'done-tasks' or value.startswith('done-tasks/'):
++            value = value[len('done-tasks/'):] if value.startswith('done-tasks/') else ''
++            if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]*', value):
++                raise Denied('CONTEXT_CLARIFICATION_REQUIRED', 'Use done-tasks/<exact-task-id>; the archive bucket is not a task.', [field])
+         if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]*(?:/[A-Za-z0-9][A-Za-z0-9._-]*)*', value) or any(x in ('.','..') for x in value.split('/')):
+             raise Denied('CONTEXT_CLARIFICATION_REQUIRED', 'Use the exact task path; task names are never fuzzy-corrected.', [field])
+     return value
+@@ -78,7 +82,7 @@ def target_task(args):
+     """Derive only a unique explicit work/<task> target; never from free text."""
+     paths = []
+     def collect(a):
+-        for k in ('path', 'from', 'to'):
++        for k in ('path', 'from', 'to', 'cwd'):
+             if isinstance(a.get(k), str): paths.append(a[k])
+         for k in ('operations', 'ops'):
+             for op in a.get(k, []) if isinstance(a.get(k, []), list) else []:
+diff --git a/agent_data/workspace_declaration.py b/agent_data/workspace_declaration.py
+index 5905583..3f84270 100644
+--- a/agent_data/workspace_declaration.py
++++ b/agent_data/workspace_declaration.py
+@@ -4,8 +4,8 @@ import re
+ from pathlib import Path
+ from agent_data import declaration_contract as d, hvu_signals
+ 
+-WRITES = frozenset('workspace_edit workspace_write_new workspace_copy workspace_move workspace_transaction workspace_upload_begin workspace_upload_append workspace_upload_commit workspace_import_file'.split())
+-NON_SOURCE = frozenset('infra_graph infra_logs infra_ops_plan workspace_list workspace_read workspace_search workspace_diff workspace_log vps_status ui_screenshot ui_inspect workspace_upload_status workspace_result_read workspace_exec workspace_exec_status workspace_exec_cancel workspace_task_status workspace_task_cancel workspace_stat'.split())
++WRITES = frozenset('workspace_edit workspace_write_new workspace_copy workspace_move workspace_transaction workspace_upload_begin workspace_upload_append workspace_upload_commit workspace_import_file workspace_exec'.split())
++NON_SOURCE = frozenset('infra_graph infra_logs infra_ops_plan workspace_list workspace_read workspace_search workspace_diff workspace_log vps_status ui_screenshot ui_inspect workspace_upload_status workspace_result_read workspace_exec_status workspace_exec_cancel workspace_task_status workspace_task_cancel workspace_stat'.split())
+ 
+ def target(name, args):
+     if name == 'workspace_task_start':
+diff --git a/agent_data/workspace_execution.py b/agent_data/workspace_execution.py
+index a54b245..3195cb3 100644
+--- a/agent_data/workspace_execution.py
++++ b/agent_data/workspace_execution.py
+@@ -3,6 +3,7 @@ import json
+ from pathlib import Path
+ import codecs
+ from agent_data.workspace_runtime import Queue,disk_state
++from agent_data import declaration_contract as declaration
+ 
+ def install(w):
+     def execute(a):
+@@ -18,7 +19,7 @@ def install(w):
+         # H14 (2026-09-19): answer a retry BEFORE doing anything else, so a lost
+         # response can neither queue the work twice nor leave an orphan running.
+         if a.get('operation_id') is not None:
+-            op_id=w.check_operation_id(a['operation_id']);args_hash=w.payload_hash(a)
++            op_id=w.check_operation_id(a['operation_id']);args_hash=w.payload_hash(declaration.bind_hash(a))
+             key,prior=q.find_by_operation('jobs',op_id)
+             if key:
+                 if prior.get('args_hash')!=args_hash:
+@@ -33,7 +34,7 @@ def install(w):
+         if spec.get('mode')=='git':
+             with w.locked(a['root']):source_head=w.prepare_git(spec)
+         from agent_data import hvu_signals
+-        key=q.enqueue('jobs',dict(a,_hvu=hvu_signals.hidden(),timeout_seconds=timeout,source_head=source_head,args_hash=args_hash))
++        key=q.enqueue('jobs',dict(a,_hvu=hvu_signals.hidden(),_declaration=declaration.current.get(),timeout_seconds=timeout,source_head=source_head,args_hash=args_hash))
+         w.journal({'event':'execution_queued','id':key,'root':a['root'],'argv_sha256':w.digest(json.dumps(a['argv']).encode()),'cwd':a.get('cwd',''),'source_head':source_head})
+         return dict(q.status(key,'jobs'),poll_tool='workspace_exec_status',source_head=source_head)
+     def status(a):
+diff --git a/scripts/workspace-exec-worker.py b/scripts/workspace-exec-worker.py
+index 549a6d2..fc618a2 100644
+--- a/scripts/workspace-exec-worker.py
++++ b/scripts/workspace-exec-worker.py
+@@ -158,6 +158,10 @@ def run_job(row,cfg,q):
+         kill(proc,container)
+         # The execution snapshot is disposable; retained output is in durable result.
+         if (area/'project').exists():shutil.rmtree(area/'project')
++    # Copy the server-created receipt before finish discards the request.
++    # Never derive actor/origin from the worker host or a later status caller.
++    if job.get('_declaration') is not None:
++        result=dict(result,declaration_receipt=job['_declaration'])
+     q.finish(jid,status,result)
+     with open(q.base/'audit.jsonl','a') as f:f.write(json.dumps({'event':'execution_finished','id':jid,'root':job['root'],'status':status,'exit_code':result.get('exit_code')})+'\n')
+ 
+diff --git a/tests/unit/test_hjw_four_facts.py b/tests/unit/test_hjw_four_facts.py
+index 8974c68..64b78aa 100644
+--- a/tests/unit/test_hjw_four_facts.py
++++ b/tests/unit/test_hjw_four_facts.py
+@@ -10,6 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+ import base64,hashlib,json
+ from pathlib import Path
+ import pytest
++pytestmark = pytest.mark.unit
+ from agent_data import workspace_tools as w, hvu_signals as hvu, declaration_contract as d, workspace_declaration as adapter
+ 
+ @pytest.fixture
+@@ -309,3 +310,111 @@ def test_f1_close_reopen_transaction_and_cross_task_zero_mutation(env,reverse):
+     assert 'error' not in result,result
+     assert (root/dest/'note.md').read_text()=='keep' and not (root/source).exists()
+     assert result['declaration_receipt']['facts']['task_id']['canonical']=='alpha'
++
++# RUN21: source-only exec admission and durable attribution, no Docker required.
++def exec_args(**extra):
++    return dict(root='fixture', argv=[sys.executable, '-c', 'print("CANARY")'],
++                operation_id='exec-01', declared_actor='Codex Desktop',
++                declaration_context={'origin_environment':'Macbok','task_id':'done-tasks/alpha','command_ref':'RUN-21'}, **extra)
++
++@pytest.fixture
++def exec_env(env,monkeypatch):
++    root,state=env
++    config=Path(__import__('os').environ['WORKSPACE_CONFIG'])
++    value=json.loads(config.read_text());value['roots']['fixture']['execution']=True
++    config.write_text(json.dumps(value))
++    return root,state
++
++@pytest.mark.parametrize('field', ['declared_actor','origin_environment','task_id','command_ref'])
++@pytest.mark.parametrize('invalid', [False, True])
++def test_exec_declines_before_state(exec_env,monkeypatch,field,invalid):
++    a=exec_args();a.pop('operation_id')  # command_ref must not use the ad-hoc fallback
++    target=a if field=='declared_actor' else a['declaration_context']
++    if invalid:target[field]=42
++    else:target.pop(field)
++    monkeypatch.setattr(w,'prepare_git',lambda *_:pytest.fail('prepare_git before admission'))
++    r=w.call('workspace_exec',a)
++    assert r['mutation']=='none' and field in r['missing_fields'],r
++    assert r['field_example'][field]
++    assert not exec_env[1].exists() and not list(exec_env[0].iterdir())
++
++@pytest.mark.parametrize('metadata', ['_declaration','_hvu'])
++def test_exec_forged_metadata_no_state(exec_env,metadata):
++    r=w.call('workspace_exec',dict(exec_args(),**{metadata:{'authenticated_actor':'Owner'}}))
++    assert r['error']=='CLIENT_METADATA_FORBIDDEN' and not exec_env[1].exists()
++
++@pytest.mark.parametrize('actor', ['unauthenticated','hermes'])
++def test_exec_auth_acl_before_mutation(exec_env,actor):
++    if actor=='unauthenticated':hvu.identity.set({'label':'clientInfo'})
++    else:hvu.trust('hermes','Hermes')
++    r=w.call('workspace_exec',exec_args())
++    assert r['error']==('AUTHENTICATED_ACTOR_REQUIRED' if actor=='unauthenticated' else 'TOOL_NOT_ALLOWED')
++    assert not exec_env[1].exists()
++
++@pytest.mark.parametrize('field', ['declared_actor','origin_environment','task_id','command_ref','credential'])
++def test_exec_queue_receipt_and_retry(exec_env,field):
++    from agent_data.workspace_runtime import Queue
++    a=exec_args();made=w.call('workspace_exec',a);assert 'error' not in made,made
++    q=Queue(exec_env[1]);row=q.get(made['job_id'],'jobs');request=json.loads(row['request'])
++    receipt=made['declaration_receipt'];assert request['_declaration']==receipt
++    assert receipt['authenticated_actor']=='credential:fixture'
++    assert receipt['facts']['origin_environment']=={'raw':'Macbok','canonical':'macbook','provenance':'self_declared'}
++    assert receipt['facts']['task_id']['canonical']=='alpha'
++    assert w.call('workspace_exec',a)['job_id']==made['job_id']
++    if field=='credential':hvu.bind('credential:other')
++    elif field=='declared_actor':a[field]='Other'
++    else:a['declaration_context'][field]={'origin_environment':'cloud','task_id':'beta','command_ref':'RUN-OTHER'}[field]
++    assert w.call('workspace_exec',a)['error']=='OPERATION_ID_REUSED'
++    with q.db() as db:assert db.execute("SELECT count(*) FROM jobs WHERE kind='jobs'").fetchone()[0]==1
++
++@pytest.mark.parametrize('legacy', [False,True])
++@pytest.mark.parametrize('fail', [False,True])
++def test_exec_worker_terminal_receipt_and_readonly_status(exec_env,monkeypatch,legacy,fail):
++    import importlib.util
++    from agent_data.workspace_runtime import Queue
++    a=exec_args()
++    if legacy:
++        monkeypatch.setenv('WORKSPACE_DECLARATION_MODE','advertise')
++        a.pop('declared_actor');a.pop('declaration_context')
++    made=w.call('workspace_exec',a);assert 'error' not in made,made
++    q=Queue(exec_env[1]);row=q.claim('jobs','fixture-worker',1)
++    spec=importlib.util.spec_from_file_location('hjw_exec_worker',Path(__file__).resolve().parents[2]/'scripts/workspace-exec-worker.py')
++    worker=importlib.util.module_from_spec(spec);spec.loader.exec_module(worker)
++    monkeypatch.setattr(worker,'kill',lambda *_:None)  # no Docker cleanup in host-diagnostic lab
++    cfg={'roots':{'fixture':{'path':str(exec_env[0]),'host_diagnostics':[a['argv']]}},'resources':{}}
++    if fail:cfg['roots']={}
++    worker.run_job(row,cfg,q)
++    assert q.get(row['id'],'jobs')['request'] is None
++    hvu.bind('credential:status-reader')
++    result=w.call('workspace_exec_status',{'job_id':row['id']})
++    assert result['status']==('failed' if fail else 'completed'),result
++    terminal=result['result']
++    if legacy:assert 'declaration_receipt' not in terminal
++    else:assert terminal['declaration_receipt']==made['declaration_receipt']
++    if not fail:assert terminal['stdout']=='CANARY\n' and terminal['exit_code']==0
++    assert '_hvu' not in json.dumps(result) and '_declaration' not in json.dumps(result)
++
++@pytest.mark.parametrize('value', ['alpha','work/alpha','done-tasks/alpha','work/done-tasks/alpha','work/done-tasks/alpha/'])
++@pytest.mark.parametrize('path', [None,'work/alpha/a.md','work/done-tasks/alpha/a.md'])
++def test_task_archive_input_alias(value,path):
++    a=args();a['declaration_context']['task_id']=value
++    if path:a['path']=path
++    assert d.resolve(a,WHO)['facts']['task_id']['canonical']=='alpha'
++    if path:
++        a['declaration_context']['task_id']='done-tasks/beta'
++        with pytest.raises(d.Denied):d.resolve(a,WHO)
++
++@pytest.mark.parametrize('value', ['done-tasks','work/done-tasks','done-tasks/','done-tasks//alpha','done-tasks/../alpha','done-tasks/alpha/file','work/done-tasks/alpha/beta','done-tasks/..','done-tasks/.','done-tasks/alpha\\beta'])
++def test_task_archive_invalid_alias(value):
++    with pytest.raises(d.Denied):d.canonical(value,'task_id')
++
++
++@pytest.mark.parametrize('cwd', ['work/alpha','work/done-tasks/alpha'])
++def test_exec_task_cwd_mismatch_zero_mutation(exec_env,cwd):
++    a=exec_args(cwd=cwd);a['declaration_context']['task_id']='beta'
++    r=w.call('workspace_exec',a)
++    assert r['error']=='CONTEXT_CLARIFICATION_REQUIRED' and r['mutation']=='none'
++    assert not exec_env[1].exists()
++    a['declaration_context']['task_id']='done-tasks/alpha'
++    r=w.call('workspace_exec',a);assert 'error' not in r,r
++    assert r['declaration_receipt']['facts']['task_id']['provenance']=='derived'

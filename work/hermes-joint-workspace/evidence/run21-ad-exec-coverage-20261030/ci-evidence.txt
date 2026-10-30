@@ -1,0 +1,6 @@
+gate	Pilot preflight and exact tested checkout (no persisted credentials)	2026-10-30T10:36:26.7967894Z if number is not None:assert git('ls-remote',url,'refs/heads/main',env=auth).split()[0]==base,'BASE_MOVED_REBASE_REQUIRED'
+gate	Pilot preflight and exact tested checkout (no persisted credentials)	2026-10-30T10:36:27.7812431Z AssertionError: BASE_MOVED_REBASE_REQUIRED
+gate	gate summary for KST	2026-10-30T10:36:27.8898435Z m.update(unit_result=os.environ['UNIT_RESULT'],scan_result=os.environ['SCAN_RESULT'],preflight_result=os.environ['PREFLIGHT_RESULT'],policy_result=os.environ['POLICY_RESULT'],policy_test_result=os.environ['POLICY_TEST_RESULT'])
+gate	gate summary for KST	2026-10-30T10:36:27.8903151Z passed=all(m[k]=='success' for k in ['unit_result','scan_result','preflight_result','policy_result','policy_test_result']) and m['policy']=='GREEN'
+gate	gate summary for KST	2026-10-30T10:36:27.8908462Z lines=['## KST review summary',f"Gate: **{m['gate']}** · Unit: **{m['unit_result']}** · Policy: **{m['policy']}** · Secret scan: **{m['scan_result']}**",'']
+gate	gate summary for KST	2026-10-30T10:36:28.3606292Z {"policy": "RED", "policy_reasons": ["PREFLIGHT_FAILED"], "files": [], "unit_result": "skipped", "scan_result": "skipped", "preflight_result": "failure", "policy_result": "skipped", "policy_test_result": "skipped", "gate": "RED"}
