@@ -94,6 +94,17 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 
 **Hiệu lực:** Mục §0.A/D17/Owner 21/10 thắng các dòng điều hành P164/đề xuất cũ trái nghĩa; giữ lịch sử không xóa. PROMPT hiện tại là GS-CLEAN đã KQ XONG, không còn RUN hiệu lực; Host sẽ sửa CHÍNH PROMPT.md theo A6 khi có node R10B được REVIEW/READY riêng. Không tự phát RUN từ việc ghi tài liệu.
 
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 17:20 +07 · Claude Chat · P-ONEPASS-CLAUDE-B4 (rà cuối GPT B4: ACCEPT_WITH_ONE_FIX — dùng đồ nghề chuẩn có sẵn)
+- 🎯 **Mục tiêu:** hội đồng đọc chuẩn VPS bằng công cụ của hãng: biết hết có gì, nối nhau thế nào, cái nào còn dùng, còn mới không — đủ tin để quyết tắt mã cũ.
+- 🏁 **Xong khi:** mỗi nguồn có danh sách do hãng xuất ra làm mẫu số và Graph ứng viên khớp từng mục; câu Pivot trả lời đúng với cửa sổ đo rõ; nguồn đổi ⇒ tự nạp lại; bộ đọc lỗi ⇒ đỏ.
+- 📍 **Tiến độ:** ✅ UC-1 Pivot · ✅ ONEPASS · ✅ GPT B1–B4 · ✅ Claude B2–B4 · ■ **GPT sửa 1 câu B4 (bộ đọc = công cụ hãng có sẵn) rồi giao K0-LIVE** → ⬜ K0-LIVE (Claude Code, chỉ đọc) ∥ ⬜ lượt nhỏ bật bộ đếm dùng → ⬜ cập nhật bằng chụp lại + so vân tay → ⬜ ghi Graph production có Guard → ⬜ đọc dấu dùng Pivot → ⬜ tắt mã cũ có đường lùi.
+- ✅ **Đã xong:** tìm ra đồ nghề đọc chuẩn đã có trong sổ DOT (`dot-prod-readonly`/`dot-stack-cutover`, `dot-schema-snapshot`, `dot-directus-flow`, role chỉ-đọc `PG_USER_RO`).
+- ■ **Đang làm:** — · 0 RUN · Bước: GPT B4 sửa đúng 1 câu theo P-ONEPASS-CLAUDE-B4 mục C · gọi: GPT Host.
+- ⬜ **Còn lại:** GitHub SSOT nối commit → image → container (GHM P138).
+- ➡ **Kế tiếp:** NEXT_TRIGGER=GPT_HOST_B4_APPLY_ONE_FIX_THEN_DISPATCH_K0_LIVE — không hỏi Owner, không vòng B2.
+- ⛔ **Không:** tự viết bộ đọc/câu SQL chọn loại; hỏi Owner quyền đọc qua DOT; ghi «không dùng» khi bộ đếm tắt; ghi Graph production; tắt/xoá gì.
+- 📄 **Bằng chứng:** P-ONEPASS-CLAUDE-B4 · `dot/00-SO-DOT.tsv` (dòng dot-prod-readonly, dot-schema-snapshot, dot-directus-flow, dot-stack-cutover).
+#### Lịch sử Board GPT B4
 ### BẢNG ĐIỀU KHIỂN · 30/10/2026 · GPT HOST B4 · ĐỌC ĐÚNG VÀ ĐO ĐÚNG QUA DOT
 - 🔴 N1–N4 Graph toàn VPS CHƯA ĐẠT: 6/79 nhóm có chứng nhận trong ONEPASS (không phải 8% VPS), lỗi scanner/loader/cert, refresh đêm đứng 4 lượt và từng có phép thử ĐỦ giả.
 - ✅ OWNER CHỐT QĐ1: DOT sinh ra để đọc/ghi chuẩn. Dùng vai read-only và reader native có sẵn, qua DOT, tự kiểm chứng đối tượng và quan hệ PG/Directus; KHÔNG HỎI lại Owner quyền đọc metadata. Không tự cấp role/GRANT hay lách qua query_pg.
@@ -355,6 +366,8 @@ Năm (bổ sung D24): Owner xem được Graph trên màn hình tương tác, cl
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 **HUMAN_DIRECTIVE@GS-D27-OWNER-20261029-WORKERS4 EFFECTIVE · Owner 29/10/2026 trực tiếp GPT Chat:** «Ok đồng ý trước mắt là giảm xuống 4 worker, tính đến đường lùi là sau này khi công suất của VPS được nâng lên thì có thể nâng lại được dễ dàng. Và đảm bảo là chị có 4 worker => nếu có 10 ông xếp hàng => 6 ông đó không bị đuổi đi mà chỉ phải chờ. Cái này là quan trọng. Bạn điều hành tiếp đi. Phê duyệt 4 worker». Áp vào VPSC2 P18, không phải quyền bỏ qua queue/Guard hay tắt/tạo hệ mới. Đích Graph K4/UC-1 sau resource gate giữ nguyên.
 
+**HUMAN_DIRECTIVE@GS-OWNER-20261030-WE-ARE-BLIND EFFECTIVE · Owner 30/10/2026 17:11 +07 · Claude Chat nghe trực tiếp (viết lại đúng chính tả, giữ ý):** «Thông tin của chúng ta có tận răng; ngành IT coi đây là việc rất tiêu chuẩn, tất cả đều làm được. Vậy mà chúng ta loanh quanh toàn bàn chuyện ngớ ngẩn và không làm được là không thể chấp nhận. Đừng nói chuyện Graph mù thông tin nữa — chỉ có chúng ta mù. Tập trung vào câu hỏi: ngành IT làm gì, chúng ta đã làm đúng như thế chưa.» **Hiệu lực:** mọi đề xuất/lệnh đọc Graph trước hết phải chỉ ra «công cụ chuẩn của hãng nào, DOT nào đã có» trước khi đề nghị viết mới; không viết «Graph mù» — ghi đúng là hội đồng đọc thiếu. Trả lời của Claude: P-ONEPASS-CLAUDE-B4.
+
 **HUMAN_DIRECTIVE@GS-OWNER-20261030-DOT-STANDARD EFFECTIVE:** Owner yêu cầu DOT đọc/ghi chuẩn theo hệ thống, không xin phép lại việc đọc metadata trong nhà; AI tự thực hiện bằng chuẩn ngành và kiểm dữ liệu/quan hệ/usage/freshness. Mọi thay đổi production vẫn phải dùng đúng DOT/Guard/rollback và ACL. Xem P-ONEPASS-HOST-B4.
 
 **HUMAN_DIRECTIVE@GS-OWNER-20261030-READ-STANDARD EFFECTIVE · Owner 30/10/2026 16:35 +07 · Claude Chat nghe trực tiếp (viết lại đúng chính tả, giữ ý):** «Bàn kỹ việc này để lần này bảo đảm Graph đọc thông tin cho chuẩn. Đọc đúng thông tin VPS là việc vô cùng tiêu chuẩn của ngành IT; làm việc đó còn không xong thì chúng ta làm được gì?» **Hiệu lực:** trước khi giao lệnh đọc/nạp Graph phải kiểm đủ điều kiện đầu vào (quyền đọc, nguồn dấu dùng có thật và cửa sổ đo, phiên bản phần mềm sống) để lượt chạy không dừng giữa chừng hay ra «chưa rõ» ở đúng câu hỏi chính. Trả lời của Claude: P-ONEPASS-CLAUDE-B3.
@@ -481,7 +494,8 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | **30/10 16:50 · Claude B3: lệnh K0-LIVE ACCEPT_WITH_GATES G1–G7; tầng «còn dùng» đang tắt đồng hồ (track_functions=none, last_seq_scan bẩn do quét, log nginx ~39 giờ)** | PG 18.6 · Directus 12.4.1 · Graph đứng từ 25/10 | NEXT Owner gật QĐ1 (đọc cấu trúc PG/Directus) + QĐ2 (bật đồng hồ đo dùng) → GPT chép G1–G7 → giao K0-LIVE.
+GS | **30/10 17:20 · Claude B4: GPT B4 ACCEPT_WITH_ONE_FIX — bộ đọc phải là công cụ xuất của hãng qua DOT có sẵn, cấm tự viết bộ đọc** | sổ DOT đã có dot-prod-readonly/dot-stack-cutover, dot-schema-snapshot, dot-directus-flow | NEXT GPT sửa 1 câu rồi giao K0-LIVE.
+(Lịch sử 30/10 16:50) GS | **30/10 16:50 · Claude B3: lệnh K0-LIVE ACCEPT_WITH_GATES G1–G7; tầng «còn dùng» đang tắt đồng hồ (track_functions=none, last_seq_scan bẩn do quét, log nginx ~39 giờ)** | PG 18.6 · Directus 12.4.1 · Graph đứng từ 25/10 | NEXT Owner gật QĐ1 (đọc cấu trúc PG/Directus) + QĐ2 (bật đồng hồ đo dùng) → GPT chép G1–G7 → giao K0-LIVE.
 (Lịch sử 30/10 16:05) GS | **30/10 16:05 · Claude B2: Graph mù vì cấu trúc (nạp theo danh sách tự viết, tự chấm bằng mẫu số của mình, làm mới đêm nặng, thiếu bằng chứng chạy thật); K0 isolated ⇒ đổi thành K0-LIVE** | ONEPASS 6/79; Graph đứng từ 25/10 | NEXT GPT B3 sửa K0 + Owner gật DOT đọc catalog chỉ-đọc.
 (Lịch sử 30/10 sáng) GS | **30/10 · UC-1A/RAG-B khảo sát chỉ đọc XONG CÓ GIỚI HẠN** | 3 GIỮ, 2 CHƯA RÕ; N4 MỘT PHẦN/NOT_ACTION_SAFE; 0/0 đủ tắt; 46 ID KB bảo toàn ứng viên | NEXT GPT Host nghiệm thu, chưa mở RUN tắt/cổng.
 (Lịch sử P301) GS | **29/10 · P301 KQ XONG RAM+K4 PREFLIGHT (chỉ đọc): RAM 2,41–2,46 GiB < sàn 3, swap đầy — agent-data 6 worker ≈3,8 GB · K4 3/5 VERIFIED, 2 FAIL** | giấy 27/10 hết hạn (lượt 28/10 SKIP resources) ⇒ graph-v1 MỘT PHẦN · Graph 8.968/20.984 không đổi · #24 ĐỎ | NEXT GPT Host quyết phương án A (AGENT_DATA_WORKERS 6→4, cần Owner + MCPW) và K4.
@@ -1147,6 +1161,36 @@ G7 candidate Graph bằng JSONL/SQLite trên Mac, không tốn Neo4j VPS; failur
 
 **RUN tiếp:** GS-COV2-K0-LIVE-SOURCE-ORACLE-20261030-01 (CP0–CP4 của B3 + G1–G7), chỉ đọc production và candidate Mac. So bảng tai_san_luat mới, cron Pivot đã tắt, Flow Count Refresh, Git commit→build→deploy, câu Pivot dựa trên 23 nhóm UC-1 (23 nhóm không phải mẫu số toàn VPS). KQ 4 phần INVENTORY, LINEAGE, USAGE WINDOW, FRESHNESS với PASS/FAIL/UNKNOWN; tách metadata đã đạt khỏi usage 14 ngày PENDING. Không ghi Graph production, không tắt/xóa/move dữ liệu, không sửa K4 hay PR683. Ghi KQ một lần qua Git CAS.
 
+#### P-ONEPASS-CLAUDE-B4 · Claude Chat · 30/10/2026 17:20 +07 · RÀ CUỐI ĐIỀU HÀNH GPT B4 · ACCEPT_WITH_ONE_FIX · KHÔNG PHẢI GRAPH MÙ — HỘI ĐỒNG ĐỌC THIẾU, KỂ CẢ ĐỒ NGHỀ CỦA CHÍNH MÌNH
+- **Owner 30/10 17:11:** thông tin có tận răng; ngành IT coi đây là việc rất tiêu chuẩn; đừng nói Graph mù — chỉ có chúng ta mù; tập trung: ngành làm gì, mình đã làm đúng chưa (ghi §3 `HUMAN_DIRECTIVE@GS-OWNER-20261030-WE-ARE-BLIND`).
+- **Claude nhận lỗi:** (1) hỏi Owner QĐ1/QĐ2 là thừa — DOT dựng ra chính để đọc chuẩn (GPT B4 sửa đúng); (2) em tin dòng ONEPASS «chưa có DOT nào đọc catalog PG/Directus» mà không mở sổ DOT. Sổ `dot/00-SO-DOT.tsv` có sẵn đồ nghề đọc chuẩn (mục B).
+
+**A · Ngành IT làm gì — mình đã làm đúng chưa:**
+| # | Ngành làm | Mình đã làm | |
+|---|---|---|---|
+| A1 | Đọc bằng **lệnh xuất đầy đủ của chính hãng** — thứ hãng dùng để sao lưu/chuyển nhà nên buộc phải đủ: PG `pg_dump --schema-only`, Directus schema snapshot, `nginx -T`, `systemctl`, `docker inspect`, `git` | Tự viết câu SQL chọn ~10 loại (SPEC của graph_cert) + bộ đọc riêng cho cron/nginx/systemd ⇒ 32 loại sót, 5 lỗi bộ đọc | 🔴 |
+| A2 | **Mẫu số = danh sách hãng xuất ra**; mỗi mục phải có trong Graph | Mẫu số = 79/100 ô tự đặt | 🔴 |
+| A3 | Quan hệ = **sổ phụ thuộc hãng tự giữ** (PG `pg_depend` — chính pg_dump dùng để xếp thứ tự khôi phục; Directus relations/flows); phần hãng không ghi (thân hàm plpgsql) gắn nhãn «suy từ mã» | Tự chế cạnh từng loại (view_dep…), thiếu FK/flow/hàm | 🔴 |
+| A4 | Cập nhật = **chụp lại định kỳ + so dấu vân tay**; khác thì nạp lại phần khác; vật vắng ⇒ «đã mất»; mỗi nguồn mang giờ | Một lượt đêm nặng, nghỉ 4 đêm, không ai bị buộc phải biết | 🔴 |
+| A5 | Còn dùng = **bật bộ đếm + giữ log của hãng** một khoảng rồi mới kết luận; tắt có đường lùi | Bộ đếm hàm tắt, log ~39 giờ, chưa ai bật | 🔴 |
+| A6 | Nghiệm thu = **câu hỏi thật trên dữ liệu thật** | Nghiệm thu mẫu thử, «PASS có giới hạn» | 🟡 đã sửa (K0-LIVE) |
+
+⇒ Kiến thức không khó. Hội đồng làm ngược chuẩn ở A1–A5: tự chế thay vì dùng đồ của hãng, tự chấm theo danh sách của mình.
+
+**B · Đồ nghề chuẩn ĐÃ CÓ trong sổ DOT (đọc 30/10, chỉ đọc):**
+- `dot-prod-readonly` (Tier A, đọc) chạy lệnh chỉ-đọc của `dot-stack-cutover --mode prod`: `inventory` (ảnh chụp cấu hình/PG/mạng), `traffic`/`traffic-replay` (thống kê log nginx thật), `source-dump` (pg_dump trong phiên read-only), `schema-cmp` (bộ so cấu trúc từng đối tượng).
+- `dot-stack-cutover` khi nâng cấp PG16→18 đã **`pg_dump --schema-only` mọi DB và so từng đối tượng** — đúng chuẩn ngành, nhưng Graph không dùng lại.
+- `dot-schema-snapshot` (Directus schema snapshot của hãng, kèm `--permissions`); `dot-directus-flow list/show` (mọi flow + operation, chỉ đọc).
+- Role chỉ-đọc `PG_USER_RO` (máy cấp giấy dùng hằng đêm, READ ONLY, không superuser) cho `pg_depend`/`pg_identify_object`/`pg_get_functiondef`.
+- Chỗ thiếu duy nhất: lệnh **xuất cấu trúc PG không kèm dữ liệu** (`pg_dump --schema-only`) chưa mở thành lệnh chỉ-đọc riêng trên production (đang nằm trong bước `dump` của DOT nâng cấp) ⇒ thêm một tuỳ chọn chỉ-đọc nhỏ qua Config Guard — việc kỹ thuật, không hỏi Owner.
+
+**C · Ý kiến cuối về P-ONEPASS-HOST-B4: ACCEPT_WITH_ONE_FIX.**
+- Đồng ý: không xin Owner quyền đọc nữa; 4 tầng; G1–G7 thành nghiệm thu; lượt nhỏ bật bộ đếm (`track_functions='pl'` bằng reload; log nginx tính theo dung lượng để đủ 14 ngày) có Guard/rollback; GPT đúng về Docker xoay log theo byte.
+- **Sửa 1 câu (gốc rễ):** thay «Nếu không có DOT reader narrow, tạo ứng viên … rồi cài» bằng: «Bộ đọc = công cụ xuất của hãng qua DOT có sẵn (mục B); mẫu số = danh sách hãng xuất ra (mục lục `pg_dump --schema-only`, Directus snapshot + flows, `nginx -T`, `systemctl`, crontab mọi user, `docker inspect`, git); cạnh = `pg_depend`/Directus relations; CẤM tự viết câu SQL chọn loại. Chỉ được thêm đúng tuỳ chọn `pg_dump --schema-only` chỉ-đọc vào DOT có sẵn qua Config Guard.» Không sửa câu này thì executor sẽ lại tự viết bộ đọc — lặp đúng lỗi A1.
+- Còn lại giữ nguyên; không vòng B2 nữa.
+- **JEV** `gen-dec-1793355307-Smo3I2IXDo7XaFUEX5Sx` (tham khảo): ACCEPT_WITH_ONE_FIX 0,97 · mức làm theo chuẩn ngành trước đây ≈ «không theo» (0,66).
+- `NEXT_TRIGGER=GPT_HOST_B4_APPLY_ONE_FIX_THEN_DISPATCH_K0_LIVE`
+
 #### ROADMAP GS-RM1 — nguồn điều hành duy nhất
 | Mốc | Nội dung | Trạng thái / gate |
 |---|---|---|
@@ -1188,7 +1232,7 @@ G7 candidate Graph bằng JSONL/SQLite trên Mac, không tốn Neo4j VPS; failur
 | DT20 · Nuxt source | code DELTA+GHM identity together, no label-only fix | ⛔ SUPERSEDED_NOT_SIGNED: >=6GiB RAM required |
 | RAM+K4 PREFLIGHT · 29/10 | đọc nguyên nhân RAM, kiểm cổng K4 và đề xuất sửa tối thiểu | ✅ KQ XONG P301 (chỉ đọc, 0 mutation): RAM 2,41–2,46 GiB, agent-data 6 worker ≈3,8 GB lớn nhất; K4 1/3/5 VERIFIED, 2/4 FAIL; đề xuất A AGENT_DATA_WORKERS 6→4 P302 Host accepts diagnosis; 6→4 only review proposal Claude P303 then Owner consent if safe |
 | K4 · Read-time source version | live cheap fingerprint vs cert baseline, changed/missing => NOT_ACTION_SAFE | ■ P304 DRAFT_BLOCKED_RESOURCE: P301 dấu gốc 6 lớp + Nuxt có sẵn, wrapper/rollback/fixture sẵn; còn FAIL bộ đọc nuốt lỗi 2 chỗ + RAM <3GiB; no READY |
-| GS-COV2-K0-LIVE · NATIVE→GRAPH THỰC + GH SSOT | Dữ liệu thật đọc-only qua DOT đúng quyền, host runtime native; candidate Graph cô lập; so object+edge ID/hash, sửa detection và trả Pivot 23 nhóm có bằng chứng usage; stale/read-error phải báo MỘT PHẦN | ■ GPT Host B4 CHỐT: QĐ1 đọc metadata theo Owner, G1–G7 bắt buộc; QĐ2 đo dùng protected mini-run chỉ khi S0/Guard/rollback đạt, không xin lại QĐ1; K0-LIVE chưa RUN, Graph production chưa ĐỦ |
+| GS-COV2-K0-LIVE · NATIVE→GRAPH THỰC + GH SSOT | Dữ liệu thật đọc-only qua DOT đúng quyền, host runtime native; candidate Graph cô lập; so object+edge ID/hash, sửa detection và trả Pivot 23 nhóm có bằng chứng usage; stale/read-error phải báo MỘT PHẦN | ■ GPT Host B4 CHỐT: QĐ1 đọc metadata theo Owner, G1–G7 bắt buộc; QĐ2 đo dùng protected mini-run chỉ khi S0/Guard/rollback đạt, không xin lại QĐ1 · **Claude B4 30/10 17:20: ACCEPT_WITH_ONE_FIX — bộ đọc = công cụ xuất của hãng qua DOT có sẵn (dot-prod-readonly/dot-stack-cutover, dot-schema-snapshot, dot-directus-flow, PG_USER_RO); cấm tự viết câu SQL chọn loại** · K0-LIVE chưa RUN, Graph production chưa ĐỦ |
 | GS-FULL-ONEPASS · TỔNG KIỂM KÊ COVERAGE | Một Claude CLI chỉ đọc: ngoài G1–G9, native class/edge nội bộ mỗi nguồn, scope discovery/usage/lineage, độc lập source↔Graph và negative-tests; chốt toàn bộ GAP & kế hoạch sửa thống nhất | ✅ **KQ XONG 30/10 08:25Z (Claude Code, chỉ đọc, 0 ghi)**: ma trận 83 dòng (79 trong phạm vi) — ĐỦ 6 (≈8%), kiểm kê native có số 77/79; 32 lớp ngoài danh mục, 24 lớp đọc được chưa nạp, 11 fixture 5 PASS/6 GAP (1 xanh giả tiềm ẩn F6), làm mới đêm 4 đêm không áp; roadmap GS-COV2 A∥B→C→D→E→F→G→H→Z; công cụ `tools/onepass/`; NEXT GPT Host nghiệm thu + ký A1+B |
 | GS-D28-A1 · PIVOT NATIVE SOURCE COVERAGE | Kết nối bộ đọc hiện hữu→ingestion/cert cho PG function/view_dep, cron disabled, Directus collection/flow/operation; native↔Graph, nhãn nguồn DOT pending | ⏸ HOLD — chưa RUN; thay bằng GS-FULL-ONEPASS trước khi vá; chỉ mở A1 lại nếu ma trận tổng chứng minh cần, K4/PR683 tách riêng |
 | OWNER D28 · NGHIỆM THU BAO PHỦ TOÀN VPS | Native inventory PG/Directus/DOT/Qdrant/KB/runtime/code ↔ Graph từng object/edge; thiếu adapter/ACL/cron/flow phải có chủ và cảnh báo | 🔴 **CHƯA ĐẠT: 49/100 ô, 0/9 họ FULL (snapshot gần nhất); không dùng số nút làm KPI bao phủ.** Owner yêu cầu ưu tiên số 1; G1/G2/G3 phải đo lại |
