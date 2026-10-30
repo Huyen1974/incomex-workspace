@@ -102,7 +102,8 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 - **Phạm vi hãng:** pg_dump -Fc --schema-only cho từng DB; pg_restore --list cần 0 TABLE DATA/BLOBS/SEQUENCE SET và rc=0; source CLI không lộ raw DDL/comments/function bodies ra Git. pg_dumpall --globals-only --no-role-passwords ở nguồn riêng; snapshot Directus ≠ Flow/Permission. Mẫu số từ hãng, PG catalog dependency gắn provenance.
 - **Không nhầm dữ liệu mới với tự cập nhật:** tai_san_luat có mặt nguồn nhưng vắng Graph chỉ chứng minh STALE. AUTO_REFRESH_PROVEN phải có ít nhất một lượt tự reconcile thực theo source change, không lấy candidate thao tác tay làm bằng chứng.
 - **Còn phải đo:** track_functions='pl' bắt đầu từ thời điểm bật, không hồi tố; log nginx 14 ngày chỉ được đánh dấu ĐỦ sau khi giữ được 14 ngày thật và vượt được recreate; P3 không thay nginx container.
-- ➡ NEXT_TRIGGER=OWNER_DISPATCH_CLAUDE_GS_COV2_P_THEN_K0_B6; KHÔNG mở task khác, K4 NOT_READY, PR683 DRAFT, Graph production không ghi.
+- ■ **Đang làm:** Claude Code CLI · GS-COV2-P-SCHEMA-READONLY-USAGE-METERS-20261030-01 (STARTED 13:58Z) · Bước: P1 ứng viên → P2 → P3; sau đó RUN K riêng.
+- ➡ NEXT_TRIGGER=OWNER_DISPATCH_CLAUDE_GS_COV2_P_THEN_K0_B6 (đã nhận 30/10); KHÔNG mở task khác, K4 NOT_READY, PR683 DRAFT, Graph production không ghi.
 #### Lịch sử bảng Claude B5
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 20:40 +07 · Claude Chat · P-ONEPASS-CLAUDE-B5 (đồng thuận GPT B5; ghép pha P trước K0 để không dừng S0)
 - 🎯 **Mục tiêu:** hội đồng đọc chuẩn VPS bằng công cụ của hãng qua DOT có sẵn: biết hết có gì, nối nhau thế nào, cái nào còn dùng, còn mới không — đủ tin để quyết tắt mã cũ.
@@ -1291,6 +1292,8 @@ Task: work/graph-server. RUN P = GS-COV2-P-SCHEMA-READONLY-USAGE-METERS-20261030
 **Quy tắc dừng:** P0 NO_GO ⇒ 0 mutation và K có thể chỉ đọc các nguồn độc lập, ghi NO_GO_PG. P1 FAIL ⇒ rollback P1, P2 chỉ thực hiện nếu preflight độc lập, Pha K phần PG BLOCKED; không coi “đã thực hiện cả hai pha” là DONE. P2 FAIL ⇒ rollback/không ghi, K metadata vẫn tiếp tục, Usage NOT_MEASURED. Guard POST fail ⇒ rollback đúng footprint, STOP protected changes, không kéo VPS-GHI sang K. Không tự chạy lượt tiếp sau KQ.
 
 **Chốt:** quyền đọc qua DOT đã được Owner chỉ đạo. P1/P2 là thay đổi production có điều kiện an toàn, nên phải kiểm chứng nguồn mã và rollback thực trước khi áp. Cấm ngụy biện “không chắc đúng = XONG”. Khi có gap ghi rõ tên và biên chứng.
+- STARTED@GS-COV2-P-SCHEMA-READONLY-USAGE-METERS-20261030-01 2026-10-30T13:58Z · executor=Claude Code CLI Mac · lệnh P-ONEPASS-HOST-B6 `0f855d3d` qua khối Owner «GỬI CLAUDE CODE CLI — GRAPH K0-LIVE FINAL B6» (khối có chép SHA nhưng trỏ đúng task/mục; tiền lệ ONEPASS `eeb5fd96`; DISPATCH Host, không READY@PROMPT vì PROMPT.md hiện là K4 NOT_READY — không dùng, không sửa) · đọc tới `2cb2bfa1` · 0 STOP/HOLD · P0 chỉ đọc đã đo: `dot-stack-cutover` VPS `9530912d` = sổ DOT, đích Guard `dot-stack-cutover`, 🔑 **Mac không có bản nào** (đính chính H3/B6 «nguồn Mac») ⇒ nguồn chuẩn DUY NHẤT = bản VPS đã khoá Guard; PG/pg_dump/pg_restore/pg_dumpall 18.6; `track_functions` context=superuser source=default; `postgresql.auto.conf` 88 byte chỉ header; Guard PRE thử PASS; VPS-GHI trống. JEV `gen-dec-1793368667-FFIgw0gJbojCdFUv0OtT` (tham khảo): đi tiếp P1 ứng viên 0,33 — em vẫn đi vì bước kế chỉ thử trên tmpfs, chưa ghi production, cổng thật nằm ở kết quả thử; cách P2 = script có diễn tập lùi 0,84. Bằng chứng riêng 0600: Mac `~/Incomex-Graph-View/evidence-private/GS-COV2-P-SCHEMA-READONLY-USAGE-METERS-20261030-01/`. KQ một lần.
+
 #### ROADMAP GS-RM1 — nguồn điều hành duy nhất
 | Mốc | Nội dung | Trạng thái / gate |
 |---|---|---|
