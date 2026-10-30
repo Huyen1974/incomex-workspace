@@ -5,12 +5,12 @@ HTML chính: view.html
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ đạo «không bàn nữa mà làm»: chốt 5 việc Owner quyết + quy trình Mục tiêu lớn → Mục tiêu nhỏ → Checkpoint (§1 mục 9), sửa thẳng bản thiết kế, GPT góp thêm rồi chạy thử. Host: GPT Chat (đề xuất, Owner chưa chỉ định riêng). Chưa đổi AGENTS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 16:26 +07 · Claude Chat · N4 ĐANG LÀM: Ma trận mục tiêu — vòng = chưa duyệt, chấm = đã duyệt; chấm 12px tròn đều; mục 2–3 xổ đủ — chờ Owner hướng dẫn tiếp
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 16:38 +07 · Claude Chat · N4 ĐANG LÀM: Ma trận mục tiêu có 3 cột ký (Host · Thực hiện · Council) và «?» cho từng cột — chờ Owner hướng dẫn tiếp
 - 🎯 Mục tiêu: Owner chỉ quyết 5 việc; còn lại AI chạy theo Mục tiêu lớn (L) → Đầu vào chung (Đ) → Mục tiêu nhỏ (N) → Checkpoint (C) với từ điển + form khai chung, agent khảo sát và đề xuất nhiều nhất, hội đồng tập trung giám sát.
 - 🏁 Xong khi: từ điển + form + thao tác ở [view.html](view.html) chạy thử đạt trên ≥ 1 việc thật, đo chỉ số ([mục 8](view.html#muc-8)); lỗ gặp khi thử đã vá vào form.
 - 📍 Tiến độ: [✅ N1 bản V2.1] → [■ N4 Bảng mục tiêu] → [□ N2 GPT rà, sửa thẳng] → [□ N3 thử trên Sổ PG] → [□ Sửa AGENTS theo kết quả thử].
 - ✅ Đã xong: N1 — [view.html](view.html) V2.1: **giữ đủ định nghĩa, vai, cấu trúc, quy trình V1 của GPT** (nhãn V1) + bổ sung: từ điển có cột «không phải», form L/Đ/N/C/Báo cáo, 17 thao tác (ai · ghi đâu · làm thế nào), lượt agent 8 bước, khi nào hỏi Owner, 10 lỗ hở, bảng V2 khác V1. §4 bên dưới đã viết theo form. N4.C2: [Bảng mục tiêu](view.html#ban-do-muc-tieu) thay hình minh hoạ — «Hỏi gì → nhìn đâu» + 4 bảng (Mục tiêu lớn · Đầu vào · Mục tiêu nhỏ × Checkpoint · Báo cáo), dưới mỗi bảng ghi ai thêm, thêm thế nào; thêm thao tác 3.18 chuyển checkpoint chưa xong sang N sau.
-- ■ Đang làm: N4 · claude-chat · chỉnh [Ma trận mục tiêu](view.html#ma-tran-muc-tieu) cùng Owner (16:22: chấm 12px tròn đều; vòng xám = mới đề xuất → chấm xám = Host duyệt · chưa làm).
+- ■ Đang làm: N4 · claude-chat · chỉnh [Ma trận mục tiêu](view.html#ma-tran-muc-tieu) cùng Owner (16:32: 3 cột ký Host · Thực hiện · Council, «?» cho từng cột, cột Báo cáo mờ; form N có dòng «Ký», thao tác 3.19).
 - ⬜ Còn lại: N4 chốt bảng + quy tắc vẽ; N2 GPT rà (gồm cả bảng); N3 thử trên Sổ PG; N5 trang Task tự vẽ (đề xuất); sửa AGENTS sau khi thử đạt.
 - ➡ Kế tiếp: Owner xem mẫu [Ma trận mục tiêu](view.html#ma-tran-muc-tieu) (5 cột, bấm xổ 3 tầng) và hướng dẫn chỉnh; claude-chat sửa thẳng. Bảng mục tiêu cũ giữ bên dưới. Sau đó gpt-chat làm N2. NEXT_TRIGGER=OWNER_ADJUST_GOAL_MAP_SAMPLE.
 - 😊 Owner cần quyết (không gấp): mục tiêu lớn 3 (+) «Sửa luật AGENTS theo cách làm mới» — đề xuất: GẬT, làm sau khi chạy thử đạt.
@@ -35,6 +35,8 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ 
 16. Owner 30/10/2026 16:10 (viết lại đúng ý): phải có mục 2, mục 3 — chỉ có mục 1 thì AI đọc dễ hiểu nhầm. Tình trạng cần thêm: đã duyệt (nhất là với mục tiêu lớn), xong một phần (vàng), đã làm xong và Host duyệt (Host duyệt phải có ý kiến AI khác hãng trước — quy tắc nói sau, giờ chỉ cần nhìn thấy tình trạng); đề xuất bổ sung mục tiêu lớn/nhỏ/checkpoint bằng dấu + (xanh) hoặc − (đỏ) ở cột mục tiêu. Đổi tên cột thành «Mục tiêu / Nhiệm vụ». Hướng dẫn tầng viết ngắn: 1 = mục tiêu lớn (số nguyên) · 1.1 = mục tiêu nhỏ (một chấm) · 1.1.1 = checkpoint (hai chấm).
 17. Owner 30/10/2026 16:16 (viết lại đúng ý): khen cách «đề xuất = vòng, đã duyệt = chấm» — giữ. Dấu + / − đang nặng, làm nhẹ cho hài hoà với các chấm. Mục 2, mục 3 cũng phải có chi tiết (xổ ra mục tiêu nhỏ, checkpoint) như mục 1 thì AI mới hiểu. Phần chú thích gọi là «Cách đọc bảng», thu gọn lại — chỉ cho người mới. Nhiều thông tin nhưng nhìn phải gọn.
 18. Owner 30/10/2026 16:22 (viết lại đúng ý): chấm tình trạng to hơn một chút vì có hai loại (vòng và chấm đặc). Xám cũng có vòng: vòng xám = mới đề xuất, chưa duyệt; Host duyệt xong mới thành chấm xám (đã duyệt, chưa làm). Mọi chấm phải tròn (không ô van) và cùng kích thước.
+19. Owner 30/10/2026 16:32 (viết lại đúng ý): vòng ở cột tình trạng phải mảnh như vòng ở «Cách đọc bảng» (nhẹ nhàng hơn). Cột Báo cáo để mờ, không cần màu. Tên các cột dùng cơ chế «?» như cả hệ thống: giải thích + hướng dẫn. Thêm 3 cột ký tên: Host, Thực hiện, Council — Host tự ký, người thực hiện tự ký, thành viên council tự điền tên mình vào (không được xoá tên người khác).
+20. Owner 30/10/2026 16:34: bỏ dòng «Vòng = chưa duyệt · Chấm = đã duyệt» trong «Cách đọc bảng» — thừa.
 
 ### 2. Thế nào là hoàn thành
 “Định nghĩa từng việc khái niệm. Cần làm gì với từng khái niệm, quy trình tạo 1 task mới thế nào? Quy trình cập nhật kế hoạch thế nào? Ai làm gì? Cùng nhau làm việc này cho rõ ràng để thay đổi cách làm với hy vọng là tiến độ nhanh hơn” — Owner 30/10/2026.
@@ -72,6 +74,7 @@ L1 = §1 + §2 ở trên (Owner).
 - Xong khi: view.html có 3 form, bảng thao tác ghi rõ ai · ghi đâu · làm thế nào, lượt agent từng bước, quy tắc hỏi Owner, lỗ hở đã rà.
 - Được làm: 👁 · ✍ work/ai-council-newarchitecture/
 - Đề xuất: Owner 30/10 14:57 · Duyệt: Owner trực tiếp
+- Ký: Host — · Thực hiện claude-chat · Council —
 - C1 🟢 3 form L/N/C có ví dụ thật (Sổ PG) · bằng chứng: view.html mục 1, commit e5e755d1 · 30/10 15:20 · claude-chat
 - C2 🟢 15 thao tác ai · ghi đâu · làm thế nào · bằng chứng: view.html Bảng 2 · 30/10 15:20 · claude-chat
 - C3 🟢 Lượt agent 8 bước từ ghế người làm · bằng chứng: view.html mục 3 · 30/10 15:20 · claude-chat
@@ -92,6 +95,7 @@ L1 = §1 + §2 ở trên (Owner).
 - Xong khi: Owner nhìn mẫu là hiểu tiến trình của một mục tiêu lớn; mỗi hình/màu ứng đúng một trường của form §4 (vẽ được từ dữ liệu, không thêm chữ ngoài form); Owner đồng ý mẫu.
 - Được làm: 👁 · ✍ work/ai-council-newarchitecture/
 - Đề xuất: Owner 30/10 15:23 · Duyệt: Owner trực tiếp
+- Ký: Host — · Thực hiện claude-chat · Council —
 - C1 🟢 Vẽ mẫu theo khuôn Công thức: dòng công thức, chú thích hình = loại / màu = trạng thái, thẻ mục tiêu lớn có thanh tiến độ, ô đầu vào, chuỗi mục tiêu nhỏ + chấm checkpoint · bằng chứng: view.html #ban-do-muc-tieu, commit b543f6fb; đã xem ở 1100px và 400px · 30/10 16:15 · claude-chat
 - C2 🟡 Chỉnh theo góp ý Owner · Đạt khi: Owner đồng ý mẫu · bằng chứng: 15:29 đổi sang dữ liệu thật (c9f00c1a); 15:35 thay hình bằng Bảng mục tiêu trả lời 6 câu Owner + thêm thao tác 3.18 (af7d908e, 64d716a7); 15:48 mẫu Ma trận mục tiêu 5 cột, 3 tầng xổ, 4 màu (ad8c53bf); 15:54 dạng cây kiểu Apple: 3 cỡ chữ, thụt lề + đường cây, chấm 9px, chấm thẳng một cột đã đo (9e4a5da9, 3a03b9df, 9fc1913b); 16:10 mục 2–3, 6 tình trạng, +/−, cột «Mục tiêu / Nhiệm vụ», chú thích 1 / 1.1 / 1.1.1 (9452bc4c); 16:16 +/− thành vòng mảnh, mục 2–3 có mục tiêu nhỏ + checkpoint, «Cách đọc bảng» thu gọn (aeb9b34c); 16:22 mọi chấm/vòng 12px tròn đều (đo 60/60 chấm 12.00×12.00, một cột), vòng xám = mới đề xuất → chấm xám = Host duyệt · chưa làm, chú thích xếp theo vòng đời (c241bfd9) · 30/10 16:26 · claude-chat
 - C3 ⬜ Ghi quy tắc vẽ «trường form → hình/màu» (để máy vẽ tự động ở N5) · Đạt khi: mỗi trạng thái N, C, Đ có đúng một cách vẽ
@@ -104,6 +108,7 @@ L1 = §1 + §2 ở trên (Owner).
 - Xong khi: view.html là bản Host chốt để thử; mỗi chỗ GPT sửa có 1 dòng «Ghi chú» dưới đây; không còn điểm bất đồng mở với Claude.
 - Được làm: 👁 · ✍ work/ai-council-newarchitecture/
 - Đề xuất: claude-chat 30/10 · Duyệt: Owner 30/10 14:57 («GPT đóng góp thêm rồi đưa vào thử nghiệm»)
+- Ký: Host — · Thực hiện — · Council —
 - C1 ⬜ Đối chiếu phần nhãn V1 với bản V1 gốc (commit d79a12af): đủ ý, không bị hiểu sai; rà 5 dòng Bảng 9 (V2 khác V1) · Đạt khi: mỗi dòng Bảng 9 có «đồng ý» hoặc đã sửa
 - C2 ⬜ Rà Từ điển + 17 thao tác + 8 bước lượt agent: mỗi từ một nghĩa, mỗi bước agent làm được mà không phải hỏi · Đạt khi: không còn từ/bước mơ hồ
 - C3 ⬜ Sửa thẳng view.html chỗ chưa ổn · Đạt khi: mỗi chỗ đổi có 1 dòng Ghi chú
@@ -115,6 +120,7 @@ L1 = §1 + §2 ở trên (Owner).
 - Xong khi: §4 Kế hoạch của work/nhap-directus-for-workflow viết theo form; ≥ 1 lượt agent ≥ 2 giờ chạy bằng lệnh một dòng; đo chỉ số ([view.html mục 8](view.html#muc-8)) so với số cũ.
 - Được làm: 👁 · ✍ work/nhap-directus-for-workflow/ (§4) · ⚙ chỉ theo từng N đã DUYỆT bên Sổ PG
 - Đề xuất: claude-chat 30/10 · Duyệt: —
+- Ký: Host — · Thực hiện — · Council —
 - C1 ⬜ Host Sổ PG chuyển việc còn lại thành L1 + N theo form · Đạt khi: §4 bên Sổ PG có ≥ 2 N DUYỆT
 - C2 ⬜ Lượt agent đầu tiên bằng lệnh một dòng · Đạt khi: ≥ 1 N XONG, C tích đủ bằng chứng
 - C3 ⬜ Đo chỉ số, ghi lỗ mới vào view.html Bảng 7 · Đạt khi: Bảng 8 có cột kết quả thử
@@ -125,6 +131,7 @@ L1 = §1 + §2 ở trên (Owner).
 - Xong khi: trang Task đọc §4 của mọi việc và vẽ đúng mẫu N4; sửa §4 xong mở trang Task thấy hình đổi theo; việc thiếu §4 hiện «chưa có kế hoạch».
 - Được làm: 👁 · ✍ nhánh + PR mã trang Task (scripts/hvu-b2) · merge/deploy theo KST
 - Đề xuất: claude-chat 30/10 · Duyệt: —
+- Ký: Host — · Thực hiện — · Council —
 - C1 ⬜ Bộ đọc §4 ra dữ liệu L/Đ/N/C · Đạt khi: đọc đúng §4 của việc này
 - C2 ⬜ Vẽ theo quy tắc N4.C3 · Đạt khi: ảnh chụp khớp mẫu
 - C3 ⬜ PR xanh, KST merge · Đạt khi: trang Task thật hiện hình
@@ -135,6 +142,7 @@ L1 = §1 + §2 ở trên (Owner).
 - Xong khi: mỗi trường hợp phải hỏi Owner viết rõ có / không (view.html mục 5).
 - Được làm: 👁 · ✍ work/ai-council-newarchitecture/
 - Đề xuất: Owner 30/10 14:57 · Duyệt: Owner trực tiếp
+- Ký: Host — · Thực hiện claude-chat · Council —
 - C1 🟢 Đổi mục tiêu lớn → luôn hỏi Owner · bằng chứng: view.html 5.1, commit e5e755d1 · 30/10 15:20 · claude-chat
 - C2 🟢 Phá huỷ · quyền · tiền → luôn hỏi Owner · bằng chứng: view.html 5.2, commit e5e755d1 · 30/10 15:20 · claude-chat
 - C3 🟢 Luẩn quẩn: 2 lượt chưa thống nhất, hoặc một N DỪNG 2 lần → hỏi Owner · bằng chứng: view.html 5.3, commit e5e755d1 · 30/10 15:20 · claude-chat
@@ -146,6 +154,7 @@ L1 = §1 + §2 ở trên (Owner).
 - Xong khi: mỗi lần Owner phải can thiệp có một dòng quy tắc mới ở view.html 5.5.
 - Được làm: 👁 · ✍ work/ai-council-newarchitecture/
 - Đề xuất: claude-chat 30/10 · Duyệt: —
+- Ký: Host — · Thực hiện — · Council —
 - C1 + ⬜ Lần 30/10 15:07 (sửa tài liệu người khác khi chưa đọc) → quy tắc «đọc kỹ bản cũ trước khi sửa của người khác» · Đạt khi: có dòng 5.x trong mục 5
 - Ghi chú:
 
@@ -154,6 +163,7 @@ L1 = §1 + §2 ở trên (Owner).
 - Xong khi: liệt kê đủ chỗ AGENTS phải sửa; chưa sửa AGENTS.
 - Được làm: 👁 AGENTS.md · ✍ work/ai-council-newarchitecture/
 - Đề xuất: claude-chat 30/10 · Duyệt: —
+- Ký: Host — · Thực hiện — · Council —
 - C1 ⬜ Duyệt từng lượt → duyệt mục tiêu nhỏ · Đạt khi: có dòng sửa
 - C2 ⬜ Ý kiến AI khác hãng → lúc duyệt N và lúc nghiệm thu · Đạt khi: có dòng sửa
 - C3 ⬜ Host tự kiểm đầu vào → agent khảo sát · Đạt khi: có dòng sửa
@@ -164,6 +174,7 @@ L1 = §1 + §2 ở trên (Owner).
 - Xong khi: AGENTS khớp cách làm đã chạy thử đạt.
 - Được làm: 👁 · ✍ nhánh sửa AGENTS · ⛔ tự merge — chờ Owner gật
 - Đề xuất: claude-chat 30/10 · Duyệt: —
+- Ký: Host — · Thực hiện — · Council —
 - C1 ⬜ Viết bản sửa · Đạt khi: có bản sửa trên nhánh
 - C2 ⬜ AI khác hãng rà · Đạt khi: có ý kiến đồng ý
 - C3 ⬜ Owner gật · Đạt khi: Owner đồng ý
