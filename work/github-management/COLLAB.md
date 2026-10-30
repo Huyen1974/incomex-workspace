@@ -5,8 +5,8 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 16:45 +07 · Codex · P142
-- ■ Đang làm: STARTED P142 · Owner trực tiếp giao tích hợp 34 source qua hai trusted PR; Codex chỉ tạo PR/CI/bàn giao KST, không merge/VPS.
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 16:50 +07 · Codex · P143
+- ■ Đang làm: — · 0 RUN active · Codex P143 hoàn tất: PR685 Web9 + PR360 AD25, nguyên HEAD/blob, gate GREEN2/2. GH_MAIN_SOURCE_COMPLETE=NO, còn KST review/merge.
 - 🎯 **Owner 30/10: mã nguồn Web, Agent Data và script runtime liên quan phải có trên GitHub**, không biến deploy/khóa VPS/Graph thành cổng của lưu mã. Hai code repo `web-test` và `agent-data-test`, một GH account.
 - 📥 **Security intake từ NDW-P99 · `NDW-P0-REPORTS-OWNER-AUTH` (KHÔNG thuộc RUN T2/GHM):** Web main `171c115a` trong `web-test/web/server/api/reports/live.get.ts` chưa kiểm phiên/Owner trước `rpQuery`; Claude P98 đo GET không cookie 200+rows, E2E live đang trông đợi 200. Chủ nghiệp vụ **GPT Host `work/nhap-directus-for-workflow`**, dùng kênh Web **branch→PR→KST review→release/rollback** đã có ở GHM khi có lệnh GO riêng; không lẫn T2-B/không tự merge/deploy. DoD: no-cookie/session lỗi/non-Owner 401/403 cho mọi table_id trước PG query, Owner valid 200, UI /reports và fallback cũng an toàn, test sửa đồng bộ, public khác không regression. Chưa có GO/READY/RUN P0; đây chỉ là *handoff của một dependency bảo mật* để không bị treo, **không đổi scope GHM chỉ kỹ thuật GitHub**.
 - ✅ **P141 HOST_ACCEPT_SOURCE_CAPTURE=PASS_SCOPED**: GitHub xác nhận [Web PR684](https://github.com/Huyen1974/web-test/pull/684) DRAFT, HEAD `a974ec7da63c58884bc3507fcbec5d9358f08879`, 9 files, 2 commits; [AD PR359](https://github.com/Huyen1974/agent-data-test/pull/359) DRAFT, HEAD `fdb9b538d35759a3a3b336bb6b768a7bc56134b5`, 25 files, 3 commits. **34 tệp đã push + 10 đã có GH** theo receipt P140, mapping VPS↔GH/SHA256. GitHub vẫn giữ main Web `7c526588` và AD `b4c9ea19` chưa merge hai PR. Source ứng dụng trước đó đã có GH commits (P113/P115).
@@ -14,7 +14,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - ⚠ **CI hai PR cố ý RED/OUT_OF_PILOT, trước checkout**: Web Actions `41028859698`, AD `41028864648`. Không có unit/secret scan CI trên PR, **không nói CI PASS**, không nới/bypass ruleset. Local Gitleaks8.30.1 + diff check được P140 báo PASS; Host kiểm GitHub two sanitized Python files dùng `os.environ["AGENT_DATA_API_KEY"]`. Hai bản gốc VPS vẫn có khóa hardcoded → **SECURITY_DEBT_OPEN**, cần xử lý riêng trong task/quyền hiện hữu, không push original hay đổi production khi chưa GO.
 - 📍 ✓ GH protected/CI pilot → ✓ Web PR thật #682→VPS P131/P132 → ✓ S0 P113 source inventory → ✓ Codex -14 P140 34 source push → ✓ **Host P141 ACCEPT_SCOPED**. **0 RUN active / VPS-GHI không bị lấy trong -14**, Web và AD hiện healthy theo VPS sampled.
 - ⬜ **Chỉ còn việc NGOÀI mục tiêu lưu mã**: Nếu Owner cần 34 file ở `main`, KST phải rà 2 Draft PR, qua CI trusted lane+secret review trước merge (không chuyển sang main tự động). Nếu cần bỏ khóa hardcoded trên VPS, Owner GO/Guard riêng đúng nơi; không mở task mới trong GHM. Graph Host tự đối chiếu origin-map khi xử lý Graph.
-- ➡ Codex tạo trusted branches đúng Owner chỉ định, kiểm gate HEAD rồi bàn giao KST độc lập. NEXT_TRIGGER=KST_REVIEW_AND_MERGE_34_SOURCE_FILES.
+- ➡ KST review độc lập PR685/360, merge đúng SHA sau recheck gate/base, kiểm34 tệp main rồi đóng Draft684/359; hướng dẫn và bằng chứng tại P143. NEXT_TRIGGER=KST_REVIEW_AND_MERGE_34_SOURCE_FILES.
 - ⛔ Không merge PR684/359 khi required gate đang đỏ, không `--admin`, không sửa Graph/VPS/HJW/AD deployment, không thay credential/backup/visibility từ GHM, không giả source-copy = mã production đang chạy.
 
 ### 1. Mục tiêu
@@ -1799,6 +1799,19 @@ Based_on: P119 · P120 · ROADMAP §0.4h · **tự kiểm 29/10 16:05–16:30 +0
 
 **3. Telegram HJW 15:57 — đồng ý không liên quan T2:** dòng 512 HJW COLLAB là việc giao 22/10 `blocked`, gen 1, ghi sang `work/hpml-view-for-user` (ngoài phạm vi) — và **không có dòng RESULT_V1 đóng** (khác dòng 510, 513 đều có) ⇒ nhiều khả năng bộ điều phối coi nó còn mở nên quét lại và báo. Bàn giao Host HJW: (a) đóng việc này theo đúng đường máy của HJW (RESULT_V1 do dispatcher tin cậy ghi), (b) kiểm vì sao «chỉ báo một lần» lại báo lại. GHM không sửa HJW, không nới quyền ghi.
 - NEXT_TRIGGER=HOST_READY_T2B.
+
+## P143 · Codex Desktop · 30/10/2026 — KQ TRUSTED PR/CI, BÀN GIAO KST
+- KQ P142 XONG_PHẦN_CODEX · 2026-10-30T09:50:16Z · 0 RUN active. **TRUSTED_SOURCE_PRS=PASS; EXACT_34_FILES=PASS; CI_GATE=GREEN_2/2; GH_MAIN_SOURCE_COMPLETE=NO (chưa merge).** Owner trực tiếp yêu cầu trusted branches/CI/KST review; không tự ký READY hoặc KST_ACCEPT.
+- Baseline trước tạo nhánh và sau CI không đổi: Web main `7c52658815746a67776e12d582a6cf04c14acc8a`; AD main `b4c9ea19cf2e57594a231c2819e098fe0002c99a`. Tạo refs trực tiếp từ HEAD PR684/359, không cherry-pick/rebase/force push; SHA nguồn giữ nguyên.
+| Repo / PR mới | Branch | HEAD được kiểm | File | CI thật |
+|---|---|---|---|---|
+| [Web #685](https://github.com/Huyen1974/web-test/pull/685) | dev/codex-web/ghm-source-main-20261030 | `a974ec7da63c58884bc3507fcbec5d9358f08879` | 9 | [41036138939](https://github.com/Huyen1974/web-test/actions/runs/41036138939), gate SUCCESS, runner ghm-ci-web-test, job123997315927 |
+| [Agent Data #360](https://github.com/Huyen1974/agent-data-test/pull/360) | dev/codex-ad/ghm-source-main-20261030 | `fdb9b538d35759a3a3b336bb6b768a7bc56134b5` | 25 | [41036144568](https://github.com/Huyen1974/agent-data-test/actions/runs/41036144568), gate SUCCESS, runner ghm-ci-agent-data-test, job123997333285 |
+- GitHub API files đối chiếu (filename, blob SHA, status) PR685=PR684 đủ9; PR360=PR359 đủ25. Không đổi nội dung ứng dụng/workflow/secret/ruleset. Hai sanitize copies giữ nguyên như P140/P141; hash/provenance vẫn dùng P140.
+- Cả hai run completed/success đúng headSha; preflight, delta secret scan, actionlint/workflow policy, policy regressions, unit, gate summary đều SUCCESS. Không lấy kết quả OUT_OF_PILOT cũ làm bằng chứng xanh; không bypass/CI giả.
+- **HANDOFF KST (mặc định Claude Code CLI):** review nội dung/secret độc lập; recheck base/main + gate đúng HEAD trên; ký KST_ACCEPT theo L1 rồi merge đúng SHA, không admin/bypass. Nếu main đổi thì đối chiếu/cập nhật và test lại theo quy định. Sau merge, kiểm9+25 path/blob trên hai main, ghi commit merge + GH_MAIN_SOURCE_COMPLETE=YES chỉ khi đủ; sau đó đóng Draft PR684/359 là superseded. Codex không tự review thay KST/merge/đóng PR cũ.
+- 0 thao tác/đọc lại VPS; chỉ GitHub refs/PR/CI và task gateway. Không deploy, Graph, T3, quyền mới hoặc task mới. Hai tiến trình theo dõi CI đã kết thúc, không giữ cờ/terminal chờ KST.
+- NEXT_TRIGGER=KST_REVIEW_AND_MERGE_34_SOURCE_FILES. GPT Host nghiệm thu phần Codex, phân công KST; không tuyên mục tiêu main đã hoàn tất.
 
 ## P142 · Codex Desktop · 30/10/2026 — STARTED MAIN INTEGRATION THEO OWNER
 - STARTED P142 2026-10-30T09:45:54Z · executor=Codex Desktop · HUMAN_DIRECTIVE Owner: đưa 34 file P140 vào main qua trusted PR, CI và KST; không tự merge. Không gán lại RUN -14 đã đóng, Owner không đặt RUN_ID mới trong lệnh này.
