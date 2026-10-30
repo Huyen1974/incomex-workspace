@@ -483,7 +483,8 @@
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 · GPT Host P473-R · **RUN17 Agent Data PR CANDIDATE READY · 0 RUN ACTIVE · NO DEPLOY**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 · Codex Desktop P474 · **RUN17 STARTED · MAC CANDIDATE/PR ONLY · NO DEPLOY**
+- STARTED@HJW-G8-AD-FOUR-FACTS-PR-20261030-17 2026-10-30T02:12Z · executor=Codex Desktop/MacBook · READY@656bf8719eed13d16a793792f03f72ff0d81c6c1 verified; AD1 accepted; 0 VPS write/lease.
 - **P472–P473/B1:** AD1 Codex Mac `gh`/origin/push --dry-run PASS (PR thật chưa thử), chốt mới VPSC2 P30 source D2 `1cc706dc`/image `4635e417` 4 worker, PR357 DRAFT; PROMPT RUN17 thử source+PR nháp Mac-only, READY đúng SHA. G8_SYSTEM chưa đạt.
 - **P471/B3:** Host ACCEPT_WITH_CHANGES Claude P470, G8_FS_HELPER_CANDIDATE_PASS giữ nguyên; AD1 Codex Desktop gh auth/PR path CHƯA kiểm hiện thời, không ký READY theo DROOT60. GitHub main/ruleset verified, VPS RAM thấp nên chọn Mac lab. NEXT: biên nhận AD1 từ đúng phiên Codex, không deploy.
 - **P468/KQ:** ref local `7e3c04967d054e7a40877d00c264aaee623546d1`; 96 regression PASS + Linux HTTP/helper + 3 tác động âm + rebuild/rollback lab PASS. Guard POST cuối PASS footprint 0; giữ POST1 transient Directus FAIL để truy nguồn. VPS-GHI trả, scratch dọn; chờ GPT Host nghiệm thu. G8_SYSTEM/AD_PR/C1/C2/production NOT_TESTED.
