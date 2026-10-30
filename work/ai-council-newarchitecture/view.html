@@ -66,6 +66,7 @@ code{font-size:14px;background:#f1f4f8;border-radius:4px;padding:1px 4px}
 
 <details id="muc-0" open><summary><span class="num">0</span><span class="heading">Từ điển — đọc trước, mọi AI hiểu một nghĩa</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
 <p class="small">Dùng đúng từ trong hai bảng này, không tự đặt từ mới. Thấy từ nào còn hiểu hai kiểu ⇒ sửa thẳng dòng đó và ghi một dòng «Ghi chú» ở N đang làm. Nhãn <span class="src">V1</span> = định nghĩa gốc của GPT, giữ nguyên ý; <span class="src">V2</span> = bổ sung.</p>
+<p class="small"><span class="src">V1</span> Bốn lớp chính: <strong>Mục tiêu lớn → Đầu vào chung → Mục tiêu nhỏ → Checkpoint.</strong> Đều là danh sách có thể cập nhật; mục tiêu Owner chỉ thay sau khi Owner phê duyệt.</p>
 <table><caption>Bảng 0a · Khái niệm</caption>
 <thead><tr><th>Từ</th><th>Là gì</th><th>Không phải</th></tr></thead><tbody>
 <tr><td><strong>Task (Việc)</strong> <span class="src">V1</span></td><td>Công việc tổng thể có mục tiêu lớn, đầu vào chung, danh sách mục tiêu nhỏ, checkpoint, bằng chứng và lịch sử Git. Nằm ở một thư mục <code>work/&lt;việc&gt;/</code>: <code>COLLAB.md</code> + <code>view.html</code>.</td><td>Một mục tiêu nhỏ.</td></tr>
@@ -111,7 +112,7 @@ code{font-size:14px;background:#f1f4f8;border-radius:4px;padding:1px 4px}
 <li><strong>Kế hoạch:</strong> Agent và AI khác ghi đề xuất cho phần tương lai, Host xem diff và chốt theo đợt nhỏ.</li>
 <li><strong>Giám sát:</strong> Reviewer kiểm bất thường và phản biện điểm rủi ro; không ngắt việc bình thường.</li>
 </ol>
-<p class="small"><span class="src">V1</span> Một nguồn chuẩn GitHub Workspace. <code>COLLAB.md</code> quản mục tiêu Owner, trạng thái, quyết định và kế hoạch (§4); <code>view.html</code> là nội dung Owner xem. Không dựng thêm registry, kế hoạch song song hay pipeline thứ hai.</p>
+<p class="small"><span class="src">V1</span> Một nguồn chuẩn GitHub Workspace. <code>COLLAB.md</code> quản mục tiêu Owner, trạng thái, quyết định và kế hoạch (§4); <code>view.html</code> là nội dung Owner xem. Không dựng thêm registry, kế hoạch song song hay pipeline thứ hai. Chưa thiết kế máy cưỡng chế tại bước này.</p>
 
 <h3>1.2 Quy trình: làm song song, Host chỉ xử lý thay đổi <span class="src">V1</span></h3>
 <ol class="items">
