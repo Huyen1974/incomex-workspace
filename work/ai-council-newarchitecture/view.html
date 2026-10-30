@@ -84,6 +84,24 @@ code{font-size:14px;background:#f1f4f8;border-radius:4px;padding:1px 4px}
 .mt-det{border:0;border-top:1px dashed var(--ln);border-radius:0;margin:12px 0 0}
 .mt-det summary{min-height:0;padding:8px 0 0;font-size:12px;font-weight:700;color:#55665c}
 .mt-det pre{font-size:13px;background:#f7f9fc;border-radius:8px;padding:10px 12px;white-space:pre-wrap;margin:8px 0 0}
+/* Bảng mục tiêu — bảng làm việc */
+.bm table{min-width:0}
+.bm caption .hint{font-weight:400;color:#7a8799;font-size:12px;cursor:help;margin-left:6px;border:1px solid #cfd8d3;border-radius:50%;padding:0 6px}
+.bm .how{font-size:13px;color:#3d5246;background:#f4f8f5;border-left:3px solid #9bb9a4;padding:6px 10px;margin:-6px 0 16px;border-radius:0 6px 6px 0}
+.bm td.c{text-align:center;width:34px;padding:6px 2px}
+.bm .k{display:inline-block;width:16px;height:16px;border-radius:50%;vertical-align:middle;box-sizing:border-box}
+.bm .k.g{background:#1e8e3e}.bm .k.b{background:#1a73e8}.bm .k.y{background:#e0a400}.bm .k.r{background:#d93025}
+.bm .k.o{border:2px solid #9aa0a6;background:#fff}.bm .k.dash{border:2px dashed #9aa0a6;background:#fff}
+.bm .k.mv{background:#fff;border:2px solid #7b5ea7;position:relative}
+.bm .k.mv:after{content:"↪";position:absolute;left:1px;top:-5px;font-size:11px;color:#7b5ea7}
+.bm .na{color:#c7cdd0}
+.bm .st{display:inline-block;border-radius:6px;padding:1px 7px;font-size:12px;font-weight:700;white-space:nowrap}
+.bm .st.g{background:#dff6e7;color:#1a6a3e}.bm .st.b{background:#e3eefc;color:#1f4f8f}.bm .st.gr{background:#edf0f3;color:#546171}
+.bm .st.dash{background:#fff;border:1px dashed #9aa0a6;color:#7d8a83}.bm .st.r{background:#ffe1e1;color:#a12222}
+.bm tr.now td{background:#f2f7ff}
+.bm .q{width:14px;height:14px;border-radius:3px;display:inline-block;vertical-align:middle}
+.bm .num2{font-weight:700;white-space:nowrap}
+.bm .tot td{background:#f7f9fa;font-weight:700}
 @media(max-width:600px){body{padding:12px}.panel{padding:16px}summary{padding:13px}.heading{font-size:16px}.body{padding:4px 13px 15px 16px}}
 </style>
 </head>
@@ -146,17 +164,59 @@ code{font-size:14px;background:#f1f4f8;border-radius:4px;padding:1px 4px}
 </div></details>
 
 <details id="muc-1" open><summary><span class="num">1</span><span class="heading">Cấu trúc và quy trình</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
-<div class="mt" id="ban-do-muc-tieu">
-<h3 style="margin-top:10px">Bản đồ mục tiêu <span class="src">MẪU · đang chỉnh</span></h3>
+<div class="mt bm" id="ban-do-muc-tieu">
+<h3 style="margin-top:10px">Bảng mục tiêu <span class="src">MẪU · dữ liệu thật của việc này · nguồn: COLLAB.md §1 + §4 trên GitHub</span></h3>
 <div class="mt-f">Đầu vào + { Mục tiêu nhỏ 1 → 2 → … } =&gt; Mục tiêu lớn</div><br>
 <div class="mt-f">{ Checkpoint 1 → 2 → … } =&gt; Mục tiêu nhỏ</div>
-<div class="mt-leg">
-<span><i class="mt-Lmini"></i>Mục tiêu lớn</span><span><i class="q k"></i>Đầu vào</span><span><i class="mt-Nmini"></i>Mục tiêu nhỏ</span><span><i class="d k"></i>Checkpoint</span>
-<i class="sep"></i>
-<span><i class="d g"></i>xong</span><span><i class="d b"></i>đang làm</span><span><i class="d y"></i>một phần</span><span><i class="d r"></i>dừng</span><span><i class="d o"></i>chưa làm</span><span><i class="d dash"></i>đề xuất</span><span><i class="q y w"></i>kiểm lại</span>
-</div>
+<div class="mt-leg"><span><i class="d g"></i>xong</span><span><i class="d b"></i>đang làm</span><span><i class="d y"></i>một phần</span><span><i class="d r"></i>dừng</span><span><i class="d o"></i>chưa làm</span><span><i class="d dash"></i>đề xuất</span><span style="color:#7b5ea7">↪ chuyển sang mục tiêu nhỏ sau</span><span>😊 người · 🤖 máy</span></div>
 
-<div class="mt-L">
+<table><caption>Hỏi gì → nhìn đâu <span class="hint" title="Mỗi câu hỏi thường gặp chỉ tới đúng một bảng/cột bên dưới">?</span></caption>
+<thead><tr><th>Hỏi</th><th>Nhìn</th></tr></thead><tbody>
+<tr><td>Mục tiêu lớn là gì, xong khi nào, đã được bao nhiêu?</td><td>Bảng Mục tiêu lớn</td></tr>
+<tr><td>Đầu vào có những gì, chắc chắn không?</td><td>Bảng Đầu vào (màu cột Chắc)</td></tr>
+<tr><td>Có bao nhiêu mục tiêu nhỏ, đang ở cái nào?</td><td>Bảng Mục tiêu nhỏ — dòng tô xanh dương là đang làm</td></tr>
+<tr><td>Mỗi mục tiêu nhỏ có mấy checkpoint, xong mấy?</td><td>Bảng Mục tiêu nhỏ — cột C1…C6 và cột Xong</td></tr>
+<tr><td>Ai đang làm, ai làm tiếp?</td><td>Cột Người làm; dòng DUYỆT đầu tiên là việc tiếp theo</td></tr>
+<tr><td>Tắc ở đâu?</td><td>Ô đỏ</td></tr>
+<tr><td>Anh cần quyết gì?</td><td>Ô 😊 ở Bảng Mục tiêu lớn</td></tr>
+<tr><td>Bằng chứng, báo cáo ở đâu?</td><td>Bảng Báo cáo</td></tr>
+<tr><td>Thêm / sửa / đổi thứ tự thế nào, ai làm?</td><td>Dòng 😊/🤖 ngay dưới mỗi bảng</td></tr>
+<tr><td>Một mục khai gồm những gì?</td><td>Tiêu đề cột của mỗi bảng = các trường của form (đầy đủ ở mục 2)</td></tr>
+</tbody></table>
+
+<table><caption>Bảng Mục tiêu lớn <span class="hint" title="Mỗi dòng một mục tiêu lớn (L). Chỉ Owner quyết; Host chép lời Owner vào COLLAB §1.">?</span></caption>
+<thead><tr><th>Mã</th><th>Mục tiêu lớn</th><th>Xong khi</th><th>Trạng thái</th><th>Tiến độ</th><th>😊 Cần anh quyết</th></tr></thead><tbody>
+<tr><td class="num2">L1</td><td>Hội đồng AI — cách làm mới</td><td>Chạy thử đạt trên ≥ 1 việc thật</td><td><span class="st g">CHỐT</span></td><td><span class="mt-bar" style="display:inline-flex"><i class="g"></i><i class="b"></i><i></i><i class="dash"></i><i class="dash"></i></span> 1/5</td><td>0</td></tr>
+</tbody></table>
+<div class="how">😊 Thêm/sửa mục tiêu lớn: anh nói với Host (<b>gpt-chat</b>) → Host ghi vào COLLAB §1, lời anh + ngày (thao tác 3.1, 3.2). AI muốn thêm: ghi đề xuất vào ô «Owner cần quyết» (3.3).</div>
+
+<table><caption>Bảng Đầu vào <span class="hint" title="Dữ kiện chung mọi AI dùng lại, mỗi dòng có nguồn và độ chắc. Ghi ở COLLAB §4 «Đầu vào chung».">?</span></caption>
+<thead><tr><th>Mã</th><th>Nội dung</th><th>Nguồn</th><th>Chắc</th></tr></thead><tbody>
+<tr><td class="num2">Đ1</td><td>Máy chỉ làm 2–11% thời gian; lượt agent 17 phút; chờ 7–11 giờ</td><td>git log 15–30/10</td><td><i class="q" style="background:#e0a400" title="vừa"></i> vừa</td></tr>
+<tr><td class="num2">Đ2</td><td>Trang Task hiện §4 trong ô «Chi tiết cần đạt»</td><td>sync.py trang Task</td><td><i class="q" style="background:#1e8e3e"></i> cao</td></tr>
+<tr><td class="num2">Đ3</td><td>Cổng ghi chặn ghi đè (sai phiên bản là từ chối)</td><td>công cụ fs_edit</td><td><i class="q" style="background:#1e8e3e"></i> cao</td></tr>
+<tr><td class="num2">Đ4</td><td>Hội đồng ở GitHub; trang Task chỉ đọc; PG không tham gia</td><td>AGENTS.md</td><td><i class="q" style="background:#1e8e3e"></i> cao</td></tr>
+</tbody></table>
+<div class="how">🤖 Thêm đầu vào: mọi AI ghi thẳng một dòng vào COLLAB §4 «Đầu vào chung», mã Đ tiếp theo, có nguồn + độ chắc; sai thì gạch dòng cũ, ghi dòng mới (3.4).</div>
+
+<table><caption>Bảng Mục tiêu nhỏ × Checkpoint <span class="hint" title="Mỗi dòng một mục tiêu nhỏ (N), xếp theo thứ tự làm từ trên xuống. Cột C1…C6 là checkpoint của nó. Ghi ở COLLAB §4.">?</span></caption>
+<thead><tr><th>#</th><th>Mã</th><th>Mục tiêu nhỏ</th><th>Trạng thái</th><th>Người làm</th><th>C1</th><th>C2</th><th>C3</th><th>C4</th><th>C5</th><th>C6</th><th>Xong</th><th>Xong khi</th></tr></thead><tbody>
+<tr><td>1</td><td class="num2">N1</td><td>Bản V2: từ điển, form, thao tác</td><td><span class="st g">XONG</span></td><td style="white-space:nowrap">🤖 claude-chat</td><td class="c"><i class="k g" title="3 form"></i></td><td class="c"><i class="k g" title="thao tác"></i></td><td class="c"><i class="k g" title="lượt agent"></i></td><td class="c"><i class="k g" title="lỗ hở"></i></td><td class="c"><i class="k g" title="từ điển"></i></td><td class="c"><i class="k g" title="khôi phục V1"></i></td><td class="num2">6/6</td><td>Có từ điển, form, thao tác, lượt agent</td></tr>
+<tr class="now"><td>2</td><td class="num2">N4</td><td>Bảng mục tiêu</td><td><span class="st b">ĐANG LÀM</span></td><td style="white-space:nowrap">🤖 claude-chat</td><td class="c"><i class="k g" title="vẽ mẫu"></i></td><td class="c"><i class="k y" title="chỉnh theo Owner"></i></td><td class="c"><i class="k o" title="quy tắc vẽ"></i></td><td class="c na">–</td><td class="c na">–</td><td class="c na">–</td><td class="num2">1/3</td><td>Owner nhìn bảng trả lời được câu hỏi; Owner đồng ý</td></tr>
+<tr><td>3</td><td class="num2">N2</td><td>GPT rà, sửa thẳng</td><td><span class="st gr">DUYỆT</span></td><td style="white-space:nowrap">🤖 gpt-chat</td><td class="c"><i class="k o" title="đối chiếu V1"></i></td><td class="c"><i class="k o" title="rà từ ghế agent"></i></td><td class="c"><i class="k o" title="sửa thẳng"></i></td><td class="c"><i class="k o" title="nghiệm thu N1"></i></td><td class="c na">–</td><td class="c na">–</td><td class="num2">0/4</td><td>Host chốt bản thử</td></tr>
+<tr><td>4</td><td class="num2">N3</td><td>Chạy thử trên Sổ PG</td><td><span class="st dash">ĐỀ XUẤT</span></td><td style="white-space:nowrap">🤖 claude-code</td><td class="c"><i class="k dash" title="§4 Sổ PG"></i></td><td class="c"><i class="k dash" title="lượt agent"></i></td><td class="c"><i class="k dash" title="đo chỉ số"></i></td><td class="c na">–</td><td class="c na">–</td><td class="c na">–</td><td class="num2">0/3</td><td>Một lượt ≥ 2 giờ bằng lệnh một dòng</td></tr>
+<tr><td>5</td><td class="num2">N5</td><td>Trang Task tự vẽ bảng</td><td><span class="st dash">ĐỀ XUẤT</span></td><td style="white-space:nowrap">🤖 Host chọn</td><td class="c"><i class="k dash" title="bộ đọc §4"></i></td><td class="c"><i class="k dash" title="vẽ"></i></td><td class="c"><i class="k dash" title="PR + merge"></i></td><td class="c na">–</td><td class="c na">–</td><td class="c na">–</td><td class="num2">0/3</td><td>Sửa §4 là bảng đổi theo</td></tr>
+<tr class="tot"><td colspan="5">5 mục tiêu nhỏ · 1 xong · 1 đang làm · 1 duyệt · 2 đề xuất</td><td colspan="6">19 checkpoint</td><td>7/19</td><td></td></tr>
+</tbody></table>
+<div class="how">🤖 Thêm mục tiêu nhỏ: mọi AI chép khối N (form 2.3) vào COLLAB §4 <b>đúng vị trí muốn làm</b>, trạng thái ĐỀ XUẤT (3.5) · Host duyệt (3.6) · ↕ Đổi thứ tự: Host cắt-dán cả khối, giữ mã (3.8).<br>🤖 Thêm checkpoint: agent đang làm N thêm thẳng; AI khác ghi «Ghi chú: đề xuất C» (3.11) · ↪ Checkpoint chưa xong khi kết N: chuyển sang N sau (3.18).</div>
+
+<table><caption>Bảng Báo cáo <span class="hint" title="Agent viết khi một mục tiêu nhỏ XONG hoặc DỪNG, ở cuối khối N trong COLLAB §4. Host nghiệm thu ngay dưới.">?</span></caption>
+<thead><tr><th>Mã</th><th>Đạt</th><th>Chứng cứ</th><th>Còn thiếu</th><th>Đầu vào đã sửa</th><th>Đề xuất tiếp</th><th>Nghiệm thu</th></tr></thead><tbody>
+<tr><td class="num2">N1</td><td>C1–C6 🟢</td><td>commit 4be69bf2</td><td>chưa chạy thử thật</td><td>Đ1–Đ3 mới</td><td>N2, N3</td><td><span class="st gr">chờ N2</span></td></tr>
+</tbody></table>
+<div class="how">🤖 Agent viết báo cáo khi kết N (3.15) · Host nghiệm thu OK/KHÔNG (3.16).</div>
+</div>
+<div hidden id="ban-do-cu">
 <div class="mt-head"><span class="mt-title">Hội đồng AI — cách làm mới</span><span class="mt-code">mục tiêu lớn: L1 · việc ai-council-newarchitecture</span>
 <span class="mt-right"><span class="mt-bar" title="1 xong · 1 đang làm · 1 chưa làm · 2 đề xuất"><i class="g"></i><i class="b"></i><i></i><i class="dash"></i><i class="dash"></i></span>1/5<span class="mt-ask" title="Số việc đang chờ Owner quyết">😊 0</span></span></div>
 <div class="mt-goal">🏁 Cách làm mới chạy thử đạt trên ≥ 1 việc thật</div>
@@ -275,7 +335,7 @@ N5 · Tự vẽ · ĐỀ XUẤT · C1⬜ C2⬜ C3⬜</pre></details>
 khi tích:
 - C2 🟢 &lt;kiểm cái gì&gt; · Đạt khi: … · bằng chứng: &lt;commit/lệnh/số&gt; · 30/10 16:05 · claude-code
 - C3 🟡 … · bằng chứng: … · → đề xuất: tách phần còn lại thành N7 · 30/10 16:40 · claude-code</pre>
-<p class="small">⬜ chưa làm · 🟢 đạt · 🟡 một phần · 🔴 thất bại. «→ đề xuất» khi checkpoint cho thấy cần điều chỉnh kế hoạch (V1: checkpoint để biết đúng hướng chưa).</p>
+<p class="small">⬜ chưa làm · 🟢 đạt · 🟡 một phần · 🔴 thất bại · ↪ N7 chuyển sang N7 (thao tác 3.18). «→ đề xuất» khi checkpoint cho thấy cần điều chỉnh kế hoạch (V1: checkpoint để biết đúng hướng chưa).</p>
 
 <h3>2.5 Báo cáo thực hiện — cuối khối N, khi XONG hoặc DỪNG</h3>
 <pre class="form">- Báo cáo · 30/10 18:10 · claude-code
@@ -288,7 +348,7 @@ khi tích:
 
 <details id="muc-3" open><summary><span class="num">3</span><span class="heading">Thao tác — ai làm · ghi vào đâu · làm thế nào</span><span class="src">V2</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
 <p class="small">Mọi thao tác: sửa thẳng <code>COLLAB.md</code> qua cổng ghi (fs_edit) <strong>có expected_version</strong>; bị từ chối vì bản cũ ⇒ đọc lại rồi làm lại. Mỗi thao tác một commit, tiêu đề commit bắt đầu bằng mã (vd <code>N4.C2 🟢</code>). Cột «Mức» theo Bảng 1.</p>
-<table><caption>Bảng 3 · 17 thao tác</caption>
+<table><caption>Bảng 3 · 18 thao tác</caption>
 <thead><tr><th>#</th><th>Việc</th><th>Mức</th><th>Ai</th><th>Ghi vào đâu</th><th>Làm thế nào</th></tr></thead><tbody>
 <tr><td>3.1</td><td>Thêm mục tiêu lớn</td><td>Quyền</td><td>Owner nói → Host ghi</td><td>Cuối <code>### 1. Mục tiêu</code></td><td>Chép form 2.1, CHỐT, lời Owner + ngày. Cùng commit tạo <strong>N0 khảo sát</strong> (👁, DUYỆT sẵn) đầu §4.</td></tr>
 <tr><td>3.2</td><td>Sửa mục tiêu lớn</td><td>Quyền</td><td>Owner nói → Host ghi</td><td>Khối L đó</td><td>Gạch dòng cũ + «→ mới · ngày». Rà các N thuộc L: không còn hợp ⇒ BỎ/KHÔNG CHỌN + lý do.</td></tr>
@@ -307,6 +367,7 @@ khi tích:
 <tr><td>3.15</td><td>Kết thúc N + báo cáo</td><td>Ghi nhận</td><td>Agent</td><td>Dòng tiêu đề N + «Báo cáo»</td><td>Mọi C 🟢 và đạt «Xong khi» ⇒ XONG; không đạt ⇒ DỪNG + lý do + thêm N thay. Viết báo cáo form 2.5.</td></tr>
 <tr><td>3.16</td><td>Nghiệm thu N</td><td>—</td><td>Host (+1 khác hãng nếu N có ⚙)</td><td>Dòng «Nghiệm thu»</td><td>«OK/KHÔNG · ghế · ngày». KHÔNG ⇒ thêm N sửa, không mở lại N cũ. OK ⇒ rút khối còn 1 dòng: <code>✅ N4 · tên · bằng chứng chính</code>.</td></tr>
 <tr><td>3.17</td><td>Hỏi Owner</td><td>Quyền</td><td>Host</td><td>Dòng «Owner cần quyết» trong Bảng điều khiển</td><td>Một câu + đề xuất của Host; Owner gật/lắc. Chỉ khi rơi vào mục 5.</td></tr>
+<tr><td>3.18</td><td>Chuyển checkpoint chưa xong sang N sau</td><td>Kế hoạch</td><td>Agent khi kết N (N chưa bắt đầu: Host)</td><td>Khối N cũ + khối N nhận</td><td>Ở N cũ: dòng C đổi ⬜ → <b>↪ N7</b> (không xoá). Ở N nhận: thêm C mới cuối danh sách, ghi «từ N4.C3». Chưa có N phù hợp ⇒ thêm N ĐỀ XUẤT (3.5) rồi chuyển vào đó. N cũ chỉ XONG khi mọi C còn lại 🟢 và các C đã ↪.</td></tr>
 </tbody></table>
 </div></details>
 
@@ -357,6 +418,7 @@ khi tích:
 <tr><td>7.8</td><td>Host tắc vì nhiều đề xuất</td><td>Duyệt theo nhóm; hết N DUYỆT thì agent đề xuất và kết lượt (4.8), không chờ.</td></tr>
 <tr><td>7.9</td><td>COLLAB phình to</td><td>N nghiệm thu OK rút còn 1 dòng (3.16); agent không đọc P/lịch sử (4.1).</td></tr>
 <tr><td>7.10</td><td>Lệch luật AGENTS hiện hành</td><td>Khi thử: DUYỆT = READY, ĐANG LÀM = STARTED; Guard, DOT, khoá VPS-GHI giữ nguyên. <strong>Sửa AGENTS sau khi thử đạt.</strong></td></tr>
+<tr><td>7.11</td><td>Kết N mà còn checkpoint chưa làm (Owner hỏi 30/10)</td><td>Chuyển checkpoint sang N sau bằng ↪ (3.18); không xoá, không để lơ lửng.</td></tr>
 </tbody></table>
 </div></details>
 
