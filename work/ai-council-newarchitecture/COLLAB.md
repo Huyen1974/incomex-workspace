@@ -4,14 +4,14 @@ Tên việc: Hội đồng AI — kế hoạch động, thực thi song song
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: CHƯA XÁC NHẬN — Owner 30/10/2026 yêu cầu lập task để cùng thảo luận từng bước. Ghi lại yêu cầu dưới đây; chưa chốt A0 và chưa chỉ định Host riêng. Đề xuất GPT Chat làm Host, chờ Owner xác nhận. Chưa READY/RUN.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 10:06 +07 · GPT Chat · khởi tạo
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 10:33 +07 · GPT Chat · khung I–IV
 - 🎯 Mục tiêu: “quá trình điều chỉnh kế hoạch diễn ra song song với quá trình code” — giảm thời gian chờ hội đồng và sai giả định đầu vào.
-- 🏁 Xong khi: Owner duyệt khái niệm, cách tạo task/cập nhật kế hoạch qua PR, phân vai và phép đo thử.
-- 📍 Tiến độ: [■ Ghi nhận] → [□ Khái niệm] → [□ Quy trình] → [□ Vai trò] → [□ Thử].
-- ✅ Đã xong: lập hồ sơ yêu cầu ban đầu.
+- 🏁 Xong khi: Owner chốt đủ 4 phần I–IV và cách kiểm chứng quy trình mới nhanh hơn, ít lỗi hơn.
+- 📍 Tiến độ: [✅ Ghi nhận] → [■ Khung I–IV] → [□ Thảo luận từng mục] → [□ Chốt và thử].
+- ✅ Đã xong: lập hồ sơ; tạo 4 mục xổ/thu gọn trên GitHub.
 - ■ Đang làm: — · 0 RUN active.
-- ⬜ Còn lại: xác nhận A0/Host; thảo luận từng phần A–E.
-- ➡ Kế tiếp: 😊 Owner xác nhận mục tiêu và Host; Host mở thảo luận phần A; Reviewer/Agent khảo sát khi đã có phạm vi. NEXT_TRIGGER=OWNER_CONFIRM_A0_AND_HOST.
+- ⬜ Còn lại: xác nhận A0/Host; cùng xây dựng và chốt nội dung I–IV.
+- ➡ Kế tiếp: 😊 Owner cùng bàn mục I, xác nhận A0/Host để chốt và điều hành; chưa mở RUN. NEXT_TRIGGER=OWNER_CONFIRM_A0_AND_HOST.
 - ⛔ Không làm/để sau: chưa sửa luật AGENTS, chưa tạo PROMPT/RUN, chưa tác động code, VPS hoặc production.
 
 ### 1. Mục tiêu
@@ -26,12 +26,35 @@ Xác nhận User: CHƯA XÁC NHẬN — Owner 30/10/2026 yêu cầu lập task �
 “Định nghĩa từng việc khái niệm. Cần làm gì với từng khái niệm, quy trình tạo 1 task mới thế nào? Quy trình cập nhật kế hoạch thế nào? Ai làm gì? Cùng nhau làm việc này cho rõ ràng để thay đổi cách làm với hy vọng là tiến độ nhanh hơn” — Owner 30/10/2026.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-**Các phần sẽ cùng thảo luận, chưa phải kế hoạch được duyệt:**
-- **A. Khái niệm:** Task, mục tiêu nhỏ (mỗi lượt ≤3–4 giờ), checkpoint, PR; PASS và bằng chứng.
-- **B. Tạo task:** khảo sát từ đầu; thông tin tối thiểu và điều kiện bắt đầu.
-- **C. Kế hoạch động:** agent đề xuất qua PR trong khi code; Host cập nhật phần tiếp theo, không sửa ngang RUN đang chạy.
-- **D. Vai trò:** Owner, Host, reviewer, worker; quyền tự bổ sung/sửa checkpoint và cổng dừng.
-- **E. Thử và đo:** so thời gian chờ, RUN lỗi đầu vào, thời gian đạt mục tiêu với quy trình cũ.
+**Nội dung thảo luận — chưa chốt.** Bấm tên từng mục để mở/thu gọn. Chưa thêm nội dung chi tiết trước khi cùng Owner bàn.
+
+<details>
+<summary><strong>I. Định nghĩa khái niệm</strong></summary>
+
+*Nội dung sẽ bổ sung sau khi thảo luận.*
+
+</details>
+
+<details>
+<summary><strong>II. Định nghĩa vai trò</strong></summary>
+
+*Nội dung sẽ bổ sung sau khi thảo luận.*
+
+</details>
+
+<details>
+<summary><strong>III. Cấu trúc trong Hội đồng AI</strong></summary>
+
+*Nội dung sẽ bổ sung sau khi thảo luận.*
+
+</details>
+
+<details>
+<summary><strong>IV. Quy trình thực hiện</strong></summary>
+
+*Nội dung sẽ bổ sung sau khi thảo luận.*
+
+</details>
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
