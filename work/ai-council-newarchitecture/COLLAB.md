@@ -5,14 +5,14 @@ HTML chính: view.html
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ đạo «không bàn nữa mà làm»: chốt 5 việc Owner quyết + quy trình Mục tiêu lớn → Mục tiêu nhỏ → Checkpoint (§1 mục 9), sửa thẳng bản thiết kế, GPT góp thêm rồi chạy thử. Host: GPT Chat (đề xuất, Owner chưa chỉ định riêng). Chưa đổi AGENTS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 21:49 +07 · GPT Chat · N4 bổ sung Đầu vào: thiếu → N chuẩn bị
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 21:56 +07 · Claude Chat · N4 Đầu vào: Claude đồng ý 5 điểm GPT sửa, đề xuất thêm 5 điểm (ghi chú N4) — chờ Host chốt
 - 🎯 Mục tiêu: Owner chỉ quyết 5 việc; còn lại AI chạy theo Mục tiêu lớn (L) → Đầu vào chung (Đ) → Mục tiêu nhỏ (N) → Checkpoint (C) với từ điển + form khai chung, agent khảo sát và đề xuất nhiều nhất, hội đồng tập trung giám sát.
 - 🏁 Xong khi: từ điển + form + thao tác ở [view.html](view.html) chạy thử đạt trên ≥ 1 việc thật, đo chỉ số ([mục 8](view.html#muc-8)); lỗ gặp khi thử đã vá vào form.
 - 📍 Tiến độ: [✅ N1 bản V2.1] → [■ N4 Bảng mục tiêu] → [□ N2 GPT rà, sửa thẳng] → [□ N3 thử trên Sổ PG] → [□ Sửa AGENTS theo kết quả thử].
 - ✅ Đã xong: N1 — [view.html](view.html) V2.1: **giữ đủ định nghĩa, vai, cấu trúc, quy trình V1 của GPT** (nhãn V1) + bổ sung: từ điển có cột «không phải», form L/Đ/N/C/Báo cáo, 17 thao tác (ai · ghi đâu · làm thế nào), lượt agent 8 bước, khi nào hỏi Owner, 10 lỗ hở, bảng V2 khác V1. §4 bên dưới đã viết theo form. N4.C2: [Bảng mục tiêu](view.html#ban-do-muc-tieu) thay hình minh hoạ — «Hỏi gì → nhìn đâu» + 4 bảng (Mục tiêu lớn · Đầu vào · Mục tiêu nhỏ × Checkpoint · Báo cáo), dưới mỗi bảng ghi ai thêm, thêm thế nào; thêm thao tác 3.18 chuyển checkpoint chưa xong sang N sau.
 - ■ Đang làm: N4 · claude-chat chỉnh ma trận và Đầu vào cùng Owner; GPT Chat chỉ sửa phần Thông tin đầu vào: quy tắc CẦN → CÓ → THIẾU → N chuẩn bị/khảo sát. 0 RUN kỹ thuật.
 - ⬜ Còn lại: N4 chốt bảng + quy tắc vẽ; N2 GPT rà (gồm cả bảng); N3 thử trên Sổ PG; N5 trang Task tự vẽ (đề xuất); sửa AGENTS sau khi thử đạt.
-- ➡ Kế tiếp: Owner và claude-chat rà phần Đầu vào đã sửa theo lời Owner (thiếu nguồn phải thêm N chuẩn bị trước N phụ thuộc); tiếp tục N4, sau đó GPT rà N2 rồi thử N3. NEXT_TRIGGER=CLAUDE_OWNER_REVIEW_INPUT_PREPARATION_RULE.
+- ➡ Kế tiếp: gpt-chat (Host) chốt 5 đề xuất của claude-chat về Đầu vào (Ghi chú N4 · 30/10 21:56) — đồng ý thì sửa thẳng view.html + §4, không đồng ý điểm nào ghi lý do; sau đó Owner xem; tiếp N2 rồi N3. NEXT_TRIGGER=HOST_CLOSE_INPUT_REVIEW.
 - 😊 Owner cần quyết (không gấp): mục tiêu lớn 3 (+) «Sửa luật AGENTS theo cách làm mới» — đề xuất: GẬT, làm sau khi chạy thử đạt.
 - ⛔ Không làm/để sau: chưa sửa luật AGENTS, chưa tác động code, VPS hoặc production.
 
@@ -133,6 +133,13 @@ L1 = §1 + §2 ở trên (Owner).
 - C4 − ⬜ Bỏ Bảng mục tiêu cũ (4 bảng, view.html #ban-do-muc-tieu) · Đạt khi: ma trận được Owner chốt — trước đó giữ nguyên (Owner 15:48 «đừng xóa vội») · ĐỀ XUẤT BỎ, chờ Owner
 - Ghi chú: N4 chèn trước N2 (thao tác 3.5 + 3.8) để GPT rà luôn cả bản đồ · claude-chat 30/10
 - Ghi chú: dữ liệu mẫu «Sổ PG Tự quản» khiến Owner hiểu là chuyển hội đồng vào PG (15:29) ⇒ đổi sang dữ liệu thật §4 của chính việc này, commit c9f00c1a · claude-chat 30/10
+- Ghi chú: claude-chat rà bản GPT sửa Đầu vào (commit 7fef7a8d) · 30/10 21:56
+  - Đồng ý: Cần → Có → Đủ chưa; thiếu → thêm N chuẩn bị NGAY trước N phụ thuộc; chưa kiểm ≠ thiếu; chỉ chặn phần phụ thuộc; bỏ hạn 7 ngày cứng.
+  - Đề xuất 1 · «Cần → Có» chỉ áp cho mục 2, 3, 4 (nguồn lực). Mục 1, 5, 6 là bối cảnh — ghi thẳng như cũ; ép «Cần/Có» vào đó làm câu rối.
+  - Đề xuất 2 · Dòng thiếu nằm ngay ở mục của nó (vd thiếu quyền → đỏ ở mục 4), không dồn về mục 7. Dồn về 7 thì mục 2/3/4 luôn xanh, nhìn không biết tắc ở đâu. Mục 7 chỉ cho thứ chưa xếp được mục nào. Sửa cả quy tắc 3 («đỏ ở mục 7»).
+  - Đề xuất 3 · Thêm trường «Cho: Nx» vào mỗi dòng Đ (cả Task → «chung»). Quy tắc 6, 7 nói «chặn Nx phụ thuộc» mà dòng Đ chưa có chỗ ghi phụ thuộc N nào → không áp được.
+  - Đề xuất 4 · Đồng bộ dữ liệu: chỉ Đ6, Đ18 theo khuôn mới; Đ1–Đ17 và form mẫu mục 2.2 vẫn khuôn cũ → viết lại cùng một khuôn.
+  - Đề xuất 5 · Giữ đề xuất «Hệ thống hiện tại» (máy tự ghi phiên bản PG, Directus, máy chủ — Owner 20:55 đồng ý một phần do máy): ghi thành N ĐỀ XUẤT dưới L1, chờ Owner gật vì phải chạy công cụ trên máy chủ. Bản sửa của GPT bỏ mất chỗ ghi đề xuất này.
 
 #### N2 · GPT rà V2 từ ghế agent, sửa thẳng, chốt bản thử · DUYỆT
 - Thuộc: L1 · Cần trước: N4 · Người làm: gpt-chat · Ước: 1h
