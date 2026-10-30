@@ -12,7 +12,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ 
 - ✅ Đã xong: N1 — [view.html](view.html) V2.1: **giữ đủ định nghĩa, vai, cấu trúc, quy trình V1 của GPT** (nhãn V1) + bổ sung: từ điển có cột «không phải», form L/Đ/N/C/Báo cáo, 17 thao tác (ai · ghi đâu · làm thế nào), lượt agent 8 bước, khi nào hỏi Owner, 10 lỗ hở, bảng V2 khác V1. §4 bên dưới đã viết theo form. N4.C2: [Bảng mục tiêu](view.html#ban-do-muc-tieu) thay hình minh hoạ — «Hỏi gì → nhìn đâu» + 4 bảng (Mục tiêu lớn · Đầu vào · Mục tiêu nhỏ × Checkpoint · Báo cáo), dưới mỗi bảng ghi ai thêm, thêm thế nào; thêm thao tác 3.18 chuyển checkpoint chưa xong sang N sau.
 - ■ Đang làm: N4 · claude-chat · chỉnh [Ma trận mục tiêu](view.html#ma-tran-muc-tieu) cùng Owner (16:32: 3 cột ký Host · Thực hiện · Council, «?» cho từng cột, cột Báo cáo mờ; form N có dòng «Ký», thao tác 3.19).
 - ⬜ Còn lại: N4 chốt bảng + quy tắc vẽ; N2 GPT rà (gồm cả bảng); N3 thử trên Sổ PG; N5 trang Task tự vẽ (đề xuất); sửa AGENTS sau khi thử đạt.
-- ➡ Kế tiếp: Owner xem mẫu [Ma trận mục tiêu](view.html#ma-tran-muc-tieu) (5 cột, bấm xổ 3 tầng) và hướng dẫn chỉnh; claude-chat sửa thẳng. Bảng mục tiêu cũ giữ bên dưới. Sau đó gpt-chat làm N2. NEXT_TRIGGER=OWNER_ADJUST_GOAL_MAP_SAMPLE.
+- ➡ Kế tiếp: Owner xem mẫu [Ma trận mục tiêu](view.html#ma-tran-muc-tieu) (8 cột gồm 3 cột ký Host · Thực hiện · Council, bấm xổ 3 tầng) và hướng dẫn chỉnh; claude-chat sửa thẳng. Bảng mục tiêu cũ giữ bên dưới. Sau đó gpt-chat làm N2. NEXT_TRIGGER=OWNER_ADJUST_GOAL_MAP_SAMPLE.
 - 😊 Owner cần quyết (không gấp): mục tiêu lớn 3 (+) «Sửa luật AGENTS theo cách làm mới» — đề xuất: GẬT, làm sau khi chạy thử đạt.
 - ⛔ Không làm/để sau: chưa sửa luật AGENTS, chưa tác động code, VPS hoặc production.
 
