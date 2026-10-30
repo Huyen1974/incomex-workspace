@@ -14,7 +14,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - ⚠ **CI hiện hành:** hai PR trusted #685/#360 và push-main gate đã GREEN. Hai PR sync cũ #684/#359 RED `OUT_OF_PILOT` là lịch sử, nay CLOSED. **Security OPEN:** có fallback `OPS_KEY` trong bản lưu script AD, chưa xác minh khoá còn sống; đã có từ trước trên Git. Chủ CONN-REPAIR/SECCRED phải xác minh/thu hồi theo quyền hiện hữu, không ghi giá trị vào repo công khai. Hai script reconcile ở bản GH đã loại fallback; VPS nguyên bản chưa đổi.
 - 📍 ✓ GH protected/CI pilot → ✓ Web PR thật #682→VPS P131/P132 → ✓ S0 P113 source inventory → ✓ Codex -14 P140 34 source push → ✓ **Host P141 ACCEPT_SCOPED**. **0 RUN active / VPS-GHI không bị lấy trong -14**, Web và AD hiện healthy theo VPS sampled.
 - ⬜ **Còn theo task gốc:** Web áp dụng PR→CI→KST→main→Owner GO→VPS trên việc ứng dụng thật tiếp theo; Agent Data runtime main+rollback (HJW G8/C1B) chưa đạt; F2/R4 = 3 agent/3 PR+runner trust boundary chưa nghiệm thu; C4/R6 = giao việc đêm và sáng KST duyệt chưa làm. T3 khóa writer VPS HOÃN theo Owner; không bắt PR đợi khóa. `OPS_KEY` và nợ credential thuộc SECCRED/CONN-REPAIR.
-- ➡ **Biên nhận NDW P114 / GHM P153:** PR686/a353b64 CODE_READY, Claude CLI review độc lập + CI41143018991 GREEN auth19/19; RELEASE_READY=NO, RELEASE_HOLD=YES. Nguồn KQ/handoff duy nhất tại NDW P114 (Owner/ACL/monitor live chưa đủ); không merge/deploy. F2 không phụ thuộc P0 production; T3 khóa VPS vẫn hoãn. `NEXT_TRIGGER=DOT_READONLY_IDENTITY_ACL_MONITOR_RECEIPT_THEN_HOST_ACCEPT_AND_OWNER_MERGE_RELEASE_GO`.
+- ➡ **P154 HOST:** NDW P115 Host ACCEPT PR686/a353b64 code-ready; giao Claude Code CLI RUN03 gói release-readiness, Codex không chạy do quota. GHM giữ pipeline GitHub đã đạt, F2/C4 chưa nghiệm thu, T3 VPS khóa HOÃN. NEXT_TRIGGER=NDW_CLAUDE_CLI_RUN03_READINESS_REPORT.
 - ⛔ Không merge PR684/359 khi required gate đang đỏ, không `--admin`, không sửa Graph/VPS/HJW/AD deployment, không thay credential/backup/visibility từ GHM, không giả source-copy = mã production đang chạy.
 
 ### 1. Mục tiêu
@@ -1802,6 +1802,11 @@ Based_on: P119 · P120 · ROADMAP §0.4h · **tự kiểm 29/10 16:05–16:30 +0
 
 **3. Telegram HJW 15:57 — đồng ý không liên quan T2:** dòng 512 HJW COLLAB là việc giao 22/10 `blocked`, gen 1, ghi sang `work/hpml-view-for-user` (ngoài phạm vi) — và **không có dòng RESULT_V1 đóng** (khác dòng 510, 513 đều có) ⇒ nhiều khả năng bộ điều phối coi nó còn mở nên quét lại và báo. Bàn giao Host HJW: (a) đóng việc này theo đúng đường máy của HJW (RESULT_V1 do dispatcher tin cậy ghi), (b) kiểm vì sao «chỉ báo một lần» lại báo lại. GHM không sửa HJW, không nới quyền ghi.
 - NEXT_TRIGGER=HOST_READY_T2B.
+
+## P154 · GPT Host · 31/10/2026 — SWITCH EXECUTOR / P114 ACCEPTED
+- NDW P114 code-ready PR686 HEAD a353b64, CI41143018991 GREEN (auth19/19 trong gate), Claude CLI review; RELEASE_HOLD là đúng vì thiếu bằng chứng real Owner ID/ACL/directus pivot/PG monitor. GHM pipeline hai repo/P145 cùng Web PR682→VPS vẫn đạt; còn AD release/rollback, F2 3 ghế/3 PR và C4 ca đêm; T3 khóa VPS HOÃN.
+- Owner 31/10 yêu cầu các lệnh tiếp theo **giao Claude Code CLI**, không Codex do quota. NDW P115/PROMPT RUN03 là gói duy nhất để Claude hoàn thiện release readiness mà không mở RUN cho từng blocker. GHM chỉ ghi biên nhận, không tạo RUN code trùng.
+- NEXT_TRIGGER=NDW_CLAUDE_CLI_RUN03_READINESS_REPORT; không merge/deploy/VPS/PG/Directus trong P154.
 
 ## P153 · Codex · 31/10/2026 — BIÊN NHẬN GÓI NDW / KST PR686
 - NDW P114 commit `bc2e8500211bd2d0c32aa0e62c6582493de6b3b9` là KQ chính: CODE_READY=YES, RELEASE_READY=NO, RELEASE_HOLD=YES; gói code/review/CI đã kết thúc, 0 RUN active, không lấy VPS-GHI. Claude CLI độc lập review21files và chạy auth19/19, negative/built browser; code HEAD `a353b64e0252e667ffd5a3ea0f89119ff86aaa38`, [gate41143018991 GREEN](https://github.com/Huyen1974/web-test/actions/runs/41143018991).
