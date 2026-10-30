@@ -94,6 +94,17 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 
 **Hiệu lực:** Mục §0.A/D17/Owner 21/10 thắng các dòng điều hành P164/đề xuất cũ trái nghĩa; giữ lịch sử không xóa. PROMPT hiện tại là GS-CLEAN đã KQ XONG, không còn RUN hiệu lực; Host sẽ sửa CHÍNH PROMPT.md theo A6 khi có node R10B được REVIEW/READY riêng. Không tự phát RUN từ việc ghi tài liệu.
 
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 20:40 +07 · Claude Chat · P-ONEPASS-CLAUDE-B5 (đồng thuận GPT B5; ghép pha P trước K0 để không dừng S0)
+- 🎯 **Mục tiêu:** hội đồng đọc chuẩn VPS bằng công cụ của hãng qua DOT có sẵn: biết hết có gì, nối nhau thế nào, cái nào còn dùng, còn mới không — đủ tin để quyết tắt mã cũ.
+- 🏁 **Xong khi:** mỗi nguồn có danh sách hãng xuất ra làm mẫu số, Graph ứng viên khớp từng mục hai chiều; câu Pivot trả lời đúng với cửa sổ đo rõ; nguồn đổi ⇒ tự nạp lại; bộ đọc lỗi ⇒ đỏ.
+- 📍 **Tiến độ:** ✅ UC-1 Pivot · ✅ ONEPASS · ✅ GPT B1–B5 · ✅ Claude B2–B5 (đồng thuận) · ■ **Owner giao Claude Code một lệnh 2 pha: P (sửa hẹp DOT + đồng hồ đo) → K (K0-LIVE chỉ đọc)** → ⬜ GPT nghiệm thu KQ → ⬜ cập nhật bằng chụp lại + so vân tay → ⬜ ghi Graph production có Guard → ⬜ đọc dấu dùng Pivot → ⬜ tắt mã cũ có đường lùi.
+- ✅ **Đã xong:** hội đồng đồng thuận cách đọc chuẩn (B5 + B5 Claude); đã đọc mã DOT sống và biết trước chỗ S0 sẽ vướng.
+- ■ **Đang làm:** — · 0 RUN · Bước: Owner dán khối «GỬI Claude Code» ở mục E của P-ONEPASS-CLAUDE-B5 · gọi: Owner → Claude Code CLI.
+- ⬜ **Còn lại:** GitHub SSOT commit → image → container (GHM P138); đổi log nginx ở lần tạo lại container kế tiếp.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=OWNER_DISPATCH_CLAUDE_CODE_P_THEN_K0 — không vòng B2 nữa; GPT nghiệm thu sau KQ.
+- ⛔ **Không:** dùng `source-dump` đầy đủ (có dữ liệu); gọi nhánh dump/checkpoint/cutover; tự viết danh sách làm mẫu số; ghi Graph/PG/Directus production ngoài P1–P2; tạo lại nginx; merge PR683; sửa K4.
+- 📄 **Bằng chứng:** P-ONEPASS-CLAUDE-B5 · P-ONEPASS-HOST-B5 · `dot/bin/dot-stack-cutover` dòng 96, 196–198, 218–244.
+#### Lịch sử Board GPT B5
 ### BẢNG ĐIỀU KHIỂN · 30/10/2026 · GPT HOST B5 — CHỐT ORACLE HÃNG + DOT LIVE, KHÔNG XANH GIẢ
 - 🔴 **Graph N1–N4 CHƯA ĐẠT**. Claude B4 đúng hướng: dùng lại DOT/tool hãng; nhưng “pg_dump -s = toàn PG”, “Directus snapshot = toàn Directus” và “pg_depend = mọi quan hệ” là các suy luận KHÔNG ĐÚNG theo tài liệu hãng.
 - ✅ **GPT HOST ACCEPT_WITH_4_CORRECTIONS:** (1) xác thực tool DOT ĐANG CHẠY (nội dung/sha/argv/ACL/return code, tuyệt đối không gọi nhánh cutover có ghi), (2) xác định đúng coverage của pg_dump/pg_dumpall và Directus schema vs config, (3) tách native dependency với static/dynamic/runtime, (4) chứng minh source change → candidate Graph reconcile & N4 PARTIAL khi lỗi. Không viết lại bộ quét theo tên vật.
@@ -376,6 +387,8 @@ Năm (bổ sung D24): Owner xem được Graph trên màn hình tương tác, cl
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 **HUMAN_DIRECTIVE@GS-D27-OWNER-20261029-WORKERS4 EFFECTIVE · Owner 29/10/2026 trực tiếp GPT Chat:** «Ok đồng ý trước mắt là giảm xuống 4 worker, tính đến đường lùi là sau này khi công suất của VPS được nâng lên thì có thể nâng lại được dễ dàng. Và đảm bảo là chị có 4 worker => nếu có 10 ông xếp hàng => 6 ông đó không bị đuổi đi mà chỉ phải chờ. Cái này là quan trọng. Bạn điều hành tiếp đi. Phê duyệt 4 worker». Áp vào VPSC2 P18, không phải quyền bỏ qua queue/Guard hay tắt/tạo hệ mới. Đích Graph K4/UC-1 sau resource gate giữ nguyên.
 
+**HUMAN_DIRECTIVE@GS-OWNER-20261030-REAL-INFRA EFFECTIVE · Owner 30/10/2026 20:29 +07 · Claude Chat nghe trực tiếp (viết lại đúng chính tả, giữ ý):** «Rà soát lại lần nữa. Cần rất thực tế với tình huống cụ thể của chúng ta, hạ tầng thực tế của chúng ta, kết hợp với các giải pháp chuẩn của ngành IT. Nếu đồng thuận thì tôi sẽ giao Claude Code triển khai tiếp.» **Hiệu lực:** trước khi giao lệnh phải đọc mã công cụ đang chạy thật trên VPS/Mac và dự báo chỗ lượt chạy sẽ vướng; vướng dự báo được thì xử lý trước trong cùng lệnh, không để agent dừng giữa chừng. Trả lời của Claude: P-ONEPASS-CLAUDE-B5.
+
 **HUMAN_DIRECTIVE@GS-OWNER-20261030-WE-ARE-BLIND EFFECTIVE · Owner 30/10/2026 17:11 +07 · Claude Chat nghe trực tiếp (viết lại đúng chính tả, giữ ý):** «Thông tin của chúng ta có tận răng; ngành IT coi đây là việc rất tiêu chuẩn, tất cả đều làm được. Vậy mà chúng ta loanh quanh toàn bàn chuyện ngớ ngẩn và không làm được là không thể chấp nhận. Đừng nói chuyện Graph mù thông tin nữa — chỉ có chúng ta mù. Tập trung vào câu hỏi: ngành IT làm gì, chúng ta đã làm đúng như thế chưa.» **Hiệu lực:** mọi đề xuất/lệnh đọc Graph trước hết phải chỉ ra «công cụ chuẩn của hãng nào, DOT nào đã có» trước khi đề nghị viết mới; không viết «Graph mù» — ghi đúng là hội đồng đọc thiếu. Trả lời của Claude: P-ONEPASS-CLAUDE-B4.
 
 **HUMAN_DIRECTIVE@GS-OWNER-20261030-DOT-STANDARD EFFECTIVE:** Owner yêu cầu DOT đọc/ghi chuẩn theo hệ thống, không xin phép lại việc đọc metadata trong nhà; AI tự thực hiện bằng chuẩn ngành và kiểm dữ liệu/quan hệ/usage/freshness. Mọi thay đổi production vẫn phải dùng đúng DOT/Guard/rollback và ACL. Xem P-ONEPASS-HOST-B4.
@@ -504,7 +517,8 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | **30/10 17:20 · Claude B4: GPT B4 ACCEPT_WITH_ONE_FIX — bộ đọc phải là công cụ xuất của hãng qua DOT có sẵn, cấm tự viết bộ đọc** | sổ DOT đã có dot-prod-readonly/dot-stack-cutover, dot-schema-snapshot, dot-directus-flow | NEXT GPT sửa 1 câu rồi giao K0-LIVE.
+GS | **30/10 20:40 · Claude B5: đồng thuận GPT B5; S0 sẽ vướng vì chưa có lệnh chỉ-đọc xuất cấu trúc PG ⇒ một lệnh 2 pha: P sửa hẹp DOT + đồng hồ đo, rồi K0-LIVE** | PG 18.6 · Directus 12.4.1 · Graph đứng từ 25/10 | NEXT Owner giao Claude Code.
+(Lịch sử 30/10 17:20) GS | **30/10 17:20 · Claude B4: GPT B4 ACCEPT_WITH_ONE_FIX — bộ đọc phải là công cụ xuất của hãng qua DOT có sẵn, cấm tự viết bộ đọc** | sổ DOT đã có dot-prod-readonly/dot-stack-cutover, dot-schema-snapshot, dot-directus-flow | NEXT GPT sửa 1 câu rồi giao K0-LIVE.
 (Lịch sử 30/10 16:50) GS | **30/10 16:50 · Claude B3: lệnh K0-LIVE ACCEPT_WITH_GATES G1–G7; tầng «còn dùng» đang tắt đồng hồ (track_functions=none, last_seq_scan bẩn do quét, log nginx ~39 giờ)** | PG 18.6 · Directus 12.4.1 · Graph đứng từ 25/10 | NEXT Owner gật QĐ1 (đọc cấu trúc PG/Directus) + QĐ2 (bật đồng hồ đo dùng) → GPT chép G1–G7 → giao K0-LIVE.
 (Lịch sử 30/10 16:05) GS | **30/10 16:05 · Claude B2: Graph mù vì cấu trúc (nạp theo danh sách tự viết, tự chấm bằng mẫu số của mình, làm mới đêm nặng, thiếu bằng chứng chạy thật); K0 isolated ⇒ đổi thành K0-LIVE** | ONEPASS 6/79; Graph đứng từ 25/10 | NEXT GPT B3 sửa K0 + Owner gật DOT đọc catalog chỉ-đọc.
 (Lịch sử 30/10 sáng) GS | **30/10 · UC-1A/RAG-B khảo sát chỉ đọc XONG CÓ GIỚI HẠN** | 3 GIỮ, 2 CHƯA RÕ; N4 MỘT PHẦN/NOT_ACTION_SAFE; 0/0 đủ tắt; 46 ID KB bảo toàn ứng viên | NEXT GPT Host nghiệm thu, chưa mở RUN tắt/cổng.
@@ -1221,6 +1235,27 @@ G7 candidate Graph bằng JSONL/SQLite trên Mac, không tốn Neo4j VPS; failur
 
 **Tài liệu hãng đã đối chiếu:** https://www.postgresql.org/docs/18/app-pgdump.html ; https://www.postgresql.org/docs/18/app-pgrestore.html ; https://www.postgresql.org/docs/18/app-pg-dumpall.html ; https://www.postgresql.org/docs/18/ddl-depend.html ; https://directus.com/docs/api/schema ; https://directus.com/docs/guides/environment-sync/how-it-works .
 
+#### P-ONEPASS-CLAUDE-B5 · Claude Chat · 30/10/2026 20:40 +07 · ĐỒNG THUẬN GPT B5 · ĐỐI CHIẾU HẠ TẦNG THẬT · GHÉP PHA P TRƯỚC K0 ĐỂ KHÔNG DỪNG S0
+- **Owner 30/10 20:29:** rà rất thực tế với hạ tầng thật + giải pháp chuẩn ngành; đồng thuận thì Owner giao Claude Code (ghi §3 `HUMAN_DIRECTIVE@GS-OWNER-20261030-REAL-INFRA`).
+- **Đồng thuận 4 sửa của GPT B5** (đúng tài liệu hãng; khớp đo của mình — `fix6_build.sql` đã ghi PG không lưu cạnh hàm gọi hàm): role/tablespace cấp cụm tách khỏi pg_dump từng DB; Directus snapshot chỉ collections/fields/relations, flows/operations/policies/permissions đọc riêng; pg_depend không có tham chiếu trong thân hàm/SQL động ⇒ STATIC_DERIVED; S0 phải kiểm mã DOT sống. Nhận: câu «cấm tự viết câu SQL» ở Claude B4 quá rộng — đúng là cấm lấy danh sách tự chọn làm mẫu số, không cấm SQL đọc metadata của hãng.
+
+**A · Đối chiếu hạ tầng thật (đọc mã DOT sống 30/10):**
+| # | Sự thật trên máy | Hệ quả nếu giao nguyên B5 | |
+|---|---|---|---|
+| H1 | `source-dump --db D` = `pg_dump -Fc` **toàn bộ DB có dữ liệu** (không có cờ schema-only); `pg_dump --schema-only` chỉ nằm trong `dump`/`checkpoint` — hai nhánh đóng băng writer, bật read-only cả cụm | S1 «TOC schema-only mọi DB» không có đường an toàn ⇒ **NO_GO_S0 chắc chắn**; dùng bản đầy đủ thì kéo dữ liệu kinh doanh về Mac — cấm | 🔴 |
+| H2 | `source-dump --globals` = `pg_dumpall --globals-only --no-role-passwords`, phiên read-only | Dùng được ngay cho role/tablespace | 🟢 |
+| H3 | `dot-prod-readonly` đóng gói **bản trên Mac** của `dot-stack-cutover` + `lib/stack-cutover` vào `/dev/shm` VPS rồi chạy; thư mục `dot/lib/stack-cutover` trên VPS đọc qua connector thấy rỗng | S0 phải so SHA bản Mac với sổ DOT (`9530912d5598` / `b4b3ad7eb322`) và có đủ `sql/inv*.sql`, `traffic.py` | 🟡 |
+| H4 | `traffic` đọc `docker logs incomex-nginx`; container tạo lại ~29/10 | Lịch sử web ~2 ngày ⇒ NOT_MEASURED cho 7 ngày là dự kiến; tạo lại nginx là mất sạch | 🟡 |
+| H5 | `dot-schema-snapshot` mặc định GHI 1 tệp vào `dot/snapshots/` trên VPS; có `--output` | Trong K0 ghi ra `/dev/shm` rồi xoá để đúng «0 ghi» | 🟡 |
+| H6 | Cấu hình Directus nằm trong bảng `directus_*` của PG | Hai góc độc lập: API (DOT Directus) và bảng (role chỉ-đọc `PG_USER_RO`) — đúng N4 «không cùng một bộ đọc làm đề và đáp án» | 🟢 |
+| H7 | Câu Pivot không cần Qdrant/KB | Giữ Qdrant/KB mức ONEPASS trong K0 để lượt chạy trong hạn; nạp ở gói H | 🟡 |
+
+**B · Đề xuất chốt — MỘT lệnh, HAI pha, cùng một CLI** (nội dung đều đã được Host duyệt: sửa hẹp S0 + mini-run QĐ2 của B4; chỉ đưa lên trước để không dừng giữa chừng):
+- **Pha P (protected, VPS-GHI CAS, Guard PRE/POST, Điều 30/31, ≤30′):** P1 thêm đúng một tuỳ chọn chỉ-đọc `source-dump --db D --schema-only` (pg_dump -Fc --schema-only trong phiên `default_transaction_read_only=on`) vào `dot-stack-cutover`; cập nhật đồng bộ bản VPS + bản Mac, SHA sổ DOT, Config Guard/sổ mã; thử: `pg_restore --list` chỉ có mục cấu trúc, 0 mục TABLE DATA. P2 `track_functions='pl'` bằng ALTER SYSTEM + reload nếu `pg_settings.context` cho phép; lùi = RESET + reload; không reset thống kê. P3 log nginx: đọc log-opts thật, đo tốc độ log/ngày, ghi đề xuất max-size×max-file đủ ≥14 ngày áp ở lần tạo lại container kế tiếp — **không tạo lại nginx trong lượt này**. Bước nào lỗi ⇒ lùi đúng bước đó, vẫn sang pha K.
+- **Pha K (K0-LIVE chỉ đọc, đúng S0–S4 của B5):** oracle cấu trúc PG = P1 cho mọi DB + `source-dump --globals`; P1 lỗi ⇒ oracle PG = GAP có tên, không dừng cả lượt. Directus đối chiếu 2 góc (H6). Thay đổi thật có sẵn để thử: bảng `tai_san_luat` (29/10) chưa có trong Graph 25/10 = ADD; cron Pivot tắt 13/10 = DISABLED.
+- **JEV** `gen-dec-1793367164-tDHlIMC0zg4LauKXyzHo` (tham khảo): một lệnh hai pha 0,75 (giao nguyên B5 0,00) · đồng thuận 4 sửa của GPT 0,54 — em vẫn đồng thuận vì đã đối chiếu tài liệu hãng và đo trên máy.
+- `NEXT_TRIGGER=OWNER_DISPATCH_CLAUDE_CODE_P_THEN_K0` — không vòng B2 nữa.
+
 #### ROADMAP GS-RM1 — nguồn điều hành duy nhất
 | Mốc | Nội dung | Trạng thái / gate |
 |---|---|---|
@@ -1262,7 +1297,7 @@ G7 candidate Graph bằng JSONL/SQLite trên Mac, không tốn Neo4j VPS; failur
 | DT20 · Nuxt source | code DELTA+GHM identity together, no label-only fix | ⛔ SUPERSEDED_NOT_SIGNED: >=6GiB RAM required |
 | RAM+K4 PREFLIGHT · 29/10 | đọc nguyên nhân RAM, kiểm cổng K4 và đề xuất sửa tối thiểu | ✅ KQ XONG P301 (chỉ đọc, 0 mutation): RAM 2,41–2,46 GiB, agent-data 6 worker ≈3,8 GB lớn nhất; K4 1/3/5 VERIFIED, 2/4 FAIL; đề xuất A AGENT_DATA_WORKERS 6→4 P302 Host accepts diagnosis; 6→4 only review proposal Claude P303 then Owner consent if safe |
 | K4 · Read-time source version | live cheap fingerprint vs cert baseline, changed/missing => NOT_ACTION_SAFE | ■ P304 DRAFT_BLOCKED_RESOURCE: P301 dấu gốc 6 lớp + Nuxt có sẵn, wrapper/rollback/fixture sẵn; còn FAIL bộ đọc nuốt lỗi 2 chỗ + RAM <3GiB; no READY |
-| GS-COV2-K0-LIVE · NATIVE→GRAPH THỰC + GH SSOT | Dữ liệu thật đọc-only qua DOT đúng quyền, host runtime native; candidate Graph cô lập; so object+edge ID/hash, sửa detection và trả Pivot 23 nhóm có bằng chứng usage; stale/read-error phải báo MỘT PHẦN | ■ GPT Host B5 FINAL: Claude B4 ACCEPT_WITH_4_CORRECTIONS; phải qua S0 tool-runtime readonly proof, pg_dump per-DB vs globals, Directus schema vs Flow config, native/extracted lineage, sau đó K0-LIVE source thật; KHÔNG ghi production, chưa cấp Graph ĐỦ |
+| GS-COV2-K0-LIVE · NATIVE→GRAPH THỰC + GH SSOT | Dữ liệu thật đọc-only qua DOT đúng quyền, host runtime native; candidate Graph cô lập; so object+edge ID/hash, sửa detection và trả Pivot 23 nhóm có bằng chứng usage; stale/read-error phải báo MỘT PHẦN | ■ GPT Host B5 FINAL: Claude B4 ACCEPT_WITH_4_CORRECTIONS; phải qua S0 tool-runtime readonly proof, pg_dump per-DB vs globals, Directus schema vs Flow config, native/extracted lineage, sau đó K0-LIVE source thật · **Claude B5 30/10 20:40: ĐỒNG THUẬN; một lệnh 2 pha — P thêm `source-dump --schema-only` chỉ-đọc vào DOT có sẵn + `track_functions='pl'` + đo log nginx (protected), rồi K0-LIVE** · KHÔNG ghi Graph production, chưa cấp Graph ĐỦ |
 | GS-FULL-ONEPASS · TỔNG KIỂM KÊ COVERAGE | Một Claude CLI chỉ đọc: ngoài G1–G9, native class/edge nội bộ mỗi nguồn, scope discovery/usage/lineage, độc lập source↔Graph và negative-tests; chốt toàn bộ GAP & kế hoạch sửa thống nhất | ✅ **KQ XONG 30/10 08:25Z (Claude Code, chỉ đọc, 0 ghi)**: ma trận 83 dòng (79 trong phạm vi) — ĐỦ 6 (≈8%), kiểm kê native có số 77/79; 32 lớp ngoài danh mục, 24 lớp đọc được chưa nạp, 11 fixture 5 PASS/6 GAP (1 xanh giả tiềm ẩn F6), làm mới đêm 4 đêm không áp; roadmap GS-COV2 A∥B→C→D→E→F→G→H→Z; công cụ `tools/onepass/`; NEXT GPT Host nghiệm thu + ký A1+B |
 | GS-D28-A1 · PIVOT NATIVE SOURCE COVERAGE | Kết nối bộ đọc hiện hữu→ingestion/cert cho PG function/view_dep, cron disabled, Directus collection/flow/operation; native↔Graph, nhãn nguồn DOT pending | ⏸ HOLD — chưa RUN; thay bằng GS-FULL-ONEPASS trước khi vá; chỉ mở A1 lại nếu ma trận tổng chứng minh cần, K4/PR683 tách riêng |
 | OWNER D28 · NGHIỆM THU BAO PHỦ TOÀN VPS | Native inventory PG/Directus/DOT/Qdrant/KB/runtime/code ↔ Graph từng object/edge; thiếu adapter/ACL/cron/flow phải có chủ và cảnh báo | 🔴 **CHƯA ĐẠT: 49/100 ô, 0/9 họ FULL (snapshot gần nhất); không dùng số nút làm KPI bao phủ.** Owner yêu cầu ưu tiên số 1; G1/G2/G3 phải đo lại |
