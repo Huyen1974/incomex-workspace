@@ -5,14 +5,14 @@ HTML chính: view.html
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ đạo «không bàn nữa mà làm»: chốt 5 việc Owner quyết + quy trình Mục tiêu lớn → Mục tiêu nhỏ → Checkpoint (§1 mục 9), sửa thẳng bản thiết kế, GPT góp thêm rồi chạy thử. Host: GPT Chat (đề xuất, Owner chưa chỉ định riêng). Chưa đổi AGENTS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 21:03 +07 · Claude Chat · N4 ĐANG LÀM: «Thông tin đầu vào» = khung 8 mục cố định cho mọi việc + Cách điền 8 nguyên tắc — chờ GPT rà và Owner hướng dẫn tiếp
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 21 +07 · GPT Chat · N4 bổ sung Đầu vào: thiếu → N chuẩn bị
 - 🎯 Mục tiêu: Owner chỉ quyết 5 việc; còn lại AI chạy theo Mục tiêu lớn (L) → Đầu vào chung (Đ) → Mục tiêu nhỏ (N) → Checkpoint (C) với từ điển + form khai chung, agent khảo sát và đề xuất nhiều nhất, hội đồng tập trung giám sát.
 - 🏁 Xong khi: từ điển + form + thao tác ở [view.html](view.html) chạy thử đạt trên ≥ 1 việc thật, đo chỉ số ([mục 8](view.html#muc-8)); lỗ gặp khi thử đã vá vào form.
 - 📍 Tiến độ: [✅ N1 bản V2.1] → [■ N4 Bảng mục tiêu] → [□ N2 GPT rà, sửa thẳng] → [□ N3 thử trên Sổ PG] → [□ Sửa AGENTS theo kết quả thử].
 - ✅ Đã xong: N1 — [view.html](view.html) V2.1: **giữ đủ định nghĩa, vai, cấu trúc, quy trình V1 của GPT** (nhãn V1) + bổ sung: từ điển có cột «không phải», form L/Đ/N/C/Báo cáo, 17 thao tác (ai · ghi đâu · làm thế nào), lượt agent 8 bước, khi nào hỏi Owner, 10 lỗ hở, bảng V2 khác V1. §4 bên dưới đã viết theo form. N4.C2: [Bảng mục tiêu](view.html#ban-do-muc-tieu) thay hình minh hoạ — «Hỏi gì → nhìn đâu» + 4 bảng (Mục tiêu lớn · Đầu vào · Mục tiêu nhỏ × Checkpoint · Báo cáo), dưới mỗi bảng ghi ai thêm, thêm thế nào; thêm thao tác 3.18 chuyển checkpoint chưa xong sang N sau.
-- ■ Đang làm: N4 · claude-chat · chỉnh ma trận và [Thông tin đầu vào](view.html#dau-vao) cùng Owner (20:55: khung 8 mục — dùng cho ai · nguyên liệu · dụng cụ · quyền · ràng buộc · đã chốt · còn thiếu · ghi chú; Host điền 1, 5, 6; agent khảo sát điền 2, 3, 4, 7).
+- ■ Đang làm: N4 · claude-chat chỉnh ma trận và Đầu vào cùng Owner; GPT Chat chỉ sửa phần Thông tin đầu vào: quy tắc CẦN → CÓ → THIẾU → N chuẩn bị/khảo sát. 0 RUN kỹ thuật.
 - ⬜ Còn lại: N4 chốt bảng + quy tắc vẽ; N2 GPT rà (gồm cả bảng); N3 thử trên Sổ PG; N5 trang Task tự vẽ (đề xuất); sửa AGENTS sau khi thử đạt.
-- ➡ Kế tiếp: gpt-chat cho ý kiến khung «Thông tin đầu vào» (Owner 20:55: «GPT sẽ có ý kiến sau») — ghi thẳng vào view.html #dau-vao hoặc Ghi chú N4; Owner hướng dẫn tiếp; claude-chat sửa thẳng. Mọi AI đọc «Đầu vào chung» trước khi đề xuất, duyệt, làm; commit ghi mã dòng («· N4.C2 ·», «· Đ6 ·»). NEXT_TRIGGER=GPT_REVIEW_INPUT_FRAME.
+- ➡ Kế tiếp: Owner và claude-chat rà phần Đầu vào đã sửa theo lời Owner (thiếu nguồn phải thêm N chuẩn bị trước N phụ thuộc); tiếp tục N4, sau đó GPT rà N2 rồi thử N3. NEXT_TRIGGER=CLAUDE_OWNER_REVIEW_INPUT_PREPARATION_RULE.
 - 😊 Owner cần quyết (không gấp): mục tiêu lớn 3 (+) «Sửa luật AGENTS theo cách làm mới» — đề xuất: GẬT, làm sau khi chạy thử đạt.
 - ⛔ Không làm/để sau: chưa sửa luật AGENTS, chưa tác động code, VPS hoặc production.
 
@@ -45,6 +45,8 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ 
 26. Owner 30/10/2026 20:44 (viết lại đúng ý): Claude hiểu nhầm ý mục 25. Đầu vào = để làm được mục tiêu, hiện ta đang có gì — ngữ cảnh để triển khai, đủ để ra quyết định (ví dụ nấu cơm cần: gạo, điện, nồi cơm điện, nước, số người ăn, giờ cần cơm chín). Hiện mỗi AI khi làm, khi đánh giá lại đều phải tự kiểm lại thông tin, mà vẫn có lúc quên cái cơ bản nhất (vd PG đang ở phiên bản nào). Cần ý kiến chuyên môn: nên thống kê những gì, quy định thế nào để mọi AI hiểu thống nhất — không phải chỉ liệt kê sự kiện.
 27. Owner 30/10/2026 20:55 (viết lại đúng ý): ghi thành quy định theo chuẩn ngành để mọi AI hiểu giống nhau, đúng cái cần hiểu, không thừa, nhất quán trong mọi việc; GPT có ý kiến sau. Nguyên tắc: làm việc gì cũng có điều kiện đầu vào và mục tiêu đầu ra — mục tiêu đã chốt, giờ quy định đầu vào. Có form và hướng dẫn tốt thì agent nào cũng điền được, thành tự động. Đồng ý một phần do máy làm, nhưng phải nghĩ cho mọi loại việc; với từng việc chỉ là trả lời các câu hỏi — làm sẵn form + hướng dẫn, agent khảo sát và điền. Phần nào cũng có ô ghi chú/bổ sung cho thứ không theo chuẩn.
 
+28. Owner 30/10/2026 21:23 (GPT Chat): «có những việc thiếu => plan lập tức phải bổ sung mục tiêu con về chuẩn bị nguồn»; không được bắt tay làm ngay rồi tắc mới báo thất bại. Giao GPT sửa trực tiếp phần Thông tin đầu vào, giữ khung Claude đã làm; sau ví dụ và thử nghiệm, đóng gói thành pack chuẩn dùng lại khi mở task mới (chưa triển khai pack).
+
 ### 2. Thế nào là hoàn thành
 “Định nghĩa từng việc khái niệm. Cần làm gì với từng khái niệm, quy trình tạo 1 task mới thế nào? Quy trình cập nhật kế hoạch thế nào? Ai làm gì? Cùng nhau làm việc này cho rõ ràng để thay đổi cách làm với hy vọng là tiến độ nhanh hơn” — Owner 30/10/2026.
 
@@ -71,7 +73,7 @@ L1 = §1 + §2 ở trên (Owner).
 - L3 · + Sửa luật AGENTS theo cách làm mới · ĐỀ XUẤT (claude-chat, từ lộ trình «Sửa AGENTS sau khi thử đạt») · Xong khi: AGENTS ghi đúng cách làm đã chạy thử đạt · chờ Owner gật (thao tác 3.3) · mục tiêu nhỏ (+ đề xuất cùng L3): N8, N9 (ma trận mục 3).
 
 #### Đầu vào chung
-> 🤖 Biển: khung 8 mục cố định, đúng thứ tự, mục nào cũng có trả lời (không áp dụng → «không cần»). Mỗi dòng: mã Đx · trả lời cụ thể · nguồn · kiểm: ngày + ai · tình trạng (● có · ○ chưa kiểm · 🟡 cần kiểm lại · 🔴 thiếu/sai). Cách điền, ai điền: [view.html › Thông tin đầu vào](view.html#dau-vao). Không xoá dòng; sai → 🔴 «sai, thay bằng Đx».
+> 🤖 Biển: Đầu vào dùng chung cho Task, đúng 8 mục. Mỗi Đx phải trả lời **CẦN gì → HIỆN CÓ gì → nguồn/bằng chứng → ĐỦ chưa**. Thiếu nguồn thiết yếu cho Nx ⇒ **đề xuất N chuẩn bị/khảo sát ngay, đứng sau phần đang làm nhưng trước Nx**, gắn `Nx cần trước: N chuẩn bị · Đx`; nếu đã có N chuẩn bị thì liên kết, không tạo trùng. Host duyệt N trước khi chạy; không lao vào làm rồi DỪNG vì thiếu nguồn. Chỉ chặn Nx phụ thuộc, việc khác tiếp tục. Kiểm lại dữ kiện động/quyền trước khi dùng, không khảo sát lại toàn bộ mỗi RUN. Trạng thái: ● đủ/đã kiểm · ○ chưa kiểm · 🟡 cần kiểm lại · 🔴 thiếu/sai. Sai thì đánh dấu dòng cũ «sai, thay bằng Đy» và thêm dòng mới có nguồn, không xoá dấu vết. Chi tiết: [view.html › Thông tin đầu vào](view.html#dau-vao).
 - 1 Dùng cho ai · khi nào · bao nhiêu
   - Đ7 · Owner và mọi AI hội đồng; áp cho mọi việc trên trang Task (11 việc) · nguồn: Owner 30/10 14:57 · trang Task · kiểm: 30/10 · Claude · ●
   - Đ8 · Hạn: Owner chưa nêu · nguồn: — · kiểm: — · ○
@@ -95,8 +97,8 @@ L1 = §1 + §2 ở trên (Owner).
   - Đ4 · Hội đồng và kế hoạch ở GitHub; trang Task chỉ đọc lại; PG không tham gia · nguồn: Owner 30/10 15:29, 17:23 · kiểm: 30/10 · Owner · ●
   - Đ5 · Ký = ghi danh khi ghi lên repo; chưa ghi = chưa có · nguồn: Owner 30/10 17:23 · kiểm: 30/10 · Owner · ●
 - 7 Còn thiếu
-  - Đ18 · Chưa có việc thật để chạy thử (đề xuất Sổ PG — mục 1.4 ma trận, chờ duyệt) · nguồn: ma trận 1.4 · kiểm: 30/10 · Claude · 🔴
-  - Đ6 · Cơ chế ghi danh (vé tạm khi ghi) do phiên khác làm — chưa thấy chạy · nguồn: Owner 30/10 17:23 · kiểm: — · ○
+  - Đ18 · Cần: việc Sổ PG được duyệt để chạy thử thật. Hiện: N3 vẫn ĐỀ XUẤT, chưa đủ đầu vào. Chuẩn bị: N3.C1 đã có bước lập kế hoạch; nếu còn thiếu thì đề xuất N chuẩn bị trước N3 (không làm trùng) · nguồn: ma trận 1.4, N3.C1 · kiểm: 30/10 · GPT Chat đối chiếu repo · 🔴
+  - Đ6 · Cần: cơ chế ghi danh khi bước triển khai yêu cầu xưng danh. Hiện: phiên khác đang làm, chưa xác minh chạy thật; chỉ kiểm trước N phụ thuộc, không chặn thiết kế form hiện tại · nguồn: Owner 30/10 17:23 · kiểm: chưa đo live · ○
 - 8 Ghi chú, bổ sung
   - Đ19 · Bảng mục tiêu cũ (4 bảng) giữ lại tới khi ma trận được chốt · nguồn: Owner 30/10 15:48 · kiểm: 30/10 · Claude · ●
 
