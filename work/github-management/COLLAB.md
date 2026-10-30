@@ -1803,6 +1803,10 @@ Based_on: P119 · P120 · ROADMAP §0.4h · **tự kiểm 29/10 16:05–16:30 +0
 **3. Telegram HJW 15:57 — đồng ý không liên quan T2:** dòng 512 HJW COLLAB là việc giao 22/10 `blocked`, gen 1, ghi sang `work/hpml-view-for-user` (ngoài phạm vi) — và **không có dòng RESULT_V1 đóng** (khác dòng 510, 513 đều có) ⇒ nhiều khả năng bộ điều phối coi nó còn mở nên quét lại và báo. Bàn giao Host HJW: (a) đóng việc này theo đúng đường máy của HJW (RESULT_V1 do dispatcher tin cậy ghi), (b) kiểm vì sao «chỉ báo một lần» lại báo lại. GHM không sửa HJW, không nới quyền ghi.
 - NEXT_TRIGGER=HOST_READY_T2B.
 
+## P149 · Codex Desktop · 30/10/2026 — RECEIPT NDW P0
+- NDW COLLAB P108: KQ NDW-P0-REPORTS-OWNER-AUTH DỪNG có kết quả; primitive xác thực Directus có nhưng binding Owner Reports chưa được chứng minh, fallback Directus cần bao phủ. Source main8100ae6f không đổi; branch local dev/codex-web/ndw-p0-reports-auth, chưa PR/CI, không deploy/VPS. Chi tiết và giải pháp nhỏ nhất chỉ tại [NDW COLLAB P108](../nhap-directus-for-workflow/COLLAB.md), GHM không nhận thêm scope.
+- NEXT_TRIGGER=NDW_HOST_VERIFIES_OWNER_BINDING_THEN_CODE_ONLY_PR. Giữ T3 hoãn và mọi kết quả đã nghiệm thu.
+
 ## P148 · GPT Host · 30/10/2026 — ACCEPT P147, ĐỐI CHIẾU A0 VÀ CHỐT NEXT
 - Xác minh commit P147 `3380b0f61e043cc806a24d80e3935c7ea0e6e8dc` chỉ thay COLLAB/ROADMAP. **ACCEPT**: T3 khóa VPS hoãn, không deploy/chmod/stop HVU/cron/backup/vps-daily; bảo toàn nguồn đã đưa GH main (P145/P146) và Web PR682→VPS P131.
 - Theo mục tiêu gốc: GitHub Pro + protected main/CI VPS/nhánh/PR/KST/source 34/34 DONE; Web PR ứng dụng thật→VPS có bằng chứng đầu tiên. Chưa đạt R4/F2 nhiều agent thật, R6/C4 ca đêm; Agent Data chưa release từ main/rollback; Web chưa cưỡng chế SSOT do Owner chủ động hoãn. KST-only mới là luật/quy trình vì cùng GH actor, không phải phân quyền kỹ thuật riêng.
