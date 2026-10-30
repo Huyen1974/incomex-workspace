@@ -103,7 +103,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 - ✅ **Đã xong:** kết luận lỗi nằm ở bộ nạp/refresh, 83 dòng native inventory, C1-A–D scoped, B0 -01 chưa chạy.
 - ■ **Đang làm:** — · 0 RUN active. Host đã soạn PROMPT SYNC-CORE candidate, chưa có production.
 - ⬜ **Còn lại:** R1–R6 code+multi-cycle sandbox; LIVE cần Owner quyết R7 sau benchmark/restore; F usage ≥13/11, G Git/runtime, H KB/Qdrant, Z.
-- ➡ **Kế tiếp:** NEXT_TRIGGER=OWNER_DISPATCH_GS_COV2_SYNC_CORE_02 · READY@63b7fb1939826248aeb43b7c31ddea065059ef8b · Claude Code CLI Mac, one-CLI; OWNER CHƯA DISPATCH.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=OWNER_DISPATCH_GS_COV2_SYNC_CORE_02 · READY đã ký tại P-ONEPASS-HOST-B9 · Claude Code CLI Mac, one-CLI; OWNER CHƯA DISPATCH.
 - ⛔ **Không:** nới hardcode/giới hạn để đủ một lần; tự bỏ Guard/D23, RUN B0 -01/K4, merge PR683, thêm task/file không phép.
 - 📄 **Nguồn:** Claude B8 @afa97461; Host B9; GS-RM1; PROMPT SYNC-CORE.
 #### Lịch sử Board Claude B8
@@ -1579,7 +1579,7 @@ Hệ quả: các vòng sửa trước đây đều là «nới danh sách / nân
 | K4 · Read-time source version | live cheap fingerprint vs cert baseline, changed/missing => NOT_ACTION_SAFE | ■ P304 DRAFT_BLOCKED_RESOURCE: P301 dấu gốc 6 lớp + Nuxt có sẵn, wrapper/rollback/fixture sẵn; còn FAIL bộ đọc nuốt lỗi 2 chỗ + RAM <3GiB; no READY |
 | GS-COV2-K0-LIVE · NATIVE→GRAPH THỰC + GH SSOT | Dữ liệu thật đọc-only qua DOT đúng quyền, host runtime native; candidate Graph cô lập; so object+edge ID/hash, sửa detection và trả Pivot 23 nhóm có bằng chứng usage; stale/read-error phải báo MỘT PHẦN | 🟡 Lịch sử lệnh B6; hiện P đã XONG có giới hạn, K0 DỪNG, GPT Host B7 nghiệm thu; next B0 canonical ID+fail-closed rồi mới nạp dữ liệu |
 | GS-FULL-ONEPASS · TỔNG KIỂM KÊ COVERAGE | Một Claude CLI chỉ đọc: ngoài G1–G9, native class/edge nội bộ mỗi nguồn, scope discovery/usage/lineage, độc lập source↔Graph và negative-tests; chốt toàn bộ GAP & kế hoạch sửa thống nhất | ✅ **KQ XONG 30/10 08:25Z (Claude Code, chỉ đọc, 0 ghi)**: ma trận 83 dòng (79 trong phạm vi) — ĐỦ 6 (≈8%), kiểm kê native có số 77/79; 32 lớp ngoài danh mục, 24 lớp đọc được chưa nạp, 11 fixture 5 PASS/6 GAP (1 xanh giả tiềm ẩn F6), làm mới đêm 4 đêm không áp; roadmap GS-COV2 A∥B→C→D→E→F→G→H→Z; công cụ `tools/onepass/`; NEXT GPT Host nghiệm thu + ký A1+B |
-| GS-SYNC-CORE · RUN02 | R1–R6 code candidate khắc phục K1–K5; full vendor catalog, oracle độc lập, ≥3 sandbox cycle (add/retire/change/skip/error/replay), R7 diff chưa áp | 🔵 READY@63b7fb1939826248aeb43b7c31ddea065059ef8b · ký đúng PROMPT last-touch, 0 STARTED, OWNER_CHUYỂN_TAY; KHÔNG production |
+| GS-SYNC-CORE · RUN02 | R1–R6 code candidate khắc phục K1–K5; full vendor catalog, oracle độc lập, ≥3 sandbox cycle (add/retire/change/skip/error/replay), R7 diff chưa áp | 🔵 READY hợp lệ theo chữ ký Host B9; 0 STARTED, OWNER_CHUYỂN_TAY; KHÔNG production |
 | GS-SYNC-LIVE · sau CORE | triển khai các adapter host/Directus/PG bằng contract chung, source-level refresh + Guard/D23/backup/rollback/generation, benchmark SLA; Owner quyết R7 riêng | ⬜ NOT_READY; không giant mutation |
 | GS-SYNC-LIVE-3CYCLE | ≥3 nhịp nguồn thực add/retire/change edge, oracle độc lập mỗi lần, 0 false-green và thực đo chi phí | ⬜ NOT_READY; sandbox không thay live evidence |
 | GS-COV2-B0 · CANONICAL ID + FAIL-CLOSED (lịch sử) | B0 -01 không chạy; nội dung vào R1–R3 của SYNC-CORE | ⛔ SUPERSEDED_BEFORE_START 31/10 |
