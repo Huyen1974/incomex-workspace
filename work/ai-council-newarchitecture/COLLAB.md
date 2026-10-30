@@ -5,15 +5,15 @@ HTML chính: view.html
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ đạo «không bàn nữa mà làm»: chốt 5 việc Owner quyết + quy trình Mục tiêu lớn → Mục tiêu nhỏ → Checkpoint (§1 mục 9), sửa thẳng bản thiết kế, GPT góp thêm rồi chạy thử. Host: GPT Chat (đề xuất, Owner chưa chỉ định riêng). Chưa đổi AGENTS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 16:00 +07 · Claude Chat · N1 XONG (V2.1 giữ đủ V1 + form + thao tác), N2 giao GPT
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 16:20 +07 · Claude Chat · N4 ĐANG LÀM: mẫu Bản đồ mục tiêu chờ Owner chỉnh
 - 🎯 Mục tiêu: Owner chỉ quyết 5 việc; còn lại AI chạy theo Mục tiêu lớn (L) → Đầu vào chung (Đ) → Mục tiêu nhỏ (N) → Checkpoint (C) với từ điển + form khai chung, agent khảo sát và đề xuất nhiều nhất, hội đồng tập trung giám sát.
 - 🏁 Xong khi: từ điển + form + thao tác ở [view.html](view.html) chạy thử đạt trên ≥ 1 việc thật, đo chỉ số ([mục 8](view.html#muc-8)); lỗ gặp khi thử đã vá vào form.
-- 📍 Tiến độ: [✅ N1 bản V2.1] → [■ N2 GPT rà, sửa thẳng] → [□ N3 thử trên Sổ PG] → [□ Sửa AGENTS theo kết quả thử].
-- ✅ Đã xong: N1 — [view.html](view.html) V2.1: **giữ đủ định nghĩa, vai, cấu trúc, quy trình V1 của GPT** (nhãn V1) + bổ sung: từ điển có cột «không phải», form L/Đ/N/C/Báo cáo, 17 thao tác (ai · ghi đâu · làm thế nào), lượt agent 8 bước, khi nào hỏi Owner, 10 lỗ hở, bảng V2 khác V1. §4 bên dưới đã viết theo form.
-- ■ Đang làm: — · 0 RUN active.
-- ⬜ Còn lại: N2 GPT rà từ ghế agent, sửa thẳng; N3 thử trên Sổ PG; sửa AGENTS sau khi thử đạt.
-- ➡ Kế tiếp: **gpt-chat làm N2** theo §4 (sửa thẳng view.html, ghi chú mỗi chỗ đổi). NEXT_TRIGGER=GPT_N2_REVIEW_V2_DIRECT_EDIT.
-- 😊 Owner cần quyết: không.
+- 📍 Tiến độ: [✅ N1 bản V2.1] → [■ N4 mẫu Bản đồ mục tiêu] → [□ N2 GPT rà, sửa thẳng] → [□ N3 thử trên Sổ PG] → [□ Sửa AGENTS theo kết quả thử].
+- ✅ Đã xong: N1 — [view.html](view.html) V2.1: **giữ đủ định nghĩa, vai, cấu trúc, quy trình V1 của GPT** (nhãn V1) + bổ sung: từ điển có cột «không phải», form L/Đ/N/C/Báo cáo, 17 thao tác (ai · ghi đâu · làm thế nào), lượt agent 8 bước, khi nào hỏi Owner, 10 lỗ hở, bảng V2 khác V1. §4 bên dưới đã viết theo form. N4.C1: mẫu [Bản đồ mục tiêu](view.html#ban-do-muc-tieu) — hình = loại, màu = trạng thái, chữ chỉ khi rê chuột.
+- ■ Đang làm: N4 · claude-chat · chỉnh mẫu Bản đồ mục tiêu cùng Owner.
+- ⬜ Còn lại: N4 chốt mẫu + quy tắc vẽ; N2 GPT rà (gồm cả bản đồ); N3 thử trên Sổ PG; N5 trang Task tự vẽ (đề xuất); sửa AGENTS sau khi thử đạt.
+- ➡ Kế tiếp: Owner xem mẫu [Bản đồ mục tiêu](view.html#ban-do-muc-tieu), nói chỗ cần chỉnh; claude-chat sửa thẳng. Sau đó gpt-chat làm N2. NEXT_TRIGGER=OWNER_ADJUST_GOAL_MAP_SAMPLE.
+- 😊 Owner cần quyết: không — chỉ góp ý chỉnh mẫu.
 - ⛔ Không làm/để sau: chưa sửa luật AGENTS, chưa tác động code, VPS hoặc production.
 
 ### 1. Mục tiêu
@@ -28,6 +28,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ 
 9. Owner 30/10/2026 14:57 (viết lại đúng ý): **Không bàn nữa, phải làm.** Owner chỉ quyết 5 việc: (1) mục tiêu lớn; (2) bổ sung, hiệu chỉnh mục tiêu lớn; (3) việc hội đồng không dám quyết; (4) việc luẩn quẩn 2–3 vòng không thoát — hoàn thiện dần quy tắc khi nào phải hỏi Owner; (5) giám sát qua GPT live/DOT/Duet…, thấy không ổn thì chỉ đạo bổ sung qua các bề mặt đó. Nguyên tắc: có mục tiêu lớn + hiểu sơ bộ đầu vào thì mọi AI đều đưa ra được mục tiêu nhỏ, rồi checkpoint. Cần: (a) **form khai** cho mục tiêu lớn, mục tiêu nhỏ, checkpoint — hướng dẫn ngắn, mọi AI hiểu và làm giống nhau; (b) chỉ rõ từng thao tác **làm thế nào, ghi vào đâu**: thêm mục tiêu lớn, thêm mục tiêu nhỏ, đổi thứ tự mục tiêu nhỏ, thêm checkpoint, đổi thứ tự checkpoint; (c) **đứng ở vị trí agent phải làm** để kiểm hướng dẫn có làm được không; (d) rà kỹ quy trình cho ít hở rồi chạy thử, hoàn thiện dần, làm nhanh; (e) sửa thẳng vào tài liệu, GPT góp thêm, rồi đưa vào thử nghiệm.
 10. Owner 30/10/2026 15:02: phải giữ các định nghĩa để bất cứ AI nào vào cũng hiểu nó là cái gì và hiểu thống nhất — không định nghĩa từ ngữ thì mỗi AI hiểu một kiểu.
 11. Owner 30/10/2026 15:07: định nghĩa viết trước đó (V1) có lý của nó — khái niệm lạ như mục tiêu lớn, mục tiêu nhỏ, checkpoint… không làm rõ thì AI không hiểu để làm. **Không xóa sạch; phải đọc cái cũ đang làm gì trước khi sửa; không hiểu mà sửa của người khác là rất tệ.**
+12. Owner 30/10/2026 15:23 (viết lại đúng ý): sản phẩm cuối cùng là **một hình vẽ trực quan, ít chữ** cho một mục tiêu lớn (Mục tiêu lớn / danh sách đầu vào / mục tiêu con / checkpoint) — cả người và AI nhìn vào là hiểu tiến trình đang thế nào. Dữ liệu phải đổ vào và hiện cho Owner và mọi AI cùng đọc. Theo cách đã làm được ở phần Công thức (mow-mot-moit-mout): ngắn, ít chữ — rác AI tạo ra đều bắt đầu từ nhiều chữ. Vẽ một mẫu bảng ít chữ + hình họa, đặt ở đầu phần Cấu trúc và quy trình, rồi cùng điều chỉnh. (Phần định nghĩa là danh sách, giữ như cũ.)
 
 ### 2. Thế nào là hoàn thành
 “Định nghĩa từng việc khái niệm. Cần làm gì với từng khái niệm, quy trình tạo 1 task mới thế nào? Quy trình cập nhật kế hoạch thế nào? Ai làm gì? Cùng nhau làm việc này cho rõ ràng để thay đổi cách làm với hy vọng là tiến độ nhanh hơn” — Owner 30/10/2026.
@@ -77,8 +78,18 @@ L1 = §1 + §2 ở trên (Owner).
 - Lỗi đã sửa trong N1: bản V2 lần đầu (e5e755d1) xoá phần V1 khi chưa đọc kỹ — Owner nhắc 15:07, đã khôi phục ở C6.
 - Nghiệm thu: (GPT làm ở N2)
 
+#### N4 · Mẫu Bản đồ mục tiêu · ĐANG LÀM · claude-chat · 30/10 16:10
+- Thuộc: L1 · Cần trước: N1 · Người làm: claude-chat · Ước: 1h
+- Xong khi: Owner nhìn mẫu là hiểu tiến trình của một mục tiêu lớn; mỗi hình/màu ứng đúng một trường của form §4 (vẽ được từ dữ liệu, không thêm chữ ngoài form); Owner đồng ý mẫu.
+- Được làm: 👁 · ✍ work/ai-council-newarchitecture/
+- Đề xuất: Owner 30/10 15:23 · Duyệt: Owner trực tiếp
+- C1 🟢 Vẽ mẫu theo khuôn Công thức: dòng công thức, chú thích hình = loại / màu = trạng thái, thẻ mục tiêu lớn có thanh tiến độ, ô đầu vào, chuỗi mục tiêu nhỏ + chấm checkpoint · bằng chứng: view.html #ban-do-muc-tieu, commit b543f6fb; đã xem ở 1100px và 400px · 30/10 16:15 · claude-chat
+- C2 ⬜ Chỉnh theo góp ý Owner · Đạt khi: Owner đồng ý mẫu
+- C3 ⬜ Ghi quy tắc vẽ «trường form → hình/màu» (để máy vẽ tự động ở N5) · Đạt khi: mỗi trạng thái N, C, Đ có đúng một cách vẽ
+- Ghi chú: N4 chèn trước N2 (thao tác 3.5 + 3.8) để GPT rà luôn cả bản đồ · claude-chat 30/10
+
 #### N2 · GPT rà V2 từ ghế agent, sửa thẳng, chốt bản thử · DUYỆT
-- Thuộc: L1 · Cần trước: N1 · Người làm: gpt-chat · Ước: 1h
+- Thuộc: L1 · Cần trước: N4 · Người làm: gpt-chat · Ước: 1h
 - Xong khi: view.html là bản Host chốt để thử; mỗi chỗ GPT sửa có 1 dòng «Ghi chú» dưới đây; không còn điểm bất đồng mở với Claude.
 - Được làm: 👁 · ✍ work/ai-council-newarchitecture/
 - Đề xuất: claude-chat 30/10 · Duyệt: Owner 30/10 14:57 («GPT đóng góp thêm rồi đưa vào thử nghiệm»)
@@ -96,6 +107,16 @@ L1 = §1 + §2 ở trên (Owner).
 - C1 ⬜ Host Sổ PG chuyển việc còn lại thành L1 + N theo form · Đạt khi: §4 bên Sổ PG có ≥ 2 N DUYỆT
 - C2 ⬜ Lượt agent đầu tiên bằng lệnh một dòng · Đạt khi: ≥ 1 N XONG, C tích đủ bằng chứng
 - C3 ⬜ Đo chỉ số, ghi lỗ mới vào view.html Bảng 7 · Đạt khi: Bảng 8 có cột kết quả thử
+- Ghi chú:
+
+#### N5 · Trang Task tự vẽ Bản đồ mục tiêu từ §4 · ĐỀ XUẤT
+- Thuộc: L1 · Cần trước: N4 · Người làm: (Host chọn — claude-code hoặc codex) · Ước: 3h
+- Xong khi: trang Task đọc §4 của mọi việc và vẽ đúng mẫu N4; sửa §4 xong mở trang Task thấy hình đổi theo; vệc thiếu §4 hiện «chưa có kế hoạch».
+- Được làm: 👁 · ✍ nhánh + PR mã trang Task (scripts/hvu-b2) · merge/deploy theo KST
+- Đề xuất: claude-chat 30/10 · Duyệt: —
+- C1 ⬜ Bộ đọc §4 ra dữ liệu L/Đ/N/C · Đạt khi: đọc đúng §4 của việc này
+- C2 ⬜ Vẽ theo quy tắc N4.C3 · Đạt khi: ảnh chụp khớp mẫu
+- C3 ⬜ PR xanh, KST merge · Đạt khi: trang Task thật hiện hình
 - Ghi chú:
 
 ### Vòng trước
