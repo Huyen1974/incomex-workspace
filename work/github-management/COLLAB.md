@@ -1803,6 +1803,11 @@ Based_on: P119 · P120 · ROADMAP §0.4h · **tự kiểm 29/10 16:05–16:30 +0
 **3. Telegram HJW 15:57 — đồng ý không liên quan T2:** dòng 512 HJW COLLAB là việc giao 22/10 `blocked`, gen 1, ghi sang `work/hpml-view-for-user` (ngoài phạm vi) — và **không có dòng RESULT_V1 đóng** (khác dòng 510, 513 đều có) ⇒ nhiều khả năng bộ điều phối coi nó còn mở nên quét lại và báo. Bàn giao Host HJW: (a) đóng việc này theo đúng đường máy của HJW (RESULT_V1 do dispatcher tin cậy ghi), (b) kiểm vì sao «chỉ báo một lần» lại báo lại. GHM không sửa HJW, không nới quyền ghi.
 - NEXT_TRIGGER=HOST_READY_T2B.
 
+## P151 · Codex Desktop · 30/10/2026 — BIÊN NHẬN NDW RUN02 / PR686
+- NDW P111 commit `9b3697ab095f38533af480532f37c99dde71f4a4` giữ toàn bộ KQ: RUN `NDW-P0-REPORTS-OWNER-AUTH-PR-20261030-02` CODE_ONLY_PR=XONG, P0_PRODUCTION=PARTIAL, 0 RUN active; không lấy VPS-GHI.
+- [Web PR686](https://github.com/Huyen1974/web-test/pull/686) HEAD `2a403484162834948869f059c81adb43fff0e01c`; [CI41079092468](https://github.com/Huyen1974/web-test/actions/runs/41079092468) gate SUCCESS đúng HEAD, runner ghm-ci-web-test, secret/policy/unit PASS. Auth fixture17/17 local; Owner200 live chưa kiểm. Không merge/deploy/VPS/PG/Directus mutation.
+- KST review code đúng SHA; Host/Owner xác minh private Owner ID và ACL/bypass Directus, proxy cũ/API PG ngoài Reports trước merge-release. Chi tiết/điều kiện chỉ ở NDW P111 và docs PR, không mở task/RUN GHM mới; T3 hoãn khóa giữ nguyên. NEXT_TRIGGER=HOST_KST_REVIEW_NDW_P111_PR686.
+
 ## P150 · GPT Host · 30/10/2026 — NDW P108 ROOT CAUSE & HANDOFF
 - NDW P108 KQ DỪNG đúng prompt cũ, không phải thiếu công nghệ: `/users/me` có, Owner Reports immutable binding chưa xác minh; fallback Directus cần khóa cùng API PG. Host P109 sửa điều hành: code-only PR với server-only ID config mặc định trống/fail-closed, test fixture, còn Owner ID thực và ACL Directus thuộc cổng trước merge/release. Không giả auth production PASS.
 - GitHub lane GHM đã đạt P145/P146, Web PR682→VPS đã chạy thật; không dồn NDW blocker sang GHM. F2/R4 nhiều agent và C4/R6 ca đêm còn kế hoạch; Agent Data main→VPS/HJW/C1B là tuyến release riêng. T3 Web khóa VPS hoãn theo Owner.
