@@ -1,0 +1,111 @@
+[
+ {
+  "case": "F1 cron DISABLED≠ABSENT",
+  "verdict": "GAP",
+  "observed": {
+   "active": 2,
+   "disabled": 1,
+   "deleted": 1
+  },
+  "expected": "disabled giữ dòng với trạng thái DISABLED + thẻ tắt",
+  "cause": "cron_read bỏ mọi dòng bắt đầu '#' ⇒ tắt có chủ đích và đã xoá cho cùng tập đối tượng; chỉ cron_files_read (băm tệp) thấy đổi"
+ },
+ {
+  "case": "F2 cron mọi user spool",
+  "verdict": "PASS",
+  "observed": [
+   "/var/spool/cron/crontabs/incomex",
+   "/var/spool/cron/crontabs/root"
+  ],
+  "expected": "cả root lẫn incomex",
+  "cause": ""
+ },
+ {
+  "case": "F3 cron NO_ACCESS",
+  "verdict": "PASS",
+  "observed": {
+   "ok": false,
+   "access": "NO_ACCESS"
+  },
+  "expected": "ok=False access=NO_ACCESS",
+  "cause": ""
+ },
+ {
+  "case": "F4 nginx include + location một dòng",
+  "verdict": "GAP",
+  "observed": [
+   "http://nuxt:3000"
+  ],
+  "expected": "3 cạnh PROXIES (2 nuxt + 1 claude-mcp)",
+  "cause": "INCLUDE_CONTEXT_LOST: nginx -T in tệp include sau khối server, bộ đọc chỉ nhận proxy_pass khi đang trong 'server {' ⇒ mất tuyến connector; ONE_LINE_LOCATION: 'location … { proxy_pass …; }' một dòng không khớp ^proxy_pass"
+ },
+ {
+  "case": "F5 systemd socket/path/drop-in",
+  "verdict": "GAP",
+  "observed": {
+   "units": [
+    "a.service"
+   ],
+   "execs": [
+    "/usr/bin/a"
+   ]
+  },
+  "expected": "a.service+a.socket+b.path; EXECS theo drop-in /opt/x/real-a",
+  "cause": "systemd_read chỉ lấy .service/.timer tệp thường; bỏ drop-in *.d/ (ExecStart thật có thể nằm ở override)"
+ },
+ {
+  "case": "F6 lệnh docker images lỗi ⇒ không được ĐỦ",
+  "verdict": "GAP",
+  "observed": {
+   "docker_read.ok": false,
+   "source_ok": true,
+   "status": "ĐỦ tại T",
+   "proof": "NATIVE_EMPTY_CLASS (bộ đọc gốc đọc trọn, lớp rỗng; Graph không cần nút)"
+  },
+  "expected": "MỘT PHẦN READER_FAIL",
+  "cause": "docker_read trả ok=False nhưng source_for(docker) chỉ kiểm 'error' ⇒ tập rỗng ⇒ NATIVE_EMPTY_CLASS ⇒ ĐỦ GIẢ (FALSE_GREEN)"
+ },
+ {
+  "case": "F7 PG NO_ACCESS",
+  "verdict": "PASS",
+  "observed": {
+   "ok": false,
+   "access": "NO_ACCESS"
+  },
+  "expected": "NO_ACCESS",
+  "cause": ""
+ },
+ {
+  "case": "F8 bảng mới / flow mới ⇒ ADD",
+  "verdict": "PASS",
+  "observed": {
+   "directus.directus_flow": 1,
+   "directus.table": 1
+  },
+  "expected": "{directus.table:1, directus.directus_flow:1}",
+  "cause": "phát hiện ở tầng kiểm kê/cảnh báo; KHÔNG có nút Graph cho flow (lớp chưa nạp) ⇒ thấy-mà-không-nạp"
+ },
+ {
+  "case": "F9 Qdrant scroll thiếu trang",
+  "verdict": "PASS",
+  "observed": "READER_FAIL qdrant None complete=False before=5 after=5 scrolled=3",
+  "expected": "READER_FAIL",
+  "cause": ""
+ },
+ {
+  "case": "F10 kho git ngoài /opt/incomex",
+  "verdict": "GAP",
+  "observed": [
+   "/opt/incomex"
+  ],
+  "expected": "/opt/incomex + /opt/incomex-cowork",
+  "cause": "git_repos_read chỉ glob /opt/incomex/** (sâu ≤3) ⇒ mã đang chạy coworkd/cowork-mcp ngoài phạm vi"
+ },
+ {
+  "case": "F11 truy vấn có LIMIT cứng",
+  "verdict": "GAP",
+  "observed": "directus_audit_window … LIMIT 500",
+  "expected": "phân trang hoặc cờ truncated",
+  "cause": "chỉ là tín hiệu (SIGNAL_COUNTER_ONLY); >500 cặp collection/action ⇒ cắt im, không cờ truncated"
+ }
+]
