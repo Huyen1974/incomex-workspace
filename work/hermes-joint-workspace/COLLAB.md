@@ -483,7 +483,8 @@
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 · GPT Host P485 · **RUN22 CI 202 PASS SCOPED · RUN23 CODEX KB COVERAGE READY · 0 RUN ACTIVE · NO MERGE/DEPLOY**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 · Codex Desktop P486 · **RUN23 STARTED · KB SOURCE ONLY · NO MERGE/DEPLOY**
+- STARTED@HJW-G8-AD-KB-INGRESS-TRUSTED-FACTS-20261030-23 2026-10-30T14:46Z · executor=Codex Desktop/MacBook · READY@01e3e0d06a8db177d28e55114a2c618324cec7d1 verified; HEAD833bbc1/base6160f9ad/PR35736c68291 unchanged; no KB/VPS write.
 - **P485/B1:** Host kiểm GH CI run41065092635 (job124094142966) hoàn tất SUCCESS, preflight/scan/policy/Unit 202/202 PASS đúng PR358 HEAD833bbc1/base6160f9ad. P484 queued là trạng thái lúc báo; Host nâng kết quả RUN22 source checkpoint thành PASS, G8_SYSTEM chưa đạt. READY RUN23 Codex phủ KB write+trusted facts source-only.
 - **P484/KQ:** PR358 DRAFT HEAD833bbc1 chứa main6160f9ad bằng merge thường/non-force; 10 blobs PR giữ nguyên, PR35736c68291 không đổi. Mac202 PASS; run41065092635 queued/steps=[] nên preflight/Unit/gate chưa đạt. NEXT=GPT Host đọc CI này khi hoàn tất; chưa G8_AD_WEXEC_SOURCE_CI_PASS/G8_SYSTEM, 0 VPS/main write.
 - STARTED@HJW-G8-AD-BASE-SYNC-CI-20261030-22 2026-10-30T13:39Z · executor=Codex Desktop/MacBook · READY@bd2f115216828a626ac9bad06995f46afb69b772 verified; PR358 53c34ec/main6160f9ad/PR35736c68291; 0 VPS write.
