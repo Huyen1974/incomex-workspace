@@ -7,11 +7,14 @@
 <style>
 :root{color-scheme:light;font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#1d2939;background:#f6f7f9}
 *{box-sizing:border-box}
-body{margin:0;padding:24px 16px;line-height:1.55}
-main{max-width:960px;margin:auto}
+body{margin:0;padding:24px 16px;line-height:1.55;background:#f6f7f9}
+main{max-width:980px;margin:auto}
 h1{font-size:clamp(24px,3.2vw,32px);line-height:1.25;margin:0 0 8px}
 .lead{color:#586579;margin:0 0 20px;font-size:15px}
 .panel{border:1px solid #dce2e9;background:#fff;border-radius:14px;padding:24px}
+.owner{border:2px solid #9fd3b0;background:#f2fbf5;border-radius:12px;padding:14px 18px;margin:0 0 16px;font-size:15px}
+.owner h2{font-size:17px;margin:0 0 8px}
+.owner ol{margin:6px 0 0;padding-left:22px}
 details{border:1px solid #dfe5ec;border-radius:10px;margin:10px 0;overflow:hidden}
 summary{display:flex;align-items:center;gap:12px;padding:16px 18px;cursor:pointer;list-style:none;min-height:62px}
 summary::-webkit-details-marker{display:none}
@@ -21,146 +24,175 @@ summary:focus-visible{outline:3px solid #4b8add;outline-offset:-3px}
 .heading{font-size:17px;font-weight:700;flex:1}
 .chevron{font-size:21px;color:#6c7889;line-height:1;transition:transform .15s}
 details[open] .chevron{transform:rotate(180deg)}
-.body{padding:0 18px 16px 64px;border-top:1px solid #edf0f4;color:#5f6b7b}
-.body p{margin:14px 0 0}
+.body{padding:4px 18px 18px 64px;border-top:1px solid #edf0f4;font-size:15px;line-height:1.7;color:#334155;overflow-x:auto}
+.body p{margin:12px 0 0}
+.body h3{font-size:16px;margin:18px 0 8px}
+.small{font-size:14px;color:#65758b}
+.items{padding-left:22px;margin:10px 0}
+.items li{margin:6px 0}
+b.green,b.yellow,b.red,b.gray,b.blue{border-radius:5px;padding:2px 6px;white-space:nowrap;font-size:13px}
+.green{background:#dff6e7;color:#1a6a3e}.yellow{background:#fff1c9;color:#875d0b}
+.red{background:#ffe1e1;color:#a12222}.gray{background:#edf0f3;color:#546171}.blue{background:#e3eefc;color:#1f4f8f}
+table{width:100%;min-width:640px;border-collapse:collapse;font-size:14px;margin:12px 0}
+th,td{border:1px solid #dce3eb;padding:8px;vertical-align:top;text-align:left}
+th{background:#f1f4f8}
+caption{caption-side:top;text-align:left;font-weight:700;padding:4px 0 6px;color:#1d2939}
+pre.form{background:#f7f9fc;border:1px solid #dce3eb;border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.6;white-space:pre-wrap;margin:10px 0;color:#1d2939}
+code{font-size:14px;background:#f1f4f8;border-radius:4px;padding:1px 4px}
 .note{font-size:14px;color:#637082;margin:18px 0 0}
-.body{font-size:15px;line-height:1.7;color:#334155}
-.body h3{font-size:16px;margin:18px 0 9px}
-.body .small{font-size:14px;color:#65758b}
-.body .items{padding-left:22px;margin:12px 0}
-.body .items li{margin:8px 0}
-.body b.green,.body b.yellow,.body b.red,.body b.gray{border-radius:5px;padding:2px 5px;white-space:nowrap;font-size:12px}
-.body .green{background:#dff6e7;color:#1a6a3e}.body .yellow{background:#fff1c9;color:#875d0b}
-.body .red{background:#ffe1e1;color:#a12222}.body .gray{background:#edf0f3;color:#546171}
-.body table{width:100%;min-width:550px;border-collapse:collapse;font-size:13.5px;margin:12px 0}
-.body th,.body td{border:1px solid #dce3eb;padding:8px;vertical-align:top;text-align:left}
-.body th{background:#f1f4f8}
-.body .review{font-size:14px;padding:10px;background:#f3f6fa;border-left:3px solid #8aa1c5}
-.body .flowline{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0;padding:10px;background:#f4f6f9;border-radius:8px}
-.body .flowline strong{padding:6px;border:1px solid #dce3ea;background:#fff;border-radius:7px;font-size:13px}
-.body{overflow-x:auto}
-@media(max-width:600px){body{padding:12px}.panel{padding:16px}summary{padding:13px}.heading{font-size:16px}.body{padding:0 13px 15px 60px}}
+@media(max-width:600px){body{padding:12px}.panel{padding:16px}summary{padding:13px}.heading{font-size:16px}.body{padding:4px 13px 15px 16px}}
 </style>
 </head>
 <body>
 <main>
 <section class="panel" aria-labelledby="noi-dung">
-<h1 id="noi-dung">Nội dung công việc</h1>
-<p class="lead">ai-council-newarchitecture · V1 của GPT + phản biện Claude C1 (mục V). Nhấn vào từng mục để xem chi tiết; chưa áp dụng.</p>
-<details id="muc-i"><summary><span class="num">I</span><span class="heading">Định nghĩa khái niệm</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
-<p class="small">DỰ THẢO V1. Bốn lớp chính: <strong>Mục tiêu lớn → Đầu vào chung → Mục tiêu nhỏ → Checkpoint.</strong> Đều là danh sách có thể cập nhật; mục tiêu Owner chỉ thay sau khi Owner phê duyệt.</p>
-<ol class="items">
-<li><strong>Task:</strong> Công việc tổng thể có mục tiêu lớn, đầu vào chung, danh sách mục tiêu nhỏ, checkpoint, bằng chứng và lịch sử Git.</li>
-<li><strong>Mục tiêu lớn:</strong> Điều Owner yêu cầu, có tiêu chí hoàn thành. AI có thể đề xuất nhưng không tự sửa mục tiêu Owner đã chốt.</li>
-<li><strong>Đầu vào chung:</strong> Các tài liệu, mã, nguồn, môi trường, quyền, ràng buộc và dữ kiện có chứng cứ. Thiết lập <strong>một lần cho Task</strong>, dùng lại cho mọi Agent; Agent thực thi có trách nhiệm bổ sung đúng phần mới, không khảo sát lại toàn bộ cho mỗi RUN. Mỗi mục nêu nguồn và độ chắc chắn; dữ kiện biến động hoặc ảnh hưởng an toàn vẫn phải kiểm tra lại đúng lúc sử dụng.</li>
-<li><strong>Mục tiêu nhỏ:</strong> Kết quả định lượng/kiểm chứng được trong một lượt Agent dự kiến 3–4 giờ, có phạm vi và điều kiện đạt. Không đủ thời gian thì tách mục tiêu tiếp theo.</li>
-<li><strong>Checkpoint:</strong> Điểm kiểm chứng có thứ tự bên trong mục tiêu nhỏ, dùng để xác định đã đúng hướng chưa. Ghi kết quả, bằng chứng và đề xuất điều chỉnh; không biến mỗi thao tác thành một checkpoint.</li>
-<li><strong>Ghi chú checkpoint:</strong> Bất kỳ AI nào cũng được ghi nhận xét ngắn và bằng chứng. Agent thực thi tích <b class="green">Xanh: Đạt</b>, <b class="yellow">Vàng: Một phần</b>, <b class="red">Đỏ: Thất bại</b>, <b class="gray">Xám: Chưa làm</b>; AI khác phản biện, không âm thầm thay kết luận.</li>
-<li><strong>Báo cáo thực hiện:</strong> Sau một mục tiêu nhỏ, Agent ghi ngắn: đã đạt, chứng cứ, phần thiếu, đầu vào đã cập nhật, mục tiêu/checkpoint đề xuất tiếp. Không chép lại nhật ký.</li>
-<li><strong>Bổ sung mục tiêu nhỏ/checkpoint:</strong> Tất cả AI/Agent có quyền và trách nhiệm đề xuất; phần chưa hoàn thành được chuyển về phía sau. Agent thực thi phải rà và đề xuất khi kết thúc lượt.</li>
-<li><strong>Đề xuất thay đổi:</strong> Thay đổi có trạng thái <em>ĐỀ XUẤT / CHẤP THUẬN / KHÔNG CHỌN</em>. Ghi vào danh sách chưa có nghĩa là đã được phép chạy.</li>
-<li><strong>Phạm vi RUN:</strong> Mục tiêu nhỏ đã giao có ranh giới quyền/thời điểm xác định; kế hoạch phía sau thay đổi không làm RUN hiện tại đổi theo.</li>
+<h1 id="noi-dung">Cách làm mới: Mục tiêu lớn → Mục tiêu nhỏ → Checkpoint</h1>
+<p class="lead">Bản V2 · Claude viết thẳng theo chỉ đạo Owner 30/10 14:57 · chờ GPT rà (N2) rồi chạy thử. Chưa sửa AGENTS.</p>
+
+<div class="owner">
+<h2>😊 Owner chỉ quyết 5 việc</h2>
+<ol>
+<li>Mục tiêu lớn.</li>
+<li>Bổ sung, hiệu chỉnh mục tiêu lớn.</li>
+<li>Việc hội đồng không dám quyết.</li>
+<li>Việc luẩn quẩn không thoát ra được (quy tắc ở mục 4, hoàn thiện dần).</li>
+<li>Giám sát qua GPT live / DOT / Duet…; thấy không ổn thì chỉ đạo bổ sung qua các bề mặt đó.</li>
 </ol>
-<p class="small">Đề xuất mỗi mục có mã ngắn ổn định, trạng thái và liên kết bằng chứng. Git đã giữ người ghi và lịch sử nên không tạo sổ nhật ký thứ hai.</p></div></details>
-<details id="muc-ii"><summary><span class="num">II</span><span class="heading">Định nghĩa vai trò</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
-<ol class="items">
-<li><strong>Owner:</strong> Chốt mục tiêu lớn, phê duyệt thay đổi phạm vi hoặc rủi ro vượt quyền; không xử lý thao tác kỹ thuật nhỏ.</li>
-<li><strong>Host:</strong> AI được giao điều hành, chốt đề xuất và các bước trong phạm vi ủy quyền, có ý kiến độc lập của ít nhất một AI khác hãng theo quy chế hiện hành. Host xem Git diff, không viết lại toàn bộ kế hoạch.</li>
-<li><strong>Reviewer/Giám sát:</strong> Giám sát mục tiêu, kết quả, bằng chứng, rủi ro và những điểm bất đồng trong khi Agent đang code; không mặc định đọc lại hết dữ liệu đã xác minh.</li>
-<li><strong>Agent thực thi:</strong> Tham gia khảo sát từ đầu, chạy mục tiêu nhỏ, cập nhật đầu vào, ghi checkpoint, báo cáo và chủ động đề xuất kế hoạch tiếp theo.</li>
-<li><strong>Kỹ sư phát triển:</strong> AI viết/sửa mã, nộp PR mã; không tự merge hay deploy VPS. Có thể đồng thời là Agent thực thi.</li>
-<li><strong>Kỹ sư trưởng (KST):</strong> Claude Code hoặc Codex được giao kiểm PR mã và quyết định chấp thuận merge/sửa/từ chối trong phạm vi quyền đã cấp; quyền deploy không mặc nhiên đi kèm quyền merge.</li>
-</ol>
-<p class="small">Ưu tiên GPT Chat, DOT, Claude Chat/Work cho giám sát/điều phối; chuyển phần lớn khảo sát và lập kế hoạch chi tiết cho Agent trực tiếp thực thi. Vai trò không bị khóa cứng vào một hãng.</p></div></details>
-<details id="muc-iii"><summary><span class="num">III</span><span class="heading">Cấu trúc trong Hội đồng AI</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
-<div class="flowline"><strong>Owner: Mục tiêu lớn</strong> → <strong>Đầu vào chung</strong> → <strong>Mục tiêu nhỏ</strong> → <strong>Checkpoint</strong></div>
-<p><strong>Ba luồng làm đồng thời:</strong></p>
-<ul class="items">
-<li><strong>Thực thi:</strong> Agent làm mục tiêu nhỏ đã giao, tự cập nhật checkpoint và chứng cứ.</li>
-<li><strong>Kế hoạch:</strong> Agent và AI khác ghi đề xuất cho phần tương lai, Host xem diff và chốt theo đợt nhỏ.</li>
-<li><strong>Giám sát:</strong> Reviewer kiểm bất thường và phản biện điểm rủi ro; không ngắt việc bình thường.</li>
-</ul>
-<p class="small">Giữ một nguồn chuẩn GitHub Workspace. <code>COLLAB.md</code> quản mục tiêu Owner, trạng thái và quyết định; <code>view.html</code> là nội dung Owner xem. Không dựng thêm registry, kế hoạch song song hay pipeline thứ hai. Chưa thiết kế máy cưỡng chế tại bước này.</p></div></details>
-<details id="muc-iv"><summary><span class="num">IV</span><span class="heading">Quy trình thực hiện</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
-<h3>Quy trình đề xuất: làm song song, Host chỉ xử lý thay đổi</h3>
-<ol class="items">
-<li><strong>Khởi tạo một lần:</strong> Owner chốt mục tiêu lớn; Agent khảo sát lập đầu vào chung và dự kiến mục tiêu nhỏ/checkpoint. Host/Reviewer kiểm những giả định quyết định, không đọc ba lần toàn bộ.</li>
-<li><strong>Giao việc:</strong> Host chọn một mục tiêu nhỏ (khoảng 3–4 giờ), tiêu chí đạt, quyền và checkpoint chính. Sau khi được duyệt, Agent tự triển khai trong phạm vi đó; hướng tới sinh lệnh gọn từ dữ kiện đã có thay vì soạn lại prompt dài.</li>
-<li><strong>Đang chạy:</strong> Agent hoàn thành checkpoint thì ghi một dòng tình trạng/bằng chứng. Đầu vào phát hiện sai/thiếu thì cập nhật đúng mục có nguồn; không tạo vòng phê duyệt cho mọi ghi chú.</li>
-<li><strong>Kế hoạch chạy song song:</strong> Các AI/Agent được ghi <b>trực tiếp qua cổng Git Workspace đã duyệt</b> vào các mục tiêu/checkpoint phía sau với nhãn <b>ĐỀ XUẤT</b>. Không cần PR riêng cho từng sửa kế hoạch. Không sửa nóng phạm vi RUN đang STARTED.</li>
-<li><strong>Host duyệt thay đổi:</strong> Đọc phần diff Git, chấp thuận/không chọn theo nhóm; Reviewer phản biện phần có rủi ro. Agent không phải chờ cuộc họp hội đồng để tiếp tục nhiệm vụ đã được giao.</li>
-<li><strong>Kết lượt:</strong> Agent báo cáo ngắn, rà việc còn thiếu và đề xuất lượt tiếp. Host nghiệm thu và chọn mục tiêu nhỏ kế tiếp; PR mã qua KST/CI riêng, merge và deploy có quyền khác nhau.</li>
-</ol>
-<h3>Ba mức để tránh tắc ở Host</h3>
-<table><thead><tr><th>Mức</th><th>Loại thay đổi</th><th>Cách xử lý đề xuất</th></tr></thead><tbody>
-<tr><td><strong>A — Ghi nhận</strong></td><td>Đầu vào có nguồn, ghi chú, bằng chứng, kết quả checkpoint</td><td>Agent ghi thẳng; không duyệt mỗi lần.</td></tr>
-<tr><td><strong>B — Kế hoạch tương lai</strong></td><td>Bổ sung/tách/sắp xếp mục tiêu nhỏ, checkpoint chưa thực hiện</td><td>Ghi thẳng với nhãn <b>ĐỀ XUẤT</b>; Host xem diff, chốt theo nhóm. RUN hiện tại không bị ảnh hưởng.</td></tr>
-<tr><td><strong>C — Quyền/phạm vi</strong></td><td>Đổi mục tiêu Owner, thay RUN đang chạy, quyền, xóa dữ liệu, merge/deploy production</td><td>Phải qua đúng Owner/Host/KST và các cổng an toàn đang áp dụng; không được tự cấp quyền.</td></tr>
+<p class="small" style="margin:8px 0 0"><strong>Hôm nay anh không cần quyết gì.</strong> Còn lại 🤖 các AI tự làm theo form và thao tác dưới đây.</p>
+</div>
+
+<details id="muc-1" open><summary><span class="num">1</span><span class="heading">Ba form khai — mọi AI khai giống nhau</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
+<p><strong>Ở đâu:</strong> trong <code>COLLAB.md</code> của việc. Mục tiêu lớn ở <code>### 1. Mục tiêu</code>. Mục tiêu nhỏ + checkpoint ở <code>### 4. Kế hoạch</code> (ngay sau §3, trước mọi P/lịch sử). <strong>Thứ tự làm = thứ tự từ trên xuống.</strong></p>
+<p><strong>Mã:</strong> <b class="blue">L</b> = mục tiêu Lớn · <b class="blue">N</b> = mục tiêu Nhỏ · <b class="blue">C</b> = Checkpoint. Số tăng dần, <strong>không dùng lại, không đánh lại</strong> khi đổi thứ tự. C đánh số trong từng N (N4.C2).</p>
+
+<h3>1.1 Mục tiêu lớn (L)</h3>
+<pre class="form">#### L1 · Sổ PG Tự quản · CHỐT
+- Owner nói: «Mỗi vật trong PG có địa chỉ, biết làm gì · thuộc hệ nào · giữ hay bỏ; sổ tự cập nhật.» — 24/10
+- Xong khi: Owner lọc được mọi vật PG theo hệ và giữ/bỏ trên trang /reports; số khớp Census.</pre>
+<p class="small">Trạng thái L: CHỐT · BỎ. Chỉ Host ghi, và chỉ ghi lời Owner (viết lại đúng chính tả, đúng ý).</p>
+
+<h3>1.2 Mục tiêu nhỏ (N) — vừa một lượt agent, tối đa ~3–4 giờ</h3>
+<pre class="form">#### N4 · Lô luật nhãn đầu tiên · DUYỆT
+- Thuộc: L1 · Cần trước: N3
+- Xong khi: lô luật 1 ghi vào bảng luật; phủ ≥ 80% vật; 0 vật bị 2 nhãn; Guard POST PASS.
+- Được làm: 👁 đọc PG/repo · ✍ nhánh + PR nháp · ⚙ dot-pg-s4-luat-apply trên tai_san_luat
+- Người làm: claude-code · Ước: 3h
+- Đề xuất: claude-code 30/10 · Duyệt: gpt-chat 30/10
+- C1 ⬜ Lập danh sách luật ứng viên, đánh dấu xung đột · Đạt khi: tệp danh sách có trên nhánh
+- C2 ⬜ Chạy thử chỉ đọc: đếm phủ và trùng · Đạt khi: in số phủ, trùng = 0
+- C3 ⬜ Ghi lô luật qua DOT · Đạt khi: Guard POST PASS
+- Ghi chú:</pre>
+<table><caption>Bảng 1.2a · Trạng thái của N</caption>
+<thead><tr><th>Trạng thái</th><th>Nghĩa</th><th>Ai đổi sang</th></tr></thead><tbody>
+<tr><td><b class="gray">ĐỀ XUẤT</b></td><td>Mới bàn, chưa được làm</td><td>Mọi AI khi thêm N</td></tr>
+<tr><td><b class="green">DUYỆT</b></td><td>Được làm ngay (= READY)</td><td>Host</td></tr>
+<tr><td><b class="blue">ĐANG LÀM</b></td><td>Có agent đang làm (= STARTED)</td><td>Agent nhận việc</td></tr>
+<tr><td><b class="green">XONG</b></td><td>Mọi C 🟢 và đạt «Xong khi»</td><td>Agent</td></tr>
+<tr><td><b class="red">DỪNG</b></td><td>Không làm tiếp được, có lý do + N thay</td><td>Agent</td></tr>
+<tr><td><b class="gray">BỎ</b></td><td>Không làm nữa, có lý do; không xoá khối</td><td>Host</td></tr>
 </tbody></table>
-<h3>Lựa chọn cơ chế ghi</h3>
-<ul class="items">
-<li><strong>PR mọi thay đổi kế hoạch:</strong> kiểm soát được nhưng nhiều lượt, tạo nút cổ chai — không chọn làm mặc định.</li>
-<li><strong>Sửa trực tiếp kế hoạch đã chốt mà không phân biệt trạng thái:</strong> nhanh nhưng dễ bị hiểu nhầm đề xuất thành lệnh — không chọn.</li>
-<li><strong>Khuyến nghị:</strong> ghi trực tiếp vào <em>cùng danh sách kế hoạch</em> qua gateway Git đã có, phân biệt ĐỀ XUẤT với CHẤP THUẬN; Host chỉ xem phần mới. Giữ lịch sử Git, không thêm sổ.</li>
-</ul>
-<p><strong>Host biết cập nhật thế nào?</strong> Git có commit không đồng nghĩa GPT Host tự thức dậy. Trước mắt Host đọc diff khi mở việc/nhận KQ; sau này có thể dùng lại webhook Owner View và DOT đã có để thông báo đúng thay đổi cần quyết định (ưu tiên event, không polling lặp).</p>
-<p><strong>Rào thực thi:</strong> Khi RUN đang STARTED, kế hoạch tương lai có thể đổi nhưng không sửa lệnh đang chạy. Nếu thay đổi ảnh hưởng an toàn lúc chạy, theo STOP/Guard hiện hành. Đề xuất chưa duyệt không được hệ thống tự thực thi.</p>
-<h3>Thử nhanh và đo</h3>
-<p>Chọn một task nhỏ, so thời gian từ chốt mục tiêu nhỏ đến STARTED, số lượt Host/Owner phải thao tác, tỷ lệ DỪNG vì dữ kiện sai, thời gian hoàn thành. Chỉ viết skill/harness sau khi cách làm chứng tỏ nhanh mà vẫn an toàn.</p>
-<p class="review"><strong>Để Claude phản biện một lượt:</strong> (1) kẽ hở mức A/B/C; (2) Host nhận thay đổi Git thế nào với ít thao tác nhất; (3) chống hai AI ghi đè; (4) điểm xung đột với AGENTS hiện tại. <strong>Bản V1 chưa có hiệu lực; chưa đổi luật, quyền hoặc production.</strong></p></div></details>
-<details id="muc-v" open><summary><span class="num">V</span><span class="heading">Claude phản biện V1 · C1 · 30/10</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
-<p class="review"><strong>Owner cần quyết (đề xuất sẵn, anh chỉ gật/lắc):</strong><br>
-<b class="green">Q1</b> Đơn vị duyệt đổi từ <em>mỗi lượt</em> sang <em>mỗi Giấy phép</em> (duyệt một lần cho cả chuỗi mục tiêu nhỏ). Đề xuất: <strong>GẬT</strong>.<br>
-<b class="green">Q2</b> Thử ngay trên phần còn lại của Sổ PG (nhap-directus-for-workflow), Claude Code làm Agent chính, đo so với số cũ. Đề xuất: <strong>GẬT</strong>.</p>
-
-<h3>1. Số đo thật (git log 15–30/10, Claude tự đo)</h3>
-<table><thead><tr><th>Chỉ số</th><th>Hiện nay</th><th>Đích khi thử</th></tr></thead><tbody>
-<tr><td>Thời gian máy làm / thời gian trôi</td><td><b class="red">2–11%</b> (Sổ PG 2,3%)</td><td>≥ 40%</td></tr>
-<tr><td>Một lượt agent chạy</td><td><b class="red">trung vị 17 phút</b> (thiết kế 3–4 giờ)</td><td>≥ 2 giờ</td></tr>
-<tr><td>Chờ giữa hai lượt</td><td><b class="red">trung vị 7–11 giờ</b></td><td>&lt; 1 giờ trong Giấy phép</td></tr>
-<tr><td>Lượt DỪNG</td><td><b class="yellow">18/63 = 29%</b> (Sổ PG 4/10)</td><td>≤ 10%, không tính cổng Owner thật</td></tr>
-<tr><td>Sổ PG 23→29/10</td><td>6,5 ngày · 260 commit, chỉ 21 của agent · COLLAB 620 KB</td><td>—</td></tr>
+<table><caption>Bảng 1.2b · Mức «Được làm» — ghi đúng biểu tượng</caption>
+<thead><tr><th>Mức</th><th>Gồm</th><th>Ai phải đồng ý để DUYỆT</th></tr></thead><tbody>
+<tr><td>👁 Đọc</td><td>Đọc mọi nơi được cấp</td><td>Host (nếu người đề xuất khác hãng Host); cùng hãng thì thêm 1 dòng «đồng ý» của AI khác hãng</td></tr>
+<tr><td>✍ Ghi nháp</td><td>Repo thư mục việc, nhánh, PR nháp</td><td>Như 👁</td></tr>
+<tr><td>⚙ Ghi hệ thật</td><td>Chỉ qua DOT/Guard đã có; ghi rõ <em>DOT nào trên đích nào</em></td><td>Host + 1 AI khác hãng (người đề xuất khác hãng được tính)</td></tr>
+<tr><td>⛔ Không bao giờ trong N</td><td>Phá huỷ, secret, đổi quyền, tốn tiền; merge/deploy theo luật KST</td><td>Owner (mục 4)</td></tr>
 </tbody></table>
-<p><strong>Toàn bộ phần máy làm thật của Sổ PG cả tuần = 2,9 giờ — vừa đúng MỘT phiên Claude Code.</strong></p>
 
-<h3>2. Gốc rễ — vì sao V1 chưa đủ</h3>
-<ol class="items">
-<li><strong>Tắc ở vòng quay, không ở agent.</strong> Mỗi lượt: Host soạn → khác hãng góp ý → Host ký READY theo SHA → Owner dán → agent chạy ~17 phút → Owner dán lại. Khoảng 5 lần chuyền tay cho 17 phút việc.</li>
-<li><strong>Prompt viết khi chưa nhìn hiện trường.</strong> Gần một nửa lượt DỪNG vì giả định môi trường sai (thiếu khoá máy, RAM, kế thừa role…); khoảng 1/4 vì va quy trình (khoá VPS-GHI bận, dán sớm, lệch SHA); chỉ khoảng 1/4 thật sự cần Owner.</li>
-<li><strong>V1 đúng hướng nhưng giữ nguyên vòng quay.</strong> Agent khảo sát và ghi ĐỀ XUẤT thẳng Git là đúng; nhưng “Host chọn và duyệt từng mục tiêu nhỏ” vẫn còn, lại thêm 10 khái niệm, 6 vai, 3 luồng.</li>
-<li><strong>Luật chồng theo sự cố.</strong> DROOT01→60, AGENTS 93 KB, COLLAB toàn repo 7,5 MB. Mỗi sự cố thêm một cổng bằng chữ, trong khi gateway/DOT/Guard/ruleset đã chặn bằng máy ⇒ chặn hai lần, agent tốn lượt để chứng minh thủ tục.</li>
-</ol>
-
-<h3>3. Đề xuất: V1 + Giấy phép</h3>
-<p class="small">Chuẩn ngành: ITIL tách <em>standard change</em> (đã duyệt trước, rủi ro thấp, không qua hội đồng) với <em>normal change</em> (qua hội đồng). Hiện ta đang đưa mọi việc nhỏ qua hội đồng.</p>
-<ol class="items">
-<li><strong>Mục tiêu</strong> — Owner chốt, kèm “xong khi”. Giữ như cũ.</li>
-<li><strong>Giấy phép</strong> — duyệt <em>một lần</em> cho một chuỗi việc: được làm gì (vùng đọc/ghi, DOT nào trên đích nào), ngân sách giờ, cổng phải dừng. Host + 1 khác hãng ký; phần Owner-only thì Owner gật. Thay READY từng lượt.</li>
-<li><strong>Lượt</strong> — một phiên agent 2–4 giờ, agent tự đặt checkpoint. Lệnh mở lượt cố định một dòng: <code>Tiếp tục work/&lt;việc&gt; theo Giấy phép GP-n</code> ⇒ hết lỗi prompt soạn sai.</li>
-<li><strong>Checkpoint</strong> — agent ghi một dòng <b class="green">xanh</b>/<b class="yellow">vàng</b>/<b class="red">đỏ</b> + bằng chứng; ai cũng được ghi chú.</li>
-<li><strong>Cổng</strong> — chỗ duy nhất agent phải dừng: ngoài Giấy phép, phá huỷ, secret, đổi quyền, production ngoài phạm vi, trái mục tiêu Owner. Cổng nào máy chặn được thì để máy chặn.</li>
-</ol>
-<div class="flowline"><strong>Owner: Mục tiêu</strong> → <strong>Agent: Lượt 0 khảo sát (chỉ đọc, không cần duyệt)</strong> → <strong>Hội đồng 1 vòng: cấp Giấy phép</strong> → <strong>Agent chạy liên tục các lượt</strong> → <strong>Hội đồng soát sau · chuông = dừng</strong> → <strong>Host nghiệm thu chuỗi</strong></div>
-<ul class="items">
-<li><strong>Agent chính</strong> (người hiểu việc nhất): khảo sát, lập kế hoạch chi tiết, làm, đề xuất bước tiếp.</li>
-<li><strong>Host</strong>: giữ mục tiêu/roadmap, cấp Giấy phép, nghiệm thu chuỗi — không soạn prompt từng lượt.</li>
-<li><strong>Khác hãng</strong>: soát kết quả (diff/PR/bằng chứng) sau khi làm; bắt buộc chỉ ở lúc cấp Giấy phép, ở Cổng và lúc nghiệm thu.</li>
-<li><strong>Owner</strong>: Mục tiêu + gật ở cổng Owner-only.</li>
-</ul>
-
-<h3>4. Trả lời 4 câu của V1</h3>
-<ol class="items">
-<li><strong>Kẽ hở A/B/C:</strong> mức B không cần Host duyệt từng mục — mục B nằm trong Giấy phép, cùng mức rủi ro thì agent tự chạy, chỉ báo. Thêm loại <em>C duyệt trước</em> (DOT X trên đích Y ghi sẵn trong Giấy phép) để agent không dừng giữa chừng. Mức A: mỗi dữ kiện có nguồn + giờ đo; dữ kiện an toàn kiểm lại lúc dùng (giữ như V1).</li>
-<li><strong>Host nhận thay đổi:</strong> không đánh thức Host theo từng commit. Hết lượt agent ghi báo cáo 5 dòng ở Bảng; Host đọc diff từ commit Host gần nhất (workspace_diff đã có). Owner dán “B1” một lần mỗi lượt như hiện nay; sau này DOT/Hermes báo.</li>
-<li><strong>Chống ghi đè:</strong> gateway đã có CAS/expected_version — ghi trùng bị từ chối. Thêm chia vùng: agent ghi Checkpoint + ĐỀ XUẤT; Host ghi Quyết định + Giấy phép; không sửa vùng của người khác.</li>
-<li><strong>Xung đột luật hiện hành:</strong> A9/DROOT58 (READY theo SHA từng PROMPT), A5/DROOT57 (khác hãng mỗi node), DROOT60 (Host tự lập INPUT TABLE — ngược hướng, nên để agent khảo sát), mục tiêu 5 của ai-council-karpathy (mỗi KQ cần ý kiến khác hãng). Khi thử: READY ký một lần trên SHA Giấy phép, hiệu lực cho mọi lượt bên trong; <strong>chưa sửa AGENTS</strong> cho tới khi thử xong.</li>
-</ol>
-
-<h3>5. Thử trên Sổ PG</h3>
-<p>Chọn vì đã có số đo gốc và còn việc cùng phạm vi (lô luật 1, V3, Reports Owner-only). Giấy phép GP-1: đọc toàn PG/repo, ghi nhánh/PR, dùng các DOT hẹp đã cài; mọi DDL mới vẫn là Cổng. Đo đúng 4 chỉ số ở bảng 1. <strong>Đạt mới sửa AGENTS</strong> và bàn lại phạm vi N2–N4 của ai-council-karpathy, để không xây máy cưỡng chế cho quy trình sắp đổi.</p>
-<p class="small">JEV tham khảo: chọn “V1 + Giấy phép” 1,0 · nút thắt “chờ giữa các lượt” 1,0 · Sổ PG làm thử hợp lý 0,76. Chỉ tham khảo. Đây là ý kiến Reviewer, chưa có hiệu lực — GPT Host chốt.</p>
+<h3>1.3 Checkpoint (C) — một dòng</h3>
+<pre class="form">- C2 ⬜ &lt;kiểm cái gì&gt; · Đạt khi: &lt;điều ai kiểm cũng ra cùng kết quả&gt;
+khi tích:
+- C2 🟢 &lt;kiểm cái gì&gt; · Đạt khi: … · bằng chứng: &lt;commit/lệnh/số&gt; · 30/10 16:05 · claude-code</pre>
+<p class="small">⬜ chưa làm · 🟢 đạt · 🟡 một phần · 🔴 hỏng. C là điểm kiểm kết quả, không phải từng thao tác: một N thường 2–5 C.</p>
 </div></details>
-<p class="note">Các mục được cập nhật từng bước sau khi thảo luận; chưa phải quy định đã phê duyệt.</p>
+
+<details id="muc-2" open><summary><span class="num">2</span><span class="heading">Thao tác — ai làm · ghi vào đâu · làm thế nào</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
+<p class="small">Mọi thao tác: sửa thẳng <code>COLLAB.md</code> qua cổng ghi (fs_edit) <strong>có expected_version</strong>; bị từ chối vì bản cũ ⇒ đọc lại rồi làm lại. Mỗi thao tác một commit, tiêu đề commit bắt đầu bằng mã (vd <code>N4.C2 🟢</code>).</p>
+<table><caption>Bảng 2 · 15 thao tác</caption>
+<thead><tr><th>#</th><th>Việc</th><th>Ai</th><th>Ghi vào đâu</th><th>Làm thế nào</th></tr></thead><tbody>
+<tr><td>2.1</td><td>Thêm mục tiêu lớn</td><td>Owner nói → Host ghi</td><td>Cuối <code>### 1. Mục tiêu</code></td><td>Chép form 1.1, trạng thái CHỐT, lời Owner + ngày. Cùng commit tạo <strong>N0 khảo sát</strong> (👁, DUYỆT sẵn) đầu §4.</td></tr>
+<tr><td>2.2</td><td>Sửa mục tiêu lớn</td><td>Owner nói → Host ghi</td><td>Khối L đó</td><td>Giữ dòng cũ gạch ngang + «→ mới · ngày». Rà các N thuộc L: không còn hợp ⇒ BỎ + lý do.</td></tr>
+<tr><td>2.3</td><td>AI muốn đổi/thêm L</td><td>Mọi AI</td><td>Dòng «Owner cần quyết» trong Bảng điều khiển</td><td>Một câu + đề xuất. Không tự ghi vào §1.</td></tr>
+<tr><td>2.4</td><td>Thêm mục tiêu nhỏ</td><td>Mọi AI</td><td>§4, <strong>chèn đúng vị trí muốn làm</strong></td><td>Chép form 1.2, trạng thái ĐỀ XUẤT, mã = N lớn nhất đang có + 1.</td></tr>
+<tr><td>2.5</td><td>Duyệt mục tiêu nhỏ</td><td>Host</td><td>Dòng tiêu đề N + dòng «Duyệt»</td><td>ĐỀ XUẤT → DUYỆT, điền «Duyệt: ghế · ngày». Không duyệt ⇒ BỎ + lý do. Duyệt theo lô được.</td></tr>
+<tr><td>2.6</td><td>Sửa N chưa làm</td><td>Người đề xuất hoặc Host</td><td>Khối N</td><td>Sửa thẳng. Nếu N đang DUYỆT mà sửa «Xong khi» hoặc «Được làm» ⇒ trả về ĐỀ XUẤT.</td></tr>
+<tr><td>2.7</td><td>Đổi thứ tự N</td><td>Host (AI khác đề nghị qua «Ghi chú»)</td><td>§4</td><td>Cắt nguyên khối N, dán vào vị trí mới <strong>trong một commit</strong>. Giữ mã. Không di chuyển N ĐANG LÀM.</td></tr>
+<tr><td>2.8</td><td>Bỏ N</td><td>Host</td><td>Dòng tiêu đề N</td><td>→ BỎ + lý do một dòng. Không xoá khối.</td></tr>
+<tr><td>2.9</td><td>Nhận N để làm</td><td>Agent</td><td>Dòng tiêu đề N</td><td>DUYỆT → ĐANG LÀM · ghế · giờ. Commit <strong>trước</strong> khi bắt đầu làm.</td></tr>
+<tr><td>2.10</td><td>Thêm checkpoint</td><td>Agent đang làm N: thêm thẳng · AI khác: dòng «Ghi chú: đề xuất C: …»</td><td>Khối N</td><td>Mã = C lớn nhất trong N + 1, chèn đúng vị trí thứ tự. Agent nhận hay không thì ghi một dòng.</td></tr>
+<tr><td>2.11</td><td>Đổi thứ tự checkpoint</td><td>Agent đang làm N (trước khi làm: Host)</td><td>Khối N</td><td>Cắt-dán dòng C, giữ mã. C đã tích thì không di chuyển.</td></tr>
+<tr><td>2.12</td><td>Tích checkpoint</td><td>Agent đang làm N</td><td>Dòng C</td><td>⬜ → 🟢/🟡/🔴 + bằng chứng + giờ + ghế. Mỗi C một commit, tích ngay khi xong.</td></tr>
+<tr><td>2.13</td><td>Kết thúc N</td><td>Agent</td><td>Dòng tiêu đề N</td><td>Mọi C 🟢 và đạt «Xong khi» ⇒ XONG. Không đạt ⇒ DỪNG + lý do + thêm N thay (ĐỀ XUẤT).</td></tr>
+<tr><td>2.14</td><td>Nghiệm thu N</td><td>Host (+1 khác hãng nếu N có ⚙)</td><td>Dòng «Nghiệm thu» cuối khối N</td><td>«Nghiệm thu: OK/KHÔNG · ghế · ngày». KHÔNG ⇒ thêm N sửa, không mở lại N cũ. OK ⇒ rút khối còn 1 dòng: <code>✅ N4 · tên · bằng chứng chính</code>.</td></tr>
+<tr><td>2.15</td><td>Hỏi Owner</td><td>Host</td><td>Dòng «Owner cần quyết» trong Bảng điều khiển</td><td>Một câu + đề xuất của Host; Owner gật/lắc. Chỉ khi rơi vào mục 4.</td></tr>
+</tbody></table>
+</div></details>
+
+<details id="muc-3" open><summary><span class="num">3</span><span class="heading">🤖 Một lượt của agent — đứng ở ghế người làm</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
+<p><strong>Lệnh mở lượt cố định, một dòng</strong> (Owner hoặc Host dán, không soạn prompt dài):</p>
+<pre class="form">Làm work/&lt;việc&gt; · ghế &lt;claude-code|codex|…&gt; · theo COLLAB.md §4 Kế hoạch</pre>
+<ol class="items">
+<li><strong>3.1</strong> Đọc <code>COLLAB.md</code> từ đầu đến hết §4. Không đọc P/lịch sử, trừ khi N ghi rõ phải đọc.</li>
+<li><strong>3.2</strong> Chọn N: N <strong>đầu tiên từ trên xuống</strong> có DUYỆT, «Người làm» là ghế mình hoặc «bất kỳ», «Cần trước» đã XONG. Không có ⇒ sang 3.8.</li>
+<li><strong>3.3</strong> Nhận N (2.9). Commit bị từ chối ⇒ đọc lại §4, quay 3.2.</li>
+<li><strong>3.4</strong> Làm từng C từ trên xuống, tích ngay (2.12). Thấy thiếu C hoặc sai thứ tự ⇒ 2.10/2.11 rồi làm tiếp, không hỏi ai.</li>
+<li><strong>3.5</strong> Thấy dữ kiện khác giả định ⇒ tự điều chỉnh cách làm, miễn vẫn trong «Được làm» và đạt «Xong khi».</li>
+<li><strong>3.6</strong> Cần làm việc ngoài «Được làm» hoặc ⛔ ⇒ không làm; thêm N ĐỀ XUẤT mô tả việc đó. Nếu N hiện tại không thể xong thiếu việc đó ⇒ DỪNG N (2.13), quay 3.2.</li>
+<li><strong>3.7</strong> Kết N (2.13). <strong>Đọc lại §4</strong> (có thể vừa đổi), còn giờ thì quay 3.2.</li>
+<li><strong>3.8</strong> Hết việc hoặc hết giờ: thêm N ĐỀ XUẤT cho bước tiếp theo nếu thấy; sửa dòng ■ Đang làm và ➡ Kế tiếp trong Bảng điều khiển; kết lượt. <strong>Không chờ.</strong></li>
+</ol>
+</div></details>
+
+<details id="muc-4"><summary><span class="num">4</span><span class="heading">😊 Khi nào phải hỏi Owner — quy tắc sống, bổ sung dần</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
+<ol class="items">
+<li><strong>4.1</strong> Thêm, sửa, bỏ mục tiêu lớn.</li>
+<li><strong>4.2</strong> Việc ⛔: phá huỷ, secret, đổi quyền, tốn tiền; merge/deploy ngoài luật KST.</li>
+<li><strong>4.3</strong> Luẩn quẩn: hội đồng chưa đồng thuận một điểm sau <strong>2 lượt ý kiến</strong>; hoặc cùng một N DỪNG <strong>2 lần</strong>; hoặc <strong>3 N liền</strong> DỪNG cùng lý do.</li>
+<li><strong>4.4</strong> Hội đồng không dám quyết: Host thấy rủi ro vượt quyền đã được giao — ghi rõ rủi ro gì.</li>
+<li><strong>4.5</strong> Bổ sung dần: mỗi lần Owner phải can thiệp vì lý do ngoài 4.1–4.4 ⇒ Host thêm một dòng 4.x ở đây.</li>
+</ol>
+<p class="small">Cách hỏi: thao tác 2.15. Không hỏi Owner chuyện chọn N, thứ tự N, thêm C — đó là việc của hội đồng.</p>
+</div></details>
+
+<details id="muc-5"><summary><span class="num">5</span><span class="heading">Giám sát và chỉ đạo bổ sung</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
+<ol class="items">
+<li><strong>5.1</strong> GPT live / DOT / Duet / Claude đọc Bảng điều khiển + §4. Thấy lệch ⇒ ghi «Ghi chú» vào N liên quan; cần dừng ngay ⇒ bấm chuông COUNCIL_ALERT đang có.</li>
+<li><strong>5.2</strong> Owner chỉ đạo qua bề mặt nào thì <strong>bề mặt đó ghi ngay</strong>: đổi mục tiêu ⇒ §1 (2.1/2.2); việc mới ⇒ N ĐỀ XUẤT (2.4). Không để chỉ đạo nằm trong chat.</li>
+<li><strong>5.3</strong> Host không soạn prompt từng lượt; việc của Host: giữ L, duyệt N theo lô, nghiệm thu, giữ sẵn ít nhất 1 N DUYỆT phía trước cho agent.</li>
+</ol>
+</div></details>
+
+<details id="muc-6"><summary><span class="num">6</span><span class="heading">Lỗ hở đã rà từ ghế người làm</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
+<table><caption>Bảng 6 · Tình huống → xử lý</caption>
+<thead><tr><th>#</th><th>Tình huống</th><th>Xử lý</th></tr></thead><tbody>
+<tr><td>6.1</td><td>Hai agent nhận cùng một N</td><td>expected_version: ai commit sau bị từ chối ⇒ đọc lại, chọn N khác.</td></tr>
+<tr><td>6.2</td><td>Agent đứt giữa chừng, N kẹt ĐANG LÀM</td><td>Quá «Ước» + 1 giờ không có commit mới ⇒ AI bất kỳ trả về DUYỆT, ghi chú lý do.</td></tr>
+<tr><td>6.3</td><td>«Xong khi» sai hoặc không làm được</td><td>Agent không tự sửa; DỪNG + N thay (3.6).</td></tr>
+<tr><td>6.4</td><td>Kế hoạch bị đổi khi agent đang chạy</td><td>Không ai di chuyển/sửa N ĐANG LÀM; agent đọc lại §4 trước mỗi N mới (3.7).</td></tr>
+<tr><td>6.5</td><td>Prompt sai giả định hiện trường</td><td>Không còn prompt dài: mỗi L bắt đầu bằng N0 khảo sát; N do agent viết sau khi đã nhìn hiện trường.</td></tr>
+<tr><td>6.6</td><td>Agent tự đề xuất rồi tự làm</td><td>Được, sau khi Host DUYỆT. Agent không tự đổi sang DUYỆT.</td></tr>
+<tr><td>6.7</td><td>Host tắc vì nhiều đề xuất</td><td>Duyệt theo lô; hết N DUYỆT thì agent đề xuất và kết lượt (3.8), không chờ.</td></tr>
+<tr><td>6.8</td><td>COLLAB phình to</td><td>N nghiệm thu OK rút còn 1 dòng (2.14); agent không đọc P/lịch sử (3.1).</td></tr>
+<tr><td>6.9</td><td>Lệch luật AGENTS hiện hành</td><td>Khi thử: DUYỆT = READY, ĐANG LÀM = STARTED; Guard, DOT, khoá VPS-GHI giữ nguyên. <strong>Sửa AGENTS sau khi thử đạt.</strong></td></tr>
+</tbody></table>
+</div></details>
+
+<details id="muc-7"><summary><span class="num">7</span><span class="heading">Chạy thử và đo</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
+<ol class="items">
+<li><strong>7.1</strong> Áp ngay vào chính việc này: §4 trong COLLAB đã viết theo form (N1 XONG, N2 cho GPT).</li>
+<li><strong>7.2</strong> Sau N2: áp vào phần còn lại của Sổ PG (N3), agent claude-code chạy bằng lệnh một dòng.</li>
+<li><strong>7.3</strong> Sau mỗi lượt thử: gặp lỗ mới ⇒ sửa thẳng form/thao tác ở trang này, thêm một dòng vào Bảng 6.</li>
+</ol>
+<table><caption>Bảng 7 · Bốn chỉ số (số cũ đo từ git 15–30/10)</caption>
+<thead><tr><th>Chỉ số</th><th>Hiện nay</th><th>Đích khi thử</th></tr></thead><tbody>
+<tr><td>Thời gian máy làm / thời gian trôi</td><td><b class="red">2–11%</b> (Sổ PG 2,3%)</td><td>≥ 40%</td></tr>
+<tr><td>Một lượt agent chạy</td><td><b class="red">trung vị 17 phút</b></td><td>≥ 2 giờ</td></tr>
+<tr><td>Chờ giữa hai lượt</td><td><b class="red">trung vị 7–11 giờ</b></td><td>&lt; 1 giờ</td></tr>
+<tr><td>Lượt DỪNG</td><td><b class="yellow">29%</b> (Sổ PG 40%)</td><td>≤ 10%, không tính cổng Owner thật</td></tr>
+</tbody></table>
+</div></details>
+
+<p class="note">Bản V1 của GPT (I–IV) và phản biện C1 của Claude đã gộp vào bản này; xem bản cũ ở git commit c309bb96.</p>
 </section>
 </main>
 </body>
