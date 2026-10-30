@@ -17,7 +17,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp GPT Chat ngày 20/10/
 - ⛔ Không làm: không lọc toàn cục, không biến ghi chú/draft thành luật, không tắt GSM/Drive, không xóa nguồn/vector.
 
 #### Lịch sử Bảng · snapshot P30 04:47 +07
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 04:47 +07 · Claude Code CLI P30 KQ XONG -08 · production 4 worker + PR357; 0 RUN active
+**Snapshot cũ:** Claude Code CLI P30 KQ XONG -08 · production 4 worker + PR357; 0 RUN active
 - 🎯 Mục tiêu: dọn lỗi/rác phát sinh, giảm chi phí tính toán, rà lại kiến trúc và số lượng cổng kiểm soát để VPS an toàn nhưng không lãng phí tài nguyên.
 - 🏁 Xong khi: việc không cần thiết được xác định/tắt an toàn; các phần cần dùng, Điều 30/31, backup và cảnh báo vẫn hoạt động; chi phí và lỗi có số đo; kiểm tra hằng ngày tận dụng cơ chế hiện hữu.
 - 📍 Tiến độ: ✅ R2/P13 audit · ✅ Owner D27 6→4 no-drop · ✅ P20 candidate/PR357 · ✅ P21/P22/P25/P26/P27 reviews/prompts · ✅ P28 source A Guard+ledger DONE / C healthy rồi auto-rollback do counter / B chưa · ■ P29 Host B1 DRAFT -08 → ⬜ Claude P30 B2 → ⬜ GPT B3 READY → ⬜ protected C→B → ⬜ Graph RAM/K4/G1–G3/UC-1 → ⬜ RAG-A/B/C riêng.

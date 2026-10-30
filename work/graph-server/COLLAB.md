@@ -96,7 +96,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 - ⛔ Không làm: không dùng cạnh vắng để suy ra không ai dùng, không tắt/xóa/ghi production hay đổi PROMPT READY.
 
 #### Lịch sử Bảng · snapshot P310 04:00 +07
-### BẢNG ĐIỀU KHIỂN · 2026-10-30 04:00 +07 · GPT Host P310 · VPSC2 P28 A DONE, C reverted after false worker counter, B pending; Host P29 DRAFT -08 C→B, 0 Graph RUN; G1 49/100/0-of9, G2 RAM blocked, G3 partial, UC-1 after proof.
+**Snapshot cũ:** VPSC2 P28 A DONE, C reverted after false worker counter, B pending; Host P29 DRAFT -08 C→B, 0 Graph RUN; G1 49/100/0-of9, G2 RAM blocked, G3 partial, UC-1 after proof.
 - 🎯 **Owner 29/10 (§3 SMALL-REAL-TEST):** Graph phải trả lời thẳng 3 câu (đã quét sạch VPS chưa · dữ liệu đổi có tự cập nhật chưa, chưa thử được ⇒ TREO · biết thiếu có tự dán MỘT PHẦN chưa); bài test thực tế nhỏ đầu tiên = giúp agent tắt chính xác mã của 5 dự án cũ (Khai sinh, registries, pivot, governance, miếng thông tin) và KB ngoài Hiến pháp + pháp luật theo Hiến pháp; dữ liệu cũ giữ làm đề thi; tắt/xoá do Owner quyết.
 - 🎯 **D26 Owner 24/10 07:58 (§1 mục 7/§2/§3, Host P237 chốt):** hai khả năng — (1) tự cập nhật để phủ mọi thông tin hiện tại của VPS, làm đầu vào cho chương trình khác; (2) tự biết khi chưa đủ ⇒ MỘT PHẦN. Theo chuẩn ngành, dùng lại cái có sẵn, không biến thành dự án khổng lồ (bài học registry/khai sinh/miếng thông tin/governance); làm rõ trước khi tiến hành. Đề xuất P236 (Host B3 chốt): đọc D25 là «trạng thái hiện tại đủ + tự biết khi cũ», không phải «ghi mọi biến động trung gian».
 - 🎯 **D25 Owner 24/10 (§1 mục 6):** Graph không được âm thầm mù create/update/delete/đổi quan hệ; từng nguồn phải có oracle+lag/cursor hoặc PARTIAL/UNKNOWN và downstream NOT_ACTION_SAFE; 49/100 không là 49% coverage.
