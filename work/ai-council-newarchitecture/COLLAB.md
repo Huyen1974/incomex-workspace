@@ -5,7 +5,7 @@ HTML chính: view.html
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ đạo «không bàn nữa mà làm»: chốt 5 việc Owner quyết + quy trình Mục tiêu lớn → Mục tiêu nhỏ → Checkpoint (§1 mục 9), sửa thẳng bản thiết kế, GPT góp thêm rồi chạy thử. Host: GPT Chat (đề xuất, Owner chưa chỉ định riêng). Chưa đổi AGENTS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 16:20 +07 · Claude Chat · N4 ĐANG LÀM: mẫu Bản đồ mục tiêu chờ Owner chỉnh
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 16:35 +07 · Claude Chat · N4 ĐANG LÀM: mẫu Bản đồ mục tiêu (dữ liệu thật của việc này) chờ Owner chỉnh
 - 🎯 Mục tiêu: Owner chỉ quyết 5 việc; còn lại AI chạy theo Mục tiêu lớn (L) → Đầu vào chung (Đ) → Mục tiêu nhỏ (N) → Checkpoint (C) với từ điển + form khai chung, agent khảo sát và đề xuất nhiều nhất, hội đồng tập trung giám sát.
 - 🏁 Xong khi: từ điển + form + thao tác ở [view.html](view.html) chạy thử đạt trên ≥ 1 việc thật, đo chỉ số ([mục 8](view.html#muc-8)); lỗ gặp khi thử đã vá vào form.
 - 📍 Tiến độ: [✅ N1 bản V2.1] → [■ N4 mẫu Bản đồ mục tiêu] → [□ N2 GPT rà, sửa thẳng] → [□ N3 thử trên Sổ PG] → [□ Sửa AGENTS theo kết quả thử].
@@ -57,6 +57,7 @@ L1 = §1 + §2 ở trên (Owner).
 - Đ1 · Số đo 15–30/10: máy làm 2–11% thời gian, lượt agent trung vị 17 phút, chờ giữa lượt 7–11 giờ, DỪNG 18/63 · nguồn: git log repo (Claude Chat đếm 30/10) · chắc: vừa (phân loại lý do DỪNG là ước lượng)
 - Đ2 · Trang Task hiện mọi thứ từ §3 đến trước `### Vòng trước` trong ô «Chi tiết cần đạt» ⇒ §4 Kế hoạch hiện được, không cần sửa mã · nguồn: docker/nuxt-repo/scripts/hvu-b2/sync.py parse_objective_parts · chắc: cao
 - Đ3 · Cổng ghi repo từ chối ghi khi sai expected_version ⇒ dùng làm khoá chống ghi đè · nguồn: mô tả công cụ fs_edit · chắc: cao
+- Đ4 · Hội đồng và kế hoạch (§4) nằm trên GitHub repo incomex-workspace; trang Task trên VPS chỉ đọc từ GitHub và vẽ lại; PG không tham gia việc này. «Sổ PG Tự quản» là mục tiêu của việc khác (nhap-directus-for-workflow), chỉ dùng làm ví dụ form · nguồn: AGENTS.md (GitHub là SSOT), sync.py trang Task · chắc: cao
 
 #### N1 · Viết bản V2: form L/N/C + thao tác + lượt agent · XONG
 - Thuộc: L1 · Người làm: claude-chat · Ước: 1h
@@ -87,6 +88,7 @@ L1 = §1 + §2 ở trên (Owner).
 - C2 ⬜ Chỉnh theo góp ý Owner · Đạt khi: Owner đồng ý mẫu
 - C3 ⬜ Ghi quy tắc vẽ «trường form → hình/màu» (để máy vẽ tự động ở N5) · Đạt khi: mỗi trạng thái N, C, Đ có đúng một cách vẽ
 - Ghi chú: N4 chèn trước N2 (thao tác 3.5 + 3.8) để GPT rà luôn cả bản đồ · claude-chat 30/10
+- Ghi chú: dữ liệu mẫu «Sổ PG Tự quản» khiến Owner hiểu là chuyển hội đồng vào PG (15:29) ⇒ đổi sang dữ liệu thật §4 của chính việc này, commit c9f00c1a · claude-chat 30/10
 
 #### N2 · GPT rà V2 từ ghế agent, sửa thẳng, chốt bản thử · DUYỆT
 - Thuộc: L1 · Cần trước: N4 · Người làm: gpt-chat · Ước: 1h
