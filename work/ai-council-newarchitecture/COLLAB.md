@@ -77,15 +77,28 @@ L1 = §1 + §2 ở trên (Owner).
   - Đ8 · Hạn: Owner chưa nêu · nguồn: — · kiểm: — · ○
 - 2 Nguyên liệu có sẵn
   - Đ9 · Bản V1 của GPT (commit d79a12af) và bản V2 view.html · nguồn: repo · work/ai-council-newarchitecture · kiểm: 30/10 · Claude · ●
-  - Đ1 (đã chuyển vào mục 2, nội dung dưới)
-  - đ10 · Khuôn «?» và ma trận đã làm ở Công thức (ban-duyet.html) để dùng lại · nguồn: repo · work/mow-mot-moit-mout · kiểm: 30/10 · Claude · ●
-- 3 Dụng cụ (Đx cũ ĐĐ… dưới)
-- Đ1 · Hiện trạng · Số đo 15–30/10: máy làm 2–11% thời gian, lượt agent trung vị 17 phút, chờ giữa lượt 7–11 giờ, DỪNG 18/63 (phân loại lý do DỪNG là ước lượng) · nguồn: git log repo · kiểm: 30/10 claude-chat · ●
-- Đ2 · Hiện trạng · Trang Task hiện mọi thứ từ §3 đến trước `### Vòng trước` trong ô «Chi tiết cần đạt» ⇒ §4 Kế hoạch hiện được, không cần sửa mã · nguồn: docker/nuxt-repo/scripts/hvu-b2/sync.py parse_objective_parts · kiểm: 30/10 claude-chat · ●
-- Đ3 · Hiện trạng · Cổng ghi repo từ chối ghi khi sai expected_version ⇒ dùng làm khoá chống ghi đè · nguồn: công cụ fs_edit, đã dùng thật · kiểm: 30/10 claude-chat · ●
-- Đ4 · Quyết định · Hội đồng và kế hoạch (§4) nằm trên GitHub repo incomex-workspace; trang Task trên VPS chỉ đọc từ GitHub và vẽ lại; PG không tham gia việc này. «Sổ PG Tự quản» là mục tiêu của việc khác (nhap-directus-for-workflow), chỉ dùng làm ví dụ form · nguồn: AGENTS.md (GitHub là SSOT), sync.py trang Task · kiểm: 30/10 Owner (15:29, 17:23) · ●
-- Đ5 · Quyết định · Ký = ghi danh khi ghi lên repo; chưa ghi = chưa có, kể cả đã làm mà chưa ghi · nguồn: Owner 30/10 17:23 · kiểm: 30/10 Owner · ●
-- Đ6 · Giả định · Cơ chế ghi danh (vé tạm khi ghi) do phiên khác làm, sẽ dùng được cho việc này · nguồn: Owner 30/10 17:23, chưa thấy chạy · kiểm: — · ○
+  - Đ1 · Số đo 15–30/10: máy làm 2–11% thời gian; lượt agent trung vị 17 phút; chờ giữa lượt 7–11 giờ; 18/63 lượt DỪNG · nguồn: git log repo · kiểm: 30/10 · Claude · ●
+  - Đ10 · Khuôn «?» và ma trận đã làm ở Công thức (ban-duyet.html) để dùng lại · nguồn: repo · work/mow-mot-moit-mout · kiểm: 30/10 · Claude · ●
+- 3 Dụng cụ
+  - Đ11 · GitHub repo incomex-workspace (nơi gốc của hội đồng) · nguồn: AGENTS.md · kiểm: 30/10 · Claude · ●
+  - Đ3 · Cổng ghi repo từ chối khi sai phiên bản (expected_version) ⇒ khoá chống ghi đè · nguồn: công cụ fs_edit · đã dùng thật · kiểm: 30/10 · Claude · ●
+  - Đ2 · Trang Task hiện từ §3 đến trước «Vòng trước» ⇒ §4 Kế hoạch hiện được, không sửa mã · nguồn: sync.py · parse_objective_parts · kiểm: 30/10 · Claude · ●
+  - Đ12 · PG, Directus: không dùng cho việc này · nguồn: Đ4 · kiểm: 30/10 · Claude · không cần
+- 4 Quyền và đường vào
+  - Đ13 · claude-chat, gpt-chat ghi thư mục việc qua cổng ghi repo; Owner không phải bấm gì · nguồn: đã ghi thật 30/10 · kiểm: 30/10 · Claude · ●
+- 5 Ràng buộc
+  - Đ14 · Một tài liệu: chỉ sửa view.html và COLLAB.md, không đẻ file mới · nguồn: luật chung của Owner · kiểm: 30/10 · Claude · ●
+  - Đ15 · Không sửa AGENTS, production, VPS khi chưa chạy thử đạt · nguồn: Owner 30/10 14:57 · mục 3 ma trận · kiểm: 30/10 · Claude · ●
+  - Đ16 · Đọc kỹ bản cũ trước khi sửa phần người khác viết · nguồn: Owner 30/10 15:07 · kiểm: 30/10 · Claude · ●
+- 6 Đã chốt
+  - Đ17 · Owner chỉ quyết 5 việc; còn lại hội đồng tự chạy · nguồn: Owner 30/10 14:57 · kiểm: 30/10 · Owner · ●
+  - Đ4 · Hội đồng và kế hoạch ở GitHub; trang Task chỉ đọc lại; PG không tham gia · nguồn: Owner 30/10 15:29, 17:23 · kiểm: 30/10 · Owner · ●
+  - Đ5 · Ký = ghi danh khi ghi lên repo; chưa ghi = chưa có · nguồn: Owner 30/10 17:23 · kiểm: 30/10 · Owner · ●
+- 7 Còn thiếu
+  - Đ18 · Chưa có việc thật để chạy thử (đề xuất Sổ PG — mục 1.4 ma trận, chờ duyệt) · nguồn: ma trận 1.4 · kiểm: 30/10 · Claude · 🔴
+  - Đ6 · Cơ chế ghi danh (vé tạm khi ghi) do phiên khác làm — chưa thấy chạy · nguồn: Owner 30/10 17:23 · kiểm: — · ○
+- 8 Ghi chú, bổ sung
+  - Đ19 · Bảng mục tiêu cũ (4 bảng) giữ lại tới khi ma trận được chốt · nguồn: Owner 30/10 15:48 · kiểm: 30/10 · Claude · ●
 
 #### N1 · Viết bản V2: form L/N/C + thao tác + lượt agent · XONG
 - Thuộc: L1 · Người làm: claude-chat · Ước: 1h
