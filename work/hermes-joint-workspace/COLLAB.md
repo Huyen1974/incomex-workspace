@@ -484,6 +484,7 @@
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 · GPT Host P487 · **RUN23 PRIMARY CI PASS · RUN24 KB ADMIN READY · 0 RUN ACTIVE · NO MERGE/DEPLOY**
+- **P487/B1:** Host accepts RUN23 primary KB code/CI 271 PASS. Four admin KB routes still pending; RUN24 Codex source-only. No merge/deploy.
 - **P486/KQ:** PR358 DRAFT2d966640/base6160f9ad; MCP/REST/stdio-hybrid primary KB guard; Mac271 + HTTP fixture30 PASS; CI41075696274 SUCCESS/Unit271. Admin4 routes chưa phủ; verified mapping chỉ fixture, chưa live. PR357 giữ nguyên; 0 KB/VPS write. NEXT=GPT Host nghiệm thu P486 và chọn phạm vi admin/verified facts; không tự RUN.
 - STARTED@HJW-G8-AD-KB-INGRESS-TRUSTED-FACTS-20261030-23 2026-10-30T14:46Z · executor=Codex Desktop/MacBook · READY@01e3e0d06a8db177d28e55114a2c618324cec7d1 verified; HEAD833bbc1/base6160f9ad/PR35736c68291 unchanged; no KB/VPS write.
 - **P485/B1:** Host kiểm GH CI run41065092635 (job124094142966) hoàn tất SUCCESS, preflight/scan/policy/Unit 202/202 PASS đúng PR358 HEAD833bbc1/base6160f9ad. P484 queued là trạng thái lúc báo; Host nâng kết quả RUN22 source checkpoint thành PASS, G8_SYSTEM chưa đạt. READY RUN23 Codex phủ KB write+trusted facts source-only.
