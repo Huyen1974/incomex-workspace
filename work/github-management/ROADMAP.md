@@ -1,4 +1,5 @@
-# ROADMAP — github-management V1.10 · 30/10/2026
+# ROADMAP — github-management V1.11 · 30/10/2026
+**P148 GPT Host ACCEPT P147:** T3 khóa Web VPS HOÃN theo Owner; vận hành cũ giữ nguyên. Web/AD main source + CI đạt, Web PR682→VPS là bằng chứng đầu. Bước ứng dụng Web thật kế tiếp chọn P0 Reports Owner auth tại NDW hiện hữu (CODE-ONLY branch/PR/CI; NO MERGE/DEPLOY, Owner GO riêng); GHM chỉ phục vụ lane, không mở task mới. R4/F2 3 agent/3 PR + kiểm runner trust, AD main→VPS rollback, R6/C4 ca đêm chưa đạt. `OPS_KEY` thuộc bảo mật hiện hữu; không bịa Owner identity từ cookie khách.
 **P147 OWNER — **HOÃN KHÓA — TIẾP TỤC VẬN HÀNH THỰC TẾ.** Owner 30/10 thay quyết định bước khóa T3 tại P146; chưa chmod/read-only, tắt writer/vps-daily hoặc thay Guard để cưỡng chế GitHub SSOT. Giữ nguyên các đường vận hành, backup, rollback, HVU, cron và vps-daily đang có; không hoàn tác kết quả đã nghiệm thu.**
 
 Codex viết mã → GitHub PR → CI GREEN đúng HEAD → KST review độc lập/merge → lấy đúng SHA GitHub main → triển khai VPS sau Owner GO → kiểm thực tế và có đường rollback. Dùng PR682/P131/P132 làm bằng chứng đầu tiên; tiếp tục bằng thay đổi ứng dụng thật trong task đã có, không tạo thay đổi giả.
