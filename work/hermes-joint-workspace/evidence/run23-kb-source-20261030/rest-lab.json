@@ -1,0 +1,272 @@
+{
+  "passed": 30,
+  "scope": "FastAPI HTTP fixture with actual REST dependency + actual guarded handler bodies; fake storage, no production startup",
+  "cases": [
+    {
+      "method": "POST",
+      "path": "/documents",
+      "case": "wrong_key",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "POST",
+      "path": "/documents",
+      "case": "missing_facts",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "POST",
+      "path": "/documents",
+      "case": "forged_header",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "POST",
+      "path": "/documents",
+      "case": "forged_body",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "POST",
+      "path": "/documents",
+      "case": "valid",
+      "status": 200,
+      "effects": [
+        "ensure_pg",
+        "pg",
+        "qdrant",
+        "pg",
+        "event"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/documents",
+      "case": "legacy",
+      "status": 200,
+      "effects": [
+        "ensure_pg",
+        "pg",
+        "qdrant",
+        "pg",
+        "event"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/documents/alpha",
+      "case": "wrong_key",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "PUT",
+      "path": "/documents/alpha",
+      "case": "missing_facts",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "PUT",
+      "path": "/documents/alpha",
+      "case": "forged_header",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "PUT",
+      "path": "/documents/alpha",
+      "case": "forged_body",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "PUT",
+      "path": "/documents/alpha",
+      "case": "valid",
+      "status": 200,
+      "effects": [
+        "ensure_pg",
+        "pg",
+        "qdrant",
+        "qdrant",
+        "pg",
+        "event"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/documents/alpha",
+      "case": "legacy",
+      "status": 200,
+      "effects": [
+        "ensure_pg",
+        "pg",
+        "qdrant",
+        "qdrant",
+        "pg",
+        "event"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/documents/alpha",
+      "case": "wrong_key",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/documents/alpha",
+      "case": "missing_facts",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/documents/alpha",
+      "case": "forged_header",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/documents/alpha",
+      "case": "forged_body",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "PATCH",
+      "path": "/documents/alpha",
+      "case": "valid",
+      "status": 200,
+      "effects": [
+        "ensure_pg",
+        "pg",
+        "qdrant",
+        "qdrant",
+        "pg",
+        "event"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/documents/alpha",
+      "case": "legacy",
+      "status": 200,
+      "effects": [
+        "ensure_pg",
+        "pg",
+        "qdrant",
+        "qdrant",
+        "pg",
+        "event"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/documents/alpha",
+      "case": "wrong_key",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/documents/alpha",
+      "case": "missing_facts",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/documents/alpha",
+      "case": "forged_header",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/documents/alpha",
+      "case": "forged_body",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "DELETE",
+      "path": "/documents/alpha",
+      "case": "valid",
+      "status": 200,
+      "effects": [
+        "ensure_pg",
+        "qdrant",
+        "pg",
+        "event"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/documents/alpha",
+      "case": "legacy",
+      "status": 200,
+      "effects": [
+        "ensure_pg",
+        "qdrant",
+        "pg",
+        "event"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/ingest",
+      "case": "wrong_key",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "POST",
+      "path": "/ingest",
+      "case": "missing_facts",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "POST",
+      "path": "/ingest",
+      "case": "forged_header",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "POST",
+      "path": "/ingest",
+      "case": "forged_body",
+      "status": 403,
+      "effects": []
+    },
+    {
+      "method": "POST",
+      "path": "/ingest",
+      "case": "valid",
+      "status": 202,
+      "effects": [
+        "pg",
+        "qdrant"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/ingest",
+      "case": "legacy",
+      "status": 200,
+      "effects": [
+        "pg",
+        "qdrant"
+      ]
+    }
+  ]
+}

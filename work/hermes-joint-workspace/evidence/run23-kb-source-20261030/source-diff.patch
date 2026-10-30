@@ -1,0 +1,765 @@
+diff --git a/agent_data/kb_declaration.py b/agent_data/kb_declaration.py
+new file mode 100644
+index 0000000..307292a
+--- /dev/null
++++ b/agent_data/kb_declaration.py
+@@ -0,0 +1,186 @@
++"""Primary KB attribution, shared by authenticated MCP and REST writers.
++No credentials, storage, network, or authorization policy lives in this adapter.
++"""
++import contextvars
++import inspect
++import json
++from functools import wraps
++from agent_data import declaration_contract as d, hvu_signals
++
++PRIMARY = frozenset({'upload_document','update_document','patch_document','delete_document','ingest_document'})
++ADMIN_UNCOVERED = ('/kb/reindex','/kb/cleanup-orphans','/kb/reindex-missing','/kb/audit-sync')
++HEADER = 'X-Write-Declaration'
++MAX_HEADER = 8192
++identity = contextvars.ContextVar('kb_authenticated_context', default=None)
++incoming = contextvars.ContextVar('kb_write_input', default=None)
++forwarding = contextvars.ContextVar('kb_client_forwarding', default=None)
++effects = contextvars.ContextVar('kb_write_outcome', default=None)
++
++
++def fields(args):
++    if not isinstance(args, dict) or any(k.startswith('_') for k in args):
++        raise d.Denied('CLIENT_METADATA_FORBIDDEN', 'Supply only public declaration fields; private metadata is server-owned.')
++    return {k:args[k] for k in ('declared_actor','declaration_context') if k in args}
++
++
++def header(args):
++    value=fields(args)
++    if not value:return {}
++    raw=json.dumps(value,ensure_ascii=True,separators=(',',':'))
++    if len(raw.encode())>MAX_HEADER:raise d.Denied('DECLARATION_CONTEXT_INVALID','Declaration header exceeds 8192 bytes.')
++    return {HEADER:raw}
++
++
++def parse(raw):
++    if raw is None:return {}
++    if not isinstance(raw,str) or len(raw.encode())>MAX_HEADER:
++        raise d.Denied('DECLARATION_CONTEXT_INVALID','Use a JSON declaration header of at most 8192 bytes.')
++    try:value=json.loads(raw)
++    except (ValueError,TypeError):raise d.Denied('DECLARATION_CONTEXT_INVALID','Use JSON in X-Write-Declaration.')
++    fields(value)
++    if set(value)-{'declared_actor','declaration_context'}:
++        raise d.Denied('DECLARATION_CONTEXT_INVALID','Only declared_actor and declaration_context belong in this header.')
++    return value
++
++
++def profile_facts(profile, config):
++    """Only an already-authenticated profile ID selects operator-owned facts.
++    Labels, clientInfo, IP/host and shared keys are never product/origin mappings.
++    """
++    if not profile:return {}
++    raw=(config.get('master_profiles') or {}).get(profile['id'],{})
++    if (raw.get('enabled') is not True or raw.get('credential_env')!=profile.get('credential_env')
++            or raw.get('label')!=profile.get('label')):return {}
++    value=raw.get('declaration_facts',{})
++    if not isinstance(value,dict) or set(value)-set(d.EXAMPLES):
++        raise d.Denied('DECLARATION_CONTEXT_INVALID','Operator profile declaration_facts is invalid.')
++    return dict(value)
++
++
++def note(store,status):
++    value=effects.get()
++    if value is not None and status in ('error','skipped','unknown'):
++        value.append({'store':store,'status':status})
++
++
++def advertise(tools):
++    for tool in tools:
++        name=tool.get('name') if isinstance(tool,dict) else tool.name
++        if name not in PRIMARY:continue
++        schema=tool['inputSchema'] if isinstance(tool,dict) else tool.inputSchema
++        schema.setdefault('properties',{}).update(declared_actor=dict(d.FIELD),declaration_context=dict(d.CONTEXT_FIELD))
++    return tools
++
++
++def dispatch(func):
++    @wraps(func)
++    async def wrapped(tool_name,args,*a,**kw):
++        if tool_name not in PRIMARY:return await func(tool_name,args,*a,**kw)
++        try:
++            fields(args)
++            auth=identity.get() or {'who':hvu_signals.hidden(),'verified':{}}
++            if hvu_signals.agent_id() is not None:auth={'who':hvu_signals.hidden(),'verified':{}}
++            token=incoming.set(dict(auth,args=args))
++            try:return await func(tool_name,args,*a,**kw)
++            finally:incoming.reset(token)
++        except d.Denied as error:return error.result()
++    return wrapped
++
++
++def writer(*, response, encode, http_error, status_code=200):
++    """Wrap actual handlers, so MCP direct Python calls cannot bypass REST admission."""
++    def decorate(func):
++        signature=inspect.signature(func)
++        @wraps(func)
++        async def wrapped(*args,**kwargs):
++            bound=signature.bind_partial(*args,**kwargs).arguments
++            supplied=bound.get('_')
++            source=supplied if isinstance(supplied,dict) and 'who' in supplied else incoming.get()
++            source=source or {'who':None,'args':{},'verified':{}}
++            try:
++                public=dict(source['args']);fields(public)
++                # The handler target, not a caller's unrelated path, determines task scope.
++                target=bound.get('doc_id') or getattr(bound.get('payload'),'document_id',None)
++                if isinstance(target,str):public['path']=target
++                receipt=d.resolve(public,source['who'],verified=source.get('verified'))
++            except d.Denied as error:return response(status_code=403,content=error.result())
++            token=effects.set([])
++            try:
++                try:result=await func(*args,**kwargs)
++                except http_error as error:
++                    if receipt is None:raise
++                    return response(status_code=error.status_code,content={
++                        'error':'KB_WRITE_FAILED','detail':error.detail,'declaration_receipt':receipt,
++                        'write_outcome':{'status':'unconfirmed','atomic':False,'issues':effects.get()}})
++                if receipt is None:return result  # legacy response/model/semantics unchanged
++                content=encode(result)
++                content['declaration_receipt']=receipt
++                if effects.get():content['error']='KB_PARTIAL_WRITE'
++                content['write_outcome']={'status':'partial' if effects.get() else 'handler_completed',
++                                          'atomic':False,'issues':effects.get()}
++                return response(status_code=status_code,content=content)
++            finally:effects.reset(token)
++        return wrapped
++    return decorate
++
++
++def result(value):
++    """MCP dispatcher accepts both legacy models and declared HTTP responses."""
++    if hasattr(value,'body'):return json.loads(value.body)
++    return value.model_dump()
++
++
++def client_headers(method,path):
++    context=forwarding.get()
++    if context and method in ('POST','PUT','PATCH','DELETE') and (path=='/ingest' or path=='/documents' or path.startswith('/documents/')):
++        return header(context['args'])
++    return {}
++
++
++def capture(method,path,response):
++    context=forwarding.get()
++    if context is not None and method in ('POST','PUT','PATCH','DELETE') and (path=='/ingest' or path=='/documents' or path.startswith('/documents/')):
++        try:context['result']=response.json()
++        except ValueError:pass
++
++
++def client_call(*, text=None):
++    """Task-local transport metadata only; all facts remain untrusted until server admission."""
++    def decorate(func):
++        @wraps(func)
++        async def wrapped(name,arguments,*args,**kwargs):
++            if name not in PRIMARY:return await func(name,arguments,*args,**kwargs)
++            try:header(arguments)
++            except d.Denied as error:
++                return [text(type='text',text=json.dumps(error.result()))] if text else error.result()
++            context={'args':arguments};token=forwarding.set(context)
++            try:
++                out=await func(name,arguments,*args,**kwargs)
++                receipt=context.get('result',{}).get('declaration_receipt')
++                if text and receipt is not None:
++                    out.append(text(type='text',text=json.dumps({'declaration_receipt':receipt,'write_outcome':context['result'].get('write_outcome')})))
++                return out
++            finally:forwarding.reset(token)
++        return wrapped
++    return decorate
++
++
++def schemas(func):
++    @wraps(func)
++    async def wrapped(*a,**kw):return advertise(await func(*a,**kw))
++    return wrapped
++
++
++def client_request(func):
++    @wraps(func)
++    async def wrapped(tool_name,request):
++        if tool_name not in PRIMARY:return await func(tool_name,request)
++        try:
++            try:args=await request.json()
++            except ValueError:args={}
++            header(args)
++        except d.Denied as error:return {'result':error.result()}
++        token=forwarding.set({'args':args})
++        try:return await func(tool_name,request)
++        finally:forwarding.reset(token)
++    return wrapped
+diff --git a/agent_data/server.py b/agent_data/server.py
+index dc653e7..a6691dc 100644
+--- a/agent_data/server.py
++++ b/agent_data/server.py
+@@ -20,7 +20,8 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
+ from starlette.responses import Response
+ from starlette_prometheus import PrometheusMiddleware, metrics
+ 
+-from agent_data import pg_store, vector_store
++from agent_data import pg_store, vector_store, kb_declaration
++from fastapi.encoders import jsonable_encoder
+ from agent_data import workspace_tools
+ from agent_data import hjw_infra  # HJW-HERMES-CAPABILITY-20261023-03: kenh doc B/C/E chi /mcp-agent
+ from starlette.concurrency import run_in_threadpool
+@@ -650,6 +651,7 @@ def _sync_vector_entry(
+         is_human_readable=is_human_readable,
+     )
+ 
++    kb_declaration.note("qdrant", result.status)
+     if result.status == "skipped":
+         pg_store.update_doc(KB_COLLECTION, doc_key, {"vector_status": "skipped"})
+         return
+@@ -667,6 +669,7 @@ def _sync_vector_entry(
+ 
+ def _delete_vector_entry(document_id: str) -> None:
+     result = vector_store.delete_document(document_id)
++    kb_declaration.note("qdrant", result.status)
+     if result.status == "error":
+         logger.error("Failed to delete vector for %s: %s", document_id, result.error)
+ 
+@@ -681,6 +684,22 @@ def require_api_key(x_api_key: str | None = Header(default=None)) -> None:
+         raise _error(403, "FORBIDDEN", "Invalid or missing API key")
+ 
+ 
++async def _kb_input(request: Request, x_write_declaration: str | None = Header(default=None),
++                    _auth=Depends(require_api_key)):
++    # Existing REST authentication is unchanged; shared credential proves no AI/origin.
++    try:
++        try: body = await request.json()
++        except ValueError: body = {}
++        if isinstance(body, dict): kb_declaration.fields(body)
++        args = kb_declaration.parse(x_write_declaration)
++        return {'who': {'label': 'credential:shared-rest', 'authenticated': True},
++                'args': args, 'verified': {}}
++    except kb_declaration.d.Denied as error:
++        raise HTTPException(status_code=403, detail=error.result())
++
++_kb_writer = kb_declaration.writer(response=JSONResponse, encode=jsonable_encoder, http_error=HTTPException)
++
++
+ # ---- MCP route auth policy (HJW-2C G0) ----
+ # Every route that can reach _dispatch_mcp_tool / workspace_tools.call declares its auth
+ # policy as a route dependency, so the check runs before the body is read or anything is
+@@ -868,7 +887,8 @@ async def serve_openapi_spec():
+     status_code=202,
+     dependencies=[Depends(require_api_key)],
+ )
+-async def ingest(message: ChatMessage):
++@kb_declaration.writer(response=JSONResponse, encode=jsonable_encoder, http_error=HTTPException, status_code=202)
++async def ingest(message: ChatMessage, _=Depends(_kb_input)):
+     """Ingest inline text into the knowledge base.
+ 
+     S109: GCS and Pub/Sub dependencies removed. Only inline text ingestion remains.
+@@ -907,8 +927,10 @@ async def ingest(message: ChatMessage):
+                     "revision": 1,
+                 }
+                 pg_store.set_doc(KB_COLLECTION, _fs_key(doc_id), kb_payload)
++            else:
++                kb_declaration.note("pg", "skipped")
+         except Exception:
+-            pass
++            kb_declaration.note("pg", "error")
+ 
+         # Sync to Qdrant vector store for RAG
+         try:
+@@ -920,6 +942,7 @@ async def ingest(message: ChatMessage):
+                 parent_id="root",
+                 is_human_readable=True,
+             )
++            kb_declaration.note("qdrant", vec_result.status)
+             if vec_result.status == "error":
+                 logger.warning("Vector sync error for %s: %s", doc_id, vec_result.error)
+             elif vec_result.status == "skipped":
+@@ -929,6 +952,7 @@ async def ingest(message: ChatMessage):
+                     "Vector sync completed for %s: %s", doc_id, vec_result.status
+                 )
+         except Exception as vec_err:
++            kb_declaration.note("qdrant", "error")
+             logger.warning("Vector sync failed for %s: %s", doc_id, vec_err)
+ 
+         try:
+@@ -1495,10 +1519,11 @@ def _assert_move_target_valid(*, document_id: str, new_parent_id: str) -> None:
+ 
+ 
+ @app.post("/documents", response_model=DocumentResponse)
++@_kb_writer
+ async def create_document(
+     payload: DocumentCreate,
+     upsert: bool = Query(False),
+-    _=Depends(require_api_key),
++    _=Depends(_kb_input),
+ ):
+     try:
+         _ensure_pg()
+@@ -1537,6 +1562,7 @@ async def create_document(
+                             is_human_readable=payload.is_human_readable,
+                         )
+                     except Exception as exc:
++                        kb_declaration.note("qdrant", "error")
+                         logger.error(
+                             "Vector sync failed for upsert %s: %s", doc_id, exc
+                         )
+@@ -1588,6 +1614,7 @@ async def create_document(
+                 is_human_readable=document_data.get("is_human_readable", False),
+             )
+         except Exception as exc:  # pragma: no cover - defensive logging
++            kb_declaration.note("qdrant", "error")
+             logger.error("Vector synchronization failed for %s: %s", doc_id, exc)
+ 
+         get_event_bus().emit_fire_and_forget(
+@@ -1608,10 +1635,11 @@ async def create_document(
+ 
+ 
+ @app.put("/documents/{doc_id:path}", response_model=DocumentResponse)
++@_kb_writer
+ async def update_document(
+     doc_id: str = Path(..., min_length=1),
+     payload: DocumentUpdate = None,
+-    _=Depends(require_api_key),
++    _=Depends(_kb_input),
+ ):
+     try:
+         _ensure_pg()
+@@ -1716,6 +1744,7 @@ async def update_document(
+                     },
+                 )
+         except Exception as exc:  # pragma: no cover
++            kb_declaration.note("qdrant", "error")
+             logger.error("Vector synchronization failed for %s: %s", doc_id, exc)
+ 
+         get_event_bus().emit_fire_and_forget(
+@@ -1823,8 +1852,9 @@ async def move_document(
+ 
+ 
+ @app.delete("/documents/{doc_id:path}", response_model=DocumentResponse)
++@_kb_writer
+ async def delete_document(
+-    doc_id: str = Path(..., min_length=1), _=Depends(require_api_key)
++    doc_id: str = Path(..., min_length=1), _=Depends(_kb_input)
+ ):
+     try:
+         _ensure_pg()
+@@ -1835,6 +1865,7 @@ async def delete_document(
+         try:
+             _delete_vector_entry(doc_id)
+         except Exception as exc:  # pragma: no cover
++            kb_declaration.note("qdrant", "error")
+             logger.error("Vector deletion failed for %s: %s", doc_id, exc)
+ 
+         if current is None:
+@@ -2005,10 +2036,11 @@ class PatchDocumentRequest(BaseModel):
+ 
+ 
+ @app.patch("/documents/{doc_id:path}", response_model=DocumentResponse)
++@_kb_writer
+ async def patch_document(
+     doc_id: str = Path(..., min_length=1),
+     payload: PatchDocumentRequest = ...,
+-    _=Depends(require_api_key),
++    _=Depends(_kb_input),
+ ):
+     """Apply a targeted string replacement to a document's content.
+ 
+@@ -2079,6 +2111,7 @@ async def patch_document(
+                 is_human_readable=data.get("is_human_readable", False),
+             )
+         except Exception as exc:
++            kb_declaration.note("qdrant", "error")
+             logger.error("Vector sync failed for patch %s: %s", doc_id, exc)
+ 
+         get_event_bus().emit_fire_and_forget(
+@@ -3069,6 +3102,7 @@ MCP_TOOLS = [
+ ]
+ 
+ 
++kb_declaration.advertise(MCP_TOOLS)
+ MCP_TOOLS += [GET_DOC_CHUNK_TOOL_SCHEMA] + workspace_tools.TOOL_SCHEMAS
+ for _tool in MCP_TOOLS:
+     if "annotations" not in _tool:
+@@ -3103,11 +3137,14 @@ def _master_identity(request: Request, params: dict, initialize: bool) -> None:
+     from agent_data import hvu_signals, lifecycle
+     profile = getattr(request.state, "master_profile", None)
+     if profile:
++        kb_declaration.identity.set({"who": {"label": profile["label"], "authenticated": True},
++                                     "verified": kb_declaration.profile_facts(profile, workspace_tools.config())})
+         hvu_signals.bind(profile["label"])
+         lifecycle.set_context(profile["id"], lifecycle.session_key(request, profile["id"]), request.url.path)
+         if initialize:
+             _identity_journal(request, "master_session", profile=profile["id"])
+         return
++    kb_declaration.identity.set({"who": {"label": "credential:shared-mcp", "authenticated": True}, "verified": {}})
+     hvu_signals.transport(request, params, initialize)
+     lifecycle.set_context("legacy", lifecycle.session_key(request, "legacy"), request.url.path)
+     if workspace_tools.legacy_master_mode() == "enforce":
+@@ -3349,6 +3386,7 @@ def _result_origin(tool_name: str) -> str | None:
+     return None if tool_name in workspace_tools.HANDLERS else workspace_tools.OUTSIDE_TRIAL
+ 
+ 
++@kb_declaration.dispatch
+ async def _dispatch_mcp_tool(
+     tool_name: str,
+     args: dict,
+@@ -3432,7 +3470,7 @@ async def _dispatch_mcp_tool(
+             metadata=DocumentMetadata(title=title, tags=tags),
+         )
+         result = await create_document(payload)
+-        return result.model_dump()
++        return kb_declaration.result(result)
+ 
+     if tool_name == "update_document":
+         path = args.get("path", "")
+@@ -3451,11 +3489,11 @@ async def _dispatch_mcp_tool(
+         update_mask = ["content"] + (["metadata"] if metadata else [])
+         payload = DocumentUpdate(document_id=path, patch=patch, update_mask=update_mask)
+         result = await update_document(doc_id=path, payload=payload)
+-        return result.model_dump()
++        return kb_declaration.result(result)
+ 
+     if tool_name == "delete_document":
+         result = await delete_document(doc_id=args.get("path", ""))
+-        return result.model_dump()
++        return kb_declaration.result(result)
+ 
+     # move_document dispatcher branch removed in phase 2F-D3. Any MCP
+     # `tools/call` with name=move_document now falls through to the generic
+@@ -3465,7 +3503,7 @@ async def _dispatch_mcp_tool(
+     if tool_name == "ingest_document":
+         msg = ChatMessage(text=args.get("source", ""))
+         result = await ingest(msg)
+-        return result.model_dump()
++        return kb_declaration.result(result)
+ 
+     if tool_name == "patch_document":
+         path = args.get("path", "")
+@@ -3475,7 +3513,7 @@ async def _dispatch_mcp_tool(
+         )
+         try:
+             result = await patch_document(doc_id=path, payload=patch_payload)
+-            return result.model_dump()
++            return kb_declaration.result(result)
+         except HTTPException as exc:
+             return {
+                 "error": (
+diff --git a/mcp_server/server.py b/mcp_server/server.py
+index 447a8ba..c8ed54e 100644
+--- a/mcp_server/server.py
++++ b/mcp_server/server.py
+@@ -10,6 +10,7 @@ import os
+ from typing import Any
+ 
+ import httpx
++from agent_data import kb_declaration
+ from fastapi import FastAPI, Request
+ from fastapi.middleware.cors import CORSMiddleware
+ from fastapi.responses import JSONResponse
+@@ -255,7 +256,7 @@ async def _hybrid_request(method: str, path: str, **kwargs) -> httpx.Response:
+             if not url:
+                 continue
+             try:
+-                headers = {**_auth_headers(url), **kwargs.pop("headers", {})}
++                headers = {**_auth_headers(url), **kwargs.pop("headers", {}), **kb_declaration.client_headers(method, path)}
+                 resp = await client.request(
+                     method,
+                     f"{url}{path}",
+@@ -265,6 +266,7 @@ async def _hybrid_request(method: str, path: str, **kwargs) -> httpx.Response:
+                 )
+                 label = "LOCAL" if url == AGENT_DATA_URL else "CLOUD"
+                 logger.info("Using %s endpoint: %s", label, url)
++                kb_declaration.capture(method, path, resp)
+                 return resp
+             except (httpx.ConnectError, httpx.ConnectTimeout) as e:
+                 label = "LOCAL" if url == AGENT_DATA_URL else "CLOUD"
+@@ -368,6 +370,7 @@ async def ingest_document(source: str) -> dict[str, Any]:
+ 
+ 
+ # MCP Protocol Handlers
++kb_declaration.advertise(MCP_TOOLS)
+ @app.get("/mcp")
+ async def mcp_info():
+     """MCP Server info endpoint - returns server capabilities and tools"""
+@@ -386,6 +389,7 @@ async def mcp_info():
+ 
+ 
+ @app.post("/mcp/tools/{tool_name}")
++@kb_declaration.client_request
+ async def execute_tool(tool_name: str, request: Request):
+     """Execute an MCP tool by name"""
+     try:
+diff --git a/mcp_server/stdio_server.py b/mcp_server/stdio_server.py
+index 0fc816e..b471f17 100755
+--- a/mcp_server/stdio_server.py
++++ b/mcp_server/stdio_server.py
+@@ -12,6 +12,7 @@ import os
+ import sys
+ 
+ import httpx
++from agent_data import kb_declaration
+ from mcp.server import Server
+ from mcp.server.stdio import stdio_server
+ from mcp.types import TextContent, Tool
+@@ -101,7 +102,7 @@ async def _request_with_fallback(
+             continue
+         try:
+             headers = _get_auth_headers(attempt_url)
+-            merged_headers = {**headers, **kwargs.pop("headers", {})}
++            merged_headers = {**headers, **kwargs.pop("headers", {}), **kb_declaration.client_headers(method, path)}
+             resp = await client.request(
+                 method,
+                 f"{attempt_url}{path}",
+@@ -113,6 +114,7 @@ async def _request_with_fallback(
+                 label = "LOCAL" if attempt_url == primary else "CLOUD"
+                 logger.info("Using %s endpoint: %s", label, attempt_url)
+                 _active_url = attempt_url
++            kb_declaration.capture(method, path, resp)
+             return resp
+         except (httpx.ConnectError, httpx.ConnectTimeout) as e:
+             label = "LOCAL" if attempt_url == primary else "CLOUD"
+@@ -163,6 +165,7 @@ server = Server("agent-data")
+ 
+ 
+ @server.list_tools()
++@kb_declaration.schemas
+ async def list_tools() -> list[Tool]:
+     """Discover current server schemas; fall back to legacy inventory only offline."""
+     async with httpx.AsyncClient() as client:
+@@ -394,6 +397,7 @@ async def list_tools() -> list[Tool]:
+ 
+ 
+ @server.call_tool()
++@kb_declaration.client_call(text=TextContent)
+ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
+     """Execute a tool and return results. Uses hybrid fallback (local→cloud)."""
+ 
+diff --git a/tests/unit/test_hjw_four_facts.py b/tests/unit/test_hjw_four_facts.py
+index 64b78aa..0703945 100644
+--- a/tests/unit/test_hjw_four_facts.py
++++ b/tests/unit/test_hjw_four_facts.py
+@@ -418,3 +418,225 @@ def test_exec_task_cwd_mismatch_zero_mutation(exec_env,cwd):
+     a['declaration_context']['task_id']='done-tasks/alpha'
+     r=w.call('workspace_exec',a);assert 'error' not in r,r
+     assert r['declaration_receipt']['facts']['task_id']['provenance']=='derived'
++
++# RUN23 loads the actual primary handler bodies without importing production startup.
++# Storage/event fakes are explicit; the admission/contract/handlers are real source.
++from agent_data import kb_declaration as kb
++
++class KBObject:
++    def __init__(self,**kw):self.__dict__.update(kw)
++    def model_dump(self,**kw):
++        return {k:(v.model_dump() if hasattr(v,'model_dump') else v) for k,v in self.__dict__.items()}
++
++class KBHTTPError(Exception):
++    def __init__(self,status_code,detail):self.status_code=status_code;self.detail=detail
++
++class KBResponse:
++    def __init__(self,content,status_code=200):
++        self.status_code=status_code;self.body=json.dumps(content).encode()
++    def json(self):return json.loads(self.body)
++
++@pytest.fixture
++def kb_lab(monkeypatch):
++    import ast,types,datetime,uuid,logging
++    trace=[]
++    doc={'document_id':'knowledge/alpha','content':{'body':'old','mime_type':'text/plain'},'metadata':{'title':'alpha'},'parent_id':'knowledge','revision':1,'deleted_at':None,'is_human_readable':True}
++    class PG:
++        def get_doc(self,*a):return json.loads(json.dumps(doc)) if a[-1]=='knowledge/alpha' else None
++        def set_doc(self,*a,**kw):trace.append('pg');return True
++        def update_doc(self,*a,**kw):trace.append('pg');return True
++    class Vector:
++        def get_vector_store(self):return self
++        def upsert_document(self,*a,**kw):trace.append('qdrant');return KBObject(status='success',error=None)
++        def delete_document(self,*a,**kw):trace.append('qdrant');return KBObject(status='success',error=None)
++    names={'_kb_input','ingest','create_document','update_document','patch_document','delete_document','_sync_vector_entry','_delete_vector_entry','_dispatch_mcp_tool'}
++    tree=ast.parse((Path(__file__).resolve().parents[2]/'agent_data/server.py').read_text())
++    nodes=[]
++    for node in tree.body:
++        if isinstance(node,(ast.FunctionDef,ast.AsyncFunctionDef)) and node.name in names:
++            node.decorator_list=[x for x in node.decorator_list if not (isinstance(x,ast.Call) and isinstance(x.func,ast.Attribute) and isinstance(x.func.value,ast.Name) and x.func.value.id=='app')]
++            nodes.append(node)
++    g={'kb_declaration':kb,'JSONResponse':KBResponse,'jsonable_encoder':lambda x:x.model_dump() if hasattr(x,'model_dump') else x,
++       'HTTPException':KBHTTPError,'Depends':lambda *a:None,'Header':lambda **k:None,'Path':lambda *a,**k:None,'Query':lambda *a,**k:False,
++       '_ensure_pg':lambda:trace.append('ensure_pg'),'_fs_key':lambda x:x,'KB_COLLECTION':'kb_documents',
++       '_ogv2c_validate_write':lambda *a:None,'_error':lambda status,code,message,**kw:KBHTTPError(status,{'code':code,'message':message}),
++       'pg_store':PG(),'vector_store':Vector(),'agent':KBObject(db=True),'uuid4':uuid.uuid4,
++       'datetime':datetime.datetime,'UTC':datetime.timezone.utc,'logger':logging.getLogger('kb-lab'),
++       'get_event_bus':lambda:KBObject(emit_fire_and_forget=lambda *a:trace.append('event')),
++       'DOCUMENT_CREATED':'created','DOCUMENT_UPDATED':'updated','DOCUMENT_DELETED':'deleted','INGEST_SUCCESS':KBObject(inc=lambda:None),
++       'workspace_tools':KBObject(HANDLERS={}), 'require_api_key':lambda:None}
++    for name in ['DocumentResponse','ChatResponse','DocumentCreate','DocumentContent','DocumentMetadata','DocumentUpdatePatch','DocumentUpdate','PatchDocumentRequest','ChatMessage']:
++        g[name]=KBObject
++    g['DocumentCreate']=lambda **kw:KBObject(is_human_readable=False,created_at=None,**kw)
++    g['DocumentUpdate']=lambda **kw:KBObject(last_known_revision=None,**kw)
++    g['_kb_writer']=kb.writer(response=KBResponse,encode=g['jsonable_encoder'],http_error=KBHTTPError)
++    prefix=ast.parse('from __future__ import annotations').body
++    exec(compile(ast.fix_missing_locations(ast.Module(body=prefix+nodes,type_ignores=[])),'actual-kb-handlers','exec'),g)
++    token=kb.identity.set(None);hvu.identity.set(None);hvu.agent.set(None)
++    yield g,trace
++    kb.identity.reset(token);hvu.identity.set(None)
++
++
++def kb_call(g,name,source):
++    common={'_':source}
++    if name=='upload_document':return g['create_document'](payload=KBObject(document_id='knowledge/new',parent_id='knowledge',content=KBObject(body='new',mime_type='text/plain'),metadata=KBObject(title='new',tags=[]),is_human_readable=True,created_at=None),**common)
++    if name=='update_document':return g[name](doc_id='knowledge/alpha',payload=KBObject(patch=KBObject(content=KBObject(body='new',mime_type='text/plain'),metadata=None,is_human_readable=None),update_mask=['content'],last_known_revision=1),**common)
++    if name=='patch_document':return g[name](doc_id='knowledge/alpha',payload=KBObject(old_str='old',new_str='new'),**common)
++    if name=='delete_document':return g[name](doc_id='knowledge/alpha',**common)
++    return g['ingest'](message=KBObject(text='inline',message=None,session_id=None),**common)
++
++
++def kb_source(args=None,who=WHO,verified=None):
++    return {'args':dict(args if args is not None else globals()['args']()),'who':who,'verified':verified or {}}
++
++@pytest.mark.parametrize('name',sorted(kb.PRIMARY))
++@pytest.mark.parametrize('fault',['missing','missing_origin','missing_task','missing_command','private','unauthenticated','invalid_origin'])
++def test_kb_actual_primary_handlers_deny_before_all_effects(kb_lab,name,fault):
++    g,trace=kb_lab;a=args();who=WHO
++    if fault=='missing':a.pop('declared_actor')
++    if fault.startswith('missing_'):a['declaration_context'].pop({'missing_origin':'origin_environment','missing_task':'task_id','missing_command':'command_ref'}[fault])
++    if fault=='private':a['_declaration']={'authenticated_actor':'Owner'}
++    if fault=='unauthenticated':who={'label':'Owner'}
++    if fault=='invalid_origin':a['declaration_context']['origin_environment']='server'
++    response=asyncio.run(kb_call(g,name,kb_source(a,who)))
++    assert response.status_code==403 and response.json()['mutation']=='none'
++    assert trace==[]
++
++@pytest.mark.parametrize('name',sorted(kb.PRIMARY))
++@pytest.mark.parametrize('legacy',[False,True])
++def test_kb_actual_primary_handler_receipts_or_advertise_legacy(kb_lab,monkeypatch,name,legacy):
++    g,trace=kb_lab;a=args()
++    if legacy:monkeypatch.setenv('WORKSPACE_DECLARATION_MODE','advertise');a={}
++    response=asyncio.run(kb_call(g,name,kb_source(a)))
++    assert 'pg' in trace and 'qdrant' in trace
++    if name!='ingest_document':assert 'event' in trace
++    if legacy:assert isinstance(response,KBObject)
++    else:
++        result=response.json();assert result['declaration_receipt']==d.resolve(a,WHO)
++        assert result['write_outcome']['status']=='handler_completed'
++
++@pytest.mark.parametrize('name',sorted(kb.PRIMARY))
++def test_kb_mcp_direct_dispatch_cannot_bypass_guard(kb_lab,name):
++    g,trace=kb_lab;kb.identity.set({'who':WHO,'verified':{}})
++    a={'path':'knowledge/alpha','content':'new','old_str':'old','new_str':'new','source':'inline'}
++    result=asyncio.run(g['_dispatch_mcp_tool'](name,a))
++    assert result['error']=='DECLARATION_REQUIRED' and trace==[],result
++
++@pytest.mark.parametrize('name',sorted(kb.PRIMARY))
++def test_kb_mcp_declared_receipt(kb_lab,name):
++    g,trace=kb_lab;kb.identity.set({'who':WHO,'verified':{}})
++    a=dict(args(),path='knowledge/new' if name=='upload_document' else 'knowledge/alpha',content='new',old_str='old',new_str='new',source='inline')
++    r=asyncio.run(g['_dispatch_mcp_tool'](name,a))
++    assert r['declaration_receipt']==d.resolve(a,WHO),r
++    assert 'pg' in trace
++
++
++def test_kb_verified_mapping_is_operator_only_and_conflicts_deny(kb_lab):
++    profile={'id':'codex','label':'credential:codex','credential_env':'CODEX_KEY'}
++    verified={'declared_actor':'Codex Desktop','origin_environment':'macbook','task_id':'alpha','command_ref':'RUN-23'}
++    config={'master_profiles':{'codex':dict(profile,enabled=True,declaration_facts=verified)}}
++    assert kb.profile_facts(profile,config)==verified
++    assert kb.profile_facts(None,config)=={}
++    assert kb.profile_facts(dict(profile,credential_env='WRONG'),config)=={}
++    g,trace=kb_lab;r=asyncio.run(kb_call(g,'ingest_document',kb_source({},WHO,verified)))
++    assert all(v['provenance']=='verified' for v in r.json()['declaration_receipt']['facts'].values())
++    trace.clear();r=asyncio.run(kb_call(g,'ingest_document',kb_source(args(),WHO,verified)))
++    assert r.status_code==403 and trace==[]
++
++@pytest.mark.parametrize('raw',['{','[]','{"_hvu":{}}','{"verified":{}}','x'*8193])
++def test_kb_header_invalid(raw):
++    with pytest.raises(d.Denied):kb.parse(raw)
++
++
++def test_kb_header_roundtrip_and_client_receipt():
++    token=kb.forwarding.set({'args':args()})
++    try:
++        assert kb.parse(kb.client_headers('POST','/documents')[kb.HEADER])==args()
++        assert kb.client_headers('GET','/documents')=={} and kb.client_headers('POST','/session-ready')=={}
++        kb.capture('POST','/documents',KBResponse({'declaration_receipt':{'facts':'original'}}))
++        assert kb.forwarding.get()['result']['declaration_receipt']=={'facts':'original'}
++    finally:kb.forwarding.reset(token)
++
++
++def test_kb_partial_vector_outcome_retains_receipt(kb_lab,monkeypatch):
++    g,trace=kb_lab
++    def fail(*a,**kw):trace.append('qdrant_failed');raise RuntimeError('fixture vector failure')
++    monkeypatch.setattr(g['vector_store'],'upsert_document',fail)
++    r=asyncio.run(kb_call(g,'patch_document',kb_source()))
++    assert 'pg' in trace and r.json()['write_outcome']['status']=='partial'
++    assert r.json()['declaration_receipt']['authenticated_actor']==WHO['label']
++
++
++def test_kb_admin_is_explicitly_uncovered():
++    assert set(kb.ADMIN_UNCOVERED)=={'/kb/reindex','/kb/cleanup-orphans','/kb/reindex-missing','/kb/audit-sync'}
++    assert 'move_document' not in kb.PRIMARY
++
++@pytest.mark.parametrize('client_name,names', [('stdio',['upload_document','update_document','patch_document','delete_document','ingest_document']),('hybrid',['upload_document','update_document','delete_document','ingest_document'])])
++def test_kb_actual_clients_forward_untrusted_header_and_receipt(client_name,names):
++    import ast,types,logging
++    sent=[];receipt={'authenticated_actor':'fixture:server','facts':{'origin_environment':{'provenance':'self_declared'}}}
++    class Client:
++        def __init__(self,*a,**kw):pass
++        async def __aenter__(self):return self
++        async def __aexit__(self,*a):pass
++        async def request(self,method,url,**kw):
++            sent.append((method,url,kw))
++            return KBObject(status_code=200,json=lambda:{'id':'knowledge/alpha','revision':2,'response':'accepted','declaration_receipt':receipt,'write_outcome':{'status':'handler_completed'}},text='fixture response')
++    class ConnectionFailure(Exception):pass
++    http=KBObject(AsyncClient=Client,ConnectError=ConnectionFailure,ConnectTimeout=ConnectionFailure,HTTPError=ConnectionFailure)
++    g={'kb_declaration':kb,'httpx':http,'os':__import__('os'),'logger':logging.getLogger('client-fixture'),'TextContent':KBObject,
++       '_get_auth_headers':lambda *a:{'X-API-Key':'fixture-only'},'_auth_headers':lambda *a:{'X-API-Key':'fixture-only'},
++       'AGENT_DATA_URL':'http://local.fixture','AGENT_DATA_URL_CLOUD':'http://cloud.fixture','_active_url':None,'_active_api_key':None}
++    async def ready(*a):return {'ready':True}
++    g['_ensure_remote_session_ready']=ready
++    selected={'_request_with_fallback','call_tool'} if client_name=='stdio' else {'_hybrid_request','execute_tool','upload_document','update_document','delete_document','ingest_document'}
++    path='mcp_server/stdio_server.py' if client_name=='stdio' else 'mcp_server/server.py'
++    tree=ast.parse((Path(__file__).resolve().parents[2]/path).read_text());nodes=[]
++    for node in tree.body:
++        if isinstance(node,ast.AsyncFunctionDef) and node.name in selected:
++            node.decorator_list=[x for x in node.decorator_list if not (isinstance(x,ast.Call) and isinstance(x.func,ast.Attribute) and isinstance(x.func.value,ast.Name) and x.func.value.id in ('app','server'))]
++            nodes.append(node)
++    exec(compile(ast.fix_missing_locations(ast.Module(body=ast.parse('from __future__ import annotations').body+nodes,type_ignores=[])),path,'exec'),g)
++    for name in names:
++        a=dict(args(),path='knowledge/alpha',content='new',old_str='old',new_str='new',source='inline')
++        if client_name=='stdio':out=asyncio.run(g['call_tool'](name,a))
++        else:
++            async def body():return a
++            out=asyncio.run(g['execute_tool'](name,KBObject(json=body)))
++        method,url,kw=sent[-1]
++        assert kb.parse(kw['headers'][kb.HEADER])==args()
++        assert kw['headers']['X-API-Key']=='fixture-only'
++        assert '/documents' in url or '/ingest' in url
++        if client_name=='stdio':assert json.loads(out[-1].text)['declaration_receipt']==receipt
++        else:assert out['result']['declaration_receipt']==receipt
++    assert kb.forwarding.get() is None
++
++
++def test_kb_schema_fields_optional_and_count_unchanged():
++    tools=[{'name':n,'inputSchema':{'properties':{},'required':['path']}} for n in sorted(kb.PRIMARY)]+[{'name':'search_knowledge','inputSchema':{'properties':{}}}]
++    result=kb.advertise(tools)
++    assert len(result)==6 and result[-1]['inputSchema']['properties']=={}
++    for t in result[:-1]:
++        assert 'declaration_context' in t['inputSchema']['properties']
++        assert t['inputSchema']['required']==['path']
++
++
++def test_kb_revision_and_patch_guards_preserved(kb_lab,monkeypatch):
++    g,trace=kb_lab
++    monkeypatch.setattr(g['pg_store'],'update_doc',lambda *a,**kw:False)
++    r=asyncio.run(kb_call(g,'update_document',kb_source()))
++    assert r.status_code==409 and r.json()['error']=='KB_WRITE_FAILED'
++    assert 'qdrant' not in trace and 'event' not in trace
++    trace.clear()
++    r=asyncio.run(g['patch_document'](doc_id='knowledge/alpha',payload=KBObject(old_str='missing',new_str='new'),_=kb_source()))
++    assert r.status_code==409 and trace==['ensure_pg']
++
++
++def test_kb_duplicate_create_and_changed_credential_never_reuse_receipt(kb_lab):
++    g,trace=kb_lab
++    r=asyncio.run(g['create_document'](payload=KBObject(document_id='knowledge/alpha',parent_id='knowledge',content=KBObject(body='new'),metadata=KBObject(title='alpha'),is_human_readable=True,created_at=None),_=kb_source()))
++    assert r.status_code==409 and trace==['ensure_pg']
++    trace.clear()
++    r=asyncio.run(kb_call(g,'ingest_document',kb_source(who={'authenticated':True,'label':'other-credential'})))
++    assert r.json()['declaration_receipt']['authenticated_actor']=='other-credential'
++    assert kb.incoming.get() is None and kb.effects.get() is None

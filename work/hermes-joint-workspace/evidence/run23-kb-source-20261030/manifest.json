@@ -1,0 +1,37 @@
+{
+  "base": "833bbc183494166496ffbaad0ba3933ea23d3fb4",
+  "head": "2d966640a0ccdf22fec50ee45a725fdfb41bfe48",
+  "main": "6160f9ad6e5d16012dfe20bb59949abf5ffadad2",
+  "changed": [
+    "agent_data/kb_declaration.py",
+    "agent_data/server.py",
+    "mcp_server/server.py",
+    "mcp_server/stdio_server.py",
+    "tests/unit/test_hjw_four_facts.py"
+  ],
+  "auth_acl_ast_unchanged": {
+    "require_api_key": true,
+    "require_mcp_master": true,
+    "require_mcp_agent": true,
+    "_legacy_write_gate": true,
+    "_mcp_filtered_handler": true
+  },
+  "preserved_blobs": {
+    "agent_data/workspace_runtime.py": {
+      "before": "d3c1cae260f369204bc47cabb270132279c00161",
+      "after": "d3c1cae260f369204bc47cabb270132279c00161"
+    },
+    "agent_data/workspace_tasks.py": {
+      "before": "d614142bfa9c6da5314f04f9fd78e852775931b6",
+      "after": "d614142bfa9c6da5314f04f9fd78e852775931b6"
+    },
+    "agent_data/workspace_execution.py": {
+      "before": "3195cb3adcfa008b6de724459c102578993f78cb",
+      "after": "3195cb3adcfa008b6de724459c102578993f78cb"
+    },
+    ".github/workflows/ghm-pr-gate.yml": {
+      "before": "68395267bc6f39734bc45e550246710f028679b9",
+      "after": "68395267bc6f39734bc45e550246710f028679b9"
+    }
+  }
+}
