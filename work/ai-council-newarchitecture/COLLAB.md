@@ -1,5 +1,6 @@
 # COLLAB — ai-council-newarchitecture
 Tên việc: Hội đồng AI — kế hoạch động, thực thi song song
+HTML chính: view.html
 
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: CHƯA XÁC NHẬN — Owner 30/10/2026 yêu cầu lập task để cùng thảo luận từng bước. Ghi lại yêu cầu dưới đây; chưa chốt A0 và chưa chỉ định Host riêng. Đề xuất GPT Chat làm Host, chờ Owner xác nhận. Chưa READY/RUN.
@@ -7,8 +8,8 @@ Xác nhận User: CHƯA XÁC NHẬN — Owner 30/10/2026 yêu cầu lập task �
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 10:40 +07 · GPT Chat · bổ sung mục tiêu 7
 - 🎯 Mục tiêu: kế hoạch điều chỉnh song song với code; agent thực thi chủ động khảo sát, đề xuất mục tiêu con/checkpoint; GPT Chat, DOT, Claude Chat/Work tập trung giám sát, giảm thời gian chờ và sai giả định.
 - 🏁 Xong khi: Owner chốt đủ 4 phần I–IV và cách kiểm chứng quy trình mới nhanh hơn, ít lỗi hơn.
-- 📍 Tiến độ: [✅ Ghi nhận] → [■ Khung I–IV] → [□ Thảo luận từng mục] → [□ Chốt và thử].
-- ✅ Đã xong: lập hồ sơ; tạo 4 mục xổ/thu gọn trên GitHub.
+- 📍 Tiến độ: [✅ Ghi nhận] → [✅ Khung I–IV trên HTML chính] → [■ Thảo luận từng mục] → [□ Chốt và thử].
+- ✅ Đã xong: lập hồ sơ; tạo HTML chính view.html với 4 mục I–IV xổ/thu gọn dành cho Owner.
 - ■ Đang làm: — · 0 RUN active.
 - ⬜ Còn lại: xác nhận A0/Host; cùng xây dựng và chốt nội dung I–IV.
 - ➡ Kế tiếp: 😊 Owner cùng bàn mục I, xác nhận A0/Host để chốt và điều hành; chưa mở RUN. NEXT_TRIGGER=OWNER_CONFIRM_A0_AND_HOST.
@@ -27,35 +28,11 @@ Xác nhận User: CHƯA XÁC NHẬN — Owner 30/10/2026 yêu cầu lập task �
 “Định nghĩa từng việc khái niệm. Cần làm gì với từng khái niệm, quy trình tạo 1 task mới thế nào? Quy trình cập nhật kế hoạch thế nào? Ai làm gì? Cùng nhau làm việc này cho rõ ràng để thay đổi cách làm với hy vọng là tiến độ nhanh hơn” — Owner 30/10/2026.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
-**Nội dung thảo luận — chưa chốt.** Bấm tên từng mục để mở/thu gọn. Chưa thêm nội dung chi tiết trước khi cùng Owner bàn.
-
-<details>
-<summary><strong>I. Định nghĩa khái niệm</strong></summary>
-
-*Nội dung sẽ bổ sung sau khi thảo luận.*
-
-</details>
-
-<details>
-<summary><strong>II. Định nghĩa vai trò</strong></summary>
-
-*Nội dung sẽ bổ sung sau khi thảo luận.*
-
-</details>
-
-<details>
-<summary><strong>III. Cấu trúc trong Hội đồng AI</strong></summary>
-
-*Nội dung sẽ bổ sung sau khi thảo luận.*
-
-</details>
-
-<details>
-<summary><strong>IV. Quy trình thực hiện</strong></summary>
-
-*Nội dung sẽ bổ sung sau khi thảo luận.*
-
-</details>
+**Nội dung công việc cho Owner:** [view.html](view.html) — trang HTML chính có 4 mục xổ/thu gọn. Thảo luận/bổ sung từng mục tại HTML; COLLAB chỉ giữ mục tiêu, trạng thái, quyết định và con trỏ, không nhân đôi nội dung.
+- [I. Định nghĩa khái niệm](view.html#muc-i)
+- [II. Định nghĩa vai trò](view.html#muc-ii)
+- [III. Cấu trúc trong Hội đồng AI](view.html#muc-iii)
+- [IV. Quy trình thực hiện](view.html#muc-iv)
 
 #### HỘI ĐỒNG — COUNCIL_BOOTSTRAP_V1
 | Ghế | Hãng | Bề mặt | Vai | Gọi bằng |
