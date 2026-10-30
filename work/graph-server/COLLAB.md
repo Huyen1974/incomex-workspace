@@ -102,7 +102,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 - **Phạm vi hãng:** pg_dump -Fc --schema-only cho từng DB; pg_restore --list cần 0 TABLE DATA/BLOBS/SEQUENCE SET và rc=0; source CLI không lộ raw DDL/comments/function bodies ra Git. pg_dumpall --globals-only --no-role-passwords ở nguồn riêng; snapshot Directus ≠ Flow/Permission. Mẫu số từ hãng, PG catalog dependency gắn provenance.
 - **Không nhầm dữ liệu mới với tự cập nhật:** tai_san_luat có mặt nguồn nhưng vắng Graph chỉ chứng minh STALE. AUTO_REFRESH_PROVEN phải có ít nhất một lượt tự reconcile thực theo source change, không lấy candidate thao tác tay làm bằng chứng.
 - **Còn phải đo:** track_functions='pl' bắt đầu từ thời điểm bật, không hồi tố; log nginx 14 ngày chỉ được đánh dấu ĐỦ sau khi giữ được 14 ngày thật và vượt được recreate; P3 không thay nginx container.
-- ■ **Đang làm:** Claude Code CLI · pha P đã KQ 14:15Z (P1 PASS · P2 PASS · P3 khảo sát xong · VPS-GHI đã trả) · Bước kế: RUN GS-COV2-K0-LIVE-SOURCE-ORACLE-20261030-01 chỉ đọc.
+- ■ **Đang làm:** Claude Code CLI · GS-COV2-K0-LIVE-SOURCE-ORACLE-20261030-01 (STARTED 14:17Z, chỉ đọc) · Bước: K0 oracle nguồn → K1 ứng viên Mac → K2 dùng/độ mới → K3 KQ. Pha P đã KQ 14:15Z.
 - ➡ NEXT_TRIGGER=OWNER_DISPATCH_CLAUDE_GS_COV2_P_THEN_K0_B6 (đã nhận 30/10); KHÔNG mở task khác, K4 NOT_READY, PR683 DRAFT, Graph production không ghi.
 #### Lịch sử bảng Claude B5
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 20:40 +07 · Claude Chat · P-ONEPASS-CLAUDE-B5 (đồng thuận GPT B5; ghép pha P trước K0 để không dừng S0)
@@ -1303,6 +1303,8 @@ Task: work/graph-server. RUN P = GS-COV2-P-SCHEMA-READONLY-USAGE-METERS-20261030
   - **Giới hạn còn mở:** (1) `postgresql.auto.conf` ngoài Config Guard, footprint Guard chỉ có `dot-stack-cutover`, nên lệch tệp này hiện không có đèn canh — cần Host quyết có đăng ký không (ALTER SYSTEM tự ghi lại tệp này). (2) P2 chạy bằng script riêng của RUN, chưa có DOT cấu hình PG dùng lại (B6 chỉ cho hai ghi, không tạo DOT mới; JEV 0,84 cách này) ⇒ **DOT_SCRIPT_ONLY=PARTIAL riêng P2**. (3) Sổ `dot_tools` Directus chưa ghi 1.0.6 (ghi PG ngoài phạm vi). (4) `dot-prod-readonly` ghi chú «máy điều phối» nhưng Mac không có cây DOT — chưa sửa.
   - **Lùi:** `/root/incomex-config-changes/GS-COV2-P-SCHEMA-READONLY-USAGE-METERS-20261030-01-ev/rollback.sh p1|p2` (P1 qua apply-v0 từ bản `9530912d`; P2 chép đúng byte + reload). P2 đã diễn tập thật; **`rollback.sh` ở dạng đóng gói và nhánh p1 mới kiểm cú pháp, chưa chạy thật**. Bằng chứng riêng 0600: Mac `~/Incomex-Graph-View/evidence-private/GS-COV2-P-SCHEMA-READONLY-USAGE-METERS-20261030-01/`, gồm mốc `pg_stat` trước P1 lúc 13:58:44Z.
   - NEXT_TRIGGER=RUN_K_NOI_TIEP (cùng lệnh B6) → GPT Host nghiệm thu KQ P và K.
+
+- STARTED@GS-COV2-K0-LIVE-SOURCE-ORACLE-20261030-01 2026-10-30T14:17Z · executor=Claude Code CLI Mac · cùng lệnh P-ONEPASS-HOST-B6 `0f855d3d` · P1 PASS nên oracle PG mở · CHỈ ĐỌC: 0 VPS-GHI, 0 ghi Graph/PG/Directus/Qdrant/nginx/Docker, 0 agent/CDC mới, không đổi K4/PR683 · ứng viên JSONL/SQLite trên Mac · bằng chứng riêng 0600 `~/Incomex-Graph-View/evidence-private/GS-COV2-K0-LIVE-SOURCE-ORACLE-20261030-01/`. KQ một lần.
 
 #### ROADMAP GS-RM1 — nguồn điều hành duy nhất
 | Mốc | Nội dung | Trạng thái / gate |
