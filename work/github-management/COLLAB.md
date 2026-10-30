@@ -14,7 +14,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - ⚠ **CI hiện hành:** hai PR trusted #685/#360 và push-main gate đã GREEN. Hai PR sync cũ #684/#359 RED `OUT_OF_PILOT` là lịch sử, nay CLOSED. **Security OPEN:** có fallback `OPS_KEY` trong bản lưu script AD, chưa xác minh khoá còn sống; đã có từ trước trên Git. Chủ CONN-REPAIR/SECCRED phải xác minh/thu hồi theo quyền hiện hữu, không ghi giá trị vào repo công khai. Hai script reconcile ở bản GH đã loại fallback; VPS nguyên bản chưa đổi.
 - 📍 ✓ GH protected/CI pilot → ✓ Web PR thật #682→VPS P131/P132 → ✓ S0 P113 source inventory → ✓ Codex -14 P140 34 source push → ✓ **Host P141 ACCEPT_SCOPED**. **0 RUN active / VPS-GHI không bị lấy trong -14**, Web và AD hiện healthy theo VPS sampled.
 - ⬜ **Còn theo task gốc:** Web áp dụng PR→CI→KST→main→Owner GO→VPS trên việc ứng dụng thật tiếp theo; Agent Data runtime main+rollback (HJW G8/C1B) chưa đạt; F2/R4 = 3 agent/3 PR+runner trust boundary chưa nghiệm thu; C4/R6 = giao việc đêm và sáng KST duyệt chưa làm. T3 khóa writer VPS HOÃN theo Owner; không bắt PR đợi khóa. `OPS_KEY` và nợ credential thuộc SECCRED/CONN-REPAIR.
-- ➡ **P150 HOST:** P108 NDW dừng vì prompt ép xác minh Owner live trước khi code. P109 cho tiếp CODE-ONLY bằng config Owner ID server-private fail-closed, test + PR, bảo vệ PG/Reports/Directus fallback. Binding thật và ACL là điều kiện trước merge/release. GHM chỉ theo biên nhận, `NEXT_TRIGGER=OWNER_DISPATCH_NDW_P0_CODE_ONLY_RUN02`; không chặn F2/PR và T3 khóa VPS vẫn hoãn.
+- ➡ **GPT Host P152:** GHM nhận PR686 code-only và gate đúng SHA P151; P112 NDW giao KST review-only + DOT/Owner chứng minh auth/ACL/legacy bypass song song. Không merge/deploy trước evidence & Owner GO. F2 viết PR không phụ thuộc P0 production, T3 VPS lock vẫn hoãn. `NEXT_TRIGGER=NDW_KST_REVIEW_PR686_AND_DOT_OWNER_ACL_EVIDENCE`.
 - ⛔ Không merge PR684/359 khi required gate đang đỏ, không `--admin`, không sửa Graph/VPS/HJW/AD deployment, không thay credential/backup/visibility từ GHM, không giả source-copy = mã production đang chạy.
 
 ### 1. Mục tiêu
@@ -1802,6 +1802,11 @@ Based_on: P119 · P120 · ROADMAP §0.4h · **tự kiểm 29/10 16:05–16:30 +0
 
 **3. Telegram HJW 15:57 — đồng ý không liên quan T2:** dòng 512 HJW COLLAB là việc giao 22/10 `blocked`, gen 1, ghi sang `work/hpml-view-for-user` (ngoài phạm vi) — và **không có dòng RESULT_V1 đóng** (khác dòng 510, 513 đều có) ⇒ nhiều khả năng bộ điều phối coi nó còn mở nên quét lại và báo. Bàn giao Host HJW: (a) đóng việc này theo đúng đường máy của HJW (RESULT_V1 do dispatcher tin cậy ghi), (b) kiểm vì sao «chỉ báo một lần» lại báo lại. GHM không sửa HJW, không nới quyền ghi.
 - NEXT_TRIGGER=HOST_READY_T2B.
+
+## P152 · GPT Host · 31/10/2026 — ACCEPT GHM P151, NDW PR686 RELEASE-HOLD
+- P111/PR686 CODE-ONLY đã đạt scoped: 15 tệp, HEAD `2a403484162834948869f059c81adb43fff0e01c`; GitHub gate run `41079092468` SUCCESS đúng HEAD; 17 nhóm auth mới chỉ chạy local, chưa vào required gate. GHM nhận biên nhận kỹ thuật, **không tuyên P0 production an toàn**.
+- P112 Host NDW giao **KST review-only PR686** và DOT/Owner đọc identity+Directus ACL/old API song song. Chưa merge/release, không làm code review giả KST; P0 blocker không chặn F2/R4 branches/PR khác. T3 Web khóa source VPS vẫn HOÃN; Agent Data deploy HJW/C1B, F2, C4/R6 còn kế hoạch. GHM chỉ giữ lane đã nghiệm thu, không mở task/RUN mới.
+- `NEXT_TRIGGER=NDW_KST_REVIEW_PR686_AND_DOT_OWNER_ACL_EVIDENCE`.
 
 ## P151 · Codex Desktop · 30/10/2026 — BIÊN NHẬN NDW RUN02 / PR686
 - NDW P111 commit `9b3697ab095f38533af480532f37c99dde71f4a4` giữ toàn bộ KQ: RUN `NDW-P0-REPORTS-OWNER-AUTH-PR-20261030-02` CODE_ONLY_PR=XONG, P0_PRODUCTION=PARTIAL, 0 RUN active; không lấy VPS-GHI.
