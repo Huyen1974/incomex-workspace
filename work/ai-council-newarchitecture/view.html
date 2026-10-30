@@ -61,6 +61,42 @@ code{font-size:14px;background:#f1f4f8;border-radius:4px;padding:1px 4px}
 <p class="small" style="margin:8px 0 0"><strong>Hôm nay anh không cần quyết gì.</strong> Còn lại 🤖 các AI tự làm theo form và thao tác dưới đây.</p>
 </div>
 
+<details id="muc-0" open><summary><span class="num">0</span><span class="heading">Từ điển — đọc trước, mọi AI hiểu một nghĩa</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
+<p class="small">Dùng đúng từ trong bảng này, không tự đặt từ mới. Thấy từ nào còn hiểu hai kiểu ⇒ sửa thẳng dòng đó và ghi một dòng «Ghi chú» ở N đang làm.</p>
+<table><caption>Bảng 0a · Vai</caption>
+<thead><tr><th>Từ</th><th>Là gì</th><th>Không phải</th></tr></thead><tbody>
+<tr><td><strong>Owner</strong></td><td>Anh Huyên. Chỉ quyết 5 việc ở hộp xanh phía trên.</td><td>Người kiểm tra kỹ thuật, người duyệt từng N.</td></tr>
+<tr><td><strong>Hội đồng</strong></td><td>Các AI được ghi trong bảng HỘI ĐỒNG của việc (COLLAB §3).</td><td>Mọi AI bất kỳ.</td></tr>
+<tr><td><strong>Ghế</strong></td><td>Tên định danh một AI trong hội đồng, vd <code>claude-code</code>, <code>gpt-chat</code>. Ghi vào trường «Người làm», «Đề xuất», «Duyệt».</td><td>Tên hãng chung chung («Claude», «GPT»).</td></tr>
+<tr><td><strong>Host</strong></td><td>Ghế điều hành việc: ghi L theo lời Owner, duyệt/bỏ/đổi thứ tự N, nghiệm thu, hỏi Owner.</td><td>Người soạn prompt từng lượt; người làm thay agent.</td></tr>
+<tr><td><strong>Agent</strong></td><td>Ghế <em>làm</em> N trên máy (Claude Code, Codex…): khảo sát, làm, tích C, đề xuất N tiếp. Người hiểu hiện trường nhất.</td><td>Người chỉ chạy theo prompt.</td></tr>
+<tr><td><strong>Khác hãng</strong></td><td>Ghế thuộc hãng khác với ghế cần đối chiếu (Anthropic ↔ OpenAI…). Dùng để có ý kiến độc lập.</td><td>Khác bề mặt cùng hãng (Codex và GPT Chat là cùng hãng).</td></tr>
+<tr><td><strong>KST</strong></td><td>Kỹ sư trưởng: ghế duy nhất được merge/deploy mã theo luật GitHub hiện hành.</td><td>Agent thường.</td></tr>
+</tbody></table>
+<table><caption>Bảng 0b · Kế hoạch</caption>
+<thead><tr><th>Từ</th><th>Là gì</th><th>Không phải</th></tr></thead><tbody>
+<tr><td><strong>Việc</strong></td><td>Một thư mục <code>work/&lt;việc&gt;/</code> trên repo, có COLLAB.md + view.html.</td><td>Một N.</td></tr>
+<tr><td><strong>Mục tiêu lớn (L)</strong></td><td>Điều Owner muốn đạt, kèm «Xong khi». Chỉ Owner quyết; Host chép lại.</td><td>Ý AI tự đặt.</td></tr>
+<tr><td><strong>Mục tiêu nhỏ (N)</strong></td><td>Một kết quả đo được, agent làm xong trong một lượt (~3–4 giờ). Có «Xong khi» và «Được làm».</td><td>Một đầu việc dài nhiều ngày; một thao tác lẻ.</td></tr>
+<tr><td><strong>Checkpoint (C)</strong></td><td>Điểm kiểm kết quả trong N, có «Đạt khi» và bằng chứng. Một N thường 2–5 C.</td><td>Từng lệnh/thao tác agent gõ.</td></tr>
+<tr><td><strong>N0 khảo sát</strong></td><td>N đầu tiên của mỗi L, chỉ 👁 đọc: agent xem hiện trường rồi đề xuất các N tiếp. Kết quả ghi vào C của N0 = đầu vào chung cho mọi AI.</td><td>Một bản kế hoạch do hội đồng viết khi chưa nhìn hiện trường.</td></tr>
+<tr><td><strong>Kế hoạch</strong></td><td>Mục <code>### 4. Kế hoạch</code> trong COLLAB: danh sách N theo thứ tự làm, từ trên xuống.</td><td>Roadmap nằm ở tài liệu khác.</td></tr>
+<tr><td><strong>Được làm</strong></td><td>Trường trong N liệt kê chính xác agent được chạm vào đâu, theo 4 mức 👁 ✍ ⚙ ⛔ (Bảng 1.2b). Ngoài danh sách = không được.</td><td>Quyền chung của ghế.</td></tr>
+<tr><td><strong>Cần trước</strong></td><td>N phải XONG trước thì N này mới được nhận.</td><td>Thứ tự ưu tiên (thứ tự = vị trí từ trên xuống).</td></tr>
+</tbody></table>
+<table><caption>Bảng 0c · Hành động và trạng thái</caption>
+<thead><tr><th>Từ</th><th>Là gì</th><th>Không phải</th></tr></thead><tbody>
+<tr><td><strong>Đề xuất</strong></td><td>Ghi một N mới hoặc thay đổi, trạng thái ĐỀ XUẤT. Ai cũng được.</td><td>Được phép làm.</td></tr>
+<tr><td><strong>Duyệt</strong></td><td>Host đổi N sang DUYỆT ⇒ agent được làm ngay. Thay READY từng lượt.</td><td>Nghiệm thu.</td></tr>
+<tr><td><strong>Lượt</strong></td><td>Một phiên agent, mở bằng lệnh một dòng (mục 3). Một lượt có thể làm nhiều N liên tiếp.</td><td>Một N; một prompt soạn tay.</td></tr>
+<tr><td><strong>Tích C</strong></td><td>Agent đổi ⬜ sang 🟢/🟡/🔴 kèm bằng chứng, giờ, ghế.</td><td>Viết báo cáo dài.</td></tr>
+<tr><td><strong>Bằng chứng</strong></td><td>Thứ người khác tự kiểm lại được: commit, lệnh + số in ra, đường dẫn tệp, ảnh chụp.</td><td>Lời khẳng định «đã làm».</td></tr>
+<tr><td><strong>Nghiệm thu</strong></td><td>Host (+1 khác hãng nếu N có ⚙) kiểm bằng chứng sau khi N XONG, ghi OK/KHÔNG.</td><td>Agent tự chấm XONG.</td></tr>
+<tr><td><strong>Ghi chú</strong></td><td>Dòng cuối khối N; ai cũng ghi được, mỗi dòng ký ghế + ngày. Nơi góp ý vào N người khác đang làm.</td><td>Chỗ để sửa nội dung N.</td></tr>
+<tr><td><strong>Chuông</strong></td><td>COUNCIL_ALERT đang có: bấm khi cần dừng ngay một việc sai.</td><td>Cách góp ý thường.</td></tr>
+</tbody></table>
+</div></details>
+
 <details id="muc-1" open><summary><span class="num">1</span><span class="heading">Ba form khai — mọi AI khai giống nhau</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
 <p><strong>Ở đâu:</strong> trong <code>COLLAB.md</code> của việc. Mục tiêu lớn ở <code>### 1. Mục tiêu</code>. Mục tiêu nhỏ + checkpoint ở <code>### 4. Kế hoạch</code> (ngay sau §3, trước mọi P/lịch sử). <strong>Thứ tự làm = thứ tự từ trên xuống.</strong></p>
 <p><strong>Mã:</strong> <b class="blue">L</b> = mục tiêu Lớn · <b class="blue">N</b> = mục tiêu Nhỏ · <b class="blue">C</b> = Checkpoint. Số tăng dần, <strong>không dùng lại, không đánh lại</strong> khi đổi thứ tự. C đánh số trong từng N (N4.C2).</p>
