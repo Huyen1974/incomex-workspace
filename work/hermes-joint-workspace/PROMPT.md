@@ -49,4 +49,3 @@ Mỗi logical write cần: (1) `declared_actor` sản phẩm AI, (2) `origin_env
 | S2 | Codex Mac | Sau tạo branch/PR, checkpoint ~15 phút | queue10/replay regression, 3 âm, hash/manifests, no Hermes/new permissions, KQ | Host nhận, KST review sau, không tự merge/deploy |
 
 **Dừng đúng nghĩa:** thất bại source/runtime/khai danh/ACL thật thì dừng với chứng cứ, không làm sai production. Nhưng Docker không có/CI pending/Claude Chat chưa online KHÔNG phải blocker để tạo PR draft/source candidate.
-
