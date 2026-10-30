@@ -1,0 +1,7 @@
+{
+  "head": "833bbc183494166496ffbaad0ba3933ea23d3fb4",
+  "parents": "53c34ec745c6980a23996273e94b12fdd129b06a 6160f9ad6e5d16012dfe20bb59949abf5ffadad2",
+  "main": "6160f9ad6e5d16012dfe20bb59949abf5ffadad2",
+  "pr_diff": "M\t.github/workflows/ghm-pr-gate.yml\nA\tagent_data/declaration_contract.py\nA\tagent_data/workspace_declaration.py\nM\tagent_data/workspace_execution.py\nM\tagent_data/workspace_idempotency.py\nM\tagent_data/workspace_tasks.py\nM\tagent_data/workspace_tools.py\nM\tagent_data/workspace_transfer.py\nM\tscripts/workspace-exec-worker.py\nA\ttests/unit/test_hjw_four_facts.py",
+  "all_10_blobs_unchanged": true
+}
