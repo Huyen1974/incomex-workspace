@@ -1,6 +1,15 @@
 # COLLAB — graph-server
 Tên việc: Graph Server — Business × JEV × Code
 
+> [!CAUTION]
+> 🔴 **CẢNH BÁO OWNER D28 — 30/10/2026: GRAPH CHƯA HỀ ĐẠT BAO PHỦ TOÀN VPS; CHƯA ĐƯỢC NGHIỆM THU ĐỂ QUYẾT ĐỊNH TẮT/XÓA.**
+>
+> **Nguyên ý Owner:** Yêu cầu từ đầu là bao phủ hết những đối tượng và quan hệ mà các công cụ IT gốc của VPS, PostgreSQL, Directus, DOT, Qdrant/KB, mã nguồn và runtime cho phép đọc/kiểm chứng; hội đồng AI phải chủ động tìm chuẩn ngành, không chờ Owner không chuyên kỹ thuật liệt kê từng loại. Nếu chưa biết nguồn, chưa biết consumer và quan hệ thì Graph không thể cho câu trả lời đáng tin để dọn mã. Đây là **lỗi thiết kế phạm vi và nghiệm thu của hội đồng**, không phải lỗi của Graph hay thiếu chỉ đạo của Owner.
+>
+> **Bằng chứng snapshot gần nhất:** 8.968 nút/20.984 cạnh nhưng G1 chỉ 49/100 ô chứng cứ, **0/9 họ nguồn FULL**; thiếu cron, Directus Flow/Operations, phủ PG catalog/function/view/FK, DOT runtime, Qdrant↔KB parity, activity/last-use, quan hệ trong thân hàm và danh tính SHA của build đang chạy. Không quy đổi 49/100 thành 49% bao phủ. **G1/G2/G3 = CHƯA ĐẠT TOÀN VPS; mọi tác động vẫn NOT_ACTION_SAFE khi chưa chứng minh đủ đúng phạm vi.**
+>
+> **Lệnh điều hành:** (1) lập bản đồ nguồn gốc và phủ đủ theo kiểu đối chiếu công cụ gốc ↔ Graph; (2) dùng ngay Pivot làm bài kiểm chứng để cô lập mã không dùng và dán nhãn đối tượng liên quan, giữ Docker, dữ liệu và đường lùi. **Không mở task mới; không làm xanh giả, không bổ sung hạ tầng/daemon mới chỉ để đẹp số.**
+
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 
 ### 0.0 · MỤC TIÊU NỀN TẢNG — Owner chốt 22/10/2026; ƯU TIÊN PRODUCTION TRUST bổ sung 23/10/2026 (căn cứ xây dựng; thắng mọi mục bên dưới khi trái nghĩa)
@@ -85,7 +94,16 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 
 **Hiệu lực:** Mục §0.A/D17/Owner 21/10 thắng các dòng điều hành P164/đề xuất cũ trái nghĩa; giữ lịch sử không xóa. PROMPT hiện tại là GS-CLEAN đã KQ XONG, không còn RUN hiệu lực; Host sẽ sửa CHÍNH PROMPT.md theo A6 khi có node R10B được REVIEW/READY riêng. Không tự phát RUN từ việc ghi tài liệu.
 
-### BẢNG ĐIỀU KHIỂN · 2026-10-30 09:00 +07 · Codex Desktop UC-1 khảo sát chỉ đọc · 0 Graph/production write
+### BẢNG ĐIỀU KHIỂN · 2026-10-30 · OWNER D28 — ƯU TIÊN BAO PHỦ + CÔ LẬP MÃ CŨ
+- 🔴 **Graph toàn VPS: CHƯA ĐẠT.** Mốc cuối có chứng cứ: 49/100 ô, 0/9 họ nguồn FULL; Graph 8.968/20.984 là quy mô, **không** là mức bao phủ. K4 vẫn NOT_READY; không cho hành động xóa/tắt từ Graph thiếu nguồn.
+- 🎯 **Hai đầu việc đã được Owner giao:** (A) kiểm kê và nối hết *loại đối tượng và quan hệ quan sát được bằng native API/catalog* từ PG/Directus/DOT/Qdrant/KB/cron/systemd/nginx/Git/Docker; (B) dọn mã 5 hệ thống cũ, mã được cô lập có đường lùi, mỗi DOT/collection/table/view/function/trigger/flow liên đới phải có nhãn và nguồn chứng cứ. Không tắt Docker đang chạy.
+- ✅ **Cơ sở đã có:** UC-1A Claude 30/10 xác định Pivot trang cũ ứng viên ngừng hiển thị, cron Pivot không còn, Count Refresh Directus vẫn sống; 40 trigger Khai sinh còn ghi; không kết luận toàn bộ nhóm GIỮ hoặc toàn bộ nhóm TẮT từ một bảng còn tồn tại.
+- ■ **Lượt Claude kế:** GS-UC1-PIVOT-TRACE-LABEL-ISOLATE-20261030-01, chỉ một cụm Pivot; hoàn thành bảng danh tính/nhãn + ứng viên cô lập mã trong nhánh/PR, **không deploy hay ghi PG/Directus/Qdrant** khi chưa có cổng DOT/Guard được phê duyệt.
+- ⬜ **Chưa đạt:** đối chiếu source→Graph đúng từng loại/cạnh, nhận biết consumer hoạt động, nhãn nằm đúng vật và đọc lại được, quyết định production có kiểm thử+rollback; đo CPU/RAM/I/O nếu tắt xử lý nền. Giữ nguyên các RUN/SSOT khác; K4 không được ghép nạp nguồn ngoài PROMPT.
+- ➡ **NEXT_TRIGGER:** OWNER_DISPATCH_CLAUDE_CLI_GS_UC1_PIVOT_TRACE_LABEL_ISOLATE; sau KQ GPT Host chốt lượt protected nhỏ nhất.
+- ⛔ **Không làm:** không chuyển code sang nơi khác làm vỡ import/route, không xóa/move bảng/dữ liệu, không vô hiệu hóa trigger/flow đang chạy, không tác động Docker production, không lấy HEAD Git làm SHA build thực chạy.
+
+#### Snapshot Codex 30/10 09:00 +07 (lịch sử, KHÔNG phải kết luận mới)
 - 🎯 Mục tiêu: đối chiếu 5 nhóm mã cũ và KB bằng Graph + nguồn gốc, chưa tắt/xóa.
 - 🏁 Xong lượt này: bảng GIỮ/CÓ THỂ TẮT/CHƯA RÕ, số Graph/KB và roadmap tại GS-RM1 + VPSC2.
 - 📍 Tiến độ: ✅ VPSC2 P30 4 worker live/PR357 DRAFT theo KQ · ✅ UC-1A khảo sát giới hạn · ✅ KB kiểm ID · ⬜ Host nghiệm thu · ⬜ bổ sung nguồn thiếu · ⬜ Owner chốt lượt tắt/cổng KB.
@@ -747,6 +765,34 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
 - **N1 dependency:** HJW N1 `HJW-N1-CLOUD-TWIN-SYNC-20261005-01` đã STARTED lúc 08:59Z ngày 05/10; Pha A mở đầu chỉ-đọc nhưng toàn node sẽ tạo/hoàn thiện cloud twin + sync trên shared connector/control plane. Vì Graph RUN-1 cũng mutation Docker/VPS, áp `EXECUTION_HOLD_N1` giống VPSC. **Được làm ngay:** roadmap, dữ liệu mẫu, soạn/review PROMPT RUN-1. **Không làm:** pull image/cài container/mở port/thay network/secret khi N1 chưa terminal.
 - **Release hold:** khi N1 có trạng thái terminal `KQ/STOP/HOLD` hoặc Owner xác nhận dừng mutation, Host fresh-read HJW + Docker/VPS/ports/RAM/disk/gateway. Không conflict thì Graph đi tiếp ngay; **không chờ N2–N6** chỉ vì chúng còn trong roadmap HJW.
 
+#### OWNER D28 · 30/10/2026 — SỬA TIÊU CHÍ PHỦ NGUỒN, KHÔNG CHỜ OWNER CHỈ KỸ THUẬT
+
+**Mệnh lệnh sản phẩm:** Graph phải tự lập danh mục tất cả **loại tài sản và quan hệ có thể quan sát được trong quyền được cấp**, nạp/đối chiếu từ nguồn native, tự báo chính xác loại nào thiếu, tươi/cũ, có consumer, ai chịu trách nhiệm. "Bao phủ hết" KHÔNG phải sao chép mọi dòng dữ liệu hoặc cam kết thấy quan hệ không để lại dấu vết; phần không thể chứng minh phải mang nhãn `UNKNOWN/NOT_ACTION_SAFE`, không được âm thầm bỏ qua. **Không yêu cầu Owner liệt kê trigger/flow/function từng loại.**
+
+**Danh mục đầu nối bắt buộc (tự khám phá, có thể nạp theo lát nhỏ):**
+| Nguồn | Phải kiểm kê bằng công cụ gốc | Quan hệ/cạnh phải chứng minh |
+|---|---|---|
+| PostgreSQL (mọi DB/schemas được cấp quyền) | `pg_class/namespace/attribute/proc` (kèm chữ ký hàm), `pg_depend/pg_rewrite`, `pg_trigger/constraint/index`, view/materialized view, ACL/role, statistics với mốc reset và delta; không suy `n_live_tup=0` thành bảng rỗng | table↔view/function/trigger/FK/permission, read/write producer/consumer; body SQL là candidate nếu parser không chắc |
+| Directus | `collections/fields/relations`, `directus_flows` + operations/chain, hooks/triggers, permissions, status và log/activity theo ACL | flow→operation→collection/table/API; tình trạng active, owner, consumer; 403 = GAP, không là "không có" |
+| DOT/Guard | command/script/entrypoint, manifest/Config Guard target, nhãn công cụ, đường gọi, các bản ghi/lịch thực thi đã có | command→PG/Directus/source/backup; luật DOT100% đối với PG/Directus, không đi đường query_pg chung để lách |
+| Qdrant/KB | collections/aliases, schema/payload, source document ID, point/chunk (count exact hoặc phân trang nếu cần), trạng thái index và PG↔vector parity | collection/point↔document ID/chunk↔PG/source/consumer; không tải raw private vector vào repo |
+| VPS/runtime | cron thực chạy, systemd unit/timer, nginx route/log, cổng và container Docker hiện có (chỉ đọc), lượt gọi/bộ đếm hợp lệ | schedule→script/flow→endpoint→PG; service→port→code; danh tính runtime/last-use |
+| Code/Git/build | code source, import/call/route, config, deploy provenance (build digest/SHA nếu thật có), nguồn code repo khác; runtime≠HEAD cần GAP | file/symbol→caller→API/table/DOT/flow; dynamic/reflection mang UNKNOWN, không đoán |
+
+**Áp dụng kinh nghiệm ngành, dùng thứ đã có:** native metadata/catolog & `pg_depend`/stats PostgreSQL; Directus Flow/Operation/metadata API; Qdrant scroll/count exact + payload/source ID; OpenLineage run/job/dataset/facets làm *khuôn metadata/lineage* khi phù hợp, không bắt cài OpenLineage server; snapshot + canonical stable-ID + dependency edge + provenance + source-version/freshness + idempotent diff/reconcile + N4. Dùng chung Neo4j/graph-refresh/graph-v1 hiện hành, tránh dựng sổ, worker/daemon/CDC mới. Tham khảo: https://www.postgresql.org/docs/16/catalog-pg-depend.html ; https://www.postgresql.org/docs/16/monitoring-stats.html ; https://directus.com/docs/guides/flows/ ; https://qdrant.tech/documentation/manage-data/points/ ; https://openlineage.io/docs/spec/ .
+
+**Cổng nghiệm thu thay cho đếm node:** nguồn gốc công bố danh sách ID/quan hệ *đầy đủ phân trang + quyền* → Graph có ID/cạnh khớp nguồn + digest + tuổi dữ liệu, đối soát create/change/delete/retire theo phạm vi; mỗi loại có số native / số Graph / số thiếu / lý do / chủ xử lý / bản build thực. Lượt đêm SKIP, thiếu adapter, reader 403, lỗi phân trang, missing SHA hoặc signal activity thiếu → **MỘT PHẦN/NOT_ACTION_SAFE**; không nới nhãn để cho phép tắt. Dữ liệu hoạt động có thể đo bằng chênh lệch bộ đếm, log thật với khoảng đo rõ ràng; không giả `last_write_at` chính xác từ thống kê tích lũy. Phạm vi tối ưu: bao phủ nguồn đang có trên VPS theo từng lớp, không chạy quét quá sức RAM.
+
+**Phép thử ứng dụng thay vì chờ phủ xong toàn VPS:** mỗi lát phát hiện một mã/luồng không dùng → hiển thị chứng cứ nguồn và quan hệ → đánh dấu trên vật/manifest với địa chỉ ổn định, trạng thái `ACTIVE_SHARED / LEGACY_CANDIDATE / VERIFIED_INACTIVE / UNKNOWN` (nhãn CANDIDATE không phải quyền tắt) → cô lập mã bằng branch/feature flag/khôi phục bản build → đo lợi ích. **Dán nhãn ngay mọi tài sản tìm được**: DOT, PG collection/table/view/function/trigger, Directus collection/flow, code/API, Qdrant/KB ID, cron/timer. Ghi `stable_id, source, owner_feature, status, confidence, proof_time, consumer, graph_edge, label_location, rollback`. Ưu tiên nhãn native được nguồn hỗ trợ (PG `COMMENT ON`, Directus description, comment đầu script/Git, Graph provenance); **mọi ghi PG/Directus phải qua DOT narrow + Guard và quyền được duyệt**. Chưa được phép ghi thì lập danh sách `LABEL_PENDING_SOURCE_WRITE` trong hồ sơ task, không giả vờ đã dán nhãn. Không lập registry/sổ canonical song song.
+
+#### LỆNH CLAUDE CODE CLI · GS-UC1-PIVOT-TRACE-LABEL-ISOLATE-20261030-01 · MỘT PHẦN NHỎ
+
+- **Executor:** Claude Code CLI Mac · một CLI; GPT Host; các task/roadmap có sẵn. Owner 30/10 đã chấp thuận **phạm vi thăm dò/cô lập mã theo nhánh và gắn nhãn hồ sơ**, chưa duyệt xóa hoặc tắt hàng loạt production. Mỗi checkpoint khoảng ≤15 phút; nếu quá thì ghi KQ đến đó, không chạy quá phiên. Không đụng PROMPT K4 NOT_READY.
+- **CP1 · Bản đồ Pivot:** lấy từ Graph + source đã cho phép (không dùng PG query_pg bypass DOT), đối chiếu code source/runtime actual; liệt kê tối thiểu menu+route+API+code, DOT commands, PG tables/views/functions/triggers và các phụ thuộc, cron/timer, Directus flows/operations/collections, Qdrant KB nếu liên quan. Với từng vật ghi ID gốc, nơi nhãn, trạng thái hoạt động, consumer, quan hệ graph đã có/thiếu, bằng chứng. Phần nguồn ngoài quyền ghi UNKNOWN + owner. Đảm bảo không bỏ qua đối tượng SHARED với Registries/Khai sinh.
+- **CP2 · Dán nhãn và cô lập có lùi:** cập nhật hồ sơ/địa chỉ cho **tất cả** vật tìm được, theo 4 trạng thái trên; chọn riêng phần giao diện Pivot cũ và chuẩn bị **draft PR nhánh** để ẩn link/route bằng cờ đảo được, giữ toàn bộ code và dữ liệu, không di chuyển file còn import đang dùng, không merge/deploy. Nếu không chứng minh build source/runtime thì vẫn được làm *candidate nhánh* nhưng không tuyên production-ready. Chỉ dán nhãn trực tiếp PG/Directus nếu có DOT narrow/Guard/backup/rollback/ủy quyền đúng vật; thiếu đường ghi ⇒ `LABEL_PENDING_SOURCE_WRITE`. Đánh dấu từng DOT/collection/table/view/function/trigger/flow liên quan kể cả vật phải GIỮ dùng chung; **không đồng nhất "được tìm thấy" với "được tắt".**
+- **CP3 · Bằng chứng:** thử negative: giữ route Registries/PG, rollback cờ, nguồn nào mất quyền thì N4 MỘT PHẦN. KQ một bảng nguồn→Graph→nhãn + link PR ứng viên + chỗ thiếu có chủ; nêu số file/đối tượng đã gắn nhãn trong hồ sơ, mã nào chỉ chuẩn bị cô lập, phần nào có cơ hội giảm RAM/CPU/I/O (không đoán). Ghi ngay vào task COLLAB/GS-RM1 và View qua gateway Git-CAS, không mở task mới. Nếu không có quyền repo/công cụ thì dừng sạch, ghi lý do và KQ.
+- **Giới hạn tuyệt đối lượt này:** 0 tắt Docker; 0 production deploy/trigger/flow/cron change; 0 DROP/DELETE SQL, 0 Qdrant delete/reindex, 0 khóa KB; 0 source PG/Directus write qua đường không DOT; không phát sinh hệ quản lý thứ hai. Lượt protected tắt một thành phần thật sẽ được GPT Host ký sau khi nhận KQ và có rollback/Guard.
+
 #### ROADMAP GS-RM1 — nguồn điều hành duy nhất
 | Mốc | Nội dung | Trạng thái / gate |
 |---|---|---|
@@ -788,6 +834,8 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
 | DT20 · Nuxt source | code DELTA+GHM identity together, no label-only fix | ⛔ SUPERSEDED_NOT_SIGNED: >=6GiB RAM required |
 | RAM+K4 PREFLIGHT · 29/10 | đọc nguyên nhân RAM, kiểm cổng K4 và đề xuất sửa tối thiểu | ✅ KQ XONG P301 (chỉ đọc, 0 mutation): RAM 2,41–2,46 GiB, agent-data 6 worker ≈3,8 GB lớn nhất; K4 1/3/5 VERIFIED, 2/4 FAIL; đề xuất A AGENT_DATA_WORKERS 6→4 P302 Host accepts diagnosis; 6→4 only review proposal Claude P303 then Owner consent if safe |
 | K4 · Read-time source version | live cheap fingerprint vs cert baseline, changed/missing => NOT_ACTION_SAFE | ■ P304 DRAFT_BLOCKED_RESOURCE: P301 dấu gốc 6 lớp + Nuxt có sẵn, wrapper/rollback/fixture sẵn; còn FAIL bộ đọc nuốt lỗi 2 chỗ + RAM <3GiB; no READY |
+| OWNER D28 · NGHIỆM THU BAO PHỦ TOÀN VPS | Native inventory PG/Directus/DOT/Qdrant/KB/runtime/code ↔ Graph từng object/edge; thiếu adapter/ACL/cron/flow phải có chủ và cảnh báo | 🔴 **CHƯA ĐẠT: 49/100 ô, 0/9 họ FULL (snapshot gần nhất); không dùng số nút làm KPI bao phủ.** Owner yêu cầu ưu tiên số 1; G1/G2/G3 phải đo lại |
+| UC-1 · PIVOT TRACE→LABEL→ISOLATE | Claude Code CLI một lát, đánh dấu **mọi** DOT/table/view/collection/flow/function/triggers/code liên đới và tạo ứng viên branch/PR cô lập trang Pivot, không production mutation | ■ **ĐÃ GIAO PHẠM VI TRÊN TASK, CHỜ OWNER CHUYỂN LỆNH CHO CLI**; CP1–CP3, nhãn vật nguồn qua DOT only nếu có cổng, không làm giả đã ghi |
 | UC-1A · FIVE LEGACY SYSTEMS | Graph + Git + UI + KB, nguồn thiếu ghi UNKNOWN | ✅ khảo sát chỉ đọc 30/10: 3 GIỮ, 2 CHƯA RÕ; N4 MỘT PHẦN, không đủ để tắt; Host nghiệm thu |
 | UC-1B · OWNER DISABLE SHORTLIST | pilot ẩn link Pivot standalone, giữ route/data, rollback một cờ | ⬜ PROPOSED_ONLY; 0/0 giảm được xác nhận; chờ source/traffic/parity proof và Owner duyệt |
 | KB ACTIVE-INDEX (VPSC2 RAG-B) | 46 ID bảo toàn, law_scope opt-in theo exact ID; xem VPSC2 KQ | ✅ POLICY_INPUT_ONLY: 10.053 alive, 46 allowlist ứng viên/10.007 ngoài cổng luật; chưa lọc/xóa; Host đối chiếu catalog/vector |
