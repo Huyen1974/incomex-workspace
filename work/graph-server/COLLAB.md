@@ -94,6 +94,16 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 
 **Hiệu lực:** Mục §0.A/D17/Owner 21/10 thắng các dòng điều hành P164/đề xuất cũ trái nghĩa; giữ lịch sử không xóa. PROMPT hiện tại là GS-CLEAN đã KQ XONG, không còn RUN hiệu lực; Host sẽ sửa CHÍNH PROMPT.md theo A6 khi có node R10B được REVIEW/READY riêng. Không tự phát RUN từ việc ghi tài liệu.
 
+### BẢNG ĐIỀU KHIỂN · 30/10/2026 · GPT HOST B4 · ĐỌC ĐÚNG VÀ ĐO ĐÚNG QUA DOT
+- 🔴 N1–N4 Graph toàn VPS CHƯA ĐẠT: 6/79 nhóm có chứng nhận trong ONEPASS (không phải 8% VPS), lỗi scanner/loader/cert, refresh đêm đứng 4 lượt và từng có phép thử ĐỦ giả.
+- ✅ OWNER CHỐT QĐ1: DOT sinh ra để đọc/ghi chuẩn. Dùng vai read-only và reader native có sẵn, qua DOT, tự kiểm chứng đối tượng và quan hệ PG/Directus; KHÔNG HỎI lại Owner quyền đọc metadata. Không tự cấp role/GRANT hay lách qua query_pg.
+- ✅ QĐ2 CHỦ TRƯƠNG ĐO DÙNG THẬT: Host GO chuẩn bị protected mini-run PG track_functions=pl và retention nginx mục tiêu 14 ngày. Chỉ áp sau S0 xác minh pg_settings.context, tài nguyên, cấu hình, Guard PRE/POST, backup/rollback; KHÔNG tự restart PG hoặc Docker/ghi log vô hạn. Đây là yêu cầu kỹ thuật để đo đúng, không phải câu hỏi gật/lắc mới.
+- **Chứng cứ live Claude B3:** PostgreSQL 18.6, Directus 12.4.1; track_functions=none, pg_stat last_seq_scan bị scan tự gây nhiễu, nginx log khả dụng khoảng 39 giờ lúc đo. Mỗi RUN phải đọc lại server_version, config và cửa sổ log, không lấy số lịch sử.
+- **Cảnh báo đo:** track_functions=pl chỉ đếm PL calls/thời gian, KHÔNG cho biết caller, không bao phủ SQL inline; 0 lần gọi hay 0 lượt web trong cửa sổ ngắn KHÔNG chứng minh không ai dùng. Retention >=14 ngày chỉ đạt khi đủ dữ liệu mới được giữ qua container recreate.
+- **Bằng chứng tài nguyên:** cổng vps_status đo khoảng 3,37 GiB MemAvailable, swap gần đầy, đĩa trống ~35,4 GB tại lần lấy mẫu; đo lại ở S0, cấm quét/reindex hoặc log không hạn mức.
+- **K0-LIVE:** G1–G7 bắt buộc, đọc nguồn sống qua DOT, đếm runtime từ OS, sample pg_stat TRƯỚC scan, candidate trên Mac; tách METADATA_PROOF/USAGE_PENDING/FRESHNESS_PROOF. K4 vẫn NOT_READY, PR683 vẫn DRAFT.
+- ➡ NEXT_TRIGGER=OWNER_DISPATCH_CLAUDE_K0_LIVE_G1_G7. Không mở task mới; thiếu lệnh DOT chuẩn thì sửa đường DOT theo Guard đúng owner, không hỏi lại quyền đọc.
+#### Lịch sử Board Claude B3
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 16:50 +07 · Claude Chat · P-ONEPASS-CLAUDE-B3 (rà lệnh K0-LIVE: ACCEPT_WITH_GATES, cần 2 quyết định Owner trước khi giao)
 - 🎯 **Mục tiêu (Owner N1–N4 22/10 + 30/10):** Graph đọc chuẩn VPS: biết HẾT những gì có, chúng nối nhau thế nào, cái nào còn dùng thật, tự cập nhật và tự báo phần chưa biết/đã cũ — đủ tin để quyết tắt mã cũ.
 - 🏁 **Xong khi:** câu hỏi thật của Owner (vd «mọi thứ dính Pivot, cái nào còn chạy») được trả lời đúng trên dữ liệu thật, có cửa sổ đo rõ; vật mới/xoá tự hiện trong một nhịp; bộ đọc hỏng ⇒ đỏ.
@@ -344,6 +354,8 @@ Năm (bổ sung D24): Owner xem được Graph trên màn hình tương tác, cl
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 **HUMAN_DIRECTIVE@GS-D27-OWNER-20261029-WORKERS4 EFFECTIVE · Owner 29/10/2026 trực tiếp GPT Chat:** «Ok đồng ý trước mắt là giảm xuống 4 worker, tính đến đường lùi là sau này khi công suất của VPS được nâng lên thì có thể nâng lại được dễ dàng. Và đảm bảo là chị có 4 worker => nếu có 10 ông xếp hàng => 6 ông đó không bị đuổi đi mà chỉ phải chờ. Cái này là quan trọng. Bạn điều hành tiếp đi. Phê duyệt 4 worker». Áp vào VPSC2 P18, không phải quyền bỏ qua queue/Guard hay tắt/tạo hệ mới. Đích Graph K4/UC-1 sau resource gate giữ nguyên.
+
+**HUMAN_DIRECTIVE@GS-OWNER-20261030-DOT-STANDARD EFFECTIVE:** Owner yêu cầu DOT đọc/ghi chuẩn theo hệ thống, không xin phép lại việc đọc metadata trong nhà; AI tự thực hiện bằng chuẩn ngành và kiểm dữ liệu/quan hệ/usage/freshness. Mọi thay đổi production vẫn phải dùng đúng DOT/Guard/rollback và ACL. Xem P-ONEPASS-HOST-B4.
 
 **HUMAN_DIRECTIVE@GS-OWNER-20261030-READ-STANDARD EFFECTIVE · Owner 30/10/2026 16:35 +07 · Claude Chat nghe trực tiếp (viết lại đúng chính tả, giữ ý):** «Bàn kỹ việc này để lần này bảo đảm Graph đọc thông tin cho chuẩn. Đọc đúng thông tin VPS là việc vô cùng tiêu chuẩn của ngành IT; làm việc đó còn không xong thì chúng ta làm được gì?» **Hiệu lực:** trước khi giao lệnh đọc/nạp Graph phải kiểm đủ điều kiện đầu vào (quyền đọc, nguồn dấu dùng có thật và cửa sổ đo, phiên bản phần mềm sống) để lượt chạy không dừng giữa chừng hay ra «chưa rõ» ở đúng câu hỏi chính. Trả lời của Claude: P-ONEPASS-CLAUDE-B3.
 
@@ -1106,6 +1118,35 @@ NEXT_TRIGGER=HOST_ACCEPT_ONEPASS_MATRIX → Host ký gói A1+B.
 - **JEV** `gen-dec-1793353159-N2pdme76E5UmNj34F23x` (tham khảo): ACCEPT_WITH_GATES 0,90 · giao lệnh sau khi Owner cho quyền 0,65 (độ tin 0,30 thấp — em chọn chờ câu Owner vì trả lời mất 1 phút, còn một lượt dở mất cả buổi) · nên hỏi Owner bật đồng hồ đo 0,83.
 - `NEXT_TRIGGER=OWNER_QD1_QD2_THEN_GPT_B3_COPY_G1_G7`
 
+#### P-ONEPASS-HOST-B4 · GPT Chat · 30/10/2026 · DOT STANDARD / LIVE READ / USAGE TELEMETRY
+
+**Chỉ đạo Owner (hiệu lực):** DOT được dựng để đọc/ghi theo tiêu chuẩn. Đọc metadata PG/Directus qua DOT đúng vai đã có là NHIỆM VỤ kỹ thuật, không phải quyền phải xin lại. Đọc chính xác và cập nhật chính xác là thước đo. Mọi ghi cấu hình vẫn dùng Config Guard, apply-v0, VPS-GHI và rollback theo đường hiện hành; không tự mở GRANT, sudo, role mới hay đụng dữ liệu nghiệp vụ.
+
+**Khuôn 4 tầng từ nguồn hãng (không cài thêm stack):**
+- T1 SOURCE INVENTORY: native pg_catalog/pg_depend/pg_constraint/pg_trigger/pg_proc + Directus system metadata, Docker inspect, systemd effective units, nginx -T, cron mọi user kể cả DISABLED, Git source SHA/deploy artifact, Qdrant aliases/point→document ID. Native liệt kê ID/cạnh làm mẫu số, không lấy danh sách node tự viết. Loại chưa biết phải NEW_CLASS_UNHANDLED.
+- T2 EXACT LINEAGE: FK/dependency/trigger/view từ PostgreSQL và relations/flows từ Directus có provenance native; quan hệ suy từ thân hàm PL, imports động là STATIC_DERIVED/UNKNOWN, không xem pg_depend là ghi đầy đủ lời gọi runtime. Không sao chép dữ liệu riêng tư vào Graph.
+- T3 LIVE USAGE: pg_stat_user_functions sau khi bật, pg_stat_user_tables (snapshot BEFORE quét, delta và stats_reset), Directus activity/flow nhật ký theo ACL, nginx access logs, cron/journal. Tách dấu của công cụ/bot khỏi dùng thật. Nhãn MEASURED_CALL, MEASURED_WRITE, NOT_MEASURED theo thời gian; cấm từ 0 hits suy ra UNUSED.
+- T4 FRESHNESS: hash/dấu thay đổi source từ Git/CI/deploy, Docker/systemd/nginx/cron, Directus catalog; rescan có hạn để bù event mất; reconcile ID+cạnh/ADD-CHANGE-DISABLED-REMOVE, TTL và N4. Reader fail/mất quyền/cắt trang/hết hạn => MỘT PHẦN, không tự xanh. Không tạo PG event trigger/CDC hay daemon mới trong lượt này.
+- Nguồn chính thức: https://www.postgresql.org/docs/release/18.6/ ; https://www.postgresql.org/docs/18/runtime-config-statistics.html ; https://www.postgresql.org/docs/18/view-pg-settings.html ; https://www.postgresql.org/docs/18/monitoring-stats.html ; https://docs.docker.com/engine/logging/configure/ . PostgreSQL 18.6 là số Claude đo, phải xác nhận lại trên VPS.
+
+**QĐ1 = OWNER_DIRECTIVE_EFFECTIVE:** S0 kiểm contract của DOT có sẵn, vai PG_USER_RO, quyền metadata SQL whitelist, READ ONLY REPEATABLE READ/timeout/pagination/hash và reader/cert độc lập. Nếu không có DOT reader narrow, tạo ứng viên dùng vai hiện có rồi cài đúng đường DOT/Guard protected theo phạm vi; không đợi anh trả lời QĐ1, không query_pg/context_pack_readonly trực tiếp dưới tên agent. Không in options nhạy cảm Directus, user, raw PG body hoặc secret.
+
+**QĐ2 = HOST GO_PREPARE_GUARDED_USAGE (không tự coi đã áp):**
+- S0 đọc live server_version, track_functions và pg_settings setting/context/source/pending_restart; đo RAM/swap/disk, Config Guard baseline. Nếu track_functions=none, dùng đường cấu hình PostgreSQL hợp pháp để đưa PL tracking vào scope có hiệu lực bằng reload NẾU pg_settings.context cho phép, không restart production; xác thực setting thật sau reload, đo calls/self_time 2 mẫu và stats_reset; không reset thống kê toàn cục; backup bytes, PRE/POST và rollback về giá trị cũ. Nếu cần restart hoặc không có hợp đồng bảo vệ thì STOP trước ghi.
+- Nginx: kiểm log driver, rotation, throughput bytes/h, lịch sử giữ qua recreate, budget disk/privacy. Mục tiêu >=14 ngày là retention dữ liệu TƯƠNG LAI, không hồi phục 39 giờ thành 14 ngày. Docker max-size/max-file tính theo bytes, không theo ngày; dùng cơ chế rotation/archive sẵn có, không đổi daemon Docker toàn VPS hay recreate container tùy tiện. Không nạp raw access log vào Graph. Quan sát sức khỏe/nguồn sau cấu hình và rollback nếu có lỗi/tải bất thường.
+- Chủ bề mặt PG/nginx thực hiện một protected mini-run đúng quy tắc DOT/apply-v0 + Guard/lease, không lập task mới, không cần Owner gật lại nguyên tắc đo. Nếu resource gate không đạt thì DỪNG phần ghi kỹ thuật và báo rõ; K0 metadata vẫn được tiến hành, không đợi đủ 14 ngày.
+
+**K0-LIVE G1–G7 của Claude B3 thành nghiệm thu bắt buộc:**
+G1 đọc VERSION LIVE và cửa sổ dữ liệu có thật, không tự coi 7 ngày.
+G2 đọc pg_stat_user_functions/tables và stats_reset TRƯỚC scan, tách dấu scanner, tính delta có thời điểm.
+G3 DOT PG_USER_RO native oracle riêng với bộ cấp giấy, compare object/edge ID/count/hash độc lập, không bypass.
+G4 điểm chạy trực tiếp ps/cgroup + ss + all cron (disabled) + systemd mọi unit/drop-in/timer + docker/nginx, không dùng 75 entrypoint cũ làm mẫu số.
+G5 pg_depend/FK/view/trigger exact; thân hàm PL quan hệ derived, không gắn chắc chắn.
+G6 usage = có dấu gọi/có dấu ghi/chưa đo được, 0 hoặc thiếu counters không được VERIFIED_INACTIVE.
+G7 candidate Graph bằng JSONL/SQLite trên Mac, không tốn Neo4j VPS; failure/ACL/truncated/stale trên bản COPY phải PARTIAL.
+
+**RUN tiếp:** GS-COV2-K0-LIVE-SOURCE-ORACLE-20261030-01 (CP0–CP4 của B3 + G1–G7), chỉ đọc production và candidate Mac. So bảng tai_san_luat mới, cron Pivot đã tắt, Flow Count Refresh, Git commit→build→deploy, câu Pivot dựa trên 23 nhóm UC-1 (23 nhóm không phải mẫu số toàn VPS). KQ 4 phần INVENTORY, LINEAGE, USAGE WINDOW, FRESHNESS với PASS/FAIL/UNKNOWN; tách metadata đã đạt khỏi usage 14 ngày PENDING. Không ghi Graph production, không tắt/xóa/move dữ liệu, không sửa K4 hay PR683. Ghi KQ một lần qua Git CAS.
+
 #### ROADMAP GS-RM1 — nguồn điều hành duy nhất
 | Mốc | Nội dung | Trạng thái / gate |
 |---|---|---|
@@ -1147,7 +1188,7 @@ NEXT_TRIGGER=HOST_ACCEPT_ONEPASS_MATRIX → Host ký gói A1+B.
 | DT20 · Nuxt source | code DELTA+GHM identity together, no label-only fix | ⛔ SUPERSEDED_NOT_SIGNED: >=6GiB RAM required |
 | RAM+K4 PREFLIGHT · 29/10 | đọc nguyên nhân RAM, kiểm cổng K4 và đề xuất sửa tối thiểu | ✅ KQ XONG P301 (chỉ đọc, 0 mutation): RAM 2,41–2,46 GiB, agent-data 6 worker ≈3,8 GB lớn nhất; K4 1/3/5 VERIFIED, 2/4 FAIL; đề xuất A AGENT_DATA_WORKERS 6→4 P302 Host accepts diagnosis; 6→4 only review proposal Claude P303 then Owner consent if safe |
 | K4 · Read-time source version | live cheap fingerprint vs cert baseline, changed/missing => NOT_ACTION_SAFE | ■ P304 DRAFT_BLOCKED_RESOURCE: P301 dấu gốc 6 lớp + Nuxt có sẵn, wrapper/rollback/fixture sẵn; còn FAIL bộ đọc nuốt lỗi 2 chỗ + RAM <3GiB; no READY |
-| GS-COV2-K0-LIVE · NATIVE→GRAPH THỰC + GH SSOT | Dữ liệu thật đọc-only qua DOT đúng quyền, host runtime native; candidate Graph cô lập; so object+edge ID/hash, sửa detection và trả Pivot 23 nhóm có bằng chứng usage; stale/read-error phải báo MỘT PHẦN | ■ GPT B3 ACCEPT Claude (`b518b24`) · **Claude B3 30/10 16:50: ACCEPT_WITH_GATES G1–G7; giao lệnh SAU QĐ1 Owner (đọc cấu trúc PG/Directus bằng role chỉ-đọc có sẵn); QĐ2 bật đồng hồ đo dùng (`track_functions='pl'`, log nginx ≥ 14 ngày) để trả lời «còn dùng»** · không ghi production; A1 chạy lại y nguyên SUPERSEDED |
+| GS-COV2-K0-LIVE · NATIVE→GRAPH THỰC + GH SSOT | Dữ liệu thật đọc-only qua DOT đúng quyền, host runtime native; candidate Graph cô lập; so object+edge ID/hash, sửa detection và trả Pivot 23 nhóm có bằng chứng usage; stale/read-error phải báo MỘT PHẦN | ■ GPT Host B4 CHỐT: QĐ1 đọc metadata theo Owner, G1–G7 bắt buộc; QĐ2 đo dùng protected mini-run chỉ khi S0/Guard/rollback đạt, không xin lại QĐ1; K0-LIVE chưa RUN, Graph production chưa ĐỦ |
 | GS-FULL-ONEPASS · TỔNG KIỂM KÊ COVERAGE | Một Claude CLI chỉ đọc: ngoài G1–G9, native class/edge nội bộ mỗi nguồn, scope discovery/usage/lineage, độc lập source↔Graph và negative-tests; chốt toàn bộ GAP & kế hoạch sửa thống nhất | ✅ **KQ XONG 30/10 08:25Z (Claude Code, chỉ đọc, 0 ghi)**: ma trận 83 dòng (79 trong phạm vi) — ĐỦ 6 (≈8%), kiểm kê native có số 77/79; 32 lớp ngoài danh mục, 24 lớp đọc được chưa nạp, 11 fixture 5 PASS/6 GAP (1 xanh giả tiềm ẩn F6), làm mới đêm 4 đêm không áp; roadmap GS-COV2 A∥B→C→D→E→F→G→H→Z; công cụ `tools/onepass/`; NEXT GPT Host nghiệm thu + ký A1+B |
 | GS-D28-A1 · PIVOT NATIVE SOURCE COVERAGE | Kết nối bộ đọc hiện hữu→ingestion/cert cho PG function/view_dep, cron disabled, Directus collection/flow/operation; native↔Graph, nhãn nguồn DOT pending | ⏸ HOLD — chưa RUN; thay bằng GS-FULL-ONEPASS trước khi vá; chỉ mở A1 lại nếu ma trận tổng chứng minh cần, K4/PR683 tách riêng |
 | OWNER D28 · NGHIỆM THU BAO PHỦ TOÀN VPS | Native inventory PG/Directus/DOT/Qdrant/KB/runtime/code ↔ Graph từng object/edge; thiếu adapter/ACL/cron/flow phải có chủ và cảnh báo | 🔴 **CHƯA ĐẠT: 49/100 ô, 0/9 họ FULL (snapshot gần nhất); không dùng số nút làm KPI bao phủ.** Owner yêu cầu ưu tiên số 1; G1/G2/G3 phải đo lại |
