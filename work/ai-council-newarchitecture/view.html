@@ -141,7 +141,7 @@ code{font-size:14px;background:#f1f4f8;border-radius:4px;padding:1px 4px}
 <p><strong>Rào thực thi:</strong> <span class="src">V1</span> Khi một N đang làm, kế hoạch tương lai có thể đổi nhưng không sửa việc đang chạy. Thay đổi ảnh hưởng an toàn lúc chạy theo STOP/Guard hiện hành. Đề xuất chưa duyệt không được hệ thống tự thực thi.</p>
 </div></details>
 
-<details id="muc-2" open><summary><span class="num">2</span><span class="heading">Form khai — mọi AI khai giống nhau</span><span class="chevron" aria-hidden="true">⌄</span><span class="src">V2</span></summary><div class="body">
+<details id="muc-2" open><summary><span class="num">2</span><span class="heading">Form khai — mọi AI khai giống nhau</span><span class="src">V2</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
 <p><strong>Ở đâu:</strong> trong <code>COLLAB.md</code> của việc. Mục tiêu lớn ở <code>### 1. Mục tiêu</code>. Đầu vào chung + mục tiêu nhỏ + checkpoint ở <code>### 4. Kế hoạch</code> (sau §3, trước <code>### Vòng trước</code>; trang Task hiện trong ô «Chi tiết cần đạt»). <strong>Thứ tự làm = thứ tự từ trên xuống.</strong></p>
 <p><strong>Mã:</strong> <b class="blue">L</b> mục tiêu Lớn · <b class="blue">Đ</b> Đầu vào chung · <b class="blue">N</b> mục tiêu Nhỏ · <b class="blue">C</b> Checkpoint. Số tăng dần, <strong>không dùng lại, không đánh lại</strong> khi đổi thứ tự. C đánh số trong từng N (N4.C2).</p>
 
@@ -204,7 +204,7 @@ khi tích:
   - Đề xuất tiếp: N7, N8 (đã ghi ĐỀ XUẤT)</pre>
 </div></details>
 
-<details id="muc-3" open><summary><span class="num">3</span><span class="heading">Thao tác — ai làm · ghi vào đâu · làm thế nào</span><span class="chevron" aria-hidden="true">⌄</span><span class="src">V2</span></summary><div class="body">
+<details id="muc-3" open><summary><span class="num">3</span><span class="heading">Thao tác — ai làm · ghi vào đâu · làm thế nào</span><span class="src">V2</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
 <p class="small">Mọi thao tác: sửa thẳng <code>COLLAB.md</code> qua cổng ghi (fs_edit) <strong>có expected_version</strong>; bị từ chối vì bản cũ ⇒ đọc lại rồi làm lại. Mỗi thao tác một commit, tiêu đề commit bắt đầu bằng mã (vd <code>N4.C2 🟢</code>). Cột «Mức» theo Bảng 1.</p>
 <table><caption>Bảng 3 · 17 thao tác</caption>
 <thead><tr><th>#</th><th>Việc</th><th>Mức</th><th>Ai</th><th>Ghi vào đâu</th><th>Làm thế nào</th></tr></thead><tbody>
@@ -228,7 +228,7 @@ khi tích:
 </tbody></table>
 </div></details>
 
-<details id="muc-4" open><summary><span class="num">4</span><span class="heading">🤖 Một lượt của agent — đứng ở ghế người làm</span><span class="chevron" aria-hidden="true">⌄</span><span class="src">V2</span></summary><div class="body">
+<details id="muc-4" open><summary><span class="num">4</span><span class="heading">🤖 Một lượt của agent — đứng ở ghế người làm</span><span class="src">V2</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
 <p><strong>Lệnh mở lượt cố định, một dòng</strong> (Owner hoặc Host dán, không soạn prompt dài):</p>
 <pre class="form">Làm work/&lt;việc&gt; · ghế &lt;claude-code|codex|…&gt; · theo COLLAB.md §4 Kế hoạch</pre>
 <ol class="items">
