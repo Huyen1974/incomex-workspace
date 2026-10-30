@@ -5,16 +5,16 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 15:41 +07 · Codex Desktop · P139
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 15:49 +07 · Codex Desktop · P140
 - 🎯 Owner **30/10 14:50: mục tiêu duy nhất của GHM lúc này là MÃ NGUỒN ĐẦY ĐỦ TRÊN GITHUB**. Hai repo code hiện hữu `Huyen1974/web-test`/`Huyen1974/agent-data-test`, một GH account; mọi mã ứng dụng/worker/runtime source thuộc repo phải có GH commit/ref, không đánh đồng source với deploy/lock.
 - 📥 **Security intake từ NDW-P99 · `NDW-P0-REPORTS-OWNER-AUTH` (KHÔNG thuộc RUN T2/GHM):** Web main `171c115a` trong `web-test/web/server/api/reports/live.get.ts` chưa kiểm phiên/Owner trước `rpQuery`; Claude P98 đo GET không cookie 200+rows, E2E live đang trông đợi 200. Chủ nghiệp vụ **GPT Host `work/nhap-directus-for-workflow`**, dùng kênh Web **branch→PR→KST review→release/rollback** đã có ở GHM khi có lệnh GO riêng; không lẫn T2-B/không tự merge/deploy. DoD: no-cookie/session lỗi/non-Owner 401/403 cho mọi table_id trước PG query, Owner valid 200, UI /reports và fallback cũng an toàn, test sửa đồng bộ, public khác không regression. Chưa có GO/READY/RUN P0; đây chỉ là *handoff của một dependency bảo mật* để không bị treo, **không đổi scope GHM chỉ kỹ thuật GitHub**.
 - ✅ GitHub main code protected 2/2, Web real PR682 merged/live SHA `7c526588`, main gate40954885600 SUCCESS; **Host độc lập đã tra GH commit VPS AD HEAD `1cc706dc0f1ba7ef05f4631c04f604d2cacd9982` và AD image release `2b14c2aad82d6facd76838aaf601aa68df990863` CÓ TRÊN GH**; Nuxt3 VPS HEAD `0979ffa34d1718f8d052c629715b3aaeb981b9af` có GH; Web HVU GH scripts đã có. P113/P115 mã ứng dụng không thiếu GH, nhưng AD runtime khác main (deployment là việc khác).
 - 🏁 **CÒN LẠI THỰC:** nested `web-rp-current` SQL +18 và 9 config untracked không bao phủ trong vps-daily (mã nguồn vs secret chưa phân loại), các script vận hành đang dùng trên VPS như `ghm-manual-deploy.py` cần đối chiếu repo GitHub. **Không cần T3 khóa VPS hoặc HJW/AD rollback để push code lên GH.**
 - 📍 ✓ C2-B protected PR/CI → ✓ S0 source inventory P113 → ✓ Web GitHub→VPS P131/P132 → ✓ P135 code-only scope → ✓ P137 thêm provenance Graph **không làm thêm Graph RUN** → ■ P138 READY@865ff5b0078646d30f62244169734f777cc7cad4 cho `GHM-GH-SOURCE-COMPLETE-20261030-14` (chưa STARTED) → Codex copy code thiếu vào GH và ghi origin map → Host nghiệm thu SOURCE_CODE_ON_GITHUB.
-- ■ Đang làm: CP0–CP2 · RUN GHM-GH-SOURCE-COMPLETE-20261030-14 STARTED · Codex đọc VPS, copy nonsecret source thiếu lên GitHub branch/PR; không lấy VPS-GHI.
+- ■ Đang làm: — · 0 RUN active GHM · P140 KQ XONG: SOURCE_CODE_ON_GITHUB=YES trong phạm vi kiểm, 34 source bổ sung/10 tệp skip; PR684/359 DRAFT, remote/hash verified. Không lấy VPS-GHI; Host chưa nghiệm thu.
 - ⬜ Checkpoints **vẫn đúng 3 bước**: CP0 verify GH/VPS diff; CP1 copy non-secret source thiếu vào GH branch/Draft PR; CP2 remote SHA + receipt coverage **kèm ánh xạ nguồn gốc VPS path ↔ GH repo/path/commit/hash**. Giữ source VPS, không rename/gitlink, không chạy Graph. `GRAPH_INGEST=NOT_VERIFIED` không cản GOAL code-on-GH.
 - ⚠ GitHub public workspace không chứa secret; 9 config nested phân loại code hoặc SECRET/CONFIG_NOT_CODE, không push key. Repo Web PR683 (Graph) và AD PR357/358 đang có trên GH: không merge hay trộn. HJW G8/AD deployment, Graph/storage, NDW auth giữ nguyên owner khác.
-- ➡ Codex thực hiện CP1/CP2, kiểm remote commit và ghi KQ. NEXT_TRIGGER=HOST_ACCEPT_GH_CODE_SOURCE_THEN_PLAN_AD_DEPLOY_OR_VPS_LOCK.
+- ➡ GPT Host nghiệm thu KQ P140 và ánh xạ nguồn; xử lý riêng credential hardcoded còn trên VPS. NEXT_TRIGGER=HOST_ACCEPT_GH_CODE_SOURCE_THEN_PLAN_AD_DEPLOY_OR_VPS_LOCK.
 - ⛔ Không build/redeploy, lock/chmod/reset VPS, không tắt backup, không gộp việc Graph/NDW/HJW, không push main hoặc auto-merge PR của Codex, không mua/thêm repo/agent. Đích cuối `SOURCE_CODE_ON_GITHUB=YES` hoặc PARTIAL + path thật; AD runtime parity và VPS write-lock tách riêng sau.
 
 ### 1. Mục tiêu
@@ -1799,6 +1799,78 @@ Based_on: P119 · P120 · ROADMAP §0.4h · **tự kiểm 29/10 16:05–16:30 +0
 
 **3. Telegram HJW 15:57 — đồng ý không liên quan T2:** dòng 512 HJW COLLAB là việc giao 22/10 `blocked`, gen 1, ghi sang `work/hpml-view-for-user` (ngoài phạm vi) — và **không có dòng RESULT_V1 đóng** (khác dòng 510, 513 đều có) ⇒ nhiều khả năng bộ điều phối coi nó còn mở nên quét lại và báo. Bàn giao Host HJW: (a) đóng việc này theo đúng đường máy của HJW (RESULT_V1 do dispatcher tin cậy ghi), (b) kiểm vì sao «chỉ báo một lần» lại báo lại. GHM không sửa HJW, không nới quyền ghi.
 - NEXT_TRIGGER=HOST_READY_T2B.
+
+## P140 · Codex Desktop · 30/10/2026 — KQ SOURCE COMPLETE RUN -14
+- KQ@GHM-GH-SOURCE-COMPLETE-20261030-14 XONG · 2026-10-30T08:49Z · **SOURCE_CODE_ON_GITHUB=YES trong phạm vi source Web/Agent Data và các script liên quan đã kiểm dưới đây; GRAPH_SOURCE_MAPPING=RECORDED; GRAPH_INGEST=NOT_VERIFIED.** Executor receipt, chưa thay nghiệm thu Host. 0 RUN active; không lấy VPS-GHI.
+- STARTED P139 commit `04aa7bdf2e0b42ad1764e30ad2cddb1035ea67fe`; READY ROADMAP last-touch `865ff5b0078646d30f62244169734f777cc7cad4` đúng GitHub. Owner GO source-only, CP0–CP2 đã thực thi. Skill Incomex/AGENTS đã đọc; KB OR/constitution truy vấn trực tiếp (trả các đoạn lịch sử, không thay authority hiện hành). Thiết kế/deploy/production test N/A vì chỉ bảo toàn source; không cập nhật OR hoặc tạo quy trình mới.
+- **34 tệp đã push thật**: Web9 tệp [Draft PR684](https://github.com/Huyen1974/web-test/pull/684), HEAD `a974ec7da63c58884bc3507fcbec5d9358f08879`; AD25 tệp [Draft PR359](https://github.com/Huyen1974/agent-data-test/pull/359), HEAD `fdb9b538d35759a3a3b336bb6b768a7bc56134b5`. Cùng branch `sync/vps-source-20261030`; GH ref/tree readback khớp cả34 blobs. Không merge/deploy; không dùng CI làm bằng chứng source. Nhánh sync ngoài pilot: không bypass nếu gate OUT_OF_PILOT đỏ.
+- **10 tệp SKIP vì đã có GitHub**, gồm SQL+18 và8 config nested (chỉ nuxt.config.ts thiếu), scanner-counts. Chín config đều là source/config-build nonsecret, không phải .env; không copy toàn worktree hoặc gitlink. Nested HEAD thực `d04d8e5624f92d26b868c93adc50fca5e2f07b7f`; remote bị chặn DROOT56 nên bản thiếu vào Web archive có provenance.
+- **Nguồn ứng dụng PRESENT, không làm lại:** GH API xác minh Web legacy `0979ffa34d1718f8d052c629715b3aaeb981b9af`, Web live P131/main `7c52658815746a67776e12d582a6cf04c14acc8a`; AD checkout `1cc706dc0f1ba7ef05f4631c04f604d2cacd9982`, image source `2b14c2aad82d6facd76838aaf601aa68df990863`. AD git status/untracked sạch; Web chỉ nested dirty. HVU3 service gọi scripts/hvu-b2 nằm trong checkout Web sạch. Workspace worker/presence nằm trong checkout AD sạch. Không đổi PR683/357/358.
+- **Secret scan:** Gitleaks8.30.1 darwin archive SHA256 `b40ab0ae55c505963e365f271a8d3846efbc170aa17f2607f13df610a9aeb6a5` khớp checksum release. Final delta Web2 commits ~59KB, AD3 commits ~207KB: no leaks found, --redact/--ignore-gitleaks-allow; diff --check đạt. Không chạy SQL/script thu về. Python AST hai bản sanitize đạt.
+- **Hai bản có credential hardcoded đã xử lý ở COPY:** reconcile-knowledge.py/reconcile-tasks.py đổi đúng fallback os.getenv thành os.environ[AGENT_DATA_API_KEY] trong bản GitHub; không đưa giá trị vào Git. Nguyên bản VPS không đổi; trạng thái nguyên byte SECRET_BLOCKED, logic nonsecret CAPTURED_SANITIZED. Các bản này chưa được deploy, thiếu env sẽ fail closed. Việc xử lý credential đang tồn tại trên VPS giao Host trong scope riêng; RUN này không đọc GSM/rotate secret.
+- Kiểm cuối: toàn bộ34 VPS original SHA256 khớp lúc copy, GH tree blob khớp từng bản Mac. Hai sanitized giữ riêng original/copy hash dưới đây. Không có source-file còn MISSING trong danh sách app/runtime-source đã kiểm. Secrets/.env/data/log/cache/build/node_modules/images nằm ngoài Git theo contract, không tính thiếu source.
+- Phạm vi inventory: hai checkout app + nested; script Web/AD từ root cron, /etc/cron.d và service paths, cùng5 script phụ được chúng tham chiếu. Không rà toàn OS; hạ tầng Graph/HJW/mcp-host-helper/Guard và các nhiệm vụ riêng giữ nguyên owner, không tuyên đã thu toàn VPS filesystem. `git submodule status` báo thiếu .gitmodules cho gitlink cũ; dùng nested trực tiếp, không sửa gitlink.
+- **3 nguyên tắc cho lượt này:** bảo toàn source bằng commit remote có hash; tránh nhầm bản lưu với runtime bằng copy_of/provenance; đây là capture một lần, không tuyên có tự động sync mới. VPS không đổi, không khóa/stop/restart/xóa; Graph không gọi/ghi; 0 VPS-GHI.
+
+### Receipt source mới — copy_of, không phải deployed_from
+Branch chung `sync/vps-source-20261030`. W=`Huyen1974/web-test` @ `a974ec7da63c58884bc3507fcbec5d9358f08879`; A=`Huyen1974/agent-data-test` @ `fdb9b538d35759a3a3b336bb6b768a7bc56134b5`. Script ngoài Git gốc: origin_commit=N/A; nested origin_commit=d04d8e5624f92d26b868c93adc50fca5e2f07b7f + dirty/untracked.
+
+| VPS_SOURCE_PATH | GH repo/path | CONTENT_SHA256 | Status |
+|---|---|---|---|
+| `/opt/incomex/scripts/backup-to-gdrive.sh` | A / `scripts/vps-source/backup-to-gdrive.sh` | `7740b42c028043e96b5175331612431a61202a4b85cfccac26ddc56db64f9cef` | CAPTURED |
+| `/opt/incomex/scripts/cdn-cache-warm.sh` | W / `scripts/vps-source/cdn-cache-warm.sh` | `cf765992717e1acede18e4fd213738d44c7152e9bd596b9adafc036a0a652db4` | CAPTURED |
+| `/opt/incomex/scripts/check-protected-routes.sh` | W / `scripts/vps-source/check-protected-routes.sh` | `f61410201e044548f568df08b8e5bc69eb7cbd272901e5b1314d83a21ab5f664` | CAPTURED |
+| `/opt/incomex/scripts/code-backup-to-gdrive.sh` | A / `scripts/vps-source/code-backup-to-gdrive.sh` | `6b442ec6a86a56e129d2ead647fe2703f3c4e03ca1e638256085ed5f5afa5d91` | CAPTURED |
+| `/opt/incomex/scripts/collect-workspace-status.py` | A / `scripts/vps-source/collect-workspace-status.py` | `b73408263286034e6561be7709d9dc99432f0c4a7ff5a2c2586dedac61e02687` | CAPTURED |
+| `/opt/incomex/scripts/cron-env.sh` | A / `scripts/vps-source/cron-env.sh` | `ce7d63281a7f5a67831576bb968de3170cec8203be1cf5416fd35bfb239b2ad5` | CAPTURED |
+| `/opt/incomex/scripts/ghm-manual-deploy.py` | A / `scripts/vps-source/ghm-manual-deploy.py` | `7b1d917c18090d26b8700c2b0d0f37655228f89ade2668fe92605d0b2ef10ea6` | CAPTURED |
+| `/opt/incomex/scripts/git-push-gh-daily-v2.sh` | A / `scripts/vps-source/git-push-gh-daily-v2.sh` | `8f65307254ba539d54d324a1be7c9df217cbf99fb6a2ff06fb91b54de09243ce` | CAPTURED |
+| `/opt/incomex/scripts/pg-backup.sh` | A / `scripts/vps-source/pg-backup.sh` | `61d21ba98f7cae051b8fe9dc3d1768fc1d8cc4da6fe439725e9cf801de0b9271` | CAPTURED |
+| `/opt/incomex/scripts/qdrant-backup.sh` | A / `scripts/vps-source/qdrant-backup.sh` | `165e145fc0eae67fd7afa7106604d1e82274a1efa08db9d525a80b887e928cff` | CAPTURED |
+| `/opt/incomex/scripts/reconcile-knowledge.sh` | A / `scripts/vps-source/reconcile-knowledge.sh` | `df617e970bb5bf7e963799c4ac57b6df7b71be69f2deb774e4c4f4d668cca6e9` | CAPTURED |
+| `/opt/incomex/scripts/reconcile-tasks.sh` | A / `scripts/vps-source/reconcile-tasks.sh` | `b99c336b2cac1caa8faa3dc6e2d03c4743fa4afa0213d52d0a005af7aab9097e` | CAPTURED |
+| `/opt/incomex/scripts/smoke-test.sh` | A / `scripts/vps-source/smoke-test.sh` | `b423fa745333090203b977c70dee39fdfe1ddacadc09e8680784b47fe57a5a8b` | CAPTURED |
+| `/opt/incomex/scripts/test-agent-connections.sh` | A / `scripts/vps-source/test-agent-connections.sh` | `12eaa13c30d3e15057b23376f476a0fc025ed9fdd980c51ceb2bf4c4a4e11dab` | CAPTURED |
+| `/opt/incomex/scripts/test-all-connections.sh` | A / `scripts/vps-source/test-all-connections.sh` | `c3cfd4039f758495b65910c789f89f127e35d5e5077553494744e2b92aeb6e28` | CAPTURED |
+| `/opt/incomex/scripts/test-mcp-connectivity.sh` | A / `scripts/vps-source/test-mcp-connectivity.sh` | `2bff4a43ea73441cbaf90db65996c9fd58c47de1edc17a50fedc66a42e361800` | CAPTURED |
+| `/opt/incomex/docker/nuxt-repo/web-rp-current/nuxt.config.ts` | W / `source-archive/web-rp-current/nuxt.config.ts` | `aee8cdb04a2f702dcbfe2f79159c39a898fcb398e5908a7f5af6e9e231e18b43` | CAPTURED |
+| `/opt/incomex/deploys/web-test/scripts/integrity/watchdog-monitor.sh` | W / `source-archive/opt-incomex/deploys/web-test/scripts/integrity/watchdog-monitor.sh` | `d55f7c112b5528dfae51338dd999a988eabe22a6967b417d9937c4f2a8450d45` | CAPTURED |
+| `/opt/incomex/deploys/web-test/scripts/integrity/cron-integrity.sh` | W / `source-archive/opt-incomex/deploys/web-test/scripts/integrity/cron-integrity.sh` | `35fd49fd52127027d39876a36e7e9930d7076139fa5114e5873a4630024f0ec7` | CAPTURED |
+| `/opt/incomex/scripts/db-permissions-guard.sh` | A / `source-archive/opt-incomex/scripts/db-permissions-guard.sh` | `5b9eb239ae432332cd370569f8150ba35336c4e4565aca9a63116fefdb0a38ae` | CAPTURED |
+| `/opt/incomex/scripts/git-push-gh-daily.sh` | A / `source-archive/opt-incomex/scripts/git-push-gh-daily.sh` | `c07786ff8aa09ba14e964cfba1b0c3d5e11b20ab6c5f172949232a4fae968268` | CAPTURED |
+| `/opt/incomex/scripts/dot-kb-verify.sh` | A / `source-archive/opt-incomex/scripts/dot-kb-verify.sh` | `65db357e67bb80aa5256c32a3c497054d54008446a75da86bc57d94053bdb790` | CAPTURED |
+| `/opt/incomex/scripts/pg-dump-permission-guard-monitor.sh` | A / `source-archive/opt-incomex/scripts/pg-dump-permission-guard-monitor.sh` | `973708bc10d58b5554405b369bc79a34ee4fe37b6860908bd4feefd65fc076e0` | CAPTURED |
+| `/opt/incomex/scripts/env-permissions-guard.sh` | A / `source-archive/opt-incomex/scripts/env-permissions-guard.sh` | `08b40c8e6bc3623a0ef3f3735fccb062c06174c37775118e7ef60e89f2b8ac7b` | CAPTURED |
+| `/opt/incomex/scripts/dot-api-health.sh` | A / `source-archive/opt-incomex/scripts/dot-api-health.sh` | `2d018e61a45fd19f1dfa6c9d603e54c08a10f8fc24d8e5bd4baca3c36bf34d1a` | CAPTURED |
+| `/opt/incomex/scripts/phai-cu/dung-va-trien-khai.sh` | W / `source-archive/opt-incomex/scripts/phai-cu/dung-va-trien-khai.sh` | `d7cb48526df570b8121b847d93eb8c20633e182ecf9a47a55c7b739b68ada98b` | CAPTURED |
+| `/opt/incomex/scripts/phai-cu/cron.sh` | W / `source-archive/opt-incomex/scripts/phai-cu/cron.sh` | `5809e680987e105a16d2c36794fba983466a811a76db8de5914ed810d5c1ec2d` | CAPTURED |
+| `/opt/incomex/scripts/reconcile-knowledge.py` | A / `scripts/vps-source/reconcile-knowledge.py` | `61145ef6e7088909a37c065bb478a5368cc8ceff4764212379ad33da791597de` | CAPTURED_SANITIZED |
+| `/opt/incomex/scripts/reconcile-tasks.py` | A / `scripts/vps-source/reconcile-tasks.py` | `92443af51e2171c8642599c4e8140e518f69d27cf249ae9beae2332c3df14aaa` | CAPTURED_SANITIZED |
+| `/opt/incomex/scripts/check-claude-route.sh` | A / `source-archive/opt-incomex/scripts/check-claude-route.sh` | `26d88ecf7b91144691e40638b7e11410205d651b5a11db903026b0db79305784` | CAPTURED |
+| `/opt/incomex/scripts/check-pg-dump-permissions.sh` | A / `source-archive/opt-incomex/scripts/check-pg-dump-permissions.sh` | `2ce65b08c0f56461e3a2371805c7b514075e7b5e7bf2e769385b5c9fa86632dc` | CAPTURED |
+| `/opt/incomex/scripts/check-gpt-mcp-route.sh` | A / `source-archive/opt-incomex/scripts/check-gpt-mcp-route.sh` | `1beda45751b4f6b2ca3dea97e6ce99bc33cc82ad14e540abd3e402d4ea4d7571` | CAPTURED |
+| `/opt/incomex/scripts/phai-cu/lam_tuoi.py` | W / `source-archive/opt-incomex/scripts/phai-cu/lam_tuoi.py` | `0c0f7c05e73ee48c80a3cee70b37f9da35bd404c44012d7e434dd182a2d85477` | CAPTURED |
+| `/opt/incomex/scripts/phai-cu/xuat_theo_yeu_cau.py` | W / `source-archive/opt-incomex/scripts/phai-cu/xuat_theo_yeu_cau.py` | `4edac8edb95e3cfa76478a151ac45e7f77ac88289633ca7fd0f02646f299cad6` | CAPTURED |
+
+- Original `/opt/incomex/scripts/reconcile-knowledge.py` SHA256 `9b91c0dc711b42f59b565665f0625e0ec912a222038dcafa75ae1610c02e323e`; copy hash trong bảng, copy_kind=copy_of_sanitized_env_required.
+
+- Original `/opt/incomex/scripts/reconcile-tasks.py` SHA256 `c73478246f3ea96559d29ad7085418e70de7d0fa99497c05014c9674d0a172dd`; copy hash trong bảng, copy_kind=copy_of_sanitized_env_required.
+
+### Receipt đã có — SKIP, không copy lại
+| VPS_SOURCE_PATH | GH web-test path @ commit | SHA256 |
+|---|---|---|
+| `/opt/incomex/docker/nuxt-repo/web-rp-current/.eslintignore` | `.eslintignore` @ `37ae9e570714e21f39d4752332907797171145fa` | `c8015948b6eaefde5eaa3862f2fe5ce0245fcde4d6e66f7441dcdcbbed46e652` |
+| `/opt/incomex/docker/nuxt-repo/web-rp-current/.eslintrc.js` | `.eslintrc.js` @ `37ae9e570714e21f39d4752332907797171145fa` | `9344f72ddb4378f52e340dd53b13613681f24ad00fabd09d3121c1697a8b1ad7` |
+| `/opt/incomex/docker/nuxt-repo/web-rp-current/.prettierignore` | `.prettierignore` @ `37ae9e570714e21f39d4752332907797171145fa` | `00eb0f42affb8eb6da4e3b42399f4986845ebee373fdd73014f8c7f749025dcc` |
+| `/opt/incomex/docker/nuxt-repo/web-rp-current/app.config.ts` | `app.config.ts` @ `37ae9e570714e21f39d4752332907797171145fa` | `046005ad61f3a3ca7b05ad127cdfb5d12c5246e4162b24ac53c51772dd4e9c99` |
+| `/opt/incomex/docker/nuxt-repo/web-rp-current/i18n.config.ts` | `i18n.config.ts` @ `37ae9e570714e21f39d4752332907797171145fa` | `91c59060c82944d48b16397d4462427d9099fd5d73dc5f60b6784163130b9a3c` |
+| `/opt/incomex/docker/nuxt-repo/web-rp-current/sql/s170_pivot_count.sql` | `sql/s170_pivot_count.sql` @ `37ae9e570714e21f39d4752332907797171145fa` | `e544ee6d67fca85f2a4460b26d6d3b92caeb00ae2d1a8c028a2ea208f9e15058` |
+| `/opt/incomex/docker/nuxt-repo/web-rp-current/tailwind.config.ts` | `tailwind.config.ts` @ `37ae9e570714e21f39d4752332907797171145fa` | `e2597f8e68e947eefbc5cfd99a493a3a88dbd54e41718ad3863da6ab658c92ab` |
+| `/opt/incomex/docker/nuxt-repo/web-rp-current/theme.ts` | `theme.ts` @ `37ae9e570714e21f39d4752332907797171145fa` | `19aa9f50c9d8d0e4150180ead742856e9f3e4257ae9749ec424ae2106c595f1b` |
+| `/opt/incomex/docker/nuxt-repo/web-rp-current/tsconfig.json` | `tsconfig.json` @ `37ae9e570714e21f39d4752332907797171145fa` | `8b7c3d852d0ea1289e86b65643efed934c415c23a6c2db491c670e1987f8f391` |
+| `/opt/incomex/deploys/web-test/scripts/integrity/scanner-counts.sh` | `scripts/integrity/scanner-counts.sh` @ `7c52658815746a67776e12d582a6cf04c14acc8a` | `2351e3dc8f397b74c50a4b859de7662a01e7798d292f563c6d443504b7d66c28` |
+
+- NEXT_TRIGGER=HOST_ACCEPT_GH_CODE_SOURCE_THEN_PLAN_AD_DEPLOY_OR_VPS_LOCK. Không tự mở việc hoặc thực thi bước tiếp.
 
 ## P139 · Codex Desktop · 30/10/2026 — STARTED SOURCE COMPLETE
 - STARTED@GHM-GH-SOURCE-COMPLETE-20261030-14 2026-10-30T08:41:13Z · executor=Codex Desktop
