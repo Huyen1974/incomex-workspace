@@ -1,46 +1,39 @@
-# HJW · RUN20 — Claude Code CLI KST rà độc lập F1/F2 và CI của PR #358, KHÔNG MERGE/DEPLOY
-RUN_ID: HJW-G8-KST-F1F2-CI-REVIEW-20261030-20
-STATUS: FINAL_PROMPT; chỉ bắt đầu sau READY@full last-touch PROMPT commit do GPT Chat Host ký trong HJW COLLAB và Owner chuyển tay. NO AUTO_RUN.
-Executor_Surface: Claude Code CLI trên MacBook (KST code reviewer, không phải Host); GPT Chat Host chốt. REVIEW_REUSED=P470/P476 cho thiết kế gốc; RUN20 là kiểm độc lập **delta mới** của RUN19 (không giả đã review).
-Write_Path: Git/GitHub chỉ ĐỌC PR #357/#358/CI; worktree/lab có thể tạo trên Mac rồi dọn. HJW STARTED/P480/KQ/Bảng/evidence ghi qua Workspace Gateway D12 (không qua GitHub native direct write cho workspace). Không sửa mã nguồn trên GitHub hay VPS.
-Read_First: AGENTS.md A0/A2/A5/A6/DROOT30/31/56/58/60 + GHM_CODE_CHANNEL → README §11/D12 → root COLLAB current busy → HJW COLLAB §0/§1–3/Bảng/P458/P476–P479 → PROMPT này → PR #358, PR #357, RUN19 evidence README+RED/GREEN+ci-evidence, GitHub Actions run 41025111338.
+# HJW · RUN21 — Codex phủ khai danh workspace_exec + sửa 2 chi tiết P480; lập bản đồ KB (source-only)
+RUN_ID: HJW-G8-AD-WEXEC-COVERAGE-20261030-21
+STATUS: FINAL_PROMPT · cần GPT Host READY@full last-touch PROMPT commit trên HJW COLLAB và Owner chuyển một lệnh. NO AUTO_RUN.
+Executor_Surface: Codex Desktop MacBook, developer; GPT Chat Host. KST P480 đã review F1/F2 và chỉ ra coverage gaps; REVIEW_REUSED=P480 cho hướng candidate, không gọi thêm KST cho từng thay đổi nhỏ. KST full-scope code review giữ tới khi coverage đủ.
+Write_Path: Git/gh trên Mac, CHỈ nhánh DRAFT PR #358 của `Huyen1974/agent-data-test`; HJW STARTED/KQ + Bảng + evidence qua `workspace_*` Gateway D12 vào `Huyen1974/incomex-workspace/work/hermes-joint-workspace`. Không ghi/đụng VPS.
+Read_First: AGENTS.md A0/A2/A5/A6/DROOT30/31/56/58/60 + GHM_CODE_CHANNEL → README §11/D12 → root COLLAB current busy → HJW COLLAB §0, §1–3, Bảng, P458/P476–P481 → PROMPT này → PR #358/#357, P480 evidence, `agent_data/workspace_execution.py`, `workspace_declaration.py`, `declaration_contract.py`, `scripts/workspace-exec-worker.py`, `hvu_signals.py`, `tests/unit/test_hjw_four_facts.py`, `pytest.ini`.
 
-## A. Mục tiêu chốt / ranh giới
-RUN19 Codex P478 đã XONG **G8_AD_F1F2_SOURCE_CI_PASS** trong phạm vi ứng viên. PR #358 vẫn OPEN/DRAFT, HEAD `58a44c0559bfd42e7e62f5faf8df49ebd2259e78`, base/main `b4c9ea19cf2e57594a231c2819e098fe0002c99a`, 8 tệp. RUN19 chỉ đổi **3 đường**:
-- `agent_data/declaration_contract.py` — F1: `target_task` nhận diện đúng mã việc ở `work/done-tasks/<id>/...` và đóng/mở lại.
-- `tests/unit/test_hjw_four_facts.py` — 118 regression tests check-in, test RED 20 fail/98 pass trước sửa và GREEN 118 pass sau.
-- `.github/workflows/ghm-pr-gate.yml` — đúng một thay đổi mảng TESTS của Unit tests, gọi file HJW mới bắt buộc.
-CI [run 41025111338](https://github.com/Huyen1974/agent-data-test/actions/runs/41025111338), job gate `123961272485` SUCCESS, HEAD `58a44c0…`, GH merge-test/executing workflow SHA `c22c9192d5f68588db89d6c2d00949b4b95da35a`, 151 PASS (33 cũ + 118 mới). Preflight `gate_matches_main=false`/`ci_change_kst_review=true` nên KST **phải review độc lập code của CI đã sửa**, không lấy CI tự kiểm làm chữ ký.
-PR #357 OPEN/DRAFT HEAD `36c682914c9f412078113b6d85319f11356d1130`, queue 4-worker đã có trên VPS nhưng chưa nằm Git main; P476 đã review ghép nguồn với #358 trước RUN19 và để lại bản giải 2 dòng cho `workspace_tasks.py`.
-**Đích duy nhất:** KST rà diff RUN19 + hiệu lực gate trên HEAD cụ thể + tác động lên hợp đồng cũ. Chốt `KST_SCOPED_F1F2_REVIEW_PASS` hoặc `KST_F1F2_NEEDS_FIX` kèm tối đa 3 lỗi cụ thể. **KST review PASS ≠ KST_ACCEPT@SHA cho merge hoặc G8_SYSTEM_PASS.**
+## 1. Mục tiêu, phạm vi và chứng cứ Host đã kiểm
+**Cần hoàn thành trong RUN21 (một lượt code ứng viên, KHÔNG merge/deploy):**
+A. `workspace_exec` hiện ở `NON_SOURCE` của `workspace_declaration.py`, nhưng `workspace_execution.execute` thực sự ghi hàng `jobs` vào SQLite; worker `scripts/workspace-exec-worker.py` chạy snapshot và `Queue.finish` loại request sau hoàn thành. **Đây là một logical operation cần mang bốn facts**, dù snapshot không đẩy source. Đưa `workspace_exec` vào luồng khai danh trước enqueue/prepare_git/chạm state. Bốn facts phải nằm trong envelope server-trusted, không do client gắn `_declaration`, giữ nguyên credential/ACL (agent profile đã DENY exec), không sửa Queue/idempotency/supervisor PR357. Retry cùng operation_id/khai khác phải từ chối; receipt raw/canonical/provenance/auth phải truy được cả trong kết quả `workspace_exec_status` khi job hoàn thành (không biến status thành write mới). Khi `WORKSPACE_DECLARATION_MODE=advertise`, giữ hành vi legacy nếu chưa khai; khi enforce, thiếu/sai khai ⇒ lỗi hướng dẫn + **0 queue/job/process/write**. Không nhận nhầm host VPS là origin môi trường AI. Nếu code worker cần metadata, tái dùng một contract + carrier hiện tại, không dựng guard/DB/daemon mới.
+B. Ghi chú P480 sửa ngay vì hẹp: `canonical(task_id)` tiếp nhận `done-tasks/alpha` hoặc `work/done-tasks/alpha` phải ra `alpha` (bucket reserved, không phải task ID), thống nhất `target_task`; thiếu id, sai/mơ hồ, khác đường dẫn phải fail closed, **không sửa sai bằng fuzzy**. Thêm `pytestmark = pytest.mark.unit` vào `tests/unit/test_hjw_four_facts.py` theo marker đã khai ở `pytest.ini`; CI hiện chạy file bằng TESTS và `-o addopts=''`, không được gỡ/bỏ lọt test.
+C. **Chỉ khảo sát để chuẩn bị lượt KB tiếp:** Host đã đọc code GH, xác nhận KB writes có ít nhất hai cạnh: MCP `agent_data/server.py::_dispatch_mcp_tool` và stdio `mcp_server/stdio_server.py` gọi trực tiếp HTTP `/documents`; `mcp_server/server.py` cũng làm hybrid HTTP. Codex ghi một bảng đường vào → auth → chỗ ghi PG/Qdrant → vùng bảo vệ hiện tại → chỗ cần gắn khai danh **chỉ trong KQ/evidence**. KHÔNG sửa `agent_data/server.py`, `mcp_server/*`, KB DB/PG/Directus hoặc network trong RUN21, không tuyên KB covered.
+**Không làm trong RUN21:** trusted auto-fill product/environment khi chưa có metadata verified, KB write enforcement, PR357 SQLite new-db bootstrap, Linux image rebuild, GH→VPS, advertise trên live, C1/C2 AI thật. Để roadmap RUN22+; không biến thành blocker RUN21.
 
-**CẤM:** merge/rebase/push main/PR, đổi PR state, approve merge, KST_ACCEPT@SHA với ý nghĩa release, bật/rerun workflows, deploy, rsync VPS, Docker build/restart, sửa PR357/source/queue4/Hermes/Gemini/PG/Directus/config/Guard. `deploy-vps.yml` trong GH main còn mã on-push-main→rsync/build/recreate, KST P476 thấy `disabled_manually` nhưng có thể bật; giữ tuyệt đối **NO MERGE** cho đến GO Owner và release gate riêng. Không mở task mới.
-
-## B. INPUT READY TABLE DROOT60
-| Host-owned input | Evidence VERIFIED; chỉ recheck lúc RUN |
+**DROOT60 HOST_VERIFIED INPUTS:**
+| Ô | Bằng chứng Host đã có; freshness lúc chạy |
 |---|---|
-| Repo/refs | GH PR358 OPEN/DRAFT 58a44c0, PR357 OPEN/DRAFT 36c6829, main b4c9ea1; GitHub connected reads + prior Claude Code CLI KST P476 succeeded. Refresh head tại S0, drift thì diff và KQ hẹp, không review SHA mù |
-| KQ/test | RUN19 P478+commit `7c768d2b705d67dbe4c56aaf1b1879f42ec784e9`; evidence 11 file; GH commit `58a44c0` thay đúng 3 đường; test RED/GREEN+negative missing/failing file; gate mới thực thi 151 |
-| CI/review | GitHub job `123961272485` Unit tests SUCCESS, log có TESTS chứa HJW file + `151 passed in 8.94s`, note `CI_CHANGE_KST_REVIEW`. Reviewer độc lập so workflow base/executing diff, không tin duy nhất đèn xanh |
-| Source/limit | Target P458 vẫn bốn facts AI/môi trường/task/lệnh với provenance & quyền A2 bất biến. RUN20 read-only Git/CI + Mac test nhẹ. Docker Mac/VPS build KHÔNG bắt buộc, không cần VPS-GHI |
-| Rollback | 0 production mutation, cleanup worktree local; không KST merge/CI rewrite. Nếu không đọc được GH Mac, báo error với bằng chứng, không dựng tool/quyền mới |
-0 HOST_UNVERIFIED trong phạm vi read-only; Git credentials/git refs/pytest outcome ở giờ thực thi là EXECUTOR_FRESHNESS.
+| Source/Write route | [PR358](https://github.com/Huyen1974/agent-data-test/pull/358) OPEN/DRAFT HEAD `58a44c0559bfd42e7e62f5faf8df49ebd2259e78`, main GH `b4c9ea19cf2e57594a231c2819e098fe0002c99a`; [PR357](https://github.com/Huyen1974/agent-data-test/pull/357) OPEN/DRAFT HEAD `36c682914c9f412078113b6d85319f11356d1130`, live VPS source `1cc706dc0f1ba7ef05f4631c04f604d2cacd9982` (queue4). Codex đã push nhánh PR358 trong RUN17/19. Chỉ recheck HEAD/gh auth ở S0 |
+| Contract | PR358 gồm `agent_data/workspace_declaration.py`, `declaration_contract.py` + gh CI tests, P480 KST PASS scoped, 118 tests mới/CI151. `workspace_exec` thực tạo queue/snapshot job nhưng vẫn NON_SOURCE; script worker và Queue finish đã được Host đọc |
+| Test setup | `tests/unit/test_hjw_four_facts.py` đang là TESTS bắt buộc của Unit tests trong `ghm-pr-gate.yml`; `pytest.ini` khai marker unit; Mac pytest+SQLite đã chạy thực. Không cần Docker/PG/FastAPI hoặc CI workflow sửa |
+| Safety | Mọi code ở dev PR, 0 VPS mutation, no KST_ACCEPT/merge/deploy. VPS swap gần đầy nhưng không build trên VPS; rollback=PR draft/local refs, không nâng quyền Hermes/không sửa PR357 |
+| KB inventory | Host xác minh cụ thể ba tệp `agent_data/server.py`, `mcp_server/stdio_server.py`, `mcp_server/server.py` ở GH current main; inventory read-only thuộc S3 |
+Các kết quả build/test/CI thật, nguyên HEAD và permission thực tế là EXECUTOR_FRESHNESS. HOST_UNVERIFIED=0 cho phạm vi source candidate và KB read-only inventory. Không tạo lượt PRECHECK riêng, không đòi Claude Chat/Claude Code kiểm lần nữa trước viết ứng viên.
 
-## C. S0–S2, một lượt, checkpoint hợp lý ≤15 phút
-**S0 (one read gate):** root/HJW READY SHA và STOP/STARTED, 3 GH refs, 3 changed paths của commit 58a44c0; ghi STARTED theo DROOT31. Đọc ghm-pr-gate.yml ở main và ở đúng head PR #358 (không dựa source deploy).
-**S1 (KST độc lập):**
-1. Xem F1 `target_task` đúng reserved `done-tasks`: path active/archived, directory vs file, đóng/mở lại, multiple from/to/operations, cross-task, path rỗng/độc hại/Unicode/backslash, falsified declared task vs derived task; ca sai không tạo mutation. Chỉ xét delta F1, không làm lại toàn bộ 4-facts P476.
-2. Kiểm test suite 118 thực sự test code, độc lập và có negative; không mock chính logic đang kiểm; RED→GREEN P478 đáng tin. Có thể chạy vài ca targeted Mac nếu deps có; thiếu Docker/FastAPI không phải blocker review static khi nguồn/test đủ.
-3. So workflow trước/sau: **chỉ một mục tests/unit/test_hjw_four_facts.py bắt buộc** trong Unit tests, không `if test -f`, không `|| true`/continue-on-error; preflight, actor lane, secrets scan, policy, runner, timeouts, permissions, trigger và branch protection không bị thay. Đối chiếu log HEAD `58a44c0`, merge-test SHA `c22c919…`, 151 tests và `CI_CHANGE_KST_REVIEW`. Nếu có lỗ hổng khiến gate xanh mà test không chạy, đánh NEEDS_FIX, không tự sửa CI.
-4. Đánh giá giao thoa F1 với PR357 và baseline live queue 4-worker: RUN19 không sửa `workspace_tasks.py`, PR357 vẫn draft. Test integration P476 trước đó và RUN19 overlay regressions còn tương ứng; chỉ nếu F1 làm thay đổi task ID ảnh hưởng queue/schema thì nêu chính xác; KHÔNG rebase PR trong RUN20.
-5. Ghi riêng những **coverage gap trước G8_SYSTEM**, không sửa: `workspace_exec` NON_SOURCE/state queue, KB write tools, trusted auto-derive actor/environment, PR357 fresh-DB SQLite bootstrap race, Linux AD rebuild/rollback, C1/C2 AI thật. Không chấp nhận G8 full vì CI 151 xanh.
-**S2 (KQ):** KST ghi `P480/KQ` + Bảng trong HJW qua Gateway; evidence ngắn `work/hermes-joint-workspace/evidence/run20-kst-f1f2-ci-20261030/` có gh HEAD/base, exact 3 paths, checklist verdict per F1/test/CI, test/log receipts, 0 mutation, 1–3 câu sửa nhỏ nếu NEEDS_FIX; không thay đổi PR hoặc PROMPT. Nếu PASS, đề xuất Host điều hành Codex tiếp phần coverage trên một RUN riêng, **chưa merge/production**. Dọn local refs/worktree, đóng sạch.
+## 2. STEP_WALK — một vòng thực hiện gọn
+**S0 · Một read-gate:** xác nhận GH PR358 vẫn đúng branch, scope/cờ HJW READY, main/PR357/current code refs và tools; ghi STARTED@RUN21 trong HJW. Không force push, không mở PR mới. Nếu PR HEAD do người khác đổi, chỉ cần diff/hòa giải phần liên quan, không làm lại toàn bộ.
+**S1 · Contract/worker write path:** Trên Mac branch PR358, sửa tối thiểu `workspace_declaration.py` (classify/schema), `workspace_execution.py` (carry/hash/status), và `scripts/workspace-exec-worker.py` chỉ nếu thực sự cần để receipt sau Queue.finish. Không mutate runtime. Kiểm thứ tự auth/A2 → declaration → queue mutation; client `_declaration` bị chặn, unauthenticated không qua, thay khai trong retry không trùng job, process/status không lộ key/token. Nếu thiếu Docker chỉ test fake worker/SQLite/file tmp rồi ghi giới hạn, không gọi test offline là production PASS.
+**S2 · Hai ghi chú P480 và CI:** sửa chuẩn hóa `task_id` trong `declaration_contract.py`, thêm unit marker ở `tests/unit/test_hjw_four_facts.py`, bổ sung focused tests cho `workspace_exec`: missing/invalid 4facts no state, hợp lệ queue+receipt, replay same fact vs changed fact, completed status giữ provenance, advertised legacy vẫn chạy, alias done-tasks đúng, unit marker được collect. Dùng một tệp test có sẵn (tránh workflow mới), giữ regressions 118 và bản PR357 overlay queue không thay; đừng đổi logic `enqueue_once` của PR357 vì chưa merge trên GitHub. Có thể dùng pytest offline trên Mac; CI `gate` phải thực chạy test mới ở HEAD branch. Mac tool thiếu Docker không phải S0 blocker, ghi IMAGE_REBUILD_NOT_TESTED.
+**S3 · KQ/đóng:** Chỉ push non-force vào branch PR #358 sau khi test code ổn, cập nhật đúng PR hiện hữu. So diff không ngoài allowlist: `agent_data/workspace_declaration.py`, `agent_data/workspace_execution.py`, `scripts/workspace-exec-worker.py` (nếu cần), `agent_data/declaration_contract.py`, `tests/unit/test_hjw_four_facts.py`; không sửa workflows, server.py, PR357. Kiểm run GitHub gate mới trên exact HEAD; nếu CI pending/permission lỗi thì KQ PARTIAL có commit/diff/test, không giữ terminal hay bắt Owner chờ. KB route matrix viết vào `evidence/run21-ad-exec-coverage-20261030/README.md` và HJW P482/KQ/Bảng. Mã đạt = `G8_AD_WORKSPACE_EXEC_CANDIDATE_PASS` khi tests+CI trên head thật PASS, receipt bền qua completed status, canonical done-tasks & unit marker đúng; không gọi G8_SYSTEM. KQ khác ghi PARTIAL với blocker thật, giữ kết quả.
+- Thứ tự tiếp: Host nghiệm thu P482 và giao Codex RUN22 KB write + trusted auto-fill sau, **KST tổng review khi coverage đủ**, không mỗi node lại gọi Claude Code.
+- Không tạo task, repo, workflow/runner mới, không merge/push main, deploy, restart, sửa VPS/DB/Hermes/Directus/PG/Graph hay bí mật.
 
 ## STEP_WALK_V1
-| Bước | Actor / trigger | Receipt phải có | Hỏng thì |
+| Bước | Ai/trigger | Bằng chứng | Không đạt |
 |---|---|---|---|
-| S0 | Claude Code CLI, Owner sau READY | Fresh refs + STARTED | drift: diff hẹp/partial, không sửa PR |
-| S1 | KST code review + Mac targeted check | F1 paths, test legitimacy, 1-line CI diff, run41025111338, gaps | bug → NEEDS_FIX có hunk và repro |
-| S2 | KST KQ Gateway, no live | P480, Bảng, evidence, 0 merge/deploy | Host chọn tiếp RUN coverage, không mở vô hạn review |
-
-**Không chờ Claude Chat vòng khác, không xin Owner thao tác VPS, không tự tạo workflow/runner/task hay đổi quyền.**
+| S0 | Codex, Owner dispatch khi READY | Pin GH refs, STARTED/STOP/gateway | nguồn drift → diff hẹp/KQ partial |
+| S1 | Codex Mac | write gate + carrier/status exec, ACL/zero-mutation | fail thật → sửa hẹp, không VPS |
+| S2 | Codex Mac/GH | done-tasks canonical, unit marker, exec tests CI | CI red/pending → PARTIAL có evidence |
+| S3 | Codex Mac | PR head/CI+KQ P482/KB map+cleanup | Host nhận, next KB coverage; no auto RUN |
