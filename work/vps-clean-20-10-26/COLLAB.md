@@ -6,6 +6,17 @@ Nguồn chứng cứ: root COLLAB.md §PROOT11 ở commit d7fe6d6 (bản đã k�
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp GPT Chat ngày 20/10/2026, yêu cầu mở phiên work/vps-clean-20-10-26, cho phép lựa chọn tạo task mới và giao GPT tiếp tục làm Host.
 
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 09:00 +07 · Codex Desktop RAG-B/UC-1 khảo sát chỉ đọc
+- 🎯 Mục tiêu: kiểm đúng ID Hiến pháp/luật hiện hành và phân loại KB; không ghi production.
+- 🏁 Xong lượt này: danh sách ID, số giữ/chặn dự kiến, cổng law_scope có lùi và lỗ hổng cần Host xét.
+- 📍 Tiến độ: ✅ P30 4 worker live (KQ trước) · ✅ KB inventory 10.053 ID alive · ✅ 46 ID bảo toàn kiểm tồn tại · ⬜ Host nghiệm thu · ⬜ RAG-B riêng sau READY.
+- ✅ Đã xong: SYSTEM Constitution = `knowledge/dev/laws/constitution.md` rev45/v4.6.3; 38 nguồn luật/quy tắc + 8 ghi chú tương thích, ghi ID dưới đây.
+- ■ Đang làm: — · 0 RUN RAG-B; chưa lọc/xóa/reindex KB.
+- ⬜ Còn lại: Host xác nhận catalog/hiệu lực 3 nguồn Đ0/0-B/0-G, PG↔Qdrant parity và quyền truy cập; RAG-A/B/C vẫn theo cổng riêng.
+- ➡ Kế tiếp: GPT Host nghiệm thu inventory và ký lượt triển khai cổng hẹp nếu đủ chứng cứ; NEXT_TRIGGER=HOST_ACCEPT_UC1_RAGB_READONLY_KQ.
+- ⛔ Không làm: không lọc toàn cục, không biến ghi chú/draft thành luật, không tắt GSM/Drive, không xóa nguồn/vector.
+
+#### Lịch sử Bảng · snapshot P30 04:47 +07
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 04:47 +07 · Claude Code CLI P30 KQ XONG -08 · production 4 worker + PR357; 0 RUN active
 - 🎯 Mục tiêu: dọn lỗi/rác phát sinh, giảm chi phí tính toán, rà lại kiến trúc và số lượng cổng kiểm soát để VPS an toàn nhưng không lãng phí tài nguyên.
 - 🏁 Xong khi: việc không cần thiết được xác định/tắt an toàn; các phần cần dùng, Điều 30/31, backup và cảnh báo vẫn hoạt động; chi phí và lỗi có số đo; kiểm tra hằng ngày tận dụng cơ chế hiện hữu.
@@ -16,6 +27,64 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner trực tiếp GPT Chat ngày 20/10/
 - ➡ Kế tiếp: GPT Host nghiệm thu P30 + một nhận xét khác hãng sau KQ (chạy theo lệnh trực tiếp Owner, không có READY/B2); quyết có đo lại p95 burst cùng ngày hay không; Graph RAM gate theo task Graph. NEXT_TRIGGER=HOST_ACCEPT_VPSC2_P30_W4_RELEASE.
 - ⛔ Không làm/để sau: không sửa production trong lượt candidate; không tạo hàng đợi/daemon/Guard thứ hai; không giảm số worker chỉ để được RAM mà bỏ 6 yêu cầu; không tự xoá/tắt KB/flow; không tắt Guard/backup; không mở task mới.
 - 📄 Bằng chứng: Graph P301/P303/P304/P305, VPSC2 P17/P18, source agent_data/workspace_tasks.py và workspace_runtime.py ở Huyen1974/agent-data-test (HEAD b4c9ea19); RAG-A cũ tại Git last-touch 6cd3f648.
+
+#### RAG-B · Kiểm kê KB và cổng đề xuất · khảo sát 30/10/2026
+`list_documents` phân trang theo ID alive: 10.053 mục (offset 10052 có 1, 10053 rỗng); đây là số tài liệu nguồn, **không** phải số vector/chunk. Đã `get_document` từng ID trong danh sách dưới: 46/46 tồn tại. Chỉ mục `LAW_READING_INDEX` 17/06 là chỉ dẫn đọc NON-AUTHORIZING, không tự ban hành luật; đối chiếu tiêu đề/nội dung Hiến pháp v4.6.3 và từng tài liệu. Đ28 v2.0 có chữ BAN HÀNH nhưng chỉ mục DEFER cho thiết kế mới, vẫn bảo toàn; Đ0/0-B/0-G nằm ở `architecture/` vì đường `laws/law-00*.md` trong mục lục Hiến pháp trả 404, riêng Đ0-B lệch version tiêu đề/body. Host cần xác nhận trước khi phát cổng.
+
+**38 ID nguồn luật/quy tắc cần bảo toàn (gồm SYSTEM Constitution):**
+- `knowledge/dev/laws/dieu20-thiet-ke-truoc-trien-khai.md`
+- `knowledge/dev/laws/dieu30-regression-protection-law.md`
+- `knowledge/dev/ssot/operating-rules.md`
+- `knowledge/dev/laws/law-15-16-state-checkpoint.md`
+- `knowledge/dev/laws/law-06-sync.md`
+- `knowledge/dev/laws/law-07-assembly-first.md`
+- `knowledge/dev/laws/law-00h-5layer-sync.md`
+- `knowledge/dev/laws/law-01-foundation-principles.md`
+- `knowledge/dev/laws/dieu29-classification-law.md`
+- `knowledge/dev/laws/dieu31-system-integrity-law.md`
+- `knowledge/dev/laws/dieu32-approval-law.md`
+- `knowledge/dev/laws/dieu35-dot-governance-law.md`
+- `knowledge/dev/laws/law-04-birth-process.md`
+- `knowledge/dev/laws/constitution.md`
+- `knowledge/dev/laws/terminology-glossary.md`
+- `knowledge/dev/laws/dieu38-appendix-01-objectives.md`
+- `knowledge/dev/laws/law-10-13-operations.md`
+- `knowledge/dev/laws/law-14-no-duplicate.md`
+- `knowledge/dev/laws/law-19-orphan-scanner.md`
+- `knowledge/dev/laws/law-02-registry.md`
+- `knowledge/dev/laws/dieu26-pivot-law.md`
+- `knowledge/dev/laws/law-03-metadata.md`
+- `knowledge/dev/laws/dieu39-knowledge-graph-law.md`
+- `knowledge/dev/laws/dieu41-luat-van-hanh-ma-vps-v1.1.md`
+- `knowledge/dev/laws/law-05-five-tiers.md`
+- `knowledge/dev/laws/law-09-schema-governance.md`
+- `knowledge/dev/laws/dieu38-trien-khai/LSL-01-information-unit-first.md`
+- `knowledge/dev/laws/label-law.md`
+- `knowledge/dev/laws/dieu43-system-context-law.md`
+- `knowledge/dev/laws/law-17-18-domain-change.md`
+- `knowledge/dev/laws/law-08-dependency.md`
+- `knowledge/dev/laws/law-22-self-healing.md`
+- `knowledge/dev/laws/dieu33-postgresql-law.md`
+- `knowledge/dev/laws/dieu37-governance-organization-law.md`
+- `knowledge/dev/laws/dieu28-display-technology-law.md`
+- `knowledge/dev/architecture/information-atom-law.md`
+- `knowledge/dev/architecture/composition-level-law.md`
+- `knowledge/dev/architecture/birth-registry-law.md`
+
+**8 ID ghi chú tương thích cần đi kèm đúng luật, NON-AUTHORIZING:**
+- `knowledge/dev/laws-new/newlaws/notes/dieu1-foundation-principles-compatibility-note.md`
+- `knowledge/dev/laws-new/newlaws/notes/dieu32-approval-owner-gate-compatibility-note.md`
+- `knowledge/dev/laws-new/newlaws/notes/dieu35-dot-governance-compatibility-note.md`
+- `knowledge/dev/laws-new/newlaws/notes/dieu4-birth-process-compatibility-note.md`
+- `knowledge/dev/laws-new/newlaws/notes/constitution-compatibility-note.md`
+- `knowledge/dev/laws-new/newlaws/notes/terminology-compatibility-note.md`
+- `knowledge/dev/laws-new/newlaws/notes/dieu38-text-as-code-appendix01-compatibility-note.md`
+- `knowledge/dev/laws-new/newlaws/notes/dieu39-knowledge-graph-compatibility-note.md`
+
+**Phân loại dự kiến chỉ cho `law_scope` riêng:** 46 ID trên được giữ trong allowlist ứng viên (38 nguồn + 8 ghi chú); 10.007 ID còn lại là **ứng viên inactive đối với law_scope**, chưa kết luận inactive toàn KB, chưa chặn thực tế và không xóa. Ghi chú chỉ bổ trợ nguồn gốc, không được trích như luật. Draft, bản cũ/superseded, tài liệu Google hosting cũ nằm phía ngoài cổng luật; GSM/Drive hiện dùng phải giữ ở luồng hiện hành. Search ngữ nghĩa đã trả cả `constitution-v4.2.0-amendment-draft.md` khi hỏi v3.9/v4.6.3, nên metadata tag/path không đủ làm cổng.
+
+**Cổng RAG-B nhỏ nhất đề xuất (chưa triển khai):** `law_scope` opt-in trên truy xuất, dùng allowlist `document_id` exact trước top-k/citation và cờ tắt mặc định; truy vấn KB thường giữ hành vi cũ. Manifest 46 ID kèm version/hash, kiểm ID nguồn PG ↔ Qdrant và trả UNKNOWN nếu thiếu/quyền lỗi, không rơi về kết quả luật khác. Rollback = tắt cờ + hoàn nguyên manifest/code trong một bản phát hành được bảo vệ; không đổi nguồn PG, vector, cron hay daemon. Trước READY: Host đối chiếu catalog hiệu lực (đặc biệt 3 nguồn architecture và Đ28), kiểm 46 ID có vector/revision, thử âm tính draft/backup/blank-ID và bài hỏi hồi quy; nếu không đạt thì giữ DRAFT.
+
 ### 1. Mục tiêu
 Owner 20/10/2026, nguyên văn: «Chúng ta mở một phiên mới để tiếp tục dọn rẹp VPS. Trong quá trình triển khai thì các cái rác nó tiếp tục sinh ra các lỗi và nhu cầu cần phải tối ưu cái tài nguyên tính toán của máy chủ để dành nhiệm vụ cho những cái việc cần thiết. Cho nên là ngoài việc dọn rác thường xuyên đánh giá xem có chương trình nào lỗi thì việc liên tục nhìn lại để tái cấu trúc máy chủ, xây dựng những cái số lượng các cái cổng kiểm soát một cách hợp lý chứ không xây dựng bừa bãi, rồi kiến trúc máy chủ làm sao vừa đảm bảo an toàn nhưng mà phải tối ưu cái tài nguyên tính toán. Cũng là một cái việc từ trước đến giờ chưa đặt ra bởi vì là quy mô còn nhỏ. Bây giờ chúng ta phải tiếp tục rà soát và kiểm tra thường xuyên những việc đó hàng ngày.»
 

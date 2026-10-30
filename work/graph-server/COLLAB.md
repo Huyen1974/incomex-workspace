@@ -85,6 +85,17 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 
 **Hiệu lực:** Mục §0.A/D17/Owner 21/10 thắng các dòng điều hành P164/đề xuất cũ trái nghĩa; giữ lịch sử không xóa. PROMPT hiện tại là GS-CLEAN đã KQ XONG, không còn RUN hiệu lực; Host sẽ sửa CHÍNH PROMPT.md theo A6 khi có node R10B được REVIEW/READY riêng. Không tự phát RUN từ việc ghi tài liệu.
 
+### BẢNG ĐIỀU KHIỂN · 2026-10-30 09:00 +07 · Codex Desktop UC-1 khảo sát chỉ đọc · 0 Graph/production write
+- 🎯 Mục tiêu: đối chiếu 5 nhóm mã cũ và KB bằng Graph + nguồn gốc, chưa tắt/xóa.
+- 🏁 Xong lượt này: bảng GIỮ/CÓ THỂ TẮT/CHƯA RÕ, số Graph/KB và roadmap tại GS-RM1 + VPSC2.
+- 📍 Tiến độ: ✅ VPSC2 P30 4 worker live/PR357 DRAFT theo KQ · ✅ UC-1A khảo sát giới hạn · ✅ KB kiểm ID · ⬜ Host nghiệm thu · ⬜ bổ sung nguồn thiếu · ⬜ Owner chốt lượt tắt/cổng KB.
+- ✅ Đã xong: Graph 8.968 nút/20.984 cạnh; N4 MỘT PHẦN/NOT_ACTION_SAFE; 3 GIỮ + 2 CHƯA RÕ; 0 nhóm đủ chứng cứ tắt; số giảm xác nhận 0/0.
+- ■ Đang làm: — · 0 RUN Graph · chỉ ghi KQ/roadmap SSOT; PROMPT K4 giữ nguyên NOT_READY.
+- ⬜ Còn lại: Host xác minh nguồn Directus/PG, cron/route và mã thực chạy; hai lượt đêm/K4 theo cổng riêng; Owner duyệt từng thao tác nếu mở lượt triển khai.
+- ➡ Kế tiếp: GPT Host nghiệm thu KQ UC-1/RAG-B rồi chọn lượt triển khai riêng; NEXT_TRIGGER=HOST_ACCEPT_UC1_RAGB_READONLY_KQ.
+- ⛔ Không làm: không dùng cạnh vắng để suy ra không ai dùng, không tắt/xóa/ghi production hay đổi PROMPT READY.
+
+#### Lịch sử Bảng · snapshot P310 04:00 +07
 ### BẢNG ĐIỀU KHIỂN · 2026-10-30 04:00 +07 · GPT Host P310 · VPSC2 P28 A DONE, C reverted after false worker counter, B pending; Host P29 DRAFT -08 C→B, 0 Graph RUN; G1 49/100/0-of9, G2 RAM blocked, G3 partial, UC-1 after proof.
 - 🎯 **Owner 29/10 (§3 SMALL-REAL-TEST):** Graph phải trả lời thẳng 3 câu (đã quét sạch VPS chưa · dữ liệu đổi có tự cập nhật chưa, chưa thử được ⇒ TREO · biết thiếu có tự dán MỘT PHẦN chưa); bài test thực tế nhỏ đầu tiên = giúp agent tắt chính xác mã của 5 dự án cũ (Khai sinh, registries, pivot, governance, miếng thông tin) và KB ngoài Hiến pháp + pháp luật theo Hiến pháp; dữ liệu cũ giữ làm đề thi; tắt/xoá do Owner quyết.
 - 🎯 **D26 Owner 24/10 07:58 (§1 mục 7/§2/§3, Host P237 chốt):** hai khả năng — (1) tự cập nhật để phủ mọi thông tin hiện tại của VPS, làm đầu vào cho chương trình khác; (2) tự biết khi chưa đủ ⇒ MỘT PHẦN. Theo chuẩn ngành, dùng lại cái có sẵn, không biến thành dự án khổng lồ (bài học registry/khai sinh/miếng thông tin/governance); làm rõ trước khi tiến hành. Đề xuất P236 (Host B3 chốt): đọc D25 là «trạng thái hiện tại đủ + tự biết khi cũ», không phải «ghi mọi biến động trung gian».
@@ -386,7 +397,8 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | **29/10 · P301 KQ XONG RAM+K4 PREFLIGHT (chỉ đọc): RAM 2,41–2,46 GiB < sàn 3, swap đầy — agent-data 6 worker ≈3,8 GB · K4 3/5 VERIFIED, 2 FAIL** | giấy 27/10 hết hạn (lượt 28/10 SKIP resources) ⇒ graph-v1 MỘT PHẦN · Graph 8.968/20.984 không đổi · #24 ĐỎ | NEXT GPT Host quyết phương án A (AGENT_DATA_WORKERS 6→4, cần Owner + MCPW) và K4.
+GS | **30/10 · UC-1A/RAG-B khảo sát chỉ đọc XONG CÓ GIỚI HẠN** | 3 GIỮ, 2 CHƯA RÕ; N4 MỘT PHẦN/NOT_ACTION_SAFE; 0/0 đủ tắt; 46 ID KB bảo toàn ứng viên | NEXT GPT Host nghiệm thu, chưa mở RUN tắt/cổng.
+(Lịch sử P301) GS | **29/10 · P301 KQ XONG RAM+K4 PREFLIGHT (chỉ đọc): RAM 2,41–2,46 GiB < sàn 3, swap đầy — agent-data 6 worker ≈3,8 GB · K4 3/5 VERIFIED, 2 FAIL** | giấy 27/10 hết hạn (lượt 28/10 SKIP resources) ⇒ graph-v1 MỘT PHẦN · Graph 8.968/20.984 không đổi · #24 ĐỎ | NEXT GPT Host quyết phương án A (AGENT_DATA_WORKERS 6→4, cần Owner + MCPW) và K4.
 (Lịch sử P294) GS | **28/10 · P294 KQ audit chỉ đọc 3 cổng XONG: G1 phủ = MỘT PHẦN (toàn VPS chưa) · G2 tự làm mới = MỘT PHẦN · G3 cảnh báo = MỘT PHẦN ⇒ DATA_ACTION_READY_VPS_WIDE=NO** | Graph 8.968/20.984 (không đổi từ 26/10 10:52Z) · 49/100 ô ĐỦ (36 có dữ liệu · 13 rỗng) · 0/9 họ FULL · #24 ĐỎ từ 27/10 22:45Z (mã Nuxt cần định danh) | NEXT GPT Host B1 đọc P294 → Claude B2 bảng thiếu theo chủ.
 (Lịch sử P289) GS | 28/10 · P289 GPT B1: G1 KHÔNG · G2 MỘT PHẦN · G3 MỘT PHẦN | NEXT cũ Claude Chat B2 P290 (P291 bỏ).
 (Lịch sử 21/10) GS | **P182 Host B1 TECH_ACCEPT_WITH_LIMITS/PROJECT_NOT_CLOSED** | 8.650/20.662, 5 Code trees, JEV 86/86 SHADOW, 0 code↔PG/DOT, Nuxt redeploy SKIP | NEXT Claude Chat B2 read-only → GPT B3 → Owner ONE final UAT; first timer tick sau 05:40 ngày 22/10.
@@ -776,11 +788,26 @@ GS | **RUN-1 READY@27274667812007a134d9dc4509d9e2854b69a7d2** | PROMPT tự fres
 | DT20 · Nuxt source | code DELTA+GHM identity together, no label-only fix | ⛔ SUPERSEDED_NOT_SIGNED: >=6GiB RAM required |
 | RAM+K4 PREFLIGHT · 29/10 | đọc nguyên nhân RAM, kiểm cổng K4 và đề xuất sửa tối thiểu | ✅ KQ XONG P301 (chỉ đọc, 0 mutation): RAM 2,41–2,46 GiB, agent-data 6 worker ≈3,8 GB lớn nhất; K4 1/3/5 VERIFIED, 2/4 FAIL; đề xuất A AGENT_DATA_WORKERS 6→4 P302 Host accepts diagnosis; 6→4 only review proposal Claude P303 then Owner consent if safe |
 | K4 · Read-time source version | live cheap fingerprint vs cert baseline, changed/missing => NOT_ACTION_SAFE | ■ P304 DRAFT_BLOCKED_RESOURCE: P301 dấu gốc 6 lớp + Nuxt có sẵn, wrapper/rollback/fixture sẵn; còn FAIL bộ đọc nuốt lỗi 2 chỗ + RAM <3GiB; no READY |
-| UC-1A · FIVE LEGACY SYSTEMS | source-proven dependencies Khai sinh, registries, governance, pivot, miếng thông tin across PG/Directus/DOT/cron/Nuxt/KB with both inbound/outbound edges | ⬜ NOT_STARTED; after RAM/K4, UNKNOWN if Graph/source incomplete |
-| UC-1B · OWNER DISABLE SHORTLIST | KEEP/CAN_DISABLE_WITH_PROOF/UNKNOWN and reversible disable/indexed archive with native source evidence | ⬜ NOT_STARTED; Owner approves each group before DOT/source owners touch runtime |
-| KB ACTIVE-INDEX (VPSC2 RAG-B) | current SYSTEM Constitution + active laws; old Google hosting/dev candidates offline indexed archive only after proof | ⬜ POLICY INPUT; preserve active GSM/Drive safeguards, no bulk PG/Qdrant deletion |
+| UC-1A · FIVE LEGACY SYSTEMS | Graph + Git + UI + KB, nguồn thiếu ghi UNKNOWN | ✅ khảo sát chỉ đọc 30/10: 3 GIỮ, 2 CHƯA RÕ; N4 MỘT PHẦN, không đủ để tắt; Host nghiệm thu |
+| UC-1B · OWNER DISABLE SHORTLIST | pilot ẩn link Pivot standalone, giữ route/data, rollback một cờ | ⬜ PROPOSED_ONLY; 0/0 giảm được xác nhận; chờ source/traffic/parity proof và Owner duyệt |
+| KB ACTIVE-INDEX (VPSC2 RAG-B) | 46 ID bảo toàn, law_scope opt-in theo exact ID; xem VPSC2 KQ | ✅ POLICY_INPUT_ONLY: 10.053 alive, 46 allowlist ứng viên/10.007 ngoài cổng luật; chưa lọc/xóa; Host đối chiếu catalog/vector |
 | GAP10 · Digest #24 proof | verify delivered daily Cấp2 text contains #24 reasons | ⬜ Root Guard/MCPW, message_id313 only proves a digest was sent |
 | OWNER NGHIỆM THU | dữ liệu đạt 3 cổng trong phạm vi Owner dùng + Owner xem Graph | ⬜ |
+
+#### KQ UC-1A / RAG-B · Codex Desktop · 30/10/2026 09:00 +07 · khảo sát chỉ đọc
+D17_APPROACH_ACK: nguồn Graph hiện có, Git Web HEAD 7c526588, Agent Data source, UI read, KB connector; VERIFIED = cạnh PG/route sống/ID KB, DERIVED = shortlist, PROPOSED = pilot tắt/cổng, UNKNOWN = cron và Directus 403. Graph cert 29/10 22:40Z; query N4 MỘT PHẦN/NOT_ACTION_SAFE (code/cron/nginx/Directus/KB còn ô thiếu). Graph thiếu cạnh không chứng minh không ai dùng. 0 mutation Graph, KB, PG/Directus, service hay code.
+
+| Nhóm mã cũ | KQ khảo sát | Chứng cứ giữ / lỗ hổng cần khép |
+|---|---|---|
+| Khai sinh | **GIỮ** lõi; mã cũ tách riêng CHƯA RÕ | `public.birth_registry` có 3 trigger Graph; UI Registries-Pivot HTTP 200 hiển thị 1.219.742 dòng birth_registry và count-integrity FAILED; Đ0-G/Đ4 còn nguồn luật. Chưa có map đầy đủ consumer mã. |
+| Registries | **GIỮ** | `public.collection_registry` có 12 trigger; Web có /knowledge/registries, /api/registry/*, Nginx route và DOT production-truth-gate. Chưa chứng nhận đủ cron/flow. |
+| Governance | **CHƯA RÕ** mã tắt; giữ dữ liệu | `public.governance_ruleset` có 3 FK vào candidate object/state/scan; Đ37 v3.3 còn ban hành, rewrite chỉ DRAFT. Directus inventory 403; chưa kiểm runtime consumer. |
+| Pivot | **GIỮ** hiện tại; chỉ link standalone là ứng viên thử sau | `public.pivot_definitions` có 3 trigger; /knowledge/pivot HTTP 200, có menu link và dữ liệu/matrix; /knowledge/registries-pivot HTTP 200 nhưng count-integrity FAILED. Chưa chứng minh hai trang thay thế nhau. |
+| Miếng thông tin | **CHƯA RÕ** mã tắt; giữ dữ liệu | `public.information_unit` có 33 láng giềng khai báo gồm FK/view/trigger/Directus collection; nguồn Đ38/LSL-01 còn dùng. Chưa đối chiếu lượng bản ghi/live consumer qua Directus. |
+
+Số giảm **có thể xác nhận để tắt ngay = 0 nút / 0 cạnh**. Chỉ nếu Host chứng minh trang Pivot standalone không có consumer và Owner duyệt nghỉ hẳn mã `pages/knowledge/pivot/index.vue`, ảnh Graph hiện có chứa **5 nút / 9 cạnh liên đới** với tệp này; đó là trần mô hình có điều kiện, không phải tiết kiệm tài nguyên hay quyền xóa. Tắt thử nhỏ nhất đề xuất: ẩn riêng link menu `/knowledge/pivot` theo cờ đảo được, route và dữ liệu vẫn giữ; kiểm truy cập, parity và rollback bằng khôi phục link trước khi xét nghỉ route/code.
+
+Roadmap cùng task: (1) Host nghiệm thu KQ, đối chiếu đúng source version và lấy bằng chứng đọc PG/Directus/cron/nginx/log truy cập thiếu; (2) K4 + hai lượt refresh tự nhiên đủ điều kiện ở RUN riêng, không nâng nhãn từ khảo sát này; (3) nếu có bằng chứng không còn consumer, Owner duyệt pilot ẩn link, rollback một cờ; (4) VPSC2 RAG-B kiểm catalog luật/PG↔vector rồi mới xét cổng law_scope nhỏ, mặc định tắt và rollback một cờ/manifest. Không mở task mới, không tự triển khai.
 
 - **Kỷ luật roadmap:** mọi phiên chỉ làm mốc hiện tại và điều kiện mở mốc kế; không nghiên cứu lại stack/model nếu không có blocker/evidence mới. Thay version/model/scope → ghi delta và chạy lại test liên quan, không đổi âm thầm.
 - **JEV Reference:** `gen-dec-1791191983-nm4fJtdkn3Xj5YkfVm3Y` → `prepare_hold` cho N1 gate (p=0,98/conf=0,97) và `gpt56_luna` cho baseline model (p=1/conf=1); chỉ là bằng chứng phụ.
