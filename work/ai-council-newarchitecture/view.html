@@ -24,6 +24,21 @@ details[open] .chevron{transform:rotate(180deg)}
 .body{padding:0 18px 16px 64px;border-top:1px solid #edf0f4;color:#5f6b7b}
 .body p{margin:14px 0 0}
 .note{font-size:14px;color:#637082;margin:18px 0 0}
+.body{font-size:15px;line-height:1.7;color:#334155}
+.body h3{font-size:16px;margin:18px 0 9px}
+.body .small{font-size:14px;color:#65758b}
+.body .items{padding-left:22px;margin:12px 0}
+.body .items li{margin:8px 0}
+.body b.green,.body b.yellow,.body b.red,.body b.gray{border-radius:5px;padding:2px 5px;white-space:nowrap;font-size:12px}
+.body .green{background:#dff6e7;color:#1a6a3e}.body .yellow{background:#fff1c9;color:#875d0b}
+.body .red{background:#ffe1e1;color:#a12222}.body .gray{background:#edf0f3;color:#546171}
+.body table{width:100%;min-width:550px;border-collapse:collapse;font-size:13.5px;margin:12px 0}
+.body th,.body td{border:1px solid #dce3eb;padding:8px;vertical-align:top;text-align:left}
+.body th{background:#f1f4f8}
+.body .review{font-size:14px;padding:10px;background:#f3f6fa;border-left:3px solid #8aa1c5}
+.body .flowline{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:12px 0;padding:10px;background:#f4f6f9;border-radius:8px}
+.body .flowline strong{padding:6px;border:1px solid #dce3ea;background:#fff;border-radius:7px;font-size:13px}
+.body{overflow-x:auto}
 @media(max-width:600px){body{padding:12px}.panel{padding:16px}summary{padding:13px}.heading{font-size:16px}.body{padding:0 13px 15px 60px}}
 </style>
 </head>
@@ -31,11 +46,68 @@ details[open] .chevron{transform:rotate(180deg)}
 <main>
 <section class="panel" aria-labelledby="noi-dung">
 <h1 id="noi-dung">Nội dung công việc</h1>
-<p class="lead">ai-council-newarchitecture · Khung thảo luận, chưa chốt nội dung chi tiết.</p>
-<details id="muc-i"><summary><span class="num">I</span><span class="heading">Định nghĩa khái niệm</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body"><p>Chưa thảo luận — sẽ bổ sung nội dung sau khi thống nhất.</p></div></details>
-<details id="muc-ii"><summary><span class="num">II</span><span class="heading">Định nghĩa vai trò</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body"><p>Chưa thảo luận — sẽ bổ sung nội dung sau khi thống nhất.</p></div></details>
-<details id="muc-iii"><summary><span class="num">III</span><span class="heading">Cấu trúc trong Hội đồng AI</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body"><p>Chưa thảo luận — sẽ bổ sung nội dung sau khi thống nhất.</p></div></details>
-<details id="muc-iv"><summary><span class="num">IV</span><span class="heading">Quy trình thực hiện</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body"><p>Chưa thảo luận — sẽ bổ sung nội dung sau khi thống nhất.</p></div></details>
+<p class="lead">ai-council-newarchitecture · Bản V1 để Claude phản biện. Nhấn vào từng mục để xem chi tiết; chưa áp dụng.</p>
+<details id="muc-i"><summary><span class="num">I</span><span class="heading">Định nghĩa khái niệm</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
+<p class="small">DỰ THẢO V1. Bốn lớp chính: <strong>Mục tiêu lớn → Đầu vào chung → Mục tiêu nhỏ → Checkpoint.</strong> Đều là danh sách có thể cập nhật; mục tiêu Owner chỉ thay sau khi Owner phê duyệt.</p>
+<ol class="items">
+<li><strong>Task:</strong> Công việc tổng thể có mục tiêu lớn, đầu vào chung, danh sách mục tiêu nhỏ, checkpoint, bằng chứng và lịch sử Git.</li>
+<li><strong>Mục tiêu lớn:</strong> Điều Owner yêu cầu, có tiêu chí hoàn thành. AI có thể đề xuất nhưng không tự sửa mục tiêu Owner đã chốt.</li>
+<li><strong>Đầu vào chung:</strong> Các tài liệu, mã, nguồn, môi trường, quyền, ràng buộc và dữ kiện có chứng cứ. Thiết lập <strong>một lần cho Task</strong>, dùng lại cho mọi Agent; Agent thực thi có trách nhiệm bổ sung đúng phần mới, không khảo sát lại toàn bộ cho mỗi RUN. Mỗi mục nêu nguồn và độ chắc chắn; dữ kiện biến động hoặc ảnh hưởng an toàn vẫn phải kiểm tra lại đúng lúc sử dụng.</li>
+<li><strong>Mục tiêu nhỏ:</strong> Kết quả định lượng/kiểm chứng được trong một lượt Agent dự kiến 3–4 giờ, có phạm vi và điều kiện đạt. Không đủ thời gian thì tách mục tiêu tiếp theo.</li>
+<li><strong>Checkpoint:</strong> Điểm kiểm chứng có thứ tự bên trong mục tiêu nhỏ, dùng để xác định đã đúng hướng chưa. Ghi kết quả, bằng chứng và đề xuất điều chỉnh; không biến mỗi thao tác thành một checkpoint.</li>
+<li><strong>Ghi chú checkpoint:</strong> Bất kỳ AI nào cũng được ghi nhận xét ngắn và bằng chứng. Agent thực thi tích <b class="green">Xanh: Đạt</b>, <b class="yellow">Vàng: Một phần</b>, <b class="red">Đỏ: Thất bại</b>, <b class="gray">Xám: Chưa làm</b>; AI khác phản biện, không âm thầm thay kết luận.</li>
+<li><strong>Báo cáo thực hiện:</strong> Sau một mục tiêu nhỏ, Agent ghi ngắn: đã đạt, chứng cứ, phần thiếu, đầu vào đã cập nhật, mục tiêu/checkpoint đề xuất tiếp. Không chép lại nhật ký.</li>
+<li><strong>Bổ sung mục tiêu nhỏ/checkpoint:</strong> Tất cả AI/Agent có quyền và trách nhiệm đề xuất; phần chưa hoàn thành được chuyển về phía sau. Agent thực thi phải rà và đề xuất khi kết thúc lượt.</li>
+<li><strong>Đề xuất thay đổi:</strong> Thay đổi có trạng thái <em>ĐỀ XUẤT / CHẤP THUẬN / KHÔNG CHỌN</em>. Ghi vào danh sách chưa có nghĩa là đã được phép chạy.</li>
+<li><strong>Phạm vi RUN:</strong> Mục tiêu nhỏ đã giao có ranh giới quyền/thời điểm xác định; kế hoạch phía sau thay đổi không làm RUN hiện tại đổi theo.</li>
+</ol>
+<p class="small">Đề xuất mỗi mục có mã ngắn ổn định, trạng thái và liên kết bằng chứng. Git đã giữ người ghi và lịch sử nên không tạo sổ nhật ký thứ hai.</p></div></details>
+<details id="muc-ii"><summary><span class="num">II</span><span class="heading">Định nghĩa vai trò</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
+<ol class="items">
+<li><strong>Owner:</strong> Chốt mục tiêu lớn, phê duyệt thay đổi phạm vi hoặc rủi ro vượt quyền; không xử lý thao tác kỹ thuật nhỏ.</li>
+<li><strong>Host:</strong> AI được giao điều hành, chốt đề xuất và các bước trong phạm vi ủy quyền, có ý kiến độc lập của ít nhất một AI khác hãng theo quy chế hiện hành. Host xem Git diff, không viết lại toàn bộ kế hoạch.</li>
+<li><strong>Reviewer/Giám sát:</strong> Giám sát mục tiêu, kết quả, bằng chứng, rủi ro và những điểm bất đồng trong khi Agent đang code; không mặc định đọc lại hết dữ liệu đã xác minh.</li>
+<li><strong>Agent thực thi:</strong> Tham gia khảo sát từ đầu, chạy mục tiêu nhỏ, cập nhật đầu vào, ghi checkpoint, báo cáo và chủ động đề xuất kế hoạch tiếp theo.</li>
+<li><strong>Kỹ sư phát triển:</strong> AI viết/sửa mã, nộp PR mã; không tự merge hay deploy VPS. Có thể đồng thời là Agent thực thi.</li>
+<li><strong>Kỹ sư trưởng (KST):</strong> Claude Code hoặc Codex được giao kiểm PR mã và quyết định chấp thuận merge/sửa/từ chối trong phạm vi quyền đã cấp; quyền deploy không mặc nhiên đi kèm quyền merge.</li>
+</ol>
+<p class="small">Ưu tiên GPT Chat, DOT, Claude Chat/Work cho giám sát/điều phối; chuyển phần lớn khảo sát và lập kế hoạch chi tiết cho Agent trực tiếp thực thi. Vai trò không bị khóa cứng vào một hãng.</p></div></details>
+<details id="muc-iii"><summary><span class="num">III</span><span class="heading">Cấu trúc trong Hội đồng AI</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
+<div class="flowline"><strong>Owner: Mục tiêu lớn</strong> → <strong>Đầu vào chung</strong> → <strong>Mục tiêu nhỏ</strong> → <strong>Checkpoint</strong></div>
+<p><strong>Ba luồng làm đồng thời:</strong></p>
+<ul class="items">
+<li><strong>Thực thi:</strong> Agent làm mục tiêu nhỏ đã giao, tự cập nhật checkpoint và chứng cứ.</li>
+<li><strong>Kế hoạch:</strong> Agent và AI khác ghi đề xuất cho phần tương lai, Host xem diff và chốt theo đợt nhỏ.</li>
+<li><strong>Giám sát:</strong> Reviewer kiểm bất thường và phản biện điểm rủi ro; không ngắt việc bình thường.</li>
+</ul>
+<p class="small">Giữ một nguồn chuẩn GitHub Workspace. <code>COLLAB.md</code> quản mục tiêu Owner, trạng thái và quyết định; <code>view.html</code> là nội dung Owner xem. Không dựng thêm registry, kế hoạch song song hay pipeline thứ hai. Chưa thiết kế máy cưỡng chế tại bước này.</p></div></details>
+<details id="muc-iv"><summary><span class="num">IV</span><span class="heading">Quy trình thực hiện</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="body">
+<h3>Quy trình đề xuất: làm song song, Host chỉ xử lý thay đổi</h3>
+<ol class="items">
+<li><strong>Khởi tạo một lần:</strong> Owner chốt mục tiêu lớn; Agent khảo sát lập đầu vào chung và dự kiến mục tiêu nhỏ/checkpoint. Host/Reviewer kiểm những giả định quyết định, không đọc ba lần toàn bộ.</li>
+<li><strong>Giao việc:</strong> Host chọn một mục tiêu nhỏ (khoảng 3–4 giờ), tiêu chí đạt, quyền và checkpoint chính. Sau khi được duyệt, Agent tự triển khai trong phạm vi đó; hướng tới sinh lệnh gọn từ dữ kiện đã có thay vì soạn lại prompt dài.</li>
+<li><strong>Đang chạy:</strong> Agent hoàn thành checkpoint thì ghi một dòng tình trạng/bằng chứng. Đầu vào phát hiện sai/thiếu thì cập nhật đúng mục có nguồn; không tạo vòng phê duyệt cho mọi ghi chú.</li>
+<li><strong>Kế hoạch chạy song song:</strong> Các AI/Agent được ghi <b>trực tiếp qua cổng Git Workspace đã duyệt</b> vào các mục tiêu/checkpoint phía sau với nhãn <b>ĐỀ XUẤT</b>. Không cần PR riêng cho từng sửa kế hoạch. Không sửa nóng phạm vi RUN đang STARTED.</li>
+<li><strong>Host duyệt thay đổi:</strong> Đọc phần diff Git, chấp thuận/không chọn theo nhóm; Reviewer phản biện phần có rủi ro. Agent không phải chờ cuộc họp hội đồng để tiếp tục nhiệm vụ đã được giao.</li>
+<li><strong>Kết lượt:</strong> Agent báo cáo ngắn, rà việc còn thiếu và đề xuất lượt tiếp. Host nghiệm thu và chọn mục tiêu nhỏ kế tiếp; PR mã qua KST/CI riêng, merge và deploy có quyền khác nhau.</li>
+</ol>
+<h3>Ba mức để tránh tắc ở Host</h3>
+<table><thead><tr><th>Mức</th><th>Loại thay đổi</th><th>Cách xử lý đề xuất</th></tr></thead><tbody>
+<tr><td><strong>A — Ghi nhận</strong></td><td>Đầu vào có nguồn, ghi chú, bằng chứng, kết quả checkpoint</td><td>Agent ghi thẳng; không duyệt mỗi lần.</td></tr>
+<tr><td><strong>B — Kế hoạch tương lai</strong></td><td>Bổ sung/tách/sắp xếp mục tiêu nhỏ, checkpoint chưa thực hiện</td><td>Ghi thẳng với nhãn <b>ĐỀ XUẤT</b>; Host xem diff, chốt theo nhóm. RUN hiện tại không bị ảnh hưởng.</td></tr>
+<tr><td><strong>C — Quyền/phạm vi</strong></td><td>Đổi mục tiêu Owner, thay RUN đang chạy, quyền, xóa dữ liệu, merge/deploy production</td><td>Phải qua đúng Owner/Host/KST và các cổng an toàn đang áp dụng; không được tự cấp quyền.</td></tr>
+</tbody></table>
+<h3>Lựa chọn cơ chế ghi</h3>
+<ul class="items">
+<li><strong>PR mọi thay đổi kế hoạch:</strong> kiểm soát được nhưng nhiều lượt, tạo nút cổ chai — không chọn làm mặc định.</li>
+<li><strong>Sửa trực tiếp kế hoạch đã chốt mà không phân biệt trạng thái:</strong> nhanh nhưng dễ bị hiểu nhầm đề xuất thành lệnh — không chọn.</li>
+<li><strong>Khuyến nghị:</strong> ghi trực tiếp vào <em>cùng danh sách kế hoạch</em> qua gateway Git đã có, phân biệt ĐỀ XUẤT với CHẤP THUẬN; Host chỉ xem phần mới. Giữ lịch sử Git, không thêm sổ.</li>
+</ul>
+<p><strong>Host biết cập nhật thế nào?</strong> Git có commit không đồng nghĩa GPT Host tự thức dậy. Trước mắt Host đọc diff khi mở việc/nhận KQ; sau này có thể dùng lại webhook Owner View và DOT đã có để thông báo đúng thay đổi cần quyết định (ưu tiên event, không polling lặp).</p>
+<p><strong>Rào thực thi:</strong> Khi RUN đang STARTED, kế hoạch tương lai có thể đổi nhưng không sửa lệnh đang chạy. Nếu thay đổi ảnh hưởng an toàn lúc chạy, theo STOP/Guard hiện hành. Đề xuất chưa duyệt không được hệ thống tự thực thi.</p>
+<h3>Thử nhanh và đo</h3>
+<p>Chọn một task nhỏ, so thời gian từ chốt mục tiêu nhỏ đến STARTED, số lượt Host/Owner phải thao tác, tỷ lệ DỪNG vì dữ kiện sai, thời gian hoàn thành. Chỉ viết skill/harness sau khi cách làm chứng tỏ nhanh mà vẫn an toàn.</p>
+<p class="review"><strong>Để Claude phản biện một lượt:</strong> (1) kẽ hở mức A/B/C; (2) Host nhận thay đổi Git thế nào với ít thao tác nhất; (3) chống hai AI ghi đè; (4) điểm xung đột với AGENTS hiện tại. <strong>Bản V1 chưa có hiệu lực; chưa đổi luật, quyền hoặc production.</strong></p></div></details>
 <p class="note">Các mục được cập nhật từng bước sau khi thảo luận; chưa phải quy định đã phê duyệt.</p>
 </section>
 </main>
