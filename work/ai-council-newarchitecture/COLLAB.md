@@ -5,14 +5,14 @@ HTML chính: view.html
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ đạo «không bàn nữa mà làm»: chốt 5 việc Owner quyết + quy trình Mục tiêu lớn → Mục tiêu nhỏ → Checkpoint (§1 mục 9), sửa thẳng bản thiết kế, GPT góp thêm rồi chạy thử. Host: GPT Chat (đề xuất, Owner chưa chỉ định riêng). Chưa đổi AGENTS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 16:50 +07 · Claude Chat · N4 ĐANG LÀM: Bảng mục tiêu (bảng làm việc, trả lời câu hỏi Owner) chờ Owner chỉnh
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 17:00 +07 · Claude Chat · N4 ĐANG LÀM: Mẫu Ma trận mục tiêu 3 tầng xổ chờ Owner hướng dẫn
 - 🎯 Mục tiêu: Owner chỉ quyết 5 việc; còn lại AI chạy theo Mục tiêu lớn (L) → Đầu vào chung (Đ) → Mục tiêu nhỏ (N) → Checkpoint (C) với từ điển + form khai chung, agent khảo sát và đề xuất nhiều nhất, hội đồng tập trung giám sát.
 - 🏁 Xong khi: từ điển + form + thao tác ở [view.html](view.html) chạy thử đạt trên ≥ 1 việc thật, đo chỉ số ([mục 8](view.html#muc-8)); lỗ gặp khi thử đã vá vào form.
 - 📍 Tiến độ: [✅ N1 bản V2.1] → [■ N4 Bảng mục tiêu] → [□ N2 GPT rà, sửa thẳng] → [□ N3 thử trên Sổ PG] → [□ Sửa AGENTS theo kết quả thử].
 - ✅ Đã xong: N1 — [view.html](view.html) V2.1: **giữ đủ định nghĩa, vai, cấu trúc, quy trình V1 của GPT** (nhãn V1) + bổ sung: từ điển có cột «không phải», form L/Đ/N/C/Báo cáo, 17 thao tác (ai · ghi đâu · làm thế nào), lượt agent 8 bước, khi nào hỏi Owner, 10 lỗ hở, bảng V2 khác V1. §4 bên dưới đã viết theo form. N4.C2: [Bảng mục tiêu](view.html#ban-do-muc-tieu) thay hình minh hoạ — «Hỏi gì → nhìn đâu» + 4 bảng (Mục tiêu lớn · Đầu vào · Mục tiêu nhỏ × Checkpoint · Báo cáo), dưới mỗi bảng ghi ai thêm, thêm thế nào; thêm thao tác 3.18 chuyển checkpoint chưa xong sang N sau.
 - ■ Đang làm: N4 · claude-chat · chỉnh Bảng mục tiêu cùng Owner.
 - ⬜ Còn lại: N4 chốt bảng + quy tắc vẽ; N2 GPT rà (gồm cả bảng); N3 thử trên Sổ PG; N5 trang Task tự vẽ (đề xuất); sửa AGENTS sau khi thử đạt.
-- ➡ Kế tiếp: Owner xem [Bảng mục tiêu](view.html#ban-do-muc-tieu), hỏi thử câu nào bảng chưa trả lời được; claude-chat sửa thẳng. Sau đó gpt-chat làm N2. NEXT_TRIGGER=OWNER_ADJUST_GOAL_MAP_SAMPLE.
+- ➡ Kế tiếp: Owner xem mẫu [Ma trận mục tiêu](view.html#ma-tran-muc-tieu) (5 cột, bấm xổ 3 tầng) và hướng dẫn chỉnh; claude-chat sửa thẳng. Bảng mục tiêu cũ giữ bên dưới. Sau đó gpt-chat làm N2. NEXT_TRIGGER=OWNER_ADJUST_GOAL_MAP_SAMPLE.
 - 😊 Owner cần quyết: không — chỉ góp ý chỉnh mẫu.
 - ⛔ Không làm/để sau: chưa sửa luật AGENTS, chưa tác động code, VPS hoặc production.
 
@@ -30,6 +30,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ 
 11. Owner 30/10/2026 15:07: định nghĩa viết trước đó (V1) có lý của nó — khái niệm lạ như mục tiêu lớn, mục tiêu nhỏ, checkpoint… không làm rõ thì AI không hiểu để làm. **Không xóa sạch; phải đọc cái cũ đang làm gì trước khi sửa; không hiểu mà sửa của người khác là rất tệ.**
 12. Owner 30/10/2026 15:23 (viết lại đúng ý): sản phẩm cuối cùng là **một hình vẽ trực quan, ít chữ** cho một mục tiêu lớn (Mục tiêu lớn / danh sách đầu vào / mục tiêu con / checkpoint) — cả người và AI nhìn vào là hiểu tiến trình đang thế nào. Dữ liệu phải đổ vào và hiện cho Owner và mọi AI cùng đọc. Theo cách đã làm được ở phần Công thức (mow-mot-moit-mout): ngắn, ít chữ — rác AI tạo ra đều bắt đầu từ nhiều chữ. Vẽ một mẫu bảng ít chữ + hình họa, đặt ở đầu phần Cấu trúc và quy trình, rồi cùng điều chỉnh. (Phần định nghĩa là danh sách, giữ như cũ.)
 13. Owner 30/10/2026 15:35 (viết lại đúng ý): hình vẽ trước «vẽ cho vui», không trả lời được câu hỏi làm việc thật. Bảng phải trả lời được, ví dụ: (1) đầu vào có liệt kê không, là những gì, nhìn thế nào; (2) mục tiêu lớn nhìn ở đâu; (3) hội đồng đang chia bao nhiêu mục tiêu nhỏ, mỗi cái bao nhiêu checkpoint, nhìn ở đâu; (4) AI muốn thêm mục tiêu nhỏ nhìn ở đâu, thêm thế nào; Owner muốn thêm mục tiêu lớn nhìn ở đâu, chỉ đạo ai thêm; (5) chuyển checkpoint còn thiếu sang mục tiêu nhỏ tiếp theo thế nào; (6) format mục tiêu lớn, mục tiêu nhỏ, checkpoint, báo cáo gồm gì. Phải hình dung câu chuyện thực tế sẽ diễn ra, làm để làm việc chứ không phải cho vui; đơn giản là tốt.
+14. Owner 30/10/2026 15:48: bảng trước phức tạp quá — làm **một bảng ma trận**, chưa xóa bảng cũ. Bảng mục tiêu lớn có các cột: STT · Mục tiêu · Thế nào là hoàn thành · Tình trạng (chỉ 4 màu, rê vào màu thì hiện chữ) · Báo cáo (link bản báo cáo nếu có). Bấm mục tiêu lớn thì xổ ra mục tiêu nhỏ, cũng từng đó cột; bấm mục tiêu nhỏ thì xổ ra checkpoint. Thiết kế mẫu trước, Owner sẽ hướng dẫn; tư duy phải ngắn gọn.
 
 ### 2. Thế nào là hoàn thành
 “Định nghĩa từng việc khái niệm. Cần làm gì với từng khái niệm, quy trình tạo 1 task mới thế nào? Quy trình cập nhật kế hoạch thế nào? Ai làm gì? Cùng nhau làm việc này cho rõ ràng để thay đổi cách làm với hy vọng là tiến độ nhanh hơn” — Owner 30/10/2026.
@@ -86,7 +87,7 @@ L1 = §1 + §2 ở trên (Owner).
 - Được làm: 👁 · ✍ work/ai-council-newarchitecture/
 - Đề xuất: Owner 30/10 15:23 · Duyệt: Owner trực tiếp
 - C1 🟢 Vẽ mẫu theo khuôn Công thức: dòng công thức, chú thích hình = loại / màu = trạng thái, thẻ mục tiêu lớn có thanh tiến độ, ô đầu vào, chuỗi mục tiêu nhỏ + chấm checkpoint · bằng chứng: view.html #ban-do-muc-tieu, commit b543f6fb; đã xem ở 1100px và 400px · 30/10 16:15 · claude-chat
-- C2 🟡 Chỉnh theo góp ý Owner · Đạt khi: Owner đồng ý mẫu · bằng chứng: 15:29 đổi sang dữ liệu thật (c9f00c1a); 15:35 thay hình bằng Bảng mục tiêu trả lời 6 câu Owner + thêm thao tác 3.18 (af7d908e, 64d716a7) · 30/10 16:50 · claude-chat
+- C2 🟡 Chỉnh theo góp ý Owner · Đạt khi: Owner đồng ý mẫu · bằng chứng: 15:29 đổi sang dữ liệu thật (c9f00c1a); 15:35 thay hình bằng Bảng mục tiêu trả lời 6 câu Owner + thêm thao tác 3.18 (af7d908e, 64d716a7); 15:48 mẫu Ma trận mục tiêu 5 cột, 3 tầng xổ, 4 màu (ad8c53bf) · 30/10 16:50 · claude-chat
 - C3 ⬜ Ghi quy tắc vẽ «trường form → hình/màu» (để máy vẽ tự động ở N5) · Đạt khi: mỗi trạng thái N, C, Đ có đúng một cách vẽ
 - Ghi chú: N4 chèn trước N2 (thao tác 3.5 + 3.8) để GPT rà luôn cả bản đồ · claude-chat 30/10
 - Ghi chú: dữ liệu mẫu «Sổ PG Tự quản» khiến Owner hiểu là chuyển hội đồng vào PG (15:29) ⇒ đổi sang dữ liệu thật §4 của chính việc này, commit c9f00c1a · claude-chat 30/10
