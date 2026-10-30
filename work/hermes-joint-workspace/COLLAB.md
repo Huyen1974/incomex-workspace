@@ -483,7 +483,8 @@
 - Owner chỉ làm human-only: Sleep Mac → trên điện thoại gửi `D2` cho GPT Chat + Claude Chat → khi cả hai báo xong mở Mac. Agent tự làm final §8.12 + KQ ngay sau đó.
 - Nếu một Graph RUN không có checkpoint sạch hợp lý, Host phải cho Graph KQ/checkpoint sạch trước mutation kế tiếp rồi chen D2; **không được dùng Graph làm lý do trì hoãn N1 qua buổi**.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 · GPT Host P483 · **RUN21 PARTIAL SOURCE PASS/CI BASE BLOCKED · RUN22 BASE SYNC READY · 0 RUN ACTIVE · NO DEPLOY**
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 · Codex Desktop P484 · **RUN22 STARTED · BASE SYNC DEV ONLY · NO DEPLOY**
+- STARTED@HJW-G8-AD-BASE-SYNC-CI-20261030-22 2026-10-30T13:39Z · executor=Codex Desktop/MacBook · READY@bd2f115216828a626ac9bad06995f46afb69b772 verified; PR358 53c34ec/main6160f9ad/PR35736c68291; 0 VPS write.
 - **P483/B1:** Host nhận P482 PARTIAL; main PR360 tiến 4 commit/25 file chỉ lưu mã, 0 overlap PR358/357. RUN22 Codex merge latest main vào DEV PR358 non-force để chạy CI mới; vẫn 0 merge vào main/VPS. Chưa G8_SYSTEM.
 - **P482/KQ:** PR358 DRAFT `53c34ec745c6980a23996273e94b12fdd129b06a`; exec receipt/alias/unit marker xong; Mac 169 focused/202 CI-list/262 overlay PASS. CI run41041965184 FAIL BASE_MOVED_REBASE_REQUIRED, Unit tests SKIPPED; main PR360 tiến 6160f9ad, PR base còn b4c9ea19. KB route matrix đã ghi, KB chưa phủ. NEXT=GPT Host chốt base-sync/CI retry; PR357/Hermes/Queue giữ nguyên, 0 VPS; chưa candidate PASS/G8_SYSTEM.
 - STARTED@HJW-G8-AD-WEXEC-COVERAGE-20261030-21 2026-10-30T10:34Z · executor=Codex Desktop/MacBook · READY@504ded5e1d5f2d44801b8802824ad778ffa46559 verified; PR358 58a44c0/PR357 36c68291 pinned; 0 VPS mutation.
