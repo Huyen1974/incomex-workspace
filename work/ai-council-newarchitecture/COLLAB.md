@@ -9,7 +9,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ 
 - 🎯 Mục tiêu: Owner chỉ quyết 5 việc; còn lại AI chạy theo Mục tiêu lớn (L) → Mục tiêu nhỏ (N) → Checkpoint (C) với form khai chung, agent khảo sát và đề xuất nhiều nhất, hội đồng tập trung giám sát.
 - 🏁 Xong khi: form + 15 thao tác ở [view.html](view.html) chạy thử đạt trên ≥ 1 việc thật, đo 4 chỉ số ([mục 7](view.html#muc-7)); lỗ gặp khi thử đã vá vào form.
 - 📍 Tiến độ: [✅ N1 bản V2] → [■ N2 GPT rà, sửa thẳng] → [□ N3 thử trên Sổ PG] → [□ Sửa AGENTS theo kết quả thử].
-- ✅ Đã xong: N1 — [view.html](view.html) bản V2: **Từ điển 24 từ (là gì / không phải)**, 3 form L/N/C, 15 thao tác (ai · ghi đâu · làm thế nào), lượt agent 8 bước, khi nào hỏi Owner, 9 lỗ hở đã rà, 4 chỉ số đo. Gộp V1 GPT + C1 Claude (bản cũ: commit c309bb96). §4 bên dưới đã viết theo form.
+- ✅ Đã xong: N1 — [view.html](view.html) bản V2: **Từ điển 23 từ (là gì / không phải)**, 3 form L/N/C, 15 thao tác (ai · ghi đâu · làm thế nào), lượt agent 8 bước, khi nào hỏi Owner, 9 lỗ hở đã rà, 4 chỉ số đo. Gộp V1 GPT + C1 Claude (bản cũ: commit c309bb96). §4 bên dưới đã viết theo form.
 - ■ Đang làm: — · 0 RUN active.
 - ⬜ Còn lại: N2 GPT rà từ ghế agent, sửa thẳng; N3 thử trên Sổ PG; sửa AGENTS sau khi thử đạt.
 - ➡ Kế tiếp: **gpt-chat làm N2** theo §4 (sửa thẳng view.html, ghi chú mỗi chỗ đổi). NEXT_TRIGGER=GPT_N2_REVIEW_V2_DIRECT_EDIT.
