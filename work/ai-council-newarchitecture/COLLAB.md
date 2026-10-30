@@ -111,7 +111,7 @@ L1 = §1 + §2 ở trên (Owner).
 
 #### N5 · Trang Task tự vẽ Bản đồ mục tiêu từ §4 · ĐỀ XUẤT
 - Thuộc: L1 · Cần trước: N4 · Người làm: (Host chọn — claude-code hoặc codex) · Ước: 3h
-- Xong khi: trang Task đọc §4 của mọi việc và vẽ đúng mẫu N4; sửa §4 xong mở trang Task thấy hình đổi theo; vệc thiếu §4 hiện «chưa có kế hoạch».
+- Xong khi: trang Task đọc §4 của mọi việc và vẽ đúng mẫu N4; sửa §4 xong mở trang Task thấy hình đổi theo; việc thiếu §4 hiện «chưa có kế hoạch».
 - Được làm: 👁 · ✍ nhánh + PR mã trang Task (scripts/hvu-b2) · merge/deploy theo KST
 - Đề xuất: claude-chat 30/10 · Duyệt: —
 - C1 ⬜ Bộ đọc §4 ra dữ liệu L/Đ/N/C · Đạt khi: đọc đúng §4 của việc này
