@@ -36,5 +36,4 @@ Source evidence: P474 commit `0e050d44aa3350574f57fbfa34645bc0b7e08124`; PR #358
 | S1 | KST một lượt đọc/test Mac | 6-file review, integration PR357+358 local, queue/negative+receipt tests hoặc UNTESTED nêu lý do | phát hiện bug → exact hunk+fix tối thiểu, không push/merge |
 | S2 | KST đóng trước hết lượt | P476 KQ, Bảng, evidence+decision, no live change | Host xem xét bước Linux rebuild/roadmap, không auto RUN |
 
-**Không biến thiếu Docker/review khác hãng/CI pending thành S0 blocker; chỉ báo phạm vi thật đã chứng minh.** No app/server restart. 
-
+**Không biến thiếu Docker/review khác hãng/CI pending thành S0 blocker; chỉ báo phạm vi thật đã chứng minh.** No app/server restart.
