@@ -5,7 +5,7 @@ HTML chính: view.html
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ đạo «không bàn nữa mà làm»: chốt 5 việc Owner quyết + quy trình Mục tiêu lớn → Mục tiêu nhỏ → Checkpoint (§1 mục 9), sửa thẳng bản thiết kế, GPT góp thêm rồi chạy thử. Host: GPT Chat (đề xuất, Owner chưa chỉ định riêng). Chưa đổi AGENTS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 17:10 +07 · Claude Chat · N4 ĐANG LÀM: Ma trận mục tiêu dạng cây kiểu Apple chờ Owner hướng dẫn
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-30 17:25 +07 · Claude Chat · N4 ĐANG LÀM: Ma trận mục tiêu có mục 1–3, 6 tình trạng, +/− — chờ Owner hướng dẫn tiếp
 - 🎯 Mục tiêu: Owner chỉ quyết 5 việc; còn lại AI chạy theo Mục tiêu lớn (L) → Đầu vào chung (Đ) → Mục tiêu nhỏ (N) → Checkpoint (C) với từ điển + form khai chung, agent khảo sát và đề xuất nhiều nhất, hội đồng tập trung giám sát.
 - 🏁 Xong khi: từ điển + form + thao tác ở [view.html](view.html) chạy thử đạt trên ≥ 1 việc thật, đo chỉ số ([mục 8](view.html#muc-8)); lỗ gặp khi thử đã vá vào form.
 - 📍 Tiến độ: [✅ N1 bản V2.1] → [■ N4 Bảng mục tiêu] → [□ N2 GPT rà, sửa thẳng] → [□ N3 thử trên Sổ PG] → [□ Sửa AGENTS theo kết quả thử].
@@ -13,7 +13,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ 
 - ■ Đang làm: N4 · claude-chat · chỉnh Bảng mục tiêu cùng Owner.
 - ⬜ Còn lại: N4 chốt bảng + quy tắc vẽ; N2 GPT rà (gồm cả bảng); N3 thử trên Sổ PG; N5 trang Task tự vẽ (đề xuất); sửa AGENTS sau khi thử đạt.
 - ➡ Kế tiếp: Owner xem mẫu [Ma trận mục tiêu](view.html#ma-tran-muc-tieu) (5 cột, bấm xổ 3 tầng) và hướng dẫn chỉnh; claude-chat sửa thẳng. Bảng mục tiêu cũ giữ bên dưới. Sau đó gpt-chat làm N2. NEXT_TRIGGER=OWNER_ADJUST_GOAL_MAP_SAMPLE.
-- 😊 Owner cần quyết: không — chỉ góp ý chỉnh mẫu.
+- 😊 Owner cần quyết (không gấp): mục tiêu lớn 3 (+) «Sửa luật AGENTS theo cách làm mới» — đề xuất: GẬT, làm sau khi chạy thử đạt.
 - ⛔ Không làm/để sau: chưa sửa luật AGENTS, chưa tác động code, VPS hoặc production.
 
 ### 1. Mục tiêu
@@ -32,6 +32,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ 
 13. Owner 30/10/2026 15:35 (viết lại đúng ý): hình vẽ trước «vẽ cho vui», không trả lời được câu hỏi làm việc thật. Bảng phải trả lời được, ví dụ: (1) đầu vào có liệt kê không, là những gì, nhìn thế nào; (2) mục tiêu lớn nhìn ở đâu; (3) hội đồng đang chia bao nhiêu mục tiêu nhỏ, mỗi cái bao nhiêu checkpoint, nhìn ở đâu; (4) AI muốn thêm mục tiêu nhỏ nhìn ở đâu, thêm thế nào; Owner muốn thêm mục tiêu lớn nhìn ở đâu, chỉ đạo ai thêm; (5) chuyển checkpoint còn thiếu sang mục tiêu nhỏ tiếp theo thế nào; (6) format mục tiêu lớn, mục tiêu nhỏ, checkpoint, báo cáo gồm gì. Phải hình dung câu chuyện thực tế sẽ diễn ra, làm để làm việc chứ không phải cho vui; đơn giản là tốt.
 14. Owner 30/10/2026 15:48: bảng trước phức tạp quá — làm **một bảng ma trận**, chưa xóa bảng cũ. Bảng mục tiêu lớn có các cột: STT · Mục tiêu · Thế nào là hoàn thành · Tình trạng (chỉ 4 màu, rê vào màu thì hiện chữ) · Báo cáo (link bản báo cáo nếu có). Bấm mục tiêu lớn thì xổ ra mục tiêu nhỏ, cũng từng đó cột; bấm mục tiêu nhỏ thì xổ ra checkpoint. Thiết kế mẫu trước, Owner sẽ hướng dẫn; tư duy phải ngắn gọn.
 15. Owner 30/10/2026 15:54: nhìn phải thấy ngay là cây (treeview) — cái nào mục tiêu lớn, mục tiêu nhỏ, checkpoint; chữ to/nhỏ theo tầng; tình trạng chỉ cần một chấm màu nhỏ theo chuẩn Apple; thiết kế có hàng lối.
+16. Owner 30/10/2026 16:10 (viết lại đúng ý): phải có mục 2, mục 3 — chỉ có mục 1 thì AI đọc dễ hiểu nhầm. Tình trạng cần thêm: đã duyệt (nhất là với mục tiêu lớn), xong một phần (vàng), đã làm xong và Host duyệt (Host duyệt phải có ý kiến AI khác hãng trước — quy tắc nói sau, giờ chỉ cần nhìn thấy tình trạng); đề xuất bổ sung mục tiêu lớn/nhỏ/checkpoint bằng dấu + (xanh) hoặc − (đỏ) ở cột mục tiêu. Đổi tên cột thành «Mục tiêu / Nhiệm vụ». Hướng dẫn tầng viết ngắn: 1 = mục tiêu lớn (số nguyên) · 1.1 = mục tiêu nhỏ (một chấm) · 1.1.1 = checkpoint (hai chấm).
 
 ### 2. Thế nào là hoàn thành
 “Định nghĩa từng việc khái niệm. Cần làm gì với từng khái niệm, quy trình tạo 1 task mới thế nào? Quy trình cập nhật kế hoạch thế nào? Ai làm gì? Cùng nhau làm việc này cho rõ ràng để thay đổi cách làm với hy vọng là tiến độ nhanh hơn” — Owner 30/10/2026.
@@ -55,6 +56,8 @@ Giữ GitHub làm SSOT; đối chiếu AGENTS.md và ai-council-karpathy để k
 > 🤖 Biển: từ ngữ theo [Từ điển](view.html#muc-0); form và thao tác ở [view.html mục 2–4](view.html#muc-2). Thứ tự làm = từ trên xuống. Agent chọn N đầu tiên có DUYỆT đúng ghế mình; tích C ngay khi xong, mỗi C một commit. Không sửa N người khác đang làm — ghi vào «Ghi chú».
 
 L1 = §1 + §2 ở trên (Owner).
+- L2 · Quy tắc khi nào hỏi Owner · DUYỆT · Owner nói: «những việc đi vào luẩn quẩn … nên hoàn thiện dần quy tắc này để khi nào cần phải xin ý kiến của User» — 30/10 14:57 · Xong khi: mọi lần Owner phải can thiệp đều thành quy tắc (view.html mục 5) · chưa chia mục tiêu nhỏ.
+- L3 · + Sửa luật AGENTS theo cách làm mới · ĐỀ XUẤT (claude-chat, từ lộ trình «Sửa AGENTS sau khi thử đạt») · Xong khi: AGENTS ghi đúng cách làm đã chạy thử đạt · chờ Owner gật (thao tác 3.3).
 
 #### Đầu vào chung
 - Đ1 · Số đo 15–30/10: máy làm 2–11% thời gian, lượt agent trung vị 17 phút, chờ giữa lượt 7–11 giờ, DỪNG 18/63 · nguồn: git log repo (Claude Chat đếm 30/10) · chắc: vừa (phân loại lý do DỪNG là ước lượng)
@@ -88,7 +91,7 @@ L1 = §1 + §2 ở trên (Owner).
 - Được làm: 👁 · ✍ work/ai-council-newarchitecture/
 - Đề xuất: Owner 30/10 15:23 · Duyệt: Owner trực tiếp
 - C1 🟢 Vẽ mẫu theo khuôn Công thức: dòng công thức, chú thích hình = loại / màu = trạng thái, thẻ mục tiêu lớn có thanh tiến độ, ô đầu vào, chuỗi mục tiêu nhỏ + chấm checkpoint · bằng chứng: view.html #ban-do-muc-tieu, commit b543f6fb; đã xem ở 1100px và 400px · 30/10 16:15 · claude-chat
-- C2 🟡 Chỉnh theo góp ý Owner · Đạt khi: Owner đồng ý mẫu · bằng chứng: 15:29 đổi sang dữ liệu thật (c9f00c1a); 15:35 thay hình bằng Bảng mục tiêu trả lời 6 câu Owner + thêm thao tác 3.18 (af7d908e, 64d716a7); 15:48 mẫu Ma trận mục tiêu 5 cột, 3 tầng xổ, 4 màu (ad8c53bf); 15:54 dạng cây kiểu Apple: 3 cỡ chữ, thụt lề + đường cây, chấm 9px, chấm thẳng một cột đã đo (9e4a5da9, 3a03b9df, 9fc1913b) · 30/10 16:50 · claude-chat
+- C2 🟡 Chỉnh theo góp ý Owner · Đạt khi: Owner đồng ý mẫu · bằng chứng: 15:29 đổi sang dữ liệu thật (c9f00c1a); 15:35 thay hình bằng Bảng mục tiêu trả lời 6 câu Owner + thêm thao tác 3.18 (af7d908e, 64d716a7); 15:48 mẫu Ma trận mục tiêu 5 cột, 3 tầng xổ, 4 màu (ad8c53bf); 15:54 dạng cây kiểu Apple: 3 cỡ chữ, thụt lề + đường cây, chấm 9px, chấm thẳng một cột đã đo (9e4a5da9, 3a03b9df, 9fc1913b); 16:10 mục 2–3, 6 tình trạng, +/−, cột «Mục tiêu / Nhiệm vụ», chú thích 1 / 1.1 / 1.1.1 (9452bc4c) · 30/10 16:50 · claude-chat
 - C3 ⬜ Ghi quy tắc vẽ «trường form → hình/màu» (để máy vẽ tự động ở N5) · Đạt khi: mỗi trạng thái N, C, Đ có đúng một cách vẽ
 - Ghi chú: N4 chèn trước N2 (thao tác 3.5 + 3.8) để GPT rà luôn cả bản đồ · claude-chat 30/10
 - Ghi chú: dữ liệu mẫu «Sổ PG Tự quản» khiến Owner hiểu là chuyển hội đồng vào PG (15:29) ⇒ đổi sang dữ liệu thật §4 của chính việc này, commit c9f00c1a · claude-chat 30/10
