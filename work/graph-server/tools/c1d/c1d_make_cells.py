@@ -107,7 +107,7 @@ def main(src, out, batch=None):
                    ("G9", "C1-D: kho git + worktree/toplevel đã nạp (infra:git); kho→cây mã chỉ thuộc tính")):
         cat["families"][g]["next_action"] = nxt
         cat["families"][g]["supported_ingestion"] = True
-    cat["c1d"] = {"run": RUN, "caps": {"nodes": 600, "edges": 1200, "note": "trần TOÀN pilot C1-D, cộng dồn refresh-sources c1d._pilot_total; vượt ⇒ CAP_BOUND_PARTIAL"},
+    cat["c1d"] = {"run": RUN, "caps": {"nodes": 20000, "edges": 40000, "note": "quota MỖI LƯỢT, không cộng dồn; phần dư ⇒ CAP_BOUND_PARTIAL, lượt sau tự bắt kịp (SYNC-CORE, đo lại ở LIVE)"},
                   "units_declared": UNITS_DECLARED, "units_excluded_pending_owner": HJW_PENDING,
                   "ephemeral_parent_patterns": ["^docker:workspace-job-[0-9a-f]+$", "^docker:incomex-graph-v1-rc-"],
                   "lanes": {"c1d:infra": {"layer": "infra", "cells": [c["key"] for c in NEW_CELLS]},
