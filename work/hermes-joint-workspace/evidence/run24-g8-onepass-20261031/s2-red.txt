@@ -1,0 +1,5 @@
+FAILED tests/unit/test_hjw_four_facts.py::test_wal_retry_recovers_is_bounded_and_ignores_other_errors
+FAILED tests/unit/test_hjw_four_facts.py::test_processes_creating_new_queue_get_one_job[2-6]
+FAILED tests/unit/test_hjw_four_facts.py::test_processes_creating_new_queue_get_one_job[8-2]
+FAILED tests/unit/test_hjw_four_facts.py::test_two_processes_new_state_same_declared_operation_one_job
+4 failed, 315 deselected, 1 warning in 3.62s

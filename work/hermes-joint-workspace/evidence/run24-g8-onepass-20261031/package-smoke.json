@@ -1,0 +1,34 @@
+{
+"full_app_from_continuation_tree": {
+"routes": 41,
+"openapi_admin_params": ["x-api-key", "x-write-declaration"],
+"cases": [
+"/kb/reindex missing -> 403  ok=True",
+"/kb/reindex valid -> 200 pg,qdrant ok=True",
+"/kb/reindex wrong_key -> 403  ok=True",
+"/kb/reindex-missing missing -> 403  ok=True",
+"/kb/reindex-missing valid -> 200 pg,qdrant ok=True",
+"/kb/reindex-missing wrong_key -> 403  ok=True",
+"/kb/cleanup-orphans missing -> 403  ok=True",
+"/kb/cleanup-orphans valid -> 200 qdrant ok=True",
+"/kb/cleanup-orphans wrong_key -> 403  ok=True",
+"/kb/audit-sync missing -> 403  ok=True",
+"/kb/audit-sync valid -> 200 pg,qdrant ok=True",
+"/kb/audit-sync wrong_key -> 403  ok=True",
+"/kb/cleanup-orphans readonly -> 200  ok=True",
+"/kb/cleanup-orphans readonly -> 200  ok=True",
+"/kb/audit-sync readonly -> 200  ok=True",
+"/kb/audit-sync readonly -> 200  ok=True"
+]
+},
+"mcp_tree_files": ["agent_data/__init__.py", "agent_data/declaration_contract.py", "agent_data/hvu_signals.py", "agent_data/kb_declaration.py"],
+"mcp_import": "ok 8 True",
+"declared_queue_from_tree": {"denied": "DECLARATION_REQUIRED", "status": "completed", "replayed": true, "provenance": {"declared_actor": "self_declared", "origin_environment": "self_declared", "task_id": "self_declared", "command_ref": "self_declared"}},
+"source_rollback_same_queue_sqlite": [
+{"tree": "candidate", "enqueue_declared": ["completed", "completed", "queued queued"]},
+{"tree": "pr357", "result": ["finished-legacy-retry True None", "new-task completed"], "q3_after": false},
+{"tree": "main", "result": ["finished-legacy-retry None None", "new-task completed"], "q3_after": true},
+{"tree": "candidate-forward", "result": ["finished-legacy-retry True None", "finished-declared-retry True None", "new-task completed"]}
+],
+"q3_processed_by_rollback_tree": true
+}

@@ -1,0 +1,5 @@
+355 passed in 14.92s
+355 passed in 14.83s
+355 passed in 14.86s
+355 passed in 14.90s
+355 passed in 14.77s

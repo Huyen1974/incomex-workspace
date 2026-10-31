@@ -1,0 +1,35 @@
+main=6160f9ad6e5d16012dfe20bb59949abf5ffadad2
+pr357=36c682914c9f412078113b6d85319f11356d1130
+pr358_before=2d966640a0ccdf22fec50ee45a725fdfb41bfe48
+combined_head=5ef7d97e7a08ba7d904d5a0b63e5f64243c65b16
+merge_commit=fe9480165dbcd0ccb6924abc68c8609e2f4dc136 parents=0a72ed820a4a971fc4bfe7c2239d1f5cd4b068f7 36c682914c9f412078113b6d85319f11356d1130
+
+## combined vs main: 18 files changed, 1805 insertions(+), 77 deletions(-)
+
+## PR357 files vs combined (blob ids)
+agent_data/workspace_execution.py pr357=493533a8c4fd0d6eb2167c56cbf9506ce08078bc head=45b553bf1018ce96d8651558862782f0867d021a
+agent_data/workspace_runtime.py pr357=789a22f8798890b669e21532e615042926a9c028 head=488e2e318f3f3377cc4050ada5637cee1dacd0e1
+agent_data/workspace_tasks.py pr357=584a0d8e708d6dcb8be1ffcca75b79eeddc0b097 head=ba8f2225694e5d10485834ab586efa8f5432c063
+tests/continuation/test_vpsc2_w4q05_queue.py pr357=b35fcb8e363643b924412eb5a68f2b6b3cad218d head=b35fcb8e363643b924412eb5a68f2b6b3cad218d (same)
+
+## PR358 files vs combined
+same .github/workflows/ghm-pr-gate.yml
+same agent_data/declaration_contract.py
+changed agent_data/kb_declaration.py
+changed agent_data/server.py
+same agent_data/workspace_declaration.py
+changed agent_data/workspace_execution.py
+same agent_data/workspace_idempotency.py
+changed agent_data/workspace_tasks.py
+same agent_data/workspace_tools.py
+same agent_data/workspace_transfer.py
+same mcp_server/server.py
+same mcp_server/stdio_server.py
+same scripts/workspace-exec-worker.py
+changed tests/unit/test_hjw_four_facts.py
+
+## Added lines, PR357 -> combined (reproduce: git diff 36c68291 5ef7d97e -- <file>)
+workspace_tasks.py: declaration import; _declaration in request; args_hash via declaration.bind_hash(a); worker run() resets identity, resolves the carried declaration under declaration.scope, refuses LEGACY_JOB_UNATTRIBUTED in enforce, returns Denied as a result. Nothing else differs.
+workspace_execution.py: declaration import; args_hash via declaration.bind_hash(a); _declaration in request. Nothing else differs.
+workspace_runtime.py: adds _enable_wal; db() calls it inside the try. Nothing else differs.
+PR358 -> combined: git diff 2d966640 5ef7d97e -- agent_data/workspace_tasks.py agent_data/workspace_execution.py
