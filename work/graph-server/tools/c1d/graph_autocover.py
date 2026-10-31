@@ -19,19 +19,42 @@ LUẬT GHI: chỉ CỘNG nút/cạnh mới + SET thuộc tính đổi của nút
   nguồn mất đối tượng ⇒ giữ trong Graph, báo `stale` (ô MỘT PHẦN, không tỉa). Trần toàn pilot C1-D (cert-cells c1d.caps) tính cộng dồn
   theo refresh-sources c1d.*.created_* — vượt ⇒ lấy mẫu tất định theo sha256(khoá ổn định), CAP_BOUND_PARTIAL, phần dư không ghi.
   Nghịch đảo I = xoá đúng cạnh/nút đã tạo (gs_edge_key/gs_key) + đặt lại thuộc tính cũ của phần đã SET.
+RETIRE (GS-C1D2-SCOPED-AUTOCOVER-20261026-13, R3/T4): chỉ lane c1d:infra, chỉ khi bộ đọc gốc đọc TRỌN chứng minh đối tượng đã mất — nút
+  DockerContainer vắng trong `docker ps -a` (kể cả mẫu tạm) · NetListener vắng trong `ss -ltne` · GitRepository vắng trong lượt quét .git;
+  cạnh G5/G9 (BOUND_BY_PROCESS_OF/PUBLISHED_BY/LISTENS_ON/WORKTREE_OF/RESOLVES_TO_TOPLEVEL) khi hai đầu còn sống, cổng nghe không mơ hồ
+  mà nguồn không còn cạnh đó (A→B thành A→C), hoặc khi một đầu bị retire. Đánh dấu bằng THUỘC TÍNH trên chính nút/cạnh (gs_status=retired
+  + retired_at/retired_reason/retired_by) — không xoá cứng, không đổi nhãn/loại cạnh. Đối tượng quay lại nguồn ⇒ SET thuộc tính nguồn (hồi
+  sinh). SystemdUnit/TRIGGERS/REQUIRES_MOUNT/lane pgl1: vắng nguồn KHÔNG chứng minh mất ⇒ giữ `stale` (ô MỘT PHẦN). Nghịch đảo I = đặt lại
+  nguyên thuộc tính cũ của phần đã retire.
+SYNC-CORE (GS-COV2-SYNC-CORE-20261031-02, ỨNG VIÊN, chưa triển khai): lane `sync:native` hoà giải theo trạng thái — vũ trụ lấy từ catalog nguồn
+  (không danh sách vật), khoá có hệ/DB/loại, quota theo LƯỢT (phần dư lượt sau tự bắt kịp, không trần cộng dồn), THÊM/SỬA/gỡ mềm cả nút lẫn cạnh.
+  Chỉ gỡ khi bộ đọc đọc TRỌN + oracle K0 độc lập xác nhận; giảm >75% một ô ⇒ chặn và báo. Không có lịch, dịch vụ hay quyền mới.
 """
 import hashlib, importlib.machinery, importlib.util, json, os, re, subprocess, time
 
 ROOT = "/opt/incomex/graph-server/prod-v1"
 RB = ROOT + "/bin/refresh"
-LAYER = {"c1d:infra": "infra", "c1d:pgl1": "pgl1"}
+NATIVE_LANE = "sync:native"
+NS = "native:"                                       # khoá hệ/DB/loại riêng: lane cũ giữ nguyên tới khi có bằng chứng migration, không đụng nhau
+LAYER = {"c1d:infra": "infra", "c1d:pgl1": "pgl1", NATIVE_LANE: "native"}
 PREFIX = {"NetListener": "net:listen:", "SystemdUnit": "systemd:unit:", "DockerContainer": "docker:container:", "GitRepository": "git:repo:"}
 LABELS = {"c1d:infra": {"GS", "NetListener", "SystemdUnit", "DockerContainer", "GitRepository"},
           "c1d:pgl1": {"GS", "PgTable", "PgView", "PgForeignKey", "DirectusCollection", "DirectusRelation", "DirectusPermission"}}
 TYPES = {"c1d:infra": {"BOUND_BY_PROCESS_OF", "PUBLISHED_BY", "LISTENS_ON", "TRIGGERS", "REQUIRES_MOUNT", "WORKTREE_OF", "RESOLVES_TO_TOPLEVEL"},
-         "c1d:pgl1": {"HAS_FK", "REFERENCES", "DEPENDS_ON", "MAPS_TO_TABLE", "RELATION_MANY", "RELATION_ONE", "PERMISSION_ON"}}
+         "c1d:pgl1": {"HAS_FK", "REFERENCES", "DEPENDS_ON", "MAPS_TO_TABLE", "RELATION_MANY", "RELATION_ONE", "PERMISSION_ON"},
+         NATIVE_LANE: {"ON_TABLE", "EXECUTES", "HAS_FK", "REFERENCES", "DEPENDS_ON", "CALLS", "USES_SERVER", "REFERS_IN_BODY", "OPERATION_OF", "PERMISSION_ON",
+                       "BRANCH_OF", "AT_COMMIT", "IN_COMMIT", "REFERS_IN_FILE"}}
 VOLATILE = {"snapshot_utc", "run", "loaded_at", "gs_edge_key", "head_at_load", "source_file"}   # không thuộc danh tính khi so khác
+RETIRED = "retired"                                  # C1-D2 R3: gs_status của nút/cạnh đã mất ở nguồn (chứng minh bằng bộ đọc trọn)
+RETIRE = {"c1d:infra": {"labels": {"DockerContainer": "docker ps -a", "NetListener": "ss -ltne", "GitRepository": "quét .git"},
+                        # loại cạnh ⇒ vị trí đầu CHỦ THỂ (bộ đọc trọn của đầu này quyết toàn bộ cạnh loại đó của nó): cổng nghe / kho git
+                        "subject": {"BOUND_BY_PROCESS_OF": 0, "PUBLISHED_BY": 0, "LISTENS_ON": 2, "WORKTREE_OF": 0, "RESOLVES_TO_TOPLEVEL": 0},
+                        "listener_types": {"BOUND_BY_PROCESS_OF", "PUBLISHED_BY", "LISTENS_ON"}}}
 now_iso = lambda: time.strftime("%FT%TZ", time.gmtime())
+
+
+def is_retired(p):
+    return (p or {}).get("gs_status") == RETIRED
 
 
 def sh(cmd, timeout=120, inp=None):
@@ -131,10 +154,12 @@ def read_unit_props(units):
     return out
 
 
-def read_containers(ephemeral):
+def read_containers(ephemeral, seen=None):
     rc, o, _ = sh(["docker", "ps", "-a", "--format", "{{.Names}}"], 60)
     if rc != 0:
         raise RuntimeError("docker ps rc=%s" % rc)
+    if seen is not None:                              # C1-D2 R3: MỌI tên (kể cả mẫu tạm) — chỉ vắng ở đây mới chứng minh container đã mất
+        seen.extend(o.split())
     names = sorted(n for n in o.split() if not any(re.search(e, "docker:" + n) for e in ephemeral))
     out = {}
     for n in names:
@@ -218,7 +243,9 @@ def desired_infra(cat, code_caps=None, sources=None, run="c1d:infra"):
                                                           "gs_edge_key": sha16("%s|%s|%s" % (s, t, d))}}
 
     # --- G2 container
-    ctr = read_containers(eph)
+    seen = []
+    ctr = read_containers(eph, seen)
+    rep["retire_proof"] = {"containers_all": sorted(set(seen)), "readers": dict(RETIRE["c1d:infra"]["labels"])}
     for n, x in ctr.items():
         node("DockerContainer", n, {"container_id": x["id12"], "image": x["image"]}, "G2", "docker inspect")
     # --- G5 listener → chủ
@@ -329,6 +356,383 @@ def desired_pgl1(cat, run="c1d:pgl1"):
                           "snapshot_utc": nat["reader"]["snapshot_utc"], "tables": tables}
 
 
+# =========================================================================== lane sync:native (1) khai báo nguồn: LOẠI, không danh sách vật
+RELKIND = {"r": ("table", "PgTable"), "p": ("table", "PgTable"), "f": ("foreign_table", "PgTable"), "v": ("view", "PgView"), "m": ("matview", "PgView"),
+           "S": ("sequence", "PgSequence")}
+REL_NOT_LOADED = {"i", "I", "c"}                     # chỉ mục, kiểu composite: nằm trong catalog nhưng chưa có lớp ⇒ ghi GAP, không bỏ im
+PG_COL = {"schema": "name", "rel": "kind schema name owner ext hash tup ncol rls", "func": "schema name args lang vol kind hash ext owner secdef argtypes",
+          "trigger": "schema tab name enabled fschema fname fargs", "evttrigger": "name event enabled fn", "fk": "schema tab name fschema ftab validated",
+          "viewdep": "schema name kind dschema dname dkind", "viewfunc": "schema name fschema fname", "extension": "name ver nsp owner",
+          "fdwserver": "name fdw", "ftable": "schema tab server", "rule": "schema tab name", "rlspolicy": "schema tab name"}
+PG_NO_NODE = {"meta", "constraint", "publication", "subscription_count", "depcount", "shdepcount"}
+DT_COL = {"dcol": "id group singleton hidden", "dfield": "coll field interface", "drel": "coll field one_coll one_field",
+          "dflow": "id name status trigger acc created hash", "dop": "id flow type key hash resolve reject", "dpolicy": "id name admin app", "drole": "id name",
+          "daccess": "id role user policy", "dperm": "id coll action policy hash"}
+DT_NO_NODE = {"dcount", "dwindow", "dflowact"}
+RUNTIME_ERR = (("list-units", "systemd"), ("unit-files", "systemd"), ("timers", "systemd"), ("docker", "docker"), ("inspect", "docker"), ("ss", "net"), ("nginx", "nginx"))
+TRANSIENT_UNIT = re.compile(r"^(session-\d+\.scope|run-.*)$")   # phiên ssh/lệnh tạm: sinh rồi mất giữa hai lượt, không phải vật của hệ thống
+SECRET_RE = re.compile(r"(gh[pousr]_[A-Za-z0-9]{16,}|github_pat_\w{16,}|\bsk-[\w-]{16,}|xox[baprs]-[\w-]{10,}|eyJ[\w-]{10,}\.[\w-]{10,}|AKIA[0-9A-Z]{16}|"
+                       r"://[^/\s:]+:[^@/\s]+@|(?i:password|passwd|secret|token|api[_-]?key)\s*[=:]\s*\S{6,})")
+FULL, PARTIAL, STALE = "FULL", "PARTIAL", "STALE"
+DROP_PROOF, DROP_BLOCK = 0.30, 0.75                  # ≥30%: ghi bằng chứng; >75% một ô: chặn và báo (không phải giấy phép gỡ dưới mức này)
+
+
+def family_of(i):
+    """Họ nguồn theo khoá: pg:<db> · directus · cron · systemd · docker · net · nginx · github."""
+    p = (i[len(NS):] if i.startswith(NS) else i).split(":")
+    return "pg:" + p[1] if p[0] == "pg" else p[0]
+
+
+def _clean(v):
+    return ("sha16:" + sha16(v)) if isinstance(v, str) and SECRET_RE.search(v) else v
+
+
+def _rows(path, col, seen):
+    out = {}
+    for ln in open(path, encoding="utf-8", errors="replace"):
+        f = ln.rstrip("\n").split("\t")
+        seen.add(f[0])
+        if f[0] in col:
+            out.setdefault(f[0], []).append(dict(zip(col[f[0]].split(), f[1:])))
+    return out
+
+
+def _file_ok(path, err=None, must=None):
+    """Bằng chứng đọc trọn của một tệp nguồn: có, không rỗng, stderr rỗng, dòng cuối của bộ đọc có mặt. Lý do lỗi hoặc None."""
+    if not os.path.isfile(path) or not os.path.getsize(path):
+        return "MISSING_OR_EMPTY " + os.path.basename(path)
+    if err and os.path.isfile(err) and os.path.getsize(err):
+        return "READER_STDERR " + open(err, errors="replace").read(120).strip()
+    if must and must not in open(path, errors="replace").read():
+        return "TRUNCATED no " + must.strip()
+    return None
+
+
+def read_universe(T, tag, gh=None):
+    """Đọc ảnh catalog gốc (cat-/dt-/runtime-/derived- của K0, gh tuỳ chọn) ⇒ nodes, edges, sources {họ: {status, why}}, gaps. Họ không đọc trọn ⇒ 0 hàng."""
+    import glob
+    nodes, edges, src, gaps = {}, {}, {}, []
+    snap = open(T + "/at.txt").read().strip().split("=")[-1] if os.path.isfile(T + "/at.txt") else tag
+
+    def node(fam, cls, label, i, **a):
+        nodes[NS + i] = {"l": ["GS", label], "p": dict({k: _clean(v) for k, v in a.items() if v is not None}, id=i, gs_key=NS + i, gs_layer="native", family=fam, cls=cls,
+                                                  evidence="NATIVE", trust="EXACT_AT_SNAPSHOT", snapshot_utc=snap, run=NATIVE_LANE)}
+
+    def edge(s, t, d, ev="NATIVE"):
+        s, d = NS + s, NS + d
+        edges[(s, t, d)] = {"t": t, "s": s, "d": d, "p": {"family": family_of(s), "evidence": ev, "trust": "EXACT_AT_SNAPSHOT", "snapshot_utc": snap, "run": NATIVE_LANE,
+                                                         "gs_edge_key": sha16("%s|%s|%s" % (s, t, d))}}
+
+    for path in sorted(glob.glob("%s/cat-%s-*.tsv" % (T, tag))):
+        db = os.path.basename(path)[len("cat-%s-" % tag):-4]
+        fam = "pg:" + db
+        why = _file_ok(path, "%s/cat-%s.err" % (T, db), "depcount\t")
+        src[fam] = {"status": PARTIAL if why else FULL, "why": why}
+        if why:
+            continue
+        seen = set()
+        c = _rows(path, PG_COL, seen)
+        for k in sorted(seen - set(PG_COL) - PG_NO_NODE):
+            src[fam].update(status=PARTIAL, why="NEW_CLASS_UNHANDLED " + k)
+            gaps.append("%s NEW_CLASS_UNHANDLED %s" % (fam, k))
+        key = lambda cls, sch, nm: "pg:%s:%s:%s.%s" % (db, cls, sch, nm)
+        kind = {}
+        for r in c.get("rel", []):
+            if r["ext"] != "false":
+                continue
+            if r["kind"] in REL_NOT_LOADED:
+                continue
+            if r["kind"] not in RELKIND:
+                src[fam].update(status=PARTIAL, why="NEW_CLASS_UNHANDLED relkind " + r["kind"])
+                gaps.append("%s NEW_RELKIND %s" % (fam, r["kind"]))
+                continue
+            cls, label = RELKIND[r["kind"]]
+            kind[(r["schema"], r["name"])] = cls
+            node(fam, cls, label, key(cls, r["schema"], r["name"]), hash=r["hash"], owner=r["owner"], ncol=r["ncol"], relkind=r["kind"])
+        fsig = {}
+        for r in c.get("func", []):
+            if r["ext"] == "false":
+                node(fam, "function", "PgFunction", key("function", r["schema"], "%s(%s)" % (r["name"], r["args"])), hash=r["hash"], lang=r["lang"], vol=r["vol"],
+                     kind=r["kind"], secdef=r["secdef"])
+                fsig.setdefault((r["schema"], r["name"]), []).append(r["args"])
+        for r in c.get("trigger", []):
+            i = "pg:%s:trigger:%s.%s.%s" % (db, r["schema"], r["tab"], r["name"])
+            node(fam, "trigger", "PgTrigger", i, enabled=r["enabled"])
+            edge(i, "ON_TABLE", key(kind.get((r["schema"], r["tab"]), "table"), r["schema"], r["tab"]))
+            edge(i, "EXECUTES", key("function", r["fschema"], "%s(%s)" % (r["fname"], r["fargs"])))
+        for r in c.get("fk", []):
+            i = "pg:%s:fk:%s.%s.%s" % (db, r["schema"], r["tab"], r["name"])
+            node(fam, "fk", "PgForeignKey", i, validated=r["validated"])
+            edge(key("table", r["schema"], r["tab"]), "HAS_FK", i)
+            edge(i, "REFERENCES", key("table", r["fschema"], r["ftab"]))
+        dep = {"r": "table", "p": "table", "f": "foreign_table", "v": "view", "m": "matview", "S": "sequence", "i": "index", "I": "index", "c": "type"}
+        for r in c.get("viewdep", []):
+            edge(key(dep[r["kind"]], r["schema"], r["name"]), "DEPENDS_ON", key(dep.get(r["dkind"], "?"), r["dschema"], r["dname"]))
+        for r in c.get("viewfunc", []):
+            for a in fsig.get((r["fschema"], r["fname"]), []):
+                edge(key("view", r["schema"], r["name"]), "CALLS", key("function", r["fschema"], "%s(%s)" % (r["fname"], a)))
+        for r in c.get("evttrigger", []):
+            node(fam, "event_trigger", "PgEventTrigger", "pg:%s:event_trigger:%s" % (db, r["name"]), enabled=r["enabled"])
+        for r in c.get("schema", []):
+            node(fam, "schema", "PgSchema", "pg:%s:schema:%s" % (db, r["name"]))
+        for r in c.get("extension", []):
+            node(fam, "extension", "PgExtension", "pg:%s:extension:%s" % (db, r["name"]), ver=r["ver"], owner=r["owner"])
+        for r in c.get("rlspolicy", []):
+            node(fam, "rls_policy", "PgRlsPolicy", "pg:%s:rls:%s.%s.%s" % (db, r["schema"], r["tab"], r["name"]))
+        for r in c.get("rule", []):
+            node(fam, "rule", "PgRule", "pg:%s:rule:%s.%s.%s" % (db, r["schema"], r["tab"], r["name"]))
+        for r in c.get("fdwserver", []):
+            node(fam, "fdw_server", "PgFdwServer", "pg:%s:server:%s" % (db, r["name"]))
+        for r in c.get("ftable", []):
+            edge(key("foreign_table", r["schema"], r["tab"]), "USES_SERVER", "pg:%s:server:%s" % (db, r["server"]))
+    if not any(k.startswith("pg:") for k in src):
+        src["pg"] = {"status": PARTIAL, "why": "NO_CATALOG"}
+    der = "%s/derived-%s.jsonl" % (T, tag)
+    if os.path.isfile(der):
+        for ln in open(der):
+            x = json.loads(ln)
+            if src.get("pg:" + x["db"], {}).get("status") == FULL:
+                edge("pg:%s:function:%s" % (x["db"], x["f"]), x.get("t", "REFERS_IN_BODY"), "pg:%s:table:%s" % (x["db"], x["r"]), "DERIVED")
+    else:
+        gaps.append("pg DERIVED_NOT_READ")
+    dtp = "%s/dt-%s.tsv" % (T, tag)
+    why = _file_ok(dtp, T + "/dt.err", "dperm\t")
+    src["directus"] = {"status": PARTIAL if why else FULL, "why": why}
+    if not why:
+        seen = set()
+        d = _rows(dtp, DT_COL, seen)
+        for k in sorted(seen - set(DT_COL) - DT_NO_NODE):
+            src["directus"].update(status=PARTIAL, why="NEW_CLASS_UNHANDLED " + k)
+            gaps.append("directus NEW_CLASS_UNHANDLED " + k)
+        for r in d.get("dcol", []):
+            node("directus", "directus_collection", "DirectusCollection", "directus:collection:" + r["id"])
+        for r in d.get("dfield", []):
+            node("directus", "directus_field", "DirectusField", "directus:field:%s.%s" % (r["coll"], r["field"]))
+        for r in d.get("drel", []):
+            node("directus", "directus_relation", "DirectusRelation", "directus:relation:%s.%s" % (r["coll"], r["field"]))
+        for r in d.get("dflow", []):
+            node("directus", "directus_flow", "DirectusFlow", "directus:flow:" + r["id"], name=r["name"], status=r["status"], trigger=r["trigger"], hash=r["hash"])
+        for r in d.get("dop", []):
+            node("directus", "directus_operation", "DirectusOperation", "directus:operation:" + r["id"], type=r["type"], hash=r["hash"])
+            edge("directus:operation:" + r["id"], "OPERATION_OF", "directus:flow:" + r["flow"])
+        for r in d.get("dpolicy", []):
+            node("directus", "directus_policy", "DirectusPolicy", "directus:policy:" + r["id"], admin=r["admin"])
+        for r in d.get("drole", []):
+            node("directus", "directus_role", "DirectusRole", "directus:role:" + r["id"])
+        for r in d.get("daccess", []):
+            node("directus", "directus_access", "DirectusAccess", "directus:access:" + r["id"])
+        for r in d.get("dperm", []):
+            node("directus", "directus_permission", "DirectusPermission", "directus:permission:" + r["id"], coll=r["coll"], action=r["action"], hash=r["hash"])
+            edge("directus:permission:" + r["id"], "PERMISSION_ON", "directus:collection:" + r["coll"])
+    rtp = "%s/runtime-%s.json" % (T, tag)
+    why = _file_ok(rtp, None, None)
+    rt = None
+    if not why:
+        try:
+            rt = json.load(open(rtp))
+        except ValueError as e:
+            why = "JSON " + str(e)[:80]
+    for f in ("cron", "systemd", "docker", "net", "nginx"):
+        src[f] = {"status": PARTIAL if why else FULL, "why": why}
+    if rt:
+        for e in rt.get("errors") or []:
+            fam = next((f for pre, f in RUNTIME_ERR if str(e.get("where")).startswith(pre)), "cron")
+            src[fam].update(status=PARTIAL, why="%s rc=%s" % (e.get("where"), e.get("rc")))
+        ok = lambda f: src[f]["status"] == FULL
+        for c in rt.get("cron", []) if ok("cron") else []:
+            node("cron", "cron_entry", "CronEntry", "cron:%s:%s:%s" % (c["src"], c["user"], c["line"]), state="DISABLED" if c["disabled"] else "ENABLED", hash=c["sha"], head=c.get("cmd_head"))
+        if ok("systemd"):
+            for u in rt.get("units", []):
+                if not TRANSIENT_UNIT.match(u["unit"]):
+                    node("systemd", "systemd_unit", "SystemdUnit", "systemd:unit:" + u["unit"], active=u["active"], sub=u["sub"], load=u["load"])
+            for u in rt.get("unit_files", []):
+                if NS + "systemd:unit:" + u["unit"] not in nodes and not TRANSIENT_UNIT.match(u["unit"]):
+                    node("systemd", "systemd_unit", "SystemdUnit", "systemd:unit:" + u["unit"], active="not-loaded", ufs=u.get("state"))
+            for d in rt.get("dropins", []):
+                node("systemd", "systemd_dropin", "SystemdDropin", "systemd:dropin:" + d)
+        for c in rt.get("containers", []) if ok("docker") else []:
+            node("docker", "docker_container", "DockerContainer", "docker:container:" + c["name"], state=c["state"], image=c["image_id"])
+        for x in rt.get("listeners", []) if ok("net") else []:
+            node("net", "net_listener", "NetListener", "net:%s:%s" % (x["proto"], x["listen"]), procs=",".join(x["procs"]))
+        if ok("nginx") and rt.get("nginx"):
+            for s in rt["nginx"]["server_names"]:
+                node("nginx", "nginx_server_name", "NginxServerName", "nginx:server_name:" + s)
+            for u in rt["nginx"]["upstream_targets"]:
+                node("nginx", "nginx_upstream", "NginxUpstream", "nginx:upstream:" + u)
+    if gh is not None:
+        read_github_into(gh, node, edge, src, gaps)
+    return {"nodes": nodes, "edges": edges, "sources": src, "gaps": gaps, "snapshot_utc": snap}
+
+
+def read_github_into(gh, node, edge, src, gaps):
+    """GitHub mức 1: repo/nhánh/commit/tệp (đường + băm blob, không nội dung), kể cả kho lưu trữ. Commit→container KHÔNG suy: cần digest/biên nhận deploy."""
+    bad = gh.get("errors") or [r["name"] for r in gh.get("repos", []) if r.get("truncated")]
+    src["github"] = {"status": PARTIAL if bad else FULL, "why": str(bad)[:120] if bad else None}
+    gaps.append("github COMMIT_TO_CONTAINER SOURCE_IDENTITY_UNVERIFIED")
+    if bad:
+        return
+    for r in gh.get("repos", []):
+        rk = "github:repo:" + r["name"]
+        node("github", "github_repo", "GitHubRepo", rk, archived=str(r["archived"]))
+        if not r.get("branch") or not r.get("head"):
+            continue
+        bk, ck = "github:branch:%s:%s" % (r["name"], r["branch"]), "github:commit:%s:%s" % (r["name"], r["head"])
+        node("github", "github_branch", "GitHubBranch", bk)
+        node("github", "github_commit", "GitHubCommit", ck)
+        edge(bk, "BRANCH_OF", rk)
+        edge(bk, "AT_COMMIT", ck)
+        for f in r["files"]:
+            fk = "github:file:%s:%s" % (r["name"], f["p"])
+            node("github", "github_file", "GitHubFile", fk, blob=f["h"])
+            edge(fk, "IN_COMMIT", bk)
+
+
+def derive_file_refs(path_key, text, native_names):
+    """Tên lấy từ catalog nguồn, không gõ sẵn ⇒ cạnh REFERS_IN_FILE nhãn DERIVED: có nhắc tên, KHÔNG chứng minh mã chạy gọi tới."""
+    words = set(re.findall(r"[A-Za-z_][A-Za-z0-9_]{3,}", text))
+    return sorted((path_key, "REFERS_IN_FILE", k) for n, k in native_names.items() if n in words)
+
+
+# =========================================================================== lane sync:native (2) cổng gỡ theo ô nguồn×loại
+def _gate_cell(cell, gone, active, srcs, oracle):
+    """Lý do KHÔNG được gỡ ô này, hoặc None. Giảm >75% luôn chặn, dù đọc đủ."""
+    fam = cell[0]
+    if (srcs.get(fam) or {}).get("status") != FULL:
+        return "SOURCE_NOT_FULL %s" % ((srcs.get(fam) or {}).get("why"),)
+    if len(gone) / max(len(active), 1) > DROP_BLOCK:
+        return "MASS_DROP_BLOCKED %d/%d" % (len(gone), len(active))
+    o = (oracle or {}).get(fam) or {}
+    if not o.get("ok"):
+        return "ORACLE_NOT_CONFIRMED %s" % (o.get("why"),)
+    if cell[1] in (o.get("disagree") or ()):
+        return "ORACLE_ANGLE_DISAGREE " + cell[1]
+    seen = set(gone) & {NS + i for i in o.get("ids") or ()}
+    if seen:
+        return "ORACLE_STILL_SEES %d" % len(seen)
+    return None
+
+
+def retire_native(gn, ge, nodes, edges, native):
+    srcs, oracle = native.get("sources") or {}, native.get("oracle") or {}
+    gate = native.setdefault("retire_gate", {"held": {}, "alerts": [], "large_drop_proof": {}, "human_hold": []})
+    by = {}
+    for k, v in gn.items():
+        if not is_retired(v[1]):
+            by.setdefault((v[1].get("family") or family_of(k), v[1].get("cls") or "?"), []).append(k)
+    rn = []
+    for cell, active in sorted(by.items()):
+        gone = sorted(k for k in active if k not in nodes)
+        if not gone:
+            continue
+        why = _gate_cell(cell, gone, active, srcs, oracle)
+        name = "%s|%s" % cell
+        if why:
+            gate["held"][name] = why
+            if why.startswith("MASS_DROP"):
+                gate["alerts"].append(name + " " + why)
+            continue
+        if len(gone) / len(active) >= DROP_PROOF:
+            gate["large_drop_proof"][name] = {"gone": len(gone), "active": len(active), "proof": "FULL_READ+K0_ORACLE"}
+        rn += [{"k": k, "old": gn[k][1], "reader": name} for k in gone]
+    dead = {x["k"] for x in rn} | {k for k, v in gn.items() if is_retired(v[1])}
+    held_keys = {k for cell, a in by.items() if "%s|%s" % cell in gate["held"] for k in a if k not in nodes}
+    by_e = {}
+    for key, have in ge.items():
+        if key[1] in TYPES[NATIVE_LANE] and len(have) == 1 and not is_retired(have[0]):
+            by_e.setdefault((have[0].get("family") or family_of(key[0]), key[1]), []).append(key)
+    re_ = []
+    for cell, active in sorted(by_e.items()):
+        gone = [k for k in active if k not in edges]
+        if not gone:
+            continue
+        why = _gate_cell(cell, gone, active, srcs, {cell[0]: dict((oracle.get(cell[0]) or {}), ids=())})
+        name = "%s|%s" % cell
+        for key in sorted(gone):
+            p = ge[key][0]
+            if p.get("evidence") == "HUMAN" or p.get("human_approved"):          # quan hệ người duyệt: không tự gỡ, báo để người xử lý
+                gate["human_hold"].append("|".join(key))
+            elif key[0] in held_keys or key[2] in held_keys:                     # đầu nút đang bị giữ ⇒ cạnh giữ theo
+                gate["held"].setdefault(name, "ENDPOINT_HELD")
+            elif key[0] in dead or key[2] in dead:
+                re_.append({"key": key, "old": p, "why": "ENDPOINT_RETIRED"})
+            elif why:
+                gate["held"][name] = why
+            elif "|".join((key[0][len(NS):], key[1], key[2][len(NS):])) in ((oracle.get(cell[0]) or {}).get("edges") or ()):
+                gate["held"][name] = "ORACLE_STILL_SEES_EDGE"
+            else:
+                re_.append({"key": key, "old": p, "why": "SOURCE_EDGE_ABSENT_FULL_READ " + name})
+    return rn, re_, ("; ".join(sorted(gate["held"])) or None)
+
+
+# =========================================================================== lane sync:native (3) oracle hai chiều + giấy theo ô
+def oracle_diff(k_nodes, k_edges, gn, ge, families):
+    """So tập khoá oracle (K0, parser riêng) ↔ Graph đang sống theo họ: id, loại, cạnh+loại+chiều, hai chiều. Cạnh treo ở nguồn ⇒ đếm riêng."""
+    bare = lambda k: k[len(NS):] if k.startswith(NS) else k
+    live_n = {bare(k): v[1].get("cls") for k, v in gn.items() if not is_retired(v[1])}
+    live_e = {(bare(k[0]), k[1], bare(k[2])) for k, v in ge.items() if v and not all(is_retired(p) for p in v)}
+    src_n = {n["id"]: n["cls"] for n in k_nodes if not TRANSIENT_UNIT.match(n["id"].rsplit(":", 1)[-1])}
+    src_e, dangling = set(), 0
+    for e in k_edges:
+        if e["s"] in src_n and e["d"] in src_n:
+            src_e.add((e["s"], e["t"], e["d"]))
+        else:
+            dangling += 1
+    out = {}
+    for f in families:
+        fn = lambda d: {k for k in d if family_of(k) == f}
+        fe = lambda d: {k for k in d if family_of(k[0]) == f}
+        a, b, c, d = fn(src_n), fn(live_n), fe(src_e), fe(live_e)
+        out[f] = {"only_source": sorted(a - b), "only_graph": sorted(b - a), "type_mismatch": sorted(k for k in a & b if src_n[k] != live_n[k]),
+                  "edge_only_source": sorted("|".join(k) for k in c - d), "edge_only_graph": sorted("|".join(k) for k in d - c), "nodes": len(b), "edges": len(d)}
+        out[f]["ok"] = not (out[f]["only_source"] or out[f]["only_graph"] or out[f]["type_mismatch"] or out[f]["edge_only_source"] or out[f]["edge_only_graph"])
+    return {"families": out, "source_dangling_edges": dangling}
+
+
+def source_cert(uni, diff, pl, state, now_ts, ttl_h=26, oracle=None):
+    """Giấy theo nguồn×loại, dùng state sẵn có (refresh-sources) cho thế hệ/lần đạt cuối. Thế hệ chỉ tăng khi đọc trọn + kế hoạch ghi hết + oracle khớp."""
+    gate = pl.get("retire_gate") or {}
+    cells, fam_cls = {}, {}
+    for n in uni["nodes"].values():
+        fam_cls.setdefault(n["p"]["family"], set()).add(n["p"]["cls"])
+    for f, s in sorted(uni["sources"].items()):
+        o = (diff.get("families") or {}).get(f) or {}
+        held = sorted(k for k in gate.get("held", {}) if k.split("|")[0] == f)
+        if s["status"] != FULL:
+            st, why = PARTIAL, s.get("why")
+        elif pl.get("problems"):
+            st, why = PARTIAL, "PLAN_PROBLEM %s" % pl["problems"][0]
+        elif held:
+            st, why = PARTIAL, gate["held"][held[0]]
+        elif pl.get("quota_left"):
+            st, why = PARTIAL, "QUOTA_RESUME %d" % pl["quota_left"]
+        elif f != "github" and not o.get("ok"):
+            st, why = PARTIAL, "ORACLE_MISMATCH"
+        elif (oracle or {}).get(f) and not oracle[f].get("ok"):
+            st, why = PARTIAL, "ORACLE_NOT_CONFIRMED %s" % (oracle[f].get("why"),)
+        else:
+            st, why = FULL, None
+        rec = state.setdefault(f, {"generation": 0, "last_success": None})
+        if st == FULL:
+            rec.update(generation=rec["generation"] + 1, last_success=now_ts)
+        elif rec["last_success"] is not None and now_ts - rec["last_success"] > ttl_h * 3600:
+            st, why = STALE, "LAST_SUCCESS_OLDER_THAN_%dH" % ttl_h
+        cells[f] = {"status": st, "why": why, "classes": sorted(fam_cls.get(f, ())), "generation": rec["generation"], "last_success": rec["last_success"]}
+    ev = {}
+    for e in uni["edges"].values():
+        ev[e["p"]["evidence"]] = ev.get(e["p"]["evidence"], 0) + 1
+    return {"cells": cells, "gaps": uni["gaps"], "edge_evidence": ev, "alerts": gate.get("alerts", []),
+            "actionability": "ACTION_SAFE_IN_SCOPE" if all(c["status"] == FULL for c in cells.values()) and not uni["gaps"] else "NOT_ACTION_SAFE"}
+
+
+# R7 CHỈ THIẾT KẾ, tắt mặc định, chưa nối vào graph-refresh: Graph là chỉ mục suy từ nguồn nên chỉ các cổng thuộc chính nó mới được bỏ lượt. Owner quyết.
+GATE_SCOPED = {"khoa_rieng", "vps_ghi", "ram", "dia", "neo4j", "tien_trinh_ghi", "stop", "guard_graph"}
+
+
+def gate_decision(bad, r7=False):
+    relevant = set(bad) & GATE_SCOPED if r7 else set(bad)
+    return {"decision": "SKIP" if relevant else "GO", "blocking": sorted(relevant), "ignored": sorted(set(bad) - relevant)}
+
+
 # =========================================================================== so khác với Graph (chỉ đọc)
 def _ident(p):
     return {k: v for k, v in (p or {}).items() if k not in VOLATILE}
@@ -355,8 +759,45 @@ def graph_keys(g, pw, keys):
     return out
 
 
-def plan(g, pw, lane, nodes, edges, caps, used, extra_check=None):
-    """Kế hoạch cộng-thêm ⇒ dict (create/set/stale/problems/F/I). used = {nodes, edges} đã tạo cộng dồn của pilot (trần toàn C1-D)."""
+def retire_plan(lane, gn, ge, nodes, edges, other, native):
+    """C1-D2 R3: phần stale CHỨNG MINH được là đã mất ⇒ (nút retire [{k, old}], cạnh retire [{key, old}], lý do giữ stale). native = báo cáo
+    bộ đọc gốc của lượt (desired_*); thiếu ⇒ không retire gì."""
+    if lane == NATIVE_LANE:
+        return retire_native(gn, ge, nodes, edges, native or {})
+    rule = RETIRE.get(lane)
+    if not rule or not isinstance(native, dict) or "retire_proof" not in native:
+        return [], [], "lane/bộ đọc không chứng minh được vắng mặt"
+    all_ctr = set((native.get("retire_proof") or {}).get("containers_all") or [])
+    amb = {"net:listen:" + a for a in native.get("ambiguous_listeners") or []}
+    lab = lambda k: next((x for x in gn[k][0] if x != "GS"), None)
+    rn = []
+    for k in sorted(k for k in gn if k not in nodes and not is_retired(gn[k][1])):
+        lb = lab(k)
+        if lb not in rule["labels"]:
+            continue
+        if lb == "DockerContainer" and str(gn[k][1].get("id")) in all_ctr:   # còn trong docker ps -a (mẫu tạm bị lọc) ⇒ chưa chứng minh mất
+            continue
+        rn.append({"k": k, "old": gn[k][1], "reader": rule["labels"][lb]})
+    gone = {x["k"] for x in rn}
+    re_ = []
+    for key in sorted(ge):
+        have = ge[key]
+        if key in edges or len(have) != 1 or is_retired(have[0]) or key[1] not in TYPES[lane] or not (key[0] in gn or key[2] in gn):
+            continue
+        if key[0] in gone or key[2] in gone:
+            re_.append({"key": key, "old": have[0], "why": "ENDPOINT_RETIRED"})
+            continue
+        pos = rule["subject"].get(key[1])
+        subj = key[pos] if pos is not None else None
+        # đầu chủ thể còn sống trong lượt đọc trọn này (có trong tập nguồn) và không mơ hồ ⇒ nguồn đã nói đủ cạnh của nó ⇒ cạnh vắng = đã mất
+        if subj and subj in nodes and not (key[1] in rule["listener_types"] and subj in amb):
+            re_.append({"key": key, "old": have[0], "why": "SOURCE_EDGE_ABSENT_SUBJECT_FULLY_READ " + subj})
+    return rn, re_, None
+
+
+def plan(g, pw, lane, nodes, edges, caps, used=None, extra_check=None, native=None):
+    """Kế hoạch ⇒ dict (create/set/retire/stale/problems/F/I). caps = quota MỖI LƯỢT {nodes, edges}: phần dư để lượt sau (cap_bound_partial), không
+    trần cộng dồn; used giữ chữ ký cũ, không còn dùng. native = báo cáo bộ đọc gốc (desired_*) — C1-D2 R3 chỉ retire khi báo cáo chứng minh vắng mặt."""
     layer = LAYER[lane]
     gn, ge = graph_layer(g, pw, layer)
     other = graph_keys(g, pw, {k for k in nodes if k not in gn} | {x for e in edges for x in (e[0], e[2]) if x not in gn and x not in nodes})
@@ -386,48 +827,65 @@ def plan(g, pw, lane, nodes, edges, caps, used, extra_check=None):
             create_e.append(e)
         elif _ident(have[0]) != _ident(e["p"]):
             set_e.append({"key": key, "new": e["p"], "old": have[0]})
-    if missing_end:
+    if missing_end and lane != NATIVE_LANE:     # lane native: nguồn có cạnh treo (194 quyền trỏ collection vắng) ⇒ GAP, không chặn cả lượt
         problems.append("EDGE_ENDPOINT_MISSING %d (vd %s)" % (len(missing_end), missing_end[0]))
     mine = set(gn) | {n["p"]["gs_key"] for n in create_n}
     outside = [e for e in create_e + [x["new"] for x in set_e] if isinstance(e, dict) and "s" in e and e["s"] not in mine and e["d"] not in mine]
     if outside:                                  # cạnh lane phải chạm ít nhất một nút của lane (không tạo quan hệ giữa hai lớp khác)
         problems.append("EDGE_OUTSIDE_LANE %d" % len(outside))
-    stale_n = sorted(k for k in gn if k not in nodes)
     lane_t = TYPES[lane]
-    stale_e = sorted("|".join(k) for k in ge if k not in edges and k[1] in lane_t and (k[0] in gn or k[2] in gn))
-    cap_partial = False
-    room_n = max(int(caps.get("nodes", 0)) - int(used.get("nodes", 0)), 0)
-    room_e = max(int(caps.get("edges", 0)) - int(used.get("edges", 0)), 0)
-    if len(create_n) > room_n or len(create_e) > room_e:      # lấy mẫu tất định theo băm khoá ổn định; phần dư KHÔNG ghi
-        cap_partial = True
-        create_n = sorted(create_n, key=lambda n: sha16(n["p"]["gs_key"]))[:room_n]
-        ok_keys = set(gn) | set(other) | {n["p"]["gs_key"] for n in create_n}
-        create_e = [e for e in sorted(create_e, key=lambda e: e["p"]["gs_edge_key"]) if e["s"] in ok_keys and e["d"] in ok_keys][:room_e]
+    retire_n, retire_e, retire_why = retire_plan(lane, gn, ge, nodes, edges, other, native) if not problems else ([], [], "kế hoạch có vấn đề")
+    rk, rek = {x["k"] for x in retire_n}, {x["key"] for x in retire_e}
+    old_ret_n = sorted(k for k in gn if k not in nodes and is_retired(gn[k][1]))
+    old_ret_e = sorted("|".join(k) for k in ge if k not in edges and k[1] in lane_t and ge[k] and all(is_retired(p) for p in ge[k]))
+    stale_n = sorted(k for k in gn if k not in nodes and k not in rk and not is_retired(gn[k][1]))
+    stale_e = sorted("|".join(k) for k in ge if k not in edges and k[1] in lane_t and (k[0] in gn or k[2] in gn) and k not in rek
+                     and not (ge[k] and all(is_retired(p) for p in ge[k])))
+    room_n, room_e = int(caps.get("nodes", 0)), int(caps.get("edges", 0))
+    n_before = len(create_n) + len(set_n) + len(retire_n) + len(create_e) + len(set_e) + len(retire_e)
+    create_n = sorted(create_n, key=lambda n: sha16(n["p"]["gs_key"]))[:room_n]     # thứ tự tất định; phần dư KHÔNG ghi, lượt sau tự bắt kịp
+    set_n = set_n[:max(room_n - len(create_n), 0)]
+    retire_n = retire_n[:max(room_n - len(create_n) - len(set_n), 0)]
+    ok_keys = set(gn) | set(other) | {n["p"]["gs_key"] for n in create_n}
+    create_e = [e for e in sorted(create_e, key=lambda e: e["p"]["gs_edge_key"]) if e["s"] in ok_keys and e["d"] in ok_keys][:room_e]
+    set_e = set_e[:max(room_e - len(create_e), 0)]
+    retire_e = retire_e[:max(room_e - len(create_e) - len(set_e), 0)]
+    quota_left = n_before - (len(create_n) + len(set_n) + len(retire_n) + len(create_e) + len(set_e) + len(retire_e))
+    cap_partial = quota_left > 0
     if extra_check:
         problems += extra_check(gn, other)
     ck = sorted(n["p"]["gs_key"] for n in create_n)
     ek = sorted(e["p"]["gs_edge_key"] for e in create_e)
-    F, I = statements(create_n, set_n, create_e, set_e, ck, ek)
+    ret = {"gs_status": RETIRED, "retired_at": now_iso(), "retired_by": "graph-refresh " + lane}
+    for x in retire_n:
+        x["ret"] = dict(ret, retired_reason="SOURCE_ABSENT_FULL_READ " + x["reader"])
+    for x in retire_e:
+        x["ret"] = dict(ret, retired_reason=x["why"])
+    F, I = statements(create_n, set_n, create_e, set_e, ck, ek, retire_n, retire_e)
     out = {"lane": lane, "layer": layer, "at": now_iso(), "create_nodes": create_n, "set_nodes": set_n, "create_edges": create_e, "set_edges": set_e,
+           "retire_nodes": retire_n, "retire_edges": retire_e, "retire_hold_why": retire_why,
            "reuse_nodes": reuse, "stale_nodes": stale_n, "stale_edges": stale_e, "created_keys": ck, "created_edge_keys": ek, "problems": problems,
-           "cap_bound_partial": cap_partial, "caps": caps, "used_before": used,
+           "cap_bound_partial": cap_partial, "caps": caps, "quota_left": quota_left, "edges_missing_end": len(missing_end),
+           "retire_gate": ((native or {}).get("retire_gate") or {"held": {"*": "PLAN_PROBLEM"}, "alerts": [], "large_drop_proof": {}, "human_hold": []}) if lane == NATIVE_LANE else None,
            "counts": {"nodes_add": len(create_n), "edges_add": len(create_e), "nodes_set": len(set_n), "edges_set": len(set_e), "nodes_delete": 0,
-                      "edges_delete": 0, "stale_nodes": len(stale_n), "stale_edges": len(stale_e), "reused": len(reuse)},
+                      "edges_delete": 0, "nodes_retire": len(retire_n), "edges_retire": len(retire_e), "already_retired_nodes": len(old_ret_n),
+                      "already_retired_edges": len(old_ret_e), "stale_nodes": len(stale_n), "stale_edges": len(stale_e), "reused": len(reuse)},
            "F": F, "I": I}
-    out["sha256"] = hashlib.sha256(json.dumps({k: out[k] for k in ("create_nodes", "set_nodes", "create_edges", "set_edges")}, sort_keys=True,
-                                              ensure_ascii=False, default=str).encode()).hexdigest()
+    out["sha256"] = hashlib.sha256(json.dumps({k: out[k] for k in ("create_nodes", "set_nodes", "create_edges", "set_edges", "retire_nodes", "retire_edges")},
+                                              sort_keys=True, ensure_ascii=False, default=str).encode()).hexdigest()
     # vân tay DANH TÍNH của kế hoạch (bỏ thuộc tính dễ đổi: snapshot_utc/run/…) — dùng kiểm «nguồn đổi giữa lượt»: đọc lại nguồn chỉ khác dấu
     # giờ chụp ⇒ cùng vân tay; đối tượng/cạnh/thuộc tính danh tính đổi ⇒ khác ⇒ dừng trước ghi
     out["ident_sha256"] = hashlib.sha256(json.dumps({"n": sorted([n["p"]["gs_key"], _ident(n["p"])] for n in create_n),
                                                      "sn": sorted([x["k"], _ident(x["new"])] for x in set_n),
                                                      "e": sorted([e["s"], e["t"], e["d"], _ident(e["p"])] for e in create_e),
-                                                     "se": sorted([list(x["key"]), _ident(x["new"])] for x in set_e)},
+                                                     "se": sorted([list(x["key"]), _ident(x["new"])] for x in set_e),
+                                                     "rn": sorted(x["k"] for x in retire_n), "re": sorted(list(x["key"]) for x in retire_e)},
                                                     sort_keys=True, ensure_ascii=False, default=str).encode()).hexdigest()
-    out["empty"] = not (create_n or set_n or create_e or set_e)
+    out["empty"] = not (create_n or set_n or create_e or set_e or retire_n or retire_e)
     return out
 
 
-def statements(create_n, set_n, create_e, set_e, ck, ek):
+def statements(create_n, set_n, create_e, set_e, ck, ek, retire_n=(), retire_e=()):
     F, I = [], []
     by = {}
     for n in create_n:
@@ -449,6 +907,17 @@ def statements(create_n, set_n, create_e, set_e, ck, ek):
         s, t, d = x["key"]
         F.append(("MATCH (a:GS {gs_key: $s})-[x:`%s`]->(b:GS {gs_key: $d}) SET x = $p" % t.replace("`", ""), {"s": s, "d": d, "p": x["new"]}))
         I.append(("MATCH (a:GS {gs_key: $s})-[x:`%s`]->(b:GS {gs_key: $d}) SET x = $p" % t.replace("`", ""), {"s": s, "d": d, "p": x["old"]}))
+    if retire_n:                                   # C1-D2 R3: đánh dấu thuộc tính, KHÔNG xoá/đổi nhãn; I đặt lại nguyên thuộc tính cũ
+        F.append(("UNWIND $rows AS r MATCH (n:GS {gs_key: r.k}) SET n += r.ret", {"rows": [{"k": x["k"], "ret": x["ret"]} for x in retire_n]}))
+    rt = {}
+    for x in retire_e:
+        rt.setdefault(x["key"][1], []).append(x)
+    for t, xs in sorted(rt.items()):
+        cy = "UNWIND $rows AS r MATCH (a:GS {gs_key: r.s})-[x:`%s`]->(b:GS {gs_key: r.d}) SET x %s r.%s" % (t.replace("`", ""), "%s", "%s")
+        F.append((cy % ("+=", "ret"), {"rows": [{"s": x["key"][0], "d": x["key"][2], "ret": x["ret"]} for x in xs]}))
+        I.append((cy % ("=", "p"), {"rows": [{"s": x["key"][0], "d": x["key"][2], "p": x["old"]} for x in xs]}))
+    if retire_n:
+        I.append(("UNWIND $rows AS r MATCH (n:GS {gs_key: r.k}) SET n = r.p", {"rows": [{"k": x["k"], "p": x["old"]} for x in retire_n]}))
     if ek:
         I.insert(0, ("MATCH (:GS)-[x]->(:GS) WHERE x.gs_edge_key IN $k DELETE x", {"k": ek}))
     if set_n:
