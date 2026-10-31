@@ -30,6 +30,6 @@ STATUS: HOST_P158_DRAFT · NOT_READY khi HJW RUN25 còn STARTED; PR358 chứa PR
 - C4 automatic overnight không được tô xanh chỉ vì Owner dán lệnh một lần; nếu chỉ Claude CLI sẵn, ghi 1 seat, không giả 3 dev seats.
 
 ## S2 — KQ
-Ghi COLLAB GHM `P158` + Bảng + dòng đầu ROADMAP/README (qua gateway): `AD_MAIN_HAS_RUNNING_CODE=YES` (main ⊇ bản đang chạy; main còn hơn bản chạy các tệp chờ HJW G8 phát hành — HJW S3 và `pg_store.py`) · `WEB_MAIN_EQ_LIVE=YES` (cây `web/` main = `0bc47577` = bản deploy P131, đo lại 1 lệnh) · merge SHA · run ID · link comment. NEXT_TRIGGER=HOST_ACCEPT_S1_THEN_S2_BATCH1.
+Ghi KQ P159 (P158 là quyết định Host, không ghi đè) + Bảng + ROADMAP qua Gateway: `AD_SOURCE_PRESENT_ON_GH=YES_SCOPED`; `AD_MAIN_RUNTIME_BLOB_PARITY=YES|NO|PARTIAL` chỉ theo readback thật; nếu merge #357 có CI xanh, ghi merge SHA và 0 deploy; nếu HJW chọn #358/chưa đủ gate, báo `GHM_S1_HJW_DEPENDENCY` và không giả pass. `WEB_MAIN_EQ_LIVE=YES_SCOPED` chỉ khi đo đúng cây app. Hai phiếu F2 6 ô cần có. NEXT_TRIGGER=F2_BATCH_CODE_WORKERS_READY hoặc đúng blocker HJW. Không đóng toàn task khi C4 chưa nghiệm thu.
 
 Cấm: ghi VPS/SSH ghi, deploy, sửa ruleset/workflow/secret, force-push, xoá nhánh, mở task/PR mới.

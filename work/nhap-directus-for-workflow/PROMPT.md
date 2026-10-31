@@ -5,12 +5,12 @@ EXECUTOR: Claude Code CLI, DOT là actor duy nhất ghi PG/Directus.
 STATUS: OWNER_APPROVED_SCOPE_P119_CONDITIONAL · NOT_READY · KHÔNG ĐƯỢC CHẠY trước khi Host xác minh DROOT60 và ký READY. Owner P120 đồng ý gói bốn phạm vi, không dùng lại READY RUN03.
 SOURCE: NDW P118 · Web PR686/a353b64e0252e667ffd5a3ea0f89119ff86aaa38 · CI41143018991 GREEN auth19/19 · Web main8100ae6fee828c51be6e1ac3a4fd3a7d78b6e6e0.
 
-## Owner cần GO một gói có điều kiện
+## Phạm vi Owner đã GO tại P120 — CHỜ READY và cổng kỹ thuật
 1. DOT tạo MỘT user người thật không admin, không static token, chỉ đọc Reports; Owner tự đặt mật khẩu/đăng nhập /auth/signin, AI không đọc/giữ.
 2. DOT sửa CẢ HAI public Directus policies: v_report_home, v_report_pg, balo_thuc_the chỉ Owner; table_registry giữ đúng 21 dòng công khai, ẩn 7 dòng Reports và view_sql; entity_species và public /knowledge đang dùng giữ nguyên. Không đụng public 163 collection khác.
 3. KST merge đúng HEAD PR686 và deploy Web GitHub main qua ghm-manual-deploy.py Nuxt4 Node24, private env NUXT_REPORTS_OWNER_USER_ID, Guard/lease. Sửa đúng 2 DOT verifiers dot-table-ui-verify và dot-verify-loai-report, kiểm hai callers dot-report-publish/dot-list-publish; thêm 2 Kuma checks phát hiện anonymous đọc Reports, receipt và rollback.
 4. Cho phép tạm dừng CHỈ NONCORE đã biết, idle, whitelisted và phục hồi cùng lượt nếu RAM thiếu; không dừng core/Graph queue. T3 VPS code lock vẫn HOÃN. Không mua license hay tạo tài khoản GitHub/repo/task khác.
-**Trước khi Owner GO rõ ràng và Host ký READY full SHA, mọi thao tác production đều CẤM.**
+**Owner đã GO phạm vi P119 tại COLLAB P120, nhưng Host chưa ký READY vì thiếu bằng chứng DROOT60; mọi thao tác production vẫn CẤM cho đến khi READY hợp lệ và S0 an toàn.**
 
 ## DROOT60 — không để executor dừng ngay ở S0
 - **Licensing Directus12 — CHƯA ĐO:** Core có thể bỏ qua custom row/field filter; phải xác minh effective entitlement/feature trước READY; không chỉ nhìn dữ liệu policy. Hai public policies additive: row OR, field union. Phải kiểm thực tế rằng cả hai hết wildcard mở 7 dòng và view_sql. Nếu license không đủ, STOP trước bất kỳ mutation; trình một phương án native/permission hợp lệ, không tự mua license.
