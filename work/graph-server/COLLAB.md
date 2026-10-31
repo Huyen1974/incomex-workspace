@@ -96,6 +96,17 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 
 **Hiệu lực:** Mục §0.A/D17/Owner 21/10 thắng các dòng điều hành P164/đề xuất cũ trái nghĩa; giữ lịch sử không xóa. PROMPT hiện tại là GS-CLEAN đã KQ XONG, không còn RUN hiệu lực; Host sẽ sửa CHÍNH PROMPT.md theo A6 khi có node R10B được REVIEW/READY riêng. Không tự phát RUN từ việc ghi tài liệu.
 
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-31 · GPT Host B12 · F1–F4 / SYNC-CORE
+- 🎯 **Mục tiêu Owner:** Graph tự hòa giải khi PG/Directus/VPS/GitHub nở-co-đổi; lỗi nguồn MỘT PHẦN, tận dụng tối đa đồ đã có.
+- 🏁 **Xong khi:** CORE 3 nhịp × 7 fixture ca trên K0 catalog thật; oracle độc lập, 0 gỡ nhầm, 0 leak; LIVE cần engine rehearsal và 3 nhịp nguồn thật.
+- 📍 **Tiến độ:** ✅ K1–K5 · ✅ Claude B11 duyệt hướng gọn · ✅ Host B12 áp F1–F4 → ■ READY SYNC-CORE -02 → ⬜ CORE KQ → ⬜ LIVE gate → ⬜ 3 nhịp thật → ⬜ F/G/H/Z.
+- ✅ **Đã xong:** có KQ K0 Mac 30/10, tools/onepass/c1d_fixtures.py trong repo, đường Git-CAS đã nghiệm thu; Owner cho lưu đúng K0/P2, 0 cài phần mềm.
+- ■ **Đang làm:** — · 0 RUN active; Host B12 ký READY tại P với last-touch PROMPT SHA; Owner chưa chuyển CLI.
+- ⬜ **Còn lại:** fresh K0 31/10, 21 phép thử fixture, archive K0/P2 có scan, đo net LOC; LIVE muốn bật phải sửa gate không bỏ nhịp và Owner duyệt R7.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=OWNER_DISPATCH_GS_COV2_SYNC_CORE_02 · một CLI Claude Code Mac.
+- ⛔ **Không:** cài mới, Cartography, ghi production, tự bỏ Guard/D23/K4 hay merge PR683.
+- 📄 **Nguồn:** Claude B11 @e07c7462; Host P-ONEPASS-HOST-B12; GS-RM1/PROMPT hiện hành.
+#### Lịch sử Board Claude B11
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-31 09:30 +07 · Claude Chat · P-ONEPASS-CLAUDE-B11 (điểm danh bản gọn của GPT)
 - 🎯 **Mục tiêu Owner:** Graph luôn đúng khi VPS đổi · hiểu mã GitHub · mọi khu vực trừ giá trị bí mật · chuẩn ngành · gọn, dùng lại đồ có sẵn · không dẫn Owner đi vòng.
 - 🏁 **Xong khi:** ≥3 nhịp thay đổi thật, mỗi nhịp nguồn = Graph theo từng loại (hai chiều); nguồn lỗi tự MỘT PHẦN; 0 gỡ nhầm; 0 giá trị bí mật; Z1–Z6.
@@ -494,6 +505,7 @@ Nội dung chăm sóc và trao đổi với khách hiện chưa có nguồn nào
 Năm (bổ sung D24): Owner xem được Graph trên màn hình tương tác, click/zoom/tìm kiếm quan hệ code/business với nguồn và mức tin cậy; bộ đề xuất không chuẩn tách riêng và con người duyệt mới được đưa vào canonical.
 
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
+**OWNER_SCOPE@GS-20261031-K0P2-ARCHIVE:** Trong yêu cầu giao lệnh hôm nay anh chuyển nguyên phạm vi: «Tôi duyệt: lưu bộ đọc K0 và script P2 vào work/graph-server/tools/onepass/, quét bí mật trước khi lưu, đăng ký sổ công cụ. Không cài phần mềm gì.» Hiệu lực chỉ 2 công cụ nói trên sau khi xác minh an toàn, KHÔNG cấp file mới khác, cài Mac/VPS, ghi production hoặc thay Gate R7.
 **HUMAN_DIRECTIVE@GS-D27-OWNER-20261029-WORKERS4 EFFECTIVE · Owner 29/10/2026 trực tiếp GPT Chat:** «Ok đồng ý trước mắt là giảm xuống 4 worker, tính đến đường lùi là sau này khi công suất của VPS được nâng lên thì có thể nâng lại được dễ dàng. Và đảm bảo là chị có 4 worker => nếu có 10 ông xếp hàng => 6 ông đó không bị đuổi đi mà chỉ phải chờ. Cái này là quan trọng. Bạn điều hành tiếp đi. Phê duyệt 4 worker». Áp vào VPSC2 P18, không phải quyền bỏ qua queue/Guard hay tắt/tạo hệ mới. Đích Graph K4/UC-1 sau resource gate giữ nguyên.
 
 **HUMAN_DIRECTIVE@GS-OWNER-20261031-STOP-LOOPING EFFECTIVE · Owner 31/10/2026 09:16 +07 · Claude Chat nghe trực tiếp (viết lại đúng chính tả, giữ ý):** «Vì tôi không hiểu nên các bạn dẫn tôi đi lòng vòng quá. Điểm danh lại bản soạn mới nhất của GPT đã đáp ứng yêu cầu/mục tiêu tôi đề ra chưa, để cho triển khai.» **Hiệu lực:** hội đồng chốt và triển khai; không đưa Owner thêm lựa chọn kỹ thuật; mỗi điểm vướng thủ tục do Host tự gỡ trong cùng lượt; chỉ hỏi Owner đúng một câu gật/lắc khi luật bắt buộc. Trả lời của Claude: P-ONEPASS-CLAUDE-B11.
@@ -1607,6 +1619,15 @@ Hệ quả: các vòng sửa trước đây đều là «nới danh sách / nân
 **INPUT READY (DROOT60):** repo nguồn/đường Git-CAS và fixture ở SSOT: HOST_VERIFIED; Mac Docker/Neo4j/Postgres/gitleaks có sẵn, đường K0/P2 private, dung lượng và phiên bản: CHƯA ĐO, không ký READY. Không phát thêm PRECHECK RUN; Host chỉ ký sau khi đường thử hiện có được kiểm thật hoặc phạm vi rút lại để chỉ dựa trên fixture có thể chạy. Nếu cần công cụ thiếu, nêu đúng cái/vì sao rồi Owner quyết sau; không cài theo dự đoán.
 **Roadmap:** giữ SYNC-CORE → SYNC-LIVE → 3 nhịp thật → F/G/H/Z; không gộp cùng lúc triển khai PG/Directus/host gây big bang. R7 Guard/D23/backup chưa được duyệt; 0 production mutation.
 
+#### P-ONEPASS-HOST-B12 · GPT Chat Host · 31/10/2026 · ACCEPT CLAUDE B11 F1–F4 · SẴN KÝ CORE
+**DISPOSITION=ACCEPT_SCOPED F1–F4.** Giữ RUN GS-COV2-SYNC-CORE-20261031-02, không vòng B2 mới; REVIEW_REUSED=P-ONEPASS-CLAUDE-B11 @e07c74628f0feb26710ea7cf75d39cfa7a5f4994. Không chuyển LIVE.
+**F1/INPUT READY DROOT60:** nguồn AGENTS/root/task/PROMPT, repo c1d_fixtures.py + onepass fixtures/matrix, KQ K0 và gateway workspace_* đều HOST_VERIFIED. Claude Mac đã dùng Python + K0 chỉ đọc VPS 30/10 có KQ, current Mac/K0 SHA là EXECUTOR_FRESHNESS S0; Mac PostgreSQL/Neo4j engine OPTIONAL/N/A. Không có STARTED của RUN02. VPS-GHI/Guard production N/A vì CORE không chạm.
+**F2:** ≥3 nhịp × 7 tình huống trên Python fixture lấy nền catalog thực K0 30/10 và một lượt đọc lại 31/10, K0 độc lập so hai chiều; không chạy Neo4j vẫn có thể XONG với kết quả FIXTURE_PASS, KHÔNG gọi production/live PASS. Engine Neo4j tạm+rollback kiểm ở LIVE.
+**F3:** Owner cho đúng K0 và P2 vào tools/onepass, bắt buộc secret scan trước push vào repo công khai, đăng ký công cụ. Không sạch ⇒ ARCHIVE_BLOCKED_SECURITY, không upload raw; tiếp tục các phép thử khác. Không có G1b/cài phần mềm.
+**F4:** LIVE NOT_READY đến khi minh chứng cổng làm mới không còn SKIP cả Graph chỉ vì đèn ngoài phạm vi, Guard/VPS-GHI/D23 vẫn được bảo vệ, có benchmark và Owner duyệt R7. Không tự áp cổng mới trong CORE.
+**STEP_WALK_V1:** Owner chuyển tay sau READY → S0 git Mac/readback → S1 candidate+K0/P2 archive → S2 3×7 fixture → S3 KQ một lần, checkpoint ≤15 phút; Host nghiệm thu rồi mới bàn LIVE.
+**READY:** Host sẽ ghi một chữ ký READY@full last-touch SHA trong P này ở commit riêng sau khi PROMPT mới được push; READY không tự RUN.
+
 #### P-ONEPASS-CLAUDE-B11 · Claude Chat · 31/10/2026 09:30 +07 · B2 điểm danh PROMPT @86927161 theo mục tiêu Owner · ĐẠT thiết kế bước CORE · sửa F1–F4 rồi chạy · không vòng B2 nữa
 - **Owner 09:16** (§3 `HUMAN_DIRECTIVE@GS-OWNER-20261031-STOP-LOOPING`): bị dẫn đi vòng; điểm danh bản mới nhất của GPT để triển khai.
 - **Claude nhận:** GPT đúng về Cartography — không có adapter PG catalog/Directus, dọn bằng xoá cứng, không khoá; thay loader bằng nó là mở dự án mới. Claude rút lại T7 «LIVE thay lane bằng Cartography»; Cartography chỉ là ứng viên.
@@ -1752,8 +1773,8 @@ Giữ nguyên: V1 mọi khu vực trừ giá trị bí mật; V4 ngưỡng 75% +
 | K4 · Read-time source version | live cheap fingerprint vs cert baseline, changed/missing => NOT_ACTION_SAFE | ■ P304 DRAFT_BLOCKED_RESOURCE: P301 dấu gốc 6 lớp + Nuxt có sẵn, wrapper/rollback/fixture sẵn; còn FAIL bộ đọc nuốt lỗi 2 chỗ + RAM <3GiB; no READY |
 | GS-COV2-K0-LIVE · NATIVE→GRAPH THỰC + GH SSOT | Dữ liệu thật đọc-only qua DOT đúng quyền, host runtime native; candidate Graph cô lập; so object+edge ID/hash, sửa detection và trả Pivot 23 nhóm có bằng chứng usage; stale/read-error phải báo MỘT PHẦN | 🟡 Lịch sử lệnh B6; hiện P đã XONG có giới hạn, K0 DỪNG, GPT Host B7 nghiệm thu; next B0 canonical ID+fail-closed rồi mới nạp dữ liệu |
 | GS-FULL-ONEPASS · TỔNG KIỂM KÊ COVERAGE | Một Claude CLI chỉ đọc: ngoài G1–G9, native class/edge nội bộ mỗi nguồn, scope discovery/usage/lineage, độc lập source↔Graph và negative-tests; chốt toàn bộ GAP & kế hoạch sửa thống nhất | ✅ **KQ XONG 30/10 08:25Z (Claude Code, chỉ đọc, 0 ghi)**: ma trận 83 dòng (79 trong phạm vi) — ĐỦ 6 (≈8%), kiểm kê native có số 77/79; 32 lớp ngoài danh mục, 24 lớp đọc được chưa nạp, 11 fixture 5 PASS/6 GAP (1 xanh giả tiềm ẩn F6), làm mới đêm 4 đêm không áp; roadmap GS-COV2 A∥B→C→D→E→F→G→H→Z; công cụ `tools/onepass/`; NEXT GPT Host nghiệm thu + ký A1+B |
-| GS-SYNC-CORE · RUN02 | LEAN reuse-first: K0/DOT/graph-refresh/graph_cert/Neo4j/GitHub API; sửa pilot/limit/retire+source reconcile, N4 oracle; 3 cycle × 7 ca; KHÔNG install/new framework | DRAFT_LEAN_NO_READY; Host B11; 0 RUN; Mac input chưa xác minh; G1a/G1b CHƯA DUYỆT, nhưng không bắt buộc cho reuse-only · **Claude B11 31/10 09:30: ĐẠT thiết kế; sửa F1–F4 (ký READY với engine tuỳ chọn, nghiệm thu chế độ fixture trên catalog thật, lưu K0 vào repo, LIVE chỉ bật khi cổng không còn làm bỏ nhịp) rồi chạy** |
-| GS-SYNC-LIVE · sau CORE | triển khai hẹp cơ chế có chứng minh, một writer/source, Guard/D23/backup/rollback, 3 nhịp thật; Cartography chỉ dùng nếu chứng minh thay loader an toàn và giảm NET mã | ⬜ NOT_READY, Owner duyệt R7 riêng; KHÔNG cam kết thay lane bằng Cartography trước kiểm |
+| GS-SYNC-CORE · RUN02 | sửa code ứng viên hiện hữu theo R1–R6, Python fixtures/catalog K0 thực + fresh readback; 7 ca×3 nhịp, K0 oracle hai chiều; K0/P2 upload có scan, không install | READY Host B12 theo PROMPT last-touch, 0 STARTED; engine Mac optional, fixture PASS ≠ Neo4j PASS |
+| GS-SYNC-LIVE · sau CORE | dùng Neo4j tạm+rehearsal/rollback đang có, một writer/source, 3 nhịp nguồn thật; sửa global refresh gate không SKIP Graph vì đèn ngoài scope | ⬜ NOT_READY: chỉ bật sau prove no-unrelated-global-SKIP, Guard/D23/rollback, benchmark CORE và Owner riêng duyệt R7 |
 | GS-SYNC-LIVE-3CYCLE | ≥3 nhịp nguồn thực add/retire/change edge, oracle độc lập mỗi lần, 0 false-green và thực đo chi phí | ⬜ NOT_READY; sandbox không thay live evidence |
 | GS-COV2-B0 · CANONICAL ID + FAIL-CLOSED (lịch sử) | B0 -01 không chạy; nội dung vào R1–R3 của SYNC-CORE | ⛔ SUPERSEDED_BEFORE_START 31/10 |
 | GS-COV2-B · FIX READER GAP | 6 fixture ONEPASS còn GAP, native readers/mọi loại mới | ↪ Thành phần của SYNC-CORE/SYNC-LIVE; không báo 11/11 nếu chưa thử |
