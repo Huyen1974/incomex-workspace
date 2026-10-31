@@ -1,0 +1,13 @@
+--- a/.github/workflows/vector-audit.yml
++++ b/.github/workflows/vector-audit.yml
+@@ -56,8 +56,10 @@
+ 
+             echo ""
+             echo "=== Step 2: Detailed Audit ==="
++            DECLARATION='{"declared_actor":"vector-audit","declaration_context":{"origin_environment":"vps","task_id":"vector-audit","command_ref":"RUN-vector-audit-${{ github.run_id }}"}}'
+             AUDIT=$(curl -sf -X POST https://vps.incomexsaigoncorp.vn/api/kb/audit-sync \
+               -H "Content-Type: application/json" \
++              -H "X-Write-Declaration: $DECLARATION" \
+               -H "X-API-Key: $API_KEY" \
+               -d "{\"auto_heal\": $AUTO_HEAL}" 2>/dev/null || echo '{"error":"audit failed"}')
+             echo "$AUDIT" | python3 -m json.tool
