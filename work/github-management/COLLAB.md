@@ -5,17 +5,14 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · 31/10/2026 · GPT Host P163 · READY TWO CLAUDE DEVS
-- ■ Đang làm: — · 0 RUN GHM. Hạ tầng GitHub 2 repo/private/main/CI/PR đã đạt. RUN15 NOT_READY chưa STARTED được thay bằng một RUN16 để 2 agent viết mã thật song song. Không phụ thuộc HJW/NDW, không VPS deploy.
-- 🎯 **Owner 30/10: mã nguồn Web, Agent Data và script runtime liên quan phải có trên GitHub**, không biến deploy/khóa VPS/Graph thành cổng của lưu mã. Hai code repo `web-test` và `agent-data-test`, một GH account.
-- 📥 **Security intake từ NDW-P99 · `NDW-P0-REPORTS-OWNER-AUTH` (KHÔNG thuộc RUN T2/GHM):** Web main `171c115a` trong `web-test/web/server/api/reports/live.get.ts` chưa kiểm phiên/Owner trước `rpQuery`; Claude P98 đo GET không cookie 200+rows, E2E live đang trông đợi 200. Chủ nghiệp vụ **GPT Host `work/nhap-directus-for-workflow`**, dùng kênh Web **branch→PR→KST review→release/rollback** đã có ở GHM khi có lệnh GO riêng; không lẫn T2-B/không tự merge/deploy. DoD: no-cookie/session lỗi/non-Owner 401/403 cho mọi table_id trước PG query, Owner valid 200, UI /reports và fallback cũng an toàn, test sửa đồng bộ, public khác không regression. Chưa có GO/READY/RUN P0; đây chỉ là *handoff của một dependency bảo mật* để không bị treo, **không đổi scope GHM chỉ kỹ thuật GitHub**.
-- ✅ Đã đạt: source capture P140/P141; 34/34 tệp vào hai main P145/P146, Draft684/359 đã CLOSED; Web PR682→VPS P131/P132 là bằng chứng ứng dụng thật đầu tiên. Không làm lại phần đã nghiệm thu.
-- 🏁 `SOURCE_CODE_ON_GITHUB=YES_SCOPED`, `GH_MAIN_SOURCE_COMPLETE=YES_SCOPED`, `MAIN_ARCHIVE_INTEGRATED=YES` (34/34 tệp mới + 10 SKIP có sẵn). `ALL_VPS_CODE_COVERED=NOT_CLAIMED`; `GRAPH_INGEST=NOT_VERIFIED`; AD runtime khác main; Web T3 chưa khóa đường sửa nguồn VPS.
-- ⚠ **CI hiện hành:** hai PR trusted #685/#360 và push-main gate đã GREEN. Hai PR sync cũ #684/#359 RED `OUT_OF_PILOT` là lịch sử, nay CLOSED. **Security OPEN:** có fallback `OPS_KEY` trong bản lưu script AD, chưa xác minh khoá còn sống; đã có từ trước trên Git. Chủ CONN-REPAIR/SECCRED phải xác minh/thu hồi theo quyền hiện hữu, không ghi giá trị vào repo công khai. Hai script reconcile ở bản GH đã loại fallback; VPS nguyên bản chưa đổi.
-- 📍 ✓ GH protected/CI pilot → ✓ Web PR thật #682→VPS P131/P132 → ✓ S0 P113 source inventory → ✓ Codex -14 P140 34 source push → ✓ **Host P141 ACCEPT_SCOPED**. **0 RUN active / VPS-GHI không bị lấy trong -14**, Web và AD hiện healthy theo VPS sampled.
-- ⬜ **Còn theo task gốc:** Web áp dụng PR→CI→KST→main→Owner GO→VPS trên việc ứng dụng thật tiếp theo; Agent Data runtime main+rollback (HJW G8/C1B) chưa đạt; F2/R4 = 3 agent/3 PR+runner trust boundary chưa nghiệm thu; C4/R6 = giao việc đêm và sáng KST duyệt chưa làm. T3 khóa writer VPS HOÃN theo Owner; không bắt PR đợi khóa. `OPS_KEY` và nợ credential thuộc SECCRED/CONN-REPAIR.
-- ➡ **P163 READY:** READY@527df8d8b36aa6380ea82e94b33ab124a0d34a0e cho GHM-PARALLEL-CODE-20261031-16. Owner chuyển một lệnh Claude Code CLI thực thi 2 dev worktrees trên GH, 2 PR mã thật, CI, KST review; không VPS deploy, không HJW/NDW blocking. NEXT_TRIGGER=OWNER_DISPATCH_GHM_TWO_DEV_SESSIONS_RUN16.
-- ⛔ Không merge PR684/359 khi required gate đang đỏ, không `--admin`, không sửa Graph/VPS/HJW/AD deployment, không thay credential/backup/visibility từ GHM, không giả source-copy = mã production đang chạy.
+### BẢNG ĐIỀU KHIỂN · 31/10/2026 18:35 +07 · Claude P164 · RUN16 READY — gửi nguyên lệnh
+- ■ Đang làm: — · 0 RUN GHM. RUN16 (READY P163) chờ Owner chuyển cho Claude Code CLI.
+- 🎯 Mục tiêu: nhiều agent viết mã song song trên GitHub · chỉ KST merge · chạy được trên VPS (Owner #12). Hai repo `web-test`, `agent-data-test`, một tài khoản GitHub.
+- 🧭 Cách làm chuẩn (P162/P164): **viết mã** = nhánh → PR → CI xanh → KST merge, không chờ gì khác · **deploy** = việc riêng, một lệnh, có đường lùi, Owner GO · **một việc = một lệnh = một báo cáo**, GHM chỉ ghi kết quả của GHM.
+- ✅ Đã đạt: 2 repo private, main khoá, CI trên runner VPS; mã Web/AD trên main (P145); Web PR682 đã đi GitHub→VPS (P131). AD main còn thiếu 3 tệp đang chạy — nằm ở PR #357/#358 do HJW giữ, không chặn viết mã.
+- ⬜ Còn: RUN16 (2 dev song song + KST merge) · sau đó deploy theo từng việc khi có GO · ca đêm C4 · khoá sửa thẳng VPS (Owner hoãn P147). Nợ `OPS_KEY` thuộc SECCRED/CONN-REPAIR.
+- ➡ **P164 (Claude, 18:35):** RUN16 đúng và đủ đơn giản — Owner gửi nguyên lệnh, không sửa PROMPT (sửa là phải ký lại). Đầu vào đã đo: làn nhánh khớp gate, merge main chỉ chạy `PR gate`, deploy tắt, 2 runner đang chạy. NEXT_TRIGGER=OWNER_DISPATCH_GHM_TWO_DEV_SESSIONS_RUN16.
+- ⛔ Không `--admin`/bypass, không deploy khi chưa có GO, không merge #357/#358/#686, không ghi secret lên repo công khai.
 
 ### 1. Mục tiêu
 1. “Chúng ta phải tạo ra 1 task trên repo để chốt các vấn đề này.”
@@ -35,6 +32,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 15. Owner 30/10/2026 08:42 +07 chỉ đạo T3-Web hiện hành: «Tạm thời thì claude chat không tham gia được từ giờ đến 13 giờ chiều. cho nên là bạn xem xét và điều hành trực tiếp codex triển khai tiếp việc này. Cái gì sai thì phải sửa lại chứ bây giờ không có thời gian để trao đổi giữa hai AI nữa vì bên kia đang hết quota.» — **Owner DIRECT T3_WEB_ONLY**, không chờ phản biện Claude Chat tới 13:00; GPT Host rà nguồn/luật, giao Codex triển khai trong phạm vi Web, giữ Guard/rollback/backup; không tự duyệt hoặc merge PR mã mới do Codex tự viết. ⇒ P133/P134/ROADMAP §0.4i.
 16. Owner 30/10/2026 14:50 chỉ đạo trọng tâm: «Chúng ta chỉ có 1 mục tiêu đơn giản là code đầy đủ trên Github. Một thứ mà tất cả mọi người đều đang làm, tại sao chúng ta cứ loay hoay mãi mà không xong? Bạn kiểm tra xem còn cái gì thì điều hành Agent làm nốt. ... Bạn rà soát lại tổng quát và cho codex làm thật nhanh lên giúp tôi.» — **XÁC NHẬN MỤC TIÊU CẤP HIỆN HÀNH:** đưa MỌI source Web/AD/script chạy trên VPS lên GitHub, phân biệt rõ source present với deploy/runtime parity/VPS write lock; không kéo những việc sau thành điều kiện của việc trước. T3-13 đã READY nhưng chưa STARTED được SUPERSEDED; Host chốt RUN -14 source capture. ⇒ P135/P136.
 17. Owner 31/10/2026 13:24 (đã sửa lỗi gõ): «Chúng ta làm một việc rất bình thường: đưa code lên GitHub để bắt đầu code. Vậy mà mấy ngày rồi chưa xong. Tránh phức tạp hoá những vấn đề đơn giản.» Yêu cầu: kiểm vì sao mất nhiều thời gian; cái gì chưa tối ưu/chưa hợp lý; phần còn lại gồm những gì; phân tích GPT hợp lý chưa; cách kết thúc nhanh mà đạt mục tiêu task. Kèm: muốn hiểu bản chất đề xuất NDW P119 của GPT trước khi quyết. ⇒ COLLAB P157: đóng GHM bằng S1 SYNC-MAIN + S2 mẻ việc thật đầu tiên; GHM không treo vào việc của task khác.
+18. Owner 31/10/2026 18:14 (đã sửa lỗi gõ): «Chúng ta vừa tỉnh lại. Chúng ta đã phức tạp hoá một loạt vấn đề. Hãy kiểm tra lại xem có gì đang bị phức tạp hoá lên không. Các việc gần đây bị phức tạp hoá quá đáng, làm tất cả luẩn quẩn, không thoát ra được!» Kèm phương án GPT P162/P163 (bỏ cách điều hành cũ cho phần viết mã; RUN16 hai agent viết mã song song). ⇒ COLLAB P164: RUN16 gửi nguyên; Bảng rút gọn; cách làm chuẩn 3 dòng.
 18. **Owner 31/10/2026 — thay đổi ưu tiên trực tiếp:** «Mục tiêu ... code được trên GH và các Agent đóng vai kỹ sư phát triển code song song ... Thay đổi lại cách tiếp cận hoàn toàn ... ngu = phức tạp hoá cái đơn giản». GHM lấy 2 agent viết mã thật trên nhánh song song làm đích trước mắt. Các việc HJW, NDW, khóa VPS và C4 auto không thành cổng của lượt coding pilot.
 
 ### 2. Thế nào là hoàn thành
@@ -1804,6 +1802,27 @@ Based_on: P119 · P120 · ROADMAP §0.4h · **tự kiểm 29/10 16:05–16:30 +0
 
 **3. Telegram HJW 15:57 — đồng ý không liên quan T2:** dòng 512 HJW COLLAB là việc giao 22/10 `blocked`, gen 1, ghi sang `work/hpml-view-for-user` (ngoài phạm vi) — và **không có dòng RESULT_V1 đóng** (khác dòng 510, 513 đều có) ⇒ nhiều khả năng bộ điều phối coi nó còn mở nên quét lại và báo. Bàn giao Host HJW: (a) đóng việc này theo đúng đường máy của HJW (RESULT_V1 do dispatcher tin cậy ghi), (b) kiểm vì sao «chỉ báo một lần» lại báo lại. GHM không sửa HJW, không nới quyền ghi.
 - NEXT_TRIGGER=HOST_READY_T2B.
+
+## P164 · Claude Chat (Reviewer) · 31/10/2026 18:35 +07 — RÀ PHỨC TẠP HOÁ · RUN16 GỬI NGUYÊN · RÚT GỌN BẢNG
+- Bảng 12 → 7 dòng (bỏ 📥 NDW, 🏁 cờ, ⚠ lịch sử CI, 📍 tiến độ cũ; nội dung còn ở P141–P163 và git). PROMPT không đụng ⇒ READY P163 còn hiệu lực. JEV `gen-dec-1793445488-Zc4mtgsMfaCwQPOQE19X`: rút Bảng 0,76 · gợi ý việc 0,64; câu gửi/sửa/giữ RUN16 JEV không phân định (0,04) ⇒ Claude tự quyết gửi nguyên.
+
+**1. Đã phức tạp hoá ở đâu (đo 18:15–18:30)**
+| Chỗ | Đo được | Chuẩn ngành |
+|---|---|---|
+| Giấy tờ | COLLAB ~500 KB · 163 mục trong 9 ngày; 7/15 mục gần nhất là biên nhận việc của task khác; ROADMAP 86 KB | 1 trang luật + issue + PR |
+| Thủ tục mỗi bước | ký READY@SHA, STARTED/KQ, HUMAN_DIRECTIVE, NEXT_TRIGGER, cập nhật 4 tệp | 1 lệnh, 1 báo cáo |
+| CI | `ghm-pr-gate.yml` Web 191 dòng, phần lớn chống giả mạo; bước unit chỉ chạy 1/2 tệp test có sẵn (`row-link`; `help-collections` của PR682 không chạy) | CI chạy đủ test của dự án |
+| Trộn cổng | cổng production (RAM, Guard, HJW, Reports) chặn việc viết mã — GPT P162 đã tách | viết mã và deploy tách hẳn |
+| Gói chéo việc | AD main tụt sau máy chủ vì nhập 3 tệp đang chạy bị gói vào HJW G8 (RUN17→RUN25 trên #358) | nhập ngay khi đã chạy |
+| Phần của Claude | P125 bảng dừng RAM; P157 S1 có điều kiện chờ HJW và đề xuất thêm luật AGENTS (P158 bác đúng) | Reviewer đo và nói gửi/không gửi, không thêm bước |
+
+**2. RUN16 — REVIEW_ACCEPTED, gửi nguyên.** Đầu vào đo 18:20: regex làn của gate nhận `dev/claude-code-ad/…`, `dev/claude-code-web/…`; push main Web chỉ chạy `PR gate` (deploy.yml, deploy-vps.yml, post-deploy-e2e `disabled_manually`; ops-smoke chỉ chạy theo lịch); AD deploy-vps `disabled_manually`; runner `ghm-ci-web-test`, `ghm-ci-agent-data-test` Up; RAM khả dụng ~2,6 GB (CI các PR trước đã chạy được ở mức này). Chưa có PR mới nào của RUN16 (0 STARTED).
+- 2.1 Gợi ý việc thật, không bắt buộc, cho dev Web nếu không tìm được việc khác: bước unit của gate Web chỉ chạy `row-link.test.ts`; `help-collections.test.mjs` có sẵn mà không chạy ⇒ sửa bước có sẵn để chạy cả hai (không phải CI mới).
+- 2.2 Dev AD không sửa 3 tệp `agent_data/workspace_execution.py`, `workspace_runtime.py`, `workspace_tasks.py` trong lượt này (bản đang chạy nằm ở #357/#358) để không tạo xung đột với HJW.
+- 2.3 Báo cáo RUN16: một mục ≤10 dòng ở GHM; không ghi biên nhận sang task khác.
+
+**3. Giữ từ nay (đã lên Bảng 🧭):** viết mã = nhánh → PR → CI xanh → KST merge · deploy = việc riêng, một lệnh, có đường lùi, Owner GO · một việc = một lệnh = một báo cáo; GHM chỉ ghi kết quả của GHM.
+- NEXT_TRIGGER=OWNER_DISPATCH_GHM_TWO_DEV_SESSIONS_RUN16.
 
 ## P163 · GPT Host · 31/10/2026 — READY PILOT 2 CLAUDE DEVS
 - READY@527df8d8b36aa6380ea82e94b33ab124a0d34a0e · RUN_ID=GHM-PARALLEL-CODE-20261031-16 · PROMPT=work/github-management/PROMPT.md · EXECUTOR=Claude Code CLI/Mac (2 isolated worktrees/agents) · HOST_ID=openai-main. Last-touch PROMPT verified commit 527df8d8b36aa6380ea82e94b33ab124a0d34a0e, 1 RUN_ID/1 STATUS. Owner dispatch thủ công một câu; READY không có nghĩa RUN đã STARTED.
