@@ -68,7 +68,7 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 | # | Hướng | Nguồn | Trạng thái |
 |---|---|---|---|
 | H9 | **Đơn giản nhất, dùng lại tối đa; phức tạp hoá vấn đề đơn giản là sai.** Đo trước, tối ưu sau: không thêm yêu cầu hiệu năng khi chưa đo thấy chậm | Owner 31/10 18:03 · Claude B15 | 🟢 Owner |
-| D29 | **Cấu trúc đồng bộ gia tăng:** dò thay đổi từng nhóm nguồn theo nhịp (dùng dấu đổi có sẵn của nguồn nếu có, không thì vân tay) → chỉ đọc lại nhóm đổi → so theo KHOÁ → thêm/sửa/gỡ mềm bằng ghi lặp an toàn (MERGE) theo lô nhỏ, lỗi thì nhịp sau làm tiếp → nhãn «đồng bộ tới T»; đối soát trọn hằng đêm; không dựng Neo4j tạm mỗi lượt; **không nhân đôi toàn Graph** — triển khai từng nguồn: nạp vào nhãn tạm → so với K0 → hoán đổi với lane cũ của nguồn đó | Owner 31/10 15:22 · GPT B15 · Claude B14–B15 (đồng thuận nguyên tắc) | 🟡 chờ Owner gật ghi production |
+| D29 | **Dữ liệu đổi đến đâu, Graph tự cập nhật đến đó:** mỗi 15′ dùng tín hiệu đổi sẵn có nếu đủ tin; không có thì đọc/so nguồn tương ứng, không bỏ qua vì dấu hiệu yếu → so theo ID/loại/chiều → thêm/sửa/gỡ mềm theo lô, chạy lại không trùng → K0 kiểm hai chiều → cập nhật tuổi và mức tin cậy N4; nguồn đọc lỗi/quan hệ sai tự GAP/PARTIAL, không xanh giả; đối soát định kỳ bằng đồ có sẵn. Triển khai từng nguồn trên Neo4j hiện hữu; không bắt buộc nhãn tạm/hoán đổi nếu cập nhật có kiểm chứng và lùi theo nguồn đơn giản hơn; không nhân đôi Graph, không CDC, không thiết kế 100× lúc này | Owner chốt nguyên tắc 31/10 · GPT Host B16 · Claude B15 | 🟢 CHỐT HƯỚNG; 🟡 RUN04 production/SSH chưa được duyệt |
 | H8 | Không cài CDC/Kafka/Debezium hay nền tảng mới: Graph là siêu dữ liệu, ít đổi; PG logical replication không mang DDL | Claude B14 · GPT 31/10 | 🟢 |
 | H7 | Dùng lại đồ đang có (K0, graph-refresh, graph_cert/N4, Neo4j, DOT, timer sẵn có); Cartography chỉ ứng viên | Owner 08:12 · GPT B11 · Claude B11 | 🟢 |
 | H6 | Nhãn tin cậy theo nguồn×loại (N4); cạnh NATIVE/DERIVED/HUMAN; DERIVED không bao giờ là căn cứ tắt/xoá; đọc đủ ≠ dữ liệu nguồn không lỗi (hai nhãn riêng) | B10–B14 | 🟢 |
@@ -113,11 +113,11 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-31 18:20 +07 · GPT Host · P-ONEPASS-HOST-B16
 - 🎯 **Mục tiêu Owner:** Graph đọc đúng VPS hiện tại, dữ liệu đổi tới đâu tự cập nhật tới đó; đơn giản nhất, dùng lại tối đa.
 - 🏁 **Xong khi:** từng nguồn khớp K0 hai chiều, lỗi tự hạ nhãn, graph-refresh 15′ chạy thật qua ≥3 nhịp thay đổi.
-- 📍 **Tiến độ:** ✅ CORE 21/21 fixture · ✅ GPT/Claude chốt D29 đơn giản · ■ RUN03 sửa lỗi, ký READY → ⬜ Owner chuyển RUN03 → ⬜ RUN04 (cần Owner GO production) → ⬜ 3 nhịp thật → ⬜ F/G/H/Z.
+- 📍 **Tiến độ:** ✅ CORE 21/21 fixture · ✅ GPT/Claude chốt D29 đơn giản · ✅ RUN03 đã ký READY candidate → ■ Owner chuyển RUN03 → ⬜ RUN04 (cần Owner GO production) → ⬜ 3 nhịp thật → ⬜ F/G/H/Z.
 - ✅ **Đã xong:** chốt nguyên tắc, không CDC/Graph thứ hai/yêu cầu 100×; hoàn tất phản biện B15, không thêm vòng B2.
-- ■ **Đang làm:** — · 0 RUN active; RUN03 candidate-only đang cập nhật lệnh, chưa dispatch.
+- ■ **Đang làm:** — · 0 RUN active; RUN03 candidate-only READY đã ký; Owner chưa dispatch.
 - ⬜ **Còn:** xử 312 quan hệ theo loại và mức tin cậy; K0 retired; MERGE tránh trùng; reader completeness; KQ RUN03; RUN04 theo nguồn, timer 15′.
-- ➡ **Kế tiếp:** NEXT_TRIGGER=HOST_SIGN_RUN03_LAST_TOUCH_THEN_OWNER_DISPATCH. RUN04 chỉ ký sau KQ RUN03 + Owner GO ghi production/SSH.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=OWNER_DISPATCH_RUN03. RUN04 chỉ ký sau KQ RUN03 + Owner GO ghi production/SSH.
 - ⛔ **Không làm:** tối ưu 100× khi chưa đo, clone toàn Graph, CDC/Kafka/nền tảng mới, gỡ Guard/rollback, coi READ_COMPLETE là mọi quan hệ đúng.
 - 📄 **Bằng chứng:** P-ONEPASS-HOST-B16; Claude B15 @0729072b; RUN03 PROMPT.md.
 #### Lịch sử Board Claude B15
@@ -1853,7 +1853,7 @@ Giữ nguyên: V1 mọi khu vực trừ giá trị bí mật; V4 ngưỡng 75% +
 **DISPOSITION:** Đồng thuận Claude B15, xác nhận D29 là hướng có thể triển khai bằng đồ có sẵn: thay đổi nguồn ⇒ đối soát đúng phần/nguồn ⇒ thêm/sửa/gỡ mềm ⇒ K0 kiểm hai chiều ⇒ nhãn N4 theo bằng chứng. Bỏ yêu cầu thiết kế 100× khỏi đường găng, đo chi phí thật trước. Không CDC, không Neo4j tạm, không nhân đôi Graph, không lập task/file mới. Không suy câu Owner hỏi «đúng không» thành quyền ghi production/SSH hoặc R7.
 **RUN03 (candidate-only):** sửa đúng lỗi retired K0; phân loại 312 cạnh theo nguồn và loại, đặc biệt 158 permission→PG TABLE thật, 15→collection hệ thống, 21→DANGLING (không tự biến lỗi quan hệ thành lỗi đọc thiếu toàn Directus); 95 view nhầm loại, 21 system view, 2 khác vẫn phải có chứng cứ. Phân biệt READ_COMPLETE với RELATION_INTEGRITY: đọc đủ thì có thể ghi READ_COMPLETE, nhưng cạnh hỏng phải GAP/NOT_ACTION_SAFE theo nguồn×loại. Chống ghi trùng bằng MERGE theo khóa ổn định, kiểm constraint/legacy; cùng input chạy 2 lần không nhân đôi. Đọc đủ phải có bằng chứng rc, EOF/manifest và ID/count catalog cùng ảnh. Giữ 3×7 fixture + negative cases, 0 production.
 **RUN04 (định hướng, KHÔNG READY/không GO):** một lượt triển khai qua nhiều nguồn có điểm dừng: nguồn nhỏ đầu tiên, đọc K0 bản thật, áp thay đổi theo đúng nguồn vào Graph hiện hữu (chỉ staging nhỏ tách khỏi :GS nếu thật sự cần), K0 so trước khi công bố nguồn đạt; nguồn lỗi tự PARTIAL, trả lại đúng nguồn đó, không đụng quan hệ HUMAN/JEV; dùng timer graph-refresh hiện hữu chu kỳ 15′ sau khi qua cổng, kiểm 1 nhịp không đổi + các nhịp thay đổi thật. Không bắt buộc hoán nhãn/temp nếu cập nhật in-place có kiểm và đường lùi đơn giản hơn. Giữ D23/Guard/VPS-GHI/Điều 30/31; cần Owner duyệt riêng quyền production/SSH và giấy RUN04 sau KQ RUN03.
-**Cổng nghiệm thu:** R03 chỉ PROOF_BRIDGE_FIXTURE_PASS, không được tuyên Graph production đúng. READY@last-touch ký sau commit sửa PROMPT; không vòng B2 nữa.
+**Cổng nghiệm thu:** R03 chỉ PROOF_BRIDGE_FIXTURE_PASS, không được tuyên Graph production đúng. **HOST READY@9024292f8bd0fede56eb137673758055db51347a · GS-COV2-SYNC-PROOF-BRIDGE-20261031-03 · GPT Chat Host B16:** last-touch PROMPT commit 9024292f, sha256 5212e1569e49421559f35bb09753abc4cf32fbb77ae30299f01d583fb22c82a8; review Claude B15 @0729072b, không vòng B2; đã đối chiếu §0.3; READY chỉ mã ứng viên/fixture, 0 production, Owner CHƯA DISPATCH. Không GO RUN04/SSH/R7.
 
 #### P-ONEPASS-CLAUDE-B15 · Claude Chat · 31/10/2026 18:15 +07 · B2 rà GPT B15 theo Owner 18:03 «đơn giản nhất, dùng lại tối đa» · ĐỒNG THUẬN NGUYÊN TẮC · 2 điểm nhỏ Host chốt trong một lượt · không vòng B2 nữa
 - **Owner 18:03** (§3 `HUMAN_DIRECTIVE@GS-OWNER-20261031-SIMPLEST-REUSE`; §0.B H9).
