@@ -27,7 +27,7 @@ Nguyên văn Owner: «Duyệt G2·TS2 theo P57 cho mục 1, 2, 3: sửa một c�
 **TIÊU CHÍ 0 · DÙNG LẠI 100% (Owner 27/10 10:53 — có hiệu lực, đứng trên mọi kế hoạch của việc này):** mọi thành phần = tính năng có sẵn của **PG 18.6 / Directus 12.4 đang chạy**, hoặc công cụ **đang chạy** (Docker, nginx, Kuma, Git, Graph, khuôn Reports Nuxt). Trình tự bắt buộc: (1) PG làm được? (2) Directus làm được? (3) công cụ đang chạy làm được? (4) chưa được ⇒ **sửa yêu cầu cho vừa** PG/Directus rồi hỏi lại (1)–(3); (5) chỉ khi (4) vẫn không được mới trình Owner viết mã / đưa ra ngoài, kèm dòng «Vì sao không phải PG». **Mặc định: 0 dòng mã mới.** Khung thành hình rồi muốn vẽ thêm gì mới bàn tiếp.
 Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT đang làm host». Codex: thành viên (Host vòng P06–P15). Claude Chat: rà. Các lệnh RUN/production theo quyền Host và Owner.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 31/10/2026 08:58 +07 · Claude Code CLI P117 · STARTED RUN03
+### BẢNG ĐIỀU KHIỂN · cập nhật 31/10/2026 09:15 +07 · Claude Code CLI P118 · KQ RUN03 RELEASE_HOLD
 - 🗂 **P105 B1 HOST ACCEPT_SCOPED P104:** cổng `dot-pg-s4-luat-apply` đã cài, 65 âm/9 dương PASS, smoke `UPDATE 0` COMMIT, S4 0 luật, Guard **559/559 CLEAN**, POST PASS receipt330, VPS-GHI trả. **Ngoại lệ:** POST lần đầu FAIL INV23 vì thiếu 3 code-ledger rows; Agent thêm 3 dòng qua apply-v0 ⇒ POST PASS. Host không giấu lỗi input và mời Claude P106 kiểm checksum/ledger/rollback, chưa tuyên toàn đích đạt.
 - 🔎 **P103 HOST ĐÃ KÝ READY:** G2 Owner P102 đúng `NDW-TS4-S4-LUAT-GATE-20261029-01`; PROMPT last-touch `37037259d08d849d765f38abdd7cd26220ba0104` theo workspace_log; REVIEW_REUSED=P98/P100, DROOT60 INPUT READY TABLE có nguồn. Không phải chạy lại approval. Owner chỉ dán khối `GỬI: Claude Code`; Agent kiểm S0/S1 và không tạo dữ liệu luật thật.
 - 🚪 **P99 HOST CHỐT P98:** đúng 1 DOT hẹp `dot-pg-s4-luat-apply` (reuses `dot-pg-label-apply` + `tach_cau_lenh`), 2 câu được phép, 3 Config Guard targets, smoke UPDATE 0. Cổng DDL cũ giữ nguyên; G2 code/Guard của Owner **chưa có**. P0 Reports không auth là khâu bảo mật ưu tiên có chủ; Web PR khác RUN DOT.
@@ -44,14 +44,14 @@ Host: GPT Chat · Owner 23/10 19:58 «để GPT host nốt», 24/10 07:31 «GPT 
 - 🏁 **KQ PG-A2b đã nghiệm thu theo P85/P86:** 2 VIEW `security_invoker=true`, số/khóa/quan hệ khớp trong phạm vi DB directus, DOT SQL SHA P75 + Config Guard + Điều 30/31 có chứng cứ, 0 thay đổi PG roles/Directus/HTTP. **Chưa hoàn thành đích toàn hệ:** S4 chưa có quyết định Owner, V3 chưa tạo, Graph/`dot_tools` auto-sync chưa chứng minh, Nuxt Owner-only chưa đạt. Không rollback 2 VIEW đang tốt.
 - ✅ Đã xong theo evidence: B0b/TS1/PG-L0/PG-A1, V1/V2 P85/Host P86, S4 một bảng 14 cột/0 luật P96/Host P97, **TS4 DOT hẹp P104 65 âm+9 dương PASS, UPDATE 0, Guard 559/559 receipt330** Host P105 ACCEPT_SCOPED (INV23 metadata cần Claude P106 xác minh). Chưa có luật/V3/P0 Web auth/TS5/Graph/dot_tools/Workflow. Không rerun READY P103.
 - 📍 Tiến độ: [✅ V1/V2/S4/DOT gate TS4 P104] → [■ P105 Host scoped accept + P106 Claude kiểm INV23] → [✅ P0 Web PR686 code/CI/KST P114; □ DOT Owner/ACL/monitor + Owner GO release] → [□ Owner duyệt lô luật đầu + manifest SHA + V3 duy nhất] → [□ TS5 Graph/dot_tools/Workflow].
-- ■ Bước P0 release readiness · RUN03 · executor=Claude Code CLI · STARTED P117 · chỉ đọc + ứng viên mã trên PR686; không merge/deploy/ghi PG-Directus/VPS. Căn cứ: P115 Host ACCEPT P114, PR686/a353b64 code-ready, RELEASE_HOLD do identity/ACL/monitor chưa chứng minh.
+- ■ — · 0 RUN active · KQ RUN03 P118: CODE_READY=YES (giữ PR686 a353b64, 0 commit mới) · IDENTITY/ACL/MONITOR=NO · RELEASE_HOLD. Chưa merge/deploy/ghi gì.
 - 🗂 **Lịch sử lệnh:** PG-A2 P79 DỪNG → P81/P83/P84 PG-A2b phương án D → P85 V1V2 XONG; P89/P91 S4 một bảng → P94/P95 được phép/READY → P96 thực thi và trả cờ → Host P97 ACCEPT; **không còn RUN READY chờ chuyển** trong NDW. P98 Claude chỉ review DOC/code RO, Host mới dự thảo RUN TS4 sau nhận xét.
 - 😊 **Owner không cần duyệt lại TS4 hay dán lệnh Claude Code CLI.** Bây giờ chỉ chuyển cho **Claude Chat Reviewer** ý kiến P105 để ghi P106 trên repo (chỉ đọc/phản biện). Host chốt RUN kế tiếp sau P106, ưu tiên xử lý P0 Web auth nếu đồng thuận, rồi mới trình GO code-only riêng; không tự chạy production.
 - ⬜ **Còn:** kiểm ngoại lệ INV23 code-ledger 3 dòng/rollback; P0 P114 code/CI/KST đạt, còn Owner binding/200 thật, ACL/bypass Directus/pivot, PG-driven monitor và Owner SPA/refresh/GO release; Owner duyệt lô luật 1 và V3 một VIEW dùng chung (regex DB prefix, overlap/OID/cha/action-scope/perf), TS5 Graph/dot_tools freshness, Workflow. F1 ACL/F2 Git DOT không tự dọn; mọi Guard executable mới cần input ledger INV23.
 - ✅ P17 · 24/10 · Owner bổ sung: chỉ sửa trong Directus không sửa HTML; làm MOW 001 xong làm tiếp 002–035, thêm MMOW 008/009; B0 rà các table PG hiện hữu để chọn bảng sẽ dùng; B4 đưa lên production **từng sổ/nhóm đã ổn định** chứ không chờ cả vùng NHÁP. Đã ghi vào roadmap; **chưa chạy kiểm kê PG/Directus, chưa tạo/sửa bảng**.
 - 📜 Lịch sử P16–P38 (chi tiết ở các khối P bên dưới): P16 collection-first · P20 bỏ chữ «thử/test», Host = GPT · P22–P23 B0 ACCEPT/READY · P26–P28 B0b ACCEPT/READY `13a936e4` · P30–P31 hướng PG Tự quản, giữ 4 sổ cũ · P32–P35 PG-native, Cách A/B, Trần · P36–P37 khai tối thiểu, «lần quét cuối» ≠ «lần dùng cuối», `mtime` ≠ lần chạy · P38 thẻ chốt duy nhất §3.TQ · P39 sơ đồ 2A/2B (GPT) · P40 vẽ lại 4 sổ (Owner 15:25).
 - ✅ **P85 KQ Claude Code (nguồn báo cáo):** 2 VIEW OID 296348/296353, V1 16.536, V2 4.566, Guard 554/554, message_id 316; chi tiết/giới hạn tại P85, Host ACCEPT tại P86. Không sử dụng lại READY P84.
-- ➡ **RUN03 đang chạy (P117):** READY@25d55b749d5dfc6f5b75e85bf91617440aa1d384 đã được Owner chuyển lệnh; 🤖 Claude Code CLI làm S0–S4 rồi ghi KQ cùng NEXT_TRIGGER. Host/Reviewer không sửa PROMPT khi chưa có KQ.
+- ➡ 😊 Owner trả lời một câu ở `## Owner cần quyết` (P118). Host nghiệm thu P118, có câu trả lời thì ký READY lượt phát hành duy nhất. NEXT_TRIGGER=OWNER_APPROVES_P118_RELEASE_PACKAGE.
 - ⛔ Không tự ghi Directus/PG, mở quyền, đổi tên/xóa collection trong lượt chỉnh tài liệu này.
 
 📜 **LỊCH SỬ 23/10 — từ đây tới hết khối «Chỉ đạo P06»** (giao diện trang chủ, HTML, vùng NHÁP, diễn tập): không làm theo. Việc hiện hành: BẢNG ĐIỀU KHIỂN + §3.TQ.
@@ -190,6 +190,66 @@ Tiêu chí kiểm chứng do Host cụ thể hóa theo mục tiêu hiện hành;
 - **Không lẫn PG async/queue với OS filesystem:** PostgreSQL có NOTIFY/LISTEN cho **transaction DB** (client lắng nghe), `SELECT .. FOR UPDATE SKIP LOCKED` cho queue bền trong PG, `postgres_fdw` cho dữ liệu DB khác; NOTIFY không tự xảy ra khi tệp host đổi, không tự gọi Telegram. Scheduler `pg_cron` là extension phải đo đã cài/preload trước khi đề xuất; không tự cài. Nếu Owner chỉ cần **mở ra nhìn đúng tức thời** thì không cần watcher/baseline; nếu cần **tự báo thay đổi lúc không ai đọc** thì phải có nhịp kiểm nhỏ hoặc nguồn sự kiện OS; mục tiêu phải phân loại, không giả PG đã làm ngoài quyền.
 - **Scope/Gate:** TS2 cũ P60 KQ DỪNG; TS2R P63 DRAFT writer/3 cột/.path được GIỮ LÀ PHƯƠNG ÁN DỰ PHÒNG TRONG LỊCH SỬ, không áp khi PG-L chưa được đánh giá. Không chạy TS2R a,b,c, không tự chuyển sang fallback trong cùng RUN; nếu PG-L trượt, Host báo lý do thuộc quyền/an toàn/thiếu chức năng và xin một quyết định riêng. PG-A ưu tiên tuyệt đối; GitHub các RUN Owner ưu tiên còn trước.
 - **Nguồn hãng thêm:** https://www.postgresql.org/docs/18/file-fdw.html ; https://www.postgresql.org/docs/18/postgres-fdw.html ; https://docs.docker.com/engine/storage/bind-mounts/ ; https://www.postgresql.org/docs/18/sql-notify.html ; https://www.postgresql.org/docs/18/sql-select.html . Nêu rõ lời giới thiệu của Claude 'PG đọc sống không đồng bộ trễ' đúng với dữ liệu **được truy vấn**, KHÔNG đồng nghĩa đã có detection/notification mọi thay đổi theo thời gian.
+## Owner cần quyết
+- Báo cáo Reports hiện ai cũng đọc được qua Directus, nên riêng cổng Web chưa đủ. Em đề xuất (P118 §S4): tạo một tài khoản chỉ-đọc riêng cho anh/chị xem Reports, đóng quyền công khai đúng 3 bảng chỉ Reports dùng và ẩn dòng Reports ở `table_registry`, rồi merge + phát hành PR686 trong cùng một lượt có đường lùi. Anh/chị đồng ý cả gói này chứ?
+
+## P118 · Claude Code CLI · 31/10/2026 — KQ RUN03 · RELEASE_HOLD
+- Ghế: Claude Code CLI · Bước: P0 release readiness · executor · Based_on `09d34669`. Bảng: khớp. Scope: S0–S4 PROMPT. Chưa đọc: xem «Không đo được».
+- KQ@NDW-P0-RELEASE-READINESS-20261031-03 XONG_CÓ_GIỚI_HẠN · 2026-10-31T02:15Z · executor=Claude Code CLI · CODE_READY=YES · IDENTITY_VERIFIED=NO · ACL_VERIFIED=NO · MONITOR_READY=NO · RELEASE_READY=NO · RELEASE_HOLD=YES · 0 merge/deploy, 0 ghi PG/Directus/VPS/Guard/secret, 0 commit PR, không lấy VPS-GHI, 0 tiến trình nền.
+- **Đường đo:** `query_pg` (READ ONLY, `context_pack_readonly`; Host đã nhận cho việc này ở P70/P72/P81, không phải DOT theo nghĩa hẹp, Host xét) · connector `fs_*`/`vps_status` · GET ẩn danh chỉ lấy mã HTTP. Verifier có login/smoke **không chạy**. Mọi số đo ~02:00Z 31/10. Không chép ID/token/dòng dữ liệu. JEV `gen-dec-1793412523-kdugJvt3Yxf9VnCdEpeg` đồng ý cả 4 kết luận RELEASE_HOLD, tài khoản riêng, pivot không chặn, phạm vi ACL (0,96–1,00; chỉ tham khảo, trạng thái đầu vào do em tóm).
+
+**S0.** PR686 OPEN, HEAD a353b64e, base/main 8100ae6f không đổi, CLEAN, gate 41143018991 SUCCESS. 0 STOP/alert/RUN khác.
+
+**S1 · Danh tính (IDENTITY_VERIFIED=NO).**
+- Đúng 1 tài khoản khớp email Owner: active, admin, `provider=default`. **0 phiên (tổng 0)**, truy cập cuối 27/09 ⇒ phiên active = KHÔNG có.
+- Đây cũng là **admin active duy nhất**, tức danh tính máy của DOT (DROOT39; P27 đo `/users/me` 26/10) và có static token. Buộc Reports vào tài khoản này thì: Owner phải cầm mật khẩu admin (trái DROOT39), và ai có token này cũng qua cổng vì PR686 nhận Bearer.
+- Hôm nay 5 user active khác đều là máy (AI Agent 2, machine-transition, tac-admin, tac-agent); 8 suspended; role Agent/Editor/Public 0 user ⇒ **0 người thật ngoài Owner**.
+- 🔴 Vai `context_pack_readonly` (chính `query_pg`), `directus`, `incomex` có quyền SELECT cột `directus_users.token`; cả 14 user đều có token. `directus_sessions.token` thêm `workflow_admin`. Em **không đọc giá trị**; gateway có che đầu ra không = UNKNOWN, cố ý không thử. Ngoài P0, giao chủ bảo mật.
+- Đăng nhập: `/auth/signin` = form Directus (tạo cookie cổng nhận). `/login` = Firebase, không tạo phiên Directus (đọc mã, chưa thử thật).
+
+**S1 · ACL (ACL_VERIFIED=NO — đo được, kết quả là đang mở).** 2 policy public cho đọc 166 mục (235 dòng quyền, 234 không có điều kiện dòng), public chỉ ghi được `web_incomex_inbox` (5 cột). 58 dòng quyền trỏ policy không tồn tại.
+| Nguồn | Ẩn danh | Non-Owner | Ai dùng (grep mã a353b64 + `table_registry`) | Phân loại đề xuất |
+|---|---|---|---|---|
+| `v_report_home` (6), `v_report_pg` (12), `balo_thuc_the` (2.148) | đọc hết, HTTP 200 (đo `v_report_pg`, `balo_thuc_the`) | AI Agent đọc hết; tac-*, machine-transition không | chỉ Reports | **OWNER_ONLY** |
+| `table_registry` (28) | đọc hết kể cả `view_sql`, HTTP 200 | AI Agent đọc hết | 21 dòng cho /knowledge,/admin; 7 dòng Reports; 2 dòng có `view_sql` (0 ngoài Reports) | **TRỘN:** public cho 21 dòng, ẩn 7 dòng + cột `view_sql` |
+| `entity_species` (42) | đọc hết | AI Agent, machine-transition | /knowledge/registries + 4 API | **PUBLIC_CATALOG** (Owner gật trong gói) |
+| `directus_fields` | quyền `{"*"}` | — | SDK | **UNKNOWN**, kiểm khi thử |
+| `directus_relations/collections/users` | không có quyền; `directus_users` đo 403 | — | — | đạt |
+| `/api/directus/*` | như Directus | — | 0 service token | **PASSTHROUGH:** đóng ở nguồn là đóng ở đây; vẫn chuyển mọi method theo quyền người gọi |
+| 3 `/api/registries-pivot/*` | 200 (P114) | — | `fn_registries_pivot_node_substrate`: SQL STABLE, INVOKER, EXECUTE PUBLIC, đọc `meta_catalog`+`pivot_*` — vốn đã public ở Directus | **Không chặn P0**, xử riêng theo GS UC-1 / #683 |
+| Mục khác: `tasks` (10), `task_comments` (186), `ai_discussions` (7), `system_issues` (228.055), `event_outbox` (219.515), `measurement_log` (53.896), `dot_tools` (314), `knowledge_documents` (9.630), `directus_files` (80) | HTTP 200 (đo `tasks`,`ai_discussions`,`system_issues`,`dot_tools`) | — | nhiều mục /knowledge đang dùng | **UNKNOWN**, không khoá trắng; cùng lỗ nhưng ngoài Reports |
+- Dữ liệu cá nhân: `contacts`, `organizations`, `inbox`, `messages` đều 0 dòng. Chỉ quét tên cột và các bảng này, không phải kiểm toán nội dung.
+
+**S2 · Giám sát (MONITOR_READY=NO).**
+| Lớp | Đo được | Kết luận |
+|---|---|---|
+| `measurement_registry` | 142 dòng; **0 trỏ /reports, /api/reports**; `nuxt_api` chỉ `/api/registry/counts`, `/species-summary`, `/api/health`×2, watchdog | Mối lo P114 không xảy ra: PR686 không sinh 401 trong sổ này |
+| Runner PG-driven | `measurement_log` cuối 10/07 22:01Z, 0 dòng trong 30 ngày | **Chết 113 ngày**; 120 «fail» là số cũ |
+| Cron Đ31 | Crash `AGENT_DATA_URL` 11–24/07; từ 24/07 mỗi 6h `FATAL HOLD_INTEGRITY_MONITOR_MACHINE_PERMISSION_GAP`; log cuối 20/10 10:00Z | Không tới được `main.js`. Sau 20/10 = UNKNOWN |
+| Lỗi im lặng | `main.js:135` `error` chỉ đếm, không tạo issue; `:170` exit theo `totalFail` | Lỗi thật, **có từ trước, không do PR686**, không vá trong PR686. Đề xuất: coi `error` là fail, làm cùng lượt sửa quyền `system_issues` |
+| JSON contract | Chỉ dùng khi fallback legacy, mà cron dừng trước đó | Không có hiệu lực hôm nay. Bản chạy thật ở `deploys/web-test`, tách khỏi phát hành Nuxt |
+| Reports thật | `scripts/` 0 tham chiếu; profile bảo vệ chỉ băm tệp | **Không ai canh Reports** |
+| 🔴 **DOT gãy sau phát hành** | `dot-table-ui-verify:85-86,143` curl ẩn danh `/api/reports/live` + SSR, `dot-verify-loai-report:150-151` tương tự. `dot-report-publish:170`, `dot-list-publish:216` gọi verifier này | **Phát hiện mới, P114 chưa có.** Sau PR686 chúng nhận 401 ⇒ publish báo FAIL dù đã ghi. Phải sửa DOT cùng lượt phát hành |
+- Đề xuất canh (R1, có sẵn): 1 đèn Kuma HTTP chấp nhận đúng 401 ở `/api/reports/live?table_id=tbl_report_home`, 200/503 là đỏ; 1 đèn tương tự 403 cho `/items/v_report_pg` ẩn danh. Cần ghi Kuma nên nằm trong gói.
+
+**S3.** Giữ a353b64, **0 commit**: không tìm được lỗi mã mới trong PR. `dot-table-ui-verify` là DOT trên VPS, ngoài repo. `docs/security/reports-owner-auth.md` thiếu mục DOT gãy và tài khoản riêng; không đổi HEAD chỉ vì tài liệu, bản đúng là P118. Không có delta nào cần Host review.
+
+**S4 · Gói phát hành (một lượt, Owner GO mới chạy).**
+1. **Trước cờ:** đo lại phần UNKNOWN dưới đây; RAM ≥ 3,5 GiB (đo nay 3.011 MB, **chưa đủ** để build, swap đầy).
+2. **Tài khoản đọc:** DOT tạo user + role + policy riêng, không admin, không static token, đọc đúng 5 mục Reports + `directus_fields`, thêm đọc chính mình (`id,status,role`) và `directus_roles` (`id,name`). Lý do: `/users/me` của Directus có thể chỉ trả `id` khi thiếu quyền, cổng sẽ 403 (theo trí nhớ về mã Directus, **chưa đo**; phải thử trên bản sao trước). Thiếu DOT tạo user ⇒ viết DOT mới theo R3. Owner tự đặt mật khẩu, AI không giữ.
+3. **Cấu hình:** `NUXT_REPORTS_OWNER_USER_ID` qua `.env`/compose bằng apply-v0, không vào GitHub. Tiền lệ `NUXT_BALO_OPERATOR_ROLE_IDS` cho thấy compose khai từng biến ⇒ phải thêm dòng mapping + tạo lại container Nuxt (việc đổi `.output` không nạp env mới).
+4. **Mã:** KST merge đúng a353b64 sau gate trên main mới nhất ⇒ ghi SHA main ⇒ build đúng SHA (Node 24.21.0/Nuxt 4.5.2) ⇒ `ghm-manual-deploy.py`, cập nhật profile bảo vệ.
+5. **ACL (ngay sau mã, không trước):** gỡ đọc public trên cả 2 policy cho 3 bảng OWNER_ONLY; `table_registry` thêm điều kiện dòng + bỏ `view_sql`. Làm trước thì `/reports` bản cũ gãy. AI Agent giữ hay bỏ: Host quyết ở READY, mặc định giữ vì là máy.
+6. **DOT + canh:** sửa 2 verifier (ẩn danh phải 401; so số dùng khoá máy GSM), thêm 2 đèn Kuma; Guard POST + biên nhận.
+7. **Kiểm live:** ẩn danh/phiên xấu 401 · tài khoản máy không phải Owner 403 · **Owner thật đăng nhập /auth/signin rồi mở /reports, refresh, chuyển trang SPA** · thiếu binding 503 · public (/, /knowledge, /knowledge/registries*, /knowledge/current-tasks, /knowledge/workflows) không đổi · `/directus/items`, `/api/directus/items` 3 bảng 403.
+8. **Lùi, không tái mở lỗ:** ưu tiên tiến: giữ bản mới, xoá binding ⇒ Reports 503, trang khác chạy. Bản mới hỏng cả site: đổi lại artifact cũ (thư mục candidate, cần lease mới) **cùng lúc** chặn `/reports` và `/api/reports/` ở nginx bằng ứng viên apply-v0 dựng sẵn trước cờ. **Không** gọi đó là lùi bảo mật PASS. ACL lùi bằng snapshot quyền trước khi sửa. Tài khoản đọc: suspend, không xoá.
+- Việc chỉ Owner làm được: đồng ý gói, đặt mật khẩu, tự đăng nhập kiểm ở bước 7. Không lập RUN khảo sát thêm.
+- Vì sao không phát hành riêng mã trước: chỉ đóng được đường PG, 5 mục Reports vẫn đọc tự do ở Directus; trong khi `/reports` thành 503 với chính Owner.
+
+**Không đo được (=UNKNOWN, không tô xanh):** crontab root; bản `deploys/web-test` (connector từ chối); danh sách đèn Kuma; mapping env thật của container Nuxt; đặc tả non-Owner thử bằng phiên thật (mới từ bảng quyền, chưa đăng nhập thử); public có áp cho user đã đăng nhập không. `ssh contabo` đọc thẳng bị chế độ quyền của Claude Code chặn; em không tìm đường vòng, xếp vào bước 1 của lượt phát hành. Hôm nay GET ẩn danh `/reports`, `/api/reports/live` vẫn 200 đúng như chưa phát hành; `/api/reports/session` 404.
+
+- NEXT_TRIGGER=OWNER_APPROVES_P118_RELEASE_PACKAGE. Host nghiệm thu rồi ký READY một lượt phát hành; không đổi T3 VPS khoá. Receipt: GHM P155.
+
 ## P117 · Claude Code CLI · 31/10/2026 — STARTED RUN03
 - Ghế: Claude Code CLI · Bước/vòng: P0 release readiness · executor (không phải vòng hội đồng) · Based_on `86927161`.
 - STARTED@NDW-P0-RELEASE-READINESS-20261031-03 2026-10-31T01:58Z · executor=Claude Code CLI · đọc tới `86927161` · READY P116 @25d55b749d5dfc6f5b75e85bf91617440aa1d384 = commit cuối chạm PROMPT (git log) · 0 STARTED/KQ cùng RUN, 0 STOP_REQUESTED/HOLD/COUNCIL_ALERT OPEN, VPS-GHI trống, không lấy cờ vì không ghi VPS · PR686 live OPEN HEAD a353b64e, gate SUCCESS, main 8100ae6f.

@@ -5,7 +5,7 @@ Host: GPT Chat · Host_ID: openai-main · Owner giao 2026-10-26
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là hệ thống chạy được — 2 repo có CI/CD với VPS, máy chạy (runner) đặt trên VPS (= GO DROOT56 cho đúng việc này, qua cổng của PROMPT). Nhiều agent song song làm SAU, trên 2 repo thật. **Owner 27/10/2026 bổ sung ưu tiên cao nhất:** nhanh chóng mở GitHub Branch/PR để Codex và các agent viết mã song song, Claude Code CLI là KST duyệt/merge, deploy thực thi trên VPS; các nợ C1B về rollback Agent Data/audit Web không tiếp tục làm cổng tuần tự của việc *viết mã*; chỉ chặn deploy của dịch vụ bị ảnh hưởng. Đây là thay đổi thứ tự ưu tiên, không tuyên C1B đã PASS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 31/10/2026 · Codex P153 (biên nhận NDW; giữ ACCEPT P147/P148)
+### BẢNG ĐIỀU KHIỂN · cập nhật 31/10/2026 · Claude Code CLI P155 (biên nhận NDW RUN03; giữ ACCEPT P147/P148)
 - ■ Đang làm: — · 0 RUN active · T3-Web: HOÃN KHÓA — TIẾP TỤC VẬN HÀNH THỰC TẾ theo Owner P147. Giữ nghiệm thu P145/P146: main Web8100ae6f 9/9, AD6160f9ad 25/25 và CI GREEN2/2.
 - 🎯 **Owner 30/10: mã nguồn Web, Agent Data và script runtime liên quan phải có trên GitHub**, không biến deploy/khóa VPS/Graph thành cổng của lưu mã. Hai code repo `web-test` và `agent-data-test`, một GH account.
 - 📥 **Security intake từ NDW-P99 · `NDW-P0-REPORTS-OWNER-AUTH` (KHÔNG thuộc RUN T2/GHM):** Web main `171c115a` trong `web-test/web/server/api/reports/live.get.ts` chưa kiểm phiên/Owner trước `rpQuery`; Claude P98 đo GET không cookie 200+rows, E2E live đang trông đợi 200. Chủ nghiệp vụ **GPT Host `work/nhap-directus-for-workflow`**, dùng kênh Web **branch→PR→KST review→release/rollback** đã có ở GHM khi có lệnh GO riêng; không lẫn T2-B/không tự merge/deploy. DoD: no-cookie/session lỗi/non-Owner 401/403 cho mọi table_id trước PG query, Owner valid 200, UI /reports và fallback cũng an toàn, test sửa đồng bộ, public khác không regression. Chưa có GO/READY/RUN P0; đây chỉ là *handoff của một dependency bảo mật* để không bị treo, **không đổi scope GHM chỉ kỹ thuật GitHub**.
@@ -1802,6 +1802,9 @@ Based_on: P119 · P120 · ROADMAP §0.4h · **tự kiểm 29/10 16:05–16:30 +0
 
 **3. Telegram HJW 15:57 — đồng ý không liên quan T2:** dòng 512 HJW COLLAB là việc giao 22/10 `blocked`, gen 1, ghi sang `work/hpml-view-for-user` (ngoài phạm vi) — và **không có dòng RESULT_V1 đóng** (khác dòng 510, 513 đều có) ⇒ nhiều khả năng bộ điều phối coi nó còn mở nên quét lại và báo. Bàn giao Host HJW: (a) đóng việc này theo đúng đường máy của HJW (RESULT_V1 do dispatcher tin cậy ghi), (b) kiểm vì sao «chỉ báo một lần» lại báo lại. GHM không sửa HJW, không nới quyền ghi.
 - NEXT_TRIGGER=HOST_READY_T2B.
+
+## P155 · Claude Code CLI · 31/10/2026 — BIÊN NHẬN NDW RUN03
+- NDW P118 là KQ chính: PR686 giữ a353b64, CODE_READY=YES, RELEASE_HOLD; 0 merge/deploy/ghi VPS. Không mở RUN GHM. Liên quan GHM: lượt phát hành cần RAM ≥ 3,5 GiB (đo 3.011 MB) và đi đúng `ghm-manual-deploy.py`. NEXT_TRIGGER giữ tại NDW.
 
 ## P154 · GPT Host · 31/10/2026 — SWITCH EXECUTOR / P114 ACCEPTED
 - NDW P114 code-ready PR686 HEAD a353b64, CI41143018991 GREEN (auth19/19 trong gate), Claude CLI review; RELEASE_HOLD là đúng vì thiếu bằng chứng real Owner ID/ACL/directus pivot/PG monitor. GHM pipeline hai repo/P145 cùng Web PR682→VPS vẫn đạt; còn AD release/rollback, F2 3 ghế/3 PR và C4 ca đêm; T3 khóa VPS HOÃN.
