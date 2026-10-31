@@ -96,6 +96,16 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 
 **Hiệu lực:** Mục §0.A/D17/Owner 21/10 thắng các dòng điều hành P164/đề xuất cũ trái nghĩa; giữ lịch sử không xóa. PROMPT hiện tại là GS-CLEAN đã KQ XONG, không còn RUN hiệu lực; Host sẽ sửa CHÍNH PROMPT.md theo A6 khi có node R10B được REVIEW/READY riêng. Không tự phát RUN từ việc ghi tài liệu.
 
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-31 09:30 +07 · Claude Chat · P-ONEPASS-CLAUDE-B11 (điểm danh bản gọn của GPT)
+- 🎯 **Mục tiêu Owner:** Graph luôn đúng khi VPS đổi · hiểu mã GitHub · mọi khu vực trừ giá trị bí mật · chuẩn ngành · gọn, dùng lại đồ có sẵn · không dẫn Owner đi vòng.
+- 🏁 **Xong khi:** ≥3 nhịp thay đổi thật, mỗi nhịp nguồn = Graph theo từng loại (hai chiều); nguồn lỗi tự MỘT PHẦN; 0 gỡ nhầm; 0 giá trị bí mật; Z1–Z6.
+- 📍 **Tiến độ:** ✅ Gốc rễ K1–K5 · ✅ Bản lệnh gọn dùng lại đồ có sẵn (GPT B11) · ✅ Claude điểm danh · ■ **GPT sửa F1–F4 + ký READY** → ⬜ Owner chuyển lệnh cho Claude Code → ⬜ SYNC-CORE → ⬜ SYNC-LIVE (Owner quyết cổng) → ⬜ ≥3 nhịp thật → ⬜ F/G/H → ⬜ Z.
+- 🟡 **Kẹt thủ tục:** READY chờ kiểm máy Mac mà không ai kiểm được nếu không chạy; CORE có thể ra DỪNG chỉ vì Mac thiếu engine; bộ đọc K0 vẫn chỉ trên Mac.
+- 🔄 **Đang làm:** — · 0 RUN · bước: GPT áp F1–F4 (P-ONEPASS-CLAUDE-B11), ký READY, không vòng B2.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=GPT_HOST_APPLY_F1_F4_SIGN_READY_THEN_OWNER_DISPATCH.
+- ⛔ **Không:** cài phần mềm mới; thay loader bằng Cartography; ghi production; bật LIVE khi cổng làm mới còn làm bỏ nhịp.
+- 📄 **Bằng chứng:** P-ONEPASS-CLAUDE-B11 · PROMPT @86927161 · P-ONEPASS-HOST-B11.
+#### Lịch sử Board GPT B11
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-31 · GPT Host B11 · LEAN REUSE-FIRST
 - 🎯 **Mục tiêu Owner:** Graph tự đúng khi nguồn thêm/sửa/xóa; bao phủ PG/Directus/host/GitHub, không bỏ âm thầm nguồn; **dùng lại tối đa, ít mã, nhanh và bền**.
 - 🏁 **Xong khi:** theo nhiều nhịp tự hòa giải/kiểm chứng; nguồn lỗi→MỘT PHẦN, không xóa nhầm; 0 leak secret; không có framework thứ hai.
@@ -486,6 +496,8 @@ Năm (bổ sung D24): Owner xem được Graph trên màn hình tương tác, cl
 ### 3. Chi tiết cần đạt (AI ghi, Host kiểm)
 **HUMAN_DIRECTIVE@GS-D27-OWNER-20261029-WORKERS4 EFFECTIVE · Owner 29/10/2026 trực tiếp GPT Chat:** «Ok đồng ý trước mắt là giảm xuống 4 worker, tính đến đường lùi là sau này khi công suất của VPS được nâng lên thì có thể nâng lại được dễ dàng. Và đảm bảo là chị có 4 worker => nếu có 10 ông xếp hàng => 6 ông đó không bị đuổi đi mà chỉ phải chờ. Cái này là quan trọng. Bạn điều hành tiếp đi. Phê duyệt 4 worker». Áp vào VPSC2 P18, không phải quyền bỏ qua queue/Guard hay tắt/tạo hệ mới. Đích Graph K4/UC-1 sau resource gate giữ nguyên.
 
+**HUMAN_DIRECTIVE@GS-OWNER-20261031-STOP-LOOPING EFFECTIVE · Owner 31/10/2026 09:16 +07 · Claude Chat nghe trực tiếp (viết lại đúng chính tả, giữ ý):** «Vì tôi không hiểu nên các bạn dẫn tôi đi lòng vòng quá. Điểm danh lại bản soạn mới nhất của GPT đã đáp ứng yêu cầu/mục tiêu tôi đề ra chưa, để cho triển khai.» **Hiệu lực:** hội đồng chốt và triển khai; không đưa Owner thêm lựa chọn kỹ thuật; mỗi điểm vướng thủ tục do Host tự gỡ trong cùng lượt; chỉ hỏi Owner đúng một câu gật/lắc khi luật bắt buộc. Trả lời của Claude: P-ONEPASS-CLAUDE-B11.
+
 **HUMAN_DIRECTIVE@GS-OWNER-20261031-LEAN-READY-MADE EFFECTIVE · Owner 31/10/2026 08:12 +07 · Claude Chat nghe trực tiếp (viết lại đúng chính tả, giữ ý):** «Phải cân bằng. Chúng ta dùng đồ lắp sẵn, muốn nhanh gọn. Thông tin chính xác nhưng phải gọn. Tránh đưa Graph thành dự án khổng lồ rồi chết giữa đường vì không thể hoàn thành (giống những phần mã chúng ta đang phải vất vả để tắt). Kiểm soát đúng: dùng đồ có sẵn, không tiếp cận theo hướng tự xây dựng một hệ thống. Giải thích luôn phần cần phê duyệt là gì.» **Hiệu lực:** Graph được LẮP từ thành phần có sẵn (lệnh đọc của hãng, Cartography, Neo4j đang chạy); mã tự viết giới hạn ở khai báo loại, cầu nối, bộ so khớp; mọi mở rộng ngoài ngân sách phải dừng và xin Owner. Không làm giảm các yêu cầu 06:22 (luôn đúng, mã GitHub, mọi khu vực trừ bí mật) — đạt chúng ở mức gọn nhất đủ trả lời câu hỏi. Trả lời của Claude: P-ONEPASS-CLAUDE-B10.
 **ĐÍNH CHÍNH HOST B11 về chữ «Cartography ... đang chạy»:** Neo4j đã chạy nhưng Cartography chưa có bằng chứng được cài trong Incomex, không thể coi là đồ sẵn. Ưu tiên loader/reader/N4 đã có; Cartography là phương án thứ hai cần đánh giá lại theo khả năng PG/Directus, hard DELETE mặc định, nguồn GitHub cá nhân và công sức adapter trước khi xin GO. Không sửa lời Owner, chỉ đính chính ý kiến kỹ thuật của Claude.
 
@@ -627,7 +639,8 @@ Executor_Surface: GPT Chat — biên tập hồ sơ.
 Write_Path: Incomex MCP full all 2 → workspace_* → root workspace, main.
 
 ## Dòng hiện hành
-GS | **31/10 08:25 · Claude B10: đồng ý GPT B10, nhưng DRAFT đang phình ⇒ rút gọn T1–T7 theo Owner 08:12 «đồ lắp sẵn, gọn»** (mã GitHub mức 1 bằng module có sẵn; nhãn theo nguồn thay 11 trường/vật; 4 công cụ cài; 7 tình huống thử; ngân sách chống phình; LIVE thay lane tự viết) | DRAFT, chưa READY | NEXT Owner gật G1, GPT rút gọn rồi ký.
+GS | **31/10 09:30 · Claude B11: bản gọn của GPT @86927161 ĐẠT thiết kế bước CORE; còn 2 kẹt thủ tục + bộ đọc K0 chưa lưu repo ⇒ GPT sửa F1–F4, ký READY** | 0 RUN | NEXT GPT ký, Owner chuyển lệnh.
+(Lịch sử Claude B10) GS | **31/10 08:25 · Claude B10: đồng ý GPT B10, nhưng DRAFT đang phình ⇒ rút gọn T1–T7 theo Owner 08:12 «đồ lắp sẵn, gọn»** (mã GitHub mức 1 bằng module có sẵn; nhãn theo nguồn thay 11 trường/vật; 4 công cụ cài; 7 tình huống thử; ngân sách chống phình; LIVE thay lane tự viết) | DRAFT, chưa READY | NEXT Owner gật G1, GPT rút gọn rồi ký.
 (Lịch sử Claude B9) GS | **31/10 06:40 · Claude B9: rà PROMPT SYNC-CORE @63b7fb19 theo từng yêu cầu Owner ⇒ NEEDS_FIX** (thiếu mã GitHub; còn loại trừ ngoài bí mật; tự viết khung thay Cartography/DataHub/SCIP; cấm tệp mới + cấm cài engine ⇒ lượt chạy chắc dừng) | đề nghị không chuyển READY cũ | NEXT Owner gật G1, GPT áp V1–V9 rồi ký lại.
 (Lịch sử Claude B8) GS | **31/10 06:00 · Claude B8: gốc rễ nằm trong thiết kế bộ nạp (danh sách tự chọn, trần cộng dồn, không co, cổng nặng bỏ nhịp, khoá thiếu DB) — đổi sang vòng hoà giải theo danh mục nguồn, tự kiểm mỗi nhịp** | không chạy B0 -01; sửa 6 điểm bản bổ sung GPT | NEXT GPT ký SYNC-CORE (RUN -02).
 (Lịch sử GPT B8) GS | **30/10 · GPT Host B8 kết thúc B3: đồng thuận C1–C5 có 2 chỉnh rào AGENTS/Guard** | Graph N1–N4 chưa ĐỦ; B0 canonical IDs cần full native universe, C4 chỉ thiết kế; Z1–Z6 là đích nghiệm thu | NEXT Owner chuyển RUN GS-COV2-B0 candidate, không ghi production.
@@ -1594,6 +1607,32 @@ Hệ quả: các vòng sửa trước đây đều là «nới danh sách / nân
 **INPUT READY (DROOT60):** repo nguồn/đường Git-CAS và fixture ở SSOT: HOST_VERIFIED; Mac Docker/Neo4j/Postgres/gitleaks có sẵn, đường K0/P2 private, dung lượng và phiên bản: CHƯA ĐO, không ký READY. Không phát thêm PRECHECK RUN; Host chỉ ký sau khi đường thử hiện có được kiểm thật hoặc phạm vi rút lại để chỉ dựa trên fixture có thể chạy. Nếu cần công cụ thiếu, nêu đúng cái/vì sao rồi Owner quyết sau; không cài theo dự đoán.
 **Roadmap:** giữ SYNC-CORE → SYNC-LIVE → 3 nhịp thật → F/G/H/Z; không gộp cùng lúc triển khai PG/Directus/host gây big bang. R7 Guard/D23/backup chưa được duyệt; 0 production mutation.
 
+#### P-ONEPASS-CLAUDE-B11 · Claude Chat · 31/10/2026 09:30 +07 · B2 điểm danh PROMPT @86927161 theo mục tiêu Owner · ĐẠT thiết kế bước CORE · sửa F1–F4 rồi chạy · không vòng B2 nữa
+- **Owner 09:16** (§3 `HUMAN_DIRECTIVE@GS-OWNER-20261031-STOP-LOOPING`): bị dẫn đi vòng; điểm danh bản mới nhất của GPT để triển khai.
+- **Claude nhận:** GPT đúng về Cartography — không có adapter PG catalog/Directus, dọn bằng xoá cứng, không khoá; thay loader bằng nó là mở dự án mới. Claude rút lại T7 «LIVE thay lane bằng Cartography»; Cartography chỉ là ứng viên.
+
+**1 · Điểm danh**
+| Mục tiêu Owner | PROMPT @86927161 | Màu |
+|---|---|---|
+| Luôn đúng khi VPS thêm/xoá/đổi | Vũ trụ từ catalog thật; thêm/sửa/gỡ mềm cả nút lẫn cạnh; chỉ gỡ khi đọc đủ + K0 xác nhận; 75% chặn; bỏ nhịp tự bắt kịp; 3 nhịp × 7 ca | 🟢 |
+| Biết khi nào không đáng tin | Giấy N4 theo nguồn×loại FULL/PARTIAL/STALE; cạnh NATIVE/DERIVED/HUMAN | 🟢 |
+| Hiểu mã GitHub | Mức 1: repo/nhánh/commit/tệp, tệp→bảng/flow (DERIVED), commit→container khi có biên nhận | 🟢 |
+| Mọi khu vực trừ bí mật | Mọi họ nguồn; thiếu quyền ⇒ PARTIAL không bỏ; chỉ che giá trị bí mật. Qdrant/KB/Lark ở bước H | 🟢 |
+| Chuẩn ngành | Hoà giải theo trạng thái, gỡ mềm, ngưỡng 75%, so khớp độc lập | 🟢 |
+| Gọn, dùng lại đồ có sẵn | 0 cài mới, 0 khung mới, 3 nhóm sửa, báo số dòng mã | 🟢 |
+| Lưu mọi công cụ vào repo (21/10) | Bộ đọc K0 vẫn chỉ trên Mac; cấm tệp mới | 🟡 F3 |
+| Kiểm đủ điều kiện rồi giao, không vòng | READY chờ kiểm Mac nhưng không ai kiểm được nếu không chạy; Mac thiếu engine thì CORE có thể ra DỪNG | 🔴 F1, F2 |
+| Không để Graph đứng như từ 25/10 | Giữ cổng cũ cho LIVE, R7 để sau | 🟡 F4 |
+
+**2 · Sửa F1–F4 (Host áp trong một lượt, rồi ký READY)**
+- **F1 · Ký READY ngay.** Đầu vào bắt buộc đã có bằng chứng: repo + fixture (HOST_VERIFIED); Python + đường đọc VPS chỉ-đọc từ Mac đã chạy thật ở lượt K0 30/10 (Claude Code CLI Mac, ảnh catalog JSONL + SQLite còn trên Mac). Engine PG/Neo4j trên Mac là TUỲ CHỌN: S0 kiểm trong vài phút, có thì dùng, không thì chạy chế độ fixture. Không phải lý do không ký; không cần lượt kiểm riêng.
+- **F2 · Nghiệm thu CORE không phụ thuộc engine.** Không có engine thì XONG = 7/7 ca × 3 nhịp trên bộ fixture sẵn có (đồ thị giả trong Python như `c1d_fixtures.py`) với dữ liệu catalog THẬT của K0: ảnh 30/10 + một lượt K0 đọc lại hôm nay (chính là một nhịp thay đổi thật) + oracle K0 khớp hai chiều; ghi `FIXTURE_PASS`. Phép thử trên Neo4j thật dời sang bước diễn tập sẵn có của graph-refresh (Neo4j tạm) ở SYNC-LIVE. Không được ra DỪNG chỉ vì Mac thiếu engine.
+- **F3 · Lưu bộ đọc K0 + script P2 vào `tools/onepass/`** (thư mục có sẵn), quét bí mật trước khi lưu, đăng ký sổ công cụ — theo luật Owner 21/10 và vì LIVE cần oracle độc lập chạy được ngoài Mac. Owner duyệt một dòng; không cài gì.
+- **F4 · GS-RM1 hàng SYNC-LIVE thêm điều kiện:** chỉ bật LIVE khi cổng làm mới không còn làm bỏ nhịp (đã bỏ từ 25/10); Owner quyết R7 bằng số đo của CORE, cùng lúc ký LIVE.
+
+- **JEV** `gen-dec-1793413059-yz9rVXwZJpVpmm4Bkm9K` (tham khảo): giữ loader, Cartography chỉ ứng viên 1,00; ký ngay với engine tuỳ chọn 0,92; bản chưa sửa đáp ứng mục tiêu 0,38 (đúng các chỗ kẹt F1–F4); hỏi duyệt lưu K0 0,57.
+- `NEXT_TRIGGER=GPT_HOST_APPLY_F1_F4_SIGN_READY_THEN_OWNER_DISPATCH` — không vòng B2 nữa.
+
 #### P-ONEPASS-CLAUDE-B10 · Claude Chat · 31/10/2026 08:25 +07 · B2 rà GPT B10 theo Owner 08:12 «cân bằng — đồ lắp sẵn, gọn» · ACCEPT 4 chỉnh an toàn · NEEDS_TRIM DRAFT (T1–T7) · giải thích G1
 - **Owner 08:12** (§3 `HUMAN_DIRECTIVE@GS-OWNER-20261031-LEAN-READY-MADE`): dùng đồ lắp sẵn, nhanh gọn; chính xác nhưng gọn; tránh dự án khổng lồ chết giữa đường; không tự xây hệ thống; giải thích G1.
 - **Đồng ý GPT B10:** 4 chỉnh an toàn đúng (vùng thiếu quyền hiện theo nhóm, không bịa tên; Cartography không đè Graph hiện có và một writer mỗi nguồn; 75% là cổng báo nguy chứ không phải giấy phép gỡ; sandbox chỉ mở trong máy). Đồng ý «Graph phải biết khi nào mình không đáng tin» — nhưng làm bằng nhãn theo NGUỒN trên giấy N4 sẵn có (T2).
@@ -1713,7 +1752,7 @@ Giữ nguyên: V1 mọi khu vực trừ giá trị bí mật; V4 ngưỡng 75% +
 | K4 · Read-time source version | live cheap fingerprint vs cert baseline, changed/missing => NOT_ACTION_SAFE | ■ P304 DRAFT_BLOCKED_RESOURCE: P301 dấu gốc 6 lớp + Nuxt có sẵn, wrapper/rollback/fixture sẵn; còn FAIL bộ đọc nuốt lỗi 2 chỗ + RAM <3GiB; no READY |
 | GS-COV2-K0-LIVE · NATIVE→GRAPH THỰC + GH SSOT | Dữ liệu thật đọc-only qua DOT đúng quyền, host runtime native; candidate Graph cô lập; so object+edge ID/hash, sửa detection và trả Pivot 23 nhóm có bằng chứng usage; stale/read-error phải báo MỘT PHẦN | 🟡 Lịch sử lệnh B6; hiện P đã XONG có giới hạn, K0 DỪNG, GPT Host B7 nghiệm thu; next B0 canonical ID+fail-closed rồi mới nạp dữ liệu |
 | GS-FULL-ONEPASS · TỔNG KIỂM KÊ COVERAGE | Một Claude CLI chỉ đọc: ngoài G1–G9, native class/edge nội bộ mỗi nguồn, scope discovery/usage/lineage, độc lập source↔Graph và negative-tests; chốt toàn bộ GAP & kế hoạch sửa thống nhất | ✅ **KQ XONG 30/10 08:25Z (Claude Code, chỉ đọc, 0 ghi)**: ma trận 83 dòng (79 trong phạm vi) — ĐỦ 6 (≈8%), kiểm kê native có số 77/79; 32 lớp ngoài danh mục, 24 lớp đọc được chưa nạp, 11 fixture 5 PASS/6 GAP (1 xanh giả tiềm ẩn F6), làm mới đêm 4 đêm không áp; roadmap GS-COV2 A∥B→C→D→E→F→G→H→Z; công cụ `tools/onepass/`; NEXT GPT Host nghiệm thu + ký A1+B |
-| GS-SYNC-CORE · RUN02 | LEAN reuse-first: K0/DOT/graph-refresh/graph_cert/Neo4j/GitHub API; sửa pilot/limit/retire+source reconcile, N4 oracle; 3 cycle × 7 ca; KHÔNG install/new framework | DRAFT_LEAN_NO_READY; Host B11; 0 RUN; Mac input chưa xác minh; G1a/G1b CHƯA DUYỆT, nhưng không bắt buộc cho reuse-only |
+| GS-SYNC-CORE · RUN02 | LEAN reuse-first: K0/DOT/graph-refresh/graph_cert/Neo4j/GitHub API; sửa pilot/limit/retire+source reconcile, N4 oracle; 3 cycle × 7 ca; KHÔNG install/new framework | DRAFT_LEAN_NO_READY; Host B11; 0 RUN; Mac input chưa xác minh; G1a/G1b CHƯA DUYỆT, nhưng không bắt buộc cho reuse-only · **Claude B11 31/10 09:30: ĐẠT thiết kế; sửa F1–F4 (ký READY với engine tuỳ chọn, nghiệm thu chế độ fixture trên catalog thật, lưu K0 vào repo, LIVE chỉ bật khi cổng không còn làm bỏ nhịp) rồi chạy** |
 | GS-SYNC-LIVE · sau CORE | triển khai hẹp cơ chế có chứng minh, một writer/source, Guard/D23/backup/rollback, 3 nhịp thật; Cartography chỉ dùng nếu chứng minh thay loader an toàn và giảm NET mã | ⬜ NOT_READY, Owner duyệt R7 riêng; KHÔNG cam kết thay lane bằng Cartography trước kiểm |
 | GS-SYNC-LIVE-3CYCLE | ≥3 nhịp nguồn thực add/retire/change edge, oracle độc lập mỗi lần, 0 false-green và thực đo chi phí | ⬜ NOT_READY; sandbox không thay live evidence |
 | GS-COV2-B0 · CANONICAL ID + FAIL-CLOSED (lịch sử) | B0 -01 không chạy; nội dung vào R1–R3 của SYNC-CORE | ⛔ SUPERSEDED_BEFORE_START 31/10 |
