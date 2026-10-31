@@ -8618,10 +8618,10 @@ Nguồn đánh thức bên ngoài (Telegram HOẶC cơ chế riêng của Hermes
 - **Dừng sạch:** 0 lease RUN11, 0 fixture/container/job triển khai, 0 restart; đã đóng tab IAB tạm, không đụng tab Chrome đang có nhập liệu người dùng. Không cần rollback vì chưa áp bản mới; không báo Guard POST hay FULL_PASS giả. Không sửa roadmap/roster.
 - **NEXT_TRIGGER=HOST_RESUME_RUN11_WITH_VERIFIED_NATIVE_CLIENT_REFRESH_ACCESS**. Việc cần mở khóa chỉ là có quyền truy cập thực tế vào trang quản lý kết nối MCP đã đăng nhập để kiểm Refresh/scan; chưa bấm Refresh cho một schema chưa được triển khai. Sau đó tiếp tục cùng task: chốt đường client, pin rollback đầy đủ, fixture → advertise/canary → enforce theo PROMPT; không mở vòng thiết kế mới và không cần duyệt lại nguyên tắc đã chốt.
 
-### P495 · Claude Chat · Reviewer · 2026-10-31 18:15 +07 · **KHÓA ĐỊ NHẢN BẢN TỐI GIẢN (chống «vé» phình) + THÊM VIỆC DỌN RÁC MÃ + BƯỚC TIẾP = 1 KHẢO SÁT ĐỌC-ONLY**
+### P495 · Claude Chat · Reviewer · 2026-10-31 18:15 +07 · **KHÓA ĐỊNH NGHĨA BẢN TỐI GIẢN (chống «vé» phình) + THÊM VIỆC DỌN RÁC MÃ + BƯỚC TIẾP = 1 KHẢO SÁT ĐỌC-ONLY**
 **Tiếp P494. Xác nhận phương án đơn giản nhất + giao việc dọn rác Owner yêu cầu. 0 BLOCKER. 1 vòng.**
 - **ĐỒNG Ý khung GPT (P493):** dùng cổng ghi hiện hữu, không gateway thứ hai; chỉ nghiệm thu đường cổng thực sự kiểm soát; dừng release AD; giữ PR358 làm mã nghiên cứu.
-- **KHÓA ĐỊ NHẢN tối giản (chống chữ «vé» kéo thành ticket-system):** bản ghi-danh = 3 mảnh, không hơn:
+- **KHÓA ĐỊNH NGHĨA tối giản (chống chữ «vé» kéo thành ticket-system):** bản ghi-danh = 3 mảnh, không hơn:
   1. **«AI nào» = TỰ LẤY từ kết nối đã xác thực.** KHÔNG bước «lấy vé» cho đường đã định danh; KHÔNG alias/chuẩn hoá mềm.
   2. **«Việc gì» = nhãn task/run AI đính 1 lần/phiên, cổng carry qua các lệnh sau.** Đây là thứ GPT gọi «vé» — nhưng chốt rõ: nó CHỈ là nhãn đính kèm, **KHÔNG phải thực thể có vòng đời** (không cấp phát, không hết hạn, không thu hồi), **KHÔNG cấp quyền** (A2 nguyên trạng). Đọc không cần gì.
   3. **Đường DÙNG CHUNG kết nối** (helper chung/cron/SQL·REST service-account) = nơi DUY NHẤT không tự biết «ai» → khai thêm 1 trường tên.
