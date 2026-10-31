@@ -1,7 +1,7 @@
 # PROMPT — GS-COV2-SYNC-CORE-20261031-02 · LEAN / REUSE-FIRST
 RUN_ID: GS-COV2-SYNC-CORE-20261031-02
-TASK: work/graph-server · Host P-ONEPASS-HOST-B11
-STATUS: CORE_CANDIDATE_ONLY, Host ký READY đúng last-touch SHA sau commit; Owner chuyển CLI mới là DISPATCH. Trong yêu cầu chuyển lệnh, Owner cho lưu đúng 2 công cụ K0/P2 đã quét bí mật vào tools/onepass; KHÔNG cấp G1b cài máy, tools/sync hoặc LIVE.
+TASK: work/graph-server · Host P-ONEPASS-HOST-B12
+STATUS: CORE_CANDIDATE_ONLY, Host ký READY đúng last-touch SHA sau commit; Owner chuyển CLI mới là DISPATCH. Trong yêu cầu chuyển lệnh, Owner cho lưu đúng 2 công cụ K0/P2 vào tools/onepass CHỈ SAU KHI quét bí mật; KHÔNG cấp G1b cài máy, tools/sync hoặc LIVE.
 EXECUTOR_SURFACE: Claude Code CLI Mac, một CLI/lượt; Owner chuyển tay CHỈ sau READY đúng SHA.
 WRITE_PATH: gateway workspace_* Git-CAS sửa ứng viên FILE HIỆN CÓ trong task; ngoại lệ Owner cho tạo đúng 2 tệp nguồn K0/P2 trong work/graph-server/tools/onepass/ (đăng ký README/sổ sau secret scan). Sandbox Python/fixture trên Mac dùng công cụ đã có, không cài. VPS/PG/Directus/Graph Neo4j production chỉ đọc; cấm Git→VPS.
 READ: AGENTS A0/A1/A4/A5/A6/A8/DROOT30/31/56/57/58/60; root/task COLLAB §0/§3/P-ONEPASS-HOST-B12/P-ONEPASS-CLAUDE-B11/GS-RM1; tools/onepass, c1d/c1d_fixtures.py, tools/c1b; KQ P/K0; mã graph-refresh/graph_cert/graph-v1 live pin SHA chỉ đọc. REVIEW_REUSED=Claude B11 @e07c74628f0feb26710ea7cf75d39cfa7a5f4994. K4/PR683 giữ nguyên.
