@@ -4,7 +4,393 @@
 #   Không chạm Neo4j/PG/Directus/Qdrant/Lark production: trạng thái ở thư mục tạm, nguồn tiêm, Graph giả. Fixture KHÔNG phải lượt timer tự nhiên.
 # C1-D2 (GS-C1D2-SCOPED-AUTOCOVER-20261026-13): L17 kỳ vọng theo sổ đóng băng đầu ca + đối chứng âm L17n (+4 phải FAIL).
 # Dùng: python3 -I c1d_fixtures.py <graph_cert.py> <graph_autocover.py> <graph-refresh> <cert-cells c1d.json> <giấy v5 thật (chỉ đọc)> [--out F]
+# SYNC-CORE (chạy được trên Mac, không cần /dev/shm hay /opt): c1d_fixtures.py --sync-core … (xem sync_core_main).
 import copy, hashlib, importlib.machinery, importlib.util, json, os, re, shutil, sys, tempfile, time
+
+
+# SYNC-CORE (GS-COV2-SYNC-CORE-20261031-02): 3 nhịp × 7 ca trên catalog K0 thật + đồ thị giả trong bộ nhớ; chạy đúng plan()/statements() ứng viên, oracle = k0_reconcile.py
+# (parser riêng, tiến trình riêng). Kết quả tối đa FIXTURE_PASS: Cypher không chạy trên engine, nguồn đổi là đổi trên bản sao, chưa phải nhịp production.
+# Dùng: python3 -I c1d_fixtures.py --sync-core <graph_autocover.py> <k0_reconcile.py> <ảnh T1> <ảnh T2> <graph.json> <gh.json> <gh-oracle.json> [--out F]
+def sync_core_main(args):
+    import math, resource, subprocess
+    OUT_ = args[args.index("--out") + 1] if "--out" in args else None
+    GA_, K0, T1, T2, GJ, GH, GHO = args[:7]
+    ldr = importlib.machinery.SourceFileLoader("ga_sync", GA_)
+    GA_M = importlib.util.module_from_spec(importlib.util.spec_from_loader("ga_sync", ldr))
+    ldr.exec_module(GA_M)
+    W = tempfile.mkdtemp(prefix="gs-sync-fx-")
+    STUB = W + "/graph-stub.json"
+    json.dump({"at": "stub", "nodes": [], "edges": []}, open(STUB, "w"))
+    gh0, gho = json.load(open(GH)), json.load(open(GHO))
+    res, t00 = [], time.time()
+    LANE, NS = GA_M.NATIVE_LANE, GA_M.NS
+    QUOTA = {"nodes": 200000, "edges": 200000}
+    CANARY = "gh" + "p_" + "FixtureOnly" + "0123456789abcdefXYZ"
+
+    class Mem:
+        """Graph giả: chỉ hiểu đúng các mẫu Cypher ứng viên phát ra; mẫu lạ ⇒ lỗi, không bỏ qua."""
+        def __init__(self, n=None, e=None):
+            self.n, self.e = dict(n or {}), dict(e or {})
+
+        def clone(self):
+            return Mem(self.n, self.e)
+
+        def rows(self, r):
+            return r
+
+        def http_cypher(self, stmts, pw, timeout=0):
+            cy, p = stmts[0]
+            if cy.startswith("MATCH (n:GS) WHERE n.gs_layer = $l"):
+                return [{"k": k, "l": v[0], "p": v[1]} for k, v in self.n.items() if v[1].get("gs_layer") == p["l"]]
+            if cy.startswith("MATCH (a:GS)-[x]->(b:GS) WHERE a.gs_layer = $l"):
+                lay = lambda k: (self.n.get(k) or (0, {}))[1].get("gs_layer")
+                return [{"s": k[0], "t": k[1], "d": k[2], "p": v} for k, v in self.e.items() if lay(k[0]) == p["l"] or lay(k[2]) == p["l"]]
+            if cy.startswith("MATCH (n:GS) WHERE n.gs_key IN $k"):
+                return [{"k": k, "l": self.n[k][0], "layer": self.n[k][1].get("gs_layer")} for k in p["k"] if k in self.n]
+            raise RuntimeError("Cypher đọc lạ " + cy[:80])
+
+        def apply(self, F):
+            m = 0
+            for cy, p in F:
+                x = re.match(r"UNWIND \$rows AS p CREATE \(n:(.+?)\) SET n = p$", cy)
+                if x:
+                    for r in p["rows"]:
+                        assert r["gs_key"] not in self.n, "CREATE trùng " + r["gs_key"]
+                        self.n[r["gs_key"]] = (sorted(l.strip("`") for l in x.group(1).split(":")), dict(r))
+                        m += 1
+                    continue
+                if cy == "UNWIND $rows AS r MATCH (n:GS {gs_key: r.k}) SET n = r.p":
+                    for r in p["rows"]:
+                        self.n[r["k"]] = (self.n[r["k"]][0], dict(r["p"]))
+                        m += 1
+                    continue
+                if cy == "UNWIND $rows AS r MATCH (n:GS {gs_key: r.k}) SET n += r.ret":
+                    for r in p["rows"]:
+                        self.n[r["k"]] = (self.n[r["k"]][0], dict(self.n[r["k"]][1], **r["ret"]))
+                        m += 1
+                    continue
+                x = re.match(r"UNWIND \$rows AS r MATCH \(a:GS \{gs_key: r\.s\}\) MATCH \(b:GS \{gs_key: r\.d\}\) CREATE \(a\)-\[x:`(.+?)`\]->\(b\) SET x = r\.p$", cy)
+                if x:
+                    for r in p["rows"]:
+                        assert r["s"] in self.n and r["d"] in self.n, "cạnh thiếu đầu"
+                        self.e[(r["s"], x.group(1), r["d"])] = dict(r["p"])
+                        m += 1
+                    continue
+                x = re.match(r"MATCH \(a:GS \{gs_key: \$s\}\)-\[x:`(.+?)`\]->\(b:GS \{gs_key: \$d\}\) SET x = \$p$", cy)
+                if x:
+                    self.e[(p["s"], x.group(1), p["d"])] = dict(p["p"])
+                    m += 1
+                    continue
+                x = re.match(r"UNWIND \$rows AS r MATCH \(a:GS \{gs_key: r\.s\}\)-\[x:`(.+?)`\]->\(b:GS \{gs_key: r\.d\}\) SET x \+= r\.ret$", cy)
+                if x:
+                    for r in p["rows"]:
+                        k = (r["s"], x.group(1), r["d"])
+                        self.e[k] = dict(self.e[k], **r["ret"])
+                        m += 1
+                    continue
+                raise RuntimeError("Cypher ghi lạ " + cy[:90])
+            return m
+
+        def sig(self, layer=None):
+            f = lambda p: layer is None or p.get("gs_layer") == layer
+            live = sorted(k for k, v in self.n.items() if f(v[1]) and not GA_M.is_retired(v[1]))
+            ed = sorted("|".join(k) for k, v in self.e.items() if not GA_M.is_retired(v) and (layer is None or f((self.n.get(k[0]) or (0, {}))[1])))
+            return hashlib.sha256(json.dumps([live, ed]).encode()).hexdigest()[:16]
+
+    def oracle(T, tag, gh):
+        o = tempfile.mkdtemp(dir=W)
+        p = subprocess.run([sys.executable, "-I", "-B", K0, T, tag, STUB, o], capture_output=True, text=True)
+        if p.returncode:
+            raise RuntimeError("K0 lỗi " + p.stderr[-200:])
+        kn = [json.loads(l) for l in open("%s/candidate-nodes-%s.jsonl" % (o, tag))]
+        ke = [json.loads(l) for l in open("%s/candidate-edges-%s.jsonl" % (o, tag))]
+        s = json.load(open("%s/summary-%s.json" % (o, tag)))
+        shutil.rmtree(o)
+        out = {}
+        fams = {GA_M.family_of(n["id"]) for n in kn} | {"pg:" + d for d in s["dbs"]} | {"directus", "cron", "systemd", "docker", "net", "nginx"}
+        for f in fams:
+            out[f] = {"ok": True, "why": None, "disagree": [], "ids": [], "edges": set()}
+        for k, v in s["reader_errors"].items():
+            if k.startswith("pg:"):
+                tg = ["pg:" + k.split(":")[-1]]
+            elif k.startswith("directus"):
+                tg = ["directus"]
+            else:
+                tg = [next((f for pre, f in GA_M.RUNTIME_ERR if str(v[0]).startswith(pre)), "cron")] if v and "rc=" in str(v[0]) else ["cron", "systemd", "docker", "net", "nginx"]
+            for f in tg:
+                out[f].update(ok=False, why="%s %s" % (k, str(v)[:80]))
+        for t in s["toc_vs_catalog"]:
+            if t["n_only_cat"] or t["n_only_toc"]:
+                out["pg:" + t["db"]]["disagree"].append(t["cls"])
+        for n in kn:
+            out[GA_M.family_of(n["id"])]["ids"].append(n["id"])
+        for e in ke:
+            out[GA_M.family_of(e["s"])]["edges"].add("|".join((e["s"], e["t"], e["d"])))
+        bad = sorted(r["name"] for r in gh["repos"] if r.get("head") and gho.get(r["name"]) != r["head"])
+        out["github"] = {"ok": not (gh.get("errors") or bad), "why": str(gh.get("errors") or bad)[:100] or None, "disagree": [], "ids": [], "edges": set()}
+        return out, kn, ke, s
+
+    def run(gg, T, tag, gh, quota=QUOTA, state=None, now=None):
+        uni = GA_M.read_universe(T, tag, gh)
+        orc, kn, ke, ks = oracle(T, tag, gh)
+        native = {"sources": uni["sources"], "oracle": orc}
+        pl = GA_M.plan(gg, "", LANE, uni["nodes"], uni["edges"], quota, native=native)
+        m = gg.apply(pl["F"]) if not pl["problems"] else 0
+        gn, ge = GA_M.graph_layer(gg, "", "native")
+        df = GA_M.oracle_diff(kn, ke, gn, ge, [f for f in uni["sources"] if f != "github"])
+        cert = GA_M.source_cert(uni, df, pl, {} if state is None else state, now or time.time(), oracle=orc)
+        return {"uni": uni, "pl": pl, "applied": m, "diff": df, "cert": cert, "ks": ks}
+
+    def fams_ok(r, fams):
+        return all(r["diff"]["families"][f]["ok"] for f in fams if f in r["diff"]["families"])
+
+    def bad_of(r):
+        return {f: {k: (len(v) if isinstance(v, list) else v) for k, v in x.items() if v and k not in ("ok", "nodes", "edges")} for f, x in r["diff"]["families"].items() if not x["ok"]}
+
+    def fresh(base, name):
+        d = "%s/%s" % (W, name)
+        shutil.rmtree(d, ignore_errors=True)
+        shutil.copytree(base, d, ignore=shutil.ignore_patterns("*.dump", "globals*", "stat*", "*.tgz"))
+        return d
+
+    def edit(T, f, fn):
+        p = T + "/" + f
+        b = open(p, encoding="utf-8", errors="replace").read()
+        n = fn(b)
+        open(p, "w", encoding="utf-8").write(n)
+
+    def toc_drop(T, tag, db, pat):
+        def fn(b):
+            ls = b.split("\n")
+            kept = [l for l in ls if not (l and not l.startswith(";") and re.match(pat, l))]
+            gone = len(ls) - len(kept)
+            return re.sub(r"(?m)^(;\s+TOC Entries: )(\d+)$", lambda m: m.group(1) + str(int(m.group(2)) - gone), "\n".join(kept))
+        edit(T, "toc-%s-%s.txt" % (tag, db), fn)
+
+    def toc_add(T, tag, db, lines):
+        edit(T, "toc-%s-%s.txt" % (tag, db), lambda b: re.sub(r"(?m)^(;\s+TOC Entries: )(\d+)$", lambda m: m.group(1) + str(int(m.group(2)) + len(lines)), b) + "\n".join(lines) + "\n")
+
+    def views(T, tag):
+        trig = set()
+        out, total = [], 0
+        for l in open("%s/cat-%s-directus.tsv" % (T, tag), errors="replace"):
+            f = l.rstrip("\n").split("\t")
+            if f[0] in ("trigger", "rule"):
+                trig.add(f[2])
+            if f[0] == "rel" and f[1] == "v" and f[5] == "false":
+                total += 1                                  # mẫu số = mọi view của ô, không riêng schema public
+                if f[2] == "public":
+                    out.append(f[3])
+        return sorted((v for v in out if v not in trig), key=lambda v: hashlib.sha256(v.encode()).hexdigest()), total
+
+    def rm_views(T, tag, names, toc=True):
+        s = set(names)
+
+        def fn(b):
+            keep = []
+            for l in b.split("\n"):
+                f = l.split("\t")
+                if (f[0] == "rel" and f[1] == "v" and f[2] == "public" and f[3] in s) or (f[0] == "viewdep" and ((f[1] == "public" and f[2] in s) or (f[4] == "public" and f[5] in s))) or (f[0] == "viewfunc" and f[1] == "public" and f[2] in s):
+                    continue
+                keep.append(l)
+            return "\n".join(keep)
+        edit(T, "cat-%s-directus.tsv" % tag, fn)
+        if toc:
+            toc_drop(T, tag, "directus", r"^\d+;\s+\d+\s+\d+\s+VIEW public (%s) " % "|".join(map(re.escape, s)))
+
+    def mut_add(T, tag, gh, n):
+        ta, fk, fl, op = "zz_core_%d" % n, "zz_core_%d_fk" % n, "00000000-0000-4000-8000-%012d" % n, "00000000-0000-4000-9000-%012d" % n
+        edit(T, "cat-%s-directus.tsv" % tag, lambda b: b.rstrip("\n") + "\nrel\tr\tpublic\t%s\towner\tfalse\tabc\t0\t1\tfalse\nfk\tpublic\t%s\t%s\tpublic\tbirth_registry\ttrue\n" % (ta, ta, fk))
+        toc_add(T, tag, "directus", ["99%d1; 1259 99%d1 TABLE public %s owner" % (n, n, ta), "99%d2; 2606 99%d2 FK CONSTRAINT public %s %s owner" % (n, n, ta, fk)])
+        edit(T, "dt-%s.tsv" % tag, lambda b: b.rstrip("\n") + "\ndflow\t%s\tflow %s\tactive\tevent\t\t\tabc\ndop\t%s\t%s\tlog\tk\tabc\t\t\n" % (fl, CANARY, op, fl))
+        g2 = copy.deepcopy(gh)
+        g2["repos"][0]["files"].append({"p": "zz/core_%d.py" % n, "h": "a" * 40})
+        return g2, {NS + "pg:directus:table:public." + ta, NS + "pg:directus:fk:public.%s.%s" % (ta, fk), NS + "directus:flow:" + fl, NS + "directus:operation:" + op}, {(NS + "directus:operation:" + op, "OPERATION_OF", NS + "directus:flow:" + fl), (NS + "pg:directus:fk:public.%s.%s" % (ta, fk), "REFERENCES", NS + "pg:directus:table:public.birth_registry")}
+
+    def mut_retarget(T, tag):
+        rows = [l.split("\t") for l in open("%s/cat-%s-directus.tsv" % (T, tag), errors="replace").read().split("\n")]
+        tr = next(r for r in rows if r[0] == "trigger" and r[7] == "")
+        fns = [r for r in rows if r[0] == "func" and r[3] == "" and r[8] == "false" and r[2] != tr[6] and r[1] == tr[5]]
+        c = fns[0]
+        fk = next(r for r in rows if r[0] == "fk" and r[4] == "public" and r[5] != "birth_registry")
+        edit(T, "cat-%s-directus.tsv" % tag, lambda b: b.replace("\t".join(tr), "\t".join(tr[:6] + [c[2]] + tr[7:])).replace("\t".join(fk), "\t".join(fk[:5] + ["birth_registry"] + fk[6:])))
+        ti = NS + "pg:directus:trigger:%s.%s.%s" % (tr[1], tr[2], tr[3])
+        fi = NS + "pg:directus:fk:%s.%s.%s" % (fk[1], fk[2], fk[3])
+        return {(ti, "EXECUTES", NS + "pg:directus:function:%s.%s()" % (tr[5], tr[6])), (fi, "REFERENCES", NS + "pg:directus:table:%s.%s" % (fk[4], fk[5]))}, {(ti, "EXECUTES", NS + "pg:directus:function:%s.%s()" % (c[1], c[2])), (fi, "REFERENCES", NS + "pg:directus:table:public.birth_registry")}
+
+    def live_e(gg, k):
+        return k in gg.e and not GA_M.is_retired(gg.e[k])
+
+    def rec(cy, cid, name, ok, detail):
+        res.append({"cycle": cy, "case": cid, "name": name, "pass": bool(ok), "detail": detail})
+        print("nhịp%s ca%s %-44s %s %s" % (cy, cid, name[:44], "PASS" if ok else "FAIL", str(detail)[:230]), flush=True)
+
+    # đồ thị khởi đầu: mọi nút/cạnh production 30/10 (đọc K0, chỉ khoá+nhãn) đóng vai lane cũ — ứng viên không được chạm
+    G0 = json.load(open(GJ))
+    seed = Mem({n["k"]: (sorted(["GS"] + [x for x in n["l"]]), {"gs_key": n["k"], "gs_layer": n.get("layer") or "legacy"}) for n in G0["nodes"] if n.get("k")},
+               {(e["s"], e["t"], e["d"]): {"legacy": True} for e in G0["edges"]})
+    legacy_sig = hashlib.sha256(json.dumps([sorted((k, str(v)) for k, v in seed.n.items()), sorted("|".join(k) for k in seed.e)]).encode()).hexdigest()[:16]
+    legacy_keys, legacy_edges = set(seed.n), set(seed.e)
+
+    def legacy_same(gg):
+        return all(gg.n[k][1].get("gs_layer") == seed.n[k][1].get("gs_layer") and not GA_M.is_retired(gg.n[k][1]) for k in legacy_keys) and all(k in gg.e and gg.e[k] == {"legacy": True} for k in legacy_edges)
+
+    gg = seed.clone()
+    bases = [("1", T1, "T1", "ảnh K0 T1 30/10"), ("2", T2, "T2", "ảnh K0 T2 30/10 (đổi thật T1→T2)"), ("3", T2, "T2", "T2 + đọc lại 31/10 khớp băm PG/Directus")]
+    meta = []
+    for cy, base, tag, label in bases:
+        t0 = time.time()
+        r0 = run(gg, base, tag, gh0)
+        r1 = run(gg, base, tag, gh0)
+        c = r0["pl"]["counts"]
+        meta.append({"cycle": cy, "label": label, "plan": {k: c[k] for k in ("nodes_add", "edges_add", "nodes_set", "edges_set", "nodes_retire", "edges_retire", "edges_delete", "nodes_delete", "reused")},
+                     "edges_missing_end": r0["pl"]["edges_missing_end"], "problems": r0["pl"]["problems"][:4], "held": r0["pl"]["retire_gate"]["held"] if r0["pl"]["retire_gate"] else {}, "base_oracle_bad": bad_of(r1),
+                     "cert": {f: x["status"] + ("" if not x["why"] else " " + str(x["why"])[:70]) for f, x in r1["cert"]["cells"].items()},
+                     "source_dangling": r1["diff"]["source_dangling_edges"], "gaps": r1["uni"]["gaps"], "legacy_untouched": legacy_same(gg), "replay_writes": r1["applied"]})
+        print("NỀN nhịp", cy, json.dumps(meta[-1], ensure_ascii=False)[:1400], flush=True)
+        base_sig, active = gg.sig("native"), None
+
+        # ca 1 ADD vật/cạnh + bí mật giả trong tên flow
+        T = fresh(base, "c1")
+        g = gg.clone()
+        gh1, add_n, add_e = mut_add(T, tag, gh0, 1)
+        r = run(g, T, tag, gh1)
+        ok = all(k in g.n and not GA_M.is_retired(g.n[k][1]) for k in add_n) and all(live_e(g, k) for k in add_e) and r["pl"]["counts"]["nodes_retire"] == 0
+        leak = sum(CANARY in json.dumps(v[1]) for v in g.n.values())
+        rec(cy, 1, "ADD vật+cạnh · bí mật giả bị che", ok and fams_ok(r, ["pg:directus", "cron", "systemd", "docker", "net", "nginx"]) and leak == 0 and legacy_same(g),
+            {"add_n": r["pl"]["counts"]["nodes_add"], "add_e": r["pl"]["counts"]["edges_add"], "secret_in_graph": leak, "oracle_bad": bad_of(r)})
+
+        # ca 2 retire 30% khi đọc đủ + oracle; đối chứng âm: chỉ catalog đổi, TOC còn ⇒ 0 gỡ; rồi vật quay lại ⇒ hồi sinh
+        T = fresh(base, "c2")
+        vs, nv = views(T, tag)
+        k30 = math.ceil(0.30 * nv)
+        rm_views(T, tag, vs[:k30])
+        g = gg.clone()
+        r = run(g, T, tag, gh0)
+        rn = r["pl"]["counts"]["nodes_retire"]
+        proof = r["pl"]["retire_gate"]["large_drop_proof"]
+        Tn = fresh(base, "c2n")
+        rm_views(Tn, tag, vs[:k30], toc=False)
+        gn2 = gg.clone()
+        rn2 = run(gn2, Tn, tag, gh0)
+        back = run(g, base, tag, gh0)
+        ok = rn == k30 and "pg:directus|view" in proof and r["diff"]["families"]["pg:directus"]["ok"] and rn2["pl"]["counts"]["nodes_retire"] == 0 and gg.sig("native") == gn2.sig("native") and g.sig("native") == base_sig and legacy_same(g)
+        rec(cy, 2, "retire 30% có chứng minh · TOC trái ⇒ 0 · hồi sinh", ok, {"retired": rn, "of": nv, "edges_retired": r["pl"]["counts"]["edges_retire"], "proof": proof.get("pg:directus|view"), "neg_held": rn2["pl"]["retire_gate"]["held"].get("pg:directus|view"), "revive_set": back["pl"]["counts"]["nodes_set"], "oracle_bad": bad_of(r)})
+
+        # ca 3 giảm >75% ⇒ chặn + báo, 0 gỡ; oracle thấy đúng phần lệch
+        T = fresh(base, "c3")
+        vs, nv = views(T, tag)
+        k80 = min(math.ceil(0.80 * nv), len(vs))
+        rm_views(T, tag, vs[:k80])
+        g = gg.clone()
+        r = run(g, T, tag, gh0)
+        f = r["diff"]["families"]["pg:directus"]
+        ok = r["pl"]["counts"]["nodes_retire"] == 0 and any("MASS_DROP_BLOCKED" in a for a in r["cert"]["alerts"]) and len(f["only_graph"]) == k80 and r["cert"]["cells"]["pg:directus"]["status"] == "PARTIAL"
+        rec(cy, 3, "giảm >75% bị chặn và báo", ok, {"gone_at_source": k80, "of": nv, "retired": r["pl"]["counts"]["nodes_retire"], "alerts": r["cert"]["alerts"][:1], "only_graph": len(f["only_graph"]), "cert": r["cert"]["cells"]["pg:directus"]["status"]})
+
+        # ca 4 A→B thành A→C, số cạnh giữ nguyên
+        T = fresh(base, "c4")
+        old, new = mut_retarget(T, tag)
+        g = gg.clone()
+        count0 = sum(1 for k, v in g.e.items() if k[1] in ("EXECUTES", "REFERENCES") and not GA_M.is_retired(v) and (g.n.get(k[0]) or (0, {}))[1].get("gs_layer") == "native")
+        r = run(g, T, tag, gh0)
+        count1 = sum(1 for k, v in g.e.items() if k[1] in ("EXECUTES", "REFERENCES") and not GA_M.is_retired(v) and (g.n.get(k[0]) or (0, {}))[1].get("gs_layer") == "native")
+        ok = count0 == count1 and all(live_e(g, k) for k in new) and not any(live_e(g, k) for k in old) and all(k in g.e for k in old) and r["diff"]["families"]["pg:directus"]["ok"]
+        rec(cy, 4, "đổi đích cạnh A→B→A→C, số cạnh không đổi", ok, {"edges_before": count0, "edges_after": count1, "edge_retire": r["pl"]["counts"]["edges_retire"], "edge_add": r["pl"]["counts"]["edges_add"], "oracle_bad": bad_of(r)})
+
+        # ca 5 nguồn 403/503/timeout ⇒ MỘT PHẦN, 0 gỡ, họ khác vẫn chạy
+        sub = {}
+        for nm, fam, mut, gh_ in (("403 catalog", "pg:directus", lambda t: open(t + "/cat-directus.err", "w").write("ERROR: permission denied for table pg_proc\n"), gh0),
+                                  ("503 Directus", "directus", lambda t: open(t + "/dt.err", "w").write("HTTP 503\n"), gh0),
+                                  ("timeout cắt cụt", "pg:directus", lambda t: edit(t, "cat-%s-directus.tsv" % tag, lambda b: b[:len(b) // 2]), gh0),
+                                  ("timeout docker", "docker", lambda t: edit(t, "runtime-%s.json" % tag, lambda b: json.dumps(dict(json.loads(b), errors=[{"where": "docker-ps", "rc": 124, "stderr": ""}]))), gh0),
+                                  ("403 GitHub", "github", lambda t: None, dict(gh0, errors=[{"repo": "x", "where": "tree", "rc": 403}])),
+                                  ("loại lạ ⇒ GAP", "pg:directus", lambda t: (edit(t, "cat-%s-directus.tsv" % tag, lambda b: b.rstrip("\n") + "\nloai_moi\tx\n"), rm_views(t, tag, views(t, tag)[0][:1])), gh0)):
+            T = fresh(base, "c5")
+            mut(T)
+            g = gg.clone()
+            before = g.sig("native")
+            r = run(g, T, tag, gh_)
+            cp = r["cert"]["cells"][fam]
+            other_full = [f for f, x in r["cert"]["cells"].items() if x["status"] == "FULL" and f != fam]
+            sub[nm] = {"retire": r["pl"]["counts"]["nodes_retire"] + r["pl"]["counts"]["edges_retire"], "cert": cp["status"], "sig_same": g.sig("native") == before}
+            sub[nm]["ok"] = sub[nm]["retire"] == 0 and cp["status"] == "PARTIAL" and sub[nm]["sig_same"] and bool(other_full)
+        rec(cy, 5, "403/503/timeout ⇒ PARTIAL, 0 gỡ, họ khác tiếp tục", all(x["ok"] for x in sub.values()), sub)
+
+        # ca 6 bỏ một nhịp rồi tự bắt kịp; quota nhỏ cũng hội tụ qua nhiều lượt
+        Ta = fresh(base, "c6")
+        gh6, _, _ = mut_add(Ta, tag, gh0, 2)                       # nhịp bị bỏ: không chạy
+        vs, nv = views(Ta, tag)
+        rm_views(Ta, tag, vs[:math.ceil(0.10 * nv)])                # nhịp sau: thêm đổi nữa
+        old, new = mut_retarget(Ta, tag)
+        g = gg.clone()
+        r = run(g, Ta, tag, gh6)
+        sig_skip = g.sig("native")
+        g2 = gg.clone()
+        n_runs, rq = 0, None
+        while n_runs < 40:
+            rq = run(g2, Ta, tag, gh6, quota={"nodes": 60, "edges": 60})
+            n_runs += 1
+            if rq["pl"]["empty"]:
+                break
+        ok = r["diff"]["families"]["pg:directus"]["ok"] and all(live_e(g, k) for k in new) and sig_skip == g2.sig("native") and n_runs > 1 and rq["pl"]["quota_left"] == 0
+        rec(cy, 6, "bỏ nhịp rồi bắt kịp · quota nhiều lượt cùng đích", ok, {"catch_up": {k: r["pl"]["counts"][k] for k in ("nodes_add", "edges_add", "nodes_retire", "edges_retire")}, "quota_runs": n_runs, "oracle_bad": bad_of(r), "same_sig": sig_skip == g2.sig("native")})
+
+        # ca 7 không đổi ⇒ 0 mutation
+        g = gg.clone()
+        s0 = (g.sig(), len(g.n), len(g.e))
+        r = run(g, fresh(base, "c7"), tag, gh0)
+        ok = r["pl"]["empty"] and r["applied"] == 0 and not r["pl"]["F"] and (g.sig(), len(g.n), len(g.e)) == s0
+        rec(cy, 7, "NO_CHANGE ⇒ 0 mutation", ok, {"statements": len(r["pl"]["F"]), "applied": r["applied"]})
+        meta[-1]["seconds"] = round(time.time() - t0, 1)
+    # đối chứng âm của chính bộ thử: oracle thấy Graph sai, bộ quét thấy bí mật giả
+    g = gg.clone()
+    victim = next(k for k, v in g.n.items() if v[1].get("gs_layer") == "native" and v[1].get("cls") == "table")
+    del g.n[victim]
+    orc, kn, ke, _ = oracle(T2, "T2", gh0)
+    gn, ge = GA_M.graph_layer(g, "", "native")
+    neg = GA_M.oracle_diff(kn, ke, gn, ge, [GA_M.family_of(victim)])["families"][GA_M.family_of(victim)]
+    gt = {"cycle": "x", "negative_oracle_detects": victim[len(NS):] in neg["only_source"], "secret_scan_detects_canary": bool(GA_M.SECRET_RE.search(CANARY)), "human_edge": None}
+    # quan hệ người duyệt không tự gỡ; R7 chỉ là thiết kế tắt mặc định
+    g = gg.clone()
+    hk = next(k for k in g.e if (g.n.get(k[0]) or (0, {}))[1].get("gs_layer") == "native" and k[1] == "HAS_FK")
+    hk2 = (hk[0], "REFERENCES", "human:ref")
+    g.n["human:ref"] = (["GS", "PgTable"], {"gs_key": "human:ref", "gs_layer": "legacy"})
+    g.e[hk2] = {"family": "pg:directus", "evidence": "HUMAN", "human_approved": True}
+    r = run(g, T2, "T2", gh0)
+    gt["human_edge"] = {"kept": live_e(g, hk2), "hold": r["pl"]["retire_gate"]["human_hold"][:1]}
+    # cổng cạnh giữ (giảm 100%) nhưng đầu nút đã gỡ đúng ⇒ cạnh vẫn gỡ theo, không để cạnh sống trỏ vào vật đã mất
+    mk = lambda i: (["GS", "PgView"], {"gs_key": NS + i, "family": "pg:d", "cls": "view"})
+    gn_ = {NS + "pg:d:view:%d" % i: mk("pg:d:view:%d" % i) for i in range(10)}
+    ge_ = {(NS + "pg:d:view:0", "DEPENDS_ON", NS + "pg:d:view:1"): [{"family": "pg:d", "evidence": "NATIVE"}]}
+    rn_, re_, _ = GA_M.retire_native(gn_, ge_, {k: 1 for k in gn_ if not k.endswith(":0")}, {}, {"sources": {"pg:d": {"status": "FULL"}}, "oracle": {"pg:d": {"ok": True}}})
+    gt["endpoint_retired"] = [x["why"] for x in re_]
+    # thế hệ chỉ tăng khi đạt; nguồn hỏng quá 26h kể từ lần đạt cuối ⇒ STALE, không giữ màu cũ
+    uni_ = {"nodes": {}, "edges": {}, "gaps": [], "sources": {"docker": {"status": "FULL"}}}
+    ok_d = {"families": {"docker": {"ok": True}}}
+    st_ = {}
+    a1 = GA_M.source_cert(uni_, ok_d, {}, st_, 1000)["cells"]["docker"]
+    uni_["sources"]["docker"] = {"status": "PARTIAL", "why": "503"}
+    a2 = GA_M.source_cert(uni_, ok_d, {}, st_, 2000)["cells"]["docker"]
+    a3 = GA_M.source_cert(uni_, ok_d, {}, st_, 1000 + 27 * 3600)["cells"]["docker"]
+    gt["cert_ttl"] = [(a1["status"], a1["generation"]), (a2["status"], a2["generation"]), (a3["status"], a3["generation"])]
+    gt["github_derived"] = GA_M.derive_file_refs("native:github:file:r:a.py", "select * from pivot_results; # pivot_resultsX", {"pivot_results": "native:pg:directus:table:public.pivot_results", "khong_co": "x"})
+    gt["r7_design"] = {"current": GA_M.gate_decision(["guard", "config_guard_clean"]), "r7_off_unrelated": GA_M.gate_decision(["guard", "config_guard_clean"], r7=True), "r7_vps_ghi": GA_M.gate_decision(["vps_ghi"], r7=True)}
+    ru = resource.getrusage(resource.RUSAGE_SELF)
+    rc_ = resource.getrusage(resource.RUSAGE_CHILDREN)
+    total = sum(1 for x in res if x["pass"])
+    rep_ = {"level": "FIXTURE_PASS" if total == len(res) == 21 and gt["negative_oracle_detects"] and gt["secret_scan_detects_canary"] and gt["human_edge"]["kept"] and len(gt["github_derived"]) == 1 and gt["endpoint_retired"] == ["ENDPOINT_RETIRED"] and gt["cert_ttl"] == [("FULL", 1), ("PARTIAL", 1), ("STALE", 1)] else "FIXTURE_FAIL",
+            "pass": total, "total": len(res), "bases": meta, "cases": res, "guards": gt, "legacy_sig": legacy_sig, "seconds": round(time.time() - t00, 1),
+            "cpu_user_s": round(ru.ru_utime + rc_.ru_utime, 1), "cpu_sys_s": round(ru.ru_stime + rc_.ru_stime, 1), "maxrss_mb": round(ru.ru_maxrss / 1048576, 1), "maxrss_child_mb": round(rc_.ru_maxrss / 1048576, 1)}
+    print(json.dumps({k: rep_[k] for k in ("level", "pass", "total", "guards", "seconds", "cpu_user_s", "cpu_sys_s", "maxrss_mb", "maxrss_child_mb")}, ensure_ascii=False))
+    if OUT_:
+        json.dump(rep_, open(OUT_, "w"), ensure_ascii=False, indent=1, default=str)
+    shutil.rmtree(W, ignore_errors=True)
+    return 0 if rep_["level"] == "FIXTURE_PASS" else 1
+
+
+if len(sys.argv) > 1 and sys.argv[1] == "--sync-core":
+    sys.exit(sync_core_main(sys.argv[2:]))
 
 CAND, GA_P, GRF_P, CELLS_P, DOC_P = sys.argv[1:6]
 OUT = sys.argv[sys.argv.index("--out") + 1] if "--out" in sys.argv else None
@@ -366,8 +752,8 @@ try:
     p2 = GA.plan(GG({}, []), "", "c1d:infra", dict(reversed(list(many.items()))), {}, {"nodes": 7, "edges": 10}, used)
     case("LANE", "L6", "vượt trần ⇒ CAP_BOUND_PARTIAL, lấy mẫu tất định (hai thứ tự đầu vào ⇒ cùng tập)", p1["cap_bound_partial"] and p1["created_keys"] == p2["created_keys"]
          and len(p1["created_keys"]) == 7, p1["created_keys"][:3])
-    p3 = GA.plan(GG({}, []), "", "c1d:infra", many, {}, {"nodes": 30, "edges": 10}, {"nodes": 25, "edges": 0})
-    case("LANE", "L6b", "trần TOÀN pilot cộng dồn (đã dùng 25/30) ⇒ chỉ thêm 5", p3["cap_bound_partial"] and len(p3["created_keys"]) == 5, len(p3["created_keys"]))
+    p3 = GA.plan(GG({}, []), "", "c1d:infra", many, {}, {"nodes": 5, "edges": 10}, {"nodes": 25, "edges": 0})
+    case("LANE", "L6b", "quota MỖI LƯỢT, sổ cộng dồn không còn trừ: thêm đúng 5, còn 15 cho lượt sau", p3["cap_bound_partial"] and len(p3["created_keys"]) == 5 and p3["quota_left"] == 15, len(p3["created_keys"]))
     pl = GA.plan(GG({}, []), "", "c1d:infra", {"net:listen:a": want_n["net:listen:a"]}, want_e, caps, used)
     case("LANE", "L7", "cạnh tới điểm cuối không tồn tại ⇒ vấn đề EDGE_ENDPOINT_MISSING (BLOCKED)", any(x.startswith("EDGE_ENDPOINT_MISSING") for x in pl["problems"]), pl["problems"])
     gg_conf = GG({"net:listen:a": (["GS", "SystemdUnit"], N("net:listen:a", "SystemdUnit")["p"])}, [])
