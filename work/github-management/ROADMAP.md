@@ -1,4 +1,5 @@
-# ROADMAP — github-management V1.11 · 30/10/2026
+# ROADMAP — github-management V1.12 · 31/10/2026
+**V1.12 · Claude P157 (31/10) — ĐÓNG GHM TRONG 2 BƯỚC:** đo thật: repo/khoá/cổng 🟢 · Web main = bản đang chạy 🟢 · AD main thiếu 3 tệp đang chạy (PR #357) 🔴. **S1 SYNC-MAIN** (KST, chỉ GitHub, PROMPT.md) → **S2 mẻ việc thật đầu tiên** (tối giao 2–3 PR, sáng KST merge; Web đổi thì 1 lần deploy) ⇒ **GHM XONG**. GHM không chờ NDW P119; AD release từ main = HJW G8 (biên nhận). Tự động giao việc + viết cứng luật vào harness/skill = giai đoạn sau, Owner mở riêng.
 **P148 GPT Host ACCEPT P147:** T3 khóa Web VPS HOÃN theo Owner; vận hành cũ giữ nguyên. Web/AD main source + CI đạt, Web PR682→VPS là bằng chứng đầu. Bước ứng dụng Web thật kế tiếp chọn P0 Reports Owner auth tại NDW hiện hữu (CODE-ONLY branch/PR/CI; NO MERGE/DEPLOY, Owner GO riêng); GHM chỉ phục vụ lane, không mở task mới. R4/F2 3 agent/3 PR + kiểm runner trust, AD main→VPS rollback, R6/C4 ca đêm chưa đạt. `OPS_KEY` thuộc bảo mật hiện hữu; không bịa Owner identity từ cookie khách.
 **P147 OWNER — **HOÃN KHÓA — TIẾP TỤC VẬN HÀNH THỰC TẾ.** Owner 30/10 thay quyết định bước khóa T3 tại P146; chưa chmod/read-only, tắt writer/vps-daily hoặc thay Guard để cưỡng chế GitHub SSOT. Giữ nguyên các đường vận hành, backup, rollback, HVU, cron và vps-daily đang có; không hoàn tác kết quả đã nghiệm thu.**
 
