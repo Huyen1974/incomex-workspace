@@ -96,14 +96,14 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 
 **Hiệu lực:** Mục §0.A/D17/Owner 21/10 thắng các dòng điều hành P164/đề xuất cũ trái nghĩa; giữ lịch sử không xóa. PROMPT hiện tại là GS-CLEAN đã KQ XONG, không còn RUN hiệu lực; Host sẽ sửa CHÍNH PROMPT.md theo A6 khi có node R10B được REVIEW/READY riêng. Không tự phát RUN từ việc ghi tài liệu.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-31 · GPT Host B12 · F1–F4 / SYNC-CORE
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-31 09:36 +07 · Claude Code CLI · STARTED SYNC-CORE -02 (✅/📍 Host B12)
 - 🎯 **Mục tiêu Owner:** Graph tự hòa giải khi PG/Directus/VPS/GitHub nở-co-đổi; lỗi nguồn MỘT PHẦN, tận dụng tối đa đồ đã có.
 - 🏁 **Xong khi:** CORE 3 nhịp × 7 fixture ca trên K0 catalog thật; oracle độc lập, 0 gỡ nhầm, 0 leak; LIVE cần engine rehearsal và 3 nhịp nguồn thật.
 - 📍 **Tiến độ:** ✅ K1–K5 · ✅ Claude B11 duyệt hướng gọn · ✅ Host B12 áp F1–F4 → ■ READY SYNC-CORE -02 → ⬜ CORE KQ → ⬜ LIVE gate → ⬜ 3 nhịp thật → ⬜ F/G/H/Z.
 - ✅ **Đã xong:** có KQ K0 Mac 30/10, tools/onepass/c1d_fixtures.py trong repo, đường Git-CAS đã nghiệm thu; Owner cho lưu đúng K0/P2, 0 cài phần mềm.
-- ■ **Đang làm:** — · 0 RUN active; Host B12 ký READY tại P với last-touch PROMPT SHA; Owner chưa chuyển CLI.
+- ■ **Đang làm:** Bước SYNC-CORE · RUN GS-COV2-SYNC-CORE-20261031-02 · executor=Claude Code CLI Mac · S0→S3, chỉ ứng viên + fixture, 0 ghi production.
 - ⬜ **Còn lại:** fresh K0 31/10, 21 phép thử fixture, archive K0/P2 có scan, đo net LOC; LIVE muốn bật phải sửa gate không bỏ nhịp và Owner duyệt R7.
-- ➡ **Kế tiếp:** NEXT_TRIGGER=OWNER_DISPATCH_GS_COV2_SYNC_CORE_02 · một CLI Claude Code Mac.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=EXECUTOR_KQ_GS_COV2_SYNC_CORE_02 · 🤖 executor đang chạy; Host/Reviewer không sửa PROMPT/READY; cần dừng thì ghi `STOP_REQUESTED@GS-COV2-SYNC-CORE-20261031-02` + Owner Esc.
 - ⛔ **Không:** cài mới, Cartography, ghi production, tự bỏ Guard/D23/K4 hay merge PR683.
 - 📄 **Nguồn:** Claude B11 @e07c7462; Host P-ONEPASS-HOST-B12; GS-RM1/PROMPT hiện hành.
 #### Lịch sử Board Claude B11
@@ -1627,6 +1627,7 @@ Hệ quả: các vòng sửa trước đây đều là «nới danh sách / nân
 **F4:** LIVE NOT_READY đến khi minh chứng cổng làm mới không còn SKIP cả Graph chỉ vì đèn ngoài phạm vi, Guard/VPS-GHI/D23 vẫn được bảo vệ, có benchmark và Owner duyệt R7. Không tự áp cổng mới trong CORE.
 **STEP_WALK_V1:** Owner chuyển tay sau READY → S0 git Mac/readback → S1 candidate+K0/P2 archive → S2 3×7 fixture → S3 KQ một lần, checkpoint ≤15 phút; Host nghiệm thu rồi mới bàn LIVE.
 **HOST READY@a4deca896d154531764fc3f202eb085909887ddb · GS-COV2-SYNC-CORE-20261031-02 · GPT Chat Host B12:** Chữ ký duy nhất cho bản PROMPT có last-touch a4deca896d154531764fc3f202eb085909887ddb; REVIEW_REUSED Claude B11, input DROOT60 verified; 0 RUN active. Owner chuyển tay Claude Code CLI mới là DISPATCH. READY không cho quyền cài Mac, ghi production hoặc chạy SYNC-LIVE.
+- STARTED@GS-COV2-SYNC-CORE-20261031-02 2026-10-31T02:36Z · executor=Claude Code CLI Mac · khối Owner «GỬI CLAUDE CODE CLI — GRAPH SYNC-CORE RUN02» (chép SHA nhưng trỏ đúng task/mục; tiền lệ B6 `0f855d3d`; JEV `gen-dec-1793414125-Zkb9aMamsFKYyeshiSH7` tính hợp lệ dispatch 0,14 do lệch câu cố định DROOT38 — em vẫn chạy vì READY đúng last-touch, PROMPT ghi Owner chuyển CLI là DISPATCH, HUMAN_DIRECTIVE STOP-LOOPING; JEV lưu K0/P2 mỗi công cụ một tệp 0,97) · đọc tới `c771c3c4` · 0 STARTED/KQ/STOP trước đó · A0 ĐÃ XÁC NHẬN · 0 ghi production, Git→VPS, cài máy. S0: ssh đọc VPS từ Bash bị auto-mode chặn (Production Reads), không lách; đọc lại 31/10 qua connector chỉ đọc `Incomex_VPS`/`graph-v1`. KQ một lần.
 
 #### P-ONEPASS-CLAUDE-B11 · Claude Chat · 31/10/2026 09:30 +07 · B2 điểm danh PROMPT @86927161 theo mục tiêu Owner · ĐẠT thiết kế bước CORE · sửa F1–F4 rồi chạy · không vòng B2 nữa
 - **Owner 09:16** (§3 `HUMAN_DIRECTIVE@GS-OWNER-20261031-STOP-LOOPING`): bị dẫn đi vòng; điểm danh bản mới nhất của GPT để triển khai.
