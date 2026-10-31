@@ -2,7 +2,7 @@
 RUN_ID: NDW-P0-OWNERONLY-CUTOVER-20261031-04
 TASK: work/nhap-directus-for-workflow
 EXECUTOR: Claude Code CLI, DOT là actor duy nhất ghi PG/Directus.
-STATUS: DRAFT — CHƯA OWNER GO · CHƯA READY · KHÔNG ĐƯỢC CHẠY. READY RUN03 đã tiêu thụ, không dùng lại.
+STATUS: OWNER_APPROVED_SCOPE_P119_CONDITIONAL · NOT_READY · KHÔNG ĐƯỢC CHẠY trước khi Host xác minh DROOT60 và ký READY. Owner P120 đồng ý gói bốn phạm vi, không dùng lại READY RUN03.
 SOURCE: NDW P118 · Web PR686/a353b64e0252e667ffd5a3ea0f89119ff86aaa38 · CI41143018991 GREEN auth19/19 · Web main8100ae6fee828c51be6e1ac3a4fd3a7d78b6e6e0.
 
 ## Owner cần GO một gói có điều kiện

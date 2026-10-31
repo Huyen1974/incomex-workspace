@@ -1,7 +1,7 @@
 # PROMPT — GHM S1 SYNC-MAIN: main Agent Data chứa đúng mã đang chạy (Claude P157 · DRAFT chờ Host READY)
 
 RUN_ID: GHM-SYNC-MAIN-20261031-15 · Người chạy: Claude Code CLI (KST) trên Mac · Phạm vi: chỉ GitHub `Huyen1974/agent-data-test` · 0 VPS-GHI · 0 deploy · 0 sửa mã.
-STATUS: DRAFT_CLAUDE_P157 · NOT_READY đến khi GPT Host ký READY@last-touch SHA tệp này. Bản C2 cũ (đã xong) xem lịch sử git của tệp.
+STATUS: HOST_P158_DRAFT · NOT_READY khi HJW RUN25 còn STARTED; PR358 chứa PR357 nên không được dùng S1 merge cũ. Chỉ Host ký READY sau HJW KQ và đối chiếu main/PR hiện hành.
 
 ## Vì sao (đo 31/10 13:15–13:35 +07, gh API + vps_status)
 1. AD đang chạy image `agent-data-hvu:w4q-20261029-06` = 46e0ba15 + đúng 3 tệp của PR #357 HEAD `36c682914c9f412078113b6d85319f11356d1130` (receipt trên PR #357, 29/10 21:45).
@@ -16,13 +16,18 @@ STATUS: DRAFT_CLAUDE_P157 · NOT_READY đến khi GPT Host ký READY@last-touch 
 0.4 #357 HEAD vẫn `36c68291…`; diff chỉ 4 tệp (3 tệp trên + `tests/continuation/test_vpsc2_w4q05_queue.py`), 0 workflow/secret/Dockerfile.
 0.5 Blob 3 tệp trên #357 = blob cùng path trên nhánh `vps-daily-<ngày mới nhất>`.
 
-## S1 — KST merge (một lần, đúng luật L1)
-1.1 `gh pr ready 357 -R Huyen1974/agent-data-test` → `gh pr update-branch 357 -R Huyen1974/agent-data-test` (merge thường, không rebase/force).
-1.2 Theo dõi `gate` trên HEAD mới đến khi xong; xanh mới đi tiếp. Đỏ ⇒ DỪNG, ghi lý do; không sửa mã trong RUN này.
-1.3 Review diff HEAD mới vs main: vẫn chỉ 4 tệp, nội dung 3 tệp không đổi so với 0.5.
-1.4 Comment `KST_ACCEPT@<HEAD mới>` (lý do: ghi nhận mã đang chạy production, receipt VPSC2-08) → `gh pr merge 357 -R Huyen1974/agent-data-test --merge --match-head-commit <HEAD mới>`. Không `--admin`, không bypass.
-1.5 Sau merge: blob 3 tệp trên main = 0.5; `gate` push-main success; không run deploy nào khởi chạy.
-1.6 Comment trên #358: «#357 đã vào main tại `<merge SHA>`; nội dung #358 không đổi; lần tới cần update-branch theo main mới.» Không sửa/merge #358, #353, Web #683, #686.
+## S1 — KST chốt MỘT đường nhập, không tự merge PR357
+1.1 Bắt buộc đọc **HJW RUN25 KQ** cùng hiện trạng **PR358**: PR358 đã chứa commit PR357 36c68291 (có merge fe948016) và hiện DRAFT. P489 HJW không cho merge trùng. Nếu RUN25 còn STARTED, không mở S1, báo sự kiện thật và không giữ terminal chờ.
+1.2 Nếu HJW KQ/Host đã chọn PR358 là đường gộp duy nhất: KHÔNG merge PR357. Trạng thái đúng: AD source ở GH PR358/357, AD main khác runtime; HJW G8 chịu trách nhiệm hợp nhất main/release sau Linux image+rollback. Không tuyên SYNC_MAIN_PASS.
+1.3 Chỉ nếu HJW KQ **cho phép rõ** đưa PR357 trước, chứng nhận không ảnh hưởng PR358 và có đường cập nhật base PR358: KST rà 4 tệp + 3 live queue blob, kiểm fresh `deploy-vps.yml=disabled_manually`, main/HEAD/cổng required gate; `gh pr ready` và `gh pr update-branch` #357; đợi CI GREEN đúng HEAD/main hiện tại, KST_ACCEPT@exact SHA; merge --match-head-commit, kiểm 3 blob, push-main gate, 0 deploy; ghi comment cho HJW PR358 rebase sau. Không đổi workflow hay VPS. Có xung đột/bất đồng thì KHÔNG force, giữ an toàn.
+1.4 Nếu PR358 đã merge trước S1, đo main 3 blob/thực chạy; bỏ thao tác #357 (đóng PR nếu superseded theo HJW) và ghi đúng parity.
+1.5 Không gọi lỗi 'thiếu source trên GitHub': #357 và #358 hiện chứa source. PR358 bản ghép không nhất thiết blob bằng image đang chạy; phân biệt SOURCE_PRESENT, MAIN_PARITY và LIVE_IMAGE riêng.
+
+## S1b — Chuẩn bị luôn hai phiếu F2 từ backlog có thật, không tạo task mới
+- **AD CONN-REPAIR PR353:** test-only `tests/continuation/test_p02_snapshot_k8.py`, nhánh `dev/claude-code-ad/conn-repair-03c-p02-sync` trusted, base cũ; KST kiểm ghép main mới, gate/test rồi quyết độc lập (không tự duyệt PR mình viết).
+- **Web WEB-71 PR327:** `dot/bin/dot-start-all`, nhánh hiện `docs/web-71-closure` KHÔNG trusted; 1 worker dùng branch `dev/claude-code-web/web71-stats` từ main mới, mang đúng delta và thêm/kiểm regression, CI gate rồi KST review. Không bypass OUT_OF_PILOT. Các PR cũ là backlog, **không tính là hai agent mới chạy đêm song song**.
+- Mỗi phiếu đúng 6 ô: Task/goal, DoD/test, files được sửa, base SHA và phụ thuộc, dev seat, KST/review + giới hạn; có thể giao ngay khi có worker thật, không đợi P119.
+- C4 automatic overnight không được tô xanh chỉ vì Owner dán lệnh một lần; nếu chỉ Claude CLI sẵn, ghi 1 seat, không giả 3 dev seats.
 
 ## S2 — KQ
 Ghi COLLAB GHM `P158` + Bảng + dòng đầu ROADMAP/README (qua gateway): `AD_MAIN_HAS_RUNNING_CODE=YES` (main ⊇ bản đang chạy; main còn hơn bản chạy các tệp chờ HJW G8 phát hành — HJW S3 và `pg_store.py`) · `WEB_MAIN_EQ_LIVE=YES` (cây `web/` main = `0bc47577` = bản deploy P131, đo lại 1 lệnh) · merge SHA · run ID · link comment. NEXT_TRIGGER=HOST_ACCEPT_S1_THEN_S2_BATCH1.
