@@ -5,12 +5,12 @@ HTML chính: view.html
 ## 0. MỤC TIÊU/NHIỆM VỤ USER — BẮT BUỘC ĐỌC TRƯỚC
 Xác nhận User: ĐÃ XÁC NHẬN — Owner 30/10/2026 lập task; 14:57 chỉ đạo «không bàn nữa mà làm»: chốt 5 việc Owner quyết + quy trình Mục tiêu lớn → Mục tiêu nhỏ → Checkpoint (§1 mục 9), sửa thẳng bản thiết kế, GPT góp thêm rồi chạy thử. Host: GPT Chat (đề xuất, Owner chưa chỉ định riêng). Chưa đổi AGENTS.
 
-### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-31 09:28 +07 · GPT Host · Đầu vào: Hướng dẫn 8 câu hỏi + ví dụ
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-31 13:34 +07 · GPT Chat · N4 làm rõ nơi Agent ghi câu trả lời
 - 🎯 Mục tiêu: Owner chỉ quyết 5 việc; còn lại AI chạy theo Mục tiêu lớn (L) → Đầu vào chung (Đ) → Mục tiêu nhỏ (N) → Checkpoint (C) với từ điển + form khai chung, agent khảo sát và đề xuất nhiều nhất, hội đồng tập trung giám sát.
 - 🏁 Xong khi: từ điển + form + thao tác ở [view.html](view.html) chạy thử đạt trên ≥ 1 việc thật, đo chỉ số ([mục 8](view.html#muc-8)); lỗ gặp khi thử đã vá vào form.
 - 📍 Tiến độ: [✅ N1 bản V2.1] → [■ N4 Bảng mục tiêu] → [□ N2 GPT rà, sửa thẳng] → [□ N3 thử trên Sổ PG] → [□ Sửa AGENTS theo kết quả thử].
 - ✅ Đã xong: N1 — [view.html](view.html) V2.1: **giữ đủ định nghĩa, vai, cấu trúc, quy trình V1 của GPT** (nhãn V1) + bổ sung: từ điển có cột «không phải», form L/Đ/N/C/Báo cáo, 17 thao tác (ai · ghi đâu · làm thế nào), lượt agent 8 bước, khi nào hỏi Owner, 10 lỗ hở, bảng V2 khác V1. §4 bên dưới đã viết theo form. N4.C2: [Bảng mục tiêu](view.html#ban-do-muc-tieu) thay hình minh hoạ — «Hỏi gì → nhìn đâu» + 4 bảng (Mục tiêu lớn · Đầu vào · Mục tiêu nhỏ × Checkpoint · Báo cáo), dưới mỗi bảng ghi ai thêm, thêm thế nào; thêm thao tác 3.18 chuyển checkpoint chưa xong sang N sau.
-- ■ Đang làm: N4 · GPT Host đã đổi riêng hướng dẫn (?) của Thông tin đầu vào thành 2 phần: 8 câu hỏi và ví dụ; đồng bộ dấu ? từng nhóm. Giữ nguyên dữ liệu Đx, ma trận, quyền và trạng thái N10 ĐỀ XUẤT. 0 RUN kỹ thuật.
+- ■ Đang làm: N4 · đã làm rõ trước bảng: Agent ghi vào COLLAB.md §4 → Đầu vào chung; view.html đang là bảng xem, chưa tự cập nhật, N5 vẫn ĐỀ XUẤT để xử lý nhập một lần. Không mở RUN kỹ thuật.
 - ⬜ Còn lại: N4 chốt bảng + quy tắc vẽ; N2 GPT rà (gồm cả bảng); N3 thử trên Sổ PG; N5 trang Task tự vẽ (đề xuất); sửa AGENTS sau khi thử đạt.
 - ➡ Kế tiếp: Claude/Owner kiểm thử bộ 8 câu hỏi từ góc nhìn Agent mới, sửa thiếu sót nếu có; sau đó hoàn tất N4 và đi tiếp N2/N3. NEXT_TRIGGER=CLAUDE_OWNER_REVIEW_8_INPUT_QUESTIONS.
 - 😊 Owner cần quyết (không gấp): mục tiêu lớn 3 (+) «Sửa luật AGENTS theo cách làm mới» — đề xuất: GẬT, làm sau khi chạy thử đạt.
@@ -74,6 +74,7 @@ L1 = §1 + §2 ở trên (Owner).
 - L3 · + Sửa luật AGENTS theo cách làm mới · ĐỀ XUẤT (claude-chat, từ lộ trình «Sửa AGENTS sau khi thử đạt») · Xong khi: AGENTS ghi đúng cách làm đã chạy thử đạt · chờ Owner gật (thao tác 3.3) · mục tiêu nhỏ (+ đề xuất cùng L3): N8, N9 (ma trận mục 3).
 
 #### Đầu vào chung
+> **NƠI AGENT GHI CÂU TRẢ LỜI:** ngay tại đây trong `work/<task-id>/COLLAB.md` → `§4 Kế hoạch` → `#### Đầu vào chung`, thêm/sửa dòng `Đx` dưới đúng nhóm 1–8 bằng gateway Git Workspace. Trang `view.html` hiện là bản xem, **không phải nơi nhập**; bảng mẫu chưa tự nạp Đx. Trong giai đoạn mẫu, nếu cần hàng mới xuất hiện trên trang, Agent còn phải cập nhật hàng tương ứng ở `view.html`. Đích của N5: chỉ cần ghi vào COLLAB một lần là bảng tự đổi.
 > 🤖 Biển: Đầu vào chung 8 mục. **Mục 2/3/4** trả lời CẦN gì → HIỆN CÓ gì; mục 1/5/6/8 ghi bối cảnh/quyết định/ghi chú, không ép theo khuôn Cần→Có. Nếu dòng chỉ phục vụ một N, ghi `cho: Nx`; không ghi = chung. Ghi nguồn, thời điểm kiểm và trạng thái ● đủ/đã kiểm · ○ chưa kiểm · 🟡 cần kiểm lại · 🔴 thiếu/sai. Thiếu nguồn ở mục nào thì đánh dấu **tại mục đó**; mục 7 chỉ dành cho điều chưa xếp được nhóm. Thiếu thiết yếu cho Nx ⇒ đề xuất N chuẩn bị/khảo sát trước Nx, gắn `Nx cần trước: N chuẩn bị · Đx`, không tạo trùng. **Chưa được duyệt N ≠ thiếu nguồn**; không đánh đỏ khi chưa kiểm. Host duyệt N chuẩn bị trước RUN; chỉ chặn N phụ thuộc, việc độc lập tiếp tục. Dữ liệu động/quyền kiểm khi dùng; không khảo sát lại toàn bộ mỗi lượt. Sai: giữ dòng cũ có dẫn sang Đ mới, Git lưu dấu vết. Chi tiết: [view.html › Thông tin đầu vào](view.html#dau-vao).
 - 1 Dùng cho ai · khi nào · bao nhiêu
   - Đ7 · Owner và mọi AI hội đồng; áp cho mọi việc trên trang Task (11 việc) · nguồn: Owner 30/10 14:57 · trang Task · kiểm: 30/10 · Claude · ●
@@ -169,7 +170,7 @@ L1 = §1 + §2 ở trên (Owner).
 
 #### N5 · Trang Task tự vẽ Bản đồ mục tiêu từ §4 · ĐỀ XUẤT
 - Thuộc: L1 · Cần trước: N4 · Người làm: (Host chọn — claude-code hoặc codex) · Ước: 3h
-- Xong khi: trang Task đọc §4 của mọi việc và vẽ đúng mẫu N4; sửa §4 xong mở trang Task thấy hình đổi theo; việc thiếu §4 hiện «chưa có kế hoạch».
+- Xong khi: trang Task đọc §4 của mọi việc và vẽ đúng mẫu N4, **gồm cả 8 nhóm và các dòng Đx ở Đầu vào chung**; Agent chỉ sửa `COLLAB.md` một lần, bảng Owner View tự cập nhật, không còn sửa `view.html` bằng tay. Việc thiếu §4 hiện «chưa có kế hoạch».
 - Được làm: 👁 · ✍ nhánh + PR mã trang Task (scripts/hvu-b2) · merge/deploy theo KST
 - Đề xuất: claude-chat 30/10 · Duyệt: —
 - C1 ⬜ Bộ đọc §4 ra dữ liệu L/Đ/N/C · Đạt khi: đọc đúng §4 của việc này
