@@ -96,6 +96,17 @@ Xác nhận User: **ĐÃ XÁC NHẬN** — chỉ đạo trực tiếp ngày 24/0
 
 **Hiệu lực:** Mục §0.A/D17/Owner 21/10 thắng các dòng điều hành P164/đề xuất cũ trái nghĩa; giữ lịch sử không xóa. PROMPT hiện tại là GS-CLEAN đã KQ XONG, không còn RUN hiệu lực; Host sẽ sửa CHÍNH PROMPT.md theo A6 khi có node R10B được REVIEW/READY riêng. Không tự phát RUN từ việc ghi tài liệu.
 
+### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-31 · GPT Host B13 · CORE ACCEPT/PROOF-BRIDGE
+- 🎯 **Mục tiêu Owner:** Graph tự theo thay đổi PG/Directus/VPS/GitHub dài hạn hoặc tự MỘT PHẦN; dùng lại, ít mã, tránh false-green.
+- 🏁 **Xong khi:** N1–N4 và Z1–Z6 trên LIVE có 3 nhịp thật; CORE chỉ FIXTURE_PASS và PROOF-BRIDGE tiếp tục kiểm N4 nguồn/cạnh trước LIVE.
+- 📍 **Tiến độ:** ✅ R0–R11 scoped, C1A–D scoped · ✅ CORE-02 FIXTURE_PASS 21/21 · ■ PROOF-BRIDGE-03 K0 retired/dangling/legacy regression → ⬜ Neo4j rehearsal → ⬜ LIVE Owner R7 → ⬜ 3 nhịp thật → ⬜ F/G/H/Z.
+- ✅ **Đã xong:** 21/21 fixture có K0 source thật, soft-retire/catch-up candidate, 9/9 mutation tests, archive K0/P2, 0 production change.
+- ■ **Đang làm:** — · 0 RUN active; Host ký READY RUN03 mới sau xác minh PROMPT SHA, Owner chưa dispatch.
+- ⬜ **Còn:** 312 dangling false-green risk, K0 retired node/edge, old fixture 6 GAP, live SHA và R7, Neo4j temp (RAM 2.46 GiB/swap cạn), F/G/H/Z.
+- ➡ **Kế tiếp:** NEXT_TRIGGER=OWNER_DISPATCH_GS_COV2_SYNC_PROOF_BRIDGE_03 · Claude Code CLI Mac, một CLI, không production.
+- ⛔ **Không:** engine temp VPS khi thiếu RAM, SSH bị auto-mode chặn, bỏ Guard/D23, tăng framework/công cụ, tắt mã Pivot.
+- 📄 **Căn cứ:** KQ 0dfa8fbf, files 8bb5b3c0/6bd0f321, P-ONEPASS-HOST-B13, scoped graph-v1 status.
+#### Lịch sử Board CORE-02
 ### BẢNG ĐIỀU KHIỂN · cập nhật 2026-10-31 10:12 +07 · Claude Code CLI · KQ SYNC-CORE -02 XONG FIXTURE_PASS (✅/📍 Host B12, Host nghiệm thu)
 - 🎯 **Mục tiêu Owner:** Graph tự hòa giải khi PG/Directus/VPS/GitHub nở-co-đổi; lỗi nguồn MỘT PHẦN, tận dụng tối đa đồ đã có.
 - 🏁 **Xong khi:** CORE 3 nhịp × 7 fixture ca trên K0 catalog thật; oracle độc lập, 0 gỡ nhầm, 0 leak; LIVE cần engine rehearsal và 3 nhịp nguồn thật.
@@ -1747,6 +1758,14 @@ Giữ nguyên: V1 mọi khu vực trừ giá trị bí mật; V4 ngưỡng 75% +
 - **Nhắc GPT:** GS-RM1 hàng SYNC-CORE ⇒ READY mới sau vá; hàng F tách «dấu dùng Directus có ngay; dấu dùng hàm PG từ 13/11»; §0 ghi đủ 4 yêu cầu Owner 06:22; Bảng.
 - `NEXT_TRIGGER=OWNER_G1_THEN_GPT_HOST_B3_APPLY_V1_V9_RESIGN` — không vòng B2 nữa.
 
+#### P-ONEPASS-HOST-B13 · GPT Chat Host · 31/10/2026 · NGHIỆM THU SYNC-CORE 02 + GIAO PROOF-BRIDGE 03
+**KQ/VERIFIED:** ACCEPT_SCOPED_FIXTURE_PASS_21_OF_21 tại 0dfa8fbf, code 8bb5b3c0/e6e42ccf/6bd0f321, K0/P2 bcc22cae/7431ce42, view+roadmap b60d376a. Có các ca ADD, 30% soft-retire, >75% block, A→B→C, lỗi nguồn, bỏ nhịp tự bắt kịp, no-change. 9 mutation test được bắt (ban đầu 2 lọt, đã thêm kiểm). Đây là Python fake Graph, 0 Neo4j execution, 0 production mutation/merge/deploy; Graph snapshot 8.968/20.984, N4 NOT_ACTION_SAFE.
+**ĐỊA CHỈ GỐC RỄ K1–K5:** lane sync:native vũ trụ từ K0, namespace DB/type, quota per-run và soft-retire đã làm CANDIDATE; refresh policy R7/generation cert chưa nối. K0 archive có 11 script trong đúng một file, P2 một file, quét trufflehog 0 báo cáo; README đăng ký, Master Tool/DOT còn nợ riêng. Net LOC công cụ +1.454, chưa giảm, phải kiểm soát không tạo framework.
+**PHÁT SINH NGUY HIỂM:** (1) K0 Graph export chỉ trả 3 trường edge, oracle so node status 'RETIRED' nhưng candidate dùng lowercase 'retired' ⇒ future false mismatch; (2) candidate `oracle_diff` bỏ 312 dangling edge khi tính nguồn (194 Directus permission collection, 21 system view, 95 view misclassified, 2 khác) mà `source_cert` chưa trực tiếp hạ nhãn per-source khi có dangling ⇒ nguy cơ FALSE_FULL dù global actionability đã block, cần negative test BEFORE LIVE; (3) 6 ONEPASS fixtures + legacy c1d/c1d2 env NOT_RUN; (4) live graph-refresh/graph_autocover SHA chưa pin, SSH Mac bị auto-mode cấm, không lách; (5) Graph refresh từ 25/10 bị SKIP, R7 chưa OWNER_GO; (6) Directus API/T2, nguồn cron/systemd/nginx/cổng/TOC/postgres còn PARTIAL.
+**RESOURCE GATE mới đo VPS:** MemAvailable 2,580,328 KiB (≈2.46 GiB), SwapFree 264 KiB /2,097,148 KiB, đĩa trống ≈35.3 GB; Neo4j tạm >3GiB readiness FAIL, không được áp test trên VPS bây giờ. Nguồn `vps_status(resources)` trả sample_age 22.8s tại lúc đo.
+**HOST_DISPOSITION:** nghiệm thu chỉ checkpoint CORE, không cấp SYNC-LIVE READY hoặc R7. Ưu tiên fix BẰNG CHỨNG per-source trước khi nạp Graph thật. Review nền dùng Claude Chat P-ONEPASS-CLAUDE-B11 và B8 + KQ; RUN03 chỉ candidate/fixture và 0 production write. Đích từ ROADMAP: R0–R11 nền tảng scoped, C1A–D scoped, N1–N4 chưa FULL; tiếp PROOF-BRIDGE 03 → protected Neo4j rehearsal sau resource/permission gate → SYNC-LIVE với Owner R7 → 3 cycles LIVE → F/G/H/Z. Không mở task/công cụ mới.
+**INPUT READY DROOT60:** K0 archive/README/c1d candidates/fixture+workspace write đã xác minh tại Git, Mac Python fixture có KQ 31/10; source live chỉ đọc bằng connector nếu được phép là EXECUTOR_FRESHNESS, không thành blocker cho việc sửa K0 source; VPS temp rehearsal không thuộc RUN này, resource FAIL hiện tại. 0 active RUN sau KQ 02. Host READY sẽ được ký trên PROMPT mới last-touch SHA40 sau commit, Owner dispatch thủ công.
+
 #### ROADMAP GS-RM1 — nguồn điều hành duy nhất
 | Mốc | Nội dung | Trạng thái / gate |
 |---|---|---|
@@ -1790,8 +1809,9 @@ Giữ nguyên: V1 mọi khu vực trừ giá trị bí mật; V4 ngưỡng 75% +
 | K4 · Read-time source version | live cheap fingerprint vs cert baseline, changed/missing => NOT_ACTION_SAFE | ■ P304 DRAFT_BLOCKED_RESOURCE: P301 dấu gốc 6 lớp + Nuxt có sẵn, wrapper/rollback/fixture sẵn; còn FAIL bộ đọc nuốt lỗi 2 chỗ + RAM <3GiB; no READY |
 | GS-COV2-K0-LIVE · NATIVE→GRAPH THỰC + GH SSOT | Dữ liệu thật đọc-only qua DOT đúng quyền, host runtime native; candidate Graph cô lập; so object+edge ID/hash, sửa detection và trả Pivot 23 nhóm có bằng chứng usage; stale/read-error phải báo MỘT PHẦN | 🟡 Lịch sử lệnh B6; hiện P đã XONG có giới hạn, K0 DỪNG, GPT Host B7 nghiệm thu; next B0 canonical ID+fail-closed rồi mới nạp dữ liệu |
 | GS-FULL-ONEPASS · TỔNG KIỂM KÊ COVERAGE | Một Claude CLI chỉ đọc: ngoài G1–G9, native class/edge nội bộ mỗi nguồn, scope discovery/usage/lineage, độc lập source↔Graph và negative-tests; chốt toàn bộ GAP & kế hoạch sửa thống nhất | ✅ **KQ XONG 30/10 08:25Z (Claude Code, chỉ đọc, 0 ghi)**: ma trận 83 dòng (79 trong phạm vi) — ĐỦ 6 (≈8%), kiểm kê native có số 77/79; 32 lớp ngoài danh mục, 24 lớp đọc được chưa nạp, 11 fixture 5 PASS/6 GAP (1 xanh giả tiềm ẩn F6), làm mới đêm 4 đêm không áp; roadmap GS-COV2 A∥B→C→D→E→F→G→H→Z; công cụ `tools/onepass/`; NEXT GPT Host nghiệm thu + ký A1+B |
-| GS-SYNC-CORE · RUN02 | sửa code ứng viên hiện hữu theo R1–R6, Python fixtures/catalog K0 thực + fresh readback; 7 ca×3 nhịp, K0 oracle hai chiều; K0/P2 upload có scan, không install | READY Host B12 theo PROMPT last-touch, 0 STARTED; engine Mac optional, fixture PASS ≠ Neo4j PASS |
-| GS-SYNC-LIVE · sau CORE | dùng Neo4j tạm+rehearsal/rollback đang có, một writer/source, 3 nhịp nguồn thật; sửa global refresh gate không SKIP Graph vì đèn ngoài scope | ⬜ NOT_READY: chỉ bật sau prove no-unrelated-global-SKIP, Guard/D23/rollback, benchmark CORE và Owner riêng duyệt R7 |
+| GS-SYNC-CORE · RUN02 | R1–R6 candidate: K0 native source, graph_autocover sync:native, 3×7 Python fixture, oracle independent, không production | ✅ **HOST ACCEPT_SCOPED_FIXTURE_PASS 21/21** @0dfa8fbf; chưa Neo4j engine, N4 production NOT_ACTION_SAFE, 0 RUN active |
+| GS-SYNC-PROOF-BRIDGE · RUN03 | Sửa K0 Graph retired NODE+EDGE và nguồn×loại false FULL do 312 dangling; negative/regression thật trên Python, live SHA/Guard gate chỉ-read nếu connector cho phép; không Neo4j temp khi RAM thấp | ⬜ READY chờ Host ký SHA PROMPT và Owner dispatch; candidate-only, không LIVE |
+| GS-SYNC-LIVE · sau CORE | Neo4j temp rehearsal + source-level sync with Graph N4, guarded writes and 3 cycles thật; phải có resource, oracle retired fix, source IDs/edges, refresh gate no unrelated SKIP | ⛔ NOT_READY: RAM MemAvailable≈2.46 GiB (<3) + swap near zero, live SHA/restore chưa pin, R7 Owner chưa GO |
 | GS-SYNC-LIVE-3CYCLE | ≥3 nhịp nguồn thực add/retire/change edge, oracle độc lập mỗi lần, 0 false-green và thực đo chi phí | ⬜ NOT_READY; sandbox không thay live evidence |
 | GS-COV2-B0 · CANONICAL ID + FAIL-CLOSED (lịch sử) | B0 -01 không chạy; nội dung vào R1–R3 của SYNC-CORE | ⛔ SUPERSEDED_BEFORE_START 31/10 |
 | GS-COV2-B · FIX READER GAP | 6 fixture ONEPASS còn GAP, native readers/mọi loại mới | ↪ Thành phần của SYNC-CORE/SYNC-LIVE; không báo 11/11 nếu chưa thử |
