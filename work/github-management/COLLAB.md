@@ -14,7 +14,7 @@ Xác nhận User: ĐÃ XÁC NHẬN — Owner 25/10 15:18: ƯU TIÊN SỐ 1 là h
 - ⚠ **CI hiện hành:** hai PR trusted #685/#360 và push-main gate đã GREEN. Hai PR sync cũ #684/#359 RED `OUT_OF_PILOT` là lịch sử, nay CLOSED. **Security OPEN:** có fallback `OPS_KEY` trong bản lưu script AD, chưa xác minh khoá còn sống; đã có từ trước trên Git. Chủ CONN-REPAIR/SECCRED phải xác minh/thu hồi theo quyền hiện hữu, không ghi giá trị vào repo công khai. Hai script reconcile ở bản GH đã loại fallback; VPS nguyên bản chưa đổi.
 - 📍 ✓ GH protected/CI pilot → ✓ Web PR thật #682→VPS P131/P132 → ✓ S0 P113 source inventory → ✓ Codex -14 P140 34 source push → ✓ **Host P141 ACCEPT_SCOPED**. **0 RUN active / VPS-GHI không bị lấy trong -14**, Web và AD hiện healthy theo VPS sampled.
 - ⬜ **Còn theo task gốc:** Web áp dụng PR→CI→KST→main→Owner GO→VPS trên việc ứng dụng thật tiếp theo; Agent Data runtime main+rollback (HJW G8/C1B) chưa đạt; F2/R4 = 3 agent/3 PR+runner trust boundary chưa nghiệm thu; C4/R6 = giao việc đêm và sáng KST duyệt chưa làm. T3 khóa writer VPS HOÃN theo Owner; không bắt PR đợi khóa. `OPS_KEY` và nợ credential thuộc SECCRED/CONN-REPAIR.
-- ➡ **P154 HOST:** NDW P115 Host ACCEPT PR686/a353b64 code-ready; giao Claude Code CLI RUN03 gói release-readiness, Codex không chạy do quota. GHM giữ pipeline GitHub đã đạt, F2/C4 chưa nghiệm thu, T3 VPS khóa HOÃN. NEXT_TRIGGER=NDW_CLAUDE_CLI_RUN03_READINESS_REPORT.
+- ➡ **P156 HOST:** P118 NDW giải thích lỗi source auth; P119 NDW đã dựng một DRAFT Owner-only cutover đầy đủ nhưng CHƯA GO/READY. GHM hoàn thành hạ tầng GitHub/scoped source & Web PR→VPS; vẫn còn AD release, F2 3 agent và C4 đêm. P0 không chặn F2 coding; T3 writer VPS HOÃN. NEXT_TRIGGER=NDW_OWNER_GO_P119_SCOPED_CUTOVER.
 - ⛔ Không merge PR684/359 khi required gate đang đỏ, không `--admin`, không sửa Graph/VPS/HJW/AD deployment, không thay credential/backup/visibility từ GHM, không giả source-copy = mã production đang chạy.
 
 ### 1. Mục tiêu
@@ -1802,6 +1802,13 @@ Based_on: P119 · P120 · ROADMAP §0.4h · **tự kiểm 29/10 16:05–16:30 +0
 
 **3. Telegram HJW 15:57 — đồng ý không liên quan T2:** dòng 512 HJW COLLAB là việc giao 22/10 `blocked`, gen 1, ghi sang `work/hpml-view-for-user` (ngoài phạm vi) — và **không có dòng RESULT_V1 đóng** (khác dòng 510, 513 đều có) ⇒ nhiều khả năng bộ điều phối coi nó còn mở nên quét lại và báo. Bàn giao Host HJW: (a) đóng việc này theo đúng đường máy của HJW (RESULT_V1 do dispatcher tin cậy ghi), (b) kiểm vì sao «chỉ báo một lần» lại báo lại. GHM không sửa HJW, không nới quyền ghi.
 - NEXT_TRIGGER=HOST_READY_T2B.
+
+## P156 · GPT Host · 31/10/2026 — NHẬN P118 NDW, KHÔNG ĐI LẠC MỤC TIÊU GHM
+- NDW P118 CODE_READY PR686/a353b64; RELEASE_HOLD vì chưa human Owner identity, Directus public ACL 3 pure Reports+registry, DOT publishers và monitor. NDW P119 đã chốt đúng một DRAFT cutover có điều kiện; chưa Owner GO/READY/merge/deploy.
+- Host phát hiện Directus12 license/row-field permission cần đo và 2 public policies cộng quyền; RAM ~3.1GiB, swap gần hết, Claude SSH/actual deploy env chưa có quyền chứng minh. Không dồn thêm RUN khảo sát rồi tuyên DONE giả; Owner GO một gói sau khi chứng minh input.
+- **Gốc GHM:** hai repo private/protected + required CI VPS, source Web/AD đầy đủ scoped main 34/34, Web PR682→VPS đã chứng minh. Còn AD main→runtime/rollback (HJW/C1B), F2/R4 3 agent/3 PR, C4/R6 batch đêm. P0 production KHÔNG được chặn F2 coding, T3 code writer VPS vẫn HOÃN.
+- Token column quyền rộng P118 là nợ bảo mật SECCRED/CONN-REPAIR đang có chủ; không tạo task/ghế mới hoặc đọc token.
+- NEXT_TRIGGER=NDW_OWNER_GO_P119_SCOPED_CUTOVER, GHM 0 RUN active.
 
 ## P155 · Claude Code CLI · 31/10/2026 — BIÊN NHẬN NDW RUN03
 - NDW P118 là KQ chính: PR686 giữ a353b64, CODE_READY=YES, RELEASE_HOLD; 0 merge/deploy/ghi VPS. Không mở RUN GHM. Liên quan GHM: lượt phát hành cần RAM ≥ 3,5 GiB (đo 3.011 MB) và đi đúng `ghm-manual-deploy.py`. NEXT_TRIGGER giữ tại NDW.
