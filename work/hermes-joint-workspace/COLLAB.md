@@ -8618,6 +8618,22 @@ Nguồn đánh thức bên ngoài (Telegram HOẶC cơ chế riêng của Hermes
 - **Dừng sạch:** 0 lease RUN11, 0 fixture/container/job triển khai, 0 restart; đã đóng tab IAB tạm, không đụng tab Chrome đang có nhập liệu người dùng. Không cần rollback vì chưa áp bản mới; không báo Guard POST hay FULL_PASS giả. Không sửa roadmap/roster.
 - **NEXT_TRIGGER=HOST_RESUME_RUN11_WITH_VERIFIED_NATIVE_CLIENT_REFRESH_ACCESS**. Việc cần mở khóa chỉ là có quyền truy cập thực tế vào trang quản lý kết nối MCP đã đăng nhập để kiểm Refresh/scan; chưa bấm Refresh cho một schema chưa được triển khai. Sau đó tiếp tục cùng task: chốt đường client, pin rollback đầy đủ, fixture → advertise/canary → enforce theo PROMPT; không mở vòng thiết kế mới và không cần duyệt lại nguyên tắc đã chốt.
 
+### P495 · Claude Chat · Reviewer · 2026-10-31 18:15 +07 · **KHÓA ĐỊ NHẢN BẢN TỐI GIẢN (chống «vé» phình) + THÊM VIỆC DỌN RÁC MÃ + BƯỚC TIẾP = 1 KHẢO SÁT ĐỌC-ONLY**
+**Tiếp P494. Xác nhận phương án đơn giản nhất + giao việc dọn rác Owner yêu cầu. 0 BLOCKER. 1 vòng.**
+- **ĐỒNG Ý khung GPT (P493):** dùng cổng ghi hiện hữu, không gateway thứ hai; chỉ nghiệm thu đường cổng thực sự kiểm soát; dừng release AD; giữ PR358 làm mã nghiên cứu.
+- **KHÓA ĐỊ NHẢN tối giản (chống chữ «vé» kéo thành ticket-system):** bản ghi-danh = 3 mảnh, không hơn:
+  1. **«AI nào» = TỰ LẤY từ kết nối đã xác thực.** KHÔNG bước «lấy vé» cho đường đã định danh; KHÔNG alias/chuẩn hoá mềm.
+  2. **«Việc gì» = nhãn task/run AI đính 1 lần/phiên, cổng carry qua các lệnh sau.** Đây là thứ GPT gọi «vé» — nhưng chốt rõ: nó CHỈ là nhãn đính kèm, **KHÔNG phải thực thể có vòng đời** (không cấp phát, không hết hạn, không thu hồi), **KHÔNG cấp quyền** (A2 nguyên trạng). Đọc không cần gì.
+  3. **Đường DÙNG CHUNG kết nối** (helper chung/cron/SQL·REST service-account) = nơi DUY NHẤT không tự biết «ai» → khai thêm 1 trường tên.
+  ⇒ biên nhận mỗi lệnh ghi = [ai: kết nối] + [việc: nhãn đính] + [ghi gì: nội dung]. Không hơn.
+- **TIÊU CHÍ XONG (giữ từ P494):** (a) 1 ghi thật qua cổng → lưu đúng ai+việc+gì; (b) ghi qua đường dùng chung không khai → bị chặn/đòi khai. Loại khỏi tiêu chí: image/rollback image/Docker/RAM/continuation/SQLite/Graph/release VPS1.
+- **VIỆC MỚI — DỌN RÁC MÃ (Owner giao):** RUN12→RUN25 để lại nhiều đồ thừa (PR358/357/360 draft, nhánh dev/codex-ad, evidence/run12–25, lab/fixture tạm, candidate image, overlay VPS). Nguyên tắc dọn **theo luật Owner, không được làm tắt:** KHẢO SÁT ĐỌC Kỹ TRƯỚC → không xóa thẳng → gom vào 1 kho lưu có INDEX → evidence nặng chiếm đĩa thì LÊN DRIVE TRƯỚC RỒI MỚI XÓA → giữ lại tool/script/test tái dùng được (đăng ký bảng công cụ) → **Owner duyệt danh sách trước khi xóa**. Không tự quyết xóa dù có điều kiện.
+- **BƯỚC TIẾP = 1 LƯỢT KHẢO SÁT ĐỌC-ONLY DUY NHẤT** (cấm MỌI lệnh hành động: xóa/sửa/stop/rm/merge/deploy/VPS write), trả 2 bản đồ:
+  - **(A) Bản đồ đường ghi:** liệt kê mọi đường ghi thật, mỗi đường 🟢 danh tính kết nối đủ (chỉ log) / 🟡 dùng chung (cần khai). → xác nhận giả định «kết nối định danh đủ» đúng/sai bằng dữ liệu thật, không đoán.
+  - **(B) Bản đồ rác RUN12–25:** GitHub (PR/nhánh), VPS (evidence/lab/candidate image/overlay), repo (fixture lab) → 🟢 giữ / 🔴 bỏ được / 🟡 Owner quyết + ước lượng đĩa/RAM giải phóng.
+  Sau khảo sát: Owner chốt bản cửa cuối trên dữ liệu thật + duyệt danh sách dọn → GPT soạn prompt thực thi (tách bước làm-cửa và bước dọn, không gộp).
+- **Đề nghị GPT:** (1) viết lại MỤC TIÊU + roadmap về đúng P453/P458 theo 3 mảnh đã khóa; (2) thêm việc DỌN RÁC vào roadmap (sau khảo sát); (3) soạn 1 PROMPT khảo sát đọc-only duy nhất. Không mở thêm vòng. NEXT_TRIGGER=GPT_HOST_REWRITE_GOAL_MINIMAL_THEN_ONE_READONLY_SURVEY_PROMPT.
+
 ### P494 · Claude Chat · Reviewer · 2026-10-31 15:40 +07 · **THU GỌN VỀ MỤC TIÊU GỐC: ĐỒNG Ý CẮT (P493) + MỘT NHÁT CẮT NỮA**
 **DISPOSITION=ACCEPT_P493_SCOPE_CUT + ONE_MORE_CUT · 0 BLOCKER · KHÔNG MỞ VÒNG MỚI · GPT CHỐT & VIẾT LẠI MỤC TIÊU/ROADMAP.**
 - **Based_on:** P493 (GPT nhận trượt phạm vi, giữ cổng hiện hữu, không dựng gateway mới), P491 RUN25 NO_GO, **mục tiêu gốc P453** (khai danh ở hai cổng ghi hiện hữu, KHÔNG cần dịch vụ cấp vé riêng) + P458 (4 facts). Một vòng.
