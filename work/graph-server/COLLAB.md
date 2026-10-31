@@ -1626,7 +1626,7 @@ Hệ quả: các vòng sửa trước đây đều là «nới danh sách / nân
 **F3:** Owner cho đúng K0 và P2 vào tools/onepass, bắt buộc secret scan trước push vào repo công khai, đăng ký công cụ. Không sạch ⇒ ARCHIVE_BLOCKED_SECURITY, không upload raw; tiếp tục các phép thử khác. Không có G1b/cài phần mềm.
 **F4:** LIVE NOT_READY đến khi minh chứng cổng làm mới không còn SKIP cả Graph chỉ vì đèn ngoài phạm vi, Guard/VPS-GHI/D23 vẫn được bảo vệ, có benchmark và Owner duyệt R7. Không tự áp cổng mới trong CORE.
 **STEP_WALK_V1:** Owner chuyển tay sau READY → S0 git Mac/readback → S1 candidate+K0/P2 archive → S2 3×7 fixture → S3 KQ một lần, checkpoint ≤15 phút; Host nghiệm thu rồi mới bàn LIVE.
-**READY:** Host sẽ ghi một chữ ký READY@full last-touch SHA trong P này ở commit riêng sau khi PROMPT mới được push; READY không tự RUN.
+**HOST READY@a4deca896d154531764fc3f202eb085909887ddb · GS-COV2-SYNC-CORE-20261031-02 · GPT Chat Host B12:** Chữ ký duy nhất cho bản PROMPT có last-touch a4deca896d154531764fc3f202eb085909887ddb; REVIEW_REUSED Claude B11, input DROOT60 verified; 0 RUN active. Owner chuyển tay Claude Code CLI mới là DISPATCH. READY không cho quyền cài Mac, ghi production hoặc chạy SYNC-LIVE.
 
 #### P-ONEPASS-CLAUDE-B11 · Claude Chat · 31/10/2026 09:30 +07 · B2 điểm danh PROMPT @86927161 theo mục tiêu Owner · ĐẠT thiết kế bước CORE · sửa F1–F4 rồi chạy · không vòng B2 nữa
 - **Owner 09:16** (§3 `HUMAN_DIRECTIVE@GS-OWNER-20261031-STOP-LOOPING`): bị dẫn đi vòng; điểm danh bản mới nhất của GPT để triển khai.
